@@ -1,0 +1,890 @@
+<!--
+-File         $Id: AppendixD-CoreTypes.html,v 1.1 2005/03/11 14:37:33 mrook Exp $
+-License      GNU FDL (http://www.gnu.org/copyleft/fdl.html)
+-Copyright    2002, turing
+-Author       alex black, enigma@turingstudio.com
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Phing Guide</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link rel="Stylesheet" rev="Stylesheet" href="../../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
+  </head>
+  <body>
+<h1><a name="ComplexCoreTypes"></a>Appendix D: Core Types</h1>
+
+<p>This appendix contains a reference of the system <em>data types</em> contained
+  in Phing.</p>
+<h2><a name="FileList"></a>FileList</h2>
+<p>FileLists offer a way to represent a specific list of files. Unlike FileSets,
+  FileLists may contain files that do not exist on the filesystem. Also, FileLists
+  can represent files in a specific order -- whereas FileSets represent files
+  in whichever order they are returned by the filesystem.</p>
+<h3>Usage Examples</h3>
+<pre>&lt;filelist dir=&quot;/etc&quot; files=&quot;httpd/conf/httpd.conf,php.ini&quot;/&gt;
+</pre>
+<p>Or you can use a <em>listfile</em>, which is expected to contain one filename
+  per line:</p>
+<pre>&lt;filelist dir=&quot;conf/&quot; listfile=&quot;ini_files.txt&quot;/&gt;
+</pre>
+<p> This will grab each file as listed in <em>ini_files.txt</em>. This can be
+  useful if one task compiles a list of files to process and another task needs
+  to read in that list and perform some action to those files.</p>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;fileset&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>dir</td>
+      <td>String</td>
+      <td> The directory, to which the paths given in <em>files </em>or <em>listfile</em>
+        are relative. </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+	    <tr>
+      <td>files</td>
+      <td>String</td>
+      <td> Comma or space-separated list of files.</td>
+      <td>n/a</td>
+      <td>Yes (or <em>listfile)</em></td>
+    </tr>
+	<tr>
+      <td>listfile</td>
+      <td>String</td>
+      <td> A text file with one filename per line.</td>
+      <td>n/a</td>
+      <td>Yes (or <em>files)</em></td>
+    </tr>
+  </tbody>
+</table>
+<h2><a name="Fileset"></a>FileSet</h2>
+
+<p>Filesets offer a easy and straigtforward way to include files.
+You can include/exclude files in/from a fileset using the
+<em>&lt;include&gt;</em>/<em>&lt;exclude&gt;</em> tags. In patterns,
+one asterisk (<strong>*</strong>) maps to a part of a file/directory
+name within a directory level. Two asterisks (<strong>**</strong>)
+may include above the &quot;border&quot; of the directory separator.
+</p>
+
+<h3>Examples</h3>
+<ul>
+  <li><em>test*.xml</em> will include <em>test_42.xml</em>,
+      but it will not include <em>test/some.xml</em>.</li>
+  <li><em>test**.xml</em> fits to <em>test_42.xml</em> as well
+      as to <em>test/bla.xml</em>, for example.</li>
+  <li><em>**/*.ent.xml</em> fits to all files that end with
+      <em>ent.xml</em> in all subdirectories of the directory
+      specified with the <em>dir</em> attribute of the
+      <em>&lt;fileset&gt;</em> tag. However, it will not include
+      any files that are directly in the base directory of the
+      file set.</li>
+</ul>
+
+<h3>Usage Example</h3>
+<pre>&lt;fileset dir=&quot;/etc&quot; &gt;
+  &lt;include name=&quot;httpd/**&quot; /&gt;
+  &lt;include name=&quot;php.ini&quot; /&gt;
+&lt;/fileset&gt;
+</pre>
+<p>
+This will include the apache configuration and PHP configuration
+file from <em>/etc</em>.
+</p>
+
+<h3>Attributes</h3>
+<table>
+  <caption>Attributes for the <em>&lt;fileset&gt;</em> tag</caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>dir</td>
+      <td>String</td>
+      <td>
+        The directory, the paths given in <em>include</em>/<em>exclude</em>
+        are relative to.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+<p> The only tags that are supported by <em>Fileset</em> are the <em>&lt;include&gt;</em>
+  and the <em>&lt;exclude&gt;</em> tags. These tags must have a <em>name</em>
+  attribute that contains the pattern to include/exclude. </p>
+<h2><a name="Path"></a>Path / Classpath</h2>
+<p>The Path data type can be used to respresent path structures. In many cases
+  the path type will be used for nested &lt;classpath&gt; tags. E.g.</p>
+<pre>&lt;path id=&quot;project.class.path&quot;&gt;
+  &lt;pathelement dir=&quot;lib/&quot;/&gt;
+  &lt;pathelement dir=&quot;ext/&quot;/&gt;
+&lt;/path&gt;
+
+&lt;target name=&quot;blah&quot;&gt;
+  &lt;taskdef name=&quot;mytask&quot; path=&quot;myapp.phing.tasks.MyTask&quot;&gt;
+    &lt;classpath refid=&quot;project.class.path&quot;/&gt;
+  &lt;/taskdef&gt;<br />&lt;/target&gt;</pre>
+<table>
+  <caption>
+  Attributes for <em>&lt;path&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>dir</td>
+      <td>String</td>
+      <td>Specific path to directory</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>path</td>
+      <td>String</td>
+      <td>A path (which contains multiple locations separated by path.separator)
+        to add.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Nested Tags</h3>
+<p> The <em>&lt;path&gt; </em>tag supports nested <em>&lt;fileset&gt;</em> and
+  <em>&lt;dirset&gt;</em> tags.</p>
+<h2><a name="CoreFilters"></a>Core Filters</h2>
+
+<p>Filters have to be defined within a <em>&lt;filterchain&gt;</em>
+context to work. Example:</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;expandproperties /&gt;
+&lt;/filterchain&gt;
+</pre>
+<p> There are two ways to use a filter: System filters (the ones shipped with
+  Phing) can be used with their own tag name, such as <em>&lt;xsltfilter</em>&gt;,
+  &lt;<em>expandpropertyfilter</em>&gt; or <em>&lt;tabtospaces</em>&gt;. Another
+  way is to use the <em>&lt;filterreader&gt;</em> tag. </p>
+
+<h2><a name="PhingFilterReader"></a>PhingFilterReader</h2>
+<p> The PhingFilterReader is used when you want to use filters that are not directly
+  available through their own tag. Example: </p>
+<pre>
+&lt;filterchain&gt;
+  &lt;filterreader classname=&quot;phing.filter.ReplaceTokens&quot;&gt;
+    &lt;-- other way to set attributes --&gt;
+    &lt;param name=&quot;begintoken&quot; value=&quot;@@&quot; /&gt;
+    &lt;param name=&quot;endtoken&quot; value=&quot;@@&quot; /&gt;
+
+    &lt;-- other way to set nested tags --&gt;
+    &lt;param type=&quot;token&quot; key=&quot;bar&quot; value=&quot;foo&quot; /&gt;
+  &lt;/filterreader&gt;
+&lt;/filterchain&gt;
+</pre>
+<p> In the <em>filterreader</em> tag you have to specify the path the class is
+  in. The <em>FilterReader</em> will then load this class and pass the parameters
+  to the loaded filter. There are two types of parameters: First, you can pass
+  &quot;normal&quot; parameters to the loaded filter. That means, you can pass
+  parameters as if they were attributes. If you want to do this, you only specify
+  the <em>name</em> and <em>value</em> attributes in the <em>param</em> tag. You
+  can also pass nested elements to the filter. Then, you have to specify the <em>type</em>
+  attribute. This attribute specifies the name of the nested tag. </p>
+<p>The result of the example above is identical with the following code: </p>
+<pre>
+&lt;filterchain&gt;
+  &lt;replacetokens begintoken=&quot;@@&quot; endtoken=&quot;@@&quot;&gt;
+    &lt;token key=&quot;bar&quot; value=&quot;foo&quot; />
+  &lt;/replacetokens&gt;
+&lt;/filterchain&gt;</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for <em>&lt;filterreader&gt;</em>
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>classname</td>
+      <td>String</td>
+      <td> Name of class to use (in dot-path notation).</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>classpath</td>
+      <td>String</td>
+      <td> The classpath to use when including classes. This is added to PHP's
+        include_path.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>classpathref</td>
+      <td>String</td>
+      <td> Reference to classpath to use when including classes. This is added
+        to PHP's include_path.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Nested Tags</h3>
+<p> The <em>PhingFilterReader</em> supports nested &lt;classpath&gt;.</p>
+<h3>Advanced</h3>
+<p>In order to support the &lt;filterreader ... /&gt; sytax, your class must
+extend the BaseParamFilterReader class.  Most of the filters that are bundled
+with Phing can be invoked using this syntax.  The noteable exception (at time of
+writing) is the ReplaceRegexp filter, which expects find/replace parameters that do not fit the
+name/value mold. For this reason, you must always use the shorthand &lt;replaceregexp .../&gt; to invoke
+this filter.</p>
+
+<h2><a name="ExpandProperties"></a>ExpandProperties</h2>
+<p>
+The ExpandProperties simply replaces property names with their
+property values. For example, if you have the following in your
+build file:
+</p>
+<pre>
+&lt;property name=&quot;description.txt&quot; value=&quot;This is a text file&quot; /&gt;
+
+&lt;copy todir=&quot;/tmp&quot;&gt;
+  &lt;filterchain&gt;
+    &lt;expandproperties /&gt;
+  &lt;/filterchain&gt;
+
+  &lt;fileset dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;**&quot; /&gt;
+  &lt;/fileset&gt;
+&lt;/copy&gt;
+</pre>
+<p>
+And the string <em>${description.txt}</em> it will be replaced by
+<em>This is a text file</em>.
+</p>
+
+<h2><a name="HeadFilter"></a>HeadFilter</h2>
+<p>
+This filter reads the first <em>n</em> lines of a file; the others
+are not further passed through the filter chain. Usage example:
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;headfilter lines=&quot;20&quot; /&gt;
+&lt;/filterchain&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;headfilter&gt; </em>tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>lines</td>
+      <td>Integer</td>
+      <td>
+        Number of lines to read.
+      </td>
+      <td>10</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="LineContains"></a>Line Contains</h2>
+<p>
+This filter is only &quot;permeable&quot; for lines that contain
+the expression given as parameter. For example, the following
+filterchain would only let all the lines pass that contain
+<em>class</em>:
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;linecontains&gt;
+    &lt;contains value=&quot;class&quot; /&gt;
+  &lt;/linecontains&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h3>Nested Tags</h3>
+
+<p>
+The <em>linecontains</em> tag must contain one or more <em>contains</em>
+tags. Latter must have a <em>value</em> attribute that has to be set
+to the string the line has to contain to be let through.
+</p>
+
+<h2><a name="LineContainsRegexp"></a>LineContainsRegexp</h2>
+<p>
+This filter is similar to <a href="#LineContains">LineContains</a>
+but you can specify regular expressions instead of simple strings.
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;linecontainsregexp&gt;
+    &lt;regexp pattern=&quot;foo(.*)bar&quot; /&gt;
+  &lt;/linecontainsregexp&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h3>Nested Tags</h3>
+
+<p>
+The <em>LineContains</em> filter has to contain at least one <em>regexp</em>
+tag. This must have a <em>pattern</em> attribute that is set to a
+regular expression.
+</p>
+
+<h2><a name="PrefixLines"></a>PrefixLines</h2>
+<p>
+This filter adds a prefix to every line. The following example will add
+the string <em>foo: </em> in front of every line.
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;prefixlines prefix=&quot;foo: &quot; /&gt;
+&lt;/filterchain&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;prefixlines&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>prefix</td>
+      <td>string</td>
+      <td>
+        Strint to prepend to every line.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="ReplaceTokens"></a>ReplaceTokens</h2>
+<p>
+The <em>ReplaceTokens</em> filter will replace certain tokens. Tokens
+are strings enclosed in special characters. If you want to replace
+<em>##BCHOME##</em> by the path to the directory set in the
+environment variable <em>BCHOME</em>, you could do the following:
+</p>
+<pre>
+&lt;property environment=&quot;env&quot; />
+
+&lt;filterchain&gt;
+  &lt;replacetokens begintoken=&quot;##&quot; endtoken=&quot;##&quot;&gt;
+    &lt;token key=&quot;BCHOME&quot; value=&quot;${env.BCHOME}&quot; /&gt;
+  &lt;/replacetokens&gt;
+&lt;/filterchain&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;replacetokens&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>begintoken</td>
+      <td>string</td>
+      <td>
+        The string that marks the beginning of a token.
+      </td>
+      <td>@</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>endtoken</td>
+      <td>string</td>
+      <td>
+        The string that marks the end of a token.
+      </td>
+      <td>@</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Nested Tags</h3>
+<p>
+The <em>ReplaceTokens</em> filter must contain one or more <em>token</em>
+tags. These must have a <em>key</em> and a <em>value</em> attribute.
+</p>
+
+<h2><a name="ReplaceRegexp"></a>ReplaceRegexp</h2>
+<p>
+The <em>ReplaceRegexp</em> filter will perform a regexp find/replace on the input
+stream. For example, if you want to replace ANT with Phing (ignoring case) and you want
+to replace references to *.java with *.php:
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;replaceregexp&gt;
+	&lt;regexp pattern=&quot;ANT&quot; replace=&quot;Phing&quot; ignoreCase=&quot;true&quot;/&gt;
+	&lt;regexp pattern=&quot;(\w+)\.java&quot; replace=&quot;\1.php&quot;/&gt;
+  &lt;/replaceregexp&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h3>Nested Tags</h3>
+<p>
+The <em>ReplaceTokens</em> filter must contain one or more <em>regexp</em>
+tags. These must have <em>pattern</em> and <em>replace</em> attributes -- and optionally
+the <em>ignoreCase</em> attribute.
+</p>
+
+
+<h2><a name="StripLineBreaks"></a>StripLineBreaks</h2>
+<p>
+The <em>StripLineBreaks</em> filter removes all linebreaks from the
+stream passed through the filter chain.
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;striplinebreaks /&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h2><a name="StripLineComments"></a>StripLineComments</h2>
+<p>
+The <em>StripLineComments</em> filter removes all line comments from
+the stream passed through the filter chain:
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;striplinecomments&gt;
+    &lt;comment value=&quot;#&quot; /&gt;
+    &lt;comment value=&quot;--&quot; /&gt;
+    &lt;comment value=&quot;//&quot; /&gt;
+  &lt;/striplinecomments&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h3>Nested Tags</h3>
+<p>
+The <em>striplinecomments</em> tag must contain one or more <em>comment</em>
+tags. These must have a <em>value</em> attribute that specifies the
+character(s) that start a line comment.
+</p>
+
+<h2><a name="StripPhpComments"></a>StripPhpComments</h2>
+<p>
+The <em>StripPhpComment</em> filter removes all PHP comments from
+the stream passed through the filter.
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;stripphpcomments /&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h2><a name="TabToSpaces"></a>TabToSpaces</h2>
+<p>
+The TabToSpaces filter replaces all tab characters with a given
+count of space characters.
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;tabtospaces tablength=&quot;8&quot; /&gt;
+&lt;/filterchain&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;tabtospaces&gt;</em> filter
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tablength</td>
+      <td>Integer</td>
+      <td>
+        The number of space characters that a tab is to represent.
+      </td>
+      <td>8</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="TailFilter"></a>TailFilter</h2>
+<p>
+Similar to <a href="#HeadFilter">HeadFilter</a>,
+this filter reads the last <em>n</em> lines of a file; the others
+are not further passed through the filter chain. Usage example:
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;tailfilter lines=&quot;20&quot; /&gt;
+&lt;/filterchain&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;tailfilter&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>lines</td>
+      <td>Integer</td>
+      <td>
+        Number of lines from the back to read.
+      </td>
+      <td>10</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="XsltFilter"></a>XsltFilter</h2>
+<p>
+The <em>XsltFilter</em> applies a XSL template to the stream.
+Though you can use this filter directly, you should use
+<a href="AppendixB-CoreTasks.html#XsltTask">XsltTask</a>
+which is shortcut to the following lines:
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;xsltfilter style=&quot;somexslt.xsl&quot; /&gt;
+&lt;/filterchain&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;xsltfilter&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>style</td>
+      <td>String</td>
+      <td>
+        The XSLT stylesheet to use for transformation.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+	<tr>
+      <td>html</td>
+      <td>Boolean</td>
+      <td>
+        Whether to parse the input as HTML (using libxml2 DOMDocument::loadHTML()).
+      </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Nested Tags</h3>
+<p>
+The <em>XsltFilter</em> filter may contain one or more <em>param</em>
+tags to pass any XSLT parameters to the stylesheet. These <em>param</em> tags
+must have <em>name</em> and <em>expression</em> attributes.
+</p>
+
+<h2><a name="CoreMappers"></a>Core Mappers</h2>
+<p>
+While filters are applied to the <em>content</em> of files, Mappers
+are applied to the <em>filenames</em>. All mappers have the same
+API, i.e. the way you use them is the same:
+</p>
+<pre>
+&lt;mapper type=&quot;<em>mappername</em>&quot; from=&quot;<em>frompattern</em>&quot; to=&quot;<em>topattern</em>&quot; /&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;mapper&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>String</td>
+      <td>
+        Type of the mapper.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>from</td>
+      <td>String</td>
+      <td>
+        The pattern the filename is to be matched to. The
+        exact meaning is dependent on the implementation
+        of the mapper.
+      </td>
+      <td>n/a</td>
+      <td>depends on the implementation of the mapper</td>
+    </tr>
+    <tr>
+      <td>to</td>
+      <td>String</td>
+      <td>
+        The pattern according to which the filename is to
+        be changed to. Here, the usage is dependent on
+        the implementation of the mapper, too.
+      </td>
+      <td>n/a</td>
+      <td>depends on the implementation of the mapper</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="FlattenMapper"></a>FlattenMapper</h2>
+<p>
+The <em>FlattenMapper</em> removes the directories from
+a filename and solely returns the filename.
+</p>
+<pre>
+&lt;copy todir=&quot;/tmp&quot;&gt;
+  &lt;mapper type=&quot;flatten&quot; /&gt;
+
+  &lt;fileset refid=&quot;someid&quot; /&gt;
+&lt;/copy&gt;
+</pre>
+<p>
+This code will copy all files in the fileset to /tmp. All
+files will be in the target directory.
+</p>
+<h3>Examples</h3>
+<pre>
+&lt;mapper type=&quot;flatten&quot; /&gt;
+</pre>
+<p>
+Applying the mapper, you will get the following results from the
+following filenames:
+</p>
+<table>
+  <tr>
+    <th>From</th>
+    <th>To</th>
+  </tr>
+  <tr>
+    <td>test.txt</td>
+    <td>test.txt</td>
+  </tr>
+  <tr>
+    <td>./foo/bar/test.bak</td>
+    <td>test.bak</td>
+  </tr>
+</table>
+
+<h2><a name="GlobMapper"></a>GlobMapper</h2>
+<p>
+The <em>GlobMapper</em> works like the <em>copy</em> command in DOS:
+</p>
+<pre>
+&lt;copy todir=&quot;/tmp&quot;&gt;
+  &lt;mapper type=&quot;glob&quot; from=&quot;*.php&quot; to=&quot;*.php.bak&quot;/&gt;
+
+  &lt;fileset refid=&quot;someid&quot; /&gt;
+&lt;/copy&gt;
+</pre>
+<p>
+This will change the extension of all files matching the pattern
+<em>*.php</em> to <em>.php.bak</em>.
+</p>
+<h3>Examples</h3>
+<pre>
+&lt;mapper type=&quot;glob&quot; from=&quot;*txt&quot; to=&quot;*txt.bak&quot;/&gt;
+</pre>
+<p>
+Applying the mapper, you will get the following results from the
+following filenames:
+</p>
+<table>
+  <tr>
+    <th>From</th>
+    <th>To</th>
+  </tr>
+  <tr>
+    <td>test.txt</td>
+    <td>test.txt.bak</td>
+  </tr>
+  <tr>
+    <td>./foo/bar/test.txt</td>
+    <td>./foo/bar/test.txt.bak</td>
+  </tr>
+  <tr>
+    <td>mytxt</td>
+    <td>mytxt.bak</td>
+  </tr>
+  <tr>
+    <td>SomeClass.php</td>
+    <td><em>ignored</em>, SomeClass.php</td>
+  </tr>
+</table>
+
+<h2><a name="IdentityMapper"></a>IdentityMapper</h2>
+<p>
+The <em>IdentityMapper</em> will not change anything on the
+source filenames.
+</p>
+
+<h2><a name="MergeMapper"></a>MergeMapper</h2>
+<p>
+The <em>MergeMapper</em> changes all source filenames to the same
+filename.
+</p>
+<h3>Examples</h3>
+<pre>
+&lt;mapper type=&quot;merge&quot; to=&quot;test.tar&quot;/&gt;
+</pre>
+<p>
+Applying the mapper, you will get the following results from the
+following filenames:
+</p>
+<table>
+  <tr>
+    <th>From</th>
+    <th>To</th>
+  </tr>
+  <tr>
+    <td>test.txt</td>
+    <td>test.tar</td>
+  </tr>
+  <tr>
+    <td>./foo/bar/test.txt</td>
+    <td>test.tar</td>
+  </tr>
+  <tr>
+    <td>mytxt</td>
+    <td>test.tar</td>
+  </tr>
+  <tr>
+    <td>SomeClass.php</td>
+    <td>test.tar</td>
+  </tr>
+</table>
+
+<h2><a name="RegexpMapper"></a>RegexpMapper</h2>
+<p>
+The <em>RegexpMapper</em> changes filenames according to a pattern
+defined by a regular expression. This is the most powerful mapper and
+you should be able to use it for every possible application.
+</p>
+<h3>Examples</h3>
+<pre>
+&lt;mapper type=&quot;regexp&quot; from=&quot;^(.*)\.conf\.xml&quot; to=&quot;\1.php&quot;/&gt;
+</pre>
+<p>
+The mapper as above will do the following mappings:
+</p>
+<table>
+  <tr>
+    <th>From</th>
+    <th>To</th>
+  </tr>
+  <tr>
+    <td>test.txt</td>
+    <td><em>ignore</em>, test.txt</td>
+  </tr>
+  <tr>
+    <td>./foo/bar/test.conf.xml</td>
+    <td>./foo/bar/test.php</td>
+  </tr>
+  <tr>
+    <td>someconf.conf.xml</td>
+    <td>someconf.php</td>
+  </tr>
+</table>
+
+  </body>
+</html>

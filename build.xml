@@ -1,0 +1,296 @@
+<?xml version="1.0"?>
+
+<!--
+	This build file packages the phing files, builds a package.xml for installation
+	using PEAR and creates the necessary TGZ files.
+-->	
+
+<project name="phing" basedir="." default="main">
+	
+	<property name="build.base.dir" value="build"/>
+	<property name="pkgname" value="phing-${version}"/>		
+	<property name="build.src.dir" value="${build.base.dir}/${pkgname}"/>
+	
+	<fileset dir="classes/phing" id="classes">			
+		<include name="**"/>
+	</fileset>
+
+	<fileset dir="docs" id="docs">
+		<include name="example/**"/>
+		<include name="phing_guide/book/**"/>
+	</fileset>
+
+	<fileset dir="." id="etc">
+		<include name="etc/**"/>
+	</fileset>
+	
+	<fileset dir="." id="scripts">
+		<include name="bin/pear-*"/>
+		<include name="bin/phing.php"/>
+	</fileset>
+
+	<fileset dir="." id="misc">
+		<include name="CHANGELOG"/>
+		<include name="CREDITS"/>
+		<include name="INSTALL.UNIX"/>
+		<include name="INSTALL.WIN32"/>
+		<include name="README"/>
+		<include name="TODO"/>
+	</fileset>
+
+	<!--
+		==============================================
+		Main entry point
+		==============================================
+	-->				
+	<target name="main" if="version" depends="versioncheck">	
+		<phingcall target="build"/>
+		<phingcall target="pear-package"/>
+		<phingcall target="tar"/>
+	</target>
+
+	<!--
+	 ===================================================================
+	 Target: checks if language was given, otherwise fail
+	 ===================================================================
+	-->
+	<target name="versioncheck" unless="version">
+		<echo message="====================================================="/>
+		<echo message="Version not specified. You must enter a version. In"/>
+		<echo message="the future you can add this to build.properties or"/>
+		<echo message="enter it on the command line: "/>
+		<echo message=" "/>
+		<echo message="-Dversion=2.0.0b1"/>
+		<echo message="====================================================="/>	
+		<input propertyname="version" promptChar=":">Phing version for package</input>
+		
+		<property name="pkgname" value="phing-${version}" override="true"/>		
+		<property name="build.src.dir" value="${build.base.dir}/${pkgname}" override="true"/>
+		
+	</target>
+  
+	<!--
+		==============================================
+		Copy the desired files into the build/ dir
+		making sure to put them in the directory
+		structure that will be needed for PEAR install
+		==============================================
+	-->	
+	<target name="build">
+		<echo>-----------------------------</echo>
+		<echo>| Creating directory layout |</echo>
+		<echo>-----------------------------</echo>
+		
+		<delete dir="${build.base.dir}"/>
+		
+		<copy todir="${build.src.dir}">
+			<fileset refid="classes"/>
+			<fileset refid="docs"/>
+			<fileset refid="etc"/>
+			<fileset refid="scripts"/>
+			<fileset refid="misc"/>
+		</copy>
+		
+		<chmod file="${build.src.dir}/bin/pear-phing" mode="755"/>
+		
+	</target>
+	
+	<!--
+		==============================================
+		Create a PEAR package.xml which will guide the
+		installation.
+		==============================================
+	-->	
+	<target name="pear-package">
+	
+		<echo>-----------------------------</echo>
+		<echo>| Creating PEAR package.xml |</echo>
+		<echo>-----------------------------</echo>
+		<echo></echo>
+		<echo>... May take some time ...</echo>
+		<delete	file="${tarfile}"/>
+		<pearpkg name="phing" dir="${build.src.dir}" destFile="${build.base.dir}/package.xml">
+			
+			<fileset refid="classes"/>
+			<fileset refid="docs"/>
+			<fileset refid="etc"/>
+			<fileset refid="misc"/>
+			<fileset refid="scripts"/>
+			
+			<option name="notes">Latest version introduces new PHPUnit2, SVN, Zip, and IncludePath tasks and fixes a number of bugs.</option>
+			
+			<!-- Set the simple options -->
+			<option name="description">PHing Is Not GNU make; it's a project build system based on Apache Ant. 
+You can do anything with it that you could do with a traditional build system like GNU make, and its use of 
+simple XML build files and extensible PHP "task" classes make it an easy-to-use and highly flexible build framework. 
+Features include file transformations (e.g. token replacement, XSLT transformation, Smarty template transformations, 
+etc.), file system operations, interactive build support, SQL execution, and much more.</option>
+			
+			<option name="summary">PHP5 project build system based on Apache Ant</option>
+			<option name="version" value="${version}"/>
+			<option name="state" value="stable"/>
+			<option name="license" value="LGPL"/>
+			
+			<!-- Set the complex options -->
+			<mapping name="maintainers">
+				<element>
+					<element key="handle" value="hlellelid"/>
+					<element key="name" value="Hans Lellelid"/>
+					<element key="email" value="hans@xmpl.org"/>
+					<element key="role" value="lead"/>
+				</element>
+				<element>
+					<element key="handle" value="mrook"/>
+					<element key="name" value="Michiel Rook"/>
+					<element key="email" value="michiel@trendserver.nl"/>
+					<element key="role" value="lead"/>
+				</element>
+			</mapping>
+			
+			<mapping name="deps">
+				<element>
+					<element key="type" value="php"/>
+					<element key="version" value="5.0.1"/>
+					<element key="rel" value="ge"/>
+				</element>
+				<element>
+					<element key="type" value="pkg"/>
+					<element key="version" value="0.3.0alpha1"/>
+					<element key="rel" value="ge"/>
+					<element key="optional" value="yes"/>
+					<element key="name" value="VersionControl_SVN"/>
+				</element>
+				<element>
+					<element key="type" value="pkg"/>
+					<element key="version" value="2.3.0"/>
+					<element key="rel" value="ge"/>
+					<element key="optional" value="yes"/>
+					<element key="name" value="PHPUnit2"/>
+				</element>
+				<element>
+					<element key="type" value="pkg"/>
+					<element key="version" value="1.3.0RC3"/>
+					<element key="rel" value="ge"/>
+					<element key="optional" value="yes"/>
+					<element key="name" value="PhpDocumentor"/>
+				</element>
+				<element>
+					<element key="type" value="pkg"/>
+					<element key="version" value="2.0.0beta2"/>
+					<element key="rel" value="ge"/>
+					<element key="optional" value="yes"/>
+					<element key="name" value="Xdebug "/>
+				</element>
+				<element>
+					<element key="type" value="pkg"/>
+					<element key="version" value="1.3.0"/>
+					<element key="rel" value="ge"/>
+					<element key="optional" value="yes"/>
+					<element key="name" value="Archive_Tar "/>
+				</element>
+				<element>
+					<element key="type" value="pkg"/>
+					<element key="version" value="1.5.2"/>
+					<element key="rel" value="ge"/>
+					<element key="optional" value="yes"/>
+					<element key="name" value="PEAR_PackageFileManager "/>
+				</element>
+			</mapping>
+
+			<mapping name="installexceptions">
+				<element key="bin/phing.php" value="/"/>
+				<element key="bin/pear-phing" value="/"/>
+				<element key="bin/pear-phing.bat" value="/"/>
+			</mapping>
+			
+			<mapping name="installas">
+				<element key="bin/phing.php" value="phing.php"/>
+				<element key="bin/pear-phing" value="phing"/>
+				<element key="bin/pear-phing.bat" value="phing.bat"/>
+			</mapping>
+			
+			<mapping name="platformexceptions">
+				<element key="bin/pear-phing.bat" value="windows"/>
+				<element key="bin/pear-phing" value="(*ix|*ux|darwin*|*BSD|SunOS*)"/>
+			</mapping>
+			
+			<mapping name="replacements">
+				<element key="Phing.php">
+					<element>
+						<element key="type" value="pear-config"/>
+						<element key="from" value="@DATA-DIR@"/>
+						<element key="to" value="data_dir"/>
+					</element>
+				</element>			
+				<element key="bin/pear-phing.bat">
+					<element>
+						<element key="type" value="pear-config"/>
+						<element key="from" value="@PHP-BIN@"/>
+						<element key="to" value="php_bin"/>
+					</element>
+					<element>
+						<element key="type" value="pear-config"/>
+						<element key="from" value="@BIN-DIR@"/>
+						<element key="to" value="bin_dir"/>
+					</element>
+					<element>
+						<element key="type" value="pear-config"/>
+						<element key="from" value="@PEAR-DIR@"/>
+						<element key="to" value="php_dir"/>
+					</element>
+				</element>
+				<element key="bin/pear-phing">
+					<element>
+						<element key="type" value="pear-config"/>
+						<element key="from" value="@PHP-BIN@"/>
+						<element key="to" value="php_bin"/>
+					</element>
+					<element>
+						<element key="type" value="pear-config"/>
+						<element key="from" value="@BIN-DIR@"/>
+						<element key="to" value="bin_dir"/>
+					</element>
+					<element>
+						<element key="type" value="pear-config"/>
+						<element key="from" value="@PEAR-DIR@"/>
+						<element key="to" value="php_dir"/>
+					</element>
+				</element>
+			</mapping>
+			
+			<mapping name="dir_roles">
+				<element key="phing_guide" value="doc"/>
+				<element key="etc" value="data"/>
+				<element key="example" value="doc"/>
+			</mapping>
+			
+			<mapping name="exceptions">
+				<element key="bin/pear-phing.bat" value="script"/>
+				<element key="bin/pear-phing" value="script"/>
+				<element key="CREDITS" value="doc"/>
+				<element key="INSTALL.UNIX" value="doc"/>
+				<element key="INSTALL.WIN32" value="doc"/>
+				<element key="CHANGELOG" value="doc"/>
+				<element key="README" value="doc"/>
+				<element key="TODO" value="doc"/>
+			</mapping>
+			
+		</pearpkg>
+	</target>
+	
+	<!--
+		==============================================
+		Create a tar.gz of the files, which will be 
+		installed by pear package manager.
+		==============================================
+	-->
+	<target name="tar">
+		<echo>-----------------------------</echo>
+		<echo>| Creating tar.gz package   |</echo>
+		<echo>-----------------------------</echo>	
+		<property name="tarfile" value="${build.base.dir}/${pkgname}-pear.tgz"/>
+		<delete	file="${tarfile}"/>
+		<tar compression="gzip" destFile="${tarfile}" basedir="${build.base.dir}" />
+	</target>
+	
+</project>

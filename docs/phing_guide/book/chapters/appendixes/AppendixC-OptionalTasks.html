@@ -1,0 +1,866 @@
+<!--
+-File         $Id: AppendixC-OptionalTasks.html,v 1.8 2006/02/01 10:05:59 mrook Exp $
+-License      GNU FDL (http://www.gnu.org/copyleft/fdl.html)
+-Copyright    2002, turing
+-Author       alex black, enigma@turingstudio.com
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title> Phing Guide </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<link rel="Stylesheet" rev="Stylesheet" href="../../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
+</head>
+<body>
+<h1><a name="AppendixC-OptionalTasks"></a>Appendix C: Optional Tasks</h1>
+
+<p>
+This appendix contains a reference of all optional tasks, i.e. tasks that are not directly needed for
+building projects, but can assist in various aspects of development and deployment.
+</p>
+
+<p> This reference lists the tasks alphabetically by the name of the classes that
+  implement the tasks. So if you are searching for the reference to the <code>&lt;copy&gt;</code>
+  tag, for example, you will want to look at the reference of CopyTask. </p>
+<h2><a name="CoverageReportTask"></a>CoverageReportTask</h2>
+<p>The CoverageReportTask formats a coverage database into a framed HTML report using XSLT.
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>outfile</td>
+      <td>String</td>
+      <td> The location for the intermediate XML file. </td>
+      <td>coverage.db</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>report
+	<h3>Attributes</h3>
+	<table>
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  <th>Type</th>
+		  <th>Description</th>
+		  <th>Default</th>
+		  <th>Required</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>styledir</td>
+		  <td>String</td>
+		  <td> The directory where the stylesheets are located. </td>
+		  <td>n/a</td>
+		  <td>Yes</td>
+		</tr>
+		<tr>
+		  <td>todir</td>
+		  <td>String</td>
+		  <td> The directory where the files resulting from the
+		  transformation should be written to. </td>
+		  <td></td>
+		  <td>Yes</td>
+		</tr>
+	  </tbody>
+	</table>
+  </li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;coverage-report outfile=&quot;reports/coverage.xml&quot;&gt;
+&nbsp;&nbsp;&lt;report todir=&quot;reports/coverage&quot; styledir=&quot;/home/phing/etc&quot;/&gt;
+&lt;/coverage-report&gt;
+</pre>
+<h2><a name="CoverageSetupTask"></a>CoverageSetupTask</h2>
+<p>The CoverageSetupTask prepares a database which can be used to gather code coverage information for
+unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" target="_blank">Xdebug</a> extension.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>database</td>
+      <td>String</td>
+      <td> The location for the coverage database. </td>
+      <td>coverage.db</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;coverage-setup database=&quot;./reports/coverage.db&quot;&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;classes&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/coverage-setup&gt;
+&lt;phpunit2&gt;
+&nbsp;&nbsp;&lt;formatter classname=&quot;phing.tasks.ext.coverage.CoverageFormatter&quot; usefile=&quot;false&quot;/&gt;
+&nbsp;&nbsp;&lt;batchtest&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;fileset dir=&quot;src&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name=&quot;*Test.php&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/fileset&gt;
+&nbsp;&nbsp;&lt;/batchtest&gt;
+&lt;/phpunit2&gt;
+</pre>
+
+<h2><a name="IoncubeEncoderTask"></a>IoncubeEncoderTask</h2>
+<p>The <em>IoncubeEncoderTask</em> executes the <a href="http://www.ioncube.com" target="_blank">ionCube</a> encoder (for either PHP4 or PHP5 projects).</p>
+
+<p>For more information on the meaning of the various options please consult the ionCube <a href="http://www.ioncube.com/USER-GUIDE.pdf" target="_blank">user guide</a>.</p>
+
+<h3>Example</h3>
+<pre>&lt;ioncubeencoder phpversion="4" binary="true" ioncubepath="/usr/local/ioncube"
+  targetoption="replace" withoutruntimeloadersupport="true" optimize="max"
+  fromdir="files" todir="encoded" licensepath="mylicense.txt" passphrase="mypassphrase"&gt;
+  &lt;comment&gt;A project encoded with the ionCube encoder.&lt;/comment&gt;
+&lt;/ioncubeencoder&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>phpversion</td>
+      <td>Integer</td>
+      <td>The PHP version to use</td>
+      <td>5</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>ioncubepath</td>
+      <td>String</td>
+      <td>Path to the ionCube binaries</td>
+      <td>/usr/local/ioncube</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>binary</td>
+      <td>Boolean</td>
+      <td>Wether to save encoded files in binary format (default is ASCII format)</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>withoutruntimeloadersupport</td>
+      <td>Boolean</td>
+      <td>Wether to disable support for runtime initialization of the ionCube Loader</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>optimize</td>
+      <td>String</td>
+      <td>Controls the optimization of the encoded files, accepts either <em>more</em> or <em>max</em></td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>licensepath</td>
+      <td>String</td>
+      <td>Path to the license file that will be used by the encoded files</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>passphrase</td>
+      <td>String</td>
+      <td>The passphrase to use when encoding with a license file</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>targetoption</td>
+      <td>String</td>
+      <td>Option to use when target directory exists, accepts <em>replace</em>, <em>merge</em>, <em>update</em> and <em>rename</em></td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>fromdir</td>
+      <td>String</td>
+      <td>Path containing source files</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>todir</td>
+      <td>String</td>
+      <td>Path to save encoded files to</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>comment
+    <p>Custom text that is added to the start of each encoded file.</p>
+  </li>
+</ul>
+
+<h2><a name="IoncubeLicenseTask"></a>IoncubeLicenseTask</h2>
+<p>The <em>IoncubeLicenseTask</em> executes the <a href="http://www.ioncube.com" target="_blank">ionCube</a> make_license program.</p>
+
+<p>For more information on the meaning of the various options please consult the ionCube <a href="http://www.ioncube.com/USER-GUIDE.pdf" target="_blank">user guide</a>.</p>
+
+<h3>Example</h3>
+<pre>&lt;ioncubelicense ioncubepath="/usr/local/ioncube" licensepath="mylicense.txt" passphrase="mypassphrase">
+  &lt;comment&gt;A license file made with the ionCube encoder.&lt;/comment&gt;
+&lt;/ioncubelicense&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ioncubepath</td>
+      <td>String</td>
+      <td>Path to the ionCube binaries</td>
+      <td>/usr/local/ioncube</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>licensepath</td>
+      <td>String</td>
+      <td>Path to the license file that will be generated</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>passphrase</td>
+      <td>String</td>
+      <td>The passphrase to use when generating the license file</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>comment
+    <p>Custom text that is added to the start of each encoded file.</p>
+  </li>
+</ul>
+
+<h2><a name="PearPackageTask"></a>PearPackageTask</h2>
+<p>
+  With the PearPackageTask, you can create a package.xml which can be installed
+  using the PEAR installer. Use this in conjunction with the <a href="#Tasks.TarTask">TarTask</a>
+  to completely script the building of a PEAR pacakge.
+</p>
+
+<p>
+  This task uses the PEAR_PackageFileManager class.  In order to be maximally flexible, the majority
+  of options are set generically (using <em>&lt;option&gt;</em> tag) and are set using PEAR_PackageFileManager::setOptions().
+  Use the <em>&lt;mapping&gt;</em> tag to represent complex values (which are turned into associative arrays and also
+  set using setOptions() method).
+</p>
+<h3>Example</h3>
+<pre>
+&lt;pearpkg name="phing" dir="${build.src.dir}" destFile="${build.base.dir}/package.xml"&gt;
+&lt;fileset&gt;
+&nbsp;&nbsp;&lt;include name="**"/&gt;
+&lt;/fileset&gt;
+&lt;option name="notes"&gt;Sample release notes here.&lt;/option&gt;
+&lt;option name="description"&gt;Package description&lt;/option&gt;
+&lt;option name="summary"&gt;Short description&lt;/option&gt;
+&lt;option name="version" value="2.0.0b1"/&gt;
+&lt;option name="state" value="beta"/&gt;
+ &lt;mapping name="maintainers"&gt;
+&nbsp;&nbsp;&lt;element&gt;
+&nbsp;&nbsp;&nbsp;&lt;element key="handle" value="hlellelid"/&gt;
+&nbsp;&nbsp;&nbsp;&lt;element key="name" value="Hans"/&gt;
+&nbsp;&nbsp;&nbsp;&lt;element key="email" value="hans@xmpl.org"/&gt;
+&nbsp;&nbsp;&nbsp;&lt;element key="role" value="lead"/&gt;
+&nbsp;&nbsp;&lt;/element&gt;
+&lt;/mapping&gt;
+&lt;/pearpkg&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>
+        The name of the PEAR package.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>dir</td>
+      <td>String</td>
+      <td>
+        The base directory of files to add to package.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+	<tr>
+	 <td>destFile</td>
+      <td>String</td>
+      <td>
+        The file to create.
+      </td>
+      <td>package.xml in base directory</td>
+      <td>No</td>
+	</tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+  <li>option</li>
+  <li>mapping</li>
+</ul>
+<h2><a name="PHPDocumentorTask"></a>PHPDocumentorTask</h2>
+<p>This task runs <a href="http://www.phpdoc.org/"
+target="_blank">phpDocumentor</a>, a auto-documentation tool for PHP
+similar to Javadoc.</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>title</td>
+      <td>String</td>
+      <td> Title for browser window / package index. </td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>destdir</td>
+      <td>String</td>
+      <td> Destination directory for output files. </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>sourcepath</td>
+      <td>String</td>
+      <td> Specify where to find source files. </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>linksource</td>
+      <td>Boolean</td>
+      <td> Generate hyperlinks to source files. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>output</td>
+      <td>String</td>
+      <td> Output format (such as <em>HTML:Smarty:PHP</em>). </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>parseprivate</td>
+      <td>Boolean</td>
+      <td> Show private members. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Examples</h3>
+<pre>&lt;phpdoc title=&quot;Phing Documentation&quot; destdir=&quot;apidocs&quot; sourcepath=&quot;classes/phing&quot; output=&quot;HTML:Smarty:PHP&quot;/&gt;</pre>
+<h2><a name="PHPUnit2Task"></a>PHPUnit2Task</h2>
+<p>This task runs testcases using the <a href="http://www.phpunit.de/" target="_blank">PHPUnit2</a> framework.
+It is a functional port of the Ant <a href="http://ant.apache.org/manual/OptionalTasks/junit.html" target="_blank">JUnit</a> task.
+</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>printsummary</td>
+      <td>Boolean</td>
+      <td> Print one-line statistics for each testcase. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonerror</td>
+      <td>Boolean</td>
+      <td> Stop the build process if an error occurs during the test run. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonfailure</td>
+      <td>Boolean</td>
+      <td> Stop the build process if a test fails (errors are considered failures as well). </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>errorproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on error.</td>
+      <td>n/a</td>
+      <td>No</td>
+	</tr>
+	<tr>
+      <td>haltonfailure</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on failure.</td>
+      <td>n/a</td>
+      <td>No</td>
+	</tr>
+  </tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>formatter
+    <p>The results of the tests can be printed in different formats.
+    Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false</em>.
+    The name of the file is predetermined by the formatter and can be changed by the <em>outfile</em> attribute.</p>
+    <p>There are three predefined formatters - one prints the test results in XML format,
+    the other emits plain text. The formatter named brief will only print detailed information for testcases
+    that failed, while plain gives a little statistics line for all test cases. Custom formatters that
+    implement phing.tasks.ext.PHPUnit2ResultFormatter can be specified.</p>
+    <p>If you use the XML formatter, it may not include the same output that your tests have written as
+    some characters are illegal in XML documents and will be dropped.</p>
+	<h3>Attributes</h3>
+	<table>
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  <th>Type</th>
+		  <th>Description</th>
+		  <th>Default</th>
+		  <th>Required</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>type</td>
+		  <td>String</td>
+		  <td> Use a predefined formatter (either <em>xml</em>, <em>plain</em>, or <em>brief</em>). </td>
+		  <td>n/a</td>
+		  <td rowspan="2">One of these is required.</td>
+		</tr>
+		<tr>
+		  <td>classname</td>
+		  <td>String</td>
+		  <td> Name of a custom formatter class. </td>
+		  <td>n/a</td>
+		</tr>
+		<tr>
+		  <td>usefile</td>
+		  <td>Boolean</td>
+		  <td> Boolean that determines whether output should be sent to a file. </td>
+		  <td>true</td>
+		  <td>No</td>
+		</tr>
+		<tr>
+		  <td>todir</td>
+		  <td>String</td>
+		  <td> Directory to write the file to. </td>
+		  <td>n/a</td>
+		  <td>No</td>
+		</tr>
+		<tr>
+		  <td>outfile</td>
+		  <td>String</td>
+		  <td> Filename of the result. </td>
+		  <td>Depends on formatter</td>
+		  <td>No</td>
+		</tr>
+	  </tbody>
+	</table>
+  </li>
+  <li>batchtest
+	<p>Define a number of tests based on pattern matching.
+	<em>batchtest</em> collects the included files from any number of nested &lt;fileset&gt;s.
+	It then generates a lists of classes that are (in)directly defined by each file that ends with .php</p>
+	<h3>Attributes</h3>
+	<table>
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  <th>Type</th>
+		  <th>Description</th>
+		  <th>Default</th>
+		  <th>Required</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>exclude</td>
+		  <td>String</td>
+		  <td> A list of classes to exclude from the pattern matching. For example, when you have two baseclasses <em>BaseWebTest</em> and
+		  <em>BaseMathTest</em>, which are included a number of testcases (and thus added to the list of testclasses), you can exclude those
+		  classes from the list by typing <em>exclude=&quot;BaseWebTest BaseMathTest&quot;</em>.</td>
+		  <td>n/a</td>
+		  <td>No</td>
+		</tr>
+	  </tbody>
+	</table>
+	<h3>Supported Nested Tags</h3>
+	<ul>
+	  <li>classpath</li>
+	  <li>fileset</li>
+	</ul>
+  </li>
+</ul>
+<h3>Examples</h3>
+<pre>&lt;phpunit2&gt;
+  &lt;formatter todir=&quot;reports&quot; type=&quot;xml&quot;/&gt;
+  &lt;batchtest&gt;
+    &lt;fileset dir=&quot;tests&quot;&gt;
+      &lt;include name=&quot;**/*Test*.php&quot;/&gt;
+      &lt;exclude name=&quot;**/Abstract*.php&quot;/&gt;
+    &lt;/fileset&gt;
+  &lt;/batchtest&gt;
+&lt;/phpunit2&gt;
+</pre>
+<p>Runs all matching testcases in the directory <em>tests</em>, writing
+XML results to the directory <em>reports</em>.</p>
+<pre>&lt;phpunit2 haltonfailure=&quot;true&quot; haltonerror=&quot;true&quot;&gt;
+  &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot;/&gt;
+  &lt;batchtest&gt;
+    &lt;fileset dir=&quot;tests&quot;&gt;
+      &lt;include name=&quot;**/*Test*.php&quot;/&gt;
+    &lt;/fileset&gt;
+  &lt;/batchtest&gt;
+&lt;/phpunit2&gt;
+</pre>
+<p>
+Runs all matching testcases in the directory <em>tests</em>, writing plain
+text results to the console. The build process is aborted if a test
+fails.</p>
+<h2><a name="PHPUnit2Report"></a>PHPUnit2Report</h2>
+<p>This task transforms PHPUnit2 xml reports to HTML using XSLT.</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>infile</td>
+      <td>String</td>
+      <td> The filename of the XML results file to use. </td>
+      <td>testsuites.xml</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>format</td>
+      <td>String</td>
+      <td> The format of the generated report. Must be <em>noframes</em> or
+<em>frames</em>. </td>
+      <td>noframes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>styledir</td>
+      <td>String</td>
+      <td> The directory where the stylesheets are located. They must
+conform to the following conventions:
+	<ul>
+	  <li>frames format: the stylesheet must be named phpunit2-frames.xsl.</li>
+	  <li>noframes format: the stylesheet must be named phpunit2-noframes.xsl.</li>
+	</ul>
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>todir</td>
+      <td>String</td>
+      <td> The directory where the files resulting from the
+transformation should be written to. </td>
+      <td></td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Examples</h3>
+<pre>&lt;phpunit2report infile=&quot;reports/testsuites.xml&quot; format=&quot;frames&quot; todir=&quot;reports/tests&quot; styledir=&quot;/home/phing/etc&quot;/&gt;
+</pre>
+<p>Generates a framed report in the directory <em>reports/tests</em> using
+the file <em>reports/testsuites.xml</em> as input.</p>
+
+<h2><a name="SvnExportTask"></a>SvnExportTask</h2>
+<p> The <em>SvnExportTask</em> exports a Subversion repository to a local directory.</p>
+<h3>Example</h3>
+<pre>&lt;svnexport svnpath=&quot;/usr/bin/svn&quot; repositoryurl=&quot;svn://localhost/project/trunk/&quot; todir=&quot;/home/user/svnwc&quot;/&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>svnpath</td>
+      <td>String</td>
+      <td>Path to Subversion binary</td>
+      <td>/usr/bin/svn</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>repositoryurl</td>
+      <td>String</td>
+      <td>URL of SVN repository</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>todir</td>
+      <td>String</td>
+      <td>Path to export to</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="SvnLastRevisionTask"></a>SvnLastRevisionTask</h2>
+<p> The <em>SvnLastRevisionTask</em> stores the number of the last revision of a Subversion workingcopy in a property.</p>
+<h3>Example</h3>
+<pre>&lt;svnlastrevision svnpath=&quot;/usr/bin/svn&quot; workingcopy=&quot;/home/user/svnwc/&quot; propertyname=&quot;svn.lastrevision&quot;/&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>svnpath</td>
+      <td>String</td>
+      <td>Path to Subversion binary</td>
+      <td>/usr/bin/svn</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>repositoryurl</td>
+      <td>String</td>
+      <td>URL of SVN repository</td>
+      <td>none</td>
+      <td>Yes (or <em>workingcopy</em>)</td>
+    </tr>
+    <tr>
+      <td>workingcopy</td>
+      <td>String</td>
+      <td>Working copy directory</td>
+      <td>none</td>
+      <td>Yes (or <em>repositoryurl</em>)</td>
+    </tr>
+    <tr>
+      <td>propertyname</td>
+      <td>String</td>
+      <td>Name of property to use</td>
+      <td>svn.lastrevision</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="TarTask"></a>TarTask</h2>
+<p> The <em>TarTask</em> creates a tarball from a fileset or directory.</p>
+<h3>Example</h3>
+<pre>&lt;tar destfile=&quot;phing.tar&quot; basedir=&quot;.&quot; compression=&quot;gzip&quot;&gt;
+ &lt;fileset dir=&quot;.&quot;&gt;
+	 &lt;include name=&quot;**/**&quot; /&gt;
+ &lt;/fileset&gt;
+&lt;/tar&gt;
+</pre>
+
+<p>The above example uses a fileset to determine which files to include in
+the archive.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>destfile</td>
+      <td>String</td>
+      <td>Tarball filename</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>basedir</td>
+      <td>String</td>
+      <td>Base directory to tar (if no fileset specified, entire directory contents
+        will be included in tar)</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>compression</td>
+      <td>String</td>
+      <td>Type of compression to use (gzip, bzip2, none)</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><b>Important note:</b> files are not replaced if they are already present in the
+archive.</p>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h2><a name="ZipTask"></a>ZipTask</h2>
+<p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p>
+<h3>Example</h3>
+<pre>&lt;zip destfile=&quot;phing.zip&quot; basedir=&quot;.&quot;/&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>destfile</td>
+      <td>String</td>
+      <td>.ZIP filename</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>basedir</td>
+      <td>String</td>
+      <td>Base directory to zip (if no fileset specified, entire directory contents
+        will be included in the archive)</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+</body>
+</html>

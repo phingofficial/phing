@@ -1,0 +1,116 @@
+                         _________________________
+                         P     H     I     N     G
+
+
+  Welcome to Phing!
+  -----------------
+
+  This is only a quick installation guide. For a more details procedure
+  see the usersguide pdf in docs/pdf.
+
+  Prerequisites
+  -------------
+
+  At this point we assume you have a running Windows NT/2000/XP system 
+  running and you properly installed PHP5.0.1+. Windows 9x versions will
+  probably work, but are not supported. Make sure that XSL is enabled (e.g.
+  enable php_xsl.dll in your php.ini file) if you want to perform builds 
+  that require XSLT transformation (e.g. many Binarycloud buildfiles, the 
+  Phing "phing_guide" documentation buildfile).
+
+  PEAR Installation
+  -----------------
+
+  NOTE: As of Phing 2.0.0b1, Phing is available as a PEAR package.  This 
+  makes installing Phing a million times easier than it already was (and
+  most people say that it wasn't too hard in the first place).  Visit
+  http://phing.info to either download the latest Phing PEAR-installable 
+  package or to learn how to install directly over the network.
+  
+  If you are reading this document, then you are probably wanting to do
+  the custom install, though, so read on ...
+  
+  Custom Installation
+  -------------------
+    
+  First download a matching PHING distribution from http://phing.info and 
+  unzip it to the desired install directory.
+  
+  +---------------------------------------------------------------------+
+  | Note: On Windows 95 and Windows 98, the script used to launch       |
+  | Phing will have problems if PHING_HOME is a long filename. This is  |
+  | due to limitations in the OS's handling of the "for" batch-file     |
+  | statement. It is recommended, therefore, that Phing be installed in |
+  | a short path, such as C:\opt\phing.                                 |
+  +---------------------------------------------------------------------+
+
+  The batch script used to launch phing (bin\phing.bat) will attempt to 
+  guess most settings if you do not provide them explicitly.  At this point 
+  you may want to try running Phing to see how you fare:
+  
+    C:\opt\phing\bin\phing -version
+	
+  If that worked, then no further setup is necessary; however, you probably 
+  want to add C:\opt\phing\bin to your PATH environment variable to make it 
+  easier to run Phing from any location.
+  
+  +---------------------------------------------------------------------+
+  | Note: See http://www.cs.usask.ca/grads/wew036/latex/env.html for    |
+  | information on how to set environment variables.                    |
+  +---------------------------------------------------------------------+  
+  
+  More Detailed Install Instruction  
+  ---------------------------------
+  
+  If Phing did not run out-of-the-box, then you will probably need to set some 
+  environment variables so that Phing knows where to find the PHP executable,
+  necessary classes, etc.
+  
+  * Setting %PHP_COMMAND%
+  
+  If your PHP executable is *not* on the PATH, then you should set the 
+  PHP_COMMAND environment variable to point to the CLI binary of PHP.
+
+  For example, if you use the default install dir of PHP, you have to
+  set:
+   
+    set PHP_COMMAND=C:\php\php.exe
+
+  * Setting %PHING_HOME%
+	
+  You may also set the path to Phing's home directory.  This is no longer 
+  necessary if you have not moved any files around (i.e. if the phing.bat 
+  file is in bin/ sub directory).  If you encounter problems running Phing,
+  you probably want to set this variable (just to be sure):
+
+    set PHING_HOME=C:\opt\phing
+
+  * Setting %PHP_CLASSPATH%
+  
+  You may also set a PHP_CLASSPATH variable to add any other locations to
+  PHP's include_path (Of course, you may also simply add other locations
+  directly to the include_path variable in php.ini):
+
+    set PHP_CLASSPATH=%PHING_HOME%\classes
+
+  You can make additional classpath entries if there's a need for them. I.e.
+  adding %BCHOME% if you want to access binarycloud packages.
+
+  * Setting %PATH%
+  
+  Now you can add the phing executable to your PATH environment:
+
+    set PATH=%PATH%;%PHING_HOME%\bin
+	
+  You're Done!
+  ------------
+  
+  You should now be able to execute Phing from everywhere in your system.
+  Try it by changing back to your home and type:
+
+    > phing -version
+
+  Congratulations, you successfully installed Phing.
+
+  --$Id: INSTALL.WIN32,v 1.8 2005/03/15 23:02:17 mrook Exp $
+
