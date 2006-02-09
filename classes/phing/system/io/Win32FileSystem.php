@@ -299,7 +299,7 @@ class Win32FileSystem extends FileSystem {
     function isAbsolute(PhingFile $f) {
         $pl = (int) $f->getPrefixLength();
         $p  = (string) $f->getPath();
-        return ((($pl === 2) && ($p{0} === $this->slash)) || ($pl === 3));
+        return ((($pl === 2) && ($p{0} === $this->slash)) || ($pl === 3) || ($pl === 1 && $p{0} === $this->slash));
     }
 
     /** private */
