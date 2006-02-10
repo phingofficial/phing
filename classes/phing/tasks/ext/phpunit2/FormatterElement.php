@@ -33,15 +33,15 @@ require_once 'phing/system/io/PhingFile.php';
  */
 class FormatterElement
 {
-	private $formatter = NULL;
+	protected $formatter = NULL;
 	
-	private $type = "";
+	protected $type = "";
 	
-	private $useFile = true;
+	protected $useFile = true;
 	
-	private $toDir = ".";
+	protected $toDir = ".";
 	
-	private $outfile = "";
+	protected $outfile = "";
 
 	function setType($type)
 	{
