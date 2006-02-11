@@ -36,7 +36,10 @@ class BuildPhingPEARPackageTask extends MatchingTask {
 
 	private $version;
 	private $state = 'stable';
-
+	private $notes;
+	
+	private $filesets = array();
+	
     /** Package file */
     private $packageFile;
 
@@ -61,7 +64,18 @@ class BuildPhingPEARPackageTask extends MatchingTask {
 		// Some PHING-specific options needed by our Fileset reader
 		$options['phing_project'] = $this->getProject();
 		$options['phing_filesets'] = $this->filesets;
-
+		
+		if ($this->packageFile !== null) {
+            // create one w/ full path
+            $f = new PhingFile($this->packageFile->getAbsolutePath());
+            $options['packagefile'] = $f->getName();
+            // must end in trailing slash
+            $options['outputdirectory'] = $f->getParent() . DIRECTORY_SEPARATOR;
+            $this->log("Creating package file: " . $f->getPath(), PROJECT_MSG_INFO);
+        } else {
+            $this->log("Creating [default] package.xml file in base directory.", PROJECT_MSG_INFO);
+        }
+		
 		// add install exceptions
 		$options['installexceptions'] = array(	'bin/phing.php' => '/',
 												'bin/pear-phing' => '/',
@@ -70,13 +84,11 @@ class BuildPhingPEARPackageTask extends MatchingTask {
 
 		$options['dir_roles'] = array(	'phing_guide' => 'doc',
 										'etc' => 'data',
-										'example' => 'doc'));
+										'example' => 'doc');
 
 		$options['exceptions'] = array(	'bin/pear-phing.bat' => 'script',
 										'bin/pear-phing' => 'script',
 										'CREDITS' => 'doc',
-										'INSTALL.UNIX' => 'doc',
-										'INSTALL.WIN32' => 'doc',
 										'CHANGELOG' => 'doc',
 										'README' => 'doc',
 										'TODO' => 'doc');
@@ -105,41 +117,85 @@ class BuildPhingPEARPackageTask extends MatchingTask {
 
 		// the hard-coded stuff
 		$package->setPackage('phing');
-		$package->setSummary('');
-		$package->setDescription('');
-		$package->setChannel('phing.info');
+		$package->setSummary('PHP5 project build system based on Apache Ant');
+		$package->setDescription('PHing Is Not GNU make; it\'s a project build system based on Apache Ant. 
+You can do anything with it that you could do with a traditional build system like GNU make, and its use of 
+simple XML build files and extensible PHP "task" classes make it an easy-to-use and highly flexible build framework. 
+Features include file transformations (e.g. token replacement, XSLT transformation, Smarty template transformations, 
+etc.), file system operations, interactive build support, SQL execution, and much more.');
+		$package->setChannel('pear.phing.info');
 		$package->setPackageType('php');
 
 		$package->setReleaseVersion($this->version);
+		$package->setAPIVersion($this->version);
+		
 		$package->setReleaseStability($this->state);
-
+		$package->setAPIStability($this->state);
+		
+		$package->setNotes($this->notes);
+		
+		$package->setLicense('LGPL', 'http://www.gnu.org/licenses/lgpl.html');
+		
+		// Add package maintainers
+		$package->addMaintainer('lead', 'hans', 'Hans Lellelid', 'hans@xmpl.org');
+		$package->addMaintainer('lead', 'mrook', 'Michiel Rook', 'michiel@trendserver.nl');
+		
+		
+		
 		// (wow ... this is a poor design ...)
-		$package->addRelease();
-		$package->setOSInstallCondition('windows');
-		$package->addInstallAs('bin/pear-phing.bat', 'phing.bat');
-		$package->addIgnore('bin/pear-phing');
+		//
+		// note that the order of the method calls below is creating
+		// sub-"release" sections which have specific rules.  This replaces
+		// the platformexceptions system in the older version of PEAR's package.xml
+		//
+		// Programmatically, I feel the need to re-iterate that this API for PEAR_PackageFileManager
+		// seems really wrong.  Sub-sections should be encapsulated in objects instead of having
+		// a "flat" API that does not represent the structure being created....
+		
+		
+		// creating a sub-section for 'windows'
+			$package->addRelease();
+			$package->setOSInstallCondition('windows');
+			$package->addInstallAs('bin/phing.php', 'phing.php');
+			$package->addInstallAs('bin/pear-phing.bat', 'phing.bat');
+			$package->addIgnoreToRelease('bin/pear-phing');
+		
+		// creating a sub-section for non-windows
+			$package->addRelease();
+			//$package->setOSInstallCondition('(*ix|*ux|darwin*|*BSD|SunOS*)');
+			$package->addInstallAs('bin/phing.php', 'phing.php');
+			$package->addInstallAs('bin/pear-phing', 'phing');
+			$package->addIgnoreToRelease('bin/pear-phing.bat');
+		
 
-		$package->addRelease();
-		$package->addInstallAs('bin/pear-phing', 'phing');
-		$package->addIgnore('pear-phpdoc.bat');
-
-		$package->addInstallAs('bin/phing.php', 'phing.php');
-
-		// dependencies
+		// "core" dependencies
 		$package->setPhpDep('5.0.0');
 		$package->setPearinstallerDep('1.4.0');
+		
+		// "package" dependencies
+		$package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.0alpha1');
+		$package->addPackageDepWithChannel( 'optional', 'PHPUnit2', 'pear.php.net', '2.3.0');
+		$package->addPackageDepWithChannel( 'optional', 'PhpDocumentor', 'pear.php.net', '1.3.0RC3');
+		$package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pear.php.net', '2.0.0beta2');
+		$package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.0');
+		$package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
 
+		// now add the replacements ....
+		$package->addReplacement('Phing.php', 'pear-config', '@DATA-DIR@', 'data_dir');
+		$package->addReplacement('bin/pear-phing.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
+		$package->addReplacement('bin/pear-phing.bat', 'pear-config', '@BIN-DIR@', 'bin_dir');
+		$package->addReplacement('bin/pear-phing.bat', 'pear-config', '@PEAR-DIR@', 'php_dir');
+		$package->addReplacement('bin/pear-phing', 'pear-config', '@PHP-BIN@', 'php_bin');
+		$package->addReplacement('bin/pear-phing', 'pear-config', '@BIN-DIR@', 'bin_dir');
+		$package->addReplacement('bin/pear-phing', 'pear-config', '@PEAR-DIR@', 'php_dir');
+		
+		// now we run this weird generateContents() method that apparently 
+		// is necessary before we can add replacements ... ?
 		$package->generateContents();
-
-		// add replacements ....
-
+		
         $e = $package->writePackageFile();
 
         if (PEAR::isError($e)) {
-			$bt = $e->getBacktrace();
-			foreach($bt as $b) {
-				print $b['file'] . " " . $b['line'] . "\n";
-			}
             throw new BuildException("Unable to write package file.", new Exception($e->getMessage()));
         }
 
@@ -181,10 +237,18 @@ class BuildPhingPEARPackageTask extends MatchingTask {
      * @param string $v
      * @return void
      */
-	public function setState($v){
+	public function setState($v) {
 		$this->state = $v;
 	}
-
+	
+	/**
+	 * Sets release notes field.
+	 * @param string $v
+	 * @return void
+	 */
+	public function setNotes($v) {
+		$this->notes = $v;
+	}
     /**
      * Sets "dir" property from XML.
      * @param PhingFile $f

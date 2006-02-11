@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<!--
+	This build file packages the phing files, builds a package.xml (version 2) for installation
+	using PEAR and creates the TAR and TGZ files.
+-->	
+<project name="phing" basedir="." default="main">
+	
+	<property name="phing.home" value=".."/>
+	<property name="build.base.dir" value="build"/>
+	<property name="pkgname" value="phing-${version}"/>		
+	<property name="build.src.dir" value="${build.base.dir}/${pkgname}"/>
+	
+	<!-- some default properties -->
+	<property name="notes">This is the latest release of Phing.</property>
+	<property name="state" value="stable"/>
+	
+	<taskdef
+    name="pear-package"
+    classname="BuildPhingPEARPackageTask" classpath="."/>
+	
+	<fileset dir="${phing.home}/classes/phing" id="classes">			
+		<include name="**"/>
+	</fileset>
+
+	<fileset dir="${phing.home}/docs" id="docs">
+		<include name="example/**"/>
+		<include name="phing_guide/book/**"/>
+	</fileset>
+
+	<fileset dir="${phing.home}" id="etc">
+		<include name="etc/**"/>
+		<exclude name="etc/VERSION.TXT"/>
+	</fileset>
+	
+	<fileset dir="${phing.home}" id="scripts">
+		<include name="bin/pear-*"/>
+		<include name="bin/phing.php"/>
+	</fileset>
+
+	<fileset dir="${phing.home}" id="misc">
+		<include name="CHANGELOG"/>
+		<include name="CREDITS"/>
+		<include name="README"/>
+		<include name="TODO"/>
+		<exclude name="INSTALL*"/>
+	</fileset>
+
+	<!--
+		==============================================
+		Main entry point
+		==============================================
+	-->				
+	<target name="main" if="version" depends="versioncheck,copy-files,create-package-xml,tar"/>
+
+	<!--
+	 ===================================================================
+	 Target: checks if language was given, otherwise fail
+	 ===================================================================
+	-->
+	<target name="versioncheck" unless="version">
+		<echo message="====================================================="/>
+		<echo message="Version not specified. You must enter a version. In"/>
+		<echo message="the future you can add this to build.properties or"/>
+		<echo message="enter it on the command line: "/>
+		<echo message=" "/>
+		<echo message="-Dversion=2.0.0b1"/>
+		<echo message="====================================================="/>	
+		<input propertyname="version" promptChar=":">Phing version for package</input>
+		
+		<property name="pkgname" value="phing-${version}" override="true"/>		
+		<property name="build.src.dir" value="${build.base.dir}/${pkgname}" override="true"/>
+		
+	</target>
+	
+	<!--
+		==============================================
+		Copy the desired files into the build/ dir
+		making sure to put them in the directory
+		structure that will be needed for PEAR install
+		==============================================
+	-->	
+	<target name="copy-files">
+	
+		<echo>-----------------------------</echo>
+		<echo>| Creating directory layout |</echo>
+		<echo>-----------------------------</echo>
+		
+		<delete dir="${build.base.dir}"/>
+		
+		<copy todir="${build.src.dir}">
+			<fileset refid="classes"/>
+			<fileset refid="docs"/>
+			<fileset refid="etc"/>
+			<fileset refid="scripts"/>
+			<fileset refid="misc"/>
+		</copy>
+		
+		<append destFile="${build.src.dir}/etc/VERSION.TXT">Phing version ${version}</append>
+		
+		<chmod file="${build.src.dir}/bin/pear-phing" mode="755"/>
+		
+	</target>
+	
+	<!--
+		==============================================
+		Create a PEAR package.xml which will guide the
+		installation.
+		==============================================
+	-->	
+	<target name="create-package-xml" depends="versioncheck" if="version">
+	
+		<echo>-----------------------------</echo>
+		<echo>| Creating PEAR package.xml |</echo>
+		<echo>-----------------------------</echo>
+		<echo></echo>
+		<echo>... (This step may take some time) ...</echo>
+		
+		<delete	file="${tarfile}"/>
+		<pear-package dir="${build.src.dir}" destFile="${build.base.dir}/package.xml" version="${version}" state="${state}" notes="${notes}">
+			
+			<fileset refid="classes"/>
+			<fileset refid="docs"/>
+			<fileset refid="etc"/>
+			<fileset refid="misc"/>
+			<fileset refid="scripts"/>
+			
+		</pear-package>
+		
+	</target>
+	
+	<!--
+		==============================================
+		Create a tar.gz of the files, which will be 
+		installed by pear package manager.
+		==============================================
+	-->
+	<target name="tar">
+		<echo>-----------------------------</echo>
+		<echo>| Creating TAR packages     |</echo>
+		<echo>-----------------------------</echo>	
+		
+		<property name="tgzfile" value="${build.base.dir}/${pkgname}.tgz"/>
+		<delete	file="${tgzfile}"/>
+		<tar compression="gzip" destFile="${tgzfile}" basedir="${build.base.dir}" />
+		
+		<property name="tarfile" value="${build.base.dir}/${pkgname}.tar"/>
+		<delete	file="${tarfile}"/>
+		<tar compression="none" destFile="${tarfile}" basedir="${build.base.dir}" />
+		
+	</target>
+	
+</project>
