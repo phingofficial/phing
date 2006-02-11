@@ -666,7 +666,10 @@ class Phing {
     }
 
     function getPhingVersion() {
-        $versionPath = self::getResourcePath("phing/VERSION.TXT");
+		$versionPath = self::getResourcePath("phing/etc/VERSION.TXT");
+		if ($versionPath === null) {
+		    $versionPath = self::getResourcePath("etc/VERSION.TXT");
+		}
         try { // try to read file
             $buffer = null;
             $file = new PhingFile($versionPath);
