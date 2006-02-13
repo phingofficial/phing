@@ -440,6 +440,49 @@ similar to Javadoc.</p>
 </table>
 <h3>Examples</h3>
 <pre>&lt;phpdoc title=&quot;Phing Documentation&quot; destdir=&quot;apidocs&quot; sourcepath=&quot;classes/phing&quot; output=&quot;HTML:Smarty:PHP&quot;/&gt;</pre>
+<h2><a name="PhpLintTask"></a>PhpLintTask</h2>
+<p>Check syntax (lint) one or more PHP source code files.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Path to source file</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;phplint file=&quot;path/to/source.php&quot;/&gt;
+</pre>
+<p>Checking syntax of one particular source file.</p>
+<pre>
+&lt;phplint&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;src&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/phplint&gt;
+</pre>
+<p>Check syntax of a fileset of source files.</p>
 <h2><a name="PHPUnit2Task"></a>PHPUnit2Task</h2>
 <p>This task runs testcases using the <a href="http://www.phpunit.de/" target="_blank">PHPUnit2</a> framework.
 It is a functional port of the Ant <a href="http://ant.apache.org/manual/OptionalTasks/junit.html" target="_blank">JUnit</a> task.
