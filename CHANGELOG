@@ -32,6 +32,7 @@ Feb. ??, 2006 - Phing 2.2.0
 
   * Added new HTML Tidy filter (HL)
 
+  * Added PhpLintTask (Knut Urdalen)
 
 Sept. 18, 2005 - Phing 2.1.1
 
