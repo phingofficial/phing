@@ -516,14 +516,20 @@ for information on Filesets.
 
 <h2><a name="EchoTask"></a>EchoTask</h2>
 <p>
-  This task simply verboses a string.
+Echoes a message to the current loggers and listeners which means standard out unless overridden.
+A level can be specified, which controls at what logging level the message is filtered at. </p>
+
+<p>
+The task can also echo to a file, in which case the option to append rather than overwrite the file is available, and the level option is ignored
 </p>
-<h3>Example</h3>
+<h3>Examples</h3>
 <pre>&lt;echo msg=&quot;Phing rocks!&quot; /&gt;
 
 &lt;echo message=&quot;Binarycloud, too.&quot; /&gt;
 
-&lt;echo&gt;And don't forget Propel.&lt;/echo&gt;</pre>
+&lt;echo&gt;And don't forget Propel.&lt;/echo&gt;
+
+&lt;echo file="test.txt" append="false"&gt;This is a test message&lt;/echo&gt;</pre>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -553,6 +559,30 @@ for information on Filesets.
       </td>
       <td>n/a</td>
       <td>Yes</td>
+    </tr>
+     <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>The file to write the message to.
+      </td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+     <tr>
+      <td>append</td>
+      <td>Boolean</td>
+      <td>Append to an existing file?
+      </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+     <tr>
+      <td>level</td>
+      <td>String</td>
+      <td>Control the level at which this message is reported. One of <em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>, <em>debug</em>.
+      </td>
+      <td><em>warning</em></td>
+      <td>No</td>
     </tr>
   </tbody>
 </table>
