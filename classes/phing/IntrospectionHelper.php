@@ -194,7 +194,7 @@ class IntrospectionHelper {
                     // exception messages, etc.
                                 
                     preg_match('/@return[\s]+([\w]+)/', $method->getDocComment(), $matches);
-                    if (!empty($matches[1]) && class_exists($matches[1])) {
+                    if (!empty($matches[1]) && class_exists($matches[1], false)) {
                         $this->nestedTypes[$name] = $matches[1];
                     } else {                    
                         // assume that method createEquals() creates object of type "Equals"
