@@ -440,6 +440,49 @@ similar to Javadoc.</p>
 </table>
 <h3>Examples</h3>
 <pre>&lt;phpdoc title=&quot;Phing Documentation&quot; destdir=&quot;apidocs&quot; sourcepath=&quot;classes/phing&quot; output=&quot;HTML:Smarty:PHP&quot;/&gt;</pre>
+<h2><a name="PhpLintTask"></a>PhpLintTask</h2>
+<p>The <em>PhpLintTask</em> checks syntax (lint) on one or more PHP source code files.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Path to source file</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;phplint file=&quot;path/to/source.php&quot;/&gt;
+</pre>
+<p>Checking syntax of one particular source file.</p>
+<pre>
+&lt;phplint&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;src&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/phplint&gt;
+</pre>
+<p>Check syntax of a fileset of source files.</p>
 <h2><a name="PHPUnit2Task"></a>PHPUnit2Task</h2>
 <p>This task runs testcases using the <a href="http://www.phpunit.de/" target="_blank">PHPUnit2</a> framework.
 It is a functional port of the Ant <a href="http://ant.apache.org/manual/OptionalTasks/junit.html" target="_blank">JUnit</a> task.
@@ -820,6 +863,57 @@ archive.</p>
 <ul>
   <li>fileset</li>
 </ul>
+
+<h2><a name="XmlLintTask"></a>XmlLintTask</h2>
+<p>The <em>XmlLintTask</em> checks syntax (lint) one or more XML files against an XML Schema Definition.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>schema</td>
+      <td>String</td>
+      <td>Path to XSD file</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Path to XML file</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;xmllint schema=&quot;schema.xsd&quot; file=&quot;config.xml&quot;/&gt;
+</pre>
+<p>Validate one XML file against one XSD file.</p>
+<pre>
+&lt;xmllint schema=&quot;schema.xsd&quot;&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;.&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/config.xml"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/xmllint&gt;
+</pre>
+<p>Validate more XML files against one XSD file.</p>
 
 <h2><a name="ZipTask"></a>ZipTask</h2>
 <p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p>
