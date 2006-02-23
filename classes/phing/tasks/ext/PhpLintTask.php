@@ -34,6 +34,10 @@ class PhpLintTask extends Task {
    * Execute lint check against PhingFile or a FileSet
    */
   public function main() {
+    if(!isset($this->file) and count($this->filesets) == 0) {
+      throw new BuildException("Missing either a nested fileset or attribute 'file' set");
+    }
+
     if($this->file instanceof PhingFile) {
       $this->lint($this->file->getPath());
     } else { // process filesets
@@ -47,7 +51,6 @@ class PhpLintTask extends Task {
 	}
       }
     }
-    $this->log('No syntax errors detected');
   }
 
   /**
@@ -63,7 +66,9 @@ class PhpLintTask extends Task {
 	$message = array();
 	exec($command.$file, $message);
 	if(!preg_match('/^No syntax errors detected/', $message[0])) {
-	  throw new BuildException($message[1]);
+	  $this->log($message[1], PROJECT_MSG_ERR);
+	} else {
+	  $this->log($file.': No syntax errors detected', PROJECT_MSG_INFO);
 	}
       } else {
 	throw new BuildException('Permission denied: '.$file);
