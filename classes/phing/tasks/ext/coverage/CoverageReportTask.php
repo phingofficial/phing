@@ -226,11 +226,10 @@ class CoverageReportTask extends Task
 
 	protected function transformCoverageInformation($basename, $filename, $coverageInformation)
 	{
-		$dotpath = strtr(dirname($basename), PhingFile::$separator, '.');
 		$classname = PHPUnit2Util::getClassFromFileName($basename);
 		
-		Phing::import($dotpath . '.' . $classname, $this->classpath);
-
+		Phing::__import($filename, $this->classpath);
+		
 		try
 		{
 			$reflection = new ReflectionClass($classname);
@@ -344,6 +343,8 @@ class CoverageReportTask extends Task
 
 	function main()
 	{
+		$this->log("Transforming coverage report");
+		
 		$database = new PhingFile($this->project->getProperty('coverage.database'));
 		
 		$props = new Properties();
@@ -355,13 +356,13 @@ class CoverageReportTask extends Task
 
 			$this->transformCoverageInformation($file['basename'], $file['fullname'], $file['coverage']);
 		}
-
+		
 		$this->calculateStatistics();
 
 		$this->doc->save($this->outfile);
 
-     		foreach ($this->transformers as $transformer)
-     		{
+		foreach ($this->transformers as $transformer)
+		{
 			$transformer->setXmlDocument($this->doc);
 			$transformer->transform();
 		}

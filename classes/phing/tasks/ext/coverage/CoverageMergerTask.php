@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: CoverageSetupTask.php,v 1.9 2005/05/26 13:10:52 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,22 +23,20 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
 require_once 'phing/system/util/Properties.php';
+require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 
 /**
- * Initializes a code coverage database
+ * Merges code coverage snippets into a code coverage database
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: CoverageSetupTask.php,v 1.9 2005/05/26 13:10:52 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */
-class CoverageSetupTask extends Task
+class CoverageMergerTask extends Task
 {
 	/** the list of filesets containing the .php filename rules */
 	private $filesets = array();
-
-	/** the filename of the coverage database */
-	private $database = "coverage.db";
 
 	/**
 	 * Add a new fileset containing the .php files to process
@@ -51,21 +49,9 @@ class CoverageSetupTask extends Task
 	}
 
 	/**
-	 * Sets the filename of the coverage database to use
+	 * Iterate over all filesets and return all the filenames.
 	 *
-	 * @param string the filename of the database
-	 */
-	function setDatabase($database)
-	{
-		$this->database = $database;
-	}
-
-	/**
-	 * Iterate over all filesets and return the filename of all files
-	 * that end with .php. This is to avoid loading an xml file
-	 * for example.
-	 *
-	 * @return array an array of (basedir, filenames) pairs
+	 * @return array an array of filenames
 	 */
 	private function getFilenames()
 	{
@@ -77,51 +63,30 @@ class CoverageSetupTask extends Task
 			$ds->scan();
 
 			$includedFiles = $ds->getIncludedFiles();
-
+			
 			foreach ($includedFiles as $file)
 			{
-				if (strstr($file, ".php"))
-				{
-					$fs = new PhingFile(realpath($ds->getBaseDir()), $file);
+				$fs = new PhingFile(basename($ds->getBaseDir()), $file);
 					
-					$files[] = array('key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath(), 'basename' => $file);
-				}
+				$files[] = $fs->getAbsolutePath();
 			}
 		}
 
 		return $files;
 	}
 	
-	function init()
-	{
-		include_once 'PHPUnit2/Framework/TestCase.php';
-		if (!class_exists('PHPUnit2_Framework_TestCase')) {
-			throw new Exception("PHPUnit2Task depends on PEAR PHPUnit2 package being installed.");
-		}
-	}
-
 	function main()
 	{
 		$files = $this->getFilenames();
-
-		$this->log("Setting up coverage database for " . count($files) . " files");
-
-		$props = new Properties();
+		
+		$this->log("Merging " . count($files) . " coverage files");
 
 		foreach ($files as $file)
 		{
-			$basename = $file['basename'];
-			$fullname = $file['fullname'];
-			$filename = $file['key'];
+			$coverageInformation = unserialize(file_get_contents($file));
 			
-			$props->setProperty($filename, serialize(array('basename' => $basename, 'fullname' => $fullname, 'coverage' => array())));
+			CoverageMerger::merge($this->project, array($coverageInformation));
 		}
-
-		$dbfile = new PhingFile($this->database);
-
-		$props->store($dbfile);
-
-		$this->project->setProperty('coverage.database', $dbfile->getAbsolutePath());
 	}
 }
 ?>
