@@ -35,15 +35,19 @@ class SimpleTestSummaryResultFormatter extends SimpleTestResultFormatter
 	{
 		parent::paintCaseEnd($test_name);
 		
-		$sb.= "Tests run: " . $this->getRunCount();
-		$sb.= ", Failures: " . $this->getFailureCount();
-		$sb.= ", Errors: " . $this->getErrorCount();
-		$sb.= ", Time elapsed: " . $this->getElapsedTime();
-		$sb.= " sec\n";
-
-		if ($this->out != NULL)
+		/* Only count suites where more than one test was run */
+		if ($this->getRunCount())
 		{
-			$this->out->write($sb);
+			$sb.= "Tests run: " . $this->getRunCount();
+			$sb.= ", Failures: " . $this->getFailureCount();
+			$sb.= ", Errors: " . $this->getErrorCount();
+			$sb.= ", Time elapsed: " . $this->getElapsedTime();
+			$sb.= " sec\n";
+
+			if ($this->out != NULL)
+			{
+				$this->out->write($sb);
+			}
 		}
 	}
 }
