@@ -38,7 +38,7 @@ class EchoTask extends Task {
     
     protected $append = false;
     
-    protected $level = "warning";
+    protected $level = "info";
 
     function main() {		
 		switch ($this->level)
