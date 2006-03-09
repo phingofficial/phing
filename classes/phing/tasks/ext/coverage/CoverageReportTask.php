@@ -226,88 +226,77 @@ class CoverageReportTask extends Task
 
 	protected function transformCoverageInformation($basename, $filename, $coverageInformation)
 	{
-		$classname = PHPUnit2Util::getClassFromFileName($basename);
-		
-		Phing::__import($filename, $this->classpath);
-		
-		try
+		$classes = PHPUnit2Util::getDefinedClasses($filename, $this->classpath);
+			
+		foreach ($classes as $classname)
 		{
 			$reflection = new ReflectionClass($classname);
-		}
-		catch (Exception $ex)
-		{
-			throw new BuildException($ex->getMessage());
-		}
+		
+			$methods = $reflection->getMethods();
 
-		if ($reflection->isInterface())
-		{
-			return;
-		}
+			$classElement = $this->doc->createElement('class');
+			$classElement->setAttribute('name', $reflection->getName());
 
-		$methods = $reflection->getMethods();
+			$this->addClassToPackage($reflection->getName(), $classElement);
 
-		$classElement = $this->doc->createElement('class');
-		$classElement->setAttribute('name', $reflection->getName());
+			$methodscovered = 0;
+			$methodcount = 0;
 
-		$this->addClassToPackage($reflection->getName(), $classElement);
+			reset($coverageInformation);
 
-		$methodscovered = 0;
-		$methodcount = 0;
-
-		reset($coverageInformation);
-
-		foreach ($methods as $method)
-		{
-			// PHP5 reflection considers methods of a parent class to be part of a subclass, we don't
-			if ($method->getDeclaringClass()->getName() != $reflection->getName())
+			foreach ($methods as $method)
 			{
-				continue;
-			}
+				// PHP5 reflection considers methods of a parent class to be part of a subclass, we don't
+				if ($method->getDeclaringClass()->getName() != $reflection->getName())
+				{
+					continue;
+				}
 
-			// small fix for XDEBUG_CC_UNUSED
-			if (isset($coverageInformation[$method->getStartLine()]))
-			{
-				unset($coverageInformation[$method->getStartLine()]);
-			}
+				// small fix for XDEBUG_CC_UNUSED
+				if (isset($coverageInformation[$method->getStartLine()]))
+				{
+					unset($coverageInformation[$method->getStartLine()]);
+				}
 
-			if (isset($coverageInformation[$method->getEndLine()]))
-			{
-				unset($coverageInformation[$method->getEndLine()]);
-			}
+				if (isset($coverageInformation[$method->getEndLine()]))
+				{
+					unset($coverageInformation[$method->getEndLine()]);
+				}
 
-			if ($method->isAbstract())
-			{
-				continue;
-			}
+				if ($method->isAbstract())
+				{
+					continue;
+				}
 
-			$linenr = key($coverageInformation);
-
-			while ($linenr < $method->getStartLine() && current($coverageInformation) > 0)
-			{
-				next($coverageInformation);
 				$linenr = key($coverageInformation);
+
+				while ($linenr < $method->getStartLine() && current($coverageInformation) > 0)
+				{
+					next($coverageInformation);
+					$linenr = key($coverageInformation);
+				}
+
+				if ($method->getStartLine() <= $linenr && $linenr <= $method->getEndLine())
+				{
+					$methodscovered++;
+				}
+
+				$methodcount++;
 			}
 
-			if ($method->getStartLine() <= $linenr && $linenr <= $method->getEndLine())
+			$classStartLine = $reflection->getStartLine();
+
+			// Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
+			if ($reflection->getParentClass() == NULL && count($reflection->getInterfaces()) == 0)
 			{
-				$methodscovered++;
+				$classStartLine--;
 			}
-					
-			$methodcount++;
+
+			$classElement->appendChild($this->transformSourceFile($basename, $filename, $coverageInformation, $classStartLine));
+
+			$classElement->setAttribute('methodcount', $methodcount);
+			$classElement->setAttribute('methodscovered', $methodscovered);
 		}
-
-		$classStartLine = $reflection->getStartLine();
-
-		// Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
-		if ($reflection->getParentClass() == NULL && count($reflection->getInterfaces()) == 0)
-		{
-			$classStartLine--;
-		}
-
-		$classElement->appendChild($this->transformSourceFile($basename, $filename, $coverageInformation, $classStartLine));
-
-		$classElement->setAttribute('methodcount', $methodcount);
-		$classElement->setAttribute('methodscovered', $methodscovered);
 	}
 
 	protected function calculateStatistics()

@@ -154,16 +154,14 @@ class BatchTest
 	{
 		$filenames = $this->getFilenames();
 		
-		$declaredClassesOld = get_declared_classes();
+		$declaredClasses = array();		
 
 		foreach ($filenames as $filename)
 		{
-			Phing::__import($filename, $this->classpath);
+			$definedClasses = PHPUnit2Util::getDefinedClasses($filename);
+			
+			$declaredClasses = array_merge($declaredClasses, $definedClasses);
 		}
-		
-		$declaredClassesNew = get_declared_classes();
-		
-		$declaredClasses = array_diff($declaredClassesNew, $declaredClassesOld, $this->excludeClasses);
 		
 		$elements = array_filter($declaredClasses, array($this, "filterTests"));
 

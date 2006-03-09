@@ -29,6 +29,8 @@
  */
 class PHPUnit2Util
 {
+	protected static $definedClasses = array();
+	
 	/**
 	 * Returns the package of a class as defined in the docblock of the class using @package
 	 *
@@ -69,6 +71,44 @@ class PHPUnit2Util
 		}
 		
 		return $filename;
+	}
+
+	/**
+	 * @param string the filename
+	 * @param Path optional classpath
+	 * @return array list of classes defined in the file
+	 */
+	static function getDefinedClasses($filename, $classpath = NULL)
+	{
+		$filename = realpath($filename);
+		
+		if (!file_exists($filename))
+		{
+			throw new Exception("File '" . $filename . "' does not exist");
+		}
+		
+		if (isset(self::$definedClasses[$filename]))
+		{
+			return self::$definedClasses[$filename];
+		}
+		
+		Phing::__import($filename, $classpath);
+
+		$declaredClasses = get_declared_classes();
+		
+		foreach ($declaredClasses as $classname)
+		{
+			$reflect = new ReflectionClass($classname);
+			
+			self::$definedClasses[$reflect->getFilename()][] = $classname;
+			
+			if (is_array(self::$definedClasses[$reflect->getFilename()]))
+			{			
+				self::$definedClasses[$reflect->getFilename()] = array_unique(self::$definedClasses[$reflect->getFilename()]);
+			}
+		}
+				
+		return self::$definedClasses[$filename];
 	}
 }
 ?>
