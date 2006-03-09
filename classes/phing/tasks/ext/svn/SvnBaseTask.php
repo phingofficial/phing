@@ -27,7 +27,7 @@ include_once 'phing/Task.php';
  *  <mail to="user@example.org" subject="build complete">The build process is a success...</mail> 
  * 
  *  @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
- *  @version  $Revision: 1.1 $
+ *  @version  $Id$
  *  @package  phing.tasks.ext
  */
 abstract class SvnBaseTask extends Task
