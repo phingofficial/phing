@@ -286,12 +286,6 @@ class CoverageReportTask extends Task
 
 			$classStartLine = $reflection->getStartLine();
 
-			// Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
-			if ($reflection->getParentClass() == NULL && count($reflection->getInterfaces()) == 0)
-			{
-				$classStartLine--;
-			}
-
 			$classElement->appendChild($this->transformSourceFile($basename, $filename, $coverageInformation, $classStartLine));
 
 			$classElement->setAttribute('methodcount', $methodcount);
