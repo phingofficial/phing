@@ -32,7 +32,7 @@ class PHPUnit2Util
 	/**
 	 * Returns the package of a class as defined in the docblock of the class using @package
 	 *
-	 * @param string the name of the  class
+	 * @param string the name of the class
 	 * @return string the name of the package
 	 */
 	static function getPackageName($classname)
@@ -49,6 +49,14 @@ class PHPUnit2Util
 		}
 	}
 	
+	/**
+	 * Derives the classname from a filename.
+	 * Assumes that there is only one class defined in that particular file, and that
+	 * the naming follows the dot-path (Java) notation scheme.
+	 *
+	 * @param string the filename
+	 * @return string the name fo the class
+	 */
 	static function getClassFromFileName($filename)
 	{
 		$filename = basename($filename);
