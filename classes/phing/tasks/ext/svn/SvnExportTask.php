@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: SvnExportTask.php,v 1.1 2006/01/25 15:28:12 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Exports/checks out a repository to a local directory
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: SvnExportTask.php,v 1.1 2006/01/25 15:28:12 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.svn
  * @see VersionControl_SVN
  * @since 2.1.0
