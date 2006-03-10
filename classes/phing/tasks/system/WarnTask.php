@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: WarnTask.php,v 1.1 2006/01/05 21:56:08 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +25,7 @@ require_once 'phing/tasks/system/EchoTask.php';
  * Simple task to echo a warning message (PROJECT_MSG_WARN) to all output devices.
  *
  * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Revision: 1.1 $ $Date: 2006/01/05 21:56:08 $
+ * @version  $Revision: 1.1 $ $Date$
  * @package  phing.tasks.system
  */
 class WarnTask extends EchoTask {

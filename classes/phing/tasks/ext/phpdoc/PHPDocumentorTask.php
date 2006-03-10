@@ -1,7 +1,7 @@
 <?php
 
 	/**
-	 * $Id: PHPDocumentorTask.php,v 1.3 2004/11/16 21:12:04 hlellelid Exp $
+	 * $Id$
 	 *
 	 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@
 	 * Task to run phpDocumentor.
 	 *
 	 * @author Michiel Rook <michiel@trendserver.nl>
-	 * @version $Id: PHPDocumentorTask.php,v 1.3 2004/11/16 21:12:04 hlellelid Exp $
+	 * @version $Id$
 	 * @package phing.tasks.ext.phpdoc
 	 */	
 	class PHPDocumentorTask extends Task

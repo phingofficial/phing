@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ConditionTask.php,v 1.7 2003/12/24 13:02:09 hlellelid Exp $  
+ *  $Id$  
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,7 +32,7 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.7 $ $Date: 2003/12/24 13:02:09 $
+ *  @version   $Revision: 1.7 $ $Date$
  *  @access    public
  *  @package   phing.tasks.system
  */

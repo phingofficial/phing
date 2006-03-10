@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: FormatterElement.php,v 1.8 2005/06/02 15:32:06 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@ require_once 'phing/system/io/PhingFile.php';
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: FormatterElement.php,v 1.8 2005/06/02 15:32:06 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0
  */

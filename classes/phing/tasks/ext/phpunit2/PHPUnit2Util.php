@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: PHPUnit2Util.php,v 1.7 2004/12/02 10:52:08 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +23,7 @@
  * Various utility functions
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: PHPUnit2Util.php,v 1.7 2004/12/02 10:52:08 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0
  */
