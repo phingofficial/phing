@@ -122,7 +122,7 @@
 			
 			if ($this->title)
 			{
-				$arguments.= "-ti '" . $this->title . "' ";
+				$arguments.= "-ti \"" . $this->title . "\" ";
 			}
 			
 			if ($this->destdir)
