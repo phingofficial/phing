@@ -291,6 +291,7 @@ TD.srcLineClassStart {
                 <td class="small">Classes: <xsl:value-of select="count(package/class)"/></td>
                 <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
                 <td class="small">LOC: <xsl:value-of select="count(package/class/sourcefile/sourceline)"/></td>
+                <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
             </tr>
         </table>        
         <br/>
@@ -414,6 +415,7 @@ TD.srcLineClassStart {
                     <td class="small">Classes: <xsl:value-of select="count(class)"/></td>
                     <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
                     <td class="small">LOC: <xsl:value-of select="count(class/sourcefile/sourceline)"/></td>
+                    <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
             </table>        
             <br/>
@@ -462,6 +464,7 @@ TD.srcLineClassStart {
                 <tr class="a">
                     <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
                     <td class="small">LOC: <xsl:value-of select="count(sourcefile/sourceline)"/></td>
+                    <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
             </table>        
             <br/>
