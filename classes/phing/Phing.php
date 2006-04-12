@@ -810,7 +810,10 @@ class Phing {
             return $classname;
         }
         
-        $path = strtr($dotPath, '.', DIRECTORY_SEPARATOR) . ".php";        
+        $dotClassname = basename($dotPath);
+        $dotClassnamePos = strlen($dotPath) - strlen($dotClassname);
+        $classFile = strtr($dotClassname, '.', DIRECTORY_SEPARATOR) . ".php";
+        $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
         
         Phing::__import($path, $classpath);
         
