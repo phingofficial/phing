@@ -63,7 +63,8 @@ fi
 
 if (test -z "$PHP_COMMAND") ; then
 	# echo "WARNING: PHP_COMMAND environment not set. (Assuming php on PATH)"
-	export PHP_COMMAND=php
+	PHP_COMMAND=php
+	export PHP_COMMAND
 fi
 
 if (test -z "$PHP_CLASSPATH") ; then
