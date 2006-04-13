@@ -617,16 +617,16 @@ TD.srcLineClassStart {
             </xsl:if>
             <xsl:if test="@coveredcount>0">
                 <span class="srcLine">
-                <pre class="srcLine"><xsl:value-of select="." disable-output-escaping="yes"/></pre>
+                <pre class="srcLine"><xsl:value-of select="."/></pre>
                 </span>
             </xsl:if>
             <xsl:if test="@coveredcount&lt;0">
                 <span class="srcLineHighlight">
-                <pre class="srcLine"><xsl:value-of select="." disable-output-escaping="yes"/></pre>
+                <pre class="srcLine"><xsl:value-of select="."/></pre>
                 </span>
             </xsl:if>
             <xsl:if test="@coveredcount=0">
-                <pre class="srcLine"><xsl:value-of select="." disable-output-escaping="yes"/></pre>
+                <pre class="srcLine"><xsl:value-of select="."/></pre>
             </xsl:if>
         </td>
     </tr>

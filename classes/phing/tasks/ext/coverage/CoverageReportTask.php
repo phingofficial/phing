@@ -187,7 +187,7 @@ class CoverageReportTask extends Task
 				
 				$line = rtrim($line);
 
-				$lines[$i] = utf8_encode(htmlspecialchars($line));
+				$lines[$i] = utf8_encode($line);
 			}
 			
 			return $lines;
