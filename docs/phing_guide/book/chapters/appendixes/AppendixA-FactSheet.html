@@ -7,14 +7,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title> Phing Guide </title> 
+	<title> Phing Guide </title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 	<link rel="Stylesheet" rev="Stylesheet" href="../../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
 </head>
 <body>
 <h1>Appendix A: Fact Sheet</h1>
 
-<h2><a name="BuiltInProperties"></a>Built-In Properties</h2> 
+<h2><a name="BuiltInProperties"></a>Built-In Properties</h2>
 
 <table>
 <caption>Phing Built-In Properties</caption>
@@ -30,8 +30,13 @@
   <td>Current work directory</td>
 </tr>
 <tr>
+  <td>env.*</td>
+  <td>Environment variables, extracted from <em>$_SERVER</em>.</td>
+</tr>
+<tr>
   <td>host.arch</td>
-  <td>Name of the host machine. <em>Not available on Windows machines.</em></td>
+  <td>System architecture, i.e. <em>i586</em>.
+      <em>Not available on Windows machines.</em></td>
 </tr>
 <tr>
   <td>host.domain</td>
@@ -43,34 +48,58 @@
       <em>WINNT</em> and <em>WIN32</em></td>
 </tr>
 <tr>
-  <td>host.machine</td>
-  <td>System architecture, i.e. <em>i586</em>. 
+  <td>host.name</td>
+  <td>Operating System hostname as returned by <em>posix_uname()</em>.
       <em>Not available on Windows machines.</em></td>
 </tr>
 <tr>
-  <td>host.name</td>
-  <td>Operating System name as returned by <em>posix_uname()</em>.
-      <em>Not available on Windows machines.</em></td>
+  <td>host.os</td>
+  <td>Operating System description as set in <em>PHP_OS</em> variable.</td>
 </tr>
 <tr>
   <td>host.os.release</td>
-  <td>Operating version release, i.e. <em> 2.2.10</em>. 
+  <td>Operating version release, i.e. <em> 2.2.10</em>.
       <em>Not available on Windows machines.</em></td>
 </tr>
 <tr>
   <td>host.os.version</td>
-  <td>Operating system version, i.e. <em>#4 Tue Jul 20 17:01:36 MEST 1999</em>. 
+  <td>Operating system version, i.e. <em>#4 Tue Jul 20 17:01:36 MEST 1999</em>.
       <em>Not available on Windows machines.</em></td>
 </tr>
 <tr>
   <td>line.separator</td>
-  <td>Character(s) that signal the end of a line, &quot;\n&quot; for Linux, 
+  <td>Character(s) that signal the end of a line, &quot;\n&quot; for Linux,
       &quot;\r\n&quot; for Windows system, &quot;\r&quot; for Macintosh.</td>
+</tr>
+<tr>
+  <td>os.name</td>
+  <td>Operating System description as set in <em>PHP_OS</em> variable.</td>
+</tr>
+
+<tr>
+  <td>phing.file</td>
+  <td>Full path to current buildfile.</td>
+</tr>
+<tr>
+  <td>phing.home</td>
+  <td>Phing installation directory, not set in <em>PEAR</em> installations.</td>
+</tr>
+<tr>
+  <td>phing.version</td>
+  <td>Current Phing version. This property equals the value of the PHP
+      constant <em>PHP_OS</em> (see <a
+      href="http://www.php.net/manual/en/reserved.constants.core.php">PHP Manual</a>).
+      Possible values are <em>Linux</em>, <em>Win32</em> and <em>WINNT</em>, for
+      example.</td>
+</tr>
+<tr>
+  <td>phing.project.name</td>
+  <td>Name of the currently processed project.</td>
 </tr>
 
 <tr>
   <td>php.classpath</td>
-  <td>The value of the environment variable <em>PHP_CLASSPATH</em></td>
+  <td>The value of the environment variable <em>PHP_CLASSPATH</em>.</td>
 </tr>
 <tr>
   <td>php.version</td>
@@ -80,33 +109,8 @@
 </tr>
 
 <tr>
-  <td>phing.buildfile</td>
-  <td>Full path to current buildfile</td>
-</tr>
-<tr>
-  <td>phing.id</td>
-  <td>ID of hte current phing instance</td>
-</tr>
-<tr>
-  <td>phing.version</td>
-  <td>Current Phing version. This property equals the value of the PHP
-      constant <em>PHP_OS</em> (see <a 
-      href="http://www.php.net/manual/en/reserved.constants.core.php">PHP Manual</a>.
-      Possible values are <em>Linux</em>, <em>Win32</em> and <em>WINNT</em>, for
-      example.</td>
-</tr>
-
-<tr>
-  <td>project.name</td>
-  <td>Name of the currently processed project.</td>
-</tr>
-<tr>
   <td>project.basedir</td>
-  <td>The current project basedir</td>
-</tr>
-<tr>
-  <td>project.description</td>
-  <td>The description of the currently processed project.</td>
+  <td>The current project basedir.</td>
 </tr>
 
 <tr>
@@ -168,7 +172,7 @@ below are currently available.</p>
 </table>
 
 
-<h2><a name="DistributionFileLayout"></a>Distribution File Layout</h2> 
+<h2><a name="DistributionFileLayout"></a>Distribution File Layout</h2>
 
 <pre title="DistributionFileLayout">$PHING_HOME
   |-- bin
@@ -191,12 +195,12 @@ below are currently available.</p>
 	   `-- etc
 </pre>
 
-<h2><a name="ProgramExitCodes"></a>Program Exit Codes</h2> 
+<h2><a name="ProgramExitCodes"></a>Program Exit Codes</h2>
 
-<p>Phing is script-safe - means that you can execute Phing and 
-Configure within a automated script context. To check back the 
-success of a Phing call it returns an exit code that can be 
-captured by your calling script. The following list gives you 
+<p>Phing is script-safe - means that you can execute Phing and
+Configure within a automated script context. To check back the
+success of a Phing call it returns an exit code that can be
+captured by your calling script. The following list gives you
 details on the used exit codes and their meaning.</p>
 
 <table>
@@ -385,7 +389,7 @@ such a program is covered only if its contents constitute a work based
 on the Library (independent of the use of the Library in a tool for
 writing it).  Whether that is true depends on what the Library does
 and what the program that uses the Library does.
-  
+
   1. You may copy and distribute verbatim copies of the Library's
 complete source code as you receive it, in any medium, provided that
 you conspicuously and appropriately publish on each copy an
