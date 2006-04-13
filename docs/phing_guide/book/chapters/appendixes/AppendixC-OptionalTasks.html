@@ -716,8 +716,12 @@ the file <em>reports/testsuites.xml</em> as input.</p>
 
 <h2><a name="SvnExportTask"></a>SvnExportTask</h2>
 <p> The <em>SvnExportTask</em> exports a Subversion repository to a local directory.</p>
-<h3>Example</h3>
+<h3>Examples</h3>
+
 <pre>&lt;svnexport svnpath=&quot;/usr/bin/svn&quot; repositoryurl=&quot;svn://localhost/project/trunk/&quot; todir=&quot;/home/user/svnwc&quot;/&gt;
+</pre>
+
+<pre>&lt;svnexport svnpath=&quot;C:/Subversion/bin/svn.exe&quot; repositoryurl=&quot;svn://localhost/project/trunk/&quot; todir=&quot;C:/projects/svnwc&quot;/&gt;
 </pre>
 
 <h3>Attributes</h3>
@@ -758,8 +762,12 @@ the file <em>reports/testsuites.xml</em> as input.</p>
 
 <h2><a name="SvnLastRevisionTask"></a>SvnLastRevisionTask</h2>
 <p> The <em>SvnLastRevisionTask</em> stores the number of the last revision of a Subversion workingcopy in a property.</p>
-<h3>Example</h3>
-<pre>&lt;svnlastrevision svnpath=&quot;/usr/bin/svn&quot; workingcopy=&quot;/home/user/svnwc/&quot; propertyname=&quot;svn.lastrevision&quot;/&gt;
+<h3>Examples</h3>
+
+<pre>&lt;svnlastrevision svnpath=&quot;/usr/bin/svn&quot; workingcopy=&quot;/home/user/svnwc&quot; propertyname=&quot;svn.lastrevision&quot;/&gt;
+</pre>
+
+<pre>&lt;svnlastrevision svnpath=&quot;C:/Subversion/bin/svn.exe&quot; workingcopy=&quot;C:/projects/svnwc&quot; propertyname=&quot;svn.lastrevision&quot;/&gt;
 </pre>
 
 <h3>Attributes</h3>
