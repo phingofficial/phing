@@ -22,6 +22,30 @@ building projects, but can assist in various aspects of development and deployme
 <p> This reference lists the tasks alphabetically by the name of the classes that
   implement the tasks. So if you are searching for the reference to the <code>&lt;copy&gt;</code>
   tag, for example, you will want to look at the reference of CopyTask. </p>
+
+<h2><a name="CoverageMergerTask"></a>CoverageMergerTask</h2>
+<p>The CoverageMergerTask merges code coverage information from external sources with an existing code coverage database.</p>
+
+<p>The format of the code coverage files is expected to be identical to:
+
+<pre>
+file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code_coverage));
+</pre>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;coverage-merger&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;/www/live/testcases&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.data"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/coverage-merger&gt;
+</pre>
+
 <h2><a name="CoverageReportTask"></a>CoverageReportTask</h2>
 <p>The CoverageReportTask formats a coverage database into a framed HTML report using XSLT.
 
@@ -116,6 +140,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 
 <h3>Supported Nested Tags</h3>
 <ul>
+  <li>classpath</li>
   <li>fileset</li>
 </ul>
 
