@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: PhingTask.php,v 1.20 2005/11/08 20:45:59 hlellelid Exp $  
+ *  $Id$  
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -72,6 +72,19 @@ class PhingTask extends Task {
 
     /** the temporary project created to run the build file */
     private $newProject;
+
+    /** Fail the build process when the called build fails? */
+    private $haltOnFailure = false;
+
+    /**
+     *  If true, abort the build process if there is a problem with or in the target build file.
+     *  Defaults to false.
+     *
+     *  @param boolean new value
+     */
+    public function setHaltOnFailure($hof) {
+        $this->haltOnFailure = (boolean) $hof;
+    }
 
     /**
      * Creates a Project instance for the project to call.
@@ -146,6 +159,7 @@ class PhingTask extends Task {
         $savedDir = $this->dir;
         $savedPhingFile = $this->phingFile;
         $savedTarget = $this->newTarget;
+        $buildFailed = false;
 
         // set no specific target for files in filesets
         // [HL] I'm commenting this out; I don't know why this should not be supported!
@@ -240,6 +254,7 @@ class PhingTask extends Task {
             $this->newProject->executeTarget($this->newTarget);
             
         } catch (Exception $e) {
+            $buildFailed = true;
             $this->log($e->getMessage(), PROJECT_MSG_ERR);
             
             // important!!! continue on to perform cleanup
@@ -262,6 +277,9 @@ class PhingTask extends Task {
         if ($this->dir !== null) {
             chdir($this->dir->getAbsolutePath());
         }
+
+        if ($this->haltOnFailure == true && $buildFailed == true)
+            throw new BuildException("Execution of the target buildfile failed. Aborting.");
     }
 
     /**

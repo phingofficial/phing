@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: IoncubeLicenseTask.php,v 1.1 2006/01/30 10:32:35 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
  * Invokes the ionCube "make_license" program
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: IoncubeLicenseTask.php,v 1.1 2006/01/30 10:32:35 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0
  */

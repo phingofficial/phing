@@ -22,6 +22,30 @@ building projects, but can assist in various aspects of development and deployme
 <p> This reference lists the tasks alphabetically by the name of the classes that
   implement the tasks. So if you are searching for the reference to the <code>&lt;copy&gt;</code>
   tag, for example, you will want to look at the reference of CopyTask. </p>
+
+<h2><a name="CoverageMergerTask"></a>CoverageMergerTask</h2>
+<p>The CoverageMergerTask merges code coverage information from external sources with an existing code coverage database.</p>
+
+<p>The format of the code coverage files is expected to be identical to:
+
+<pre>
+file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code_coverage));
+</pre>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;coverage-merger&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;/www/live/testcases&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.data"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/coverage-merger&gt;
+</pre>
+
 <h2><a name="CoverageReportTask"></a>CoverageReportTask</h2>
 <p>The CoverageReportTask formats a coverage database into a framed HTML report using XSLT.
 
@@ -116,6 +140,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 
 <h3>Supported Nested Tags</h3>
 <ul>
+  <li>classpath</li>
   <li>fileset</li>
 </ul>
 
@@ -870,6 +895,57 @@ archive.</p>
 <ul>
   <li>fileset</li>
 </ul>
+
+<h2><a name="XmlLintTask"></a>XmlLintTask</h2>
+<p>The <em>XmlLintTask</em> checks syntax (lint) one or more XML files against an XML Schema Definition.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>schema</td>
+      <td>String</td>
+      <td>Path to XSD file</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Path to XML file</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;xmllint schema=&quot;schema.xsd&quot; file=&quot;config.xml&quot;/&gt;
+</pre>
+<p>Validate one XML file against one XSD file.</p>
+<pre>
+&lt;xmllint schema=&quot;schema.xsd&quot;&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;.&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/config.xml"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/xmllint&gt;
+</pre>
+<p>Validate more XML files against one XSD file.</p>
 
 <h2><a name="ZipTask"></a>ZipTask</h2>
 <p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p>

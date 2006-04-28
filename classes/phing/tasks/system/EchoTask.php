@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: EchoTask.php,v 1.5 2003/12/24 13:02:09 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,20 +22,72 @@
 include_once 'phing/Task.php';
 
 /**
- *  Echos a message to all output devices
+ *  Echos a message to the logging system or to a file
  *
+ *  @author   Michiel Rook <michiel@trendserver.nl>
  *  @author   Andreas Aderhold, andi@binarycloud.com
- *  @version  $Revision: 1.5 $ $Date: 2003/12/24 13:02:09 $
+ *  @version  $Revision: 1.5 $ $Date$
  *  @package  phing.tasks.system
  */
 
 class EchoTask extends Task {
+	
+    protected $msg = "";
+    
+    protected $file = "";
+    
+    protected $append = false;
+    
+    protected $level = "info";
 
-    protected $msg;
-
-    function main() {
-        $this->log($this->msg);
+    function main() {		
+		switch ($this->level)
+		{
+			case "error": $loglevel = PROJECT_MSG_ERR; break;
+			case "warning": $loglevel = PROJECT_MSG_WARN; break;
+			case "info": $loglevel = PROJECT_MSG_INFO; break;
+			case "verbose": $loglevel = PROJECT_MSG_VERBOSE; break;
+			case "debug": $loglevel = PROJECT_MSG_DEBUG; break;
+		}
+		
+		if (empty($this->file))
+		{
+        	$this->log($this->msg, $loglevel);
+		}
+		else
+		{
+			if ($this->append)
+			{
+				$handle = fopen($this->file, "a");
+			}
+			else
+			{
+				$handle = fopen($this->file, "w");
+			}
+			
+			fwrite($handle, $this->msg);
+			
+			fclose($handle);
+		}
     }
+    
+    /** setter for file */
+    function setFile($file)
+    {
+		$this->file = (string) $file;
+	}
+
+    /** setter for level */
+    function setLevel($level)
+    {
+		$this->level = (string) $level;
+	}
+
+    /** setter for append */
+    function setAppend($append)
+    {
+		$this->append = $append;
+	}
 
     /** setter for message */
     function setMsg($msg) {

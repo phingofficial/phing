@@ -134,6 +134,7 @@ looking for binarycloud related tasks, look in appendix ?.
 <h3>Supported Nested Tags</h3>
 <ul>
   <li>FileList</li>
+  <li>FileSet</li>
   <li>FilterChain</li>
 </ul>
 
@@ -516,14 +517,20 @@ for information on Filesets.
 
 <h2><a name="EchoTask"></a>EchoTask</h2>
 <p>
-  This task simply verboses a string.
+Echoes a message to the current loggers and listeners which means standard out unless overridden.
+A level can be specified, which controls at what logging level the message is filtered at. </p>
+
+<p>
+The task can also echo to a file, in which case the option to append rather than overwrite the file is available, and the level option is ignored
 </p>
-<h3>Example</h3>
+<h3>Examples</h3>
 <pre>&lt;echo msg=&quot;Phing rocks!&quot; /&gt;
 
 &lt;echo message=&quot;Binarycloud, too.&quot; /&gt;
 
-&lt;echo&gt;And don't forget Propel.&lt;/echo&gt;</pre>
+&lt;echo&gt;And don't forget Propel.&lt;/echo&gt;
+
+&lt;echo file="test.txt" append="false"&gt;This is a test message&lt;/echo&gt;</pre>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -553,6 +560,30 @@ for information on Filesets.
       </td>
       <td>n/a</td>
       <td>Yes</td>
+    </tr>
+     <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>The file to write the message to.
+      </td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+     <tr>
+      <td>append</td>
+      <td>Boolean</td>
+      <td>Append to an existing file?
+      </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+     <tr>
+      <td>level</td>
+      <td>String</td>
+      <td>Control the level at which this message is reported. One of <em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>, <em>debug</em>.
+      </td>
+      <td><em>warning</em></td>
+      <td>No</td>
     </tr>
   </tbody>
 </table>
@@ -947,6 +978,13 @@ for information on Filesets.
       <td>n/a</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td>haltonfailure</td>
+      <td>Boolean</td>
+      <td>If true, fail the build process when the called build fails</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1323,6 +1361,97 @@ specified directory or the project basedir (if no dir attribute specified).</p>
     </tr>
   </tbody>
 </table>
+
+<h2><a name="TstampTask"></a>TstampTask</h2>
+<p>
+Sets the DSTAMP, TSTAMP, and TODAY properties in the current project.
+By default, the DSTAMP property is in the format "%Y%m%d", TSTAMP is in the format "%H%M", and TODAY is in the format "%B %d %Y".
+Use the nested &lt;format&gt; element to specify a different format.</p>
+
+<p>
+These properties can be used in the build-file, for instance, to create time-stamped filenames, or used to replace placeholder tags inside documents to indicate, for example, the release date. The best place for this task is probably in an initialization target.
+</p>
+
+<h3>Examples</h3>
+<pre>&lt;tstamp/&gt;</pre>
+
+<p>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default formats.</p>
+
+<pre>&lt;tstamp&gt;
+  &ltformat property=&quot;DATE&quot; pattern=&quot;%c&quot; locale=&quot;nl_NL&quot;/&gt;
+&lt;/tstamp&gt;</pre>
+
+<p>sets the standard properties as well as the property DATE with the date/time pattern "%c" using the Dutch locale.</p>
+
+<pre>&lt;tstamp prefix=&quot;start&quot;/&gt;</pre>
+
+<p>sets three properties with the standard formats, prefixed with "start.": start.DSTAMP, start.TSTAMP, and start.TODAY.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>prefix</td>
+      <td>String</td>
+      <td>Prefix used for all properties set.
+      </td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>format
+    <p>The Tstamp task supports a &lt;format&gt; nested element that allows a property to be set to the current date and time in a given format.
+    The date/time patterns are as defined in the PHP strftime() function.</p>
+	<h3>Attributes</h3>
+	<table>
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  <th>Type</th>
+		  <th>Description</th>
+		  <th>Default</th>
+		  <th>Required</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>property</td>
+		  <td>String</td>
+		  <td>The property to receive the date/time string in the given pattern. </td>
+		  <td>n/a</td>
+		  <td>Yes</td>
+		</tr>
+		<tr>
+		  <td>classname</td>
+		  <td>String</td>
+		  <td>The date/time pattern to be used. The values are as defined by the PHP strftime() function.</td>
+		  <td>n/a</td>
+		  <td>Yes</td>
+		</tr>
+		<tr>
+		  <td>locale</td>
+		  <td>String</td>
+		  <td>The locale used to create date/time string. For more information see the PHP setlocale() function.</td>
+		  <td>n/a</td>
+		  <td>No</td>
+		</tr>
+	  </tbody>
+	</table>
+  </li>
+</ul>
 
 <h2><a name="TypedefTask"></a>TypedefTask</h2>
 <p>

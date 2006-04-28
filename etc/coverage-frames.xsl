@@ -237,11 +237,11 @@ TD.srcLineClassStart {
                         <td nowrap="nowrap">
                             <a target="classFrame" href="{$link}"><xsl:value-of select="@name"/></a>
                             <xsl:choose>
-								<xsl:when test="@methodcount=0">
+								<xsl:when test="@totalcount=0">
 									<i> (-)</i>
 								</xsl:when>
 								<xsl:otherwise>
-									<i> (<xsl:value-of select="format-number(@methodscovered div @methodcount, '0.0%')"/>)</i>
+									<i> (<xsl:value-of select="format-number(@totalcovered div @totalcount, '0.0%')"/>)</i>
 								</xsl:otherwise>
 							</xsl:choose>
                         </td>
@@ -291,6 +291,7 @@ TD.srcLineClassStart {
                 <td class="small">Classes: <xsl:value-of select="count(package/class)"/></td>
                 <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
                 <td class="small">LOC: <xsl:value-of select="count(package/class/sourcefile/sourceline)"/></td>
+                <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
             </tr>
         </table>        
         <br/>
@@ -298,10 +299,12 @@ TD.srcLineClassStart {
         <table class="log" cellpadding="5" cellspacing="0" width="100%">
             <tr>
                 <th width="100%" nowrap="nowrap"></th>
-                <th width="350" colspan="2" nowrap="nowrap">Methods covered</th>
+                <th>Statements</th>
+                <th>Methods</th>
+                <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
             </tr>
             <tr class="a">
-        <td>Total coverage</td>
+        	<td><b>Project</b></td>
                 <xsl:call-template name="stats.formatted"/>
             </tr>
             <tr>
@@ -309,11 +312,13 @@ TD.srcLineClassStart {
             </tr>
             <tr>
                 <th width="100%">Packages</th>
-                <th width="350" colspan="2" nowrap="nowrap">Methods covered</th>
+                <th>Statements</th>
+                <th>Methods</th>
+                <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
             </tr>
             <!-- display packages and sort them via their coverage rate -->
             <xsl:for-each select="package">
-                <xsl:sort data-type="number" select="@methodscovered div @methodcount"/>
+                <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
                 <tr>
                   <xsl:call-template name="alternate-row"/>
                     <td><a href="{translate(@name,'.','/')}/package-summary.html"><xsl:value-of select="@name"/></a></td>
@@ -379,11 +384,11 @@ TD.srcLineClassStart {
                         <td nowrap="nowrap">
                             <a href="{@name}.html" target="classFrame"><xsl:value-of select="@name"/></a>
                             <xsl:choose>
-								<xsl:when test="@methodcount=0">
+								<xsl:when test="@totalcount=0">
 									<i> (-)</i>
 								</xsl:when>
 								<xsl:otherwise>
-                            		<i>(<xsl:value-of select="format-number(@methodscovered div @methodcount, '0.0%')"/>)</i>
+                            		<i>(<xsl:value-of select="format-number(@totalcovered div @totalcount, '0.0%')"/>)</i>
                             	</xsl:otherwise>
                             </xsl:choose>
                         </td>
@@ -410,6 +415,7 @@ TD.srcLineClassStart {
                     <td class="small">Classes: <xsl:value-of select="count(class)"/></td>
                     <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
                     <td class="small">LOC: <xsl:value-of select="count(class/sourcefile/sourceline)"/></td>
+                    <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
             </table>        
             <br/>
@@ -417,7 +423,9 @@ TD.srcLineClassStart {
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
                 <tr>
                     <th width="100%">Package</th>
-                    <th width="350" colspan="2" nowrap="nowrap">Methods covered</th>
+                    <th>Statements</th>
+                    <th>Methods</th>
+                    <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
                 </tr>
                 <xsl:apply-templates select="." mode="stats"/>
 
@@ -427,10 +435,12 @@ TD.srcLineClassStart {
                     </tr>
                     <tr>
                         <th width="100%">Classes</th>
-                        <th width="350" colspan="2" nowrap="nowrap">Methods covered</th>
+                        <th>Statements</th>
+                        <th>Methods</th>
+                        <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
                     </tr>
                     <xsl:apply-templates select="class" mode="stats">
-                        <xsl:sort data-type="number" select="@methodscovered div @methodcount"/>
+                        <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
                     </xsl:apply-templates>
                 </xsl:if>
             </table>
@@ -454,6 +464,7 @@ TD.srcLineClassStart {
                 <tr class="a">
                     <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
                     <td class="small">LOC: <xsl:value-of select="count(sourcefile/sourceline)"/></td>
+                    <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
             </table>        
             <br/>
@@ -462,7 +473,9 @@ TD.srcLineClassStart {
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
                 <tr>
                     <th width="100%">Source file</th>
-                    <th width="250" colspan="2" nowrap="nowrap">Methods covered</th>
+                    <th>Statements</th>
+                    <th>Methods</th>
+                    <th width="250" colspan="2" nowrap="nowrap">Total coverage</th>
                 </tr>
                 <tr>
                     <xsl:call-template name="alternate-row"/>
@@ -525,7 +538,27 @@ TD.srcLineClassStart {
 
 <xsl:template name="stats.formatted">
     <xsl:choose>
+        <xsl:when test="@statementcount=0">
+            <td>-</td>
+        </xsl:when>
+        <xsl:otherwise>
+            <td>
+            <xsl:value-of select="format-number(@statementscovered div @statementcount,'0.0%')"/>
+            </td>
+        </xsl:otherwise>
+    </xsl:choose>
+    <xsl:choose>
         <xsl:when test="@methodcount=0">
+            <td>-</td>
+        </xsl:when>
+        <xsl:otherwise>
+            <td>
+            <xsl:value-of select="format-number(@methodscovered div @methodcount,'0.0%')"/>
+            </td>
+        </xsl:otherwise>
+    </xsl:choose>
+    <xsl:choose>
+        <xsl:when test="@totalcount=0">
             <td>-</td>
             <td>
             <table cellspacing="0" cellpadding="0" border="0" width="100%" style="display: inline">
@@ -537,11 +570,11 @@ TD.srcLineClassStart {
         </xsl:when>
         <xsl:otherwise>
             <td>
-            <xsl:value-of select="format-number(@methodscovered div @methodcount,'0.0%')"/>
+            <xsl:value-of select="format-number(@totalcovered div @totalcount,'0.0%')"/>
             </td>
             <td>
-            <xsl:variable name="leftwidth"><xsl:value-of select="format-number((@methodscovered * 200) div @methodcount,'0')"/></xsl:variable>
-            <xsl:variable name="rightwidth"><xsl:value-of select="format-number(200 - (@methodscovered * 200) div @methodcount,'0')"/></xsl:variable>
+            <xsl:variable name="leftwidth"><xsl:value-of select="format-number((@totalcovered * 200) div @totalcount,'0')"/></xsl:variable>
+            <xsl:variable name="rightwidth"><xsl:value-of select="format-number(200 - (@totalcovered * 200) div @totalcount,'0')"/></xsl:variable>
             <table cellspacing="0" cellpadding="0" border="0" width="100%" style="display: inline">
                 <tr>
                     <xsl:choose>
@@ -584,16 +617,16 @@ TD.srcLineClassStart {
             </xsl:if>
             <xsl:if test="@coveredcount>0">
                 <span class="srcLine">
-                <pre class="srcLine"><xsl:value-of select="." disable-output-escaping="yes"/></pre>
+                <pre class="srcLine"><xsl:value-of select="."/></pre>
                 </span>
             </xsl:if>
             <xsl:if test="@coveredcount&lt;0">
                 <span class="srcLineHighlight">
-                <pre class="srcLine"><xsl:value-of select="." disable-output-escaping="yes"/></pre>
+                <pre class="srcLine"><xsl:value-of select="."/></pre>
                 </span>
             </xsl:if>
             <xsl:if test="@coveredcount=0">
-                <pre class="srcLine"><xsl:value-of select="." disable-output-escaping="yes"/></pre>
+                <pre class="srcLine"><xsl:value-of select="."/></pre>
             </xsl:if>
         </td>
     </tr>

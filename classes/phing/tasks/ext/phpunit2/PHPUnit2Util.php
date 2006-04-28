@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: PHPUnit2Util.php,v 1.7 2004/12/02 10:52:08 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,16 +23,18 @@
  * Various utility functions
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: PHPUnit2Util.php,v 1.7 2004/12/02 10:52:08 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0
  */
 class PHPUnit2Util
 {
+	protected static $definedClasses = array();
+	
 	/**
 	 * Returns the package of a class as defined in the docblock of the class using @package
 	 *
-	 * @param string the name of the  class
+	 * @param string the name of the class
 	 * @return string the name of the package
 	 */
 	static function getPackageName($classname)
@@ -49,6 +51,14 @@ class PHPUnit2Util
 		}
 	}
 	
+	/**
+	 * Derives the classname from a filename.
+	 * Assumes that there is only one class defined in that particular file, and that
+	 * the naming follows the dot-path (Java) notation scheme.
+	 *
+	 * @param string the filename
+	 * @return string the name fo the class
+	 */
 	static function getClassFromFileName($filename)
 	{
 		$filename = basename($filename);
@@ -61,6 +71,44 @@ class PHPUnit2Util
 		}
 		
 		return $filename;
+	}
+
+	/**
+	 * @param string the filename
+	 * @param Path optional classpath
+	 * @return array list of classes defined in the file
+	 */
+	static function getDefinedClasses($filename, $classpath = NULL)
+	{
+		$filename = realpath($filename);
+		
+		if (!file_exists($filename))
+		{
+			throw new Exception("File '" . $filename . "' does not exist");
+		}
+		
+		if (isset(self::$definedClasses[$filename]))
+		{
+			return self::$definedClasses[$filename];
+		}
+		
+		Phing::__import($filename, $classpath);
+
+		$declaredClasses = get_declared_classes();
+		
+		foreach ($declaredClasses as $classname)
+		{
+			$reflect = new ReflectionClass($classname);
+			
+			self::$definedClasses[$reflect->getFilename()][] = $classname;
+			
+			if (is_array(self::$definedClasses[$reflect->getFilename()]))
+			{			
+				self::$definedClasses[$reflect->getFilename()] = array_unique(self::$definedClasses[$reflect->getFilename()]);
+			}
+		}
+				
+		return self::$definedClasses[$filename];
 	}
 }
 ?>

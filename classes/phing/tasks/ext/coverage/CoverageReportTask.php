@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: CoverageReportTask.php,v 1.11 2005/05/26 13:10:52 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@ require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
  * Transforms information in a code coverage database to XML
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: CoverageReportTask.php,v 1.11 2005/05/26 13:10:52 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
  */
@@ -187,17 +187,17 @@ class CoverageReportTask extends Task
 				
 				$line = rtrim($line);
 
-				$lines[$i] = utf8_encode(htmlspecialchars($line));
+				$lines[$i] = utf8_encode($line);
 			}
 			
 			return $lines;
 		}
 	}
 
-	protected function transformSourceFile($basename, $filename, $coverageInformation, $classStartLine = 1)
+	protected function transformSourceFile($filename, $coverageInformation, $classStartLine = 1)
 	{
 		$sourceElement = $this->doc->createElement('sourcefile');
-		$sourceElement->setAttribute('name', $basename);
+		$sourceElement->setAttribute('name', basename($filename));
 
 		$filelines = $this->highlightSourceFile($filename);
 
@@ -223,92 +223,102 @@ class CoverageReportTask extends Task
 
 		return $sourceElement;
 	}
-
-	protected function transformCoverageInformation($basename, $filename, $coverageInformation)
+	
+	protected function filterCovered($var)
 	{
-		$dotpath = strtr(dirname($basename), PhingFile::$separator, '.');
-		$classname = PHPUnit2Util::getClassFromFileName($basename);
+		return ($var >= 0);
+	}
+
+	protected function transformCoverageInformation($filename, $coverageInformation)
+	{
+		$classes = PHPUnit2Util::getDefinedClasses($filename, $this->classpath);
 		
-		Phing::import($dotpath . '.' . $classname, $this->classpath);
-
-		try
+		if (is_array($classes))
 		{
-			$reflection = new ReflectionClass($classname);
+			foreach ($classes as $classname)
+			{
+				$reflection = new ReflectionClass($classname);
+				
+				$methods = $reflection->getMethods();
+				
+				$classElement = $this->doc->createElement('class');
+				$classElement->setAttribute('name', $reflection->getName());
+				
+				$this->addClassToPackage($reflection->getName(), $classElement);
+
+				$classStartLine = $reflection->getStartLine();
+				
+				$methodscovered = 0;
+				$methodcount = 0;
+				
+				end($coverageInformation);
+				unset($coverageInformation[key($coverageInformation)]);
+				
+				// Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
+				if ($reflection->getParentClass() == NULL && count($reflection->getInterfaces()) == 0)
+				{
+					unset($coverageInformation[$classStartLine + 1]);
+				}
+				else
+				{
+					unset($coverageInformation[$classStartLine]);
+				}
+				
+				reset($coverageInformation);				
+				
+				foreach ($methods as $method)
+				{
+					// PHP5 reflection considers methods of a parent class to be part of a subclass, we don't
+					if ($method->getDeclaringClass()->getName() != $reflection->getName())
+					{
+						continue;
+					}
+
+					// small fix for XDEBUG_CC_UNUSED
+					if (isset($coverageInformation[$method->getStartLine()]))
+					{
+						unset($coverageInformation[$method->getStartLine()]);
+					}
+
+					if (isset($coverageInformation[$method->getEndLine()]))
+					{
+						unset($coverageInformation[$method->getEndLine()]);
+					}
+
+					if ($method->isAbstract())
+					{
+						continue;
+					}
+
+					$linenr = key($coverageInformation);
+
+					while ($linenr < $method->getStartLine())
+					{
+						next($coverageInformation);
+						$linenr = key($coverageInformation);
+					}
+
+					if (current($coverageInformation) > 0 && $method->getStartLine() <= $linenr && $linenr <= $method->getEndLine())
+					{
+						$methodscovered++;
+					}
+
+					$methodcount++;
+				}
+
+				$statementcount = count($coverageInformation);
+				$statementscovered = count(array_filter($coverageInformation, array($this, 'filterCovered')));
+
+				$classElement->appendChild($this->transformSourceFile($filename, $coverageInformation, $classStartLine));
+
+				$classElement->setAttribute('methodcount', $methodcount);
+				$classElement->setAttribute('methodscovered', $methodscovered);
+				$classElement->setAttribute('statementcount', $statementcount);
+				$classElement->setAttribute('statementscovered', $statementscovered);
+				$classElement->setAttribute('totalcount', $methodcount + $statementcount);
+				$classElement->setAttribute('totalcovered', $methodscovered + $statementscovered);
+			}
 		}
-		catch (Exception $ex)
-		{
-			throw new BuildException($ex->getMessage());
-		}
-
-		if ($reflection->isInterface())
-		{
-			return;
-		}
-
-		$methods = $reflection->getMethods();
-
-		$classElement = $this->doc->createElement('class');
-		$classElement->setAttribute('name', $reflection->getName());
-
-		$this->addClassToPackage($reflection->getName(), $classElement);
-
-		$methodscovered = 0;
-		$methodcount = 0;
-
-		reset($coverageInformation);
-
-		foreach ($methods as $method)
-		{
-			// PHP5 reflection considers methods of a parent class to be part of a subclass, we don't
-			if ($method->getDeclaringClass()->getName() != $reflection->getName())
-			{
-				continue;
-			}
-
-			// small fix for XDEBUG_CC_UNUSED
-			if (isset($coverageInformation[$method->getStartLine()]))
-			{
-				unset($coverageInformation[$method->getStartLine()]);
-			}
-
-			if (isset($coverageInformation[$method->getEndLine()]))
-			{
-				unset($coverageInformation[$method->getEndLine()]);
-			}
-
-			if ($method->isAbstract())
-			{
-				continue;
-			}
-
-			$linenr = key($coverageInformation);
-
-			while ($linenr < $method->getStartLine() && current($coverageInformation) > 0)
-			{
-				next($coverageInformation);
-				$linenr = key($coverageInformation);
-			}
-
-			if ($method->getStartLine() <= $linenr && $linenr <= $method->getEndLine())
-			{
-				$methodscovered++;
-			}
-					
-			$methodcount++;
-		}
-
-		$classStartLine = $reflection->getStartLine();
-
-		// Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
-		if ($reflection->getParentClass() == NULL && count($reflection->getInterfaces()) == 0)
-		{
-			$classStartLine--;
-		}
-
-		$classElement->appendChild($this->transformSourceFile($basename, $filename, $coverageInformation, $classStartLine));
-
-		$classElement->setAttribute('methodcount', $methodcount);
-		$classElement->setAttribute('methodscovered', $methodscovered);
 	}
 
 	protected function calculateStatistics()
@@ -318,10 +328,16 @@ class CoverageReportTask extends Task
 		$totalmethodcount = 0;
 		$totalmethodscovered = 0;
 
+		$totalstatementcount = 0;
+		$totalstatementscovered = 0;
+
 		foreach ($packages as $package)
 		{
 			$methodcount = 0;
 			$methodscovered = 0;
+
+			$statementcount = 0;
+			$statementscovered = 0;
 
 			$classes = $package->getElementsByTagName('class');
 
@@ -329,21 +345,41 @@ class CoverageReportTask extends Task
 			{
 				$methodcount += $class->getAttribute('methodcount');
 				$methodscovered += $class->getAttribute('methodscovered');
+
+				$statementcount += $class->getAttribute('statementcount');
+				$statementscovered += $class->getAttribute('statementscovered');
 			}
 
 			$package->setAttribute('methodcount', $methodcount);
 			$package->setAttribute('methodscovered', $methodscovered);
 
+			$package->setAttribute('statementcount', $statementcount);
+			$package->setAttribute('statementscovered', $statementscovered);
+
+			$package->setAttribute('totalcount', $methodcount + $statementcount);
+			$package->setAttribute('totalcovered', $methodscovered + $statementscovered);
+
 			$totalmethodcount += $methodcount;
 			$totalmethodscovered += $methodscovered;
+
+			$totalstatementcount += $statementcount;
+			$totalstatementscovered += $statementscovered;
 		}
 
 		$this->doc->documentElement->setAttribute('methodcount', $totalmethodcount);
 		$this->doc->documentElement->setAttribute('methodscovered', $totalmethodscovered);
+
+		$this->doc->documentElement->setAttribute('statementcount', $totalstatementcount);
+		$this->doc->documentElement->setAttribute('statementscovered', $totalstatementscovered);
+
+		$this->doc->documentElement->setAttribute('totalcount', $totalmethodcount + $totalstatementcount);
+		$this->doc->documentElement->setAttribute('totalcovered', $totalmethodscovered + $totalstatementscovered);
 	}
 
 	function main()
 	{
+		$this->log("Transforming coverage report");
+		
 		$database = new PhingFile($this->project->getProperty('coverage.database'));
 		
 		$props = new Properties();
@@ -353,15 +389,15 @@ class CoverageReportTask extends Task
 		{
 			$file = unserialize($props->getProperty($filename));
 
-			$this->transformCoverageInformation($file['basename'], $file['fullname'], $file['coverage']);
+			$this->transformCoverageInformation($file['fullname'], $file['coverage']);
 		}
-
+		
 		$this->calculateStatistics();
 
 		$this->doc->save($this->outfile);
 
-     		foreach ($this->transformers as $transformer)
-     		{
+		foreach ($this->transformers as $transformer)
+		{
 			$transformer->setXmlDocument($this->doc);
 			$transformer->transform();
 		}

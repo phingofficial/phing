@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: BatchTest.php,v 1.10 2005/10/31 10:35:44 mrook Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +26,7 @@ require_once 'phing/types/FileSet.php';
  * all subclasses of PHPUnit2_Framework_TestCase.
  *
  * @author Michiel Rook <michiel@trendserver.nl>
- * @version $Id: BatchTest.php,v 1.10 2005/10/31 10:35:44 mrook Exp $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0
  */
@@ -154,16 +154,14 @@ class BatchTest
 	{
 		$filenames = $this->getFilenames();
 		
-		$declaredClassesOld = get_declared_classes();
+		$declaredClasses = array();		
 
 		foreach ($filenames as $filename)
 		{
-			Phing::__import($filename, $this->classpath);
+			$definedClasses = PHPUnit2Util::getDefinedClasses($filename);
+			
+			$declaredClasses = array_merge($declaredClasses, $definedClasses);
 		}
-		
-		$declaredClassesNew = get_declared_classes();
-		
-		$declaredClasses = array_diff($declaredClassesNew, $declaredClassesOld, $this->excludeClasses);
 		
 		$elements = array_filter($declaredClasses, array($this, "filterTests"));
 
