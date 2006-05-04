@@ -145,6 +145,23 @@ class PHPUnit2ReportTask extends Task
 			$proc->transformToXML($document);
 		}
 	}
+	
+	/**
+	 * Fixes 'testsuite' elements with no package attribute, adds
+	 * package="default" to those elements.
+	 */
+	function fixPackages(DOMDocument $document)
+	{
+		$testsuites = $document->getElementsByTagName('testsuite');
+		
+		foreach ($testsuites as $testsuite)
+		{
+			if (!$testsuite->hasAttribute('package'))
+			{
+				$testsuite->setAttribute('package', 'default');
+			}
+		}
+	}
 
 	/**
 	 * The main entry point
@@ -155,6 +172,8 @@ class PHPUnit2ReportTask extends Task
 	{
 		$testSuitesDoc = new DOMDocument();
 		$testSuitesDoc->load($this->inFile);
+		
+		$this->fixPackages($testSuitesDoc);
 		
 		$this->transform($testSuitesDoc);
 	}
