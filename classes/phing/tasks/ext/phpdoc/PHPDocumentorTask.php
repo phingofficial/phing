@@ -110,7 +110,14 @@
 		{
 			$arguments = $this->constructArguments();
 			
-			exec(self::PHPDOC . " " . $arguments, $output, $retval);
+			$this->log("Running phpDocumentor...");
+			
+			exec(self::PHPDOC . " " . $arguments, $output, $return);
+			
+			if ($return != 0)
+			{
+				throw new BuildException("Could not execute ionCube Encoder: " . implode(' ', $output));
+			}
 		}
 		
 		/**
@@ -118,7 +125,7 @@
 		 */
 		private function constructArguments()
 		{
-			$arguments = "-q ";
+			$arguments = "-q on ";
 			
 			if ($this->title)
 			{
