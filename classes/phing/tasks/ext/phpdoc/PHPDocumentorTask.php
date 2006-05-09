@@ -32,9 +32,9 @@ require_once 'phing/Task.php';
 class PHPDocumentorTask extends Task
 {
 	/**
-	 * The name of the executable for phpDocumentor
+	 * The path to the executable for phpDocumentor
 	 */
-	const PHPDOC = 'phpdoc';
+	private $programPath = 'phpdoc';
 
 	private $title = "Default Title";
 
@@ -47,6 +47,22 @@ class PHPDocumentorTask extends Task
 	private $linksource = false;
 
 	private $parseprivate = false;
+
+	/**
+	 * Sets the path to the phpDocumentor executable
+	 */
+	function setProgramPath($programPath)
+	{
+		$this->programPath = $programPath;
+	}
+
+	/**
+	 * Returns the path to the phpDocumentor executable
+	 */
+	function getProgramPath()
+	{
+		return $this->programPath;
+	}
 
 	/**
 	 * Set the title for the generated documentation
@@ -112,11 +128,11 @@ class PHPDocumentorTask extends Task
 
 		$this->log("Running phpDocumentor...");
 
-		exec(self::PHPDOC . " " . $arguments, $output, $return);
+		exec($this->programPath . " " . $arguments, $output, $return);
 
 		if ($return != 0)
 		{
-			throw new BuildException("Could not execute ionCube Encoder: " . implode(' ', $output));
+			throw new BuildException("Could not execute phpDocumentor: " . implode(' ', $output));
 		}
 	}
 
