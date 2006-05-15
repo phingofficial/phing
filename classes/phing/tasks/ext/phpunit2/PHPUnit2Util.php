@@ -107,8 +107,15 @@ class PHPUnit2Util
 				self::$definedClasses[$reflect->getFilename()] = array_unique(self::$definedClasses[$reflect->getFilename()]);
 			}
 		}
-				
-		return self::$definedClasses[$filename];
+		
+		if (isset(self::$definedClasses[$filename]))
+		{
+			return self::$definedClasses[$filename];
+		}
+		else
+		{
+			return array();
+		}
 	}
 }
 ?>
