@@ -79,10 +79,10 @@ include_once 'phing/types/FileSet.php';
 class PearPackageTask extends MatchingTask {
     
     /** */        
-    private $package;
+    protected $package;
 
     /** Base directory for reading files. */
-    private $dir;
+    protected $dir;
     
     /** Package file */
     private $packageFile;
@@ -91,15 +91,15 @@ class PearPackageTask extends MatchingTask {
     private $filesets = array();
     
     /** @var PEAR_PackageFileManager */
-    private $pkg;
+    protected $pkg;
     
     private $preparedOptions = array();
     
     /** @var array PearPkgOption[] */
-    private $options = array();
+    protected $options = array();
     
     /** Nested <mapping> (complex options) types. */
-    private $mappings = array();
+    protected $mappings = array();
     
     public function init() {
         include_once 'PEAR/PackageFileManager.php';
@@ -112,7 +112,7 @@ class PearPackageTask extends MatchingTask {
      * Sets PEAR package.xml options, based on class properties.
      * @return void
      */
-    private function setOptions() {
+    protected function setOptions() {
     
         // 1) first prepare/populate options        
         $this->populateOptions();
