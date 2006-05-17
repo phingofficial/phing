@@ -46,7 +46,7 @@ class FileUtils {
      * @param Project $project
      * @return Reader Assembled Reader (w/ filter chains).
      */
-    function getChainedReader(Reader $in, &$filterChains, Project $project) {
+    public static function getChainedReader(Reader $in, &$filterChains, Project $project) {
         if (!empty($filterChains)) {
             $crh = new ChainReaderHelper();
             $crh->setBufferSize(65536); // 64k buffer, but isn't being used (yet?)

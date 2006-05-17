@@ -68,7 +68,7 @@ class SelectorUtils {
      * @return whether or not a given path matches the start of a given
      * pattern up to the first "**".
      */
-    public function matchPatternStart($pattern, $str, $isCaseSensitive = true) {
+    public static function matchPatternStart($pattern, $str, $isCaseSensitive = true) {
 
         // When str starts with a DIRECTORY_SEPARATOR, pattern has to start with a
         // DIRECTORY_SEPARATOR.
@@ -126,7 +126,7 @@ class SelectorUtils {
      * @return <code>true</code> if the pattern matches against the string,
      *         or <code>false</code> otherwise.
      */
-    public function matchPath($pattern, $str, $isCaseSensitive = true) {
+    public static function matchPath($pattern, $str, $isCaseSensitive = true) {
     
         // When str starts with a DIRECTORY_SEPARATOR, pattern has to start with a
         // DIRECTORY_SEPARATOR.
@@ -259,7 +259,7 @@ class SelectorUtils {
      * @return <code>true</code> if the string matches against the pattern,
      *         or <code>false</code> otherwise.
      */
-    public function match($pattern, $str, $isCaseSensitive = true) {
+    public static function match($pattern, $str, $isCaseSensitive = true) {
     
         $patArr = StringHelper::toCharArray($pattern);
         $strArr = StringHelper::toCharArray($str);
