@@ -53,7 +53,7 @@ abstract class FileSystem {
      * Static method to return the FileSystem singelton representing
      * this platform's local filesystem driver.
      */
-    function getFileSystem() {
+    public static function getFileSystem() {
         if (self::$fs === null) {
             switch(Phing::getProperty('host.fstype')) {
                 case 'UNIX':

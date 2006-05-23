@@ -106,7 +106,7 @@ class ProjectConfigurator {
      * @throws BuildException if attributes can not be configured
      * @access public
      */
-    function configure($target, $attrs, Project $project) {               
+    public static function configure($target, $attrs, Project $project) {               
 
         if ($target instanceof TaskAdapter) {
             $target = $target->getProxy();
@@ -151,7 +151,7 @@ class ProjectConfigurator {
      * @param  string  the element's #CDATA
      * @access public
      */
-    function addText($project, $target, $text = null) {
+    public static function addText($project, $target, $text = null) {
         if ($text === null || strlen(trim($text)) === 0) {
             return;
         }    
@@ -169,7 +169,7 @@ class ProjectConfigurator {
      * @param  string  the XML tagname
      * @access public
      */
-    function storeChild($project, $parent, $child, $tag) {
+    public static function storeChild($project, $parent, $child, $tag) {
         $ih = IntrospectionHelper::getHelper(get_class($parent));
         $ih->storeElement($project, $parent, $child, $tag);
     }
