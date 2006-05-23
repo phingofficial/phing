@@ -103,11 +103,6 @@ class XMLPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 		$this->logger->addIncompleteTest($test, $e);
 	}
 	
-	function addSkippedTest(PHPUnit2_Framework_Test $test, Exception $e)
-	{
-		parent::addSkippedTest($test, $e);
-	}
-	
 	function endTestRun()
 	{
 		parent::endTestRun();
