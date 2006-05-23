@@ -43,7 +43,7 @@ class SelectorUtils {
      /**
       * Retrieves the instance of the Singleton.
       */
-    public function getInstance() {
+    public static function getInstance() {
         if (!isset(self::$instance)) {
             self::$instance = new SelectorUtils();
         }
@@ -423,7 +423,7 @@ class SelectorUtils {
      *        determining out of dateness
      * @return whether the target is out of date
      */
-    public function isOutOfDate(PhingFile $src, PhingFile $target, $granularity) {
+    public static function isOutOfDate(PhingFile $src, PhingFile $target, $granularity) {
         if (!$src->exists()) {
             return false;
         }
