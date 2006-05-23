@@ -165,7 +165,6 @@ class TaskHandler extends AbstractHandler {
             $this->wrapper = $this->task->getRuntimeConfigurableWrapper();
             $this->wrapper->setAttributes($attrs);
             /*
-            
 			Commenting this out as per thread on Premature configurate of ReuntimeConfigurables 
             with Matthias Pigulla: http://phing.tigris.org/servlets/ReadMsg?list=dev&msgNo=251
             
@@ -184,7 +183,7 @@ class TaskHandler extends AbstractHandler {
      * Executes the task at once if it's directly beneath the <project> tag.
      */
     protected function finished() {
-        if ($this->task !== null && $this->target === null) {
+        if ($this->task !== null && $this->target === null && $this->container === null) {
             try {
                 $this->task->main();
             } catch (Exception $e) {
