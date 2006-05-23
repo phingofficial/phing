@@ -164,10 +164,15 @@ class TaskHandler extends AbstractHandler {
             $this->task->init();
             $this->wrapper = $this->task->getRuntimeConfigurableWrapper();
             $this->wrapper->setAttributes($attrs);
+            /*
+			Commenting this out as per thread on Premature configurate of ReuntimeConfigurables 
+            with Matthias Pigulla: http://phing.tigris.org/servlets/ReadMsg?list=dev&msgNo=251
+            
 			if ($this->parentWrapper !== null) { // this may not make sense only within this if-block, but it
 												// seems to address current use cases adequately
 		    	$this->parentWrapper->addChild($this->wrapper);
 			}
+			*/
         } else {
             $this->task->init();
             $configurator->configure($this->task, $attrs, $project);
@@ -178,7 +183,7 @@ class TaskHandler extends AbstractHandler {
      * Executes the task at once if it's directly beneath the <project> tag.
      */
     protected function finished() {
-        if ($this->task !== null && $this->target === null) {
+        if ($this->task !== null && $this->target === null && $this->container === null) {
             try {
                 $this->task->main();
             } catch (Exception $e) {
