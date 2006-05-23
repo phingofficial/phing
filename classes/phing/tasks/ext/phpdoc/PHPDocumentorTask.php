@@ -165,12 +165,12 @@ class PHPDocumentorTask extends Task
 
 		if ($this->linksource)
 		{
-			$arguments.= "-s ";
+			$arguments.= "-s on ";
 		}
 
 		if ($this->parseprivate)
 		{
-			$arguments.= "-pp ";
+			$arguments.= "-pp on ";
 		}
 
 		return $arguments;
