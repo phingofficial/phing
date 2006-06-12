@@ -295,6 +295,7 @@ class CopyTask extends Task {
             $mapper = new IdentityMapper();
         }
         $this->buildMap($fromDir, $toDir, $files, $mapper, $this->fileCopyMap);
+        $this->buildMap($fromDir, $toDir, $dirs, $mapper, $this->dirCopyMap);
     }
 
     /**
@@ -379,10 +380,10 @@ class CopyTask extends Task {
 
         // handle empty dirs if appropriate
         if ($this->includeEmpty) {
-            $e = array_keys($this->dirCopyMap);
+            $destdirs = array_values($this->dirCopyMap);
             $count = 0;
-            foreach ($e as $dir) {
-                $d = new PhingFile((string) $dir);
+            foreach ($destdirs as $destdir) {
+                $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
                         $this->log("Unable to create directory " . $d->__toString(), PROJECT_MSG_ERR);
