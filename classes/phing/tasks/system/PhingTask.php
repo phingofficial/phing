@@ -204,22 +204,43 @@ class PhingTask extends Task {
         $savedPhingFile = $this->phingFile;
         $savedTarget = $this->newTarget;
         
+		$savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
+        
         try {
+        
             if ($this->newProject === null) {
                 $this->reinit();
             }
 
-            if (($this->dir === null) && ($this->inheritAll)) {
-                $this->dir = $this->getProject()->getBaseDir();
-            }
             $this->initializeProject();
+            
             if ($this->dir !== null) {
-                $this->newProject->setBaseDir($this->dir);
+            	
+            	$dirAbsPath = $this->dir->getAbsolutePath();
+            	
+            	// BE CAREFUL! -- when the basedir is changed for a project,
+            	// all calls to getAbsolutePath() on a relative-path dir will
+            	// be made relative to the project's basedir!  This means
+            	// that subsequent calls to $this->dir->getAbsolutePath() will be WRONG!
+            	
+            	// We need to save the current project's basedir first.
+            	$savedBasedirAbsPath = $this->getProject()->getBasedir()->getAbsolutePath();
+				 
+                $this->newProject->setBasedir($this->dir);
+                
+                // Now we must reset $this->dir so that it continues to resolve to the same
+                // path.
+                $this->dir = new PhingFile($dirAbsPath);
+                
                 if ($savedDir !== null) { // has been set explicitly
                     $this->newProject->setInheritedProperty("project.basedir", $this->dir->getAbsolutePath());
-                }                                
+                }
+                
             } else {
-                $this->dir = $this->getProject()->getBaseDir();
+            	
+            	// Since we're not changing the basedir here (for file resolution),
+            	// we don't need to worry about any side-effects in this scanrio.
+                $this->dir = $this->getProject()->getBasedir();   
             }
 
             $this->overrideProperties();
@@ -257,29 +278,30 @@ class PhingTask extends Task {
             $buildFailed = true;
             $this->log($e->getMessage(), PROJECT_MSG_ERR);
             
-            // important!!! continue on to perform cleanup
-            // tasks.    
-           }
+            // important!!! continue on to perform cleanup tasks.    
+		}
         
-        //  } finally {
-        // restore values (prevent side-effects)
-        // !this must match code in catch () {}  block!
+        
+        // reset environment values to prevent side-effects.
+        
         $this->newProject = null;
         $pkeys = array_keys($this->properties);
         foreach($pkeys as $k) {
             $this->properties[$k]->setProject(null);
-        }        
+        }
+        
         $this->dir = $savedDir;        
         $this->phingFile = $savedPhingFile;
         $this->newTarget = $savedTarget;
         
-        // [HL] change back to correct dir
-        if ($this->dir !== null) {
-            chdir($this->dir->getAbsolutePath());
+        // If the basedir for any project was changed, we need to set that back here.
+        if ($savedBasedirAbsPath !== null) {
+            chdir($savedBasedirAbsPath);
         }
 
-        if ($this->haltOnFailure == true && $buildFailed == true)
-            throw new BuildException("Execution of the target buildfile failed. Aborting.");
+        if ($this->haltOnFailure && $buildFailed) {
+			throw new BuildException("Execution of the target buildfile failed. Aborting.");
+		}
     }
 
     /**
