@@ -33,6 +33,10 @@ Feb. ??, 2006 - Phing 2.2.0
   * Added new HTML Tidy filter (HL)
 
   * Added PhpLintTask (Knut Urdalen)
+
+  * Added XmlLintTask (Knut Urdalen)
+
+  * Added ZendCodeAnalyzerTask (Knut Urdalen)
   
   * Removed CoverageFormatter class (MR)
     NOTE: This changes the usage of the collection of PHPUnit2 code coverage reports, see the
