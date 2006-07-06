@@ -31,7 +31,7 @@ require_once 'phing/util/ExtendedFileStream.php';
  * the framed report is much more convenient if you want to browse into 
  * different packages or testcases since it is a Javadoc like report.
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0

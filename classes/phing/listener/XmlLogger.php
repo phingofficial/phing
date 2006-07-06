@@ -28,7 +28,7 @@
 	 * The default filename is "log.xml", but this can be overridden
 	 * with the property <code>XmlLogger.file</code>.
 	 *
-	 * @author Michiel Rook <michiel@trendserver.nl>
+	 * @author Michiel Rook <michiel.rook@gmail.com>
 	 * @version $Id: XmlLogger.php,v 1.3 2005/02/11 10:51:21 mrook Exp $
 	 * @package phing.listener
 	 */	

@@ -25,7 +25,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 /**
  * Exports/checks out a repository to a local directory
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.svn
  * @see VersionControl_SVN

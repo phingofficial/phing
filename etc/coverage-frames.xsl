@@ -29,7 +29,7 @@
  It creates a set of HTML files a la javadoc where you can browse easily
  through all packages and classes.
 
- @author Michiel Rook <a href="mailto:michiel@trendserver.nl"/>
+ @author Michiel Rook <a href="mailto:michiel.rook@gmail.com"/>
  @author Stephane Bailliez <a href="mailto:sbailliez@apache.org"/>
 
 -->

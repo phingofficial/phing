@@ -26,7 +26,7 @@ require_once 'phing/system/io/Writer.php';
 /**
  * This abstract class describes classes that format the results of a SimpleTest testrun.
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.2.0

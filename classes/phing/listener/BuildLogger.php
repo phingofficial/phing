@@ -23,7 +23,7 @@
 	/**
 	 * Interface used by Phing Ant to log the build output.
 	 *
-	 * @author Michiel Rook <michiel@trendserver.nl>
+	 * @author Michiel Rook <michiel.rook@gmail.com>
 	 * @version $Id: BuildLogger.php,v 1.3 2005/02/11 10:51:21 mrook Exp $
 	 * @package phing.listener
 	 */

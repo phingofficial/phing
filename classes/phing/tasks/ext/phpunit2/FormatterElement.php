@@ -26,7 +26,7 @@ require_once 'phing/system/io/PhingFile.php';
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0

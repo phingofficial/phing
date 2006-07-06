@@ -22,7 +22,7 @@
   The purpose have this XSL is to provide a nice way to look at the output
   from the Ant XmlLogger (ie: ant -listener org.apache.tools.ant.XmlLogger )
   
-  @author <a href="mailto:michiel@trendserver.nl>Michiel Rook</a>
+  @author <a href="mailto:michiel.rook@gmail.com>Michiel Rook</a>
   @author <a href="mailto:sbailliez@apache.org">Stephane Bailliez</a>
   
 -->

@@ -25,7 +25,7 @@ require_once 'phing/types/FileSet.php';
  * Scans a list of (.php) files given by the fileset attribute, extracts
  * all subclasses of PHPUnit2_Framework_TestCase.
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0
