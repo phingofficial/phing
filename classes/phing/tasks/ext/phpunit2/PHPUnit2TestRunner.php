@@ -30,7 +30,7 @@ require_once 'phing/system/util/Timer.php';
 /**
  * Simple Testrunner for PHPUnit2 that runs all tests of a testsuite.
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.phpunit2
  * @since 2.1.0

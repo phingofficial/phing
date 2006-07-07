@@ -24,7 +24,7 @@ require_once 'phing/system/util/Properties.php';
 /**
  * Saves coverage output of the test to a specified database
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0

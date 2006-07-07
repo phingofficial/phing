@@ -27,7 +27,7 @@ require_once 'phing/tasks/ext/phpunit2/FormatterElement.php';
  * Child class of "FormatterElement", overrides setType to provide other
  * formatter classes for SimpleTest
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.simpletest
  * @since 2.2.0

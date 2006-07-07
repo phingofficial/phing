@@ -28,7 +28,7 @@ require_once 'phing/util/ExtendedFileStream.php';
  * Transform a Phing/Xdebug code coverage xml report.
  * The default transformation generates an html report in framed style.
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0

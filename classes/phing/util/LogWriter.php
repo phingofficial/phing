@@ -26,7 +26,7 @@
 	/**
 	 * Extends the Writer class to output messages to Phing's log
 	 *
-	 * @author Michiel Rook <michiel@trendserver.nl>
+	 * @author Michiel Rook <michiel.rook@gmail.com>
 	 * @version $Id: LogWriter.php,v 1.2 2004/11/09 13:16:11 hlellelid Exp $
 	 * @package phing.util
 	 */

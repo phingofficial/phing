@@ -24,7 +24,7 @@ include_once 'phing/Task.php';
 /**
  *  Echos a message to the logging system or to a file
  *
- *  @author   Michiel Rook <michiel@trendserver.nl>
+ *  @author   Michiel Rook <michiel.rook@gmail.com>
  *  @author   Andreas Aderhold, andi@binarycloud.com
  *  @version  $Revision: 1.5 $ $Date$
  *  @package  phing.tasks.system

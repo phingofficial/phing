@@ -25,7 +25,7 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
 /**
  * Invokes the ionCube Encoder (PHP4 or PHP5)
  *
- * @author Michiel Rook <michiel@trendserver.nl>
+ * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0

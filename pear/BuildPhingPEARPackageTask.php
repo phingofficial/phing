@@ -138,7 +138,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 		
 		// Add package maintainers
 		$package->addMaintainer('lead', 'hans', 'Hans Lellelid', 'hans@xmpl.org');
-		$package->addMaintainer('lead', 'mrook', 'Michiel Rook', 'michiel@trendserver.nl');
+		$package->addMaintainer('lead', 'mrook', 'Michiel Rook', 'michiel.rook@gmail.com');
 		
 		
 		

@@ -31,7 +31,7 @@
  It creates a non-framed report that can be useful to send via
  e-mail or such.
  
- @author Michiel Rook <a href="mailto:michiel@trendserver.nl"/>
+ @author Michiel Rook <a href="mailto:michiel.rook@gmail.com"/>
  @author Stephane Bailliez <a href="mailto:sbailliez@apache.org"/>
  @author Erik Hatcher <a href="mailto:ehatcher@apache.org"/>
  

@@ -29,7 +29,7 @@ include_once 'phing/lib/Zip.php';
  * Creates a zip archive using PEAR Archive_Zip (which is presently unreleased
  * and included with Phing).
  *
- * @author    Michiel Rook <michiel@trendserver.nl>
+ * @author    Michiel Rook <michiel.rook@gmail.com>
  * @version   $Revision: 1.2 $
  * @package   phing.tasks.ext
  * @since     2.1.0
