@@ -390,7 +390,7 @@ class CreoleSQLExecTask extends CreoleTask {
                         || $this->delimiterType == self::DELIM_ROW
                         && $line == $this->delimiter) {
                     $this->log("SQL: " . $sql, PROJECT_MSG_VERBOSE);
-                    $this->execSQL(StringHelper::substring($sql, 0, strlen($sql) - strlen($this->delimiter)) - 1, $out);
+                    $this->execSQL(StringHelper::substring($sql, 0, strlen($sql) - strlen($this->delimiter) - 1), $out);
                     $sql = "";
                 }
             }
