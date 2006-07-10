@@ -722,6 +722,33 @@ The task can also echo to a file, in which case the option to append rather than
   </tbody>
 </table>
 
+<h2><a name="IfTask"></a>IfTask</h2>
+<p>Sets the PHP include_path configuration option for the duration of this phing run.</p>
+<h3>Example</h3>
+<pre>&lt;includepath classpath=&quot;new/path/here&quot; /&gt;
+&lt;includepath classpath=&quot;path1:path2&quot; /&gt;</pre>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>classpath</td>
+      <td>String</td>
+      <td>the new include path[s]</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2><a name="ForeachTask"></a>ForeachTask</h2>
 <p>The foreach task iterates over a list, a list of paths, or both. If both, list
   and paths, are specified, the list will be evaluated first. Nested paths are
@@ -777,6 +804,34 @@ The task can also echo to a file, in which case the option to append rather than
     </tr>
   </tbody>
 </table>
+
+<h2><a name="IncludePathTask"></a>IncludePathTask</h2>
+<p>Sets the PHP include_path configuration option for the duration of this phing run.</p>
+<h3>Example</h3>
+<pre>&lt;includepath classpath=&quot;new/path/here&quot; /&gt;
+&lt;includepath classpath=&quot;path1:path2&quot; /&gt;</pre>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>classpath</td>
+      <td>String</td>
+      <td>the new include path[s]</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2><a name="InputTask"></a>InputTask</h2>
 <p> The <em>InputTask</em> can be used to interactively set property values based
   on input from the console (or other Reader).</p>
@@ -805,14 +860,14 @@ The task can also echo to a file, in which case the option to append rather than
     <tr>
       <td>propertyName</td>
       <td>String</td>
-      <td> The name of the property to set.</td>
+      <td>The name of the property to set.</td>
       <td>n/a</td>
       <td>Yes</td>
     </tr>
     <tr>
       <td>defaultValue</td>
       <td>String</td>
-      <td> The default value to be set if no new value is provided.</td>
+      <td>The default value to be set if no new value is provided.</td>
       <td>n/a</td>
       <td>Yes</td>
     </tr>
