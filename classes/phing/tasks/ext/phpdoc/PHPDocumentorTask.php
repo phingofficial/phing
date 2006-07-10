@@ -134,6 +134,17 @@ class PHPDocumentorTask extends Task
 		{
 			throw new BuildException("Could not execute phpDocumentor: " . implode(' ', $output));
 		}
+		
+		foreach($output as $line)
+		{
+			if(strpos($line, 'ERROR') !== false)
+			{
+				$this->log($line, PROJECT_MSG_ERR);
+				continue;
+			}
+			
+			$this->log($line, PROJECT_MSG_VERBOSE);
+		}
 	}
 
 	/**
@@ -150,12 +161,12 @@ class PHPDocumentorTask extends Task
 
 		if ($this->destdir)
 		{
-			$arguments.= "-t " . $this->destdir . " ";
+			$arguments.= "-t \"" . $this->destdir . "\" ";
 		}
 
 		if ($this->sourcepath !== NULL)
 		{
-			$arguments.= "-d " . $this->sourcepath->__toString() . " ";
+			$arguments.= "-d \"" . $this->sourcepath->__toString() . "\" ";
 		}
 
 		if ($this->output)
