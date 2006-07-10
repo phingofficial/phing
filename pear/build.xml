@@ -5,7 +5,7 @@
 -->
 <project name="phing" basedir="." default="main">
 
-	<property name="phing.home" value=".."/>
+	<property name="phingpkg.home" value=".."/>
 	<property name="build.base.dir" value="build"/>
 	<property name="pkgname" value="phing-${version}"/>
 	<property name="build.src.dir" value="${build.base.dir}/${pkgname}"/>
@@ -18,26 +18,26 @@
     name="pear-package"
     classname="BuildPhingPEARPackageTask" classpath="."/>
 
-	<fileset dir="${phing.home}/classes/phing" id="classes">
+	<fileset dir="${phingpkg.home}/classes/phing" id="classes">
 		<include name="**"/>
 	</fileset>
 
-	<fileset dir="${phing.home}/docs" id="docs">
+	<fileset dir="${phingpkg.home}/docs" id="docs">
 		<include name="example/**"/>
 		<include name="phing_guide/book/**"/>
 	</fileset>
 
-	<fileset dir="${phing.home}" id="etc">
+	<fileset dir="${phingpkg.home}" id="etc">
 		<include name="etc/**"/>
 		<exclude name="etc/VERSION.TXT"/>
 	</fileset>
 
-	<fileset dir="${phing.home}" id="scripts">
+	<fileset dir="${phingpkg.home}" id="scripts">
 		<include name="bin/pear-*"/>
 		<include name="bin/phing.php"/>
 	</fileset>
 
-	<fileset dir="${phing.home}" id="misc">
+	<fileset dir="${phingpkg.home}" id="misc">
 		<include name="CHANGELOG"/>
 		<include name="CREDITS"/>
 		<include name="README"/>
