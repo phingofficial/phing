@@ -849,8 +849,9 @@ are listed under the "default" package.</p>
 
 <h2><a name="TarTask"></a>TarTask</h2>
 <p> The <em>TarTask</em> creates a tarball from a fileset or directory.</p>
-<h3>Example</h3>
-<pre>&lt;tar destfile=&quot;phing.tar&quot; basedir=&quot;.&quot; compression=&quot;gzip&quot;&gt;
+
+<h3>Examples</h3>
+<pre>&lt;tar destfile=&quot;phing.tar&quot; compression=&quot;gzip&quot;&gt;
  &lt;fileset dir=&quot;.&quot;&gt;
 	 &lt;include name=&quot;**/**&quot; /&gt;
  &lt;/fileset&gt;
@@ -859,6 +860,11 @@ are listed under the "default" package.</p>
 
 <p>The above example uses a fileset to determine which files to include in
 the archive.</p>
+
+<pre>&lt;tar destfile=&quot;phing.tar&quot; basedir=&quot;.&quot; compression=&quot;gzip&quot;/&gt;</pre>
+
+<p>The second example uses the basedir attribute to include the contents of that directory (including
+subdirectories) in the archive.</p>
 
 <h3>Attributes</h3>
 <table>
@@ -897,8 +903,11 @@ the archive.</p>
   </tbody>
 </table>
 
-<p><b>Important note:</b> files are not replaced if they are already present in the
+<p><b>Important note #1:</b> files are not replaced if they are already present in the
 archive.</p>
+
+<p><b>Important note #2:</b> using basedir and fileset simultaneously can result in
+strange contents in the archive.</p>
 
 <h3>Supported Nested Tags</h3>
 <ul>
@@ -958,9 +967,24 @@ archive.</p>
 
 <h2><a name="ZipTask"></a>ZipTask</h2>
 <p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p>
-<h3>Example</h3>
-<pre>&lt;zip destfile=&quot;phing.zip&quot; basedir=&quot;.&quot;/&gt;
+
+<h3>Examples</h3>
+<pre>&lt;zip destfile=&quot;phing.zip&quot;&gt;
+ &lt;fileset dir=&quot;.&quot;&gt;
+	 &lt;include name=&quot;**/**&quot; /&gt;
+ &lt;/fileset&gt;
+&lt;/zip&gt;
 </pre>
+
+<p>The above example uses a fileset to determine which files to include in
+the archive.</p>
+
+<pre>&lt;zip destfile=&quot;phing.zip&quot; basedir=&quot;.&quot;/&gt;</pre>
+
+<p>The second example uses the basedir attribute to include the contents of that directory (including
+subdirectories) in the archive.</p>
+
+<h3>Example</h3>
 
 <h3>Attributes</h3>
 <table>
@@ -991,6 +1015,9 @@ archive.</p>
     </tr>
   </tbody>
 </table>
+
+<p><b>Important note:</b> using basedir and fileset simultaneously can result in
+strange contents in the archive.</p>
 
 <h3>Supported Nested Tags</h3>
 <ul>
