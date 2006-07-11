@@ -147,8 +147,8 @@ class ZipTask extends MatchingTask {
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
                     $f = new PhingFile($fsBasedir, $files[$i]);
                     $filesToZip[] = $f->getAbsolutePath();                        
-                }                    
-                $zip->add($filesToZip, array('remove_path' => $fsBasedir->getPath()));
+                }
+                $zip->add($filesToZip, array('remove_path' => $fsBasedir->getCanonicalPath()));
             }
                          
                 
