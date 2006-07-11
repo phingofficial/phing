@@ -231,6 +231,10 @@ class CoverageReportTask extends Task
 
 	protected function transformCoverageInformation($filename, $coverageInformation)
 	{
+		// Strip last line of coverage information
+		end($coverageInformation);
+		unset($coverageInformation[key($coverageInformation)]);
+		
 		$classes = PHPUnit2Util::getDefinedClasses($filename, $this->classpath);
 		
 		if (is_array($classes))
@@ -250,9 +254,6 @@ class CoverageReportTask extends Task
 				
 				$methodscovered = 0;
 				$methodcount = 0;
-				
-				end($coverageInformation);
-				unset($coverageInformation[key($coverageInformation)]);
 				
 				// Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
 				if ($reflection->getParentClass() == NULL && count($reflection->getInterfaces()) == 0)
