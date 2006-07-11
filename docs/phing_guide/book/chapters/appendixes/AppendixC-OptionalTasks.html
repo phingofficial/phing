@@ -687,6 +687,10 @@ XML results to the directory <em>reports</em>.</p>
 Runs all matching testcases in the directory <em>tests</em>, writing plain
 text results to the console. The build process is aborted if a test
 fails.</p>
+
+<p><b>Important note:</b> using a mechanism such as an "AllTests.php" file to execute testcases will bypass the Phing hooks used for reporting
+and counting, and could possibly lead to strange results. Instead, use one of more fileset's to provide a list of testcases to execute.</p>
+
 <h2><a name="PHPUnit2Report"></a>PHPUnit2Report</h2>
 <p>This task transforms PHPUnit2 xml reports to HTML using XSLT.</p>
 <h3>Attributes</h3>
