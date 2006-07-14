@@ -354,5 +354,186 @@ copy *.bat *.txt
 <p>For a complete reference, see <a href="appendixes/AppendixC-CoreTypes.html#Mappers">Appendix 
   C</a>.</p>
 
+<h2><a name="Conditions">Conditions</a></h2>
+
+<p>Conditions are nested elements of the 
+<a href="appendixes/AppendixB-CoreTasks.html#ConditionTask">condition</code></a> and
+<a href="appendixes/AppendixB-CoreTasks.html#IfTask">if</a> tasks.
+</p>
+
+<h4>not</h4>
+<p>The <code>&lt;not&gt;</code> element expects exactly one other
+condition to be nested into this element, negating the result of the
+condition. It doesn't have any attributes and accepts all nested
+elements of the condition task as nested elements as well.</p>
+
+<h4>and</h4> <p>
+The <code>&lt;and&gt;</code> element doesn't have any attributes and
+accepts an arbitrary number of conditions as nested elements. This condition
+is true if all of its contained conditions are, conditions will be
+evaluated in the order they have been specified in the build file.</p>
+
+<p>The <code>&lt;and&gt;</code> condition has the same shortcut
+semantics as the &amp;&amp; operator in some programming languages, as soon as one of the
+nested conditions is false, no other condition will be evaluated.</p>
+
+<h4>or</h4> <p>
+The <code>&lt;or&gt;</code> element doesn't have any attributes and
+accepts an arbitrary number of conditions as nested elements. This condition
+is true if at least one of its contained conditions is, conditions
+will be evaluated in the order they have been specified in the build
+file.</p>
+
+<p>The <code>&lt;or&gt;</code> condition has the same
+shortcut semantics as the || operator in some programming languages, as soon as one of the
+nested conditions is true, no other condition will be evaluated.</p>
+
+<h4>available</h4>
+<p>This condition is identical to the <a
+href="appendixes/AppendixB-CoreTasks.html#AvailableTask">Available</a> task, all attributes and nested
+elements of that task are supported, the property and value attributes
+are redundant and will be ignored.</p>
+
+<h4>uptodate</h4>
+<p>This condition is identical to the <a
+href="appendixes/AppendixB-CoreTasks.html#UpToDateTask">UpToDate</a> task, all attributes and nested
+elements of that task are supported, the property and value attributes
+are redundant and will be ignored.</p>
+
+<h4>os</h4>
+<p>Test whether the current operating system is of a given type.</p>
+
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">family</td>
+    <td valign="top">The name of the operating system family to expect.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+</table>
+<p>Supported values for the family attribute are:
+<ul>
+  <li>windows (for all versions of Microsoft Windows)</li>
+  <li>mac (for all Apple Macintosh systems)</li>
+  <li>unix (for all Unix and Unix-like operating systems)</li>
+</ul>
+
+<h4>equals</h4>
+<p>Tests whether the two given Strings are identical</p>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">arg1</td>
+    <td valign="top">First string to test.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">arg2</td>
+    <td valign="top">Second string to test.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">casesensitive</td>
+    <td valign="top">Perform a case sensitive comparision.  Default is
+        true.</td>
+    <td valign="top" align="center">No</td>
+  </tr>
+  <tr>
+    <td valign="top">trim</td>
+    <td valign="top">Trim whitespace from arguments before comparing
+        them.  Default is false.</td>
+    <td valign="top" align="center">No</td>
+  </tr>
+</table>
+
+<h4>isset</h4>
+<p>Test whether a given property has been set in this project.</p>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">property</td>
+    <td valign="top">The name of the property to test.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+</table>
+
+<h4>contains</h4>
+<p>Tests whether a string contains another one.</p>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">string</td>
+    <td valign="top">The string to search in.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">substring</td>
+    <td valign="top">The string to search for.</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+  <tr>
+    <td valign="top">casesensitive</td>
+    <td valign="top">Perform a case sensitive comparision.  Default is
+        true.</td>
+    <td valign="top" align="center">No</td>
+  </tr>
+</table>
+
+<h4>istrue</h4>
+<p>Tests whether a string evals to true.</p>
+
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">value</td>
+    <td valign="top">value to test</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+</table>
+<pre>
+    &lt;istrue value=&quot;${someproperty}&quot;/&gt;
+    &lt;istrue value=&quot;false&quot;/&gt;
+</pre>
+
+<h4>isfalse</h4>
+<p>Tests whether a string evals to not true, the negation of &lt;istrue&gt;
+</p>
+<table border="1" cellpadding="2" cellspacing="0">
+  <tr>
+    <td valign="top"><b>Attribute</b></td>
+    <td valign="top"><b>Description</b></td>
+    <td align="center" valign="top"><b>Required</b></td>
+  </tr>
+  <tr>
+    <td valign="top">value</td>
+    <td valign="top">value to test</td>
+    <td valign="top" align="center">Yes</td>
+  </tr>
+</table>
+<pre>
+    &lt;isfalse value=&quot;${someproperty}&quot;/&gt;
+    &lt;isfalse value=&quot;false&quot;/&gt;
+</pre>
+
 </body>
 </html>
