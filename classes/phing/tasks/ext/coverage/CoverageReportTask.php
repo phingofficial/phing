@@ -293,7 +293,7 @@ class CoverageReportTask extends Task
 
 					$linenr = key($coverageInformation);
 
-					while ($linenr < $method->getStartLine())
+					while ($linenr !== null && $linenr < $method->getStartLine())
 					{
 						next($coverageInformation);
 						$linenr = key($coverageInformation);
