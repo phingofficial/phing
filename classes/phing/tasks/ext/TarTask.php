@@ -188,11 +188,12 @@ class TarTask extends MatchingTask {
                 if (!$this->baseDir->exists()) {
                     throw new BuildException("basedir does not exist!", $this->getLocation());
                 }
-
-                // add the main fileset to the list of filesets to process.
-                $mainFileSet = new TarFileSet($this->fileset);
-                $mainFileSet->setDir($this->baseDir);
-                $this->filesets[] = $mainFileSet;
+				if (empty($this->filesets)) { // if there weren't any explicit filesets specivied, then
+	                						  // create a default, all-inclusive fileset using the specified basedir.
+	                $mainFileSet = new TarFileSet($this->fileset);
+	                $mainFileSet->setDir($this->baseDir);
+	                $this->filesets[] = $mainFileSet;
+	            }
             }
 
             if (empty($this->filesets)) {
