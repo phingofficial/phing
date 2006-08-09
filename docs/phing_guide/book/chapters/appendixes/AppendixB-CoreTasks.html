@@ -651,8 +651,7 @@ The task can also echo to a file, in which case the option to append rather than
 &lt;exec command=&quot;make&quot; dir=&quot;/usr/src/php-4.0&quot; /&gt;
 
 &lt;-- List the contents of &quot;/tmp&quot; out to a file. --&gt;
-&lt;exec command=&quot;ls -l&quot; &quot;/tmp &gt; foo.out&quot; escape=&quot;false&quot; /&gt;
-
+&lt;exec command=&quot;ls -l /tmp &gt; foo.out&quot; escape=&quot;false&quot; /&gt;
 </pre>
 <h3>Attributes</h3>
 <table>
@@ -678,7 +677,7 @@ The task can also echo to a file, in which case the option to append rather than
       <td>String</td>
       <td> The directory the command is to be executed in. </td>
       <td>n/a</td>
-      <td>Yes</td>
+      <td>No</td>
     </tr>
     <tr>
       <td>os</td>

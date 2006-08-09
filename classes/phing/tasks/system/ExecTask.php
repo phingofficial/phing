@@ -190,7 +190,7 @@ class ExecTask extends Task {
     }
     
     /**
-     * Specify the workign directory for executing this command.
+     * Specify the working directory for executing this command.
      * @param PhingFile $dir
      */
     function setDir(PhingFile $dir) {
