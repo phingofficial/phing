@@ -925,7 +925,9 @@ This task doesn't have any attributes, the condition to test is specified by a n
 <p>The <em>InputTask</em> can be used to interactively set property values based
   on input from the console (or other Reader).</p>
 <h3>Example</h3>
-<pre>&lt;echo&gt;HTML pages installing to: ${documentRoot}&lt;/echo&gt;
+<pre>
+&lt;!-- Getting string input --&gt;
+&lt;echo&gt;HTML pages installing to: ${documentRoot}&lt;/echo&gt;
 &lt;echo&gt;PHP classes installing to: ${servletDirectory}&lt;/echo&gt;
 
 &lt;input propertyname=&quot;documentRoot&quot;&gt;Web application document root&lt;/input&gt;
@@ -933,7 +935,15 @@ This task doesn't have any attributes, the condition to test is specified by a n
   defaultValue=&quot;/usr/servlets&quot; promptChar=&quot;?&quot;&gt;PHP classes install dir&lt;/input&gt;
 
 &lt;echo&gt;HTML pages installed to ${documentRoot}&lt;/echo&gt;
-&lt;echo&gt;PHP classes installed to ${servletDirectory}&lt;/echo&gt;</pre>
+&lt;echo&gt;PHP classes installed to ${servletDirectory}&lt;/echo&gt;
+
+&lt;!-- Having the user choose from a set of valid choices --&gt;
+&lt;echo&gt;Choose a valid option:&lt;/echo&gt;
+
+&lt;input propertyname=&quot;optionsChoice&quot; validargs=&quot;foo,bar,bob&quot;&gt;
+  Which item would you like to use
+&lt;/input&gt;
+</pre>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -971,6 +981,13 @@ This task doesn't have any attributes, the condition to test is specified by a n
       <td>promptChar</td>
       <td>String</td>
       <td> The prompt character to follow prompt text.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>validArgs</td>
+      <td>String</td>
+      <td>Comma-separated list of valid choices the user must supply. If used, one of these options must be chosen.</td>
       <td>n/a</td>
       <td>No</td>
     </tr>
