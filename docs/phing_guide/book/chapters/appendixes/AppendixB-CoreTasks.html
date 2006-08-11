@@ -472,11 +472,18 @@ See <a href="appendixes/AppendixC-CoreTypes.html#Fileset">Appendix C</a>
 for information on Filesets.
 </p>
 <h3>Example</h3>
-<pre>&lt;-- Delete a specific file from a directory --&gt;
-&lt;delete file=&quot;foo.bar&quot; dir=&quot;/tmp&quot; /&gt;
+<pre>&lt;-- Delete a specific file --&gt;
+&lt;delete file=&quot;/tmp/foo.bar&quot; /&gt;
 
 &lt;-- Delete a directory --&gt;
 &lt;delete dir=&quot;/tmp/darl&quot; includeemptydirs=&quot;true&quot; verbose=&quot;true&quot; failonerror=&quot;true&quot; /&gt;
+
+&lt;-- Delete using a fileset --&gt;
+&lt;delete&gt;
+  &lt;fileset dir=&quot;/tmp&quot;&gt;
+    &lt;include name=&quot;*.bar&quot; /&gt;
+  &lt;/fileset&gt;
+&lt;/delete&gt;
 </pre>
 <h3>Attributes</h3>
 <table>
@@ -495,7 +502,7 @@ for information on Filesets.
       <td>String</td>
       <td>
         The file that is to be deleted. You either have to specify
-        this attribute, or <em>dir</em> or both.
+	this attribute, <em>dir</em>, or use a fileset.
       </td>
       <td>n/a</td>
       <td>Yes</td>
@@ -505,7 +512,7 @@ for information on Filesets.
       <td>String</td>
       <td>
         The directory that is to be deleted. You either have to specify
-        this attribute, or <em>file</em> or both.
+        this attribute, <em>file</em>, or use a fileset.
       </td>
       <td>n/a</td>
       <td>Yes (or <em>file</em>)</td>
