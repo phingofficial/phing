@@ -918,6 +918,97 @@ strange contents in the archive.</p>
   <li>fileset</li>
 </ul>
 
+<h2><a name="UntarTask"></a>UntarTask</h2>
+<p> The <em>UntarTask</em> unpacks one or more tar archives.</p>
+
+<h3>Examples</h3>
+<pre>&lt;untar file=&quot;testtar.tar.gz&quot; destdir=&quot;dest&quot;&gt;
+  &lt;fileset dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;*.tar.gz&quot;/&gt;
+    &lt;include name=&quot;*.tar&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/untar&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Archive filename</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>destdir</td>
+      <td>String</td>
+      <td>Directory to unpack the archive(s) to</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h2><a name="UnzipTask"></a>UnzipTask</h2>
+<p> The <em>UnzipTask</em> unpacks one or more ZIP archives.</p>
+
+<h3>Examples</h3>
+<pre>&lt;unzip file=&quot;testzip.zip&quot; destdir=&quot;dest&quot;&gt;
+  &lt;fileset dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;*.zip&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/unzip&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Archive filename</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>destdir</td>
+      <td>String</td>
+      <td>Directory to unpack the archive(s) to</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
 <h2><a name="XmlLintTask"></a>XmlLintTask</h2>
 <p>The <em>XmlLintTask</em> checks syntax (lint) one or more XML files against an XML Schema Definition.</p>
 
