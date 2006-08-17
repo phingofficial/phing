@@ -35,8 +35,13 @@ class UnzipTask extends ExtractBaseTask {
     
     protected function extractArchive(PhingFile $zipfile)
     {
-        $extractParams = array('add_path' => $this->destDir->getAbsolutePath());
-        $this->log("Extracting zip: " . $zipfile->__toString() . ' to ' . $this->destDir->__toString(), PROJECT_MSG_INFO);
+        $extractParams = array('add_path' => $this->todir->getAbsolutePath());
+        if(!empty($this->removepath))
+        {
+            $extractParams['remove_path'] = $this->removepath;
+        }
+        
+        $this->log("Extracting zip: " . $zipfile->__toString() . ' to ' . $this->todir->__toString(), PROJECT_MSG_INFO);
         
     	try {
         	$zip = new Archive_Zip($zipfile->getAbsolutePath());
@@ -44,7 +49,7 @@ class UnzipTask extends ExtractBaseTask {
         	$extractResponse = $zip->extract($extractParams);
         	if(is_array($extractResponse)) {
         	    foreach ($extractResponse as $extractedPath) {
-        	    	$this->log('Extracted' . $extractedPath['stored_filename'] . ' to ' . $this->destDir->__toString(), PROJECT_MSG_VERBOSE);
+        	    	$this->log('Extracted' . $extractedPath['stored_filename'] . ' to ' . $this->todir->__toString(), PROJECT_MSG_VERBOSE);
         	    }
         	} else if ($extractResponse === 0) {
         	    throw new BuildException('Failed to extract zipfile: ' . $zip->errorInfo(true));
@@ -55,30 +60,9 @@ class UnzipTask extends ExtractBaseTask {
         }
     }
     
-    /**
-     * @param array $files array of filenames
-     * @param PhingFile $dir
-     * @return boolean
-     */
-    protected function isDestinationUpToDate(PhingFile $zipfile) {
-        if (!$zipfile->exists()) {
-        	throw new BuildException("Could not find file " . $zipfile->__toString() . " to unzip.");
-        }
-        
+    protected function listArchiveContent(PhingFile $zipfile)
+    {
         $zip = new Archive_Zip($zipfile->getAbsolutePath());
-        $zipContents = $zip->listContent();
-        if(is_array($zipContents)) {
-            /* Get first file/dir to match against destination directory path to find
-               when the file was last unziped */
-            $firstPathInfo = current($zipContents);
-            $firstPath = new PhingFile($this->destDir, $firstPathInfo['filename']);
-            
-            $fileSystem = FileSystem::getFileSystem();
-            if(!$firstPath->exists() || $fileSystem->compareMTimes($zipfile->getCanonicalPath(), $firstPath->getCanonicalPath()) == 1) {
-                return false;
-            }
-        }
-        
-        return true;
+        return $zip->listContent();
     }
 }

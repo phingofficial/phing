@@ -42,12 +42,12 @@ class UntarTask extends ExtractBaseTask {
     
     protected function extractArchive(PhingFile $tarfile)
     {
-        $this->log("Extracting tar file: " . $tarfile->__toString() . ' to ' . $this->destDir->__toString(), PROJECT_MSG_INFO);
+        $this->log("Extracting tar file: " . $tarfile->__toString() . ' to ' . $this->todir->__toString(), PROJECT_MSG_INFO);
         
     	try {
         	$tar = $this->initTar($tarfile);
-        	if(!$tar->extract($this->destDir->getAbsolutePath())) {
-        	   throw new BuildException('Failed to extract tar file: ' . $tar->errorInfo(true));
+        	if(!$tar->extractModify($this->todir->getAbsolutePath(), $this->removepath)) {
+        	    throw new BuildException('Failed to extract tar file: ' . $tarfile->getAbsolutePath());
         	}
         } catch (IOException $ioe) {
             $msg = "Could not extract tar file: " . $ioe->getMessage();
@@ -55,31 +55,10 @@ class UntarTask extends ExtractBaseTask {
         }
     }
     
-    /**
-     * @param array $files array of filenames
-     * @param PhingFile $dir
-     * @return boolean
-     */
-    protected function isDestinationUpToDate(PhingFile $tarfile) {
-        if (!$tarfile->exists()) {
-        	throw new BuildException("Could not find file " . $tarfile->__toString() . " to untar.");
-        }
-        
+    protected function listArchiveContent(PhingFile $tarfile)
+    {
         $tar = $this->initTar($tarfile);
-        $tarContents = $tar->listContent();
-        if(is_array($tarContents)) {
-            /* Get first file/dir to match against destination directory path to find
-               when the file was last unziped */
-            $firstPathInfo = current($tarContents);
-            $firstPath = new PhingFile($this->destDir, $firstPathInfo['filename']);
-            
-            $fileSystem = FileSystem::getFileSystem();
-            if(!$firstPath->exists() || $fileSystem->compareMTimes($tarfile->getCanonicalPath(), $firstPath->getCanonicalPath()) == 1) {
-                return false;
-            }
-        }
-        
-        return true;
+        return $tar->listContent();
     }
     
     /**

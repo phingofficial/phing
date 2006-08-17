@@ -29,8 +29,15 @@ require_once 'phing/tasks/system/MatchingTask.php';
  * @since     2.2.0
  */
 abstract class ExtractBaseTask extends MatchingTask {
+    /**
+     * @var PhingFile $file
+     */
     protected $file;
-    protected $destDir;
+    /**
+     * @var PhingFile $todir
+     */
+    protected $todir;
+    protected $removepath;
     protected $filesets = array(); // all fileset objects assigned to this task
 
     /**
@@ -55,8 +62,13 @@ abstract class ExtractBaseTask extends MatchingTask {
      * This is the base directory to look in for things to zip.
      * @param PhingFile $baseDir
      */
-    public function setDestDir(PhingFile $destDir) {
-        $this->destDir = $destDir;
+    public function setToDir(PhingFile $todir) {
+        $this->todir = $todir;
+    }
+    
+    public function setRemovePath($removepath)
+    {
+    	$this->removepath = $removepath;
     }
 
     /**
@@ -67,17 +79,12 @@ abstract class ExtractBaseTask extends MatchingTask {
     
         $this->validateAttributes();
         
-        $destinationFileSet = new FileSet();
-        $destinationFileSet->setDir($this->destDir);
-        $destinationDirScanner = $destinationFileSet->getDirectoryScanner($this->project);
-        $destinationFiles = $destinationDirScanner->getIncludedFiles();
-        
         $filesToExtract = array();
         if ($this->file !== null) {
             if(!$this->isDestinationUpToDate($this->file)) {
                 $filesToExtract[] = $this->file;
             } else {
-            	$this->log('Nothing to do: ' . $this->destDir->getAbsolutePath() . ' is up to date for ' .  $this->file->getCanonicalPath(), PROJECT_MSG_INFO);
+            	$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $this->file->getCanonicalPath(), PROJECT_MSG_INFO);
             }
         }
         
@@ -96,7 +103,7 @@ abstract class ExtractBaseTask extends MatchingTask {
             	if(!$this->isDestinationUpToDate($compressedArchiveFile)) {
             	   $filesToExtract[] = $compressedArchiveFile;
             	} else {
-            		$this->log('Nothing to do: ' . $this->destDir->getAbsolutePath() . ' is up to date for ' .  $compressedArchiveFile->getCanonicalPath(), PROJECT_MSG_INFO);
+            		$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $compressedArchiveFile->getCanonicalPath(), PROJECT_MSG_INFO);
             	}
             }
         }
@@ -108,7 +115,40 @@ abstract class ExtractBaseTask extends MatchingTask {
     
     abstract protected function extractArchive(PhingFile $compressedArchiveFile);
     
-    abstract protected function isDestinationUpToDate(PhingFile $compressedArchiveFile);
+    /**
+     * @param array $files array of filenames
+     * @param PhingFile $dir
+     * @return boolean
+     */
+    protected function isDestinationUpToDate(PhingFile $compressedArchiveFile) {
+        if (!$compressedArchiveFile->exists()) {
+        	throw new BuildException("Could not find file " . $compressedArchiveFile->__toString() . " to extract.");
+        }
+        
+        $compressedArchiveContent = $this->listArchiveContent($compressedArchiveFile);
+        if(is_array($compressedArchiveContent)) {
+            
+            $fileSystem = FileSystem::getFileSystem();
+            $compressArchiveFilename = $compressArchivePathInfo['filename'];
+            foreach ($compressedArchiveContent as $compressArchivePathInfo) {
+                if(!empty($this->removepath) && strlen($compressArchiveFilename) >= strlen($this->removepath))
+                {
+                    $compressArchiveFilename = preg_replace('/^' . $this->removepath . '/','', $compressArchiveFilename);
+                }
+                $compressArchivePath = new PhingFile($this->todir, $compressArchiveFilename);
+                
+                if(!$compressArchivePath->exists() ||
+                    $fileSystem->compareMTimes($compressedArchiveFile->getCanonicalPath(), $compressArchivePath->getCanonicalPath()) == 1) {
+                    return false;
+                }
+            }
+            
+        }
+        
+        return true;
+    }
+    
+    abstract protected function listArchiveContent(PhingFile $compressedArchiveFile);
     
     /**
      * Validates attributes coming in from XML
@@ -123,12 +163,12 @@ abstract class ExtractBaseTask extends MatchingTask {
             throw new BuildException("Specify at least one source compressed archive - a file or a fileset.");
         }
 
-        if ($this->destDir === null) {
-            throw new BuildException("Destdir must be set.");
+        if ($this->todir === null) {
+            throw new BuildException("todir must be set.");
         }
         
-        if ($this->destDir !== null && $this->destDir->exists() && !$this->destDir->isDirectory()) {
-            throw new BuildException("Destdir must be a directory.");
+        if ($this->todir !== null && $this->todir->exists() && !$this->todir->isDirectory()) {
+            throw new BuildException("todir must be a directory.");
         }
 
         if ($this->file !== null && $this->file->exists() && $this->file->isDirectory()) {
