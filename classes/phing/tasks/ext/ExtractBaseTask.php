@@ -129,8 +129,8 @@ abstract class ExtractBaseTask extends MatchingTask {
         if(is_array($compressedArchiveContent)) {
             
             $fileSystem = FileSystem::getFileSystem();
-            $compressArchiveFilename = $compressArchivePathInfo['filename'];
             foreach ($compressedArchiveContent as $compressArchivePathInfo) {
+                $compressArchiveFilename = $compressArchivePathInfo['filename'];
                 if(!empty($this->removepath) && strlen($compressArchiveFilename) >= strlen($this->removepath))
                 {
                     $compressArchiveFilename = preg_replace('/^' . $this->removepath . '/','', $compressArchiveFilename);
