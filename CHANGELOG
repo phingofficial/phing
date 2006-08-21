@@ -2,9 +2,7 @@
                            P     H     I     N     G
 
 
-Feb. ??, 2006 - Phing 2.2.0
-
-  * Removed some lingering E_STRICT errors, bugs with 5.1.x and PHP >= 5.0.5 (HL)
+Aut. 21, 2006 - Phing 2.2.0
 
   * Refactored parser to support many tags as children of base <project> tag (HL)
 
@@ -42,7 +40,24 @@ Feb. ??, 2006 - Phing 2.2.0
     NOTE: This changes the usage of the collection of PHPUnit2 code coverage reports, see the
     updated documentation for the CoverageSetupTask
   
+  * Added Unzip and Untar tasks contributed by Joakim Bodin
 
+  * [#8, #49] Fixed bugs in TarTask related to including empty directories (HL)
+  
+  * [#44] Fixed bug related to copying empty dirs. (HL)
+  
+  * [#32] Fixed PHPUnit2 tasks to work with PHPUnit2-3.0.0 (MR)
+  
+  * [#31] Fixed bug with using PHPDocumentor 1.3.0RC6 (MR)
+  
+  * [#43] Fixed top-level (no target) IfTask behavior (Matthias Pigulla)
+  
+  * [#41] Removed some lingering E_STRICT errors, bugs with 5.1.x and PHP >= 5.0.5 (HL)
+  
+  * [#25] Fixed 'phing' script to also run on non-bash unix /bin/sh 
+  
+  * Numerous documentation improvements by many members of the community (Thanks!)
+  
 Sept. 18, 2005 - Phing 2.1.1
 
   * Added support for specifying 4-char mask (e.g. 1777) to ChmodTask. (Hans Lellelid)
