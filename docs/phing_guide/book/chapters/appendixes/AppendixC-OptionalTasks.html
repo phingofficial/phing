@@ -151,8 +151,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
 &nbsp;&nbsp;&lt;/fileset&gt;
 &lt;/coverage-setup&gt;
-&lt;phpunit2&gt;
-&nbsp;&nbsp;&lt;formatter classname=&quot;phing.tasks.ext.coverage.CoverageFormatter&quot; usefile=&quot;false&quot;/&gt;
+&lt;phpunit2 codecoverage=&quot;true&quot;&gt;
 &nbsp;&nbsp;&lt;batchtest&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;fileset dir=&quot;src&quot;&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name=&quot;*Test.php&quot;/&gt;
