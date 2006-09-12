@@ -6,7 +6,8 @@
 # ------------------------------------------------------------------------
 
 # Change this to reflect your environment if the default value doesn't work
-export PHP_COMMAND="@PHP-BIN@"
+PHP_COMMAND="@PHP-BIN@"
+export PHP_COMMAND
 
 # -------------------------------------------------------------------------
 # Do not change anything below this line unless you know what you're doing.
@@ -14,7 +15,8 @@ export PHP_COMMAND="@PHP-BIN@"
 
 if (test -z "$PHP_COMMAND") ; then
 	echo "WARNING: PHP_COMMAND environment not set. (Assuming php on PATH)"
-	export PHP_COMMAND=php
+	PHP_COMMAND=php
+	export PHP_COMMAND
 fi
 
 $PHP_COMMAND -d html_errors=off -qC @PEAR-DIR@/phing.php -logger phing.listener.AnsiColorLogger $*

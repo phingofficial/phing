@@ -1123,10 +1123,10 @@ of evaluating a PHP expression or the result returned by a function/method call.
 </p>
 <h3>Example</h3>
 <pre>&lt;property name=&quot;strings.test&quot; value=&quot;Harr harr, more power!&quot; /&gt;
-&lt;echo message=&quot;{$strings.text}&quot; /&gt;
+&lt;echo message=&quot;${strings.text}&quot; /&gt;
 
 &lt;property name=&quot;foo.bar&quot; value=&quot;Yet another property...&quot; /&gt;
-&lt;echo message=&quot;{$foo.bar}&quot; /&gt;
+&lt;echo message=&quot;${foo.bar}&quot; /&gt;
 
 &lt;property file=&quot;build.properties&quot;  /&gt;
 </pre>
@@ -1229,7 +1229,7 @@ specified directory or the project basedir (if no dir attribute specified).</p>
 <h3>Example</h3>
 <pre>&lt;property name=&quot;relative_path&quot; value=&quot;./dirname&quot;/&gt;
 
-&lt;resolve propertyName=&quot;absolute_path&quot; file=&quot;${relative_path}&quot;/&gt;
+&lt;resolvepath propertyName=&quot;absolute_path&quot; file=&quot;${relative_path}&quot;/&gt;
 
 &lt;echo&gt;Resolved [absolute] path: ${absolute_path}&lt;/echo&gt;</pre>
 <h3>Attributes</h3>

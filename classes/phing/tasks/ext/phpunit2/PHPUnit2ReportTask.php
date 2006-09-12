@@ -77,7 +77,10 @@ class PHPUnit2ReportTask extends Task
 	{
 		$this->toDir = $toDir;
 	}
-
+	
+	/**
+	 * Returns the path to the XSL stylesheet
+	 */
 	private function getStyleSheet()
 	{
 		$xslname = "phpunit2-" . $this->format . ".xsl";
@@ -110,8 +113,11 @@ class PHPUnit2ReportTask extends Task
 
 		return $file;
 	}
-
-	function transform($document)
+	
+	/**
+	 * Transforms the DOM document
+	 */
+	private function transform(DOMDocument $document)
 	{
 		$dir = new PhingFile($this->toDir);
 		
@@ -145,16 +151,35 @@ class PHPUnit2ReportTask extends Task
 			$proc->transformToXML($document);
 		}
 	}
+	
+	/**
+	 * Fixes 'testsuite' elements with no package attribute, adds
+	 * package="default" to those elements.
+	 */
+	private function fixPackages(DOMDocument $document)
+	{
+		$testsuites = $document->getElementsByTagName('testsuite');
+		
+		foreach ($testsuites as $testsuite)
+		{
+			if (!$testsuite->hasAttribute('package'))
+			{
+				$testsuite->setAttribute('package', 'default');
+			}
+		}
+	}
 
 	/**
 	 * The main entry point
 	 *
 	 * @throws BuildException
 	 */
-	function main()
+	public function main()
 	{
 		$testSuitesDoc = new DOMDocument();
 		$testSuitesDoc->load($this->inFile);
+		
+		$this->fixPackages($testSuitesDoc);
 		
 		$this->transform($testSuitesDoc);
 	}

@@ -124,6 +124,10 @@ abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListene
 	{
 	}
 
+	function addSkippedTest(PHPUnit2_Framework_Test $test, Exception $e)
+	{
+	}
+	
 	function getRunCount()
 	{
 		return $this->runCount;
