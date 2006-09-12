@@ -552,7 +552,7 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>No</td>
 	</tr>
 	<tr>
-      <td>haltonfailure</td>
+      <td>failureproperty</td>
       <td>String</td>
       <td>Name of property to set (to true) on failure.</td>
       <td>n/a</td>
@@ -687,6 +687,10 @@ XML results to the directory <em>reports</em>.</p>
 Runs all matching testcases in the directory <em>tests</em>, writing plain
 text results to the console. The build process is aborted if a test
 fails.</p>
+
+<p><b>Important note:</b> using a mechanism such as an "AllTests.php" file to execute testcases will bypass the Phing hooks used for reporting
+and counting, and could possibly lead to strange results. Instead, use one of more fileset's to provide a list of testcases to execute.</p>
+
 <h2><a name="PHPUnit2Report"></a>PHPUnit2Report</h2>
 <p>This task transforms PHPUnit2 xml reports to HTML using XSLT.</p>
 <h3>Attributes</h3>
@@ -849,8 +853,9 @@ are listed under the "default" package.</p>
 
 <h2><a name="TarTask"></a>TarTask</h2>
 <p> The <em>TarTask</em> creates a tarball from a fileset or directory.</p>
-<h3>Example</h3>
-<pre>&lt;tar destfile=&quot;phing.tar&quot; basedir=&quot;.&quot; compression=&quot;gzip&quot;&gt;
+
+<h3>Examples</h3>
+<pre>&lt;tar destfile=&quot;phing.tar&quot; compression=&quot;gzip&quot;&gt;
  &lt;fileset dir=&quot;.&quot;&gt;
 	 &lt;include name=&quot;**/**&quot; /&gt;
  &lt;/fileset&gt;
@@ -859,6 +864,11 @@ are listed under the "default" package.</p>
 
 <p>The above example uses a fileset to determine which files to include in
 the archive.</p>
+
+<pre>&lt;tar destfile=&quot;phing.tar&quot; basedir=&quot;.&quot; compression=&quot;gzip&quot;/&gt;</pre>
+
+<p>The second example uses the basedir attribute to include the contents of that directory (including
+subdirectories) in the archive.</p>
 
 <h3>Attributes</h3>
 <table>
@@ -897,8 +907,102 @@ the archive.</p>
   </tbody>
 </table>
 
-<p><b>Important note:</b> files are not replaced if they are already present in the
+<p><b>Important note #1:</b> files are not replaced if they are already present in the
 archive.</p>
+
+<p><b>Important note #2:</b> using basedir and fileset simultaneously can result in
+strange contents in the archive.</p>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h2><a name="UntarTask"></a>UntarTask</h2>
+<p> The <em>UntarTask</em> unpacks one or more tar archives.</p>
+
+<h3>Examples</h3>
+<pre>&lt;untar file=&quot;testtar.tar.gz&quot; destdir=&quot;dest&quot;&gt;
+  &lt;fileset dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;*.tar.gz&quot;/&gt;
+    &lt;include name=&quot;*.tar&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/untar&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Archive filename</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>destdir</td>
+      <td>String</td>
+      <td>Directory to unpack the archive(s) to</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h2><a name="UnzipTask"></a>UnzipTask</h2>
+<p> The <em>UnzipTask</em> unpacks one or more ZIP archives.</p>
+
+<h3>Examples</h3>
+<pre>&lt;unzip file=&quot;testzip.zip&quot; destdir=&quot;dest&quot;&gt;
+  &lt;fileset dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;*.zip&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/unzip&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Archive filename</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>destdir</td>
+      <td>String</td>
+      <td>Directory to unpack the archive(s) to</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3>Supported Nested Tags</h3>
 <ul>
@@ -958,9 +1062,24 @@ archive.</p>
 
 <h2><a name="ZipTask"></a>ZipTask</h2>
 <p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p>
-<h3>Example</h3>
-<pre>&lt;zip destfile=&quot;phing.zip&quot; basedir=&quot;.&quot;/&gt;
+
+<h3>Examples</h3>
+<pre>&lt;zip destfile=&quot;phing.zip&quot;&gt;
+ &lt;fileset dir=&quot;.&quot;&gt;
+	 &lt;include name=&quot;**/**&quot; /&gt;
+ &lt;/fileset&gt;
+&lt;/zip&gt;
 </pre>
+
+<p>The above example uses a fileset to determine which files to include in
+the archive.</p>
+
+<pre>&lt;zip destfile=&quot;phing.zip&quot; basedir=&quot;.&quot;/&gt;</pre>
+
+<p>The second example uses the basedir attribute to include the contents of that directory (including
+subdirectories) in the archive.</p>
+
+<h3>Example</h3>
 
 <h3>Attributes</h3>
 <table>
@@ -991,6 +1110,9 @@ archive.</p>
     </tr>
   </tbody>
 </table>
+
+<p><b>Important note:</b> using basedir and fileset simultaneously can result in
+strange contents in the archive.</p>
 
 <h3>Supported Nested Tags</h3>
 <ul>

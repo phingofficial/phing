@@ -612,7 +612,7 @@ TD.srcLineClassStart {
             <td class="coverageCount"></td>
         </xsl:if>
         <td>
-        	<xsl:if test="@startclass=1">        	
+            <xsl:if test="@startclass=1">
             	<xsl:attribute name="class">srcLineClassStart</xsl:attribute>
             </xsl:if>
             <xsl:if test="@coveredcount>0">

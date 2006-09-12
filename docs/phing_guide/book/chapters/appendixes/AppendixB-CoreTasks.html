@@ -226,7 +226,7 @@ and a directory, <em>properties.yetanother</em> is set to
 </table>
 
 <h2><a name="CallTargetTask"></a>CallTargetTask</h2>
-<p> The CallTargetTask calls a target from the same project. A <em>&lt;project&gt;</em>
+<p> The CallTargetTask calls a target from the same project. A <em>&lt;phingcall&gt;</em>
   tag may contain <em>&lt;property&gt;</em> tags that define new properties. In
   the following example, the properties <em>property1</em> and <em>foo</em> are
   defined and only accessible inside the called target. </p>
@@ -295,6 +295,55 @@ and a directory, <em>properties.yetanother</em> is set to
   The condition system is not yet documented.
 </p>
 -->
+
+<h2><a name="ConditionTask"></a>ConditionTask</h2>
+<p>Sets a property if a certain condition holds true - this is a
+	generalization of <a href="#AvailableTask">Available</a> and 
+	<a href="#UpToDateTask">UpToDate</a>.</p>
+<p>If the condition holds true, the property value is set to true by
+	default; otherwise, the property is not set. You can set the value to
+	something other than the default by specifying the <code>value</code>
+	attribute.</p>
+<p>Conditions are specified as nested elements, you must specify exactly 
+	one condition - see the <a href="../ProjectComponents.html#Conditions">documentation</a> 
+	for a complete list of nested elements.</p>
+<h3>Example</h3>
+<pre>
+&lt;condition property="isMacOrWindows"&gt;
+    &lt;and&gt;
+      &lt;os family="mac"/&gt;
+      &lt;os family="windows"/&gt;
+    &lt;/and&gt;
+  &lt;/condition&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>property</td>
+      <td>String</td>
+      <td>The name of the property to set.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>String</td>
+      <td>The value to set the property to. Defaults to "true".</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2><a name="CopyTask"></a>CopyTask</h2>
 <p>
@@ -423,11 +472,18 @@ See <a href="appendixes/AppendixC-CoreTypes.html#Fileset">Appendix C</a>
 for information on Filesets.
 </p>
 <h3>Example</h3>
-<pre>&lt;-- Delete a specific file from a directory --&gt;
-&lt;delete file=&quot;foo.bar&quot; dir=&quot;/tmp&quot; /&gt;
+<pre>&lt;-- Delete a specific file --&gt;
+&lt;delete file=&quot;/tmp/foo.bar&quot; /&gt;
 
 &lt;-- Delete a directory --&gt;
 &lt;delete dir=&quot;/tmp/darl&quot; includeemptydirs=&quot;true&quot; verbose=&quot;true&quot; failonerror=&quot;true&quot; /&gt;
+
+&lt;-- Delete using a fileset --&gt;
+&lt;delete&gt;
+  &lt;fileset dir=&quot;/tmp&quot;&gt;
+    &lt;include name=&quot;*.bar&quot; /&gt;
+  &lt;/fileset&gt;
+&lt;/delete&gt;
 </pre>
 <h3>Attributes</h3>
 <table>
@@ -446,7 +502,7 @@ for information on Filesets.
       <td>String</td>
       <td>
         The file that is to be deleted. You either have to specify
-        this attribute, or <em>dir</em> or both.
+	this attribute, <em>dir</em>, or use a fileset.
       </td>
       <td>n/a</td>
       <td>Yes</td>
@@ -456,7 +512,7 @@ for information on Filesets.
       <td>String</td>
       <td>
         The directory that is to be deleted. You either have to specify
-        this attribute, or <em>file</em> or both.
+        this attribute, <em>file</em>, or use a fileset.
       </td>
       <td>n/a</td>
       <td>Yes (or <em>file</em>)</td>
@@ -602,8 +658,7 @@ The task can also echo to a file, in which case the option to append rather than
 &lt;exec command=&quot;make&quot; dir=&quot;/usr/src/php-4.0&quot; /&gt;
 
 &lt;-- List the contents of &quot;/tmp&quot; out to a file. --&gt;
-&lt;exec command=&quot;ls -l&quot; &quot;/tmp &gt; foo.out&quot; escape=&quot;false&quot; /&gt;
-
+&lt;exec command=&quot;ls -l /tmp &gt; foo.out&quot; escape=&quot;false&quot; /&gt;
 </pre>
 <h3>Attributes</h3>
 <table>
@@ -629,7 +684,7 @@ The task can also echo to a file, in which case the option to append rather than
       <td>String</td>
       <td> The directory the command is to be executed in. </td>
       <td>n/a</td>
-      <td>Yes</td>
+      <td>No</td>
     </tr>
     <tr>
       <td>os</td>
@@ -778,6 +833,67 @@ Causes the current build script execution to fail and the script to exit with an
   </tbody>
 </table>
 
+<h2><a name="IfTask"></a>IfTask</h2>
+<p>Perform some tasks based on whether a given condition holds true or not.</p>
+<h3>Attributes</h3>
+<p>
+This task doesn't have any attributes, the condition to test is specified by a nested
+	element - see the <a href="../ProjectComponents.html#Conditions">documentation</a> 
+	for a complete list of nested elements.</p>
+<p>Just like the <code>&lt;condition&gt;</code> task, only a
+    single condition can be specified - you combine them using
+    <code>&lt;and&gt;</code> or <code>&lt;or&gt;</code>
+    conditions.</p>
+<p>In addition to the condition, you can specify three different
+    child elements, <code>&lt;elseif&gt;</code>, <code>&lt;then&gt;</code> and
+    <code>&lt;else&gt;</code>.  All three subelements are optional.
+
+    Both <code>&lt;then&gt;</code> and <code>&lt;else&gt;</code> must not be
+    used more than once inside the if task. Both are
+    containers for Phing tasks.</p>
+
+<p>The <code>&lt;elseif&gt;</code> behaves exactly like an <code>&lt;if&gt;</code>
+    except that it cannot contain the <code>&lt;else&gt;</code> element
+    inside of it.  You may specify as may of these as you like, and the
+    order they are specified is the order they are evaluated in.  If the
+    condition on the <code>&lt;if&gt;</code> is false, then the first
+    <code>&lt;elseif&gt;</code> who's conditional evaluates to true
+    will be executed.  The <code>&lt;else&gt;</code> will be executed
+    only if the <code>&lt;if&gt;</code> and all <code>&lt;elseif&gt;</code>
+    conditions are false.</p>
+<h3>Example</h3>
+<pre>
+&lt;if&gt;
+ &lt;equals arg1="${foo}" arg2="bar" /&gt;
+ &lt;then&gt;
+   &lt;echo message="The value of property foo is bar" /&gt;
+ &lt;/then&gt;
+ &lt;else&gt;
+   &lt;echo message="The value of property foo is not bar" /&gt;
+ &lt;/else&gt;
+&lt;/if&gt;
+</pre>
+
+<pre>
+&lt;if&gt;
+ &lt;equals arg1="${foo}" arg2="bar" /&gt;
+ &lt;then&gt;
+   &lt;echo message="The value of property foo is 'bar'" /&gt;
+ &lt;/then&gt;
+
+ &lt;elseif&gt;
+  &lt;equals arg1="${foo}" arg2="foo" /&gt;
+  &lt;then&gt;
+   &lt;echo message="The value of property foo is 'foo'" /&gt;
+  &lt;/then&gt;
+ &lt;/elseif&gt;
+
+ &lt;else&gt;
+   &lt;echo message="The value of property foo is not 'foo' or 'bar'" /&gt;
+ &lt;/else&gt;
+&lt;/if&gt;
+</pre>
+
 <h2><a name="IncludePathTask"></a>IncludePathTask</h2>
 <p>Sets the PHP include_path configuration option for the duration of this phing run.</p>
 <h3>Example</h3>
@@ -806,10 +922,12 @@ Causes the current build script execution to fail and the script to exit with an
 </table>
 
 <h2><a name="InputTask"></a>InputTask</h2>
-<p> The <em>InputTask</em> can be used to interactively set property values based
+<p>The <em>InputTask</em> can be used to interactively set property values based
   on input from the console (or other Reader).</p>
 <h3>Example</h3>
-<pre>&lt;echo&gt;HTML pages installing to: ${documentRoot}&lt;/echo&gt;
+<pre>
+&lt;!-- Getting string input --&gt;
+&lt;echo&gt;HTML pages installing to: ${documentRoot}&lt;/echo&gt;
 &lt;echo&gt;PHP classes installing to: ${servletDirectory}&lt;/echo&gt;
 
 &lt;input propertyname=&quot;documentRoot&quot;&gt;Web application document root&lt;/input&gt;
@@ -817,7 +935,15 @@ Causes the current build script execution to fail and the script to exit with an
   defaultValue=&quot;/usr/servlets&quot; promptChar=&quot;?&quot;&gt;PHP classes install dir&lt;/input&gt;
 
 &lt;echo&gt;HTML pages installed to ${documentRoot}&lt;/echo&gt;
-&lt;echo&gt;PHP classes installed to ${servletDirectory}&lt;/echo&gt;</pre>
+&lt;echo&gt;PHP classes installed to ${servletDirectory}&lt;/echo&gt;
+
+&lt;!-- Having the user choose from a set of valid choices --&gt;
+&lt;echo&gt;Choose a valid option:&lt;/echo&gt;
+
+&lt;input propertyname=&quot;optionsChoice&quot; validargs=&quot;foo,bar,bob&quot;&gt;
+  Which item would you like to use
+&lt;/input&gt;
+</pre>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -855,6 +981,13 @@ Causes the current build script execution to fail and the script to exit with an
       <td>promptChar</td>
       <td>String</td>
       <td> The prompt character to follow prompt text.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>validArgs</td>
+      <td>String</td>
+      <td>Comma-separated list of valid choices the user must supply. If used, one of these options must be chosen.</td>
       <td>n/a</td>
       <td>No</td>
     </tr>
@@ -1406,7 +1539,7 @@ These properties can be used in the build-file, for instance, to create time-sta
 <p>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default formats.</p>
 
 <pre>&lt;tstamp&gt;
-  &ltformat property=&quot;DATE&quot; pattern=&quot;%c&quot; locale=&quot;nl_NL&quot;/&gt;
+  &lt;format property=&quot;DATE&quot; pattern=&quot;%c&quot; locale=&quot;nl_NL&quot;/&gt;
 &lt;/tstamp&gt;</pre>
 
 <p>sets the standard properties as well as the property DATE with the date/time pattern "%c" using the Dutch locale.</p>
@@ -1611,7 +1744,7 @@ you can use all the elements allowed there.
 </p>
 <h3>Example</h3>
 <pre>&lt;!-- Transform docbook with an imaginary XSLT file --&gt;
-&lt;xslt todir=&quot;/srv/docs/phing&quot;tyle=&quot;dbk2html.xslt&quot; &gt;
+&lt;xslt todir=&quot;/srv/docs/phing&quot; style=&quot;dbk2html.xslt&quot; &gt;
   &lt;fileset dir=&quot;.&quot;&gt;
     &lt;include name=&quot;**/*.xml&quot; /&gt;
   &lt;/fileset&gt;
