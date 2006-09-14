@@ -70,6 +70,11 @@ class CreoleSQLExecTask extends CreoleTask {
     private $filesets = array();
 
     /**
+     * all filterchains objects assigned to this task
+     */
+    private $filterChains  = array();
+
+    /**
      * SQL statement
      */
     private $statement = null;
@@ -152,6 +157,17 @@ class CreoleSQLExecTask extends CreoleTask {
      */
     public function addFileset(FileSet $set) {
         $this->filesets[] = $set;
+    }
+
+    /**
+     * Creates a filterchain
+     *
+     * @access public
+     * @return  object  The created filterchain object
+     */
+    function createFilterChain() {
+        $num = array_push($this->filterChains, new FilterChain($this->project));
+        return $this->filterChains[$num-1];
     }
 
     /**
@@ -357,9 +373,25 @@ class CreoleSQLExecTask extends CreoleTask {
     public function runStatements(Reader $reader, $out = null) {
         $sql = "";
         $line = "";
-        $in = new BufferedReader($reader);
-        try {
+
+		$buffer = '';
+
+        if ((is_array($this->filterChains)) && (!empty($this->filterChains))) {    
+            $in = FileUtils::getChainedReader(new BufferedReader($reader), $this->filterChains, $this->getProject());
+			while(-1 !== ($read = $in->read())) { // -1 indicates EOF
+				   $buffer .= $read;
+            }
+            $lines = explode("\n", $buffer);
+        } else {
+	        $in = new BufferedReader($reader);
+
             while (($line = $in->readLine()) !== null) {
+				$lines[] = $line;
+			}
+		}
+
+        try {
+			foreach ($lines as $line) {
                 $line = trim($line);
                 $line = ProjectConfigurator::replaceProperties($this->project, $line,
                         $this->project->getProperties());
@@ -390,7 +422,7 @@ class CreoleSQLExecTask extends CreoleTask {
                         || $this->delimiterType == self::DELIM_ROW
                         && $line == $this->delimiter) {
                     $this->log("SQL: " . $sql, PROJECT_MSG_VERBOSE);
-                    $this->execSQL(StringHelper::substring($sql, 0, strlen($sql) - strlen($this->delimiter) - 1), $out);
+                    $this->execSQL(StringHelper::substring($sql, 0, strlen($sql) - strlen($this->delimiter)), $out);
                     $sql = "";
                 }
             }
@@ -546,7 +578,9 @@ class SQLExecTransaction {
         if ($this->tSrcFile !== null) {
             $this->parent->log("Executing file: " . $this->tSrcFile->getAbsolutePath(),
                 PROJECT_MSG_INFO);
+
             $reader = new FileReader($this->tSrcFile);
+
             $this->parent->runStatements($reader, $out);
             $reader->close();
         }
