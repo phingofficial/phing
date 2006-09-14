@@ -22,13 +22,14 @@
 include_once 'phing/Task.php';
 
 /**
- *  Send a message by mail() 
+ * Base class for Subversion tasks
  *
- *  <mail to="user@example.org" subject="build complete">The build process is a success...</mail> 
- * 
- *  @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
- *  @version  $Id$
- *  @package  phing.tasks.ext
+ * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Andrew Eddie <andrew.eddie@jamboworks.com> 
+ * @version $Id$
+ * @package phing.tasks.ext.svn
+ * @see VersionControl_SVN
+ * @since 2.2.0
  */
 abstract class SvnBaseTask extends Task
 {
@@ -43,6 +44,10 @@ abstract class SvnBaseTask extends Task
 	private $mode = "";
 	
 	private $svnArgs = array();
+	
+	private $svnSwitches = array();
+
+	private $toDir = "";
 
 	/**
 	 * Initialize Task.
@@ -104,7 +109,95 @@ abstract class SvnBaseTask extends Task
 	{
 		return $this->svnPath;
 	}
-	
+
+	//
+	// Args
+	//
+
+	/**
+	 * Sets the path to export/checkout to
+	 */
+	function setToDir($toDir)
+	{
+		$this->toDir = $toDir;
+	}
+
+	/**
+	 * Returns the path to export/checkout to
+	 */
+	function getToDir()
+	{
+		return $this->toDir;
+	}
+
+	//
+	// Switches
+	//
+
+	/**
+	 * Sets the force switch
+	 */
+	function setForce($value)
+	{
+		$this->svnSwitches['force'] = $value;
+	}
+
+	/**
+	 * Returns the forec switch
+	 */
+	function getForce()
+	{
+		return isset( $this->svnSwitches['force'] ) ? $this->svnSwitches['force'] : '';
+	}
+
+	/**
+	 * Sets the username of the user to export
+	 */
+	function setUsername($value)
+	{
+		$this->svnSwitches['username'] = $value;
+	}
+
+	/**
+	 * Returns the username
+	 */
+	function getUsername()
+	{
+		return isset( $this->svnSwitches['username'] ) ? $this->svnSwitches['username'] : '';
+	}
+
+	/**
+	 * Sets the password of the user to export
+	 */
+	function setPassword($value)
+	{
+		$this->svnSwitches['password'] = $value;
+	}
+
+	/**
+	 * Returns the password
+	 */
+	function getPassword()
+	{
+		return isset( $this->svnSwitches['password'] ) ? $this->svnSwitches['password'] : '';
+	}
+
+	/**
+	 * Sets the password of the user to export
+	 */
+	function setNoCache($value)
+	{
+		$this->svnSwitches['no-auth-cache'] = $value;
+	}
+
+	/**
+	 * Returns the password
+	 */
+	function getNoCache()
+	{
+		return isset( $this->svnSwitches['no-auth-cache'] ) ? $this->svnSwitches['no-auth-cache'] : '';
+	}
+
 	/**
 	 * Creates a VersionControl_SVN class based on $mode
 	 *
@@ -161,8 +254,12 @@ abstract class SvnBaseTask extends Task
 		$tempArgs = $this->svnArgs;
 		
 		$tempArgs = array_merge($tempArgs, $args);
+
+		$tempSwitches = $this->svnSwitches;
 		
-		if ($output = $this->svn->run($tempArgs, $switches))
+		$tempSwitches = array_merge($tempSwitches, $switches);
+
+		if ($output = $this->svn->run($tempArgs, $tempSwitches))
 		{
 			return $output;
 		}

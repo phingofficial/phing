@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id$
+ * $Id: SvnExportTask.php 37 2006-03-09 14:04:22Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,16 +23,14 @@ require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
- * Exports/checks out a repository to a local directory
- * with authentication 
+ * Updates a repository in local directory
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
- * @author Andrew Eddie <andrew.eddie@jamboworks.com> 
+ * @author Andrew Eddie <andrew.eddie@jamboworks.com>
  * @version $Id$
  * @package phing.tasks.ext.svn
- * @since 2.2.0
+ * @since 2.3.0
  */
-class SvnExportTask extends SvnBaseTask
+class SvnUpdateTask extends SvnBaseTask
 {
 	/**
 	 * The main entry point
@@ -41,9 +39,9 @@ class SvnExportTask extends SvnBaseTask
 	 */
 	function main()
 	{
-		$this->setup('export');
-		
-		$this->log("Exporting SVN repository to '" . $this->getToDir() . "'");
+		$this->setup('update');
+
+		$this->log("Updating SVN repository at '" . $this->getToDir() . "'");
 
 		$this->run(array($this->getToDir()));
 	}

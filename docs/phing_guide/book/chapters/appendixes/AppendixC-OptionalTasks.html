@@ -166,9 +166,23 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 <p>For more information on the meaning of the various options please consult the ionCube <a href="http://www.ioncube.com/USER-GUIDE.pdf" target="_blank">user guide</a>.</p>
 
 <h3>Example</h3>
-<pre>&lt;ioncubeencoder phpversion="4" binary="true" ioncubepath="/usr/local/ioncube"
-  targetoption="replace" withoutruntimeloadersupport="true" optimize="max"
-  fromdir="files" todir="encoded" licensepath="mylicense.txt" passphrase="mypassphrase"&gt;
+<pre>&lt;ioncubeencoder
+   binary="true"
+   copy="*.ini config/*"
+   encode="*.inc licenses/license.key"
+   encrypt="*.tpl *.xml"
+   encrypt="more"
+   fromdir="files"
+   ignore="*.bak RCS/ *~ docs/"
+   ioncubepath="/usr/local/ioncube"
+   keep="docs/README"
+   licensepath="mylicense.txt"
+   optimize="max"
+   passphrase="mypassphrase"
+   phpversion="4"
+   targetoption="replace"
+   todir="encoded"
+   withoutruntimeloadersupport="true"&gt;
   &lt;comment&gt;A project encoded with the ionCube encoder.&lt;/comment&gt;
 &lt;/ioncubeencoder&gt;
 </pre>
@@ -186,58 +200,51 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   </thead>
   <tbody>
     <tr>
-      <td>phpversion</td>
-      <td>Integer</td>
-      <td>The PHP version to use</td>
-      <td>5</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>ioncubepath</td>
+      <td>allowedserver</td>
       <td>String</td>
-      <td>Path to the ionCube binaries</td>
-      <td>/usr/local/ioncube</td>
+      <td>Restricts the encoded files to particular servers and/or domains.  Consult the IonCude documentation for more information.</td>
+      <td>none</td>
       <td>No</td>
     </tr>
     <tr>
       <td>binary</td>
       <td>Boolean</td>
-      <td>Wether to save encoded files in binary format (default is ASCII format)</td>
+      <td>Whether to save encoded files in binary format (default is ASCII format)</td>
       <td>false</td>
       <td>No</td>
     </tr>
     <tr>
-      <td>withoutruntimeloadersupport</td>
-      <td>Boolean</td>
-      <td>Wether to disable support for runtime initialization of the ionCube Loader</td>
-      <td>false</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>optimize</td>
+      <td>copy</td>
       <td>String</td>
-      <td>Controls the optimization of the encoded files, accepts either <em>more</em> or <em>max</em></td>
+      <td>Specifies files or directories to exclude from being encoded or encrypted and copy them to the target directory (separated by space).</td>
       <td>none</td>
       <td>No</td>
     </tr>
     <tr>
-      <td>licensepath</td>
+      <td>encode</td>
       <td>String</td>
-      <td>Path to the license file that will be used by the encoded files</td>
+      <td>Specifies additional file patterns, files or directories to encode, or to reverse the effect of <em>copy</em></td>
       <td>none</td>
       <td>No</td>
     </tr>
     <tr>
-      <td>passphrase</td>
+      <td>encrypt</td>
       <td>String</td>
-      <td>The passphrase to use when encoding with a license file</td>
+      <td>Specify files or directories (space separated list) that are to be encrypted.</td>
       <td>none</td>
       <td>No</td>
     </tr>
     <tr>
-      <td>targetoption</td>
+      <td>expirein</td>
       <td>String</td>
-      <td>Option to use when target directory exists, accepts <em>replace</em>, <em>merge</em>, <em>update</em> and <em>rename</em></td>
+      <td>Sets a period in seconds (s), minutes (m), hours (h) or days (d) after which the files expire.  Accepts: <em>500s</em> or <em>55m</em> or <em>24h</em> or <em>7d</em></td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>expireon</td>
+      <td>String</td>
+      <td>Sets a YYYY-MM-DD date to expire the files.</td>
       <td>none</td>
       <td>No</td>
     </tr>
@@ -249,11 +256,96 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
       <td>Yes</td>
     </tr>
     <tr>
+      <td>ignore</td>
+      <td>String</td>
+      <td>Set files and directories to ignore entirely and exclude from the target directory (separated by space).</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>ioncubepath</td>
+      <td>String</td>
+      <td>Path to the ionCube binaries</td>
+      <td>/usr/local/ioncube</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>keep</td>
+      <td>String</td>
+      <td>Set files and directories not to be ignored (separated by space)./td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>licensepath</td>
+      <td>String</td>
+      <td>Path to the license file that will be used by the encoded files</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>nodoccomments</td>
+      <td>String</td>
+      <td>Omits documents comments ( /** ... */ ) from the encoded files.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>obfuscation-key</td>
+      <td>String</td>
+      <td>The obfuscation key must be supplied when using the obfuscate option</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    </tr>
+    <tr>
+      <td>obfuscate</td>
+      <td>String</td>
+      <td>The Encoder can obfuscate the names of global functions, the names of local variables in global functions, and line numbers.  Use either <em>all</em> or any of <em>functions</em>, <em>locals</em> or <em>linenos</em> separated by a space.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>optimize</td>
+      <td>String</td>
+      <td>Controls the optimization of the encoded files, accepts either <em>more</em> or <em>max</em></td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>passphrase</td>
+      <td>String</td>
+      <td>The passphrase to use when encoding with a license file</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>phpversion</td>
+      <td>Integer</td>
+      <td>The PHP version to use</td>
+      <td>5</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>targetoption</td>
+      <td>String</td>
+      <td>Option to use when target directory exists, accepts <em>replace</em>, <em>merge</em>, <em>update</em> and <em>rename</em></td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
       <td>todir</td>
       <td>String</td>
       <td>Path to save encoded files to</td>
       <td>none</td>
       <td>Yes</td>
+    </tr>
+    <tr>
+      <td>withoutruntimeloadersupport</td>
+      <td>Boolean</td>
+      <td>Wether to disable support for runtime initialization of the ionCube Loader</td>
+      <td>false</td>
+      <td>No</td>
     </tr>
   </tbody>
 </table>
@@ -752,14 +844,23 @@ the file <em>reports/testsuites.xml</em> as input.</p>
 <p><b>Important note:</b> testclasses that are not explicitly placed in a package (by using a '@package' tag in the class-level DocBlock)
 are listed under the "default" package.</p>
 
-<h2><a name="SvnExportTask"></a>SvnExportTask</h2>
-<p> The <em>SvnExportTask</em> exports a Subversion repository to a local directory.</p>
+<h2><a name="SvnCheckoutTask"></a>SvnCheckoutTask</h2>
+<p> The <em>SvnCheckoutTask</em> checks out a Subversion repository to a local directory.</p>
 <h3>Examples</h3>
 
-<pre>&lt;svnexport svnpath=&quot;/usr/bin/svn&quot; repositoryurl=&quot;svn://localhost/project/trunk/&quot; todir=&quot;/home/user/svnwc&quot;/&gt;
+<pre>&lt;svncheckout
+   svnpath=&quot;/usr/bin/svn&quot;
+   username="anony"
+   password="anony"
+   nocache="true"
+   repositoryurl=&quot;svn://localhost/project/trunk/&quot;
+   todir=&quot;/home/user/svnwc&quot;/&gt;
 </pre>
 
-<pre>&lt;svnexport svnpath=&quot;C:/Subversion/bin/svn.exe&quot; repositoryurl=&quot;svn://localhost/project/trunk/&quot; todir=&quot;C:/projects/svnwc&quot;/&gt;
+<pre>&lt;svncheckout
+   svnpath=&quot;C:/Subversion/bin/svn.exe&quot;
+   repositoryurl=&quot;svn://localhost/project/trunk/&quot;
+   todir=&quot;C:/projects/svnwc&quot;/&gt;
 </pre>
 
 <h3>Attributes</h3>
@@ -789,6 +890,111 @@ are listed under the "default" package.</p>
       <td>Yes</td>
     </tr>
     <tr>
+      <td>username</td>
+      <td>String</td>
+      <td>A username used to connect to the SVN server</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>String</td>
+      <td>A password used to connect to the SVN server</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>nocache</td>
+      <td>String</td>
+      <td>Connection credentials will not be cached</td>
+      <td>boolean</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>todir</td>
+      <td>String</td>
+      <td>Path to export to</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="SvnExportTask"></a>SvnExportTask</h2>
+<p> The <em>SvnExportTask</em> exports a Subversion repository to a local directory.</p>
+<h3>Examples</h3>
+
+<pre>&lt;svnexport
+   svnpath=&quot;/usr/bin/svn&quot;
+   username="anony"
+   password="anony"
+   force="true"
+   nocache="true"
+   repositoryurl=&quot;svn://localhost/project/trunk/&quot;
+   todir=&quot;/home/user/svnwc&quot;/&gt;
+</pre>
+
+<pre>&lt;svnexport
+   svnpath=&quot;C:/Subversion/bin/svn.exe&quot;
+   repositoryurl=&quot;svn://localhost/project/trunk/&quot;
+   todir=&quot;C:/projects/svnwc&quot;/&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>svnpath</td>
+      <td>String</td>
+      <td>Path to Subversion binary</td>
+      <td>/usr/bin/svn</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>repositoryurl</td>
+      <td>String</td>
+      <td>URL of SVN repository</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>username</td>
+      <td>String</td>
+      <td>A username used to connect to the SVN server</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>String</td>
+      <td>A password used to connect to the SVN server</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>force</td>
+      <td>String</td>
+      <td>Force overwrite files if they already exist</td>
+      <td>boolean</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>nocache</td>
+      <td>String</td>
+      <td>Connection credentials will not be cached</td>
+      <td>boolean</td>
+      <td>No</td>
+    </tr>
+    <tr>
       <td>todir</td>
       <td>String</td>
       <td>Path to export to</td>
@@ -802,10 +1008,16 @@ are listed under the "default" package.</p>
 <p> The <em>SvnLastRevisionTask</em> stores the number of the last revision of a Subversion workingcopy in a property.</p>
 <h3>Examples</h3>
 
-<pre>&lt;svnlastrevision svnpath=&quot;/usr/bin/svn&quot; workingcopy=&quot;/home/user/svnwc&quot; propertyname=&quot;svn.lastrevision&quot;/&gt;
+<pre>&lt;svnlastrevision
+   svnpath=&quot;/usr/bin/svn&quot;
+   workingcopy=&quot;/home/user/svnwc&quot;
+   propertyname=&quot;svn.lastrevision&quot;/&gt;
 </pre>
 
-<pre>&lt;svnlastrevision svnpath=&quot;C:/Subversion/bin/svn.exe&quot; workingcopy=&quot;C:/projects/svnwc&quot; propertyname=&quot;svn.lastrevision&quot;/&gt;
+<pre>&lt;svnlastrevision
+   svnpath=&quot;C:/Subversion/bin/svn.exe&quot;
+   workingcopy=&quot;C:/projects/svnwc&quot;
+   propertyname=&quot;svn.lastrevision&quot;/&gt;
 </pre>
 
 <h3>Attributes</h3>
@@ -847,6 +1059,73 @@ are listed under the "default" package.</p>
       <td>Name of property to use</td>
       <td>svn.lastrevision</td>
       <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2><a name="SvnUpdateTask"></a>SvnUpdateTask</h2>
+<p> The <em>SvnCheckoutTask</em> updates a local directory.</p>
+<h3>Examples</h3>
+
+<pre>&lt;svnupdate
+   svnpath=&quot;/usr/bin/svn&quot;
+   username="anony"
+   password="anony"
+   nocache="true"
+   todir=&quot;/home/user/svnwc&quot;/&gt;
+</pre>
+
+<pre>&lt;svnupdate
+   svnpath=&quot;C:/Subversion/bin/svn.exe&quot;
+   todir=&quot;C:/projects/svnwc&quot;/&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>svnpath</td>
+      <td>String</td>
+      <td>Path to Subversion binary</td>
+      <td>/usr/bin/svn</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>username</td>
+      <td>String</td>
+      <td>A username used to connect to the SVN server</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>String</td>
+      <td>A password used to connect to the SVN server</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>nocache</td>
+      <td>String</td>
+      <td>Connection credentials will not be cached</td>
+      <td>boolean</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>todir</td>
+      <td>String</td>
+      <td>Path to export to</td>
+      <td>none</td>
+      <td>Yes</td>
     </tr>
   </tbody>
 </table>
