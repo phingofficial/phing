@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: DefaultLogger.php,v 1.11 2005/08/25 19:33:43 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@ include_once 'phing/BuildEvent.php';
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.11 $ $Date: 2005/08/25 19:33:43 $
+ *  @version   $Revision: 1.11 $ $Date$
  *  @see       BuildEvent
  *  @package   phing.listener
  */

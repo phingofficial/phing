@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: BufferedReader.php,v 1.6 2005/12/27 19:12:13 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +25,7 @@ include_once 'phing/system/io/Reader.php';
  * Convenience class for reading files.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.6 $ $Date: 2005/12/27 19:12:13 $
+ * @version   $Revision: 1.6 $ $Date$
  * @access    public
  * @see       FilterReader
  * @package   phing.system.io

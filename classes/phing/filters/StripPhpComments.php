@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: StripPhpComments.php,v 1.6 2004/07/16 01:36:35 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -32,7 +32,7 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.6 $ $Date: 2004/07/16 01:36:35 $
+ * @version   $Revision: 1.6 $ $Date$
  * @access    public
  * @see       FilterReader
  * @package   phing.filters

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Location.php,v 1.6 2003/12/24 13:02:09 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +24,7 @@
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.6 $ $Date: 2003/12/24 13:02:09 $
+ * @version   $Revision: 1.6 $ $Date$
  * @access    public
  * @package   phing.parser
  */

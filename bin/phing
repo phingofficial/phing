@@ -1,6 +1,6 @@
 #!/bin/sh
 # Shell wrapper for Phing
-# $Id: phing,v 1.2 2006/01/23 21:51:16 mrook Exp $
+# $Id$
 #
 # This script will do the following:
 # - check for PHP_COMMAND env, if found, use it.

@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * $Id: BuildLogger.php,v 1.3 2005/02/11 10:51:21 mrook Exp $
+	 * $Id$
 	 *
 	 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -24,7 +24,7 @@
 	 * Interface used by Phing Ant to log the build output.
 	 *
 	 * @author Michiel Rook <michiel.rook@gmail.com>
-	 * @version $Id: BuildLogger.php,v 1.3 2005/02/11 10:51:21 mrook Exp $
+	 * @version $Id$
 	 * @package phing.listener
 	 */
 	interface BuildLogger extends BuildListener

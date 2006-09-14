@@ -2,7 +2,7 @@
 
 # ------------------------------------------------------------------------
 # The phing build script for Unix based systems
-# $Id: pear-phing,v 1.3 2003/12/23 19:45:14 hlellelid Exp $
+# $Id$
 # ------------------------------------------------------------------------
 
 # Change this to reflect your environment if the default value doesn't work

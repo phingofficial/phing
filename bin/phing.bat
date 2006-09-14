@@ -2,7 +2,7 @@
 
 rem *********************************************************************
 rem ** the phing build script for Windows based systems
-rem ** $Id: phing.bat,v 1.5 2003/11/06 14:56:13 hlellelid Exp $
+rem ** $Id$
 rem *********************************************************************
 
 rem This script will do the following:

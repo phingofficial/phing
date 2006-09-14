@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!--
 // {{{ Header
--File         $Id: Toc.xsl,v 1.1 2003/10/15 03:23:19 hlellelid Exp $
+-File         $Id$
 -License      LGPL (http://www.gnu.org/copyleft/lesser.html)
 -Copyright    2002, The Turing Studio, Inc.
 -Author       alex black, enigma@turingstudio.com

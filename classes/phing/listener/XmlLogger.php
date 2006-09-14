@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * $Id: XmlLogger.php,v 1.3 2005/02/11 10:51:21 mrook Exp $
+	 * $Id$
 	 *
 	 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 	 * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@
 	 * with the property <code>XmlLogger.file</code>.
 	 *
 	 * @author Michiel Rook <michiel.rook@gmail.com>
-	 * @version $Id: XmlLogger.php,v 1.3 2005/02/11 10:51:21 mrook Exp $
+	 * @version $Id$
 	 * @package phing.listener
 	 */	
 	class XmlLogger implements BuildLogger

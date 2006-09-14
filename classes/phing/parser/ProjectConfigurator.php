@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id: ProjectConfigurator.php,v 1.17 2006/01/06 14:57:18 hlellelid Exp $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +33,7 @@ include_once 'phing/system/io/PhingFile.php';
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.17 $ $Date: 2006/01/06 14:57:18 $
+ * @version   $Revision: 1.17 $ $Date$
  * @access    public
  * @package   phing.parser
  */

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: DataTypeHandler.php,v 1.8 2005/11/02 13:55:33 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -31,7 +31,7 @@ include_once 'phing/RuntimeConfigurable.php';
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.8 $ $Date: 2005/11/02 13:55:33 $
+ * @version   $Revision: 1.8 $ $Date$
  * @access    public
  * @package   phing.parser
  */

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ExpatParser.php,v 1.8 2005/05/26 13:10:52 mrook Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,7 +36,7 @@ include_once 'phing/system/io/FileReader.php';
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.8 $ $Date: 2005/05/26 13:10:52 $
+ * @version   $Revision: 1.8 $ $Date$
  * @access    public
  * @package   phing.parser
  */

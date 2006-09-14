@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: TranslateGettext.php,v 1.11 2005/12/08 15:59:56 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -39,7 +39,7 @@ include_once 'phing/filters/ChainableReader.php';
  * </pre>
  * 
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.11 $ $Date: 2005/12/08 15:59:56 $
+ * @version   $Revision: 1.11 $ $Date$
  * @access    public
  * @see       BaseFilterReader
  * @package   phing.filters

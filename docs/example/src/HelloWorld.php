@@ -4,7 +4,7 @@
 	 * The Hello World class!
 	 *
 	 * @author Michiel Rook
-	 * @version $Id: HelloWorld.php,v 1.3 2004/11/29 10:06:25 mrook Exp $
+	 * @version $Id$
 	 * @package hello.world
 	 */
 	class HelloWorld

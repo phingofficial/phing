@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: PearLogger.php,v 1.3 2004/03/15 14:45:06 hlellelid Exp $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -38,7 +38,7 @@ require_once 'Log.php';
  * </code>
  * 
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.3 $ $Date: 2004/03/15 14:45:06 $
+ * @version   $Revision: 1.3 $ $Date$
  * @see       BuildEvent
  * @package   phing.listener
  */
