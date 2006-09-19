@@ -5,12 +5,24 @@ require_once 'phing/Task.php';
  * A PHP lint task. Checking syntax of one or more PHP source file.
  *
  * @author   Knut Urdalen <knut.urdalen@telio.no>
+ * @author   Stefan Priebsch <stefan.priebsch@e-novative.de>
  * @package  phing.tasks.ext
  */
 class PhpLintTask extends Task {
 
   protected $file;  // the source file (from xml attribute)
   protected $filesets = array(); // all fileset objects assigned to this task
+
+  protected $haltOnFailure = false;
+  protected $hasErrors = false;
+
+  /**
+   * The haltonfailure property
+   * @param boolean $aValue
+   */
+  public function setHaltOnFailure($aValue) {
+    $this->haltOnFailure = $aValue;
+  }
 
   /**
    * File to be performed syntax check on
@@ -43,14 +55,16 @@ class PhpLintTask extends Task {
     } else { // process filesets
       $project = $this->getProject();
       foreach($this->filesets as $fs) {
-	$ds = $fs->getDirectoryScanner($project);
-	$files = $ds->getIncludedFiles();
-	$dir = $fs->getDir($this->project)->getPath();
-	foreach($files as $file) {
-	  $this->lint($dir.DIRECTORY_SEPARATOR.$file);
-	}
+	      $ds = $fs->getDirectoryScanner($project);
+	      $files = $ds->getIncludedFiles();
+	      $dir = $fs->getDir($this->project)->getPath();
+	      foreach($files as $file) {
+	        $this->lint($dir.DIRECTORY_SEPARATOR.$file);
+	      }
       }
     }
+
+    if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files');
   }
 
   /**
@@ -67,6 +81,7 @@ class PhpLintTask extends Task {
 	exec($command.$file, $message);
 	if(!preg_match('/^No syntax errors detected/', $message[0])) {
 	  $this->log($message[1], PROJECT_MSG_ERR);
+    $this->hasErrors = true;
 	} else {
 	  $this->log($file.': No syntax errors detected', PROJECT_MSG_INFO);
 	}
