@@ -22,7 +22,7 @@
 require_once 'phing/types/FileSet.php';
 
 /**
- * Scans a list of (.php) files given by the fileset attribute, extracts
+ * Scans a list of files given by the fileset attribute, extracts
  * all subclasses of PHPUnit2_Framework_TestCase.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
@@ -105,8 +105,7 @@ class BatchTest
 	}
 
 	/**
-	 * Iterate over all filesets and return the filename of all files
-	 * that end with .php.
+	 * Iterate over all filesets and return the filename of all files.
 	 *
 	 * @return array an array of filenames
 	 */
@@ -123,10 +122,7 @@ class BatchTest
 
 			foreach ($files as $file)
 			{
-				if (strstr($file, ".php"))
-				{
-					$filenames[] = $ds->getBaseDir() . "/" . $file;
-				}
+				$filenames[] = $ds->getBaseDir() . "/" . $file;
 			}
 		}
 
