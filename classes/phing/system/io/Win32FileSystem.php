@@ -349,7 +349,7 @@ class Win32FileSystem extends FileSystem {
         $pl   = (int) $f->getPrefixLength();
 
         if (($pl === 2) && ($path{0} === $this->slash)) {
-            return path;            // UNC
+            return $path;            // UNC
         }
 
         if ($pl === 3) {
