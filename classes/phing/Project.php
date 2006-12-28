@@ -840,7 +840,8 @@ class Project {
     function _makeCircularException($end, $stk) {
         $sb = "Circular dependency: $end";
         do {
-            $sb .= " <- ".(string) array_pop($stk);
+            $c = (string) array_pop($stk);
+            $sb .= " <- ".$c;
         } while($c != $end);
         return new BuildException($sb);
     }
