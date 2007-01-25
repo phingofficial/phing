@@ -67,6 +67,7 @@ class ProjectHandler extends AbstractHandler {
         $def = null;
         $name = null;
         $id    = null;
+        $desc = null;
         $baseDir = null;
 
         // some shorthands
@@ -82,6 +83,8 @@ class ProjectHandler extends AbstractHandler {
                 $id = $value;
             } elseif ($key === "basedir") {
                 $baseDir = $value;
+            } elseif ($key === "description") {
+                $desc = $value;
             } else {
                 throw new ExpatParseException("Unexpected attribute '$key'");
             }
@@ -99,6 +102,10 @@ class ProjectHandler extends AbstractHandler {
         if ($id !== null) {
             $project->addReference($id, $project);
         }
+        
+        if ($desc !== null) {
+            $project->setDescription($desc);
+        }        
 
         if ($project->getProperty("project.basedir") !== null) {
             $project->setBasedir($project->getProperty("project.basedir"));
