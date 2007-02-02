@@ -32,7 +32,7 @@ include_once 'phing/system/io/PhingFile.php';
  * FileSet
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright © 2001,2002 THYRELL. All rights reserved
+ * @copyright ï¿½ 2001,2002 THYRELL. All rights reserved
  * @version   $Revision: 1.17 $ $Date: 2006/01/06 14:57:18 $
  * @access    public
  * @package   phing.parser
@@ -238,7 +238,7 @@ class ProjectConfigurator {
      * @param object the element's object
      * @param array  the element's attributes
      */
-    function configureId(&$target, $attr) {
+    public function configureId($target, $attr) {
         if (isset($attr['id']) && $attr['id'] !== null) {
             $this->project->addReference($attr['id'], $target);
         }
