@@ -50,7 +50,7 @@ echo variable to your local phing installation!
 goto cleanup
 
 :set_classpath
-set PHP_CLASSPATH="%PHING_HOME%\classes"
+set PHP_CLASSPATH=%PHING_HOME%\classes
 goto init
 
 :cleanup
