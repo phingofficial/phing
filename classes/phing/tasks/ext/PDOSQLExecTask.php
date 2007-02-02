@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/PDOTask.php';
+require_once 'phing/tasks/ext/PDOTask.php';
 include_once 'phing/system/io/StringReader.php';
 
 /**
