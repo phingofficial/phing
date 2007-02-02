@@ -62,7 +62,7 @@ class Phing {
 
     /** The default build file name */
     const DEFAULT_BUILD_FILENAME = "build.xml";
-
+	
     /** Our current message output status. Follows PROJECT_MSG_XXX */
     private static $msgOutputLevel = PROJECT_MSG_INFO;
 
@@ -222,13 +222,14 @@ class Phing {
                 self::$msgOutputLevel = PROJECT_MSG_DEBUG;
             } elseif ($arg == "-logfile") {
                 try { // try to set logfile
+                	// TODO - This is slated to be overhauled for 2.3.0
+                	// see: http://phing.info/trac/ticket/65
                     if (!isset($args[$i+1])) {
                         print("You must specify a log file when using the -logfile argument\n");
                         return;
                     } else {
                         $logFile = new PhingFile($args[++$i]);
-                        $this->loggerClassname = 'phing.listener.PearLogger';
-                        $this->setDefinedProperty('pear.log.name', $logFile->getAbsolutePath());
+                        $this->setDefinedProperty('phing.listener.logfile', $logFile->getAbsolutePath());
                     }
                 } catch (IOException $ioe) {
                     print("Cannot write on the specified log file. Make sure the path exists and you have write permissions.\n");
@@ -248,7 +249,6 @@ class Phing {
                 } else {
                     $this->listeners[] = $args[++$i];
                 }
-                
             } elseif (StringHelper::startsWith("-D", $arg)) {
                 $name = substr($arg, 2);
                 $value = null;
@@ -471,14 +471,30 @@ class Phing {
     }
     
     /**
-     * Bind any default build listeners to this project.
-     * Currently this means adding the logger.
+     * Bind any registered build listeners to this project.
+     * 
+     * This means adding the logger and any build listeners that were specified
+     * with -listener arg.
+     * 
      * @param Project $project
      * @return void
      */
     private function addBuildListeners(Project $project) {
         // Add the default listener
         $project->addBuildListener($this->createLogger());
+        
+        foreach($this->listeners as $listenerClassname) {
+        	try {
+	        	$clz = Phing::import($listenerClassname);
+	        	$listener = new $clz();
+	        	$project->addBuildListener($listener);
+        	} catch (Exception $e) {
+        		$msg = "Unable to instantiate specified listener "
+                    . "class " . $listenerClassname . " : "
+                    . $e->getMessage();
+                throw new BuildException($msg);
+        	}
+        }
     }
     
     /**

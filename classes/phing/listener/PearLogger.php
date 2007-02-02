@@ -55,7 +55,7 @@ class PearLogger implements BuildListener {
      *  <code>PROJECT_MSG_VERBOSE</code>.
      *  @var int
      */
-    protected $msgOutputLevel = PROJECT_MSG_ERR;
+    protected $msgOutputLevel = PROJECT_MSG_DEBUG;
 
     /**
      *  Time that the build started
@@ -84,13 +84,22 @@ class PearLogger implements BuildListener {
      */
     protected function configureLogging() {
     
+    	$logfile = Phing::getDefinedProperty('phing.listener.logfile');
+    	
         $type = Phing::getDefinedProperty('pear.log.type');
         $name = Phing::getDefinedProperty('pear.log.name');
         $ident = Phing::getDefinedProperty('pear.log.ident');
         $conf = Phing::getDefinedProperty('pear.log.conf');
         
         if ($type === null) $type = 'file';
-        if ($name === null) $name = 'phing.log';
+        
+        if ($name === null) {
+        	if ($logfile === null) {
+        		$name = 'phing.log';
+        	} else {
+        		$name = $logfile;
+        	}
+        }
         if ($ident === null) $ident = 'phing';
         if ($conf === null) $conf = array();
         
@@ -164,7 +173,7 @@ class PearLogger implements BuildListener {
         } else {
             $msg = "Build failed. [reason: " . $error->getMessage() ."]";
         }
-        $this->logger()->log($msg . " Total time: " . $this->_formatTime(Phing::currentTimeMillis() - $this->startTime));
+        $this->logger()->log($msg . " Total time: " . DefaultLogger::formatTime(Phing::currentTimeMillis() - $this->startTime));
     }
 
     /**
@@ -225,22 +234,4 @@ class PearLogger implements BuildListener {
             $this->logger()->log($msg, self::$levelMap[$event->getPriority()]);
         }
     }
-
-    /**
-     *  Formats a time micro integer to human readable format.
-     *
-     *  @param  integer The time stamp
-     *  @access private
-     */
-    function _formatTime($micros) {
-        $seconds = $micros;
-        $minutes = $seconds / 60;
-        if ($minutes > 1) {
-            return sprintf("%1.0f minute%s %0.2f second%s",
-                                    $minutes, ($minutes === 1 ? " " : "s "),
-                                    $seconds - floor($seconds/60) * 60, ($seconds%60 === 1 ? "" : "s"));
-        } else {
-            return sprintf("%0.4f second%s", $seconds, ($seconds%60 === 1 ? "" : "s"));
-        }
-    }         
 }
