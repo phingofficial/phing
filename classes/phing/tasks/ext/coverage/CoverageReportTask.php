@@ -23,7 +23,7 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
 require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/phpunit/PHPUnit2Util.php';
+require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
 require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
 
 /**
@@ -117,7 +117,7 @@ class CoverageReportTask extends Task
 
 	protected function addClassToPackage($classname, $element)
 	{
-		$packageName = PHPUnit2Util::getPackageName($classname);
+		$packageName = PHPUnitUtil::getPackageName($classname);
 
 		$package = $this->getPackageElement($packageName);
 
@@ -235,7 +235,7 @@ class CoverageReportTask extends Task
 		end($coverageInformation);
 		unset($coverageInformation[key($coverageInformation)]);
 		
-		$classes = PHPUnit2Util::getDefinedClasses($filename, $this->classpath);
+		$classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 		
 		if (is_array($classes))
 		{

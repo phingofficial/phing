@@ -154,7 +154,7 @@ class BatchTest
 
 		foreach ($filenames as $filename)
 		{
-			$definedClasses = PHPUnit2Util::getDefinedClasses($filename, $this->classpath);
+			$definedClasses = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 			
 			$declaredClasses = array_merge($declaredClasses, $definedClasses);
 		}
