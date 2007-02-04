@@ -23,7 +23,7 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
 require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/phpunit2/PHPUnit2Util.php';
+require_once 'phing/tasks/ext/phpunit/PHPUnit2Util.php';
 require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
 
 /**

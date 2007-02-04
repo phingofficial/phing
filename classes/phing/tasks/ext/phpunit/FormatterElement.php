@@ -19,8 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit2/XMLPHPUnit2ResultFormatter.php';
-require_once 'phing/tasks/ext/phpunit2/PlainPHPUnit2ResultFormatter.php';
+require_once 'phing/tasks/ext/phpunit/XMLPHPUnit2ResultFormatter.php';
+require_once 'phing/tasks/ext/phpunit/PlainPHPUnit2ResultFormatter.php';
 require_once 'phing/system/io/PhingFile.php';
 
 /**

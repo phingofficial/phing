@@ -62,10 +62,10 @@ class PHPUnit2Task extends Task
 		}
 
 		// other dependencies that should only be loaded when class is actually used.
-		require_once 'phing/tasks/ext/phpunit2/PHPUnit2TestRunner.php';
-		require_once 'phing/tasks/ext/phpunit2/BatchTest.php';
-		require_once 'phing/tasks/ext/phpunit2/FormatterElement.php';
-		require_once 'phing/tasks/ext/phpunit2/SummaryPHPUnit2ResultFormatter.php';
+		require_once 'phing/tasks/ext/phpunit/PHPUnit2TestRunner.php';
+		require_once 'phing/tasks/ext/phpunit/BatchTest.php';
+		require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
+		require_once 'phing/tasks/ext/phpunit/SummaryPHPUnit2ResultFormatter.php';
 
 		// add some defaults to the PHPUnit2 Filter
 		PHPUnit2_Util_Filter::addFileToFilter('PHPUnit2Task.php');

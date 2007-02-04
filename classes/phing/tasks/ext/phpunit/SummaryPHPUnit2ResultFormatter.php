@@ -21,7 +21,7 @@
  
 require_once 'PHPUnit2/Framework/Test.php';
 
-require_once 'phing/tasks/ext/phpunit2/PHPUnit2ResultFormatter.php';
+require_once 'phing/tasks/ext/phpunit/PHPUnit2ResultFormatter.php';
 
 /**
  * Prints short summary output of the test to Phing's logging system.
