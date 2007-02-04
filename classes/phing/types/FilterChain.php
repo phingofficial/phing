@@ -34,6 +34,7 @@ include_once 'phing/filters/StripLineComments.php';
 include_once 'phing/filters/TabToSpaces.php';
 include_once 'phing/filters/TidyFilter.php';
 include_once 'phing/filters/TranslateGettext.php';
+include_once 'phing/filters/XincludeFilter.php';
 include_once 'phing/filters/XsltFilter.php';
 
 /*
@@ -125,6 +126,11 @@ class FilterChain extends DataType {
         $this->filterReaders[] = $o;
     }
     
+    function addXincludeFilter(XincludeFilter $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
     function addXsltFilter(XsltFilter $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;

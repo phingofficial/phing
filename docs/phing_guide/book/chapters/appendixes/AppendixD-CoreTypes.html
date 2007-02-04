@@ -614,6 +614,59 @@ are not further passed through the filter chain. Usage example:
   </tbody>
 </table>
 
+<h2><a name="XincludeFilter"></a>XincludeFilter</h2>
+<p>
+The <em>XincludeFilter</em> processes a stream for Xinclude tags, and processes the inclusions.
+This is useful for processing modular XML files.  DocBook book files are one example of 
+modular XML files.  Usage example:
+<pre>
+&lt;!--
+  Render a DocBook book file called manual.xml, which
+  contains Xinclude tags to include individual book sections.
+  --&gt;
+&lt;copy todir=&quot;${manual.dest.dir}&quot;&gt;
+  &lt;filterchain&gt;
+    &lt;xincludefilter basedir=&quot;${manual.src.dir}&quot; /&gt;
+    &lt;xsltfilter style=&quot;${manual.src.dir}/html.xsl&quot;&gt;
+      &lt;param name=&quot;base.dir&quot; expression=&quot;${manual.dest.dir}/&quot; /&gt;
+    &lt;/xsltfilter&gt;
+  &lt;/filterchain&gt;
+  &lt;fileset dir=&quot;${manual.src.dir}&quot;&gt;
+    &lt;include name=&quot;manual.xml&quot; /&gt;
+  &lt;/fileset&gt;
+&lt;/copy&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;xincludefilter&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>basedir</td>
+      <td>String</td>
+      <td>
+        The working directory from which to
+        process the Xincludes.  Relative pathnames
+        in the include tags are based on this
+        location.
+      </td>
+      <td>Project basedir</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+
 <h2><a name="XsltFilter"></a>XsltFilter</h2>
 <p>
 The <em>XsltFilter</em> applies a XSL template to the stream.
