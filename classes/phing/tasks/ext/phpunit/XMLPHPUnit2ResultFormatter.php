@@ -31,7 +31,7 @@ require_once 'phing/tasks/ext/phpunit/PHPUnit2ResultFormatter.php';
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
- * @package phing.tasks.ext.phpunit2
+ * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
 class XMLPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
