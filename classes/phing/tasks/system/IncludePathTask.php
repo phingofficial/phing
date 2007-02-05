@@ -107,7 +107,7 @@ class IncludePathTask extends Task {
         $new_parts = array_diff($add_parts, $curr_parts);
         
         if ($new_parts) {
-            $this->log("Prepending new include_path components: " . implode(PATH_SEPARATOR, $new_parts), PROJECT_MSG_VERBOSE);
+            $this->log("Prepending new include_path components: " . implode(PATH_SEPARATOR, $new_parts), Project::MSG_VERBOSE);
             set_include_path(implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
         }
         

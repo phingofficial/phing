@@ -63,7 +63,7 @@ class PropertyPromptTask extends Task {
         if ($currentValue == "" && $this->proposedValue !== null) { $currentValue = $this->proposedValue; }
         if (! (($this->useExistingValue === true) && ($this->proposedValue !== null))) {
                         
-            $this->log("Prompting user for " . $this->propertyName . ". " . $this->getDefaultMessage(), PROJECT_MSG_VERBOSE);
+            $this->log("Prompting user for " . $this->propertyName . ". " . $this->getDefaultMessage(), Project::MSG_VERBOSE);
             
             print "\n" . $this->promptText . " [" . $currentValue . "] " . $this->promptCharacter . " ";
 
@@ -78,7 +78,7 @@ class PropertyPromptTask extends Task {
             }
             
             if (empty($this->proposedValue)) {
-                $this->log("No value specified, using default.", PROJECT_MSG_VERBOSE);
+                $this->log("No value specified, using default.", Project::MSG_VERBOSE);
                 $this->proposedValue = $this->defaultValue;
             }
             

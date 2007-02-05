@@ -139,11 +139,11 @@ class PHPDocumentorTask extends Task
 		{
 			if(strpos($line, 'ERROR') !== false)
 			{
-				$this->log($line, PROJECT_MSG_ERR);
+				$this->log($line, Project::MSG_ERR);
 				continue;
 			}
 			
-			$this->log($line, PROJECT_MSG_VERBOSE);
+			$this->log($line, Project::MSG_VERBOSE);
 		}
 	}
 

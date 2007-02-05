@@ -88,7 +88,7 @@ class ProjectConfigurator {
             $parser = new ExpatParser($reader);
             $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
             $parser->setHandler(new RootHandler($parser, $this));
-            $this->project->log("parsing buildfile ".$this->buildFile->getName(), PROJECT_MSG_VERBOSE);
+            $this->project->log("parsing buildfile ".$this->buildFile->getName(), Project::MSG_VERBOSE);
             $parser->parse();
             $reader->close();
         } catch (Exception $exc) {
@@ -223,10 +223,10 @@ class ProjectConfigurator {
     {
         $propertyName = $matches[1];
         if (!isset(self::$propReplaceProperties[$propertyName])) {
-                    self::$propReplaceProject->log('Property ${'.$propertyName.'} has not been set.', PROJECT_MSG_VERBOSE);
+                    self::$propReplaceProject->log('Property ${'.$propertyName.'} has not been set.', Project::MSG_VERBOSE);
                     return $matches[0];
         } else {
-			self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], PROJECT_MSG_DEBUG);
+			self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], Project::MSG_DEBUG);
 		}
         return self::$propReplaceProperties[$propertyName];
     }           

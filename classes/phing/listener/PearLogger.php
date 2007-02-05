@@ -52,10 +52,10 @@ class PearLogger implements BuildListener {
 
     /**
      *  The message output level that should be used. The default is
-     *  <code>PROJECT_MSG_VERBOSE</code>.
+     *  <code>Project::MSG_VERBOSE</code>.
      *  @var int
      */
-    protected $msgOutputLevel = PROJECT_MSG_DEBUG;
+    protected $msgOutputLevel = Project::MSG_DEBUG;
 
     /**
      *  Time that the build started
@@ -64,14 +64,14 @@ class PearLogger implements BuildListener {
     protected $startTime;
     
     /**
-     * Maps Phing PROJECT_MSG_* constants to PEAR_LOG_* constants.
+     * Maps Phing Project::MSG_* constants to PEAR_LOG_* constants.
      * @var array
      */
-    protected static $levelMap = array( PROJECT_MSG_DEBUG => PEAR_LOG_DEBUG,
-                                        PROJECT_MSG_INFO => PEAR_LOG_INFO,
-                                        PROJECT_MSG_VERBOSE => PEAR_LOG_NOTICE,
-                                        PROJECT_MSG_WARN => PEAR_LOG_WARNING,
-                                        PROJECT_MSG_ERR => PEAR_LOG_ERR
+    protected static $levelMap = array( Project::MSG_DEBUG => PEAR_LOG_DEBUG,
+                                        Project::MSG_INFO => PEAR_LOG_INFO,
+                                        Project::MSG_VERBOSE => PEAR_LOG_NOTICE,
+                                        Project::MSG_WARN => PEAR_LOG_WARNING,
+                                        Project::MSG_ERR => PEAR_LOG_ERR
                                        );
     /**
      * Whether logging has been configured.
@@ -128,14 +128,14 @@ class PearLogger implements BuildListener {
      *  the levels, from least to most verbose, is:
      *
      *  <ul>
-     *    <li>PROJECT_MSG_ERR</li>
-     *    <li>PROJECT_MSG_WARN</li>
-     *    <li>PROJECT_MSG_INFO</li>
-     *    <li>PROJECT_MSG_VERBOSE</li>
-     *    <li>PROJECT_MSG_DEBUG</li>
+     *    <li>Project::MSG_ERR</li>
+     *    <li>Project::MSG_WARN</li>
+     *    <li>Project::MSG_INFO</li>
+     *    <li>Project::MSG_VERBOSE</li>
+     *    <li>Project::MSG_DEBUG</li>
      *  </ul>
      *
-     *  The default message level for DefaultLogger is PROJECT_MSG_ERR.
+     *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
      *  @param  integer  the logging level for the logger.
      *  @access public

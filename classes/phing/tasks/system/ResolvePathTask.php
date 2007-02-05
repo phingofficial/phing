@@ -115,7 +115,7 @@ class ResolvePathTask extends Task {
             $resolved = $this->project->resolveFile($this->file);
         }
         
-        $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), PROJECT_MSG_INFO);
+        $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), Project::MSG_INFO);
         $this->project->setProperty($this->propertyName, $resolved->getAbsolutePath());
     }
 

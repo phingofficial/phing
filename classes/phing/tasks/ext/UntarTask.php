@@ -42,7 +42,7 @@ class UntarTask extends ExtractBaseTask {
     
     protected function extractArchive(PhingFile $tarfile)
     {
-        $this->log("Extracting tar file: " . $tarfile->__toString() . ' to ' . $this->todir->__toString(), PROJECT_MSG_INFO);
+        $this->log("Extracting tar file: " . $tarfile->__toString() . ' to ' . $this->todir->__toString(), Project::MSG_INFO);
         
     	try {
         	$tar = $this->initTar($tarfile);
@@ -82,7 +82,7 @@ class UntarTask extends ExtractBaseTask {
             case '.tar':
                 break;
             default:
-                $this->log('Ignoring unknown compression mode: ' . $mode, PROJECT_MSG_WARN);
+                $this->log('Ignoring unknown compression mode: ' . $mode, Project::MSG_WARN);
         }
         
     	return new Archive_Tar($tarfile->getAbsolutePath(), $compression);

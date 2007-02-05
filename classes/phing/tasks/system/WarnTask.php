@@ -22,7 +22,7 @@
 require_once 'phing/tasks/system/EchoTask.php';
 
 /**
- * Simple task to echo a warning message (PROJECT_MSG_WARN) to all output devices.
+ * Simple task to echo a warning message (Project::MSG_WARN) to all output devices.
  *
  * @author   Hans Lellelid <hans@xmpl.org>
  * @version  $Revision: 1.1 $ $Date$
@@ -30,6 +30,6 @@ require_once 'phing/tasks/system/EchoTask.php';
  */
 class WarnTask extends EchoTask {
     function main() {
-        $this->log($this->msg, PROJECT_MSG_WARN);
+        $this->log($this->msg, Project::MSG_WARN);
     }
 }

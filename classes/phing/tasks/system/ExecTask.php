@@ -103,10 +103,10 @@ class ExecTask extends Task {
     
          // test if os match
         $myos = Phing::getProperty("os.name");
-        $this->log("Myos = " . $myos, PROJECT_MSG_VERBOSE);
+        $this->log("Myos = " . $myos, Project::MSG_VERBOSE);
         if (($this->os !== null) && (strpos($os, $myos) === false)) {
             // this command will be executed only on the specified OS
-            $this->log("Not found in " . $os, PROJECT_MSG_VERBOSE);
+            $this->log("Not found in " . $os, Project::MSG_VERBOSE);
             return 0;
         }
         
@@ -162,7 +162,7 @@ class ExecTask extends Task {
         }
 
         foreach($output as $line) {
-            $this->log($line,  ($this->passthru ? PROJECT_MSG_INFO : PROJECT_MSG_VERBOSE));
+            $this->log($line,  ($this->passthru ? Project::MSG_INFO : Project::MSG_VERBOSE));
         }
         
         if($return != 0 && $this->checkreturn)

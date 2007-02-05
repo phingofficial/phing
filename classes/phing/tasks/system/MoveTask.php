@@ -96,7 +96,7 @@ class MoveTask extends CopyTask {
                 $d = new PhingFile((string) $dir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
-                        $this->log("Unable to create directory " . $d->getAbsolutePath(), PROJECT_MSG_ERR);
+                        $this->log("Unable to create directory " . $d->getAbsolutePath(), Project::MSG_ERR);
                     } else {
                         $count++;
                     }

@@ -43,11 +43,11 @@ class EchoTask extends Task {
     function main() {		
 		switch ($this->level)
 		{
-			case "error": $loglevel = PROJECT_MSG_ERR; break;
-			case "warning": $loglevel = PROJECT_MSG_WARN; break;
-			case "info": $loglevel = PROJECT_MSG_INFO; break;
-			case "verbose": $loglevel = PROJECT_MSG_VERBOSE; break;
-			case "debug": $loglevel = PROJECT_MSG_DEBUG; break;
+			case "error": $loglevel = Project::MSG_ERR; break;
+			case "warning": $loglevel = Project::MSG_WARN; break;
+			case "info": $loglevel = Project::MSG_INFO; break;
+			case "verbose": $loglevel = Project::MSG_VERBOSE; break;
+			case "debug": $loglevel = Project::MSG_DEBUG; break;
 		}
 		
 		if (empty($this->file))

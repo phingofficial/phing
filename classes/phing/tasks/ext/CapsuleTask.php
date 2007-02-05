@@ -185,7 +185,7 @@ class CapsuleTask extends Task {
     public function setOutputDirectory(PhingFile $outputDirectory) {
         try {
             if (!$outputDirectory->exists()) {
-                $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),PROJECT_MSG_VERBOSE);
+                $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),Project::MSG_VERBOSE);
                 if (!$outputDirectory->mkdirs()) {
                     throw new IOException("Unable to create Ouptut directory: " . $outputDirectory->getAbsolutePath());
                 }

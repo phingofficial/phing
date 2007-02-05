@@ -117,15 +117,15 @@ require_once 'phing/Task.php';
 
           if(0 != $warnings)
           {
-            $this->log($file . ': ' . $warnings . ' warnings detected', PROJECT_MSG_INFO);
+            $this->log($file . ': ' . $warnings . ' warnings detected', Project::MSG_INFO);
           }
             
           if(0 != $errors)
           {
-            $this->log($file . ': ' . $errors . ' errors detected', PROJECT_MSG_ERR);
+            $this->log($file . ': ' . $errors . ' errors detected', Project::MSG_ERR);
             $this->hasErrors = true;
           } else {
-            $this->log($file . ': No syntax errors detected', PROJECT_MSG_INFO);
+            $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
           }
         } else {
           throw new BuildException('Permission denied: '.$file);

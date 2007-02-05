@@ -150,7 +150,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         }
 
         if(empty($_xml)) {
-            $this->log("XML file is empty!", PROJECT_MSG_WARN);
+            $this->log("XML file is empty!", Project::MSG_WARN);
             return ''; // return empty string, don't attempt to apply XSLT
         }
        
@@ -159,7 +159,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         $xslFr = new FileReader($this->xslFile);
         $xslFr->readInto($_xsl);
         
-        $this->log("Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(), PROJECT_MSG_VERBOSE);
+        $this->log("Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(), Project::MSG_VERBOSE);
         
         $out = '';
         try {
@@ -201,7 +201,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         // ignoring param "type" attrib, because
         // we're only supporting direct XSL params right now
         foreach($this->xsltParams as $param) {
-            $this->log("Setting XSLT param: " . $param->getName() . "=>" . $param->getExpression(), PROJECT_MSG_DEBUG);
+            $this->log("Setting XSLT param: " . $param->getName() . "=>" . $param->getExpression(), Project::MSG_DEBUG);
             $processor->setParameter(null, $param->getName(), $param->getExpression());
         }
         

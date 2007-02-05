@@ -103,7 +103,7 @@ class ForeachTask extends Task {
         $arr = explode($this->delimiter, $this->list);
         
         foreach ($arr as $value) {
-            $this->log("Setting param '$this->param' to value '$value'", PROJECT_MSG_VERBOSE);
+            $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
             $prop = $callee->createProperty();
             $prop->setOverride(true);
             $prop->setName($this->param);

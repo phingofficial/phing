@@ -319,7 +319,7 @@ class CreoleSQLExecTask extends CreoleTask {
                 try {
                     
                     if ($this->output !== null) {
-                        $this->log("Opening output file " . $this->output, PROJECT_MSG_VERBOSE);
+                        $this->log("Opening output file " . $this->output, Project::MSG_VERBOSE);
                         $out = new BufferedWriter(new FileWriter($this->output->getAbsolutePath(), $this->append));
                     }
                     
@@ -327,7 +327,7 @@ class CreoleSQLExecTask extends CreoleTask {
                     for ($i=0,$size=count($this->transactions); $i < $size; $i++) {
                         $this->transactions[$i]->runTransaction($out);
                         if (!$this->isAutocommit()) {
-                            $this->log("Commiting transaction", PROJECT_MSG_VERBOSE);
+                            $this->log("Commiting transaction", Project::MSG_VERBOSE);
                             $this->conn->commit();
                         }
                     }
@@ -421,7 +421,7 @@ class CreoleSQLExecTask extends CreoleTask {
                         && StringHelper::endsWith($this->delimiter, $sql)
                         || $this->delimiterType == self::DELIM_ROW
                         && $line == $this->delimiter) {
-                    $this->log("SQL: " . $sql, PROJECT_MSG_VERBOSE);
+                    $this->log("SQL: " . $sql, Project::MSG_VERBOSE);
                     $this->execSQL(StringHelper::substring($sql, 0, strlen($sql) - strlen($this->delimiter)), $out);
                     $sql = "";
                 }
@@ -450,7 +450,7 @@ class CreoleSQLExecTask extends CreoleTask {
         try {
             $this->totalSql++;
             if (!$this->statement->execute($sql)) {
-                $this->log($this->statement->getUpdateCount() . " rows affected", PROJECT_MSG_VERBOSE);
+                $this->log($this->statement->getUpdateCount() . " rows affected", Project::MSG_VERBOSE);
             } else {
                 if ($this->print) {
                     $this->printResults($out);
@@ -460,11 +460,11 @@ class CreoleSQLExecTask extends CreoleTask {
             $this->goodSql++;
             
         } catch (SQLException $e) {            
-            $this->log("Failed to execute: " . $sql, PROJECT_MSG_ERR);
+            $this->log("Failed to execute: " . $sql, Project::MSG_ERR);
             if ($this->onError != "continue") {            
                 throw new BuildException("Failed to execute SQL", $e);
             }
-            $this->log($e->getMessage(), PROJECT_MSG_ERR);
+            $this->log($e->getMessage(), Project::MSG_ERR);
         }
     }
     
@@ -480,7 +480,7 @@ class CreoleSQLExecTask extends CreoleTask {
             
             if ($rs !== null) {
             
-                $this->log("Processing new result set.", PROJECT_MSG_VERBOSE);            
+                $this->log("Processing new result set.", Project::MSG_VERBOSE);            
     
                 $line = "";
 
@@ -571,13 +571,13 @@ class SQLExecTransaction {
     public function runTransaction($out = null)
     {
         if (!empty($this->tSqlCommand)) {
-            $this->parent->log("Executing commands", PROJECT_MSG_INFO);
+            $this->parent->log("Executing commands", Project::MSG_INFO);
             $this->parent->runStatements(new StringReader($this->tSqlCommand), $out);
         }
 
         if ($this->tSrcFile !== null) {
             $this->parent->log("Executing file: " . $this->tSrcFile->getAbsolutePath(),
-                PROJECT_MSG_INFO);
+                Project::MSG_INFO);
 
             $reader = new FileReader($this->tSrcFile);
 

@@ -84,9 +84,9 @@ class CVSPassTask extends Task {
             throw new BuildException("password is required");
         }
 
-        $this->log("cvsRoot: " . $this->cvsRoot, PROJECT_MSG_DEBUG);
-        $this->log("password: " . $this->password, PROJECT_MSG_DEBUG);
-        $this->log("passFile: " . $this->passFile->__toString(), PROJECT_MSG_DEBUG);
+        $this->log("cvsRoot: " . $this->cvsRoot, Project::MSG_DEBUG);
+        $this->log("password: " . $this->password, Project::MSG_DEBUG);
+        $this->log("passFile: " . $this->passFile->__toString(), Project::MSG_DEBUG);
 
         $reader = null;
         $writer = null;
@@ -107,7 +107,7 @@ class CVSPassTask extends Task {
 
             $pwdfile = $buf . $this->cvsRoot . " A" . $this->mangle($this->password);
 
-            $this->log("Writing -> " . $pwdfile , PROJECT_MSG_DEBUG);
+            $this->log("Writing -> " . $pwdfile , Project::MSG_DEBUG);
 
             $writer = new BufferedWriter(new FileWriter($this->passFile));
             $writer->write($pwdfile);

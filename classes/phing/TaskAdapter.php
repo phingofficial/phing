@@ -45,7 +45,7 @@ class TaskAdapter extends Task {
             try {  // try to set project
                 $this->proxy->setProject($this->project);
             } catch (Exception $ex) {
-                $this->log("Error setting project in " . get_class($this->proxy) . PROJECT_MSG_ERR);
+                $this->log("Error setting project in " . get_class($this->proxy) . Project::MSG_ERR);
                 throw new BuildException($ex);
             }
         } else {
@@ -56,7 +56,7 @@ class TaskAdapter extends Task {
             try { //try to call main
                 $this->proxy->main($this->project);
             } catch (Exception $ex) {
-                $this->log("Error in " . get_class($this->proxy), PROJECT_MSG_ERR);
+                $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
                 throw new BuildException($ex->getMessage());
             }
         } else {

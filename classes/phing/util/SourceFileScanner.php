@@ -80,7 +80,7 @@ class SourceFileScanner {
         
             $targets = $mapper->main($files[$i]);
             if (empty($targets)) {
-                $this->task->log($files[$i]." skipped - don't know how to handle it", PROJECT_MSG_VERBOSE);
+                $this->task->log($files[$i]." skipped - don't know how to handle it", Project::MSG_VERBOSE);
                 continue;
             }
 
@@ -93,7 +93,7 @@ class SourceFileScanner {
                 }
     
                 if ($src->lastModified() > $now) {
-                    $this->task->log("Warning: ".$files[$i]." modified in the future (".$src->lastModified()." > ".$now.")", PROJECT_MSG_WARN);
+                    $this->task->log("Warning: ".$files[$i]." modified in the future (".$src->lastModified()." > ".$now.")", Project::MSG_WARN);
                 }
             } catch (IOException $ioe) {
                 $this->task->log("Unable to read file ".$files[$i]." (skipping): " . $ioe->getMessage());
@@ -113,15 +113,15 @@ class SourceFileScanner {
                 }
 
                 if (!$dest->exists()) {
-                    $this->task->log($files[$i]." added as " . $dest->__toString() . " doesn't exist.", PROJECT_MSG_VERBOSE);
+                    $this->task->log($files[$i]." added as " . $dest->__toString() . " doesn't exist.", Project::MSG_VERBOSE);
                     $v[] =$files[$i];
                     $added = true;
                 } elseif ($src->lastModified() > $dest->lastModified()) {
-                    $this->task->log($files[$i]." added as " . $dest->__toString() . " is outdated.", PROJECT_MSG_VERBOSE );
+                    $this->task->log($files[$i]." added as " . $dest->__toString() . " is outdated.", Project::MSG_VERBOSE );
                     $v[]=$files[$i];
                     $added = true;
                 } elseif ($force === true) {
-                    $this->task->log($files[$i]." added as " . $dest->__toString() . " is forced to be overwritten.", PROJECT_MSG_VERBOSE );
+                    $this->task->log($files[$i]." added as " . $dest->__toString() . " is forced to be overwritten.", Project::MSG_VERBOSE );
                     $v[]=$files[$i];
                     $added = true;
                 } else {
@@ -133,7 +133,7 @@ class SourceFileScanner {
             }
 
             if (!$added) {
-                $this->task->log($files[$i]." omitted as ".$targetList." ".(count($targets) === 1 ? " is " : " are ")."up to date.",  PROJECT_MSG_VERBOSE);
+                $this->task->log($files[$i]." omitted as ".$targetList." ".(count($targets) === 1 ? " is " : " are ")."up to date.",  Project::MSG_VERBOSE);
             }
 
         }

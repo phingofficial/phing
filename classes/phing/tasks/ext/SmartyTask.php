@@ -233,7 +233,7 @@ class SmartyTask extends Task {
     public function setOutputDirectory(PhingFile $outputDirectory) {
         try {            
             if (!$outputDirectory->exists()) {
-                $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),PROJECT_MSG_VERBOSE);
+                $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),Project::MSG_VERBOSE);
                 if (!$outputDirectory->mkdirs()) {
                     throw new IOException("Unable to create Ouptut directory: " . $outputDirectory->getAbsolutePath());
                 }
@@ -494,7 +494,7 @@ class SmartyTask extends Task {
         
         $smartyCompilePath = new PhingFile($this->context->compile_dir);
         if (!$smartyCompilePath->exists()) {
-            $this->log("Compile directory does not exist, creating: " . $smartyCompilePath->getPath(), PROJECT_MSG_VERBOSE);
+            $this->log("Compile directory does not exist, creating: " . $smartyCompilePath->getPath(), Project::MSG_VERBOSE);
             if (!$smartyCompilePath->mkdirs()) {
                 throw new BuildException("Smarty needs a place to compile templates; specify a 'compilePath' or create ".$this->context->compile_dir);
             }

@@ -65,7 +65,7 @@ class AdhocTypedefTask extends AdhocTask {
             throw new BuildException("The adhoc class you defined must be an instance of phing.ProjectComponent", $this->location);
         }
         
-        $this->log("Datatype " . $this->name . " will be handled by class " . $classname, PROJECT_MSG_VERBOSE);
+        $this->log("Datatype " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
         $this->project->addDataTypeDefinition($this->name, $classname);        
     }
 }

@@ -105,7 +105,7 @@ class ReflexiveTask extends Task {
                         $files[] = new PhingFile($dir, $fname);
                     }
                 } catch (BuildException $be) {
-                    $this->log($be->getMessage(), PROJECT_MSG_WARN);
+                    $this->log($be->getMessage(), Project::MSG_WARN);
                 }
             }                        
         }
@@ -134,7 +134,7 @@ class ReflexiveTask extends Task {
                 $in->close();
             } catch (Exception $e) {
                 if ($in) $in->close();
-                $this->log("Erorr reading file: " . $e->getMessage(), PROJECT_MSG_WARN);
+                $this->log("Erorr reading file: " . $e->getMessage(), Project::MSG_WARN);
             }
             
             try {
@@ -142,10 +142,10 @@ class ReflexiveTask extends Task {
                 $out = new FileWriter($file);
                 $out->write($contents);
                 $out->close();
-                $this->log("Applying reflexive processing to " . $file->getPath(), PROJECT_MSG_VERBOSE);
+                $this->log("Applying reflexive processing to " . $file->getPath(), Project::MSG_VERBOSE);
             } catch (Exception $e) {
                 if ($out) $out->close();
-                $this->log("Error writing file back: " . $e->getMessage(), PROJECT_MSG_WARN);
+                $this->log("Error writing file back: " . $e->getMessage(), Project::MSG_WARN);
             }
             
         }

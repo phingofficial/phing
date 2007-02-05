@@ -187,7 +187,7 @@ class TaskHandler extends AbstractHandler {
             try {
                 $this->task->main();
             } catch (Exception $e) {
-                $this->task->log($e->getMessage(), PROJECT_MSG_ERR);
+                $this->task->log($e->getMessage(), Project::MSG_ERR);
                 throw $e;
             }
         }

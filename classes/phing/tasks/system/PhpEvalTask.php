@@ -94,7 +94,7 @@ class PhpEvalTask extends Task {
         
         $this->log("Calling PHP function: " . $h_func . "()");
         foreach($params as $p) {
-            $this->log("  param: " . $p, PROJECT_MSG_VERBOSE);
+            $this->log("  param: " . $p, Project::MSG_VERBOSE);
         } 
         
         $return = call_user_func_array($user_func, $params);

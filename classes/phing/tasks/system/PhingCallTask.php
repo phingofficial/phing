@@ -93,7 +93,7 @@ class PhingCallTask extends Task {
      */
     function main() {        
             
-        $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", PROJECT_MSG_DEBUG);
+        $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
         if ($this->callee === null) {
             $this->init();
         }

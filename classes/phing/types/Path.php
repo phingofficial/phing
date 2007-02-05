@@ -207,7 +207,7 @@ class Path extends DataType {
                 $this->setDir($f);
             } else {
                 $this->log("dropping " . $f->__toString() . " from path as it doesn't exist", 
-                    PROJECT_MSG_VERBOSE);
+                    Project::MSG_VERBOSE);
             }
         }
     }
@@ -320,7 +320,7 @@ class Path extends DataType {
             } catch (BuildException $e) {
                 $this->project->log("Dropping path element " . $pathElement 
                     . " as it is not valid relative to the project", 
-                    PROJECT_MSG_VERBOSE);
+                    Project::MSG_VERBOSE);
             }
             
             for ($i = 0, $_i=strlen($element); $i < $_i; $i++) {

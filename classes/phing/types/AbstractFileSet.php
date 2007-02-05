@@ -292,7 +292,7 @@ class AbstractFileSet extends DataType implements SelectorContainer {
         $ds->setIncludes($this->defaultPatterns->getIncludePatterns($p));
         $ds->setExcludes($this->defaultPatterns->getExcludePatterns($p));
 
-        $p->log("FileSet: Setup file scanner in dir " . $this->dir->__toString() . " with " . $this->defaultPatterns->toString(), PROJECT_MSG_DEBUG);
+        $p->log("FileSet: Setup file scanner in dir " . $this->dir->__toString() . " with " . $this->defaultPatterns->toString(), Project::MSG_DEBUG);
         
         if ($ds instanceof SelectorScanner) {
             $ds->setSelectors($this->getSelectors($p));

@@ -64,7 +64,7 @@ abstract class ProjectComponent {
      *  @param  string   The message to be logged.
      *  @param  integer  The message's priority at this message should have
      */
-    public function log($msg, $level = PROJECT_MSG_INFO) {
+    public function log($msg, $level = Project::MSG_INFO) {
         if ($this->project !== null) {
             $this->project->log($msg, $level);
         }

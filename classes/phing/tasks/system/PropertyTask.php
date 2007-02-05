@@ -248,7 +248,7 @@ class PropertyTask extends Task {
         if ( substr($prefix, strlen($prefix)-1) == '.' ) {
             $prefix .= ".";
         }
-        $this->log("Loading Environment $prefix", PROJECT_MSG_VERBOSE);
+        $this->log("Loading Environment $prefix", Project::MSG_VERBOSE);
         foreach($_ENV as $key => $value) {
             $props->setProperty($prefix . '.' . $key, $value);
         }
@@ -281,7 +281,7 @@ class PropertyTask extends Task {
             if ($this->project->getUserProperty($name) === null || $this->override) {
                 $this->project->setInheritedProperty($name, $value);
             } else {
-                $this->log("Override ignored for " . $name, PROJECT_MSG_VERBOSE);
+                $this->log("Override ignored for " . $name, Project::MSG_VERBOSE);
             }
         } else {
             if ($this->override) {
@@ -298,13 +298,13 @@ class PropertyTask extends Task {
      */
     protected function loadFile(PhingFile $file) {
         $props = new Properties();
-        $this->log("Loading ". $file->getAbsolutePath(), PROJECT_MSG_INFO);
+        $this->log("Loading ". $file->getAbsolutePath(), Project::MSG_INFO);
         try { // try to load file
             if ($file->exists()) {
                 $props->load($file);
                 $this->addProperties($props);
             } else {
-                $this->log("Unable to find property file: ". $file->getAbsolutePath() ."... skipped", PROJECT_MSG_WARN);
+                $this->log("Unable to find property file: ". $file->getAbsolutePath() ."... skipped", Project::MSG_WARN);
             }
         } catch (IOException $ioe) {
             throw new BuildException("Could not load properties from file.", $ioe);
@@ -356,7 +356,7 @@ class PropertyTask extends Task {
 
                             if ($propertyName === $name) {
                                 // Should we maybe just log this as an error & move on?
-                                // $this->log("Property ".$name." was circularly defined.", PROJECT_MSG_ERR);
+                                // $this->log("Property ".$name." was circularly defined.", Project::MSG_ERR);
                                 throw new BuildException("Property ".$name." was circularly defined.");
                             }
 
@@ -373,7 +373,7 @@ class PropertyTask extends Task {
                         $sb .= $fragment;
                     }
                     
-                    $this->log("Resolved Property \"$value\" to \"$sb\"", PROJECT_MSG_DEBUG);
+                    $this->log("Resolved Property \"$value\" to \"$sb\"", Project::MSG_DEBUG);
                     $value = $sb;                    
                     $props->setProperty($name, $value);
                                  

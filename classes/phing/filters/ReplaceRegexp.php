@@ -97,10 +97,10 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader {
             $regexp = $exptype->getRegexp($this->project);
             try {
                 $buffer = $regexp->replace($buffer);
-                $this->log("Performing regexp replace: /".$regexp->getPattern()."/".$regexp->getReplace()."/g".($regexp->getIgnoreCase() ? 'i' : ''), PROJECT_MSG_VERBOSE);
+                $this->log("Performing regexp replace: /".$regexp->getPattern()."/".$regexp->getReplace()."/g".($regexp->getIgnoreCase() ? 'i' : ''), Project::MSG_VERBOSE);
             } catch (Exception $e) {
                 // perhaps mismatch in params (e.g. no replace or pattern specified)
-                $this->log("Error performing regexp replace: " . $e->getMessage(), PROJECT_MSG_WARN);
+                $this->log("Error performing regexp replace: " . $e->getMessage(), Project::MSG_WARN);
             }
         }
         

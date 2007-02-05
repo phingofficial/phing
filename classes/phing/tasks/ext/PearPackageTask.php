@@ -180,9 +180,9 @@ class PearPackageTask extends MatchingTask {
             $this->preparedOptions['packagefile'] = $f->getName();
             // must end in trailing slash
             $this->preparedOptions['outputdirectory'] = $f->getParent() . DIRECTORY_SEPARATOR;
-            $this->log("Creating package file: " . $f->__toString(), PROJECT_MSG_INFO);
+            $this->log("Creating package file: " . $f->__toString(), Project::MSG_INFO);
         } else {
-            $this->log("Creating [default] package.xml file in base directory.", PROJECT_MSG_INFO);
+            $this->log("Creating [default] package.xml file in base directory.", Project::MSG_INFO);
         }
         
         // converts option objects and mapping objects into 

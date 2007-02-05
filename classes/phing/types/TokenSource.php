@@ -93,9 +93,9 @@ class TokenSource extends DataType {
                 $this->tokens[] = $token;
             }
         } catch (BuildException $e) {
-            $this->log("Error reading TokenSource: " . $e->getMessage(), PROJECT_MSG_WARN);
+            $this->log("Error reading TokenSource: " . $e->getMessage(), Project::MSG_WARN);
         } catch (IOException $e) {
-            $this->log("Error reading TokenSource: " . $e->getMessage(), PROJECT_MSG_WARN);
+            $this->log("Error reading TokenSource: " . $e->getMessage(), Project::MSG_WARN);
         }
     }
 

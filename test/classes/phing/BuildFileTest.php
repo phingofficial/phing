@@ -407,9 +407,9 @@ class PhingTestListener implements BuildListener {
      *  @see BuildEvent#getPriority()
      */
     public function messageLogged(BuildEvent $event) {        
-        if ($event->getPriority() == PROJECT_MSG_INFO ||
-            $event->getPriority() == PROJECT_MSG_WARN ||
-            $event->getPriority() == PROJECT_MSG_ERR) {
+        if ($event->getPriority() == Project::MSG_INFO ||
+            $event->getPriority() == Project::MSG_WARN ||
+            $event->getPriority() == Project::MSG_ERR) {
             $this->parent->logBuffer .= $event->getMessage();
         }
         $this->parent->fullLogBuffer .= $event->getMessage();

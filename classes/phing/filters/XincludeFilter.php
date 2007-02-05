@@ -72,11 +72,11 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
         }
 
         if (empty($_xml)) {
-            $this->log("XML file is empty!", PROJECT_MSG_WARN);
+            $this->log("XML file is empty!", Project::MSG_WARN);
             return ''; 
         }
        
-        $this->log("Transforming XML " . $this->in->getResource() . " using Xinclude ", PROJECT_MSG_VERBOSE);
+        $this->log("Transforming XML " . $this->in->getResource() . " using Xinclude ", Project::MSG_VERBOSE);
         
         $out = '';
         try {

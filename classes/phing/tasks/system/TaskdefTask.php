@@ -121,7 +121,7 @@ class TaskdefTask extends Task {
         if ($this->name === null || $this->classname === null) {
             throw new BuildException("You must specify name and class attributes for <taskdef>.");
         }
-        $this->log("Task " . $this->name . " will be handled by class " . $this->classname, PROJECT_MSG_VERBOSE);
+        $this->log("Task " . $this->name . " will be handled by class " . $this->classname, Project::MSG_VERBOSE);
         $this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
     }
 }

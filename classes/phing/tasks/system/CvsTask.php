@@ -155,14 +155,14 @@ class CvsTask extends Task {
         if ($this->passFile !== null) {
             if ($this->passFile->isFile() && $this->passFile->canRead()) {            
                 putenv("CVS_PASSFILE=" . $this->passFile->__toString());
-                $this->log("Using cvs passfile: " . $this->passFile->__toString(), PROJECT_MSG_INFO);
+                $this->log("Using cvs passfile: " . $this->passFile->__toString(), Project::MSG_INFO);
             } elseif (!$this->passFile->canRead()) {
                 $this->log("cvs passfile: " . $this->passFile->__toString() 
-                    . " ignored as it is not readable", PROJECT_MSG_WARN);
+                    . " ignored as it is not readable", Project::MSG_WARN);
             } else {
                 $this->log("cvs passfile: " . $this->passFile->__toString() 
                     . " ignored as it is not a file",
-                    PROJECT_MSG_WARN);
+                    Project::MSG_WARN);
             }
         }
 
@@ -201,9 +201,9 @@ class CvsTask extends Task {
         
         try {
             $actualCommandLine = $toExecuteStr; // we converted to string above
-            $this->log($actualCommandLine, PROJECT_MSG_INFO);
+            $this->log($actualCommandLine, Project::MSG_INFO);
             $retCode = $exe->execute();
-            $this->log("retCode=" . $retCode, PROJECT_MSG_DEBUG);
+            $this->log("retCode=" . $retCode, Project::MSG_DEBUG);
             /*Throw an exception if cvs exited with error. (Iulian)*/
             if ($this->failOnError && $retCode !== 0) {
                 throw new BuildException("cvs exited with error code "
@@ -216,7 +216,7 @@ class CvsTask extends Task {
             if ($this->failOnError) {
                 throw new BuildException($e, $this->getLocation());
             } else {
-                $this->log("Caught exception: " . $e, PROJECT_MSG_WARN);
+                $this->log("Caught exception: " . $e, Project::MSG_WARN);
             }
         } catch (BuildException $e) {
             if ($this->failOnError) {
@@ -226,13 +226,13 @@ class CvsTask extends Task {
                 if ($t === null) {
                     $t = $e;
                 }
-                $this->log("Caught exception: " . $t, PROJECT_MSG_WARN);
+                $this->log("Caught exception: " . $t, Project::MSG_WARN);
             }
         } catch (Exception $e) {
             if ($this->failOnError) {
                 throw new BuildException($e, $this->getLocation());
             } else {
-                $this->log("Caught exception: " . $e, PROJECT_MSG_WARN);
+                $this->log("Caught exception: " . $e, Project::MSG_WARN);
             }
         }
     }

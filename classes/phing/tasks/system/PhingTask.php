@@ -276,7 +276,7 @@ class PhingTask extends Task {
             
         } catch (Exception $e) {
             $buildFailed = true;
-            $this->log($e->getMessage(), PROJECT_MSG_ERR);
+            $this->log($e->getMessage(), Project::MSG_ERR);
             
             // important!!! continue on to perform cleanup tasks.    
 		}
@@ -414,7 +414,7 @@ class PhingTask extends Task {
                 if (!isset($projReferences[$refid])) {
                     $this->log("Parent project doesn't contain any reference '"
                         . $refid . "'",
-                        PROJECT_MSG_WARN);
+                        Project::MSG_WARN);
                     continue;
                 }
                 

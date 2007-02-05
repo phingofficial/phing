@@ -63,7 +63,7 @@
 		
 		private $buildElement = NULL;
 		
-		private $msgOutputLevel = PROJECT_MSG_DEBUG;
+		private $msgOutputLevel = Project::MSG_DEBUG;
 		
 		/**
 		 * @var string Name of filename to create.
@@ -228,15 +228,15 @@
 			
 			switch ($priority)
 			{
-				case PROJECT_MSG_ERR: 
+				case Project::MSG_ERR: 
 					$name = "error"; 
 					break;
 					
-				case PROJECT_MSG_WARN:
+				case Project::MSG_WARN:
 					$name = "warn";
 					break;
 				
-				case PROJECT_MSG_INFO:
+				case Project::MSG_INFO:
 					$name = "info";
 					break;
 					

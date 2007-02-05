@@ -244,9 +244,9 @@ class Target implements TaskContainer {
                 }
             }
         } elseif (!$this->testIfCondition()) {
-            $this->project->log("Skipped target '".$this->name."' because property '".$this->ifCondition."' not set.", PROJECT_MSG_VERBOSE);
+            $this->project->log("Skipped target '".$this->name."' because property '".$this->ifCondition."' not set.", Project::MSG_VERBOSE);
         } else {
-            $this->project->log("Skipped target '".$this->name."' because property '".$this->unlessCondition."' set.", PROJECT_MSG_VERBOSE);
+            $this->project->log("Skipped target '".$this->name."' because property '".$this->unlessCondition."' set.", Project::MSG_VERBOSE);
         }
     }
 

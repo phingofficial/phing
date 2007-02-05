@@ -125,11 +125,11 @@ class ZipTask extends MatchingTask {
             }
             
             if ($upToDate) {
-                $this->log("Nothing to do: " . $this->zipFile->__toString() . " is up to date.", PROJECT_MSG_INFO);
+                $this->log("Nothing to do: " . $this->zipFile->__toString() . " is up to date.", Project::MSG_INFO);
                 return;
             }
 
-            $this->log("Building zip: " . $this->zipFile->__toString(), PROJECT_MSG_INFO);
+            $this->log("Building zip: " . $this->zipFile->__toString(), Project::MSG_INFO);
             
             $zip = new Archive_Zip($this->zipFile->getAbsolutePath());
             

@@ -53,7 +53,7 @@ class CopyTask extends Task {
     protected $filesets      = array(); // all fileset objects assigned to this task
     protected $filterChains  = array(); // all filterchains objects assigned to this task
 
-    protected $verbosity     = PROJECT_MSG_VERBOSE;
+    protected $verbosity     = Project::MSG_VERBOSE;
 
     /**
      * Sets up this object internal stuff. i.e. the Fileutils instance
@@ -84,9 +84,9 @@ class CopyTask extends Task {
      */
     function setVerbose($verbosity) {
         if ($verbosity) {
-            $this->verbosity = PROJECT_MSG_INFO;
+            $this->verbosity = Project::MSG_INFO;
         } else {
-            $this->verbosity = PROJECT_MSG_VERBOSE;
+            $this->verbosity = Project::MSG_VERBOSE;
         }
     }
     
@@ -373,7 +373,7 @@ class CopyTask extends Task {
 			
                     $count++;
                 } catch (IOException $ioe) {
-                    $this->log("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage(), PROJECT_MSG_ERR);
+                    $this->log("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage(), Project::MSG_ERR);
                 }
             }
         }
@@ -386,7 +386,7 @@ class CopyTask extends Task {
                 $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
-                        $this->log("Unable to create directory " . $d->__toString(), PROJECT_MSG_ERR);
+                        $this->log("Unable to create directory " . $d->__toString(), Project::MSG_ERR);
                     } else {
                         $count++;
                     }

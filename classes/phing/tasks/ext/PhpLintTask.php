@@ -100,10 +100,10 @@ class PhpLintTask extends Task {
 	$message = array();
 	exec($command.$file, $message);
 	if(!preg_match('/^No syntax errors detected/', $message[0])) {
-	  $this->log($message[1], PROJECT_MSG_ERR);
+	  $this->log($message[1], Project::MSG_ERR);
     $this->hasErrors = true;
 	} else {
-	  $this->log($file.': No syntax errors detected', PROJECT_MSG_INFO);
+	  $this->log($file.': No syntax errors detected', Project::MSG_INFO);
 	}
       } else {
 	throw new BuildException('Permission denied: '.$file);

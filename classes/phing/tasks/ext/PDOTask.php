@@ -154,7 +154,7 @@ abstract class PDOTask extends Task {
                 
         try {
 
-            $this->log("Connecting to " . $this->getUrl(), PROJECT_MSG_VERBOSE);
+            $this->log("Connecting to " . $this->getUrl(), Project::MSG_VERBOSE);
             
             $user = null;
             $pass = null;
@@ -174,7 +174,7 @@ abstract class PDOTask extends Task {
             	try {
 					$conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
 				} catch (PDOException $pe) {
-					$this->log("Unable to enable auto-commit for this database: " . $pe->getMessage(), PROJECT_MSG_WARN);
+					$this->log("Unable to enable auto-commit for this database: " . $pe->getMessage(), Project::MSG_WARN);
 				}
 			}
             

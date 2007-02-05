@@ -105,9 +105,9 @@ class XmlLintTask extends Task {
 	$dom = new DOMDocument();
 	$dom->load($file);
 	if($dom->schemaValidate($this->schema->getPath())) {
-	  $this->log($file.' validated', PROJECT_MSG_INFO);
+	  $this->log($file.' validated', Project::MSG_INFO);
 	} else {
-	  $this->log($file.' fails to validate (See messages above)', PROJECT_MSG_ERR);
+	  $this->log($file.' fails to validate (See messages above)', Project::MSG_ERR);
 	}
       } else {
 	throw new BuildException('Permission denied: '.$file);
@@ -128,7 +128,7 @@ class XmlLintTask extends Task {
   public function errorHandler($level, $message, $file, $line, $context) {
     $matches = array();
     preg_match('/^.*\(\): (.*)$/', $message, $matches);
-    $this->log($matches[1], PROJECT_MSG_ERR);
+    $this->log($matches[1], Project::MSG_ERR);
   }
 
 }

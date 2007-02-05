@@ -209,19 +209,19 @@ final class AnsiColorLogger extends DefaultLogger {
             }
             
             switch ($priority) {
-                case PROJECT_MSG_ERR:
+                case Project::MSG_ERR:
                     $message = $this->errColor . $message . self::END_COLOR;
                     break;
-                case PROJECT_MSG_WARN:
+                case Project::MSG_WARN:
                     $message = $this->warnColor . $message . self::END_COLOR;                    
                     break;
-                case PROJECT_MSG_INFO:
+                case Project::MSG_INFO:
                     $message = $this->infoColor . $message . self::END_COLOR;
                     break;
-                case PROJECT_MSG_VERBOSE:
+                case Project::MSG_VERBOSE:
                     $message = $this->verboseColor . $message . self::END_COLOR;
                     break;
-                case PROJECT_MSG_DEBUG:
+                case Project::MSG_DEBUG:
                     $message = $this->debugColor . $message . self::END_COLOR;
                     break;
             }

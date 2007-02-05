@@ -39,7 +39,7 @@
 		/**
 		 * Constructs a new LogWriter object
 		 */
-		function __construct(Task $task, $level = PROJECT_MSG_INFO)
+		function __construct(Task $task, $level = Project::MSG_INFO)
 		{
 			$this->task = $task;
 			$this->level = $level;

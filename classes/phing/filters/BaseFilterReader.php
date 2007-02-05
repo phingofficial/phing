@@ -147,7 +147,7 @@ class BaseFilterReader extends FilterReader {
      * @param string $msg Message to log.
      * @param int $level Priority level.
      */
-    function log($msg, $level = PROJECT_MSG_INFO) {
+    function log($msg, $level = Project::MSG_INFO) {
         if ($this->project !== null) {
             $this->project->log("[filter:".get_class($this)."] ".$msg, $level);    
         }

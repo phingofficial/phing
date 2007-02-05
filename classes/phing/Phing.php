@@ -63,8 +63,8 @@ class Phing {
     /** The default build file name */
     const DEFAULT_BUILD_FILENAME = "build.xml";
 	
-    /** Our current message output status. Follows PROJECT_MSG_XXX */
-    private static $msgOutputLevel = PROJECT_MSG_INFO;
+    /** Our current message output status. Follows Project::MSG_XXX */
+    private static $msgOutputLevel = Project::MSG_INFO;
 
     /** PhingFile that we are using for configuration */
     private $buildFile = null;
@@ -115,7 +115,7 @@ class Phing {
      */
     function printMessage(Exception $t) {
         print($t->getMessage() . "\n");
-        if (self::getMsgOutputLevel() === PROJECT_MSG_DEBUG) {
+        if (self::getMsgOutputLevel() === Project::MSG_DEBUG) {
             print($t->getTraceAsString()."\n");
             if ($t instanceof Exception) {                
                 $c = $t->getCause();
@@ -213,13 +213,13 @@ class Phing {
                 $this->printVersion();
                 return;
             } elseif ($arg == "-quiet" || $arg == "-q") {
-                self::$msgOutputLevel = PROJECT_MSG_WARN;
+                self::$msgOutputLevel = Project::MSG_WARN;
             } elseif ($arg == "-verbose") {
                 $this->printVersion();
-                self::$msgOutputLevel = PROJECT_MSG_VERBOSE;
+                self::$msgOutputLevel = Project::MSG_VERBOSE;
             } elseif ($arg == "-debug") {
                 $this->printVersion();
-                self::$msgOutputLevel = PROJECT_MSG_DEBUG;
+                self::$msgOutputLevel = Project::MSG_DEBUG;
             } elseif ($arg == "-logfile") {
                 try { // try to set logfile
                 	// TODO - This is slated to be overhauled for 2.3.0
@@ -331,7 +331,7 @@ class Phing {
         $file     = new PhingFile($filename);
         $filename = $file->getParent();
 
-        if ($filename !== null && self::$msgOutputLevel >= PROJECT_MSG_VERBOSE) {
+        if ($filename !== null && self::$msgOutputLevel >= Project::MSG_VERBOSE) {
             print("Searching in $filename\n");
         }
 
@@ -353,7 +353,7 @@ class Phing {
      * @throws BuildException    Failed to locate a build file
      */
     function _findBuildFile($start, $suffix) {
-        if (self::$msgOutputLevel >= PROJECT_MSG_INFO) {
+        if (self::$msgOutputLevel >= Project::MSG_INFO) {
             print("Searching for $suffix ...\n");
         }
         $startf = new PhingFile($start);
@@ -570,9 +570,9 @@ class Phing {
 	 * A static convenience method to send a log to the current (last-setup) Project.
 	 * If there is no currently-configured Project, then this will do nothing.
 	 * @param string $message
-	 * @param int $priority PROJECT_MSG_INFO, etc.
+	 * @param int $priority Project::MSG_INFO, etc.
 	 */
-	public static function log($message, $priority = PROJECT_MSG_INFO) {
+	public static function log($message, $priority = Project::MSG_INFO) {
 		$p = self::getCurrentProject();
 		if ($p) {
 			$p->log($message, $priority);
@@ -602,16 +602,16 @@ class Phing {
 					case E_STRICT:
 					case E_NOTICE:
 	                case E_USER_NOTICE:
-						self::log($message, PROJECT_MSG_VERBOSE);
+						self::log($message, Project::MSG_VERBOSE);
 	                    break;
 					case E_WARNING:
 	                case E_USER_WARNING:
-						self::log($message, PROJECT_MSG_WARN);
+						self::log($message, Project::MSG_WARN);
 	                    break;
 	                case E_ERROR:
 					case E_USER_ERROR:
 	                default:
-						self::log($message, PROJECT_MSG_ERR);
+						self::log($message, Project::MSG_ERR);
 	
 	            } // switch
 				
@@ -869,7 +869,7 @@ class Phing {
             $add_parts = explode(PATH_SEPARATOR, $classpath);
             $new_parts = array_diff($add_parts, $curr_parts);
             if ($new_parts) {
-                if (self::getMsgOutputLevel() === PROJECT_MSG_DEBUG) {
+                if (self::getMsgOutputLevel() === Project::MSG_DEBUG) {
                     print("Phing::import() prepending new include_path components: " . implode(PATH_SEPARATOR, $new_parts) . "\n");
                 }
                 ini_set('include_path', implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
@@ -880,7 +880,7 @@ class Phing {
         
         if ($ret === false) {
             $e = new BuildException("Error importing $path");
-            if (self::getMsgOutputLevel() === PROJECT_MSG_DEBUG) {
+            if (self::getMsgOutputLevel() === Project::MSG_DEBUG) {
                 // We can't log this because listeners belong
                 // to projects.  We'll just print it -- of course
                 // that isn't very compatible w/ other frontends (but

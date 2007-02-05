@@ -140,7 +140,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader 
     protected function initEnvironment() {
         $this->storedLocale = getenv("LANG");
         
-        $this->log("Setting locale to " . $this->locale, PROJECT_MSG_DEBUG);
+        $this->log("Setting locale to " . $this->locale, Project::MSG_DEBUG);
         putenv("LANG=".$this->locale);
         $ret = setlocale(LC_ALL, $this->locale);
         if ($ret === false) {
@@ -150,7 +150,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader 
             throw new BuildException($msg);
         }        
         
-        $this->log("Binding domain '".$this->domain."' to "  . $this->dir, PROJECT_MSG_DEBUG);
+        $this->log("Binding domain '".$this->domain."' to "  . $this->dir, Project::MSG_DEBUG);
         bindtextdomain($this->domain, $this->dir->getAbsolutePath());
         textdomain($this->domain);        
     }
@@ -181,7 +181,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader 
         $charbefore = $matches[1];
         $msgid = $matches[2];
         $translated = gettext($msgid);
-        $this->log("Translating \"$msgid\" => \"$translated\"", PROJECT_MSG_DEBUG);
+        $this->log("Translating \"$msgid\" => \"$translated\"", Project::MSG_DEBUG);
         return $charbefore . '"' . $translated . '"';
     }
         
@@ -231,7 +231,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader 
                     
         $matches = array();
         if (preg_match('/([^\w]|^)(gettext\([^\)]+\))/', $buffer, $matches)) {
-            $this->log("Unable to perform translation on: " . $matches[2], PROJECT_MSG_WARN);
+            $this->log("Unable to perform translation on: " . $matches[2], Project::MSG_WARN);
         }
                 
         $this->restoreEnvironment();

@@ -44,10 +44,10 @@ class DefaultLogger implements BuildListener {
 
     /**
      *  The message output level that should be used. The default is
-     *  <code>PROJECT_MSG_VERBOSE</code>.
+     *  <code>Project::MSG_VERBOSE</code>.
      *  @var int
      */
-    protected $msgOutputLevel = PROJECT_MSG_ERR;
+    protected $msgOutputLevel = Project::MSG_ERR;
 
     /**
      *  Time that the build started
@@ -79,14 +79,14 @@ class DefaultLogger implements BuildListener {
      *  the levels, from least to most verbose, is:
      *
      *  <ul>
-     *    <li>PROJECT_MSG_ERR</li>
-     *    <li>PROJECT_MSG_WARN</li>
-     *    <li>PROJECT_MSG_INFO</li>
-     *    <li>PROJECT_MSG_VERBOSE</li>
-     *    <li>PROJECT_MSG_DEBUG</li>
+     *    <li>Project::MSG_ERR</li>
+     *    <li>Project::MSG_WARN</li>
+     *    <li>Project::MSG_INFO</li>
+     *    <li>Project::MSG_VERBOSE</li>
+     *    <li>Project::MSG_DEBUG</li>
      *  </ul>
      *
-     *  The default message level for DefaultLogger is PROJECT_MSG_ERR.
+     *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
      *  @param  integer  the logging level for the logger.
      *  @access public
@@ -105,8 +105,8 @@ class DefaultLogger implements BuildListener {
 
     function buildStarted(BuildEvent $event) {
         $this->startTime = Phing::currentTimeMillis();
-        if ($this->msgOutputLevel >= PROJECT_MSG_INFO) {
-            $this->printMessage("Buildfile: ".$event->getProject()->getProperty("phing.file"), PROJECT_MSG_INFO);
+        if ($this->msgOutputLevel >= Project::MSG_INFO) {
+            $this->printMessage("Buildfile: ".$event->getProject()->getProperty("phing.file"), Project::MSG_INFO);
         }
     }
 
@@ -124,7 +124,7 @@ class DefaultLogger implements BuildListener {
             print($this->lSep . "BUILD FINISHED" . $this->lSep);
         } else {
             print($this->lSep . "BUILD FAILED" . $this->lSep);
-            if (PROJECT_MSG_VERBOSE <= $this->msgOutputLevel || !($error instanceof BuildException)) {
+            if (Project::MSG_VERBOSE <= $this->msgOutputLevel || !($error instanceof BuildException)) {
                 print($error->__toString().$this->lSep);
             } else {
                 print($error->getMessage());
@@ -141,7 +141,7 @@ class DefaultLogger implements BuildListener {
      *  @see    BuildEvent::getTarget()
      */
     function targetStarted(BuildEvent $event) {
-        if (PROJECT_MSG_INFO <= $this->msgOutputLevel) {
+        if (Project::MSG_INFO <= $this->msgOutputLevel) {
             print($this->lSep . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ':' . $this->lSep);
         }
     }

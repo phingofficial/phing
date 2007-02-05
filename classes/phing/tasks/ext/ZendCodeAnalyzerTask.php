@@ -141,7 +141,7 @@ class ZendCodeAnalyzerTask extends Task {
       	}
       }
     }
-    $this->log("Number of findings: ".$this->counter, PROJECT_MSG_INFO);
+    $this->log("Number of findings: ".$this->counter, Project::MSG_INFO);
   }
 
   /**
@@ -169,7 +169,7 @@ class ZendCodeAnalyzerTask extends Task {
       	$result = explode("\n", $result);
       	for($i=2, $size=count($result); $i<($size-1); $i++) {
 	  $this->counter++;
-	  $this->log($result[$i], PROJECT_MSG_WARN);
+	  $this->log($result[$i], Project::MSG_WARN);
       	}
       } else {
       	throw new BuildException('Permission denied: '.$file);

@@ -303,19 +303,19 @@ class PDOSQLExecTask extends PDOTask {
                 try {
                     
                     if ($this->output !== null) {
-                        $this->log("Opening output file " . $this->output, PROJECT_MSG_VERBOSE);
+                        $this->log("Opening output file " . $this->output, Project::MSG_VERBOSE);
                         $out = new BufferedWriter(new FileWriter($this->output->getAbsolutePath(), $this->append));
                     }
                     
                     // Process all transactions
                     for ($i=0,$size=count($this->transactions); $i < $size; $i++) {
                     	if (!$this->isAutocommit()) {
-                    		$this->log("Beginning transaction", PROJECT_MSG_VERBOSE);
+                    		$this->log("Beginning transaction", Project::MSG_VERBOSE);
                             $this->conn->beginTransaction();
                     	}
                         $this->transactions[$i]->runTransaction($out);
                         if (!$this->isAutocommit()) {
-                            $this->log("Commiting transaction", PROJECT_MSG_VERBOSE);
+                            $this->log("Commiting transaction", Project::MSG_VERBOSE);
                             $this->conn->commit();
                         }
                     }
@@ -393,7 +393,7 @@ class PDOSQLExecTask extends PDOTask {
                         && StringHelper::endsWith($this->delimiter, $sql)
                         || $this->delimiterType == self::DELIM_ROW
                         && $line == $this->delimiter) {
-                    $this->log("SQL: " . $sql, PROJECT_MSG_VERBOSE);
+                    $this->log("SQL: " . $sql, Project::MSG_VERBOSE);
                     $this->execSQL(StringHelper::substring($sql, 0, strlen($sql) - strlen($this->delimiter) - 1), $out);
                     $sql = "";
                 }
@@ -425,7 +425,7 @@ class PDOSQLExecTask extends PDOTask {
             #if (!$this->statement->execute($sql)) {
             	$this->statement = $this->conn->prepare($sql);
             	$this->statement->execute();
-                $this->log($this->statement->rowCount() . " rows affected", PROJECT_MSG_VERBOSE);
+                $this->log($this->statement->rowCount() . " rows affected", Project::MSG_VERBOSE);
             #} else {
             #    if ($this->print) {
             #        $this->printResults($out);
@@ -435,11 +435,11 @@ class PDOSQLExecTask extends PDOTask {
             $this->goodSql++;
             
         } catch (SQLException $e) {            
-            $this->log("Failed to execute: " . $sql, PROJECT_MSG_ERR);
+            $this->log("Failed to execute: " . $sql, Project::MSG_ERR);
             if ($this->onError != "continue") {            
                 throw new BuildException("Failed to execute SQL", $e);
             }
-            $this->log($e->getMessage(), PROJECT_MSG_ERR);
+            $this->log($e->getMessage(), Project::MSG_ERR);
         }
     }
     
@@ -453,7 +453,7 @@ class PDOSQLExecTask extends PDOTask {
           
         if ($rs !== null) {
         
-            $this->log("Processing new result set.", PROJECT_MSG_VERBOSE);            
+            $this->log("Processing new result set.", Project::MSG_VERBOSE);            
 
             $line = "";
 
@@ -543,13 +543,13 @@ class PDOSQLExecTransaction {
     public function runTransaction($out = null)
     {
         if (!empty($this->tSqlCommand)) {
-            $this->parent->log("Executing commands", PROJECT_MSG_INFO);
+            $this->parent->log("Executing commands", Project::MSG_INFO);
             $this->parent->runStatements(new StringReader($this->tSqlCommand), $out);
         }
 
         if ($this->tSrcFile !== null) {
             $this->parent->log("Executing file: " . $this->tSrcFile->getAbsolutePath(),
-                PROJECT_MSG_INFO);
+                Project::MSG_INFO);
             $reader = new FileReader($this->tSrcFile);
             $this->parent->runStatements($reader, $out);
             $reader->close();

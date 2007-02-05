@@ -84,7 +84,7 @@ abstract class ExtractBaseTask extends MatchingTask {
             if(!$this->isDestinationUpToDate($this->file)) {
                 $filesToExtract[] = $this->file;
             } else {
-            	$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $this->file->getCanonicalPath(), PROJECT_MSG_INFO);
+            	$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $this->file->getCanonicalPath(), Project::MSG_INFO);
             }
         }
         
@@ -103,7 +103,7 @@ abstract class ExtractBaseTask extends MatchingTask {
             	if(!$this->isDestinationUpToDate($compressedArchiveFile)) {
             	   $filesToExtract[] = $compressedArchiveFile;
             	} else {
-            		$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $compressedArchiveFile->getCanonicalPath(), PROJECT_MSG_INFO);
+            		$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $compressedArchiveFile->getCanonicalPath(), Project::MSG_INFO);
             	}
             }
         }

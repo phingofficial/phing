@@ -84,7 +84,7 @@ class AdhocTaskdefTask extends AdhocTask {
             throw new BuildException("The adhoc class you defined must be an instance of phing.Task", $this->location);
         }
         
-        $this->log("Task " . $this->name . " will be handled by class " . $classname, PROJECT_MSG_VERBOSE);
+        $this->log("Task " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
         $this->project->addTaskDefinition($this->name, $classname);        
     }
 }
