@@ -66,6 +66,11 @@
 		private $msgOutputLevel = PROJECT_MSG_DEBUG;
 		
 		/**
+		 * @var string Name of filename to create.
+		 */
+		private $outFilename;
+		
+		/**
 		 *  Constructs a new BuildListener that logs build events to an XML file.
 		 */
 		function __construct()
@@ -76,6 +81,20 @@
 			$this->buildTimer = new Timer();
 			$this->targetTimer = new Timer();
 			$this->taskTimer = new Timer();
+			
+			
+			
+			
+			$outFilename = Phing::getDefinedProperty('phing.listener.logfile');
+			if ($outFilename === null) {
+				$outFilename = Phing::getDefinedProperty("XmlLogger.file");
+				if ($outFilename === null) {
+					$outFilename = "log.xml";
+				}
+			}
+			
+			$this->outFilename = $outFilename;
+			
 		}
 		
 		/**
@@ -103,7 +122,7 @@
 			
 			$elapsedTime = Phing::currentTimeMillis() - $this->buildTimerStart;
 			
-			$this->buildElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::_formatTime($elapsedTime));
+			$this->buildElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 			
 			if ($event->getException() != null)
 			{
@@ -115,13 +134,7 @@
 				$this->buildElement->appendChild($stacktrace);
 			}
 			
-			$outFilename = $event->getProject()->getProperty("XmlLogger.file");
-			
-			if ($outFilename == "")
-			{
-				$outFilename = "log.xml";
-			}
-			$writer = new FileWriter($outFilename);
+			$writer = new FileWriter($this->outFilename);
 			
 			$writer->write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 			$writer->write($this->doc->saveXML($this->buildElement));
@@ -156,7 +169,7 @@
 			
 			$elapsedTime = Phing::currentTimeMillis() - $this->targetTimerStart;
 			
-			$this->targetElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::_formatTime($elapsedTime));
+			$this->targetElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 			
 			$this->buildElement->appendChild($this->targetElement);
 		}
@@ -189,7 +202,7 @@
 			$task = $event->getTask();
 			
 			$elapsedTime = Phing::currentTimeMillis() - $this->taskTimerStart;
-			$this->taskElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::_formatTime($elapsedTime));
+			$this->taskElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 			
 			$this->targetElement->appendChild($this->taskElement);
 		}

@@ -29,7 +29,7 @@ include_once 'phing/BuildEvent.php';
  *  any messages that get logged.
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
+ *  @copyright ï¿½ 2001,2002 THYRELL. All rights reserved
  *  @version   $Revision: 1.11 $ $Date$
  *  @see       BuildEvent
  *  @package   phing.listener
@@ -130,7 +130,7 @@ class DefaultLogger implements BuildListener {
                 print($error->getMessage());
             }
         }
-        print($this->lSep . "Total time: " .$this->_formatTime(Phing::currentTimeMillis() - $this->startTime) . $this->lSep);
+        print($this->lSep . "Total time: " .self::formatTime(Phing::currentTimeMillis() - $this->startTime) . $this->lSep);
     }
 
     /**
@@ -206,7 +206,7 @@ class DefaultLogger implements BuildListener {
      *  @param  integer The time stamp
      *  @access private
      */
-    function _formatTime($micros) {
+    public static function formatTime($micros) {
         $seconds = $micros;
         $minutes = $seconds / 60;
         if ($minutes > 1) {
