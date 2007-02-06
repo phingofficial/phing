@@ -49,7 +49,7 @@ class TypedefTaskTest extends BuildFileTest {
     }
 
     public function testGlobal() {
-        $this->expectLog("testGlobal", "");
+        $this->expectLog("testGlobal", "Adding reference: global -> TypedefTestType");
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
         $this->assertNotNull("ref is not null", $ref);
@@ -57,7 +57,7 @@ class TypedefTaskTest extends BuildFileTest {
     }
 
     public function testLocal() {
-        $this->expectLog("testLocal", "");
+        $this->expectLog("testLocal", "Adding reference: local -> TypedefTestType");
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
         $this->assertNotNull("ref is not null", $ref);

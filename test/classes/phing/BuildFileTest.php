@@ -38,13 +38,30 @@ abstract class BuildFileTest extends PHPUnit2_Framework_TestCase {
     
     protected $project;
     
-    public $logBuffer;
-    public $fullLogBuffer;
+    /**
+     * @var array Array of log BuildEvent objects.
+     */
+    public $logBuffer = array();
     
     private $outBuffer;
     private $errBuffer;
     private $buildException;
     
+    /**
+     * Asserts that the log buffer contains specified message at specified priority.
+     * @param string $$expected Message subsctring
+     * @param int $priority Message priority (default: any)
+     * @param string $errmsg The error message to display.
+     */
+    protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
+    {
+    	foreach($this->logBuffer as $log) {
+    		if (false !== stripos($log, $expected)) {
+    			return;
+    		}
+    	}
+    	$this->fail(sprintf($errormsg, $expected, var_export($this->logBuffer,true)));
+    }
     
     /**
      *  run a target, expect for any build exception 
@@ -62,8 +79,7 @@ abstract class BuildFileTest extends PHPUnit2_Framework_TestCase {
      */
     protected function expectLog($target, $log) { 
         $this->executeTarget($target);
-        $realLog = $this->getLog();
-        $this->assertEquals($log, $realLog);
+        $this->assertInLogs($log);
     }
 
     /**
@@ -72,20 +88,7 @@ abstract class BuildFileTest extends PHPUnit2_Framework_TestCase {
      */
     protected function expectLogContaining($target, $log) { 
         $this->executeTarget($target);
-        $realLog = $this->getLog();
-        $this->assertTrue(strpos($realLog, $log) !== false, "expecting log to contain \"" . $log . "\" log was \""
-                   . $realLog . "\"");
-    }
-
-    /**
-     *  Gets the log the BuildFileTest object.
-     *  only valid if configureProject() has
-     *  been called.
-     * @pre logBuffer!=null
-     * @return    The log value
-     */    
-    protected function getLog() { 
-        return $this->logBuffer;
+        $this->assertInLogs($log);
     }
 
     /**
@@ -94,19 +97,7 @@ abstract class BuildFileTest extends PHPUnit2_Framework_TestCase {
      */
     protected function expectDebuglog($target, $log) { 
         $this->executeTarget($target);
-        $realLog = $this->getFullLog();
-        $this->assertEquals($log, $realLog);
-    }
-
-    /**
-     *  Gets the log the BuildFileTest object.
-     *  only valid if configureProject() has
-     *  been called.
-     * @pre fullLogBuffer!=null
-     * @return    The log value
-     */
-    protected function getFullLog() { 
-        return $this->fullLogBuffer;
+        $this->assertInLogs($log, Project::MSG_DEBUG);
     }
 
     /**
@@ -343,8 +334,8 @@ class PhingTestListener implements BuildListener {
 
     private $parent;
 
-    function __construct($parent) {
-    $this->parent = $parent;
+    public function __construct($parent) {
+    	$this->parent = $parent;
     }
 
     /**
@@ -407,11 +398,6 @@ class PhingTestListener implements BuildListener {
      *  @see BuildEvent#getPriority()
      */
     public function messageLogged(BuildEvent $event) {        
-        if ($event->getPriority() == Project::MSG_INFO ||
-            $event->getPriority() == Project::MSG_WARN ||
-            $event->getPriority() == Project::MSG_ERR) {
-            $this->parent->logBuffer .= $event->getMessage();
-        }
-        $this->parent->fullLogBuffer .= $event->getMessage();
+        $this->parent->logBuffer[] = $event->getMessage();
     }
 }
