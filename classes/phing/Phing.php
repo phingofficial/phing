@@ -41,6 +41,8 @@ include_once 'phing/parser/NestedElementHandler.php';
 include_once 'phing/system/util/Properties.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/system/io/OutputStream.php';
+include_once 'phing/system/io/FileOutputStream.php';
 include_once 'phing/system/io/FileReader.php';
 include_once 'phing/system/util/Register.php';
 
@@ -91,7 +93,7 @@ class Phing {
 
     /** Indicates we should only parse and display the project help information */
     private $projectHelp = false;
-    
+	
     /** Used by utility function getResourcePath() */
     private static $importPaths;
     
@@ -109,24 +111,22 @@ class Phing {
 	
 	/** Array of captured PHP errors */
 	private static $capturedPhpErrors = array();
-	
-    /**
-     * Prints the message of the Exception if it's not null.
-     */
-    function printMessage(Exception $t) {
-        print($t->getMessage() . "\n");
-        if (self::getMsgOutputLevel() === Project::MSG_DEBUG) {
-            print($t->getTraceAsString()."\n");
-            if ($t instanceof Exception) {                
-                $c = $t->getCause();
-                if ($c !== null) {
-                    print("Wrapped exception trace:\n");
-                    print($c->getTraceAsString() . "\n");
-                }
-            }
-        } // if output level is DEBUG
-    }
 
+	/**
+	 * @var OUtputStream Stream for standard output.
+	 */
+	private static $out;
+	
+	/**
+	 * @var OutputStream Stream for error output.
+	 */
+	private static $err;
+	
+	/**
+	 * @var boolean Whether we are using a logfile.
+	 */
+	private static $isLogFileUsed = false;
+		
     /** 
      * Entry point allowing for more options from other front ends.
      * 
@@ -146,6 +146,7 @@ class Phing {
             $m = new Phing();
             $m->execute($args);
         } catch (Exception $exc) {
+        	self::handleLogfile(); // clean up log file before attempting to print message
             $m->printMessage($exc);
             self::halt(-1); // Parameter error
         }
@@ -162,11 +163,81 @@ class Phing {
         try {
             $m->runBuild();
         } catch(Exception $exc) {
+        	self::handleLogfile();
             self::halt(1); // Errors occured
         }
         
         // everything fine, shutdown
-        self::halt(0); // no errors, everything is cake
+		self::handleLogfile();
+        self::halt(0);
+    }
+
+    /**
+     * Prints the message of the Exception if it's not null.
+     * @param Exception $t
+     */
+    public static function printMessage(Exception $t) {
+      	if (self::getMsgOutputLevel() <= Project::MSG_DEBUG) {
+      		self::$err->write($t->__toString());
+      	} else {
+      		self::$err->write($t->getMessage());
+      	}
+    }
+    
+    /**
+     * Sets the stdout and stderr streams if they are not already set.
+     */
+    private static function initializeOutputStreams() {
+    	 if (self::$out === null) {
+    	 	self::$out = new OutputStream(fopen("php://stdout", "w"));
+    	 }
+    	 if (self::$err === null) {
+    	 	self::$err = new OutputStream(fopen("php://stderr", "w"));
+    	 }
+    }
+    
+    /**
+     * Sets the stream to use for standard (non-error) output.
+     * @param OutputStream $stream The stream to use for standard output.
+     */
+    public static function setOutputStream(OutputStream $stream) {
+    	self::$out = $stream;
+    }
+    
+    /**
+     * Gets the stream to use for standard (non-error) output.
+     * @return OutputStream
+     */
+   	public static function getOutputStream() {
+   		return self::$out;
+   	}
+    
+    /**
+     * Sets the stream to use for error output.
+     * @param OutputStream $stream The stream to use for error output.
+     */
+    public static function setErrorStream(OutputStream $stream) {
+    	self::$err = $stream;
+    }
+    
+    /**
+     * Gets the stream to use for error output.
+     * @return OutputStream
+     */
+   	public static function getErrorStream() {
+   		return self::$err;
+   	}
+    
+    /**
+     * Close logfiles, if we have been writing to them.
+     *
+     * @since Phing 2.3.0
+     */
+    private static function handleLogfile() {
+        if (self::$isLogFileUsed) {
+        	self::$err->close();
+        	self::$out->close();
+        }
     }
     
     /**
@@ -221,31 +292,33 @@ class Phing {
                 $this->printVersion();
                 self::$msgOutputLevel = Project::MSG_DEBUG;
             } elseif ($arg == "-logfile") {
-                try { // try to set logfile
-                	// TODO - This is slated to be overhauled for 2.3.0
+                try {
                 	// see: http://phing.info/trac/ticket/65
                     if (!isset($args[$i+1])) {
-                        print("You must specify a log file when using the -logfile argument\n");
-                        return;
+                        $msg = "You must specify a log file when using the -logfile argument\n";
+                        throw new BuildException($msg);
                     } else {
                         $logFile = new PhingFile($args[++$i]);
-                        $this->setDefinedProperty('phing.listener.logfile', $logFile->getAbsolutePath());
+                        $out = new FileOutputStream($logFile); // overwrite
+                        self::setOutputStream($out);
+                        self::setErrorStream($out);
+                        self::$isLogFileUsed = true;
                     }
                 } catch (IOException $ioe) {
-                    print("Cannot write on the specified log file. Make sure the path exists and you have write permissions.\n");
-                    throw $ioe;
+                    $msg = "Cannot write on the specified log file. Make sure the path exists and you have write permissions.";
+                    throw new BuildException($msg, $ioe);
                 }
             } elseif ($arg == "-buildfile" || $arg == "-file" || $arg == "-f") {
                 if (!isset($args[$i+1])) {
-                    print("You must specify a buildfile when using the -buildfile argument\n");
-                    return;
+                    $msg = "You must specify a buildfile when using the -buildfile argument.";
+                    throw new BuildException($msg);
                 } else {
                     $this->buildFile = new PhingFile($args[++$i]);
                 }
             } elseif ($arg == "-listener") {
                 if (!isset($args[$i+1])) {
-                    print("You must specify a listener class when using the -listener argument\n");
-                    return;
+                    $msg = "You must specify a listener class when using the -listener argument";
+                    throw new BuildException($msg);
                 } else {
                     $this->listeners[] = $args[++$i];
                 }
@@ -262,8 +335,8 @@ class Phing {
                 self::$definedProps->setProperty($name, $value);
             } elseif ($arg == "-logger") {
                 if (!isset($args[$i+1])) {
-                    print("You must specify a classname when using the -logger argument\n");
-                    return;
+                    $msg = "You must specify a classname when using the -logger argument";
+                    throw new BuildException($msg);
                 } else {
                     $this->loggerClassname = $args[++$i];
                 }
@@ -272,12 +345,12 @@ class Phing {
                     throw new BuildException("Only one input handler class may be specified.");
                 }
                 if (!isset($args[$i+1])) {
-                    print("You must specify a classname when using the -inputhandler argument\n");
-                    return;
+                    $msg = "You must specify a classname when using the -inputhandler argument";
+                    throw new BuildException($msg);
                 } else {
                     $this->inputHandlerClassname = $args[++$i];
                 }
-            } elseif ($arg == "-projecthelp" || $arg == "-targets" || $arg == "-list" || $arg == "-l") {
+            } elseif ($arg == "-projecthelp" || $arg == "-targets" || $arg == "-list" || $arg == "-l" || $arg == "-p") {
                 // set the flag to display the targets and quit
                 $this->projectHelp = true;
             } elseif ($arg == "-find") {
@@ -289,8 +362,8 @@ class Phing {
                 }
             } elseif (substr($arg,0,1) == "-") {
                 // we don't have any more args
-                print("Unknown argument: $arg\n");
-                $this->printUsage();
+				self::$err->write("Unknown argument: $arg");
+                self::printUsage();
                 return;
             } else {
                 // if it's no other arg, it may be the target
@@ -326,13 +399,13 @@ class Phing {
      * @param PhingFile $file
      * @return PhingFile Parent file or null if none
      */
-    function _getParentFile(PhingFile $file) {
+    private function _getParentFile(PhingFile $file) {
         $filename = $file->getAbsolutePath();
         $file     = new PhingFile($filename);
         $filename = $file->getParent();
 
         if ($filename !== null && self::$msgOutputLevel >= Project::MSG_VERBOSE) {
-            print("Searching in $filename\n");
+        	self::$out->write("Searching in $filename" . self::getProperty("line.separator"));
         }
 
         return ($filename === null) ? null : new PhingFile($filename);
@@ -352,9 +425,9 @@ class Phing {
      *
      * @throws BuildException    Failed to locate a build file
      */
-    function _findBuildFile($start, $suffix) {
+    private function _findBuildFile($start, $suffix) {
         if (self::$msgOutputLevel >= Project::MSG_INFO) {
-            print("Searching for $suffix ...\n");
+        	self::$out->write("Searching for $suffix ..." . self::getProperty("line.separator"));
         }
         $startf = new PhingFile($start);
         $parent = new PhingFile($startf->getAbsolutePath());
@@ -527,7 +600,7 @@ class Phing {
 
     /**
      * Creates the default build logger for sending build events to the log.
-     * @return BuildListener The created Logger
+     * @return BuildLogger The created Logger
      */
     private function createLogger() {
         if ($this->loggerClassname !== null) {
@@ -540,6 +613,8 @@ class Phing {
             $logger = new DefaultLogger();
         }
         $logger->setMessageOutputLevel(self::$msgOutputLevel);
+        $logger->setOutputStream(self::$out);
+        $logger->setErrorStream(self::$err);
         return $logger;
     }
 	
@@ -654,7 +729,7 @@ class Phing {
 	}
 	
     /**  Prints the usage of how to use this class */
-    function printUsage() {
+    public static function printUsage() {
         $lSep = self::getProperty("line.separator");
         $msg = "";
         $msg .= "phing [options] [target [target2 [target3] ...]]" . $lSep;
@@ -674,13 +749,21 @@ class Phing {
         //$msg .= "  -recursive <file>      search for buildfile downwards and use it" . $lSep;
         $msg .= $lSep;
         $msg .= "Report bugs to <dev@phing.tigris.org>".$lSep;
-        print($msg);
+        self::$err->write($msg);
     }
-
-    function printVersion() {
-        print(self::getPhingVersion()."\n");
+	
+    /**
+     * Prints the current Phing version.
+     */
+    public static function printVersion() {
+        self::$out->write(self::getPhingVersion().self::getProperty("line.separator"));
     }
-
+	
+    /**
+     * Gets the current Phing version based on VERSION.TXT file.
+     * @return string
+     * @throws BuildException - if unable to find version file.
+     */
     function getPhingVersion() {
 		$versionPath = self::getResourcePath("phing/etc/VERSION.TXT");
 		if ($versionPath === null) {
@@ -695,16 +778,17 @@ class Phing {
             //$buffer = "PHING version 1.0, Released 2002-??-??";
             $phingVersion = $buffer;
         } catch (IOException $iox) {
-            print("Can't read version information file\n");
-            throw new BuildException("Build failed");
+            throw new BuildException("Can't read version information file");
         }        
         return $phingVersion;
     }
 
-    /**  Print the project description, if any */
-    function printDescription(Project $project) {
+    /** 
+     * Print the project description, if any
+     */
+    public static function printDescription(Project $project) {
         if ($project->getDescription() !== null) {
-            print($project->getDescription()."\n");
+            self::$out->write($project->getDescription() . self::getProperty("line.separator"));
         }
     }
 
@@ -806,8 +890,8 @@ class Phing {
             $msg .= $lSep;
         }
         if ($total > 0) {
-          print $msg . $lSep;
-        } 
+          self::$out->write($msg . $lSep);
+        }
    }
    
    /**
@@ -869,9 +953,6 @@ class Phing {
             $add_parts = explode(PATH_SEPARATOR, $classpath);
             $new_parts = array_diff($add_parts, $curr_parts);
             if ($new_parts) {
-                if (self::getMsgOutputLevel() === Project::MSG_DEBUG) {
-                    print("Phing::import() prepending new include_path components: " . implode(PATH_SEPARATOR, $new_parts) . "\n");
-                }
                 ini_set('include_path', implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
             }
         }
@@ -879,19 +960,13 @@ class Phing {
         $ret = include_once($path);        
         
         if ($ret === false) {
-            $e = new BuildException("Error importing $path");
-            if (self::getMsgOutputLevel() === Project::MSG_DEBUG) {
-                // We can't log this because listeners belong
-                // to projects.  We'll just print it -- of course
-                // that isn't very compatible w/ other frontends (but
-                // there aren't any right now, so I'm not stressing)
-                print("Error importing $path\n");
-                print($e->getTraceAsString()."\n");
-            }        
-            throw $e;
+            $msg = "Error importing $path";
+            if (self::getMsgOutputLevel() <= Project::MSG_DEBUG) { 
+				$x = new Exception("for-path-trace-only");
+				$msg .= $x->getTraceAsString();
+            }
+            throw new BuildException($msg);
         }
-        
-        return;
    }
    
    /**
@@ -1102,7 +1177,7 @@ class Phing {
         }
         
         if ($success === false) {
-            print("SYSTEM FAILURE: Could not set PHP include path\n");
+            self::$err->write("SYSTEM FAILURE: Could not set PHP include path");
             self::halt(-1);
         }
     }
@@ -1147,7 +1222,10 @@ class Phing {
     public static function startup() {
        
         register_shutdown_function(array('Phing', 'shutdown'));
-
+        
+        // setup STDOUT and STDERR defaults
+		self::initializeOutputStreams();
+		
         // some init stuff
         self::getTimer()->start();
 
@@ -1169,7 +1247,6 @@ class Phing {
      * @return void
      */
     public static function shutdown($exitcode = 0) {
-        //print("[AUTOMATIC SYSTEM SHUTDOWN]\n");
         self::getTimer()->stop();
         exit($exitcode); // final point where everything stops
     }

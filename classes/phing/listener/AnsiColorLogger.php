@@ -198,9 +198,11 @@ final class AnsiColorLogger extends DefaultLogger {
 
     /**
      * @see DefaultLogger#printMessage
+     * @param string $message
+     * @param OutputStream $stream
+     * @param int $priority
      */
-    protected final function printMessage($message, $priority) {
-    
+    protected final function printMessage($message, OutputStream $stream, $priority) {
         if ($message !== null) {
         
             if (!$this->colorsSet) {
@@ -225,7 +227,8 @@ final class AnsiColorLogger extends DefaultLogger {
                     $message = $this->debugColor . $message . self::END_COLOR;
                     break;
             }
-            print($message."\n");
+            
+            $stream->write($message . $this->lSep);
         }
     }
 }

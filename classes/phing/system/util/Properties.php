@@ -154,7 +154,6 @@ class Properties {
         // file prior, this method stores them in the file used by load()        
         try {
             $fw = new FileWriter($file);
-            $fw->open();
             if ($header !== null) {
                 $fw->write( "# " . $header . Phing::getProperty("line.separator") );
             }

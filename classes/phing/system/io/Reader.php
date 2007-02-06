@@ -21,6 +21,7 @@
 
 /**
  * Abstract class for reading character streams.
+ * 
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Yannick Lecaillez <yl@seasonfive.com>
  * @version $Revision: 1.5 $
@@ -30,21 +31,19 @@ abstract class Reader {
 
     /**
      * Read data from source.
+     * 
      * If length is specified, then only that number of chars is read,
      * otherwise stream is read until EOF.
+     * 
      * @param int $len
      */
     abstract public function read($len = null);
             
     /**
      * Close stream.
+     * @throws IOException if there is an error closing stream
      */
     abstract public function close();
-    
-    /**
-     * Open stream for reading.
-     */
-    abstract public function open();
     
     /**
      * Returns the filename, url, etc. that is being read from.
@@ -76,13 +75,17 @@ abstract class Reader {
      * Whether marking is supported.
      * @return boolean
      */
-    public function markSupported() {}
+    public function markSupported() {
+    	return false;
+    }
     
     /**
      * Is stream ready for reading.
      * @return boolean
      */
-    public function ready() {}
+    public function ready() {
+    	return true;
+    }
 
 }
-?>
+

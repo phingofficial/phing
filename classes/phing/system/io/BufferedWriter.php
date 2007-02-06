@@ -36,37 +36,36 @@ class BufferedWriter extends Writer {
     private $bufferSize    = 0;
     
     /**
-     * The Writer we are buffering output to.
+     * @var Writer The Writer we are buffering output to.
      */
     private $out;
 
-    function __construct(Writer $writer, $buffsize = 8192) {
+    public function __construct(Writer $writer, $buffsize = 8192) {
         $this->out = $writer;
         $this->bufferSize = $buffsize;
     }
 
-    function write($buf, $off = null, $len = null) {
+    public function write($buf, $off = null, $len = null) {
         return $this->out->write($buf, $off, $len);
     }
     
-    function newLine() {
+    public function newLine() {
         $this->write(Phing::getProperty('line.separator'));
     }
     
-    function getResource() {
+    public function getResource() {
         return $this->out->getResource();
     }
-
-    function reset() {
-        return $this->out->reset();
-    }
     
-    function close() {
+    public function flush() {
+    	$this->out->flush();
+    }
+	
+    /**
+     * Close attached stream.
+     */
+    public function close() {
         return $this->out->close();
-    }
-    
-    function open() {
-        return $this->out->open();
     }
     
 }

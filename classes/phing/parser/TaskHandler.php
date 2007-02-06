@@ -185,7 +185,7 @@ class TaskHandler extends AbstractHandler {
     protected function finished() {
         if ($this->task !== null && $this->target === null && $this->container === null) {
             try {
-                $this->task->main();
+                $this->task->perform();
             } catch (Exception $e) {
                 $this->task->log($e->getMessage(), Project::MSG_ERR);
                 throw $e;

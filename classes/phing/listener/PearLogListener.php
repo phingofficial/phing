@@ -20,11 +20,9 @@
  */
  
 require_once 'phing/BuildListener.php';
-include_once 'phing/BuildEvent.php';
-require_once 'Log.php';
 
 /**
- * Writes log messages to PEAR Log.
+ * Writes build messages to PEAR Log.
  * 
  * By default it will log to file in current directory w/ name 'phing.log'.  You can customize
  * this behavior by setting properties:
@@ -42,20 +40,13 @@ require_once 'Log.php';
  * @see       BuildEvent
  * @package   phing.listener
  */
-class PearLogger implements BuildListener {
+class PearLogListener implements BuildListener {
 
     /**
      *  Size of the left column in output. The default char width is 12.
      *  @var int
      */
     const LEFT_COLUMN_SIZE = 12;
-
-    /**
-     *  The message output level that should be used. The default is
-     *  <code>Project::MSG_VERBOSE</code>.
-     *  @var int
-     */
-    protected $msgOutputLevel = Project::MSG_DEBUG;
 
     /**
      *  Time that the build started
@@ -78,13 +69,16 @@ class PearLogger implements BuildListener {
      * @var boolean
      */
     protected $logConfigured = false;
-              
+    
+    /**
+     * @var Log PEAR Log object.
+     */
+   	protected $logger;
+   	
     /**
      * Configure the logger.
      */
     protected function configureLogging() {
-    
-    	$logfile = Phing::getDefinedProperty('phing.listener.logfile');
     	
         $type = Phing::getDefinedProperty('pear.log.type');
         $name = Phing::getDefinedProperty('pear.log.name');
@@ -92,16 +86,14 @@ class PearLogger implements BuildListener {
         $conf = Phing::getDefinedProperty('pear.log.conf');
         
         if ($type === null) $type = 'file';
-        
-        if ($name === null) {
-        	if ($logfile === null) {
-        		$name = 'phing.log';
-        	} else {
-        		$name = $logfile;
-        	}
-        }
+        if ($name === null) $name = 'phing.log';
         if ($ident === null) $ident = 'phing';
         if ($conf === null) $conf = array();
+        
+        include_once 'Log.php';
+        if (!class_exists('Log')) {
+        	throw new BuildException("Cannot find PEAR Log class for use by PearLogger.");
+        }
         
         $this->logger = Log::singleton($type, $name, $ident, $conf, self::$levelMap[$this->msgOutputLevel]);
     }        
@@ -117,56 +109,27 @@ class PearLogger implements BuildListener {
         }
         return $this->logger;
     }
-    
+
     /**
-     *  Set the msgOutputLevel this logger is to respond to.
+     *  Sets the start-time when the build started. Used for calculating
+     *  the build-time.
      *
-     *  Only messages with a message level lower than or equal to the given
-     *  level are output to the log.
-     *
-     *  <p> Constants for the message levels are in Project.php. The order of
-     *  the levels, from least to most verbose, is:
-     *
-     *  <ul>
-     *    <li>Project::MSG_ERR</li>
-     *    <li>Project::MSG_WARN</li>
-     *    <li>Project::MSG_INFO</li>
-     *    <li>Project::MSG_VERBOSE</li>
-     *    <li>Project::MSG_DEBUG</li>
-     *  </ul>
-     *
-     *  The default message level for DefaultLogger is Project::MSG_ERR.
-     *
-     *  @param  integer  the logging level for the logger.
-     *  @access public
+     * @param  BuildEvent  The BuildEvent
      */
-    function setMessageOutputLevel($level) {
-        $this->msgOutputLevel = (int) $level;
-    }
-
-    /**
-    *  Sets the start-time when the build started. Used for calculating
-    *  the build-time.
-    *
-    *  @param  object  The BuildEvent
-    *  @access public
-    */
-
-    function buildStarted(BuildEvent $event) {
+    public function buildStarted(BuildEvent $event) {
         $this->startTime = Phing::currentTimeMillis();
         $this->logger()->setIdent($event->getProject()->getName());
         $this->logger()->info("Starting build with buildfile: ". $event->getProject()->getProperty("phing.file"));
     }
 
     /**
-     *  Prints whether the build succeeded or failed, and any errors that
+     *  Logs whether the build succeeded or failed, and any errors that
      *  occured during the build. Also outputs the total build-time.
      *
-     *  @param  object  The BuildEvent
-     *  @access public
-     *  @see    BuildEvent::getException()
+     * @param  BuildEvent  The BuildEvent
+     * @see    BuildEvent::getException()
      */
-    function buildFinished(BuildEvent $event) {
+    public function buildFinished(BuildEvent $event) {
         $error = $event->getException();
         if ($error === null) {
             $msg = "Finished successful build.";
@@ -177,52 +140,49 @@ class PearLogger implements BuildListener {
     }
 
     /**
-     *  Prints the current target name
+     * Logs the current target name
      *
-     *  @param  object  The BuildEvent
-     *  @access public
-     *  @see    BuildEvent::getTarget()
+     * @param  BuildEvent  The BuildEvent
+     * @see    BuildEvent::getTarget()
      */
-    function targetStarted(BuildEvent $event) {}
+    public function targetStarted(BuildEvent $event) {}
 
     /**
      *  Fired when a target has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     *  @param  object  The BuildEvent
+     *  @param  BuildEvent  The BuildEvent
      *  @access public
      *  @see    BuildEvent::getException()
      */
-    function targetFinished(BuildEvent $event) {}
+    public function targetFinished(BuildEvent $event) {}
 
     /**
      *  Fired when a task is started. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     *  @param  object  The BuildEvent
+     *  @param  BuildEvent  The BuildEvent
      *  @access public
      *  @see    BuildEvent::getTask()
      */
-    function taskStarted(BuildEvent $event) {}
+    public function taskStarted(BuildEvent $event) {}
 
     /**
      *  Fired when a task has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     *  @param  object  The BuildEvent
-     *  @access public
-     *  @see    BuildEvent::getException()
+     * @param  BuildEvent  The BuildEvent
+     * @see    BuildEvent::getException()
      */
-    function taskFinished(BuildEvent $event) {}
+    public function taskFinished(BuildEvent $event) {}
 
     /**
-     *  Print a message to the stdout.
+     *  Logs a message to the configured PEAR logger.
      *
-     *  @param  object  The BuildEvent
-     *  @access public
-     *  @see    BuildEvent::getMessage()
+     * @param  BuildEvent  The BuildEvent
+     * @see    BuildEvent::getMessage()
      */
-    function messageLogged(BuildEvent $event) {
+    public function messageLogged(BuildEvent $event) {
         if ($event->getPriority() <= $this->msgOutputLevel) {            
             $msg = "";
             if ($event->getTask() !== null) {

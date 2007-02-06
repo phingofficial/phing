@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/BuildListener.php';
+require_once 'phing/BuildLogger.php';
 include_once 'phing/BuildEvent.php';
 
 /**
@@ -34,7 +34,7 @@ include_once 'phing/BuildEvent.php';
  *  @see       BuildEvent
  *  @package   phing.listener
  */
-class DefaultLogger implements BuildListener {
+class DefaultLogger implements BuildLogger {
 
     /**
      *  Size of the left column in output. The default char width is 12.
@@ -61,6 +61,16 @@ class DefaultLogger implements BuildListener {
      *  @var string
      */
     protected $lSep;
+    
+    /**
+     * @var OutputStream Stream to use for standard output.
+     */
+    protected $out;
+    
+    /**
+     * @var OutputStream Stream to use for error output.
+     */
+    protected $err;
 
     /**
      *  Construct a new default logger.
@@ -88,13 +98,31 @@ class DefaultLogger implements BuildListener {
      *
      *  The default message level for DefaultLogger is Project::MSG_ERR.
      *
-     *  @param  integer  the logging level for the logger.
-     *  @access public
+     * @param int $level The logging level for the logger.
+     * @see BuildLogger#setMessageOutputLevel()
      */
-    function setMessageOutputLevel($level) {
+    public function setMessageOutputLevel($level) {
         $this->msgOutputLevel = (int) $level;
     }
-
+    
+    /**
+     * Sets the output stream.
+     * @param OutputStream $output
+     * @see BuildLogger#setOutputStream()
+     */
+    public function setOutputStream(OutputStream $output) {
+    	$this->out = $output;
+    }
+	
+    /**
+     * Sets the error stream.
+     * @param OutputStream $err
+     * @see BuildLogger#setErrorStream()
+     */
+    public function setErrorStream(OutputStream $err) {
+    	$this->err = $err;
+    }
+    
     /**
     *  Sets the start-time when the build started. Used for calculating
     *  the build-time.
@@ -102,11 +130,10 @@ class DefaultLogger implements BuildListener {
     *  @param  object  The BuildEvent
     *  @access public
     */
-
-    function buildStarted(BuildEvent $event) {
+    public function buildStarted(BuildEvent $event) {
         $this->startTime = Phing::currentTimeMillis();
         if ($this->msgOutputLevel >= Project::MSG_INFO) {
-            $this->printMessage("Buildfile: ".$event->getProject()->getProperty("phing.file"), Project::MSG_INFO);
+            $this->printMessage("Buildfile: ".$event->getProject()->getProperty("phing.file"), $this->out, Project::MSG_INFO);
         }
     }
 
@@ -115,24 +142,45 @@ class DefaultLogger implements BuildListener {
      *  occured during the build. Also outputs the total build-time.
      *
      *  @param  object  The BuildEvent
-     *  @access public
      *  @see    BuildEvent::getException()
      */
-    function buildFinished(BuildEvent $event) {
+    public function buildFinished(BuildEvent $event) {
         $error = $event->getException();
         if ($error === null) {
-            print($this->lSep . "BUILD FINISHED" . $this->lSep);
+            $msg = $this->lSep . $this->getBuildSuccessfulMessage() . $this->lSep;
         } else {
-            print($this->lSep . "BUILD FAILED" . $this->lSep);
+            $msg = $this->lSep . $this->getBuildFailedMessage() . $this->lSep;
             if (Project::MSG_VERBOSE <= $this->msgOutputLevel || !($error instanceof BuildException)) {
-                print($error->__toString().$this->lSep);
+                $msg .= $error->__toString().$this->lSep;
             } else {
-                print($error->getMessage());
+                $msg .= $error->getMessage();
             }
         }
-        print($this->lSep . "Total time: " .self::formatTime(Phing::currentTimeMillis() - $this->startTime) . $this->lSep);
+        $msg .= $this->lSep . "Total time: " .self::formatTime(Phing::currentTimeMillis() - $this->startTime) . $this->lSep;
+        
+    	if ($error === null) {
+            $this->printMessage($msg, $this->out, Project::MSG_VERBOSE);
+        } else {
+            $this->printMessage($msg, $this->err, Project::MSG_ERR);
+        }
     }
 
+	/**
+     * Get the message to return when a build failed.
+     * @return string The classic "BUILD FAILED"
+     */
+    protected function getBuildFailedMessage() {
+        return "BUILD FAILED";
+    }
+
+    /**
+     * Get the message to return when a build succeeded.
+     * @return string The classic "BUILD FINISHED"
+     */
+    protected function getBuildSuccessfulMessage() {
+        return "BUILD FINISHED";
+    }
+    
     /**
      *  Prints the current target name
      *
@@ -140,9 +188,10 @@ class DefaultLogger implements BuildListener {
      *  @access public
      *  @see    BuildEvent::getTarget()
      */
-    function targetStarted(BuildEvent $event) {
+    public function targetStarted(BuildEvent $event) {
         if (Project::MSG_INFO <= $this->msgOutputLevel) {
-            print($this->lSep . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ':' . $this->lSep);
+        	$msg = $this->lSep . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ':' . $this->lSep;
+        	$this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
 
@@ -151,10 +200,9 @@ class DefaultLogger implements BuildListener {
      *  event. So the methods are empty.
      *
      *  @param  object  The BuildEvent
-     *  @access public
      *  @see    BuildEvent::getException()
      */
-    function targetFinished(BuildEvent $event) {}
+    public function targetFinished(BuildEvent $event) {}
 
     /**
      *  Fired when a task is started. We don't need specific action on this
@@ -164,7 +212,7 @@ class DefaultLogger implements BuildListener {
      *  @access public
      *  @see    BuildEvent::getTask()
      */
-    function taskStarted(BuildEvent $event) {}
+    public function taskStarted(BuildEvent $event) {}
 
     /**
      *  Fired when a task has finished. We don't need specific action on this
@@ -174,7 +222,7 @@ class DefaultLogger implements BuildListener {
      *  @access public
      *  @see    BuildEvent::getException()
      */
-    function taskFinished(BuildEvent $event) {}
+    public function taskFinished(BuildEvent $event) {}
 
     /**
      *  Print a message to the stdout.
@@ -183,20 +231,23 @@ class DefaultLogger implements BuildListener {
      *  @access public
      *  @see    BuildEvent::getMessage()
      */
-    function messageLogged(BuildEvent $event) {
-        if ($event->getPriority() <= $this->msgOutputLevel) {
+    public function messageLogged(BuildEvent $event) {
+    	$priority = $event->getPriority();
+        if ($priority <= $this->msgOutputLevel) {
             $msg = "";
             if ($event->getTask() !== null) {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
                 $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
-                #for ($i=0; $i < ($this->LEFT_COLUMN_SIZE - strlen($msg)); ++$i) {
-                #    print(" ");
-                #}
-                #print($msg);
             }
+            
             $msg .= $event->getMessage();
-            $this->printMessage($msg, $event->getPriority());
+            
+            if ($priority != Project::MSG_ERR) {
+                $this->printMessage($msg, $this->out, $priority);
+            } else {
+            	$this->printMessage($msg, $this->err, $priority);
+            }
         }
     }
 
@@ -223,11 +274,12 @@ class DefaultLogger implements BuildListener {
      * 
      * @param string $message  The message to print. 
      *                 Should not be <code>null</code>.
+     * @param resource $stream The stream to use for message printing.
      * @param int $priority The priority of the message. 
      *                 (Ignored in this implementation.)
      * @return void
      */
-    protected function printMessage($message, $priority) {
-        print($message . $this->lSep);
+    protected function printMessage($message, OutputStream $stream, $priority) {
+    	$stream->write($message . $this->lSep);
     }    
 }

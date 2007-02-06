@@ -49,6 +49,7 @@ class IniFileTokenReader extends TokenReader {
      * Reads the next token from the INI file
      *
      * @throws  IOException     On error
+     * @return Token
      */
     function readToken() {
         if ($this->file === null) {

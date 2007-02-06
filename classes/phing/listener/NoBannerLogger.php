@@ -19,43 +19,41 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/listener/DefaultLogger.php';
+require_once 'phing/listener/DefaultLogger.php';
 
 /**
- *  Extends DefaultLogger to strip out empty targets.  This logger is most
- *  commonly used and also enforced by the default phing invokation scripts
- *  in bin/.
+ *  Extends DefaultLogger to strip out empty targets.
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
+ *  @copyright ï¿½ 2001,2002 THYRELL. All rights reserved
  *  @version   $Revision: 1.4 $ $Date$
  *  @package   phing.listener
  */
 class NoBannerLogger extends DefaultLogger {
 
-    private $targetName = null;
+	private $targetName = null;
 
-    function targetStarted(BuildEvent $event) {
-        $target = $event->getTarget();
-        $this->targetName = $target->getName();
-    }
+	function targetStarted(BuildEvent $event) {
+		$target = $event->getTarget();
+		$this->targetName = $target->getName();
+	}
 
-    function targetFinished(BuildEvent $event) {
-        $this->targetName = null;
-    }
+	function targetFinished(BuildEvent $event) {
+		$this->targetName = null;
+	}
 
-    function messageLogged(BuildEvent $event) {
-        if ($event->getPriority() > $this->msgOutputLevel ||
-                null === $event->getMessage() ||
-                         trim($event->getMessage() === "")) {
-            return;
-        }
+	function messageLogged(BuildEvent $event) {
+		
+		if ($event->getPriority() > $this->msgOutputLevel || null === $event->getMessage() || trim($event->getMessage() === "")) {
+			return;
+		}
+		
+		if ($this->targetName !== null) {
+			$msg = $this->lSep . $event->getProject()->getName() . ' > ' . $this->targetName . ':' . $this->lSep;
+			$this->printMessage($msg, $this->out, $event->getPriority());
+			$this->targetName = null;
+		}
 
-        if ($this->targetName !== null) {
-            print($this->lSep . "Target: ".$this->targetName . $this->lSep);
-            $this->targetName = null;
-        }
-
-        parent::messageLogged($event);
-    }
+		parent::messageLogged($event);
+	}
 }

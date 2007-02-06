@@ -20,13 +20,24 @@
  */
 
 /**
- * Dummy class for reading character streams. 
+ * Dummy class for reading from string of characters. 
  * @package phing.system.io
  */
 class StringReader extends Reader {
     
-    private    $_string;
+	/**
+	 * @var string
+	 */
+    private $_string;
+    
+    /**
+     * @var int
+     */
     private $mark = 0;
+    
+    /**
+     * @var int
+     */
     private $currPos = 0;
     
     function __construct($string) {

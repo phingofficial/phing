@@ -84,7 +84,6 @@ class ProjectConfigurator {
     protected function parse() {
         try {
             $reader = new BufferedReader(new FileReader($this->buildFile));
-            $reader->open();
             $parser = new ExpatParser($reader);
             $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
             $parser->setHandler(new RootHandler($parser, $this));
