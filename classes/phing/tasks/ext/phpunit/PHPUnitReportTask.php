@@ -36,7 +36,7 @@ require_once 'phing/util/ExtendedFileStream.php';
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-class PHPUnit2ReportTask extends Task
+class PHPUnitReportTask extends Task
 {
 	private $format = "noframes";
 	private $styleDir = "";

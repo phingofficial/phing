@@ -26,7 +26,7 @@ require_once 'phing/system/io/Writer.php';
 require_once 'phing/util/LogWriter.php';
 
 /**
- * Runs PHPUnit2 tests.
+ * Runs PHPUnit2/3 tests.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
@@ -34,7 +34,7 @@ require_once 'phing/util/LogWriter.php';
  * @see BatchTest
  * @since 2.1.0
  */
-class PHPUnit2Task extends Task
+class PHPUnitTask extends Task
 {
 	private $batchtests = array();
 	private $formatters = array();
@@ -84,7 +84,7 @@ class PHPUnit2Task extends Task
 		}
 		
 		// other dependencies that should only be loaded when class is actually used.
-		require_once 'phing/tasks/ext/phpunit/PHPUnit2TestRunner.php';
+		require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
 		require_once 'phing/tasks/ext/phpunit/BatchTest.php';
 		require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 		//require_once 'phing/tasks/ext/phpunit/SummaryPHPUnit2ResultFormatter.php';
@@ -92,8 +92,10 @@ class PHPUnit2Task extends Task
 		// add some defaults to the PHPUnit filter
 		if (PHPUnitUtil::$installedVersion == 3)
 		{
-			PHPUnit_Util_Filter::addFileToFilter('PHPUnit2Task.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('PHPUnit2TestRunner.php', 'PHING');
+			require_once 'PHPUnit/Util/Filter.php';
+			
+			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTask.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTestRunner.php', 'PHING');
 			PHPUnit_Util_Filter::addFileToFilter('phing/Task.php', 'PHING');
 			PHPUnit_Util_Filter::addFileToFilter('phing/Target.php', 'PHING');
 			PHPUnit_Util_Filter::addFileToFilter('phing/Project.php', 'PHING');
@@ -102,8 +104,8 @@ class PHPUnit2Task extends Task
 		}
 		else
 		{
-			PHPUnit2_Util_Filter::addFileToFilter('PHPUnit2Task.php');
-			PHPUnit2_Util_Filter::addFileToFilter('PHPUnit2TestRunner.php');
+			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTask.php');
+			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTestRunner.php');
 			PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
 			PHPUnit2_Util_Filter::addFileToFilter('phing/Target.php');
 			PHPUnit2_Util_Filter::addFileToFilter('phing/Project.php');
@@ -230,7 +232,7 @@ class PHPUnit2Task extends Task
 	 */
 	private function execute($suite)
 	{
-		$runner = new PHPUnit2TestRunner($suite, $this->project);
+		$runner = new PHPUnitTestRunner($suite, $this->project);
 		
 		$runner->setCodecoverage($this->codecoverage);
 
@@ -245,14 +247,14 @@ class PHPUnit2Task extends Task
 
 		$retcode = $runner->getRetCode();
 		
-		if ($retcode == PHPUnit2TestRunner::ERRORS) {
+		if ($retcode == PHPUnitTestRunner::ERRORS) {
 		    if ($this->errorproperty) {
 				$this->project->setNewProperty($this->errorproperty, true);
 			}
 			if ($this->haltonerror) {
 			    $this->testfailed = true;
 			}
-		} elseif ($retcode == PHPUnit2TestRunner::FAILURES) {
+		} elseif ($retcode == PHPUnitTestRunner::FAILURES) {
 			if ($this->failureproperty) {
 				$this->project->setNewProperty($this->failureproperty, true);
 			}
