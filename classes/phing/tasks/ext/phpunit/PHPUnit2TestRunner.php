@@ -19,23 +19,19 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit2/Framework/TestListener.php';
-require_once 'PHPUnit2/Framework/TestResult.php';
-require_once 'PHPUnit2/Framework/TestSuite.php';
-
 require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 
 require_once 'phing/system/util/Timer.php';
 
 /**
- * Simple Testrunner for PHPUnit2 that runs all tests of a testsuite.
+ * Simple Testrunner for PHPUnit2/3 that runs all tests of a testsuite.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-class PHPUnit2TestRunner
+class PHPUnitTestRunner
 {
 	const SUCCESS = 0;
 	const FAILURES = 1;
@@ -73,10 +69,12 @@ class PHPUnit2TestRunner
 		
 		if (PHPUnitUtil::$installedVersion == 3)
 		{
+			require_once 'PHPUnit/Framework/TestSuite.php';			
 			$res = new PHPUnit_Framework_TestResult();
 		}
 		else
 		{
+			require_once 'PHPUnit2/Framework/TestSuite.php';
 			$res = new PHPUnit2_Framework_TestResult();
 		}
 

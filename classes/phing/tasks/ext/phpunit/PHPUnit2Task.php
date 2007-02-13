@@ -197,7 +197,20 @@ class PHPUnit2Task extends Task
 		
 		foreach ($tests as $test)
 		{
-			$this->execute(new PHPUnit2_Framework_TestSuite(new ReflectionClass($test)));
+			$suite = NULL;
+			
+			if (PHPUnitUtil::$installedVersion == 3)
+			{
+				require_once 'PHPUnit/Framework/TestSuite.php';
+				$suite = new PHPUnit_Framework_TestSuite(new ReflectionClass($test));
+			}
+			else
+			{
+				require_once 'PHPUnit2/Framework/TestSuite.php';
+				$suite = new PHPUnit2_Framework_TestSuite(new ReflectionClass($test));
+			}
+			
+			$this->execute($suite);
 		}
 
 		foreach ($this->formatters as $fe)
