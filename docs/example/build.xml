@@ -14,15 +14,15 @@
 				<exclude name="*Test.php"/>
 			</fileset>
 		</coverage-setup>
-		<phpunit2 codecoverage="true">
+		<phpunit codecoverage="true">
 			<formatter type="xml" todir="reports"/>
 			<batchtest>
 				<fileset dir="src">
 					<include name="*Test.php"/>
 				</fileset>
 			</batchtest>
-		</phpunit2>
-		<phpunit2report infile="reports/testsuites.xml" format="frames" todir="reports/tests" styledir="../../etc"/>
+		</phpunit>
+		<phpunitreport infile="reports/testsuites.xml" format="frames" todir="reports/tests" styledir="../../etc"/>
 		<coverage-report outfile="reports/coverage.xml">
 			<report todir="reports/coverage" styledir="../../etc"/>
 		</coverage-report>
