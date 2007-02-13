@@ -10,6 +10,14 @@
 # - check for PHP_CLASSPATH, if found use it
 #   - if not found set it using PHING_HOME/classes
 
+
+# Put all args in quotes
+phing_exec_debug=false
+phing_exec_args=
+for arg in "$@" ; do
+  phing_exec_args="$phing_exec_args \"$arg\""
+done
+
 if [ -z "$PHING_HOME" ] ; then
 
   # echo "WARNING: PHING_HOME environment not set. Attempting to guess."
@@ -72,4 +80,8 @@ if (test -z "$PHP_CLASSPATH") ; then
 	export PHP_CLASSPATH
 fi
 
-$PHP_COMMAND -d html_errors=off -qC $PHING_HOME/bin/phing.php -logger phing.listener.AnsiColorLogger $@
+phing_exec_cmd="exec $PHP_COMMAND -d html_errors=off -qC \"$PHING_HOME/bin/phing.php\" -logger phing.listener.AnsiColorLogger $phing_exec_args"
+if $phing_exec_debug ; then
+  echo $phing_exec_cmd
+fi
+eval $phing_exec_cmd
