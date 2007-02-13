@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 
+require_once 'PEAR/Registry.php';
 require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
@@ -52,30 +53,63 @@ class PHPUnit2Task extends Task
 	 * because we may want this class to be loaded w/o triggering an error.
 	 */
 	function init() {
-		include_once 'PHPUnit2/Util/Filter.php';
-		if (!class_exists('PHPUnit2_Util_Filter')) {
-			throw new BuildException("PHPUnit2Task depends on PEAR PHPUnit2 package being installed.", $this->getLocation());
-		}
-		
 		if (version_compare(PHP_VERSION, '5.0.3') < 0) {
 		    throw new BuildException("PHPUnit2Task requires PHP version >= 5.0.3.", $this->getLocation());
 		}
+		
+		/**
+		 * Ugly hack to get PHPUnit version number
+		 */
+		$config = new PEAR_Config();
+		$registry = new PEAR_Registry($config->get('php_dir'));
+		$pkg_info = $registry->_packageInfo("PHPUnit", null, "pear.phpunit.de");
+		
+		if ($pkg_info != NULL)
+		{
+			var_dump($pkg_info['version']);
 
+			PHPUnitUtil::$installedVersion = 3;
+		}
+		else
+		{
+			/**
+			 * Try to find PHPUnit2
+			 */
+			include_once 'PHPUnit2/Util/Filter.php';
+			if (!class_exists('PHPUnit2_Util_Filter')) {
+				throw new BuildException("PHPUnit2Task depends on PEAR PHPUnit2 package being installed.", $this->getLocation());
+			}
+			
+			PHPUnitUtil::$installedVersion = 2;
+		}
+		
 		// other dependencies that should only be loaded when class is actually used.
 		require_once 'phing/tasks/ext/phpunit/PHPUnit2TestRunner.php';
 		require_once 'phing/tasks/ext/phpunit/BatchTest.php';
 		require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
-		require_once 'phing/tasks/ext/phpunit/SummaryPHPUnit2ResultFormatter.php';
+		//require_once 'phing/tasks/ext/phpunit/SummaryPHPUnit2ResultFormatter.php';
 
-		// add some defaults to the PHPUnit2 Filter
-		PHPUnit2_Util_Filter::addFileToFilter('PHPUnit2Task.php');
-		PHPUnit2_Util_Filter::addFileToFilter('PHPUnit2TestRunner.php');
-		PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
-		PHPUnit2_Util_Filter::addFileToFilter('phing/Target.php');
-		PHPUnit2_Util_Filter::addFileToFilter('phing/Project.php');
-		PHPUnit2_Util_Filter::addFileToFilter('phing/Phing.php');
-		PHPUnit2_Util_Filter::addFileToFilter('phing.php');
-
+		// add some defaults to the PHPUnit filter
+		if (PHPUnitUtil::$installedVersion == 3)
+		{
+			PHPUnit_Util_Filter::addFileToFilter('PHPUnit2Task.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter('PHPUnit2TestRunner.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter('phing/Task.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter('phing/Target.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter('phing/Project.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter('phing/Phing.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter('phing.php', 'PHING');
+		}
+		else
+		{
+			PHPUnit2_Util_Filter::addFileToFilter('PHPUnit2Task.php');
+			PHPUnit2_Util_Filter::addFileToFilter('PHPUnit2TestRunner.php');
+			PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
+			PHPUnit2_Util_Filter::addFileToFilter('phing/Target.php');
+			PHPUnit2_Util_Filter::addFileToFilter('phing/Project.php');
+			PHPUnit2_Util_Filter::addFileToFilter('phing/Phing.php');
+			PHPUnit2_Util_Filter::addFileToFilter('phing.php');
+		}
 	}
 	
 	function setFailureproperty($value)
@@ -130,7 +164,7 @@ class PHPUnit2Task extends Task
 		if ($this->printsummary)
 		{
 			$fe = new FormatterElement();
-			$fe->setClassName('SummaryPHPUnit2ResultFormatter');
+			$fe->setType("summary");
 			$fe->setUseFile(false);
 			$this->formatters[] = $fe;
 		}

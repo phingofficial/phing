@@ -20,96 +20,96 @@
  */
 
 require_once 'PHPUnit2/Framework/Test.php';
-require_once 'PHPUnit2/Util/Filter.php';
+require_once 'PHPUnit2/Runner/Version.php';
 
-require_once 'phing/tasks/ext/phpunit/PHPUnit2ResultFormatter.php';
+require_once 'PHPUnit2/Util/Log/XML.php';
+
+require_once 'phing/tasks/ext/phpunit/phpunit2/PHPUnit2ResultFormatter.php';
 
 /**
- * Prints plain text output of the test to a specified Writer.
+ * Prints XML output of the test to a specified Writer
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
- * @package phing.tasks.ext.phpunit
+ * @package phing.tasks.ext.phpunit.phpunit2
  * @since 2.1.0
  */
-class PlainPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
+class XMLPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 {
-	private $inner = "";
+	private $logger = NULL;
+	
+	function __construct()
+	{
+		$this->logger = new PHPUnit2_Util_Log_XML();
+		$this->logger->setWriteDocument(false);
+	}
 	
 	function getExtension()
 	{
-		return ".txt";
+		return ".xml";
 	}
 	
 	function getPreferredOutfile()
 	{
-		return "testresults";
+		return "testsuites";
 	}
-
+	
 	function startTestSuite(PHPUnit2_Framework_TestSuite $suite)
 	{
 		parent::startTestSuite($suite);
 		
-		$this->inner = "";
+		$this->logger->startTestSuite($suite);
 	}
 	
 	function endTestSuite(PHPUnit2_Framework_TestSuite $suite)
 	{
 		parent::endTestSuite($suite);
 		
-		$sb = "Testsuite: " . $suite->getName() . "\n";
-		$sb.= "Tests run: " . $this->getRunCount();
-		$sb.= ", Failures: " . $this->getFailureCount();
-		$sb.= ", Errors: " . $this->getErrorCount();
-		$sb.= ", Time elapsed: " . $this->getElapsedTime();
-		$sb.= " sec\n";
-
-		if ($this->out != NULL)
-		{
-			$this->out->write($sb);
-			$this->out->write($this->inner);
-		}
+		$this->logger->endTestSuite($suite);
+	}
+	
+	function startTest(PHPUnit2_Framework_Test $test)
+	{
+		parent::startTest($test);
+		
+		$this->logger->startTest($test);
 	}
 
+	function endTest(PHPUnit2_Framework_Test $test)
+	{
+		parent::endTest($test);
+		
+		$this->logger->endTest($test);
+	}
+	
 	function addError(PHPUnit2_Framework_Test $test, Exception $e)
 	{
 		parent::addError($test, $e);
 		
-		$this->formatError("ERROR", $test, $e);
+		$this->logger->addError($test, $e);
 	}
 
 	function addFailure(PHPUnit2_Framework_Test $test, PHPUnit2_Framework_AssertionFailedError $t)
 	{
 		parent::addFailure($test, $t);
 		
-		$this->formatError("FAILED", $test, $t);
+		$this->logger->addFailure($test, $t);
 	}
 
 	function addIncompleteTest(PHPUnit2_Framework_Test $test, Exception $e)
 	{
 		parent::addIncompleteTest($test, $e);
 		
-		$this->formatError("INCOMPLETE", $test, $e);
-	}
-
-	private function formatError($type, PHPUnit2_Framework_Test $test, Exception $e)
-	{
-		if ($test != null)
-		{
-			$this->endTest($test);
-		}
-
-		$this->inner.= $test->getName() . " " . $type . "\n";
-		$this->inner.= $e->getMessage() . "\n";
-		$this->inner.= PHPUnit2_Util_Filter::getFilteredStackTrace($e) . "\n";
+		$this->logger->addIncompleteTest($test, $e);
 	}
 	
 	function endTestRun()
 	{
 		parent::endTestRun();
 		
-		if ($this->out != NULL)
+		if ($this->out)
 		{
+			$this->out->write($this->logger->getXML());
 			$this->out->close();
 		}
 	}

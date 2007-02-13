@@ -29,6 +29,11 @@
  */
 class PHPUnitUtil
 {
+	/**
+	 * Installed PHPUnit version
+	 */
+	public static $installedVersion = 2;
+	
 	protected static $definedClasses = array();
 	
 	/**

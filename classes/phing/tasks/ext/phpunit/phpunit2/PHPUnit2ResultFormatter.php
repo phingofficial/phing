@@ -19,98 +19,139 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit2/Framework/Test.php';
-require_once 'PHPUnit2/Runner/Version.php';
+require_once 'PHPUnit2/Framework/TestListener.php';
 
-require_once 'PHPUnit2/Util/Log/XML.php';
-
-require_once 'phing/tasks/ext/phpunit/PHPUnit2ResultFormatter.php';
+require_once 'phing/system/io/Writer.php';
 
 /**
- * Prints XML output of the test to a specified Writer
+ * This abstract class describes classes that format the results of a PHPUnit2 testrun.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
- * @package phing.tasks.ext.phpunit
+ * @package phing.tasks.ext.phpunit.phpunit2
  * @since 2.1.0
  */
-class XMLPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
+abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListener
 {
-	private $logger = NULL;
+	protected $out = NULL;
 	
-	function __construct()
+	protected $project = NULL;
+	
+	private $timer = NULL;
+
+	private $runCount = 0;
+	
+	private $failureCount = 0;
+	
+	private $errorCount = 0;	
+	
+	/**
+	 * Sets the writer the formatter is supposed to write its results to.
+   	 */
+	function setOutput(Writer $out)
 	{
-		$this->logger = new PHPUnit2_Util_Log_XML();
-		$this->logger->setWriteDocument(false);
+		$this->out = $out;	
 	}
-	
+
+	/**
+	 * Returns the extension used for this formatter
+	 *
+	 * @return string the extension
+	 */
 	function getExtension()
 	{
-		return ".xml";
+		return "";
+	}
+
+	/**
+	 * Sets the project
+	 *
+	 * @param Project the project
+	 */
+	function setProject(Project $project)
+	{
+		$this->project = $project;
 	}
 	
 	function getPreferredOutfile()
 	{
-		return "testsuites";
+		return "";
 	}
 	
-	function startTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	function startTestRun()
 	{
-		parent::startTestSuite($suite);
-		
-		$this->logger->startTestSuite($suite);
-	}
-	
-	function endTestSuite(PHPUnit2_Framework_TestSuite $suite)
-	{
-		parent::endTestSuite($suite);
-		
-		$this->logger->endTestSuite($suite);
-	}
-	
-	function startTest(PHPUnit2_Framework_Test $test)
-	{
-		parent::startTest($test);
-		
-		$this->logger->startTest($test);
-	}
-
-	function endTest(PHPUnit2_Framework_Test $test)
-	{
-		parent::endTest($test);
-		
-		$this->logger->endTest($test);
-	}
-	
-	function addError(PHPUnit2_Framework_Test $test, Exception $e)
-	{
-		parent::addError($test, $e);
-		
-		$this->logger->addError($test, $e);
-	}
-
-	function addFailure(PHPUnit2_Framework_Test $test, PHPUnit2_Framework_AssertionFailedError $t)
-	{
-		parent::addFailure($test, $t);
-		
-		$this->logger->addFailure($test, $t);
-	}
-
-	function addIncompleteTest(PHPUnit2_Framework_Test $test, Exception $e)
-	{
-		parent::addIncompleteTest($test, $e);
-		
-		$this->logger->addIncompleteTest($test, $e);
 	}
 	
 	function endTestRun()
 	{
-		parent::endTestRun();
+	}
+	
+	function startTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	{
+		$this->runCount = 0;
+		$this->failureCount = 0;
+		$this->errorCount = 0;
 		
-		if ($this->out)
+		$this->timer = new Timer();
+		$this->timer->start();
+	}
+	
+	function endTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	{
+		$this->timer->stop();
+	}
+
+	function startTest(PHPUnit2_Framework_Test $test)
+	{
+		$this->runCount++;
+	}
+
+	function endTest(PHPUnit2_Framework_Test $test)
+	{
+	}
+
+	function addError(PHPUnit2_Framework_Test $test, Exception $e)
+	{
+		$this->errorCount++;
+	}
+
+	function addFailure(PHPUnit2_Framework_Test $test, PHPUnit2_Framework_AssertionFailedError $t)
+	{
+		$this->failureCount++;
+	}
+
+	function addIncompleteTest(PHPUnit2_Framework_Test $test, Exception $e)
+	{
+	}
+
+	function addSkippedTest(PHPUnit2_Framework_Test $test, Exception $e)
+	{
+	}
+	
+	function getRunCount()
+	{
+		return $this->runCount;
+	}
+	
+	function getFailureCount()
+	{
+		return $this->failureCount;
+	}
+	
+	function getErrorCount()
+	{
+		return $this->errorCount;
+	}
+	
+	function getElapsedTime()
+	{
+		if ($this->timer)
 		{
-			$this->out->write($this->logger->getXML());
-			$this->out->close();
+			return $this->timer->getElapsedTime();
+		}
+		else
+		{
+			return 0;
 		}
 	}
 }

@@ -23,7 +23,7 @@ require_once 'phing/types/FileSet.php';
 
 /**
  * Scans a list of files given by the fileset attribute, extracts
- * all subclasses of PHPUnit2_Framework_TestCase.
+ * all subclasses of PHPUnit(2)_Framework_TestCase.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
@@ -130,14 +130,22 @@ class BatchTest
 	}
 	
 	/**
-	 * Filters an array of classes, removes all classes that are not subclasses of PHPUnit2_Framework_TestCase,
+	 * Checks wheter $input is a testcase subclass.
+	 */
+	private function isTestCase($input)
+	{
+		return is_subclass_of($input, 'PHPUnit2_Framework_TestCase') || is_subclass_of($input, 'PHPUnit_Framework_TestCase');
+	}
+	
+	/**
+	 * Filters an array of classes, removes all classes that are not subclasses of PHPUnit(2)_Framework_TestCase,
 	 * or classes that are declared abstract
 	 */
 	private function filterTests($input)
 	{
 		$reflect = new ReflectionClass($input);
 		
-		return is_subclass_of($input, 'PHPUnit2_Framework_TestCase') && (!$reflect->isAbstract());
+		return $this->isTestCase($input) && (!$reflect->isAbstract());
 	}
 
 	/**

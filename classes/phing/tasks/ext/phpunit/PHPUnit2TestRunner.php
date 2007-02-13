@@ -50,7 +50,7 @@ class PHPUnit2TestRunner
 	
 	private $project = NULL;
 
-	function __construct(PHPUnit2_Framework_TestSuite $suite, Project $project)
+	function __construct($suite, Project $project)
 	{
 		$this->suite = $suite;
 		$this->project = $project;
@@ -62,14 +62,23 @@ class PHPUnit2TestRunner
 		$this->codecoverage = $codecoverage;
 	}
 
-	function addFormatter(PHPUnit2_Framework_TestListener $formatter)
+	function addFormatter($formatter)
 	{
 		$this->formatters[] = $formatter;
 	}
 
 	function run()
 	{
-		$res = new PHPUnit2_Framework_TestResult();
+		$res = NULL;
+		
+		if (PHPUnitUtil::$installedVersion == 3)
+		{
+			$res = new PHPUnit_Framework_TestResult();
+		}
+		else
+		{
+			$res = new PHPUnit2_Framework_TestResult();
+		}
 
 		if ($this->codecoverage)
 		{

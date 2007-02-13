@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id$
+ * $Id: PHPUnit2ResultFormatter.php 142 2007-02-04 14:06:00Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit2/Framework/TestListener.php';
+require_once 'PHPUnit/Framework/TestListener.php';
 
 require_once 'phing/system/io/Writer.php';
 
@@ -27,11 +27,11 @@ require_once 'phing/system/io/Writer.php';
  * This abstract class describes classes that format the results of a PHPUnit2 testrun.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id$
+ * @version $Id: PHPUnit2ResultFormatter.php 142 2007-02-04 14:06:00Z mrook $
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListener
+abstract class PHPUnit3ResultFormatter implements PHPUnit_Framework_TestListener
 {
 	protected $out = NULL;
 	
@@ -86,7 +86,7 @@ abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListene
 	{
 	}
 	
-	function startTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	function startTestSuite(PHPUnit_Framework_TestSuite $suite)
 	{
 		$this->runCount = 0;
 		$this->failureCount = 0;
@@ -96,35 +96,35 @@ abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListene
 		$this->timer->start();
 	}
 	
-	function endTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
 	{
 		$this->timer->stop();
 	}
 
-	function startTest(PHPUnit2_Framework_Test $test)
+	function startTest(PHPUnit_Framework_Test $test)
 	{
 		$this->runCount++;
 	}
 
-	function endTest(PHPUnit2_Framework_Test $test)
+	function endTest(PHPUnit_Framework_Test $test, $time)
 	{
 	}
 
-	function addError(PHPUnit2_Framework_Test $test, Exception $e)
+	function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		$this->errorCount++;
 	}
 
-	function addFailure(PHPUnit2_Framework_Test $test, PHPUnit2_Framework_AssertionFailedError $t)
+	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
 	{
 		$this->failureCount++;
 	}
 
-	function addIncompleteTest(PHPUnit2_Framework_Test $test, Exception $e)
+	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 	}
 
-	function addSkippedTest(PHPUnit2_Framework_Test $test, Exception $e)
+	function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 	}
 	
