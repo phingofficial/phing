@@ -111,9 +111,9 @@ class CoverageSetupTask extends Task
 	
 	function init()
 	{
-		include_once 'PHPUnit2/Framework/TestCase.php';
-		if (!class_exists('PHPUnit2_Framework_TestCase')) {
-			throw new Exception("PHPUnit2Task depends on PEAR PHPUnit2 package being installed.");
+		if (!extension_loaded('xdebug'))
+		{
+			throw new Exception("CoverageSetupTask depends on Xdebug being installed.");
 		}
 	}
 
