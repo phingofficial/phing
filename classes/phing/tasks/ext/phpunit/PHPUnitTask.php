@@ -66,16 +66,22 @@ class PHPUnitTask extends Task
 		
 		if ($pkg_info != NULL)
 		{
-			var_dump($pkg_info['version']);
-
-			PHPUnitUtil::$installedVersion = 3;
+			if (version_compare($pkg_info['version']['api'], "3.0.0") >= 0)
+			{
+				PHPUnitUtil::$installedVersion = 3;
+			}
+			else
+			{
+				PHPUnitUtil::$installedVerison = 2;
+			}
 		}
 		else
 		{
 			/**
 			 * Try to find PHPUnit2
 			 */
-			include_once 'PHPUnit2/Util/Filter.php';
+			require_once 'PHPUnit2/Util/Filter.php';
+			
 			if (!class_exists('PHPUnit2_Util_Filter')) {
 				throw new BuildException("PHPUnit2Task depends on PEAR PHPUnit2 package being installed.", $this->getLocation());
 			}
@@ -104,6 +110,8 @@ class PHPUnitTask extends Task
 		}
 		else
 		{
+			require_once 'PHPUnit2/Util/Filter.php';
+			
 			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTask.php');
 			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTestRunner.php');
 			PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
