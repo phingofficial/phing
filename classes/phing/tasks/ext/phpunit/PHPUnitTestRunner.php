@@ -92,7 +92,16 @@ class PHPUnitTestRunner
 		
 		if ($this->codecoverage)
 		{
-			CoverageMerger::merge($this->project, $res->getCodeCoverageInformation());
+			$coverageInformation = $res->getCodeCoverageInformation();
+			
+			if (PHPUnitUtil::$installedVersion == 3)
+			{
+				CoverageMerger::merge($this->project, array($coverageInformation[0]['files']));
+			}
+			else
+			{
+				CoverageMerger::merge($this->project, $coverageInformation);
+			}
 		}
 		
 		if ($res->errorCount() != 0)
