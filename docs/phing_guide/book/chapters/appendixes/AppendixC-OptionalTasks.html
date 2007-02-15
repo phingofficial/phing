@@ -494,6 +494,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   <li>option</li>
   <li>mapping</li>
 </ul>
+
 <h2><a name="PHPDocumentorTask"></a>PHPDocumentorTask</h2>
 <p>This task runs <a href="http://www.phpdoc.org/"
 target="_blank">phpDocumentor</a>, a auto-documentation tool for PHP
@@ -513,38 +514,50 @@ similar to Javadoc.</p>
     <tr>
       <td>title</td>
       <td>String</td>
-      <td> Title for browser window / package index. </td>
+      <td>Title for browser window / package index. </td>
       <td>n/a</td>
       <td>No</td>
     </tr>
+    
     <tr>
       <td>destdir</td>
       <td>String</td>
-      <td> Destination directory for output files. </td>
+      <td>Destination directory for output files. </td>
       <td>n/a</td>
-      <td>Yes</td>
+      <td rowspan="2">Yes</td>
     </tr>
+    
     <tr>
-      <td>sourcepath</td>
+      <td>target</td>
       <td>String</td>
-      <td> Specify where to find source files. </td>
+      <td>Alias of <em>destdir</em> ("target" is config param used by PhpDocumentor)</td>
       <td>n/a</td>
-      <td>Yes</td>
     </tr>
-    <tr>
-      <td>linksource</td>
-      <td>Boolean</td>
-      <td> Generate hyperlinks to source files. </td>
-      <td>false</td>
-      <td>No</td>
-    </tr>
+
     <tr>
       <td>output</td>
       <td>String</td>
-      <td> Output format (such as <em>HTML:Smarty:PHP</em>). </td>
+      <td>Output format (such as <em>HTML:Smarty:PHP</em>). </td>
       <td>n/a</td>
       <td>Yes</td>
     </tr>
+     
+    <tr>
+      <td>sourcecode</td>
+      <td>Boolean</td>
+      <td>Generate syntax-highlighted sourcecode file for each file parsed?</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    
+    <tr>
+      <td>examplesdir</td>
+      <td>String</td>
+      <td>Path to directory in which to look for example documentation.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    
     <tr>
       <td>parseprivate</td>
       <td>Boolean</td>
@@ -552,10 +565,89 @@ similar to Javadoc.</p>
       <td>false</td>
       <td>No</td>
     </tr>
+    
+    <tr>
+      <td>javadocdesc</td>
+      <td>Boolean</td>
+      <td>JavaDoc-compliant description parsing.  Use on/off, default off (more flexibility)</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    
+    <tr>
+      <td>quiet</td>
+      <td>Boolean</td>
+      <td>Suppress output to STDOUT.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    
+    <tr>
+      <td>packageoutput</td>
+      <td>String</td>
+      <td>Output documentation only for selected packages.  Use a comma-delimited list</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    
+    <tr>
+      <td>ignoretags</td>
+      <td>String</td>
+      <td>Comma-separated list of tags to ignore (@package, @subpackage, @access and @ignore may not be ignored).</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    
+    <tr>
+      <td>defaultpackagename</td>
+      <td>String</td>
+      <td>name to use for the default package.  If not specified, uses 'default'</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    
+    <tr>
+      <td>defaultcategoryname</td>
+      <td>String</td>
+      <td>name to use for the default category.  If not specified, uses 'default'</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+	
+	<tr>
+      <td>pear</td>
+      <td>Boolean</td>
+      <td>Treat parse dirs as PEAR repository? (package is directory, _members are @access private)</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    
   </tbody>
 </table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset - Files that should be included for parsing</li>
+  <li>projdocfileset - Files that should be treated as README/INSTALL/CHANGELOG files</li>
+</ul>
+
 <h3>Examples</h3>
-<pre>&lt;phpdoc title=&quot;Phing Documentation&quot; destdir=&quot;apidocs&quot; sourcepath=&quot;classes/phing&quot; output=&quot;HTML:Smarty:PHP&quot;/&gt;</pre>
+<pre>
+&lt;phpdoc title=&quot;Phing Documentation&quot; \
+  destdir=&quot;apidocs&quot;
+  sourcepath=&quot;classes/phing&quot; 
+  output=&quot;HTML:Smarty:PHP&quot;&gt;
+   &lt;fileset dir=&quot;./classes&quot; &gt;
+      &lt;include name=&quot;**/*.php&quot;&gt;
+   &lt;/fileset&gt;
+   &lt;projdocfileset dir=&quot;.&quot; &gt;
+      &lt;include name=&quot;README&quot;&gt;
+      &lt;include name=&quot;INSTALL&quot;&gt;
+      &lt;include name=&quot;CHANGELOG&quot;&gt;
+   &lt;/projdocfileset&gt;
+&lt;/phpdoc&gt;
+</pre>
+
 <h2><a name="PhpLintTask"></a>PhpLintTask</h2>
 <p>The <em>PhpLintTask</em> checks syntax (lint) on one or more PHP source code files.</p>
 

@@ -34,80 +34,84 @@ class PhpDocumentorTask extends Task
 {
 	
 	/**
-	 * Title for browser window / package index.
-	 *
-	 * @var string
+	 * @var string Title for browser window / package index.
 	 */
 	private $title;
 	
 	/**
-	 * The target directory for output files.
-	 *
-	 * @var PhingFile
+	 * @var PhingFile The target directory for output files.
 	 */
 	private $destdir;
 
 	/**
-	 * Filesets for files to parse.
-	 *
-	 * @var array FileSet[]
+	 * @var array FileSet[] Filesets for files to parse.
 	 */
 	private $filesets = array();
-		
+	
 	/**
-	 * Package output format.
-	 *
-	 * @var string 
+	 * @var array FileSet[] Project documentation (README/INSTALL/CHANGELOG) files.
+	 */
+	private $projDocFilesets = array();
+	
+	/**
+	 * @var string Package output format. 
 	 */
 	private $output;
 
 	/**
-	 * Whether to generate sourcecode for each file parsed.
-	 *
-	 * @var boolean
+	 * @var boolean Whether to generate sourcecode for each file parsed.
 	 */
 	private $linksource = false;
 	
 	/**
-	 * Whether to parse private members.
-	 *
-	 * @var boolean
+	 * @var boolean Whether to parse private members.
 	 */
 	private $parsePrivate = false;
-
-	/**
-	 * Whether to parse hidden files.
-	 *
-	 * @var boolean
-	 */
-	private $parseHiddenFiles = false;
 	
 	/**
-	 * Whether to use javadoc descriptions (more primitive).
-	 *
-	 * @var boolean
+	 * @var boolean Whether to use javadoc descriptions (more primitive).
 	 */
 	private $javadocDesc = false;
 	
 	/**
-	 * Base directory for locating template files.
-	 *
-	 * @var PhingFile
+	 * @var PhingFile Base directory for locating template files.
 	 */
 	private $templateBase;
 	
 	/**
-	 * Wheter to suppress output.
-	 * 
-	 * @var boolean
+	 * @var boolean Wheter to suppress output.
 	 */
 	private $quiet = false;
 	
 	/**
-	 * Comma-separated list of packages to output.
-	 * @var string
+	 * @var string Comma-separated list of packages to output.
 	 */
 	private $packages;
+	
+	/** 
+	 * @var string Comma-separated list of tags to ignore.
+	 */
+	private $ignoreTags;
+	
+	/** 
+	 * @var string Default package name.
+	 */
+	private $defaultPackageName;
+	
+	/**
+	 * @var string Default category name.
+	 */
+	private $defaultCategoryName;
+	
+	/**
+	 * @var PhingFile Directory in which to look for examples.
+	 */
+	private $examplesDir;
+	
+	/**
+	 * @var boolean Whether to parse as a PEAR repository.
+	 */
+	private $pear = false;
 	
 	/**
 	 * Set the title for the generated documentation
@@ -122,6 +126,14 @@ class PhpDocumentorTask extends Task
 	public function setDestdir(PhingFile $destdir) {
 		$this->destdir = $destdir;
 	}
+	
+	/**
+	 * Alias for {@link setDestdir()).
+	 * @see setDestdir()
+	 */
+	public function setTarget(PhingFile $destdir) {
+		$this->setDestdir($destdir);
+	}
 
 	/**
 	 * Set the output format (e.g. HTML:Smarty:PHP).
@@ -135,25 +147,24 @@ class PhpDocumentorTask extends Task
 	 * Set whether to generate sourcecode for each file parsed
 	 * @param boolean
 	 */
-	public function setLinksource($linksource) {
-		$this->linksource = $linksource;
+	public function setSourcecode($b) {
+		$this->linksource = $b;
 	}
-
+	
+	/**
+	 * Set whether to suppress output.
+	 * @param boolean $b
+	 */
+	public function setQuiet($b) {
+		$this->quiet = $b;
+	}
+	
 	/**
 	 * Should private members/classes be documented
 	 * @param boolean
 	 */
 	public function setParseprivate($parseprivate) {
 		$this->parseprivate = $parseprivate;
-	}
-	
-	/**
-	 * WHether to parse hidden files.
-	 *
-	 * @param boolean $parsehidden
-	 */
-	public function setParsehiddenfiles($parsehidden) {
-		$this->parseHiddenFiles = $parsehidden;
 	}
 	
 	/**
@@ -169,19 +180,68 @@ class PhpDocumentorTask extends Task
 	 *
 	 * @param string $packages
 	 */
-	public function setPackages($packages)
-	{
+	public function setPackageoutput($packages) {
 		$this->packages = $packages;
 	}
-	    
+	
+	/**
+	 * Set (comma-separated) list of tags to ignore.
+	 *
+	 * @param string $tags
+	 */
+	public function setIgnoretags($tags) {
+		$this->ignoreTags = $tags;
+	}
+	
+	/**
+	 * Set a directory to search for examples in.
+	 * @param PhingFile $d
+	 */
+	public function setExamplesdir(PhingFile $d) {
+		$this->examplesDir = $d;
+	}
+	
+	/**
+	 * Sets the default package name.
+	 * @param string $name
+	 */
+	public function setDefaultpackagename($name) {
+		$this->defaultPackageName = $name;
+	}
+	
+	/**
+	 * Sets the default category name.
+	 * @param string $name
+	 */
+	public function setDefaultcategoryname($name) {
+		$this->defaultCategoryName = $name;
+	}
+	
+	/**
+	 * Set whether to parse as PEAR repository.
+	 * @param boolean $b
+	 */
+	public function setPear($b) {
+		$this->pear = $b;
+	}
+	
     /**
 	 * Creates a FileSet.
 	 * @return FileSet
 	 */
-    public function createFileSet() {
+    public function createFileset() {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
-    }         
+    }
+    
+    /**
+     * Creates a readme/install/changelog fileset.
+     * @return FileSet
+     */
+    public function createProjdocfileset() {
+    	$num = array_push($this->projDocFilesets, new FileSet());
+        return $this->projDocFilesets[$num-1];
+    }
  	
     /**
      * Searches include_path for PhpDocumentor install and adjusts include_path appropriately.
@@ -265,10 +325,6 @@ class PhpDocumentorTask extends Task
 			$phpdoc->parsePrivate();
 		}
 		
-		if ($this->parseHiddenFiles) {
-			$phpdoc->parseHiddenFiles();
-		}
-		
 		if ($this->javadocDesc) {
 			$phpdoc->setJavadocDesc();
 		}
@@ -278,12 +334,9 @@ class PhpDocumentorTask extends Task
 		}
 		
 		if ($this->destdir) {
-			$this->log("Setting target dir to: " . $this->destdir->getAbsolutePath());
 			$phpdoc->setTargetDir($this->destdir->getAbsolutePath());
 		}
-		
-		
-		
+				
 		if ($this->packages) {
 			$phpdoc->setPackageOutput($this->packages);
 		}
@@ -296,6 +349,26 @@ class PhpDocumentorTask extends Task
 			$phpdoc->setGenerateSourcecode($this->linksource);
 		}
 		
+		if ($this->examplesDir) {
+			$phpdoc->setExamplesDir($this->examplesDir->getAbsolutePath());
+		}
+		
+		if ($this->ignoreTags) {
+			$phpdoc->setIgnoreTags($this->ignoreTags);
+		}
+		
+		if ($this->defaultPackageName) {
+			$phpdoc->setDefaultPackageName($this->defaultPackageName);
+		}
+		
+		if ($this->defaultCategoryName) {
+			$phpdoc->setDefaultCategoryName($this->defaultCategoryName);
+		}
+		
+		if ($this->pear) {
+			$phpdoc->setPear($this->pear);
+		}
+		
 		// append any files in filesets
 		$filesToParse = array();
 		foreach($this->filesets as $fs) {		    
@@ -305,9 +378,20 @@ class PhpDocumentorTask extends Task
 	        	 $filesToParse[] = $f->getAbsolutePath();
 	        }
 		}
-		
 		//print_r(implode(",", $filesToParse));
 		$phpdoc->setFilesToParse(implode(",", $filesToParse));
+		
+		
+		// append any files in filesets
+		$ricFiles = array();
+		foreach($this->projDocFilesets as $fs) {		    
+	        $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+	        foreach($files as $filename) {
+	        	 $f = new PhingFile($fs->getDir($this->project), $filename);
+	        	 $ricFiles[] = $f->getAbsolutePath();
+	        }
+		}
+		$phpdoc->setRicFiles($ricFiles);
 		
 	}
 	
