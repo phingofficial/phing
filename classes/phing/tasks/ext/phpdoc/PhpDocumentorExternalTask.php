@@ -24,12 +24,15 @@ require_once 'phing/Task.php';
 
 /**
  * Task to run phpDocumentor.
+ * 
+ * This classes uses the commandline phpdoc script to build documentation.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.phpdoc
+ * @deprecated This task is being replaced by the new PhpDocumentorTask
  */	
-class PHPDocumentorTask extends Task
+class PhpDocumentorExternalTask extends Task
 {
 	/**
 	 * The path to the executable for phpDocumentor
