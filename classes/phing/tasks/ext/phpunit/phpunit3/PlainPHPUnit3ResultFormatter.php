@@ -95,10 +95,13 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		{
 			$this->endTest($test);
 		}
-
+		
 		$this->inner.= $test->getName() . " " . $type . "\n";
-		$this->inner.= $e->getMessage() . "\n";
-		$this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e) . "\n";
+		
+		if ($e !== null) {
+			$this->inner.= $e->getMessage() . "\n";
+			$this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e) . "\n";
+		}
 	}
 	
 	function endTestRun()
