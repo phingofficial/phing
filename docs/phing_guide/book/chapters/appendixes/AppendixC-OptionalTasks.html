@@ -1431,6 +1431,71 @@ strange contents in the archive.</p>
 </pre>
 <p>Validate more XML files against one XSD file.</p>
 
+<h2><a name="ZendCodeAnalyzerTask"></a>ZendCodeAnalyzerTask</h2>
+<p>The <em>ZendCodeAnalyzerTask</em> analyze PHP source files using the Zend Code Analyzer tool that ships with all versions of Zend Studio.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>analyzerPath</td>
+      <td>String</td>
+      <td>Path to Zend Code Analyzer binary</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>Path to PHP source file</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>disable</td>
+      <td>String</td>
+      <td>Disable warnings seperated by comma</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>enable</td>
+      <td>String</td>
+      <td>Enable warnings separated by comma</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+
+<h3>Example</h3>
+<pre>
+&lt;analyze analyzerPath=&quot;/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer&quot; file=&quot;SomeClass.php&quot;/&gt;
+</pre>
+<p>Analyze one PHP source file with all default warnings enabled.</p>
+<pre>
+&lt;analyze analyzerPath=&quot;/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer&quot; disable=&quot;var-ref-notmodified,if-if-else&quot;&gt;
+&nbsp;&nbsp;&lt;fileset dir=&quot;.&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
+&nbsp;&nbsp;&lt;/fileset&gt;
+&lt;/analyze&gt;
+</pre>
+<p>Analyze a set of PHP source files and disable a few warnings.</p>
+
 <h2><a name="ZipTask"></a>ZipTask</h2>
 <p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p>
 

@@ -58,7 +58,7 @@ require_once 'phing/Task.php';
  * <b>empty-cond</b> - Condition without a body
  * <b>expr-unused</b> - Expression result is never used
  *
- * @author   Knut Urdalen <knut.urdalen@telio.no>
+ * @author   Knut Urdalen <knut.urdalen@gmail.com>
  * @package  phing.tasks.ext
  */
 class ZendCodeAnalyzerTask extends Task {
