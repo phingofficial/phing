@@ -72,7 +72,7 @@ class PHPUnitTask extends Task
 			}
 			else
 			{
-				PHPUnitUtil::$installedVerison = 2;
+				PHPUnitUtil::$installedVersion = 2;
 			}
 		}
 		else
