@@ -89,8 +89,8 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
 	{
 		parent::addFailure($test, $e, $time);
-		
-		$this->logger->addFailure($test, $e);
+
+		$this->logger->addFailure($test, $e, $time);
 	}
 
 	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)

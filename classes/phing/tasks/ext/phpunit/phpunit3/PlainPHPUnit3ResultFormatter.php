@@ -77,9 +77,8 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 
 	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
 	{
-		parent::addFailure($test, $t);
-		
-		$this->formatError("FAILED", $test, $t);
+		parent::addFailure($test, $e, $time);
+		$this->formatError("FAILED", $test, $e);
 	}
 
 	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
@@ -93,7 +92,7 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	{
 		if ($test != null)
 		{
-			$this->endTest($test);
+			$this->endTest($test, time());
 		}
 		
 		$this->inner.= $test->getName() . " " . $type . "\n";
