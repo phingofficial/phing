@@ -33,6 +33,9 @@ require_once 'phing/tasks/ext/phpunit/phpunit3/PHPUnit3ResultFormatter.php';
  */
 class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 {
+	/**
+	 * @var PHPUnit_Util_Log_XML
+	 */
 	private $logger = NULL;
 	
 	function __construct()
@@ -83,7 +86,7 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	{
 		parent::addError($test, $e, $time);
 		
-		$this->logger->addError($test, $e);
+		$this->logger->addError($test, $e, $time);
 	}
 
 	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
@@ -97,7 +100,7 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	{
 		parent::addIncompleteTest($test, $e, $time);
 		
-		$this->logger->addIncompleteTest($test, $e);
+		$this->logger->addIncompleteTest($test, $e, $time);
 	}
 	
 	function endTestRun()
