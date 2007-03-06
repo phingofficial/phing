@@ -164,7 +164,7 @@ class PhpDocumentorTask extends Task
 	 * @param boolean
 	 */
 	public function setParseprivate($parseprivate) {
-		$this->parseprivate = $parseprivate;
+		$this->parsePrivate = $parseprivate;
 	}
 	
 	/**
@@ -321,7 +321,7 @@ class PhpDocumentorTask extends Task
 			$phpdoc->setTitle($this->title);
 		}
 		
-		if ($this->parseprivate) {
+		if ($this->parsePrivate) {
 			$phpdoc->parsePrivate();
 		}
 		
