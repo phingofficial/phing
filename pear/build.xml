@@ -29,6 +29,10 @@
 
 	<fileset dir="${phingpkg.home}" id="etc">
 		<include name="etc/**"/>
+	</fileset>
+	
+	<fileset dir="${phingpkg.home}" id="etc-no-version">
+		<include name="etc/**"/>
 		<exclude name="etc/VERSION.TXT"/>
 	</fileset>
 	
@@ -90,7 +94,7 @@
 		<copy todir="${build.src.dir}">
 			<fileset refid="classes"/>
 			<fileset refid="docs"/>
-			<fileset refid="etc"/>
+			<fileset refid="etc-no-version"/>
 			<fileset refid="scripts"/>
 			<fileset refid="misc"/>
 		</copy>
