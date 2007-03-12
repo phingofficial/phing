@@ -31,38 +31,36 @@
 abstract class ProjectComponent {
 
     /**
-     *  Holds a reference to the project that a project component
-     *  (a task, a target, etc.) belongs to
+     * Holds a reference to the project that a project component
+     * (a task, a target, etc.) belongs to
      *
-     *  @var    object  A reference to the current project instance
+     * @var Project A reference to the current project instance
      */
     protected $project = null;
 
     /**
-     *  References the project to the current component.
+     * References the project to the current component.
      *
-     *  @param    object    The reference to the current project
-     *  @access   public
+     * @param Project $project The reference to the current project
      */
-    function setProject($project) {
+    public function setProject(Project $project) {
         $this->project = $project;
     }
 
     /**
-     *  Returns a reference to current project
+     * Returns a reference to current project
      *
-     *  @return   object   Reference to current porject object
-     *  @access   public
+     * @return Project Reference to current porject object
      */
-    function getProject() {
+    public function getProject() {
         return $this->project;
     }
 
     /**
      *  Logs a message with the given priority.
      *
-     *  @param  string   The message to be logged.
-     *  @param  integer  The message's priority at this message should have
+     *  @param string $msg The message to be logged.
+     *  @param integer $level The message's priority at this message should have
      */
     public function log($msg, $level = Project::MSG_INFO) {
         if ($this->project !== null) {
