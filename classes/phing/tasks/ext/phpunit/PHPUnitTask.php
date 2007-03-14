@@ -100,6 +100,9 @@ class PHPUnitTask extends Task
 		{
 			require_once 'PHPUnit/Util/Filter.php';
 			
+			// point PHPUnit_MAIN_METHOD define to non-existing method
+			define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
+			
 			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTask.php', 'PHING');
 			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTestRunner.php', 'PHING');
 			PHPUnit_Util_Filter::addFileToFilter('phing/Task.php', 'PHING');
