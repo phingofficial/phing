@@ -83,7 +83,7 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 
 	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
-		parent::addIncompleteTest($test, $e);
+		parent::addIncompleteTest($test, $e, $time);
 		
 		$this->formatError("INCOMPLETE", $test, $e);
 	}
