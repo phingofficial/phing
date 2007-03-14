@@ -37,22 +37,31 @@ class XmlLogger implements BuildLogger {
 	
 	/** XML element name for a build. */
 	const BUILD_TAG = "build";
+	
 	/** XML element name for a target. */
 	const TARGET_TAG = "target";
+	
 	/** XML element name for a task. */
 	const TASK_TAG = "task";
+	
 	/** XML element name for a message. */
 	const MESSAGE_TAG = "message";
+	
 	/** XML attribute name for a name. */
 	const NAME_ATTR = "name";
+	
 	/** XML attribute name for a time. */
 	const TIME_ATTR = "time";
+	
 	/** XML attribute name for a message priority. */
 	const PRIORITY_ATTR = "priority";
+	
 	/** XML attribute name for a file location. */
 	const LOCATION_ATTR = "location";
+	
 	/** XML attribute name for an error description. */
 	const ERROR_ATTR = "error";
+	
 	/** XML element name for a stack trace. */
 	const STACKTRACE_TAG = "stacktrace";
 	
@@ -61,11 +70,25 @@ class XmlLogger implements BuildLogger {
 	 */
 	private $doc;
 	
-	private $buildStartTime = 0;
-	private $targetStartTime = 0;
-	private $taskStartTime = 0;
+	/**
+	 * @var int Start time for entire build.
+	 */
+	private $buildTimerStart = 0;
 	
+	/**
+	 * @var DOMElement Top-level (root) build element
+	 */
 	private $buildElement;
+	
+	/**
+	 * @var array DOMElement[] The parent of the element being processed.
+	 */
+	private $elementStack = array();
+	
+	/**
+	 * @var array int[] Array of millisecond times for the various elements being processed.
+	 */
+	private $timesStack = array();
 	
 	/**
 	 * @var int
@@ -93,10 +116,6 @@ class XmlLogger implements BuildLogger {
 	public function __construct() {
 		$this->doc = new DOMDocument("1.0", "UTF-8");
 		$this->doc->formatOutput = true;
-		
-		$this->buildTimer = new Timer();
-		$this->targetTimer = new Timer();
-		$this->taskTimer = new Timer();
 	}
 	
 	/**
@@ -108,6 +127,8 @@ class XmlLogger implements BuildLogger {
 	function buildStarted(BuildEvent $event) {
 		$this->buildTimerStart = Phing::currentTimeMillis();
 		$this->buildElement = $this->doc->createElement(XmlLogger::BUILD_TAG);
+		array_push($this->elementStack, $this->buildElement);
+		array_push($this->timesStack, $this->buildTimerStart);
 	}
 	
 	/**
@@ -119,16 +140,12 @@ class XmlLogger implements BuildLogger {
 	 */
 	public function buildFinished(BuildEvent $event) {
 		
-		$this->buildTimer->stop();
-		
 		$elapsedTime = Phing::currentTimeMillis() - $this->buildTimerStart;
 		
 		$this->buildElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 		
-		if ($event->getException() != null)
-		{
+		if ($event->getException() != null) {
 			$this->buildElement->setAttribute(XmlLogger::ERROR_ATTR, $event->getException()->toString());
-			
 			$errText = $this->doc->createCDATASection($event->getException()->getTraceAsString());
 			$stacktrace = $this->doc->createElement(XmlLogger::STACKTRACE_TAG);
 			$stacktrace->appendChild($errText);
@@ -159,6 +176,12 @@ class XmlLogger implements BuildLogger {
         	} catch (Exception $x) {}
         	throw new BuildException("Unable to write log file.", $exc);
         }
+        
+         // cleanup:remove the buildElement
+        $this->buildElement = null;
+       
+        array_pop($this->elementStack);
+        array_pop($this->timesStack);
 	}
         
 	
@@ -171,10 +194,11 @@ class XmlLogger implements BuildLogger {
 	public function targetStarted(BuildEvent $event) {
 		$target = $event->getTarget();
 		
-		$this->targetTimerStart = Phing::currentTimeMillis();
+		$targetElement = $this->doc->createElement(XmlLogger::TARGET_TAG);
+		$targetElement->setAttribute(XmlLogger::NAME_ATTR, $target->getName());
 		
-		$this->targetElement = $this->doc->createElement(XmlLogger::TARGET_TAG);
-		$this->targetElement->setAttribute(XmlLogger::NAME_ATTR, $target->getName());
+		array_push($this->timesStack, Phing::currentTimeMillis());
+		array_push($this->elementStack, $targetElement);
 	}
 	
 	/**
@@ -185,11 +209,14 @@ class XmlLogger implements BuildLogger {
 	 *              Will not be <code>null</code>.
 	 */
 	public function targetFinished(BuildEvent $event) {
-		$target = $event->getTarget();
-		$elapsedTime = Phing::currentTimeMillis() - $this->targetTimerStart;
-		$this->targetElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
-		$this->buildElement->appendChild($this->targetElement);
-		$this->targetElement = null;
+		$targetTimerStart = array_pop($this->timesStack);
+		$targetElement = array_pop($this->elementStack);
+		
+		$elapsedTime = Phing::currentTimeMillis() - $targetTimerStart;
+		$targetElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
+		
+		$parentElement = $this->elementStack[ count($this->elementStack) - 1 ];
+		$parentElement->appendChild($targetElement);
 	}
 	
 	/**
@@ -200,10 +227,13 @@ class XmlLogger implements BuildLogger {
 	 */
 	public function taskStarted(BuildEvent $event) {
 		$task = $event->getTask();
-		$this->taskTimerStart = Phing::currentTimeMillis();
-		$this->taskElement = $this->doc->createElement(XmlLogger::TASK_TAG);
-		$this->taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
-		$this->taskElement->setAttribute(XmlLogger::LOCATION_ATTR, $task->getLocation()->toString());
+		
+		$taskElement = $this->doc->createElement(XmlLogger::TASK_TAG);
+		$taskElement->setAttribute(XmlLogger::NAME_ATTR, $task->getTaskName());
+		$taskElement->setAttribute(XmlLogger::LOCATION_ATTR, $task->getLocation()->toString());
+		
+		array_push($this->timesStack, Phing::currentTimeMillis());
+		array_push($this->elementStack, $taskElement);
 	}
 	
 	/**
@@ -214,15 +244,14 @@ class XmlLogger implements BuildLogger {
 	 *              Will not be <code>null</code>.
 	 */		
 	public function taskFinished(BuildEvent $event) {
-		$task = $event->getTask();
-		$elapsedTime = Phing::currentTimeMillis() - $this->taskTimerStart;
-		$this->taskElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
-		if ($this->targetElement) { // not all tasks are in targets
-			$this->targetElement->appendChild($this->taskElement);
-		} else {
-			$this->buildElement->appendChild($this->taskElement);
-		}
-		$this->taskElement = null;
+		$taskTimerStart = array_pop($this->timesStack);
+		$taskElement = array_pop($this->elementStack);
+		
+		$elapsedTime = Phing::currentTimeMillis() - $taskTimerStart;
+		$taskElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
+		
+		$parentElement = $this->elementStack[ count($this->elementStack) - 1 ];
+		$parentElement->appendChild($taskElement);
 	}
 	
 	/**
@@ -264,12 +293,8 @@ class XmlLogger implements BuildLogger {
 		
 		$messageElement->appendChild($messageText);
 		
-		if ($event->getTask() !== null) {
-			$this->taskElement->appendChild($messageElement);
-		} elseif ($event->getTarget() !== null) {
-			$this->targetElement->appendChild($messageElement);
-		} elseif ($this->buildElement !== null) {			
-			$this->buildElement->appendChild($messageElement);
+		if (!empty($this->elementStack)) {
+			$this->elementStack[count($this->elementStack)-1]->appendChild($messageElement);
 		}
 	}
 

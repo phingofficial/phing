@@ -878,7 +878,7 @@ class Project {
 	/**
 	 * Returns a specific reference.
 	 * @param string $key The reference id/key.
-	 * @return object or null if not defined
+	 * @return Reference or null if not defined
 	 */
 	function getReference($key)
 	{

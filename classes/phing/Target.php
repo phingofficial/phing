@@ -26,7 +26,7 @@ include_once 'phing/TaskContainer.php';
  *  abstract class {@link TaskContainer}
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
+ *  @copyright ï¿½ 2001,2002 THYRELL. All rights reserved
  *  @version   $Revision: 1.10 $ $Date$
  *  @access    public
  *  @see       TaskContainer
@@ -262,7 +262,7 @@ class Target implements TaskContainer {
             $this->project->fireTargetStarted($this);
             $this->main();
             $this->project->fireTargetFinished($this, $null=null);
-        } catch (Exception $exc) {
+        } catch (BuildException $exc) {
             // log here and rethrow
             $this->project->fireTargetFinished($this, $exc);
             throw $exc;

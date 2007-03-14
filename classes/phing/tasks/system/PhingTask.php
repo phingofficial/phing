@@ -277,7 +277,12 @@ class PhingTask extends Task {
         } catch (Exception $e) {
             $buildFailed = true;
             $this->log($e->getMessage(), Project::MSG_ERR);
-            
+        	if (Phing::getMsgOutputLevel() <= Project::MSG_DEBUG) { 
+				$lines = explode("\n", $e->getTraceAsString());
+				foreach($lines as $line) {
+					$this->log($line, Project::MSG_DEBUG);
+				}
+            }
             // important!!! continue on to perform cleanup tasks.    
 		}
         
