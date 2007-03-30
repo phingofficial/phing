@@ -99,9 +99,17 @@ class PhpLintTask extends Task {
       if(is_readable($file)) {
 	$message = array();
 	exec($command.$file, $message);
-	if(!preg_match('/^No syntax errors detected/', $message[0])) {
-	  $this->log($message[1], Project::MSG_ERR);
-    $this->hasErrors = true;
+	if(!preg_match('/^No syntax errors detected/', $message[0])) {	  
+	  if (count($messages) > 1)
+	  {
+	    $this->log($message[1], Project::MSG_ERR);
+	  }
+	  else
+	  {
+	    $this->log("Could not parse file", Project::MSG_ERR);
+	  }
+	  
+      $this->hasErrors = true;
 	} else {
 	  $this->log($file.': No syntax errors detected', Project::MSG_INFO);
 	}
