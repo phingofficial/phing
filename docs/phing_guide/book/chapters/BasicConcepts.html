@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-  <title>Phing Guide</title>
+  <title>Phing Guide - Basic Concepts</title>
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <link rel="Stylesheet" rev="Stylesheet" href="../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
   </head>
@@ -16,9 +16,9 @@
 
 <h1><a name="BasicConcepts"></a>Basic Concepts</h1>
 
-<p> Technically Phing uses a layered model to perform its actions. The following 
-  section briefly describes the layers used by Phing. If you're only a user who 
-  does not want to extend Phing or are not interested in the interior of Phing 
+<p> Technically Phing uses a layered model to perform its actions. The following
+  section briefly describes the layers used by Phing. If you're only a user who
+  does not want to extend Phing or are not interested in the interior of Phing
   you can safely skip this chapter.</p>
 
 <h2><a name="InitLayer"></a>The Init Layer</h2>
@@ -29,8 +29,8 @@ so forth. For the technical details on Init see the chapter about
 developing with Phing. Basically the Init Layer consists of various
 different file located in different places:</p>
 
-<p>The exact files and techniques used for the init process are not discussed 
-  in this chapter. To get a brief idea simply browse the files mentioned above. 
+<p>The exact files and techniques used for the init process are not discussed
+  in this chapter. To get a brief idea simply browse the files mentioned above.
   More detailed insights to the matter are given in: [REF].</p>
 
 <h3><a name="EnvironmentAndPackageSupport"></a>Environment And Package Support</h3>
@@ -39,10 +39,10 @@ different file located in different places:</p>
 Phing needs to find some files and constants that are accessible
 throughout the system. First of all it determines the system
 environment variables that have to be set during the installation
-of Phing. See <a href="Setup.html">Setting up Phing</a> 
-for more information on setting up Phing. If this very essential 
-variables can not be found or guessed the program terminates with 
-a proper error message. We assume everything is set-up properly 
+of Phing. See <a href="Setup.html">Setting up Phing</a>
+for more information on setting up Phing. If this very essential
+variables can not be found or guessed the program terminates with
+a proper error message. We assume everything is set-up properly
 and the initialization of paths and constants went fine.
 </p>
 
@@ -102,29 +102,29 @@ the &quot;things&quot; in projects: Targets, Tasks and Types. Phing
 always operates on one project that contains Targets, Tasks and Types.
 </p>
 
-<p> Tasks are &quot;pieces of code&quot; that are executed. They are implemented 
-  as classes. See <a href="ExtendingPhing.html">Extending Phing</a> for details. 
-  Types are essentially the different type of variables that are available to 
-  be used within tasks. These types may be complex (filesets, etc.) or simply 
-  a wrapper for key/value pairs. Targets are &quot;chunks of tasks and types&quot; 
+<p> Tasks are &quot;pieces of code&quot; that are executed. They are implemented
+  as classes. See <a href="ExtendingPhing.html">Extending Phing</a> for details.
+  Types are essentially the different type of variables that are available to
+  be used within tasks. These types may be complex (filesets, etc.) or simply
+  a wrapper for key/value pairs. Targets are &quot;chunks of tasks and types&quot;
   that have a unique name -- sorta like functions/methods. </p>
 
-<p> Every project has a default target that is executed, if no target to execute 
-  is given to Phing, but you can call other targets from the command line, too. 
-  Targets may <em>depend</em> on each other, e.g. if Target A depends on Target 
+<p> Every project has a default target that is executed, if no target to execute
+  is given to Phing, but you can call other targets from the command line, too.
+  Targets may <em>depend</em> on each other, e.g. if Target A depends on Target
   B, Phing will execute B before A. </p>
 
 <h3><a name="BuildFileParser"></a>The Build File Parser</h3>
 
-<p> So, but how to define these Projects and their components? Well, the answer 
-  is: We define them within a <em>build file</em>. What format to chose? Because 
-  build files have a hierarchical structure -- Projects containing targets, containing 
+<p> So, but how to define these Projects and their components? Well, the answer
+  is: We define them within a <em>build file</em>. What format to chose? Because
+  build files have a hierarchical structure -- Projects containing targets, containing
   tasks etc. -- they are written in XML.</p>
 
 <p>
 These XML files have to be parsed. For that, the Phing Layer provides
 an XML parser that is give a list that maps tag names to classes.
-So, for example, <em>ProjectParser</em> knows, the 
+So, for example, <em>ProjectParser</em> knows, the
 <em>&lt;property&gt;</em> Tag and the information defined in it
 is handled by <em>phing.tasks.system.PropertyTask</em>.
 </p>

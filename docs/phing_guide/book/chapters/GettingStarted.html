@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <title>Phing Guide</title>
+    <title>Phing Guide - Getting Started</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <link rel="Stylesheet" rev="Stylesheet" href="../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
 </head>
@@ -15,18 +15,18 @@
 
 <h1><a name="GettingStarted"></a>Getting Started</h1>
 
-<p> Phing buildfiles are written in XML, and so you will need to know at least 
-  some basic things about XML to understand the following chapter. There is a 
+<p> Phing buildfiles are written in XML, and so you will need to know at least
+  some basic things about XML to understand the following chapter. There is a
   lot of information available on the web: </p>
 
 <ul>
-  <li>The Standard Recommendation of XML by the w3c 
-     <a href="http://www.w3.org/TR/2000/REC-xml">http://www.w3.org/TR/2000/REC-xml</a>: 
+  <li>The Standard Recommendation of XML by the w3c
+     <a href="http://www.w3.org/TR/2000/REC-xml">http://www.w3.org/TR/2000/REC-xml</a>:
      very technical but exhaustive.</li>
-  <li><em>XML In 10 Points</em> 
+  <li><em>XML In 10 Points</em>
      <a href="http://www.w3.org/XML/1999/XML-in-10-points">http://www.w3.org/XML/1999/XML-in-10-points</a>:
      Quick introduction into XML.</li>
-  <li><em>A technical introduction to XML</em> 
+  <li><em>A technical introduction to XML</em>
       <a href="http://www.xml.com/pub/a/98/10/guide0.html">http://www.xml.com/pub/a/98/10/guide0.html</a>:
       Interesting article by the creator of DocBook.
       </li>
@@ -40,17 +40,17 @@
 <ul>
   <li>The document prolog</li>
   <li>Exactly one root element called <em>&lt;project&gt;</em> .</li>
-  <li>Several Phing <em>type</em> elements (i.e. <em>&lt;property&gt;</em> , <em>&lt;fileset&gt;</em> 
+  <li>Several Phing <em>type</em> elements (i.e. <em>&lt;property&gt;</em> , <em>&lt;fileset&gt;</em>
     , <em>&lt;patternset&gt;</em> etc.)</li>
-  <li>One or more <em>&lt;target&gt;</em> elements containing built-in or user 
-    defined Phing <em>task</em> elements (i.e. <em>&lt;install&gt;</em> , <em>&lt;bcc&gt;</em> 
+  <li>One or more <em>&lt;target&gt;</em> elements containing built-in or user
+    defined Phing <em>task</em> elements (i.e. <em>&lt;install&gt;</em> , <em>&lt;bcc&gt;</em>
     , etc).</li>
 </ul>
 
 <h2><a name="WritingASimpleBuildfile"></a>Writing A Simple Buildfile</h2>
 
-<p>The Foobar project installs some PHP files from a source location to a target 
-  location, creates an archive of this files and provides an optional clean-up 
+<p>The Foobar project installs some PHP files from a source location to a target
+  location, creates an archive of this files and provides an optional clean-up
   of the build tree:</p>
 
 <pre title="Example of a simple build file">
@@ -68,12 +68,12 @@
     &lt;copy file=&quot;./src/File.php&quot; to=&quot;./build/File.php&quot;/&gt;
     &lt;copy file=&quot;./src/File2.php&quot; to=&quot;./build/File2.php&quot;/&gt;
   &lt;/target&gt;
- 
+
   &lt;target name=&quot;dist&quot; depends=&quot;build&quot;&gt;
     &lt;echo message=&quot;Creating archive...&quot; /&gt;
     &lt;tar outfile=&quot;furbee.tar.gz&quot; basedir=&quot;./build&quot;/&gt;
   &lt;/target&gt;
- 
+
   &lt;target name=&quot;clean&quot;&gt;
     &lt;echo msg=&quot;Cleaning up...&quot;/&gt;
     &lt;delete file=&quot;./build&quot;/&gt;
@@ -196,7 +196,7 @@ one-line description of this target, which is printed by the
   </tr>
   <tr>
     <td>unless</td>
-    <td>The name of the <em>Property</em> that must <em>not</em> be set in 
+    <td>The name of the <em>Property</em> that must <em>not</em> be set in
         order for this target to be executed.</td>
     <td></td>
   </tr>
@@ -222,8 +222,8 @@ actually invoked by Phing.</p>
 is the attribute name, and <em>valueN</em> is the value for this
 attribute.</p>
 
-<p>There is a set of core tasks (see <a href="appendixes/AppendixB-CoreTasks.html">Appendix 
-  B</a>) along with a number of optional tasks. It is also very easy to write 
+<p>There is a set of core tasks (see <a href="appendixes/AppendixB-CoreTasks.html">Appendix
+  B</a>) along with a number of optional tasks. It is also very easy to write
   your own tasks (see <a href="ExtendingPhing.html">Extending Phing</a>).</p>
 
 <p>Tasks can be assigned an <em>id</em> attribute:</p>
@@ -238,20 +238,20 @@ code of other tasks.</p>
 
 <h3><a name="PropertyElement"></a>Property Element</h3>
 
-<p><em>Properties</em> are essentially variables that can be used in the buildfile. 
-  These might be set in the buildfile by calling the <a href="appendixes/AppendixB-CoreTasks.html#PropertyTask">PropertyTask</a>, 
-  or might be set outside Phing on the command line (properties set on the command 
-  always line override the ones in the buildfile). A property has a name and a 
-  value only. Properties may be used in the value of task attributes. This is 
-  done by placing the property name between &quot; <tt>${</tt> &quot; and &quot; 
-  <tt>}</tt> &quot; in the attribute value. For example, if there is a BC_BUILD_DIR 
-  property with the value 'build', then this could be used in an attribute like 
+<p><em>Properties</em> are essentially variables that can be used in the buildfile.
+  These might be set in the buildfile by calling the <a href="appendixes/AppendixB-CoreTasks.html#PropertyTask">PropertyTask</a>,
+  or might be set outside Phing on the command line (properties set on the command
+  always line override the ones in the buildfile). A property has a name and a
+  value only. Properties may be used in the value of task attributes. This is
+  done by placing the property name between &quot; <tt>${</tt> &quot; and &quot;
+  <tt>}</tt> &quot; in the attribute value. For example, if there is a BC_BUILD_DIR
+  property with the value 'build', then this could be used in an attribute like
   this: <em>${BC_BUILD_DIR}/en</em> . This is resolved to <em>build/en</em>.</p>
 
-<p>It should be noted that if you use a property that is not defined via the property 
-  task, the system environment table is searched for this name. For example, if 
-  you would use the property <tt>${BCHOME}</tt> and you did not define this prior 
-  in the buildfile or at the command line, Phing uses the environment variable 
+<p>It should be noted that if you use a property that is not defined via the property
+  task, the system environment table is searched for this name. For example, if
+  you would use the property <tt>${BCHOME}</tt> and you did not define this prior
+  in the buildfile or at the command line, Phing uses the environment variable
   <tt>BCHOME</tt> if it exists.</p>
 
 <h4><a name="BuiltInProperties"></a>Built-in Properties</h4>
@@ -259,7 +259,7 @@ code of other tasks.</p>
 <p>Phing provides access to system properties as if they had been
 defined using a <em>&lt;property&gt;</em> task. For example,
 <em>${os.name}</em> expands to the name of the operating
-system. See 
+system. See
 <a href="appendixes/AppendixA-FactSheet.html#BuildInProperties">Appendix A</a>
 for a complete list</p>
 
@@ -305,17 +305,17 @@ task call to <em>PropertyTask</em>. Then, it defines a fileset and two targets.
 Let us have a quick rundown of this build file.
 </p>
 
-<p> The first five tags within the <em>project</em> tag define properties. They 
+<p> The first five tags within the <em>project</em> tag define properties. They
   appear in the three ways this tag can occur: </p>
 <ul>
-  <li>The first occurrence of the <em>property</em> tag only contains the <em>environment</em> 
+  <li>The first occurrence of the <em>property</em> tag only contains the <em>environment</em>
     tag. This way, it makes all environment variables available as &quot;<em>env.VARIABLE_NAME</em>&quot;.</li>
-  <li>The second <em>property</em> tag contains only the <em>file</em> attribute. 
-    The value has to be a relative or absolute path to a property file (for the 
-    format, see <a href="appendixes/AppendixE-FileFormats.html">Appendix E</a>). 
+  <li>The second <em>property</em> tag contains only the <em>file</em> attribute.
+    The value has to be a relative or absolute path to a property file (for the
+    format, see <a href="appendixes/AppendixE-FileFormats.html">Appendix E</a>).
   </li>
-  <li>The other times, the tag has a <em>name</em> and a <em>value</em> attribute. 
-    After the call, the value defined in the attribute <em>value</em> is available 
+  <li>The other times, the tag has a <em>name</em> and a <em>value</em> attribute.
+    After the call, the value defined in the attribute <em>value</em> is available
     through the key enclosed in &quot;${&quot; and &quot;}&quot;. </li>
 </ul>
 <p>
@@ -328,20 +328,20 @@ The fileset is given an <em>id</em> attribute, so it can be referenced later on.
 </p>
 
 <p>
-The first task only contains a call to <em>CopyTask</em> via 
-<em>&lt;copy&gt;</em>. The interesting thing is within the 
+The first task only contains a call to <em>CopyTask</em> via
+<em>&lt;copy&gt;</em>. The interesting thing is within the
 <em>copy</em> tag. Here, a fileset task is not written out with
 nested <em>include</em> or <em>exclude</em> elements, but
 via the <em>refid</em>, the earlier create Fileset is referenced.
-This way, you can use a once defined fileset multiple times in 
+This way, you can use a once defined fileset multiple times in
 your build files.
 </p>
 
-<p> The only noticeable thing in the second target is the call to <em>PhingTask</em> 
-  with the <em>&lt;phingcall&gt;</em> tag (see <a href="appendixes/AppendixB-CoreTasks.html#PhingCallTask">Appendix 
-  B</a> for more information. The task executes a specified target within the 
-  same build file. So, the second target removes the build directory and calls 
-  <em>main</em> anew so the project is rebuilt. </p> 
+<p> The only noticeable thing in the second target is the call to <em>PhingTask</em>
+  with the <em>&lt;phingcall&gt;</em> tag (see <a href="appendixes/AppendixB-CoreTasks.html#PhingCallTask">Appendix
+  B</a> for more information. The task executes a specified target within the
+  same build file. So, the second target removes the build directory and calls
+  <em>main</em> anew so the project is rebuilt. </p>
 
 </body>
 </html>
