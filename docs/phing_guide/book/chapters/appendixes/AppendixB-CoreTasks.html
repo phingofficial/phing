@@ -25,7 +25,7 @@ looking for binarycloud related tasks, look in appendix ?.
   tag, for example, you will want to look at the reference of CopyTask. </p>
 <h2><a name="AdhocTaskdefTask"></a>AdhocTaskdefTask</h2>
 <p> The AdhocTaskdefTask allows you to define a task within your build file.</p>
-<pre title="Example of how to use AppendTask">&lt;target name=&quot;main&quot;<br />        description=&quot;==&gt;test AdhocTask &quot;&gt;<br />		<br />		&lt;adhoc-task name=&quot;foo&quot;&gt;&lt;![CDATA[<br />			class FooTest extends Task {<br />				private $bar;<br />				<br />				function setBar($bar) {<br />					$this-&gt;bar = $bar;<br />				}<br />				<br />				function main() {<br />					$this-&gt;log(&quot;In FooTest: &quot; . $this-&gt;bar);<br />				}<br />			}<br />		]]&gt;&lt;/adhoc-task&gt;<br />	<br />		&lt;foo bar=&quot;B.L.I.N.G&quot;/&gt;<br />&lt;/target&gt;</pre>
+<pre title="Example of how to use AdhocTaskdefTask">&lt;target name=&quot;main&quot;<br />        description=&quot;==&gt;test AdhocTask &quot;&gt;<br />		<br />		&lt;adhoc-task name=&quot;foo&quot;&gt;&lt;![CDATA[<br />			class FooTest extends Task {<br />				private $bar;<br />				<br />				function setBar($bar) {<br />					$this-&gt;bar = $bar;<br />				}<br />				<br />				function main() {<br />					$this-&gt;log(&quot;In FooTest: &quot; . $this-&gt;bar);<br />				}<br />			}<br />		]]&gt;&lt;/adhoc-task&gt;<br />	<br />		&lt;foo bar=&quot;B.L.I.N.G&quot;/&gt;<br />&lt;/target&gt;</pre>
 <p> Note that you should use &lt;![CDATA[ ... ]]&gt; so that you don't have to
   quote entities within your<em> &lt;adhoc-task&gt;&lt;/adhoc-task&gt;</em> tags.</p>
 <h3>Parameters</h3>
@@ -50,8 +50,8 @@ looking for binarycloud related tasks, look in appendix ?.
   </tbody>
 </table>
 <h2><a name="AdhocTypedefTask"></a>AdhocTypedefTask</h2>
-<p> The AdhocTaskdefTask allows you to define a datatype within your build file.</p>
-<pre title="Example of how to use AppendTask">&lt;target name=&quot;main&quot;<br />        description=&quot;==&gt;test AdhocType&quot;&gt;<br />		<br />		&lt;adhoc-type name=&quot;dsn&quot;&gt;&lt;![CDATA[<br />			class CreoleDSN extends DataType {<br />				private $url;<br />				<br />				function setUrl($url) {<br />					$this-&gt;url = $url;<br />				}<br />				<br />				function getUrl() {
+<p> The AdhocTypedefTask allows you to define a datatype within your build file.</p>
+<pre title="Example of how to use AdhocTypedefTask">&lt;target name=&quot;main&quot;<br />        description=&quot;==&gt;test AdhocType&quot;&gt;<br />		<br />		&lt;adhoc-type name=&quot;dsn&quot;&gt;&lt;![CDATA[<br />			class CreoleDSN extends DataType {<br />				private $url;<br />				<br />				function setUrl($url) {<br />					$this-&gt;url = $url;<br />				}<br />				<br />				function getUrl() {
   				return $this-&gt;url;
 				}				<br />			}<br />		]]&gt;&lt;/adhoc-type&gt;<br />
      &lt;!-- creole-sql task doesn't exist; just an example --&gt;
