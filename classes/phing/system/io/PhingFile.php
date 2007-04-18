@@ -394,6 +394,7 @@ class PhingFile {
      *
      */
     function exists() {                
+		clearstatcache();
         if ($this->isFile()) {
             return @file_exists($this->path);
         } else {
@@ -411,6 +412,7 @@ class PhingFile {
      *
      */
     function isDirectory() {
+		clearstatcache();
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to ".$this->path);
@@ -429,6 +431,7 @@ class PhingFile {
      *          false otherwise
      */
     function isFile() {
+		clearstatcache();
         //$fs = FileSystem::getFileSystem();
         return @is_file($this->path);
     }
