@@ -60,7 +60,7 @@ abstract class AbstractSAXParser {
     /**
      * Method that gets invoked when the parser runs over a XML start element.
      *
-     * This method is called by PHP's internal parser funcitons and registered
+     * This method is called by PHP's internal parser functions and registered
      * in the actual parser implementation.
      * It gives control to the current active handler object by calling the
      * <code>startElement()</code> method.
