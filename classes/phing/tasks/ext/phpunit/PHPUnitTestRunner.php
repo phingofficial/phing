@@ -96,7 +96,10 @@ class PHPUnitTestRunner
 			
 			if (PHPUnitUtil::$installedVersion == 3)
 			{
-				CoverageMerger::merge($this->project, array($coverageInformation[0]['files']));
+				foreach ($coverageInformation as $coverage_info)
+				{
+					CoverageMerger::merge($this->project, array($coverage_info['files']));
+				}
 			}
 			else
 			{
