@@ -95,11 +95,14 @@ class ZipTask extends MatchingTask {
                 if (!$this->baseDir->exists()) {
                     throw new BuildException("basedir does not exist!", $this->getLocation());
                 }
-
-                // add the main fileset to the list of filesets to process.
-                $mainFileSet = new FileSet($this->fileset);
-                $mainFileSet->setDir($this->baseDir);
-                $this->filesets[] = $mainFileSet;
+                
+                if (0 == count($this->fileset))
+                {
+	                // add the main fileset to the list of filesets to process.
+	                $mainFileSet = new FileSet($this->fileset);
+	                $mainFileSet->setDir($this->baseDir);
+	                $this->filesets[] = $mainFileSet;
+                }
             }
 
             if (empty($this->filesets)) {
@@ -142,7 +145,9 @@ class ZipTask extends MatchingTask {
                 // won't add any empty directories.  Perhaps modify FileSet::getFiles()
                 // to also include empty directories.  Not high priority, since non-inclusion
                 // of empty dirs is probably not unexpected behavior for ZipTask.
-                $fsBasedir = $fs->getDir($this->project);
+                $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
+									$fs->getDir($this->project);
+                
                 $filesToZip = array();
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
                     $f = new PhingFile($fsBasedir, $files[$i]);

@@ -1268,6 +1268,8 @@ class Archive_Zip
     // ----- Look for partial path remove
     else if ($p_remove_dir != "")
     {
+      $p_remove_dir = $this->_tool_TranslateWinPath($p_remove_dir, false);
+    	
       if (substr($p_remove_dir, -1) != '/')
         $p_remove_dir .= "/";
 
