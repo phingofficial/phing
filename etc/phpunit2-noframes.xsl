@@ -408,6 +408,7 @@
     @param word the text from which to convert CR to BR tag
 -->
 <xsl:template name="br-replace">
+    <xsl:param name="word"/>
     <xsl:choose>
          <xsl:when test="contains($word,'&#x0A;')">
              <xsl:value-of select="substring-before($word,'&#x0A;')"/>
