@@ -1256,7 +1256,7 @@ of evaluating a PHP expression or the result returned by a function/method call.
 </p>
 <h3>Example</h3>
 <pre>&lt;property name=&quot;strings.test&quot; value=&quot;Harr harr, more power!&quot; /&gt;
-&lt;echo message=&quot;${strings.text}&quot; /&gt;
+&lt;echo message=&quot;${strings.test}&quot; /&gt;
 
 &lt;property name=&quot;foo.bar&quot; value=&quot;Yet another property...&quot; /&gt;
 &lt;echo message=&quot;${foo.bar}&quot; /&gt;
@@ -1616,7 +1616,7 @@ These properties can be used in the build-file, for instance, to create time-sta
 
 <h2><a name="TypedefTask"></a>TypedefTask</h2>
 <p>
-  With the TypedefTask you can import a user task into your
+  With the TypedefTask you can import a user type into your
   buildfile.
 </p>
 <h3>Example</h3>
@@ -1680,7 +1680,7 @@ These properties can be used in the build-file, for instance, to create time-sta
   <li>classpath</li>
 </ul>
 <h2><a name="UpToDateTask"></a>UpToDateTask</h2>
-<p> Available Task tests if a resource/file is set and sets a certain property
+<p>UpToDateTask tests if a resource/file is set and sets a certain property
   to a certain value if it exists. </p>
 <pre title="Example of how to use AvailableTask">&lt;uptodate property=&quot;propelBuild.notRequired&quot; targetfile=&quot;${deploy}\propelClasses.tgz&quot; &gt;
   &lt;srcfiles dir= &quot;${src}/propel&quot; includes=&quot;**/*.php&quot;/&gt;
