@@ -410,7 +410,7 @@ abstract class FileSystem {
     function chmod($pathname, $mode) {    
         $str_mode = decoct($mode); // Show octal in messages.    
         if (false === @chmod($pathname, $mode)) {// FAILED.
-            $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode. $php_errormsg";
+            $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
             throw new Exception($msg);
         }
     }
