@@ -57,27 +57,35 @@
 &lt;?xml version=&quot;1.0&quot;?&gt;
 
 &lt;project name=&quot;FooBar&quot; default=&quot;dist&quot; basedir=&quot;.&quot;&gt;
+    &lt;target name=&quot;prepare&quot;&gt;
+        &lt;echo msg=&quot;Making directory ./build&quot; /&gt;
+        &lt;mkdir dir=&quot;./build&quot; /&gt;
+    &lt;/target&gt;
 
-  &lt;target name=&quot;prepare&quot;&gt;
-    &lt;echo msg=&quot;Preparing build...&quot; /&gt;
-    &lt;mkdir dir=&quot;./build&quot; /&gt;
-  &lt;/target&gt;
+    &lt;target name=&quot;build&quot; depends=&quot;prepare&quot;&gt;
+        &lt;echo msg=&quot;Copying files to build directory...&quot; /&gt;
 
-  &lt;target name=&quot;build&quot; depends=&quot;prepare&quot;&gt;
-    &lt;echo&gt;Building...&lt;/echo&gt;
-    &lt;copy file=&quot;./src/File.php&quot; to=&quot;./build/File.php&quot;/&gt;
-    &lt;copy file=&quot;./src/File2.php&quot; to=&quot;./build/File2.php&quot;/&gt;
-  &lt;/target&gt;
+        &lt;echo msg=&quot;Copying ./about.php to ./build directory...&quot; /&gt;
+        &lt;copy file=&quot;./about.php&quot; tofile=&quot;./build/about.php&quot; /&gt;
 
-  &lt;target name=&quot;dist&quot; depends=&quot;build&quot;&gt;
-    &lt;echo message=&quot;Creating archive...&quot; /&gt;
-    &lt;tar outfile=&quot;furbee.tar.gz&quot; basedir=&quot;./build&quot;/&gt;
-  &lt;/target&gt;
+        &lt;echo msg=&quot;Copying ./browsers.php to ./build directory...&quot; /&gt;
+        &lt;copy file=&quot;./browsers.php&quot; tofile=&quot;./build/browsers.php&quot; /&gt;
 
-  &lt;target name=&quot;clean&quot;&gt;
-    &lt;echo msg=&quot;Cleaning up...&quot;/&gt;
-    &lt;delete file=&quot;./build&quot;/&gt;
-  &lt;/target&gt;
+        &lt;echo msg=&quot;Copying ./contact.php to ./build directory...&quot; /&gt;
+        &lt;copy file=&quot;./contact.php&quot; tofile=&quot;./build/contact.php&quot; /&gt;
+    &lt;/target&gt;
+
+    &lt;target name=&quot;dist&quot; depends=&quot;build&quot;&gt;
+        &lt;echo msg=&quot;Creating archive...&quot; /&gt;
+
+        &lt;tar destfile=&quot;./build/build.tar.gz&quot; compression=&quot;gzip&quot;&gt;
+            &lt;fileset dir=&quot;./build&quot;&gt;
+                &lt;include name=&quot;*&quot; /&gt;
+            &lt;/fileset&gt;
+        &lt;/tar&gt;
+
+        &lt;echo msg=&quot;Files copied and compressed in build directory OK!&quot; /&gt;
+    &lt;/target&gt;
 &lt;/project&gt;
 </pre>
 
@@ -269,33 +277,29 @@ for a complete list</p>
 <pre title="More complex build file">&lt;?xml version=&quot;1.0&quot; ?&gt;
 
 &lt;project name=&quot;testsite&quot; basedir=&quot;.&quot; default=&quot;main&quot;&gt;
+    &lt;property file=&quot;./build.properties&quot; /&gt;
 
-  &lt;property environment=&quot;env&quot;/&gt;
+    &lt;property name=&quot;package&quot;  value=&quot;${phing.project.name}&quot; override=&quot;true&quot; /&gt;
+    &lt;property name=&quot;builddir&quot; value=&quot;./build/testsite&quot; override=&quot;true&quot; /&gt;
+    &lt;property name=&quot;srcdir&quot;   value=&quot;${project.basedir}&quot; override=&quot;true&quot; /&gt;
 
-  &lt;property file=&quot;${env.BCHOME}/build.properties&quot;/&gt;
+    &lt;!-- Fileset for all files --&gt;
+    &lt;fileset dir=&quot;.&quot; id=&quot;allfiles&quot;&gt;
+        &lt;include name=&quot;**&quot; /&gt;
+    &lt;/fileset&gt;
 
-  &lt;property name=&quot;package&quot;  value=&quot;${phing.project.name}&quot; override=&quot;true&quot; /&gt;
-  &lt;property name=&quot;builddir&quot; value=&quot;${env.BCHOME}/build/testsite&quot; override=&quot;true&quot; /&gt;
-  &lt;property name=&quot;srcdir&quot;   value=&quot;${project.basedir}&quot; override=&quot;true&quot; /&gt;
+    &lt;!-- Main Target --&gt;
+    &lt;target name=&quot;main&quot; description=&quot;main target&quot;&gt;
+        &lt;copy todir=&quot;${builddir}&quot;&gt;
+            &lt;fileset refid=&quot;allfiles&quot; /&gt;
+        &lt;/copy&gt;
+    &lt;/target&gt;
 
-  &lt;!-- Fileset for all files --&gt;
-  &lt;fileset dir=&quot;.&quot; id=&quot;allfiles&quot;&gt;
-    &lt;include name=&quot;**&quot;&gt;
-  &lt;/fileset&gt;
-
-  &lt;!-- Main Target --&gt;
-  &lt;target name=&quot;main&quot; description=&quot;main target&quot;&gt;
-    &lt;copy todir=&quot;${builddir}&quot;&gt;
-      &lt;fileset refid=&quot;allfiles&quot; /&gt;
-    &lt;/copy&gt;
-  &lt;/target&gt;
-
-
-  &lt;!-- Rebuild --&gt;
-  &lt;target name=&quot;rebuild&quot; description=&quot;rebuilds this package&quot;&gt;
-    &lt;delete dir=&quot;${builddir}&quot; /&gt;
-    &lt;phingcall target=&quot;main&quot;/&gt;
-  &lt;/target&gt;
+    &lt;!-- Rebuild --&gt;
+    &lt;target name=&quot;rebuild&quot; description=&quot;rebuilds this package&quot;&gt;
+        &lt;delete dir=&quot;${builddir}&quot; /&gt;
+        &lt;phingcall target=&quot;main&quot; /&gt;
+    &lt;/target&gt;
 &lt;/project&gt;
 </pre>
 
@@ -305,11 +309,9 @@ task call to <em>PropertyTask</em>. Then, it defines a fileset and two targets.
 Let us have a quick rundown of this build file.
 </p>
 
-<p> The first five tags within the <em>project</em> tag define properties. They
-  appear in the three ways this tag can occur: </p>
+<p> The first five four within the <em>project</em> tag define properties. They
+  appear in the two ways this tag can occur: </p>
 <ul>
-  <li>The first occurrence of the <em>property</em> tag only contains the <em>environment</em>
-    tag. This way, it makes all environment variables available as &quot;<em>env.VARIABLE_NAME</em>&quot;.</li>
   <li>The second <em>property</em> tag contains only the <em>file</em> attribute.
     The value has to be a relative or absolute path to a property file (for the
     format, see <a href="appendixes/AppendixE-FileFormats.html">Appendix E</a>).
