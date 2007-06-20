@@ -322,7 +322,7 @@ class PhpDocumentorTask extends Task
 		}
 		
 		if ($this->parsePrivate) {
-			$phpdoc->parsePrivate();
+			$phpdoc->setParsePrivate();
 		}
 		
 		if ($this->javadocDesc) {
