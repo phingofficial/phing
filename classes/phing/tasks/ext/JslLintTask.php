@@ -28,7 +28,7 @@ require_once 'phing/Task.php';
   *
   * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
   */
-  class JsLintTask extends Task
+  class JslLintTask extends Task
   {
     protected $file;  // the source file (from xml attribute)
     protected $filesets = array(); // all fileset objects assigned to this task
