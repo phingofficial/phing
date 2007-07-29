@@ -100,7 +100,7 @@ class PearPackage2Task extends PearPackageTask {
     {
         $this->pkg->setPackage($this->package);
         $this->pkg->setDate(strftime('%Y-%m-%d'));
-        $this->pkg->setTime(strftime('%T'));
+        $this->pkg->setTime(strftime('%H:%M:%S')); 
 
         $newopts = array();
         foreach ($this->options as $opt) {
