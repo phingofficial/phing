@@ -58,7 +58,7 @@ class PHPUnitTask extends Task
 		}
 		
 		/**
-		 * Ugly hack to get PHPUnit version number
+		 * Ugly hack to get PHPUnit version number from PEAR
 		 */
 		$config = new PEAR_Config();
 		$registry = new PEAR_Registry($config->get('php_dir'));
@@ -78,15 +78,27 @@ class PHPUnitTask extends Task
 		else
 		{
 			/**
-			 * Try to find PHPUnit2
+			 * Try to find PHPUnit3
 			 */
-			require_once 'PHPUnit2/Util/Filter.php';
+			@include_once 'PHPUnit/Util/Filter.php';
 			
-			if (!class_exists('PHPUnit2_Util_Filter')) {
-				throw new BuildException("PHPUnit2Task depends on PEAR PHPUnit2 package being installed.", $this->getLocation());
+			if (class_exists('PHPUnit_Util_Filter'))
+			{
+				PHPUnitUtil::$installedVersion = 3;
 			}
+			else
+			{			
+				/**
+				 * Try to find PHPUnit2
+				 */
+				@include_once 'PHPUnit2/Util/Filter.php';
 			
-			PHPUnitUtil::$installedVersion = 2;
+				if (!class_exists('PHPUnit2_Util_Filter')) {
+					throw new BuildException("PHPUnit task depends on PEAR PHPUnit 2 or 3 package being installed.", $this->getLocation());
+				}
+
+				PHPUnitUtil::$installedVersion = 2;
+			}
 		}
 		
 		// other dependencies that should only be loaded when class is actually used.
