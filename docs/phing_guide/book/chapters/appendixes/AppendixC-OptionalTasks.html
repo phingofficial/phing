@@ -417,6 +417,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   using the PEAR installer. Use this in conjunction with the <a href="#Tasks.TarTask">TarTask</a>
   to completely script the building of a PEAR pacakge.
 </p>
+<p><strong>Note that this task creates a <em>version 1</em> package.xml file.</strong></p>
 
 <p>
   This task uses the PEAR_PackageFileManager class.  In order to be maximally flexible, the majority
@@ -485,6 +486,66 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
       <td>package.xml in base directory</td>
       <td>No</td>
 	</tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+  <li>option</li>
+  <li>mapping</li>
+</ul>
+
+
+<h2><a name="PearPackage2Task"></a>PearPackage2Task</h2>
+<p>
+  With the PearPackage2Task, you can create a <em>version 2</em> package.xml which can be installed
+  using the PEAR installer. Use this in conjunction with the <a href="#Tasks.TarTask">TarTask</a>
+  to completely script the building of a PEAR pacakge.
+</p>
+
+<p>
+  This task uses the PEAR_PackageFileManager2 class.  In order to be maximally flexible, the majority
+  of options are set generically (using <em>&lt;option&gt;</em> tag) and are set using PEAR_PackageFileManager::setOptions().
+  Use the <em>&lt;mapping&gt;</em> tag to represent complex values.
+</p>
+
+<p>
+ Note that  Travis Swicegood  has created a more complete implementation of this functionality which can be found here: <a href="http://pear.domain51.com/index.php?package=Phing_d51PearPkg2Task">http://pear.domain51.com/index.php?package=Phing_d51PearPkg2Task</a>.
+</p>
+
+<h3>Example</h3>
+<pre>&lt;pearpkg2 name="phing" dir="${build.src.dir}"&gt;
+   &lt;option name=&quot;outputdirectory&quot; value=&quot;./build&quot;/&gt;<br />   &lt;option name=&quot;packagefile&quot; value=&quot;package2.xml&quot;/&gt;<br />   &lt;option name=&quot;packagedirectory&quot; value=&quot;./${build.dist.dir}&quot;/&gt;<br />   &lt;option name=&quot;baseinstalldir&quot; value=&quot;${pkg.prefix}&quot;/&gt;<br />   &lt;option name=&quot;channel&quot; value=&quot;my.pear-channel.com&quot;/&gt;<br />   &lt;option name=&quot;summary&quot; value=&quot;${pkg.summary}&quot;/&gt;<br />   &lt;option name=&quot;description&quot; value=&quot;${pkg.description}&quot;/&gt;<br />   &lt;option name=&quot;apiversion&quot; value=&quot;${pkg.version}&quot;/&gt;<br />   &lt;option name=&quot;apistability&quot; value=&quot;beta&quot;/&gt;<br />   &lt;option name=&quot;releaseversion&quot; value=&quot;${pkg.version}&quot;/&gt;<br />   &lt;option name=&quot;releasestability&quot; value=&quot;beta&quot;/&gt;<br />   &lt;option name=&quot;license&quot; value=&quot;none&quot;/&gt;<br />   &lt;option name=&quot;phpdep&quot; value=&quot;5.0.0&quot;/&gt;<br />   &lt;option name=&quot;pearinstallerdep&quot; value=&quot;1.4.6&quot;/&gt;<br />   &lt;option name=&quot;packagetype&quot; value=&quot;php&quot;/&gt;<br />   &lt;option name=&quot;notes&quot; value=&quot;${pkg.relnotes}&quot;/&gt;<br />   &lt;mapping name=&quot;maintainers&quot;&gt;<br />    &lt;element&gt;<br />     &lt;element key=&quot;handle&quot; value=&quot;hlellelid&quot;/&gt;<br />     &lt;element key=&quot;name&quot; value=&quot;Hans&quot;/&gt;<br />     &lt;element key=&quot;email&quot; value=&quot;hans@xmpl.org&quot;/&gt;<br />     &lt;element key=&quot;role&quot; value=&quot;lead&quot;/&gt;<br />    &lt;/element&gt;<br />   &lt;/mapping&gt;<br />&lt;/pearpkg2&gt;</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>
+        The name of the PEAR package.      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>dir</td>
+      <td>String</td>
+      <td>
+        The base directory of files to add to package.      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
   </tbody>
 </table>
 
