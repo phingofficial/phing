@@ -220,6 +220,19 @@ class PearPackage2Task extends PearPackageTask {
                     }
                     break;
 
+                case 'replacements':
+                    $replacements = $map->getValue();
+
+                    foreach($replacements as $replacement) { 
+                        $this->pkg->addReplacement(
+                            $replacement['path'], 
+							$replacement['type'], 
+							$replacement['from'], 
+							$replacement['to']
+						);
+					}
+				    break;
+
                 default:
                     $newmaps[] = $map;
             }
