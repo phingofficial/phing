@@ -142,9 +142,10 @@ class FileList extends DataType {
     
     /**
      * Get the source "list" file that contains file names.
+     * @param Project $p
      * @return PhingFile
      */
-    function getListFile() {
+    function getListFile(Project $p) {
         if ($this->isReference()) {
             $ref = $this->getRef($p);
             return $ref->getListFile($p);
