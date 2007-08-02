@@ -411,6 +411,128 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   </li>
 </ul>
 
+<h2><a name="PDOSQLExecTask"></a>PDOSQLExecTask</h2>
+
+<p>The <em>PDOSQLExecTask</em> executes SQL statements using PDO.</p>
+
+<h3>Examples</h3>
+
+<pre>&lt;pdo url="pgsql:host=localhost dbname=test">
+  &lt;fileset dir=&quot;sqlfiles&quot;&gt;
+	  &lt;include name=&quot;*.sql&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/pdo&gt;
+</pre>
+
+<pre>&lt;pdo url="mysql:host=localhost;dbname=test" userid="username" password="password">
+  &lt;transaction src=&quot;path/to/sqlfile.sql&quot;/&gt;
+&lt;/pdo&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>url</td>
+      <td>String</td>
+      <td>PDO connection URL (DSN) </td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>userid</td>
+      <td>String</td>
+      <td>Username for connection (if it cannot be specified in URL) </td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>String</td>
+      <td>The password to use for the connection (if it cannot be specified in URL) </td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>encoding</td>
+      <td>String</td>
+      <td>The database encoding.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>src</td>
+      <td>File</td>
+      <td>A single source file of SQL statements to execute.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>onerror</td>
+      <td>String</td>
+      <td>The action to perform on error (continue, stop, or abort)</td>
+      <td>abort</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>output</td>
+      <td>File</td>
+      <td>The file to which output should be logged.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>print</td>
+      <td>Boolean</td>
+      <td>Whether to print results of query.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>showheaders</td>
+      <td>Boolean</td>
+      <td>Whether to show column headers.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>delimiter</td>
+      <td>String</td>
+      <td>The delimeter to separate SQL statements (e.g. &quot;GO&quot; in MSSQL)</td>
+      <td>;</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>delimitertype</td>
+      <td>String</td>
+      <td>The delimiter type (&quot;normal&quot; or &quot;row&quot;). Normal means that any occurence of the delimiter
+     terminate the SQL command whereas with row, only a line containing just
+     the delimiter is recognized as the end of the command.</td>
+      <td>normal</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>transaction
+    <p>Wrapper for a single transaction.</p>
+  </li>
+  <li>fileset
+    <p>Files containing SQL statements.</p>
+  </li>
+</ul>
+
 <h2><a name="PearPackageTask"></a>PearPackageTask</h2>
 <p>
   With the PearPackageTask, you can create a package.xml which can be installed
