@@ -44,12 +44,6 @@ abstract class PDOTask extends Task {
     private $autocommit = false;
     
     /**
-     * [optional] Classpath to Creole driver to use.
-     * @param string
-     */
-    private $driver;
-    
-    /**
      * DB url.
      */
     private $url;
@@ -97,16 +91,6 @@ abstract class PDOTask extends Task {
      */
     public function setUrl($url) {
         $this->url = $url;
-    }
-
-    /**
-     * Set the Creole driver to be used.
-     *
-     * @param string $driver driver class name
-     */
-    public function setDriver($driver)
-    {
-        $this->driver = $driver;
     }
         
     /**
