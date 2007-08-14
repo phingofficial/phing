@@ -49,6 +49,7 @@ class CopyTask extends Task {
 
     protected $fileCopyMap   = array(); // asoc array containing mapped file names
     protected $dirCopyMap    = array(); // asoc array containing mapped file names
+    protected $completeDirMap= array(); // asoc array containing complete dir names
     protected $fileUtils     = null;    // a instance of fileutils
     protected $filesets      = array(); // all fileset objects assigned to this task
     protected $filterChains  = array(); // all filterchains objects assigned to this task
@@ -231,6 +232,12 @@ class CopyTask extends Task {
             $fromDir  = $fs->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs  = $ds->getIncludedDirectories();
+            
+            if (!$this->flatten && $this->mapperElement === null)
+            {
+				$this->completeDirMap[$fromDir] = $this->destDir;
+			}
+            
             $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
         }
 
@@ -249,7 +256,7 @@ class CopyTask extends Task {
      * @return  void
      * @throws  BuildException
      */
-    private function validateAttributes() {
+    protected function validateAttributes() {
     
         if ($this->file === null && count($this->filesets) === 0) {
             throw new BuildException("CopyTask. Specify at least one source - a file or a fileset.");
@@ -336,7 +343,7 @@ class CopyTask extends Task {
      * @return  void
      * @throws  BuildException
      */
-    private function doWork() {
+    protected function doWork() {
 		
 		// These "slots" allow filters to retrieve information about the currently-being-process files		
 		$fromSlot = $this->getRegisterSlot("currentFromFile");
