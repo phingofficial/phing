@@ -205,6 +205,11 @@ class CoverageReportTask extends Task
 	{
 		$sourceElement = $this->doc->createElement('sourcefile');
 		$sourceElement->setAttribute('name', basename($filename));
+		
+		/**
+		 * Add original/full filename to document
+		 */
+		$sourceElement->setAttribute('sourcefile', $filename);
 
 		$filelines = $this->highlightSourceFile($filename);
 
