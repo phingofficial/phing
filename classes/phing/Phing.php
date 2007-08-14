@@ -911,8 +911,17 @@ class Phing {
         }
         
         $dotClassname = basename($dotPath);
-        $dotClassnamePos = strlen($dotPath) - strlen($dotClassname);
-        $classFile = strtr($dotClassname, '.', DIRECTORY_SEPARATOR) . ".php";
+        $dotClassnamePos = strlen($dotPath) - strlen($dotClassname); 
+        					
+        // 1- temporarily replace escaped '.' with another illegal char (#) 
+        $tmp = str_replace('\.', '##', $dotClassname);
+        // 2- swap out the remaining '.' with DIR_SEP
+        $tmp = strtr($tmp, '.', DIRECTORY_SEPARATOR);
+        // 3- swap back the escaped '.'
+        $tmp = str_replace('##', '.', $tmp);
+        
+        $classFile = $tmp . ".php";
+        
         $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
         
         Phing::__import($path, $classpath);
