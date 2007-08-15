@@ -23,7 +23,7 @@ require_once 'phing/types/FileSet.php';
 
 /**
  * Scans a list of files given by the fileset attribute, extracts
- * all subclasses of PHPUnit(2)_Framework_TestCase.
+ * all subclasses of PHPUnit(2)_Framework_TestCase / PHPUnit(2)_Framework_TestSuite.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
@@ -130,15 +130,17 @@ class BatchTest
 	}
 	
 	/**
-	 * Checks wheter $input is a testcase subclass.
+	 * Checks wheter $input is a subclass of PHPUnit(2)_Framework_TestCasse
+	 * or PHPUnit(2)_Framework_TestSuite
 	 */
 	private function isTestCase($input)
 	{
-		return is_subclass_of($input, 'PHPUnit2_Framework_TestCase') || is_subclass_of($input, 'PHPUnit_Framework_TestCase');
+		return is_subclass_of($input, 'PHPUnit2_Framework_TestCase') || is_subclass_of($input, 'PHPUnit_Framework_TestCase')
+			|| is_subclass_of($input, 'PHPUnit2_Framework_TestSuite') || is_subclass_of($input, 'PHPUnit_Framework_TestSuite');
 	}
 	
 	/**
-	 * Filters an array of classes, removes all classes that are not subclasses of PHPUnit(2)_Framework_TestCase,
+	 * Filters an array of classes, removes all classes that are not test cases or test suites,
 	 * or classes that are declared abstract
 	 */
 	private function filterTests($input)
@@ -149,10 +151,10 @@ class BatchTest
 	}
 
 	/**
-	 * Returns an array of PHPUnit2_Framework_TestCase classes that are declared
+	 * Returns an array of test cases and test suites that are declared
 	 * by the files included by the filesets
 	 *
-	 * @return array an array of PHPUnit2_Framework_TestCase classes.
+	 * @return array an array of PHPUnit(2)_Framework_TestCase or PHPUnit(2)_Framework_TestSuite classes.
 	 */
 	function elements()
 	{

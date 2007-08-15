@@ -224,15 +224,22 @@ class PHPUnitTask extends Task
 		{
 			$suite = NULL;
 			
-			if (PHPUnitUtil::$installedVersion == 3)
+			if (is_subclass_of($test, 'PHPUnit_Framework_TestSuite') || is_subclass_of($test, 'PHPUnit2_Framework_TestSuite'))
 			{
-				require_once 'PHPUnit/Framework/TestSuite.php';
-				$suite = new PHPUnit_Framework_TestSuite(new ReflectionClass($test));
+				$suite = $test;
 			}
 			else
 			{
-				require_once 'PHPUnit2/Framework/TestSuite.php';
-				$suite = new PHPUnit2_Framework_TestSuite(new ReflectionClass($test));
+				if (PHPUnitUtil::$installedVersion == 3)
+				{
+					require_once 'PHPUnit/Framework/TestSuite.php';
+					$suite = new PHPUnit_Framework_TestSuite(new ReflectionClass($test));
+				}
+				else
+				{
+					require_once 'PHPUnit2/Framework/TestSuite.php';
+					$suite = new PHPUnit2_Framework_TestSuite(new ReflectionClass($test));
+				}
 			}
 			
 			$this->execute($suite);
