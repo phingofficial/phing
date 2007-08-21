@@ -241,7 +241,8 @@ class TarTask extends MatchingTask {
                     $filesToTar = array();
                     for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
                         $f = new PhingFile($fsBasedir, $files[$i]);
-                        $filesToTar[] = $f->getAbsolutePath();                        
+                        $filesToTar[] = $f->getAbsolutePath();
+                        $this->log("Adding file " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);                
                     }                    
                     $tar->addModify($filesToTar, '', $fsBasedir->getAbsolutePath());            
             }
