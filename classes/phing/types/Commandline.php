@@ -357,9 +357,9 @@ class Commandline {
         if (count($args) > $offset) {
             $buf .= "s";
         }
-        $buf .= ":" . Phing::getProperty("line.separator");
+        $buf .= ":" . PHP_EOL;
         for ($i = $offset, $alen=count($args); $i < $alen; $i++) {
-            $buf .= "'" . $args[$i] . "'" . Phing::getProperty("line.separator");
+            $buf .= "'" . $args[$i] . "'" . PHP_EOL;
         }
         $buf .= self::DISCLAIMER;
         return $buf;

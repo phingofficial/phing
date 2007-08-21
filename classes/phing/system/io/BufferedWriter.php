@@ -50,7 +50,7 @@ class BufferedWriter extends Writer {
     }
     
     public function newLine() {
-        $this->write(Phing::getProperty('line.separator'));
+        $this->write(PHP_EOL);
     }
     
     public function getResource() {

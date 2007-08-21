@@ -448,7 +448,7 @@ class PDOSQLExecTask extends PDOTask {
      * @throw SQLException
      */
     protected function printResults($out = null) {
-        $lSep = Phing::getProperty('line.separator');
+
         $rs = null;        
           
         if ($rs !== null) {
@@ -471,7 +471,7 @@ class PDOSQLExecTask extends PDOTask {
                         $out->write($line);
                         $out->newLine();
                     } else {
-                        print($line.$lSep);
+                        print($line.PHP_EOL);
                     }
                     $line = "";
                     $colsprinted = true;
@@ -496,14 +496,14 @@ class PDOSQLExecTask extends PDOTask {
                     $out->write($line);
                     $out->newLine();
                 } else {                    
-                    print($line . $lSep);
+                    print($line . PHP_EOL);
                 }
                 $line = "";
                 
             } // while rs->next()
         }
 
-        print($lSep);
+        print(PHP_EOL);
         if ($out !== null) $out->newLine();
     }
 }

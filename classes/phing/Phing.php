@@ -405,7 +405,7 @@ class Phing {
         $filename = $file->getParent();
 
         if ($filename !== null && self::$msgOutputLevel >= Project::MSG_VERBOSE) {
-        	self::$out->write("Searching in $filename" . self::getProperty("line.separator"));
+        	self::$out->write("Searching in $filename" . PHP_EOL);
         }
 
         return ($filename === null) ? null : new PhingFile($filename);
@@ -427,7 +427,7 @@ class Phing {
      */
     private function _findBuildFile($start, $suffix) {
         if (self::$msgOutputLevel >= Project::MSG_INFO) {
-        	self::$out->write("Searching for $suffix ..." . self::getProperty("line.separator"));
+        	self::$out->write("Searching for $suffix ..." . PHP_EOL);
         }
         $startf = new PhingFile($start);
         $parent = new PhingFile($startf->getAbsolutePath());
@@ -730,25 +730,25 @@ class Phing {
 	
     /**  Prints the usage of how to use this class */
     public static function printUsage() {
-        $lSep = self::getProperty("line.separator");
+        
         $msg = "";
-        $msg .= "phing [options] [target [target2 [target3] ...]]" . $lSep;
-        $msg .= "Options: " . $lSep;
-        $msg .= "  -h -help               print this message" . $lSep;
-        $msg .= "  -l -list               list available targets in this project" . $lSep;
-        $msg .= "  -v -version            print the version information and exit" . $lSep;
-        $msg .= "  -q -quiet              be extra quiet" . $lSep;
-        $msg .= "  -verbose               be extra verbose" . $lSep;
-        $msg .= "  -debug                 print debugging information" . $lSep;
-        $msg .= "  -logfile <file>        use given file for log" . $lSep;
-        $msg .= "  -logger <classname>    the class which is to perform logging" . $lSep;
-        $msg .= "  -f -buildfile <file>   use given buildfile" . $lSep;
-        $msg .= "  -D<property>=<value>   use value for given property" . $lSep;
-        $msg .= "  -find <file>           search for buildfile towards the root of the" . $lSep;
-        $msg .= "                         filesystem and use it" . $lSep;
-        //$msg .= "  -recursive <file>      search for buildfile downwards and use it" . $lSep;
-        $msg .= $lSep;
-        $msg .= "Report bugs to <dev@phing.tigris.org>".$lSep;
+        $msg .= "phing [options] [target [target2 [target3] ...]]" . PHP_EOL;
+        $msg .= "Options: " . PHP_EOL;
+        $msg .= "  -h -help               print this message" . PHP_EOL;
+        $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
+        $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
+        $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
+        $msg .= "  -verbose               be extra verbose" . PHP_EOL;
+        $msg .= "  -debug                 print debugging information" . PHP_EOL;
+        $msg .= "  -logfile <file>        use given file for log" . PHP_EOL;
+        $msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
+        $msg .= "  -f -buildfile <file>   use given buildfile" . PHP_EOL;
+        $msg .= "  -D<property>=<value>   use value for given property" . PHP_EOL;
+        $msg .= "  -find <file>           search for buildfile towards the root of the" . PHP_EOL;
+        $msg .= "                         filesystem and use it" . PHP_EOL;
+        //$msg .= "  -recursive <file>      search for buildfile downwards and use it" . PHP_EOL;
+        $msg .= PHP_EOL;
+        $msg .= "Report bugs to <dev@phing.tigris.org>".PHP_EOL;
         self::$err->write($msg);
     }
 	
@@ -756,7 +756,7 @@ class Phing {
      * Prints the current Phing version.
      */
     public static function printVersion() {
-        self::$out->write(self::getPhingVersion().self::getProperty("line.separator"));
+        self::$out->write(self::getPhingVersion().PHP_EOL);
     }
 	
     /**
@@ -788,7 +788,7 @@ class Phing {
      */
     public static function printDescription(Project $project) {
         if ($project->getDescription() !== null) {
-            self::$out->write($project->getDescription() . self::getProperty("line.separator"));
+            self::$out->write($project->getDescription() . PHP_EOL);
         }
     }
 
@@ -870,14 +870,14 @@ class Phing {
      *               <i>are</i> shorter than this).
      */
     private function _printTargets($names, $descriptions, $heading, $maxlen) {
-        $lSep = self::getProperty("line.separator");
+        
         $spaces = '  ';
         while (strlen($spaces) < $maxlen) {
             $spaces .= $spaces;
         }
         $msg = "";
-        $msg .= $heading . $lSep;
-        $msg .= str_repeat("-",79) . $lSep;
+        $msg .= $heading . PHP_EOL;
+        $msg .= str_repeat("-",79) . PHP_EOL;
 
         $total = count($names);
         for($i=0; $i < $total; $i++) {
@@ -887,10 +887,10 @@ class Phing {
                 $msg .= substr($spaces, 0, $maxlen - strlen($names[$i]) + 2);
                 $msg .= $descriptions[$i];
             }
-            $msg .= $lSep;
+            $msg .= PHP_EOL;
         }
         if ($total > 0) {
-          self::$out->write($msg . $lSep);
+          self::$out->write($msg . PHP_EOL);
         }
    }
    
@@ -958,11 +958,11 @@ class Phing {
             // possible to write far less expensive run-time applications (e.g. using Propel), which is
             // really where speed matters more.
             
-            $curr_parts = explode(PATH_SEPARATOR, ini_get('include_path'));
+            $curr_parts = explode(PATH_SEPARATOR, get_include_path());
             $add_parts = explode(PATH_SEPARATOR, $classpath);
             $new_parts = array_diff($add_parts, $curr_parts);
             if ($new_parts) {
-                ini_set('include_path', implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
+                set_include_path(implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
             }
         }
         
@@ -985,7 +985,7 @@ class Phing {
    public static function getResourcePath($path) {
         
         if (self::$importPaths === null) {
-            $paths = ini_get("include_path");            
+            $paths = get_include_path();          
             self::$importPaths = explode(PATH_SEPARATOR, ini_get("include_path"));
         }
         
@@ -1079,7 +1079,6 @@ class Phing {
         self::setProperty('php.version', PHP_VERSION);
         self::setProperty('user.home', getenv('HOME'));
         self::setProperty('application.startdir', getcwd());
-        self::setProperty('line.separator', "\n");
 
         // try to detect machine dependent information
         $sysInfo = array();
@@ -1129,7 +1128,7 @@ class Phing {
     
     /**
      * Returns property value for a System property.
-     * System properties are "global" properties like line.separator,
+     * System properties are "global" properties like application.startdir,
      * and user.dir.  Many of these correspond to similar properties in Java
      * or Ant.
      * 
@@ -1179,7 +1178,7 @@ class Phing {
         $success = false;
         
         if (defined('PHP_CLASSPATH')) {
-            $success = ini_set('include_path', PHP_CLASSPATH);
+            $success = set_include_path(PHP_CLASSPATH);
         } else {
             // don't do anything, just assume that include_path has been properly set.
             $success = true;

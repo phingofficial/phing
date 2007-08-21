@@ -473,7 +473,7 @@ class CreoleSQLExecTask extends CreoleTask {
      * @throw SQLException
      */
     protected function printResults($out = null) {
-        $lSep = Phing::getProperty('line.separator');
+        
         $rs = null;        
         do {
             $rs = $this->statement->getResultSet();
@@ -499,7 +499,7 @@ class CreoleSQLExecTask extends CreoleTask {
                             $out->write($line);
                             $out->newLine();
                         } else {
-                            print($line.$lSep);
+                            print($line.PHP_EOL);
                         }
                         $line = "";
                         $colsprinted = true;
@@ -524,14 +524,14 @@ class CreoleSQLExecTask extends CreoleTask {
                         $out->write($line);
                         $out->newLine();
                     } else {                    
-                        print($line . $lSep);
+                        print($line . PHP_EOL);
                     }
                     $line = "";
                     
                 } // while rs->next()
             }
         } while ($this->statement->getMoreResults());
-        print($lSep);
+        print(PHP_EOL);
         if ($out !== null) $out->newLine();
     }
 }

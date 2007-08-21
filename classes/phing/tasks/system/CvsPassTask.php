@@ -100,7 +100,7 @@ class CVSPassTask extends Task {
                 $line = null;
                 while (($line = $reader->readLine()) !== null) {
                     if (!StringHelper::startsWith($this->cvsRoot, $line)) {
-                        $buf .= $line . Phing::getProperty("line.separator");
+                        $buf .= $line . PHP_EOL;
                     }
                 }
             }

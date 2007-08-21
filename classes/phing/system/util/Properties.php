@@ -155,7 +155,7 @@ class Properties {
         try {
             $fw = new FileWriter($file);
             if ($header !== null) {
-                $fw->write( "# " . $header . Phing::getProperty("line.separator") );
+                $fw->write( "# " . $header . PHP_EOL );
             }
             $fw->write($this->toString());
             $fw->close();

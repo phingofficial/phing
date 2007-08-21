@@ -54,13 +54,6 @@ class DefaultLogger implements BuildLogger {
      *  @var int
      */
     protected $startTime;
-
-    /**
-     *  Char that should be used to seperate lines. Default is the system
-     *  property <em>line.seperator</em>.
-     *  @var string
-     */
-    protected $lSep;
     
     /**
      * @var OutputStream Stream to use for standard output.
@@ -76,7 +69,7 @@ class DefaultLogger implements BuildLogger {
      *  Construct a new default logger.
      */
     public function __construct() {
-        $this->lSep = Phing::getProperty("line.separator");
+    	
     }
 
     /**
@@ -147,16 +140,16 @@ class DefaultLogger implements BuildLogger {
     public function buildFinished(BuildEvent $event) {
         $error = $event->getException();
         if ($error === null) {
-            $msg = $this->lSep . $this->getBuildSuccessfulMessage() . $this->lSep;
+            $msg = PHP_EOL . $this->getBuildSuccessfulMessage() . PHP_EOL;
         } else {
-            $msg = $this->lSep . $this->getBuildFailedMessage() . $this->lSep;
+            $msg = PHP_EOL . $this->getBuildFailedMessage() . PHP_EOL;
             if (Project::MSG_VERBOSE <= $this->msgOutputLevel || !($error instanceof BuildException)) {
-                $msg .= $error->__toString().$this->lSep;
+                $msg .= $error->__toString().PHP_EOL;
             } else {
                 $msg .= $error->getMessage();
             }
         }
-        $msg .= $this->lSep . "Total time: " .self::formatTime(Phing::currentTimeMillis() - $this->startTime) . $this->lSep;
+        $msg .= PHP_EOL . "Total time: " .self::formatTime(Phing::currentTimeMillis() - $this->startTime) . PHP_EOL;
         
     	if ($error === null) {
             $this->printMessage($msg, $this->out, Project::MSG_VERBOSE);
@@ -190,7 +183,7 @@ class DefaultLogger implements BuildLogger {
      */
     public function targetStarted(BuildEvent $event) {
         if (Project::MSG_INFO <= $this->msgOutputLevel) {
-        	$msg = $this->lSep . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ':' . $this->lSep;
+        	$msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ':' . PHP_EOL;
         	$this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
@@ -280,6 +273,6 @@ class DefaultLogger implements BuildLogger {
      * @return void
      */
     protected function printMessage($message, OutputStream $stream, $priority) {
-    	$stream->write($message . $this->lSep);
+    	$stream->write($message . PHP_EOL);
     }    
 }

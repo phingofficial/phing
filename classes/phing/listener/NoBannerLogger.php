@@ -49,7 +49,7 @@ class NoBannerLogger extends DefaultLogger {
 		}
 		
 		if ($this->targetName !== null) {
-			$msg = $this->lSep . $event->getProject()->getName() . ' > ' . $this->targetName . ':' . $this->lSep;
+			$msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $this->targetName . ':' . PHP_EOL;
 			$this->printMessage($msg, $this->out, $event->getPriority());
 			$this->targetName = null;
 		}

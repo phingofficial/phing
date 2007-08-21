@@ -228,7 +228,7 @@ final class AnsiColorLogger extends DefaultLogger {
                     break;
             }
             
-            $stream->write($message . $this->lSep);
+            $stream->write($message . PHP_EOL);
         }
     }
 }

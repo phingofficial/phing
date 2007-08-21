@@ -208,7 +208,7 @@ class CvsTask extends Task {
             if ($this->failOnError && $retCode !== 0) {
                 throw new BuildException("cvs exited with error code "
                                          . $retCode 
-                                         . Phing::getProperty("line.separator")
+                                         . PHP_EOL
                                          . "Command line was ["
                                          . $toExecute->describeCommand() . "]", $this->getLocation());
             }
