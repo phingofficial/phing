@@ -22,6 +22,103 @@ building projects, but can assist in various aspects of development and deployme
 <p> This reference lists the tasks alphabetically by the name of the classes that
   implement the tasks. So if you are searching for the reference to the <code>&lt;phplint&gt;</code>
   tag, for example, you will want to look at the reference of PhpLintTask. </p>
+  
+<h2><a name="DbDeployTask"></a>DbDeployTask</h2>
+<p>The <em>DbDeployTask</em> creates .sql files for making revisions to a database, based on dbdeploy conventions centering around a changelog table in the database. See <a href="http://dbdeploy.com/documentation/getting-started/rules-for-using-dbdeploy/">rules for using dbdeploy</a> for more information. You will need a changelog table like so:</p>
+
+<pre>CREATE TABLE changelog (
+  change_number BIGINT NOT NULL,
+  delta_set VARCHAR(10) NOT NULL,
+  start_dt TIMESTAMP NOT NULL,
+  complete_dt TIMESTAMP NULL,
+  applied_by VARCHAR(100) NOT NULL,
+  description VARCHAR(500) NOT NULL
+)</pre>
+
+<h3>Example</h3>
+<pre>
+&lt;taskdef name=&quot;dbdeploy&quot; classname=&quot;phing.tasks.ext.dbdeploy.DbDeployTask&quot;/&gt;
+
+&lt;dbdeploy 
+  url=&quot;sqlite:${project.basedir}/data/db.sqlite&quot;&gt;
+  userid=&quot;dbdeploy&quot;
+  password=&quot;dbdeploy&quot;
+  dir=&quot;${project.basedir}/data/dbdeploy/deltas&quot;
+/&gt;
+</pre>
+
+<p>The above example uses a sqlite database and delta scripts located in dbdeploy/deltas in the project base dir.</p>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>url</td>
+      <td>String</td>
+      <td>PDO connection url</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>userid</td>
+      <td>String</td>
+      <td>DB userid to use for accessing the changelog table</td>
+      <td>none</td>
+      <td>As required by db</td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>String</td>
+      <td>DB password to use for accessing the changelog table</td>
+      <td>none</td>
+      <td>As required by db</td>
+    </tr>
+    <tr>
+      <td>dir</td>
+      <td>String</td>
+      <td>Directory containing dbdeploy delta scripts</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>outputfile</td>
+      <td>String</td>
+      <td>Filename in which deployment SQL will be generated</td>
+      <td>dbdeploy_deploy.sql</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>undooutputfile</td>
+      <td>String</td>
+      <td>Filename in which undo SQL will be generated</td>
+      <td>dbdeploy_undo.sql</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>deltaset</td>
+      <td>String</td>
+      <td>deltaset to check within db</td>
+      <td>Main</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>lastchangetoapply</td>
+      <td>Integer</td>
+      <td>Highest-numbered delta script to apply to db</td>
+      <td>999</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2><a name="CoverageMergerTask"></a>CoverageMergerTask</h2>
 <p>The CoverageMergerTask merges code coverage information from external sources with an existing code coverage database.</p>
