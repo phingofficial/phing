@@ -19,41 +19,19 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/dbdeploy/DbmsSyntax.php';
-
 /**
- *  Factory for generating dbms-specific syntax-generating objects
+ *  Utility class for generating necessary server-specific SQL commands
  *
  *  @author   Luke Crouch at SourceForge (http://sourceforge.net)
  *  @version  $Revision: 1.1 $
  *  @package  phing.tasks.ext.dbdeploy
  */
 
-class DbmsSyntaxFactory
+class DbmsSyntaxMsSql extends DbmsSyntax 
 {
-	private $dbms;
-	
-	public function __construct($dbms)
+	public function generateTimestamp()
 	{
-		$this->dbms = $dbms;
-	}
-	
-	public function getDbmsSyntax()
-	{
-		switch ($this->dbms){
-			case('sqlite') :
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
-				return new DbmsSyntaxSQLite();
-			case('mysql'):
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
-				return new DbmsSyntaxMysql();
-			case('mssql'):
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
-				return new DbmsSyntaxMsSql();
-			default:
-				throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
-		}
+		return "DATEDIFF(s, '19700101', GETDATE())";
 	}
 }
 
