@@ -20,7 +20,7 @@
  */
  
 require_once 'phing/Task.php';
-include_once 'phing/types/FileSet.php';
+require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
 
 
 /**
@@ -37,7 +37,6 @@ class DbDeployTask extends Task {
 	
 	public static $TABLE_NAME = 'changelog';
 
-	protected $dbms;
 	protected $url;
 	protected $userid;
 	protected $password;
@@ -46,9 +45,15 @@ class DbDeployTask extends Task {
 	protected $undoOutputFile = 'dbdeploy_undo.sql';
 	protected $deltaSet = 'Main';
 	protected $lastChangeToApply = 999;
+	protected $dbmsSyntax = null;
 	
     function main() {
     	try{
+    		// get correct DbmsSyntax object
+    		$dbms = substr($this->url, 0, strpos($this->url, ':'));
+    		$dbmsSyntaxFactory = new DbmsSyntaxFactory($dbms);
+    		$this->dbmsSyntax = $dbmsSyntaxFactory->getDbmsSyntax();
+    		
 			// open file handles for output
     		$outputFileHandle = fopen($this->outputFile, "w+");
     		$undoOutputFileHandle = fopen($this->undoOutputFile, "w+");
@@ -98,13 +103,13 @@ class DbDeployTask extends Task {
     		if($fileChangeNumber > $lastChangeAppliedInDb && $fileChangeNumber <= $this->lastChangeToApply){
     			$sqlToPerformDeploy .= '--------------- Fragment begins: ' . $fileChangeNumber . ' ---------------' . "\n";
     			$sqlToPerformDeploy .= 'INSERT INTO ' . DbDeployTask::$TABLE_NAME . ' (change_number, delta_set, start_dt, applied_by, description)'.
-					' VALUES ('. $fileChangeNumber .', \''. $this->deltaSet .'\', '. mktime() .', \'dbdeploy\', \''. $fileName .'\');' . "\n";
+					' VALUES ('. $fileChangeNumber .', \''. $this->deltaSet .'\', '. $this->dbmsSyntax->generateTimestamp() .', \'dbdeploy\', \''. $fileName .'\');' . "\n";
 				$fullFileName = $this->dir . '/' . $fileName;
     			$fh = fopen($fullFileName, 'r');
     			$contents = fread($fh, 	filesize($fullFileName));
     			$deploySQLFromFile = substr($contents,0,strpos($contents, '--//@UNDO'));    			
     			$sqlToPerformDeploy .= $deploySQLFromFile;
-    			$sqlToPerformDeploy .= 'UPDATE ' . DbDeployTask::$TABLE_NAME . ' SET complete_dt = ' . mktime() . ' WHERE change_number = ' . $fileChangeNumber . ' AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
+    			$sqlToPerformDeploy .= 'UPDATE ' . DbDeployTask::$TABLE_NAME . ' SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . ' WHERE change_number = ' . $fileChangeNumber . ' AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
     			$sqlToPerformDeploy .= '--------------- Fragment ends: ' . $fileChangeNumber . ' ---------------' . "\n";
     		}
     	}
@@ -142,10 +147,6 @@ class DbDeployTask extends Task {
     	return $files;
     }
     
-	function setDbms($dbms){
-		$this->dbms = $dbms;
-	}
-
 	function setUrl($url){
 		$this->url = $url;
 	}
