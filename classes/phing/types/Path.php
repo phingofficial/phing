@@ -261,13 +261,11 @@ class Path extends DataType {
                 $ds = $dset->getDirectoryScanner($this->project);
                 $dirstrs = $ds->getIncludedDirectories();
                 $dir = $dset->getDir($this->project);
-                $this->addUnlessPresent($result, $dir, $s);  
-                
                 foreach($dirstrs as $dstr) {
                     $d = new PhingFile($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
-                }                
-                     
+                }
+                var_dump($result);
             } elseif ($o instanceof FileList) {
                 $fl = $o;
                 $dirstrs = $fl->getFiles($this->project);
@@ -424,8 +422,8 @@ class Path extends DataType {
             return $f->getAbsolutePath();
         }
         return $relativeName;
-    }    
-
+    }
+    
 }
 
 
