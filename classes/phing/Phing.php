@@ -1075,7 +1075,8 @@ class Phing {
                 self::setProperty('host.fstype', 'UNIX');
                 break;
         }
-
+		
+		self::setProperty('line.separator', PHP_EOL);
         self::setProperty('php.version', PHP_VERSION);
         self::setProperty('user.home', getenv('HOME'));
         self::setProperty('application.startdir', getcwd());
