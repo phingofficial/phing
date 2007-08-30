@@ -135,7 +135,7 @@ class Properties {
     public function toString() {
         $buf = "";        
         foreach($this->properties as $key => $item) {
-            $buf .= $key . "=" . $this->outVal($item) . Phing::getProperty('line.separator');
+            $buf .= $key . "=" . $this->outVal($item) . PHP_EOL;
         }
         return $buf;    
     }
