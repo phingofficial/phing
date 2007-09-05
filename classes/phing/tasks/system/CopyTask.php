@@ -235,7 +235,7 @@ class CopyTask extends Task {
             
             if (!$this->flatten && $this->mapperElement === null)
             {
-				$this->completeDirMap[$fromDir] = $this->destDir;
+				$this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
 			}
             
             $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
