@@ -22,7 +22,7 @@ building projects, but can assist in various aspects of development and deployme
 <p> This reference lists the tasks alphabetically by the name of the classes that
   implement the tasks. So if you are searching for the reference to the <code>&lt;phplint&gt;</code>
   tag, for example, you will want to look at the reference of PhpLintTask. </p>
-  
+
 <h2><a name="DbDeployTask"></a>DbDeployTask</h2>
 <p>The <em>DbDeployTask</em> creates .sql files for making revisions to a database, based on dbdeploy conventions centering around a changelog table in the database. See <a href="http://dbdeploy.com/documentation/getting-started/rules-for-using-dbdeploy/">rules for using dbdeploy</a> for more information. You will need a changelog table like so:</p>
 
@@ -39,7 +39,7 @@ building projects, but can assist in various aspects of development and deployme
 <pre>
 &lt;taskdef name=&quot;dbdeploy&quot; classname=&quot;phing.tasks.ext.dbdeploy.DbDeployTask&quot;/&gt;
 
-&lt;dbdeploy 
+&lt;dbdeploy
   url=&quot;sqlite:${project.basedir}/data/db.sqlite&quot;&gt;
   userid=&quot;dbdeploy&quot;
   password=&quot;dbdeploy&quot;
@@ -913,17 +913,17 @@ similar to Javadoc.</p>
 
 <h3>Examples</h3>
 <pre>
-&lt;phpdoc title=&quot;Phing Documentation&quot; \
+&lt;phpdoc title=&quot;API Documentation&quot;
   destdir=&quot;apidocs&quot;
-  sourcepath=&quot;classes/phing&quot;
+  sourcecode=&quot;no&quot;
   output=&quot;HTML:Smarty:PHP&quot;&gt;
-   &lt;fileset dir=&quot;./classes&quot; &gt;
-      &lt;include name=&quot;**/*.php&quot;&gt;
+   &lt;fileset dir=&quot;./classes&quot;&gt;
+      &lt;include name=&quot;**/*.php&quot; /&gt;
    &lt;/fileset&gt;
-   &lt;projdocfileset dir=&quot;.&quot; &gt;
-      &lt;include name=&quot;README&quot;&gt;
-      &lt;include name=&quot;INSTALL&quot;&gt;
-      &lt;include name=&quot;CHANGELOG&quot;&gt;
+   &lt;projdocfileset dir=&quot;.&quot;&gt;
+      &lt;include name=&quot;README&quot; /&gt;
+      &lt;include name=&quot;INSTALL&quot; /&gt;
+      &lt;include name=&quot;CHANGELOG&quot; /&gt;
    &lt;/projdocfileset&gt;
 &lt;/phpdoc&gt;
 </pre>
