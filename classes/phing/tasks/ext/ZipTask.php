@@ -118,10 +118,10 @@ class ZipTask extends MatchingTask {
                     throw new BuildException("basedir does not exist!", $this->getLocation());
                 }
                 
-                if (0 == count($this->fileset))
+                if (empty($this->filesets))
                 {
 	                // add the main fileset to the list of filesets to process.
-	                $mainFileSet = new FileSet($this->fileset);
+	                $mainFileSet = new ZipFileSet($this->fileset);
 	                $mainFileSet->setDir($this->baseDir);
 	                $this->filesets[] = $mainFileSet;
                 }
