@@ -197,7 +197,23 @@ abstract class SvnBaseTask extends Task
 	{
 		return isset( $this->svnSwitches['no-auth-cache'] ) ? $this->svnSwitches['no-auth-cache'] : '';
 	}
-
+	
+	/**
+	 * Toggles recursive behavior
+	 */
+	function setRecursive($value)
+	{
+		$this->svnSwitches['non-recursive'] = is_bool($value) ? !$value : TRUE;
+	}
+	
+	/**
+	 * Returns status of recursive behavior
+	 */
+	function getRecursive()
+	{
+		return isset( $this->svnSwitches['non-recursive'] ) ? $this->svnSwitches['non-recursive'] : '';
+	}
+	
 	/**
 	 * Creates a VersionControl_SVN class based on $mode
 	 *

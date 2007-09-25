@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PEAR/Registry.php';
 require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
@@ -58,56 +57,43 @@ class PHPUnitTask extends Task
 		}
 		
 		/**
-		 * Ugly hack to get PHPUnit version number from PEAR
+		 * Determine PHPUnit version number
 		 */
-		$config = new PEAR_Config();
-		$registry = new PEAR_Registry($config->get('php_dir'));
-		$pkg_info = $registry->_packageInfo("PHPUnit", null, "pear.phpunit.de");
-		
-		if ($pkg_info != NULL)
+		@include_once 'PHPUnit/Runner/Version.php';
+		@include_once 'PHPUnit2/Runner/Version.php';
+
+		if (class_exists('PHPUnit_Runner_Version'))
 		{
-			if (version_compare($pkg_info['version']['api'], "3.0.0") >= 0)
-			{
-				PHPUnitUtil::$installedVersion = 3;
-			}
-			else
-			{
-				PHPUnitUtil::$installedVersion = 2;
-			}
+			$version = PHPUnit_Runner_Version::id();
+		}
+		elseif (class_exists('PHPUnit2_Runner_Version'))
+		{
+			$version = PHPUnit2_Runner_Version::id();
 		}
 		else
 		{
-			/**
-			 * Try to find PHPUnit3
-			 */
-			@include_once 'PHPUnit/Util/Filter.php';
-			
-			if (class_exists('PHPUnit_Util_Filter'))
-			{
-				PHPUnitUtil::$installedVersion = 3;
-			}
-			else
-			{			
-				/**
-				 * Try to find PHPUnit2
-				 */
-				@include_once 'PHPUnit2/Util/Filter.php';
-			
-				if (!class_exists('PHPUnit2_Util_Filter')) {
-					throw new BuildException("PHPUnit task depends on PEAR PHPUnit 2 or 3 package being installed.", $this->getLocation());
-				}
-
-				PHPUnitUtil::$installedVersion = 2;
-			}
+			throw new BuildException("PHPUnit task depends on PHPUnit 2 or 3 package being installed.", $this->getLocation());
 		}
 		
-		// other dependencies that should only be loaded when class is actually used.
+		if (version_compare($version, "3.0.0") >= 0)
+		{
+			PHPUnitUtil::$installedVersion = 3;
+		}
+		else
+		{
+			PHPUnitUtil::$installedVersion = 2;
+		}
+		
+		/**
+		 * Other dependencies that should only be loaded when class is actually used.
+		 */
 		require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
 		require_once 'phing/tasks/ext/phpunit/BatchTest.php';
 		require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
-		//require_once 'phing/tasks/ext/phpunit/SummaryPHPUnit2ResultFormatter.php';
 
-		// add some defaults to the PHPUnit filter
+		/**
+		 * Add some defaults to the PHPUnit filter
+		 */
 		if (PHPUnitUtil::$installedVersion == 3)
 		{
 			require_once 'PHPUnit/Util/Filter.php';
