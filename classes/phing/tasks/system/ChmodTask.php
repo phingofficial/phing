@@ -42,7 +42,8 @@ class ChmodTask extends Task {
 	
 	private $quiet = false;	
 	private $failonerror = true;
-	
+	private $verbose = true;
+    
 	/**
 	 * This flag means 'note errors to the output, but keep going'
 	 * @see setQuiet()
@@ -60,6 +61,14 @@ class ChmodTask extends Task {
         if ($this->quiet) {
             $this->failonerror = false;
         }
+    }
+    
+    /**
+     * Set verbosity, which if set to false surpresses all but an overview
+     * of what happened.
+     */
+    function setVerbose($bool) {
+        $this->verbose = (bool)$bool;
     }
 	
     /**
@@ -126,8 +135,13 @@ class ChmodTask extends Task {
 			$mode = octdec("0". $this->mode);
 		}
         
+        // counters for non-verbose output
+        $total_files = 0;
+        $total_dirs = 0;
+        
         // one file
         if ($this->file !== null) {
+            $total_files = 1;
             $this->chmodFile($this->file, $mode);
         }
 
@@ -140,13 +154,22 @@ class ChmodTask extends Task {
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs = $ds->getIncludedDirectories();
 
-            for ($j = 0, $filecount = count($srcFiles); $j < $filecount; $j++) {
+            $filecount = count($srcFiles);
+            $total_files = $total_files + $filecount;
+            for ($j = 0; $j < $filecount; $j++) {
                 $this->chmodFile(new PhingFile($fromDir, $srcFiles[$j]), $mode);
             }
 
-            for ($j = 0, $dircount = count($srcDirs); $j <  $dircount; $j++) {
+            $dircount = count($srcDirs);
+            $total_dirs = $total_dirs + $dircount;
+            for ($j = 0; $j <  $dircount; $j++) {
                 $this->chmodFile(new PhingFile($fromDir, $srcDirs[$j]), $mode);
             }
+        }
+
+        if (!$this->verbose) {
+            $this->log('Total files changed to ' . vsprintf('%o', $mode) . ': ' . $total_files);
+            $this->log('Total directories changed to ' . vsprintf('%o', $mode) . ': ' . $total_dirs);
         }
 
     }
@@ -163,7 +186,9 @@ class ChmodTask extends Task {
 		     
 		try {
 			$file->setMode($mode);
-			$this->log("Changed file mode on '" . $file->__toString() ."' to " . vsprintf("%o", $mode));
+			if ($this->verbose) {
+				$this->log("Changed file mode on '" . $file->__toString() ."' to " . vsprintf("%o", $mode));
+			}
 		} catch (Exception $e) {
 			if($this->failonerror) {
 				throw $e;
@@ -174,4 +199,5 @@ class ChmodTask extends Task {
     }
 	
 }
+
 
