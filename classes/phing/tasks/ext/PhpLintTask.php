@@ -36,6 +36,7 @@ class PhpLintTask extends Task {
 	protected $errorProperty;
 	protected $haltOnFailure = false;
 	protected $hasErrors = false;
+    private $badFiles = array();
 
 	/**
 	 * The haltonfailure property
@@ -94,7 +95,7 @@ class PhpLintTask extends Task {
 			}
 		}
 
-		if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files');
+		if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files: '.implode(', ',$this->badFiles));
 	}
 
 	/**
@@ -108,7 +109,7 @@ class PhpLintTask extends Task {
 		if(file_exists($file)) {
 			if(is_readable($file)) {
 				$messages = array();
-				exec($command.$file, $messages);
+				exec($command.'"'.$file.'"', $messages);
 				if(!preg_match('/^No syntax errors detected/', $messages[0])) {
 					if (count($messages) > 1) {
 						if ($this->errorProperty) {
@@ -118,7 +119,7 @@ class PhpLintTask extends Task {
 					} else {
 						$this->log("Could not parse file", Project::MSG_ERR);
 					}
-						
+					$this->badFiles[] = $file;	
 					$this->hasErrors = true;
 					
 				} else {

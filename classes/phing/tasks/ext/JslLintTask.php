@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: ZipTask.php 116 2006-09-12 09:32:50Z mrook $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -35,6 +35,7 @@ require_once 'phing/Task.php';
 
     protected $haltOnFailure = false;
     protected $hasErrors = false;
+    private $badFiles = array();
 
     /**
      * The haltonfailure property
@@ -84,7 +85,7 @@ require_once 'phing/Task.php';
         }
       }
   
-      if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files');
+      if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in JS files:' .implode(', ',$this->badFiles));
     }
   
     /**
@@ -105,7 +106,7 @@ require_once 'phing/Task.php';
         if(is_readable($file))
         {
           $message = array();
-          exec($command.$file, $message);
+          exec($command.'"'.$file.'"', $message);
 
           $summary = $message[sizeof($message) - 1];
 
@@ -123,6 +124,7 @@ require_once 'phing/Task.php';
           if(0 != $errors)
           {
             $this->log($file . ': ' . $errors . ' errors detected', Project::MSG_ERR);
+            $this->badFiles[] = $file;
             $this->hasErrors = true;
           } else {
             $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
