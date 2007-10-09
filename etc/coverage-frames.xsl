@@ -174,6 +174,9 @@ TD.uncovered {
 PRE.srcLine {
   BACKGROUND: #ffffff; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
 }
+PRE.srcLineHighLight {
+  BACKGROUND: #F0C8C8; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
+}
 td.lineCount, td.coverageCount {
       BACKGROUND: #F0F0F0; PADDING-RIGHT: 3px;
       text-align: right;
@@ -186,10 +189,10 @@ td.coverageCountHighlight {
       background: #F0C8C8; PADDING-RIGHT: 3px;
       text-align: right;
 }
-span.srcLineHighlight {
+td.srcLineHighlight {
       background: #F0C8C8;
 }
-span.srcLine {
+td.srcLine {
       background: #C8C8F0;
 }
 TD.srcLineClassStart {
@@ -616,14 +619,10 @@ TD.srcLineClassStart {
             	<xsl:attribute name="class">srcLineClassStart</xsl:attribute>
             </xsl:if>
             <xsl:if test="@coveredcount>0">
-                <span class="srcLine">
                 <pre class="srcLine"><xsl:value-of select="."/></pre>
-                </span>
             </xsl:if>
             <xsl:if test="@coveredcount&lt;0">
-                <span class="srcLineHighlight">
-                <pre class="srcLine"><xsl:value-of select="."/></pre>
-                </span>
+                <pre class="srcLineHighlight"><xsl:value-of select="."/></pre>
             </xsl:if>
             <xsl:if test="@coveredcount=0">
                 <pre class="srcLine"><xsl:value-of select="."/></pre>
