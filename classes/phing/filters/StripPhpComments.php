@@ -36,7 +36,6 @@ include_once 'phing/filters/ChainableReader.php';
  * @access    public
  * @see       FilterReader
  * @package   phing.filters
- * @todo -c use new PHP functions to perform this instead of regex.
  */
 class StripPhpComments extends BaseFilterReader implements ChainableReader {
     /**
@@ -171,7 +170,7 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader {
     }
 
     /**
-     * Creates a new StripJavaComments using the passed in
+     * Creates a new StripPhpComments using the passed in
      * Reader for instantiation.
      * 
      * @param reader A Reader object providing the underlying stream.

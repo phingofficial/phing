@@ -31,6 +31,7 @@ include_once 'phing/filters/ReplaceTokens.php';
 include_once 'phing/filters/StripPhpComments.php';
 include_once 'phing/filters/StripLineBreaks.php';
 include_once 'phing/filters/StripLineComments.php';
+include_once 'phing/filters/StripWhitespace.php';
 include_once 'phing/filters/TabToSpaces.php';
 include_once 'phing/filters/TidyFilter.php';
 include_once 'phing/filters/TranslateGettext.php';
@@ -114,6 +115,11 @@ class FilterChain extends DataType {
     function addStripLineComments(StripLineComments $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;        
+    }
+    
+	function addStripWhitespace(StripWhitespace $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
     }
     
 	function addTidyFilter(TidyFilter $o) {

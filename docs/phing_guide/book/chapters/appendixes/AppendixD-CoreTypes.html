@@ -530,12 +530,23 @@ character(s) that start a line comment.
 
 <h2><a name="StripPhpComments"></a>StripPhpComments</h2>
 <p>
-The <em>StripPhpComment</em> filter removes all PHP comments from
+The <em>StripPhpComments</em> filter removes all PHP comments from
 the stream passed through the filter.
 </p>
 <pre>
 &lt;filterchain&gt;
   &lt;stripphpcomments /&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h2><a name="StripWhitespace"></a>StripWhitespace</h2>
+<p>
+The <em>StripWhitespace</em> filter removes all PHP comments and whitespace from
+the stream passed through the filter.  Internally, this filter uses the php_strip_whitespace() function.
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;stripwhitespace /&gt;
 &lt;/filterchain&gt;
 </pre>
 
