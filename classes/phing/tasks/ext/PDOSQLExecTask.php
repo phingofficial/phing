@@ -272,19 +272,16 @@ class PDOSQLExecTask extends PDOTask {
             if ($this->srcFile !== null && !$this->srcFile->exists()) {
                 throw new BuildException("Source file does not exist!", $this->location);
             }
-
+            
             // deal with the filesets
-            for ($i = 0,$size=count($this->filesets); $i < $size; $i++) {
-                $fs = $this->filesets[$i];
+            foreach($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($this->project);
                 $srcDir = $fs->getDir($this->project);
-                
                 $srcFiles = $ds->getIncludedFiles();
-                
                 // Make a transaction for each file
-                for ($j=0, $size=count($srcFiles); $j < $size; $j++) {
+                foreach($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFiles[$j]));
+                    $t->setSrc(new PhingFile($srcDir, $srcFile));
                 }
             }
             
