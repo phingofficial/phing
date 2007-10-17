@@ -212,7 +212,14 @@ class PHPUnitTask extends Task
 			
 			if (is_subclass_of($test, 'PHPUnit_Framework_TestSuite') || is_subclass_of($test, 'PHPUnit2_Framework_TestSuite'))
 			{
-				$suite = $test;
+				if (is_object($test))
+				{
+					$suite = $test;
+				}
+				else
+				{
+					$suite = new $test();
+				}
 			}
 			else
 			{
