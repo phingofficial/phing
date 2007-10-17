@@ -109,6 +109,11 @@ class PhpDocumentorTask extends Task
 	private $examplesDir;
 	
 	/**
+	 * @var PhingFile Directory in which to look for configuration files.
+	 */
+	private $configDir;
+	
+	/**
 	 * @var boolean Whether to parse as a PEAR repository.
 	 */
 	private $pear = false;
@@ -202,6 +207,14 @@ class PhpDocumentorTask extends Task
 	}
 	
 	/**
+	 * Set a directory to search for configuration files in.
+	 * @param PhingFile $d
+	 */
+	public function setConfigdir(PhingFile $d) {
+		$this->configDir = $d;
+	}
+	
+	/**
 	 * Sets the default package name.
 	 * @param string $name
 	 */
@@ -285,7 +298,8 @@ class PhpDocumentorTask extends Task
 	function main()
 	{
 		$this->validate();
-		$phpdoc = new PhingPhpDocumentorSetup();
+		$configdir = $this->configDir ? $this->configDir->getAbsolutePath() : null;
+		$phpdoc = new PhingPhpDocumentorSetup($configdir);
 		$this->setPhpDocumentorOptions($phpdoc);
 		//$phpdoc->readCommandLineSettings();
 		$phpdoc->setupConverters($this->output);

@@ -36,13 +36,15 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
 	/**
 	 * Constructs a new PhingPhpDocumentorSetup.
 	 *
+	 * @param string $configDir Directory in which to look for configuration files.
 	 */
-	public function __construct() {
+	public function __construct($configdir = null) {
 		global $_phpDocumentor_cvsphpfile_exts, $_phpDocumentor_setting;
 		
 		$this->setup = new Io();
 		$this->render = new phpDocumentor_IntermediateParser("Default Title");
 		
+		$GLOBALS['_phpDocumentor_install_dir'] = $configdir;
         $this->parseIni();
 		
 		if (tokenizer_ext) {
