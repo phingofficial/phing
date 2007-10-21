@@ -530,8 +530,8 @@ class PhingFile {
      */
     function delete() {
         $fs = FileSystem::getFileSystem();
-        if ($fs->checkAccess($this, true) !== true) {
-            throw new IOException("No read access to " . $this->path."\n");
+        if ($fs->canDelete($this) !== true) {
+            throw new IOException("Cannot delete " . $this->path . "\n"); 
         }
         return $fs->delete($this);
     }
