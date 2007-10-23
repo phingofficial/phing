@@ -517,12 +517,12 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 <pre>&lt;pdo url="pgsql:host=localhost dbname=test">
   &lt;fileset dir=&quot;sqlfiles&quot;&gt;
 	  &lt;include name=&quot;*.sql&quot;/&gt;
-  &lt;/fileset&gt;
-&lt;/pdo&gt;
+  &lt;/fileset&gt;<br />&lt;/pdo&gt;
 </pre>
 
 <pre>&lt;pdo url="mysql:host=localhost;dbname=test" userid="username" password="password">
   &lt;transaction src=&quot;path/to/sqlfile.sql&quot;/&gt;
+  &lt;formatter type=&quot;plain&quot; outfile=&quot;path/to/output.txt&quot;/&gt;
 &lt;/pdo&gt;
 </pre>
 
@@ -581,27 +581,6 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
       <td>No</td>
     </tr>
 	<tr>
-      <td>output</td>
-      <td>File</td>
-      <td>The file to which output should be logged.</td>
-      <td>none</td>
-      <td>No</td>
-    </tr>
-	<tr>
-      <td>print</td>
-      <td>Boolean</td>
-      <td>Whether to print results of query.</td>
-      <td>false</td>
-      <td>No</td>
-    </tr>
-	<tr>
-      <td>showheaders</td>
-      <td>Boolean</td>
-      <td>Whether to show column headers.</td>
-      <td>false</td>
-      <td>No</td>
-    </tr>
-	<tr>
       <td>delimiter</td>
       <td>String</td>
       <td>The delimeter to separate SQL statements (e.g. &quot;GO&quot; in MSSQL)</td>
@@ -627,6 +606,109 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   </li>
   <li>fileset
     <p>Files containing SQL statements.</p>
+  </li>
+  <li>formatter
+  	 <p>The results of any queries that are executed can be printed in different formats.
+    Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false</em>.
+    The path to the output file file can be specified by the <em>outfile</em> attribute; there is a default filename that
+	will be returned by the formatter if no output file is specified.</p>
+    <p>There are three predefined formatters - one prints the query results in XML format,
+    the other emits plain text. Custom formatters that
+    extend phing.tasks.pdo.PDOResultFormatter can be specified.</p>
+	<h3>Attributes</h3>
+	<table>
+	  <thead>
+		<tr>
+		  <th>Name</th>
+		  <th>Type</th>
+		  <th>Description</th>
+		  <th>Default</th>
+		  <th>Required</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+		  <td>type</td>
+		  <td>String</td>
+		  <td> Use a predefined formatter (either <em>xml</em> or <em>plain</em>). </td>
+		  <td>n/a</td>
+		  <td rowspan="2">One of these attributes is required. </td>
+		</tr>
+		<tr>
+		  <td>classname</td>
+		  <td>String</td>
+		  <td> Name of a custom formatter class (must extend phing.tasks.ext.pdo.PDOResultFormatter). </td>
+		  <td>n/a</td>
+		</tr>
+		<tr>
+		  <td>usefile</td>
+		  <td>Boolean</td>
+		  <td> Boolean that determines whether output should be sent to a file. </td>
+		  <td>true</td>
+		  <td>No</td>
+		</tr>
+		<tr>
+		  <td>outfile</td>
+		  <td>File</td>
+		  <td>Path to file in which to store result. </td>
+		  <td>Depends on formatter</td>
+		  <td>No</td>
+		</tr>
+		<tr>
+      <td>showheaders</td>
+      <td>Boolean</td>
+      <td>(only applies to plain formatter) Whether to show column headers.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>coldelim</td>
+      <td>String</td>
+      <td>(only applies to plain formatter) The column delimiter.</td>
+      <td>,</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>rowdelim</td>
+      <td>String</td>
+      <td>(only applies to plain formatter) The row delimiter.</td>
+      <td>\n</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>encoding</td>
+      <td>String</td>
+      <td>(only applies to XML formatter) The xml document encoding.</td>
+      <td>(PHP default)</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>formatoutput</td>
+      <td>Boolean</td>
+      <td>(only applies to XML formatter) Whether to format XML output.</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+	  </tbody>
+	</table>
+	<h3>Examples</h3>
+	<pre>&lt;pdo url="pgsql:host=localhost dbname=test">
+  &lt;fileset dir=&quot;sqlfiles&quot;&gt;
+	  &lt;include name=&quot;*.sql&quot;/&gt;
+  &lt;/fileset&gt;
+
+  &lt;!-- xml formatter --&gt;
+  &lt;formatter type=&quot;xml&quot; output=&quot;output.xml&quot;/&gt;
+  
+  &lt;!-- custom formatter --&gt;
+  &lt;formatter classname=&quot;path.to.CustomFormatterClass&quot;&gt;
+    &lt;param name=&quot;someClassAttrib&quot; value=&quot;some-value&quot;/&gt;
+  &lt;/formatter&gt;
+
+  &lt;!-- No output file + usefile=false means it goes to phing log --&gt;
+  &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot; /&gt;<br />&lt;/pdo&gt;
+</pre>
+	
   </li>
 </ul>
 

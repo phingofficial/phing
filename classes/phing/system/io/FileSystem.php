@@ -127,7 +127,7 @@ abstract class FileSystem {
      * after this method returns.
      */
     abstract function fromURIPath($path);
-
+    
     /* -- Path operations -- */
 
     /**
@@ -190,7 +190,19 @@ abstract class FileSystem {
             return (boolean) @is_writable($strPath);
         }
     }
-
+	
+    /**
+     * Whether file can be deleted.
+     * @param PhingFile $f
+     * @return boolean
+     */
+    function canDelete(PhingFile $f)
+    {
+    	clearstatcache(); 
+ 		$dir = dirname($f->getAbsolutePath()); 
+ 		return (bool) @is_writable($dir); 
+    }
+    
     /**
      * Return the time at which the file or directory denoted by the given
      * abstract pathname was last modified, or zero if it does not exist or

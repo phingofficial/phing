@@ -472,6 +472,18 @@ class Win32FileSystem extends FileSystem {
         return $vv;
     }
 
+	/**
+     * Whether file can be deleted.
+     * 
+     * This is currently returning whether the specified file is
+     * writable.  This is likely wrong for NTFS file systems, but
+     * I'm not sure whether PHP can see the NTFS delete perm ...
+     * 
+     * @param PhingFile $f
+     * @return boolean
+     */
+    abstract function canDelete(PhingFile $f);
+    
 }
 
 ?>

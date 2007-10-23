@@ -263,4 +263,16 @@ class UnixFileSystem extends FileSystem {
         return $p;
     }
     
+    /**
+     * Whether file can be deleted.
+     * @param PhingFile $f
+     * @return boolean
+     */
+    function canDelete(PhingFile $f) 
+ 	{ 
+ 		@clearstatcache(); 
+ 		$dir = dirname($f->getAbsolutePath()); 
+ 		return (bool) @is_writable($dir); 
+	}
+    
 }
