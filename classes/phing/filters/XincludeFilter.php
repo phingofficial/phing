@@ -76,7 +76,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
             return ''; 
         }
        
-        $this->log("Transforming XML " . $this->in->__toString() . " using Xinclude ", Project::MSG_VERBOSE);
+        $this->log("Transforming XML " . $this->in->getResource() . " using Xinclude ", Project::MSG_VERBOSE);
         
         $out = '';
         try {
