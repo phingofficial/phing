@@ -10,6 +10,7 @@ new Array('chapters/appendixes/AppendixC-OptionalTasks.html','Appendix C: Option
 new Array('chapters/appendixes/AppendixD-CoreTypes.html','Appendix D: Core Types'),
 new Array('chapters/appendixes/AppendixD2-CoreFilters.html','Appendix D-2: Core Filters'),
 new Array('chapters/appendixes/AppendixD3-CoreMappers.html','Appendix D-3: Core Mappers'),
+new Array('chapters/appendixes/AppendixD4-CoreSelectors.html','Appendix D: Core Selectors'),
 new Array('chapters/appendixes/AppendixE-ProjectComponents.html','Appendix E: Project Components'),
 new Array('chapters/appendixes/AppendixF-FileFormats.html','Appendix F: File Formats'),
 new Array('chapters/Bibliography.html','Bibliography'));
