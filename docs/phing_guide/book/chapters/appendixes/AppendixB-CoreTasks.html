@@ -1308,7 +1308,77 @@ of evaluating a PHP expression or the result returned by a function/method call.
 		<td>Path to properties file.</td>
 		<td>n/a</td>
 		<td>No</td>
+	</tr>
+  </tbody>
+</table>
 
+<h2><a name="PropertyPromptTask"></a>PropertyPromptTask</h2>
+<p>
+  PropertyPromptTask is a simple task to read in user input into a property.
+  If you need something more advanced, see the <a href="#InputTask">InputTask</a>.
+</p>
+<h3>Example</h3>
+
+<pre>&lt;propertyprompt propertyName=&quot;someprop&quot; defaultValue=&quot;/var/www&quot; 
+		promptText=&quot;Enter your web root&quot; /&gt;
+&lt;echo&gt;${someprop}&lt;/echo&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>propertyName</td>
+      <td>String</td>
+      <td>
+        The name of the Property to set.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>promptText</td>
+      <td>String</td>
+      <td>
+        The text to use for the prompt.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>promptCharacter</td>
+      <td>String</td>
+      <td>
+        The character to use after the prompt.
+      </td>
+      <td>?</td>
+      <td>No</td>
+    </tr>
+	<tr>
+	 <td>defaultValue</td>
+      <td>String</td>
+      <td>
+		A default value to use (if user just hits enter).
+      </td>
+      <td>n/a</td>
+      <td>No</td>
+	</tr>
+	<tr>
+		<td>useExistingValue</td>
+		<td>String</td>
+		<td>Whether existing property should be used if available. (This will
+			result in user only being prompted if the propertyName property is not already set.)</td>
+		<td>false</td>
+		<td>No</td>
+	</tr>
   </tbody>
 </table>
 
