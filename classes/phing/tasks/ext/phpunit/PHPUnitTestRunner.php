@@ -46,10 +46,15 @@ class PHPUnitTestRunner
 	
 	private $project = NULL;
 
-	function __construct($suite, Project $project)
+	private $groups = array();
+	private $excludeGroups = array();
+
+	function __construct($suite, Project $project, $groups = array(), $excludeGroups = array())
 	{
 		$this->suite = $suite;
 		$this->project = $project;
+		$this->groups = $groups;
+		$this->excludeGroups = $excludeGroups;
 		$this->retCode = self::SUCCESS;
 	}
 	
@@ -88,7 +93,7 @@ class PHPUnitTestRunner
 			$res->addListener($formatter);
 		}
 
-		$this->suite->run($res);
+		$this->suite->run($res, false, $this->groups, $this->excludeGroups);
 		
 		if ($this->codecoverage)
 		{
