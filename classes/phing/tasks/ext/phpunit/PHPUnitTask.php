@@ -44,6 +44,8 @@ class PHPUnitTask extends Task
 	private $printsummary = false;
 	private $testfailed = false;
 	private $codecoverage = false;
+	private $groups = array();
+	private $excludeGroups = array();
 
 	/**
 	 * Initialize Task.
@@ -78,6 +80,10 @@ class PHPUnitTask extends Task
 		if (version_compare($version, "3.0.0") >= 0)
 		{
 			PHPUnitUtil::$installedVersion = 3;
+			if (version_compare($version, "3.2.0") >= 0)
+			{
+				PHPUnitUtil::$installedMinorVersion = 2;
+			}
 		}
 		else
 		{
@@ -151,6 +157,36 @@ class PHPUnitTask extends Task
 	function setCodecoverage($codecoverage)
 	{
 		$this->codecoverage = $codecoverage;
+	}
+
+	function setGroups($groups)
+	{
+		if (PHPUnitUtil::$installedVersion < 3 || (PHPUnitUtil::$installedVersion == 3 && PHPUnitUtil::$installedMinorVersion < 2))
+		{
+			$this->log("The 'groups' attribute is only available with PHPUnit 3.2.0 or newer", Project::MSG_WARN);
+		}
+		$token = ' ,;';
+		$this->groups = array();
+		$tok = strtok($groups, $token);
+		while ($tok !== false) {
+			$this->groups[] = $tok;
+			$tok = strtok($token);
+		}
+	}
+
+	function setExcludeGroups($excludeGroups)
+	{
+		if (PHPUnitUtil::$installedVersion < 3 || (PHPUnitUtil::$installedVersion == 3 && PHPUnitUtil::$installedMinorVersion < 2))
+		{
+			$this->log("The 'excludeGroups' attribute is only available with PHPUnit 3.2.0 or newer", Project::MSG_WARN);
+		}
+		$token = ' ,;';
+		$this->excludeGroups = array();
+		$tok = strtok($groups, $token);
+		while ($tok !== false) {
+			$this->excludeGroups[] = $tok;
+			$tok = strtok($token);
+		}
 	}
 
 	/**
@@ -255,7 +291,7 @@ class PHPUnitTask extends Task
 	 */
 	private function execute($suite)
 	{
-		$runner = new PHPUnitTestRunner($suite, $this->project);
+		$runner = new PHPUnitTestRunner($suite, $this->project, $this->groups, $this->excludeGroups);
 		
 		$runner->setCodecoverage($this->codecoverage);
 
