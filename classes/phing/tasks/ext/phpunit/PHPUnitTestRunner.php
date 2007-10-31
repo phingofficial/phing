@@ -117,7 +117,7 @@ class PHPUnitTestRunner
 			$this->retCode = self::ERRORS;
 		}
 
-		else if ($res->failureCount() != 0 || $res->notImplementedCount() != 0)
+		else if ($res->failureCount() != 0 || $res->notImplementedCount() != 0 || $res->skippedCount() != 0)
 		{
 			$this->retCode = self::FAILURES;
 		}
