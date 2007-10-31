@@ -52,15 +52,16 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	
 	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
 	{
-		parent::endTestSuite($suite);
-		
 		$sb = "Testsuite: " . $suite->getName() . "\n";
 		$sb.= "Tests run: " . $this->getRunCount();
 		$sb.= ", Failures: " . $this->getFailureCount();
 		$sb.= ", Errors: " . $this->getErrorCount();
-		$sb.= ", Time elapsed: " . $this->getElapsedTime();
-		$sb.= " sec\n";
+		$sb.= ", Incomplete: " . $this->getIncompleteCount();
+		$sb.= ", Skipped: " . $this->getSkippedCount();
+		$sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
 
+		parent::endTestSuite($suite);
+		
 		if ($this->out != NULL)
 		{
 			$this->out->write($sb);
@@ -85,10 +86,16 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	{
 		parent::addIncompleteTest($test, $e, $time);
 		
-		$this->formatError("INCOMPLETE", $test, $e);
+		$this->formatError("INCOMPLETE", $test);
 	}
 
-	private function formatError($type, PHPUnit_Framework_Test $test, Exception $e)
+	function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+	{
+		parent::addSkippedTest($test, $e, $time);
+		$this->formatError("SKIPPED", $test);
+	}
+
+	private function formatError($type, PHPUnit_Framework_Test $test, Exception $e = null)
 	{
 		if ($test != null)
 		{
