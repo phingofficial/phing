@@ -698,11 +698,13 @@ class DirectoryScanner implements SelectorScanner {
      */
     protected function isSelected($name, $file) {
         if ($this->selectors !== null) {
-            for ($i=0,$size=count($this->selectors); $i < $size; $i++) {
-                if (($this->selectors[$i]->isSelected(new PhingFile($this->basedir), $name, new PhingFile($file))) === false) {
-                    return false;
-                }
-            }
+        	$basedir = new PhingFile($this->basedir);
+        	$file = new PhingFile($file);
+        	foreach($this->selectors as $selector) {
+        		if (!$selector->isSelected($basedir, $name, $file)) {
+        			return false;
+        		}
+        	}
         }
         return true;
     }
