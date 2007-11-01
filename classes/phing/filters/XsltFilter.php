@@ -286,6 +286,28 @@ class XSLTParam {
     }
     
     /**
+     * Sets expression value (alias to the setExpression()) method. 
+     *
+     * @param string $v
+     * @see setExpression()
+     */
+    public function setValue($v)
+    {
+    	$this->setExpression($v);
+    }
+    
+	/**
+     * Gets expression value (alias to the getExpression()) method. 
+     *
+     * @param string $v
+     * @see getExpression()
+     */
+    public function getValue()
+    {
+    	return $this->getExpression();
+    }
+    
+    /**
      * Sets expression value.
      * @param string $expr
      */
