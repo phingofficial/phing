@@ -250,6 +250,18 @@ abstract class SvnBaseTask extends Task
 				}
 			}
 			else
+			if ($mode=='info' )
+			{
+				if (is_file($this->workingCopy))
+				{
+					$this->svnArgs = array($this->workingCopy);
+				}
+				else
+				{
+					throw new BuildException("'".$this->workingCopy."' is not a directory nor a file");
+				}
+			}
+			else
 			{
 				throw new BuildException("'".$this->workingCopy."' is not a directory");
 			}
