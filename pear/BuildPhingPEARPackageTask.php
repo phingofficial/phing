@@ -169,7 +169,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 		
 
 		// "core" dependencies
-		$package->setPhpDep('5.0.0');
+		$package->setPhpDep('5.1.0');
 		$package->setPearinstallerDep('1.4.0');
 		
 		// "package" dependencies
