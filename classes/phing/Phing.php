@@ -751,6 +751,7 @@ class Phing {
 		$msg .= "  -D<property>=<value>   use value for given property" . PHP_EOL;
 		$msg .= "  -find <file>           search for buildfile towards the root of the" . PHP_EOL;
 		$msg .= "                         filesystem and use it" . PHP_EOL;
+		$msg .= "  -inputhandler <file>   the class to use to handle user input" . PHP_EOL;
 		//$msg .= "  -recursive <file>      search for buildfile downwards and use it" . PHP_EOL;
 		$msg .= PHP_EOL;
 		$msg .= "Report bugs to <dev@phing.tigris.org>".PHP_EOL;
