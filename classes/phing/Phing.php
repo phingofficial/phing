@@ -163,11 +163,6 @@ class Phing {
 		try {
 			$m->runBuild();
 		} catch(Exception $exc) {
-			if (self::$msgOutputLevel >= Project::MSG_VERBOSE) {
-				self::$out->write($exc->__toString() . PHP_EOL);
-			} else {
-				self::$out->write($exc->getMessage() . PHP_EOL);
-			}
 			self::handleLogfile();
 			self::halt(1); // Errors occured
 		}
