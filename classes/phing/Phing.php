@@ -25,6 +25,7 @@ require_once 'phing/Target.php';
 require_once 'phing/Task.php';
 
 include_once 'phing/BuildException.php';
+include_once 'phing/ConfigurationException.php';
 include_once 'phing/BuildEvent.php';
 
 include_once 'phing/parser/Location.php';
@@ -163,10 +164,12 @@ class Phing {
 		try {
 			$m->runBuild();
 		} catch(Exception $exc) {
-			if (self::$msgOutputLevel >= Project::MSG_VERBOSE) {
-				self::$out->write($exc->__toString() . PHP_EOL);
-			} else {
-				self::$out->write($exc->getMessage() . PHP_EOL);
+			if ($exc instanceof ConfigurationException) {
+				if (self::$msgOutputLevel >= Project::MSG_VERBOSE) {
+					self::$out->write($exc->__toString() . PHP_EOL);
+				} else {
+					self::$out->write($exc->getMessage() . PHP_EOL);
+				}
 			}
 			self::handleLogfile();
 			self::halt(1); // Errors occured
@@ -301,7 +304,7 @@ class Phing {
 					// see: http://phing.info/trac/ticket/65
 					if (!isset($args[$i+1])) {
 						$msg = "You must specify a log file when using the -logfile argument\n";
-						throw new BuildException($msg);
+						throw new ConfigurationException($msg);
 					} else {
 						$logFile = new PhingFile($args[++$i]);
 						$out = new FileOutputStream($logFile); // overwrite
@@ -311,19 +314,19 @@ class Phing {
 					}
 				} catch (IOException $ioe) {
 					$msg = "Cannot write on the specified log file. Make sure the path exists and you have write permissions.";
-					throw new BuildException($msg, $ioe);
+					throw new ConfigurationException($msg, $ioe);
 				}
 			} elseif ($arg == "-buildfile" || $arg == "-file" || $arg == "-f") {
 				if (!isset($args[$i+1])) {
 					$msg = "You must specify a buildfile when using the -buildfile argument.";
-					throw new BuildException($msg);
+					throw new ConfigurationException($msg);
 				} else {
 					$this->buildFile = new PhingFile($args[++$i]);
 				}
 			} elseif ($arg == "-listener") {
 				if (!isset($args[$i+1])) {
 					$msg = "You must specify a listener class when using the -listener argument";
-					throw new BuildException($msg);
+					throw new ConfigurationException($msg);
 				} else {
 					$this->listeners[] = $args[++$i];
 				}
@@ -341,17 +344,17 @@ class Phing {
 			} elseif ($arg == "-logger") {
 				if (!isset($args[$i+1])) {
 					$msg = "You must specify a classname when using the -logger argument";
-					throw new BuildException($msg);
+					throw new ConfigurationException($msg);
 				} else {
 					$this->loggerClassname = $args[++$i];
 				}
 			} elseif ($arg == "-inputhandler") {
 				if ($this->inputHandlerClassname !== null) {
-					throw new BuildException("Only one input handler class may be specified.");
+					throw new ConfigurationException("Only one input handler class may be specified.");
 				}
 				if (!isset($args[$i+1])) {
 					$msg = "You must specify a classname when using the -inputhandler argument";
-					throw new BuildException($msg);
+					throw new ConfigurationException($msg);
 				} else {
 					$this->inputHandlerClassname = $args[++$i];
 				}
@@ -387,12 +390,12 @@ class Phing {
 		}
 		// make sure buildfile exists
 		if (!$this->buildFile->exists()) {
-			throw new BuildException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
+			throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
 		}
 
 		// make sure it's not a directory
 		if ($this->buildFile->isDirectory()) {
-			throw new BuildException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
+			throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
 		}
 
 		$this->readyToRun = true;
@@ -438,7 +441,7 @@ class Phing {
 			// if parent is null, then we are at the root of the fs,
 			// complain that we can't find the build file.
 			if ($parent === null) {
-				throw new BuildException("Could not locate a build file!");
+				throw new ConfigurationException("Could not locate a build file!");
 			}
 			// refresh our file handle
 			$file = new PhingFile($parent, $suffix);
@@ -560,13 +563,13 @@ class Phing {
 				$msg = "Unable to instantiate specified listener "
 				. "class " . $listenerClassname . " : "
 				. $e->getMessage();
-				throw new BuildException($msg);
+				throw new ConfigurationException($msg);
 			}
 				
 			$listener = new $clz();
 				
 			if ($listener instanceof StreamRequiredBuildLogger) {
-				throw new BuildException("Unable to add " . $listenerClassname . " as a listener, since it requires explicit error/output streams. (You can specify it as a -logger.)");
+				throw new ConfigurationException("Unable to add " . $listenerClassname . " as a listener, since it requires explicit error/output streams. (You can specify it as a -logger.)");
 			}
 			$project->addBuildListener($listener);
 		}
@@ -594,7 +597,7 @@ class Phing {
 				$msg = "Unable to instantiate specified input handler "
 				. "class " . $this->inputHandlerClassname . " : "
 				. $e->getMessage();
-				throw new BuildException($msg);
+				throw new ConfigurationException($msg);
 			}
 		}
 		$project->setInputHandler($handler);
@@ -780,7 +783,7 @@ class Phing {
 			//$buffer = "PHING version 1.0, Released 2002-??-??";
 			$phingVersion = $buffer;
 		} catch (IOException $iox) {
-			throw new BuildException("Can't read version information file");
+			throw new ConfigurationException("Can't read version information file");
 		}
 		return $phingVersion;
 	}
@@ -976,7 +979,7 @@ class Phing {
 				$x = new Exception("for-path-trace-only");
 				$msg .= $x->getTraceAsString();
 			}
-			throw new BuildException($msg);
+			throw new ConfigurationException($msg);
 		}
 	}
 
