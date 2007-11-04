@@ -142,8 +142,6 @@ class XmlLogger implements BuildLogger {
 		
 		$elapsedTime = Phing::currentTimeMillis() - $this->buildTimerStart;
 		
-		print "The build has finished!\n";
-		
 		$this->buildElement->setAttribute(XmlLogger::TIME_ATTR, DefaultLogger::formatTime($elapsedTime));
 		
 		if ($event->getException() != null) {
