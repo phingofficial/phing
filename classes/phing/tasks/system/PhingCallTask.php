@@ -1,7 +1,7 @@
 <?php
 /*
- *  $Id$  
- * 
+ *  $Id$
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,7 +24,7 @@ require_once 'phing/Task.php';
 /**
  * Call another target in the same project.
  *
- *   <pre>
+ * <samp>
  *    <target name="foo">
  *      <phingcall target="bar">
  *        <property name="property1" value="aaaaa" />
@@ -35,10 +35,9 @@ require_once 'phing/Task.php';
  *    <target name="bar" depends="init">
  *      <echo message="prop is ${property1} ${foo}" />
  *    </target>
- *  </pre>
+ * </samp>
  *
- * <p>This only works as expected if neither property1 nor foo are
- *  defined in the project itself.
+ * This only works as expected if neither property1 nor foo are defined in the project itself.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
@@ -48,92 +47,115 @@ require_once 'phing/Task.php';
  */
 class PhingCallTask extends Task {
 
-    private $callee;
-    private $subTarget;
-    // must match the default value of PhingTask#inheritAll
-    private $inheritAll = true;
-    // must match the default value of PhingTask#inheritRefs
-    private $inheritRefs = false;
+	/**
+	 * The called Phing task.
+	 *
+	 * @var PhingTask
+	 */
+	private $callee;
 
-    /**
-     *  If true, pass all properties to the new Phing project.
-     *  Defaults to true. Future use.
-     *  @param boolean new value
-     */
-    function setInheritAll($inherit) {
-        $this->inheritAll = (boolean) $inherit;
-    }
+	/**
+	 * The target to call.
+	 *
+	 * @var string
+	 */
+	private $subTarget;
 
-    /**
-     *  If true, pass all references to the new Phing project.
-     *  Defaults to false. Future use.
-    *
-     *  @param boolean new value
-     */
-    function setInheritRefs($inheritRefs) {
-        $this->inheritRefs = (boolean) $inheritRefs;
-    }
+	/**
+	 * Whether to inherit all properties from current project.
+	 *
+	 * @var boolean
+	 */
+	private $inheritAll = true;
 
-    /**
-     *  init this task by creating new instance of the phing task and
-     *  configuring it's by calling its own init method.
-     */
-    function init() {
-        $this->callee = $this->project->createTask("phing");
-        $this->callee->setOwningTarget($this->getOwningTarget());
-        $this->callee->setTaskName($this->getTaskName());
-        $this->callee->setLocation($this->getLocation());
-        $this->callee->init();
-    }
+	/**
+	 * Whether to inherit refs from current project.
+	 *
+	 * @var boolean
+	 */
+	private $inheritRefs = false;
 
-    /**
-     *  hand off the work to the phing task of ours, after setting it up
-     *  @throws BuildException on validation failure or if the target didn't
-     *  execute
-     */
-    function main() {        
-            
-        $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
-        if ($this->callee === null) {
-            $this->init();
-        }
+	/**
+	 *  If true, pass all properties to the new Phing project.
+	 *  Defaults to true. Future use.
+	 *  @param boolean new value
+	 */
+	function setInheritAll($inherit) {
+		$this->inheritAll = (boolean) $inherit;
+	}
 
-        if ($this->subTarget === null) {
-            throw new BuildException("Attribute target is required.", $this->location);
-        }
-        
-        $this->callee->setPhingfile($this->project->getProperty("phing.file"));
-        $this->callee->setTarget($this->subTarget);
-        $this->callee->setInheritAll($this->inheritAll);
-        $this->callee->setInheritRefs($this->inheritRefs);
-        $this->callee->main();
-    }
+	/**
+	 *  If true, pass all references to the new Phing project.
+	 *  Defaults to false. Future use.
+	 *
+	 *  @param boolean new value
+	 */
+	function setInheritRefs($inheritRefs) {
+		$this->inheritRefs = (boolean) $inheritRefs;
+	}
 
-    /**
-     * Alias for createProperty
-     * @see createProperty()
-     */
-    function createParam() {
-        if ($this->callee === null) {
-            $this->init();
-        }
-        return $this->callee->createProperty();
-    }
-    
-    /**
-     * Property to pass to the invoked target.
-     */
-    function createProperty() {
-        if ($this->callee === null) {
-            $this->init();
-        }
-        return $this->callee->createProperty();
-    }
+	/**
+	 * Alias for createProperty
+	 * @see createProperty()
+	 */
+	function createParam() {
+		if ($this->callee === null) {
+			$this->init();
+		}
+		return $this->callee->createProperty();
+	}
 
-    /**
-     * Target to execute, required.
-     */
-    function setTarget($target) {
-        $this->subTarget = (string) $target;
-    }
+	/**
+	 * Property to pass to the invoked target.
+	 */
+	function createProperty() {
+		if ($this->callee === null) {
+			$this->init();
+		}
+		return $this->callee->createProperty();
+	}
+
+	/**
+	 * Target to execute, required.
+	 */
+	function setTarget($target) {
+		$this->subTarget = (string) $target;
+	}
+
+	/**
+	 *  init this task by creating new instance of the phing task and
+	 *  configuring it's by calling its own init method.
+	 */
+	function init() {
+		$this->callee = $this->project->createTask("phing");
+		$this->callee->setOwningTarget($this->getOwningTarget());
+		$this->callee->setTaskName($this->getTaskName());
+		$this->callee->setHaltOnFailure(true);
+		$this->callee->setLocation($this->getLocation());
+		$this->callee->init();
+	}
+
+	/**
+	 *  hand off the work to the phing task of ours, after setting it up
+	 *  @throws BuildException on validation failure or if the target didn't
+	 *  execute
+	 */
+	function main() {
+
+		$this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
+		if ($this->callee === null) {
+			$this->init();
+		}
+
+		if ($this->subTarget === null) {
+			throw new BuildException("Attribute target is required.", $this->getLocation());
+		}
+
+		$this->callee->setPhingfile($this->project->getProperty("phing.file"));
+		$this->callee->setTarget($this->subTarget);
+		$this->callee->setInheritAll($this->inheritAll);
+		$this->callee->setInheritRefs($this->inheritRefs);
+		$this->callee->main();
+	}
+
 }
