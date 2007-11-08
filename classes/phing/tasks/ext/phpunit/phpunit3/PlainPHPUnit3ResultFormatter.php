@@ -106,7 +106,7 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		
 		if ($e !== null) {
 			$this->inner.= $e->getMessage() . "\n";
-			$this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e) . "\n";
+			$this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e, false) . "\n";
 		}
 	}
 	
