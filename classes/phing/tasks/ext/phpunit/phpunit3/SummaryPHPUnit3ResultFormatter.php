@@ -40,7 +40,7 @@ class SummaryPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		$sb.= ", Skipped: " . $this->getSkippedCount();
 		$sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
 		
-		parent::endTestRun($suite);
+		parent::endTestRun();
 		
 		if ($this->out != NULL)
 		{
