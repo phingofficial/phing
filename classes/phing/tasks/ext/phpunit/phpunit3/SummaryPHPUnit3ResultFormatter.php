@@ -31,7 +31,7 @@ require_once 'phing/tasks/ext/phpunit/phpunit3/PHPUnit3ResultFormatter.php';
  */	
 class SummaryPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 {
-	function endTestRun()
+	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
 	{
 		$sb = "Tests run: " . $this->getRunCount();
 		$sb.= ", Failures: " . $this->getFailureCount();
@@ -40,7 +40,7 @@ class SummaryPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		$sb.= ", Skipped: " . $this->getSkippedCount();
 		$sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
 		
-		parent::endTestRun();
+		parent::endTestSuite($suite);
 		
 		if ($this->out != NULL)
 		{
