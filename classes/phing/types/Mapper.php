@@ -19,8 +19,8 @@
  * <http://phing.info>. 
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/Path.php';
+namespace phing::types;
+use phing::Project;
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).

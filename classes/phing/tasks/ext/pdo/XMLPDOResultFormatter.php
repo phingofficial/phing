@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
+namespace phing::tasks::ext::pdo;
 
 /**
  * XML formatter for PDO results.
@@ -126,7 +125,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter {
 	 */
 	public function getPreferredOutfile()
 	{
-		return new PhingFile('results.xml');
+		return new File('results.xml');
 	}
 	
 	/**

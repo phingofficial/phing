@@ -19,10 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
+namespace phing::tasks::ext::phpunit;
+use phing::Task;
+use phing::Project;
 
 /**
  * Transform a PHPUnit2 xml report using XSLT.
@@ -87,7 +86,7 @@ class PHPUnitReportTask extends Task
 
 		if ($this->styleDir)
 		{
-			$file = new PhingFile($this->styleDir, $xslname);
+			$file = new File($this->styleDir, $xslname);
 		}
 		else
 		{
@@ -103,7 +102,7 @@ class PHPUnitReportTask extends Task
 				}
 			}
 			
-			$file = new PhingFile($path);
+			$file = new File($path);
 		}
 
 		if (!$file->exists())
@@ -119,7 +118,7 @@ class PHPUnitReportTask extends Task
 	 */
 	private function transform(DOMDocument $document)
 	{
-		$dir = new PhingFile($this->toDir);
+		$dir = new File($this->toDir);
 		
 		if (!$dir->exists())
 		{
@@ -136,7 +135,7 @@ class PHPUnitReportTask extends Task
 
 		if ($this->format == "noframes")
 		{
-			$writer = new FileWriter(new PhingFile($this->toDir, "phpunit2-noframes.html"));
+			$writer = new FileWriter(new File($this->toDir, "phpunit2-noframes.html"));
 			$writer->write($proc->transformToXML($document));
 			$writer->close();
 		}
@@ -146,7 +145,7 @@ class PHPUnitReportTask extends Task
 
 			// no output for the framed report
 			// it's all done by extension...
-			$dir = new PhingFile($this->toDir);
+			$dir = new File($this->toDir);
 			$proc->setParameter('', 'output.dir', $dir->getAbsolutePath());
 			$proc->transformToXML($document);
 		}

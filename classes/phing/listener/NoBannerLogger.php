@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
+namespace phing::listener;
+use phing::Project;
 
 /**
  *  Extends DefaultLogger to strip out empty targets.

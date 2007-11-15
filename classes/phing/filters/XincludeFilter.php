@@ -20,8 +20,8 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
+use phing::Project;
 
 /**
  * Applies Xinclude parsing to incoming text.
@@ -37,7 +37,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
 
     private $basedir = null;
 
-    public function setBasedir(PhingFile $dir)
+    public function setBasedir(File $dir)
     {
         $this->basedir = $dir;
     }

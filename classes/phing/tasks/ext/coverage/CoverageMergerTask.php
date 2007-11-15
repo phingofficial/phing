@@ -19,11 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
+namespace phing::tasks::ext::coverage;
+use phing::Task;
+use phing::Project;
 
 /**
  * Merges code coverage snippets into a code coverage database
@@ -66,7 +64,7 @@ class CoverageMergerTask extends Task
 			
 			foreach ($includedFiles as $file)
 			{
-				$fs = new PhingFile(basename($ds->getBaseDir()), $file);
+				$fs = new File(basename($ds->getBaseDir()), $file);
 					
 				$files[] = $fs->getAbsolutePath();
 			}

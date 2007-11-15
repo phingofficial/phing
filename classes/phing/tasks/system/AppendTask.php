@@ -19,9 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/FileList.php';
-include_once 'phing/types/FileSet.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::types::FileSet;
+use phing::system::io::File;
 
 /**
  *  Appends text, contents of a file or set of files defined by a filelist to a destination file.
@@ -71,7 +73,7 @@ class AppendTask extends Task {
     private $text;
     
     /** Sets specific file to append. */
-    function setFile(PhingFile $f) {        
+    function setFile(File $f) {        
         $this->file = $f;
     }
     
@@ -79,16 +81,16 @@ class AppendTask extends Task {
      * Set target file to append to.
      * @deprecated Will be removed with final release.
      */
-    function setTo(PhingFile $f) {        
+    function setTo(File $f) {        
         $this->log("The 'to' attribute is deprecated in favor of 'destFile'; please update your code.", Project::MSG_WARN);
         $this->to = $f;
     }
     
     /**
      * The more conventional naming for method to set destination file.
-     * @param PhingFile $f
+     * @param File $f
      */
-    function setDestFile(PhingFile $f) {        
+    function setDestFile(File $f) {        
         $this->to = $f;
     }
     
@@ -210,16 +212,16 @@ class AppendTask extends Task {
      * Append an array of files in a directory.
      * @param FileWriter $writer The FileWriter that is appending to target file.
      * @param array $files array of files to delete; can be of zero length
-     * @param PhingFile $dir directory to work from
+     * @param File $dir directory to work from
      */
-    private function appendFiles(FileWriter $writer, $files, PhingFile $dir) {
+    private function appendFiles(FileWriter $writer, $files, File $dir) {
         if (!empty($files)) {
             $this->log("Attempting to append " . count($files) . " files" .($dir !== null ? ", using basedir " . $dir->getPath(): ""));
             $basenameSlot = Register::getSlot("task.append.current_file");
             $pathSlot = Register::getSlot("task.append.current_file.path");
             foreach($files as $filename) {
                 try {
-                    $f = new PhingFile($dir, $filename);
+                    $f = new File($dir, $filename);
                     $basenameSlot->setValue($filename);
                     $pathSlot->setValue($f->getPath());
                     $this->appendFile($writer, $f);
@@ -230,7 +232,7 @@ class AppendTask extends Task {
         } // if !empty        
     }
     
-    private function appendFile(FileWriter $writer, PhingFile $f) {
+    private function appendFile(FileWriter $writer, File $f) {
         $in = FileUtils::getChainedReader(new FileReader($f), $this->filterChains, $this->project);
         while(-1 !== ($buffer = $in->read())) { // -1 indicates EOF
             $writer->write($buffer);

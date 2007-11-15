@@ -20,9 +20,7 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/types/TokenSource.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
 
 /*
  * Replaces tokens in the original input with user-supplied values.

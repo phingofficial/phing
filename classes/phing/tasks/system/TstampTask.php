@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
 
 /**
  * Sets properties to the current time, or offsets from the current time.

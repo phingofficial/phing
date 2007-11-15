@@ -20,8 +20,8 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
+use phing::Project;
 
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.
@@ -85,15 +85,15 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader 
     
     /**
      * Sets the root locale directory.
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    function setDir(PhingFile $dir) {
+    function setDir(File $dir) {
         $this->dir = $dir;
     }
     
     /**
      * Gets the root locale directory.
-     * @return PhingFile
+     * @return File
      */
     function getDir() {
         return $this->dir;

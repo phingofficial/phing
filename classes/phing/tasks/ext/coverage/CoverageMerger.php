@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/util/Properties.php';
+namespace phing::tasks::ext::coverage;
 
 /**
  * Saves coverage output of the test to a specified database
@@ -93,7 +93,7 @@ class CoverageMerger
 
 	static function merge($project, $codeCoverageInformation)
 	{
-		$database = new PhingFile($project->getProperty('coverage.database'));
+		$database = new File($project->getProperty('coverage.database'));
 
 		$props = new Properties();
 		$props->load($database);

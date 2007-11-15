@@ -20,9 +20,9 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/system/io/FilterReader.php';
-include_once 'phing/system/io/StringReader.php';
-
+namespace phing::filters;
+use phing::system::io::FilterReader;
+use phing::Project;
 
 /**
  * Base class for core filter readers.

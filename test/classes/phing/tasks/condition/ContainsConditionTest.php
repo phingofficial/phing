@@ -21,7 +21,7 @@
  */
 
 require_once 'PHPUnit2/Framework/TestCase.php';
-include_once 'phing/tasks/system/condition/ContainsCondition.php';
+
 
 /**
  * Testcase for the &lt;contains&gt; condition.

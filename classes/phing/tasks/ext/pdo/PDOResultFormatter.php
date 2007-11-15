@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
+namespace phing::tasks::ext::pdo;
 
 /**
  * Abstract 

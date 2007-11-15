@@ -18,10 +18,10 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
+use phing::util::StringHelper;
 
 /*
  * This filter strips line comments.

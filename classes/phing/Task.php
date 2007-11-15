@@ -19,8 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/RuntimeConfigurable.php';
+namespace phing;
+use phing::parser::Location;
+use phing::system::util::Register;
 
 /**
  * The base class for all Tasks.

@@ -12,7 +12,7 @@ ini_set('include_path', realpath(dirname(__FILE__) . '/classes') . PATH_SEPARATO
 define('PHING_TEST_BASE', dirname(__FILE__));
 
 // STARTUP PHING
-require_once 'phing/Phing.php';
+
 
 Phing::startup();
 
@@ -27,7 +27,7 @@ Phing::startup();
 // ----------------------------------------------------------
 
 $coreSuite = new PHPUnit2_Framework_TestSuite("Phing Core");
-include_once 'phing/IntrospectionHelperTest.php';
+
 $coreSuite->addTestSuite(new ReflectionClass('IntrospectionHelperTest'));
 
 
@@ -37,16 +37,16 @@ $coreSuite->addTestSuite(new ReflectionClass('IntrospectionHelperTest'));
 
 $typesSuite = new PHPUnit2_Framework_TestSuite("Phing Types");
 
-include_once 'phing/types/MapperTest.php';
+
 $typesSuite->addTestSuite(new ReflectionClass('MapperTest'));
 
-include_once 'phing/filters/LineContainsTest.php';
+
 $typesSuite->addTestSuite(new ReflectionClass('LineContainsTest'));
 
-include_once 'phing/types/CommandlineTest.php';
+
 $typesSuite->addTestSuite(new ReflectionClass('CommandlineTest'));
 
-include_once 'phing/types/FileSetTest.php';
+
 $typesSuite->addTestSuite(new ReflectionClass('FileSetTest'));
 
 // ----------------------------------------------------------
@@ -55,17 +55,17 @@ $typesSuite->addTestSuite(new ReflectionClass('FileSetTest'));
 
 $tasksSuite = new PHPUnit2_Framework_TestSuite("Phing Tasks");
 
-include_once 'phing/tasks/TypedefTaskTest.php';
+
 $tasksSuite->addTestSuite(new ReflectionClass('TypedefTaskTest'));
 
 
 // Conditions
-include_once 'phing/tasks/condition/ContainsConditionTest.php';
-include_once 'phing/tasks/condition/EqualsConditionTest.php';
+
+
 $tasksSuite->addTestSuite(new ReflectionClass('ContainsConditionTest'));
 $tasksSuite->addTestSuite(new ReflectionClass('EqualsConditionTest'));
 
-include_once 'phing/tasks/PropertyTaskTest.php';
+
 $tasksSuite->addTestSuite(new ReflectionClass('PropertyTaskTest'));
 
 

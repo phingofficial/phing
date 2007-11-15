@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::input;
+
 /**
  * Plugin to Phing to handle requests for user input.
  *

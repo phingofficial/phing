@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
  
-include_once 'phing/Task.php';
+namespace phing::tasks::ext;
+use phing::Task;
+use phing::Project;
 
 /**
  *  Send a message by mail() 

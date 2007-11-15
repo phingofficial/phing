@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/input/InputRequest.php';
+namespace phing::input;
 
 /**
  * Encapsulates an input request.

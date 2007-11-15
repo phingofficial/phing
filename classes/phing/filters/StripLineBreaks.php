@@ -20,8 +20,7 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
 
 /**
  * Filter to flatten the stream to a single line.

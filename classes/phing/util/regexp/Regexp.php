@@ -19,6 +19,8 @@
  * <http://phing.info>. 
  */
 
+namespace phing::util::regexp;
+
 /**
  * A factory class for regex functions.
  * @author Hans Lellelid <hans@xmpl.org>
@@ -57,10 +59,10 @@ class Regexp {
      */
     function __construct($engineType='preg') {        
         if ($engineType == 'preg') {
-            include_once 'phing/util/regexp/PregEngine.php';
+            
             $this->engine = new PregEngine();
         } elseif ($engineType == 'ereg') {
-            include_once 'phing/util/regexp/EregEngine.php';
+            
             $this->engine = new EregEngine();
         } else {
             throw new BuildException("Invalid engine type for Regexp: " . $engineType);

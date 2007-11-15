@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::parser;
+
 /**
  * Stores the file name and line number of a XML file
  *

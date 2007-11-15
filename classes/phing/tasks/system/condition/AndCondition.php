@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
+namespace phing::tasks::system::condition;
 
 /**
  *  <and> condition container.

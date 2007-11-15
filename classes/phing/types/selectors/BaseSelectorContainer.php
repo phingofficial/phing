@@ -20,8 +20,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/SelectorContainer.php';
-require_once 'phing/types/selectors/BaseSelector.php';
+namespace phing::types::selectors;
+use phing::Project;
+use phing::system::io::File;
 
 /**
  * This is the base class for selectors that can contain other selectors.

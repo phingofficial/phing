@@ -19,10 +19,11 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/Task.php';
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/BufferedWriter.php';
-include_once 'phing/util/StringHelper.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::util::StringHelper;
+use phing::system::io::File;
 
 /**
  * Adds an new entry to a CVS password file.
@@ -65,7 +66,7 @@ class CVSPassTask extends Task {
      * Create a CVS task using the default cvspass file location.
      */
     public function __construct() {
-        $this->passFile = new PhingFile(
+        $this->passFile = new File(
             Phing::getProperty("cygwin.user.home",
                 Phing::getProperty("user.home"))
             . DIRECTORY_SEPARATOR . ".cvspass");
@@ -156,9 +157,9 @@ class CVSPassTask extends Task {
 
     /**
      * Password file to add the entry to.
-     * @param PhingFile $passFile
+     * @param File $passFile
      */
-    public function setPassfile(PhingFile $passFile) {
+    public function setPassfile(File $passFile) {
         $this->passFile = $passFile;
     }
 

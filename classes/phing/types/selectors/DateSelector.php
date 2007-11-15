@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
+namespace phing::types::selectors;
 
 /**
  * Selector that chooses files based on their last modified date. Ant uses
@@ -190,12 +189,12 @@ class DateSelector extends BaseExtendSelector {
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
+     * @param File $basedir the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param PhingFile $file is a PhingFile object the selector can use
+     * @param File $file is a File object the selector can use
      * @return boolean Whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
         $this->validate();
         if ($file->isDirectory() && ($this->includeDirs === false)) {
             return true;

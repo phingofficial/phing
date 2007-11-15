@@ -19,9 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PlainPDOResultFormatter.php';
-require_once 'phing/tasks/ext/pdo/XMLPDOResultFormatter.php';
+namespace phing::tasks::ext::pdo;
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.
@@ -53,7 +51,7 @@ class PDOSQLExecFormatterElement
 
 	/**
 	 * Output file for formatter.
-	 * @var PhingFile
+	 * @var File
 	 */
 	private $outfile;
 
@@ -133,7 +131,7 @@ class PDOSQLExecFormatterElement
     	if ($this->useFile) {
     		$of = $this->getOutfile();
     		if (!$of) {
-    			$of = new PhingFile($this->formatter->getPreferredOutfile());
+    			$of = new File($this->formatter->getPreferredOutfile());
     		}
     		return new FileWriter($of, $this->append);
     	} else {
@@ -218,21 +216,21 @@ class PDOSQLExecFormatterElement
 
 	/**
 	 * Sets the output file for the formatter results.
-	 * @param PhingFile $outFile
+	 * @param File $outFile
 	 */
-	function setOutfile(PhingFile $outfile) {
+	function setOutfile(File $outfile) {
 		$this->outfile = $outfile;
 	}
 
 	/**
 	 * Get the output file.
-	 * @return PhingFile
+	 * @return File
 	 */
 	function getOutfile() {
 		return $this->outfile;
 		/*
 		} else {
-			return new PhingFile($this->formatter->getPreferredOutfile());
+			return new File($this->formatter->getPreferredOutfile());
 		}*/
 	}
 	

@@ -22,15 +22,17 @@ if (getenv('PHP_CLASSPATH')) {
 
 require_once 'phing/Phing.php';
 
+spl_autoload_register(array('phing::Phing', 'autoload'));
+
 /* Setup Phing environment */
-Phing::startup();
+phing::Phing::startup();
 
 /* 
   find phing home directory 
    -- if Phing is installed from PEAR this will probably be null,
    which is fine (I think).  Nothing uses phing.home right now.
 */
-Phing::setProperty('phing.home', getenv('PHING_HOME'));
+phing::Phing::setProperty('phing.home', getenv('PHING_HOME'));
 
 
 /* polish CLI arguments */
@@ -38,12 +40,12 @@ $args = isset($argv) ? $argv : $_SERVER['argv']; // $_SERVER['argv'] seems not t
 array_shift($args); // 1st arg is script name, so drop it
 
 /* fire main application */
-Phing::fire($args);
+phing::Phing::fire($args);
 
 /*
   exit OO system if not already called by Phing
    -- basically we should not need this due to register_shutdown_function in Phing
  */
- Phing::halt(0);
+phing::Phing::halt(0);
 
 ?>

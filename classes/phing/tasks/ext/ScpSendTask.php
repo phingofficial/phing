@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::ext;
+use phing::Task;
+use phing::Project;
 
 /**
  * SCPs a File to a remote server 

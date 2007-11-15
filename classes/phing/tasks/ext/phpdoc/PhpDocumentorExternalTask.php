@@ -20,7 +20,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::ext::phpdoc;
+use phing::Task;
+use phing::Project;
 
 /**
  * Task to run phpDocumentor.

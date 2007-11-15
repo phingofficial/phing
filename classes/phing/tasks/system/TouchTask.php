@@ -19,12 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/util/DirectoryScanner.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/IOException.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::types::FileSet;
+use phing::system::io::File;
 
 /**
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.
@@ -50,7 +49,7 @@ class TouchTask extends Task {
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      */
-    function setFile(PhingFile $file) {        
+    function setFile(File $file) {        
         $this->file = $file;
     }
 
@@ -146,11 +145,11 @@ class TouchTask extends Task {
             $srcDirs = $ds->getIncludedDirectories();
 
             for ($j=0,$_j=count($srcFiles); $j < $_j; $j++) {
-                $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));
+                $this->touchFile(new File($fromDir, (string) $srcFiles[$j]));
             }
             
             for ($j=0,$_j=count($srcDirs); $j < $_j ; $j++) {
-                $this->touchFile(new PhingFile($fromDir, (string) $srcDirs[$j]));
+                $this->touchFile(new File($fromDir, (string) $srcDirs[$j]));
             }
         }
 

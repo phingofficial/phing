@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelector.php';
+namespace phing::types::selectors;
+use phing::system::io::File;
  
 /**
  * Selector that filters files based on whether they are newer than
@@ -73,7 +73,7 @@ class DependSelector extends BaseSelector {
      *
      * @param targetdir the directory to scan looking for files.
      */
-    public function setTargetdir(PhingFile $targetdir) {
+    public function setTargetdir(File $targetdir) {
         $this->targetdir = $targetdir;
     }
 
@@ -122,10 +122,10 @@ class DependSelector extends BaseSelector {
      *
      * @param basedir the base directory the scan is being done from
      * @param filename is the name of the file to check
-     * @param file is a PhingFile object the selector can use
+     * @param file is a File object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
 
         $this->validate();
         
@@ -142,7 +142,7 @@ class DependSelector extends BaseSelector {
             throw new BuildException("Invalid destination file results for " . $this->targetdir . " with filename " . $filename);
         }
         $destname = $destfiles[0];
-        $destfile = new PhingFile($this->targetdir, $destname);
+        $destfile = new File($this->targetdir, $destname);
 
         return SelectorUtils::isOutOfDate($file, $destfile, $this->granularity);
     }

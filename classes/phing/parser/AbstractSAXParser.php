@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::parser;
+
 /**
  * The abstract SAX parser class.
  *

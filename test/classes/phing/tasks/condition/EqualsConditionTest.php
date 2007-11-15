@@ -21,7 +21,7 @@
  */
 
 require_once 'PHPUnit2/Framework/TestCase.php';
-include_once 'phing/tasks/system/condition/EqualsCondition.php';
+
 
 /**
  * Testcase for the &lt;equals&gt; condition.

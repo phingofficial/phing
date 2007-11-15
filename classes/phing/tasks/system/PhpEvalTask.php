@@ -19,7 +19,10 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::util::StringHelper;
 
 /**
  * Executes PHP function or evaluates expression and sets return value to a property.

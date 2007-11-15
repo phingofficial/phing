@@ -20,8 +20,7 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
 
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
@@ -67,7 +66,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader {
         }
 		        
 		// write buffer to a temporary file, since php_strip_whitespace() needs a filename
-		$file = new PhingFile(tempnam(PhingFile::getTempDir(), 'stripwhitespace'));
+		$file = new File(tempnam(File::getTempDir(), 'stripwhitespace'));
 		file_put_contents($file->getAbsolutePath(), $php);
 		$output = php_strip_whitespace($file->getAbsolutePath());
 		unlink($file->getAbsolutePath());

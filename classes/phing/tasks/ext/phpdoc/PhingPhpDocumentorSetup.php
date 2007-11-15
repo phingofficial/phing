@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::tasks::ext::phpdoc;
+
 /**
  * Phing subclass of the phpDocumentor_setup class provided with PhpDocumentor to work around limitations in PhpDocumentor API.
  * 

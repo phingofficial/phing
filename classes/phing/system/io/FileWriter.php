@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/OutputStreamWriter.php';
-require_once 'phing/system/io/FileOutputStream.php';
+namespace phing::system::io;
 
 /**
  * Convenience class for performing file write operations.
@@ -31,7 +30,7 @@ class FileWriter extends OutputStreamWriter {
     
     /**
      * Construct a new FileWriter.
-     * @param mixed $file PhingFile or string pathname.
+     * @param mixed $file File or string pathname.
      * @param boolean $append Append to existing file?
      */
     function __construct($file, $append = false) {

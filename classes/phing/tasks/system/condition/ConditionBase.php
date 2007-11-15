@@ -19,10 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/Project.php';
-include_once 'phing/tasks/system/AvailableTask.php';
-include_once 'phing/tasks/system/condition/Condition.php';
+namespace phing::tasks::system::condition;
+use phing::ProjectComponent;
 
 /**
  *  Abstract baseclass for the <condition> task as well as several
@@ -65,7 +63,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return NotCondition
      */
     function createNot() {
-        include_once 'phing/tasks/system/condition/NotCondition.php';
+        
         $num = array_push($this->conditions, new NotCondition());
         return $this->conditions[$num-1];        
     }
@@ -74,7 +72,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return AndCondition
      */
     function createAnd() {
-        include_once 'phing/tasks/system/condition/AndCondition.php';
+        
         $num = array_push($this->conditions, new AndCondition());
         return $this->conditions[$num-1];
     }
@@ -83,7 +81,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return OrCondition
      */
     function createOr() {
-        include_once 'phing/tasks/system/condition/OrCondition.php';
+        
         $num = array_push($this->conditions, new OrCondition());
         return $this->conditions[$num-1];        
     }
@@ -92,7 +90,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return EqualsCondition
      */
     function createEquals() {
-        include_once 'phing/tasks/system/condition/EqualsCondition.php';  
+          
         $num = array_push($this->conditions, new EqualsCondition());
         return $this->conditions[$num-1];
     }
@@ -101,7 +99,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return OsCondition
      */
     function createOs() {
-        include_once 'phing/tasks/system/condition/OsCondition.php';
+        
         $num = array_push($this->conditions, new OsCondition());
         return $this->conditions[$num-1];
     }
@@ -110,7 +108,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return IsFalseCondition
      */
     function createIsFalse() {
-        include_once 'phing/tasks/system/condition/IsFalseCondition.php';
+        
         $num = array_push($this->conditions, new IsFalseCondition());
         return $this->conditions[$num-1];
     }
@@ -119,7 +117,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return IsTrueCondition
      */
     function createIsTrue() {
-        include_once 'phing/tasks/system/condition/IsTrueCondition.php';
+        
         $num = array_push($this->conditions, new IsTrueCondition());
         return $this->conditions[$num-1];
     }
@@ -128,7 +126,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return ContainsCondition
      */
     function createContains() {
-        include_once 'phing/tasks/system/condition/ContainsCondition.php';
+        
         $num = array_push($this->conditions, new ContainsCondition());
         return $this->conditions[$num-1];
     }
@@ -137,7 +135,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return IsSetCondition
      */
     function createIsSet() {
-        include_once 'phing/tasks/system/condition/IsSetCondition.php';
+        
         $num = array_push($this->conditions, new IsSetCondition());
         return $this->conditions[$num-1];
     }
@@ -146,7 +144,7 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
      * @return ReferenceExistsCondition
      */
     function createReferenceExists() {
-        include_once 'phing/tasks/system/condition/ReferenceExistsCondition.php';
+        
         $num = array_push($this->conditions, new ReferenceExistsCondition());
         return $this->conditions[$num-1];
     }

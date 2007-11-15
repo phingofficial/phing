@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::ext;
+use phing::Task;
+use phing::Project;
 
 /**
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
@@ -36,18 +38,18 @@ class XmlLintTask extends Task {
   /**
    * File to be performed syntax check on
    *
-   * @param PhingFile $file
+   * @param File $file
    */
-  public function setFile(PhingFile $file) {
+  public function setFile(File $file) {
     $this->file = $file;
   }
 
   /**
    * XML Schema Description file to validate against
    *
-   * @param PhingFile $schema
+   * @param File $schema
    */
-  public function setSchema(PhingFile $schema) {
+  public function setSchema(File $schema) {
     $this->schema = $schema;
   }
   
@@ -62,7 +64,7 @@ class XmlLintTask extends Task {
   }
 
   /**
-   * Execute lint check against PhingFile or a FileSet
+   * Execute lint check against File or a FileSet
    */
   public function main() {
     if(!isset($this->schema)) {
@@ -77,7 +79,7 @@ class XmlLintTask extends Task {
     }
 
     set_error_handler(array($this, 'errorHandler'));
-    if($this->file instanceof PhingFile) {
+    if($this->file instanceof File) {
       $this->lint($this->file->getPath());
     } else { // process filesets
       $project = $this->getProject();

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/AbstractFileSet.php';
+namespace phing::types;
+use phing::types::FileSet;
 
 /**
  * Moved out of MatchingTask to make it a standalone object that could

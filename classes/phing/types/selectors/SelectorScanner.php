@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,6 +19,7 @@
  * <http://phing.info>.
  */
 
+namespace phing::types::selectors;
 
 /**
  * An interface used to describe the actions required by any type of

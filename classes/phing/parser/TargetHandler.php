@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/parser/AbstractHandler.php';
+namespace phing::parser;
+use phing::Target;
 
 /**
  * The target handler class.

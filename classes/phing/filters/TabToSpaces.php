@@ -20,8 +20,8 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
-require_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
+
 
 /**
  * Converts tabs to spaces.

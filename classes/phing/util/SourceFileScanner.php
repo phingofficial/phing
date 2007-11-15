@@ -19,6 +19,10 @@
  * <http://phing.info>. 
  */
 
+namespace phing::util;
+use phing::Phing;
+use phing::Project;
+
 /**
  *  Utility class that collects the functionality of the various
  *  scanDir methods that have been scattered in several tasks before.
@@ -87,7 +91,7 @@ class SourceFileScanner {
             $src = null;
             try {
                 if ($srcDir === null) {
-                    $src = new PhingFile($files[$i]);
+                    $src = new File($files[$i]);
                 } else {
                     $src = $this->fileUtils->resolveFile($srcDir, $files[$i]);
                 }
@@ -107,7 +111,7 @@ class SourceFileScanner {
 
                 $dest = null;
                 if ($destDir === null) {
-                    $dest = new PhingFile($targets[$j]);
+                    $dest = new File($targets[$j]);
                 } else {
                     $dest = $this->fileUtils->resolveFile($destDir, $targets[$j]);
                 }
@@ -144,14 +148,14 @@ class SourceFileScanner {
 
     /**
      * Convenience layer on top of restrict that returns the source
-     * files as PhingFile objects (containing absolute paths if srcDir is
+     * files as File objects (containing absolute paths if srcDir is
      * absolute).
      */
     function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper) {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = array();
         for ($i=0; $i<count($res); $i++) {
-            $result[$i] = new PhingFile($srcDir, $res[$i]);
+            $result[$i] = new File($srcDir, $res[$i]);
         }
         return $result;
     }

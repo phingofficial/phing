@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
  
-include_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
 
 /**
  *  Echos a message to the logging system or to a file

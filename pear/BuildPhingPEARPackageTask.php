@@ -19,9 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/tasks/ext/pearpackage/Fileset.php';
+
+
+
 
 /**
  *
@@ -67,7 +67,7 @@ class BuildPhingPEARPackageTask extends MatchingTask {
 		
 		if ($this->packageFile !== null) {
             // create one w/ full path
-            $f = new PhingFile($this->packageFile->getAbsolutePath());
+            $f = new File($this->packageFile->getAbsolutePath());
             $options['packagefile'] = $f->getName();
             // must end in trailing slash
             $options['outputdirectory'] = $f->getParent() . DIRECTORY_SEPARATOR;
@@ -202,7 +202,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
     }
 
     /**
-     * Used by the PEAR_PackageFileManager_PhingFileSet lister.
+     * Used by the PEAR_PackageFileManager_FileSet lister.
      * @return array FileSet[]
      */
     public function getFileSets() {
@@ -251,17 +251,17 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 	}
     /**
      * Sets "dir" property from XML.
-     * @param PhingFile $f
+     * @param File $f
      * @return void
      */
-    public function setDir(PhingFile $f) {
+    public function setDir(File $f) {
         $this->dir = $f;
     }
 
     /**
      * Sets the file to use for generated package.xml
      */
-    public function setDestFile(PhingFile $f) {
+    public function setDestFile(File $f) {
         $this->packageFile = $f;
     }
 

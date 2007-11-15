@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::ext;
+use phing::Task;
+use phing::Project;
 
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
@@ -74,9 +76,9 @@ class ZendCodeAnalyzerTask extends Task {
   /**
    * File to be analyzed
    * 
-   * @param PhingFile $file
+   * @param File $file
    */
-  public function setFile(PhingFile $file) {
+  public function setFile(File $file) {
     $this->file = $file;
   }
   
@@ -118,7 +120,7 @@ class ZendCodeAnalyzerTask extends Task {
   }
 
   /**
-   * Analyze against PhingFile or a FileSet
+   * Analyze against File or a FileSet
    */
   public function main() {
     if(!isset($this->analyzerPath)) {
@@ -128,7 +130,7 @@ class ZendCodeAnalyzerTask extends Task {
       throw new BuildException("Missing either a nested fileset or attribute 'file' set");
     }
     
-    if($this->file instanceof PhingFile) {
+    if($this->file instanceof File) {
       $this->analyze($this->file->getPath());
     } else { // process filesets
       $project = $this->getProject();

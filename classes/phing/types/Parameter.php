@@ -17,9 +17,9 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
-include_once 'phing/types/DataType.php';
+namespace phing::types;
 
 /*
  * A parameter is composed of a name, type and value. Nested

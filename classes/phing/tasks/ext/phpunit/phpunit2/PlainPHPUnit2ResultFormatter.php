@@ -19,10 +19,10 @@
  * <http://phing.info>.
  */
 
+namespace phing::tasks::ext::phpunit::phpunit2;
+
 require_once 'PHPUnit2/Framework/Test.php';
 require_once 'PHPUnit2/Util/Filter.php';
-
-require_once 'phing/tasks/ext/phpunit/phpunit2/PHPUnit2ResultFormatter.php';
 
 /**
  * Prints plain text output of the test to a specified Writer.

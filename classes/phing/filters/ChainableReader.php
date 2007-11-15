@@ -20,6 +20,8 @@
  * <http://phing.info>.
 */
 
+namespace phing::filters;
+
 /**
  * Interface indicating that a reader may be chained to another one.
  *

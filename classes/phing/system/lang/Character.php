@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::system::lang;
+
 /**
  * @package phing.system.lang
  */

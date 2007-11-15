@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -20,9 +19,9 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Reference.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/util/StringHelper.php';
+namespace phing;
+use phing::util::StringHelper;
+
 
 /**
  * Helper class that collects the methods that a task or nested element
@@ -320,7 +319,7 @@ class IntrospectionHelper {
                     $value = StringHelper::booleanValue($value);
                 }
                 
-                // does method expect a PhingFile object? if so, then 
+                // does method expect a File object? if so, then 
                 // pass a project-relative file.
                 $params = $method->getParameters();
 
@@ -332,14 +331,14 @@ class IntrospectionHelper {
                 
                 // there should only be one param; we'll just assume ....
                 if ($classname !== null) {
-                    switch(strtolower($classname)) {
-                        case "phingfile":
+                    switch($classname) {
+                        case "phing::system::io::File":
                             $value = $project->resolveFile($value);
                             break;
-                        case "path":
+                        case "phing::types::Path":
                             $value = new Path($project, $value);
                             break;
-                        case "reference":
+                        case "phing::types::Reference":
                             $value = new Reference($value);
                             break;            
                         // any other object params we want to support should go here ...

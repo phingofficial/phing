@@ -19,12 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
-require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
+namespace phing::tasks::ext::coverage;
+use phing::Task;
+use phing::Project;
 
 /**
  * Transforms information in a code coverage database to XML
@@ -393,7 +390,7 @@ class CoverageReportTask extends Task
 	{
 		$this->log("Transforming coverage report");
 		
-		$database = new PhingFile($this->project->getProperty('coverage.database'));
+		$database = new File($this->project->getProperty('coverage.database'));
 		
 		$props = new Properties();
 		$props->load($database);

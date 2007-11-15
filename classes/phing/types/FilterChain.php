@@ -19,24 +19,8 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/filters/HeadFilter.php';
-include_once 'phing/filters/TailFilter.php';
-include_once 'phing/filters/LineContains.php';
-include_once 'phing/filters/LineContainsRegexp.php';
-include_once 'phing/filters/ExpandProperties.php';
-include_once 'phing/filters/PrefixLines.php';
-include_once 'phing/filters/ReplaceRegexp.php';
-include_once 'phing/filters/ReplaceTokens.php';
-include_once 'phing/filters/StripPhpComments.php';
-include_once 'phing/filters/StripLineBreaks.php';
-include_once 'phing/filters/StripLineComments.php';
-include_once 'phing/filters/StripWhitespace.php';
-include_once 'phing/filters/TabToSpaces.php';
-include_once 'phing/filters/TidyFilter.php';
-include_once 'phing/filters/TranslateGettext.php';
-include_once 'phing/filters/XincludeFilter.php';
-include_once 'phing/filters/XsltFilter.php';
+namespace phing::types;
+use phing::Project;
 
 /*
  * FilterChain may contain a chained set of filter readers.

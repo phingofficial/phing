@@ -20,8 +20,8 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
+use phing::Project;
 
 /**
  * Expands Phing Properties, if any, in the data.

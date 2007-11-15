@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
+namespace phing::types::selectors;
+use phing::system::io::File;
  
 /**
  * This selector has a collection of other selectors, any of which have to
@@ -47,11 +48,11 @@ class OrSelector extends BaseSelectorContainer {
      *
      * @param basedir the base directory the scan is being done from
      * @param filename the name of the file to check
-     * @param file a PhingFile object for the filename that the selector
+     * @param file a File object for the filename that the selector
      * can use
      * @return boolean Whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
         
         $this->validate();
         

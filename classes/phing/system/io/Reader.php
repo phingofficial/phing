@@ -19,6 +19,8 @@
  * <http://phing.info>.
 */
 
+namespace phing::system::io;
+
 /**
  * Abstract class for reading character streams.
  * 

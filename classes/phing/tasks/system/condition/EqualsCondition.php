@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/Condition.php';
+namespace phing::tasks::system::condition;
 
 /**
  *  A simple string comparator.  Compares two strings for eqiality in a

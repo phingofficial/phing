@@ -19,6 +19,8 @@
  * <http://phing.info>. 
  */
 
+namespace phing::system::io;
+
 /**
  * Extends Exception to take advantage of methods therein.
  *

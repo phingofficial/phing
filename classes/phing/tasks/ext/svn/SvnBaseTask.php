@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
  
-include_once 'phing/Task.php';
+namespace phing::tasks::ext::svn;
+use phing::Task;
+use phing::Project;
 
 /**
  * Base class for Subversion tasks

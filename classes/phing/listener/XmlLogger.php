@@ -19,9 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-require_once 'phing/listener/DefaultLogger.php';
-require_once 'phing/system/util/Timer.php';
+namespace phing::listener;
+use phing::Project;
+use phing::system::io::OutputStream;
 
 /**
  * Generates a file in the current directory with

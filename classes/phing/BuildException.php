@@ -19,6 +19,9 @@
  * <http://phing.info>. 
  */
 
+namespace phing;
+use phing::parser::Location;
+
 /**
  * BuildException is for when things go wrong in a build execution.
  *

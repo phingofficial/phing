@@ -20,8 +20,8 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/FileWriter.php';
+namespace phing::system::util;
+use phing::system::io::File;
 
 /**
  * Convenience class for reading and writing property files.
@@ -39,11 +39,11 @@ class Properties {
     /**
      * Load properties from a file.
      *
-     * @param PhingFile $file
+     * @param File $file
      * @return void
      * @throws IOException - if unable to read file.
      */
-    function load(PhingFile $file) {
+    function load(File $file) {
         if ($file->canRead()) {
             $this->parse($file->getPath(), false);                    
         } else {
@@ -143,12 +143,12 @@ class Properties {
     /**
      * Stores current properties to specified file.
      * 
-     * @param PhingFile $file File to create/overwrite with properties.
+     * @param File $file File to create/overwrite with properties.
      * @param string $header Header text that will be placed (within comments) at the top of properties file.
      * @return void
      * @throws IOException - on error writing properties file.
      */
-    function store(PhingFile $file, $header = null) {
+    function store(File $file, $header = null) {
         // stores the properties in this object in the file denoted
         // if file is not given and the properties were loaded from a
         // file prior, this method stores them in the file used by load()        

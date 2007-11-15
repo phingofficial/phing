@@ -19,9 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/SelectorScanner.php'; 
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/types/selectors/SelectorUtils.php';
+namespace phing::util;
+use phing::types::selectors::SelectorScanner;
+use phing::types::selectors::SelectorUtils;
 
 /**
  * Class for scanning a directory for files/directories that match a certain
@@ -699,7 +699,7 @@ class DirectoryScanner implements SelectorScanner {
     protected function isSelected($name, $file) {
         if ($this->selectors !== null) {
             for ($i=0,$size=count($this->selectors); $i < $size; $i++) {
-                if (($this->selectors[$i]->isSelected(new PhingFile($this->basedir), $name, new PhingFile($file))) === false) {
+                if (($this->selectors[$i]->isSelected(new File($this->basedir), $name, new File($file))) === false) {
                     return false;
                 }
             }

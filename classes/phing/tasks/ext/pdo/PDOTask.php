@@ -20,8 +20,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/Reference.php';
+namespace phing::tasks::ext::pdo;
+use phing::Task;
+use phing::Project;
 
 /**
  * Handles PDO configuration needed by SQL type tasks.

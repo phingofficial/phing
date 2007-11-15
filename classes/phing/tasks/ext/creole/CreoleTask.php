@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -20,8 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/types/Reference.php';
+namespace phing::tasks::ext::creole;
+use phing::Task;
+use phing::Project;
 
 /**
  * Handles Creole configuration needed by SQL type tasks.

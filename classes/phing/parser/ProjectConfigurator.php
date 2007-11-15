@@ -19,11 +19,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/BuildException.php';
-include_once 'phing/system/lang/FileNotFoundException.php';
-include_once 'phing/system/io/PhingFile.php';
+namespace phing::parser;
+use phing::Project;
+use phing::system::io::File;
+use phing::system::io::FileReader;
+use phing::system::io::BufferedReader;
+use phing::IntrospectionHelper;
 
 /**
  * The datatype handler class.
@@ -53,7 +54,7 @@ class ProjectConfigurator {
      * @param  object  the buildfile object the parser should use
      * @access public
      */
-    public static function configureProject(Project $project, PhingFile $buildFile) {
+    public static function configureProject(Project $project, File $buildFile) {
         $pc = new ProjectConfigurator($project, $buildFile);
         $pc->parse();
     }
@@ -67,10 +68,10 @@ class ProjectConfigurator {
      * @param  object  the buildfile object the parser should use
      * @access private
      */
-    function __construct(Project $project, PhingFile $buildFile) {
+    function __construct(Project $project, File $buildFile) {
         $this->project = $project;
-        $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
-        $this->buildFileParent = new PhingFile($this->buildFile->getParent());
+        $this->buildFile = new File($buildFile->getAbsolutePath());
+        $this->buildFileParent = new File($this->buildFile->getParent());
     }
 
     /**
@@ -210,7 +211,7 @@ class ProjectConfigurator {
         // the old parsePropertyString() method, since it has more stringent
         // requirements.
         
-        $sb = preg_replace_callback('/\$\{([^}]+)\}/', array('ProjectConfigurator', 'replacePropertyCallback'), $value);
+        $sb = preg_replace_callback('/\$\{([^}]+)\}/', array('phing::parser::ProjectConfigurator', 'replacePropertyCallback'), $value);
         return $sb;        
     }
     

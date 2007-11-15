@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,10 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::types::Reference;
 
 /**
  * Register a task for use within a buildfile.

@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -19,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
-require_once 'phing/tasks/system/condition/Condition.php';
+
+namespace phing::tasks::system::condition;
 
 /**
  * Is one string part of another string?

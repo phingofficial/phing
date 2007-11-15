@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileSystem.php';
+namespace phing::system::io;
+use phing::Phing;
+use phing::util::StringHelper;
 
 /**
  * UnixFileSystem class. This class encapsulates the basic file system functions
@@ -36,7 +38,7 @@ include_once 'phing/system/io/FileSystem.php';
  *
  * FIXME:
  *  - Comments
- *  - Error handling reduced to min, error are handled by PhingFile mainly
+ *  - Error handling reduced to min, error are handled by File mainly
  *
  * @author    Andreas Aderhold, andi@binarycloud.com
  * @version   $Revision: 1.10 $
@@ -172,14 +174,14 @@ class UnixFileSystem extends FileSystem {
         return '/';
     }
 
-    function isAbsolute(PhingFile $f) {
+    function isAbsolute(File $f) {
         return ($f->getPrefixLength() !== 0);
     }
 
     /**
      * the file resolver
      */
-    function resolveFile(PhingFile $f) {
+    function resolveFile(File $f) {
         // resolve if parent is a file oject only
         if ($this->isAbsolute($f)) {
             return $f->getPath();
@@ -215,12 +217,12 @@ class UnixFileSystem extends FileSystem {
      * compares file paths lexicographically
      */
     function compare($f1, $f2) {
-        if ( ($f1 instanceof PhingFile) && ($f2 instanceof PhingFile) ) {
+        if ( ($f1 instanceof File) && ($f2 instanceof File) ) {
             $f1Path = $f1->getPath();
             $f2Path = $f2->getPath();
             return (boolean) strcmp((string) $f1Path, (string) $f2Path);
         } else {
-            throw new Exception("IllegalArgutmentType: Argument is not PhingFile");
+            throw new Exception("IllegalArgutmentType: Argument is not File");
         }
     }
 
@@ -230,7 +232,7 @@ class UnixFileSystem extends FileSystem {
         if (!$this->checkAccess('/', false)) {
             die ("Can not access root");
         }
-        return array(new PhingFile("/"));
+        return array(new File("/"));
     }
 
     /**
@@ -265,10 +267,10 @@ class UnixFileSystem extends FileSystem {
     
     /**
      * Whether file can be deleted.
-     * @param PhingFile $f
+     * @param File $f
      * @return boolean
      */
-    function canDelete(PhingFile $f) 
+    function canDelete(File $f) 
  	{ 
  		@clearstatcache(); 
  		$dir = dirname($f->getAbsolutePath()); 

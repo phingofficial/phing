@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace phing;
+
 /**
  * ConfigurationException is thrown by Phing during the configuration and setup phase of the project.
  *

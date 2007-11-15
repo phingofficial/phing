@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
+namespace phing::tasks::ext::phpunit;
 
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
@@ -49,28 +49,28 @@ class FormatterElement
 		{
 			if (PHPUnitUtil::$installedVersion == 3)
 			{
-				require_once 'phing/tasks/ext/phpunit/phpunit3/SummaryPHPUnit3ResultFormatter.php';
+				
 				$this->formatter = new SummaryPHPUnit3ResultFormatter();
 			}
 			else			
 			{
-				require_once 'phing/tasks/ext/phpunit/phpunit2/SummaryPHPUnit2ResultFormatter.php';
+				
 				$this->formatter = new SummaryPHPUnit2ResultFormatter();
 			}
 		}
 		else
 		if ($this->type == "xml")
 		{
-			$destFile = new PhingFile($this->toDir, 'testsuites.xml');
+			$destFile = new File($this->toDir, 'testsuites.xml');
 
 			if (PHPUnitUtil::$installedVersion == 3)
 			{
-				require_once 'phing/tasks/ext/phpunit/phpunit3/XMLPHPUnit3ResultFormatter.php';
+				
 				$this->formatter = new XMLPHPUnit3ResultFormatter();
 			}
 			else
 			{
-				require_once 'phing/tasks/ext/phpunit/phpunit2/XMLPHPUnit2ResultFormatter.php';
+				
 				$this->formatter = new XMLPHPUnit2ResultFormatter();
 			}
 		}
@@ -79,12 +79,12 @@ class FormatterElement
 		{
 			if (PHPUnitUtil::$installedVersion == 3)
 			{
-				require_once 'phing/tasks/ext/phpunit/phpunit3/PlainPHPUnit3ResultFormatter.php';
+				
 				$this->formatter = new PlainPHPUnit3ResultFormatter();
 			}
 			else
 			{
-				require_once 'phing/tasks/ext/phpunit/phpunit2/PlainPHPUnit2ResultFormatter.php';
+				
 				$this->formatter = new PlainPHPUnit2ResultFormatter();
 			}
 		}

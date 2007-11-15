@@ -21,8 +21,8 @@
  */
  
 require_once 'PHPUnit2/Framework/TestCase.php';
-require_once 'phing/BuildListener.php';
-require_once 'phing/system/io/PhingFile.php';
+
+
 
 /**
  * A BuildFileTest is a TestCase which executes targets from an Ant buildfile 
@@ -175,10 +175,10 @@ abstract class BuildFileTest extends PHPUnit2_Framework_TestCase {
         $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
-        $f = new PhingFile($filename);
+        $f = new File($filename);
         $this->project->setUserProperty( "phing.file" , $f->getAbsolutePath() );
         $this->project->addBuildListener(new PhingTestListener($this));
-        ProjectConfigurator::configureProject($this->project, new PhingFile($filename));
+        ProjectConfigurator::configureProject($this->project, new File($filename));
     }
     
     /**

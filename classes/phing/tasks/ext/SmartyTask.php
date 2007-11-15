@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -20,9 +19,10 @@
  * <http://phing.info>. 
  */
  
-require_once 'phing/Task.php';
-include_once 'phing/BuildException.php';
-include_once 'phing/util/StringHelper.php';
+namespace phing::tasks::ext;
+use phing::Task;
+use phing::Project;
+use phing::util::StringHelper;
 
 /**
  * A phing task for generating output by using Smarty.
@@ -226,11 +226,11 @@ class SmartyTask extends Task {
     /**
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
-     * @param PhingFile $outputDirectory
+     * @param File $outputDirectory
      * @return void
      * @throws Exception
      */
-    public function setOutputDirectory(PhingFile $outputDirectory) {
+    public function setOutputDirectory(File $outputDirectory) {
         try {            
             if (!$outputDirectory->exists()) {
                 $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),Project::MSG_VERBOSE);
@@ -492,7 +492,7 @@ class SmartyTask extends Task {
             $this->context->template_dir = $this->templatePath;
         }                                                        
         
-        $smartyCompilePath = new PhingFile($this->context->compile_dir);
+        $smartyCompilePath = new File($this->context->compile_dir);
         if (!$smartyCompilePath->exists()) {
             $this->log("Compile directory does not exist, creating: " . $smartyCompilePath->getPath(), Project::MSG_VERBOSE);
             if (!$smartyCompilePath->mkdirs()) {
@@ -502,7 +502,7 @@ class SmartyTask extends Task {
         
         // Make sure the output directory exists, if it doesn't
         // then create it.
-        $file = new PhingFile($this->outputDirectory);
+        $file = new File($this->outputDirectory);
         if (!$file->exists()) {
             $this->log("Output directory does not exist, creating: " . $file->getAbsolutePath());
             $file->mkdirs();
@@ -543,7 +543,7 @@ class SmartyTask extends Task {
                     // reset value, and then 
                     // read in teh contents of the file into that var
                     $value = "";
-                    $f = new PhingFile($project->resolveFile($value)->getCanonicalPath());                        
+                    $f = new File($project->resolveFile($value)->getCanonicalPath());                        
                     if ($f->exists()) {
                         try {
                             $fr = new FileReader($f);

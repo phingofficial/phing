@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/Task.php' ;
+namespace phing::tasks::ext::dbdeploy;
+use phing::Task;
+use phing::Project;
 
 /**
  *  Generate SQL script for db using dbdeploy schema version table and delta scripts

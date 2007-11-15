@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,6 +19,9 @@
  * <http://phing.info>.
  */
 
+namespace phing::types::selectors;
+use phing::Project;
+use phing::system::io::File;
 
 /**
  * This is the interface for selectors that can contain other selectors.

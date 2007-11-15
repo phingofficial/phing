@@ -19,12 +19,11 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/lang/Character.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/BufferedWriter.php';
-include_once 'phing/filters/util/ChainReaderHelper.php';
-include_once 'phing/system/io/PhingFile.php';
+namespace phing::util;
+use phing::Project;
+use phing::system::lang::Character;
+use phing::system::io::File;
+use phing::system::io::FileSystem;
 
 /**
  * File utility class.
@@ -63,15 +62,15 @@ class FileUtils {
     /**
      * Copies a file using filter chains.
      * 
-     * @param PhingFile $sourceFile
-     * @param PhingFile $destFile
+     * @param File $sourceFile
+     * @param File $destFile
      * @param boolean $overwrite
      * @param boolean $preserveLastModified
      * @param array $filterChains 
      * @param Project $project
      * @return void
      */
-    function copyFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false, $preserveLastModified = true, &$filterChains = null, Project $project) {
+    function copyFile(File $sourceFile, File $destFile, $overwrite = false, $preserveLastModified = true, &$filterChains = null, Project $project) {
        
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
             if ($destFile->exists() && $destFile->isFile()) {
@@ -119,7 +118,7 @@ class FileUtils {
      *         ./ or ../ sequences (same for \ instead of /).
      * @param  $filename a file name
      *
-     * @return PhingFile A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
+     * @return File A File object pointing to an absolute file that doesn't contain ./ or ../ sequences
      *         and uses the correct separator for the current platform.
      */
     function resolveFile($file, $filename) {
@@ -132,14 +131,14 @@ class FileUtils {
         // deal with absolute files
         if (StringHelper::startsWith($fs->getSeparator(), $filename) ||
                 (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')) {
-            return new PhingFile($this->normalize($filename));
+            return new File($this->normalize($filename));
         }
 
         if (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':') {
-            return new PhingFile($this->normalize($filename));
+            return new File($this->normalize($filename));
         }
 
-        $helpFile = new PhingFile($file->getAbsolutePath());
+        $helpFile = new File($file->getAbsolutePath());
 
         $tok = strtok($filename, $fs->getSeparator());
         while ($tok !== false) {
@@ -150,15 +149,15 @@ class FileUtils {
                     $msg = "The file or path you specified ($filename) is invalid relative to ".$file->getPath();
                     throw new IOException($msg);
                 }
-                $helpFile = new PhingFile($parentFile);
+                $helpFile = new File($parentFile);
             } else if ($part === '.') {
                 // Do nothing here
             } else {
-                $helpFile = new PhingFile($helpFile, $part);
+                $helpFile = new File($helpFile, $part);
             }
             $tok = strtok($fs->getSeparator());
         }
-        return new PhingFile($helpFile->getAbsolutePath());
+        return new File($helpFile->getAbsolutePath());
     }
 
     /**
@@ -274,7 +273,7 @@ class FileUtils {
     /**
      * @return boolean Whether contents of two files is the same.
      */
-    public function contentEquals(PhingFile $file1, PhingFile $file2) {
+    public function contentEquals(File $file1, File $file2) {
         
         if (!($file1->exists() || $file2->exists())) {
             return false;

@@ -19,8 +19,9 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/IntrospectionHelper.php';
-include_once 'phing/TaskContainer.php';
+namespace phing::parser;
+use phing::IntrospectionHelper;
+use phing::RuntimeConfigurable;
 
 /**
  * The nested element handler class.

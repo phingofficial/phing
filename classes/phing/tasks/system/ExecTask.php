@@ -20,7 +20,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::system::io::File;
 
 /**
  * Executes a command on the shell.
@@ -191,9 +194,9 @@ class ExecTask extends Task {
     
     /**
      * Specify the working directory for executing this command.
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    function setDir(PhingFile $dir) {
+    function setDir(File $dir) {
         $this->dir = $dir;
     }
     
@@ -207,17 +210,17 @@ class ExecTask extends Task {
     
     /**
      * File to which output should be written.
-     * @param PhingFile $output
+     * @param File $output
      */
-    function setOutput(PhingFile $f) {
+    function setOutput(File $f) {
         $this->output = $f;
     }
     
     /**
      * File to which error output should be written.
-     * @param PhingFile $output
+     * @param File $output
      */
-    function setError(PhingFile $f) {
+    function setError(File $f) {
         $this->error = $f;
     }
     

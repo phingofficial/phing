@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,8 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/Parameterizable.php';
-require_once 'phing/types/selectors/FileSelector.php';
+namespace phing::types::selectors;
 
 /**
  * This is the interface to be used by all custom selectors, those that are

@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/FileSet.php';
+namespace phing::tasks::ext::phpunit;
 
 /**
  * Scans a list of files given by the fileset attribute, extracts

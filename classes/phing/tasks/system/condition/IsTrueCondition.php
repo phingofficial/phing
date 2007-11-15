@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
+namespace phing::tasks::system::condition;
 
 /**
  * Condition that tests whether a given string evals to true.

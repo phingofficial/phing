@@ -19,6 +19,8 @@
  * <http://phing.info>. 
  */
 
+namespace phing::system::io;
+
 /**
  * Wrapper class for PHP stream that supports read operations.
  * 

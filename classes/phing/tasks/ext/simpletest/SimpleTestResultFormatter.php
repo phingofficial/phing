@@ -19,9 +19,11 @@
  * <http://phing.info>.
  */
 
+namespace phing::tasks::ext::simpletest;
+
+// FIXME - move this require_once() into a init block somewhere ...
 require_once 'simpletest/scorer.php';
 
-require_once 'phing/system/io/Writer.php';
 
 /**
  * This abstract class describes classes that format the results of a SimpleTest testrun.

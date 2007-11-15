@@ -18,9 +18,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ExtractBaseTask.php';
-require_once 'phing/system/io/FileSystem.php';
-require_once 'phing/lib/Zip.php';
+namespace phing::tasks::ext;
+use phing::Project;
 
 /**
  * Extracts one or several zip archive using PEAR Archive_Zip (which is presently unreleased
@@ -33,7 +32,7 @@ require_once 'phing/lib/Zip.php';
  */
 class UnzipTask extends ExtractBaseTask {
     
-    protected function extractArchive(PhingFile $zipfile)
+    protected function extractArchive(File $zipfile)
     {
         $extractParams = array('add_path' => $this->todir->getAbsolutePath());
         if(!empty($this->removepath))
@@ -60,7 +59,7 @@ class UnzipTask extends ExtractBaseTask {
         }
     }
     
-    protected function listArchiveContent(PhingFile $zipfile)
+    protected function listArchiveContent(File $zipfile)
     {
         $zip = new Archive_Zip($zipfile->getAbsolutePath());
         return $zip->listContent();

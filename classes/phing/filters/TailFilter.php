@@ -20,7 +20,7 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/filters/BaseParamFilterReader.php';
+namespace phing::filters;
 
 /**
  * Reads the last <code>n</code> lines of a stream. (Default is last10 lines.)

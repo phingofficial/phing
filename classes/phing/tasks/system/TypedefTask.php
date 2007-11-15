@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
 
 /**
  * Register a datatype for use within a buildfile.

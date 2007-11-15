@@ -19,8 +19,8 @@
  * <http://phing.info>. 
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/BuildException.php';
+namespace phing::types;
+use phing::ProjectComponent;
 
 /**
  * Base class for those classes that can appear inside the build file

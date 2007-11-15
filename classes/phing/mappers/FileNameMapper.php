@@ -19,6 +19,8 @@
  * <http://phing.info>. 
  */
 
+namespace phing::mappers;
+
 /**
  * Interface for filename mapper classes.
  *

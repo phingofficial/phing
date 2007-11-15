@@ -22,7 +22,7 @@
 
 
 require_once 'PHPUnit2/Framework/TestCase.php';
-include_once 'phing/types/Commandline.php';
+
 
 
 /**

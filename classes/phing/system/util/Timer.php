@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 
+namespace phing::system::util;
 
 /**
  * This class can be used to obtain the execution time of all of the scripts

@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::tasks::system::condition;
+
 /**
  * Condition interface specification:
  *

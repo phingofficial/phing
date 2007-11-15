@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
+namespace phing::tasks::ext::pearpackage;
 
 /**
  * Builds list of files for PEAR_PackageFileManager using a Phing FileSet.
@@ -115,7 +115,7 @@ class PEAR_PackageFileManager_Fileset {
                     $ext = '';
                 }
                 
-                $f = new PhingFile($basedir, $file);
+                $f = new File($basedir, $file);
                 
                 $struc[$path][] = array('file' => basename($file),
                                         'ext' => $ext,

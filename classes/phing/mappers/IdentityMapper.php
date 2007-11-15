@@ -19,7 +19,7 @@
  * <http://phing.info>. 
  */
 
-require_once 'phing/mappers/FileNameMapper.php';
+namespace phing::mappers;
 
 /**
  * This mapper does nothing ;)

@@ -19,11 +19,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/lib/Zip.php';
+namespace phing::tasks::ext;
+use phing::tasks::system::MatchingTask;
+use phing::Project;
+use phing::types::FileSet;
 
 /**
  * Creates a zip archive using PEAR Archive_Zip (which is presently unreleased
@@ -37,12 +36,12 @@ include_once 'phing/lib/Zip.php';
 class ZipTask extends MatchingTask {
     
 	/**
-	 * @var PhingFile
+	 * @var File
 	 */
     private $zipFile;
     
     /**
-     * @var PhingFile
+     * @var File
      */
     private $baseDir;
 	
@@ -66,17 +65,17 @@ class ZipTask extends MatchingTask {
 
     /**
      * Set is the name/location of where to create the zip file.
-     * @param PhingFile $destFile The output of the zip
+     * @param File $destFile The output of the zip
      */
-    public function setDestFile(PhingFile $destFile) {
+    public function setDestFile(File $destFile) {
         $this->zipFile = $destFile;
     }
 
     /**
      * This is the base directory to look in for things to zip.
-     * @param PhingFile $baseDir
+     * @param File $baseDir
      */
-    public function setBasedir(PhingFile $baseDir) {
+    public function setBasedir(File $baseDir) {
         $this->baseDir = $baseDir;
     }
 
@@ -142,7 +141,7 @@ class ZipTask extends MatchingTask {
                     $upToDate = false;
                 }
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
-                    if ($this->zipFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
+                    if ($this->zipFile->equals(new File($fs->getDir($this->project), $files[$i]))) {
                         throw new BuildException("A zip file cannot include itself", $this->getLocation());
                     }
                 }
@@ -166,7 +165,7 @@ class ZipTask extends MatchingTask {
                 
                 $filesToZip = array();
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
-                    $f = new PhingFile($fsBasedir, $files[$i]);
+                    $f = new File($fsBasedir, $files[$i]);
                     $filesToZip[] = $f->getAbsolutePath();
                     $this->log("Adding " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);                        
                 }
@@ -185,7 +184,7 @@ class ZipTask extends MatchingTask {
            
     /**
      * @param array $files array of filenames
-     * @param PhingFile $dir
+     * @param File $dir
      * @return boolean
      */
     protected function archiveIsUpToDate($files, $dir) {

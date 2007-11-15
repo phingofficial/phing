@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
+namespace phing::tasks::ext::coverage;
 
 /**
  * Transform a Phing/Xdebug code coverage xml report.
@@ -62,7 +59,7 @@ class CoverageReportTransformer
 
 	function transform()
 	{
-        $dir = new PhingFile($this->toDir);
+        $dir = new File($this->toDir);
 
         if (!$dir->exists())
         {
@@ -91,7 +88,7 @@ class CoverageReportTransformer
 
 		if ($this->styleDir)
 		{
-			$file = new PhingFile($this->styleDir, $xslname);
+			$file = new File($this->styleDir, $xslname);
 		}
 		else
 		{
@@ -107,7 +104,7 @@ class CoverageReportTransformer
 				}
 			}
 			
-			$file = new PhingFile($path);
+			$file = new File($path);
 		}
 
 		if (!$file->exists())

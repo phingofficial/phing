@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
+namespace phing::tasks::system::condition;
+use phing::util::StringHelper;
 
 /**
  *  Condition that tests the OS type.

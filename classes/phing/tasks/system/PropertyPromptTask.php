@@ -19,8 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/ConsoleReader.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
 
 /**
  * Deprecated task that uses console to prompt user for property values.

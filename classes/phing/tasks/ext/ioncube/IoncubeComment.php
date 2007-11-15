@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::tasks::ext::ioncube;
+
 /**
  * Wrapper for comments for ionCube tasks
  *

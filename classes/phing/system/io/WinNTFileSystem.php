@@ -19,7 +19,7 @@
  * <http://phing.info>. 
  */
 
-include_once 'phing/system/io/Win32FileSystem.php';
+namespace phing::system::io;
 
 /**
  * FileSystem for Windows NT/2000.

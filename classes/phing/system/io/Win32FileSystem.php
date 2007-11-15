@@ -19,7 +19,9 @@
  * <http://phing.info>. 
  */
 
-include_once 'phing/system/io/FileSystem.php';
+namespace phing::system::io;
+use phing::Project;
+use phing::util::StringHelper;
 
 /**
  *  @package   phing.system.io

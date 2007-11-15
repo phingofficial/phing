@@ -20,8 +20,7 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
 
 /**
  * Attaches a prefix to every line.

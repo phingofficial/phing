@@ -19,11 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/input/InputRequest.php';
-include_once 'phing/input/YesNoInputRequest.php';
-include_once 'phing/input/MultipleChoiceInputRequest.php';
- 
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::util::StringHelper;
+
 /**
  * Reads input from the InputHandler.
  * 

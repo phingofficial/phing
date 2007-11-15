@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,8 @@
  * <http://phing.info>.
  */
  
-include_once 'phing/types/AbstractFileSet.php';
+namespace phing::types;
+use phing::types::FileSet;
 
 /**
  * Subclass as hint for supporting tasks that the included directories

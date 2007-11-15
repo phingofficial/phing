@@ -19,8 +19,7 @@
  * <http://phing.info>. 
  */
  
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/Reader.php';
+namespace phing::system::io;
 
 /**
  * Writer class for OutputStream objects.

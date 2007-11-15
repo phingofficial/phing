@@ -19,9 +19,10 @@
  * <http://phing.info>.
  */
 
+namespace phing::tasks::ext::phpunit::phpunit3;
+
 require_once 'PHPUnit/Util/Log/XML.php';
 
-require_once 'phing/tasks/ext/phpunit/phpunit3/PHPUnit3ResultFormatter.php';
 
 /**
  * Prints XML output of the test to a specified Writer

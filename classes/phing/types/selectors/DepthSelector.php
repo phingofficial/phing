@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/types/selectors/BaseExtendSelector.php';
+namespace phing::types::selectors;
+use phing::system::io::File;
 
 /**
  * Selector that filters files based on the how deep in the directory
@@ -113,10 +114,10 @@ class DepthSelector extends BaseExtendSelector {
      *
      * @param basedir the base directory the scan is being done from
      * @param filename is the name of the file to check
-     * @param file is a PhingFile object the selector can use
+     * @param file is a File object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
 
         $this->validate();
 

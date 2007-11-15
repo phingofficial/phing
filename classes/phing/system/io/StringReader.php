@@ -19,6 +19,8 @@
  * <http://phing.info>. 
  */
 
+namespace phing::system::io;
+
 /**
  * Dummy class for reading from string of characters. 
  * @package phing.system.io

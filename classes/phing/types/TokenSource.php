@@ -19,8 +19,8 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/types/DataType.php';
-include_once 'phing/util/StringHelper.php';
+namespace phing::types;
+use phing::Project;
 
 /**
  * A parameter is composed of a name, type and value.

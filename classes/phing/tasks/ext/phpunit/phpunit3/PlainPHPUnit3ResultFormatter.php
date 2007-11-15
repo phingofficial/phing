@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/phpunit3/PHPUnit3ResultFormatter.php';
+namespace phing::tasks::ext::phpunit::phpunit3;
 
 /**
  * Prints plain text output of the test to a specified Writer.
@@ -120,4 +120,3 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		}
 	}
 }
-?>

@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::types;
+
 /**
  * Parameterizable objects take genric key value pairs.
  *

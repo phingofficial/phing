@@ -19,12 +19,15 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/IdentityMapper.php';
-include_once 'phing/mappers/FlattenMapper.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::types::FileSet;
+use phing::util::FileUtils;
+use phing::system::io::File;
+use phing::mappers::IdentityMapper;
+use phing::mappers::FlattenMapper;
+use phing::util::SourceFileScanner;
 
 /**
  * A phing copy task.  Copies a file or directory to a new file
@@ -124,11 +127,11 @@ class CopyTask extends Task {
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string/object  The source file. Either a string or an PhingFile object
+     * @param  string/object  The source file. Either a string or an File object
      * @return void
      * @access public
      */
-    function setFile(PhingFile $file) {        
+    function setFile(File $file) {        
         $this->file = $file;
     }
 
@@ -138,11 +141,11 @@ class CopyTask extends Task {
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string/object  The dest file. Either a string or an PhingFile object
+     * @param  string/object  The dest file. Either a string or an File object
      * @return void
      * @access public
      */
-    function setTofile(PhingFile $file) {       
+    function setTofile(File $file) {       
         $this->destFile = $file;
     }
 
@@ -152,11 +155,11 @@ class CopyTask extends Task {
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string/object  The directory, either a string or an PhingFile object
+     * @param  string/object  The directory, either a string or an File object
      * @return void
      * @access public
      */
-    function setTodir(PhingFile $dir) {        
+    function setTodir(File $dir) {        
         $this->destDir = $dir;
     }
 
@@ -211,7 +214,7 @@ class CopyTask extends Task {
         if ($this->file !== null) {
             if ($this->file->exists()) {
                 if ($this->destFile === null) {
-                    $this->destFile = new PhingFile($this->destDir, (string) $this->file->getName());
+                    $this->destFile = new File($this->destDir, (string) $this->file->getName());
                 }
                 if ($this->overwrite === true || ($this->file->lastModified() > $this->destFile->lastModified())) {
                     $this->fileCopyMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
@@ -279,7 +282,7 @@ class CopyTask extends Task {
         }
 
         if ($this->destFile !== null) {
-            $this->destDir = new PhingFile($this->destFile->getParent());
+            $this->destDir = new File($this->destFile->getParent());
         }
     }
 
@@ -328,9 +331,9 @@ class CopyTask extends Task {
         }
 
         for ($i=0,$_i=count($toCopy); $i < $_i; $i++) {
-            $src  = new PhingFile($fromDir, $toCopy[$i]);
+            $src  = new File($fromDir, $toCopy[$i]);
             $mapped = $mapper->main($toCopy[$i]);
-            $dest = new PhingFile($toDir, $mapped[0]);
+            $dest = new File($toDir, $mapped[0]);
             $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
         }
     }
@@ -367,8 +370,8 @@ class CopyTask extends Task {
                 $this->log("From ".$from." to ".$to, $this->verbosity);
                 try { // try to copy file
 				
-					$fromFile = new PhingFile($from);
-					$toFile = new PhingFile($to);
+					$fromFile = new File($from);
+					$toFile = new File($to);
 					
                     $fromSlot->setValue($fromFile->getPath());
 					$fromBasenameSlot->setValue($fromFile->getName());
@@ -390,7 +393,7 @@ class CopyTask extends Task {
             $destdirs = array_values($this->dirCopyMap);
             $count = 0;
             foreach ($destdirs as $destdir) {
-                $d = new PhingFile((string) $destdir);
+                $d = new File((string) $destdir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
                         $this->log("Unable to create directory " . $d->__toString(), Project::MSG_ERR);

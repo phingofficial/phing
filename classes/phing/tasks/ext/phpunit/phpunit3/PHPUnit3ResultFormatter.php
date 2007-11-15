@@ -19,9 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Framework/TestListener.php';
+namespace phing::tasks::ext::phpunit::phpunit3;
 
-require_once 'phing/system/io/Writer.php';
+require_once 'PHPUnit/Framework/TestListener.php';
 
 /**
  * This abstract class describes classes that format the results of a PHPUnit2 testrun.

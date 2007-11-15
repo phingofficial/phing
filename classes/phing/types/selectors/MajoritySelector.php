@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+namespace phing::types::selectors;
+use phing::system::io::File;
 
 /**
  * This selector is here just to shake up your thinking a bit. Don't get
@@ -59,11 +61,11 @@ class MajoritySelector extends BaseSelectorContainer {
      *
      * @param basedir the base directory the scan is being done from
      * @param filename is the name of the file to check
-     * @param file is a PhingFile object for the filename that the selector
+     * @param file is a File object for the filename that the selector
      * can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
         
         $this->validate();
         

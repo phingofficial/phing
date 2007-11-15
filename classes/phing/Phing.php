@@ -19,33 +19,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Project.php';
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/Target.php';
-require_once 'phing/Task.php';
-
-include_once 'phing/BuildException.php';
-include_once 'phing/ConfigurationException.php';
-include_once 'phing/BuildEvent.php';
-
-include_once 'phing/parser/Location.php';
-include_once 'phing/parser/ExpatParser.php';
-include_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/parser/ProjectConfigurator.php';
-include_once 'phing/parser/RootHandler.php';
-include_once 'phing/parser/ProjectHandler.php';
-include_once 'phing/parser/TaskHandler.php';
-include_once 'phing/parser/TargetHandler.php';
-include_once 'phing/parser/DataTypeHandler.php';
-include_once 'phing/parser/NestedElementHandler.php';
-
-include_once 'phing/system/util/Properties.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/OutputStream.php';
-include_once 'phing/system/io/FileOutputStream.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/util/Register.php';
+namespace phing;
+use phing::system::io::OutputStream;
+use phing::system::util::Properties;
+use phing::util::StringHelper;
+use phing::system::io::File;
+use phing::system::io::FileReader;
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -69,7 +48,7 @@ class Phing {
 	/** Our current message output status. Follows Project::MSG_XXX */
 	private static $msgOutputLevel = Project::MSG_INFO;
 
-	/** PhingFile that we are using for configuration */
+	/** File that we are using for configuration */
 	private $buildFile = null;
 
 	/** The build targets */
@@ -127,7 +106,32 @@ class Phing {
 	 * @var boolean Whether we are using a logfile.
 	 */
 	private static $isLogFileUsed = false;
-
+	
+	/**
+	 * Enter description here...
+	 *
+	 * @param string $clazz Class that was requested.
+	 */
+	public static function autoload($clazz)
+	{
+		
+		
+		$file = str_replace('::', DIRECTORY_SEPARATOR, $clazz) . '.php';
+		
+		foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
+			if (is_readable($path . DIRECTORY_SEPARATOR . $file)) {
+				// print "Autloaded: $file\n";
+				require $path . DIRECTORY_SEPARATOR . $file;
+				return true;
+			}
+		}
+		
+		print "Failed to autoload: " . $clazz . "\n";
+		// print new Exception('trace');
+		
+		return false;
+	}
+	
 	/**
 	 * Entry point allowing for more options from other front ends.
 	 *
@@ -306,7 +310,7 @@ class Phing {
 						$msg = "You must specify a log file when using the -logfile argument\n";
 						throw new ConfigurationException($msg);
 					} else {
-						$logFile = new PhingFile($args[++$i]);
+						$logFile = new File($args[++$i]);
 						$out = new FileOutputStream($logFile); // overwrite
 						self::setOutputStream($out);
 						self::setErrorStream($out);
@@ -321,7 +325,7 @@ class Phing {
 					$msg = "You must specify a buildfile when using the -buildfile argument.";
 					throw new ConfigurationException($msg);
 				} else {
-					$this->buildFile = new PhingFile($args[++$i]);
+					$this->buildFile = new File($args[++$i]);
 				}
 			} elseif ($arg == "-listener") {
 				if (!isset($args[$i+1])) {
@@ -385,7 +389,7 @@ class Phing {
 			if ($this->searchForThis !== null) {
 				$this->buildFile = $this->_findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
 			} else {
-				$this->buildFile = new PhingFile(self::DEFAULT_BUILD_FILENAME);
+				$this->buildFile = new File(self::DEFAULT_BUILD_FILENAME);
 			}
 		}
 		// make sure buildfile exists
@@ -404,14 +408,14 @@ class Phing {
 	/**
 	 * Helper to get the parent file for a given file.
 	 *
-	 * @param PhingFile $file
-	 * @return PhingFile Parent file or null if none
+	 * @param File $file
+	 * @return File Parent file or null if none
 	 */
-	private function _getParentFile(PhingFile $file) {
+	private function _getParentFile(File $file) {
 		$filename = $file->getAbsolutePath();
-		$file     = new PhingFile($filename);
+		$file     = new File($filename);
 		$filename = $file->getParent();
-		return ($filename === null) ? null : new PhingFile($filename);
+		return ($filename === null) ? null : new File($filename);
 	}
 
 	/**
@@ -424,14 +428,14 @@ class Phing {
 	 *
 	 * @param string $start Start file path.
 	 * @param string $suffix Suffix filename to look for in parents.
-	 * @return PhingFile A handle to the build file
+	 * @return File A handle to the build file
 	 *
 	 * @throws BuildException    Failed to locate a build file
 	 */
 	private function _findBuildFile($start, $suffix) {
-		$startf = new PhingFile($start);
-		$parent = new PhingFile($startf->getAbsolutePath());
-		$file   = new PhingFile($parent, $suffix);
+		$startf = new File($start);
+		$parent = new File($startf->getAbsolutePath());
+		$file   = new File($parent, $suffix);
 
 		// check if the target file exists in the current directory
 		while (!$file->exists()) {
@@ -444,7 +448,7 @@ class Phing {
 				throw new ConfigurationException("Could not locate a build file!");
 			}
 			// refresh our file handle
-			$file = new PhingFile($parent, $suffix);
+			$file = new File($parent, $suffix);
 		}
 		return $file;
 	}
@@ -462,7 +466,7 @@ class Phing {
 		$project = new Project();
 
 		self::setCurrentProject($project);
-		set_error_handler(array('Phing', 'handlePhpError'));
+		//set_error_handler(array('phing::Phing', 'handlePhpError'));
 
 		$error = null;
 
@@ -496,7 +500,7 @@ class Phing {
 		// from the given build file.
 
 		try {
-			ProjectConfigurator::configureProject($project, $this->buildFile);
+			phing::parser::ProjectConfigurator::configureProject($project, $this->buildFile);
 		} catch (Exception $exc) {
 			$project->fireBuildFinished($exc);
 			restore_error_handler();
@@ -557,20 +561,13 @@ class Phing {
 		$project->addBuildListener($this->createLogger());
 
 		foreach($this->listeners as $listenerClassname) {
-			try {
-				$clz = Phing::import($listenerClassname);
-			} catch (Exception $x) {
-				$msg = "Unable to instantiate specified listener "
-				. "class " . $listenerClassname . " : "
-				. $e->getMessage();
-				throw new ConfigurationException($msg);
-			}
-				
-			$listener = new $clz();
+			
+			$listener = new $listenerClassname();
 				
 			if ($listener instanceof StreamRequiredBuildLogger) {
 				throw new ConfigurationException("Unable to add " . $listenerClassname . " as a listener, since it requires explicit error/output streams. (You can specify it as a -logger.)");
 			}
+			
 			$project->addBuildListener($listener);
 		}
 	}
@@ -585,10 +582,10 @@ class Phing {
 	 */
 	private function addInputHandler(Project $project) {
 		if ($this->inputHandlerClassname === null) {
-			$handler = new DefaultInputHandler();
+			$handler = new phing::input::DefaultInputHandler();
 		} else {
 			try {
-				$clz = Phing::import($this->inputHandlerClassname);
+				$clz = $this->inputHandlerClassname;
 				$handler = new $clz();
 				if ($project !== null && method_exists($handler, 'setProject')) {
 					$handler->setProject($project);
@@ -609,13 +606,10 @@ class Phing {
 	 */
 	private function createLogger() {
 		if ($this->loggerClassname !== null) {
-			self::import($this->loggerClassname);
-			// get class name part
-			$classname = self::import($this->loggerClassname);
-			$logger = new $classname;
+			$classname = $this->loggerClassname;
+			$logger = new $classname();
 		} else {
-			require_once 'phing/listener/DefaultLogger.php';
-			$logger = new DefaultLogger();
+			$logger = new phing::listener::DefaultLogger();
 		}
 		$logger->setMessageOutputLevel(self::$msgOutputLevel);
 		$logger->setOutputStream(self::$out);
@@ -777,7 +771,7 @@ class Phing {
 		}
 		try { // try to read file
 			$buffer = null;
-			$file = new PhingFile($versionPath);
+			$file = new File($versionPath);
 			$reader = new FileReader($file);
 			$reader->readInto($buffer);
 			$buffer = trim($buffer);
@@ -922,7 +916,7 @@ class Phing {
 		// 1- temporarily replace escaped '.' with another illegal char (#)
 		$tmp = str_replace('\.', '##', $dotClassname);
 		// 2- swap out the remaining '.' with DIR_SEP
-		$tmp = strtr($tmp, '.', DIRECTORY_SEPARATOR);
+		$tmp = strtr($tmp, '::', DIRECTORY_SEPARATOR);
 		// 3- swap back the escaped '.'
 		$tmp = str_replace('##', '.', $tmp);
 
@@ -1223,8 +1217,7 @@ class Phing {
 	 */
 	public static function getTimer() {
 		if (self::$timer === null) {
-			include_once 'phing/system/util/Timer.php';
-			self::$timer= new Timer();
+			self::$timer= new phing::system::util::Timer();
 		}
 		return self::$timer;
 	}
@@ -1236,7 +1229,7 @@ class Phing {
 	 */
 	public static function startup() {
 			
-		register_shutdown_function(array('Phing', 'shutdown'));
+		register_shutdown_function(array('phing::Phing', 'shutdown'));
 
 		// setup STDOUT and STDERR defaults
 		self::initializeOutputStreams();

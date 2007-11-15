@@ -19,19 +19,14 @@
  * <http://phing.info>.
  */
 
-// DEPRECATED logging constants
-define('PROJECT_MSG_DEBUG', Project::MSG_DEBUG);
-define('PROJECT_MSG_VERBOSE', Project::MSG_VERBOSE);
-define('PROJECT_MSG_INFO', Project::MSG_INFO);
-define('PROJECT_MSG_WARN', Project::MSG_WARN);
-define('PROJECT_MSG_ERR', Project::MSG_ERR);
+namespace phing;
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/TaskAdapter.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/BuildEvent.php';
-include_once 'phing/input/DefaultInputHandler.php';
+use phing::util::FileUtils;
+use phing::listener::BuildListener;
+use phing::input::InputHandler;
+use phing::system::util::Properties;
+use phing::system::io::File;
+use phing::util::StringHelper;
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -93,7 +88,7 @@ class Project {
     
     /* -- properties that come in via xml attributes -- */
     
-    /** basedir (PhingFile object) */
+    /** basedir (File object) */
     private $basedir;
     
     /** the default target name */
@@ -116,7 +111,7 @@ class Project {
      */
     function __construct() {
         $this->fileUtils = new FileUtils();
-        $this->inputHandler = new DefaultInputHandler();
+        $this->inputHandler = new phing::input::DefaultInputHandler();
     }
 
     /**
@@ -143,7 +138,7 @@ class Project {
         
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new PhingFile((string)$taskdefs);
+            $in = new File((string)$taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -164,7 +159,7 @@ class Project {
 
         try { // try to load typedefs
             $props = new Properties();
-            $in    = new PhingFile((string)$typedefs);
+            $in    = new File((string)$typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }
@@ -441,13 +436,13 @@ class Project {
 
     /** Set basedir object from xml*/
     function setBasedir($dir) {
-        if ($dir instanceof PhingFile) {
+        if ($dir instanceof File) {
             $dir = $dir->getAbsolutePath();
         }
 
         $dir = $this->fileUtils->normalize($dir);
 
-        $dir = new PhingFile((string) $dir);
+        $dir = new File((string) $dir);
         if (!$dir->exists()) {
             throw new BuildException("Basedir ".$dir->getAbsolutePath()." does not exist");
         }
@@ -465,7 +460,7 @@ class Project {
     /**
      * Returns the basedir of this project
      *
-     * @returns  PhingFile  Basedir PhingFile object
+     * @returns  File  Basedir File object
      * @access   public
      * @throws   BuildException
      * @author   Andreas Aderhold, andi@binarycloud.com

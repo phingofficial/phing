@@ -19,7 +19,7 @@
  * <http://phing.info>. 
  */
 
-require_once 'phing/mappers/FileNameMapper.php';
+namespace phing::mappers;
 
 /**
  * Removes any directory information from the passed path.
@@ -38,7 +38,7 @@ class FlattenMapper implements FileNameMapper {
      * @return array The data after the mapper has been applied
      */
     function main($sourceFileName) {
-        $f = new PhingFile($sourceFileName);
+        $f = new File($sourceFileName);
         return array($f->getName());
     }
 

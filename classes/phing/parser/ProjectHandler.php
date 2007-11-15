@@ -19,8 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-require_once 'phing/system/io/PhingFile.php';
+namespace phing::parser;
+use phing::Project;
 
 /**
  * Handler class for the <project> XML element This class handles all elements
@@ -114,7 +114,7 @@ class ProjectHandler extends AbstractHandler {
                 $project->setBasedir($buildFileParent->getAbsolutePath());
             } else {
                 // check whether the user has specified an absolute path
-                $f = new PhingFile($baseDir);
+                $f = new File($baseDir);
                 if ($f->isAbsolute()) {
                     $project->setBasedir($baseDir);
                 } else {

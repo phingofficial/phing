@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/tasks/ext/phpunit/phpunit3/PHPUnit3ResultFormatter.php';
+namespace phing::tasks::ext::phpunit::phpunit3;
 
 /**
  * Prints short summary output of the test to Phing's logging system.
@@ -54,4 +54,3 @@ class SummaryPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		return NULL;
 	}
 }
-?>

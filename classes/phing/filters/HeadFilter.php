@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$  
  * 
@@ -20,8 +19,7 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
 
 /**
  * Reads the first <code>n</code> lines of a stream.

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,8 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/StringHelper.php';
+namespace phing::types::selectors;
+use phing::system::io::File;
 
 /**
  * Selector that selects files by forwarding the request on to other classes.
@@ -112,7 +112,7 @@ class ExtendSelector extends BaseSelector {
      *
      * @throws BuildException
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
         
         $this->validate();
         

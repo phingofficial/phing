@@ -19,8 +19,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/tasks/system/condition/ConditionBase.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::system::io::File;
 
 /**
  *  <available> task.
@@ -54,7 +56,7 @@ class AvailableTask extends Task {
         $this->value = (string) $value;
     }
 
-    function setFile(PhingFile $file) {
+    function setFile(File $file) {
         $this->file = $file;
     }
 
@@ -105,7 +107,7 @@ class AvailableTask extends Task {
             $paths = $this->filepath->listDir();
             for($i=0,$pcnt=count($paths); $i < $pcnt; $i++) {
                 $this->log("Searching " . $paths[$i], Project::MSG_VERBOSE);
-                $tmp = new PhingFile($paths[$i], $this->file->getName());
+                $tmp = new File($paths[$i], $this->file->getName());
                 if($tmp->isFile()) {
                     return true;
                 }
@@ -126,7 +128,7 @@ class AvailableTask extends Task {
     }
 
     function _checkResource($resource) {
-        return $this->_checkFile1(new PhingFile(Phing::getResourcePath($resource)));
+        return $this->_checkFile1(new File(Phing::getResourcePath($resource)));
     }
 
 }

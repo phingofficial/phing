@@ -20,8 +20,12 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/system/util/Properties.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::types::Reference;
+use phing::util::StringHelper;
+use phing::system::io::File;
 
 /**
  * Task for setting properties in buildfiles.
@@ -89,12 +93,12 @@ class PropertyTask extends Task {
     /** Set a file to use as the source for properties. */
     function setFile($file) {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->file = $file;
     }
     
-    /** Get the PhingFile that is being used as property source. */
+    /** Get the File that is being used as property source. */
     function getFile() {
         return $this->file;
     }
@@ -294,9 +298,9 @@ class PropertyTask extends Task {
 
     /**
      * load properties from a file.
-     * @param PhingFile $file
+     * @param File $file
      */
-    protected function loadFile(PhingFile $file) {
+    protected function loadFile(File $file) {
         $props = new Properties();
         $this->log("Loading ". $file->getAbsolutePath(), Project::MSG_INFO);
         try { // try to load file

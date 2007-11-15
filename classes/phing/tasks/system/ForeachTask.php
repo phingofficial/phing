@@ -19,8 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/tasks/system/PhingTask.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
 
 /**
  * <foreach> task

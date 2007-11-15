@@ -19,10 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/util/LogWriter.php';
+namespace phing::tasks::ext::phpunit;
+use phing::Task;
+use phing::Project;
+use phing::io::Writer;
+use phing::util::LogWriter;
 
 /**
  * Runs PHPUnit2/3 tests.
@@ -230,7 +231,7 @@ class PHPUnitTask extends Task
 
 			if ($fe->getUseFile())
 			{
-				$destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+				$destFile = new File($fe->getToDir(), $fe->getOutfile());
 				
 				$writer = new FileWriter($destFile->getAbsolutePath());
 
@@ -346,4 +347,3 @@ class PHPUnitTask extends Task
 		return $batchtest;
 	}
 }
-?>

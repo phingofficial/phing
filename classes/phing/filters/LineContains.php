@@ -20,9 +20,7 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
 
 /**
  * Filter which includes only those lines that contain all the user-specified

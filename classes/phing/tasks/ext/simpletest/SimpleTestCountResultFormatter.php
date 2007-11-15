@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
+namespace phing::tasks::ext::simpletest;
 
 /**
  * Dummy result formatter used to count SimpleTest results

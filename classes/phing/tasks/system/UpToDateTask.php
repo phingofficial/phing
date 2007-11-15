@@ -19,11 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/util/DirectoryScanner.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::tasks::system::condition::Condition;
+use phing::types::FileSet;
+use phing::system::io::File;
 
 /**
  * Sets the given property if the specified target has a timestamp
@@ -81,7 +81,7 @@ class UpToDateTask extends Task implements Condition {
      */
     public function setTargetFile($file) {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->_targetFile = $file;
     }
@@ -94,7 +94,7 @@ class UpToDateTask extends Task implements Condition {
      */
     public function setSrcfile($file) {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->_sourceFile = $file;
     }
@@ -200,7 +200,7 @@ class UpToDateTask extends Task implements Condition {
         }
     }
 
-    protected function scanDir(PhingFile $srcDir, $files) {
+    protected function scanDir(File $srcDir, $files) {
         $sfs = new SourceFileScanner($this);
         $mapper = null;
         $dir = $srcDir;

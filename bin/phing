@@ -80,7 +80,7 @@ if (test -z "$PHP_CLASSPATH") ; then
 	export PHP_CLASSPATH
 fi
 
-phing_exec_cmd="exec $PHP_COMMAND -d html_errors=off -qC \"$PHING_HOME/bin/phing.php\" -logger phing.listener.AnsiColorLogger $phing_exec_args"
+phing_exec_cmd="exec $PHP_COMMAND -d html_errors=off -qC \"$PHING_HOME/bin/phing.php\" -logger phing::listener::AnsiColorLogger $phing_exec_args"
 if $phing_exec_debug ; then
   echo $phing_exec_cmd
 fi

@@ -19,33 +19,14 @@
  * <http://phing.info>. 
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/PatternSet.php';
-include_once 'phing/types/selectors/BaseSelector.php';
-include_once 'phing/types/selectors/SelectorContainer.php';
-include_once 'phing/types/selectors/BaseSelectorContainer.php';
-
-// Load all of the selectors (not really necessary but
-// helps reveal parse errors right away)
-
-include_once 'phing/types/selectors/AndSelector.php';
-include_once 'phing/types/selectors/ContainsSelector.php';
-include_once 'phing/types/selectors/ContainsRegexpSelector.php';
-include_once 'phing/types/selectors/DateSelector.php';
-include_once 'phing/types/selectors/DependSelector.php';
-include_once 'phing/types/selectors/DepthSelector.php';
-include_once 'phing/types/selectors/ExtendSelector.php';
-include_once 'phing/types/selectors/FilenameSelector.php';
-include_once 'phing/types/selectors/MajoritySelector.php';
-include_once 'phing/types/selectors/NoneSelector.php';
-include_once 'phing/types/selectors/NotSelector.php';
-include_once 'phing/types/selectors/OrSelector.php';
-include_once 'phing/types/selectors/PresentSelector.php';
-include_once 'phing/types/selectors/SizeSelector.php';
-include_once 'phing/types/selectors/TypeSelector.php';
-
-include_once 'phing/util/DirectoryScanner.php';
+namespace phing::types;
+use phing::Project;
+use phing::types::selectors::SelectorContainer;
+use phing::types::selectors::SelectorScanner;
+use phing::types::selectors::FileSelector;
+use phing::types::FileSet;
+use phing::system::io::File;
+use phing::util::DirectoryScanner;
 
 /**
  * The FileSet class provides methods and properties for accessing
@@ -122,10 +103,10 @@ class AbstractFileSet extends DataType implements SelectorContainer {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($dir instanceof PhingFile) {
+        if ($dir instanceof File) {
             $dir = $dir->getPath();
         }
-        $this->dir = new PhingFile((string) $dir);
+        $this->dir = new File((string) $dir);
     }
 
 

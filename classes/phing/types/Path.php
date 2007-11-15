@@ -19,9 +19,9 @@
  * <http://phing.info>. 
  */
 
-require_once 'phing/types/DataType.php';
-include_once 'phing/util/PathTokenizer.php';
-include_once 'phing/types/FileSet.php';
+namespace phing::types;
+use phing::types::FileSet;
+use phing::Project;
 
 /**
  * This object represents a path as used by include_path or PATH
@@ -72,7 +72,7 @@ class Path extends DataType {
      * @param Project $project
      * @param string $path (for use by IntrospectionHelper)
      */
-    public function __construct($project = null, $path = null) {
+    public function __construct(Project $project = null, $path = null) {
         if ($project !== null) {
             $this->setProject($project);
         }
@@ -87,7 +87,7 @@ class Path extends DataType {
      * <code>null</code> nor empty.
      * @throws BuildException
      */
-    public function setDir(PhingFile $location) {
+    public function setDir(File $location) {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }        
@@ -200,7 +200,7 @@ class Path extends DataType {
             if ($this->project !== null) {
                 $f = $this->project->resolveFile($el);
             } else {
-                $f = new PhingFile($el);
+                $f = new File($el);
             }
 
             if ($f->exists()) {
@@ -262,7 +262,7 @@ class Path extends DataType {
                 $dirstrs = $ds->getIncludedDirectories();
                 $dir = $dset->getDir($this->project);
                 foreach($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d = new File($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
                 var_dump($result);
@@ -271,7 +271,7 @@ class Path extends DataType {
                 $dirstrs = $fl->getFiles($this->project);
                 $dir = $fl->getDir($this->project);
                 foreach($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d = new File($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
             }
@@ -439,7 +439,7 @@ class PathElement {
         $this->outer = $outer;
     }
     
-    public function setDir(PhingFile $loc) {
+    public function setDir(File $loc) {
         $this->parts = array(Path::translateFile($loc->getAbsolutePath()));
     }
 

@@ -19,9 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/simpletest/SimpleTestPlainResultFormatter.php';
-require_once 'phing/tasks/ext/simpletest/SimpleTestSummaryResultFormatter.php';
-require_once 'phing/tasks/ext/phpunit2/FormatterElement.php';
+namespace phing::tasks::ext::simpletest;
 
 /**
  * Child class of "FormatterElement", overrides setType to provide other
@@ -40,7 +38,7 @@ class SimpleTestFormatterElement extends FormatterElement
 
 		if ($this->type == "xml")
 		{
-			$destFile = new PhingFile($this->toDir, 'testsuites.xml');
+			$destFile = new File($this->toDir, 'testsuites.xml');
 			//$this->formatter = new SimpleTestXmlResultFormatter();
 		}
 		else

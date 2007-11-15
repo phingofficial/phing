@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace phing;
+
 /**
  *  Abstract interface for objects which can contain tasks (targets)
  *  Used to check if a class can contain tasks (via instanceof)

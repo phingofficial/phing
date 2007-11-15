@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/NoneSelector.php';
+namespace phing::types::selectors;
 
 /**
  * This selector has one other selectors whose meaning it inverts. It

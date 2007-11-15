@@ -19,7 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::types::FileSet;
+use phing::system::io::File;
 
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
@@ -43,17 +47,17 @@ class DeleteTask extends Task {
 	
     /** 
      * Set the name of a single file to be removed.
-     * @param PhingFile $file
+     * @param File $file
      */
-    function setFile(PhingFile $file) {       
+    function setFile(File $file) {       
         $this->file = $file;
     }
 
     /** 
      * Set the directory from which files are to be deleted.
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    function setDir(PhingFile $dir) {
+    function setDir(File $dir) {
         $this->dir = $dir;
     }
 
@@ -183,7 +187,7 @@ class DeleteTask extends Task {
     
     /**
      * Recursively removes a directory.
-     * @param PhingFile $d The directory to remove.
+     * @param File $d The directory to remove.
      */
     private function removeDir($d) {
         $list = $d->listDir();
@@ -192,7 +196,7 @@ class DeleteTask extends Task {
         }
         
         foreach($list as $s) {
-            $f = new PhingFile($d, $s);
+            $f = new File($d, $s);
             if ($f->isDirectory()) {
                 $this->removeDir($f);
             } else {
@@ -225,15 +229,15 @@ class DeleteTask extends Task {
     /**
      * remove an array of files in a directory, and a list of subdirectories
      * which will only be deleted if 'includeEmpty' is true
-     * @param PhingFile $d directory to work from
+     * @param File $d directory to work from
      * @param array &$files array of files to delete; can be of zero length
      * @param array &$dirs array of directories to delete; can of zero length
      */
-    private function removeFiles(PhingFile $d, &$files, &$dirs) {
+    private function removeFiles(File $d, &$files, &$dirs) {
         if (count($files) > 0) {
             $this->log("Deleting " . count($files) . " files from " . $d->__toString());
             for ($j=0,$_j=count($files); $j < $_j; $j++) {
-                $f = new PhingFile($d, $files[$j]);
+                $f = new File($d, $files[$j]);
                 $this->log("Deleting " . $f->getAbsolutePath(), $this->verbosity);
                 try {
                     $f->delete();
@@ -252,7 +256,7 @@ class DeleteTask extends Task {
         if (count($dirs) > 0 && $this->includeEmpty) {
             $dirCount = 0;
             for ($j=count($dirs)-1; $j>=0; --$j) {
-                $dir = new PhingFile($d, $dirs[$j]);
+                $dir = new File($d, $dirs[$j]);
                 $dirFiles = $dir->listDir();
                 if ($dirFiles === null || count($dirFiles) === 0) {
                     $this->log("Deleting " . $dir->__toString(), $this->verbosity);

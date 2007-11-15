@@ -1,5 +1,4 @@
 <?php
-
 /*
  * $Id$
  *
@@ -20,7 +19,9 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/selectors/BaseExtendSelector.php';
+namespace phing::types::selectors;
+use phing::system::io::File;
+use phing::system::io::File;
 
 /**
  * Selector that filters files based on whether they contain a
@@ -110,10 +111,10 @@ class ContainsSelector extends BaseExtendSelector {
      *
      * @param basedir the base directory the scan is being done from
      * @param filename is the name of the file to check
-     * @param file a PhingFile object the selector can use
+     * @param file a File object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
 
         $this->validate();
 

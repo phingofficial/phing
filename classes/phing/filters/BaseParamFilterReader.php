@@ -20,9 +20,7 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/types/Parameterizable.php';
-include_once 'phing/types/Parameter.php';
+namespace phing::filters;
 
 /**
  * Base class for core filter readers.

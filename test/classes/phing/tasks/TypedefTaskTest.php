@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/BuildFileTest.php';
+
 
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)

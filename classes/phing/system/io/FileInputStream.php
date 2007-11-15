@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/InputStream.php';
-require_once 'phing/system/io/PhingFile.php';
+namespace phing::system::io;
 
 /**
  * Input stream subclass for file streams.
@@ -30,7 +29,7 @@ require_once 'phing/system/io/PhingFile.php';
 class FileInputStream extends InputStream {
 	
 	/**
-	 * @var PhingFile The associated file.
+	 * @var File The associated file.
 	 */
 	protected $file;
 	
@@ -41,10 +40,10 @@ class FileInputStream extends InputStream {
      * @throws IOException - if unable to open file.
      */
     public function __construct($file, $append = false) {
-    	if ($file instanceof PhingFile) {
+    	if ($file instanceof File) {
             $this->file = $file;
         } elseif (is_string($file)) {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }

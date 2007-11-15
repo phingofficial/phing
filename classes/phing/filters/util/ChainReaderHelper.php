@@ -17,16 +17,10 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
-include_once 'phing/Project.php';
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/types/PhingFilterReader.php';
-include_once 'phing/types/FilterChain.php';
-include_once 'phing/types/Parameter.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters::util;
+use phing::Project;
 
 /**
  * Process a FilterReader chain.

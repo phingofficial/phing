@@ -18,8 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
-require_once 'phing/BuildListener.php';
+
+namespace phing::listener;
+use phing::Project;
 
 /**
  * Writes build messages to PEAR Log.

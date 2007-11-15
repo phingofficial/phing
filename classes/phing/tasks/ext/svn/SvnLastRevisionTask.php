@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
+namespace phing::tasks::ext::svn;
 
 /**
  * Stores the number of the last revision of a workingcopy in a property

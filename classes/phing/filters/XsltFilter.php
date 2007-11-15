@@ -20,8 +20,8 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
+namespace phing::filters;
+use phing::Project;
 
 /**
  * Applies XSL stylesheet to incoming text.
@@ -89,9 +89,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         
     /**
      * Set the XSLT stylesheet.
-     * @param mixed $file PhingFile object or path.
+     * @param mixed $file File object or path.
      */
-    function setStyle(PhingFile $file) {
+    function setStyle(File $file) {
         $this->xslFile = $file;
     }
 

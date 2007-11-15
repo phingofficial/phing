@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
  
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
+namespace phing::types::selectors;
+use phing::system::io::File;
 
 /**
  * This selector has a collection of other selectors. All of those selectors
@@ -52,7 +53,7 @@ class NoneSelector extends BaseSelectorContainer {
      * can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(File $basedir, $filename, File $file) {
         
         $this->validate();
         

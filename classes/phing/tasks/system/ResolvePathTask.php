@@ -19,7 +19,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::system::io::File;
 
 /**
  * Task for resolving relative paths and setting absolute path in property value.
@@ -64,9 +67,9 @@ class ResolvePathTask extends Task {
     
     /**
      * Sets a base dir to use for resolution.
-     * @param PhingFile $d
+     * @param File $d
      */
-    function setDir(PhingFile $d) {
+    function setDir(File $d) {
         $this->dir = $d;
     }
     
@@ -108,8 +111,8 @@ class ResolvePathTask extends Task {
         // if dir attribute was specified then we should
         // use that as basedir to which file was relative.
 		// -- unless the file specified is an absolute path
-        if ($this->dir !== null && !$fs->isAbsolute(new PhingFile($this->file))) {
-            $resolved = new PhingFile($this->dir->getPath(), $this->file);
+        if ($this->dir !== null && !$fs->isAbsolute(new File($this->file))) {
+            $resolved = new File($this->dir->getPath(), $this->file);
         } else {
             // otherwise just resolve it relative to project basedir
             $resolved = $this->project->resolveFile($this->file);

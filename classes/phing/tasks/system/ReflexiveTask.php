@@ -19,7 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::types::FileSet;
+use phing::system::io::File;
 
 /**
  * This task is for using filter chains to make changes to files and overwrite the original files.
@@ -58,7 +62,7 @@ class ReflexiveTask extends Task {
     private $filterChains = array();
         
     /** Alias for setFrom() */
-    function setFile(PhingFile $f) {
+    function setFile(File $f) {
         $this->file = $f;
     }
     
@@ -102,7 +106,7 @@ class ReflexiveTask extends Task {
                     $filenames = $ds->getIncludedFiles(); // get included filenames
                     $dir = $fs->getDir($this->project);
                     foreach ($filenames as $fname) {
-                        $files[] = new PhingFile($dir, $fname);
+                        $files[] = new File($dir, $fname);
                     }
                 } catch (BuildException $be) {
                     $this->log($be->getMessage(), Project::MSG_WARN);

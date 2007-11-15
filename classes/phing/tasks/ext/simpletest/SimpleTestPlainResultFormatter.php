@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
+namespace phing::tasks::ext::simpletest;
 
 /**
  * Prints plain text output of the test to a specified Writer.

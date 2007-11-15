@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/lang/EventObject.php';
+namespace phing;
 
 /**
  * Encapsulates a build specific event.
@@ -40,8 +40,14 @@ require_once 'phing/system/lang/EventObject.php';
  * @version   $Revision: 1.10 $
  * @package   phing
  */
-class BuildEvent extends EventObject {
+class BuildEvent {
 
+	/**
+	 * The object on which the Event initially occurred.
+	 * @var object
+	 */
+    protected $source;
+    
     /**
      * A reference to the project
      * @var Project
@@ -88,7 +94,7 @@ class BuildEvent extends EventObject {
      * @param  object  project the project that emitted the event.
      */
     public function __construct($source) {
-        parent::__construct($source);
+        $this->source = $source;
         if ($source instanceof Project) {
             $this->project = $source;
             $this->target = null;
@@ -195,4 +201,33 @@ class BuildEvent extends EventObject {
     public function getException() {
         return $this->exception;
     }
+    
+ 	/**
+	 * Get the object on which the Event initially occurred.
+	 * @return object
+	 */
+    public function getSource() {
+        return $this->source;
+    }
+
+    /**
+	 * Returns a String representation of this EventObject.
+	 * @return string
+	 */
+    public function __toString() {
+        if (method_exists($this->source, "toString")) {
+            return get_class($this)."[source=".$this->source->toString()."]";
+        } else {
+            return get_class($this)."[source=".get_class($this->source)."]";
+        }
+    }
+    
+    /**
+     *
+     * @deprecated
+     */
+    public function toString() {
+    	return $this->__toString();
+    }
+    
 }

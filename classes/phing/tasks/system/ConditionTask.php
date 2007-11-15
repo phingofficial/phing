@@ -19,7 +19,10 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
+namespace phing::tasks::system;
+use phing::Task;
+use phing::Project;
+use phing::tasks::system::condition::ConditionBase;
 
 /**
  *  <condition> task as a generalization of <available>

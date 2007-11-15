@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>. 
  */
- 
-include_once 'phing/system/io/Writer.php';
+
+namespace phing::system::io;
 
 /**
  * Convenience class for writing files.
