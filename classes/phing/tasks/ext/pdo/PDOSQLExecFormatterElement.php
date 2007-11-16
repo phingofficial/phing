@@ -21,6 +21,7 @@
 
 namespace phing::tasks::ext::pdo;
 use phing::BuildException;
+use phing::sytem::io::File;
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.

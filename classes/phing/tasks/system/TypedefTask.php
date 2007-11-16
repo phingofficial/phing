@@ -22,6 +22,7 @@
 namespace phing::tasks::system;
 use phing::BuildException;
 use phing::Task;
+use phing::types::Path;
 
 /**
  * Register a datatype for use within a buildfile.

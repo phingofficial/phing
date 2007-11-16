@@ -23,6 +23,7 @@ namespace phing::tasks::ext;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.

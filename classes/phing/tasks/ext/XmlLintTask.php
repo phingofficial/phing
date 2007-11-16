@@ -23,6 +23,7 @@ namespace phing::tasks::ext;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.

@@ -23,6 +23,7 @@ namespace phing::types;
 use phing::BuildException;
 use phing::types::FileSet;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * The patternset storage component. Carries all necessary data and methods

@@ -21,6 +21,7 @@
 namespace phing::tasks::ext;
 use phing::BuildException;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * Extracts one or several tar archives using PEAR Archive_Tar

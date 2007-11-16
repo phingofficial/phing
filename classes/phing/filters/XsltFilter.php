@@ -23,6 +23,7 @@
 namespace phing::filters;
 use phing::BuildException;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * Applies XSL stylesheet to incoming text.

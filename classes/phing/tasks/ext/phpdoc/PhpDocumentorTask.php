@@ -24,6 +24,7 @@ namespace phing::tasks::ext::phpdoc;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * Task to run PhpDocumentor.

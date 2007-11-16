@@ -22,6 +22,7 @@ namespace phing::tasks::ext;
 use phing::BuildException;
 use phing::tasks::system::MatchingTask;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * Base class for extracting tasks such as Unzip and Untar.

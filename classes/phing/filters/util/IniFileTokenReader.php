@@ -21,6 +21,7 @@
 
 namespace phing::filters::util;
 use phing::BuildException;
+use phing::sytem::io::File;
 
 /**
  * Class that allows reading tokens from INI files.
@@ -93,4 +94,3 @@ class IniFileTokenReader extends TokenReader {
     }
 }
 
-?>

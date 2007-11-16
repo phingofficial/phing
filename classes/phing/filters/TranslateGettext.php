@@ -23,6 +23,7 @@
 namespace phing::filters;
 use phing::BuildException;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * Replaces gettext("message id") and _("message id") with the translated string.

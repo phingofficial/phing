@@ -23,6 +23,7 @@ namespace phing::tasks::ext;
 use phing::BuildException;
 use phing::tasks::system::MatchingTask;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * A task to create PEAR package.xml file.

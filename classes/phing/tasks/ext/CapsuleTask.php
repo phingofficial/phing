@@ -25,6 +25,7 @@ use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::util::StringHelper;
+use phing::sytem::io::File;
 
 /**
  * A phing task for generating output by using Capsule.

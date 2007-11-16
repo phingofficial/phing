@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::types::Reference;
+use phing::types::Path;
 
 /**
  * Register a task for use within a buildfile.

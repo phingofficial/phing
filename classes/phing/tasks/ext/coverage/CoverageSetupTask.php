@@ -23,6 +23,7 @@ namespace phing::tasks::ext::coverage;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
+use phing::types::Path;
 
 /**
  * Initializes a code coverage database

@@ -23,6 +23,7 @@ namespace phing::tasks::ext;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1

@@ -22,6 +22,7 @@
 namespace phing::tasks::ext::pdo;
 use phing::BuildException;
 use phing::util::StringHelper;
+use phing::sytem::io::File;
 
 /**
  * Executes a series of SQL statements on a database using PDO.

@@ -23,6 +23,7 @@ namespace phing::types;
 use phing::BuildException;
 use phing::types::FileSet;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * This object represents a path as used by include_path or PATH

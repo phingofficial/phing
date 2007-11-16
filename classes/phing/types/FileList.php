@@ -23,6 +23,7 @@ namespace phing::types;
 use phing::BuildException;
 use phing::types::FileSet;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * FileList represents an explicitly named list of files. FileLists

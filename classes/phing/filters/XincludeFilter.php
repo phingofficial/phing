@@ -23,6 +23,7 @@
 namespace phing::filters;
 use phing::BuildException;
 use phing::Project;
+use phing::sytem::io::File;
 
 /**
  * Applies Xinclude parsing to incoming text.

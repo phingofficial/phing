@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::tasks::system::MatchingTask;
 use phing::Project;
 use phing::types::FileSet;
+use phing::sytem::io::File;
 
 /**
  * Creates a zip archive using PEAR Archive_Zip (which is presently unreleased

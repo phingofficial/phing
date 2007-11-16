@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::Project;
 use phing::tasks::system::MatchingTask;
 use phing::types::FileSet;
+use phing::sytem::io::File;
 
 /**
  * Creates a tar archive using PEAR Archive_Tar.
