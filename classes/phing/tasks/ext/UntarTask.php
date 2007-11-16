@@ -19,6 +19,7 @@
  */
 
 namespace phing::tasks::ext;
+use phing::BuildException;
 use phing::Project;
 
 /**

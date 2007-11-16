@@ -20,6 +20,7 @@
  */
 
 namespace phing::system::lang;
+use phing::BuildException;
 
 /**
  * @package phing.system.lang

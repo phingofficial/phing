@@ -20,6 +20,7 @@
  */
 
 namespace phing::parser;
+use phing::BuildException;
 
 /**
  * Stores the file name and line number of a XML file

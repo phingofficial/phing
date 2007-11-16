@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::system;
+use phing::BuildException;
 use phing::Task;
 use phing::tasks::system::condition::Condition;
 use phing::types::FileSet;

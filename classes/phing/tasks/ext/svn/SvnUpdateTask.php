@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::svn;
+use phing::BuildException;
 
 /**
  * Updates a repository in local directory

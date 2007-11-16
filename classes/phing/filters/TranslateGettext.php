@@ -21,6 +21,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 use phing::Project;
 
 /**

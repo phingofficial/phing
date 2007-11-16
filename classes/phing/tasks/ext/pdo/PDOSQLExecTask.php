@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::pdo;
+use phing::BuildException;
 use phing::util::StringHelper;
 
 /**

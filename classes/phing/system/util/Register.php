@@ -20,6 +20,7 @@
  */
 
 namespace phing::system::util;
+use phing::BuildException;
 
 /**
  * Static class to handle a slot-listening system.

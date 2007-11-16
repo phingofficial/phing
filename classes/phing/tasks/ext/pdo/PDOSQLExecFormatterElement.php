@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::pdo;
+use phing::BuildException;
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.

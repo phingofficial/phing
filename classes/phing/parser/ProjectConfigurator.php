@@ -20,6 +20,7 @@
  */
 
 namespace phing::parser;
+use phing::BuildException;
 use phing::Project;
 use phing::system::io::File;
 use phing::system::io::FileReader;

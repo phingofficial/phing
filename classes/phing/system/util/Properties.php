@@ -21,6 +21,7 @@
  */
 
 namespace phing::system::util;
+use phing::BuildException;
 use phing::system::io::File;
 
 /**

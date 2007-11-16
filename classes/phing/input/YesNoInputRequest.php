@@ -20,6 +20,7 @@
  */
 
 namespace phing::input;
+use phing::BuildException;
 use phing::util::StringHelper;
 
 /**

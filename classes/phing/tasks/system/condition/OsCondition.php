@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::system::condition;
+use phing::BuildException;
 use phing::util::StringHelper;
 
 /**

@@ -20,6 +20,7 @@
  */
  
 namespace phing::input;
+use phing::BuildException;
 
 /**
  * Prompts using print(); reads input from Console.

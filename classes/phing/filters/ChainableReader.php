@@ -21,6 +21,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * Interface indicating that a reader may be chained to another one.

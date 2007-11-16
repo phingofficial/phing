@@ -20,6 +20,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * This filter uses the bundled-with-PHP Tidy extension to filter input.

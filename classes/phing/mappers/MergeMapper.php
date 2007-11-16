@@ -20,6 +20,7 @@
  */
 
 namespace phing::mappers;
+use phing::BuildException;
 
 /**
  * For merging files into a single file.  In practice just returns whatever value

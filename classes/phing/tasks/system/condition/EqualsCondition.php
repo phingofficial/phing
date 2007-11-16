@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::system::condition;
+use phing::BuildException;
 
 /**
  *  A simple string comparator.  Compares two strings for eqiality in a

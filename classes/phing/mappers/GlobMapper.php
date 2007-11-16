@@ -20,6 +20,7 @@
  */
 
 namespace phing::mappers;
+use phing::BuildException;
 use phing::util::StringHelper;
 
 /**

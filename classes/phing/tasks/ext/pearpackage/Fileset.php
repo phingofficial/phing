@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::pearpackage;
+use phing::BuildException;
 
 /**
  * Builds list of files for PEAR_PackageFileManager using a Phing FileSet.

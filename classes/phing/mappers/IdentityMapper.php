@@ -20,6 +20,7 @@
  */
 
 namespace phing::mappers;
+use phing::BuildException;
 
 /**
  * This mapper does nothing ;)

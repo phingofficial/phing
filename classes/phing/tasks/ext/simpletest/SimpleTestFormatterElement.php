@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::simpletest;
+use phing::BuildException;
 
 /**
  * Child class of "FormatterElement", overrides setType to provide other

@@ -20,6 +20,7 @@
  */
 
 namespace phing::system::io;
+use phing::BuildException;
 
 /**
  * Input stream subclass for file streams.

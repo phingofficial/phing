@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::simpletest;
+use phing::BuildException;
 use phing::Task;
 use phing::Project;
 

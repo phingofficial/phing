@@ -21,6 +21,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * Filter to flatten the stream to a single line.

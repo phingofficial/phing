@@ -20,6 +20,7 @@
  */
 
 namespace phing::util::regexp;
+use phing::BuildException;
 
 /**
  * PREG Regexp Engine.

@@ -20,6 +20,7 @@
  */
 
 namespace phing::types::selectors;
+use phing::BuildException;
 
 /**
  * Selector that chooses files based on their last modified date. Ant uses

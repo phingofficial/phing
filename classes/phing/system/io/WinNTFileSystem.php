@@ -20,6 +20,7 @@
  */
 
 namespace phing::system::io;
+use phing::BuildException;
 
 /**
  * FileSystem for Windows NT/2000.

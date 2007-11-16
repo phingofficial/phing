@@ -21,6 +21,7 @@
  */
 
 namespace phing::parser;
+use phing::BuildException;
 
 /**
  * This is an abstract class all SAX handler classes must extend

@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::phpunit;
+use phing::BuildException;
 
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.

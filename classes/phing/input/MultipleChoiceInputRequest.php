@@ -20,6 +20,7 @@
  */
 
 namespace phing::input;
+use phing::BuildException;
 
 /**
  * Encapsulates an input request.

@@ -20,6 +20,7 @@
  */
 
 namespace phing::types::selectors;
+use phing::BuildException;
 
 /**
  * This is the interface to be used by all custom selectors, those that are

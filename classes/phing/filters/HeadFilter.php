@@ -20,6 +20,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * Reads the first <code>n</code> lines of a stream.

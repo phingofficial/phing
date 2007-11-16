@@ -20,6 +20,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * Filter which includes only those lines that contain the user-specified

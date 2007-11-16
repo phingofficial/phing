@@ -21,6 +21,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /*
  * Replaces tokens in the original input with user-supplied values.

@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::ioncube;
+use phing::BuildException;
 
 /**
  * Wrapper for comments for ionCube tasks

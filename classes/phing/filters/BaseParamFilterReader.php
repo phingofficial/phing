@@ -21,6 +21,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * Base class for core filter readers.

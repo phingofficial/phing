@@ -20,6 +20,7 @@
  */
 
 namespace phing::system::io;
+use phing::BuildException;
 use phing::Phing;
 use phing::util::StringHelper;
 

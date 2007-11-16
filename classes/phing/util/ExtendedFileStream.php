@@ -20,6 +20,7 @@
  */
 
 namespace phing::util;
+use phing::BuildException;
 
 /**
  * Extended file stream wrapper class which auto-creates directories

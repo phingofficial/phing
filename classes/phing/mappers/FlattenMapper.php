@@ -20,6 +20,7 @@
  */
 
 namespace phing::mappers;
+use phing::BuildException;
 
 /**
  * Removes any directory information from the passed path.

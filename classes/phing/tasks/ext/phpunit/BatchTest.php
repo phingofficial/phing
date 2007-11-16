@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::phpunit;
+use phing::BuildException;
 
 /**
  * Scans a list of files given by the fileset attribute, extracts

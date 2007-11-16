@@ -20,6 +20,7 @@
  */
 
 namespace phing::types::selectors;
+use phing::BuildException;
 use phing::Project;
 use phing::system::io::File;
 

@@ -20,6 +20,7 @@
 */
 
 namespace phing::filters::util;
+use phing::BuildException;
 
 /**
  * Class that allows reading tokens from INI files.

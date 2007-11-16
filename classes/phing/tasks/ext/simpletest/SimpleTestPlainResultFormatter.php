@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::simpletest;
+use phing::BuildException;
 
 /**
  * Prints plain text output of the test to a specified Writer.

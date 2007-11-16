@@ -20,6 +20,7 @@
  */
 
 namespace phing::filters::util;
+use phing::BuildException;
 use phing::Project;
 
 /**

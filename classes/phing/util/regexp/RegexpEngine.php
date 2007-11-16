@@ -20,6 +20,7 @@
  */
 
 namespace phing::util::regexp;
+use phing::BuildException;
 
 /**
  * Contains some shared attributes and methods -- and some abstract methods with

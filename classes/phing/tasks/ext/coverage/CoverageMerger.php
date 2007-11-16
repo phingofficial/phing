@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::coverage;
+use phing::BuildException;
 
 /**
  * Saves coverage output of the test to a specified database

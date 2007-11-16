@@ -21,6 +21,7 @@
  */
 
 namespace phing::tasks::ext::phpdoc;
+use phing::BuildException;
 use phing::Task;
 use phing::Project;
 

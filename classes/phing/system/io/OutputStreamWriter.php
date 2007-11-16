@@ -20,6 +20,7 @@
  */
  
 namespace phing::system::io;
+use phing::BuildException;
 
 /**
  * Writer class for OutputStream objects.

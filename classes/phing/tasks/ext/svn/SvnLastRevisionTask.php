@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::svn;
+use phing::BuildException;
 
 /**
  * Stores the number of the last revision of a workingcopy in a property

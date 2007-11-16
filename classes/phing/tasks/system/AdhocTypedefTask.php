@@ -21,6 +21,7 @@
  */
  
 namespace phing::tasks::system;
+use phing::BuildException;
 
 /**
  * A class for creating adhoc datatypes in build file.

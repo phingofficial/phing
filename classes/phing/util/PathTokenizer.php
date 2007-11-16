@@ -20,6 +20,7 @@
  */
 
 namespace phing::util;
+use phing::BuildException;
 use phing::system::lang::Character;
 
 /**

@@ -21,6 +21,7 @@
  */
  
 namespace phing::tasks::ext;
+use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::util::StringHelper;

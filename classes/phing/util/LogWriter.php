@@ -21,6 +21,7 @@
  */
 
 namespace phing::util;
+use phing::BuildException;
 use phing::Project;
 
 /**

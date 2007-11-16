@@ -20,6 +20,7 @@
  */
 
 namespace phing::parser;
+use phing::BuildException;
 
 /**
  * Configures a Project (complete with Targets and Tasks) based on

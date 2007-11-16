@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::system::condition;
+use phing::BuildException;
 
 /**
  * Condition that tests whether a given string evals to false.

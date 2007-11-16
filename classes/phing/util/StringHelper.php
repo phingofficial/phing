@@ -20,6 +20,7 @@
  */
 
 namespace phing::util;
+use phing::BuildException;
 
 /**
  * String helper utility class.

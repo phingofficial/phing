@@ -20,6 +20,7 @@
  */
 
 namespace phing::types;
+use phing::BuildException;
 
 /**
  * Description is used to provide a project-wide description element

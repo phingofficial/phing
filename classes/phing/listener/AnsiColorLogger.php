@@ -20,6 +20,7 @@
  */
 
 namespace phing::listener;
+use phing::BuildException;
 use phing::Phing;
 use phing::Project;
 use phing::system::io::File;

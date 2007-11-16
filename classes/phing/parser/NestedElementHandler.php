@@ -20,6 +20,7 @@
  */
 
 namespace phing::parser;
+use phing::BuildException;
 use phing::IntrospectionHelper;
 use phing::RuntimeConfigurable;
 

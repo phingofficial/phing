@@ -20,6 +20,7 @@
  */
  
 namespace phing::parser;
+use phing::BuildException;
 
 /**
  * This class throws errors for Expat, the XML processor.

@@ -20,6 +20,7 @@
  */
 
 namespace phing::types;
+use phing::BuildException;
 
 /*
  * A parameter is composed of a name, type and value. Nested

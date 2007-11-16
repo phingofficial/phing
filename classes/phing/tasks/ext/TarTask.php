@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext;
+use phing::BuildException;
 use phing::Project;
 use phing::tasks::system::MatchingTask;
 use phing::types::FileSet;

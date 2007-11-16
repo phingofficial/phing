@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::svn;
+use phing::BuildException;
 
 /**
  * Exports/checks out a repository to a local directory

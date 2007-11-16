@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::simpletest;
+use phing::BuildException;
 
 /**
  * Dummy result formatter used to count SimpleTest results

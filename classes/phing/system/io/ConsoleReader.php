@@ -20,6 +20,7 @@
  */
  
 namespace phing::system::io;
+use phing::BuildException;
 
 /**
  * Convenience class for reading console input.

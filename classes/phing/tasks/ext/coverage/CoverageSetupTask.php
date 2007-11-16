@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::coverage;
+use phing::BuildException;
 use phing::Task;
 use phing::Project;
 

@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::pdo;
+use phing::BuildException;
 
 /**
  * XML formatter for PDO results.

@@ -20,6 +20,7 @@
  */
 
 namespace phing::types::selectors;
+use phing::BuildException;
 use phing::types::DataType;
 
 /**

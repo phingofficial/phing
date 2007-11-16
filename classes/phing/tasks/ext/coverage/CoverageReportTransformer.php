@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::coverage;
+use phing::BuildException;
 
 /**
  * Transform a Phing/Xdebug code coverage xml report.

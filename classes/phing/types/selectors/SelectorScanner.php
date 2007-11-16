@@ -20,6 +20,7 @@
  */
 
 namespace phing::types::selectors;
+use phing::BuildException;
 
 /**
  * An interface used to describe the actions required by any type of

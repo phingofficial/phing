@@ -20,6 +20,7 @@
  */
 
 namespace phing::util;
+use phing::BuildException;
 use phing::types::selectors::SelectorScanner;
 use phing::types::selectors::SelectorUtils;
 

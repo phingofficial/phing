@@ -20,6 +20,7 @@
  */
 
 namespace phing::types;
+use phing::BuildException;
 
 /**
  * Class to hold a reference to another object in the project.

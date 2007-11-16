@@ -21,6 +21,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * Reads the last <code>n</code> lines of a stream. (Default is last10 lines.)

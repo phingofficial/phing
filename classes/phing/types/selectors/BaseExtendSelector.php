@@ -20,6 +20,7 @@
  */
  
 namespace phing::types::selectors;
+use phing::BuildException;
 
 /**
  * Convenience base class for all selectors accessed through ExtendSelector.

@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::system::condition;
+use phing::BuildException;
 
 /**
  * Condition that tests whether a given property has been set.

@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::simpletest;
+use phing::BuildException;
 
 /**
  * Prints short summary output of the test to Phing's logging system.

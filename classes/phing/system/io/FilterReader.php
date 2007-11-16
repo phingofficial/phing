@@ -20,6 +20,7 @@
  */
 
 namespace phing::system::io;
+use phing::BuildException;
 
 /**
  * Wrapper class for readers, which can be used to apply filters.

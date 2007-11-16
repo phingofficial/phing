@@ -21,6 +21,7 @@
  */
 
 namespace phing::tasks::ext::pdo;
+use phing::BuildException;
 use phing::Task;
 use phing::Project;
 

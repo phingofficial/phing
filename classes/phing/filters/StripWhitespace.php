@@ -21,6 +21,7 @@
 */
 
 namespace phing::filters;
+use phing::BuildException;
 
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.

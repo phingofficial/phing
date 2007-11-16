@@ -20,6 +20,7 @@
  */
 
 namespace phing::types;
+use phing::BuildException;
 use phing::Project;
 
 /*

@@ -21,6 +21,7 @@
  */
 
 namespace phing::tasks::system::condition;
+use phing::BuildException;
 
 /**
  * Condition interface specification:

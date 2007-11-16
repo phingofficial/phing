@@ -20,6 +20,7 @@
  */
 
 namespace phing::parser;
+use phing::BuildException;
 
 /**
  * Root filter class for a phing buildfile.

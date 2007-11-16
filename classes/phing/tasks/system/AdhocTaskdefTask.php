@@ -20,6 +20,7 @@
  */
  
 namespace phing::tasks::system;
+use phing::BuildException;
 
 /**
  * A class for creating adhoc tasks in build file.

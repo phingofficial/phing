@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::phpunit;
+use phing::BuildException;
 
 /**
  * Simple Testrunner for PHPUnit2/3 that runs all tests of a testsuite.

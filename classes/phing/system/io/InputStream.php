@@ -20,6 +20,7 @@
  */
 
 namespace phing::system::io;
+use phing::BuildException;
 
 /**
  * Wrapper class for PHP stream that supports read operations.

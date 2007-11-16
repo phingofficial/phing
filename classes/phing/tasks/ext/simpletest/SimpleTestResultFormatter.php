@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::simpletest;
+use phing::BuildException;
 
 // FIXME - move this require_once() into a init block somewhere ...
 require_once 'simpletest/scorer.php';

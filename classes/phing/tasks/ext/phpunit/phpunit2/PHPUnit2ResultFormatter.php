@@ -20,6 +20,7 @@
  */
 
 namespace phing::tasks::ext::phpunit::phpunit2;
+use phing::BuildException;
 require_once 'PHPUnit2/Framework/TestListener.php';
 
 
