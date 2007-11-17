@@ -66,11 +66,11 @@ class PHPUnitTask extends Task
 		@include_once 'PHPUnit/Runner/Version.php';
 		@include_once 'PHPUnit2/Runner/Version.php';
 
-		if (class_exists('PHPUnit_Runner_Version'))
-		{
+		if (class_exists('PHPUnit_Runner_Version', false))
+		{ 
 			$version = PHPUnit_Runner_Version::id();
 		}
-		elseif (class_exists('PHPUnit2_Runner_Version'))
+		elseif (class_exists('PHPUnit2_Runner_Version', false))
 		{
 			$version = PHPUnit2_Runner_Version::id();
 		}

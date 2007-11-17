@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::types::FileSet;
 use phing::Project;
 use phing::sytem::io::File;
+use phing::util::PathTokenizer;
 
 /**
  * This object represents a path as used by include_path or PATH

@@ -95,7 +95,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader {
      */
     function read($len = null) {
     	
-		if (!class_exists('Tidy')) {
+		if (!class_exists('Tidy', false)) {
 			throw new BuildException("You must enable the 'tidy' extension in your PHP configuration in order to use the Tidy filter.");
 		}
 		

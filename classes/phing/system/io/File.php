@@ -19,16 +19,16 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileSystem.php';
-include_once 'phing/system/lang/NullPointerException.php';
+namespace phing::system::io;
+use phing::system::io::FileSystem;
+use phing::system::lang::NullPointerException;
 
 /**
- * An abstract representation of file and directory pathnames.
+ * An representation of file and directory pathnames.
  *
- * @version   $Revision: 1.1 $
  * @package   phing.system.io
  */
-class PhingFile {
+class File {
 
     /** separator string, static, obtained from FileSystem */
     public static $separator;

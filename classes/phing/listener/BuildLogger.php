@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildListener.php';
+namespace phing::listener;
+use phing::system::io::OutputStream;
 
 /**
  * Interface for build loggers.

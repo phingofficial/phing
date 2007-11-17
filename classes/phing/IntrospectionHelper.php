@@ -21,7 +21,7 @@
 
 namespace phing;
 use phing::util::StringHelper;
-
+use phing::types::Path;
 
 /**
  * Helper class that collects the methods that a task or nested element

@@ -21,6 +21,7 @@
 
 namespace phing::parser;
 use phing::BuildException;
+use phing::Phing;
 
 /**
  * The abstract SAX parser class.

@@ -280,7 +280,7 @@ class PhpDocumentorTask extends Task
     	// otherwise, adjust the include_path to path to include the PhpDocumentor directory ... 
 		set_include_path(get_include_path() . PATH_SEPARATOR . $found);
 		include_once ("phpDocumentor/Setup.inc.php");
-		if (!class_exists('phpDocumentor_setup')) {
+		if (!class_exists('phpDocumentor_setup', false)) {
 			throw new BuildException("Error including PhpDocumentor setup class file.");
 		}
     }

@@ -87,7 +87,7 @@ abstract class CreoleTask extends Task {
      */
     function init() {
         include_once 'creole/Creole.php';
-        if (!class_exists('Creole')) {
+        if (!class_exists('Creole', false)) {
             throw new Exception("Creole task depends on Creole classes being on include_path. (i.e. include of 'creole/Creole.php' failed.)");
         }
     }

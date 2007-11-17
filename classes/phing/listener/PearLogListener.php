@@ -93,7 +93,7 @@ class PearLogListener implements BuildListener {
         if ($conf === null) $conf = array();
         
         include_once 'Log.php';
-        if (!class_exists('Log')) {
+        if (!class_exists('Log', false)) {
         	throw new BuildException("Cannot find PEAR Log class for use by PearLogger.");
         }
         
