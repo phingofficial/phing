@@ -12,7 +12,7 @@
   -------------
 
   At this point we assume you have a running Windows NT/2000/XP system 
-  running and you properly installed PHP 5.0.2+. Windows 9x versions will
+  running and you properly installed PHP 5.3.x. Windows 9x versions will
   probably work, but are not supported. Make sure that XSL is enabled (e.g.
   enable php_xsl.dll in your php.ini file) if you want to perform builds 
   that require XSLT transformation (e.g. many Binarycloud buildfiles, the 

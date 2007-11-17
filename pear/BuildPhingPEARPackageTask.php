@@ -35,7 +35,7 @@ class BuildPhingPEARPackageTask extends MatchingTask {
     private $dir;
 
 	private $version;
-	private $state = 'stable';
+	private $state = 'alpha';
 	private $notes;
 	
 	private $filesets = array();
@@ -169,7 +169,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 		
 
 		// "core" dependencies
-		$package->setPhpDep('5.1.0');
+		$package->setPhpDep('5.3.0');
 		$package->setPearinstallerDep('1.4.0');
 		
 		// "package" dependencies

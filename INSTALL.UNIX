@@ -14,7 +14,7 @@
   -------------
 
   At this point we assume you have a running Linux or other UNIX dialect with
-  a properly installed release of PHP 5.0.2+. You need the CLI version of PHP,
+  a properly installed release of PHP 5.3.x You need the CLI version of PHP,
   since there is no WEB-Application for Phing provided, and the ISAPI module
   will not work on command line. The PHP binary must have compiled-in XML
   support and optionally XSLT support if you want to use XSLT
