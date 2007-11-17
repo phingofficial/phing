@@ -30,30 +30,41 @@ use phing::system::lang::NullPointerException;
  */
 class File {
 
-    /** separator string, static, obtained from FileSystem */
+    /**
+     * Separator string, static, obtained from FileSystem.
+     * @see FileSystem::getSeparator()
+	 */
     public static $separator;
 
-    /** path separator string, static, obtained from FileSystem (; or :)*/
+    /**
+	 * Path separator string, static, obtained from FileSystem (; or :)
+	 * @see FileSystem::getSeparator()
+	 */
     public static $pathSeparator;
     
     /**
      * This abstract pathname's normalized pathname string.  A normalized
      * pathname string uses the default name-separator character and does not
      * contain any duplicate or redundant separators.
+     * @var string
      */
-    private $path = null;
+    private $path;
 
-    /** The length of this abstract pathname's prefix, or zero if it has no prefix. */
+    /**
+	 * The length of this abstract pathname's prefix, or zero if it has no prefix.
+	 * @var int
+	 */
     private $prefixLength = 0;
 
     /**
      * Create a new File object.
-     * Valid constructor signatures include:
-     * 	File(File parent, string filename)
-     *  File(string filename)
-     *  File(string parent, string filename)
+     * 
+     * This method supports sevarl valid signatures:
+     * 	new File(File parent, string filename)
+     *  new File(string filename)
+     *  new File(string parent, string filename)
 	 */
-    function __construct($arg1 = null, $arg2 = null) {
+    function __construct($arg1, $arg2 = null) {
         
         if (self::$separator === null || self::$pathSeparator === null) {
             $fs = FileSystem::getFileSystem();
@@ -61,13 +72,13 @@ class File {
             self::$pathSeparator = $fs->getPathSeparator();
         }
 
-        /* simulate signature identified constructors */
+        /* simulate constructor overloading */
         if ($arg1 instanceof File && is_string($arg2)) {
-            $this->_constructFileParentStringChild($arg1, $arg2);
+            $this->__constructFileParentStringChild($arg1, $arg2);
         } elseif (is_string($arg1) && ($arg2 === null)) {
-            $this->_constructPathname($arg1);
+            $this->__constructPathname($arg1);
         } elseif(is_string($arg1) && is_string($arg2)) {
-            $this->_constructStringParentStringChild($arg1, $arg2);
+            $this->__constructStringParentStringChild($arg1, $arg2);
         } else {
             if ($arg1 === null) {
                 throw new NullPointerException("Argument1 to function must not be null");
@@ -76,15 +87,38 @@ class File {
             $this->prefixLength = (int) $arg2;
         }
     }
+    
+    /**
+	 * Private overloaded constructor when passed a File parent path and string child path.
+	 * @param File $parent The parent path
+	 * @param string $child (optional) The child path
+	 */
+    private function __constructFileParentStringChild(File $parent, $child) {
+        // obtain ref to the filesystem layer
+        $fs = FileSystem::getFileSystem();
 
-    /** Returns the length of this abstract pathname's prefix. */
-    function getPrefixLength() {
-        return (int) $this->prefixLength;
+        if ($child === null) {
+            throw new NullPointerException("Argument to function must not be null");
+        }
+
+        if ($parent !== null) {
+            if ($parent->getPath() === "") {
+                $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
+            } else {
+                $this->path = $fs->resolve($parent->getPath(), $fs->normalize($child));
+            }
+        } else {
+            $this->path = $fs->normalize($child);
+        }
+        $this->prefixLength = $fs->prefixLength($this->path);
     }
     
-    /* -- constructors not called by signature match, so we need some helpers --*/
-
-    function _constructPathname($pathname) {
+	/**
+	 * Private constructor when passed a single path string.
+	 *
+	 * @param string $pathname
+	 */
+    private function __constructPathname($pathname) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -95,8 +129,13 @@ class File {
         $this->path = (string) $fs->normalize($pathname);
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
-
-    function _constructStringParentStringChild($parent, $child = null) {
+	
+    /**
+	 * Private overloaded constructor when passed a string parent path and child paths.
+	 * @param string $parent The parent path
+	 * @param string $child (optional) The child path
+	 */
+    private function __constructStringParentStringChild($parent, $child) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -114,25 +153,13 @@ class File {
         }
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
-
-    function _constructFileParentStringChild($parent, $child = null) {
-        // obtain ref to the filesystem layer
-        $fs = FileSystem::getFileSystem();
-
-        if ($child === null) {
-            throw new NullPointerException("Argument to function must not be null");
-        }
-
-        if ($parent !== null) {
-            if ($parent->path === "") {
-                $this->path = $fs->resolve($fs->getDefaultParent(), $fs->normalize($child));
-            } else {
-                $this->path = $fs->resolve($parent->path, $fs->normalize($child));
-            }
-        } else {
-            $this->path = $fs->normalize($child);
-        }
-        $this->prefixLength = $fs->prefixLength($this->path);
+	
+    /**
+	 * Returns the length of this abstract pathname's prefix.
+	 * @return int
+	 */
+    function getPrefixLength() {
+        return (int) $this->prefixLength;
     }
 
     /* -- Path-component accessors -- */
@@ -143,11 +170,9 @@ class File {
      * sequence.  If the pathname's name sequence is empty, then the empty
      * string is returned.
      *
-     * @return  The name of the file or directory denoted by this abstract
-     *          pathname, or the empty string if this pathname's name sequence
-     *          is empty
+     * @return string The name of the file or directory.
      */
-    function getName() {
+    public function getName() {
         // that's a lastIndexOf
         $index = ((($res = strrpos($this->path, self::$separator)) === false) ? -1 : $res);
         if ($index < $this->prefixLength) {
@@ -165,10 +190,9 @@ class File {
      * If the name sequence is empty then the pathname does not name a parent
      * directory.
      *
-     * @return  The pathname string of the parent directory named by this
-     *          abstract pathname, or null if this pathname does not name a parent
+     * @return string The pathname string of the parent directory.
      */
-    function getParent() {
+    public function getParent() {
         // that's a lastIndexOf
         $index = ((($res = strrpos($this->path, self::$separator)) === false) ? -1 : $res);
         if ($index < $this->prefixLength) {
@@ -181,19 +205,11 @@ class File {
     }
 
     /**
-     * Returns the abstract pathname of this abstract pathname's parent,
-     * or null if this pathname does not name a parent directory.
+     * Returns the parent directory as File object.
      *
-     * The parent of an abstract pathname consists of the pathname's prefix,
-     * if any, and each name in the pathname's name sequence except for the
-     * last.  If the name sequence is empty then the pathname does not name
-     * a parent directory.
-     *
-     * @return  The abstract pathname of the parent directory named by this
-     *          abstract pathname, or null if this pathname
-     *          does not name a parent
+     * @return File A File of the parent directory for this file. 
      */
-    function getParentFile() {
+    public function getParentFile() {
         $p = $this->getParent();
         if ($p === null) {
             return null;
@@ -206,9 +222,9 @@ class File {
      * string uses the default name-separator character to separate the names
      * in the name sequence.
      *
-     * @return  The string form of this abstract pathname
+     * @return string The string form of this abstract pathname
      */
-    function getPath() {
+    public function getPath() {
         return (string) $this->path;
     }
 
@@ -219,12 +235,11 @@ class File {
      * if its prefix is a drive specifier followed by "\\", or if its prefix
      * is "\\".
      *
-     * @return  true if this abstract pathname is absolute, false otherwise
+     * @return boolean true if this abstract pathname is absolute, false otherwise
      */
-    function isAbsolute() {
+    public function isAbsolute() {
         return ($this->prefixLength !== 0);
     }
-
 
     /**
      * Returns the absolute pathname string of this abstract pathname.
@@ -241,26 +256,23 @@ class File {
      * pathname, if any; if not, it is resolved against the current user
      * directory.
      *
-     * @return  The absolute pathname string denoting the same file or
-     *          directory as this abstract pathname
-     * @see     #isAbsolute()
+     * @return  string The absolute pathname of this file/directory.
+     * @see     isAbsolute()
      */
-    function getAbsolutePath() {
+    public function getAbsolutePath() {
         $fs = FileSystem::getFileSystem();        
         return $fs->resolveFile($this);
     }
 
     /**
-     * Returns the absolute form of this abstract pathname.  Equivalent to
-     * getAbsolutePath.
+     * Returns a File object containing abs path to this file/dir.
      *
-     * @return  The absolute abstract pathname denoting the same file or
-     *          directory as this abstract pathname
+     * @see getAbsolutePath()
+     * @return File A File object containing the absolute path to this file/dir.
      */
-    function getAbsoluteFile() {
+    public function getAbsoluteFile() {
         return new File((string) $this->getAbsolutePath());
     }
-
 
     /**
      * Returns the canonical pathname string of this abstract pathname.
@@ -283,64 +295,31 @@ class File {
      * file or directory may be different from the canonical form of the same
      * pathname after the file or directory is deleted.
      *
-     * @return  The canonical pathname string denoting the same file or
-     *          directory as this abstract pathname
+     * @return string The canonical path to this file/dir.
      */
-    function getCanonicalPath() {
+    public function getCanonicalPath() {
         $fs = FileSystem::getFileSystem();
         return $fs->canonicalize($this->path);
     }
 
-
     /**
-     * Returns the canonical form of this abstract pathname.  Equivalent to
-     * getCanonicalPath(.
+     * Returns the canonical form of this abstract pathname.
      *
-     * @return  File The canonical pathname string denoting the same file or
-     *          directory as this abstract pathname
+     * @see getCanonicalPath()
+     * @return File The canonical File to tihs file/dir.
      */
-    function getCanonicalFile() {
+    public function getCanonicalFile() {
         return new File($this->getCanonicalPath());
     }
-
+	
     /**
-     * Converts this abstract pathname into a file: URL.  The
-     * exact form of the URL is system-dependent.  If it can be determined that
-     * the file denoted by this abstract pathname is a directory, then the
-     * resulting URL will end with a slash.
+     * Normalizes the directory separators in the path and adds a trailing '/' to directories.
      *
-     * Usage note: This method does not automatically escape
-     * characters that are illegal in URLs.  It is recommended that new code
-     * convert an abstract pathname into a URL by first converting it into a
-     * URI, via the toURI() method, and then converting the URI
-     * into a URL via the URI::toURL()
-     *
-     * @return  A URL object representing the equivalent file URL
-     *
-     *
+     * @param string $path
+     * @param boolean $isDirectory
+     * @return string
      */
-    function toURL() {
-        /*
-        // URL class not implemented yet
-        return new URL("file", "", $this->_slashify($this->getAbsolutePath(), $this->isDirectory()));
-        */
-    }
-
-    /**
-     * Constructs a file: URI that represents this abstract pathname.
-     * Not implemented yet
-     */
-    function toURI() {
-        /*
-        $f = $this->getAbsoluteFile();
-           $sp = (string) $this->slashify($f->getPath(), $f->isDirectory());
-           if (StringHelper::startsWith('//', $sp))
-        $sp = '//' + sp;
-           return new URI('file', null, $sp, null);
-        */
-    }
-
-    function _slashify($path, $isDirectory) {
+    private function _slashify($path, $isDirectory) {
         $p = (string) $path;
 
         if (self::$separator !== '/') {
@@ -364,11 +343,9 @@ class File {
      * Tests whether the application can read the file denoted by this
      * abstract pathname.
      *
-     * @return  true if and only if the file specified by this
-     *          abstract pathname exists and can be read by the
-     *          application; false otherwise
+     * @return boolean Whether file/dir can be read by application.
      */
-    function canRead() {
+    public function canRead() {
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess($this)) {
@@ -381,13 +358,10 @@ class File {
      * Tests whether the application can modify to the file denoted by this
      * abstract pathname.
      *
-     * @return  true if and only if the file system actually
-     *          contains a file denoted by this abstract pathname and
-     *          the application is allowed to write to the file;
-     *          false otherwise.
+     * @return boolean Whether file/dir can be written to.
      *
      */
-    function canWrite() {
+    public function canWrite() {
         $fs = FileSystem::getFileSystem();
         return $fs->checkAccess($this, true);
     }
@@ -395,11 +369,9 @@ class File {
     /**
      * Tests whether the file denoted by this abstract pathname exists.
      *
-     * @return  true if and only if the file denoted by this
-     *          abstract pathname exists; false otherwise
-     *
+     * @return boolean Whether file/dir exists.
      */
-    function exists() {                
+    public function exists() {                
 		clearstatcache();
         if ($this->isFile()) {
             return @file_exists($this->path);
@@ -409,15 +381,11 @@ class File {
     }
 
     /**
-     * Tests whether the file denoted by this abstract pathname is a
-     * directory.
+     * Tests whether the path represented by this object corresponds to a directory.
      *
-     * @return true if and only if the file denoted by this
-     *         abstract pathname exists and is a directory;
-     *         false otherwise
-     *
+     * @return boolean Whether path represented is a directory.
      */
-    function isDirectory() {
+    public function isDirectory() {
 		clearstatcache();
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
@@ -427,34 +395,22 @@ class File {
     }
 
     /**
-     * Tests whether the file denoted by this abstract pathname is a normal
-     * file.  A file is normal if it is not a directory and, in
-     * addition, satisfies other system-dependent criteria.  Any non-directory
-     * file created by a Java application is guaranteed to be a normal file.
-     *
-     * @return  true if and only if the file denoted by this
-     *          abstract pathname exists and is a normal file;
-     *          false otherwise
+     * Tests whether the path represented by this object corresponds to a normal file.
+     * 
+     * @return boolean Whether path represents a file.
      */
-    function isFile() {
+    public function isFile() {
 		clearstatcache();
         //$fs = FileSystem::getFileSystem();
         return @is_file($this->path);
     }
 
     /**
-     * Tests whether the file named by this abstract pathname is a hidden
-     * file.  The exact definition of hidden is system-dependent.  On
-     * UNIX systems, a file is considered to be hidden if its name begins with
-     * a period character ('.').  On Win32 systems, a file is considered to be
-     * hidden if it has been marked as such in the filesystem. Currently there
-     * seems to be no way to dermine isHidden on Win file systems via PHP
-     *
-     * @return  true if and only if the file denoted by this
-     *          abstract pathname is hidden according to the conventions of the
-     *          underlying platform
+     * Tests whether the path represented by this object is a hidden file.
+     *  
+     * @return boolean Whether file/dir is hidden.
      */
-    function isHidden() {
+    public function isHidden() {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to ".$this->path);
@@ -466,12 +422,12 @@ class File {
      * Returns the time that the file denoted by this abstract pathname was
      * last modified.
      *
-     * @return  A integer value representing the time the file was
+     * @return int  A integer value representing the time the file was
      *          last modified, measured in milliseconds since the epoch
      *          (00:00:00 GMT, January 1, 1970), or 0 if the
      *          file does not exist or if an I/O error occurs
      */
-    function lastModified() {
+    public function lastModified() {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to " . $this->path);
@@ -483,10 +439,11 @@ class File {
      * Returns the length of the file denoted by this abstract pathname.
      * The return value is unspecified if this pathname denotes a directory.
      *
-     * @return  The length, in bytes, of the file denoted by this abstract
-     *          pathname, or 0 if the file does not exist
+     * @return int The length, in bytes, of the file denoted by this abstract
+     *          	pathname, or 0 if the file does not exist
+     * @throws IOException - if file cannot be read
      */
-    function length() {
+    public function length() {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to ".$this->path."\n");
@@ -498,9 +455,9 @@ class File {
      * Convenience method for returning the contents of this file as a string.
      * This method uses file_get_contents() to read file in an optimized way.
      * @return string
-     * @throws Exception - if file cannot be read
+     * @throws IOException - if file cannot be read
      */
-    function contents() {
+    public function contents() {
         if (!$this->canRead() || !$this->isFile()) {
             throw new IOException("Cannot read file contents!");
         }
@@ -521,7 +478,7 @@ class File {
      *          already exists
      * @throws IOException if file can't be created
      */
-    function createNewFile($parents=true, $mode=0777) {
+    public function createNewFile($parents=true, $mode=0777) {
         $file = FileSystem::getFileSystem()->createNewFile($this->path);
         return $file;
     }
@@ -534,7 +491,7 @@ class File {
      * @return  true if and only if the file or directory is
      *          successfully deleted; false otherwise
      */
-    function delete() {
+    public function delete() {
         $fs = FileSystem::getFileSystem();
         if ($fs->canDelete($this) !== true) {
             throw new IOException("Cannot delete " . $this->path . "\n"); 
@@ -552,39 +509,31 @@ class File {
      * request.  This method should therefore be used with care.
      *
      */
-    function deleteOnExit() {
+    public function deleteOnExit() {
         $fs = FileSystem::getFileSystem();
         $fs->deleteOnExit($this);
     }
 
     /**
-     * Returns an array of strings naming the files and directories in the
-     * directory denoted by this abstract pathname.
+     * Return an array of names for contents of directory represented by this object.
      *
      * If this abstract pathname does not denote a directory, then this
-     * method returns null  Otherwise an array of strings is
-     * returned, one for each file or directory in the directory.  Names
-     * denoting the directory itself and the directory's parent directory are
-     * not included in the result.  Each string is a file name rather than a
-     * complete path.
-     *
-     * There is no guarantee that the name strings in the resulting array
-     * will appear in any specific order; they are not, in particular,
-     * guaranteed to appear in alphabetical order.
-     *
-     * @return  An array of strings naming the files and directories in the
-     *          directory denoted by this abstract pathname.  The array will be
-     *          empty if the directory is empty.  Returns null if
-     *          this abstract pathname does not denote a directory, or if an
-     *          I/O error occurs.
-     *
+     * method returns null.
+     * 
+     * @return array string[] An array of file and directory names 
      */
-    function listDir($filter = null) {
+    public function listDir($filter = null) {
         $fs = FileSystem::getFileSystem();
         return $fs->lister($this, $filter);
     }
-
-    function listFiles($filter = null) {
+	
+    /**
+     * Return an array of File objects for contents of directory represented by this object.
+     *
+     * @param unknown_type $filter
+     * @return array File[]
+     */
+    public function listFiles($filter = null) {
         $ss = $this->listDir($filter);
         if ($ss === null) {
             return null;
@@ -608,7 +557,7 @@ class File {
      *          otherwise
      * @throws  IOException
      */
-    function mkdirs() {
+    public function mkdirs() {
         if ($this->exists()) {
             return false;
         }
@@ -627,9 +576,9 @@ class File {
      * Creates the directory named by this abstract pathname.
      *
      * @return  true if and only if the directory was created; false otherwise
-     * @throws  IOException
+     * @throws  IOException - If no write access
      */
-    function mkdir() {
+    public function mkdir() {
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess(new File($this->path), true) !== true) {
@@ -644,7 +593,7 @@ class File {
      * @param   destFile  The new abstract pathname for the named file
      * @return  true if and only if the renaming succeeded; false otherwise
      */
-    function renameTo(File $destFile) {
+    public function renameTo(File $destFile) {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No write access to ".$this->getPath());
@@ -659,7 +608,7 @@ class File {
      * @param File $destFile  The new abstract pathname for the named file
      * @return true if and only if the renaming succeeded; false otherwise
      */
-    function copyTo(File $destFile) {
+    public function copyTo(File $destFile) {
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess($this) !== true) {
@@ -683,11 +632,11 @@ class File {
      * lastModified method will return the (possibly truncated) time argument
      * that was passed to this method.
      *
-     * @param  time  The new last-modified time, measured in milliseconds since
+     * @param  int $time  The new last-modified time, measured in milliseconds since
      *               the epoch (00:00:00 GMT, January 1, 1970)
-     * @return true if and only if the operation succeeded; false otherwise
+     * @return boolean Whether operation succeeded
      */
-    function setLastModified($time) {
+    public function setLastModified($time) {
         $time = (int) $time;
         if ($time < 0) {
             throw new Exception("IllegalArgumentException, Negative $time\n");
@@ -703,14 +652,11 @@ class File {
 
     /**
      * Marks the file or directory named by this abstract pathname so that
-     * only read operations are allowed.  After invoking this method the file
-     * or directory is guaranteed not to change until it is either deleted or
-     * marked to allow write access.  Whether or not a read-only file or
-     * directory may be deleted depends upon the underlying system.
-     *
-     * @return true if and only if the operation succeeded; false otherwise
+     * only read operations are allowed.
+     * 
+     * @return boolean Whether operation succeeded
      */
-    function setReadOnly() {
+    public function setReadOnly() {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this, true) !== true) {
             // Error, no write access
@@ -723,7 +669,7 @@ class File {
      * Sets the mode of the file
      * @param int $mode Ocatal mode.
      */
-    function setMode($mode) {
+    public function setMode($mode) {
         $fs = FileSystem::getFileSystem();
         return $fs->chmod($this->getPath(), $mode);
     }
@@ -732,7 +678,7 @@ class File {
      * Retrieve the mode of this file.
      * @return int
      */
-    function getMode() {
+    public function getMode() {
         return @fileperms($this->getPath());
     }
 
@@ -766,12 +712,12 @@ class File {
      * platform will be returned by this method, while File
      * objects containing UNC pathnames will not be returned by this method.
      *
-     * @return  An array of File objects denoting the available
+     * @return  array File[] An array of File objects denoting the available
      *          filesystem roots, or null if the set of roots
      *          could not be determined.  The array will be empty if there are
      *          no filesystem roots.
      */
-    function listRoots() {
+    public function listRoots() {
         $fs = FileSystem::getFileSystem();
         return (array) $fs->listRoots();
     }
@@ -780,8 +726,9 @@ class File {
 
     /**
      * Returns the path to the temp directory.
+     * @return string
      */
-    function getTempDir() {
+    public function getTempDir() {
         return Phing::getProperty('php.tmpdir');
     }
 
@@ -791,11 +738,9 @@ class File {
      * is a reference to a File Object.
      * Then, the file is locked for exclusive reading/writing.
      *
-     * @author      manuel holtgrewe, grin@gmx.net
-     * @throws      IOException
-     * @access      public
+     * @throws IOException
      */
-    function createTempFile($prefix, $suffix, File $directory) {
+    public static function createTempFile($prefix, $suffix, File $directory) {
         
         // quick but efficient hack to create a unique filename ;-)
         $result = null;
@@ -816,7 +761,7 @@ class File {
      *
      * @access      public
      */
-    function removeTempFile() {
+    public function removeTempFile() {
         $fs = FileSystem::getFileSystem();
         // catch IO Exception
         $fs->unlock($this);
@@ -840,36 +785,35 @@ class File {
      *        than zero if this abstract pathname is lexicographically
      *        greater than the argument
      */
-    function compareTo(File $file) {
+    public function compareTo(File $file) {
         $fs = FileSystem::getFileSystem();
         return $fs->compare($this, $file);
     }
 
     /**
-     * Tests this abstract pathname for equality with the given object.
-     * Returns <code>true</code> if and only if the argument is not
-     * <code>null</code> and is an abstract pathname that denotes the same file
-     * or directory as this abstract pathname.  Whether or not two abstract
-     * pathnames are equal depends upon the underlying system.  On UNIX
-     * systems, alphabetic case is significant in comparing pathnames; on Win32
-     * systems it is not.
+     * Tests to see whether two File objects are equal.
      * @return boolean
      */
-    function equals($obj) {
+    public function equals($obj) {
         if (($obj !== null) && ($obj instanceof File)) {
             return ($this->compareTo($obj) === 0);
         }
         return false;
     }
 
-    /** Backwards compatibility -- use PHP5's native __tostring method. */
-    function toString() {
+    /**
+	 * Backwards compatibility -- use PHP5's native __tostring method.
+	 * @deprecated
+	 */
+    public function toString() {
         return $this->getPath();
     }
     
-    /** PHP5's native method. */
-    function __toString() {
+    /**
+	 * PHP5's semi-magic __toString() method.
+	 * @return string 
+	 */
+    public function __toString() {
         return $this->getPath();
     }
 }
-?>

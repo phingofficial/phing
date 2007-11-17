@@ -50,7 +50,10 @@ abstract class FileSystem {
     const BA_DIRECTORY = 0x04;
     const BA_HIDDEN    = 0x08;
     
-    /** Instance for getFileSystem() method. */
+    /**
+     * Singleton instance for getFileSystem() method.
+     * @var FileSystem
+     */
     private static $fs;
     
     /**
@@ -62,15 +65,12 @@ abstract class FileSystem {
         if (self::$fs === null) {
             switch(Phing::getProperty('host.fstype')) {
                 case 'UNIX':
-                    
                     self::$fs = new UnixFileSystem();
                 break;
                 case 'WIN32':
-                    
                     self::$fs = new Win32FileSystem();
                 break;
                 case 'WINNT':
-                    
                     self::$fs = new WinNTFileSystem();
                 break;
                 default:
