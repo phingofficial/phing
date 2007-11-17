@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::types::FileSet;
+use phing::types::FileList;
 use phing::system::io::File;
 
 /**

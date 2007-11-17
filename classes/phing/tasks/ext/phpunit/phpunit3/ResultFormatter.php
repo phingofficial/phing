@@ -21,6 +21,8 @@
 
 namespace phing::tasks::ext::phpunit::phpunit3;
 use phing::BuildException;
+use phing::Project;
+use phing::system::io::Writer;
 
 require_once 'PHPUnit/Framework/TestListener.php';
 
@@ -32,7 +34,7 @@ require_once 'PHPUnit/Framework/TestListener.php';
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-abstract class PHPUnit3ResultFormatter implements PHPUnit_Framework_TestListener
+abstract class ResultFormatter implements ::PHPUnit_Framework_TestListener
 {
 	protected $out = NULL;
 	
@@ -97,7 +99,7 @@ abstract class PHPUnit3ResultFormatter implements PHPUnit_Framework_TestListener
 	{
 	}
 	
-	function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+	function startTestSuite(::PHPUnit_Framework_TestSuite $suite)
 	{
 		$this->timers[] = $this->getMicrotime();
 		$this->runCounts[] = 0;
@@ -107,7 +109,7 @@ abstract class PHPUnit3ResultFormatter implements PHPUnit_Framework_TestListener
 		$this->skipCounts[] = 0;
 	}
 	
-	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+	function endTestSuite(::PHPUnit_Framework_TestSuite $suite)
 	{
 		$lastRunCount = array_pop($this->runCounts);
 		$this->runCounts[count($this->runCounts) - 1] += $lastRunCount;
@@ -127,31 +129,31 @@ abstract class PHPUnit3ResultFormatter implements PHPUnit_Framework_TestListener
 		array_pop($this->timers);
 	}
 
-	function startTest(PHPUnit_Framework_Test $test)
+	function startTest(::PHPUnit_Framework_Test $test)
 	{
 		$this->runCounts[count($this->runCounts) - 1]++;
 	}
 
-	function endTest(PHPUnit_Framework_Test $test, $time)
+	function endTest(::PHPUnit_Framework_Test $test, $time)
 	{
 	}
 
-	function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+	function addError(::PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		$this->errorCounts[count($this->errorCounts) - 1]++;
 	}
 
-	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+	function addFailure(::PHPUnit_Framework_Test $test, ::PHPUnit_Framework_AssertionFailedError $e, $time)
 	{
 		$this->failureCounts[count($this->failureCounts) - 1]++;
 	}
 
-	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+	function addIncompleteTest(::PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		$this->incompleteCounts[count($this->incompleteCounts) - 1]++;
 	}
 
-	function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+	function addSkippedTest(::PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		$this->skipCounts[count($this->skipCounts) - 1]++;
 	}
@@ -193,7 +195,7 @@ abstract class PHPUnit3ResultFormatter implements PHPUnit_Framework_TestListener
 		}
 	}
 
-	private  function getMicrotime() {
+	private function getMicrotime() {
 		list($usec, $sec) = explode(' ', microtime());
 		return (float)$usec + (float)$sec;
 	}

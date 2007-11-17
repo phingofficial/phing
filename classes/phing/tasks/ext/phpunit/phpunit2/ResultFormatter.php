@@ -21,6 +21,9 @@
 
 namespace phing::tasks::ext::phpunit::phpunit2;
 use phing::BuildException;
+use phing::Project;
+use phing::system::io::Writer;
+
 require_once 'PHPUnit2/Framework/TestListener.php';
 
 
@@ -33,7 +36,7 @@ require_once 'PHPUnit2/Framework/TestListener.php';
  * @package phing.tasks.ext.phpunit.phpunit2
  * @since 2.1.0
  */
-abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListener
+abstract class ResultFormatter implements ::PHPUnit2_Framework_TestListener
 {
 	protected $out = NULL;
 	
@@ -88,7 +91,7 @@ abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListene
 	{
 	}
 	
-	function startTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	function startTestSuite(::PHPUnit2_Framework_TestSuite $suite)
 	{
 		$this->runCount = 0;
 		$this->failureCount = 0;
@@ -98,35 +101,35 @@ abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListene
 		$this->timer->start();
 	}
 	
-	function endTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	function endTestSuite(::PHPUnit2_Framework_TestSuite $suite)
 	{
 		$this->timer->stop();
 	}
 
-	function startTest(PHPUnit2_Framework_Test $test)
+	function startTest(::PHPUnit2_Framework_Test $test)
 	{
 		$this->runCount++;
 	}
 
-	function endTest(PHPUnit2_Framework_Test $test)
+	function endTest(::PHPUnit2_Framework_Test $test)
 	{
 	}
 
-	function addError(PHPUnit2_Framework_Test $test, Exception $e)
+	function addError(::PHPUnit2_Framework_Test $test, Exception $e)
 	{
 		$this->errorCount++;
 	}
 
-	function addFailure(PHPUnit2_Framework_Test $test, PHPUnit2_Framework_AssertionFailedError $t)
+	function addFailure(::PHPUnit2_Framework_Test $test, ::PHPUnit2_Framework_AssertionFailedError $t)
 	{
 		$this->failureCount++;
 	}
 
-	function addIncompleteTest(PHPUnit2_Framework_Test $test, Exception $e)
+	function addIncompleteTest(::PHPUnit2_Framework_Test $test, Exception $e)
 	{
 	}
 
-	function addSkippedTest(PHPUnit2_Framework_Test $test, Exception $e)
+	function addSkippedTest(::PHPUnit2_Framework_Test $test, Exception $e)
 	{
 	}
 	

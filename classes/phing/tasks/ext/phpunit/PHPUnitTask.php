@@ -25,6 +25,8 @@ use phing::Task;
 use phing::Project;
 use phing::io::Writer;
 use phing::util::LogWriter;
+use phing::system::io::File;
+use phing::system::io::FileWriter;
 
 /**
  * Runs PHPUnit2/3 tests.
@@ -68,11 +70,11 @@ class PHPUnitTask extends Task
 
 		if (class_exists('PHPUnit_Runner_Version', false))
 		{ 
-			$version = PHPUnit_Runner_Version::id();
+			$version = ::PHPUnit_Runner_Version::id();
 		}
 		elseif (class_exists('PHPUnit2_Runner_Version', false))
 		{
-			$version = PHPUnit2_Runner_Version::id();
+			$version = ::PHPUnit2_Runner_Version::id();
 		}
 		else
 		{
@@ -111,25 +113,25 @@ class PHPUnitTask extends Task
 				define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
 			}
 			
-			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTask.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTestRunner.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Task.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Target.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Project.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Phing.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing.php', 'PHING');
+			::PHPUnit_Util_Filter::addFileToFilter('PHPUnitTask.php', 'PHING');
+			::PHPUnit_Util_Filter::addFileToFilter('PHPUnitTestRunner.php', 'PHING');
+			::PHPUnit_Util_Filter::addFileToFilter('phing/Task.php', 'PHING');
+			::PHPUnit_Util_Filter::addFileToFilter('phing/Target.php', 'PHING');
+			::PHPUnit_Util_Filter::addFileToFilter('phing/Project.php', 'PHING');
+			::PHPUnit_Util_Filter::addFileToFilter('phing/Phing.php', 'PHING');
+			::PHPUnit_Util_Filter::addFileToFilter('phing.php', 'PHING');
 		}
 		else
 		{
 			require_once 'PHPUnit2/Util/Filter.php';
 			
-			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTask.php');
-			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTestRunner.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Target.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Project.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Phing.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing.php');
+			::PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTask.php');
+			::PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTestRunner.php');
+			::PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
+			::PHPUnit2_Util_Filter::addFileToFilter('phing/Target.php');
+			::PHPUnit2_Util_Filter::addFileToFilter('phing/Project.php');
+			::PHPUnit2_Util_Filter::addFileToFilter('phing/Phing.php');
+			::PHPUnit2_Util_Filter::addFileToFilter('phing.php');
 		}
 	}
 	
@@ -250,7 +252,7 @@ class PHPUnitTask extends Task
 		{
 			$suite = NULL;
 			
-			if (is_subclass_of($test, 'PHPUnit_Framework_TestSuite') || is_subclass_of($test, 'PHPUnit2_Framework_TestSuite'))
+			if (is_subclass_of($test, '::PHPUnit_Framework_TestSuite') || is_subclass_of($test, '::PHPUnit2_Framework_TestSuite'))
 			{
 				if (is_object($test))
 				{
@@ -266,12 +268,12 @@ class PHPUnitTask extends Task
 				if (PHPUnitUtil::$installedVersion == 3)
 				{
 					require_once 'PHPUnit/Framework/TestSuite.php';
-					$suite = new PHPUnit_Framework_TestSuite(new ReflectionClass($test));
+					$suite = new ::PHPUnit_Framework_TestSuite(new ReflectionClass($test));
 				}
 				else
 				{
 					require_once 'PHPUnit2/Framework/TestSuite.php';
-					$suite = new PHPUnit2_Framework_TestSuite(new ReflectionClass($test));
+					$suite = new ::PHPUnit2_Framework_TestSuite(new ReflectionClass($test));
 				}
 			}
 			

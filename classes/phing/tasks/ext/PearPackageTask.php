@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::tasks::system::MatchingTask;
 use phing::Project;
 use phing::sytem::io::File;
+use phing::types::FileSet;
 
 /**
  * A task to create PEAR package.xml file.

@@ -46,7 +46,13 @@ class File {
     /** The length of this abstract pathname's prefix, or zero if it has no prefix. */
     private $prefixLength = 0;
 
-    /** constructor */
+    /**
+     * Create a new File object.
+     * Valid constructor signatures include:
+     * 	File(File parent, string filename)
+     *  File(string filename)
+     *  File(string parent, string filename)
+	 */
     function __construct($arg1 = null, $arg2 = null) {
         
         if (self::$separator === null || self::$pathSeparator === null) {
@@ -56,7 +62,7 @@ class File {
         }
 
         /* simulate signature identified constructors */
-        if ($arg1 instanceof PhingFile && is_string($arg2)) {
+        if ($arg1 instanceof File && is_string($arg2)) {
             $this->_constructFileParentStringChild($arg1, $arg2);
         } elseif (is_string($arg1) && ($arg2 === null)) {
             $this->_constructPathname($arg1);
@@ -192,7 +198,7 @@ class File {
         if ($p === null) {
             return null;
         }
-        return new PhingFile((string) $p, (int) $this->prefixLength);
+        return new File((string) $p, (int) $this->prefixLength);
     }
 
     /**
@@ -252,7 +258,7 @@ class File {
      *          directory as this abstract pathname
      */
     function getAbsoluteFile() {
-        return new PhingFile((string) $this->getAbsolutePath());
+        return new File((string) $this->getAbsolutePath());
     }
 
 
@@ -290,11 +296,11 @@ class File {
      * Returns the canonical form of this abstract pathname.  Equivalent to
      * getCanonicalPath(.
      *
-     * @return  PhingFile The canonical pathname string denoting the same file or
+     * @return  File The canonical pathname string denoting the same file or
      *          directory as this abstract pathname
      */
     function getCanonicalFile() {
-        return new PhingFile($this->getCanonicalPath());
+        return new File($this->getCanonicalPath());
     }
 
     /**
@@ -586,7 +592,7 @@ class File {
         $n = count($ss);
         $fs = array();
         for ($i = 0; $i < $n; $i++) {
-            $fs[$i] = new PhingFile((string)$this->path, (string)$ss[$i]);
+            $fs[$i] = new File((string)$this->path, (string)$ss[$i]);
         }
         return $fs;
     }
@@ -626,7 +632,7 @@ class File {
     function mkdir() {
         $fs = FileSystem::getFileSystem();
 
-        if ($fs->checkAccess(new PhingFile($this->path), true) !== true) {
+        if ($fs->checkAccess(new File($this->path), true) !== true) {
             throw new IOException("No write access to " . $this->getPath());
         }
         return $fs->createDirectory($this);
@@ -638,7 +644,7 @@ class File {
      * @param   destFile  The new abstract pathname for the named file
      * @return  true if and only if the renaming succeeded; false otherwise
      */
-    function renameTo(PhingFile $destFile) {
+    function renameTo(File $destFile) {
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No write access to ".$this->getPath());
@@ -648,12 +654,12 @@ class File {
 
     /**
      * Simple-copies file denoted by this abstract pathname into another
-     * PhingFile
+     * File
      *
-     * @param PhingFile $destFile  The new abstract pathname for the named file
+     * @param File $destFile  The new abstract pathname for the named file
      * @return true if and only if the renaming succeeded; false otherwise
      */
-    function copyTo(PhingFile $destFile) {
+    function copyTo(File $destFile) {
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess($this) !== true) {
@@ -744,7 +750,7 @@ class File {
      * operations such the insertion or ejection of removable media and the
      * disconnecting or unmounting of physical or virtual disk drives.
      *
-     * This method returns an array of PhingFile objects that
+     * This method returns an array of File objects that
      * denote the root directories of the available filesystem roots.  It is
      * guaranteed that the canonical pathname of any file physically present on
      * the local machine will begin with one of the roots returned by this
@@ -755,12 +761,12 @@ class File {
      * or may not begin with one of the roots returned by this method.  If the
      * pathname of a remote file is syntactically indistinguishable from the
      * pathname of a local file then it will begin with one of the roots
-     * returned by this method.  Thus, for example, PhingFile objects
+     * returned by this method.  Thus, for example, File objects
      * denoting the root directories of the mapped network drives of a Windows
-     * platform will be returned by this method, while PhingFile
+     * platform will be returned by this method, while File
      * objects containing UNC pathnames will not be returned by this method.
      *
-     * @return  An array of PhingFile objects denoting the available
+     * @return  An array of File objects denoting the available
      *          filesystem roots, or null if the set of roots
      *          could not be determined.  The array will be empty if there are
      *          no filesystem roots.
@@ -782,19 +788,19 @@ class File {
     /**
      * Static method that creates a unique filename whose name begins with
      * $prefix and ends with $suffix in the directory $directory. $directory
-     * is a reference to a PhingFile Object.
+     * is a reference to a File Object.
      * Then, the file is locked for exclusive reading/writing.
      *
      * @author      manuel holtgrewe, grin@gmx.net
      * @throws      IOException
      * @access      public
      */
-    function createTempFile($prefix, $suffix, PhingFile $directory) {
+    function createTempFile($prefix, $suffix, File $directory) {
         
         // quick but efficient hack to create a unique filename ;-)
         $result = null;
         do {
-            $result = new PhingFile($directory, $prefix . substr(md5(time()), 0, 8) . $suffix);
+            $result = new File($directory, $prefix . substr(md5(time()), 0, 8) . $suffix);
         } while (file_exists($result->getPath()));
 
         $fs = FileSystem::getFileSystem();
@@ -826,7 +832,7 @@ class File {
      * systems, alphabetic case is significant in comparing pathnames; on Win32
      * systems it is not.
      *
-     * @param PhingFile $file Th file whose pathname sould be compared to the pathname of this file.
+     * @param File $file Th file whose pathname sould be compared to the pathname of this file.
      *
      * @return int Zero if the argument is equal to this abstract pathname, a
      *        value less than zero if this abstract pathname is
@@ -834,7 +840,7 @@ class File {
      *        than zero if this abstract pathname is lexicographically
      *        greater than the argument
      */
-    function compareTo(PhingFile $file) {
+    function compareTo(File $file) {
         $fs = FileSystem::getFileSystem();
         return $fs->compare($this, $file);
     }
@@ -850,7 +856,7 @@ class File {
      * @return boolean
      */
     function equals($obj) {
-        if (($obj !== null) && ($obj instanceof PhingFile)) {
+        if (($obj !== null) && ($obj instanceof File)) {
             return ($this->compareTo($obj) === 0);
         }
         return false;

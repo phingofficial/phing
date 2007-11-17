@@ -24,6 +24,10 @@ use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::types::Path;
+use phing::types::FileSet;
+use phing::system::io::File;
+use phing::system::util::Properties;
+use phing::tasks::ext::phpunit::PHPUnitUtil;
 
 /**
  * Transforms information in a code coverage database to XML

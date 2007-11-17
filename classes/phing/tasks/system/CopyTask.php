@@ -61,13 +61,10 @@ class CopyTask extends Task {
     protected $verbosity     = Project::MSG_VERBOSE;
 
     /**
-     * Sets up this object internal stuff. i.e. the Fileutils instance
-     *
-     * @return object   The CopyTask instnace
-     * @access public
+     * Create new CopyTask object.
      */
     function __construct() {
-        $this->fileUtils = new FileUtils();
+    	
     }
 
     /**
@@ -77,7 +74,6 @@ class CopyTask extends Task {
      *
      * @param  boolean  Overwrite the destination file(s) if it/they already exist
      * @return void
-     * @access public
      */
     function setOverwrite($bool) {
         $this->overwrite = (boolean) $bool;
@@ -380,7 +376,7 @@ class CopyTask extends Task {
 					$toSlot->setValue($toFile->getPath());
 					$toBasenameSlot->setValue($toFile->getName());
 					
-                    $this->fileUtils->copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject());
+                    FileUtils::copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject());
 			
                     $count++;
                 } catch (IOException $ioe) {

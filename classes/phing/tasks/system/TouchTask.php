@@ -40,10 +40,8 @@ class TouchTask extends Task {
     private $millis    = -1;
     private $dateTime;
     private $filesets = array();
-    private $fileUtils;
 
     function __construct() {
-        $this->fileUtils = new FileUtils();
     }
 
     /**

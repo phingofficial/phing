@@ -21,7 +21,9 @@
 
 namespace phing::tasks::ext::phpunit;
 use phing::BuildException;
-
+use phing::system::io::File;
+use phing::tasks::ext::phpunit::phpunit3;
+use phing::tasks::ext::phpunit::phpunit2;
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
@@ -51,12 +53,12 @@ class FormatterElement
 			if (PHPUnitUtil::$installedVersion == 3)
 			{
 				
-				$this->formatter = new SummaryPHPUnit3ResultFormatter();
+				$this->formatter = new phpunit3::SummaryResultFormatter();
 			}
 			else			
 			{
 				
-				$this->formatter = new SummaryPHPUnit2ResultFormatter();
+				$this->formatter = new phpunit2::SummaryResultFormatter();
 			}
 		}
 		else
@@ -67,12 +69,12 @@ class FormatterElement
 			if (PHPUnitUtil::$installedVersion == 3)
 			{
 				
-				$this->formatter = new XMLPHPUnit3ResultFormatter();
+				$this->formatter = new phpunit3::XMLResultFormatter();
 			}
 			else
 			{
 				
-				$this->formatter = new XMLPHPUnit2ResultFormatter();
+				$this->formatter = new phpunit2::XMLResultFormatter();
 			}
 		}
 		else
@@ -81,12 +83,12 @@ class FormatterElement
 			if (PHPUnitUtil::$installedVersion == 3)
 			{
 				
-				$this->formatter = new PlainPHPUnit3ResultFormatter();
+				$this->formatter = new phpunit3::PlainResultFormatter();
 			}
 			else
 			{
 				
-				$this->formatter = new PlainPHPUnit2ResultFormatter();
+				$this->formatter = new phpunit2::PlainResultFormatter();
 			}
 		}
 		else

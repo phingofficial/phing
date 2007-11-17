@@ -20,10 +20,14 @@
  */
 
 namespace phing::tasks::ext::coverage;
+use phing::Phing;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::types::Path;
+use phing::types::FileSet;
+use phing::system::io::File;
+use phing::system::util::Properties;
 
 /**
  * Initializes a code coverage database

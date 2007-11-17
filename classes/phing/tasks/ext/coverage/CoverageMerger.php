@@ -21,6 +21,8 @@
 
 namespace phing::tasks::ext::coverage;
 use phing::BuildException;
+use phing::system::io::File;
+use phing::system::util::Properties;
 
 /**
  * Saves coverage output of the test to a specified database

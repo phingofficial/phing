@@ -20,9 +20,13 @@
  */
 
 namespace phing::tasks::ext::phpunit;
+use phing::Phing;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
+use phing::types::FileSet;
+use phing::system::io::File;
+use phing::system::io::FileWriter;
 
 /**
  * Transform a PHPUnit2 xml report using XSLT.

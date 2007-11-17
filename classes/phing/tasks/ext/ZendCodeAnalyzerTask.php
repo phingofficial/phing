@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::sytem::io::File;
+use phing::types::FileSet;
 
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1

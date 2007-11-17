@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::sytem::io::File;
+use phing::types::FileSet;
 
 /**
  * A Javascript lint task. Checks syntax of Javascript files.

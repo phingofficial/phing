@@ -20,8 +20,10 @@
  */
 
 namespace phing::tasks::ext::phpunit;
+use phing::Project;
 use phing::BuildException;
 use phing::types::Path;
+use phing::types::FileSet;
 
 /**
  * Scans a list of files given by the fileset attribute, extracts

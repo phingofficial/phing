@@ -23,6 +23,8 @@
 namespace phing::util;
 use phing::BuildException;
 use phing::Project;
+use phing::Task;
+use phing::system::io::Writer;
 
 /**
  * Extends the Writer class to output messages to Phing's log

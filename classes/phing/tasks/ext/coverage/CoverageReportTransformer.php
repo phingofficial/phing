@@ -20,7 +20,12 @@
  */
 
 namespace phing::tasks::ext::coverage;
+use phing::Phing;
+use phing::Task;
+use phing::types::Path;
 use phing::BuildException;
+use phing::system::io::File;
+use phing::util::ExtendedFileStream;
 
 /**
  * Transform a Phing/Xdebug code coverage xml report.

@@ -251,8 +251,7 @@ class PhingTask extends Task {
                 $this->phingFile = "build.xml";
             }
             
-            $fu = new FileUtils();
-            $file = $fu->resolveFile($this->dir, $this->phingFile);
+            $file = FileUtils::resolveFile($this->dir, $this->phingFile);
             $this->phingFile = $file->getAbsolutePath();
             
             $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'");

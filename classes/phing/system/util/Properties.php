@@ -23,6 +23,7 @@
 namespace phing::system::util;
 use phing::BuildException;
 use phing::system::io::File;
+use phing::system::io::FileWriter;
 
 /**
  * Convenience class for reading and writing property files.

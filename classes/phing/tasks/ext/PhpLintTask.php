@@ -24,6 +24,7 @@ use phing::BuildException;
 use phing::Task;
 use phing::Project;
 use phing::sytem::io::File;
+use phing::types::FileSet;
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.

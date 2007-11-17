@@ -21,6 +21,8 @@
 
 namespace phing::tasks::ext::phpunit;
 use phing::BuildException;
+use phing::Project;
+use phing::tasks::ext::coverage::CoverageMerger;
 
 /**
  * Simple Testrunner for PHPUnit2/3 that runs all tests of a testsuite.
@@ -74,12 +76,12 @@ class PHPUnitTestRunner
 		if (PHPUnitUtil::$installedVersion == 3)
 		{
 			require_once 'PHPUnit/Framework/TestSuite.php';			
-			$res = new PHPUnit_Framework_TestResult();
+			$res = new ::PHPUnit_Framework_TestResult();
 		}
 		else
 		{
 			require_once 'PHPUnit2/Framework/TestSuite.php';
-			$res = new PHPUnit2_Framework_TestResult();
+			$res = new ::PHPUnit2_Framework_TestResult();
 		}
 
 		if ($this->codecoverage)

@@ -23,6 +23,7 @@ namespace phing::util;
 use phing::BuildException;
 use phing::Phing;
 use phing::Project;
+use phing::Task;
 
 /**
  *  Utility class that collects the functionality of the various
@@ -34,19 +35,19 @@ use phing::Project;
  *  @package   phing.util
  */
 class SourceFileScanner {
-
-    /** Instance of FileUtils */
-    private $fileUtils;
     
-    /** Task this class is working for -- for logging purposes. */
+    /**
+	 * Task this class is working for -- for logging purposes.
+	 * @var Task
+	 */
     private $task;
 
     /**
-     * @param task The task we should log messages through
+     * Construct a new SourceFileScanner with Task object.
+     * @param Task $task The task we should log messages through
      */
-    function __construct($task) {
+    function __construct(Task $task) {
         $this->task = $task;
-        $this->fileUtils = new FileUtils();
     }
 
     /**
@@ -94,7 +95,7 @@ class SourceFileScanner {
                 if ($srcDir === null) {
                     $src = new File($files[$i]);
                 } else {
-                    $src = $this->fileUtils->resolveFile($srcDir, $files[$i]);
+                    $src = FileUtils::resolveFile($srcDir, $files[$i]);
                 }
     
                 if ($src->lastModified() > $now) {
@@ -114,7 +115,7 @@ class SourceFileScanner {
                 if ($destDir === null) {
                     $dest = new File($targets[$j]);
                 } else {
-                    $dest = $this->fileUtils->resolveFile($destDir, $targets[$j]);
+                    $dest = FileUtils::resolveFile($destDir, $targets[$j]);
                 }
 
                 if (!$dest->exists()) {

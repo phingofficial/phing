@@ -33,7 +33,7 @@ require_once 'PHPUnit/Util/Log/XML.php';
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
+class XMLResultFormatter extends ResultFormatter
 {
 	/**
 	 * @var PHPUnit_Util_Log_XML
@@ -42,7 +42,7 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	
 	function __construct()
 	{
-		$this->logger = new PHPUnit_Util_Log_XML();
+		$this->logger = new ::PHPUnit_Util_Log_XML();
 		$this->logger->setWriteDocument(false);
 	}
 	
@@ -56,21 +56,21 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		return "testsuites";
 	}
 	
-	function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+	function startTestSuite(::PHPUnit_Framework_TestSuite $suite)
 	{
 		parent::startTestSuite($suite);
 		
 		$this->logger->startTestSuite($suite);
 	}
 	
-	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+	function endTestSuite(::PHPUnit_Framework_TestSuite $suite)
 	{
 		parent::endTestSuite($suite);
 		
 		$this->logger->endTestSuite($suite);
 	}
 	
-	function startTest(PHPUnit_Framework_Test $test)
+	function startTest(::PHPUnit_Framework_Test $test)
 	{
 		parent::startTest($test);
 		
@@ -84,21 +84,21 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		$this->logger->endTest($test, $time);
 	}
 	
-	function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+	function addError(::PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		parent::addError($test, $e, $time);
 		
 		$this->logger->addError($test, $e, $time);
 	}
 
-	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+	function addFailure(::PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
 	{
 		parent::addFailure($test, $e, $time);
 
 		$this->logger->addFailure($test, $e, $time);
 	}
 
-	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+	function addIncompleteTest(::PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		parent::addIncompleteTest($test, $e, $time);
 		

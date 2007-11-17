@@ -21,6 +21,7 @@
 
 namespace phing::util;
 use phing::BuildException;
+use phing::system::io::File;
 
 /**
  * Extended file stream wrapper class which auto-creates directories
@@ -37,7 +38,7 @@ class ExtendedFileStream
 	{
 		if (!in_array("efile", stream_get_wrappers()))
 		{
-			stream_wrapper_register("efile", "ExtendedFileStream");
+			stream_wrapper_register("efile", __NAMESPACE__ . "::ExtendedFileStream");
 		}
 	}
 

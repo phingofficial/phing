@@ -110,7 +110,6 @@ class Project {
      *  Constructor, sets any default vars.
      */
     function __construct() {
-        $this->fileUtils = new FileUtils();
         $this->inputHandler = new phing::input::DefaultInputHandler();
     }
 
@@ -440,7 +439,7 @@ class Project {
             $dir = $dir->getAbsolutePath();
         }
 
-        $dir = $this->fileUtils->normalize($dir);
+        $dir = FileUtils::normalize($dir);
 
         $dir = new File((string) $dir);
         if (!$dir->exists()) {
@@ -712,9 +711,9 @@ class Project {
 
     function resolveFile($fileName, $rootDir = null) {
         if ($rootDir === null) {
-            return $this->fileUtils->resolveFile($this->basedir, $fileName);
+            return FileUtils::resolveFile($this->basedir, $fileName);
         } else {
-            return $this->fileUtils->resolveFile($rootDir, $fileName);
+            return FileUtils::resolveFile($rootDir, $fileName);
         }
     }    
 

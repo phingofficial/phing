@@ -25,6 +25,7 @@ use phing::Project;
 use phing::system::lang::Character;
 use phing::system::io::File;
 use phing::system::io::FileSystem;
+use phing::system::io::IOException;
 
 /**
  * File utility class.
@@ -71,7 +72,7 @@ class FileUtils {
      * @param Project $project
      * @return void
      */
-    function copyFile(File $sourceFile, File $destFile, $overwrite = false, $preserveLastModified = true, &$filterChains = null, Project $project) {
+    public static function copyFile(File $sourceFile, File $destFile, $overwrite = false, $preserveLastModified = true, &$filterChains = null, Project $project) {
        
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
             if ($destFile->exists() && $destFile->isFile()) {
@@ -122,7 +123,7 @@ class FileUtils {
      * @return File A File object pointing to an absolute file that doesn't contain ./ or ../ sequences
      *         and uses the correct separator for the current platform.
      */
-    function resolveFile($file, $filename) {
+    public static function resolveFile($file, $filename) {
         // remove this and use the static class constant File::seperator
         // as soon as ZE2 is ready
         $fs = FileSystem::getFileSystem();
@@ -132,11 +133,11 @@ class FileUtils {
         // deal with absolute files
         if (StringHelper::startsWith($fs->getSeparator(), $filename) ||
                 (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')) {
-            return new File($this->normalize($filename));
+            return new File(self::normalize($filename));
         }
 
         if (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':') {
-            return new File($this->normalize($filename));
+            return new File(self::normalize($filename));
         }
 
         $helpFile = new File($file->getAbsolutePath());
@@ -173,7 +174,7 @@ class FileUtils {
      * @param string $path Path to normalize.
      * @return string
      */
-    function normalize($path) {
+    public static function normalize($path) {
     
         $path = (string) $path;
         $orig = $path;

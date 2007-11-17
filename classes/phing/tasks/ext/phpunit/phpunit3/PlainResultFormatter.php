@@ -30,7 +30,7 @@ use phing::BuildException;
  * @package phing.tasks.ext.phpunit.phpunit3
  * @since 2.1.0
  */
-class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
+class PlainResultFormatter extends ResultFormatter
 {
 	private $inner = "";
 	
@@ -44,14 +44,14 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		return "testresults";
 	}
 
-	function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+	function startTestSuite(::PHPUnit_Framework_TestSuite $suite)
 	{
 		parent::startTestSuite($suite);
 		
 		$this->inner = "";
 	}
 	
-	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+	function endTestSuite(::PHPUnit_Framework_TestSuite $suite)
 	{
 		$sb = "Testsuite: " . $suite->getName() . "\n";
 		$sb.= "Tests run: " . $this->getRunCount();
@@ -70,14 +70,14 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		}
 	}
 
-	function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+	function addError(::PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		parent::addError($test, $e, $time);
 		
 		$this->formatError("ERROR", $test, $e);
 	}
 
-	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+	function addFailure(::PHPUnit_Framework_Test $test, ::PHPUnit_Framework_AssertionFailedError $e, $time)
 	{
 		parent::addFailure($test, $e, $time);
 		$this->formatError("FAILED", $test, $e);
@@ -96,7 +96,7 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		$this->formatError("SKIPPED", $test);
 	}
 
-	private function formatError($type, PHPUnit_Framework_Test $test, Exception $e = null)
+	private function formatError($type, ::PHPUnit_Framework_Test $test, Exception $e = null)
 	{
 		if ($test != null)
 		{
@@ -107,7 +107,7 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		
 		if ($e !== null) {
 			$this->inner.= $e->getMessage() . "\n";
-			$this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e, false) . "\n";
+			$this->inner.= ::PHPUnit_Util_Filter::getFilteredStackTrace($e, false) . "\n";
 		}
 	}
 	

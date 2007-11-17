@@ -23,6 +23,7 @@ namespace phing::tasks::ext::coverage;
 use phing::BuildException;
 use phing::Task;
 use phing::Project;
+use phing::types::FileSet;
 
 /**
  * Merges code coverage snippets into a code coverage database

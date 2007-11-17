@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: SummaryPHPUnit2ResultFormatter.php 142 2007-02-04 14:06:00Z mrook $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,29 +19,29 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::ext::phpunit::phpunit3;
+namespace phing::tasks::ext::phpunit::phpunit2;
 use phing::BuildException;
+require_once 'PHPUnit2/Framework/Test.php';
 
 /**
  * Prints short summary output of the test to Phing's logging system.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id: SummaryPHPUnit2ResultFormatter.php 142 2007-02-04 14:06:00Z mrook $
- * @package phing.tasks.ext.phpunit
+ * @version $Id$
+ * @package phing.tasks.ext.phpunit.phpunit2
  * @since 2.1.0
  */	
-class SummaryPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
+class SummaryResultFormatter extends ResultFormatter
 {
-	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+	function endTestSuite(PHPUnit2_Framework_TestSuite $suite)
 	{
+		parent::endTestSuite($suite);
+		
 		$sb = "Tests run: " . $this->getRunCount();
 		$sb.= ", Failures: " . $this->getFailureCount();
 		$sb.= ", Errors: " . $this->getErrorCount();
-		$sb.= ", Incomplete: " . $this->getIncompleteCount();
-		$sb.= ", Skipped: " . $this->getSkippedCount();
-		$sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-		
-		parent::endTestSuite($suite);
+		$sb.= ", Time elapsed: " . $this->getElapsedTime();
+		$sb.= " sec\n";
 		
 		if ($this->out != NULL)
 		{
@@ -55,3 +55,4 @@ class SummaryPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		return NULL;
 	}
 }
+?>

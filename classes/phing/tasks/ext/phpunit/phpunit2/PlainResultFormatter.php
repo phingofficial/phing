@@ -33,7 +33,7 @@ require_once 'PHPUnit2/Util/Filter.php';
  * @package phing.tasks.ext.phpunit.phpunit2
  * @since 2.1.0
  */
-class PlainPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
+class PlainResultFormatter extends ResultFormatter
 {
 	private $inner = "";
 	
@@ -47,14 +47,14 @@ class PlainPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 		return "testresults";
 	}
 
-	function startTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	function startTestSuite(::PHPUnit2_Framework_TestSuite $suite)
 	{
 		parent::startTestSuite($suite);
 		
 		$this->inner = "";
 	}
 	
-	function endTestSuite(PHPUnit2_Framework_TestSuite $suite)
+	function endTestSuite(::PHPUnit2_Framework_TestSuite $suite)
 	{
 		parent::endTestSuite($suite);
 		
@@ -72,28 +72,28 @@ class PlainPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 		}
 	}
 
-	function addError(PHPUnit2_Framework_Test $test, Exception $e)
+	function addError(::PHPUnit2_Framework_Test $test, Exception $e)
 	{
 		parent::addError($test, $e);
 		
 		$this->formatError("ERROR", $test, $e);
 	}
 
-	function addFailure(PHPUnit2_Framework_Test $test, PHPUnit2_Framework_AssertionFailedError $t)
+	function addFailure(::PHPUnit2_Framework_Test $test, ::PHPUnit2_Framework_AssertionFailedError $t)
 	{
 		parent::addFailure($test, $t);
 		
 		$this->formatError("FAILED", $test, $t);
 	}
 
-	function addIncompleteTest(PHPUnit2_Framework_Test $test, Exception $e)
+	function addIncompleteTest(::PHPUnit2_Framework_Test $test, Exception $e)
 	{
 		parent::addIncompleteTest($test, $e);
 		
 		$this->formatError("INCOMPLETE", $test, $e);
 	}
 
-	private function formatError($type, PHPUnit2_Framework_Test $test, Exception $e)
+	private function formatError($type, ::PHPUnit2_Framework_Test $test, Exception $e)
 	{
 		if ($test != null)
 		{
@@ -102,7 +102,7 @@ class PlainPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 
 		$this->inner.= $test->getName() . " " . $type . "\n";
 		$this->inner.= $e->getMessage() . "\n";
-		$this->inner.= PHPUnit2_Util_Filter::getFilteredStackTrace($e) . "\n";
+		$this->inner.= ::PHPUnit2_Util_Filter::getFilteredStackTrace($e) . "\n";
 	}
 	
 	function endTestRun()

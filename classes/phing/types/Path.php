@@ -419,7 +419,7 @@ class Path extends DataType {
      *
      * <p>Assume the filename is absolute if project is null.</p>
      */
-    private static function resolveFile(Project $project, $relativeName) {
+    private static function resolveFile(Project $project = null, $relativeName) {
         if ($project !== null) {
             $f = $project->resolveFile($relativeName);
             return $f->getAbsolutePath();
