@@ -248,13 +248,13 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
 &nbsp;&nbsp;&lt;/fileset&gt;
 &lt;/coverage-setup&gt;
-&lt;phpunit2 codecoverage=&quot;true&quot;&gt;
+&lt;phpunit codecoverage=&quot;true&quot;&gt;
 &nbsp;&nbsp;&lt;batchtest&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;fileset dir=&quot;src&quot;&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name=&quot;*Test.php&quot;/&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;/fileset&gt;
 &nbsp;&nbsp;&lt;/batchtest&gt;
-&lt;/phpunit2&gt;
+&lt;/phpunit&gt;
 </pre>
 
 <h2><a name="IoncubeEncoderTask"></a>IoncubeEncoderTask</h2>
@@ -698,7 +698,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 
   &lt;!-- xml formatter --&gt;
   &lt;formatter type=&quot;xml&quot; output=&quot;output.xml&quot;/&gt;
-  
+
   &lt;!-- custom formatter --&gt;
   &lt;formatter classname=&quot;path.to.CustomFormatterClass&quot;&gt;
     &lt;param name=&quot;someClassAttrib&quot; value=&quot;some-value&quot;/&gt;
@@ -707,7 +707,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   &lt;!-- No output file + usefile=false means it goes to phing log --&gt;
   &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot; /&gt;<br />&lt;/pdo&gt;
 </pre>
-	
+
   </li>
 </ul>
 
@@ -1066,10 +1066,12 @@ similar to Javadoc.</p>
 &lt;/phplint&gt;
 </pre>
 <p>Check syntax of a fileset of source files.</p>
-<h2><a name="PHPUnit2Task"></a>PHPUnit2Task</h2>
-<p>This task runs testcases using the <a href="http://www.phpunit.de/" target="_blank">PHPUnit2</a> framework.
+<h2><a name="PHPUnitTask"></a>PHPUnitTask</h2>
+<p>This task runs testcases using the <a href="http://www.phpunit.de/" target="_blank">PHPUnit</a> framework.
 It is a functional port of the Ant <a href="http://ant.apache.org/manual/OptionalTasks/junit.html" target="_blank">JUnit</a> task.
 </p>
+<p><b>NB:</b> the identifiers <i>phpunit2</i> (PHPUnit2Task) and <i>phpunit3</i> (PHPUnit3Task) have been deprecated, but are still
+available to maintain backwards compatibility.</p>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -1090,6 +1092,13 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>No</td>
     </tr>
     <tr>
+      <td>codecoverage</td>
+      <td>Boolean</td>
+      <td> Gather code coverage information while running tests (requires Xdebug). </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
       <td>haltonerror</td>
       <td>Boolean</td>
       <td> Stop the build process if an error occurs during the test run. </td>
@@ -1103,6 +1112,27 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>false</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td>haltonincomplete</td>
+      <td>Boolean</td>
+      <td> Stop the build process if any incomplete tests are encountered. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonskipped</td>
+      <td>Boolean</td>
+      <td> Stop the build process if any skipped tests are encountered. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>failureproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on failure.</td>
+      <td>n/a</td>
+      <td>No</td>
+	</tr>
 	<tr>
       <td>errorproperty</td>
       <td>String</td>
@@ -1111,9 +1141,16 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>No</td>
 	</tr>
 	<tr>
-      <td>failureproperty</td>
+      <td>incompleteproperty</td>
       <td>String</td>
-      <td>Name of property to set (to true) on failure.</td>
+      <td>Name of property to set (to true) on incomplete tests.</td>
+      <td>n/a</td>
+      <td>No</td>
+	</tr>
+	<tr>
+      <td>skippedproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on skipped tests.</td>
       <td>n/a</td>
       <td>No</td>
 	</tr>
@@ -1128,7 +1165,7 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
     <p>There are three predefined formatters - one prints the test results in XML format,
     the other emits plain text. The formatter named brief will only print detailed information for testcases
     that failed, while plain gives a little statistics line for all test cases. Custom formatters that
-    implement phing.tasks.ext.PHPUnit2ResultFormatter can be specified.</p>
+    implement phing.tasks.ext.PHPUnitResultFormatter can be specified.</p>
     <p>If you use the XML formatter, it may not include the same output that your tests have written as
     some characters are illegal in XML documents and will be dropped.</p>
 	<h3>Attributes</h3>
@@ -1221,7 +1258,7 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
   </li>
 </ul>
 <h3>Examples</h3>
-<pre>&lt;phpunit2&gt;
+<pre>&lt;phpunit&gt;
   &lt;formatter todir=&quot;reports&quot; type=&quot;xml&quot;/&gt;
   &lt;batchtest&gt;
     &lt;fileset dir=&quot;tests&quot;&gt;
@@ -1229,29 +1266,31 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       &lt;exclude name=&quot;**/Abstract*.php&quot;/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit2&gt;
+&lt;/phpunit&gt;
 </pre>
 <p>Runs all matching testcases in the directory <em>tests</em>, writing
 XML results to the directory <em>reports</em>.</p>
-<pre>&lt;phpunit2 haltonfailure=&quot;true&quot; haltonerror=&quot;true&quot;&gt;
+<pre>&lt;phpunit codecoverage=&quot;true&quot; haltonfailure=&quot;true&quot; haltonerror=&quot;true&quot;&gt;
   &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot;/&gt;
   &lt;batchtest&gt;
     &lt;fileset dir=&quot;tests&quot;&gt;
       &lt;include name=&quot;**/*Test*.php&quot;/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit2&gt;
+&lt;/phpunit&gt;
 </pre>
 <p>
-Runs all matching testcases in the directory <em>tests</em>, writing plain
+Runs all matching testcases in the directory <em>tests</em>, gathers code coverage information, writing plain
 text results to the console. The build process is aborted if a test
 fails.</p>
 
 <p><b>Important note:</b> using a mechanism such as an "AllTests.php" file to execute testcases will bypass the Phing hooks used for reporting
 and counting, and could possibly lead to strange results. Instead, use one of more fileset's to provide a list of testcases to execute.</p>
 
-<h2><a name="PHPUnit2Report"></a>PHPUnit2Report</h2>
-<p>This task transforms PHPUnit2 xml reports to HTML using XSLT.</p>
+<h2><a name="PHPUnitReport"></a>PHPUnitReport</h2>
+<p>This task transforms PHPUnit xml reports to HTML using XSLT.</p>
+<p><b>NB:</b> the identifiers <i>phpunit2report</i> (PHPUnit2Report) and <i>phpunit3report</i> (PHPUnit3Report) have been deprecated, but are still
+available to maintain backwards compatibility.</p>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -1303,7 +1342,7 @@ transformation should be written to. </td>
   </tbody>
 </table>
 <h3>Examples</h3>
-<pre>&lt;phpunit2report infile=&quot;reports/testsuites.xml&quot; format=&quot;frames&quot; todir=&quot;reports/tests&quot; styledir=&quot;/home/phing/etc&quot;/&gt;
+<pre>&lt;phpunitreport infile=&quot;reports/testsuites.xml&quot; format=&quot;frames&quot; todir=&quot;reports/tests&quot; styledir=&quot;/home/phing/etc&quot;/&gt;
 </pre>
 <p>Generates a framed report in the directory <em>reports/tests</em> using
 the file <em>reports/testsuites.xml</em> as input.</p>
