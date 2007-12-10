@@ -36,6 +36,8 @@ class PHPUnitTestRunner
 	const SUCCESS = 0;
 	const FAILURES = 1;
 	const ERRORS = 2;
+	const INCOMPLETES = 3;
+	const SKIPPED = 4;
 
 	private $test = NULL;
 	private $suite = NULL;
@@ -116,10 +118,17 @@ class PHPUnitTestRunner
 		{
 			$this->retCode = self::ERRORS;
 		}
-
-		else if ($res->failureCount() != 0 || $res->notImplementedCount() != 0 || $res->skippedCount() != 0)
+		else if ($res->failureCount() != 0)
 		{
 			$this->retCode = self::FAILURES;
+		}
+		else if ($res->notImplementedCount() != 0)
+		{
+			$this->retCode = self::INCOMPLETES;
+		}
+		else if ($res->skippedCount() != 0)
+		{
+			$this->retCode = self::SKIPPED;
 		}
 	}
 

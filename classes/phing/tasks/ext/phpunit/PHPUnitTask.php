@@ -39,8 +39,12 @@ class PHPUnitTask extends Task
 	private $formatters = array();
 	private $haltonerror = false;
 	private $haltonfailure = false;
-	private $failureproperty;
+	private $haltonincomplete = false;
+	private $haltonskipped = false;
 	private $errorproperty;
+	private $failureproperty;
+	private $incompleteproperty;
+	private $skippedproperty;
 	private $printsummary = false;
 	private $testfailed = false;
 	private $codecoverage = false;
@@ -131,14 +135,24 @@ class PHPUnitTask extends Task
 		}
 	}
 	
+	function setErrorproperty($value)
+	{
+		$this->errorproperty = $value;
+	}
+	
 	function setFailureproperty($value)
 	{
 		$this->failureproperty = $value;
 	}
 	
-	function setErrorproperty($value)
+	function setIncompleteproperty($value)
 	{
-		$this->errorproperty = $value;
+		$this->incompleteproperty = $value;
+	}
+	
+	function setSkippedproperty($value)
+	{
+		$this->skippedproperty = $value;
 	}
 	
 	function setHaltonerror($value)
@@ -149,6 +163,16 @@ class PHPUnitTask extends Task
 	function setHaltonfailure($value)
 	{
 		$this->haltonfailure = $value;
+	}
+
+	function setHaltonincomplete($value)
+	{
+		$this->haltonincomplete = $value;
+	}
+
+	function setHaltonskipped($value)
+	{
+		$this->haltonskipped = $value;
 	}
 
 	function setPrintsummary($printsummary)
@@ -323,8 +347,23 @@ class PHPUnitTask extends Task
 			if ($this->haltonfailure) {
 				$this->testfailed = true;
 			}
+		} elseif ($retcode == PHPUnitTestRunner::INCOMPLETES) {
+			if ($this->incompleteproperty) {
+				$this->project->setNewProperty($this->incompleteproperty, true);
+			}
+			
+			if ($this->haltonincomplete) {
+				$this->testfailed = true;
+			}
+		} elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
+			if ($this->skippedproperty) {
+				$this->project->setNewProperty($this->skippedproperty, true);
+			}
+			
+			if ($this->haltonskipped) {
+				$this->testfailed = true;
+			}
 		}
-		
 	}
 
 	private function getDefaultOutput()
