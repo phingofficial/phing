@@ -260,7 +260,7 @@ class DeleteTask extends Task {
                         $dir->delete();
                         $dirCount++;
                     } catch (Exception $e) {
-                        $message="Unable to delete directory " . $dir;
+                        $message="Unable to delete directory " . $dir->__toString();
                         if($this->failonerror) {
                             throw new BuildException($message);
                         } else {
