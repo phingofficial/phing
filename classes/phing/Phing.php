@@ -319,7 +319,7 @@ class Phing {
 		$keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps
 		for($i=0, $max = max(array_keys($args)); $i <= $max; $i++) {
 			
-			if (!array_key_exists($i, $args[$i])) {
+			if (!array_key_exists($i, $args)) {
 				// skip this argument, since it must have been removed above.
 				continue;
 			}
