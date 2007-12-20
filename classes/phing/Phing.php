@@ -136,10 +136,10 @@ class Phing {
 	 * @param array &$args The commandline args passed to phing shell script.
 	 * @param array $additionalUserProperties   Any additional properties to be passed to Phing (alternative front-end might implement this).
 	 *                                          These additional properties will be available using the getDefinedProperty() method and will
-	 *                                          be added to the project's "user" properties.
-	 * @return void
+	 *                                          be added to the project's "user" properties
 	 * @see execute()
 	 * @see runBuild()
+	 * @throws Exception - if there is an error during build
 	 */
 	public static function start(&$args, $additionalUserProperties = null) {
 
@@ -149,7 +149,7 @@ class Phing {
 		} catch (Exception $exc) {
 			self::handleLogfile(); // clean up log file before attempting to print message
 			$m->printMessage($exc);
-			self::halt(-1); // Parameter error
+			throw $exc;
 		}
 
 		if ($additionalUserProperties !== null) {
@@ -172,12 +172,11 @@ class Phing {
 				}
 			}
 			self::handleLogfile();
-			self::halt(1); // Errors occured
+			throw $exc;
 		}
 
 		// everything fine, shutdown
 		self::handleLogfile();
-		self::halt(0);
 	}
 
 	/**
@@ -370,7 +369,7 @@ class Phing {
 				}
 			} elseif (substr($arg,0,1) == "-") {
 				// we don't have any more args
-				self::$err->write("Unknown argument: $arg");
+				self::$err->write("Unknown argument: $arg" . PHP_EOL);
 				self::printUsage();
 				return;
 			} else {
@@ -775,6 +774,9 @@ class Phing {
 		if ($versionPath === null) {
 			$versionPath = self::getResourcePath("etc/VERSION.TXT");
 		}
+		if ($versionPath === null) {
+			throw new ConfigurationException("No VERSION.TXT file found; try setting phing.home environment variable.");
+		}
 		try { // try to read file
 			$buffer = null;
 			$file = new PhingFile($versionPath);
@@ -999,33 +1001,37 @@ class Phing {
 		$path = str_replace('/', DIRECTORY_SEPARATOR, $path);
 
 		foreach (self::$importPaths as $prefix) {
-			$foo_path = $prefix . DIRECTORY_SEPARATOR . $path;
-			if (file_exists($foo_path)) {
-				return $foo_path;
+			$testPath = $prefix . DIRECTORY_SEPARATOR . $path;
+			if (file_exists($testPath)) {
+				return $testPath;
 			}
 		}
 
 		// Check for the property phing.home
-		$home_dir = self::getProperty('phing.home');
-
-		if ($home_dir)
-		{
-			$home_path = $home_dir . DIRECTORY_SEPARATOR . $path;
-
-			if (file_exists($home_path))
-			{
-				return $home_path;
+		$homeDir = self::getProperty('phing.home');
+		if ($homeDir) {
+			$testPath = $homeDir . DIRECTORY_SEPARATOR . $path;
+			if (file_exists($testPath)) {
+				return $testPath;
 			}
 		}
 
 		// If we are using this via PEAR then check for the file in the data dir
 		// This is a bit of a hack, but works better than previous solution of assuming
 		// data_dir is on the include_path.
-		$data_dir = '@DATA-DIR@';
-		if ($data_dir{0} != '@') { // if we're using PEAR then the @ DATA-DIR @ token will have been substituted.
-			$data_path = $data_dir . DIRECTORY_SEPARATOR . $path;
-			if (file_exists($data_path)) {
-				return $data_path;
+		$dataDir = '@DATA-DIR@';
+		if ($dataDir{0} != '@') { // if we're using PEAR then the @ DATA-DIR @ token will have been substituted.
+			$testPath = $dataDir . DIRECTORY_SEPARATOR . $path;
+			if (file_exists($testPath)) {
+				return $testPath;
+			}
+		} else {
+			// We're not using PEAR, so do one additional check based on path of 
+			// current file (Phing.php)
+			$maybeHomeDir = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR  . '..');
+			$testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path; 
+			if (file_exists($testPath)) {
+				return $testPath;
 			}
 		}
 
@@ -1180,6 +1186,7 @@ class Phing {
 	/**
 	 * Sets the include path based on PHP_CLASSPATH constant (set in phing.php).
 	 * @return void
+	 * @throws BuildException - if the include_path could not be set (for some bizarre reason)
 	 */
 	private static function setIncludePaths() {
 		$success = false;
@@ -1192,8 +1199,7 @@ class Phing {
 		}
 
 		if ($success === false) {
-			self::$err->write("SYSTEM FAILURE: Could not set PHP include path");
-			self::halt(-1);
+			throw new BuildException("Could not set PHP include path");
 		}
 	}
 
@@ -1209,7 +1215,8 @@ class Phing {
 		ini_set('default_charset', 'iso-8859-1');
 		ini_set('register_globals', 'off');
 		ini_set('allow_call_time_pass_reference', 'on');
-
+		ini_set('track_errors', 1);
+		
 		// should return memory limit in MB
 		$mem_limit = (int) ini_get('memory_limit');
 		if ($mem_limit < 32) {
@@ -1263,7 +1270,7 @@ class Phing {
 	 */
 	public static function shutdown($exitcode = 0) {
 		self::getTimer()->stop();
-		exit($exitcode); // final point where everything stops
+		//exit($exitcode); // final point where everything stops
 	}
 
 }
