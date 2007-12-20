@@ -127,13 +127,22 @@ class Phing {
 	 * @var boolean Whether we are using a logfile.
 	 */
 	private static $isLogFileUsed = false;
+	
+	/**
+	 * Array to hold original ini settings that Phing changes (and needs
+	 * to restore in restoreIni() method).
+	 *
+	 * @var array Struct of array(setting-name => setting-value)
+	 * @see restoreIni()
+	 */
+	private static $origIniSettings = array();
 
 	/**
 	 * Entry point allowing for more options from other front ends.
 	 *
 	 * This method encapsulates the complete build lifecycle.
 	 *
-	 * @param array &$args The commandline args passed to phing shell script.
+	 * @param array $args The commandline args passed to phing shell script.
 	 * @param array $additionalUserProperties   Any additional properties to be passed to Phing (alternative front-end might implement this).
 	 *                                          These additional properties will be available using the getDefinedProperty() method and will
 	 *                                          be added to the project's "user" properties
@@ -141,14 +150,13 @@ class Phing {
 	 * @see runBuild()
 	 * @throws Exception - if there is an error during build
 	 */
-	public static function start(&$args, $additionalUserProperties = null) {
-
+	public static function start($args, $additionalUserProperties = null) {
+		
 		try {
 			$m = new Phing();
 			$m->execute($args);
 		} catch (Exception $exc) {
-			self::handleLogfile(); // clean up log file before attempting to print message
-			$m->printMessage($exc);
+			self::handleLogfile();
 			throw $exc;
 		}
 
@@ -164,13 +172,6 @@ class Phing {
 		try {
 			$m->runBuild();
 		} catch(Exception $exc) {
-			if ($exc instanceof ConfigurationException) {
-				if (self::$msgOutputLevel >= Project::MSG_VERBOSE) {
-					self::$out->write($exc->__toString() . PHP_EOL);
-				} else {
-					self::$out->write($exc->getMessage() . PHP_EOL);
-				}
-			}
 			self::handleLogfile();
 			throw $exc;
 		}
@@ -184,10 +185,13 @@ class Phing {
 	 * @param Exception $t
 	 */
 	public static function printMessage(Exception $t) {
-		if (self::getMsgOutputLevel() <= Project::MSG_DEBUG) {
-			self::$err->write($t->__toString());
+		if (self::$err === null) { // Make sure our error output is initialized
+			self::initializeOutputStreams();
+		}
+		if (self::getMsgOutputLevel() >= Project::MSG_VERBOSE) {
+			self::$err->write($t->__toString() . PHP_EOL);
 		} else {
-			self::$err->write($t->getMessage());
+			self::$err->write($t->getMessage() . PHP_EOL);
 		}
 	}
 
@@ -278,27 +282,42 @@ class Phing {
 
 		self::$definedProps = new Properties();
 		$this->searchForThis = null;
-
-		// cycle through given args
-		for ($i = 0, $argcount = count($args); $i < $argcount; ++$i) {
-			// ++$i intentional here, as first param is script name
-			$arg = $args[$i];
-
-			if ($arg == "-help" || $arg == "-h") {
-				$this->printUsage();
-				return;
-			} elseif ($arg == "-version" || $arg == "-v") {
-				$this->printVersion();
-				return;
-			} elseif ($arg == "-quiet" || $arg == "-q") {
-				self::$msgOutputLevel = Project::MSG_WARN;
-			} elseif ($arg == "-verbose") {
-				$this->printVersion();
-				self::$msgOutputLevel = Project::MSG_VERBOSE;
-			} elseif ($arg == "-debug") {
-				$this->printVersion();
-				self::$msgOutputLevel = Project::MSG_DEBUG;
-			} elseif ($arg == "-logfile") {
+		
+		// 1) First handle any options which should always
+		// Note: The order in which these are executed is important (if multiple of these options are specified)
+		
+		if (in_array('-help', $args) || in_array('-h', $args)) {
+			$this->printUsage();
+			return;
+		}
+		
+		if (in_array('-version', $args) || in_array('-v', $args)) {
+			$this->printVersion();
+			return;
+		}
+		
+		// 2) Next pull out stand-alone args.
+		// Note: The order in which these are executed is important (if multiple of these options are specified)
+		
+		if (false !== ($key = array_search('-quiet', $args, true))) {
+			self::$msgOutputLevel = Project::MSG_WARN;
+			unset($args[$key]);
+		}
+		
+		if (false !== ($key = array_search('-verbose', $args, true))) {
+			self::$msgOutputLevel = Project::MSG_VERBOSE;
+			unset($args[$key]);
+		}
+		
+		if (false !== ($key = array_search('-debug', $args, true))) {
+			self::$msgOutputLevel = Project::MSG_DEBUG;
+			unset($args[$key]);
+		}
+		
+		// 3) Finally, cycle through to parse remaining args
+		foreach ($args as $i => $arg) {
+			
+			if ($arg == "-logfile") {
 				try {
 					// see: http://phing.info/trac/ticket/65
 					if (!isset($args[$i+1])) {
@@ -1184,22 +1203,17 @@ class Phing {
 	}
 
 	/**
-	 * Sets the include path based on PHP_CLASSPATH constant (set in phing.php).
+	 * Sets the include path to PHP_CLASSPATH constant (if this has been defined).
 	 * @return void
-	 * @throws BuildException - if the include_path could not be set (for some bizarre reason)
+	 * @throws ConfigurationException - if the include_path could not be set (for some bizarre reason)
 	 */
 	private static function setIncludePaths() {
-		$success = false;
-
 		if (defined('PHP_CLASSPATH')) {
-			$success = set_include_path(PHP_CLASSPATH);
-		} else {
-			// don't do anything, just assume that include_path has been properly set.
-			$success = true;
-		}
-
-		if ($success === false) {
-			throw new BuildException("Could not set PHP include path");
+			$result = set_include_path(PHP_CLASSPATH);
+			if ($result === false) {
+				throw new ConfigurationException("Could not set PHP include_path.");
+			}
+			self::$origIniSettings['include_path'] = $result; // save original value for setting back later
 		}
 	}
 
@@ -1208,19 +1222,51 @@ class Phing {
 	 * @return void
 	 */
 	private static function setIni() {
-		error_reporting(E_ALL);
+		
+		self::$origIniSettings['error_reporting'] = error_reporting(E_ALL);
+		
+		// We won't bother storing original max_execution_time, since 1) the value in 
+		// php.ini may be wrong (and there's no way to get the current value) and 
+		// 2) it would mean something very strange to set it to a value less than time script
+		// has already been running, which would be the likely change.
+		
 		set_time_limit(0);
-		ini_set('magic_quotes_gpc', 'off');
-		ini_set('short_open_tag', 'off');
-		ini_set('default_charset', 'iso-8859-1');
-		ini_set('register_globals', 'off');
-		ini_set('allow_call_time_pass_reference', 'on');
-		ini_set('track_errors', 1);
+		
+		self::$origIniSettings['magic_quotes_gpc'] = ini_set('magic_quotes_gpc', 'off');
+		self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
+		self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
+		self::$origIniSettings['register_globals'] = ini_set('register_globals', 'off');
+		self::$origIniSettings['allow_call_time_pass_reference'] = ini_set('allow_call_time_pass_reference', 'on');
+		self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 		
 		// should return memory limit in MB
 		$mem_limit = (int) ini_get('memory_limit');
 		if ($mem_limit < 32) {
+			// We do *not* need to save the original value here, since we don't plan to restore
+			// this after shutdown (we don't trust the effectiveness of PHP's garbage collection).
 			ini_set('memory_limit', '32M'); // nore: this may need to be higher for many projects
+		}
+	}
+	
+	/**
+	 * Restores [most] PHP INI values to their pre-Phing state.
+	 * 
+	 * Currently the following settings are not restored:
+	 * 	- max_execution_time (because getting current time limit is not possible)
+	 *  - memory_limit (which may have been increased by Phing)
+	 * 
+	 * @return void
+	 */
+	private static function restoreIni()
+	{
+		foreach(self::$origIniSettings as $settingName => $settingValue) {
+			switch($settingName) {
+				case 'error_reporting':
+					error_reporting($settingValue);
+					break;
+				default:
+					ini_set($settingName, $settingValue);
+			}
 		}
 	}
 
@@ -1238,12 +1284,11 @@ class Phing {
 
 	/**
 	 * Start up Phing.
-	 * Sets up the Phing environment -- does NOT initiate the build process.
+	 * Sets up the Phing environment but does not initiate the build process.
 	 * @return void
+	 * @throws Exception - If the Phing environment cannot be initialized. 
 	 */
 	public static function startup() {
-			
-		register_shutdown_function(array('Phing', 'shutdown'));
 
 		// setup STDOUT and STDERR defaults
 		self::initializeOutputStreams();
@@ -1258,19 +1303,21 @@ class Phing {
 
 	/**
 	 * Halts the system.
+	 * @deprecated This method is deprecated and is no longer called by Phing internally.  Any
+	 * 				normal shutdown routines are handled by the shutdown() method.
 	 * @see shutdown()
 	 */
-	public static function halt($code=0) {
-		self::shutdown($code);
+	public static function halt() {
+		self::shutdown();
 	}
 
 	/**
-	 * Stops timers & exits.
+	 * Performs any shutdown routines, such as stopping timers.
 	 * @return void
 	 */
-	public static function shutdown($exitcode = 0) {
+	public static function shutdown() {
+		self::restoreIni();
 		self::getTimer()->stop();
-		//exit($exitcode); // final point where everything stops
 	}
 
 }
