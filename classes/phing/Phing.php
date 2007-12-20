@@ -315,7 +315,16 @@ class Phing {
 		}
 		
 		// 3) Finally, cycle through to parse remaining args
-		foreach ($args as $i => $arg) {
+		// 
+		$keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps
+		for($i=0, $max = max(array_keys($args)); $i <= $max; $i++) {
+			
+			if (!array_key_exists($i, $args[$i])) {
+				// skip this argument, since it must have been removed above.
+				continue;
+			}
+			
+			$arg = $args[$i];
 			
 			if ($arg == "-logfile") {
 				try {
