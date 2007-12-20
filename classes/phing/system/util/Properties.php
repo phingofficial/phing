@@ -214,7 +214,10 @@ class Properties {
      * @return mixed Old property value or NULL if none was set.
      */
     function setProperty($key, $value) {
-        $oldValue = @$this->properties[$key];       
+    	$oldValue = null;
+    	if (isset($this->properties[$key])) {
+    		$oldValue = $this->properties[$key];
+    	}
         $this->properties[$key] = $value;
         return $oldValue;
     }
