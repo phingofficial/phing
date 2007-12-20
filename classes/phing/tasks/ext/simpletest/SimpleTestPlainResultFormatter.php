@@ -92,4 +92,3 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
 		$this->inner.= $message . "\n";	
 	}
 }
-?>

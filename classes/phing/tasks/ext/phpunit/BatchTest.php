@@ -174,4 +174,3 @@ class BatchTest
 		return $elements;
 	}
 }
-?>

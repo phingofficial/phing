@@ -118,4 +118,3 @@ class CoverageReportTransformer
 		return $file;
 	}
 }
-?>

@@ -120,4 +120,4 @@ class PlainPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 		}
 	}
 }
-?>
+

@@ -186,4 +186,3 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader {
     }
 }
 
-?>

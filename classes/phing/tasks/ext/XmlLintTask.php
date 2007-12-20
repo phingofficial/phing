@@ -133,4 +133,3 @@ class XmlLintTask extends Task {
 
 }
 
-?>

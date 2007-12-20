@@ -155,4 +155,3 @@ abstract class PHPUnit2ResultFormatter implements PHPUnit2_Framework_TestListene
 		}
 	}
 }
-?>

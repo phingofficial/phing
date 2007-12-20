@@ -24,4 +24,3 @@
  */
 class NullPointerException extends Exception {}
 
-?>

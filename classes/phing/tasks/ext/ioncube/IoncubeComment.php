@@ -41,4 +41,3 @@ class IoncubeComment
 		$this->value = trim($txt);
 	}
 }
-?>

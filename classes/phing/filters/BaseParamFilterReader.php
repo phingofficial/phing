@@ -66,4 +66,4 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable 
     }
 }
 
-?>
+

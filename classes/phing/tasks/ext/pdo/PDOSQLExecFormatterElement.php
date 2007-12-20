@@ -310,4 +310,3 @@ class PDOSQLExecFormatterElement
 		return $this->formatter;
 	}
 }
-?>

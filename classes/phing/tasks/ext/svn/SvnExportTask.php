@@ -48,4 +48,3 @@ class SvnExportTask extends SvnBaseTask
 		$this->run(array($this->getToDir()));
 	}
 }
-?>

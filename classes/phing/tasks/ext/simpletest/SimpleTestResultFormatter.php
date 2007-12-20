@@ -159,4 +159,3 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
 		}
 	}
 }
-?>

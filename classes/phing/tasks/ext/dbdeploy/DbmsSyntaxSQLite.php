@@ -35,4 +35,3 @@ class DbmsSyntaxSQLite extends DbmsSyntax
 	}
 }
 
-?>

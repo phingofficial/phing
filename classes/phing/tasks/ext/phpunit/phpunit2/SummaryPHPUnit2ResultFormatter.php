@@ -55,4 +55,3 @@ class SummaryPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 		return NULL;
 	}
 }
-?>

@@ -102,4 +102,3 @@ class PregEngine implements RegexpEngine {
 
 }
 
-?>

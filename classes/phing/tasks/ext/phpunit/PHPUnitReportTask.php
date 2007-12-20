@@ -184,4 +184,3 @@ class PHPUnitReportTask extends Task
 		$this->transform($testSuitesDoc);
 	}
 }
-?>

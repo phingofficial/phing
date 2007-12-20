@@ -35,4 +35,3 @@ class DbmsSyntaxMysql extends DbmsSyntax
 	}
 }
 
-?>

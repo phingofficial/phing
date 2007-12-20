@@ -244,4 +244,4 @@ class MoveTask extends CopyTask {
         return $renamed;
     }
 }
-?>
+

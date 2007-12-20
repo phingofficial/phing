@@ -485,4 +485,3 @@ class IoncubeEncoderTask extends Task
 		return $arguments;
 	}
 }
-?>

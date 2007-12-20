@@ -302,4 +302,4 @@ abstract class SvnBaseTask extends Task
 		}
 	}
 }
-?>
+

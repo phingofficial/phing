@@ -32,4 +32,3 @@ abstract class DbmsSyntax
 	public abstract function generateTimestamp();
 }
 
-?>

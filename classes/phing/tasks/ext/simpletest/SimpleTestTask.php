@@ -235,4 +235,3 @@ class SimpleTestTask extends Task
 		return new LogWriter($this);
 	}
 }
-?>

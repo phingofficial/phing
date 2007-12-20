@@ -155,4 +155,4 @@ class CoverageSetupTask extends Task
 		}
 	}
 }
-?>
+

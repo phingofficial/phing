@@ -65,4 +65,4 @@ class FilterReader extends Reader {
         return $this->in->getResource();
     }
 }
-?>
+

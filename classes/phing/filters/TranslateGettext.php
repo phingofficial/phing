@@ -282,4 +282,4 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader 
     }
 }
 
-?>
+

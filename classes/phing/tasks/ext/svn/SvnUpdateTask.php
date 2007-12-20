@@ -46,4 +46,4 @@ class SvnUpdateTask extends SvnBaseTask
 		$this->run(array($this->getToDir()));
 	}
 }
-?>
+

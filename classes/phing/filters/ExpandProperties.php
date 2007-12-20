@@ -79,4 +79,4 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader {
     }
 }
 
-?>
+

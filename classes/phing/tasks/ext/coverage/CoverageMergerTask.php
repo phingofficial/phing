@@ -89,4 +89,4 @@ class CoverageMergerTask extends Task
 		}
 	}
 }
-?>
+

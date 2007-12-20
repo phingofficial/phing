@@ -131,4 +131,4 @@ class ManifestTask extends Task
         
     }     
 }
-?>
+

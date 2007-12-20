@@ -49,4 +49,3 @@ class SimpleTestCountResultFormatter extends SimpleTestResultFormatter
 		return self::SUCCESS;
 	}	
 }
-?>

@@ -141,4 +141,3 @@ class IoncubeLicenseTask extends Task
 		return $arguments;
 	}
 }
-?>

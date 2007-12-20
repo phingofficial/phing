@@ -145,4 +145,4 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader {
     }
 }
 
-?>
+

@@ -148,4 +148,3 @@ class FormatterElement
 		return $this->formatter;
 	}
 }
-?>

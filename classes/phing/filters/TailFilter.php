@@ -154,4 +154,4 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader {
     }
 }
 
-?>
+

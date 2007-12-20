@@ -59,4 +59,3 @@ class SimpleTestFormatterElement extends FormatterElement
 		}
 	}
 }
-?>

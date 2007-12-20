@@ -36,4 +36,3 @@ interface Condition {
      */
     public function evaluate();
 }
-?>

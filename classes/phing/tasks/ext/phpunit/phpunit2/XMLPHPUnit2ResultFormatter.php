@@ -114,4 +114,3 @@ class XMLPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 		}
 	}
 }
-?>

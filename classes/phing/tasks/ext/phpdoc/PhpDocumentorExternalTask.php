@@ -191,4 +191,4 @@ class PhpDocumentorExternalTask extends Task
 	}
 };
 
-?>
+

@@ -124,4 +124,3 @@ class CoverageMerger
 		$props->store($database);
 	}
 }
-?>

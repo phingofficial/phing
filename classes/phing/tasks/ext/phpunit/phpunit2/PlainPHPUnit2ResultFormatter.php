@@ -114,4 +114,3 @@ class PlainPHPUnit2ResultFormatter extends PHPUnit2ResultFormatter
 		}
 	}
 }
-?>

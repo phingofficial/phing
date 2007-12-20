@@ -134,4 +134,4 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
 
 }
 
-?>
+

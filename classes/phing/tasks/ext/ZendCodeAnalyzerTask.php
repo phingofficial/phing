@@ -26,7 +26,7 @@ require_once 'phing/Task.php';
  * 
  * Available warnings:
  * <b>zend-error</b> - %s(line %d): %s
- * <b>oneline-comment</b> - One-line comment ends with ?> tag.
+ * <b>oneline-comment</b> - One-line comment ends with  tag.
  * <b>bool-assign</b> - Assignment seen where boolean expression is expected. Did you mean '==' instead of '='?
  * <b>bool-print</b> - Print statement used when boolean expression is expected.
  * <b>bool-array</b> - Array used when boolean expression is expected.
@@ -180,4 +180,3 @@ class ZendCodeAnalyzerTask extends Task {
   }
 }
 
-?>

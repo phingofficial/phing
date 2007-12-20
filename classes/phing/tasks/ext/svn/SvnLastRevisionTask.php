@@ -72,4 +72,3 @@ class SvnLastRevisionTask extends SvnBaseTask
 		}
 	}
 }
-?>

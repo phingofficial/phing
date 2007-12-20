@@ -451,4 +451,3 @@ class PathElement {
         return $this->parts;
     }
 }
-?>

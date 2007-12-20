@@ -139,4 +139,3 @@ class XMLPDOResultFormatter extends PDOResultFormatter {
 		parent::close();
 	}
 }
-?>

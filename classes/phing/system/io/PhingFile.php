@@ -866,4 +866,4 @@ class PhingFile {
         return $this->getPath();
     }
 }
-?>
+

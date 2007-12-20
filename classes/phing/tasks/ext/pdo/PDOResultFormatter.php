@@ -82,4 +82,3 @@ abstract class PDOResultFormatter
 		$this->out->close();
 	}
 }
-?>

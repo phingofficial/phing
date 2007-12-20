@@ -416,4 +416,3 @@ class CoverageReportTask extends Task
 		}
 	}
 }
-?>

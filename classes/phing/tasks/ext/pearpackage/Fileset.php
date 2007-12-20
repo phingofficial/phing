@@ -228,4 +228,4 @@ class PEAR_PackageFileManager_Fileset {
         return strnatcasecmp($a,$b);
     }
 }
-?>
+
