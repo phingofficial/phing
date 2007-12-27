@@ -161,10 +161,10 @@ class Phing {
 		}
 
 		if ($additionalUserProperties !== null) {
-			$keys = $m->additionalUserProperties->keys();
+			$keys = $additionalUserProperties->keys();
 			while(count($keys)) {
 				$key = array_shift($keys);
-				$property = $m->additionalUserProperties->getProperty($key);
+				$property = $additionalUserProperties->getProperty($key);
 				$m->setDefinedProperty($key, $property);
 			}
 		}
