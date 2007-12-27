@@ -150,7 +150,7 @@ class Phing {
 	 * @see runBuild()
 	 * @throws Exception - if there is an error during build
 	 */
-	public static function start($args, $additionalUserProperties = null) {
+	public static function start($args, array $additionalUserProperties = null) {
 		
 		try {
 			$m = new Phing();
@@ -161,11 +161,8 @@ class Phing {
 		}
 
 		if ($additionalUserProperties !== null) {
-			$keys = $additionalUserProperties->keys();
-			while(count($keys)) {
-				$key = array_shift($keys);
-				$property = $additionalUserProperties->getProperty($key);
-				$m->setDefinedProperty($key, $property);
+			foreach($additionalUserProperties as $key => $value) {
+				$m->setDefinedProperty($key, $value);
 			}
 		}
 
