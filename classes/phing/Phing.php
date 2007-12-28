@@ -637,6 +637,9 @@ class Phing {
 			// get class name part
 			$classname = self::import($this->loggerClassname);
 			$logger = new $classname;
+			if (!($logger instanceof BuildLogger)) {
+				throw new BuildException($classname . ' does not implement the BuildLogger interface.');
+			}
 		} else {
 			require_once 'phing/listener/DefaultLogger.php';
 			$logger = new DefaultLogger();
