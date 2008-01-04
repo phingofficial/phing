@@ -26,6 +26,7 @@ use phing::BuildException;
  * Stores the number of the last revision of a workingcopy in a property
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Arno Schneider <arnoschn@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext.svn
  * @see VersionControl_SVN
@@ -60,13 +61,32 @@ class SvnLastRevisionTask extends SvnBaseTask
 	{
 		$this->setup('info');
 		
-		$output = $this->run();
-		
-		if (preg_match('/Rev:[\s]+([\d]+)/', $output, $matches))
+		/**
+		 * run in xml mode, allows us to retrieve workingcopy info in 
+		 * a unified xml format, so we dont have to fight with internationalized
+		 * versions of svn info output
+		 */
+		$output = $this->run(array('--xml'));
+		try 
 		{
-			$this->project->setProperty($this->getPropertyName(), $matches[1]);
+			$xml = new SimpleXMLElement($output);
+			/**
+			 * walk the xml towards the last commit element
+			 */
+			$commits = $xml->xpath('/info/entry/commit');
+			if (count($commits)>0) {
+				$commit = $commits[0];
+				/**
+				 * get the attributes of the commit element
+				 */
+				$attributes = $commit->attributes();
+				$this->project->setProperty($this->getPropertyName(), $attributes->revision);
+			} else {
+				throw new BuildException("Failed to parse the output of 'svn info'.");
+			}
+			
 		}
-		else
+		catch (Exception $e)
 		{
 			throw new BuildException("Failed to parse the output of 'svn info'.");
 		}
