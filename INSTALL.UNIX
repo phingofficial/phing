@@ -45,7 +45,7 @@
   | will probably be different.                                         |
   +---------------------------------------------------------------------+  
   
-  First download a matching PHING distribution from binarycloud.com/phing and
+  First download a matching PHING distribution from http://phing.info and
   untar/gzip it to the desired install directory and optionally create a
   symlink for convinience:
 
