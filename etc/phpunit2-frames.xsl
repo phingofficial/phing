@@ -240,7 +240,7 @@ a:hover {
                         <td colspan="4"><xsl:apply-templates select="./error"/></td>
                     </tr>
                 </xsl:if>
-                <xsl:apply-templates select="./testcase" mode="print.test"/>
+                <xsl:apply-templates select="./testcase | ./testsuite/testcase" mode="print.test"/>
             </table>
             <xsl:call-template name="pageFooter"/>
         </body>
