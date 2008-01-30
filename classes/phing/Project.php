@@ -19,13 +19,6 @@
  * <http://phing.info>.
  */
 
-// DEPRECATED logging constants
-define('PROJECT_MSG_DEBUG', Project::MSG_DEBUG);
-define('PROJECT_MSG_VERBOSE', Project::MSG_VERBOSE);
-define('PROJECT_MSG_INFO', Project::MSG_INFO);
-define('PROJECT_MSG_WARN', Project::MSG_WARN);
-define('PROJECT_MSG_ERR', Project::MSG_ERR);
-
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/util/FileUtils.php';
 include_once 'phing/TaskAdapter.php';

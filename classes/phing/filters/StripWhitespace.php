@@ -62,7 +62,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader {
         }
 		
 		if(empty($php)) {
-            $this->log("PHP file is empty!", PROJECT_MSG_WARN);
+            $this->log("PHP file is empty!", Project::MSG_WARN);
             return ''; // return empty string, don't attempt to strip whitespace
         }
 		        

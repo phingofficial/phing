@@ -432,7 +432,7 @@ class PDOSQLExecTask extends PDOTask {
 				if ($hasQuery || ($this->delimiterType == self::DELIM_ROW && $line == $this->delimiter)) {
 					// this assumes there is always a delimter on the end of the SQL statement.
 					$sql = StringHelper::substring($sql, 0, strlen($sql) - 1 - strlen($this->delimiter));
-					$this->log("SQL: " . $sql, PROJECT_MSG_VERBOSE);
+					$this->log("SQL: " . $sql, Project::MSG_VERBOSE);
 					$this->execSQL($sql);
 					$sql = "";
 					$hasQuery = false;
