@@ -33,9 +33,18 @@ require_once 'phing/Task.php';
     protected $file;  // the source file (from xml attribute)
     protected $filesets = array(); // all fileset objects assigned to this task
 
+    protected $showWarnings = true;
     protected $haltOnFailure = false;
     protected $hasErrors = false;
     private $badFiles = array();
+
+    /**
+     * Sets the flag if warnings should be shown
+     * @param boolean $show
+     */
+    public function setShowWarnings($show) {
+      $this->showWarnings = StringHelper::booleanValue($show);
+    }
 
     /**
      * The haltonfailure property
@@ -99,34 +108,68 @@ require_once 'phing/Task.php';
       exec('jsl', $output);
       if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
     
-      $command = 'jsl -process ';
+      $command = 'jsl -output-format file:__FILE__;line:__LINE__;message:__ERROR__ -process ';
 
       if(file_exists($file))
       {
         if(is_readable($file))
         {
-          $message = array();
-          exec($command.'"'.$file.'"', $message);
+          $messages = array();
+          exec($command.'"'.$file.'"', $messages);
 
-          $summary = $message[sizeof($message) - 1];
+          $summary = $messages[sizeof($messages) - 1];
 
-          preg_match('/^(.*)\serror/', $summary, $matches);
-          $errors = $matches[0];
+          preg_match('/(\d+)\serror/', $summary, $matches);
+          $errorCount = $matches[1];
           
-          preg_match('/^(.*)\swarning/', $summary, $matches);
-          $warnings = $matches[0];
+          preg_match('/(\d+)\swarning/', $summary, $matches);
+          $warningCount = $matches[1];
 
-          if(0 != $warnings)
+          $errors = array();
+          $warnings = array();
+          if ($errorCount > 0 || $warningCount > 0) {
+            $last = false;
+            foreach ($messages as $message) {
+              $matches = array();
+              if (preg_match('/^(\.*)\^$/', $message)) {
+                $column = strlen($message);
+                if ($last == 'error') {
+                  $errors[count($errors) - 1]['column'] = $column;
+                } else if ($last == 'warning') {
+                  $warnings[count($warnings) - 1]['column'] = $column;
+                }
+                $last = false;
+              }
+              if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', $message, $matches)) continue;
+              $msg = $matches[3];
+              $data = array('filename' => $matches[1], 'line' => $matches[2], 'message' => $msg);
+              if (preg_match('/^.*error:.+$/i', $msg)) {
+                $errors[] = $data;
+                $last = 'error';
+              } else if (preg_match('/^.*warning:.+$/i', $msg)) {
+                $warnings[] = $data;
+                $last = 'warning';
+              }
+            }
+          }
+
+          if($this->showWarnings && $warningCount > 0)
           {
-            $this->log($file . ': ' . $warnings . ' warnings detected', Project::MSG_INFO);
+            $this->log($file . ': ' . $warningCount . ' warnings detected', Project::MSG_WARN);
+            foreach ($warnings as $warning) {
+              $this->log('- line ' . $warning['line'] . (isset($warning['column']) ? ' column ' . $warning['column'] : '') . ': ' . $warning['message'], Project::MSG_WARN);
+            }
           }
             
-          if(0 != $errors)
+          if($errorCount > 0)
           {
-            $this->log($file . ': ' . $errors . ' errors detected', Project::MSG_ERR);
+            $this->log($file . ': ' . $errorCount . ' errors detected', Project::MSG_ERR);
+            foreach ($errors as $error) {
+              $this->log('- line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'], Project::MSG_ERR);
+            }
             $this->badFiles[] = $file;
             $this->hasErrors = true;
-          } else {
+          } else if (!$this->showWarnings || $warningCount == 0) {
             $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
           }
         } else {
