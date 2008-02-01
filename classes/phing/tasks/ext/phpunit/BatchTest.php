@@ -166,6 +166,10 @@ class BatchTest
 		{
 			$definedClasses = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 			
+			foreach($definedClasses as $definedClass) {
+				$this->project->log("(PHPUnit) Adding $definedClass (from $filename) to tests.", Project::MSG_DEBUG);
+			}
+			
 			$declaredClasses = array_merge($declaredClasses, $definedClasses);
 		}
 		

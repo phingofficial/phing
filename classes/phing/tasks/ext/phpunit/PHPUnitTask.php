@@ -106,6 +106,7 @@ class PHPUnitTask extends Task
 		 */
 		if (PHPUnitUtil::$installedVersion == 3)
 		{
+			require_once 'PHPUnit/Framework.php';
 			require_once 'PHPUnit/Util/Filter.php';
 			
 			// point PHPUnit_MAIN_METHOD define to non-existing method
@@ -123,6 +124,7 @@ class PHPUnitTask extends Task
 		}
 		else
 		{
+			require_once 'PHPUnit2/Framework.php';
 			require_once 'PHPUnit2/Util/Filter.php';
 			
 			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTask.php');
