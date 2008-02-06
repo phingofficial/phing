@@ -135,8 +135,10 @@ class BatchTest
 	 */
 	private function isTestCase($input)
 	{
-		return is_subclass_of($input, 'PHPUnit2_Framework_TestCase') || is_subclass_of($input, 'PHPUnit_Framework_TestCase')
-			|| is_subclass_of($input, 'PHPUnit2_Framework_TestSuite') || is_subclass_of($input, 'PHPUnit_Framework_TestSuite');
+		if (PHPUnitUtil::$installedVersion == 3)
+			return is_subclass_of($input, 'PHPUnit_Framework_TestCase') || is_subclass_of($input, 'PHPUnit_Framework_TestSuite');
+		else
+			return is_subclass_of($input, 'PHPUnit2_Framework_TestCase') || is_subclass_of($input, 'PHPUnit2_Framework_TestSuite');
 	}
 	
 	/**
