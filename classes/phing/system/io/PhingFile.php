@@ -713,6 +713,23 @@ class PhingFile {
         return $fs->setReadOnly($this);
     }
 
+	/**
+	 * Sets the owner of the file.
+	 * @param mixed $user User name or number.
+	 */
+	public function setUser($user) {
+		$fs = FileSystem::getFileSystem();
+		return $fs->chown($this->getPath(), $user);
+    }
+    
+	/**
+     * Retrieve the owner of this file.
+     * @return int User ID of the owner of this file. 
+     */
+    function getUser() {
+        return @fileowner($this->getPath());
+    }
+    
     /**
      * Sets the mode of the file
      * @param int $mode Ocatal mode.

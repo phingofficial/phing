@@ -408,6 +408,22 @@ abstract class FileSystem {
         }
     }
 
+	/**
+	 * Change the ownership on a file or directory.
+	 *
+	 * @param    string $pathname Path and name of file or directory.
+	 * @param    string $user The user name or number of the file or directory. See http://us.php.net/chown
+	 *
+	 * @return void
+	 * @throws Exception if operation failed.
+	 */
+	function chown($pathname, $user) {
+		if (false === @chown($pathname, $user)) {// FAILED.
+			$msg = "FileSystem::chown() FAILED. Cannot chown $pathname. User $user." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
+			throw new Exception($msg);
+		}
+    }
+    
     /**
      * Change the permissions on a file or directory.
      *
