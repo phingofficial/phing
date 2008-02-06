@@ -174,5 +174,32 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
 		$_phpDocumentor_setting['quiet'] = true;
 		parent::setQuietMode();
 	}
-	
+
+    /**
+     * Control whether or not warnings will be shown for undocumented elements.
+     * Useful for identifying classes and methods that haven't yet been
+     * documented.
+     * 
+     * @param  bool  $bEnable 
+     */
+    public function setUndocumentedelements($bEnable) {
+        $this->render->setUndocumentedElementWarningsMode($bEnable);
+    }
+
+    /**
+     * custom tags, will be recognized and put in tags[] instead of
+     * unknowntags[]
+     *
+     * This method exists as a hack because the API exposed for this method in
+     * PhpDocumentor doesn't work correctly.
+	 * 
+     * Note that because we are setting a "private" GLOBAL(!!) config var with
+     * this value, this is subject to break if PhpDocumentor internals changes.
+     * 
+     * @param  string  $sCustomtags 
+     */
+    public function setCustomtags($sCustomtags) {
+        global $_phpDocumentor_setting;
+        $_phpDocumentor_setting['customtags'] = $sCustomtags;
+    }
 }

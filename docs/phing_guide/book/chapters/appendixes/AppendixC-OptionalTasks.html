@@ -1135,6 +1135,33 @@ similar to Javadoc.</p>
       <td>No</td>
     </tr>
 
+	<tr>
+      <td>templatebase</td>
+      <td>String</td>
+      <td>Set base dirctory of all templates for this parse.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+
+	<tr>
+      <td>undocumentedelements</td>
+      <td>Boolean</td>
+      <td>Control whether or not warnings will be shown for undocumented
+          elements. Useful for identifying classes and methods that haven't yet
+          been documented.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+
+	<tr>
+      <td>customtags</td>
+      <td>Boolean</td>
+      <td>Custom tags, will be recognized and put in tags[] instead of
+          unknowntags[].</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+
   </tbody>
 </table>
 
@@ -1160,6 +1187,67 @@ similar to Javadoc.</p>
    &lt;/projdocfileset&gt;
 &lt;/phpdoc&gt;
 </pre>
+
+<h2><a name="PhpDocumentorExternalTask"></a>PhpDocumentorExternalTask</h2>
+<p>This is the same as the <a href="#PhpDocumentorTask">PhpDocumentorTask</a>
+but uses the command line application. Use this as a fallback in case you're
+running into troubles when using the phpDocumentor-library with the
+PhpDocumentorTask directly, e.g. when you're using Smarty and have Smarty in
+your library path too.</p>
+<p>This task supports everything the PhpDocumentorTask supports, differences are
+documented below.</p>
+<h3>Additional attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>programpath</td>
+      <td>String</td>
+      <td>Path to the phpdoc executable (relative or absolute).</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+
+    <tr>
+      <td>sourcepath</td>
+      <td>String</td>
+      <td>A directory to scan for parsable files. Supports multiple directories
+          separated with a comma.</td>
+      <td>n/a</td>
+      <td>Yes, if no <tt>&lt;fileset&gt;</tt> is given</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h3>Unsupported attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td>configdir</td>
+      <td>Currently not supported. The attribute will be ignored and a
+          warning messag will be generated. The build continues (to ease when
+          changing an existing phpdoc task) however this may have unexpected
+          side effects.</td>
+    </tr>
+
+  </tbody>
+</table>
 
 <h2><a name="PhpLintTask"></a>PhpLintTask</h2>
 <p>The <em>PhpLintTask</em> checks syntax (lint) on one or more PHP source code files.</p>

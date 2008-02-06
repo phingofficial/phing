@@ -36,87 +36,100 @@ class PhpDocumentorTask extends Task
 	/**
 	 * @var string Title for browser window / package index.
 	 */
-	private $title;
+	protected $title;
 	
 	/**
 	 * @var PhingFile The target directory for output files.
 	 */
-	private $destdir;
+	protected $destdir;
 
 	/**
 	 * @var array FileSet[] Filesets for files to parse.
 	 */
-	private $filesets = array();
+	protected $filesets = array();
 	
 	/**
 	 * @var array FileSet[] Project documentation (README/INSTALL/CHANGELOG) files.
 	 */
-	private $projDocFilesets = array();
+	protected $projDocFilesets = array();
 	
 	/**
 	 * @var string Package output format. 
 	 */
-	private $output;
+	protected $output;
 
 	/**
 	 * @var boolean Whether to generate sourcecode for each file parsed.
 	 */
-	private $linksource = false;
+	protected $linksource = false;
 	
 	/**
 	 * @var boolean Whether to parse private members.
 	 */
-	private $parsePrivate = false;
+	protected $parsePrivate = false;
 	
 	/**
 	 * @var boolean Whether to use javadoc descriptions (more primitive).
 	 */
-	private $javadocDesc = false;
+	protected $javadocDesc = false;
 	
 	/**
 	 * @var PhingFile Base directory for locating template files.
 	 */
-	private $templateBase;
+	protected $templateBase;
 	
 	/**
 	 * @var boolean Wheter to suppress output.
 	 */
-	private $quiet = false;
+	protected $quiet = false;
 	
 	/**
 	 * @var string Comma-separated list of packages to output.
 	 */
-	private $packages;
+	protected $packages;
 	
 	/** 
 	 * @var string Comma-separated list of tags to ignore.
 	 */
-	private $ignoreTags;
+	protected $ignoreTags;
 	
 	/** 
 	 * @var string Default package name.
 	 */
-	private $defaultPackageName;
+	protected $defaultPackageName;
 	
 	/**
 	 * @var string Default category name.
 	 */
-	private $defaultCategoryName;
+	protected $defaultCategoryName;
 	
 	/**
 	 * @var PhingFile Directory in which to look for examples.
 	 */
-	private $examplesDir;
+	protected $examplesDir;
 	
 	/**
 	 * @var PhingFile Directory in which to look for configuration files.
 	 */
-	private $configDir;
+	protected $configDir;
 	
 	/**
 	 * @var boolean Whether to parse as a PEAR repository.
 	 */
-	private $pear = false;
+	protected $pear = false;
+
+    /**
+     * @var boolean Control whether or not warnings will be shown for
+     *              undocumented elements. Useful for identifying classes and
+     *              methods that haven't yet been documented.
+     */
+    protected $undocumentedelements = false;
+
+    /**
+     * @var string  custom tags, will be recognized and put in tags[] instead of
+     *              unknowntags[].
+     */
+    protected $customtags = '';
 	
 	/**
 	 * Set the title for the generated documentation
@@ -256,6 +269,35 @@ class PhpDocumentorTask extends Task
         return $this->projDocFilesets[$num-1];
     }
  	
+	/**
+     * Control whether or not warnings will be shown for undocumented elements.
+     * Useful for identifying classes and methods that haven't yet been
+     * documented.
+	 * @param boolean $b
+	 */
+	public function setUndocumentedelements($b) {
+		$this->undocumentedelements = $b;
+	}
+
+    /**
+     * custom tags, will be recognized and put in tags[] instead of
+     * unknowntags[].
+     * 
+     * @param  string  $sCustomtags 
+     */
+    public function setCustomtags($sCustomtags) {
+        $this->customtags = $sCustomtags;
+    }
+
+	/**
+	 * Set base location of all templates for this parse.
+	 * 
+	 * @param  PhingFile  $destdir 
+	 */
+	public function setTemplateBase(PhingFile $oTemplateBase) {
+		$this->templateBase = $oTemplateBase;
+	}
+
     /**
      * Searches include_path for PhpDocumentor install and adjusts include_path appropriately.
      * @throws BuildException - if unable to find PhpDocumentor on include_path
@@ -406,7 +448,13 @@ class PhpDocumentorTask extends Task
 	        }
 		}
 		$phpdoc->setRicFiles($ricFiles);
-		
+
+        if ($this->undocumentedelements) {
+            $phpdoc->setUndocumentedelements($this->undocumentedelements);
+        }
+
+        if ($this->customtags) {
+            $phpdoc->setCustomtags($this->customtags);
+        }
 	}
-	
 }
