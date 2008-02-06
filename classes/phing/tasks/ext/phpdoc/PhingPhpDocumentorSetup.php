@@ -52,6 +52,8 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
         } else {
             $this->parse = new Parser();
         }
+        
+        $this->setMemoryLimit();
 	}
 	
 	/**
