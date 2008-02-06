@@ -39,7 +39,7 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
 	 * @param string $configDir Directory in which to look for configuration files.
 	 */
 	public function __construct($configdir = null) {
-		global $_phpDocumentor_cvsphpfile_exts, $_phpDocumentor_setting;
+		global $_phpDocumentor_cvsphpfile_exts, $_phpDocumentor_setting, $_phpDocumentor_phpfile_exts;
 		
 		$this->setup = new Io();
 		$this->render = new phpDocumentor_IntermediateParser("Default Title");
@@ -47,6 +47,11 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
 		$GLOBALS['_phpDocumentor_install_dir'] = $configdir;
         $this->parseIni();
 		
+        // These redundant-looking lines seem to actually make a difference.
+        // See: http://phing.info/trac/ticket/150
+        $_phpDocumentor_phpfile_exts = $GLOBALS['_phpDocumentor_phpfile_exts'];
+		$_phpDocumentor_cvsphpfile_exts = $GLOBALS['_phpDocumentor_cvsphpfile_exts'];
+
 		if (tokenizer_ext) {
             $this->parse = new phpDocumentorTParser();
         } else {
