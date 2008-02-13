@@ -177,7 +177,7 @@ final class AnsiColorLogger extends DefaultLogger {
             $verbose = $prop->getProperty("AnsiColorLogger.VERBOSE_COLOR");
             $debug = $prop->getProperty("AnsiColorLogger.DEBUG_COLOR");
             if ($err !== null) {
-                $this->this->errColor = self::PREFIX . $err . self::SUFFIX;
+                $this->errColor = self::PREFIX . $err . self::SUFFIX;
             }
             if ($warn !== null) {
                 $this->warnColor = self::PREFIX . $warn . self::SUFFIX;
