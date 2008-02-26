@@ -21,7 +21,7 @@
 
 require_once 'phing/tasks/ext/simpletest/SimpleTestPlainResultFormatter.php';
 require_once 'phing/tasks/ext/simpletest/SimpleTestSummaryResultFormatter.php';
-require_once 'phing/tasks/ext/phpunit2/FormatterElement.php';
+require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
 /**
  * Child class of "FormatterElement", overrides setType to provide other
