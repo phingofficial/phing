@@ -310,21 +310,19 @@ class Path extends DataType {
         }
 
         $tok = new PathTokenizer($source);
-        $element = "";
-        while ($tok->hasMoreTokens()) {            
+        while ($tok->hasMoreTokens()) {
             $pathElement = $tok->nextToken();
             try {
-                $element .= self::resolveFile($project, $pathElement);
+                $element = self::resolveFile($project, $pathElement);
+                for ($i = 0, $_i=strlen($element); $i < $_i; $i++) {
+                    self::translateFileSep($element, $i);
+                }
+                $result[] = $element;
             } catch (BuildException $e) {
-                $this->project->log("Dropping path element " . $pathElement 
-                    . " as it is not valid relative to the project", 
+                $this->project->log("Dropping path element " . $pathElement
+                    . " as it is not valid relative to the project",
                     Project::MSG_VERBOSE);
             }
-            
-            for ($i = 0, $_i=strlen($element); $i < $_i; $i++) {
-                self::translateFileSep($element, $i);
-            }
-            $result[] = $element;
         }
         
         return $result;
