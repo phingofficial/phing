@@ -349,7 +349,7 @@ abstract class FileSystem {
         $path = $f->getPath();
         $success = @touch($path, $time);
         if (!$success) {
-            throw new Exception("Could not create directory due to: $php_errormsg");
+            throw new Exception("Could not touch '" . $path . "' due to: $php_errormsg");
         }
     }
 

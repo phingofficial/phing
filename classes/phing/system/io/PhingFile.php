@@ -687,11 +687,7 @@ class PhingFile {
             throw new Exception("IllegalArgumentException, Negative $time\n");
         }
 
-        // FIXME check if accessible
         $fs = FileSystem::getFileSystem();
-        if ($fs->checkAccess($this, true) !== true) {
-            throw new IOException("File::setLastModified(). No write access to file\n");
-        }
         return $fs->setLastModifiedTime($this, $time);
     }
 
