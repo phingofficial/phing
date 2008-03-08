@@ -126,7 +126,7 @@ class PHPUnitTestRunner
 		{
 			$this->retCode = self::INCOMPLETES;
 		}
-		else if ($res->skippedCount() != 0)
+		else if (PHPUnitUtil::$installedVersion == 3 && $res->skippedCount() != 0)
 		{
 			$this->retCode = self::SKIPPED;
 		}
