@@ -57,6 +57,8 @@ $tasksSuite = new PHPUnit2_Framework_TestSuite("Phing Tasks");
 
 include_once 'phing/tasks/TypedefTaskTest.php';
 $tasksSuite->addTestSuite(new ReflectionClass('TypedefTaskTest'));
+include_once 'phing/tasks/TaskdefTaskTest.php';
+$tasksSuite->addTestSuite(new ReflectionClass('TaskdefTaskTest'));
 
 
 // Conditions

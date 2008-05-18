@@ -35,7 +35,7 @@ class TaskdefTestSimpleTask extends Task {
     }
     
     public function main() {
-        $this->log("simpletask: " . $echo->message, Project::MSG_INFO);
+      $this->log("simpletask: " . $this->echo->message, Project::MSG_INFO);
     }
 
 }

@@ -1490,6 +1490,11 @@ specified directory or the project basedir (if no dir attribute specified).</p>
 &lt;!-- Includes the Task &quot;RebootTask&quot; from &quot;user/sometasks&quot; somewhere inside
      the $PHP_CLASSPATH --&gt;
 &lt;taskdef classname=&quot;user.sometasks.RebootTask&quot; name=&quot;reboot&quot; /&gt;
+
+&lt;!-- Includes all tasks from the property file. Each line in the property 
+file defines a task in the format: name=path.to.Task --&gt;
+&lt;taskdef file=&quot;/path/to/mytasks.properties&quot; /&gt;
+
 </pre>
 <h3>Attributes</h3>
 <table>
@@ -1510,7 +1515,7 @@ specified directory or the project basedir (if no dir attribute specified).</p>
         The path to the class that defines the TaskClass.
       </td>
       <td>n/a</td>
-      <td>Yes</td>
+      <td>Yes, unless the <code>file</code> attribute has been specified.</td>
     </tr>
     <tr>
       <td>name</td>
@@ -1521,7 +1526,16 @@ specified directory or the project basedir (if no dir attribute specified).</p>
         the task imported here with <code>&lt;validate&gt;</code>.
       </td>
       <td>n/a</td>
-      <td>Yes</td>
+      <td>Yes, unless the <code>file</code> attribute has been specified.</td>
+    </tr>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>
+      Name of the file to load definitions from.
+      </td>
+      <td>n/a</td>
+      <td>No</td>
     </tr>
 	<tr>
       <td>classpath</td>
