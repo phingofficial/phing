@@ -535,7 +535,7 @@ class Project {
             $this->typedefs[$typeName] = $typeClass;
             $this->log("  +User datatype: $typeName ($typeClass)", Project::MSG_DEBUG);
         } else {
-            $this->log("Type $name ($class) already registerd, skipping", Project::MSG_VERBOSE);
+            $this->log("Type $typeName ($typeClass) already registerd, skipping", Project::MSG_VERBOSE);
         }
     }
 
@@ -555,6 +555,10 @@ class Project {
         $this->log("  +Target: $targetName", Project::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
+
+        $ctx = $this->getReference("phing.parsing.context");
+        $current = $ctx->getConfigurator()->getCurrentTargets();
+        $current[$targetName] = $target;
     }
 
     function getTargets() {

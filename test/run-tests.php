@@ -71,6 +71,8 @@ include_once 'phing/tasks/PropertyTaskTest.php';
 $tasksSuite->addTestSuite(new ReflectionClass('PropertyTaskTest'));
 
 
+include_once 'phing/tasks/ImportTaskTest.php';
+$tasksSuite->addTestSuite(new ReflectionClass('ImportTaskTest'));
  
 $suite = new PHPUnit2_Framework_TestSuite('Phing Tests');
 $suite->addTest($coreSuite);

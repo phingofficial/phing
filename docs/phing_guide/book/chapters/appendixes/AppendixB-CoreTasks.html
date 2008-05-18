@@ -901,6 +901,90 @@ This task doesn't have any attributes, the condition to test is specified by a n
 &lt;/if&gt;
 </pre>
 
+<h2><a name="ImportTask"></a>ImportTask</h2>
+<p>Imports another build file into the current project.</p>
+<p>On execution it will read another Phing file into the same Project. 
+Functionally it is nearly the same as copy and pasting the imported file onto 
+the end of the importing file.</p>
+<h3>Target Overriding</h3>
+<p>If a target in the main file is also present in at least one of the imported files, the one from the main file takes precedence.</p>
+
+<p>So if I import for example a <em>docs/build.xml</em> file named 
+<strong>builddocs</strong>, that contains a "<strong>docs</strong>" target, I 
+can redefine it in my main buildfile and that is the one that will be called. 
+This makes it easy to keep the same target name, so that the overriding target 
+is still called by any other targets--in either the main or imported 
+buildfile(s)--for which it is a dependency, with a different implementation. 
+The target from <em>docs/build.xml</em> is made available by the name 
+"<strong>builddocs.docs</strong>". This enables the new implementation to call 
+the old target, thus enhancing it with tasks called before or after it.</p>
+<h3>Special Properties</h3>
+<p>Imported files are treated as they are present in the main buildfile. This makes it easy to understand, but it makes it impossible for them to reference files and resources relative to their path. Because of this, for every imported file, Phing adds a property that contains the path to the imported buildfile. With this path, the imported buildfile can keep resources and be able to reference them relative to its position.</p>
+
+<p>So if I import for example a <em>docs/build.xml</em> file named <strong>builddocs</strong>, I can get its path as <strong>phing.file.builddocs</strong>, similarly to the <strong>phing.file</strong> property of the main buildfile.</p>
+
+<p>Note that "builddocs" is not the filename, but the name attribute present in the imported project tag.</p>
+
+<p>If import file does not have a name attribute, the phing.file.projectname property will not be set.</p>
+<h3>Resolving Files Against the Imported File</h3>
+<p>Suppose your main build file called <code>importing.xml</code> imports a build file <code>imported.xml</code>, located anywhere on the file system, and <code>imported.xml</code> reads a set of properties from <code>imported.properties</code>:
+<pre>
+&lt;!-- importing.xml --&gt;
+&lt;project name=&quot;importing&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
+  &lt;import file=&quot;${path_to_imported}/imported.xml&quot;/&gt;
+&lt;/project&gt;
+
+&lt;!-- imported.xml --&gt;
+&lt;project name=&quot;imported&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
+  &lt;property file=&quot;imported.properties&quot;/&gt;
+&lt;/project&gt;
+</pre>
+
+<p>This snippet however will resolve <code>imported.properties</code> against the basedir of <code>importing.xml</code>, because the basedir of <code>imported.xml</code> is ignored by Phing. The right way to use <code>imported.properties</code> is:
+<pre>
+&lt;!-- imported.xml --&gt;
+&lt;project name=&quot;imported&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
+  &lt;php function=&quot;dirname&quot; returnProperty=&quot;imported.basedir&quot;&gt;
+    &lt;param value=&quot;${phing.file.imported}&quot;/&gt;
+  &lt;/php&gt;
+  &lt;property file=&quot;${imported.basedir}/imported.properties&quot;/&gt;
+&lt;/project&gt;
+</pre>
+<p>As explained above <code>${phing.file.imported}</code> stores the path of the build script, that defines the project called <strong>imported</strong>, (in short it stores the path to <em>imported.xml</em>) and &lt;php function="dirname"&gt; takes its directory. This technique also allows <em>imported.xml</em> to be used as a standalone file (without being imported in other project).</p>
+<h3>Example</h3>
+<pre>
+&lt;import file=&quot;path/to/build.xml&quot;/&gt;
+&lt;import file=&quot;path/to/build.xml&quot; optional=&quot;true&quot;/&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>The file to import.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>optional</td>
+      <td>Boolean</td>
+      <td>If true, do not stop the build if the file does not exist.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2><a name="IncludePathTask"></a>IncludePathTask</h2>
 <p>Sets the PHP include_path configuration option for the duration of this phing run.</p>
 <h3>Example</h3>

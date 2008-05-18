@@ -108,22 +108,53 @@ class TargetHandler extends AbstractHandler {
         // shorthand
         $project = $this->configurator->project;
 
+        // check to see if this target is a dup within the same file
+        if (isset($this->configurator->getCurrentTargets[$name])) {
+          throw new BuildException("Duplicate target: $targetName",  
+              $this->parser->getLocation());
+        }
+
         $this->target = new Target();
         $this->target->setName($name);
         $this->target->setIf($ifCond);
         $this->target->setUnless($unlessCond);
         $this->target->setDescription($description);
-
-        $project->addTarget($name, $this->target);
-
-        if ($id !== null && $id !== "") {
-            $project->addReference($id, $this->target);
-        }
         // take care of dependencies
         if (strlen($depends) > 0) {
             $this->target->setDepends($depends);
         }
 
+        $usedTarget = false;
+        // check to see if target with same name is already defined
+        $projectTargets = $project->getTargets();
+        if (isset($projectTargets[$name])) {
+          $project->log("Already defined in main or a previous import, " .
+            "ignore {$name}", Project::MSG_VERBOSE);
+        } else {
+          $project->addTarget($name, $this->target);
+          if ($id !== null && $id !== "") {
+            $project->addReference($id, $this->target);
+          }
+          $usedTarget = true;
+        }
+
+        if ($this->configurator->isIgnoringProjectTag() && 
+            $this->configurator->getCurrentProjectName() != null && 
+            strlen($this->configurator->getCurrentProjectName()) != 0) {
+          // In an impored file (and not completely
+          // ignoring the project tag)
+          $newName = $this->configurator->getCurrentProjectName() . "." . $name;
+          if ($usedTarget) {
+            // clone needs to make target->children a shared reference
+            $newTarget = clone $this->target;
+          } else {
+            $newTarget = $this->target;
+          }
+          $newTarget->setName($newName);
+          $ct = $this->configurator->getCurrentTargets();
+          $ct[$newName] = $newTarget;
+          $project->addTarget($newName, $newTarget);
+        }
     }
 
     /**

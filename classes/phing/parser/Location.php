@@ -69,4 +69,8 @@ class Location {
         }
         return (string) $buf;
     }
+
+    function __toString () {
+      return $this->toString();
+    }
 }
