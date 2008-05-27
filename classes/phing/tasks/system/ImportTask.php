@@ -98,10 +98,12 @@ class ImportTask extends Task {
       throw new BuildException("Missing attribute 'file'");
     }
 
-    $base = $this->project->getBasedir();
-    $file = new PhingFile($this->project->getBasedir(), $this->file);
+    $file = new PhingFile($this->file);
+    if (!$file->isAbsolute()) {
+      $file = new PhingFile($this->project->getBasedir(), $this->file);
+    }
     if (!$file->exists()) {
-      $msg = "Unable to find build file: {$this->file->getName()}";
+      $msg = "Unable to find build file: {$file->getPath()}";
       if ($this->optional) {
         $this->log($msg . '... skipped');
       } else {
