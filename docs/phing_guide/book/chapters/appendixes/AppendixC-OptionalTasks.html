@@ -882,7 +882,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
       <td>String</td>
       <td>The output format. The <em>default</em> format is specified in the task itself. Additionally the formats of CodeSniffer can be choosen: <em>xml</em>, <em>checkstyle</em>, <em>csv</em>, <em>report</em> and <em>summary</em>. A special case is the format <em>doc</em> which generates the documentation of the standard.</td>
       <td>default</td>
-      <td>No</td>
+      <td>No<br/>Ignored if nested <em>formatter</em> elements are supplied.</td>
     </tr>
     <tr>
       <td>showSniffs</td>
@@ -985,6 +985,44 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
       </tbody>
     </table>
   </li>
+  <li>formatter
+  <p>The results of the tests can be printed in different formats. Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false.</em></p>
+    <h3>Attributes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>type</td>
+          <td>String</td>
+          <td>The output format. Accepts the the same values as the <em>outputFormat</em> attribute (<em>default</em>, <em>xml</em>, <em>checkstyle</em>, <em>csv</em>, <em>report</em>, <em>summary</em> &amp; <em>doc</em>).</td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>usefile</td>
+          <td>Boolean</td>
+          <td>Boolean that determines whether output should be sent to a file.</td>
+          <td>true</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>outfile</td>
+          <td>String</td>
+          <td>Path to write output file to.</td>
+          <td>n/a</td>
+          <td>Yes, if <em>usefile</em> is <em>true</em>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
 </ul>
 <h3>Examples</h3>
 <p>Checks all files in the directory <em>file</em> matching the allowed file extension with the <em>PEAR</em> standard and prints the <em>summary</em> report without warnings.</p>
@@ -995,7 +1033,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   allowedFileExtensions=&quot;php php5 inc&quot;/&gt;
 &lt;/phpcodesniffer&gt;
 </pre>
-<p>Checks all matching files in the directory <em>dir</em> with a custom external standard, sets the <em>zend_ca_path</em> configuration which may be required by one of the sniffs, prints a list of used sniffs and prints the <em>default</em> report with warnings.</p>
+<p>Checks all matching files in the directory <em>dir</em> with a custom external standard, sets the <em>zend_ca_path</em> configuration which may be required by one of the sniffs, prints a list of used sniffs and prints the <em>default</em> report with warnings and the <em>checkstyle</em> report to <em>/path/to/checkstyle.xml</em>.</p>
 <pre>&lt;phpunit
   standard=&quot;/path/to/external-standard&quot;
   showSniffs=&quot;true&quot;
@@ -1003,7 +1041,9 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   &lt;fileset dir=&quot;/path/to/source-files&quot;&gt;
     &lt;include name=&quot;**/*.php&quot;/&gt;
   &lt;/fileset&gt;
-  &lt;config name=&quot;zend_ca_path&quot; value=&quot;/path/to/ZendStudio/bin/ZendCodeAnalyzer&quot;&gt;
+  &lt;config name=&quot;zend_ca_path&quot; value=&quot;/path/to/ZendStudio/bin/ZendCodeAnalyzer&quot;/&gt;
+  &lt;formatter type=&quot;default&quot; usefile=&quot;false&quot;/&gt;
+  &lt;formatter type=&quot;checkstyle&quot; outfile=&quot;/path/to/checkstyle.xml&quot;/&gt;
 &lt;/phpunit&gt;
 </pre>
 <p>Externally stored custom standard have to follow the same naming conventions as if they were stored in the <em>Standards</em> subdirectory of PHP_CodeSniffer itself.</p>
