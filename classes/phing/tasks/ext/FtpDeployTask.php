@@ -126,10 +126,10 @@ class FtpDeployTask extends Task
 		$ftp = new Net_FTP($this->host, $this->port);
 		$ret = $ftp->connect();
 		if(PEAR::isError($ret))
-			throw new BuildException('Could not connect to FTP server '.$this->post.' on port '.$this->port.': '.$ret->getMessage());
+			throw new BuildException('Could not connect to FTP server '.$this->host.' on port '.$this->port.': '.$ret->getMessage());
 		$ret = $ftp->login($this->username, $this->password);
 		if(PEAR::isError($ret))
-			throw new BuildException('Could not login to FTP server '.$this->post.' on port '.$this->port.' with username '.$this->username.': '.$ret->getMessage());
+			throw new BuildException('Could not login to FTP server '.$this->host.' on port '.$this->port.' with username '.$this->username.': '.$ret->getMessage());
 		
 		if($this->clearFirst) {
 			// TODO change to a loop through all files and directories within current directory
