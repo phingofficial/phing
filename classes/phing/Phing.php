@@ -797,7 +797,7 @@ class Phing {
 	 * @return string
 	 * @throws BuildException - if unable to find version file.
 	 */
-	function getPhingVersion() {
+	public static function getPhingVersion() {
 		$versionPath = self::getResourcePath("phing/etc/VERSION.TXT");
 		if ($versionPath === null) {
 			$versionPath = self::getResourcePath("etc/VERSION.TXT");
