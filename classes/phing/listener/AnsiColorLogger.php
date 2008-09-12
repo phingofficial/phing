@@ -47,8 +47,8 @@ use phing::system::io::OutputStream;
  *
  * The default colors used for differentiating
  * the message levels can be changed by editing the
- * /org/apache/tools/ant/listener/defaults.properties
- * file.
+ * phing/listener/defaults.properties file.
+ *
  * This file contains 5 key/value pairs:
  * AnsiColorLogger.ERROR_COLOR=2;31
  * AnsiColorLogger.WARNING_COLOR=2;35
@@ -100,9 +100,9 @@ use phing::system::io::OutputStream;
  * @author     Hans Lellelid <hans@xmpl.org> (Phing)
  * @author     Magesh Umasankar (Ant)
  * @package    phing.listener
- * @version    $Revision: 1.13 $
+ * @version    $Revision$
  */
-final class AnsiColorLogger extends DefaultLogger {
+class AnsiColorLogger extends DefaultLogger {
 
     const ATTR_NORMAL = 0;
     const ATTR_BRIGHT = 1;
