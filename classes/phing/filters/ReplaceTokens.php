@@ -410,6 +410,15 @@ class Token {
     function getValue() {
         return $this->_value;
     }
+
+    /**
+     * Sets the token value from text.
+     *
+     * @param string $value The value for this token. Must not be <code>null</code>.
+     */
+    function addText($value) {
+        $this->setValue($value);
+    }
 }
 
 
