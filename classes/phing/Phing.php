@@ -127,7 +127,7 @@ class Phing {
 	 * @var boolean Whether we are using a logfile.
 	 */
 	private static $isLogFileUsed = false;
-	
+
 	/**
 	 * Array to hold original ini settings that Phing changes (and needs
 	 * to restore in restoreIni() method).
@@ -151,7 +151,7 @@ class Phing {
 	 * @throws Exception - if there is an error during build
 	 */
 	public static function start($args, array $additionalUserProperties = null) {
-		
+
 		try {
 			$m = new Phing();
 			$m->execute($args);
@@ -279,50 +279,51 @@ class Phing {
 
 		self::$definedProps = new Properties();
 		$this->searchForThis = null;
-		
+
 		// 1) First handle any options which should always
 		// Note: The order in which these are executed is important (if multiple of these options are specified)
-		
+
 		if (in_array('-help', $args) || in_array('-h', $args)) {
 			$this->printUsage();
 			return;
 		}
-		
+
 		if (in_array('-version', $args) || in_array('-v', $args)) {
 			$this->printVersion();
 			return;
 		}
-		
+
 		// 2) Next pull out stand-alone args.
 		// Note: The order in which these are executed is important (if multiple of these options are specified)
-		
+
 		if (false !== ($key = array_search('-quiet', $args, true))) {
 			self::$msgOutputLevel = Project::MSG_WARN;
 			unset($args[$key]);
 		}
-		
+
 		if (false !== ($key = array_search('-verbose', $args, true))) {
 			self::$msgOutputLevel = Project::MSG_VERBOSE;
 			unset($args[$key]);
 		}
-		
+
 		if (false !== ($key = array_search('-debug', $args, true))) {
 			self::$msgOutputLevel = Project::MSG_DEBUG;
 			unset($args[$key]);
 		}
-		
+
 		// 3) Finally, cycle through to parse remaining args
-		// 
-		$keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps
-		for($i=0, $max = max(array_keys($args)); $i <= $max; $i++) {
-			
+		//
+		$keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps		
+		$max = $keys ? max($keys) : -1;
+		for($i=0; $i <= $max; $i++) {
+
 			if (!array_key_exists($i, $args)) {
 				// skip this argument, since it must have been removed above.
 				continue;
 			}
-			
+
 			$arg = $args[$i];
-			
+
 			if ($arg == "-logfile") {
 				try {
 					// see: http://phing.info/trac/ticket/65
@@ -589,9 +590,9 @@ class Phing {
 				. $e->getMessage();
 				throw new ConfigurationException($msg);
 			}
-				
+
 			$listener = new $clz();
-				
+
 			if ($listener instanceof StreamRequiredBuildLogger) {
 				throw new ConfigurationException("Unable to add " . $listenerClassname . " as a listener, since it requires explicit error/output streams. (You can specify it as a -logger.)");
 			}
@@ -696,11 +697,11 @@ class Phing {
 		if (error_reporting() > 0) {
 
 			if (self::$phpErrorCapture) {
-					
+
 				self::$capturedPhpErrors[] = array('message' => $message, 'level' => $level, 'line' => $line, 'file' => $file);
 
 			} else {
-					
+
 				$message = '[PHP Error] ' . $message;
 				$message .= ' [line ' . $line . ' of ' . $file . ']';
 
@@ -797,7 +798,7 @@ class Phing {
 	 * @return string
 	 * @throws BuildException - if unable to find version file.
 	 */
-	function getPhingVersion() {
+	public static function getPhingVersion() {
 		$versionPath = self::getResourcePath("phing/etc/VERSION.TXT");
 		if ($versionPath === null) {
 			$versionPath = self::getResourcePath("etc/VERSION.TXT");
@@ -948,7 +949,7 @@ class Phing {
 
 		$dotClassname = basename($dotPath);
 		$dotClassnamePos = strlen($dotPath) - strlen($dotClassname);
-			
+
 		// 1- temporarily replace escaped '.' with another illegal char (#)
 		$tmp = str_replace('\.', '##', $dotClassname);
 		// 2- swap out the remaining '.' with DIR_SEP
@@ -1054,10 +1055,10 @@ class Phing {
 				return $testPath;
 			}
 		} else {
-			// We're not using PEAR, so do one additional check based on path of 
+			// We're not using PEAR, so do one additional check based on path of
 			// current file (Phing.php)
 			$maybeHomeDir = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR  . '..');
-			$testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path; 
+			$testPath = $maybeHomeDir . DIRECTORY_SEPARATOR . $path;
 			if (file_exists($testPath)) {
 				return $testPath;
 			}
@@ -1121,6 +1122,7 @@ class Phing {
 		self::setProperty('php.version', PHP_VERSION);
 		self::setProperty('user.home', getenv('HOME'));
 		self::setProperty('application.startdir', getcwd());
+		self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
 
 		// try to detect machine dependent information
 		$sysInfo = array();
@@ -1134,7 +1136,7 @@ class Phing {
 			$sysInfo['release'] = php_uname('r');
 			$sysInfo['version'] = php_uname('v');
 		}
-			
+
 
 		self::setProperty("host.name", isset($sysInfo['nodename']) ? $sysInfo['nodename'] : "unknown");
 		self::setProperty("host.arch", isset($sysInfo['machine']) ? $sysInfo['machine'] : "unknown");
@@ -1232,23 +1234,23 @@ class Phing {
 	 * @return void
 	 */
 	private static function setIni() {
-		
+
 		self::$origIniSettings['error_reporting'] = error_reporting(E_ALL);
-		
-		// We won't bother storing original max_execution_time, since 1) the value in 
-		// php.ini may be wrong (and there's no way to get the current value) and 
+
+		// We won't bother storing original max_execution_time, since 1) the value in
+		// php.ini may be wrong (and there's no way to get the current value) and
 		// 2) it would mean something very strange to set it to a value less than time script
 		// has already been running, which would be the likely change.
-		
+
 		set_time_limit(0);
-		
+
 		self::$origIniSettings['magic_quotes_gpc'] = ini_set('magic_quotes_gpc', 'off');
 		self::$origIniSettings['short_open_tag'] = ini_set('short_open_tag', 'off');
 		self::$origIniSettings['default_charset'] = ini_set('default_charset', 'iso-8859-1');
 		self::$origIniSettings['register_globals'] = ini_set('register_globals', 'off');
 		self::$origIniSettings['allow_call_time_pass_reference'] = ini_set('allow_call_time_pass_reference', 'on');
 		self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
-		
+
 		// should return memory limit in MB
 		$mem_limit = (int) ini_get('memory_limit');
 		if ($mem_limit < 32) {
@@ -1257,14 +1259,14 @@ class Phing {
 			ini_set('memory_limit', '32M'); // nore: this may need to be higher for many projects
 		}
 	}
-	
+
 	/**
 	 * Restores [most] PHP INI values to their pre-Phing state.
-	 * 
+	 *
 	 * Currently the following settings are not restored:
 	 * 	- max_execution_time (because getting current time limit is not possible)
 	 *  - memory_limit (which may have been increased by Phing)
-	 * 
+	 *
 	 * @return void
 	 */
 	private static function restoreIni()
@@ -1296,7 +1298,7 @@ class Phing {
 	 * Start up Phing.
 	 * Sets up the Phing environment but does not initiate the build process.
 	 * @return void
-	 * @throws Exception - If the Phing environment cannot be initialized. 
+	 * @throws Exception - If the Phing environment cannot be initialized.
 	 */
 	public static function startup() {
 

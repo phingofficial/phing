@@ -480,7 +480,11 @@ class PDOSQLExecTask extends PDOTask {
     		$this->statement->execute();
     		$this->log($this->statement->rowCount() . " rows affected", Project::MSG_VERBOSE);
 
-    		$this->processResults();
+    		// only call processResults() for statements that return actual data (such as 'select')
+    		if ($this->statement->columnCount() > 0)
+    		{
+    			$this->processResults();
+    		}
 
     		$this->statement->closeCursor();
     		$this->statement = null;

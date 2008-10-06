@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/ExtractBaseTask.php';
  * @since     2.2.0
  */
 class UntarTask extends ExtractBaseTask {
-    
+
     /**
      * Ensures that PEAR lib exists.
      */
@@ -39,28 +39,28 @@ class UntarTask extends ExtractBaseTask {
             throw new BuildException("You must have installed the PEAR Archive_Tar class in order to use UntarTask.");
         }
     }
-    
+
     protected function extractArchive(PhingFile $tarfile)
     {
         $this->log("Extracting tar file: " . $tarfile->__toString() . ' to ' . $this->todir->__toString(), Project::MSG_INFO);
-        
-    	try {
-        	$tar = $this->initTar($tarfile);
-        	if(!$tar->extractModify($this->todir->getAbsolutePath(), $this->removepath)) {
-        	    throw new BuildException('Failed to extract tar file: ' . $tarfile->getAbsolutePath());
-        	}
+
+        try {
+            $tar = $this->initTar($tarfile);
+            if(!$tar->extractModify($this->todir->getAbsolutePath(), $this->removepath)) {
+                throw new BuildException('Failed to extract tar file: ' . $tarfile->getAbsolutePath());
+            }
         } catch (IOException $ioe) {
             $msg = "Could not extract tar file: " . $ioe->getMessage();
             throw new BuildException($msg, $ioe, $this->getLocation());
         }
     }
-    
+
     protected function listArchiveContent(PhingFile $tarfile)
     {
         $tar = $this->initTar($tarfile);
         return $tar->listContent();
     }
-    
+
     /**
      * Init a Archive_Tar class with correct compression for the given file.
      *
@@ -71,20 +71,19 @@ class UntarTask extends ExtractBaseTask {
     {
         $compression = null;
         $tarfileName = $tarfile->getName();
-        $mode = substr($tarfileName, strrpos($tarfileName, '.'));
-        switch($mode) {
-            case '.gz':
-                $compression = 'gz';
+        $mode = strtolower(substr($tarfileName, strrpos($tarfileName, '.')));
+
+        $compressions = array(
+                'gz' => array('.gz', '.tgz',),
+                'bz2' => array('.bz2',),
+            );
+        foreach ($compressions as $algo => $ext) {
+            if (array_search($mode, $ext) !== false) {
+                $compression = $algo;
                 break;
-            case '.bz2':
-                $compression = 'bz2';
-                break;
-            case '.tar':
-                break;
-            default:
-                $this->log('Ignoring unknown compression mode: ' . $mode, Project::MSG_WARN);
+            }
         }
-        
-    	return new Archive_Tar($tarfile->getAbsolutePath(), $compression);
+
+        return new Archive_Tar($tarfile->getAbsolutePath(), $compression);
     }
 }

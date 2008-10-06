@@ -37,55 +37,55 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	 * @var PHPUnit_Util_Log_XML
 	 */
 	private $logger = NULL;
-	
+
 	function __construct()
 	{
-		$this->logger = new PHPUnit_Util_Log_XML();
+		$this->logger = new PHPUnit_Util_Log_XML(null, true);
 		$this->logger->setWriteDocument(false);
 	}
-	
+
 	function getExtension()
 	{
 		return ".xml";
 	}
-	
+
 	function getPreferredOutfile()
 	{
 		return "testsuites";
 	}
-	
+
 	function startTestSuite(PHPUnit_Framework_TestSuite $suite)
 	{
 		parent::startTestSuite($suite);
-		
+
 		$this->logger->startTestSuite($suite);
 	}
-	
+
 	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
 	{
 		parent::endTestSuite($suite);
-		
+
 		$this->logger->endTestSuite($suite);
 	}
-	
+
 	function startTest(PHPUnit_Framework_Test $test)
 	{
 		parent::startTest($test);
-		
+
 		$this->logger->startTest($test);
 	}
 
 	function endTest(PHPUnit_Framework_Test $test, $time)
 	{
 		parent::endTest($test, $time);
-		
+
 		$this->logger->endTest($test, $time);
 	}
-	
+
 	function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		parent::addError($test, $e, $time);
-		
+
 		$this->logger->addError($test, $e, $time);
 	}
 
@@ -99,14 +99,14 @@ class XMLPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
 	{
 		parent::addIncompleteTest($test, $e, $time);
-		
+
 		$this->logger->addIncompleteTest($test, $e, $time);
 	}
-	
+
 	function endTestRun()
 	{
 		parent::endTestRun();
-		
+
 		if ($this->out)
 		{
 			$this->out->write($this->logger->getXML());

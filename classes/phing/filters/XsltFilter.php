@@ -205,7 +205,10 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
             $processor->setParameter(null, $param->getName(), $param->getExpression());
         }
         
-        $result = $processor->transformToXML($xmlDom);
+        $errorlevel = error_reporting();
+        error_reporting($errorlevel & ~E_WARNING);
+        @$result = $processor->transformToXML($xmlDom);
+        error_reporting($errorlevel);
         
         if ( !$result ) {
             //$errno = xslt_errno($processor);
