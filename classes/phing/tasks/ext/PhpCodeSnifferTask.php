@@ -184,14 +184,14 @@ class PhpCodeSnifferTask extends Task {
 		$this->outputFormat = $format;
 	}
 
-  /**
-   * Create object for nested formatter element.
-   * @return CodeSniffer_FormatterElement
-   */
+	/**
+	 * Create object for nested formatter element.
+	 * @return CodeSniffer_FormatterElement
+	 */
 	public function createFormatter () {
-    $num = array_push($this->formatters, 
+    	$num = array_push($this->formatters, 
         new PhpCodeSnifferTask_FormatterElement());
-    return $this->formatters[$num-1];
+	    return $this->formatters[$num-1];
 	}
 
 	/**
@@ -200,15 +200,15 @@ class PhpCodeSnifferTask extends Task {
 	public function main() {
 		if(!isset($this->file) and count($this->filesets) == 0) {
 			throw new BuildException("Missing either a nested fileset or attribute 'file' set");
-    }
+		}
 
-    if (count($this->formatters) == 0) {
-      // turn legacy outputFormat attribute into formatter
-      $fmt = new CodeSniffer_FormatterElement();
-      $fmt->setType($this->outputFormat);
-      $fmt->setUseFile(false);
-      $this->formatters[] = $fmt;
-    }
+		if (count($this->formatters) == 0) {
+		  // turn legacy outputFormat attribute into formatter
+		  $fmt = new PhpCodeSnifferTask_FormatterElement();
+		  $fmt->setType($this->outputFormat);
+		  $fmt->setUseFile(false);
+		  $this->formatters[] = $fmt;
+		}
 
 		require_once 'PHP/CodeSniffer.php';
 		$codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth);
@@ -231,9 +231,9 @@ class PhpCodeSnifferTask extends Task {
 				foreach ($files as $file) {
 					$fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
 				}
-      }
+	  		}
 			$codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
-    }
+		}
 
 		$this->output($codeSniffer);
 	}
@@ -250,80 +250,80 @@ class PhpCodeSnifferTask extends Task {
 				$sniffStr .= '- ' . $sniff.PHP_EOL;
 			}
 			$this->log('The list of used sniffs (#' . count($sniffs) . '): ' . PHP_EOL . $sniffStr, Project::MSG_INFO);
-    }
+		}
 
-    // process output
-    foreach ($this->formatters as $fe) {
-      $output = '';
+		// process output
+		foreach ($this->formatters as $fe) {
+		  $output = '';
 
-      switch ($fe->getType()) {
-        case 'default':
-          // default format goes to logs, no buffering
-          $this->outputCustomFormat($codeSniffer);
-          $fe->setUseFile(false);
-          break;
+		  switch ($fe->getType()) {
+			case 'default':
+			  // default format goes to logs, no buffering
+			  $this->outputCustomFormat($codeSniffer);
+			  $fe->setUseFile(false);
+			  break;
 
-        case 'xml':
-          ob_start();
-          $codeSniffer->printXMLErrorReport($this->showWarnings);
-          $output = ob_get_contents();
-          ob_end_clean();
-          break;
+			case 'xml':
+			  ob_start();
+			  $codeSniffer->printXMLErrorReport($this->showWarnings);
+			  $output = ob_get_contents();
+			  ob_end_clean();
+			  break;
 
-        case 'checkstyle':
-          ob_start();
-          $codeSniffer->printCheckstyleErrorReport($this->showWarnings);
-          $output = ob_get_contents();
-          ob_end_clean();
-          break;
+			case 'checkstyle':
+			  ob_start();
+			  $codeSniffer->printCheckstyleErrorReport($this->showWarnings);
+			  $output = ob_get_contents();
+			  ob_end_clean();
+			  break;
 
-        case 'csv':
-          ob_start();
-          $codeSniffer->printCSVErrorReport($this->showWarnings);
-          $output = ob_get_contents();
-          ob_end_clean();
-          break;
+			case 'csv':
+			  ob_start();
+			  $codeSniffer->printCSVErrorReport($this->showWarnings);
+			  $output = ob_get_contents();
+			  ob_end_clean();
+			  break;
 
-        case 'report':
-          ob_start();
-          $codeSniffer->printErrorReport($this->showWarnings);
-          $output = ob_get_contents();
-          ob_end_clean();
-          break;
+			case 'report':
+			  ob_start();
+			  $codeSniffer->printErrorReport($this->showWarnings);
+			  $output = ob_get_contents();
+			  ob_end_clean();
+			  break;
 
-        case 'summary':
-          ob_start();
-          $codeSniffer->printErrorReportSummary($this->showWarnings);
-          $output = ob_get_contents();
-          ob_end_clean();
-          break;
+			case 'summary':
+			  ob_start();
+			  $codeSniffer->printErrorReportSummary($this->showWarnings);
+			  $output = ob_get_contents();
+			  ob_end_clean();
+			  break;
 
-        case 'doc':
-          ob_start();
-          $codeSniffer->generateDocs($this->standard, $this->sniffs);
-          $output = ob_get_contents();
-          ob_end_clean();
-          break;
+			case 'doc':
+			  ob_start();
+			  $codeSniffer->generateDocs($this->standard, $this->sniffs);
+			  $output = ob_get_contents();
+			  ob_end_clean();
+			  break;
 
-        default:
-          $this->log('Unknown output format "' . $fe->getType() . '"', Project::MSG_INFO);
-          continue; //skip to next formatter in list
-          break;
-      } //end switch
-			
-			if (!$fe->getUseFile()) {
-        // output raw to console
-        echo $output;
+			default:
+			  $this->log('Unknown output format "' . $fe->getType() . '"', Project::MSG_INFO);
+			  continue; //skip to next formatter in list
+			  break;
+		  } //end switch
 
-			} else {
-			  // write to file
-			  $outputFile = $fe->getOutfile();
-			  $check = file_put_contents($outputFile, $output);
-        if (is_bool($check) && !$check) {
-          throw new BuildException('Error writing output to ' . $outputFile);
-        }
+				if (!$fe->getUseFile()) {
+			// output raw to console
+			echo $output;
+
+				} else {
+				  // write to file
+				  $outputFile = $fe->getOutfile();
+				  $check = file_put_contents($outputFile, $output);
+			if (is_bool($check) && !$check) {
+			  throw new BuildException('Error writing output to ' . $outputFile);
 			}
-    } //end foreach
+				}
+		} //end foreach
 	} //end output
 
 	/**
