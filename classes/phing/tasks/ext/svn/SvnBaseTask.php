@@ -312,8 +312,8 @@ abstract class SvnBaseTask extends Task
 			if (count($errs = $svnstack->getErrors()))
 			{
 				$err = current($errs);
-
-				throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $err['message']);
+				
+				throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $err['params']['errstr']);
 			}
 		}
 	}
