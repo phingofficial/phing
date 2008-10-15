@@ -203,7 +203,7 @@ class DateSelector extends BaseExtendSelector {
         if ($this->cmp === 0) {
             return (($file->lastModified() - $this->granularity) < $this->seconds);
         } elseif ($this->cmp === 1) {
-            return (($file->lastModified() . $this->granularity) > $this->seconds);
+            return (($file->lastModified() - $this->granularity) > $this->seconds);
         } else {
             return (abs($file->lastModified() -  $this->seconds) <= $this->granularity);
         }
