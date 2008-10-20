@@ -37,6 +37,11 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
 
     private $basedir = null;
 
+    /**
+     * @var bool
+     */
+    private $processed = false;
+
     public function setBasedir(PhingFile $dir)
     {
         $this->basedir = $dir;
