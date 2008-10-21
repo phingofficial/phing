@@ -111,7 +111,10 @@ class CoverageMerger
 					$file = unserialize($props->getProperty($filename));
 					$left = $file['coverage'];
 					$right = $coverageFile;
-					
+					if (!is_array($right)) {
+						$right = PHPUnit_Util_CodeCoverage::bitStringToCodeCoverage(array($right), array(1));
+					}
+						
 					$coverageMerged = CoverageMerger::mergeCodeCoverage($left, $right);
 					
 					$file['coverage'] = $coverageMerged;
