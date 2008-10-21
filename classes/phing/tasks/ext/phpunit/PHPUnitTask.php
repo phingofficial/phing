@@ -104,6 +104,8 @@ class PHPUnitTask extends Task
 		/**
 		 * Add some defaults to the PHPUnit filter
 		 */
+		$pwd = dirname(__FILE__);
+
 		if (PHPUnitUtil::$installedVersion == 3)
 		{
 			require_once 'PHPUnit/Framework.php';
@@ -114,26 +116,26 @@ class PHPUnitTask extends Task
 				define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
 			}
 			
-			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTask.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('PHPUnitTestRunner.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Task.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Target.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Project.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing/Phing.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter('phing.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Task.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Target.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Project.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Phing.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../../phing.php', 'PHING');
 		}
 		else
 		{
 			require_once 'PHPUnit2/Framework.php';
 			require_once 'PHPUnit2/Util/Filter.php';
 			
-			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTask.php');
-			PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTestRunner.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Target.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Project.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing/Phing.php');
-			PHPUnit2_Util_Filter::addFileToFilter('phing.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Task.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Target.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Project.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Phing.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../../phing.php');
 		}
 	}
 	
