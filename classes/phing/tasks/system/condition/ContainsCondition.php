@@ -71,6 +71,6 @@ class ContainsCondition implements Condition {
 
         return $this->caseSensitive 
             ? strpos($this->string, $this->subString) !== false
-            : substr(strtolower($this->string), strtolower($this->subString)) !== false;
+            : strpos(strtolower($this->string), strtolower($this->subString)) !== false;
     }
 }
