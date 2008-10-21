@@ -68,12 +68,9 @@ class ContainsCondition implements Condition {
             throw new BuildException("both string and substring are required "
                                      . "in contains");
         }
-	print("Checking for {$this->subString} within {$this->string}");
 
-        $ret = $this->caseSensitive 
+        return $this->caseSensitive 
             ? strpos($this->string, $this->subString) !== false
-            : strpos(strtolower($this->string), strtolower($this->subString)) !== false;
-	var_dump($ret);
-	return $ret;
+            : substr(strtolower($this->string), strtolower($this->subString)) !== false;
     }
 }
