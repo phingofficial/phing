@@ -31,7 +31,7 @@ include_once 'phing/filters/ChainableReader.php';
  * @author    Hans Lellelid <hans@velum.net>
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @version   $Revision: 1.16 $
+ * @version   $Revision$
  * @see       FilterReader
  * @package   phing.filters
  */
@@ -210,7 +210,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         @$result = $processor->transformToXML($xmlDom);
         error_reporting($errorlevel);
         
-        if ( !$result ) {
+        if (false === $result) {
             //$errno = xslt_errno($processor);
             //$err   = xslt_error($processor);    
             throw new BuildException("XSLT Error");            
