@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE bibliography PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<bibliography id="bibliography">
+    <title>Bibliography</title>
+    <bibliodiv>
+        <title>International Standards</title>
+        <biblioentry id="bibliography-osi-model" xreflabel="osi-model">
+            <title>OSI (Open System Interconnect) Model</title>
+            <bibliomisc>
+                <ulink url="http://www.iso.org/" />
+                <ulink url="http://www.instantweb.com/foldoc/foldoc.cgi?OSI" />
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry id="bibliography-xml10-spec" xreflabel="xml10-spec">
+            <title>W3C XML 1.0 Specifications</title>
+            <bibliomisc>
+                <ulink url="http://www.w3.org/XML/" />
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry id="bibliography-unicode" xreflabel="unicode">
+            <title>Unicode</title>
+            <bibliomisc>
+                <ulink url="http://www.unicode.org/" />
+            </bibliomisc>
+        </biblioentry>
+    </bibliodiv>
+    <bibliodiv>
+        <title>Open Source Projects</title>
+        <biblioentry id="bibliography-ant" xreflabel="ant">
+            <title>Ant, a Java Build Tool, the main inspiration for Phing</title>
+            <bibliomisc>
+                <ulink url="http://ant.apache.org/" />
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry id="bibliography-gnumake" xreflabel="gnumake">
+            <title>GNU make, an inspiration for Phing</title>
+            <bibliomisc>
+                <ulink url="http://www.gnu.org/software/make/make.html" />
+            </bibliomisc>
+        </biblioentry>
+    </bibliodiv>
+</bibliography>

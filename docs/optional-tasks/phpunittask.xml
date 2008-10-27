@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="phpunittask">
+    <title>PHPUnitTask</title>
+    <para>
+        This task runs testcases using the <ulink url="http://www.phpunit.de/">PHPUnit</ulink>
+        framework. It is a functional port of the Ant
+        <ulink url="http://ant.apache.org/manual/OptionalTasks/junit.html">JUnit</ulink>
+        task.
+    </para>
+    <important>
+        <para>
+            The identifiers phpunit2 (PHPUnit2Task) and phpunit3 (PHPUnit3Task)
+            have been deprecated, but are still available to maintain backwards
+            compatibility.
+        </para>
+    </important>
+	<table>
+	    <title>PHPUnitTask Attributes</title>
+	    <tgroup cols="5">
+		    <thead>
+		        <row>
+		            <entry>Name</entry>
+		            <entry>Type</entry>
+		            <entry>Description</entry>
+		            <entry>Default</entry>
+		            <entry>Required</entry>
+		        </row>
+		    </thead>
+		    <tbody>
+		        <row>
+		            <entry>printsummary</entry>
+		            <entry>Boolean</entry>
+		            <entry>Print one-line statistics for each testcase</entry>
+		            <entry>false</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>codecoverage</entry>
+		            <entry>Boolean</entry>
+		            <entry>Gather code coverage information while running tests (requires Xdebug)</entry>
+		            <entry>false</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>haltonerror</entry>
+		            <entry>Boolean</entry>
+		            <entry>Stop the build process if an error occurs during the test run</entry>
+		            <entry>false</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>haltonfailure</entry>
+		            <entry>Boolean</entry>
+		            <entry>Stop the build process if a test fails (errors are considered failures as well)</entry>
+		            <entry>false</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>haltonincomplete</entry>
+		            <entry>Boolean</entry>
+		            <entry>Stop the build process if any incomplete tests are encountered</entry>
+		            <entry>false</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>haltonskipped</entry>
+		            <entry>Boolean</entry>
+		            <entry>Stop the build process if any skipped tests are encountered</entry>
+		            <entry>false</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>failureproperty</entry>
+		            <entry>String</entry>
+		            <entry>Name of property to set (to true) on failure</entry>
+		            <entry>n/a</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>errorproperty</entry>
+		            <entry>String</entry>
+		            <entry>Name of property to set (to true) on error</entry>
+		            <entry>n/a</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>incompleteproperty</entry>
+		            <entry>String</entry>
+		            <entry>Name of property to set (to true) on incomplete tests</entry>
+		            <entry>n/a</entry>
+		            <entry>No</entry>
+		        </row>
+		        <row>
+		            <entry>skippedproperty</entry>
+		            <entry>String</entry>
+		            <entry>Name of property to set (to true) on skipped tests</entry>
+		            <entry>n/a</entry>
+		            <entry>No</entry>
+		        </row>
+		    </tbody>
+        </tgroup>
+	</table>
+    <itemizedlist>
+        <title>Supported Nested Tags</title>
+        <listitem>
+            <para>formatter</para>
+            <para>
+                The results of the tests can be printed in different formats.
+                Output will always be sent to a file, unless you set the
+                usefile attribute to false. The name of the file is
+                predetermined by the formatter and can be changed by the
+                outfile attribute.
+            </para>
+            <para>
+                There are three predefined formatters&#8212;one prints the test
+                results in XML format, the other emits plain text. The
+                formatter named brief will only print detailed information
+                for testcases that failed, while plain gives a little
+                statistics line for all test cases. Custom formatters that
+                implement phing.tasks.ext.PHPUnitResultFormatter can be
+                specified.
+            </para>
+            <para>
+                If you use the XML formatter, it may not include the same
+                output that your tests have written as some characters are
+                illegal in XML documents and will be dropped.
+            </para>
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+		            <thead>
+		                <row>
+		                    <entry>Name</entry>
+		                    <entry>Type</entry>
+		                    <entry>Description</entry>
+		                    <entry>Default</entry>
+		                    <entry>Required</entry>
+		                </row>
+		            </thead>
+		            <tbody>
+                        <row>
+                            <entry>type</entry>
+                            <entry>String</entry>
+                            <entry>Use a predefined formatter (either xml, plain, or brief)</entry>
+                            <entry>n/a</entry>
+                            <entry morerows="1">One of these is required</entry>
+                        </row>
+                        <row>
+                            <entry>classname</entry>
+                            <entry>String</entry>
+                            <entry>Name of a custom formatter class</entry>
+                            <entry>n/a</entry>
+                        </row>
+                        <row>
+                            <entry>usefile</entry>
+                            <entry>Boolean</entry>
+                            <entry>Boolean that determines whether output should be sent to a file</entry>
+                            <entry>true</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry>todir</entry>
+                            <entry>String</entry>
+                            <entry>Directory to write the file to</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry>outfile</entry>
+                            <entry>String</entry>
+                            <entry>Filename of the result</entry>
+                            <entry>Depends on formatter</entry>
+                            <entry>No</entry>
+                        </row>
+		            </tbody>
+                </tgroup>
+            </table>
+        </listitem>
+        <listitem>
+            <para>batchtest</para>
+            <para>
+                Define a number of tests based on pattern matching. batchtest
+                collects the included files from any number of nested
+                &lt;fileset&gt;s. It then generates a lists of classes that
+                are (in)directly defined by each PHP file.
+            </para>
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>exclude</entry>
+                            <entry>String</entry>
+                            <entry>
+                                A list of classes to exclude from the pattern
+                                matching. For example, when you have two
+                                baseclasses BaseWebTest and BaseMathTest,
+                                which are included a number of testcases (and
+                                thus added to the list of testclasses), you
+                                can exclude those classes from the list by
+                                typing <code>exclude="BaseWebTest BaseMathTest"</code>.
+                            </entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry>classpath</entry>
+                            <entry>String</entry>
+                            <entry>
+                                Used to define more paths on which&#8212;besides
+                                the PHP include_path&#8212;to look for the
+                                test files.
+                            </entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <itemizedlist>
+                <title>Supported Nested Tags</title>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+            </itemizedlist>
+        </listitem>
+    </itemizedlist>
+    <example>
+        <title>PHPUnitTask Examples</title>
+        <programlisting>
+            <![CDATA[
+<phpunit>
+  <formatter todir="reports" type="xml"/>
+  <batchtest>
+    <fileset dir="tests">
+      <include name="**/*Test*.php"/>
+      <exclude name="**/Abstract*.php"/>
+    </fileset>
+  </batchtest>
+</phpunit>
+            ]]>
+        </programlisting>
+        <para>
+            Runs all matching testcases in the directory tests, writing XML
+            results to the directory reports.
+        </para>
+        <programlisting>
+            <![CDATA[
+<phpunit codecoverage="true" haltonfailure="true" haltonerror="true">
+  <formatter type="plain" usefile="false"/>
+  <batchtest>
+    <fileset dir="tests">
+      <include name="**/*Test*.php"/>
+    </fileset>
+  </batchtest>
+</phpunit>
+            ]]>
+        </programlisting>
+        <para>
+            Runs all matching testcases in the directory tests, gathers code
+            coverage information, writing plain text results to the console.
+            The build process is aborted if a test fails.
+        </para>
+    </example>
+    <important>
+        <para>
+            Using a mechanism such as an &#8220;AllTests.php&#8221; file to execute
+            testcases will bypass the Phing hooks used for reporting and
+            counting, and could possibly lead to strange results. Instead, use
+            one of more fileset's to provide a list of testcases to execute.
+        </para>
+    </important>
+</section>

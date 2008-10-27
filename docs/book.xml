@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+    <!ENTITY % xinclude SYSTEM "xinclude.mod">
+
+    %xinclude;
+    ]>
+<book id="phing-guide">
+    <bookinfo>
+        <title>Phing User Documentation</title>
+        <author>
+            <firstname>Andreas</firstname>
+            <surname>Aderhold</surname>
+            <email>andi@binarycloud.com</email>
+        </author>
+        <author>
+            <firstname>Alex</firstname>
+            <surname>Black</surname>
+            <email>enigma@turingstudio.com</email>
+        </author>
+        <author>
+            <firstname>Manuel</firstname>
+            <surname>Holtgrewe</surname>
+            <email>grin@gmx.net</email>
+        </author>
+        <author>
+            <firstname>Hans</firstname>
+            <surname>Lellelid</surname>
+            <email>hans@xmpl.org</email>
+        </author>
+        <author>
+            <firstname>Michiel</firstname>
+            <surname>Rook</surname>
+            <email>michiel.rook@gmail.com</email>
+        </author>
+        <author>
+            <firstname>Alexey</firstname>
+            <surname>Shockov</surname>
+            <email>alexey@shockov.com</email>
+        </author>
+    </bookinfo>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapters/introduction.xml" />
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapters/core-tasks.xml" />
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="chapters/optional-tasks.xml" />
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="bibliography.xml" />
+</book>

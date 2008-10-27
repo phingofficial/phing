@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" [
+    <!ENTITY % xinclude SYSTEM "../xinclude.mod">
+
+    %xinclude;
+    ]>
+<chapter id="core-tasks">
+    <title>Core Tasks</title>
+    <xi:include
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        href="../core-tasks/adhoctaskdeftask.xml" />
+</chapter>

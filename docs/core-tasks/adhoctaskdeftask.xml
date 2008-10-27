@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+    "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="adhoctaskdeftask">
+    <title>AdhocTaskdefTask</title>
+    <para>The AdhocTaskdefTask allows you to define a task within your build file.</para>
+	<table>
+        <title>AdhocTaskdefTask Attributes</title>
+        <tgroup cols="5">
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry>name</entry>
+                    <entry>String</entry>
+                    <entry>Name of XML tag that will represent this task</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+            </tbody>
+        </tgroup>
+	</table>
+    <example>
+        <title>AdhocTaskdefTask Examples</title>
+        <programlisting>
+            <![CDATA[
+<target name="main"
+        description="==>test AdhocTask ">
+
+        <adhoc-task name="foo"><![CDATA[
+            class FooTest extends Task {
+                private $bar;
+
+                function setBar($bar) {
+                    $this->bar = $bar;
+                }
+
+                function main() {
+                    $this->log("In FooTest: " . $this->bar);
+                }
+            }
+        ]]]]><![CDATA[></adhoc-task>
+
+        <foo bar="B.L.I.N.G"/>
+</target>
+            ]]>
+        </programlisting>
+        <para>
+            Note that you should use &lt;![CDATA[ ... ]]&gt; so that you don't
+            have to quote entities within your &lt;adhoc-task&gt;&lt;/adhoc-task&gt;
+            tags.
+        </para>
+    </example>
+</section>

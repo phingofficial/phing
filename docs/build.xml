@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+    name="Phing Documentation"
+    default="html-documentation">
+
+    <property file="build.properties" />
+
+    <target name="setup">
+        <!--
+            Delete old files...
+        -->
+        <delete
+            includeemptydirs="true"
+            dir="${phing.documentation.buildDirectory}" />
+
+        <!--
+            Create directories...
+        -->
+        <mkdir dir="${phing.documentation.buildDirectory}" />
+        <mkdir dir="styles/expanded" />
+    </target>
+
+    <target
+        name="html-documentation"
+        depends="setup">
+        <!--
+            Create output directory...
+        -->
+        <mkdir dir="${phing.documentation.xhtml.buildDirectory}" />
+
+        <!--
+            Get stylesheet with expanded properties...
+        -->
+        <copy
+            file="styles/docbook2xhtml.xsl"
+            tofile="styles/expanded/docbook2xhtml.xsl">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </copy>
+
+        <copy
+            file="${phing.documentation.docbook.bookFile}"
+            tofile="${phing.documentation.buildDirectory}/book.html">
+            <filterchain>
+                <xincludefilter basedir="./" />
+                <xsltfilter style="styles/expanded/docbook2xhtml.xsl" />
+            </filterchain>
+        </copy>
+    </target>
+
+</project>
