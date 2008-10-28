@@ -242,11 +242,7 @@ class CoverageReportTask extends Task
 	}
 
 	protected function transformCoverageInformation($filename, $coverageInformation)
-	{
-		// Strip last line of coverage information
-		end($coverageInformation);
-		unset($coverageInformation[key($coverageInformation)]);
-		
+	{	
 		$classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 		
 		if (is_array($classes))
@@ -401,7 +397,7 @@ class CoverageReportTask extends Task
 		foreach ($props->keys() as $filename)
 		{
 			$file = unserialize($props->getProperty($filename));
-
+			
 			$this->transformCoverageInformation($file['fullname'], $file['coverage']);
 		}
 		

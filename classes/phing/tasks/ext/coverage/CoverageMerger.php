@@ -117,6 +117,14 @@ class CoverageMerger
 						
 					$coverageMerged = CoverageMerger::mergeCodeCoverage($left, $right);
 					
+					foreach ($coverageMerged as $key => $value)
+					{
+						if ($value == -2)
+						{
+							unset($coverageMerged[$key]);
+						}
+					}
+					
 					$file['coverage'] = $coverageMerged;
 					
 					$props->setProperty($filename, serialize($file));
