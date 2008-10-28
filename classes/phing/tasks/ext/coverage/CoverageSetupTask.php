@@ -143,7 +143,7 @@ class CoverageSetupTask extends Task
 		{
 			$fullname = $file['fullname'];
 			
-			xdebug_start_code_coverage(XDEBUG_CC_UNUSED);
+			xdebug_start_code_coverage(XDEBUG_CC_DEAD_CODE | XDEBUG_CC_UNUSED);
 			
 			Phing::__import($fullname, $this->classpath);
 			
