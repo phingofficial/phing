@@ -41,6 +41,7 @@ class SimpleTestTask extends Task
 	private $errorproperty;
 	private $printsummary = false;
 	private $testfailed = false;
+	private $debug = false;
 
 	/**
 	 * Initialize Task.
@@ -59,6 +60,7 @@ class SimpleTestTask extends Task
 		require_once 'simpletest/xml.php';
 		require_once 'simpletest/test_case.php';
 		require_once 'phing/tasks/ext/simpletest/SimpleTestCountResultFormatter.php';
+		require_once 'phing/tasks/ext/simpletest/SimpleTestDebugResultFormatter.php';
 		require_once 'phing/tasks/ext/simpletest/SimpleTestFormatterElement.php';
 	}
 	
@@ -86,6 +88,16 @@ class SimpleTestTask extends Task
 	{
 		$this->printsummary = $printsummary;
 	}
+
+	public function setDebug($debug)
+	{
+		$this->debug = $debug;
+	}
+
+	public function getDebug()
+	{
+		return $this->debug;
+	}	
 	
 	/**
 	 * Add a new formatter to all tests of this task.
@@ -180,6 +192,12 @@ class SimpleTestTask extends Task
 		}
 		
 		$this->execute($group);
+		
+		if ($this->testfailed && $this->formatters[0]->getFormatter() instanceof SimpleTestDebugResultFormatter )
+		{
+			$this->getDefaultOutput()->write("Failed tests: ");
+			$this->formatters[0]->getFormatter()->printFailingTests();
+		}
 		
 		if ($this->testfailed)
 		{
