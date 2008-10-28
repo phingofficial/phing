@@ -118,11 +118,10 @@ class PHPUnitTask extends Task
 			
 			PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php', 'PHING');
 			PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Task.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Target.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Project.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../phing/Phing.php', 'PHING');
-			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../../phing.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Task.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Target.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Project.php', 'PHING');
+			PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php', 'PHING');
 		}
 		else
 		{
@@ -131,11 +130,10 @@ class PHPUnitTask extends Task
 			
 			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php');
 			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Task.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Target.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Project.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../phing/Phing.php');
-			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../../phing.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Task.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Target.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Project.php');
+			PHPUnit2_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php');
 		}
 	}
 	
