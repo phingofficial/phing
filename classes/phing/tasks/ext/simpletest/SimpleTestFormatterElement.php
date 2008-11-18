@@ -54,6 +54,11 @@ class SimpleTestFormatterElement extends FormatterElement
 			$this->formatter = new SimpleTestSummaryResultFormatter();
 		}
 		else
+		if ($this->type == "debug")
+		{
+			$this->formatter = new SimpleTestDebugResultFormatter();
+		}
+		else
 		{
 			throw new BuildException("Formatter '" . $this->type . "' not implemented");
 		}
