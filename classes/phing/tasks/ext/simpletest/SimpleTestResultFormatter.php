@@ -28,7 +28,7 @@ require_once 'phing/system/io/Writer.php';
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
- * @package phing.tasks.ext.phpunit2
+ * @package phing.tasks.ext.simpletest
  * @since 2.2.0
  */
 abstract class SimpleTestResultFormatter extends SimpleReporter
