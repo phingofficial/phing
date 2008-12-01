@@ -288,7 +288,15 @@ class Project {
         if (!isset($this->properties[$name])) {
             return null;
         }
-        return $this->properties[$name];
+        $found = $this->properties[$name];
+        // check to see if there are unresolved property references
+        if (false !== strpos($found, '${')) {
+          // attempt to resolve properties
+          $found = $this->replaceProperties($found);
+          // save resolved value
+          $this->properties[$name] = $found;
+        }
+        return $found;
     }
 
     /**
