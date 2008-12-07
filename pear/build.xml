@@ -12,7 +12,7 @@
 	
 	<!-- some default properties -->
 	<property name="notes">This is the latest release of Phing.</property>
-	<property name="state" value="state"/>
+	<property name="state" value="stable"/>
 	
 	<taskdef
     name="pear-package"
