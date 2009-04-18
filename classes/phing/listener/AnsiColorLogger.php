@@ -144,11 +144,11 @@ class AnsiColorLogger extends DefaultLogger {
      */
     public function __construct() {
         parent::__construct();
-        $this->errColor = self::PREFIX . self::ATTR_DIM . self::SEPARATOR . self::FG_RED . self::SUFFIX;
-        $this->warnColor = self::PREFIX . self::ATTR_DIM . self::SEPARATOR . self::FG_MAGENTA . self::SUFFIX;
-        $this->infoColor = self::PREFIX . self::ATTR_DIM . self::SEPARATOR . self::FG_CYAN . self::SUFFIX;
-        $this->verboseColor = self::PREFIX . self::ATTR_DIM . self::SEPARATOR . self::FG_GREEN . self::SUFFIX;
-        $this->debugColor = self::PREFIX . self::ATTR_DIM . self::SEPARATOR . self::FG_BLUE . self::SUFFIX;
+        $this->errColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_RED . self::SUFFIX;
+        $this->warnColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_MAGENTA . self::SUFFIX;
+        $this->infoColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_CYAN . self::SUFFIX;
+        $this->verboseColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_GREEN . self::SUFFIX;
+        $this->debugColor = self::PREFIX . self::ATTR_NORMAL . self::SEPARATOR . self::FG_BLUE . self::SUFFIX;
     }
     
     /**
