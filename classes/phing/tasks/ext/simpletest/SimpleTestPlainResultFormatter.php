@@ -54,6 +54,7 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
 	{
 		parent::paintCaseEnd($test_name);
 		
+    $sb = "";
 		/* Only count suites where more than one test was run */
 		if ($this->getRunCount())
 		{

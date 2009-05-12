@@ -45,78 +45,76 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
 	{
 		parent::paintCaseStart($test_name);
 		$this->paint( "Testsuite: $test_name\n");
-        $this->current_case = $test_name;
+    $this->current_case = $test_name;
 	}
-    function paintMethodStart($test_name)
+
+  function paintMethodStart($test_name)
 	{
-		parent::paintMethodStart($test_name);
-        $this->current_test = $test_name;
-        //$msg = "{$this->current_case} :: $test_name\n";
-        $msg = "    TestCase: $test_name";
-        $this->paint($msg);
+    parent::paintMethodStart($test_name);
+    $this->current_test = $test_name;
+    //$msg = "{$this->current_case} :: $test_name\n";
+    $msg = "    TestCase: $test_name";
+    $this->paint($msg);
+  }
+
+  function paint($msg) {
+    if ($this->out == null ) {
+      print $msg;
+    } else {
+      $this->out->write($msg);
+    }
+  }
+
+  function paintMethodEnd($test_name) {
+    parent::paintMethodEnd($test_name);
+    $this->paint("\n");
+  }
+
+  function paintCaseEnd($test_name)
+  {
+    parent::paintCaseEnd($test_name);
+    $this->current_case = "";
+    /* Only count suites where more than one test was run */
+
+    if ($this->getRunCount() && false)
+    {
+      $sb = "";
+      $sb.= "Tests run: " . $this->getRunCount();
+      $sb.= ", Failures: " . $this->getFailureCount();
+      $sb.= ", Errors: " . $this->getErrorCount();
+      $sb.= ", Time elapsed: " . $this->getElapsedTime();
+      $sb.= " sec\n";
+      $this->paint($sb);
     }
 
-    function paint($msg) {
-        if ($this->out == null ) {
-            print $msg;
-        } else {
-            $this->out->write($msg);
-        }
+  }
 
+  function paintError($message)
+  {
+    parent::paintError($message);
+    $this->formatError("ERROR", $message);
+    $this->failingTests[] = $this->current_case . "->" . $this->current_test;
+  }
 
-    }
-
-    function paintMethodEnd($test_name) {
-        parent::paintMethodEnd($test_name);
-        $this->paint("\n");
-
-    }
-	
-	function paintCaseEnd($test_name)
-	{
-		parent::paintCaseEnd($test_name);
-        $this->current_case = "";
-		/* Only count suites where more than one test was run */
-		if ($this->getRunCount() && false)
-		{
-			$sb.= "Tests run: " . $this->getRunCount();
-			$sb.= ", Failures: " . $this->getFailureCount();
-			$sb.= ", Errors: " . $this->getErrorCount();
-			$sb.= ", Time elapsed: " . $this->getElapsedTime();
-			$sb.= " sec\n";
-            $this->paint($sb);
-		}
-
-    }
-
-	function paintError($message)
-	{
-		parent::paintError($message);
-		$this->formatError("ERROR", $message);
-        $this->failingTests[] = $this->current_case . "->" . $this->current_test;
-	}
-
-	function paintFail($message)
-	{
-		parent::paintFail($message);
-		$this->formatError("FAILED", $message);
-        $this->failingTests[] = $this->current_case . "->" . $this->current_test;
-	}
-	function paintException($message)
-	{
-		parent::paintException($message);
-		
-        $this->failingTests[] = $this->current_case . "->" . $this->current_test;
-		$this->formatError("Exception", $message);
-	}
+  function paintFail($message)
+  {
+    parent::paintFail($message);
+    $this->formatError("FAILED", $message);
+    $this->failingTests[] = $this->current_case . "->" . $this->current_test;
+  }
+  function paintException($message)
+  {
+    parent::paintException($message);
+    $this->failingTests[] = $this->current_case . "->" . $this->current_test;
+    $this->formatError("Exception", $message);
+  }
 
 
 
-	private function formatError($type, $message)
-	{
-
-        $this->paint("ERROR: $type: $message");
-	}
+  private function formatError($type, $message)
+  {
+    $this->paint("ERROR: $type: $message");
+  }
 
 }
 ?>
