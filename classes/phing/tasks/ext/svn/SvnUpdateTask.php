@@ -32,6 +32,15 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  */
 class SvnUpdateTask extends SvnBaseTask
 {
+    /**
+     * Which Revision to Export
+     * 
+     * @todo check if version_control_svn supports constants
+     * 
+     * @var string
+     */
+    private $revision = 'HEAD';
+
 	/**
 	 * The main entry point
 	 *
@@ -41,9 +50,18 @@ class SvnUpdateTask extends SvnBaseTask
 	{
 		$this->setup('update');
 
-		$this->log("Updating SVN repository at '" . $this->getToDir() . "'");
+		$this->log("Updating SVN repository at '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
 
-		$this->run(array($this->getToDir()));
-	}
+        // revision
+        $switches = array(
+            'r' => $this->revision,
+        );
+
+        $this->run(array($this->getToDir()), $switches);
+    }
+
+    public function setRevision($revision)
+    {
+        $this->revision = $revision;
+    }
 }
-
