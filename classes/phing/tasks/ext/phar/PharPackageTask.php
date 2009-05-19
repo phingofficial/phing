@@ -94,16 +94,16 @@ class PharPackageTask
         if (in_array($algorithm, array('md5', 'sha1', 'sha256', 'sha512'))) {
             switch ($algorithm) {
                 case 'md5':
-                    $this->compression = Phar::MD5;
+                    $this->signatureAlgorithm = Phar::MD5;
                     break;
                 case 'sha1':
-                    $this->compression = Phar::SHA1;
+                    $this->signatureAlgorithm = Phar::SHA1;
                     break;
                 case 'sha256':
-                    $this->compression = Phar::SHA256;
+                    $this->signatureAlgorithm = Phar::SHA256;
                     break;
                 case 'sha512':
-                    $this->compression = Phar::SHA512;
+                    $this->signatureAlgorithm = Phar::SHA512;
                     break;
             }
         }
