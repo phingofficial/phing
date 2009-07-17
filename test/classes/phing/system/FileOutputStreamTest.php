@@ -21,7 +21,7 @@
  */
 
 
-require_once 'PHPUnit2/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/system/io/FileOutputStream.php';
 
 /**
@@ -30,7 +30,7 @@ include_once 'phing/system/io/FileOutputStream.php';
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.system
  */
-class FileOutputStreamTest extends PHPUnit2_Framework_TestCase {
+class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var FileOutputStream

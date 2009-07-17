@@ -21,7 +21,7 @@
  */
  
 require_once 'phing/BuildFileTest.php';
-require_once 'PHPUnit2/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/types/FileSet.php';
 
 /**
@@ -31,7 +31,7 @@ include_once 'phing/types/FileSet.php';
  * @version $Revision: 1.3 $
  * @package phing.types
  */
-abstract class AbstractFileSetTest extends PHPUnit2_Framework_TestCase {
+abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase {
 
     private $project;
     

@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
  
-require_once 'PHPUnit2/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'phing/BuildListener.php';
 require_once 'phing/system/io/PhingFile.php';
 
@@ -34,7 +34,7 @@ require_once 'phing/system/io/PhingFile.php';
  * @author Nico Seessle <nico@seessle.de>
  * @author Conor MacNeill
  */
-abstract class BuildFileTest extends PHPUnit2_Framework_TestCase { 
+abstract class BuildFileTest extends PHPUnit_Framework_TestCase { 
     
     protected $project;
     

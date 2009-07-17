@@ -21,7 +21,7 @@
  */
 
 
-require_once 'PHPUnit2/Framework/TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/types/Commandline.php';
 
 
@@ -32,7 +32,7 @@ include_once 'phing/types/Commandline.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package propel.types
  */
-class CommandlineTest extends PHPUnit2_Framework_TestCase {
+class CommandlineTest extends PHPUnit_Framework_TestCase {
 
     private $cmd;
     
