@@ -25,7 +25,7 @@ require_once 'phing/system/io/FileWriter.php';
 require_once 'phing/util/ExtendedFileStream.php';
 
 /**
- * Transform a PHPUnit2 xml report using XSLT.
+ * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
  * style. The non-framed style is convenient to have a concise report via mail, 
  * the framed report is much more convenient if you want to browse into 
@@ -83,8 +83,8 @@ class PHPUnitReportTask extends Task
 	 */
 	private function getStyleSheet()
 	{
-		$xslname = "phpunit2-" . $this->format . ".xsl";
-
+		$xslname = "phpunit-" . $this->format . ".xsl";
+		
 		if ($this->styleDir)
 		{
 			$file = new PhingFile($this->styleDir, $xslname);
@@ -136,7 +136,7 @@ class PHPUnitReportTask extends Task
 
 		if ($this->format == "noframes")
 		{
-			$writer = new FileWriter(new PhingFile($this->toDir, "phpunit2-noframes.html"));
+			$writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
 			$writer->write($proc->transformToXML($document));
 			$writer->close();
 		}

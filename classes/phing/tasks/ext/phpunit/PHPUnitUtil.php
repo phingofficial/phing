@@ -29,16 +29,6 @@
  */
 class PHPUnitUtil
 {
-	/**
-	 * Installed PHPUnit major version
-	 */
-	public static $installedVersion = 2;
-	
-	/**
-	 * Installed PHPUnit minor version
-	 */
-	public static $installedMinorVersion = 0;
-	
 	protected static $definedClasses = array();
 	
 	/**

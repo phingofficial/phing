@@ -24,7 +24,7 @@
 
 <!--
 
- Sample stylesheet to be used with Phing/PHPUnit2 output.
+ Sample stylesheet to be used with Phing/PHPUnit output.
  Based on JUnit stylesheets from Apache Ant.
 
  It creates a set of HTML files a la javadoc where you can browse easily
@@ -528,7 +528,7 @@ a:hover {
     <table width="100%">
     <tr>
         <td align="left"></td>
-        <td align="right">Designed for use with <a href='http://pear.php.net/package/PHPUnit2'>PHPUnit2</a> and <a href='http://phing.info/'>Phing</a>.</td>
+        <td align="right">Designed for use with <a href='http://www.phpunit.de'>PHPUnit</a> and <a href='http://www.phing.info/'>Phing</a>.</td>
     </tr>
     </table>
     <hr size="1"/>
