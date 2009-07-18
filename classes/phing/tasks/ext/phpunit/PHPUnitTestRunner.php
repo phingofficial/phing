@@ -40,6 +40,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 	const SKIPPED = 4;
 
 	private $retCode = 0;
+	private $lastFailureMessage = "";
 	private $formatters = array();
 	
 	private $codecoverage = false;
@@ -75,6 +76,8 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 		{
 			$res->collectCodeCoverageInformation(TRUE);
 		}
+		
+		$res->addListener($this);
 
 		foreach ($this->formatters as $formatter)
 		{
@@ -115,6 +118,60 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 	{
 		return $this->retCode;
 	}
+	
+	function getLastFailureMessage()
+	{
+		return $this->lastFailureMessage;
+	}
+
+    /**
+     * An error occurred.
+     *
+     * @param  PHPUnit_Framework_Test $test
+     * @param  Exception              $e
+     * @param  float                  $time
+     */
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+		$this->lastFailureMessage = "Test ERROR (" . $test->getName() . "): " . $e->getMessage();
+    }
+
+    /**
+     * A failure occurred.
+     *
+     * @param  PHPUnit_Framework_Test                 $test
+     * @param  PHPUnit_Framework_AssertionFailedError $e
+     * @param  float                                  $time
+     */
+    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    {
+		$this->lastFailureMessage = "Test FAILURE (" . $test->getName() . "): " . $e->getMessage();
+	}
+
+    /**
+     * Incomplete test.
+     *
+     * @param  PHPUnit_Framework_Test $test
+     * @param  Exception              $e
+     * @param  float                  $time
+     */
+    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+		$this->lastFailureMessage = "Test INCOMPLETE (" . $test->getName() . "): " . $e->getMessage();
+	}
+
+    /**
+     * Skipped test.
+     *
+     * @param  PHPUnit_Framework_Test $test
+     * @param  Exception              $e
+     * @param  float                  $time
+     * @since  Method available since Release 3.0.0
+     */
+    public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+		$this->lastFailureMessage = "Test SKIPPED (" . $test->getName() . "): " . $e->getMessage();
+	}
 
     /**
      * A test started.
@@ -153,7 +210,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
      */
     protected function runFailed($message)
     {
-		echo $message;
+		throw new BuildException($message);
     }
 }
 

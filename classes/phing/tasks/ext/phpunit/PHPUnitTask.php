@@ -47,6 +47,7 @@ class PHPUnitTask extends Task
 	private $skippedproperty;
 	private $printsummary = false;
 	private $testfailed = false;
+	private $testfailuremessage = "";
 	private $codecoverage = false;
 	private $groups = array();
 	private $excludeGroups = array();
@@ -242,7 +243,7 @@ class PHPUnitTask extends Task
 		
 		if ($this->testfailed)
 		{
-			throw new BuildException("One or more tests failed");
+			throw new BuildException($this->testfailuremessage);
 		}
 	}
 
@@ -274,6 +275,7 @@ class PHPUnitTask extends Task
 			}
 			if ($this->haltonerror) {
 			    $this->testfailed = true;
+			    $this->testfailuremessage = $runner->getLastFailureMessage();
 			}
 		} elseif ($retcode == PHPUnitTestRunner::FAILURES) {
 			if ($this->failureproperty) {
@@ -282,6 +284,7 @@ class PHPUnitTask extends Task
 			
 			if ($this->haltonfailure) {
 				$this->testfailed = true;
+				$this->testfailuremessage = $runner->getLastFailureMessage();
 			}
 		} elseif ($retcode == PHPUnitTestRunner::INCOMPLETES) {
 			if ($this->incompleteproperty) {
@@ -290,6 +293,7 @@ class PHPUnitTask extends Task
 			
 			if ($this->haltonincomplete) {
 				$this->testfailed = true;
+				$this->testfailuremessage = $runner->getLastFailureMessage();
 			}
 		} elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
 			if ($this->skippedproperty) {
@@ -298,6 +302,7 @@ class PHPUnitTask extends Task
 			
 			if ($this->haltonskipped) {
 				$this->testfailed = true;
+				$this->testfailuremessage = $runner->getLastFailureMessage();
 			}
 		}
 	}
