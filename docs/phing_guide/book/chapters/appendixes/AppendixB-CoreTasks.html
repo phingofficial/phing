@@ -464,6 +464,43 @@ i.e. copying a file to the same name for security reasons.
   <li>Mapper</li>
 </ul>
 
+<h2><a name="CvsTask"></a>CvsTask</h2>
+<p>Allows rudimentary interfacing with the CVS versioning system.</p>
+
+<p>As you would expect, this lets you do pretty much anything 
+with CVS. The CvsTask calls ExecTask which actually does the command execution.</p>
+
+<h3>Example</h3>
+<pre>
+&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
+       module="phing" dest="${ws.dir}"/&gt;
+</pre>
+
+or, more complex:
+
+<pre>
+&lt;cvs output="patch"&gt;
+    &lt;commandline&gt;
+        &lt;argument value="-q"/&gt;
+        &lt;argument value="diff"/&gt;
+        &lt;argument value="-u"/&gt;
+        &lt;argument value="-N"/&gt;
+    &lt;/commandline&gt;
+&lt;/cvs&gt;
+</pre>
+
+<h2><a name="CvsPassTask"></a>CvsPassTask</h2>
+<p> This lets you create your own cvs password file -- i.e. 
+this is necessary if you want to provide a password in your build file. </p>
+
+<h3>Example</h3>
+<pre>
+&lt;!-- create a password file --&gt;
+&lt;cvspass cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" passfile="cvspass" password="guest"/&gt;
+
+&lt;!-- use the just-created password file --&gt;
+&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" module="phing" passFile="cvspass" /&gt;
+</pre>
 
 <h2><a name="DeleteTask"></a> DeleteTask</h2>
 <p>
