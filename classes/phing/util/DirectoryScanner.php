@@ -409,7 +409,7 @@ class DirectoryScanner implements SelectorScanner {
     function listDir($_dir) {
         $d = dir($_dir);
         $list = array();
-        while($entry = $d->read()) {
+        while(($entry = $d->read()) !== false) {
             if ($entry != "." && $entry != "..") {
                 $list[] = $entry;
             }
