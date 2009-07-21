@@ -45,7 +45,7 @@ class PhpCodeSnifferTask extends Task {
 
 	// parameters to customize output
 	protected $showSniffs = false;
-	protected $outputFormat = 'default';
+	protected $format = 'default';
 	protected $formatters   = array();
 
 	/**
@@ -181,7 +181,7 @@ class PhpCodeSnifferTask extends Task {
 	 */
 	public function setFormat($format)
 	{
-		$this->outputFormat = $format;
+		$this->format = $format;
 	}
 
 	/**
@@ -203,9 +203,9 @@ class PhpCodeSnifferTask extends Task {
 		}
 
 		if (count($this->formatters) == 0) {
-		  // turn legacy outputFormat attribute into formatter
+		  // turn legacy format attribute into formatter
 		  $fmt = new PhpCodeSnifferTask_FormatterElement();
-		  $fmt->setType($this->outputFormat);
+		  $fmt->setType($this->format);
 		  $fmt->setUseFile(false);
 		  $this->formatters[] = $fmt;
 		}
