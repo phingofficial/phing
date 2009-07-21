@@ -289,7 +289,16 @@ class XmlLogger implements BuildLogger {
 		
 		$messageElement->setAttribute(XmlLogger::PRIORITY_ATTR, $name);
 		
-		$messageText = $this->doc->createCDATASection($event->getMessage());
+		if (function_exists('mb_convert_encoding'))
+		{
+			$messageConverted = mb_convert_encoding($event->getMessage(), 'UTF-8');
+		}
+		else
+		{
+			$messageConverted = utf8_encode($event->getMessage());
+		}
+		
+		$messageText = $this->doc->createCDATASection($messageConverted);
 		
 		$messageElement->appendChild($messageText);
 		
