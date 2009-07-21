@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Framework/TestSuite.php';			
+require_once 'PHPUnit/Framework/TestSuite.php';
+require_once 'PHPUnit/Util/ErrorHandler.php';
 require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 require_once 'phing/system/util/Timer.php';
 
@@ -67,7 +68,10 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 	{
 		$this->formatters[] = $formatter;
 	}
-
+	
+	/**
+	 * Run a test
+	 */
 	function run($test)
 	{
 		$res = new PHPUnit_Framework_TestResult();
@@ -84,7 +88,13 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 			$res->addListener($formatter);
 		}
 		
+		/* Set PHPUnit error handler */
+		$oldErrorHandler = set_error_handler(array('PHPUnit_Util_ErrorHandler', 'handleError'), E_ALL | E_STRICT);
+
 		$test->run($res, false, $this->groups, $this->excludeGroups);
+		
+		/* Restore Phing error handler */
+		restore_error_handler();
 		
 		if ($this->codecoverage)
 		{
