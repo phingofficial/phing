@@ -166,6 +166,14 @@ class PhpDocumentorTask extends Task
 	 * @param boolean
 	 */
 	public function setSourcecode($b) {
+		$this->setLinksource($b);
+	}
+
+	/**
+	 * Set whether to generate sourcecode for each file parsed
+	 * @param boolean
+	 */
+	public function setLinksource($b) {
 		$this->linksource = $b;
 	}
 	
