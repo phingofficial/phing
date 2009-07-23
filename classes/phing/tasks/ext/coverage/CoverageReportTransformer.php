@@ -81,8 +81,10 @@ class CoverageReportTransformer
 
 		// no output for the framed report
 		// it's all done by extension...
-		$proc->setParameter('', 'output.dir', $dir->getAbsolutePath());
+		$proc->setParameter('', 'output.dir', $dir->toString());
 		$proc->transformToXML($this->document);
+		
+		ExtendedFileStream::unregisterStream();
 	}
 
 	private function getStyleSheet()

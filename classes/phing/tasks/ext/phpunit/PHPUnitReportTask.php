@@ -147,8 +147,10 @@ class PHPUnitReportTask extends Task
 			// no output for the framed report
 			// it's all done by extension...
 			$dir = new PhingFile($this->toDir);
-			$proc->setParameter('', 'output.dir', $dir->getAbsolutePath());
+			$proc->setParameter('', 'output.dir', $dir->toString());
 			$proc->transformToXML($document);
+			
+			ExtendedFileStream::unregisterStream();
 		}
 	}
 	

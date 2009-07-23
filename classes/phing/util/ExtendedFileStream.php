@@ -41,6 +41,11 @@
 			}
 		}
 		
+		static function unregisterStream()
+		{
+			stream_wrapper_unregister("efile");
+		}
+		
 		private function createDirectories($path)
 		{
 			$f = new PhingFile($path);
