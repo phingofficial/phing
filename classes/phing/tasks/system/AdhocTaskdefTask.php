@@ -49,7 +49,8 @@ require_once 'phing/tasks/system/AdhocTask.php';
  * @version   $Revision: 1.5 $
  * @package   phing.tasks.system
  */
-class AdhocTaskdefTask extends AdhocTask {
+class AdhocTaskdefTask extends AdhocTask
+{
 
     /**
      * The tag that refers to this task.
@@ -60,31 +61,43 @@ class AdhocTaskdefTask extends AdhocTask {
      * Set the tag that will represent this adhoc task/type.
      * @param string $name
      */       
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
     
     /** Main entry point */
-    public function main() {        
-        if ($this->name === null) {
+    public function main()
+    {
+        if ($this->name === null)
+        {
             throw new BuildException("The name attribute is required for adhoc task definition.",$this->location);
         }
         
-        $this->execute();
+        $taskdefs = $this->getProject()->getTaskDefinitions();
         
-        $classes = $this->getNewClasses();
-        if (count($classes) !== 1) {
-            throw new BuildException("You must define one (and only one) class for AdhocTaskdefTask.");
+        if (!isset($taskdefs[$this->name]))
+        {
+            $this->execute();
+
+            $classes = $this->getNewClasses();
+            
+            if (count($classes) !== 1)
+            {
+                throw new BuildException("You must define one (and only one) class for AdhocTaskdefTask.");
+            }
+            
+            $classname = array_shift($classes);
+
+            // instantiate it to make sure it is an instance of Task
+            $t = new $classname();
+            if (!($t instanceof Task))
+            {
+                throw new BuildException("The adhoc class you defined must be an instance of phing.Task", $this->location);
+            }
+            
+            $this->log("Task " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
+            $this->project->addTaskDefinition($this->name, $classname);
         }
-        $classname = array_shift($classes);
-        
-        // instantiate it to make sure it is an instance of Task
-        $t = new $classname();
-        if (!($t instanceof Task)) {
-            throw new BuildException("The adhoc class you defined must be an instance of phing.Task", $this->location);
-        }
-        
-        $this->log("Task " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
-        $this->project->addTaskDefinition($this->name, $classname);        
     }
 }
