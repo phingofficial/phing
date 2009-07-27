@@ -34,7 +34,7 @@ class CustomTaskFileSetTest extends BuildFileTest {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/337/build.xml");
     }
 
-    public function testPhingCallTask () {
+    public function testCustomTask () {
       $this->executeTarget("main");
       $this->assertInLogs("./TestPhpLintTask.php: No syntax errors detected");
     }
