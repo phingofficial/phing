@@ -507,6 +507,55 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   </li>
 </ul>
 
+<h2><a name="JsMinTask"></a>JsMinTask</h2>
+<p>The <em>JsMinTask</em> minifies JavaScript files using <a href="http://code.google.com/p/jsmin-php/">JsMin</a>. JsMin is bundled with Phing and does not need to be installed separately.</p>
+
+<p>For more information on minifying JavaScript files see <a href="http://www.crockford.com/javascript/jsmin.html" target="_blank">Douglas Crockford's introduction to minifying JavaScript files</a>.</p>
+
+<h3>Example</h3>
+<pre>&lt;jsMin targetDir="docroot/script/minified" failOnError="false">
+  &lt;fileset dir="docroot/script"&gt
+    &lt;include name="**/*.js"/&gt
+  &lt;/fileset&gt;
+&lt;/jsMin&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>targetDir</td>
+      <td>String</td>
+      <td>Path where to store minified JavaScript files</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>failonerror</td>
+      <td>Boolean</td>
+      <td>Whether an error while minifying a JavaScript file should stop the build or not</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset
+    <p>JavaScript files to be minified.</p>
+  </li>
+</ul>
+
 <h2><a name="PDOSQLExecTask"></a>PDOSQLExecTask</h2>
 
 <p>The <em>PDOSQLExecTask</em> executes SQL statements using PDO.</p>
