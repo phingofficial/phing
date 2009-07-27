@@ -37,10 +37,12 @@
   </target>
 
   <target name="testLocal">
-    <taskdef name="local" classname="example.tasks.TaskdefTestSimpleTask">
+    <taskdef name="local" classname="example.tasks.TaskdefTestSimpleTask">      
       <classpath refid="testclasses" />
     </taskdef>
-    <local id="local" />
+    <local id="local">
+      <echo message="testLocal echo"/>
+    </local>
   </target>
 
   <target name="testFile">
