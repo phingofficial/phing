@@ -1002,8 +1002,8 @@ class Phing {
 				set_include_path(implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
 			}
 		}
-
-		$ret = include_once($path);
+		
+		$ret = @include_once($path);
 
 		if ($ret === false) {
 			$msg = "Error importing $path";
