@@ -387,9 +387,16 @@ class CoverageReportTask extends Task
 
 	function main()
 	{
-		$this->log("Transforming coverage report");
+		$coverageDatabase = $this->project->getProperty('coverage.database');
 		
-		$database = new PhingFile($this->project->getProperty('coverage.database'));
+		if (!$coverageDatabase)
+		{
+			throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
+		}
+		
+		$database = new PhingFile($coverageDatabase);
+
+		$this->log("Transforming coverage report");
 		
 		$props = new Properties();
 		$props->load($database);

@@ -93,7 +93,14 @@ class CoverageMerger
 
 	static function merge($project, $codeCoverageInformation)
 	{
-		$database = new PhingFile($project->getProperty('coverage.database'));
+		$coverageDatabase = $project->getProperty('coverage.database');
+		
+		if (!$coverageDatabase)
+		{
+			throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
+		}
+		
+		$database = new PhingFile($coverageDatabase);
 
 		$props = new Properties();
 		$props->load($database);
