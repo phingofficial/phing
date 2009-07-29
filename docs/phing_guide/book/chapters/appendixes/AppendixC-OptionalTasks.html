@@ -1876,6 +1876,150 @@ the file <em>reports/testsuites.xml</em> as input.</p>
 <p><b>Important note:</b> testclasses that are not explicitly placed in a package (by using a '@package' tag in the class-level DocBlock)
 are listed under the "default" package.</p>
 
+<h2><a name="SimpleTestTask"></a>SimpleTestTask</h2>
+<p>This task runs testcases using the <a href="http://www.simpletest.org/" target="_blank">SimpleTest</a> framework.
+</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>printsummary</td>
+      <td>Boolean</td>
+      <td> Print one-line statistics for each testcase. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonerror</td>
+      <td>Boolean</td>
+      <td> Stop the build process if an error occurs during the test run. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonfailure</td>
+      <td>Boolean</td>
+      <td> Stop the build process if a test fails (errors are considered failures as well). </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  <tr>
+      <td>failureproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on failure.</td>
+      <td>n/a</td>
+      <td>No</td>
+  </tr>
+  <tr>
+      <td>errorproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on error.</td>
+      <td>n/a</td>
+      <td>No</td>
+  </tr>
+  <tr>
+      <td>debug</td>
+      <td>Boolean</td>
+      <td>Switch debugging on/off</td>
+      <td>false</td>
+      <td>No</td>
+  </tr>
+  </tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>formatter
+    <p>The results of the tests can be printed in different formats.
+    Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false</em>.
+    The name of the file is predetermined by the formatter and can be changed by the <em>outfile</em> attribute.</p>
+    <p>There are three predefined formatters - one prints the test results in XML format,
+    the other emits plain text. The formatter named brief will only print detailed information for testcases
+    that failed, while plain gives a little statistics line for all test cases. Custom formatters that
+    implement phing.tasks.ext.PHPUnitResultFormatter can be specified.</p>
+    <p>If you use the XML formatter, it may not include the same output that your tests have written as
+    some characters are illegal in XML documents and will be dropped.</p>
+  <h3>Attributes</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>type</td>
+      <td>String</td>
+      <td> Use a predefined formatter (either <em>xml</em>, <em>plain</em>, or <em>summary</em>). </td>
+      <td>n/a</td>
+      <td rowspan="2">One of these is required.</td>
+    </tr>
+    <tr>
+      <td>classname</td>
+      <td>String</td>
+      <td> Name of a custom formatter class. </td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>usefile</td>
+      <td>Boolean</td>
+      <td> Boolean that determines whether output should be sent to a file. </td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>todir</td>
+      <td>String</td>
+      <td> Directory to write the file to. </td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>outfile</td>
+      <td>String</td>
+      <td> Filename of the result. </td>
+      <td>Depends on formatter</td>
+      <td>No</td>
+    </tr>
+    </tbody>
+  </table>
+  </li>
+  <li>fileset</li>
+</ul>
+<h3>Examples</h3>
+<pre>&lt;simpletest&gt;
+  &lt;formatter type=&quot;plain&quot;/&gt;
+  &lt;fileset dir=&quot;tests&quot;&gt;
+    &lt;include name=&quot;**/*Test*.php&quot;/&gt;
+    &lt;exclude name=&quot;**/Abstract*.php&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/simpletest&gt;
+</pre>
+<p>Runs all matching testcases in the directory <em>tests</em>, writing plain text results to the console.</p>
+
+<pre>&lt;simpletest haltonfailure=&quot;true&quot; haltonerror=&quot;true&quot;&gt;
+  &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot;/&gt;
+  &lt;fileset dir=&quot;tests&quot;&gt;
+    &lt;include name=&quot;**/*Test*.php&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/simpletest&gt;
+</pre>
+<p>
+Runs all matching testcases in the directory <em>tests</em>, writing plain text results to the console. The build process is aborted if a test
+fails.</p>
+
 <h2><a name="SvnCheckoutTask"></a>SvnCheckoutTask</h2>
 <p> The <em>SvnCheckoutTask</em> checks out a Subversion repository to a local directory.</p>
 <h3>Examples</h3>
