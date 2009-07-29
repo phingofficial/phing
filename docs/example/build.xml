@@ -30,6 +30,7 @@
 	
 	<target name="test">
 		<phpunit haltonerror="true" haltonfailure="true">
+			<formatter type="plain" usefile="false"/>
 			<batchtest>
 				<fileset dir="src">
 					<include name="*Test.php"/>
