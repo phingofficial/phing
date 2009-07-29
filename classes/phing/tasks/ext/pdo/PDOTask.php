@@ -20,10 +20,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::pdo;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
+include_once 'phing/types/Reference.php';
 
 /**
  * Handles PDO configuration needed by SQL type tasks.
@@ -72,7 +70,7 @@ abstract class PDOTask extends Task {
      * because we may want this class to be loaded w/o triggering an error.
      */
     function init() {
-        if (!class_exists('PDO', false)) {
+        if (!class_exists('PDO')) {
             throw new Exception("PDOTask depends on PDO feature being included in PHP.");
         }
     }

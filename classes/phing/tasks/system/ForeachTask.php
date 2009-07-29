@@ -19,10 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
+include_once 'phing/tasks/system/PhingTask.php';
 
 /**
  * <foreach> task
@@ -105,6 +103,7 @@ class ForeachTask extends Task {
         $arr = explode($this->delimiter, $this->list);
         
         foreach ($arr as $value) {
+            $value = trim($value);
             $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
             $prop = $callee->createProperty();
             $prop->setOverride(true);

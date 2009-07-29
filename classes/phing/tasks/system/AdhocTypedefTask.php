@@ -20,8 +20,7 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
+require_once 'phing/tasks/system/AdhocTask.php';
 
 /**
  * A class for creating adhoc datatypes in build file.

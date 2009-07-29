@@ -1,4 +1,5 @@
 <?php
+
 /*
  * $Id$
  *
@@ -19,10 +20,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::types::selectors;
-use phing::BuildException;
-use phing::util::StringHelper;
-use phing::system::io::File;
+
+include_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that filters files based on the filename.
@@ -145,10 +144,10 @@ class FilenameSelector extends BaseExtendSelector {
      *
      * @param basedir the base directory the scan is being done from
      * @param filename is the name of the file to check
-     * @param file is a File object the selector can use
+     * @param file is a PhingFile object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(File $basedir, $filename, File $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
         $this->validate();
         return (SelectorUtils::matchPath($this->pattern, $filename, $this->casesensitive) 
             === !($this->negated));

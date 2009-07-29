@@ -19,12 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::types::FileSet;
-use phing::system::io::File;
+require_once 'phing/Task.php';
+include_once 'phing/types/FileSet.php';
 
 /**
  * Task that changes the permissions on a file/directory.
@@ -79,7 +75,7 @@ class ChmodTask extends Task {
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      */
-    function setFile(File $file) {        
+    function setFile(PhingFile $file) {        
         $this->file = $file;
     } 
 
@@ -161,13 +157,13 @@ class ChmodTask extends Task {
             $filecount = count($srcFiles);
             $total_files = $total_files + $filecount;
             for ($j = 0; $j < $filecount; $j++) {
-                $this->chmodFile(new File($fromDir, $srcFiles[$j]), $mode);
+                $this->chmodFile(new PhingFile($fromDir, $srcFiles[$j]), $mode);
             }
 
             $dircount = count($srcDirs);
             $total_dirs = $total_dirs + $dircount;
             for ($j = 0; $j <  $dircount; $j++) {
-                $this->chmodFile(new File($fromDir, $srcDirs[$j]), $mode);
+                $this->chmodFile(new PhingFile($fromDir, $srcDirs[$j]), $mode);
             }
         }
 
@@ -180,10 +176,10 @@ class ChmodTask extends Task {
 
 	/**
 	 * Actually change the mode for the file.
-	 * @param File $file
+	 * @param PhingFile $file
 	 * @param int $mode
 	 */
-    private function chmodFile(File $file, $mode) {
+    private function chmodFile(PhingFile $file, $mode) {
         if ( !$file->exists() ) {
             throw new BuildException("The file " . $file->__toString() . " does not exist");
         }   

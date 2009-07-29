@@ -17,11 +17,10 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- */
+*/
 
-namespace phing::types;
-use phing::BuildException;
-use phing::Project;
+include_once 'phing/types/DataType.php';
+include_once 'phing/types/Parameter.php';
 
 /*
  * A PhingFilterReader is a wrapper class that encloses the className
@@ -134,4 +133,4 @@ class PhingFilterReader extends DataType {
     }
 }
 
-?>
+

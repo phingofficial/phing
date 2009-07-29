@@ -19,9 +19,8 @@
  * <http://phing.info>.
 */
 
-namespace phing::types;
-use phing::BuildException;
-use phing::Project;
+require_once 'phing/types/DataType.php';
+include_once 'phing/util/StringHelper.php';
 
 /**
  * A parameter is composed of a name, type and value.
@@ -155,4 +154,4 @@ class TokenSource extends DataType {
 }
 
 
-?>
+

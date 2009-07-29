@@ -1,4 +1,5 @@
 <?php
+
 /*
  * $Id$
  *
@@ -19,10 +20,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::types::selectors;
-use phing::BuildException;
-use phing::Project;
-use phing::system::io::File;
+require_once 'phing/types/selectors/AndSelector.php';
 
 /**
  * This selector just holds one other selector and forwards all

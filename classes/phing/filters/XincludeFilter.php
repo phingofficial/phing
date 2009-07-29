@@ -20,10 +20,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::filters;
-use phing::BuildException;
-use phing::Project;
-use phing::sytem::io::File;
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Applies Xinclude parsing to incoming text.
@@ -39,7 +37,12 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
 
     private $basedir = null;
 
-    public function setBasedir(File $dir)
+    /**
+     * @var bool
+     */
+    private $processed = false;
+
+    public function setBasedir(PhingFile $dir)
     {
         $this->basedir = $dir;
     }
@@ -56,7 +59,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
      */
     function read($len = null) {
         
-        if (!class_exists('DomDocument', false)) {
+        if (!class_exists('DomDocument')) {
             throw new BuildException("Could not find the DomDocument class. Make sure PHP has been compiled/configured to support DOM XML.");
         }
         
@@ -136,4 +139,4 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
 
 }
 
-?>
+

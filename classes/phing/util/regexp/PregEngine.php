@@ -19,8 +19,7 @@
  * <http://phing.info>. 
  */
 
-namespace phing::util::regexp;
-use phing::BuildException;
+require_once 'phing/util/regexp/RegexpEngine.php';
 
 /**
  * PREG Regexp Engine.
@@ -60,7 +59,8 @@ class PregEngine implements RegexpEngine {
      */
     private function preparePattern($pattern)
     {
-        return '/'.$pattern.'/'.($this->ignoreCase ? 'i' : '');
+		// Use backquotes since hardly ever found in a regexp pattern, avoids using preg_quote
+        return '`'.$pattern.'`'.($this->ignoreCase ? 'i' : '');
     }
     
     /**
@@ -103,4 +103,3 @@ class PregEngine implements RegexpEngine {
 
 }
 
-?>

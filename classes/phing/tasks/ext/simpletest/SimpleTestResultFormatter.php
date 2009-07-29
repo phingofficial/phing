@@ -19,19 +19,16 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::simpletest;
-use phing::BuildException;
-
-// FIXME - move this require_once() into a init block somewhere ...
 require_once 'simpletest/scorer.php';
 
+require_once 'phing/system/io/Writer.php';
 
 /**
  * This abstract class describes classes that format the results of a SimpleTest testrun.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
- * @package phing.tasks.ext.phpunit2
+ * @package phing.tasks.ext.simpletest
  * @since 2.2.0
  */
 abstract class SimpleTestResultFormatter extends SimpleReporter
@@ -162,4 +159,3 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
 		}
 	}
 }
-?>

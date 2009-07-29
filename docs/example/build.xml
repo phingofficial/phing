@@ -29,19 +29,22 @@
 	</target>
 	
 	<target name="test">
-		<phpunit2 haltonerror="true" haltonfailure="true">
+		<phpunit haltonerror="true" haltonfailure="true">
 			<batchtest>
 				<fileset dir="src">
 					<include name="*Test.php"/>
 				</fileset>
 			</batchtest>
-		</phpunit2>
+		</phpunit>
 	</target>
 	
 	<target name="docs">
-		<phpdoc title="Phing Example" destdir="docs"
-			sourcepath="src" output="HTML:Smarty:PHP"
-			linksource="true"/>
+		<phpdoc title="Phing Example" destdir="docs" output="HTML:Smarty:PHP"
+		linksource="true" quiet="true">
+			<fileset dir="src">
+				<include name="*.php"/>
+			</fileset>
+		</phpdoc>
 	</target>
 	
 	<target name="build" depends="test,prepare,reports,docs">

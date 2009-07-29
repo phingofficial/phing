@@ -19,9 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::pdo;
-use phing::BuildException;
-use phing::util::StringHelper;
+require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
 
 /**
  * Plain text formatter for PDO results. 
@@ -125,8 +124,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
 	public function getPreferredOutfile()
 	{
-		return new File('results.txt');
+		return new PhingFile('results.txt');
 	}
 	
 }
-?>

@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
+require_once 'phing/tasks/system/EchoTask.php';
 
 /**
  * Simple task to echo a warning message (Project::MSG_WARN) to all output devices.

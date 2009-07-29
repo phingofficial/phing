@@ -19,12 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-
 /**
  *  @package   phing.system.lang
  */
 class FileNotFoundException extends Exception {}
 
-?>

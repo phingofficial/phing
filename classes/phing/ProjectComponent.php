@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-namespace phing;
-
 /**
  *  Abstract class providing properties and methods common to all
  *  the project components

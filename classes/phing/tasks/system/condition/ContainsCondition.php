@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$
  *
@@ -18,9 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-namespace phing::tasks::system::condition;
-use phing::BuildException;
+ 
+require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
  * Is one string part of another string?
@@ -71,6 +71,6 @@ class ContainsCondition implements Condition {
 
         return $this->caseSensitive 
             ? strpos($this->string, $this->subString) !== false
-            : substr(strtolower($this->string), strtolower($this->subString)) !== false;
+            : strpos(strtolower($this->string), strtolower($this->subString)) !== false;
     }
 }

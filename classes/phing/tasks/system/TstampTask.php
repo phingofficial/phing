@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
 
 /**
  * Sets properties to the current time, or offsets from the current time.
@@ -168,4 +165,4 @@ class TstampCustomFormat
 		}
 	}
 }
-?>
+

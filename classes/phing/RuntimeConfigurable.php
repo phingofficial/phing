@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-namespace phing;
-use phing::parser::ProjectConfigurator;
-
 /**
  *  Wrapper class that holds the attributes of a Task (or elements
  *  nested below that level) and takes care of configuring that element

@@ -19,13 +19,10 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::coverage;
-use phing::Phing;
-use phing::Task;
-use phing::types::Path;
-use phing::BuildException;
-use phing::system::io::File;
-use phing::util::ExtendedFileStream;
+require_once 'phing/Task.php';
+require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/system/io/FileWriter.php';
+require_once 'phing/util/ExtendedFileStream.php';
 
 /**
  * Transform a Phing/Xdebug code coverage xml report.
@@ -65,7 +62,7 @@ class CoverageReportTransformer
 
 	function transform()
 	{
-        $dir = new File($this->toDir);
+        $dir = new PhingFile($this->toDir);
 
         if (!$dir->exists())
         {
@@ -84,8 +81,10 @@ class CoverageReportTransformer
 
 		// no output for the framed report
 		// it's all done by extension...
-		$proc->setParameter('', 'output.dir', $dir->getAbsolutePath());
+		$proc->setParameter('', 'output.dir', $dir->toString());
 		$proc->transformToXML($this->document);
+		
+		ExtendedFileStream::unregisterStream();
 	}
 
 	private function getStyleSheet()
@@ -94,7 +93,7 @@ class CoverageReportTransformer
 
 		if ($this->styleDir)
 		{
-			$file = new File($this->styleDir, $xslname);
+			$file = new PhingFile($this->styleDir, $xslname);
 		}
 		else
 		{
@@ -110,7 +109,7 @@ class CoverageReportTransformer
 				}
 			}
 			
-			$file = new File($path);
+			$file = new PhingFile($path);
 		}
 
 		if (!$file->exists())
@@ -121,4 +120,3 @@ class CoverageReportTransformer
 		return $file;
 	}
 }
-?>

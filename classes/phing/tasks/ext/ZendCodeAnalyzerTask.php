@@ -19,19 +19,14 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::sytem::io::File;
-use phing::types::FileSet;
+require_once 'phing/Task.php';
 
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
  * 
  * Available warnings:
  * <b>zend-error</b> - %s(line %d): %s
- * <b>oneline-comment</b> - One-line comment ends with ?> tag.
+ * <b>oneline-comment</b> - One-line comment ends with  tag.
  * <b>bool-assign</b> - Assignment seen where boolean expression is expected. Did you mean '==' instead of '='?
  * <b>bool-print</b> - Print statement used when boolean expression is expected.
  * <b>bool-array</b> - Array used when boolean expression is expected.
@@ -79,9 +74,9 @@ class ZendCodeAnalyzerTask extends Task {
   /**
    * File to be analyzed
    * 
-   * @param File $file
+   * @param PhingFile $file
    */
-  public function setFile(File $file) {
+  public function setFile(PhingFile $file) {
     $this->file = $file;
   }
   
@@ -123,7 +118,7 @@ class ZendCodeAnalyzerTask extends Task {
   }
 
   /**
-   * Analyze against File or a FileSet
+   * Analyze against PhingFile or a FileSet
    */
   public function main() {
     if(!isset($this->analyzerPath)) {
@@ -133,7 +128,7 @@ class ZendCodeAnalyzerTask extends Task {
       throw new BuildException("Missing either a nested fileset or attribute 'file' set");
     }
     
-    if($this->file instanceof File) {
+    if($this->file instanceof PhingFile) {
       $this->analyze($this->file->getPath());
     } else { // process filesets
       $project = $this->getProject();
@@ -185,4 +180,3 @@ class ZendCodeAnalyzerTask extends Task {
   }
 }
 
-?>

@@ -19,9 +19,6 @@
  * <http://phing.info>. 
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-
 /**
  * Dummy class for reading from string of characters. 
  * @package phing.system.io
@@ -84,4 +81,4 @@ class StringReader extends Reader {
         return '(string) "'.$this->_string . '"';
     }
 }
-?>
+

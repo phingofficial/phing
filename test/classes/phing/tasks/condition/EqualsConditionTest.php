@@ -20,8 +20,8 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit2/Framework/TestCase.php';
-
+require_once 'PHPUnit/Framework/TestCase.php';
+include_once 'phing/tasks/system/condition/EqualsCondition.php';
 
 /**
  * Testcase for the &lt;equals&gt; condition.
@@ -30,7 +30,7 @@ require_once 'PHPUnit2/Framework/TestCase.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Revision: 1.4 $
  */
-class EqualsConditionTest extends PHPUnit2_Framework_TestCase {
+class EqualsConditionTest extends PHPUnit_Framework_TestCase {
 
     public function testTrim() {
         $eq = new EqualsCondition();

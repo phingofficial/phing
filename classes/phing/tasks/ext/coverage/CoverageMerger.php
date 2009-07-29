@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::coverage;
-use phing::BuildException;
-use phing::system::io::File;
-use phing::system::util::Properties;
+require_once 'phing/system/util/Properties.php';
 
 /**
  * Saves coverage output of the test to a specified database
@@ -96,7 +93,14 @@ class CoverageMerger
 
 	static function merge($project, $codeCoverageInformation)
 	{
-		$database = new File($project->getProperty('coverage.database'));
+		$coverageDatabase = $project->getProperty('coverage.database');
+		
+		if (!$coverageDatabase)
+		{
+			throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
+		}
+		
+		$database = new PhingFile($coverageDatabase);
 
 		$props = new Properties();
 		$props->load($database);
@@ -114,8 +118,19 @@ class CoverageMerger
 					$file = unserialize($props->getProperty($filename));
 					$left = $file['coverage'];
 					$right = $coverageFile;
-					
+					if (!is_array($right)) {
+						$right = array_shift(PHPUnit_Util_CodeCoverage::bitStringToCodeCoverage(array($right), 1)); 
+					}
+						
 					$coverageMerged = CoverageMerger::mergeCodeCoverage($left, $right);
+					
+					foreach ($coverageMerged as $key => $value)
+					{
+						if ($value == -2)
+						{
+							unset($coverageMerged[$key]);
+						}
+					}
 					
 					$file['coverage'] = $coverageMerged;
 					
@@ -127,4 +142,3 @@ class CoverageMerger
 		$props->store($database);
 	}
 }
-?>

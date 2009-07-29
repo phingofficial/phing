@@ -19,10 +19,10 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::simpletest;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
+require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/system/io/Writer.php';
+require_once 'phing/util/LogWriter.php';
 
 /**
  * Runs SimpleTest tests.
@@ -41,6 +41,7 @@ class SimpleTestTask extends Task
 	private $errorproperty;
 	private $printsummary = false;
 	private $testfailed = false;
+	private $debug = false;
 
 	/**
 	 * Initialize Task.
@@ -58,8 +59,9 @@ class SimpleTestTask extends Task
 		require_once 'simpletest/reporter.php';
 		require_once 'simpletest/xml.php';
 		require_once 'simpletest/test_case.php';
-		
-		
+		require_once 'phing/tasks/ext/simpletest/SimpleTestCountResultFormatter.php';
+		require_once 'phing/tasks/ext/simpletest/SimpleTestDebugResultFormatter.php';
+		require_once 'phing/tasks/ext/simpletest/SimpleTestFormatterElement.php';
 	}
 	
 	function setFailureproperty($value)
@@ -86,6 +88,16 @@ class SimpleTestTask extends Task
 	{
 		$this->printsummary = $printsummary;
 	}
+
+	public function setDebug($debug)
+	{
+		$this->debug = $debug;
+	}
+
+	public function getDebug()
+	{
+		return $this->debug;
+	}	
 	
 	/**
 	 * Add a new formatter to all tests of this task.
@@ -152,6 +164,14 @@ class SimpleTestTask extends Task
 			$group->addTestFile($testfile);
 		}
 		
+		if ($this->debug)
+		{
+			$fe = new SimpleTestFormatterElement();
+			$fe->setType('debug');
+			$fe->setUseFile(false);
+			$this->formatters[] = $fe;
+		}
+		
 		if ($this->printsummary)
 		{
 			$fe = new SimpleTestFormatterElement();
@@ -167,7 +187,7 @@ class SimpleTestTask extends Task
 
 			if ($fe->getUseFile())
 			{
-				$destFile = new File($fe->getToDir(), $fe->getOutfile());
+				$destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
 				
 				$writer = new FileWriter($destFile->getAbsolutePath());
 
@@ -180,6 +200,12 @@ class SimpleTestTask extends Task
 		}
 		
 		$this->execute($group);
+		
+		if ($this->testfailed && $this->formatters[0]->getFormatter() instanceof SimpleTestDebugResultFormatter )
+		{
+			$this->getDefaultOutput()->write("Failed tests: ");
+			$this->formatters[0]->getFormatter()->printFailingTests();
+		}
 		
 		if ($this->testfailed)
 		{
@@ -235,4 +261,3 @@ class SimpleTestTask extends Task
 		return new LogWriter($this);
 	}
 }
-?>

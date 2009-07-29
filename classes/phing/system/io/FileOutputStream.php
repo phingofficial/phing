@@ -19,11 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-
-
-
+require_once 'phing/system/io/OutputStream.php';
+require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Output stream subclass for file streams.
@@ -33,7 +30,7 @@ use phing::BuildException;
 class FileOutputStream extends OutputStream {
 	
 	/**
-	 * @var File The associated file.
+	 * @var PhingFile The associated file.
 	 */
 	protected $file;
 	
@@ -45,10 +42,10 @@ class FileOutputStream extends OutputStream {
      * @throws IOException - if unable to open file.
      */
     public function __construct($file, $append = false) {
-    	if ($file instanceof File) {
+    	if ($file instanceof PhingFile) {
             $this->file = $file;
         } elseif (is_string($file)) {
-            $this->file = new File($file);
+            $this->file = new PhingFile($file);
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }

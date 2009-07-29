@@ -19,9 +19,7 @@
  * <http://phing.info>. 
  */
 
-namespace phing::mappers;
-use phing::BuildException;
-use phing::util::StringHelper;
+include_once 'phing/mappers/FileNameMapper.php';
 
 /**
  * description here

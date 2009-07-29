@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
 
 /**
  * Call another target in the same project.

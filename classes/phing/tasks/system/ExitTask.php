@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
 
 /**
  * Exits the active build, giving an additional message

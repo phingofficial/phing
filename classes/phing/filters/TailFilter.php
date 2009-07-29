@@ -20,8 +20,7 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
+require_once 'phing/filters/BaseParamFilterReader.php';
 
 /**
  * Reads the last <code>n</code> lines of a stream. (Default is last10 lines.)
@@ -155,4 +154,4 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader {
     }
 }
 
-?>
+

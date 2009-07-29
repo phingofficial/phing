@@ -19,9 +19,9 @@
  * <http://phing.info>.
 */
 
-namespace phing::types;
-use phing::BuildException;
-use phing::Project;
+include_once 'phing/types/DataType.php';
+include_once 'phing/Project.php';
+include_once 'phing/util/regexp/Regexp.php';
 
 /*
  * A regular expression datatype.  Keeps an instance of the
@@ -102,4 +102,4 @@ class RegularExpression extends DataType {
     }
 }
 
-?>
+

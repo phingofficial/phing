@@ -19,9 +19,9 @@
  * <http://phing.info>.
  */
 
-
-
-
+require_once 'phing/tasks/system/MatchingTask.php';
+include_once 'phing/types/FileSet.php';
+include_once 'phing/tasks/ext/pearpackage/Fileset.php';
 
 /**
  *
@@ -35,7 +35,7 @@ class BuildPhingPEARPackageTask extends MatchingTask {
     private $dir;
 
 	private $version;
-	private $state = 'alpha';
+	private $state = 'stable';
 	private $notes;
 	
 	private $filesets = array();
@@ -67,13 +67,13 @@ class BuildPhingPEARPackageTask extends MatchingTask {
 		
 		if ($this->packageFile !== null) {
             // create one w/ full path
-            $f = new File($this->packageFile->getAbsolutePath());
+            $f = new PhingFile($this->packageFile->getAbsolutePath());
             $options['packagefile'] = $f->getName();
             // must end in trailing slash
             $options['outputdirectory'] = $f->getParent() . DIRECTORY_SEPARATOR;
-            $this->log("Creating package file: " . $f->getPath(), PROJECT_MSG_INFO);
+            $this->log("Creating package file: " . $f->getPath(), Project::MSG_INFO);
         } else {
-            $this->log("Creating [default] package.xml file in base directory.", PROJECT_MSG_INFO);
+            $this->log("Creating [default] package.xml file in base directory.", Project::MSG_INFO);
         }
 		
 		// add install exceptions
@@ -169,14 +169,14 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 		
 
 		// "core" dependencies
-		$package->setPhpDep('5.3.0');
+		$package->setPhpDep('5.1.0');
 		$package->setPearinstallerDep('1.4.0');
 		
 		// "package" dependencies
 		$package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.0alpha1');
 		$package->addPackageDepWithChannel( 'optional', 'PHPUnit', 'pear.phpunit.de', '2.3.0');
 		$package->addPackageDepWithChannel( 'optional', 'PhpDocumentor', 'pear.php.net', '1.3.0RC3');
-		$package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pear.php.net', '2.0.0');
+		$package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pear.php.net', '2.0.0beta2');
 		$package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.0');
 		$package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
 
@@ -202,7 +202,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
     }
 
     /**
-     * Used by the PEAR_PackageFileManager_FileSet lister.
+     * Used by the PEAR_PackageFileManager_PhingFileSet lister.
      * @return array FileSet[]
      */
     public function getFileSets() {
@@ -251,17 +251,17 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 	}
     /**
      * Sets "dir" property from XML.
-     * @param File $f
+     * @param PhingFile $f
      * @return void
      */
-    public function setDir(File $f) {
+    public function setDir(PhingFile $f) {
         $this->dir = $f;
     }
 
     /**
      * Sets the file to use for generated package.xml
      */
-    public function setDestFile(File $f) {
+    public function setDestFile(PhingFile $f) {
         $this->packageFile = $f;
     }
 

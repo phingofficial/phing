@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$
  *
@@ -19,11 +20,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::TaskContainer;
+require_once 'phing/Task.php';
+require_once 'phing/TaskContainer.php';
 
 /**
  * Sequential is a container task that contains other Phing Task objects.

@@ -20,12 +20,10 @@
  * <http://phing.info>. 
  */
  
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::util::StringHelper;
-use phing::sytem::io::File;
+include_once 'phing/Task.php';
+include_once 'phing/BuildException.php';
+include_once 'phing/lib/Capsule.php';
+include_once 'phing/util/StringHelper.php';
 
 /**
  * A phing task for generating output by using Capsule.
@@ -180,11 +178,11 @@ class CapsuleTask extends Task {
     /**
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
-     * @param File $outputDirectory
+     * @param PhingFile $outputDirectory
      * @return void
      * @throws Exception
      */
-    public function setOutputDirectory(File $outputDirectory) {
+    public function setOutputDirectory(PhingFile $outputDirectory) {
         try {
             if (!$outputDirectory->exists()) {
                 $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),Project::MSG_VERBOSE);
@@ -352,7 +350,7 @@ class CapsuleTask extends Task {
                 
         // Make sure the output directory exists, if it doesn't
         // then create it.
-        $outputDir = new File($this->outputDirectory);
+        $outputDir = new PhingFile($this->outputDirectory);
         if (!$outputDir->exists()) {
             $this->log("Output directory does not exist, creating: " . $outputDir->getAbsolutePath());
             $outputDir->mkdirs();
@@ -395,7 +393,7 @@ class CapsuleTask extends Task {
                 // reset value, and then 
                 // read in teh contents of the file into that var
                 $value = "";
-                $f = new File($project->resolveFile($value)->getCanonicalPath());                        
+                $f = new PhingFile($project->resolveFile($value)->getCanonicalPath());                        
                 if ($f->exists()) {
                     $fr = new FileReader($f);
                     $fr->readInto($value);

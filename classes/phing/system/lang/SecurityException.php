@@ -24,4 +24,3 @@
  */
 class SecurityException extends Exception {}
 
-?>

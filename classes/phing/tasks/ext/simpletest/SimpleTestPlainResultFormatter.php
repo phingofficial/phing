@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::simpletest;
-use phing::BuildException;
+require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
 
 /**
  * Prints plain text output of the test to a specified Writer.
@@ -55,6 +54,7 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
 	{
 		parent::paintCaseEnd($test_name);
 		
+    $sb = "";
 		/* Only count suites where more than one test was run */
 		if ($this->getRunCount())
 		{
@@ -93,4 +93,3 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
 		$this->inner.= $message . "\n";	
 	}
 }
-?>

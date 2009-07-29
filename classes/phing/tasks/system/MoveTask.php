@@ -19,9 +19,9 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::system::io::File;
+require_once 'phing/tasks/system/CopyTask.php';
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/system/io/IOException.php';
 
 /**
  * Moves a file or directory to a new file or directory.
@@ -61,7 +61,7 @@ class MoveTask extends CopyTask {
             
             if ($this->destFile === null)
             {
-				$this->destFile = new File($this->destDir, $this->file->getName());
+				$this->destFile = new PhingFile($this->destDir, $this->file->getName());
 			}
             
             if ($this->destDir === null)
@@ -82,8 +82,8 @@ class MoveTask extends CopyTask {
 		{
 			foreach ($this->completeDirMap as $from => $to)
 			{
-                $f = new File($from);
-                $d = new File($to);
+                $f = new PhingFile($from);
+                $d = new PhingFile($to);
                 
                 $moved = false;
                 try { // try to rename                    
@@ -109,8 +109,8 @@ class MoveTask extends CopyTask {
                 }
 
                 $moved = false;
-                $f = new File($from);
-                $d = new File($to);
+                $f = new PhingFile($from);
+                $d = new PhingFile($to);
                 
                 $moved = false;
                 try { // try to rename                    
@@ -128,7 +128,7 @@ class MoveTask extends CopyTask {
 
                         $this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject());                        
 
-                        $f = new File($fromFile);
+                        $f = new PhingFile($fromFile);
                         $f->delete();
                     } catch (IOException $ioe) {
                         $msg = "Failed to move $from to $to: " . $ioe->getMessage();
@@ -143,7 +143,7 @@ class MoveTask extends CopyTask {
             $e = array_keys($this->dirCopyMap);
             $count = 0;
             foreach ($e as $dir) {
-                $d = new File((string) $dir);
+                $d = new PhingFile((string) $dir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
                         $this->log("Unable to create directory " . $d->getAbsolutePath(), Project::MSG_ERR);
@@ -176,7 +176,7 @@ class MoveTask extends CopyTask {
         }
         
         foreach($list as $s) {
-            $f = new File($d, $s);
+            $f = new PhingFile($d, $s);
             if ($f->isDirectory()) {
                 if (!$this->okToDelete($f)) {
                     return false;
@@ -198,7 +198,7 @@ class MoveTask extends CopyTask {
         }
         
         foreach($list as $fname) {
-            $f = new File($d, $fname);
+            $f = new PhingFile($d, $fname);
             if ($f->isDirectory()) {
                 $this->deleteDir($f);
             } else {
@@ -222,7 +222,7 @@ class MoveTask extends CopyTask {
      * ile is renamed only if the destination file #
      * is older than it.
      */
-    private function renameFile(File $sourceFile, File $destFile, $overwrite) {
+    private function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite) {
         $renamed = true;
 
         // ensure that parent dir of dest file exists!
@@ -244,4 +244,4 @@ class MoveTask extends CopyTask {
         return $renamed;
     }
 }
-?>
+

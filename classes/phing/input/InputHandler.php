@@ -20,9 +20,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::input;
-use phing::BuildException;
-
 /**
  * Plugin to Phing to handle requests for user input.
  *

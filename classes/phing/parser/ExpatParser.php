@@ -19,9 +19,10 @@
  * <http://phing.info>.
  */
  
-namespace phing::parser;
-use phing::BuildException;
-use phing::system::io::Reader;
+require_once 'phing/parser/AbstractSAXParser.php';
+include_once 'phing/parser/ExpatParseException.php';
+include_once 'phing/system/io/IOException.php';
+include_once 'phing/system/io/FileReader.php';
 
 /**
  * This class is a wrapper for the PHP's internal expat parser.
@@ -62,19 +63,19 @@ class ExpatParser extends AbstractSAXParser {
     /**
      * Constructs a new ExpatParser object.
      *
-     * The constructor accepts a File object that represents the filename
+     * The constructor accepts a PhingFile object that represents the filename
      * for the file to be parsed. It sets up php's internal expat parser
      * and options.
      *
      * @param Reader $reader  The Reader Object that is to be read from.
      * @param string $filename Filename to read.
-     * @throws Exception if the given argument is not a File object
+     * @throws Exception if the given argument is not a PhingFile object
      */
     function __construct(Reader $reader, $filename=null) {
 
         $this->reader = $reader;
         if ($filename !== null) {
-            $this->file = new File($filename);
+            $this->file = new PhingFile($filename);
         }
         $this->parser = xml_parser_create();
         $this->buffer = 4096;

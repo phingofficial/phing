@@ -19,11 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::system::io::File;
+require_once 'phing/Task.php';
+include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Task to create a directory.
@@ -60,7 +57,7 @@ class MkdirTask extends Task {
     }
 
     /** the directory to create; required. */
-    function setDir(File $dir) {
+    function setDir(PhingFile $dir) {
         $this->dir = $dir;
     }
 

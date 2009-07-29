@@ -19,16 +19,12 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::types::FileSet;
-use phing::util::FileUtils;
-use phing::system::io::File;
-use phing::mappers::IdentityMapper;
-use phing::mappers::FlattenMapper;
-use phing::util::SourceFileScanner;
+require_once 'phing/Task.php';
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/util/FileUtils.php';
+include_once 'phing/util/SourceFileScanner.php';
+include_once 'phing/mappers/IdentityMapper.php';
+include_once 'phing/mappers/FlattenMapper.php';
 
 /**
  * A phing copy task.  Copies a file or directory to a new file
@@ -56,15 +52,19 @@ class CopyTask extends Task {
     protected $completeDirMap= array(); // asoc array containing complete dir names
     protected $fileUtils     = null;    // a instance of fileutils
     protected $filesets      = array(); // all fileset objects assigned to this task
+    protected $filelists     = array(); // all filelist objects assigned to this task
     protected $filterChains  = array(); // all filterchains objects assigned to this task
 
     protected $verbosity     = Project::MSG_VERBOSE;
 
     /**
-     * Create new CopyTask object.
+     * Sets up this object internal stuff. i.e. the Fileutils instance
+     *
+     * @return object   The CopyTask instnace
+     * @access public
      */
     function __construct() {
-    	
+        $this->fileUtils = new FileUtils();
     }
 
     /**
@@ -74,6 +74,7 @@ class CopyTask extends Task {
      *
      * @param  boolean  Overwrite the destination file(s) if it/they already exist
      * @return void
+     * @access public
      */
     function setOverwrite($bool) {
         $this->overwrite = (boolean) $bool;
@@ -124,11 +125,11 @@ class CopyTask extends Task {
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string/object  The source file. Either a string or an File object
+     * @param  string/object  The source file. Either a string or an PhingFile object
      * @return void
      * @access public
      */
-    function setFile(File $file) {        
+    function setFile(PhingFile $file) {        
         $this->file = $file;
     }
 
@@ -138,11 +139,11 @@ class CopyTask extends Task {
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string/object  The dest file. Either a string or an File object
+     * @param  string/object  The dest file. Either a string or an PhingFile object
      * @return void
      * @access public
      */
-    function setTofile(File $file) {       
+    function setTofile(PhingFile $file) {       
         $this->destFile = $file;
     }
 
@@ -152,11 +153,11 @@ class CopyTask extends Task {
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string/object  The directory, either a string or an File object
+     * @param  string/object  The directory, either a string or an PhingFile object
      * @return void
      * @access public
      */
-    function setTodir(File $dir) {        
+    function setTodir(PhingFile $dir) {        
         $this->destDir = $dir;
     }
 
@@ -171,6 +172,16 @@ class CopyTask extends Task {
         return $this->filesets[$num-1];
     }
 
+	/**
+	 * Nested creator, adds a set of files (nested fileset attribute).
+     *
+     * @access  public
+     * @return  object  The created filelist object
+     */
+    function createFileList() {
+        $num = array_push($this->filelists, new FileList());
+        return $this->filelists[$num-1];
+    }
     /**
      * Creates a filterchain
      *
@@ -211,7 +222,7 @@ class CopyTask extends Task {
         if ($this->file !== null) {
             if ($this->file->exists()) {
                 if ($this->destFile === null) {
-                    $this->destFile = new File($this->destDir, (string) $this->file->getName());
+                    $this->destFile = new PhingFile($this->destDir, (string) $this->file->getName());
                 }
                 if ($this->overwrite === true || ($this->file->lastModified() > $this->destFile->lastModified())) {
                     $this->fileCopyMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
@@ -226,6 +237,20 @@ class CopyTask extends Task {
 
         $project = $this->getProject();
 
+		// process filelists
+		foreach($this->filelists as $fl) {
+            $fromDir  = $fl->getDir($project);
+            $srcFiles = $fl->getFiles($project);
+            $srcDirs  = array($fl->getDir($project));
+            
+            if (!$this->flatten && $this->mapperElement === null)
+            {
+				$this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
+			}
+            
+            $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+		}
+		
         // process filesets
         foreach($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($project);
@@ -279,7 +304,7 @@ class CopyTask extends Task {
         }
 
         if ($this->destFile !== null) {
-            $this->destDir = new File($this->destFile->getParent());
+            $this->destDir = new PhingFile($this->destFile->getParent());
         }
     }
 
@@ -328,9 +353,9 @@ class CopyTask extends Task {
         }
 
         for ($i=0,$_i=count($toCopy); $i < $_i; $i++) {
-            $src  = new File($fromDir, $toCopy[$i]);
+            $src  = new PhingFile($fromDir, $toCopy[$i]);
             $mapped = $mapper->main($toCopy[$i]);
-            $dest = new File($toDir, $mapped[0]);
+            $dest = new PhingFile($toDir, $mapped[0]);
             $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
         }
     }
@@ -367,8 +392,8 @@ class CopyTask extends Task {
                 $this->log("From ".$from." to ".$to, $this->verbosity);
                 try { // try to copy file
 				
-					$fromFile = new File($from);
-					$toFile = new File($to);
+					$fromFile = new PhingFile($from);
+					$toFile = new PhingFile($to);
 					
                     $fromSlot->setValue($fromFile->getPath());
 					$fromBasenameSlot->setValue($fromFile->getName());
@@ -376,7 +401,7 @@ class CopyTask extends Task {
 					$toSlot->setValue($toFile->getPath());
 					$toBasenameSlot->setValue($toFile->getName());
 					
-                    FileUtils::copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject());
+                    $this->fileUtils->copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject());
 			
                     $count++;
                 } catch (IOException $ioe) {
@@ -390,7 +415,7 @@ class CopyTask extends Task {
             $destdirs = array_values($this->dirCopyMap);
             $count = 0;
             foreach ($destdirs as $destdir) {
-                $d = new File((string) $destdir);
+                $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
                         $this->log("Unable to create directory " . $d->__toString(), Project::MSG_ERR);

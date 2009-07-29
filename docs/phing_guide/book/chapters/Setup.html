@@ -42,7 +42,10 @@
 <h3><a name="SoftwareDependencies"></a>Software Dependencies</h3>
 
 <p>For a detailed list of required sofware and libraries, refer to
-the following table of Software dependencies</p>
+the following table of Software dependencies.</p>
+
+<p>NB: This list is not exhaustive, please refer to individual Phing tasks to
+find out additional software requirements.</p>
 
 <table>
   <caption>
@@ -62,19 +65,34 @@ the following table of Software dependencies</p>
       <td><a href="http://www.php.net">http://www.php.net</a></td>
     </tr>
     <tr>
-      <td>PHPUnit2 2.2.0+</td>
-      <td>Additional functionality</td>
+      <td>PHPUnit2 3.2.0+</td>
+      <td>Additional functionality (task)</td>
       <td><a href="http://www.phpunit.de">http://www.phpunit.de</a></td>
     </tr>
     <tr>
       <td>Xdebug 2.0.0+</td>
-      <td>Additional functionality</td>
+      <td>Additional functionality (task)</td>
       <td><a href="http://www.xdebug.org">http://www.xdebug.org</a></td>
     </tr>
     <tr>
-      <td>PhpDocumentor 1.3.0RC3+</td>
-      <td>Additional functionality</td>
+      <td>PhpDocumentor 1.4.0+</td>
+      <td>Additional functionality (task)</td>
       <td><a href="http://www.phpdoc.org">http://www.phpdoc.org</a></td>
+    </tr>
+    <tr>
+      <td>VersionControl_SVN PEAR package</td>
+      <td>Additional functionality (task)</td>
+      <td><a href="http://pear.php.net">http://pear.php.net</a></td>
+    </tr>
+    <tr>
+      <td>SimpleTest 1.0.1 beta+</td>
+      <td>Additional functionality (task)</td>
+      <td><a href="http://simpletest.sourceforge.net">http://simpletest.sourceforge.net</a></td>
+    </tr>
+    <tr>
+      <td>Creole 1.1.0+</td>
+      <td>Additional functionality (task)</td>
+      <td><a href="http://creole.phpdb.org">http://creole.phpdb.org</a></td>
     </tr>
     <!-- Zend Optimizer etc. could be added here... -->
   </tbody>
@@ -174,8 +192,8 @@ files and make changes.</p>
 
 <p>If you are not using the PEAR installer, you will need to setup your environment
   in order to run Phing. The distribution of Phing consists of three directories:
-  <em>bin</em> , <em>docs</em> and <em>classes</em> . Only the <em>bin</em> and
-  <em>classes</em> directories are required to run Phing. To install Phing, choose
+  <em>bin</em> , <em>docs</em> and <em>classes</em>. Only the <em>bin</em>, <em>classes</em> and
+  <em>etc</em> directories are required to run Phing. To install Phing, choose
   a directory and uncompress the distribution file in that directory (you may
   already have done this in a prior step). This directory will be known as <em>PHING_HOME</em>
   .</p>

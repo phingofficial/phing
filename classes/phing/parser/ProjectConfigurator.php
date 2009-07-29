@@ -19,13 +19,13 @@
  * <http://phing.info>.
  */
 
-namespace phing::parser;
-use phing::BuildException;
-use phing::Project;
-use phing::system::io::File;
-use phing::system::io::FileReader;
-use phing::system::io::BufferedReader;
-use phing::IntrospectionHelper;
+include_once 'phing/system/io/BufferedReader.php';
+include_once 'phing/system/io/FileReader.php';
+include_once 'phing/BuildException.php';
+include_once 'phing/system/lang/FileNotFoundException.php';
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/parser/PhingXMLContext.php';
+include_once 'phing/IntrospectionHelper.php';
 
 /**
  * The datatype handler class.
@@ -46,7 +46,24 @@ class ProjectConfigurator {
     
     public $buildFile;
     public $buildFileParent;
-        
+
+    /** Targets in current file */
+    private $currentTargets;
+
+    /** Synthetic target that will be called at the end to the parse phase */
+    private $parseEndTarget;
+
+    /** Name of the current project */
+    private $currentProjectName;
+
+    private $isParsing = true;
+
+    /**
+     * Indicates whether the project tag attributes are to be ignored
+     * when processing a particular build file.
+     */
+    private $ignoreProjectTag = false;
+
     /**
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
@@ -55,7 +72,7 @@ class ProjectConfigurator {
      * @param  object  the buildfile object the parser should use
      * @access public
      */
-    public static function configureProject(Project $project, File $buildFile) {
+    public static function configureProject(Project $project, PhingFile $buildFile) {
         $pc = new ProjectConfigurator($project, $buildFile);
         $pc->parse();
     }
@@ -69,10 +86,68 @@ class ProjectConfigurator {
      * @param  object  the buildfile object the parser should use
      * @access private
      */
-    function __construct(Project $project, File $buildFile) {
+    function __construct(Project $project, PhingFile $buildFile) {
         $this->project = $project;
-        $this->buildFile = new File($buildFile->getAbsolutePath());
-        $this->buildFileParent = new File($this->buildFile->getParent());
+        $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
+        $this->buildFileParent = new PhingFile($this->buildFile->getParent());
+        $this->currentTargets = array();
+        $this->parseEndTarget = new Target();
+    }
+
+    /**
+     * find out the build file
+     * @return  the build file to which the xml context belongs
+     */
+    public function getBuildFile() {
+        return $this->buildFile;
+    }
+
+    /**
+     * find out the parent build file of this build file
+     * @return the parent build file of this build file
+     */
+    public function getBuildFileParent() {
+        return $this->buildFileParent;
+    }
+
+    /**
+     * find out the current project name
+     * @return current project name
+     */
+    public function getCurrentProjectName() {
+        return $this->currentProjectName;
+    }
+
+    /**
+     * set the name of the current project
+     * @param name name of the current project
+     */
+    public function setCurrentProjectName($name) {
+        $this->currentProjectName = $name;
+    }
+
+    /**
+     * tells whether the project tag is being ignored
+     * @return whether the project tag is being ignored
+     */
+    public function isIgnoringProjectTag() {
+        return $this->ignoreProjectTag;
+    }
+
+    /**
+     *  sets the flag to ignore the project tag
+     * @param flag to ignore the project tag
+     */
+    public function setIgnoreProjectTag($flag) {
+        $this->ignoreProjectTag = $flag;
+    }
+
+    public function &getCurrentTargets () {
+      return $this->currentTargets;
+    }
+
+    public function isParsing () {
+      return $this->isParsing;
     }
 
     /**
@@ -84,7 +159,26 @@ class ProjectConfigurator {
      * @access private
      */
     protected function parse() {
-        try {
+      try {
+        // get parse context
+        $ctx = $this->project->getReference("phing.parsing.context");
+        if (null == $ctx) {
+          // make a new context and register it with project
+          $ctx = new PhingXMLContext($this->project);
+          $this->project->addReference("phing.parsing.context", $ctx);
+        }
+
+        //record this parse with context
+        $ctx->addImport($this->buildFile);
+
+        if (count($ctx->getImportStack()) > 1) {
+          // this is an imported file
+          // modify project tag parse behavior
+          $this->setIgnoreProjectTag(true);
+        }
+        // push action onto global stack
+        $ctx->startConfigure($this);
+
             $reader = new BufferedReader(new FileReader($this->buildFile));
             $parser = new ExpatParser($reader);
             $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
@@ -92,9 +186,26 @@ class ProjectConfigurator {
             $this->project->log("parsing buildfile ".$this->buildFile->getName(), Project::MSG_VERBOSE);
             $parser->parse();
             $reader->close();
+
+            // mark parse phase as completed
+            $this->isParsing = false;
+            // execute delayed tasks
+            $this->parseEndTarget->main();
+            // pop this action from the global stack
+            $ctx->endConfigure();
         } catch (Exception $exc) {
             throw new BuildException("Error reading project file", $exc);
         }
+    }
+
+    /**
+     * Delay execution of a task until after the current parse phase has 
+     * completed.
+     *
+     * @param Task $task Task to execute after parse
+     */
+    public function delayTaskUntilParseEnd ($task) {
+      $this->parseEndTarget->addTask($task);
     }
 
     /**
@@ -212,7 +323,7 @@ class ProjectConfigurator {
         // the old parsePropertyString() method, since it has more stringent
         // requirements.
         
-        $sb = preg_replace_callback('/\$\{([^}]+)\}/', array( __NAMESPACE__ . '::ProjectConfigurator', 'replacePropertyCallback'), $value);
+        $sb = preg_replace_callback('/\$\{([^}]+)\}/', array('ProjectConfigurator', 'replacePropertyCallback'), $value);
         return $sb;        
     }
     

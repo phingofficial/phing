@@ -19,9 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Project;
+require_once 'phing/tasks/ext/PearPackageTask.php';
 
 /**
  * A task to create a PEAR package.xml version 2.0 file.

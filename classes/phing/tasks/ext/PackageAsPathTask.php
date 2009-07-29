@@ -20,10 +20,7 @@
  * <http://phing.info>. 
  */
 
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
 
 /**
  * Convert dot-notation packages to relative paths.

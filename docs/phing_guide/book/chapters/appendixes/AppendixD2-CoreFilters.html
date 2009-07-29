@@ -462,6 +462,53 @@ are not further passed through the filter chain. Usage example:
   </tbody>
 </table>
 
+<h2><a name="TidyFilter"></a>TidyFilter</h2>
+<p>
+The <em>TidyFilter</em> allows you to use the <a href="http://php.net/tidy">PHP
+tidy extension</a> to clean up and repeair HTML documents. Usage example:
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;tidyfilter encoding=&quot;utf8&quot;&gt;
+    &lt;config name=&quot;indent&quot; value=&quot;true&quot; /&gt;
+    &lt;config name=&quot;output-xhtml&quot; value=&quot;true&quot; /&gt;
+  &lt;/tidyfilter&gt;
+&lt;/filterchain&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;tidyfilter&gt;</em> tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>encoding</td>
+      <td>String</td>
+      <td>
+        The expected input encoding of the file.
+      </td>
+      <td>utf8</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Nested Tags</h3>
+<p>
+The <em>TidyFilter</em> supports nested &lt;config&gt; tags to configure how
+Tidy should manipulate the documents. For a complete list of configuration
+options see the offical
+<a href="http://tidy.sourceforge.net/docs/quickref.html">Quick Reference</a>.
+</p>
+
 <h2><a name="XincludeFilter"></a>XincludeFilter</h2>
 <p>
 The <em>XincludeFilter</em> processes a stream for Xinclude tags, and processes the inclusions.

@@ -20,8 +20,8 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit2/Framework/TestCase.php';
-
+require_once 'PHPUnit/Framework/TestCase.php';
+include_once 'phing/tasks/system/condition/ContainsCondition.php';
 
 /**
  * Testcase for the &lt;contains&gt; condition.
@@ -30,7 +30,7 @@ require_once 'PHPUnit2/Framework/TestCase.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Revision: 1.3 $
  */
-class ContainsConditionTest extends PHPUnit2_Framework_TestCase {
+class ContainsConditionTest extends PHPUnit_Framework_TestCase {
 
     public function testCaseSensitive() {
         $con = new ContainsCondition();

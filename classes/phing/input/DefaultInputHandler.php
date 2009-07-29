@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$
  *
@@ -19,8 +20,8 @@
  * <http://phing.info>.
  */
  
-namespace phing::input;
-use phing::BuildException;
+require_once 'phing/input/InputHandler.php';
+include_once 'phing/system/io/ConsoleReader.php';
 
 /**
  * Prompts using print(); reads input from Console.

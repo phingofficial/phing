@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::simpletest;
-use phing::BuildException;
+require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
 
 /**
  * Prints short summary output of the test to Phing's logging system.
@@ -52,4 +51,3 @@ class SimpleTestSummaryResultFormatter extends SimpleTestResultFormatter
 		}
 	}
 }
-?>

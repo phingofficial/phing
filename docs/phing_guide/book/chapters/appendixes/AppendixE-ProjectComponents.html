@@ -107,7 +107,7 @@ Project may contain task calls and targets (see below).
 <p>
 The target defined in the example above is only executed, if the
 property <em>${lang}</em> is set and the property <em>${lang.en}</em>
-is not set. Additionally, id depends on the targets <em>foo1</em> and
+is not set. Additionally, it depends on the targets <em>foo1</em> and
 <em>foo2</em>. That means, the targets <em>foo1</em> and <em>foo2</em>
 are executed before the target <em>main</em> is executed. The name
 of the target is <em>main</em> and it also has a description.
@@ -172,5 +172,8 @@ of the target is <em>main</em> and it also has a description.
     </tr>
  </tbody>
 </table>
+<p><b>Important:</b> the if and unless attributes only enable or disable the target to which they are attached. They do not control whether or not targets that a 
+conditional target depends upon get executed. In fact, they do not even get evaluated until the target is about to be executed, and all its predecessors have already run.</p>
+
   </body>
 </html>

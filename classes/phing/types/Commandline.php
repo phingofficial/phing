@@ -18,10 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-namespace phing::types;
-use phing::BuildException;
-use phing::system::io::File;
+ 
 
 /**
  * Commandline objects help handling command lines specifying processes to
@@ -420,7 +417,7 @@ class CommandlineArgument {
      *
      * @param value a single commandline argument.
      */
-    public function setFile(File $value) {
+    public function setFile(PhingFile $value) {
         $this->parts = array($value->getAbsolutePath());
     }
 

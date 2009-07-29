@@ -1,4 +1,5 @@
 <?php
+
 /*
  * $Id$
  *
@@ -19,9 +20,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::types::selectors;
-use phing::BuildException;
-use phing::system::io::File;
+require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that selects a certain kind of file: directory or regular file.
@@ -94,12 +93,12 @@ class TypeSelector extends BaseExtendSelector {
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param File $basedir the base directory the scan is being done from
+     * @param PhingFile $basedir the base directory the scan is being done from
      * @param string $filename is the name of the file to check
-     * @param File $file is a File object the selector can use
+     * @param PhingFile $file is a PhingFile object the selector can use
      * @return boolean Whether the file should be selected or not
      */
-    public function isSelected(File $basedir, $filename, File $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
 
         // throw BuildException on error
         $this->validate();

@@ -20,10 +20,8 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
-use phing::Project;
-use phing::sytem::io::File;
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Applies XSL stylesheet to incoming text.
@@ -33,7 +31,7 @@ use phing::sytem::io::File;
  * @author    Hans Lellelid <hans@velum.net>
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @version   $Revision: 1.16 $
+ * @version   $Revision$
  * @see       FilterReader
  * @package   phing.filters
  */
@@ -91,9 +89,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
         
     /**
      * Set the XSLT stylesheet.
-     * @param mixed $file File object or path.
+     * @param mixed $file PhingFile object or path.
      */
-    function setStyle(File $file) {
+    function setStyle(PhingFile $file) {
         $this->xslFile = $file;
     }
 
@@ -129,7 +127,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
      */
     function read($len = null) {
         
-        if (!class_exists('XSLTProcessor', false)) {
+        if (!class_exists('XSLTProcessor')) {
             throw new BuildException("Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.");
         }
         
@@ -207,9 +205,12 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
             $processor->setParameter(null, $param->getName(), $param->getExpression());
         }
         
-        $result = $processor->transformToXML($xmlDom);
+        $errorlevel = error_reporting();
+        error_reporting($errorlevel & ~E_WARNING);
+        @$result = $processor->transformToXML($xmlDom);
+        error_reporting($errorlevel);
         
-        if ( !$result ) {
+        if (false === $result) {
             //$errno = xslt_errno($processor);
             //$err   = xslt_error($processor);    
             throw new BuildException("XSLT Error");            
@@ -288,6 +289,28 @@ class XSLTParam {
     }
     
     /**
+     * Sets expression value (alias to the setExpression()) method. 
+     *
+     * @param string $v
+     * @see setExpression()
+     */
+    public function setValue($v)
+    {
+    	$this->setExpression($v);
+    }
+    
+	/**
+     * Gets expression value (alias to the getExpression()) method. 
+     *
+     * @param string $v
+     * @see getExpression()
+     */
+    public function getValue()
+    {
+    	return $this->getExpression();
+    }
+    
+    /**
      * Sets expression value.
      * @param string $expr
      */
@@ -316,4 +339,3 @@ class XSLTParam {
     }        
 }
 
-?>

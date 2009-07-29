@@ -19,11 +19,8 @@
  * <http://phing.info>. 
  */
 
-namespace phing::types;
-use phing::BuildException;
-use phing::types::FileSet;
-use phing::Project;
-use phing::sytem::io::File;
+require_once 'phing/types/DataType.php';
+include_once 'phing/system/io/PhingFile.php';
 
 /**
  * FileList represents an explicitly named list of files. FileLists
@@ -57,7 +54,7 @@ class FileList extends DataType {
     /** Base directory for this file list. */
     public $dir;
     
-    /** File that contains a list of files (one per line). */
+    /** PhingFile that contains a list of files (one per line). */
     public $listfile;
     
     /**
@@ -85,21 +82,21 @@ class FileList extends DataType {
 
     /**
      * Base directory for files in list.
-     * @param File $dir
+     * @param PhingFile $dir
      */
-    function setDir(File $dir) {
+    function setDir(PhingFile $dir) {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if (!($dir instanceof File)) {
-            $dir = new File($dir);
+        if (!($dir instanceof PhingFile)) {
+            $dir = new PhingFile($dir);
         }
         $this->dir = $dir;
     }
     
     /**
      * Get the basedir for files in list.
-     * @return File
+     * @return PhingFile
      */
     function getDir(Project $p) {
         if ($this->isReference()) {
@@ -137,8 +134,8 @@ class FileList extends DataType {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if (!($file instanceof File)) {
-            $file = new File($file);
+        if (!($file instanceof PhingFile)) {
+            $file = new PhingFile($file);
         }
         $this->listfile = $file;
     }
@@ -146,7 +143,7 @@ class FileList extends DataType {
     /**
      * Get the source "list" file that contains file names.
      * @param Project $p
-     * @return File
+     * @return PhingFile
      */
     function getListFile(Project $p) {
         if ($this->isReference()) {

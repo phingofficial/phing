@@ -19,12 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::sytem::io::File;
-use phing::types::FileSet;
+require_once 'phing/Task.php';
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
@@ -41,7 +36,25 @@ class PhpLintTask extends Task {
 	protected $errorProperty;
 	protected $haltOnFailure = false;
 	protected $hasErrors = false;
-    private $badFiles = array();
+	private $badFiles = array();
+	protected $interpreter = ''; // php interpreter to use for linting
+
+    /**
+     * Initialize the interpreter with the Phing property
+     */
+    public function __construct() {
+        $this->setInterpreter(Phing::getProperty('php.interpreter'));
+    }
+
+	/**
+	 * Override default php interpreter
+	 * @todo	Do some sort of checking if the path is correct but would 
+	 *			require traversing the systems executeable path too
+	 * @param	string	$sPhp
+	 */
+	public function setInterpreter($sPhp) {
+		$this->Interpreter = $sPhp;
+	}
 
 	/**
 	 * The haltonfailure property
@@ -53,9 +66,9 @@ class PhpLintTask extends Task {
 
 	/**
 	 * File to be performed syntax check on
-	 * @param File $file
+	 * @param PhingFile $file
 	 */
-	public function setFile(File $file) {
+	public function setFile(PhingFile $file) {
 		$this->file = $file;
 	}
 
@@ -79,14 +92,14 @@ class PhpLintTask extends Task {
 	}
 
 	/**
-	 * Execute lint check against File or a FileSet
+	 * Execute lint check against PhingFile or a FileSet
 	 */
 	public function main() {
 		if(!isset($this->file) and count($this->filesets) == 0) {
 			throw new BuildException("Missing either a nested fileset or attribute 'file' set");
 		}
 
-		if($this->file instanceof File) {
+		if($this->file instanceof PhingFile) {
 			$this->lint($this->file->getPath());
 		} else { // process filesets
 			$project = $this->getProject();
@@ -110,7 +123,10 @@ class PhpLintTask extends Task {
 	 * @return void
 	 */
 	protected function lint($file) {
-		$command = 'php -l ';
+        $command = $this->Interpreter == ''
+            ? 'php'
+            : $this->Interpreter;
+        $command .= ' -l ';
 		if(file_exists($file)) {
 			if(is_readable($file)) {
 				$messages = array();
@@ -139,4 +155,5 @@ class PhpLintTask extends Task {
 	}
 }
 
-?>
+
+

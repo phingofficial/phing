@@ -19,9 +19,8 @@
  * <http://phing.info>. 
  */
 
-namespace phing::types;
-use phing::BuildException;
-use phing::Project;
+include_once 'phing/types/DataType.php';
+include_once 'phing/types/Path.php';
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).
@@ -205,4 +204,4 @@ class Mapper extends DataType {
     }
 }
 
-?>
+

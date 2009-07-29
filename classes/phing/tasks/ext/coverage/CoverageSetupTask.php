@@ -19,15 +19,11 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::coverage;
-use phing::Phing;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::types::Path;
-use phing::types::FileSet;
-use phing::system::io::File;
-use phing::system::util::Properties;
+require_once 'phing/Task.php';
+require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/system/io/Writer.php';
+require_once 'phing/system/util/Properties.php';
+require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 
 /**
  * Initializes a code coverage database
@@ -104,7 +100,7 @@ class CoverageSetupTask extends Task
 
 			foreach ($includedFiles as $file)
 			{
-				$fs = new File(realpath($ds->getBaseDir()), $file);
+				$fs = new PhingFile(realpath($ds->getBaseDir()), $file);
 					
 				$files[] = array('key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath());
 			}
@@ -137,7 +133,7 @@ class CoverageSetupTask extends Task
 			$props->setProperty($filename, serialize(array('fullname' => $fullname, 'coverage' => array())));
 		}
 
-		$dbfile = new File($this->database);
+		$dbfile = new PhingFile($this->database);
 
 		$props->store($dbfile);
 
@@ -147,7 +143,7 @@ class CoverageSetupTask extends Task
 		{
 			$fullname = $file['fullname'];
 			
-			xdebug_start_code_coverage(XDEBUG_CC_UNUSED);
+			xdebug_start_code_coverage(XDEBUG_CC_DEAD_CODE | XDEBUG_CC_UNUSED);
 			
 			Phing::__import($fullname, $this->classpath);
 			
@@ -159,4 +155,4 @@ class CoverageSetupTask extends Task
 		}
 	}
 }
-?>
+

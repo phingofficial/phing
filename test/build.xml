@@ -16,7 +16,7 @@
 
 	<!--
 		=========================================================================================
-		PHPUnit2 Targets
+		PHPUnit Targets
 		~~~~~~~~~~~~~~~~
 		
 		=========================================================================================					
@@ -52,14 +52,14 @@
 	</target>
 
 	<target name="reports" depends="configure">
-		<phpunit2 haltonerror="true" haltonfailure="false" printsummary="true">
+		<phpunit haltonerror="true" haltonfailure="false" printsummary="true">
 			<formatter type="xml" usefile="true" todir="${tests.reports.dir}" outfile="test-results.xml" />
 			<formatter type="plain" usefile="false"/>
 			<batchtest>
 				<fileset refid="relevant-tests"/>
 			</batchtest>
-		</phpunit2>
-		<phpunit2report format="noframes" todir="${tests.reports.dir}" infile="${tests.reports.dir}/test-results.xml" styledir="${tests.phpunit.dir}/etc/xsl"/>
+		</phpunit>
+		<phpunitreport format="noframes" todir="${tests.reports.dir}" infile="${tests.reports.dir}/test-results.xml" styledir="${tests.phpunit.dir}/etc/xsl"/>
 	</target>
 	
 	<!-- run the insert-sql target of the build.xml unless we are doing this for one specific test -->
@@ -70,6 +70,6 @@
 		<property name="test.class" value="" override="true"/>
 	</target>
 	
-	<target name="phpunit" depends="initialize,reports" description="Executes the PHPUnit2 test suite"/>
+	<target name="phpunit" depends="initialize,reports" description="Executes the PHPUnit test suite"/>
 	
 </project>

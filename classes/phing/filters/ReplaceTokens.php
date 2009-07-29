@@ -20,8 +20,9 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/types/TokenSource.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /*
  * Replaces tokens in the original input with user-supplied values.
@@ -409,6 +410,15 @@ class Token {
     function getValue() {
         return $this->_value;
     }
+
+    /**
+     * Sets the token value from text.
+     *
+     * @param string $value The value for this token. Must not be <code>null</code>.
+     */
+    function addText($value) {
+        $this->setValue($value);
+    }
 }
 
-?>
+

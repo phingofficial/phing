@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$
  *
@@ -18,9 +19,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-namespace phing::input;
-use phing::BuildException;
 
 /**
  * Encapsulates an input request.

@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system::condition;
-use phing::BuildException;
+require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  *  <not> condition.

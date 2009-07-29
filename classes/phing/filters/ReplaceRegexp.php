@@ -20,9 +20,9 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
-use phing::Project;
+require_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
+include_once 'phing/types/RegularExpression.php';
 
 /**
  * Performs a regexp find/replace on stream.
@@ -126,4 +126,4 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader {
 
 }
 
-?>
+

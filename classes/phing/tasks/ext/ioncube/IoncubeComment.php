@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::ioncube;
-use phing::BuildException;
-
 /**
  * Wrapper for comments for ionCube tasks
  *
@@ -44,4 +41,3 @@ class IoncubeComment
 		$this->value = trim($txt);
 	}
 }
-?>

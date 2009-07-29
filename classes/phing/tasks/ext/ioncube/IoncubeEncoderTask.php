@@ -19,10 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::ioncube;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
 
 /**
  * Invokes the ionCube Encoder (PHP4 or PHP5)
@@ -410,7 +408,7 @@ class IoncubeEncoderTask extends Task
 	{
 		$arguments = $this->constructArguments();
 		
-		$encoder = new File($this->ioncubePath, $this->encoderName . ($this->phpVersion == 5 ? '5' : ''));
+		$encoder = new PhingFile($this->ioncubePath, $this->encoderName . ($this->phpVersion == 5 ? '5' : ''));
 		
 		$this->log("Running ionCube Encoder...");
 		
@@ -487,4 +485,3 @@ class IoncubeEncoderTask extends Task
 		return $arguments;
 	}
 }
-?>

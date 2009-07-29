@@ -20,9 +20,9 @@
  * <http://phing.info>.
  */
  
-
-require_once 'PHPUnit2/Framework/TestCase.php';
-
+require_once 'phing/BuildFileTest.php';
+require_once 'PHPUnit/Framework/TestCase.php';
+include_once 'phing/types/FileSet.php';
 
 /**
  * Unit tests for AbstractFileSet.
@@ -31,7 +31,7 @@ require_once 'PHPUnit2/Framework/TestCase.php';
  * @version $Revision: 1.3 $
  * @package phing.types
  */
-abstract class AbstractFileSetTest extends PHPUnit2_Framework_TestCase {
+abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase {
 
     private $project;
     
@@ -96,7 +96,7 @@ abstract class AbstractFileSetTest extends PHPUnit2_Framework_TestCase {
         }
         
         try {
-            $f->setIncludesfile(new File("/a"));
+            $f->setIncludesfile(new PhingFile("/a"));
             $this->fail("Can set includesfile in "
                  . $f->getDataTypeName()
                  . " that is a reference.");
@@ -116,7 +116,7 @@ abstract class AbstractFileSetTest extends PHPUnit2_Framework_TestCase {
         }
  
         try {
-            $f->setExcludesfile(new File("/a"));
+            $f->setExcludesfile(new PhingFile("/a"));
             $this->fail("Can set excludesfile in "
                  . $f->getDataTypeName()
                  . " that is a reference.");

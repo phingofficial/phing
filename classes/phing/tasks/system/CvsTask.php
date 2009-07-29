@@ -19,11 +19,9 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::system::io::File;
+require_once 'phing/Task.php';
+include_once 'phing/tasks/system/ExecTask.php';
+include_once 'phing/types/Commandline.php';
 
 /**
  * Task for performing CVS operations.
@@ -147,7 +145,7 @@ class CvsTask extends Task {
          // use the same filename.
 
         if ($this->passFile === null) {
-            $defaultPassFile = new File(Phing::getProperty("cygwin.user.home", Phing::getProperty("user.home")) 
+            $defaultPassFile = new PhingFile(Phing::getProperty("cygwin.user.home", Phing::getProperty("user.home")) 
                 . DIRECTORY_SEPARATOR . ".cvspass");
             if($defaultPassFile->exists()) {
                 $this->setPassfile($defaultPassFile);
@@ -344,7 +342,7 @@ class CvsTask extends Task {
      *
      * @param passFile
      */
-    public function setPassfile(File $passFile) {
+    public function setPassfile(PhingFile $passFile) {
         $this->passFile = $passFile;
     }
     
@@ -358,9 +356,9 @@ class CvsTask extends Task {
     /**
      * The directory where the checked out files should be placed.
      *
-     * @param File $dest
+     * @param PhingFile $dest
      */
-    public function setDest(File $dest) {
+    public function setDest(PhingFile $dest) {
         $this->dest = $dest;
     }
 
@@ -525,17 +523,17 @@ class CvsTask extends Task {
 
     /**
      * File to which output should be written.
-     * @param File $output
+     * @param PhingFile $output
      */
-    function setOutput(File $f) {
+    function setOutput(PhingFile $f) {
         $this->output = $f;
     }
     
     /**
      * File to which error output should be written.
-     * @param File $output
+     * @param PhingFile $output
      */
-    function setError(File $f) {
+    function setError(PhingFile $f) {
         $this->error = $f;
     }
 

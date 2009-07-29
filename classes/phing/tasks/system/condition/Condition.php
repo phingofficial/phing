@@ -20,9 +20,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system::condition;
-use phing::BuildException;
-
 /**
  * Condition interface specification:
  *
@@ -39,4 +36,3 @@ interface Condition {
      */
     public function evaluate();
 }
-?>

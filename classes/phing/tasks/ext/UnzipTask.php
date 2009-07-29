@@ -18,52 +18,60 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Project;
-use phing::sytem::io::File;
+require_once 'phing/tasks/ext/ExtractBaseTask.php';
+require_once 'phing/system/io/FileSystem.php';
 
 /**
- * Extracts one or several zip archive using PEAR Archive_Zip (which is presently unreleased
- * and included with Phing).
+ * Extracts one or several zip archives using ZipArchive class.
  *
- * @author    Joakim Bodin <joakim.bodin+phing@gmail.com>
- * @version   $Revision: 1.0 $
- * @package   phing.tasks.ext
- * @since     2.2.0
+ * @author  Joakim Bodin <joakim.bodin+phing@gmail.com>
+ * @author  George Miroshnikov <laggy.luke@gmail.com>
+ * @version $Revision$
+ * @package phing.tasks.ext
  */
-class UnzipTask extends ExtractBaseTask {
-    
-    protected function extractArchive(File $zipfile)
+class UnzipTask extends ExtractBaseTask
+{
+    /**
+     * Extract archive content into $this->todir directory
+     * @param PhingFile Zip file to extract
+     * @return boolean
+     */
+    protected function extractArchive(PhingFile $zipfile)
     {
-        $extractParams = array('add_path' => $this->todir->getAbsolutePath());
-        if(!empty($this->removepath))
-        {
-            $extractParams['remove_path'] = $this->removepath;
-        }
-        
         $this->log("Extracting zip: " . $zipfile->__toString() . ' to ' . $this->todir->__toString(), Project::MSG_INFO);
         
-    	try {
-        	$zip = new Archive_Zip($zipfile->getAbsolutePath());
-        	
-        	$extractResponse = $zip->extract($extractParams);
-        	if(is_array($extractResponse)) {
-        	    foreach ($extractResponse as $extractedPath) {
-        	    	$this->log('Extracted' . $extractedPath['stored_filename'] . ' to ' . $this->todir->__toString(), Project::MSG_VERBOSE);
-        	    }
-        	} else if ($extractResponse === 0) {
-        	    throw new BuildException('Failed to extract zipfile: ' . $zip->errorInfo(true));
-        	}
-        } catch (IOException $ioe) {
-            $msg = "Could not extract ZIP: " . $ioe->getMessage();
-            throw new BuildException($msg, $ioe, $this->getLocation());
+        $zip = new ZipArchive();
+        
+        $result = $zip->open($zipfile->getAbsolutePath());
+        if (!$result) {
+            $this->log("Unable to open zipfile " . $zipfile->__toString(), Project::MSG_ERR);
+            return false;
         }
+        
+        $result = $zip->extractTo($this->todir->getAbsolutePath());
+        if (!$result) {
+            $this->log("Unable to extract zipfile " . $zipfile->__toString(), Project::MSG_ERR);
+            return false;
+        }
+        
+        return true;
     }
     
-    protected function listArchiveContent(File $zipfile)
+    /**
+     * List archive content
+     * @param PhingFile Zip file to list content
+     * @return array List of files inside $zipfile
+     */
+    protected function listArchiveContent(PhingFile $zipfile)
     {
-        $zip = new Archive_Zip($zipfile->getAbsolutePath());
-        return $zip->listContent();
+        $zip = new ZipArchive();
+        $zip->open($zipfile->getAbsolutePath());
+        
+        $content = array();
+        for ($i = 0; $i < $zip->numFiles; $i++) {
+            $content[] = $zip->getNameIndex($i);
+        }
+        return $content;
     }
 }
+

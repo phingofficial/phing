@@ -19,17 +19,13 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::phpunit;
-use phing::Phing;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::types::FileSet;
-use phing::system::io::File;
-use phing::system::io::FileWriter;
+require_once 'phing/Task.php';
+require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/system/io/FileWriter.php';
+require_once 'phing/util/ExtendedFileStream.php';
 
 /**
- * Transform a PHPUnit2 xml report using XSLT.
+ * Transform a PHPUnit xml report using XSLT.
  * This transformation generates an html report in either framed or non-framed
  * style. The non-framed style is convenient to have a concise report via mail, 
  * the framed report is much more convenient if you want to browse into 
@@ -87,11 +83,11 @@ class PHPUnitReportTask extends Task
 	 */
 	private function getStyleSheet()
 	{
-		$xslname = "phpunit2-" . $this->format . ".xsl";
-
+		$xslname = "phpunit-" . $this->format . ".xsl";
+		
 		if ($this->styleDir)
 		{
-			$file = new File($this->styleDir, $xslname);
+			$file = new PhingFile($this->styleDir, $xslname);
 		}
 		else
 		{
@@ -107,7 +103,7 @@ class PHPUnitReportTask extends Task
 				}
 			}
 			
-			$file = new File($path);
+			$file = new PhingFile($path);
 		}
 
 		if (!$file->exists())
@@ -123,7 +119,7 @@ class PHPUnitReportTask extends Task
 	 */
 	private function transform(DOMDocument $document)
 	{
-		$dir = new File($this->toDir);
+		$dir = new PhingFile($this->toDir);
 		
 		if (!$dir->exists())
 		{
@@ -140,7 +136,7 @@ class PHPUnitReportTask extends Task
 
 		if ($this->format == "noframes")
 		{
-			$writer = new FileWriter(new File($this->toDir, "phpunit2-noframes.html"));
+			$writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
 			$writer->write($proc->transformToXML($document));
 			$writer->close();
 		}
@@ -150,9 +146,11 @@ class PHPUnitReportTask extends Task
 
 			// no output for the framed report
 			// it's all done by extension...
-			$dir = new File($this->toDir);
-			$proc->setParameter('', 'output.dir', $dir->getAbsolutePath());
+			$dir = new PhingFile($this->toDir);
+			$proc->setParameter('', 'output.dir', $dir->toString());
 			$proc->transformToXML($document);
+			
+			ExtendedFileStream::unregisterStream();
 		}
 	}
 	
@@ -188,4 +186,3 @@ class PHPUnitReportTask extends Task
 		$this->transform($testSuitesDoc);
 	}
 }
-?>

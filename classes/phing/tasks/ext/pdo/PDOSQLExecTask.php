@@ -19,10 +19,9 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::pdo;
-use phing::BuildException;
-use phing::util::StringHelper;
-use phing::sytem::io::File;
+require_once 'phing/tasks/ext/pdo/PDOTask.php';
+include_once 'phing/system/io/StringReader.php';
+include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
 
 /**
  * Executes a series of SQL statements on a database using PDO.
@@ -96,7 +95,7 @@ class PDOSQLExecTask extends PDOTask {
 
     /**
      * SQL input file
-     * @var File
+     * @var PhingFile
      */
     private $srcFile;
 
@@ -143,7 +142,7 @@ class PDOSQLExecTask extends PDOTask {
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
      */
-    public function setSrc(File $srcFile) {
+    public function setSrc(PhingFile $srcFile) {
     	$this->srcFile = $srcFile;
     }
 
@@ -299,7 +298,7 @@ class PDOSQLExecTask extends PDOTask {
     			// Make a transaction for each file
     			foreach($srcFiles as $srcFile) {
     				$t = $this->createTransaction();
-    				$t->setSrc(new File($srcDir, $srcFile));
+    				$t->setSrc(new PhingFile($srcDir, $srcFile));
     			}
     		}
 
@@ -373,52 +372,80 @@ class PDOSQLExecTask extends PDOTask {
      */
     public function runStatements(Reader $reader) {
     	$sql = "";
-    	$line = "";
-    	$in = new BufferedReader($reader);
-    	try {
-    		while (($line = $in->readLine()) !== null) {
-    			$line = trim($line);
-    			$line = ProjectConfigurator::replaceProperties($this->project, $line,
-    			$this->project->getProperties());
+		$line = "";
+		$sqlBacklog = "";
+		$hasQuery = false;
 
-    			if (StringHelper::startsWith("//", $line) ||
-    			StringHelper::startsWith("--", $line) ||
-    			StringHelper::startsWith("#", $line)) {
-    				continue;
-    			}
+		$in = new BufferedReader($reader);
 
-    			if (strlen($line) > 4
-    			&& strtoupper(substr($line,0, 4)) == "REM ") {
-    				continue;
-    			}
+		try {
+			while (($line = $in->readLine()) !== null) {
+				$line = trim($line);
+				$line = ProjectConfigurator::replaceProperties($this->project, $line,
+						$this->project->getProperties());
 
-    			$sql .= " " . $line;
-    			$sql = trim($sql);
+				if (StringHelper::startsWith("//", $line) ||
+					StringHelper::startsWith("--", $line) ||
+					StringHelper::startsWith("#", $line)) {
+					continue;
+				}
 
-    			// SQL defines "--" as a comment to EOL
-    			// and in Oracle it may contain a hint
-    			// so we cannot just remove it, instead we must end it
-    			if (strpos($line, "--") !== false) {
-    				$sql .= "\n";
-    			}
+				if (strlen($line) > 4
+						&& strtoupper(substr($line,0, 4)) == "REM ") {
+					continue;
+				}
 
-    			if ($this->delimiterType == self::DELIM_NORMAL
-    			&& StringHelper::endsWith($this->delimiter, $sql)
-    			|| $this->delimiterType == self::DELIM_ROW
-    			&& $line == $this->delimiter) {
-    				$this->log("SQL: " . $sql, Project::MSG_VERBOSE);
-    				$this->execSQL(StringHelper::substring($sql, 0, strlen($sql) - strlen($this->delimiter) - 1));
-    				$sql = "";
-    			}
-    		}
+				if ($sqlBacklog !== "") {
+					$sql = $sqlBacklog;
+					$sqlBacklog = "";
+				}
 
-    		// Catch any statements not followed by ;
-    		if ($sql !== "") {
-    			$this->execSQL($sql);
-    		}
-    	} catch (PDOException $e) {
-    		throw new BuildException("Error running statements", $e);
-    	}
+				$sql .= " " . $line . "\n";
+
+				// SQL defines "--" as a comment to EOL
+				// and in Oracle it may contain a hint
+				// so we cannot just remove it, instead we must end it
+				if (strpos($line, "--") !== false) {
+					$sql .= "\n";
+				}
+
+				// DELIM_ROW doesn't need this (as far as i can tell)
+				if ($this->delimiterType == self::DELIM_NORMAL) {
+
+					$reg = "#((?:\"(?:\\\\.|[^\"])*\"?)+|'(?:\\\\.|[^'])*'?|" . preg_quote($this->delimiter) . ")#";
+
+					$sqlParts = preg_split($reg, $sql, 0, PREG_SPLIT_DELIM_CAPTURE);
+					$sqlBacklog = "";
+					foreach ($sqlParts as $sqlPart) {
+						// we always want to append, even if it's a delim (which will be stripped off later)
+						$sqlBacklog .= $sqlPart;
+
+						// we found a single (not enclosed by ' or ") delimiter, so we can use all stuff before the delim as the actual query
+						if ($sqlPart === $this->delimiter) {
+							$sql = $sqlBacklog;
+							$sqlBacklog = "";
+							$hasQuery = true;
+						}
+					}
+				}
+
+				if ($hasQuery || ($this->delimiterType == self::DELIM_ROW && $line == $this->delimiter)) {
+					// this assumes there is always a delimter on the end of the SQL statement.
+					$sql = StringHelper::substring($sql, 0, strlen($sql) - 1 - strlen($this->delimiter));
+					$this->log("SQL: " . $sql, Project::MSG_VERBOSE);
+					$this->execSQL($sql);
+					$sql = "";
+					$hasQuery = false;
+				}
+			}
+
+			// Catch any statements not followed by ;
+			if ($sql !== "") {
+				$this->execSQL($sql);
+			}
+		} catch (PDOException $e) {
+			throw $e;
+		}
     }
 
     /**
@@ -453,7 +480,11 @@ class PDOSQLExecTask extends PDOTask {
     		$this->statement->execute();
     		$this->log($this->statement->rowCount() . " rows affected", Project::MSG_VERBOSE);
 
-    		$this->processResults();
+    		// only call processResults() for statements that return actual data (such as 'select')
+    		if ($this->statement->columnCount() > 0)
+    		{
+    			$this->processResults();
+    		}
 
     		$this->statement->closeCursor();
     		$this->statement = null;
@@ -550,7 +581,7 @@ class PDOSQLExecTransaction {
 		$this->parent = $parent;
 	}
 
-	public function setSrc(File $src)
+	public function setSrc(PhingFile $src)
 	{
 		$this->tSrcFile = $src;
 	}

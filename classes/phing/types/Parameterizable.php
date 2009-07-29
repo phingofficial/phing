@@ -20,9 +20,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::types;
-use phing::BuildException;
-
 /**
  * Parameterizable objects take genric key value pairs.
  *

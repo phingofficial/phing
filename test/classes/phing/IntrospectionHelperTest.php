@@ -19,8 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit2/Framework/TestCase.php';
-
+require_once 'PHPUnit/Framework/TestCase.php';
+include_once 'phing/tasks/system/condition/OsCondition.php';
 
 /**
  * testcases for phing.IntrospectionHelper.
@@ -29,7 +29,7 @@ require_once 'PHPUnit2/Framework/TestCase.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Revision: 1.6 $
  */
-class IntrospectionHelperTest extends PHPUnit2_Framework_TestCase {
+class IntrospectionHelperTest extends PHPUnit_Framework_TestCase {
 
     /** @var Project */
     private $p;

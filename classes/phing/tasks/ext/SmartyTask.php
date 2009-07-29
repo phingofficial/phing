@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$
  *
@@ -19,12 +20,9 @@
  * <http://phing.info>. 
  */
  
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::util::StringHelper;
-use phing::sytem::io::File;
+require_once 'phing/Task.php';
+include_once 'phing/BuildException.php';
+include_once 'phing/util/StringHelper.php';
 
 /**
  * A phing task for generating output by using Smarty.
@@ -228,11 +226,11 @@ class SmartyTask extends Task {
     /**
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
-     * @param File $outputDirectory
+     * @param PhingFile $outputDirectory
      * @return void
      * @throws Exception
      */
-    public function setOutputDirectory(File $outputDirectory) {
+    public function setOutputDirectory(PhingFile $outputDirectory) {
         try {            
             if (!$outputDirectory->exists()) {
                 $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),Project::MSG_VERBOSE);
@@ -494,7 +492,7 @@ class SmartyTask extends Task {
             $this->context->template_dir = $this->templatePath;
         }                                                        
         
-        $smartyCompilePath = new File($this->context->compile_dir);
+        $smartyCompilePath = new PhingFile($this->context->compile_dir);
         if (!$smartyCompilePath->exists()) {
             $this->log("Compile directory does not exist, creating: " . $smartyCompilePath->getPath(), Project::MSG_VERBOSE);
             if (!$smartyCompilePath->mkdirs()) {
@@ -504,7 +502,7 @@ class SmartyTask extends Task {
         
         // Make sure the output directory exists, if it doesn't
         // then create it.
-        $file = new File($this->outputDirectory);
+        $file = new PhingFile($this->outputDirectory);
         if (!$file->exists()) {
             $this->log("Output directory does not exist, creating: " . $file->getAbsolutePath());
             $file->mkdirs();
@@ -545,7 +543,7 @@ class SmartyTask extends Task {
                     // reset value, and then 
                     // read in teh contents of the file into that var
                     $value = "";
-                    $f = new File($project->resolveFile($value)->getCanonicalPath());                        
+                    $f = new PhingFile($project->resolveFile($value)->getCanonicalPath());                        
                     if ($f->exists()) {
                         try {
                             $fr = new FileReader($f);

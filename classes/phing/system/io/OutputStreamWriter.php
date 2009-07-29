@@ -19,8 +19,8 @@
  * <http://phing.info>.
  */
  
-namespace phing::system::io;
-use phing::BuildException;
+include_once 'phing/system/io/PhingFile.php';
+require_once 'phing/system/io/Writer.php';
 
 /**
  * Writer class for OutputStream objects.

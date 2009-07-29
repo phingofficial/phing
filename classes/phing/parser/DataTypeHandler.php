@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::parser;
-use phing::BuildException;
+include_once 'phing/RuntimeConfigurable.php';
 
 /**
  * Configures a Project (complete with Targets and Tasks) based on

@@ -17,10 +17,9 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- */
+*/
 
-namespace phing::types;
-use phing::BuildException;
+include_once 'phing/types/DataType.php';
 
 /*
  * A parameter is composed of a name, type and value. Nested
@@ -97,4 +96,4 @@ class Parameter extends DataType {
     }
 }
 
-?>
+

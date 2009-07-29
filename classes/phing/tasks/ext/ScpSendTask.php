@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
 
 /**
  * SCPs a File to a remote server 
@@ -192,4 +189,4 @@ class ScpSendTask extends Task
 		}
 	}
 }
-?>
+

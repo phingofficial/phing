@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::system::util;
-use phing::BuildException;
 
 /**
  * This class can be used to obtain the execution time of all of the scripts

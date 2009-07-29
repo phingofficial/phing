@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+include_once 'phing/Task.php';
 
 /**
  *  Echos a message to the logging system or to a file

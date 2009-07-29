@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing;
-
+require_once 'phing/Task.php';
 
 /**
  *  Use introspection to "adapt" an arbitrary ( not extending Task, but with

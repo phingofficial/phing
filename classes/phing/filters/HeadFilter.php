@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$  
  * 
@@ -19,8 +20,8 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Reads the first <code>n</code> lines of a stream.
@@ -157,4 +158,4 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader {
     }
 }
 
-?>
+

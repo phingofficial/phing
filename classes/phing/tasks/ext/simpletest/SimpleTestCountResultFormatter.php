@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::simpletest;
-use phing::BuildException;
+require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
 
 /**
  * Dummy result formatter used to count SimpleTest results
@@ -50,4 +49,3 @@ class SimpleTestCountResultFormatter extends SimpleTestResultFormatter
 		return self::SUCCESS;
 	}	
 }
-?>

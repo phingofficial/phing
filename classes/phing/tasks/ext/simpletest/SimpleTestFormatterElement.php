@@ -19,8 +19,9 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::simpletest;
-use phing::BuildException;
+require_once 'phing/tasks/ext/simpletest/SimpleTestPlainResultFormatter.php';
+require_once 'phing/tasks/ext/simpletest/SimpleTestSummaryResultFormatter.php';
+require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
 /**
  * Child class of "FormatterElement", overrides setType to provide other
@@ -39,7 +40,7 @@ class SimpleTestFormatterElement extends FormatterElement
 
 		if ($this->type == "xml")
 		{
-			$destFile = new File($this->toDir, 'testsuites.xml');
+			$destFile = new PhingFile($this->toDir, 'testsuites.xml');
 			//$this->formatter = new SimpleTestXmlResultFormatter();
 		}
 		else
@@ -53,9 +54,13 @@ class SimpleTestFormatterElement extends FormatterElement
 			$this->formatter = new SimpleTestSummaryResultFormatter();
 		}
 		else
+		if ($this->type == "debug")
+		{
+			$this->formatter = new SimpleTestDebugResultFormatter();
+		}
+		else
 		{
 			throw new BuildException("Formatter '" . $this->type . "' not implemented");
 		}
 	}
 }
-?>

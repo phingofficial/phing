@@ -21,8 +21,8 @@
  */
 
 
-require_once 'PHPUnit2/Framework/TestCase.php';
-
+require_once 'PHPUnit/Framework/TestCase.php';
+include_once 'phing/system/io/FileOutputStream.php';
 
 /**
  * Unit test for FileOutputStream.
@@ -30,7 +30,7 @@ require_once 'PHPUnit2/Framework/TestCase.php';
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.system
  */
-class FileOutputStreamTest extends PHPUnit2_Framework_TestCase {
+class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var FileOutputStream
@@ -38,7 +38,7 @@ class FileOutputStreamTest extends PHPUnit2_Framework_TestCase {
     private $outStream;
     
     public function setUp() {
-		$this->tmpFile = new File("tmp/" . get_class($this) . ".txt");
+		$this->tmpFile = new PhingFile("tmp/" . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
     

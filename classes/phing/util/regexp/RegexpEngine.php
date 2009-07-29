@@ -19,9 +19,6 @@
  * <http://phing.info>. 
  */
 
-namespace phing::util::regexp;
-use phing::BuildException;
-
 /**
  * Contains some shared attributes and methods -- and some abstract methods with
  * engine-specific implementations that sub-classes must override.
@@ -74,4 +71,3 @@ interface RegexpEngine {
 
 }
 
-?>

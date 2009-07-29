@@ -19,12 +19,8 @@
  * <http://phing.info>.
  */
  
-namespace phing::listener;
-use phing::BuildException;
-use phing::Phing;
-use phing::Project;
-use phing::BuildEvent;
-use phing::system::io::OutputStream;
+require_once 'phing/listener/StreamRequiredBuildLogger.php';
+include_once 'phing/BuildEvent.php';
 
 /**
  *  Writes a build event to the console.
@@ -38,7 +34,7 @@ use phing::system::io::OutputStream;
  *  @see       BuildEvent
  *  @package   phing.listener
  */
-class DefaultLogger implements BuildLogger {
+class DefaultLogger implements StreamRequiredBuildLogger {
 
     /**
      *  Size of the left column in output. The default char width is 12.

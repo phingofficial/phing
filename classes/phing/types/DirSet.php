@@ -1,4 +1,5 @@
 <?php
+
 /*
  * $Id$
  *
@@ -19,9 +20,7 @@
  * <http://phing.info>.
  */
  
-namespace phing::types;
-use phing::BuildException;
-use phing::types::FileSet;
+include_once 'phing/types/AbstractFileSet.php';
 
 /**
  * Subclass as hint for supporting tasks that the included directories

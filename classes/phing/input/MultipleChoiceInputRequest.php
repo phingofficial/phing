@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::input;
-use phing::BuildException;
+require_once 'phing/input/InputRequest.php';
 
 /**
  * Encapsulates an input request.

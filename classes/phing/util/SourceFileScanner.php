@@ -19,12 +19,6 @@
  * <http://phing.info>. 
  */
 
-namespace phing::util;
-use phing::BuildException;
-use phing::Phing;
-use phing::Project;
-use phing::Task;
-
 /**
  *  Utility class that collects the functionality of the various
  *  scanDir methods that have been scattered in several tasks before.
@@ -35,19 +29,19 @@ use phing::Task;
  *  @package   phing.util
  */
 class SourceFileScanner {
+
+    /** Instance of FileUtils */
+    private $fileUtils;
     
-    /**
-	 * Task this class is working for -- for logging purposes.
-	 * @var Task
-	 */
+    /** Task this class is working for -- for logging purposes. */
     private $task;
 
     /**
-     * Construct a new SourceFileScanner with Task object.
-     * @param Task $task The task we should log messages through
+     * @param task The task we should log messages through
      */
-    function __construct(Task $task) {
+    function __construct($task) {
         $this->task = $task;
+        $this->fileUtils = new FileUtils();
     }
 
     /**
@@ -93,9 +87,9 @@ class SourceFileScanner {
             $src = null;
             try {
                 if ($srcDir === null) {
-                    $src = new File($files[$i]);
+                    $src = new PhingFile($files[$i]);
                 } else {
-                    $src = FileUtils::resolveFile($srcDir, $files[$i]);
+                    $src = $this->fileUtils->resolveFile($srcDir, $files[$i]);
                 }
     
                 if ($src->lastModified() > $now) {
@@ -113,9 +107,9 @@ class SourceFileScanner {
 
                 $dest = null;
                 if ($destDir === null) {
-                    $dest = new File($targets[$j]);
+                    $dest = new PhingFile($targets[$j]);
                 } else {
-                    $dest = FileUtils::resolveFile($destDir, $targets[$j]);
+                    $dest = $this->fileUtils->resolveFile($destDir, $targets[$j]);
                 }
 
                 if (!$dest->exists()) {
@@ -150,16 +144,16 @@ class SourceFileScanner {
 
     /**
      * Convenience layer on top of restrict that returns the source
-     * files as File objects (containing absolute paths if srcDir is
+     * files as PhingFile objects (containing absolute paths if srcDir is
      * absolute).
      */
     function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper) {
         $res = $this->restrict($files, $srcDir, $destDir, $mapper);
         $result = array();
         for ($i=0; $i<count($res); $i++) {
-            $result[$i] = new File($srcDir, $res[$i]);
+            $result[$i] = new PhingFile($srcDir, $res[$i]);
         }
         return $result;
     }
 }
-?>
+

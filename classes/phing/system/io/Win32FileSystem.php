@@ -19,10 +19,7 @@
  * <http://phing.info>. 
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-use phing::Project;
-use phing::util::StringHelper;
+include_once 'phing/system/io/FileSystem.php';
 
 /**
  *  @package   phing.system.io
@@ -477,4 +474,4 @@ class Win32FileSystem extends FileSystem {
     
 }
 
-?>
+

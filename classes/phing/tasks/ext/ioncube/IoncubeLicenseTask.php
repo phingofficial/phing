@@ -19,10 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::ioncube;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
 
 /**
  * Invokes the ionCube "make_license" program
@@ -106,7 +104,7 @@ class IoncubeLicenseTask extends Task
 	{
 		$arguments = $this->constructArguments();
 		
-		$makelicense = new File($this->ioncubePath, 'make_license');
+		$makelicense = new PhingFile($this->ioncubePath, 'make_license');
 		
 		$this->log("Running ionCube make_license...");
 		
@@ -143,4 +141,3 @@ class IoncubeLicenseTask extends Task
 		return $arguments;
 	}
 }
-?>

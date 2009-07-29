@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing;
-
+require_once 'phing/Task.php';
 
 /**
  * Wrapper class that holds all information necessary to create a task

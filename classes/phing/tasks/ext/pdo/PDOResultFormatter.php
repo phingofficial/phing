@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::pdo;
-use phing::BuildException;
+require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Abstract 
@@ -83,4 +82,3 @@ abstract class PDOResultFormatter
 		$this->out->close();
 	}
 }
-?>

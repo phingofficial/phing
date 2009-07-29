@@ -19,11 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::phpunit;
-use phing::BuildException;
-use phing::system::io::File;
-use phing::tasks::ext::phpunit::phpunit3;
-use phing::tasks::ext::phpunit::phpunit2;
+require_once 'phing/system/io/PhingFile.php';
+
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
  *
@@ -50,46 +47,22 @@ class FormatterElement
 		
 		if ($this->type == "summary")
 		{
-			if (PHPUnitUtil::$installedVersion == 3)
-			{
-				
-				$this->formatter = new phpunit3::SummaryResultFormatter();
-			}
-			else			
-			{
-				
-				$this->formatter = new phpunit2::SummaryResultFormatter();
-			}
+			require_once 'phing/tasks/ext/phpunit/phpunit3/SummaryPHPUnit3ResultFormatter.php';
+			$this->formatter = new SummaryPHPUnit3ResultFormatter();
 		}
 		else
 		if ($this->type == "xml")
 		{
-			$destFile = new File($this->toDir, 'testsuites.xml');
+			$destFile = new PhingFile($this->toDir, 'testsuites.xml');
 
-			if (PHPUnitUtil::$installedVersion == 3)
-			{
-				
-				$this->formatter = new phpunit3::XMLResultFormatter();
-			}
-			else
-			{
-				
-				$this->formatter = new phpunit2::XMLResultFormatter();
-			}
+			require_once 'phing/tasks/ext/phpunit/phpunit3/XMLPHPUnit3ResultFormatter.php';
+			$this->formatter = new XMLPHPUnit3ResultFormatter();
 		}
 		else
 		if ($this->type == "plain")
 		{
-			if (PHPUnitUtil::$installedVersion == 3)
-			{
-				
-				$this->formatter = new phpunit3::PlainResultFormatter();
-			}
-			else
-			{
-				
-				$this->formatter = new phpunit2::PlainResultFormatter();
-			}
+			require_once 'phing/tasks/ext/phpunit/phpunit3/PlainPHPUnit3ResultFormatter.php';
+			$this->formatter = new PlainPHPUnit3ResultFormatter();
 		}
 		else
 		{
@@ -151,4 +124,3 @@ class FormatterElement
 		return $this->formatter;
 	}
 }
-?>

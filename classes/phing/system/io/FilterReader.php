@@ -19,8 +19,7 @@
  * <http://phing.info>. 
  */
 
-namespace phing::system::io;
-use phing::BuildException;
+require_once 'phing/system/io/Reader.php';
 
 /**
  * Wrapper class for readers, which can be used to apply filters.
@@ -66,4 +65,4 @@ class FilterReader extends Reader {
         return $this->in->getResource();
     }
 }
-?>
+

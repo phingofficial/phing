@@ -19,9 +19,6 @@
  * <http://phing.info>. 
  */
 
-namespace phing::mappers;
-use phing::BuildException;
-
 /**
  * Interface for filename mapper classes.
  *

@@ -19,9 +19,9 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters::util;
-use phing::BuildException;
-use phing::sytem::io::File;
+include_once 'phing/types/TokenReader.php';
+include_once 'phing/system/io/IOException.php';
+include_once 'phing/filters/ReplaceTokens.php'; // For class Token
 
 /**
  * Class that allows reading tokens from INI files.
@@ -34,7 +34,7 @@ class IniFileTokenReader extends TokenReader {
 
     /**
      * Holds the path to the INI file that is to be read.
-     * @var object  Reference to a File Object representing
+     * @var object  Reference to a PhingFile Object representing
      *              the path to the INI file.
      */
     private $file = null;
@@ -85,7 +85,7 @@ class IniFileTokenReader extends TokenReader {
             return null;
     }
     
-    function setFile(File $file) {
+    function setFile(PhingFile $file) {
         $this->file = $file;
     }
 
@@ -93,4 +93,5 @@ class IniFileTokenReader extends TokenReader {
         $this->section = (string) $str;
     }
 }
+
 

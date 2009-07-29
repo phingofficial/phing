@@ -19,9 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::types::selectors;
-use phing::BuildException;
-use phing::types::DataType;
+require_once 'phing/types/selectors/FileSelector.php';
 
 /**
  * A convenience base class that you can subclass Selectors from. It

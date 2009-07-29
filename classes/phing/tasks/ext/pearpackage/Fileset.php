@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::pearpackage;
-use phing::BuildException;
+include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Builds list of files for PEAR_PackageFileManager using a Phing FileSet.
@@ -116,7 +115,7 @@ class PEAR_PackageFileManager_Fileset {
                     $ext = '';
                 }
                 
-                $f = new File($basedir, $file);
+                $f = new PhingFile($basedir, $file);
                 
                 $struc[$path][] = array('file' => basename($file),
                                         'ext' => $ext,
@@ -229,4 +228,4 @@ class PEAR_PackageFileManager_Fileset {
         return strnatcasecmp($a,$b);
     }
 }
-?>
+

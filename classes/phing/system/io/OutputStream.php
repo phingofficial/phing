@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-
 /**
  * Wrapper class for PHP stream that supports write operations.
  * 

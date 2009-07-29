@@ -19,14 +19,12 @@
  * <http://phing.info>.
  */
 
-namespace phing;
-
-use phing::util::FileUtils;
-use phing::listener::BuildListener;
-use phing::input::InputHandler;
-use phing::system::util::Properties;
-use phing::system::io::File;
-use phing::util::StringHelper;
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/util/FileUtils.php';
+include_once 'phing/TaskAdapter.php';
+include_once 'phing/util/StringHelper.php';
+include_once 'phing/BuildEvent.php';
+include_once 'phing/input/DefaultInputHandler.php';
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -88,7 +86,7 @@ class Project {
     
     /* -- properties that come in via xml attributes -- */
     
-    /** basedir (File object) */
+    /** basedir (PhingFile object) */
     private $basedir;
     
     /** the default target name */
@@ -110,7 +108,8 @@ class Project {
      *  Constructor, sets any default vars.
      */
     function __construct() {
-        $this->inputHandler = new phing::input::DefaultInputHandler();
+        $this->fileUtils = new FileUtils();
+        $this->inputHandler = new DefaultInputHandler();
     }
 
     /**
@@ -137,7 +136,7 @@ class Project {
         
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new File((string)$taskdefs);
+            $in = new PhingFile((string)$taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -158,7 +157,7 @@ class Project {
 
         try { // try to load typedefs
             $props = new Properties();
-            $in    = new File((string)$typedefs);
+            $in    = new PhingFile((string)$typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }
@@ -289,7 +288,15 @@ class Project {
         if (!isset($this->properties[$name])) {
             return null;
         }
-        return $this->properties[$name];
+        $found = $this->properties[$name];
+        // check to see if there are unresolved property references
+        if (false !== strpos($found, '${')) {
+          // attempt to resolve properties
+          $found = $this->replaceProperties($found);
+          // save resolved value
+          $this->properties[$name] = $found;
+        }
+        return $found;
     }
 
     /**
@@ -435,13 +442,13 @@ class Project {
 
     /** Set basedir object from xml*/
     function setBasedir($dir) {
-        if ($dir instanceof File) {
+        if ($dir instanceof PhingFile) {
             $dir = $dir->getAbsolutePath();
         }
 
-        $dir = FileUtils::normalize($dir);
+        $dir = $this->fileUtils->normalize($dir);
 
-        $dir = new File((string) $dir);
+        $dir = new PhingFile((string) $dir);
         if (!$dir->exists()) {
             throw new BuildException("Basedir ".$dir->getAbsolutePath()." does not exist");
         }
@@ -459,7 +466,7 @@ class Project {
     /**
      * Returns the basedir of this project
      *
-     * @returns  File  Basedir File object
+     * @returns  PhingFile  Basedir PhingFile object
      * @access   public
      * @throws   BuildException
      * @author   Andreas Aderhold, andi@binarycloud.com
@@ -536,7 +543,7 @@ class Project {
             $this->typedefs[$typeName] = $typeClass;
             $this->log("  +User datatype: $typeName ($typeClass)", Project::MSG_DEBUG);
         } else {
-            $this->log("Type $name ($class) already registerd, skipping", Project::MSG_VERBOSE);
+            $this->log("Type $typeName ($typeClass) already registerd, skipping", Project::MSG_VERBOSE);
         }
     }
 
@@ -556,6 +563,10 @@ class Project {
         $this->log("  +Target: $targetName", Project::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
+
+        $ctx = $this->getReference("phing.parsing.context");
+        $current = $ctx->getConfigurator()->getCurrentTargets();
+        $current[$targetName] = $target;
     }
 
     function getTargets() {
@@ -711,9 +722,9 @@ class Project {
 
     function resolveFile($fileName, $rootDir = null) {
         if ($rootDir === null) {
-            return FileUtils::resolveFile($this->basedir, $fileName);
+            return $this->fileUtils->resolveFile($this->basedir, $fileName);
         } else {
-            return FileUtils::resolveFile($rootDir, $fileName);
+            return $this->fileUtils->resolveFile($rootDir, $fileName);
         }
     }    
 

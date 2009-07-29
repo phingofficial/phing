@@ -19,8 +19,8 @@
  * <http://phing.info>. 
  */
 
-namespace phing::system::io;
-use phing::BuildException;
+require_once 'phing/system/io/InputStreamReader.php';
+require_once 'phing/system/io/FileInputStream.php';
 
 /**
  * Convenience class for reading files.
@@ -30,7 +30,7 @@ class FileReader extends InputStreamReader {
 
 	/**
      * Construct a new FileReader.
-     * @param mixed $file File or string pathname.
+     * @param mixed $file PhingFile or string pathname.
      */
     public function __construct($file) {
     	$in = new FileInputStream($file);

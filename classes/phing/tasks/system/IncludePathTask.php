@@ -20,11 +20,8 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::types::Path;
+require_once 'phing/Task.php';
+include_once 'phing/types/Path.php';
 
 /**
  * Adds a normalized path to the PHP include_path.

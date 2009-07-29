@@ -1,4 +1,5 @@
 <?php
+
 /*
  * $Id$
  *
@@ -18,10 +19,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-namespace phing::types::selectors;
-use phing::BuildException;
-use phing::system::io::File;
 
 /**
  * Selector that filters files based on whether they appear in another
@@ -69,7 +66,7 @@ class PresentSelector extends BaseSelector {
      *
      * @param targetdir the directory to scan looking for matching files.
      */
-    public function setTargetdir(File $targetdir) {
+    public function setTargetdir(PhingFile $targetdir) {
         $this->targetdir = $targetdir;
     }
 
@@ -129,10 +126,10 @@ class PresentSelector extends BaseSelector {
      *
      * @param basedir the base directory the scan is being done from
      * @param filename is the name of the file to check
-     * @param file is a File object the selector can use
+     * @param file is a PhingFile object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(File $basedir, $filename, File $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
 
         $this->validate();
 
@@ -149,7 +146,7 @@ class PresentSelector extends BaseSelector {
                 . $this->targetdir . " with filename " . $filename);
         }
         $destname = $destfiles[0];
-        $destfile = new File($this->targetdir, $destname);
+        $destfile = new PhingFile($this->targetdir, $destname);
         return $destfile->exists() === $this->destmustexist;
     }
 

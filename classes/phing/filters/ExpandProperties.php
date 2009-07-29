@@ -20,9 +20,8 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
-use phing::Project;
+require_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Expands Phing Properties, if any, in the data.
@@ -80,4 +79,4 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader {
     }
 }
 
-?>
+

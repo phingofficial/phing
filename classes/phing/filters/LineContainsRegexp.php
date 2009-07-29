@@ -19,8 +19,9 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/types/RegularExpression.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Filter which includes only those lines that contain the user-specified
@@ -175,4 +176,4 @@ class LineContainsRegexp extends BaseParamFilterReader implements ChainableReade
     }
 }
 
-?>
+

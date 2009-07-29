@@ -1,4 +1,5 @@
 <?php
+
 /*
  * $Id$
  *
@@ -19,8 +20,9 @@
  * <http://phing.info>.
  */
  
-namespace phing::types::selectors;
-use phing::BuildException;
+require_once 'phing/types/selectors/ExtendFileSelector.php';
+require_once 'phing/types/selectors/BaseSelector.php';
+include_once 'phing/types/Parameter.php';
 
 /**
  * Convenience base class for all selectors accessed through ExtendSelector.

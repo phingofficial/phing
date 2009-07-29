@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::types::Path;
+require_once 'phing/Task.php';
 
 /**
  * Register a datatype for use within a buildfile.

@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
  
-
+require_once 'phing/Task.php';
 
 class TaskdefTestSimpleTask extends Task {
 
@@ -35,7 +35,7 @@ class TaskdefTestSimpleTask extends Task {
     }
     
     public function main() {
-        $this->log("simpletask: " . $echo->message, Project::MSG_INFO);
+      $this->log("simpletask: " . $this->echo->message, Project::MSG_INFO);
     }
 
 }

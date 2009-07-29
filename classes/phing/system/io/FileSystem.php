@@ -20,22 +20,18 @@
  * <http://phing.info>. 
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-use phing::Phing;
-
 /**
  * This is an abstract class for platform specific filesystem implementations
  * you have to implement each method in the platform specific filesystem implementation
  * classes Your local filesytem implementation must extend this class.
  * You should also use this class as a template to write your local implementation
  * Some native PHP filesystem specific methods are abstracted here as well. Anyway
- * you _must_ always use this methods via a File object (that by nature uses the
+ * you _must_ always use this methods via a PhingFile object (that by nature uses the
  * *FileSystem drivers to access the real filesystem via this class using natives.
  *
  * FIXME:
  *  - Error handling reduced to min fallthrough runtime excetions
- *    more precise errorhandling is done by the File class
+ *    more precise errorhandling is done by the PhingFile class
  *    
  * @author Charlie Killian <charlie@tizac.com>
  * @author Hans Lellelid <hans@xmpl.org>
@@ -50,10 +46,7 @@ abstract class FileSystem {
     const BA_DIRECTORY = 0x04;
     const BA_HIDDEN    = 0x08;
     
-    /**
-     * Singleton instance for getFileSystem() method.
-     * @var FileSystem
-     */
+    /** Instance for getFileSystem() method. */
     private static $fs;
     
     /**
@@ -65,12 +58,15 @@ abstract class FileSystem {
         if (self::$fs === null) {
             switch(Phing::getProperty('host.fstype')) {
                 case 'UNIX':
+                    include_once 'phing/system/io/UnixFileSystem.php';
                     self::$fs = new UnixFileSystem();
                 break;
                 case 'WIN32':
+                    include_once 'phing/system/io/Win32FileSystem.php';
                     self::$fs = new Win32FileSystem();
                 break;
                 case 'WINNT':
+                    include_once 'phing/system/io/WinNTFileSystem.php';
                     self::$fs = new WinNTFileSystem();
                 break;
                 default:
@@ -113,13 +109,13 @@ abstract class FileSystem {
     
     /**
      * Resolve the given abstract pathname into absolute form.  Invoked by the
-     * getAbsolutePath and getCanonicalPath methods in the File class.
+     * getAbsolutePath and getCanonicalPath methods in the PhingFile class.
      */
-    abstract function resolveFile(File $f);
+    abstract function resolveFile(PhingFile $f);
 
     /**
      * Return the parent pathname string to be used when the parent-directory
-     * argument in one of the two-argument File constructors is the empty
+     * argument in one of the two-argument PhingFile constructors is the empty
      * pathname.
      */
     abstract function getDefaultParent();
@@ -127,7 +123,7 @@ abstract class FileSystem {
     /**
      * Post-process the given URI path string if necessary.  This is used on
      * win32, e.g., to transform "/c:/foo" into "c:/foo".  The path string
-     * still has slash separators; code in the File class will translate them
+     * still has slash separators; code in the PhingFile class will translate them
      * after this method returns.
      */
     abstract function fromURIPath($path);
@@ -137,7 +133,7 @@ abstract class FileSystem {
     /**
      * Tell whether or not the given abstract pathname is absolute.
      */
-    abstract function isAbsolute(File $f);
+    abstract function isAbsolute(PhingFile $f);
 
     /** 
      * canonicalize filename by checking on disk 
@@ -166,7 +162,7 @@ abstract class FileSystem {
      * access is made.  Return false if access is denied or an I/O error
      * occurs.
      */
-    function checkAccess(File $f, $write = false) {
+    function checkAccess(PhingFile $f, $write = false) {
         // we clear stat cache, its expensive to look up from scratch,
         // but we need to be sure
         @clearstatcache();
@@ -197,10 +193,10 @@ abstract class FileSystem {
 	
     /**
      * Whether file can be deleted.
-     * @param File $f
+     * @param PhingFile $f
      * @return boolean
      */
-    function canDelete(File $f)
+    function canDelete(PhingFile $f)
     {
     	clearstatcache(); 
  		$dir = dirname($f->getAbsolutePath()); 
@@ -212,7 +208,7 @@ abstract class FileSystem {
      * abstract pathname was last modified, or zero if it does not exist or
      * some other I/O error occurs.
      */
-    function getLastModifiedTime(File $f) {
+    function getLastModifiedTime(PhingFile $f) {
         
         if (!$f->exists()) {
             return 0;
@@ -235,7 +231,7 @@ abstract class FileSystem {
      * pathname, or zero if it does not exist, is a directory, or some other
      * I/O error occurs.
      */
-    function getLength(File $f) {
+    function getLength(PhingFile $f) {
         $strPath = (string) $f->getAbsolutePath();
         $fs = filesize((string) $strPath);
         if ($fs !== false) {
@@ -275,7 +271,7 @@ abstract class FileSystem {
      * Delete the file or directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      */
-    function delete(File $f) {
+    function delete(PhingFile $f) {
         if ($f->isDirectory()) {
             return $this->rmdir($f->getPath());
         } else {
@@ -297,7 +293,7 @@ abstract class FileSystem {
      * pathname.  Return an array of strings naming the elements of the
      * directory if successful; otherwise, return <code>null</code>.
      */
-    function listDir(File $f) {
+    function listDir(PhingFile $f) {
         $strPath = (string) $f->getAbsolutePath();
         $d = @dir($strPath);
         if (!$d) {
@@ -327,12 +323,12 @@ abstract class FileSystem {
      * the second abstract pathname, returning true if and only if
      * the operation succeeds.
      *
-     * @param File $f1 abstract source file
-     * @param File $f2 abstract destination file
+     * @param PhingFile $f1 abstract source file
+     * @param PhingFile $f2 abstract destination file
      * @return void    
      * @throws Exception if rename cannot be performed
      */
-    function rename(File $f1, File $f2) {        
+    function rename(PhingFile $f1, PhingFile $f2) {        
         // get the canonical paths of the file to rename
         $src = $f1->getAbsolutePath();
         $dest = $f2->getAbsolutePath();
@@ -349,11 +345,11 @@ abstract class FileSystem {
      * @return void
      * @throws Exception
      */
-    function setLastModifiedTime(File $f, $time) {        
+    function setLastModifiedTime(PhingFile $f, $time) {        
         $path = $f->getPath();
         $success = @touch($path, $time);
         if (!$success) {
-            throw new Exception("Could not create directory due to: $php_errormsg");
+            throw new Exception("Could not touch '" . $path . "' due to: $php_errormsg");
         }
     }
 
@@ -369,7 +365,7 @@ abstract class FileSystem {
     /* -- Filesystem interface -- */
 
     /**
-     * List the available filesystem roots, return array of File objects
+     * List the available filesystem roots, return array of PhingFile objects
      */
     function listRoots() {
         throw new Exception("SYSTEM ERROR [listRoots() not implemented by local fs driver]");
@@ -387,13 +383,13 @@ abstract class FileSystem {
     /**
      * Copy a file.
      *
-     * @param File $src Source path and name file to copy.
-     * @param File $dest Destination path and name of new file.
+     * @param PhingFile $src Source path and name file to copy.
+     * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void     
      * @throws Exception if file cannot be copied.
      */
-    function copy(File $src, File $dest) {
+    function copy(PhingFile $src, PhingFile $dest) {
         global $php_errormsg;
         $srcPath  = $src->getAbsolutePath();
         $destPath = $dest->getAbsolutePath();
@@ -412,6 +408,22 @@ abstract class FileSystem {
         }
     }
 
+	/**
+	 * Change the ownership on a file or directory.
+	 *
+	 * @param    string $pathname Path and name of file or directory.
+	 * @param    string $user The user name or number of the file or directory. See http://us.php.net/chown
+	 *
+	 * @return void
+	 * @throws Exception if operation failed.
+	 */
+	function chown($pathname, $user) {
+		if (false === @chown($pathname, $user)) {// FAILED.
+			$msg = "FileSystem::chown() FAILED. Cannot chown $pathname. User $user." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
+			throw new Exception($msg);
+		}
+    }
+    
     /**
      * Change the permissions on a file or directory.
      *
@@ -436,7 +448,7 @@ abstract class FileSystem {
      * @return void
      * @throws Exception
      */
-    function lock(File $f) {
+    function lock(PhingFile $f) {
         $filename = $f->getPath();
         $fp = @fopen($filename, "w");
         $result = @flock($fp, LOCK_EX);
@@ -452,7 +464,7 @@ abstract class FileSystem {
      * @throws Exception
      * @return void
      */
-    function unlock(File $f) {
+    function unlock(PhingFile $f) {
         $filename = $f->getPath();
         $fp = @fopen($filename, "w");
         $result = @flock($fp, LOCK_UN);

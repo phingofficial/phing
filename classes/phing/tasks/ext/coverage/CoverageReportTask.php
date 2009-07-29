@@ -19,15 +19,12 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::coverage;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::types::Path;
-use phing::types::FileSet;
-use phing::system::io::File;
-use phing::system::util::Properties;
-use phing::tasks::ext::phpunit::PHPUnitUtil;
+require_once 'phing/Task.php';
+require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/system/io/Writer.php';
+require_once 'phing/system/util/Properties.php';
+require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
+require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
 
 /**
  * Transforms information in a code coverage database to XML
@@ -245,11 +242,7 @@ class CoverageReportTask extends Task
 	}
 
 	protected function transformCoverageInformation($filename, $coverageInformation)
-	{
-		// Strip last line of coverage information
-		end($coverageInformation);
-		unset($coverageInformation[key($coverageInformation)]);
-		
+	{	
 		$classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
 		
 		if (is_array($classes))
@@ -394,9 +387,16 @@ class CoverageReportTask extends Task
 
 	function main()
 	{
-		$this->log("Transforming coverage report");
+		$coverageDatabase = $this->project->getProperty('coverage.database');
 		
-		$database = new File($this->project->getProperty('coverage.database'));
+		if (!$coverageDatabase)
+		{
+			throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
+		}
+		
+		$database = new PhingFile($coverageDatabase);
+
+		$this->log("Transforming coverage report");
 		
 		$props = new Properties();
 		$props->load($database);
@@ -404,7 +404,7 @@ class CoverageReportTask extends Task
 		foreach ($props->keys() as $filename)
 		{
 			$file = unserialize($props->getProperty($filename));
-
+			
 			$this->transformCoverageInformation($file['fullname'], $file['coverage']);
 		}
 		
@@ -419,4 +419,3 @@ class CoverageReportTask extends Task
 		}
 	}
 }
-?>

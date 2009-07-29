@@ -20,11 +20,8 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::tasks::system::condition::ConditionBase;
+require_once 'phing/tasks/system/condition/ConditionBase.php';
+require_once 'phing/tasks/system/SequentialTask.php';
 
 /**
  * Perform some tasks based on whether a given condition holds true or

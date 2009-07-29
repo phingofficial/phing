@@ -19,8 +19,8 @@
  * <http://phing.info>.
 */
 
-namespace phing::filters;
-use phing::BuildException;
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * This filter uses the bundled-with-PHP Tidy extension to filter input.
@@ -95,7 +95,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader {
      */
     function read($len = null) {
     	
-		if (!class_exists('Tidy', false)) {
+		if (!class_exists('Tidy')) {
 			throw new BuildException("You must enable the 'tidy' extension in your PHP configuration in order to use the Tidy filter.");
 		}
 		

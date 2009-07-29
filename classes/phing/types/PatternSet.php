@@ -19,11 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::types;
-use phing::BuildException;
-use phing::types::FileSet;
-use phing::Project;
-use phing::sytem::io::File;
+include_once 'phing/system/io/FileReader.php';
+include_once 'phing/types/DataType.php';
 
 /**
  * The patternset storage component. Carries all necessary data and methods
@@ -202,7 +199,7 @@ class PatternSet extends DataType {
      *  Reads path matching patterns from a file and adds them to the
      *  includes or excludes list
      */
-    private function readPatterns(File $patternfile, &$patternlist, Project $p) {
+    private function readPatterns(PhingFile $patternfile, &$patternlist, Project $p) {
     	$patternReader = null;
     	try {
     		// Get a FileReader

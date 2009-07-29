@@ -19,9 +19,10 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::system::io::File;
+require_once 'phing/tasks/system/CopyTask.php';
+include_once 'phing/system/io/FileReader.php';
+include_once 'phing/system/io/FileWriter.php';
+include_once 'phing/filters/XsltFilter.php';
 
 /**
  * Implements an XSLT processing filter while copying files.
@@ -63,9 +64,9 @@ class XsltTask extends CopyTask {
     
     /**
      * Set the stylesheet to use.
-     * @param File $style
+     * @param PhingFile $style
      */
-    function setStyle(File $style) {
+    function setStyle(PhingFile $style) {
         $this->xsltFilter->setStyle($style);
     }
     

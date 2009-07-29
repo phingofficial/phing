@@ -19,8 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing;
-
+include_once 'phing/TaskContainer.php';
 
 /**
  *  The Target component. Carries all required target data. Implements the

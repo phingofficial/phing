@@ -19,9 +19,6 @@
  * <http://phing.info>. 
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-
 /**
  * Abstract class for writing character streams.
  * 

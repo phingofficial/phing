@@ -20,9 +20,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::types::selectors;
-use phing::BuildException;
-use phing::system::io::File;
 
 /**
  * Selector that filters files based on their size.
@@ -205,12 +202,12 @@ class SizeSelector extends BaseExtendSelector {
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param basedir A File object for the base directory
+     * @param basedir A PhingFile object for the base directory
      * @param filename The name of the file to check
-     * @param file A File object for this filename
+     * @param file A PhingFile object for this filename
      * @return whether the file should be selected or not
      */
-    public function isSelected(File $basedir, $filename, File $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
 
         $this->validate();
 

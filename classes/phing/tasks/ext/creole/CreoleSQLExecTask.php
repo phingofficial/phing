@@ -19,10 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::creole;
-use phing::BuildException;
-use phing::util::StringHelper;
-use phing::sytem::io::File;
+require_once 'phing/tasks/ext/creole/CreoleTask.php';
+include_once 'phing/system/io/StringReader.php';
 
 /**
  * Executes a series of SQL statements on a database using Creole.
@@ -142,7 +140,7 @@ class CreoleSQLExecTask extends CreoleTask {
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
      */
-    public function setSrc(File $srcFile) {       
+    public function setSrc(PhingFile $srcFile) {       
         $this->srcFile = $srcFile;
     }
     
@@ -238,9 +236,9 @@ class CreoleSQLExecTask extends CreoleTask {
     /**
      * Set the output file; 
      * optional, defaults to the console.
-     * @param File $output
+     * @param PhingFile $output
      */
-    public function setOutput(File $output) {
+    public function setOutput(PhingFile $output) {
         $this->output = $output;
     }
 
@@ -302,7 +300,7 @@ class CreoleSQLExecTask extends CreoleTask {
                 // Make a transaction for each file
                 for ($j=0, $size=count($srcFiles); $j < $size; $j++) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new File($srcDir, $srcFiles[$j]));
+                    $t->setSrc(new PhingFile($srcDir, $srcFiles[$j]));
                 }
             }
             
@@ -557,7 +555,7 @@ class SQLExecTransaction {
         $this->parent = $parent;
     }
     
-    public function setSrc(File $src)
+    public function setSrc(PhingFile $src)
     {
         $this->tSrcFile = $src;
     }

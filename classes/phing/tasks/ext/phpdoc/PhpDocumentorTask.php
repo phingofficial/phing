@@ -1,7 +1,7 @@
 <?php
 
 /**
- * $Id: PHPDocumentorTask.php 144 2007-02-05 15:19:00Z hans $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,11 +20,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::phpdoc;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::sytem::io::File;
+require_once 'phing/Task.php';
 
 /**
  * Task to run PhpDocumentor.
@@ -40,87 +36,100 @@ class PhpDocumentorTask extends Task
 	/**
 	 * @var string Title for browser window / package index.
 	 */
-	private $title;
+	protected $title;
 	
 	/**
-	 * @var File The target directory for output files.
+	 * @var PhingFile The target directory for output files.
 	 */
-	private $destdir;
+	protected $destdir;
 
 	/**
 	 * @var array FileSet[] Filesets for files to parse.
 	 */
-	private $filesets = array();
+	protected $filesets = array();
 	
 	/**
 	 * @var array FileSet[] Project documentation (README/INSTALL/CHANGELOG) files.
 	 */
-	private $projDocFilesets = array();
+	protected $projDocFilesets = array();
 	
 	/**
 	 * @var string Package output format. 
 	 */
-	private $output;
+	protected $output;
 
 	/**
 	 * @var boolean Whether to generate sourcecode for each file parsed.
 	 */
-	private $linksource = false;
+	protected $linksource = false;
 	
 	/**
 	 * @var boolean Whether to parse private members.
 	 */
-	private $parsePrivate = false;
+	protected $parsePrivate = false;
 	
 	/**
 	 * @var boolean Whether to use javadoc descriptions (more primitive).
 	 */
-	private $javadocDesc = false;
+	protected $javadocDesc = false;
 	
 	/**
-	 * @var File Base directory for locating template files.
+	 * @var PhingFile Base directory for locating template files.
 	 */
-	private $templateBase;
+	protected $templateBase;
 	
 	/**
 	 * @var boolean Wheter to suppress output.
 	 */
-	private $quiet = false;
+	protected $quiet = false;
 	
 	/**
 	 * @var string Comma-separated list of packages to output.
 	 */
-	private $packages;
+	protected $packages;
 	
 	/** 
 	 * @var string Comma-separated list of tags to ignore.
 	 */
-	private $ignoreTags;
+	protected $ignoreTags;
 	
 	/** 
 	 * @var string Default package name.
 	 */
-	private $defaultPackageName;
+	protected $defaultPackageName;
 	
 	/**
 	 * @var string Default category name.
 	 */
-	private $defaultCategoryName;
+	protected $defaultCategoryName;
 	
 	/**
-	 * @var File Directory in which to look for examples.
+	 * @var PhingFile Directory in which to look for examples.
 	 */
-	private $examplesDir;
+	protected $examplesDir;
 	
 	/**
-	 * @var File Directory in which to look for configuration files.
+	 * @var PhingFile Directory in which to look for configuration files.
 	 */
-	private $configDir;
+	protected $configDir;
 	
 	/**
 	 * @var boolean Whether to parse as a PEAR repository.
 	 */
-	private $pear = false;
+	protected $pear = false;
+
+    /**
+     * @var boolean Control whether or not warnings will be shown for
+     *              undocumented elements. Useful for identifying classes and
+     *              methods that haven't yet been documented.
+     */
+    protected $undocumentedelements = false;
+
+    /**
+     * @var string  custom tags, will be recognized and put in tags[] instead of
+     *              unknowntags[].
+     */
+    protected $customtags = '';
 	
 	/**
 	 * Set the title for the generated documentation
@@ -132,7 +141,7 @@ class PhpDocumentorTask extends Task
 	/**
 	 * Set the destination directory for the generated documentation
 	 */
-	public function setDestdir(File $destdir) {
+	public function setDestdir(PhingFile $destdir) {
 		$this->destdir = $destdir;
 	}
 	
@@ -140,7 +149,7 @@ class PhpDocumentorTask extends Task
 	 * Alias for {@link setDestdir()).
 	 * @see setDestdir()
 	 */
-	public function setTarget(File $destdir) {
+	public function setTarget(PhingFile $destdir) {
 		$this->setDestdir($destdir);
 	}
 
@@ -157,6 +166,14 @@ class PhpDocumentorTask extends Task
 	 * @param boolean
 	 */
 	public function setSourcecode($b) {
+		$this->setLinksource($b);
+	}
+
+	/**
+	 * Set whether to generate sourcecode for each file parsed
+	 * @param boolean
+	 */
+	public function setLinksource($b) {
 		$this->linksource = $b;
 	}
 	
@@ -204,17 +221,17 @@ class PhpDocumentorTask extends Task
 	
 	/**
 	 * Set a directory to search for examples in.
-	 * @param File $d
+	 * @param PhingFile $d
 	 */
-	public function setExamplesdir(File $d) {
+	public function setExamplesdir(PhingFile $d) {
 		$this->examplesDir = $d;
 	}
 	
 	/**
 	 * Set a directory to search for configuration files in.
-	 * @param File $d
+	 * @param PhingFile $d
 	 */
-	public function setConfigdir(File $d) {
+	public function setConfigdir(PhingFile $d) {
 		$this->configDir = $d;
 	}
 	
@@ -260,6 +277,35 @@ class PhpDocumentorTask extends Task
         return $this->projDocFilesets[$num-1];
     }
  	
+	/**
+     * Control whether or not warnings will be shown for undocumented elements.
+     * Useful for identifying classes and methods that haven't yet been
+     * documented.
+	 * @param boolean $b
+	 */
+	public function setUndocumentedelements($b) {
+		$this->undocumentedelements = $b;
+	}
+
+    /**
+     * custom tags, will be recognized and put in tags[] instead of
+     * unknowntags[].
+     * 
+     * @param  string  $sCustomtags 
+     */
+    public function setCustomtags($sCustomtags) {
+        $this->customtags = $sCustomtags;
+    }
+
+	/**
+	 * Set base location of all templates for this parse.
+	 * 
+	 * @param  PhingFile  $destdir 
+	 */
+	public function setTemplateBase(PhingFile $oTemplateBase) {
+		$this->templateBase = $oTemplateBase;
+	}
+
     /**
      * Searches include_path for PhpDocumentor install and adjusts include_path appropriately.
      * @throws BuildException - if unable to find PhpDocumentor on include_path
@@ -280,7 +326,7 @@ class PhpDocumentorTask extends Task
     	// otherwise, adjust the include_path to path to include the PhpDocumentor directory ... 
 		set_include_path(get_include_path() . PATH_SEPARATOR . $found);
 		include_once ("phpDocumentor/Setup.inc.php");
-		if (!class_exists('phpDocumentor_setup', false)) {
+		if (!class_exists('phpDocumentor_setup')) {
 			throw new BuildException("Error including PhpDocumentor setup class file.");
 		}
     }
@@ -293,7 +339,7 @@ class PhpDocumentorTask extends Task
 	public function init()
 	{
 		$this->findPhpDocumentorInstall();
-        
+        include_once 'phing/tasks/ext/phpdoc/PhingPhpDocumentorSetup.php';
 	}
 	
 	/**
@@ -392,7 +438,7 @@ class PhpDocumentorTask extends Task
 		foreach($this->filesets as $fs) {		    
 	        $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 	        foreach($files as $filename) {
-	        	 $f = new File($fs->getDir($this->project), $filename);
+	        	 $f = new PhingFile($fs->getDir($this->project), $filename);
 	        	 $filesToParse[] = $f->getAbsolutePath();
 	        }
 		}
@@ -405,12 +451,18 @@ class PhpDocumentorTask extends Task
 		foreach($this->projDocFilesets as $fs) {		    
 	        $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 	        foreach($files as $filename) {
-	        	 $f = new File($fs->getDir($this->project), $filename);
+	        	 $f = new PhingFile($fs->getDir($this->project), $filename);
 	        	 $ricFiles[] = $f->getAbsolutePath();
 	        }
 		}
 		$phpdoc->setRicFiles($ricFiles);
-		
+
+        if ($this->undocumentedelements) {
+            $phpdoc->setUndocumentedelements($this->undocumentedelements);
+        }
+
+        if ($this->customtags) {
+            $phpdoc->setCustomtags($this->customtags);
+        }
 	}
-	
 }

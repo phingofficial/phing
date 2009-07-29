@@ -19,8 +19,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::svn;
-use phing::BuildException;
+require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Checks out a repository to a local directory
@@ -32,6 +32,15 @@ use phing::BuildException;
  */
 class SvnCheckoutTask extends SvnBaseTask
 {
+    /**
+     * Which Revision to Export
+     * 
+     * @todo check if version_control_svn supports constants
+     * 
+     * @var string
+     */
+    private $revision = 'HEAD';
+
 	/**
 	 * The main entry point
 	 *
@@ -41,9 +50,18 @@ class SvnCheckoutTask extends SvnBaseTask
 	{
 		$this->setup('checkout');
 
-		$this->log("Checking out SVN repository to '" . $this->getToDir() . "'");
+		$this->log("Checking out SVN repository to '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
 
-		$this->run(array($this->getToDir()));
-	}
+        // revision
+        $switches = array(
+            'r' => $this->revision,
+        );
+
+        $this->run(array($this->getToDir()), $switches);
+    }
+
+    public function setRevision($revision)
+    {
+        $this->revision = $revision;
+    }
 }
-?>

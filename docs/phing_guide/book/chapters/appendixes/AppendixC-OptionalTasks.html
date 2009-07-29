@@ -248,13 +248,13 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
 &nbsp;&nbsp;&lt;/fileset&gt;
 &lt;/coverage-setup&gt;
-&lt;phpunit2 codecoverage=&quot;true&quot;&gt;
+&lt;phpunit codecoverage=&quot;true&quot;&gt;
 &nbsp;&nbsp;&lt;batchtest&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;fileset dir=&quot;src&quot;&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;include name=&quot;*Test.php&quot;/&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;/fileset&gt;
 &nbsp;&nbsp;&lt;/batchtest&gt;
-&lt;/phpunit2&gt;
+&lt;/phpunit&gt;
 </pre>
 
 <h2><a name="IoncubeEncoderTask"></a>IoncubeEncoderTask</h2>
@@ -507,6 +507,55 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   </li>
 </ul>
 
+<h2><a name="JsMinTask"></a>JsMinTask</h2>
+<p>The <em>JsMinTask</em> minifies JavaScript files using <a href="http://code.google.com/p/jsmin-php/">JsMin</a>. JsMin is bundled with Phing and does not need to be installed separately.</p>
+
+<p>For more information on minifying JavaScript files see <a href="http://www.crockford.com/javascript/jsmin.html" target="_blank">Douglas Crockford's introduction to minifying JavaScript files</a>.</p>
+
+<h3>Example</h3>
+<pre>&lt;jsMin targetDir="docroot/script/minified" failOnError="false">
+  &lt;fileset dir="docroot/script"&gt
+    &lt;include name="**/*.js"/&gt
+  &lt;/fileset&gt;
+&lt;/jsMin&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>targetDir</td>
+      <td>String</td>
+      <td>Path where to store minified JavaScript files</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>failonerror</td>
+      <td>Boolean</td>
+      <td>Whether an error while minifying a JavaScript file should stop the build or not</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset
+    <p>JavaScript files to be minified.</p>
+  </li>
+</ul>
+
 <h2><a name="PDOSQLExecTask"></a>PDOSQLExecTask</h2>
 
 <p>The <em>PDOSQLExecTask</em> executes SQL statements using PDO.</p>
@@ -698,7 +747,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 
   &lt;!-- xml formatter --&gt;
   &lt;formatter type=&quot;xml&quot; output=&quot;output.xml&quot;/&gt;
-  
+
   &lt;!-- custom formatter --&gt;
   &lt;formatter classname=&quot;path.to.CustomFormatterClass&quot;&gt;
     &lt;param name=&quot;someClassAttrib&quot; value=&quot;some-value&quot;/&gt;
@@ -707,7 +756,7 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   &lt;!-- No output file + usefile=false means it goes to phing log --&gt;
   &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot; /&gt;<br />&lt;/pdo&gt;
 </pre>
-	
+
   </li>
 </ul>
 
@@ -856,6 +905,387 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
   <li>mapping</li>
 </ul>
 
+
+<h2><a name="PharPackageTask"></a>PharPackageTask</h2>
+<p>
+  <a href="http://ru2.php.net/manual/en/book.phar.php" target="_blank">Phar</a>
+  packages generating with Phing.
+
+  This task <strong>require <a href="http://pecl.php.net/package/phar" target="_blank">PECL's
+  Phar</a></strong> extension to be installed on your system. Phar is built-in in PHP
+  from 5.3 version.
+</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>basedir</td>
+      <td>String</td>
+      <td>Base directory, which will be deleted from each included file (from path). Paths with deleted <em>basedir</em> part are local paths in package.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>destfile</td>
+      <td>String</td>
+      <td>Destination (output) file. Will be recreated, if exists!</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>compress</td>
+      <td>String</td>
+      <td>Compression type (gzip, bzip2, none) to apply to the packed files.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>webstub</td>
+      <td>String</td>
+      <td>Relative path within the phar package to run, if accessed through a web browser.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>clistub</td>
+      <td>String</td>
+      <td>Relative path within the phar package to run, if accessed on the command line.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>signature</td>
+      <td>String</td>
+      <td>Signature algorithm (md5, sha1, sha256, sha512), used for this package.</td>
+      <td>sha1</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+  <!--
+    TODO Describe metadata element.
+  -->
+  <li>metadata
+    <p></p>
+  </li>
+</ul>
+<h3>Examples</h3>
+<p>Sample build command:</p>
+<pre>&lt;pharpackage
+  destfile=&quot;./build/package.phar&quot;
+  basedir=&quot;./&quot;&gt;
+  &lt;fileset dir=&quot;./classes&quot;&gt;
+    &lt;include name=&quot;**/**&quot; /&gt;
+  &lt;/fileset&gt;
+  &lt;metadata&gt;
+    &lt;element name=&quot;version&quot; value=&quot;1.0&quot; /&gt;
+    &lt;element name=&quot;authors&quot;&gt;
+      &lt;element name=&quot;John Doe&quot;&gt;
+        &lt;element name=&quot;e-mail&quot; value=&quot;john@example.com&quot; /&gt;
+      &lt;/element&gt;
+    &lt;/element&gt;
+  &lt;/metadata&gt;
+&lt;/pharpackage&gt;
+</pre>
+
+<h2><a name="PhkPackageTask"></a>PhkPackageTask</h2>
+<p>This task runs PHK_Creator.phk to build PHK-package. Learn more about build process in <a href="http://phk.tekwire.net/joomla/support/doc/builders_guide.htm" target="_blank">PHK Builder's Guide</a>.</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>phkcreatorpath</td>
+      <td>String</td>
+      <td>Path to PHK_Creator.phk.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>inputdirectory</td>
+      <td>String</td>
+      <td>Path to directory, that will be packed.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>outputfile</td>
+      <td>String</td>
+      <td>Output PHK-file. Directory, where file will be stored, must exist!</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>compress</td>
+      <td>String</td>
+      <td>Compression type (gzip, bzip2, none) to apply to the packed files.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>strip</td>
+      <td>Boolean</td>
+      <td>When true, PHP source file(s) are stripped (filtered through php_strip_whitespace()) before being stored into the archive.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>name</td>
+      <td>String</td>
+      <td>The package's name (Information only).</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>webrunscript</td>
+      <td>String</td>
+      <td>The script to run in web direct access mode. Subfile path.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>crccheck</td>
+      <td>Boolean</td>
+      <td>If true, a CRC check will be forced every time the package is mounted.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>webaccess
+    <p>Collection of <em>path</em> tags (see example below), that will be visible outside package in web mode.</p>
+  </li>
+</ul>
+<h3>Examples</h3>
+<p>Sample build command:</p>
+<pre>&lt;phkpackage
+    phkcreatorpath=&quot;/path/to/PHK_Creator.phk&quot;
+    inputdirectory=&quot;src&quot;
+    outputfile=&quot;build/sample-project.phk&quot;
+    compress=&quot;gzip&quot;
+    strip=&quot;true&quot;
+    name=&quot;Sample Project&quot;
+    webrunscript=&quot;index.php&quot;&gt;
+    &lt;webaccess&gt;
+        &lt;path&gt;/&lt;/path&gt;
+    &lt;/webaccess&gt;
+&lt;/phkpackage&gt;
+</pre>
+
+<h2><a name="PhpCodeSnifferTask"></a>PhpCodeSnifferTask</h2>
+<p>This task runs <a href="http://pear.php.net/package/PHP_CodeSniffer" target="_blank">PHP_CodeSniffer</a> to detect violations of a defined set of coding standards.</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>standard</td>
+      <td>String</td>
+      <td>The name of the standard or an absolute path to an external standard to check for.</td>
+      <td>Generic</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>format</td>
+      <td>String</td>
+      <td>The output format. The <em>default</em> format is specified in the task itself. Additionally the formats of CodeSniffer can be choosen: <em>xml</em>, <em>checkstyle</em>, <em>csv</em>, <em>report</em> and <em>summary</em>. A special case is the format <em>doc</em> which generates the documentation of the standard.</td>
+      <td>default</td>
+      <td>No<br/>Ignored if nested <em>formatter</em> elements are supplied.</td>
+    </tr>
+    <tr>
+      <td>showSniffs</td>
+      <td>Boolean</td>
+      <td>Print the list of used sniffs.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>showWarnings</td>
+      <td>Boolean</td>
+      <td>Print warnings.</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>The file or folder to check (usally the nested tag <em>fileset</em> is used instead).</td>
+      <td>false</td>
+      <td>Either this attribute or the nested tag <em>fileset</em> is required.</td>
+    </tr>
+    <tr>
+      <td>sniffs</td>
+      <td>String</td>
+      <td>The list of allowed sniffs (separated by space, comma or semicolon). The sniffs must be part of the choosen standard.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>verbosity</td>
+      <td>Integer</td>
+      <td>The verbosity level of CodeSniffer where level 1 prints progress information and level 2 prints developer debug information.</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>tabWidth</td>
+      <td>Integer</td>
+      <td>Replaces tabs with the given number of spaces. If zero no replacing is done.</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>allowedFileExtensions</td>
+      <td>String</td>
+      <td>The allowed file extensions (separated by space, comma or semicolon) when a directory is specified in the <em>file</em> attribute.</td>
+      <td>php</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>ignorePatterns</td>
+      <td>String</td>
+      <td>The patterns to ignore files and folders (separated by space, comma or semicolon) when a directory is specified in the <em>file</em> attribute.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>noSubdirectories</td>
+      <td>Boolean</td>
+      <td>Do not recurse into subdirectories when a directory is specified in the <em>file</em> attribute.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset
+    <p>Either this nested tag or the attribute <em>file</em> is required.</p>
+  </li>
+  <li>config
+    <p>The configuration parameters which are usally loaded from the CodeSniffer.conf can be set.</p>
+    <h3>Attributes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>name</td>
+          <td>String</td>
+          <td>Name of the configuration parameter. </td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>value</td>
+          <td>String</td>
+          <td>Value of the configuration parameter. </td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>formatter
+  <p>The results of the tests can be printed in different formats. Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false.</em></p>
+    <h3>Attributes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>type</td>
+          <td>String</td>
+          <td>The output format. Accepts the the same values as the <em>format</em> attribute (<em>default</em>, <em>xml</em>, <em>checkstyle</em>, <em>csv</em>, <em>report</em>, <em>summary</em> &amp; <em>doc</em>).</td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>usefile</td>
+          <td>Boolean</td>
+          <td>Boolean that determines whether output should be sent to a file.</td>
+          <td>true</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>outfile</td>
+          <td>String</td>
+          <td>Path to write output file to.</td>
+          <td>n/a</td>
+          <td>Yes, if <em>usefile</em> is <em>true</em>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+<h3>Examples</h3>
+<p>Checks all files in the directory <em>file</em> matching the allowed file extension with the <em>PEAR</em> standard and prints the <em>summary</em> report without warnings.</p>
+<pre>&lt;phpcodesniffer
+  standard=&quot;PEAR&quot;
+  format=&quot;summary&quot;
+  file=&quot;/path/to/source-files&quot;
+  allowedFileExtensions=&quot;php php5 inc&quot;/&gt;
+&lt;/phpcodesniffer&gt;
+</pre>
+<p>Checks all matching files in the directory <em>dir</em> with a custom external standard, sets the <em>zend_ca_path</em> configuration which may be required by one of the sniffs, prints a list of used sniffs and prints the <em>default</em> report with warnings and the <em>checkstyle</em> report to <em>/path/to/checkstyle.xml</em>.</p>
+<pre>&lt;phpunit
+  standard=&quot;/path/to/external-standard&quot;
+  showSniffs=&quot;true&quot;
+  showWarnigns=&quot;true&quot;&gt;
+  &lt;fileset dir=&quot;/path/to/source-files&quot;&gt;
+    &lt;include name=&quot;**/*.php&quot;/&gt;
+  &lt;/fileset&gt;
+  &lt;config name=&quot;zend_ca_path&quot; value=&quot;/path/to/ZendStudio/bin/ZendCodeAnalyzer&quot;/&gt;
+  &lt;formatter type=&quot;default&quot; usefile=&quot;false&quot;/&gt;
+  &lt;formatter type=&quot;checkstyle&quot; outfile=&quot;/path/to/checkstyle.xml&quot;/&gt;
+&lt;/phpunit&gt;
+</pre>
+<p>Externally stored custom standard have to follow the same naming conventions as if they were stored in the <em>Standards</em> subdirectory of PHP_CodeSniffer itself.</p>
+
 <h2><a name="PhpDocumentorTask"></a>PhpDocumentorTask</h2>
 <p>This task runs <a href="http://www.phpdoc.org/"
 target="_blank">phpDocumentor</a>, an auto-documentation tool for PHP
@@ -983,6 +1413,33 @@ similar to Javadoc.</p>
       <td>No</td>
     </tr>
 
+	<tr>
+      <td>templatebase</td>
+      <td>String</td>
+      <td>Set base dirctory of all templates for this parse.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+
+	<tr>
+      <td>undocumentedelements</td>
+      <td>Boolean</td>
+      <td>Control whether or not warnings will be shown for undocumented
+          elements. Useful for identifying classes and methods that haven't yet
+          been documented.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+
+	<tr>
+      <td>customtags</td>
+      <td>Boolean</td>
+      <td>Custom tags, will be recognized and put in tags[] instead of
+          unknowntags[].</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+
   </tbody>
 </table>
 
@@ -1008,6 +1465,67 @@ similar to Javadoc.</p>
    &lt;/projdocfileset&gt;
 &lt;/phpdoc&gt;
 </pre>
+
+<h2><a name="PhpDocumentorExternalTask"></a>PhpDocumentorExternalTask</h2>
+<p>This is the same as the <a href="#PhpDocumentorTask">PhpDocumentorTask</a>
+but uses the command line application. Use this as a fallback in case you're
+running into troubles when using the phpDocumentor-library with the
+PhpDocumentorTask directly, e.g. when you're using Smarty and have Smarty in
+your library path too.</p>
+<p>This task supports everything the PhpDocumentorTask supports, differences are
+documented below.</p>
+<h3>Additional attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>programpath</td>
+      <td>String</td>
+      <td>Path to the phpdoc executable (relative or absolute).</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+
+    <tr>
+      <td>sourcepath</td>
+      <td>String</td>
+      <td>A directory to scan for parsable files. Supports multiple directories
+          separated with a comma.</td>
+      <td>n/a</td>
+      <td>Yes, if no <tt>&lt;fileset&gt;</tt> is given</td>
+    </tr>
+
+  </tbody>
+</table>
+
+<h3>Unsupported attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr>
+      <td>configdir</td>
+      <td>Currently not supported. The attribute will be ignored and a
+          warning messag will be generated. The build continues (to ease when
+          changing an existing phpdoc task) however this may have unexpected
+          side effects.</td>
+    </tr>
+
+  </tbody>
+</table>
 
 <h2><a name="PhpLintTask"></a>PhpLintTask</h2>
 <p>The <em>PhpLintTask</em> checks syntax (lint) on one or more PHP source code files.</p>
@@ -1045,6 +1563,14 @@ similar to Javadoc.</p>
       <td>n/a</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td>interpreter</td>
+      <td>string</td>
+      <td>Path to alternative PHP interpreter</td>
+      <td>Defaults to the <tt>${php.command}</tt> property which is the
+          interpreter used to execute phing itself.</td>
+      <td>No</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1066,10 +1592,12 @@ similar to Javadoc.</p>
 &lt;/phplint&gt;
 </pre>
 <p>Check syntax of a fileset of source files.</p>
-<h2><a name="PHPUnit2Task"></a>PHPUnit2Task</h2>
-<p>This task runs testcases using the <a href="http://www.phpunit.de/" target="_blank">PHPUnit2</a> framework.
+
+<h2><a name="PHPUnitTask"></a>PHPUnitTask</h2>
+<p>This task runs testcases using the <a href="http://www.phpunit.de/" target="_blank">PHPUnit</a> framework.
 It is a functional port of the Ant <a href="http://ant.apache.org/manual/OptionalTasks/junit.html" target="_blank">JUnit</a> task.
 </p>
+<p><b>NB:</b> the identifiers <i>phpunit2</i> (PHPUnit2Task) and <i>phpunit3</i> (PHPUnit3Task) have been deprecated!</b></p>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -1090,6 +1618,13 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>No</td>
     </tr>
     <tr>
+      <td>codecoverage</td>
+      <td>Boolean</td>
+      <td> Gather code coverage information while running tests (requires Xdebug). </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
       <td>haltonerror</td>
       <td>Boolean</td>
       <td> Stop the build process if an error occurs during the test run. </td>
@@ -1103,6 +1638,27 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>false</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td>haltonincomplete</td>
+      <td>Boolean</td>
+      <td> Stop the build process if any incomplete tests are encountered. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonskipped</td>
+      <td>Boolean</td>
+      <td> Stop the build process if any skipped tests are encountered. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+	<tr>
+      <td>failureproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on failure.</td>
+      <td>n/a</td>
+      <td>No</td>
+	</tr>
 	<tr>
       <td>errorproperty</td>
       <td>String</td>
@@ -1111,9 +1667,16 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>No</td>
 	</tr>
 	<tr>
-      <td>failureproperty</td>
+      <td>incompleteproperty</td>
       <td>String</td>
-      <td>Name of property to set (to true) on failure.</td>
+      <td>Name of property to set (to true) on incomplete tests.</td>
+      <td>n/a</td>
+      <td>No</td>
+	</tr>
+	<tr>
+      <td>skippedproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on skipped tests.</td>
       <td>n/a</td>
       <td>No</td>
 	</tr>
@@ -1128,7 +1691,7 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
     <p>There are three predefined formatters - one prints the test results in XML format,
     the other emits plain text. The formatter named brief will only print detailed information for testcases
     that failed, while plain gives a little statistics line for all test cases. Custom formatters that
-    implement phing.tasks.ext.PHPUnit2ResultFormatter can be specified.</p>
+    implement phing.tasks.ext.PHPUnitResultFormatter can be specified.</p>
     <p>If you use the XML formatter, it may not include the same output that your tests have written as
     some characters are illegal in XML documents and will be dropped.</p>
 	<h3>Attributes</h3>
@@ -1221,7 +1784,7 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
   </li>
 </ul>
 <h3>Examples</h3>
-<pre>&lt;phpunit2&gt;
+<pre>&lt;phpunit&gt;
   &lt;formatter todir=&quot;reports&quot; type=&quot;xml&quot;/&gt;
   &lt;batchtest&gt;
     &lt;fileset dir=&quot;tests&quot;&gt;
@@ -1229,29 +1792,31 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       &lt;exclude name=&quot;**/Abstract*.php&quot;/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit2&gt;
+&lt;/phpunit&gt;
 </pre>
 <p>Runs all matching testcases in the directory <em>tests</em>, writing
 XML results to the directory <em>reports</em>.</p>
-<pre>&lt;phpunit2 haltonfailure=&quot;true&quot; haltonerror=&quot;true&quot;&gt;
+<pre>&lt;phpunit codecoverage=&quot;true&quot; haltonfailure=&quot;true&quot; haltonerror=&quot;true&quot;&gt;
   &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot;/&gt;
   &lt;batchtest&gt;
     &lt;fileset dir=&quot;tests&quot;&gt;
       &lt;include name=&quot;**/*Test*.php&quot;/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit2&gt;
+&lt;/phpunit&gt;
 </pre>
 <p>
-Runs all matching testcases in the directory <em>tests</em>, writing plain
+Runs all matching testcases in the directory <em>tests</em>, gathers code coverage information, writing plain
 text results to the console. The build process is aborted if a test
 fails.</p>
 
 <p><b>Important note:</b> using a mechanism such as an "AllTests.php" file to execute testcases will bypass the Phing hooks used for reporting
 and counting, and could possibly lead to strange results. Instead, use one of more fileset's to provide a list of testcases to execute.</p>
 
-<h2><a name="PHPUnit2Report"></a>PHPUnit2Report</h2>
-<p>This task transforms PHPUnit2 xml reports to HTML using XSLT.</p>
+<h2><a name="PHPUnitReport"></a>PHPUnitReport</h2>
+<p>This task transforms PHPUnit xml reports to HTML using XSLT.</p>
+<p><b>NB:</b> the identifiers <i>phpunit2report</i> (PHPUnit2Report) and <i>phpunit3report</i> (PHPUnit3Report) have been deprecated, but are still
+available to maintain backwards compatibility.</p>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -1303,13 +1868,157 @@ transformation should be written to. </td>
   </tbody>
 </table>
 <h3>Examples</h3>
-<pre>&lt;phpunit2report infile=&quot;reports/testsuites.xml&quot; format=&quot;frames&quot; todir=&quot;reports/tests&quot; styledir=&quot;/home/phing/etc&quot;/&gt;
+<pre>&lt;phpunitreport infile=&quot;reports/testsuites.xml&quot; format=&quot;frames&quot; todir=&quot;reports/tests&quot; styledir=&quot;/home/phing/etc&quot;/&gt;
 </pre>
 <p>Generates a framed report in the directory <em>reports/tests</em> using
 the file <em>reports/testsuites.xml</em> as input.</p>
 
 <p><b>Important note:</b> testclasses that are not explicitly placed in a package (by using a '@package' tag in the class-level DocBlock)
 are listed under the "default" package.</p>
+
+<h2><a name="SimpleTestTask"></a>SimpleTestTask</h2>
+<p>This task runs testcases using the <a href="http://www.simpletest.org/" target="_blank">SimpleTest</a> framework.
+</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>printsummary</td>
+      <td>Boolean</td>
+      <td> Print one-line statistics for each testcase. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonerror</td>
+      <td>Boolean</td>
+      <td> Stop the build process if an error occurs during the test run. </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>haltonfailure</td>
+      <td>Boolean</td>
+      <td> Stop the build process if a test fails (errors are considered failures as well). </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+  <tr>
+      <td>failureproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on failure.</td>
+      <td>n/a</td>
+      <td>No</td>
+  </tr>
+  <tr>
+      <td>errorproperty</td>
+      <td>String</td>
+      <td>Name of property to set (to true) on error.</td>
+      <td>n/a</td>
+      <td>No</td>
+  </tr>
+  <tr>
+      <td>debug</td>
+      <td>Boolean</td>
+      <td>Switch debugging on/off</td>
+      <td>false</td>
+      <td>No</td>
+  </tr>
+  </tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>formatter
+    <p>The results of the tests can be printed in different formats.
+    Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false</em>.
+    The name of the file is predetermined by the formatter and can be changed by the <em>outfile</em> attribute.</p>
+    <p>There are three predefined formatters - one prints the test results in XML format,
+    the other emits plain text. The formatter named brief will only print detailed information for testcases
+    that failed, while plain gives a little statistics line for all test cases. Custom formatters that
+    implement phing.tasks.ext.PHPUnitResultFormatter can be specified.</p>
+    <p>If you use the XML formatter, it may not include the same output that your tests have written as
+    some characters are illegal in XML documents and will be dropped.</p>
+  <h3>Attributes</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>type</td>
+      <td>String</td>
+      <td> Use a predefined formatter (either <em>xml</em>, <em>plain</em>, or <em>summary</em>). </td>
+      <td>n/a</td>
+      <td rowspan="2">One of these is required.</td>
+    </tr>
+    <tr>
+      <td>classname</td>
+      <td>String</td>
+      <td> Name of a custom formatter class. </td>
+      <td>n/a</td>
+    </tr>
+    <tr>
+      <td>usefile</td>
+      <td>Boolean</td>
+      <td> Boolean that determines whether output should be sent to a file. </td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>todir</td>
+      <td>String</td>
+      <td> Directory to write the file to. </td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>outfile</td>
+      <td>String</td>
+      <td> Filename of the result. </td>
+      <td>Depends on formatter</td>
+      <td>No</td>
+    </tr>
+    </tbody>
+  </table>
+  </li>
+  <li>fileset</li>
+</ul>
+<h3>Examples</h3>
+<pre>&lt;simpletest&gt;
+  &lt;formatter type=&quot;plain&quot;/&gt;
+  &lt;fileset dir=&quot;tests&quot;&gt;
+    &lt;include name=&quot;**/*Test*.php&quot;/&gt;
+    &lt;exclude name=&quot;**/Abstract*.php&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/simpletest&gt;
+</pre>
+<p>Runs all matching testcases in the directory <em>tests</em>, writing plain text results to the console.</p>
+
+<pre>&lt;simpletest haltonfailure=&quot;true&quot; haltonerror=&quot;true&quot;&gt;
+  &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot;/&gt;
+  &lt;fileset dir=&quot;tests&quot;&gt;
+    &lt;include name=&quot;**/*Test*.php&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/simpletest&gt;
+</pre>
+<p>
+Runs all matching testcases in the directory <em>tests</em>, writing plain text results to the console. The build process is aborted if a test
+fails.</p>
 
 <h2><a name="SvnCheckoutTask"></a>SvnCheckoutTask</h2>
 <p> The <em>SvnCheckoutTask</em> checks out a Subversion repository to a local directory.</p>
@@ -1383,6 +2092,20 @@ are listed under the "default" package.</p>
       <td>Path to export to</td>
       <td>none</td>
       <td>Yes</td>
+    </tr>
+    <tr>
+      <td>recursive</td>
+      <td>Boolean</td>
+      <td>Recursive behavior</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>ignoreexternals</td>
+      <td>Boolean</td>
+      <td>Ignore externals definitions</td>
+      <td>false</td>
+      <td>No</td>
     </tr>
   </tbody>
 </table>
@@ -1467,6 +2190,20 @@ are listed under the "default" package.</p>
       <td>Path to export to</td>
       <td>none</td>
       <td>Yes</td>
+    </tr>
+    <tr>
+      <td>recursive</td>
+      <td>Boolean</td>
+      <td>Recursive behavior</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>ignoreexternals</td>
+      <td>Boolean</td>
+      <td>Ignore externals definitions</td>
+      <td>false</td>
+      <td>No</td>
     </tr>
   </tbody>
 </table>
@@ -1575,9 +2312,9 @@ are listed under the "default" package.</p>
     </tr>
     <tr>
       <td>nocache</td>
-      <td>String</td>
+      <td>Boolean</td>
       <td>Connection credentials will not be cached</td>
-      <td>boolean</td>
+      <td>false</td>
       <td>No</td>
     </tr>
     <tr>
@@ -1586,6 +2323,20 @@ are listed under the "default" package.</p>
       <td>Path to export to</td>
       <td>none</td>
       <td>Yes</td>
+    </tr>
+    <tr>
+      <td>recursive</td>
+      <td>Boolean</td>
+      <td>Recursive behavior</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>ignoreexternals</td>
+      <td>Boolean</td>
+      <td>Ignore externals definitions</td>
+      <td>false</td>
+      <td>No</td>
     </tr>
   </tbody>
 </table>

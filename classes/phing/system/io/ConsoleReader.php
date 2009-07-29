@@ -19,8 +19,7 @@
  * <http://phing.info>. 
  */
  
-namespace phing::system::io;
-use phing::BuildException;
+include_once 'phing/system/io/Reader.php';
 
 /**
  * Convenience class for reading console input.
@@ -82,4 +81,4 @@ class ConsoleReader extends Reader {
         return "console";
     }
 }
-?>
+

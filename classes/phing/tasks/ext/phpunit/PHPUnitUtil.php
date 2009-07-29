@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::phpunit;
-use phing::BuildException;
-use phing::Phing;
-
 /**
  * Various utility functions
  *
@@ -33,16 +29,6 @@ use phing::Phing;
  */
 class PHPUnitUtil
 {
-	/**
-	 * Installed PHPUnit major version
-	 */
-	public static $installedVersion = 2;
-	
-	/**
-	 * Installed PHPUnit minor version
-	 */
-	public static $installedMinorVersion = 0;
-	
 	protected static $definedClasses = array();
 	
 	/**
@@ -132,4 +118,4 @@ class PHPUnitUtil
 		}
 	}
 }
-?>
+

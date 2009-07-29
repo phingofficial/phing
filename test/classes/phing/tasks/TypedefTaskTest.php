@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
  
-
+require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
@@ -45,7 +45,12 @@ class TypedefTaskTest extends BuildFileTest {
     }
 
     public function testClassNotFound() { 
-        $this->expectBuildException("classNotFound", "classname specified doesn't exist");
+        try {
+            $this->executeTarget("classNotFound");
+            $this->fail("Should throw ConfigurationException because: " . 
+              "classname specified doesn't exist");
+        } catch (ConfigurationException $ignored) {
+        }
     }
 
     public function testGlobal() {

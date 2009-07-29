@@ -20,8 +20,9 @@
  * <http://phing.info>.
  */
 
-namespace phing::filters;
-use phing::BuildException;
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/BaseFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Filter which includes only those lines that contain all the user-specified
@@ -254,4 +255,4 @@ class Contains {
         return $this->_value;
     }
 }
-?>
+

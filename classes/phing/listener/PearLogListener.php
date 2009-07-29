@@ -18,10 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-namespace phing::listener;
-use phing::BuildException;
-use phing::Project;
+ 
+require_once 'phing/BuildListener.php';
 
 /**
  * Writes build messages to PEAR Log.
@@ -93,7 +91,7 @@ class PearLogListener implements BuildListener {
         if ($conf === null) $conf = array();
         
         include_once 'Log.php';
-        if (!class_exists('Log', false)) {
+        if (!class_exists('Log')) {
         	throw new BuildException("Cannot find PEAR Log class for use by PearLogger.");
         }
         

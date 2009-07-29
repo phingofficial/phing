@@ -19,13 +19,9 @@
  * <http://phing.info>. 
  */
 
-namespace phing::system::io;
-use phing::BuildException;
-
 /**
  * Extends Exception to take advantage of methods therein.
  *
  * @package   phing.system.io
  */
 class IOException extends Exception {}
-?>

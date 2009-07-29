@@ -1,4 +1,5 @@
 <?php
+
 /*
  *  $Id$
  *
@@ -19,10 +20,8 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::creole;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+require_once 'phing/Task.php';
+include_once 'phing/types/Reference.php';
 
 /**
  * Handles Creole configuration needed by SQL type tasks.
@@ -87,7 +86,7 @@ abstract class CreoleTask extends Task {
      */
     function init() {
         include_once 'creole/Creole.php';
-        if (!class_exists('Creole', false)) {
+        if (!class_exists('Creole')) {
             throw new Exception("Creole task depends on Creole classes being on include_path. (i.e. include of 'creole/Creole.php' failed.)");
         }
     }

@@ -19,12 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::parser;
-use phing::BuildException;
-use phing::Task;
-use phing::TaskContainer;
-use phing::Target;
-use phing::RuntimeConfigurable;
+include_once 'phing/UnknownElement.php';
 
 /**
  * The task handler class.
@@ -92,7 +87,7 @@ class TaskHandler extends AbstractHandler {
 	 * @param RuntimeConfigurable $parentWrapper  Wrapper for the parent element, if any.
      * @param Target $target The target object this task is contained in (null for top-level tasks).
      */
-    function __construct(AbstractSAXParser $parser, $parentHandler, ProjectConfigurator $configurator, TaskContainer $container = null, RuntimeConfigurable $parentWrapper = null, Target $target = null) {
+    function __construct(AbstractSAXParser $parser, $parentHandler, ProjectConfigurator $configurator, $container = null, $parentWrapper = null, $target = null) {
         
         parent::__construct($parser, $parentHandler);
     

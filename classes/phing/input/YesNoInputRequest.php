@@ -19,9 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace phing::input;
-use phing::BuildException;
-use phing::util::StringHelper;
+require_once 'phing/input/MultipleChoiceInputRequest.php';
 
 /**
  * Encapsulates an input request that returns a boolean (yes/no).

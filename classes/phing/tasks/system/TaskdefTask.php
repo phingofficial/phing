@@ -1,4 +1,5 @@
 <?php
+
 /*
  * $Id$
  *
@@ -19,12 +20,8 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::system;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::types::Reference;
-use phing::types::Path;
+require_once 'phing/Task.php';
+include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Register a task for use within a buildfile.
@@ -72,6 +69,12 @@ class TaskdefTask extends Task {
      * Refid to already defined classpath
      */
     private $classpathId;
+
+    /**
+     * Name of file to load multiple definitions from.
+     * @var string
+     */
+    private $typeFile;
     
     /**
      * Set the classpath to be used when searching for component being defined
@@ -120,12 +123,41 @@ class TaskdefTask extends Task {
         $this->classname = $class;
     }
     
+    /**
+     * Sets the file of definitionas to use to use.
+     * @param string $file
+     */
+    public function setFile($file) {
+        $this->typeFile = $file;
+    }
+    
     /** Main entry point */
     public function main() {
-        if ($this->name === null || $this->classname === null) {
+        if ($this->typeFile === null && 
+            ($this->name === null || $this->classname === null)) {
             throw new BuildException("You must specify name and class attributes for <taskdef>.");
         }
-        $this->log("Task " . $this->name . " will be handled by class " . $this->classname, Project::MSG_VERBOSE);
-        $this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
+        if ($this->typeFile == null) {
+            $this->log("Task " . $this->name . " will be handled by class " . $this->classname, Project::MSG_VERBOSE);
+            $this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
+        } else {
+            try { // try to load taskdefs given in file
+                $props = new Properties();
+                $in = new PhingFile((string) $this->typeFile);
+
+                if ($in === null) {
+                    throw new BuildException("Can't load task list {$this->typeFile}");
+                }
+                $props->load($in);
+
+                $enum = $props->propertyNames();
+                foreach($enum as $key) {
+                    $value = $props->getProperty($key);
+                    $this->project->addTaskDefinition($key, $value, $this->classpath);
+                }
+            } catch (IOException $ioe) {
+                throw new BuildException("Can't load task list {$this->typeFile}");
+            }
+        }
     }
 }

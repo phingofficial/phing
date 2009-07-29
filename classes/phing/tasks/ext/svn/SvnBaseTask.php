@@ -19,10 +19,7 @@
  * <http://phing.info>.
  */
  
-namespace phing::tasks::ext::svn;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
+include_once 'phing/Task.php';
 
 /**
  * Base class for Subversion tasks
@@ -146,7 +143,7 @@ abstract class SvnBaseTask extends Task
 	}
 
 	/**
-	 * Returns the forec switch
+	 * Returns the force switch
 	 */
 	function getForce()
 	{
@@ -186,7 +183,7 @@ abstract class SvnBaseTask extends Task
 	}
 
 	/**
-	 * Sets the password of the user to export
+	 * Sets the no-auth-cache switch
 	 */
 	function setNoCache($value)
 	{
@@ -194,7 +191,7 @@ abstract class SvnBaseTask extends Task
 	}
 
 	/**
-	 * Returns the password
+	 * Returns the no-auth-cache switch
 	 */
 	function getNoCache()
 	{
@@ -202,7 +199,7 @@ abstract class SvnBaseTask extends Task
 	}
 	
 	/**
-	 * Toggles recursive behavior
+	 * Sets the non-recursive switch
 	 */
 	function setRecursive($value)
 	{
@@ -210,11 +207,27 @@ abstract class SvnBaseTask extends Task
 	}
 	
 	/**
-	 * Returns status of recursive behavior
+	 * Returns the non-recursive switch
 	 */
 	function getRecursive()
 	{
 		return isset( $this->svnSwitches['non-recursive'] ) ? $this->svnSwitches['non-recursive'] : '';
+	}
+
+	/**
+	 * Sets the ignore-externals switch
+	 */
+	function setIgnoreExternals($value)
+	{
+		$this->svnSwitches['ignore-externals'] = $value;
+	}
+	
+	/**
+	 * Returns the ignore-externals switch
+	 */
+	function getIgnoreExternals()
+	{
+		return isset( $this->svnSwitches['ignore-externals'] ) ? $this->svnSwitches['ignore-externals'] : '';
 	}
 	
 	/**
@@ -299,10 +312,10 @@ abstract class SvnBaseTask extends Task
 			if (count($errs = $svnstack->getErrors()))
 			{
 				$err = current($errs);
-
-				throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $err['message']);
+				
+				throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $err['params']['errstr']);
 			}
 		}
 	}
 }
-?>
+

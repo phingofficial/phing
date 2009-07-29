@@ -19,17 +19,13 @@
  * <http://phing.info>.
  */
 
-namespace phing::tasks::ext::phpunit;
-use phing::BuildException;
-use phing::Task;
-use phing::Project;
-use phing::io::Writer;
-use phing::util::LogWriter;
-use phing::system::io::File;
-use phing::system::io::FileWriter;
+require_once 'phing/Task.php';
+require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/system/io/Writer.php';
+require_once 'phing/util/LogWriter.php';
 
 /**
- * Runs PHPUnit2/3 tests.
+ * Runs PHPUnit tests.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id$
@@ -43,10 +39,15 @@ class PHPUnitTask extends Task
 	private $formatters = array();
 	private $haltonerror = false;
 	private $haltonfailure = false;
-	private $failureproperty;
+	private $haltonincomplete = false;
+	private $haltonskipped = false;
 	private $errorproperty;
+	private $failureproperty;
+	private $incompleteproperty;
+	private $skippedproperty;
 	private $printsummary = false;
 	private $testfailed = false;
+	private $testfailuremessage = "";
 	private $codecoverage = false;
 	private $groups = array();
 	private $excludeGroups = array();
@@ -58,42 +59,23 @@ class PHPUnitTask extends Task
 	 * because we may want this class to be loaded w/o triggering an error.
 	 */
 	function init() {
-		if (version_compare(PHP_VERSION, '5.0.3') < 0) {
-		    throw new BuildException("PHPUnit2Task requires PHP version >= 5.0.3.", $this->getLocation());
+		if (version_compare(PHP_VERSION, '5.0.3') < 0)
+		{
+		    throw new BuildException("PHPUnitTask requires PHP version >= 5.0.3", $this->getLocation());
 		}
 		
 		/**
 		 * Determine PHPUnit version number
 		 */
 		@include_once 'PHPUnit/Runner/Version.php';
-		@include_once 'PHPUnit2/Runner/Version.php';
 
-		if (class_exists('PHPUnit_Runner_Version', false))
-		{ 
-			$version = ::PHPUnit_Runner_Version::id();
-		}
-		elseif (class_exists('PHPUnit2_Runner_Version', false))
+		$version = PHPUnit_Runner_Version::id();
+
+		if (version_compare($version, '3.2.0') < 0)
 		{
-			$version = ::PHPUnit2_Runner_Version::id();
+			throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.2.0", $this->getLocation());
 		}
-		else
-		{
-			throw new BuildException("PHPUnit task depends on PHPUnit 2 or 3 package being installed.", $this->getLocation());
-		}
-		
-		if (version_compare($version, "3.0.0") >= 0)
-		{
-			PHPUnitUtil::$installedVersion = 3;
-			if (version_compare($version, "3.2.0") >= 0)
-			{
-				PHPUnitUtil::$installedMinorVersion = 2;
-			}
-		}
-		else
-		{
-			PHPUnitUtil::$installedVersion = 2;
-		}
-		
+			
 		/**
 		 * Other dependencies that should only be loaded when class is actually used.
 		 */
@@ -104,35 +86,28 @@ class PHPUnitTask extends Task
 		/**
 		 * Add some defaults to the PHPUnit filter
 		 */
-		if (PHPUnitUtil::$installedVersion == 3)
+		$pwd = dirname(__FILE__);
+
+		require_once 'PHPUnit/Framework.php';
+		require_once 'PHPUnit/Util/Filter.php';
+			
+		// point PHPUnit_MAIN_METHOD define to non-existing method
+		if (!defined('PHPUnit_MAIN_METHOD'))
 		{
-			require_once 'PHPUnit/Util/Filter.php';
-			
-			// point PHPUnit_MAIN_METHOD define to non-existing method
-			if (!defined('PHPUnit_MAIN_METHOD')) {
-				define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
-			}
-			
-			::PHPUnit_Util_Filter::addFileToFilter('PHPUnitTask.php', 'PHING');
-			::PHPUnit_Util_Filter::addFileToFilter('PHPUnitTestRunner.php', 'PHING');
-			::PHPUnit_Util_Filter::addFileToFilter('phing/Task.php', 'PHING');
-			::PHPUnit_Util_Filter::addFileToFilter('phing/Target.php', 'PHING');
-			::PHPUnit_Util_Filter::addFileToFilter('phing/Project.php', 'PHING');
-			::PHPUnit_Util_Filter::addFileToFilter('phing/Phing.php', 'PHING');
-			::PHPUnit_Util_Filter::addFileToFilter('phing.php', 'PHING');
+			define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
 		}
-		else
-		{
-			require_once 'PHPUnit2/Util/Filter.php';
 			
-			::PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTask.php');
-			::PHPUnit2_Util_Filter::addFileToFilter('PHPUnitTestRunner.php');
-			::PHPUnit2_Util_Filter::addFileToFilter('phing/Task.php');
-			::PHPUnit2_Util_Filter::addFileToFilter('phing/Target.php');
-			::PHPUnit2_Util_Filter::addFileToFilter('phing/Project.php');
-			::PHPUnit2_Util_Filter::addFileToFilter('phing/Phing.php');
-			::PHPUnit2_Util_Filter::addFileToFilter('phing.php');
-		}
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php', 'PHING');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php', 'PHING');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Task.php', 'PHING');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Target.php', 'PHING');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Project.php', 'PHING');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php', 'PHING');
+	}
+	
+	function setErrorproperty($value)
+	{
+		$this->errorproperty = $value;
 	}
 	
 	function setFailureproperty($value)
@@ -140,9 +115,14 @@ class PHPUnitTask extends Task
 		$this->failureproperty = $value;
 	}
 	
-	function setErrorproperty($value)
+	function setIncompleteproperty($value)
 	{
-		$this->errorproperty = $value;
+		$this->incompleteproperty = $value;
+	}
+	
+	function setSkippedproperty($value)
+	{
+		$this->skippedproperty = $value;
 	}
 	
 	function setHaltonerror($value)
@@ -153,6 +133,16 @@ class PHPUnitTask extends Task
 	function setHaltonfailure($value)
 	{
 		$this->haltonfailure = $value;
+	}
+
+	function setHaltonincomplete($value)
+	{
+		$this->haltonincomplete = $value;
+	}
+
+	function setHaltonskipped($value)
+	{
+		$this->haltonskipped = $value;
 	}
 
 	function setPrintsummary($printsummary)
@@ -167,10 +157,6 @@ class PHPUnitTask extends Task
 
 	function setGroups($groups)
 	{
-		if (PHPUnitUtil::$installedVersion < 3 || (PHPUnitUtil::$installedVersion == 3 && PHPUnitUtil::$installedMinorVersion < 2))
-		{
-			$this->log("The 'groups' attribute is only available with PHPUnit 3.2.0 or newer", Project::MSG_WARN);
-		}
 		$token = ' ,;';
 		$this->groups = array();
 		$tok = strtok($groups, $token);
@@ -182,10 +168,6 @@ class PHPUnitTask extends Task
 
 	function setExcludeGroups($excludeGroups)
 	{
-		if (PHPUnitUtil::$installedVersion < 3 || (PHPUnitUtil::$installedVersion == 3 && PHPUnitUtil::$installedMinorVersion < 2))
-		{
-			$this->log("The 'excludeGroups' attribute is only available with PHPUnit 3.2.0 or newer", Project::MSG_WARN);
-		}
 		$token = ' ,;';
 		$this->excludeGroups = array();
 		$tok = strtok($groups, $token);
@@ -229,12 +211,12 @@ class PHPUnitTask extends Task
 		
 		foreach ($this->formatters as $fe)
 		{
-			$formatter = $fe->getFormatter();			
+			$formatter = $fe->getFormatter();
 			$formatter->setProject($this->getProject());
 
 			if ($fe->getUseFile())
 			{
-				$destFile = new File($fe->getToDir(), $fe->getOutfile());
+				$destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
 				
 				$writer = new FileWriter($destFile->getAbsolutePath());
 
@@ -250,34 +232,7 @@ class PHPUnitTask extends Task
 		
 		foreach ($tests as $test)
 		{
-			$suite = NULL;
-			
-			if (is_subclass_of($test, '::PHPUnit_Framework_TestSuite') || is_subclass_of($test, '::PHPUnit2_Framework_TestSuite'))
-			{
-				if (is_object($test))
-				{
-					$suite = $test;
-				}
-				else
-				{
-					$suite = new $test();
-				}
-			}
-			else
-			{
-				if (PHPUnitUtil::$installedVersion == 3)
-				{
-					require_once 'PHPUnit/Framework/TestSuite.php';
-					$suite = new ::PHPUnit_Framework_TestSuite(new ReflectionClass($test));
-				}
-				else
-				{
-					require_once 'PHPUnit2/Framework/TestSuite.php';
-					$suite = new ::PHPUnit2_Framework_TestSuite(new ReflectionClass($test));
-				}
-			}
-			
-			$this->execute($suite);
+			$this->execute($test);
 		}
 
 		foreach ($this->formatters as $fe)
@@ -288,16 +243,16 @@ class PHPUnitTask extends Task
 		
 		if ($this->testfailed)
 		{
-			throw new BuildException("One or more tests failed");
+			throw new BuildException($this->testfailuremessage);
 		}
 	}
 
 	/**
 	 * @throws BuildException
 	 */
-	private function execute($suite)
+	private function execute($test)
 	{
-		$runner = new PHPUnitTestRunner($suite, $this->project, $this->groups, $this->excludeGroups);
+		$runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups);
 		
 		$runner->setCodecoverage($this->codecoverage);
 
@@ -307,8 +262,10 @@ class PHPUnitTask extends Task
 
 			$runner->addFormatter($formatter);
 		}
-
-		$runner->run();
+		
+		$suite = new PHPUnit_Framework_TestSuite($test);
+		
+		$runner->run($suite);
 
 		$retcode = $runner->getRetCode();
 		
@@ -318,6 +275,7 @@ class PHPUnitTask extends Task
 			}
 			if ($this->haltonerror) {
 			    $this->testfailed = true;
+			    $this->testfailuremessage = $runner->getLastFailureMessage();
 			}
 		} elseif ($retcode == PHPUnitTestRunner::FAILURES) {
 			if ($this->failureproperty) {
@@ -326,9 +284,27 @@ class PHPUnitTask extends Task
 			
 			if ($this->haltonfailure) {
 				$this->testfailed = true;
+				$this->testfailuremessage = $runner->getLastFailureMessage();
+			}
+		} elseif ($retcode == PHPUnitTestRunner::INCOMPLETES) {
+			if ($this->incompleteproperty) {
+				$this->project->setNewProperty($this->incompleteproperty, true);
+			}
+			
+			if ($this->haltonincomplete) {
+				$this->testfailed = true;
+				$this->testfailuremessage = $runner->getLastFailureMessage();
+			}
+		} elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
+			if ($this->skippedproperty) {
+				$this->project->setNewProperty($this->skippedproperty, true);
+			}
+			
+			if ($this->haltonskipped) {
+				$this->testfailed = true;
+				$this->testfailuremessage = $runner->getLastFailureMessage();
 			}
 		}
-		
 	}
 
 	private function getDefaultOutput()
@@ -350,3 +326,4 @@ class PHPUnitTask extends Task
 		return $batchtest;
 	}
 }
+
