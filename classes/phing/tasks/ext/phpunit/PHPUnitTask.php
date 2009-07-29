@@ -260,10 +260,22 @@ class PHPUnitTask extends Task
 		{
 			$formatter = $fe->getFormatter();
 
-			$runner->addFormatter($formatter);
+			$runner->addFormatter($formatter);		
 		}
 		
-		$suite = new PHPUnit_Framework_TestSuite($test);
+		/* Invoke the 'suite' method when it exists in the test class */
+		$testClass = new ReflectionClass($test);
+		
+		if ($testClass->hasMethod('suite'))
+		{
+			$suiteMethod = $testClass->getMethod('suite');
+			
+			$suite = $suiteMethod->invoke(NULL, $testClass->getName());
+		}
+		else
+		{
+			$suite = new PHPUnit_Framework_TestSuite($test);
+		}
 		
 		$runner->run($suite);
 
