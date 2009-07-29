@@ -164,6 +164,14 @@ class SimpleTestTask extends Task
 			$group->addTestFile($testfile);
 		}
 		
+		if ($this->debug)
+		{
+			$fe = new SimpleTestFormatterElement();
+			$fe->setType('debug');
+			$fe->setUseFile(false);
+			$this->formatters[] = $fe;
+		}
+		
 		if ($this->printsummary)
 		{
 			$fe = new SimpleTestFormatterElement();
