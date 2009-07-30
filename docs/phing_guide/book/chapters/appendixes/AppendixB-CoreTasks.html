@@ -225,70 +225,6 @@ and a directory, <em>properties.yetanother</em> is set to
   </tbody>
 </table>
 
-<h2><a name="PhingCallTask"></a>PhingCallTask</h2>
-<p> The PhingCallTask calls a target from the same Phing project. A <em>&lt;phingcall&gt;</em>
-  tag may contain <em>&lt;property&gt;</em> tags that define new properties. In
-  the following example, the properties <em>property1</em> and <em>foo</em> are
-  defined and only accessible inside the called target. </p>
-<p>
-  However, this will only work if the properties are not yet
-  set outside the <code>&quot;phingcall&quot;</code> tag.
-</p>
-<h3>Example</h3>
-<pre>&lt;target name=&quot;foo&quot;&gt;
-    &lt;phingcall target=&quot;bar&quot;&gt;
-        &lt;property name=&quot;property1&quot; value=&quot;aaaaa&quot; /&gt;
-        &lt;property name=&quot;foo&quot; value=&quot;baz&quot; /&gt;
-    &lt;/phingcall&gt;
-&lt;/target&gt;
-
-&lt;target name=&quot;bar&quot; depends=&quot;init&quot;&gt;
-    &lt;echo message=&quot;prop is ${property1} ${foo}&quot; /&gt;
-&lt;/target&gt;</pre>
-<h3>Parameters</h3>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type/Values</th>
-      <th>Description</th>
-      <th>Default</th>
-      <th>Required</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>target</td>
-      <td>string</td>
-      <td>
-        The name of the target in the same project that is
-        to be called.
-      </td>
-      <td>n/a</td>
-      <td>Yes</td>
-    </tr>
-    <!-- Not used yet. TODO: Document if it is
-    <tr>
-      <td>inheritAll</td>
-      <td>Boolean</td>
-      <td>
-        If true, all
-      </td>
-      <td>true</td>
-      <td>No</td>
-    </tr>
-    <tr>
-      <td>inheritRefs</td>
-      <td>Boolean</td>
-      <td>
-      </td>
-      <td>false</td>
-      <td>No</td>
-    </tr>
-    -->
-  </tbody>
-</table>
-
 <!-- TODO: write and document
 <h2><a name="ConditionTask"></a>ConditionTask</h2>
 <p>
@@ -1321,6 +1257,70 @@ is used:
       <td>basedir attribute of the <em>&lt;project&gt;</em>
           element of the new project</td>
     </tr>
+  </tbody>
+</table>
+
+<h2><a name="PhingCallTask"></a>PhingCallTask</h2>
+<p> The PhingCallTask calls a target from the same Phing project. A <em>&lt;phingcall&gt;</em>
+  tag may contain <em>&lt;property&gt;</em> tags that define new properties. In
+  the following example, the properties <em>property1</em> and <em>foo</em> are
+  defined and only accessible inside the called target. </p>
+<p>
+  However, this will only work if the properties are not yet
+  set outside the <code>&quot;phingcall&quot;</code> tag.
+</p>
+<h3>Example</h3>
+<pre>&lt;target name=&quot;foo&quot;&gt;
+    &lt;phingcall target=&quot;bar&quot;&gt;
+        &lt;property name=&quot;property1&quot; value=&quot;aaaaa&quot; /&gt;
+        &lt;property name=&quot;foo&quot; value=&quot;baz&quot; /&gt;
+    &lt;/phingcall&gt;
+&lt;/target&gt;
+
+&lt;target name=&quot;bar&quot; depends=&quot;init&quot;&gt;
+    &lt;echo message=&quot;prop is ${property1} ${foo}&quot; /&gt;
+&lt;/target&gt;</pre>
+<h3>Parameters</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type/Values</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>target</td>
+      <td>string</td>
+      <td>
+        The name of the target in the same project that is
+        to be called.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <!-- Not used yet. TODO: Document if it is
+    <tr>
+      <td>inheritAll</td>
+      <td>Boolean</td>
+      <td>
+        If true, all
+      </td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>inheritRefs</td>
+      <td>Boolean</td>
+      <td>
+      </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    -->
   </tbody>
 </table>
 
