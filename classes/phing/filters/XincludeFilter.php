@@ -29,7 +29,7 @@ include_once 'phing/filters/ChainableReader.php';
  * Uses PHP DOM XML support
  * 
  * @author    Bill Karwin <bill@karwin.com>
- * @version   $Revision: 1.16 $
+ * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  */
