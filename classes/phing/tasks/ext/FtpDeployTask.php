@@ -48,13 +48,13 @@ require_once 'PEAR.php';
 class FtpDeployTask extends Task
 {
 	private $host = null;
-	private $port = 0;
+	private $port = 21;
 	private $username = null;
 	private $password = null;
 	private $dir = null;
 	private $filesets;
 	private $completeDirMap;
-	private $mode = null;
+	private $mode = 'binary';
 	private $clearFirst = false;
 	private $passive = false;
 	
