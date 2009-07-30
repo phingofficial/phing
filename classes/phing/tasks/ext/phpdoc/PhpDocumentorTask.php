@@ -452,7 +452,7 @@ class PhpDocumentorTask extends Task
 	        $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 	        foreach($files as $filename) {
 	        	 $f = new PhingFile($fs->getDir($this->project), $filename);
-	        	 $ricFiles[] = $f->getAbsolutePath();
+	        	 $ricFiles[] = $f->getName();
 	        }
 		}
 		$phpdoc->setRicFiles($ricFiles);
