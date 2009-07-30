@@ -40,10 +40,10 @@ require_once 'PEAR.php';
  *   </fileset>
  * </ftpdeploy>
  *
- * 
- * @todo Documentation
  * @author Jorrit Schippers <jorrit at ncode dot nl>
+ * @version $Revison$
  * @since 2.3.1
+ * @package  phing.tasks.ext
  */
 class FtpDeployTask extends Task
 {
