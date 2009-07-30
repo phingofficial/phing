@@ -1003,7 +1003,7 @@ class Phing {
 			}
 		}
 		
-		$ret = @include_once($path);
+		$ret = include_once($path);
 
 		if ($ret === false) {
 			$msg = "Error importing $path";

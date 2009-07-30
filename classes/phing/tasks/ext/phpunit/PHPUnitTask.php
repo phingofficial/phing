@@ -97,12 +97,12 @@ class PHPUnitTask extends Task
 			define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
 		}
 			
-		PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php', 'PHING');
-		PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php', 'PHING');
-		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Task.php', 'PHING');
-		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Target.php', 'PHING');
-		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Project.php', 'PHING');
-		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php', 'PHING');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTask.php');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/PHPUnitTestRunner.php');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Task.php');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Target.php');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Project.php');
+		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php');
 	}
 	
 	function setErrorproperty($value)

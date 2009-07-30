@@ -21,6 +21,7 @@
 
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/Util/ErrorHandler.php';
+require_once 'PHPUnit/Util/Filter.php';
 require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 require_once 'phing/system/util/Timer.php';
 
@@ -69,6 +70,14 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 		$this->formatters[] = $formatter;
 	}
 	
+	public static function handleError($level, $message, $file, $line)
+	{
+		if (!PHPUnit_Util_Filter::isFiltered($file, true, true))
+		{
+			return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
+		}
+	}
+	
 	/**
 	 * Run a test
 	 */
@@ -89,7 +98,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 		}
 		
 		/* Set PHPUnit error handler */
-		$oldErrorHandler = set_error_handler(array('PHPUnit_Util_ErrorHandler', 'handleError'), E_ALL | E_STRICT);
+		$oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
 
 		$test->run($res, false, $this->groups, $this->excludeGroups);
 		
