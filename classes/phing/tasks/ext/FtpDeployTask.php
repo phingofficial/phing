@@ -20,7 +20,6 @@
  */
 
 require_once 'phing/Task.php';
-require_once 'PEAR.php';
 
 /**
  * FtpDeployTask
@@ -113,6 +112,8 @@ class FtpDeployTask extends Task
 	 * The init method: check if Net_FTP is available
 	 */
 	public function init() {
+		require_once 'PEAR.php';
+
 		$paths = explode(PATH_SEPARATOR, get_include_path());
 		foreach($paths as $path) {
 			if(file_exists($path.DIRECTORY_SEPARATOR.'Net'.DIRECTORY_SEPARATOR.'FTP.php')) {
