@@ -394,9 +394,12 @@ class PhingFile {
      *
      */
     function exists() {                
-		clearstatcache();
-        if ($this->isFile()) {
-            return @file_exists($this->path);
+        clearstatcache();
+        
+        if (is_link($this->path)) {
+			return true;
+		} else if ($this->isFile()) {
+			return @file_exists($this->path) || is_link($this->path);
         } else {
             return @is_dir($this->path);
         }
