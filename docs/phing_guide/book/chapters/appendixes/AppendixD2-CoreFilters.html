@@ -558,6 +558,15 @@ modular XML files.  Usage example:
       <td>Project basedir</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td>resolveexternals</td>
+      <td>Boolean</td>
+      <td>
+        Whether to resolve entities. (see <a href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals" target="_blank">this link</a> for details)
+      </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
   </tbody>
 </table>
 
@@ -602,6 +611,24 @@ which is shortcut to the following lines:
       <td>Boolean</td>
       <td>
         Whether to parse the input as HTML (using libxml2 DOMDocument::loadHTML()).
+      </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>resolvedocumentexternals</td>
+      <td>Boolean</td>
+      <td>
+        Whether to resolve entities in the XML document. (see <a href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals" target="_blank">this link</a> for details)
+      </td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>resolvestylesheetexternals</td>
+      <td>Boolean</td>
+      <td>
+        Whether to resolve entities in the stylesheet. 
       </td>
       <td>false</td>
       <td>No</td>

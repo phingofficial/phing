@@ -31,7 +31,7 @@ include_once 'phing/filters/XsltFilter.php';
  * in the <filterchains> section.
  * 
  * @author    Andreas Aderhold, andi@binarycloud.com
- * @version   $Revision: 1.8 $
+ * @version   $Revision$
  * @package   phing.tasks.system
  */
 class XsltTask extends CopyTask {
@@ -68,6 +68,28 @@ class XsltTask extends CopyTask {
      */
     function setStyle(PhingFile $style) {
         $this->xsltFilter->setStyle($style);
+    }
+    
+    /**
+     * Whether to resolve entities in the XML document.
+     * 
+     * @param bool $resolveExternals
+     * 
+     * @since 2.4
+     */
+    function setResolveDocumentExternals($resolveExternals) {
+        $this->xsltFilter->setResolveDocumentExternals((bool)$resolveExternals);
+    }
+    
+    /**
+     * Whether to resolve entities in the stylesheet.
+     * 
+     * @param bool $resolveExternals
+     * 
+     * @since 2.4
+     */
+    function setResolveStylesheetExternals($resolveExternals) {
+        $this->xsltFilter->setResolveStylesheetExternals((bool)$resolveExternals);
     }
     
     /**
