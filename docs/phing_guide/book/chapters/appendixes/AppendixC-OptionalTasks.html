@@ -257,6 +257,92 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
 &lt;/phpunit&gt;
 </pre>
 
+<h2><a name="FtpDeployTask"></a>FtpDeployTask</h2>
+<p>Deploys a set of files to a remote FTP server.</p>
+
+<h3>Example</h3>
+<pre>&lt;ftpdeploy 
+  host="${ftp.host}" 
+  port="${ftp.port}" 
+  username="${ftp.username}" 
+  password="${ftp.password}"
+  dir="${ftp.dir}" 
+  mode="${ftp.mode}">
+  &lt;fileset dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;**&quot;/&gt;
+    &lt;exclude name=&quot;phing&quot;/&gt;
+    &lt;exclude name=&quot;build.xml&quot;/&gt;
+    &lt;exclude name=&quot;images/**.png&quot;/&gt;
+    &lt;exclude name=&quot;images/**.gif&quot;/&gt;
+    &lt;exclude name=&quot;images/**.jpg&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/ftpdeploy&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>host</td>
+      <td>String</td>
+      <td>The hostname of the remote server.</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>port</td>
+      <td>Boolean</td>
+      <td>The port of the remote server.</td>
+      <td>21</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>username</td>
+      <td>String</td>
+      <td>The username to use when logging in to the remote server.</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>password</td>
+      <td>String</td>
+      <td>The password to use when logging in to the remote server</td>
+      <td>none</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>dir</td>
+      <td>String</td>
+      <td>Directory on the remote server.</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>mode</td>
+      <td>String</td>
+      <td>The transfer mode to use, either <em>ascii</em> or <em>binary</em>.</td>
+      <td>binary</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset
+    <p>The files to deploy</p>
+  </li>
+</ul>
+
 <h2><a name="IoncubeEncoderTask"></a>IoncubeEncoderTask</h2>
 <p>The <em>IoncubeEncoderTask</em> executes the <a href="http://www.ioncube.com" target="_blank">ionCube</a> encoder (for either PHP4 or PHP5 projects).</p>
 
