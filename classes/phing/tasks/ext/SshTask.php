@@ -25,7 +25,7 @@ require_once 'phing/Task.php';
  * Execute commands on a remote host using ssh.
  *
  * @author    Johan Van den Brande <johan@vandenbrande.com>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.ext
  */
 

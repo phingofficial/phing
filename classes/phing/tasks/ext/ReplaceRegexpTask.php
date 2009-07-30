@@ -33,7 +33,7 @@ require_once 'phing/Task.php';
  * </code>
  * 
  * @author    Jonathan Bond-Caron <jbondc@openmv.com>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.system
  * @see 	  <http://ant.apache.org/manual/OptionalTasks/replaceregexp.html>
  */

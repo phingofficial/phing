@@ -26,7 +26,8 @@ require_once 'phing/Task.php';
  *
  * @author	 Knut Urdalen <knut.urdalen@telio.no>
  * @author	 Stefan Priebsch <stefan.priebsch@e-novative.de>
- * @package	phing.tasks.ext
+ * @version  $Id$
+ * @package	 phing.tasks.ext
  */
 class PhpLintTask extends Task {
 

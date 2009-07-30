@@ -25,7 +25,7 @@ require_once 'phing/Task.php';
  * Copy files to and from a remote host using scp.
  *
  * @author    Johan Van den Brande <johan@vandenbrande.com>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.ext
  */
 

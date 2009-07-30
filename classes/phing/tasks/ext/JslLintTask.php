@@ -27,6 +27,8 @@ require_once 'phing/Task.php';
   * This class is based on Knut Urdalen's PhpLintTask.
   *
   * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
+  * @version $Id$
+  * @package phing.tasks.ext
   */
   class JslLintTask extends Task
   {

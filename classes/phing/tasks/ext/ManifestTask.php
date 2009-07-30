@@ -46,6 +46,8 @@ require_once 'phing/system/io/PhingFile.php';
  * 
  * 
  * @author David Persson <davidpersson at qeweurope dot org>
+ * @package phing.tasks.ext
+ * @version $Id$
  * @since 2.3.1
  */
 class ManifestTask extends Task

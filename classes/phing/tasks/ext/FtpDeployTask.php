@@ -41,7 +41,7 @@ require_once 'PEAR.php';
  * </ftpdeploy>
  *
  * @author Jorrit Schippers <jorrit at ncode dot nl>
- * @version $Revision$
+ * @version $Id$
  * @since 2.3.1
  * @package  phing.tasks.ext
  */

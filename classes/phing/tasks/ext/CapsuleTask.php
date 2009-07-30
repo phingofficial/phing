@@ -31,7 +31,7 @@ include_once 'phing/util/StringHelper.php';
  * This is based on the interface to TexenTask from Apache's Velocity engine. 
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.17 $
+ * @version   $Id$
  * @package   phing.tasks.ext
  */
 class CapsuleTask extends Task {
