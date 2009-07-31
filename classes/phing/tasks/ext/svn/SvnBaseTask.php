@@ -58,7 +58,7 @@ abstract class SvnBaseTask extends Task
 	function init() {
 		include_once 'VersionControl/SVN.php';
 		if (!class_exists('VersionControl_SVN')) {
-			throw new Exception("SvnLastRevisionTask depends on PEAR VersionControl_SVN package being installed.");
+			throw new Exception("The SVN tasks depend on PEAR VersionControl_SVN package being installed.");
 		}
 	}
 
