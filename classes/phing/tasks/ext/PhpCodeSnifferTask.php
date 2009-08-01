@@ -210,6 +210,23 @@ class PhpCodeSnifferTask extends Task {
 		  $fmt->setUseFile(false);
 		  $this->formatters[] = $fmt;
 		}
+		
+		if (!isset($this->file))
+		{
+			$fileList = array();
+			$project = $this->getProject();
+			foreach ($this->filesets as $fs) {
+				$ds = $fs->getDirectoryScanner($project);
+				$files = $ds->getIncludedFiles();
+				$dir = $fs->getDir($this->project)->getAbsolutePath();
+				foreach ($files as $file) {
+					$fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
+				}
+	  		}
+	  	}
+	  	
+	  	/* save current directory */
+	  	$old_cwd = getcwd();
 
 		require_once 'PHP/CodeSniffer.php';
 		$codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth);
@@ -223,20 +240,13 @@ class PhpCodeSnifferTask extends Task {
 			$codeSniffer->process($this->file->getPath(), $this->standard, $this->sniffs, $this->noSubdirectories);
 
 		} else {
-			$fileList = array();
-			$project = $this->getProject();
-			foreach ($this->filesets as $fs) {
-				$ds = $fs->getDirectoryScanner($project);
-				$files = $ds->getIncludedFiles();
-				$dir = $fs->getDir($this->project)->getPath();
-				foreach ($files as $file) {
-					$fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
-				}
-	  		}
 			$codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
 		}
 
 		$this->output($codeSniffer);
+		
+		/* reset current directory */
+		chdir($old_cwd);
 	}
 
 	/**
