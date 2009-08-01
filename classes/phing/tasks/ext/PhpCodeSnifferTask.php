@@ -48,6 +48,9 @@ class PhpCodeSnifferTask extends Task {
 	protected $showSniffs = false;
 	protected $format = 'default';
 	protected $formatters   = array();
+	
+	private $haltonerror = false;
+	private $haltonwarning = false;	
 
 	/**
 	 * File to be performed syntax check on
@@ -194,7 +197,25 @@ class PhpCodeSnifferTask extends Task {
         new PhpCodeSnifferTask_FormatterElement());
 	    return $this->formatters[$num-1];
 	}
+	
+	/**
+	 * Sets the haltonerror flag
+	 * @param boolean $value
+	 */
+	function setHaltonerror($value)
+	{
+		$this->haltonerror = $value;
+	}
 
+	/**
+	 * Sets the haltonwarning flag
+	 * @param boolean $value
+	 */
+	function setHaltonwarning($value)
+	{
+		$this->haltonwarning = $value;
+	}
+	
 	/**
 	 * Executes PHP code sniffer against PhingFile or a FileSet
 	 */
@@ -244,6 +265,18 @@ class PhpCodeSnifferTask extends Task {
 		}
 
 		$this->output($codeSniffer);
+		
+		$report = $codeSniffer->prepareErrorReport(true);			
+		
+		if ($this->haltonerror && $report['totals']['errors'] > 0)
+		{
+			throw new BuildException('phpcodesniffer detected ' . $report['totals']['errors']. ' error' . ($report['totals']['errors'] > 1 ? 's' : ''));
+		}
+
+		if ($this->haltonwarning && $report['totals']['warnings'] > 0)
+		{
+			throw new BuildException('phpcodesniffer detected ' . $report['totals']['warnings'] . ' warning' . ($report['totals']['warnings'] > 1 ? 's' : ''));
+		}
 		
 		/* reset current directory */
 		chdir($old_cwd);
