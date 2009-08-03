@@ -110,7 +110,7 @@ require_once 'phing/Task.php';
       exec('jsl', $output);
       if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
     
-      $command = 'jsl -output-format file:__FILE__;line:__LINE__;message:__ERROR__ -process ';
+      $command = 'jsl -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' -process ';
 
       if(file_exists($file))
       {
