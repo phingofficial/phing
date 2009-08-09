@@ -94,6 +94,13 @@ class ExecTask extends Task {
 	protected $returnProperty;
 
 	/**
+	 * Property name to set with output value from exec call.
+	 *
+	 * @var string
+	 */
+	protected $outputProperty;
+
+	/**
 	 * Whether to check the return code.
 	 * @var boolean
 	 */
@@ -190,6 +197,10 @@ class ExecTask extends Task {
 			$this->project->setProperty($this->returnProperty, $return);
 		}
 
+		if ($this->outputProperty) {
+			$this->project->setProperty($this->outputProperty, implode("\n", $output));
+		}
+
 		if($return != 0 && $this->checkreturn) {
 			throw new BuildException("Task exited with code $return");
 		}
@@ -283,6 +294,14 @@ class ExecTask extends Task {
 	 */
 	function setReturnProperty($prop) {
 		$this->returnProperty = $prop;
+	}
+
+	/**
+	 * The name of property to set to output value from exec() call.
+	 * @param string $prop
+	 */
+	function setOutputProperty($prop) {
+		$this->outputProperty = $prop;
 	}
 }
 
