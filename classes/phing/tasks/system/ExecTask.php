@@ -63,10 +63,16 @@ class ExecTask extends Task {
 	protected $output;
 
 	/**
-	 * Whether to passthru the output
+	 * Whether to use PHP's passthru() function instead of exec()
 	 * @var boolean
 	 */
 	protected $passthru = false;
+
+	/**
+	 * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
+	 * @var boolean
+	 */
+	protected $logOutput = false;
 
 	/**
 	 * Where to direct error output.
@@ -162,14 +168,22 @@ class ExecTask extends Task {
 
 		$output = array();
 		$return = null;
-		exec($this->command, $output, $return);
+		
+		if ($this->passthru)
+		{
+			passthru($this->command, $return);
+		}
+		else
+		{
+			exec($this->command, $output, $return);
+		}
 
 		if ($this->dir !== null) {
 			@chdir($currdir);
 		}
 
 		foreach($output as $line) {
-			$this->log($line,  ($this->passthru ? Project::MSG_INFO : Project::MSG_VERBOSE));
+			$this->log($line,  ($this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE));
 		}
 
 		if ($this->returnProperty) {
@@ -232,11 +246,19 @@ class ExecTask extends Task {
 	}
 
 	/**
-	 * Whether to use passthru the output.
+	 * Whether to use PHP's passthru() function instead of exec()
 	 * @param boolean $passthru
 	 */
 	function setPassthru($passthru) {
 		$this->passthru = (bool) $passthru;
+	}
+
+	/**
+	 * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
+	 * @param boolean $passthru
+	 */
+	function setLogoutput($logOutput) {
+		$this->logOutput = (bool) $logOutput;
 	}
 
 	/**

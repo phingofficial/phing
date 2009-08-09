@@ -679,10 +679,17 @@ The task can also echo to a file, in which case the option to append rather than
     <tr>
       <td>passthru</td>
       <td>Boolean</td>
-      <td> Wether to passthru the output.</td>
+      <td> Whether to use PHP's passthru() function instead of exec().</td>
       <td>FALSE</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td>logoutput</td>
+      <td>Boolean</td>
+      <td> Whether to log returned output as MSG_INFO instead of MSG_VERBOSE.</td>
+      <td>FALSE</td>
+      <td>No</td>
+    </tr>    
     <tr>
       <td>spawn</td>
       <td>Boolean</td>
