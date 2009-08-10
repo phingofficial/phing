@@ -52,7 +52,7 @@
 	</target>
 
 	<target name="reports" depends="configure">
-		<phpunit haltonerror="true" haltonfailure="false" printsummary="true">
+		<phpunit haltonerror="true" haltonfailure="true" printsummary="true">
 			<formatter type="xml" usefile="true" todir="${tests.reports.dir}" outfile="test-results.xml" />
 			<formatter type="plain" usefile="false"/>
 			<batchtest>
