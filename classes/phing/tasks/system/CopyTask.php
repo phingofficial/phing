@@ -56,6 +56,8 @@ class CopyTask extends Task {
     protected $filterChains  = array(); // all filterchains objects assigned to this task
 
     protected $verbosity     = Project::MSG_VERBOSE;
+    
+    protected $mode           = 0755;   // mode to create directories with
 
     /**
      * Sets up this object internal stuff. i.e. the Fileutils instance
@@ -147,6 +149,17 @@ class CopyTask extends Task {
         $this->destFile = $file;
     }
 
+    /**
+     * Sets the mode to create destination directories with (ignored on Windows).
+     * Default mode is 0755.
+     *
+     * @param  integer  Octal mode
+     * @return void
+     * @access public
+     */
+    function setMode($mode) {
+        $this->mode = (int) base_convert($mode, 8, 10);
+    }
 
     /**
      * Set the toDir. We have to manually take care of the
@@ -401,7 +414,7 @@ class CopyTask extends Task {
 					$toSlot->setValue($toFile->getPath());
 					$toBasenameSlot->setValue($toFile->getName());
 					
-                    $this->fileUtils->copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject());
+                    $this->fileUtils->copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject(), $this->mode);
 			
                     $count++;
                 } catch (IOException $ioe) {

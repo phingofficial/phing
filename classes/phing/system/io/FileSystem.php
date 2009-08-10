@@ -313,9 +313,14 @@ abstract class FileSystem {
     /**
      * Create a new directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
+     *
+     * NOTE: umask() is reset to 0 while executing mkdir(), and restored afterwards
      */
-    function createDirectory(&$f) {
-        return @mkdir($f->getAbsolutePath(),0755);
+    function createDirectory(&$f, $mode = 0755) {
+		$old_umask = umask(0);
+		$return = @mkdir($f->getAbsolutePath(), $mode);
+		umask($old_umask);
+        return $return;
     }
 
     /**
