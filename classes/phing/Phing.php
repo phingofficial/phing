@@ -383,6 +383,8 @@ class Phing {
 				} else {
 					$this->inputHandlerClassname = $args[++$i];
 				}
+			} elseif ($arg == "-longtargets") {
+				self::$definedProps->setProperty('phing.showlongtargets', 1);
 			} elseif ($arg == "-projecthelp" || $arg == "-targets" || $arg == "-list" || $arg == "-l" || $arg == "-p") {
 				// set the flag to display the targets and quit
 				$this->projectHelp = true;
@@ -773,6 +775,7 @@ class Phing {
 		$msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
 		$msg .= "  -verbose               be extra verbose" . PHP_EOL;
 		$msg .= "  -debug                 print debugging information" . PHP_EOL;
+		$msg .= "  -longtargets           show target descriptions during build" . PHP_EOL;
 		$msg .= "  -logfile <file>        use given file for log" . PHP_EOL;
 		$msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
 		$msg .= "  -f -buildfile <file>   use given buildfile" . PHP_EOL;
