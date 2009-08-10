@@ -88,7 +88,8 @@ class MoveTask extends CopyTask {
                 $moved = false;
                 try { // try to rename                    
                     $this->log("Attempting to rename $from to $to", $this->verbosity);
-                    $this->renameFile($f, $d, $this->forceOverwrite);
+                    $this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject());
+                    $f->delete();
                     $moved = true;
                 } catch (IOException $ioe) {
                     $moved = false;
@@ -108,33 +109,19 @@ class MoveTask extends CopyTask {
                     continue;
                 }
 
-                $moved = false;
                 $f = new PhingFile($from);
                 $d = new PhingFile($to);
                 
-                $moved = false;
-                try { // try to rename                    
-                    $this->log("Attempting to rename $from to $to", $this->verbosity);
-                    $this->renameFile($f, $d, $this->forceOverwrite);
-                    $moved = true;
-                } catch (IOException $ioe) {
-                    $moved = false;
-                    $this->log("Failed to rename $from to $to: " . $ioe->getMessage(), $this->verbosity);
-                }
+				try { // try to move
+					$this->log("Moving $from to $to", $this->verbosity);
 
-                if (!$moved) {                    
-                    try { // try to move
-                        $this->log("Moving $from to $to", $this->verbosity);
+					$this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject());
 
-                        $this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject());                        
-
-                        $f = new PhingFile($fromFile);
-                        $f->delete();
-                    } catch (IOException $ioe) {
-                        $msg = "Failed to move $from to $to: " . $ioe->getMessage();
-                        throw new BuildException($msg, $this->location);
-                    }
-                } // if !moved
+					$f->delete();
+				} catch (IOException $ioe) {
+					$msg = "Failed to move $from to $to: " . $ioe->getMessage();
+					throw new BuildException($msg, $this->location);
+				}
             } // foreach fileCopyMap
         } // if copyMapSize
 
@@ -213,35 +200,4 @@ class MoveTask extends CopyTask {
             throw new BuildException("Unable to delete directory " . $d->__toString() . ": " . $e->getMessage());
         }
     }
-
-    /**
-     * Attempts to rename a file from a source to a destination.
-     * If overwrite is set to true, this method overwrites existing file
-     * even if the destination file is newer.
-     * Otherwise, the source f
-     * ile is renamed only if the destination file #
-     * is older than it.
-     */
-    private function renameFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite) {
-        $renamed = true;
-
-        // ensure that parent dir of dest file exists!
-        $parent = $destFile->getParentFile();
-        if ($parent !== null) {
-            if (!$parent->exists()) {
-                $parent->mkdirs();
-            }
-        }
-        if ($destFile->exists()) {
-            try {
-                $destFile->delete();
-            } catch (Exception $e) {
-                throw new BuildException("Unable to remove existing file " . $destFile->__toString() . ": " . $e->getMessage());
-            }
-        }
-        $renamed = $sourceFile->renameTo($destFile);
-
-        return $renamed;
-    }
 }
-
