@@ -128,118 +128,17 @@ class SelectorUtils {
      */
     public static function matchPath($pattern, $str, $isCaseSensitive = true) {
     
-        // When str starts with a DIRECTORY_SEPARATOR, pattern has to start with a
-        // DIRECTORY_SEPARATOR.
-        // When pattern starts with a DIRECTORY_SEPARATOR, str has to start with a
-        // DIRECTORY_SEPARATOR.
-        if (StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !==
-            StringHelper::startsWith(DIRECTORY_SEPARATOR, $pattern)) {
-            return false;
-        }
-
-        $patDirs = explode(DIRECTORY_SEPARATOR, $pattern);
-        $strDirs = explode(DIRECTORY_SEPARATOR, $str);
-
-        $patIdxStart = 0;
-        $patIdxEnd   = count($patDirs)-1;
-        $strIdxStart = 0;
-        $strIdxEnd   = count($strDirs)-1;
-        
-        // up to first '**'
-        while ($patIdxStart <= $patIdxEnd && $strIdxStart <= $strIdxEnd) {
-            $patDir = $patDirs[$patIdxStart];
-            if ($patDir == "**") {
-                break;
-            }
-            if (!self::match($patDir, $strDirs[$strIdxStart], $isCaseSensitive)) {
-                return false;
-            }
-            $patIdxStart++;
-            $strIdxStart++;
-        }
-        if ($strIdxStart > $strIdxEnd) {
-            // String is exhausted
-            for ($i=$patIdxStart; $i <= $patIdxEnd; $i++) {
-                if ($patDirs[$i] != "**") {
-                    return false;
-                }
-            }
-            return true;
-        } elseif ($patIdxStart > $patIdxEnd) {
-            // String not exhausted, but pattern is. Failure.
-            return false;
-        }
-
-        // up to last '**'
-        while ($patIdxStart <= $patIdxEnd && $strIdxStart <= $strIdxEnd) {
-            $patDir = $patDirs[$patIdxEnd];
-            if ($patDir == "**") {
-                break;
-            }
-            if (!self::match($patDir, $strDirs[$strIdxEnd], $isCaseSensitive)) {
-                return false;
-            }
-            $patIdxEnd--;
-            $strIdxEnd--;
-        }
-        
-        if ($strIdxStart > $strIdxEnd) {
-            // String is exhausted
-            for ($i = $patIdxStart; $i <= $patIdxEnd; $i++) {
-                if ($patDirs[$i] != "**") {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        while ($patIdxStart != $patIdxEnd && $strIdxStart <= $strIdxEnd) {
-            $patIdxTmp = -1;
-            for ($i = $patIdxStart+1; $i <= $patIdxEnd; $i++) {
-                if ($patDirs[$i] == "**") {
-                    $patIdxTmp = $i;
-                    break;
-                }
-            }
-            if ($patIdxTmp == $patIdxStart+1) {
-                // '**/**' situation, so skip one
-                $patIdxStart++;
-                continue;
-            }
-            // Find the pattern between padIdxStart & padIdxTmp in str between
-            // strIdxStart & strIdxEnd
-            $patLength = ($patIdxTmp-$patIdxStart-1);
-            $strLength = ($strIdxEnd-$strIdxStart+1);
-            $foundIdx  = -1;
-
-            //strLoop:    (start of outer loop)
-            for ($i=0; $i <= $strLength - $patLength; $i++) {                
-                for ($j = 0; $j < $patLength; $j++) {
-                    $subPat = $patDirs[$patIdxStart+$j+1];
-                    $subStr = $strDirs[$strIdxStart+$i+$j];
-                    if (!self::match($subPat, $subStr, $isCaseSensitive)) {
-                        continue 2; // continue up two levels (to strLoop:)
-                    }
-                }                                
-                $foundIdx = $strIdxStart+$i; // only reached if all sub patterns matched
-                break;
-            }
-
-            if ($foundIdx == -1) {
-                return false;
-            }
-
-            $patIdxStart = $patIdxTmp;
-            $strIdxStart = $foundIdx + $patLength;
-        }
-
-        for ($i = $patIdxStart; $i <= $patIdxEnd; $i++) {
-            if ($patDirs[$i] != "**") {
-                return false;
-            }
-        }
-
-        return true;
+        $rePattern = preg_quote($pattern, '/');
+        $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
+        $patternReplacements = array(
+            '\*\*'.$dirSep => '.*',
+            '\*\*' => '.*',
+            '\*' => '[^'.$dirSep.']*',
+            '\?' => '[^'.$dirSep.']'
+        );
+        $rePattern = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
+        $rePattern = '/^'.$rePattern.'$/'.($isCaseSensitive ? '' : 'i');
+        return preg_match($rePattern, $str);
     }
 
     /**
@@ -261,152 +160,10 @@ class SelectorUtils {
      */
     public static function match($pattern, $str, $isCaseSensitive = true) {
     
-        $patArr = StringHelper::toCharArray($pattern);
-        $strArr = StringHelper::toCharArray($str);
-        $patIdxStart = 0;
-        $patIdxEnd   = count($patArr)-1;
-        $strIdxStart = 0;
-        $strIdxEnd   = count($strArr)-1;
-        
-        $containsStar = false;
-        for ($i = 0, $size=count($patArr); $i < $size; $i++) {
-            if ($patArr[$i] == '*') {
-                $containsStar = true;
-                break;
-            }
-        }
-
-        if (!$containsStar) {
-            // No '*'s, so we make a shortcut
-            if ($patIdxEnd != $strIdxEnd) {
-                return false; // Pattern and string do not have the same size
-            }
-            for ($i = 0; $i <= $patIdxEnd; $i++) {
-                $ch = $patArr[$i];
-                if ($ch != '?') {
-                    if ($isCaseSensitive && $ch !== $strArr[$i]) {
-                        return false;// Character mismatch
-                    }
-                    if (!$isCaseSensitive && strtoupper($ch) !==
-                        strtoupper($strArr[$i])) {
-                        return false; // Character mismatch
-                    }
-                }
-            }
-            return true; // String matches against pattern
-        }
-
-        if ($patIdxEnd == 0) {
-            return true; // Pattern contains only '*', which matches anything
-        }
-
-        // Process characters before first star
-        while(($ch = $patArr[$patIdxStart]) != '*' && $strIdxStart <= $strIdxEnd) {
-            if ($ch != '?') {
-                if ($isCaseSensitive && $ch !== $strArr[$strIdxStart]) {
-                    return false;// Character mismatch
-                }
-                if (!$isCaseSensitive && strtoupper($ch) !==
-                    strtoupper($strArr[$strIdxStart])) {
-                    return false;// Character mismatch
-                }
-            }
-            $patIdxStart++;
-            $strIdxStart++;
-        }
-        
-        if ($strIdxStart > $strIdxEnd) {
-            // All characters in the string are used. Check if only '*'s are
-            // left in the pattern. If so, we succeeded. Otherwise failure.
-            for ($i = $patIdxStart; $i <= $patIdxEnd; $i++) {
-                if ($patArr[$i] != '*') {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        // Process characters after last star
-        while(($ch = $patArr[$patIdxEnd]) != '*' && $strIdxStart <= $strIdxEnd) {
-            if ($ch != '?') {
-                if ($isCaseSensitive && $ch !== $strArr[$strIdxEnd]) {
-                    return false;// Character mismatch
-                }
-                if (!$isCaseSensitive && strtoupper($ch) !==
-                    strtoupper($strArr[$strIdxEnd])) {
-                    return false;// Character mismatch
-                }
-            }
-            $patIdxEnd--;
-            $strIdxEnd--;
-        }
-        if ($strIdxStart > $strIdxEnd) {
-            // All characters in the string are used. Check if only '*'s are
-            // left in the pattern. If so, we succeeded. Otherwise failure.
-            for ($i = $patIdxStart; $i <= $patIdxEnd; $i++) {
-                if ($patArr[$i] != '*') {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        // process pattern between stars. padIdxStart and patIdxEnd point
-        // always to a '*'.
-        while ($patIdxStart !== $patIdxEnd && $strIdxStart <= $strIdxEnd) {
-            $patIdxTmp = -1;
-            for ($i = $patIdxStart+1; $i <= $patIdxEnd; $i++) {
-                if ($patArr[$i] == '*') {
-                    $patIdxTmp = $i;
-                    break;
-                }
-            }
-            if ($patIdxTmp === $patIdxStart + 1) {
-                // Two stars next to each other, skip the first one.
-                $patIdxStart++;
-                continue;
-            }
-            // Find the pattern between padIdxStart & padIdxTmp in str between
-            // strIdxStart & strIdxEnd
-            $patLength = ($patIdxTmp - $patIdxStart - 1);
-            $strLength = ($strIdxEnd - $strIdxStart + 1);
-            $foundIdx  = -1;
-            
-            //strLoop:
-            for ($i = 0; $i <= $strLength - $patLength; $i++) {
-                for ($j = 0; $j < $patLength; $j++) {
-                    $ch = $patArr[$patIdxStart+$j+1];
-                    if ($ch != '?') {
-                        if ($isCaseSensitive && $ch !== $strArr[$strIdxStart+$i+$j]) {
-                               continue 2; //continue to strLoop:
-                        }
-                        if (!$isCaseSensitive && strtoupper($ch) !==
-                            strtoupper($strArr[$strIdxStart+$i+$j])) {
-                               continue 2; //continue to strLoop:
-                        }
-                    }
-                }
-                // only reached if sub loop completed w/o invoking continue 2
-                $foundIdx = $strIdxStart + $i;
-                break;
-            }
-
-            if ($foundIdx == -1) {
-                return false;
-            }
-
-            $patIdxStart = $patIdxTmp;
-            $strIdxStart = $foundIdx + $patLength;
-        }
-
-        // All characters in the string are used. Check if only '*'s are left
-        // in the pattern. If so, we succeeded. Otherwise failure.
-        for ($i = $patIdxStart; $i <= $patIdxEnd; $i++) {
-            if ($patArr[$i] != '*') {
-                return false;
-            }
-        }
-        return true;
+        $rePattern = preg_quote($pattern, '/');
+        $rePattern = str_replace(array("\*", "\?"), array('.*', '.'), $rePattern);
+        $rePattern = '/^'.$rePattern.'$/'.($isCaseSensitive ? '' : 'i');
+        return preg_match($rePattern, $str);
     }
 
     /**
