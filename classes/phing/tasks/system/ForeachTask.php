@@ -54,7 +54,7 @@ class ForeachTask extends Task {
     /** Name of parameter to pass to callee */
     private $param;
     
-    /** Delimter that separates items in $list */
+    /** Delimiter that separates items in $list */
     private $delimiter = ',';
     
     /**
