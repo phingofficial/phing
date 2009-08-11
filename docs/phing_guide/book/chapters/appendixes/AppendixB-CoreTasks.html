@@ -783,14 +783,21 @@ Causes the current build script execution to fail and the script to exit with an
 </table>
 
 <h2><a name="ForeachTask"></a>ForeachTask</h2>
-<p>The foreach task iterates over a list, a list of paths, or both. If both, list
-  and paths, are specified, the list will be evaluated first. Nested paths are
+<p>The foreach task iterates over a list, a list of filesets, or both. If both, list
+  and filesets, are specified, the list will be evaluated first. Nested filesets are
   evaluated in the order they appear in the task.</p>
 <h3>Example</h3>
 <pre>
 &lt;!-- loop through languages, and call buildlang task with setted param --&gt;
 &lt;property name="languages" value="en,fr,de" /&gt;
 &lt;foreach list="${languages}" param="lang" target="buildlang" /&gt;
+
+&lt;!-- loop through files, and call subtask task with set param and absparam --&gt;
+&lt;foreach param=&quot;filename&quot; absparam=&quot;absfilename&quot; target="subtask"&gt;
+  &lt;fileset dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;*.php&quot;/&gt;
+  &lt;/fileset&gt;
+&lt;/foreach&gt;
 </pre>
 <h3>Attributes</h3>
 <table>
@@ -828,6 +835,13 @@ Causes the current build script execution to fail and the script to exit with an
       <td>Yes</td>
     </tr>
     <tr>
+      <td>param</td>
+      <td>string</td>
+      <td>The name of the absolute pathparameter to pass the tokens in as to the target (used while processing nested filesets).</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
       <td>delimiter</td>
       <td>string</td>
       <td>The delimiter string that separates the values in the "list" parameter.
@@ -837,6 +851,11 @@ Causes the current build script execution to fail and the script to exit with an
     </tr>
   </tbody>
 </table>
+
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>Fileset</li>
+</ul>
 
 <h2><a name="IfTask"></a>IfTask</h2>
 <p>Perform some tasks based on whether a given condition holds true or not.</p>

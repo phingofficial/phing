@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+require_once 'phing/system/io/FileSystem.php';
 include_once 'phing/tasks/system/PhingTask.php';
 
 /**
@@ -54,6 +55,9 @@ class ForeachTask extends Task {
     /** Name of parameter to pass to callee */
     private $param;
     
+    /** Name of absolute path parameter to pass to callee */
+    private $absparam;
+    
     /** Delimiter that separates items in $list */
     private $delimiter = ',';
     
@@ -62,6 +66,9 @@ class ForeachTask extends Task {
      * @var PhingCallTask
      */
     private $callee;
+    
+    /** Array of filesets */
+    private $filesets = array();
     
     /**
      * Target to execute.
@@ -82,11 +89,8 @@ class ForeachTask extends Task {
      * @return void
      */   
     function main() {
-        if ($this->list === null) {
-            throw new BuildException("Missing list to iterate through");
-        }
-        if (trim($this->list) === '') {
-            return;
+        if ($this->list === null && count($this->filesets) == 0) {
+            throw new BuildException("Need either list or nested fileset to iterate through");
         }
         if ($this->param === null) {
             throw new BuildException("You must supply a property name to set on each iteration in param");
@@ -100,16 +104,75 @@ class ForeachTask extends Task {
         $callee->setInheritAll(true);
         $callee->setInheritRefs(true);
         
-        $arr = explode($this->delimiter, $this->list);
+        if (trim($this->list)) {
+            $arr = explode($this->delimiter, $this->list);
         
-        foreach ($arr as $value) {
-            $value = trim($value);
-            $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
-            $prop = $callee->createProperty();
-            $prop->setOverride(true);
-            $prop->setName($this->param);
-            $prop->setValue($value);
-            $callee->main();
+            foreach ($arr as $value) {
+                $value = trim($value);
+                $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->param);
+                $prop->setValue($value);
+                $callee->main();
+            }
+        }
+
+        $total_files = 0;
+        $total_dirs  = 0;
+
+        // filesets
+        foreach ($this->filesets as $fs) {
+            $ds       = $fs->getDirectoryScanner($this->project);
+            $fromDir  = $fs->getDir($this->project);
+            $srcFiles = $ds->getIncludedFiles();
+            $srcDirs  = $ds->getIncludedDirectories();
+
+            $this->log(count($srcDirs) . ' directories and ' . count($srcFiles) . ' files', Project::MSG_VERBOSE);
+
+            $filecount = count($srcFiles);
+            $total_files = $total_files + $filecount;
+            for ($j = 0; $j < $filecount; $j++) {
+                $value = $srcFiles[$j];
+                if ($this->param) {
+                    $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
+                    $prop = $callee->createProperty();
+                    $prop->setOverride(true);
+                    $prop->setName($this->param);
+                    $prop->setValue($value);
+                }
+
+                if ($this->absparam) {
+                    $prop = $callee->createProperty();
+                    $prop->setOverride(true);
+                    $prop->setName($this->absparam);
+                    $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+                }
+
+                $callee->main();
+            }
+
+            $dircount = count($srcDirs);
+            $total_dirs = $total_dirs + $dircount;
+            for ($j = 0; $j <  $dircount; $j++) {
+                $value = $srcDirs[$j];
+                if ($this->param) {
+                    $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
+                    $prop = $callee->createProperty();
+                    $prop->setOverride(true);
+                    $prop->setName($this->param);
+                    $prop->setValue($value);
+                }
+
+                if ($this->absparam) {
+                    $prop = $callee->createProperty();
+                    $prop->setOverride(true);
+                    $prop->setName($this->absparam);
+                    $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+                }
+
+                $callee->main();
+            }
         }
     }
 
@@ -125,8 +188,20 @@ class ForeachTask extends Task {
         $this->param = (string) $param;
     }
 
+    function setAbsparam($absparam) {
+        $this->absparam = (string) $absparam;
+    }
+
     function setDelimiter($delimiter) {
         $this->delimiter = (string) $delimiter;
+    }
+
+    /**
+     * Nested creator, adds a set of files (nested fileset attribute).
+     */
+    function createFileSet() {
+        $num = array_push($this->filesets, new FileSet());
+        return $this->filesets[$num-1];
     }
 
     /**
