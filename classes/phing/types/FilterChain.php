@@ -49,8 +49,11 @@ class FilterChain extends DataType {
 
     private $filterReaders = array();
 
-    function __construct(Project $project) {
-        $this->project = $project;
+    function __construct($project = null) {
+		if ($project)
+		{
+        	$this->project = $project;
+		}
     }
 
     function getFilterReaders() {
@@ -159,7 +162,7 @@ class FilterChain extends DataType {
     */
     function setRefid(Reference $r) {
     
-        if ( count($this->filterReaders) === 0 ) {
+        if ( count($this->filterReaders) !== 0 ) {
             throw $this->tooManyAttributes();
         }
 
