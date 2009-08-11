@@ -27,7 +27,7 @@ require_once 'phing/Task.php';
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.7 $
+ *  @version   $Revision$
  *  @package   phing
  */
 class TaskAdapter extends Task {

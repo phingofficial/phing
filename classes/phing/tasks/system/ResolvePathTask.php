@@ -39,7 +39,7 @@ require_once 'phing/Task.php';
  *      - Possibly integrate this with PackageAsPath, for handling/resolving dot-path paths.
  * 
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.6 $
+ * @version   $Revision$
  * @package   phing.tasks.system
  */
 class ResolvePathTask extends Task {

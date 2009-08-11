@@ -27,7 +27,7 @@ require_once 'phing/tasks/system/condition/Condition.php';
  * 
  * @author Hans Lellelid (Phing)
  * @author Steve Loughran (Ant)
- * @version $Revision: 1.4 $
+ * @version $Revision$
  * @package phing.tasks.system.condition
  */
 class IsFalseCondition extends ProjectComponent implements Condition {

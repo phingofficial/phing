@@ -38,7 +38,7 @@
  * @author    Charles Killian
  * @author    Hans Lellelid <hans@xmpl.org>
  * @package    phing.system.util
- * @version    $Revision: 1.5 $ $Date$
+ * @version    $Revision$ $Date$
  */
 class Timer {
 

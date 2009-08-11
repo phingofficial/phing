@@ -28,7 +28,7 @@ include_once 'phing/types/FileSet.php';
  * Unit tests for AbstractFileSet.
  * 
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Revision: 1.3 $
+ * @version $Revision$
  * @package phing.types
  */
 abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase {

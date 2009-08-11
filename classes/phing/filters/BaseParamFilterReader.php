@@ -29,7 +29,7 @@ include_once 'phing/types/Parameter.php';
  *
  * @author <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @copyright © 2003 seasonfive. All rights reserved
- * @version   $Revision: 1.5 $ $Date$
+ * @version   $Revision$ $Date$
  * @access    public
  * @see       FilterReader
  * @package   phing.filters

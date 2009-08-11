@@ -65,7 +65,7 @@ import java.util.Properties;
  * system property ant.input.properties, the prompt is the key for input.
  *
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- * @version $Revision: 1.1 $
+ * @version $Revision$
  * @since Ant 1.5
  */
 public class PropertyFileInputHandler implements InputHandler {

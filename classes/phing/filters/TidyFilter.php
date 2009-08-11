@@ -35,7 +35,7 @@ include_once 'phing/filters/ChainableReader.php';
  * </pre>
  * 
  * @author Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.2 $ $Date$
+ * @version   $Revision$ $Date$
  * @package   phing.filters
  */
 class TidyFilter extends BaseParamFilterReader implements ChainableReader {

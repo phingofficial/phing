@@ -26,7 +26,7 @@ include_once 'phing/Task.php';
  *
  *  @author   Michiel Rook <michiel.rook@gmail.com>
  *  @author   Andreas Aderhold, andi@binarycloud.com
- *  @version  $Revision: 1.5 $ $Date$
+ *  @version  $Revision$ $Date$
  *  @package  phing.tasks.system
  */
 

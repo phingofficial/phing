@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: BuildLogger.php 147 2007-02-06 20:32:22Z hans $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@ require_once 'phing/BuildLogger.php';
  * -listener.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.6 $
+ * @version   $Revision$
  * @see       BuildEvent
  * @see       Project::addBuildListener()
  * @package   phing

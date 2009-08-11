@@ -27,7 +27,7 @@ require_once 'phing/Task.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Nico Seessle <nico@seessle.de> (Ant)
- * @version   $Revision: 1.7 $
+ * @version   $Revision$
  * @package   phing.tasks.system
  */
 class ExitTask extends Task { 

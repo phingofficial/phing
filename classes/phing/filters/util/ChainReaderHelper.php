@@ -61,7 +61,7 @@ include_once 'phing/filters/ChainableReader.php';
  * TODO: Implement the classPath feature.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Revision: 1.8 $ $Date$
+ * @version   $Revision$ $Date$
  * @access    public
  * @package   phing.filters.util
 */

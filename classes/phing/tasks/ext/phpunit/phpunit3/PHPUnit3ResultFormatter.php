@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: PHPUnit2ResultFormatter.php 142 2007-02-04 14:06:00Z mrook $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@ require_once 'phing/system/io/Writer.php';
  * This abstract class describes classes that format the results of a PHPUnit2 testrun.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id: PHPUnit2ResultFormatter.php 142 2007-02-04 14:06:00Z mrook $
+ * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */

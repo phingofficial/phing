@@ -30,7 +30,7 @@ include_once 'phing/system/io/FileWriter.php';
  *        - Add support for arrays (separated by ',')
  *
  * @package    phing.system.util
- * @version $Revision: 1.13 $
+ * @version $Revision$
  */
 class Properties {
 

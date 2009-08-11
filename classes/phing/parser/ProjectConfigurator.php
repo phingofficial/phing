@@ -35,7 +35,7 @@ include_once 'phing/IntrospectionHelper.php';
  *
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright � 2001,2002 THYRELL. All rights reserved
- * @version   $Revision: 1.17 $ $Date$
+ * @version   $Revision$ $Date$
  * @access    public
  * @package   phing.parser
  */

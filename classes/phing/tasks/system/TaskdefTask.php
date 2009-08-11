@@ -43,7 +43,7 @@ include_once 'phing/system/io/PhingFile.php';
  *      (right now these are just too simple to really justify creating an abstract class)
  * 
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.11 $
+ * @version   $Revision$
  * @package   phing.tasks.system
  */
 class TaskdefTask extends Task {

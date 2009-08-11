@@ -39,7 +39,7 @@ include_once 'phing/system/io/FileSystem.php';
  *  - Error handling reduced to min, error are handled by PhingFile mainly
  *
  * @author    Andreas Aderhold, andi@binarycloud.com
- * @version   $Revision: 1.10 $
+ * @version   $Revision$
  * @package   phing.system.io
  */
 class UnixFileSystem extends FileSystem {

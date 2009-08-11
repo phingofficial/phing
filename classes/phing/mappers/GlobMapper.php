@@ -25,7 +25,7 @@ include_once 'phing/mappers/FileNameMapper.php';
  * description here
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.10 $
+ * @version  $Revision$
  * @package   phing.mappers
  */
 class GlobMapper implements FileNameMapper {

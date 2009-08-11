@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: DbDeployTask.php 59 2006-04-28 14:49:47Z lcrouch $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
  *  <dbdeploy url="mysql:host=localhost;dbname=test" userid="dbdeploy" password="dbdeploy" dir="db" outputfile=""> 
  * 
  *  @author   Luke Crouch at SourceForge (http://sourceforge.net)
- *  @version  $Revision: 1.1 $
+ *  @version  $Revision$
  *  @package  phing.tasks.ext.dbdeploy
  */
 

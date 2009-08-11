@@ -48,7 +48,7 @@ include_once 'phing/types/FileSet.php';
  * </append>
  * </code>
  * @package phing.tasks.system
- * @version $Revision: 1.14 $
+ * @version $Revision$
  */
 class AppendTask extends Task {
     

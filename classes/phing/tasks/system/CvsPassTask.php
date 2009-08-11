@@ -29,7 +29,7 @@ include_once 'phing/util/StringHelper.php';
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Jeff Martin <jeff@custommonkey.org> (Ant)
- * @version $Revision: 1.7 $
+ * @version $Revision$
  * @package phing.tasks.system
  */
 class CVSPassTask extends Task {

@@ -33,7 +33,7 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision: 1.6 $
+ * @version   $Revision$
  * @see       BaseFilterReader
  * @package   phing.filters
  */

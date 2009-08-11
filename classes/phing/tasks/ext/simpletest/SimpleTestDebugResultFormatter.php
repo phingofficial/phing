@@ -1,6 +1,6 @@
 <?php
 /**
- * $Id: SimpleTestPlainResultFormatter.php 284 2007-11-03 08:57:48Z hans $
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -25,7 +25,7 @@ require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
  * Prints plain text output of the test to a specified Writer.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
- * @version $Id: SimpleTestPlainResultFormatter.php 284 2007-11-03 08:57:48Z hans $
+ * @version $Id$
  * @package phing.tasks.ext.simpletest
  * @since 2.2.0
  */

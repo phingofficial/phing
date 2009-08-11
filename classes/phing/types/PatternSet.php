@@ -27,7 +27,7 @@ include_once 'phing/types/DataType.php';
  * for the patternset stuff.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision: 1.8 $
+ * @version  $Revision$
  * @package  phing.types
  */
 class PatternSet extends DataType {

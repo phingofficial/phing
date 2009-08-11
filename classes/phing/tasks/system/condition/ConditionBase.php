@@ -32,7 +32,7 @@ include_once 'phing/tasks/system/condition/Condition.php';
  *    @author    Hans Lellelid <hans@xmpl.org>
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision: 1.16 $
+ *  @version   $Revision$
  *  @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent implements IteratorAggregate {

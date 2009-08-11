@@ -24,7 +24,7 @@ require_once 'phing/BuildFileTest.php';
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 class TypedefTaskTest extends BuildFileTest { 
         

@@ -35,7 +35,7 @@ include_once 'phing/system/io/IOException.php';
  * Source files and directories are only deleted when the file or
  * directory has been copied to the destination successfully.
  *
- * @version $Revision: 1.8 $
+ * @version $Revision$
  * @package phing.tasks.system
  */
 class MoveTask extends CopyTask {

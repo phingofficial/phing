@@ -32,7 +32,7 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision: 1.6 $ $Date$
+ * @version   $Revision$ $Date$
  * @access    public
  * @see       FilterReader
  * @package   phing.filters

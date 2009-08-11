@@ -86,7 +86,7 @@
 * It provides creation, extraction, deletion and add features.
 *
 * @author   Vincent Blavet <vincent@blavet.net>
-* @version  $Revision: 1.3 $
+* @version  $Revision$
 * @package  phing.lib
 */
 class Archive_Zip

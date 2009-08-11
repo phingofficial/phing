@@ -23,7 +23,7 @@
  * BuildException is for when things go wrong in a build execution.
  *
  * @author   Andreas Aderhold <andi@binarycloud.com>
- * @version  $Revision: 1.12 $
+ * @version  $Revision$
  * @package  phing
  */
 class BuildException extends Exception {
