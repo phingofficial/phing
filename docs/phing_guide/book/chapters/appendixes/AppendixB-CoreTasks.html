@@ -1923,8 +1923,10 @@ These properties can be used in the build-file, for instance, to create time-sta
 <h2><a name="UpToDateTask"></a>UpToDateTask</h2>
 <p>UpToDateTask tests if a resource/file is set and sets a certain property
   to a certain value if it exists. </p>
-<pre title="Example of how to use AvailableTask">&lt;uptodate property=&quot;propelBuild.notRequired&quot; targetfile=&quot;${deploy}\propelClasses.tgz&quot; &gt;
-  &lt;srcfiles dir= &quot;${src}/propel&quot; includes=&quot;**/*.php&quot;/&gt;
+<pre title="Example of how to use AvailableTask">&lt;uptodate property=&quot;propelBuild.notRequired&quot; targetfile=&quot;${deploy}/propelClasses.tgz&quot; &gt;
+  &lt;fileset dir= &quot;${src}/propel&quot;&gt;
+    &lt;include=&quot;**/*.php&quot;/&gt;
+  &lt;/fileset&gt;
 &lt;/uptodate&gt;</pre>
 <p>sets the property <em>propelBuild.notRequired</em> to true if the <em>${deploy}/propelClasses.tgz</em>
   file is more up-to-date than any of the PHP class files in the <em>${src}/propel</em>
@@ -1960,7 +1962,7 @@ These properties can be used in the build-file, for instance, to create time-sta
       <td>String</td>
       <td> The file to check against target file(s).</td>
       <td>n/a</td>
-      <td>Yes (or nested <em>srcfiles</em>)</td>
+      <td>Yes (or nested <em>fileset</em>)</td>
     </tr>
     <tr>
       <td>targetfile</td>
