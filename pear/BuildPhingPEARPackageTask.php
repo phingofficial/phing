@@ -173,7 +173,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
 		$package->setPearinstallerDep('1.4.0');
 		
 		// "package" dependencies
-		$package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.1');
+		$package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.2');
 		$package->addPackageDepWithChannel( 'optional', 'PHPUnit', 'pear.phpunit.de', '3.2.0');
 		$package->addPackageDepWithChannel( 'optional', 'PhpDocumentor', 'pear.php.net', '1.4.0');
 		$package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pear.php.net', '2.0.5');
