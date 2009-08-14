@@ -221,10 +221,11 @@ class SimpleTestTask extends Task
 		
 		foreach ($this->formatters as $fe)
 		{
-			$formatter = $fe->getFormatter();
-
-			$reporter->attachReporter($formatter);
-		}		
+			// SimpleTest 1.0.1 workaround
+			$formatterList[] = $fe->getFormatter();
+			
+			$reporter->attachReporter(end($formatterList));
+		}
 		
 		$suite->run($reporter);
 		
