@@ -141,6 +141,9 @@ class DirectoryScanner implements SelectorScanner {
 
     /** The patterns for the files that should be excluded. */
     protected $excludes = null;
+    
+    /** Whether to expand/dereference symbolic links, default is false */
+    protected $expandSymbolicLinks = false;
 
     /**
      * The files that where found and matched at least one includes, and matched
@@ -319,6 +322,16 @@ class DirectoryScanner implements SelectorScanner {
             }
         }
     }
+    
+    /**
+     * Sets whether to expand/dereference symbolic links
+     *
+     * @param expandSymbolicLinks boolean value
+     */
+    function setExpandSymbolicLinks($expandSymbolicLinks)
+    {
+		$this->expandSymbolicLinks = $expandSymbolicLinks;
+	}
 
     /**
      * Scans the base directory for files that match at least one include
@@ -449,6 +462,26 @@ class DirectoryScanner implements SelectorScanner {
             $file = $_rootdir . DIRECTORY_SEPARATOR . $newfiles[$i];
             $name = $_vpath . $newfiles[$i];
 
+            if (@is_link($file) && !$this->expandSymbolicLinks)
+            {
+                if ($this->isIncluded($name)) {
+                    if (!$this->isExcluded($name)) {
+                        if ($this->isSelected($name, $file)) {
+                            $this->filesIncluded[] = $name;
+                        } else {
+                            $this->everythingIncluded = false;
+                            $this->filesDeselected[] = $name;
+                        }                        
+                    } else {
+                        $this->everythingIncluded = false;
+                        $this->filesExcluded[] = $name;
+                    }
+                } else {
+                    $this->everythingIncluded = false;
+                    $this->filesNotIncluded[] = $name;
+                }
+			}
+			else
             if (@is_dir($file)) {
                 if ($this->isIncluded($name)) {
                     if (!$this->isExcluded($name)) {

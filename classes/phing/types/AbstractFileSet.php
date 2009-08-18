@@ -75,6 +75,12 @@ class AbstractFileSet extends DataType implements SelectorContainer {
      */
     public $useDefaultExcludes = true;
     
+    /** 
+     * Whether to expand/dereference symbolic links, default is false
+     * @var boolean
+     */
+    protected $expandSymbolicLinks = false;
+    
     /**
      * @var PatternSet
      */
@@ -96,7 +102,15 @@ class AbstractFileSet extends DataType implements SelectorContainer {
         }
         $this->defaultPatterns = new PatternSet();
     }
-
+    
+    /** 
+     * Sets whether to expand/dereference symbolic links, default is false
+     * @var boolean
+     */
+    function setExpandSymbolicLinks($expandSymbolicLinks)
+    {
+		$this->expandSymbolicLinks = $expandSymbolicLinks;
+	}
 
     /**
     * Makes this instance in effect a reference to another PatternSet
@@ -272,6 +286,7 @@ class AbstractFileSet extends DataType implements SelectorContainer {
             throw new BuildException($this->dir->getAbsolutePath()." is not a directory.");
         }
         $ds = new DirectoryScanner();
+        $ds->setExpandSymbolicLinks($this->expandSymbolicLinks);
         $this->setupDirectoryScanner($ds, $p);
         $ds->scan();
         return $ds;
