@@ -420,7 +420,7 @@ class PhingFile {
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to ".$this->path);
         }
-        return @is_dir($this->path);
+        return @is_dir($this->path) && !@is_link($this->path);
     }
 
     /**
