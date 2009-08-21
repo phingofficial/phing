@@ -395,14 +395,18 @@ class CopyTask extends Task {
 
         // handle empty dirs if appropriate
         if ($this->includeEmpty) {
-            $destdirs = array_values($this->dirCopyMap);
             $count = 0;
-            foreach ($destdirs as $destdir) {
+            foreach ($this->dirCopyMap as $srcdir => $destdir) {
+                $s = new PhingFile((string) $srcdir);
                 $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
                         $this->log("Unable to create directory " . $d->__toString(), Project::MSG_ERR);
                     } else {
+                        if ($this->preserveLMT) {
+                            $d->setLastModified($s->lastModified());
+                        }
+
                         $count++;
                     }
                 }
