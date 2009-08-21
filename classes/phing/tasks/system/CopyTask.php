@@ -392,6 +392,26 @@ class CopyTask extends Task {
 		
         $mapSize = count($this->fileCopyMap);
         $total = $mapSize;
+
+        // handle empty dirs if appropriate
+        if ($this->includeEmpty) {
+            $destdirs = array_values($this->dirCopyMap);
+            $count = 0;
+            foreach ($destdirs as $destdir) {
+                $d = new PhingFile((string) $destdir);
+                if (!$d->exists()) {
+                    if (!$d->mkdirs()) {
+                        $this->log("Unable to create directory " . $d->__toString(), Project::MSG_ERR);
+                    } else {
+                        $count++;
+                    }
+                }
+            }
+            if ($count > 0) {
+                $this->log("Created ".$count." empty director" . ($count == 1 ? "y" : "ies") . " in " . $this->destDir->getAbsolutePath());
+            }
+        }
+
         if ($mapSize > 0) {
             $this->log("Copying ".$mapSize." file".(($mapSize) === 1 ? '' : 's')." to ". $this->destDir->getAbsolutePath());
             // walks the map and actually copies the files
@@ -420,25 +440,6 @@ class CopyTask extends Task {
                 } catch (IOException $ioe) {
                     $this->log("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage(), Project::MSG_ERR);
                 }
-            }
-        }
-
-        // handle empty dirs if appropriate
-        if ($this->includeEmpty) {
-            $destdirs = array_values($this->dirCopyMap);
-            $count = 0;
-            foreach ($destdirs as $destdir) {
-                $d = new PhingFile((string) $destdir);
-                if (!$d->exists()) {
-                    if (!$d->mkdirs()) {
-                        $this->log("Unable to create directory " . $d->__toString(), Project::MSG_ERR);
-                    } else {
-                        $count++;
-                    }
-                }
-            }
-            if ($count > 0) {
-                $this->log("Copied ".$count." empty director" . ($count == 1 ? "y" : "ies") . " to " . $this->destDir->getAbsolutePath());
             }
         }
     }

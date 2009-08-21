@@ -224,6 +224,34 @@ class UnixFileSystem extends FileSystem {
         }
     }
 
+    /**
+     * Copy a file, takes care of symbolic links
+     *
+     * @param PhingFile $src Source path and name file to copy.
+     * @param PhingFile $dest Destination path and name of new file.
+     *
+     * @return void     
+     * @throws Exception if file cannot be copied.
+     */
+    function copy(PhingFile $src, PhingFile $dest) {
+        global $php_errormsg;
+        
+        if (!$src->isLink())
+        {
+            return parent::copy($src, $dest);
+        }
+        
+        $srcPath  = $src->getAbsolutePath();
+        $destPath = $dest->getAbsolutePath();
+        
+        $linkTarget = $src->getLinkTarget();
+        if (false === @symlink($linkTarget, $destPath))
+        {
+            $msg = "FileSystem::copy() FAILED. Cannot create symlink from $destPath to $linkTarget.";
+            throw new Exception($msg);
+        }
+    }
+    
     /* -- fs interface --*/
 
     function listRoots() {

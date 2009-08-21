@@ -458,6 +458,33 @@ class PhingFile {
         }
         return (($fs->getBooleanAttributes($this) & $fs->BA_HIDDEN) !== 0);
     }
+    
+    /**
+     * Tests whether the file denoted by this abstract pathname is a symbolic link.
+     *
+     * @return  true if and only if the file denoted by this
+     *          abstract pathname exists and is a symbolic link;
+     *          false otherwise
+     */
+    public function isLink()
+    {
+        clearstatcache();
+        $fs = FileSystem::getFileSystem();
+        if ($fs->checkAccess($this) !== true) {
+            throw new IOException("No read access to ".$this->path);
+        }
+        return @is_link($this->path);
+    }
+
+    /**
+     * Returns the target of the symbolic link denoted by this abstract pathname
+     *
+     * @return  the target of the symbolic link denoted by this abstract pathname
+     */
+    public function getLinkTarget()
+    {
+        return @readlink($this->path);
+    }
 
     /**
      * Returns the time that the file denoted by this abstract pathname was
