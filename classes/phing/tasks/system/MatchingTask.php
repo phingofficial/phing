@@ -59,7 +59,7 @@ abstract class MatchingTask extends Task implements SelectorContainer {
     /**
      * @see ProjectComponent::setProject()
      */
-    public function setProject(Project $project) {
+    public function setProject($project) {
         parent::setProject($project);
         $this->fileset->setProject($project);
     }
