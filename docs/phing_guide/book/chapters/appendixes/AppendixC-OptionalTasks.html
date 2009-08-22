@@ -2536,7 +2536,7 @@ subdirectories) in the archive.</p>
       <td>destfile</td>
       <td>String</td>
       <td>Tarball filename</td>
-      <td>n/a</td>
+      <td>none</td>
       <td>Yes</td>
     </tr>
     <tr>
@@ -2552,6 +2552,31 @@ subdirectories) in the archive.</p>
       <td>String</td>
       <td>Type of compression to use (gzip, bzip2, none)</td>
       <td>none</td>
+      <td>No</td>
+    </tr>
+     <tr>
+      <td>includeemptydirs</td>
+      <td>Boolean</td>
+      <td>
+        If set to <em>true</em>, also empty directories are copied.
+      </td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+     <tr>
+      <td>longfile</td>
+      <td>String</td>
+      <td>
+        How to handle long files, those with a path &gt; 100 chars. Allowable values are:
+        <ul>
+        <li>truncate - paths are truncated to the maximum length</li>
+        <li>fail - paths greater than the maximim cause a build exception</li>
+        <li>warn - paths greater than the maximum cause a warning and GNU is used</li>
+        <li>gnu - GNU extensions are used for any paths greater than the maximum</li>
+        <li>omit - paths greater than the maximum are omitted from the archive</li>
+        </ul>      
+      </td>
+      <td>warn</td>
       <td>No</td>
     </tr>
   </tbody>
