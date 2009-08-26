@@ -82,6 +82,9 @@ require_once 'phing/Task.php';
         throw new BuildException("Missing either a nested fileset or attribute 'file' set");
       }
   
+      exec('jsl', $output);
+      if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
+    
       if($this->file instanceof PhingFile) {
         $this->lint($this->file->getPath());
       } else { // process filesets
@@ -107,9 +110,6 @@ require_once 'phing/Task.php';
      */
     protected function lint($file)
     {
-      exec('jsl', $output);
-      if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
-    
       $command = 'jsl -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' -process ';
 
       if(file_exists($file))
