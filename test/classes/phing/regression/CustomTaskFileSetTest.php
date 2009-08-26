@@ -36,6 +36,6 @@ class CustomTaskFileSetTest extends BuildFileTest {
 
     public function testCustomTask () {
       $this->executeTarget("main");
-      $this->assertInLogs("./TestPhpLintTask.php: No syntax errors detected");
+      $this->assertInLogs("TestPhpLintTask.php: No syntax errors detected");
     }
 }

@@ -36,6 +36,6 @@ class CopyTaskFileListTest extends BuildFileTest {
 
     public function testCopyTask () {
       $this->executeTarget("main");
-      $this->assertInLogs("Copying 2 files to " . PHING_TEST_BASE . "/etc/regression/229/copies");
+      $this->assertInLogs("Copying 2 files to");
     }
 }
