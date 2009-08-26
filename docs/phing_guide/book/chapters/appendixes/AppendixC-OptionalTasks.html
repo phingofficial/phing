@@ -2788,17 +2788,19 @@ strange contents in the archive.</p>
 
 <h3>Example</h3>
 <pre>
-&lt;analyze analyzerPath=&quot;/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer&quot; file=&quot;SomeClass.php&quot;/&gt;
+&lt;zendcodeanalyzer analyzerPath=&quot;/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer&quot; file=&quot;SomeClass.php&quot;/&gt;
 </pre>
 <p>Analyze one PHP source file with all default warnings enabled.</p>
 <pre>
-&lt;analyze analyzerPath=&quot;/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer&quot; disable=&quot;var-ref-notmodified,if-if-else&quot;&gt;
+&lt;zendcodeanalyzer analyzerPath=&quot;/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer&quot; disable=&quot;var-ref-notmodified,if-if-else&quot;&gt;
 &nbsp;&nbsp;&lt;fileset dir=&quot;.&quot;&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;include name="**/*.php"/&gt;
 &nbsp;&nbsp;&lt;/fileset&gt;
 &lt;/analyze&gt;
 </pre>
 <p>Analyze a set of PHP source files and disable a few warnings.</p>
+
+<p><b>NOTE:</b> the <em>analyze</em> tag has been deprecated as of Phing 2.4.</p>
 
 <h2><a name="ZipTask"></a>ZipTask</h2>
 <p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p>
