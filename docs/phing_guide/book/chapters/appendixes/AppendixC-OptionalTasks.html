@@ -631,6 +631,13 @@ unit tests. The code coverage tasks use the <a href="http://www.xdebug.org/" tar
       <td>true</td>
       <td>No</td>
     </tr>
+    <tr>
+      <td>cachefile</td>
+      <td>String</td>
+      <td>If set, enables writing of last-modified times to <em>cachefile</em>, to speed up processing of files that rarely change</td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
   </tbody>
 </table>
 
@@ -1729,6 +1736,13 @@ documented below.</p>
       <td>Path to alternative PHP interpreter</td>
       <td>Defaults to the <tt>${php.command}</tt> property which is the
           interpreter used to execute phing itself.</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>cachefile</td>
+      <td>String</td>
+      <td>If set, enables writing of last-modified times to <em>cachefile</em>, to speed up processing of files that rarely change</td>
+      <td>none</td>
       <td>No</td>
     </tr>
   </tbody>

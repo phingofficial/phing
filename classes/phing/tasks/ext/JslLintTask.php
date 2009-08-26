@@ -20,6 +20,7 @@
  */
   
 require_once 'phing/Task.php';
+require_once 'phing/util/DataStore.php';
 
   /**
   * A Javascript lint task. Checks syntax of Javascript files.
@@ -39,6 +40,8 @@ require_once 'phing/Task.php';
     protected $haltOnFailure = false;
     protected $hasErrors = false;
     private $badFiles = array();
+    
+    private $cache = null;
 
     /**
      * Sets the flag if warnings should be shown
@@ -64,6 +67,16 @@ require_once 'phing/Task.php';
       $this->file = $file;
     }
     
+    /**
+     * Whether to store last-modified times in cache
+     *
+     * @param PhingFile $file
+     */
+    public function setCacheFile(PhingFile $file)
+    {
+      $this->cache = new DataStore($file);
+    }
+
     /**
      * Nested creator, creates a FileSet for this task
      *
@@ -116,6 +129,17 @@ require_once 'phing/Task.php';
       {
         if(is_readable($file))
         {
+          if ($this->cache)
+          {
+            $lastmtime = $this->cache->get($file);
+
+            if ($lastmtime >= filemtime($file))
+            {
+              $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
+              return false;
+            }
+          }
+
           $messages = array();
           exec($command.'"'.$file.'"', $messages);
 
@@ -173,6 +197,11 @@ require_once 'phing/Task.php';
             $this->hasErrors = true;
           } else if (!$this->showWarnings || $warningCount == 0) {
             $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
+          }
+
+          if ($this->cache)
+          {
+            $this->cache->put($file, filemtime($file));
           }
         } else {
           throw new BuildException('Permission denied: '.$file);

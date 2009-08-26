@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+require_once 'phing/util/DataStore.php';
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
@@ -39,6 +40,8 @@ class PhpLintTask extends Task {
 	protected $hasErrors = false;
 	private $badFiles = array();
 	protected $interpreter = ''; // php interpreter to use for linting
+    
+    private $cache = null;
 
     /**
      * Initialize the interpreter with the Phing property
@@ -81,6 +84,16 @@ class PhpLintTask extends Task {
 	{
 		$this->errorProperty = $propname;
 	}
+    
+    /**
+     * Whether to store last-modified times in cache
+     *
+     * @param PhingFile $file
+     */
+    public function setCacheFile(PhingFile $file)
+    {
+        $this->cache = new DataStore($file);
+    }
 
 	/**
 	 * Nested creator, creates a FileSet for this task
@@ -130,6 +143,17 @@ class PhpLintTask extends Task {
         $command .= ' -l ';
 		if(file_exists($file)) {
 			if(is_readable($file)) {
+                if ($this->cache)
+                {
+                    $lastmtime = $this->cache->get($file);
+                    
+                    if ($lastmtime >= filemtime($file))
+                    {
+                        $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
+                        return false;
+                    }
+                }
+                
 				$messages = array();
 				exec($command.'"'.$file.'"', $messages);
 				if(!preg_match('/^No syntax errors detected/', $messages[0])) {
@@ -147,6 +171,11 @@ class PhpLintTask extends Task {
 				} else {
 					$this->log($file.': No syntax errors detected', Project::MSG_INFO);
 				}
+                
+                if ($this->cache)
+                {
+                    $this->cache->put($file, filemtime($file));
+                }
 			} else {
 				throw new BuildException('Permission denied: '.$file);
 			}
