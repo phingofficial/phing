@@ -71,6 +71,8 @@ class ZendCodeAnalyzerTask extends Task
     protected $disable = array();
     protected $enable = array();
 
+    private $haltonwarning = false; 
+
     /**
      * File to be analyzed
      * 
@@ -107,6 +109,15 @@ class ZendCodeAnalyzerTask extends Task
         $this->enable = explode(",", $enable);
     }
 
+    /**
+     * Sets the haltonwarning flag
+     * @param boolean $value
+     */
+    function setHaltonwarning($value)
+    {
+        $this->haltonwarning = $value;
+    }
+    
     /**
      * Nested creator, creates a FileSet for this task
      *
@@ -177,7 +188,13 @@ class ZendCodeAnalyzerTask extends Task
                 for($i=2, $size=count($result); $i<($size-1); $i++) {
                     $this->counter++;
                     $this->log($result[$i], Project::MSG_WARN);
-                    }
+                }
+                
+                $total = count($result) - 3;
+                
+                if ($total > 0 && $this->haltonwarning) {
+                    throw new BuildException('zendcodeanalyzer detected ' . $total . ' warning' . ($total > 1 ? 's' : '') . ' in ' . $file);
+                }
             } 
             else
             {
