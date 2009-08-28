@@ -37,6 +37,7 @@ class PHPUnitTask extends Task
 {
 	private $batchtests = array();
 	private $formatters = array();
+    private $bootstrap = "";
 	private $haltonerror = false;
 	private $haltonfailure = false;
 	private $haltonincomplete = false;
@@ -104,6 +105,17 @@ class PHPUnitTask extends Task
 		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Project.php');
 		PHPUnit_Util_Filter::addFileToFilter($pwd . '/../../../Phing.php');
 	}
+    
+    /**
+     * Sets the name of a bootstrap file that is run before
+     * executing the tests
+     *
+     * @param string $bootstrap the name of the bootstrap file
+     */
+    function setBootstrap($bootstrap)
+    {
+        $this->bootstrap = $bootstrap;
+    }
 	
 	function setErrorproperty($value)
 	{
@@ -229,6 +241,11 @@ class PHPUnitTask extends Task
 
 			$formatter->startTestRun();
 		}
+        
+        if ($this->bootstrap)
+        {
+            require_once $this->bootstrap;
+        }
 		
 		foreach ($tests as $test)
 		{

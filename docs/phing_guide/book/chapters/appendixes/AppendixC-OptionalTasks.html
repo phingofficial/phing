@@ -1792,6 +1792,13 @@ It is a functional port of the Ant <a href="http://ant.apache.org/manual/Optiona
       <td>No</td>
     </tr>
     <tr>
+      <td>bootstrap</td>
+      <td>string</td>
+      <td> The name of a bootstrap file that is run before executing the tests. </td>
+      <td>none</td>
+      <td>No</td>
+    </tr>
+    <tr>
       <td>codecoverage</td>
       <td>Boolean</td>
       <td> Gather code coverage information while running tests (requires Xdebug). </td>
@@ -1983,6 +1990,18 @@ XML results to the directory <em>reports</em>.</p>
 Runs all matching testcases in the directory <em>tests</em>, gathers code coverage information, writing plain
 text results to the console. The build process is aborted if a test
 fails.</p>
+<pre>&lt;phpunit bootstrap=&quot;src/autoload.php&quot;&gt;
+  &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot;/&gt;
+  &lt;batchtest&gt;
+    &lt;fileset dir=&quot;tests&quot;&gt;
+      &lt;include name=&quot;**/*Test*.php&quot;/&gt;
+    &lt;/fileset&gt;
+  &lt;/batchtest&gt;
+&lt;/phpunit&gt;
+</pre>
+<p>
+Runs all matching testcases in the directory <em>tests</em>, writing plain text results to the console.
+Additionally, before executing the tests, the bootstrap file <em>src/autoload.php</em> is loaded.</p>
 
 <p><b>Important note:</b> using a mechanism such as an "AllTests.php" file to execute testcases will bypass the Phing hooks used for reporting
 and counting, and could possibly lead to strange results. Instead, use one of more fileset's to provide a list of testcases to execute.</p>
