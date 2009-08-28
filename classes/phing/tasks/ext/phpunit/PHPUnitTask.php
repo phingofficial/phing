@@ -202,6 +202,11 @@ class PHPUnitTask extends Task
 	 */
 	function main()
 	{
+		if ($this->codecoverage && !extension_loaded('xdebug'))
+		{
+			throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
+		}
+
 		$tests = array();
 		
 		if ($this->printsummary)

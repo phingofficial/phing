@@ -111,10 +111,6 @@ class CoverageSetupTask extends Task
 	
 	function init()
 	{
-		if (!extension_loaded('xdebug'))
-		{
-			throw new Exception("CoverageSetupTask depends on Xdebug being installed.");
-		}
 	}
 
 	function main()
