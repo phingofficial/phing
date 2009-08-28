@@ -108,11 +108,10 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 		if ($this->codecoverage)
 		{
 			$coverageInformation = $res->getCodeCoverageInformation();
-			
-			foreach ($coverageInformation as $coverage_info)
-			{
-				CoverageMerger::merge($this->project, array($coverage_info['files']));
-			}
+
+			$summary = PHPUnit_Util_CodeCoverage::getSummary($coverageInformation);
+
+			CoverageMerger::merge($this->project, $summary);
 		}
 		
 		if ($res->errorCount() != 0)
