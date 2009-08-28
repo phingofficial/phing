@@ -107,36 +107,40 @@ class CoverageMerger
 		
 		$coverageTotal = $codeCoverageInformation;
 		
-		foreach ($coverageTotal as $coverage)
+		foreach ($coverageTotal as $filename => $data)
 		{
-			foreach ($coverage as $filename => $coverageFile)
+			$filename = strtolower($filename);
+
+			if ($props->getProperty($filename) != null)
 			{
-				$filename = strtolower($filename);
-				
-				if ($props->getProperty($filename) != null)
+				foreach ($data as $_line => $_data)
 				{
-					$file = unserialize($props->getProperty($filename));
-					$left = $file['coverage'];
-					$right = $coverageFile;
-					if (!is_array($right)) {
-						$right = array_shift(PHPUnit_Util_CodeCoverage::bitStringToCodeCoverage(array($right), 1)); 
-					}
-						
-					$coverageMerged = CoverageMerger::mergeCodeCoverage($left, $right);
-					
-					foreach ($coverageMerged as $key => $value)
+					if (is_array($_data))
 					{
-						if ($value == -2)
-						{
-							unset($coverageMerged[$key]);
-						}
+						$count = count($_data);
 					}
-					
-					$file['coverage'] = $coverageMerged;
-					
-					$props->setProperty($filename, serialize($file));
+					else if ($_data == -1)
+					{
+						$count = -1;
+					}
+					else if ($_data == -2)
+					{
+						continue;
+					}
+
+					$lines[$_line] = $count;
 				}
-			}
+
+				ksort($lines);
+
+				$file = unserialize($props->getProperty($filename));
+				$left = $file['coverage'];
+
+				$coverageMerged = CoverageMerger::mergeCodeCoverage($left, $lines);
+
+				$file['coverage'] = $coverageMerged;
+				$props->setProperty($filename, serialize($file));
+			}           
 		}
 
 		$props->store($database);

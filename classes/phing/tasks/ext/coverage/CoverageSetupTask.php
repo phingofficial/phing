@@ -138,21 +138,6 @@ class CoverageSetupTask extends Task
 		$props->store($dbfile);
 
 		$this->project->setProperty('coverage.database', $dbfile->getAbsolutePath());
-	
-		foreach ($files as $file)
-		{
-			$fullname = $file['fullname'];
-			
-			xdebug_start_code_coverage(XDEBUG_CC_DEAD_CODE | XDEBUG_CC_UNUSED);
-			
-			Phing::__import($fullname, $this->classpath);
-			
-			$coverage = xdebug_get_code_coverage();
-			
-			xdebug_stop_code_coverage();
-			
-			CoverageMerger::merge($this->project, array($coverage));
-		}
 	}
 }
 
