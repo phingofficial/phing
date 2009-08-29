@@ -12,7 +12,6 @@
 	<property name="tests.dir" value="./tests"/>
 	<property name="tests.phpunit.dir" value="."/>
 	<property name="tests.reports.dir" value="${tests.phpunit.dir}/reports"/>
-	<property file="./test.properties" />
 
 	<!--
 		=========================================================================================
