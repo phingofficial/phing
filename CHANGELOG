@@ -2,7 +2,171 @@
                            P     H     I     N     G
 
 
-Aut. 21, 2006 - Phing 2.2.0
+TBD - Phing 2.4.0
+
+
+
+Dec. 8, 2008 - Phing 2.3.3
+
+314	<phpunit> task does not work
+313	Incorrect PhpDoc package of SimpleTestResultFormatter
+302	Incorrect error detecting in XSLT filter
+293	Contains condition fails on case-insensitive checks
+291	The release package is not the one as the version(2.3.2) suppose to be
+
+Oct. 16, 2008 - Phing 2.3.2
+
+296	Problem with the Phing plugin with Hudson CI Tool
+288	Comment syntax for dbdeploy violates standard
+
+Oct. 16, 2008 - Phing 2.3.1
+
+287	DateSelector.php bug
+286	dbdeploy failes with MySQL strict mode
+285	Syntax error in dbdeploy task
+284	XSL Errors in coverage-report task
+275	AnsiColorLogger should not be final
+274	PHPUnit 3.3RC1 incompatibility with code coverage
+272	Using CDATA with ReplaceTokens values
+271	Warning on iterating over empty keys
+264	Illeal use of max() with empty array
+260	Error processing reults: SQLSTATE[HY000]: General error: 2053 when executing inserts or create statements.
+258	getPhingVersion + printVersion should be public static
+255	Timestamp in Phing Properties for Echo etc
+253	CCS nav bug on PHING.info site
+251	debug statement in Path datatype for DirSet
+249	See failed tests in console
+244	Phing pear install nor working
+242	Log incomplete and skipped tests for phpunit3
+241	FtpDeployTask reports FTP port as FTP server on error
+239	ExecTask shows no output from running command
+238	Bug in SummaryPHPUnit3ResultFormatter
+237	Several PHP errors in XSLTProcessor
+236	Do not show passwords for svn in log
+234	typo in foreach task documentation
+230	Fatal error: Call to undefined method PHPUnit2_Framework_TestResult::skippedCount() in /usr/local/lib/php/phing/tasks/ext/phpunit/PHPUnitTestRunner.php on line 120
+227	simpletestformaterelement bad require
+225	Missing Software Dependence in documentation
+224	Path class duplicates absolute path on subsequent path includes
+220	AnsiColorLogger colors cannot be changed by build.properties
+219	Add new chown task
+218	Clear support of PHPUnit versions
+217	Memory limit in phpdoc
+216	output messages about errors and warnings in JslLint task
+215	boolean attributes of task PhpCodeSniffer are wrong
+214	PhpCodeSnifferTask should be able to output file
+213	Error in documentation task related to copy task
+211	XSLT does not handle multiple testcase nodes for the same test method
+210	Reworked PhpDocumentorExternalTask
+208	ReplaceRegexp problem with newline as replace string
+207	PhpLintTask: optional use a different PHP interpreter
+206	Installation guide out of date (phing fails to run)
+205	AvailableTask::_checkResource ends up with an exception if resource isn't found.
+203	ExecTask returnProperty
+202	Add PHP_CodeSniffer task
+201	"Improve Phing's ability to work as an ""embedded"" process"
+200	Additional attribute for SvnUpdateTask
+199	Invalid error message in delete task when deleting directory fails.
+198	PDO SQL exec task unable to handle multi-line statements
+197	phing delete task sometimes fails to delete file that could be deleted
+195	SvnLastRevisionTask fails if Subversion is localized (Spanish)
+194	haltonincomplete attribute for phpunit task
+193	Manifest Task
+192	Error when skip test
+191	Akismet says content is spam
+190	Add test name in printsummary in PHPUnit task
+185	PHPUnit_MAIN_METHOD defined more than once
+184	PlainPHPUnit3ResultFormatter filteres test in stack trace
+183	Undefined variable in PhingTask.php
+182	Undefined variable in  SummaryPHPUnit3ResultFormatter
+181	PhingCallTask should call setHaltOnFailure
+179	Add documentation for TidyFilter
+178	printsummary doens work in PHP Unit task
+177	Only write ConfigurationExceptions to stdout
+176	Cleanup installation documentation.
+175	passing aarguments to phing
+169	Spurious PHP Error from XSLT Filter
+150	unable to include phpdocumentor.ini in PHPDoc-Task
+15	FTP upload task
+
+Nov. 3, 2007 - Phing 2.3.0
+
+174	Add differentiation for build loggers that require explicit streams to be set
+173	Add 'value' alias to XSLTParam type.
+172	broken phpunit2-frames.xsl
+171	Allow results from selector to be loosely type matched to true/false
+170	SvnLastRevisionTask cannot get SVN revision number on single file
+168	XincludeFilter PHP Error
+167	Add new formatter support for PDOSQLExecTask
+166	Change CreoleTask to use <creole> tagname instead of <sql>
+165	Add support for PHPUnit_Framework_TestSuite subclasses in fileset of test classes
+164	Failed build results in empty log.xml
+163	Add stripwhitespace filter
+162	Add @pattern alias for @name in <fileset>
+161	phing/etc directory missing (breaking PHPUnit)
+157	Fatal error in PDOSQLExecTask when using filesets
+155	<delete> fails when it encounters symlink pointing to non-writable file
+154	Suggestion to add attribute to PDOSQLExecTask for fetch_style
+153	sqlite select failure
+152	result of PHP-Unit seems to be incorrect
+151	add group-option to PHPUnit-Task
+149	using TestSuites in fileset of PHPUnit-Task
+148	remove dependency to PEAR in PHPUnit-Task
+146	Illegal offset type PHP notice in CopyTask
+143	Example for PhpDocumentor task has typographical errors and a wrong attribute.
+142	SvnCheckout task only makes non-recursive checkouts.
+141	Add 'recursive' attribute to svncheckout task.
+136	Attribute os of ExecTask is not working
+135	add source file attribute for code coverage xml report
+133	Error in documenation: AppendTask
+129	Typo in documentation
+128	<pearpkg2> is missing in the doc completely
+127	Error in documentation
+126	Typo in documentation
+122	PearPackage2Task Replacements don't seem to work
+121	BUILD FAILED use JsLintTask
+119	PhpDocumentorTask fails when trying to use parsePrivate attribute.
+118	custom tasks have this->project == null
+117	CoverageSetupTask and autoloaders
+116	Test unit don't report notice or strict warnings
+110	"Add ""errorproperty"" attribute to PhpLintTask"
+107	SvnLastRevisionTask doesn't work with repositoryUrl
+106	"document ""haltonfailure"" attribute for phplint task"
+105	FileSystemUnix::normalize method: Improve handling
+97	delete dir and mkdir are incompatible
+92	Inconsistent newlines in PHP files
+91	Improve detection for PHPUnit3
+83	"XmlLogger improperly handling ""non-traditional"" buildfile execution paths"
+82	Error when use markTestIncomplete in test
+79	Allow escaped dots in classpaths
+78	(SVN doc) ${phing.version} and ${php.version} are different!
+77	taskdef doesn't support fileset
+76	Overhaul PhpDocumentor task
+75	files excluded by fileset end up in .tgz but not .zip
+74	Phing commandline args don't support quoting / spaces
+73	Semantical error in PhingFile::getParent()
+72	"Remove use of getProperty(""line.separator"") in favor of PHP_EOL"
+71	"Add ""-p"" alias for project help"
+70	Create Project class constants for log levels (replacing PROJECT_MSG_*)
+69	mkdir and delete tasks don't work properly together
+68	Xinclude filter
+67	Add PDO SQL execution task
+66	Incorrectly set PHP_CLASSPATH in phing.bat
+65	Convert all loggers/listeners to use streams
+64	Build listeners currently not working
+63	Configured -logger can get overridden
+62	phing.buildfile.dirname built-in property
+58	Path::listPaths() broken for DirSet objects.
+57	FileList.getListFile method references undefined variable
+56	TaskHandler passing incorrect param to ProjectConfigurator->configureId()
+53	_makeCircularException seems to have an infinite loop
+52	\<match>-syntax does not work correctly with preg_*()
+51	Cannot get phing to work with PHPUnit 3
+48	Supported PHPUnit2_Framework_TestSuite and PHPUnit2_Extensions_TestSetup sub-classes for the PHPUnit2Task and CoverageReportTask tasks
+33	Implement changes to use PHPUnit2 3.0 code coverage information
+22	Description about integrating into CruiseControl
+
+Aug. 21, 2006 - Phing 2.2.0
 
   * Refactored parser to support many tags as children of base <project> tag (HL)
 
