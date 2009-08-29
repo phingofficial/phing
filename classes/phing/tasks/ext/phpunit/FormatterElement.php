@@ -47,22 +47,22 @@ class FormatterElement
         
         if ($this->type == "summary")
         {
-            require_once 'phing/tasks/ext/phpunit/phpunit3/SummaryPHPUnit3ResultFormatter.php';
-            $this->formatter = new SummaryPHPUnit3ResultFormatter();
+            require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
+            $this->formatter = new SummaryPHPUnitResultFormatter();
         }
         else
         if ($this->type == "xml")
         {
             $destFile = new PhingFile($this->toDir, 'testsuites.xml');
 
-            require_once 'phing/tasks/ext/phpunit/phpunit3/XMLPHPUnit3ResultFormatter.php';
-            $this->formatter = new XMLPHPUnit3ResultFormatter();
+            require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
+            $this->formatter = new XMLPHPUnitResultFormatter();
         }
         else
         if ($this->type == "plain")
         {
-            require_once 'phing/tasks/ext/phpunit/phpunit3/PlainPHPUnit3ResultFormatter.php';
-            $this->formatter = new PlainPHPUnit3ResultFormatter();
+            require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
+            $this->formatter = new PlainPHPUnitResultFormatter();
         }
         else
         {
