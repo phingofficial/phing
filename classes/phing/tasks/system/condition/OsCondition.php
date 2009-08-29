@@ -40,20 +40,20 @@ class OsCondition implements Condition {
 
     function evaluate() {
         $osName = strtolower(Phing::getProperty("os.name"));
-		
+        
         if ($this->family !== null) {
             if ($this->family === "windows") {
                 return StringHelper::startsWith("win", $osName);
             } elseif ($this->family === "mac") {
                 return (strpos($osName, "mac") !== false || strpos($osName, "darwin") !== false);
             } elseif ($this->family === ("unix")) {
-				return (
-					StringHelper::endsWith("ix", $osName) ||
-					StringHelper::endsWith("ux", $osName) ||
-					StringHelper::endsWith("bsd", $osName) ||
-					StringHelper::startsWith("sunos", $osName) ||
-					StringHelper::startsWith("darwin", $osName)
-				);
+                return (
+                    StringHelper::endsWith("ix", $osName) ||
+                    StringHelper::endsWith("ux", $osName) ||
+                    StringHelper::endsWith("bsd", $osName) ||
+                    StringHelper::startsWith("sunos", $osName) ||
+                    StringHelper::startsWith("darwin", $osName)
+                );
             }
             throw new BuildException("Don't know how to detect os family '" . $this->family . "'");
         }

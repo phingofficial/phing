@@ -25,10 +25,10 @@
  * @package   phing.system.io
  */
 class OutputStream {
-	
-	/**
-	 * @var resource The configured PHP stream.
-	 */
+    
+    /**
+     * @var resource The configured PHP stream.
+     */
     protected $stream;
 
     /**
@@ -36,19 +36,19 @@ class OutputStream {
      * @param resource $stream Configured PHP stream for writing.
      */
     public function __construct($stream) {
-    	if (!is_resource($stream)) {
-    		throw new IOException("Passed argument is not a valid stream.");
-    	}
-    	$this->stream = $stream;
+        if (!is_resource($stream)) {
+            throw new IOException("Passed argument is not a valid stream.");
+        }
+        $this->stream = $stream;
     }
-	
+    
     /**
      * Closes attached stream, flushing output first.
      * @throws IOException if cannot close stream (note that attempting to close an already closed stream will not raise an IOException)
      * @return void
      */
     public function close() {
-    	if ($this->stream === null) {
+        if ($this->stream === null) {
             return;
         }
         $this->flush();
@@ -56,20 +56,20 @@ class OutputStream {
             $msg = "Cannot close " . $this->getResource() . ": $php_errormsg";
             throw new IOException($msg);
         }
-		$this->stream = null;
-	}
+        $this->stream = null;
+    }
     
-	/**
+    /**
      * Flushes stream.
      * 
      * @throws IOException if unable to flush data (e.g. stream is not open).
      */
     public function flush() {
-    	if (false === @fflush($this->stream)) {
-    		throw new IOException("Could not flush stream: " . $php_errormsg);
-    	}
-	}
-	
+        if (false === @fflush($this->stream)) {
+            throw new IOException("Could not flush stream: " . $php_errormsg);
+        }
+    }
+    
     /**
      * Writes data to stream.
      *
@@ -83,11 +83,11 @@ class OutputStream {
         if ( $off === null && $len === null ) {
             $to_write = $buf;
         } elseif ($off !== null && $len === null) {
-        	$to_write = substr($buf, $off);
+            $to_write = substr($buf, $off);
         } elseif ($off === null && $len !== null) {
             $to_write = substr($buf, 0, $len);
         } else {
-        	$to_write = substr($buf, $off, $len);
+            $to_write = substr($buf, $off, $len);
         }
         
         $result = @fwrite($this->stream, $to_write);

@@ -31,33 +31,33 @@ include_once 'phing/system/io/Reader.php';
  *  * @package   phing.system.io
  */
 class InputStreamReader extends Reader {
-	
-	/**
-	 * @var InputStream
-	 */
-	protected $inStream;
-	
-	/**
+    
+    /**
+     * @var InputStream
+     */
+    protected $inStream;
+    
+    /**
      * Construct a new InputStreamReader.
      * @param InputStream $$inStream InputStream to read from
      */
     public function __construct(InputStream $inStream) {
         $this->inStream = $inStream;
     }
-	
+    
     /**
      * Close the stream.
      */
     public function close() {
-    	return $this->inStream->close();
+        return $this->inStream->close();
     }
-	
+    
     /**
      * Skip over $n bytes.
      * @param int $n
      */
     public function skip($n) {
-    	return $this->inStream->skip($n);
+        return $this->inStream->skip($n);
     }
     
     /**
@@ -66,7 +66,7 @@ class InputStreamReader extends Reader {
      * @return string chars read or -1 if eof.
      */
     public function read($len = null) {
-    	return $this->inStream->read($len);
+        return $this->inStream->read($len);
     }
     
     /**
@@ -82,7 +82,7 @@ class InputStreamReader extends Reader {
      * @return boolean
      */
     public function markSupported() {
-    	return $this->inStream->markSupported();
+        return $this->inStream->markSupported();
     }
     
     /**
@@ -113,7 +113,7 @@ class InputStreamReader extends Reader {
      * @deprecated Use read() or BufferedReader instead.
      */
     public function readInto(&$rBuffer) {
-		return $this->inStream->readInto($rBuffer);
+        return $this->inStream->readInto($rBuffer);
     }
     
     /**

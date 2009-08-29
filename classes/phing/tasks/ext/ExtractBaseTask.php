@@ -68,7 +68,7 @@ abstract class ExtractBaseTask extends MatchingTask {
     
     public function setRemovePath($removepath)
     {
-    	$this->removepath = $removepath;
+        $this->removepath = $removepath;
     }
 
     /**
@@ -84,7 +84,7 @@ abstract class ExtractBaseTask extends MatchingTask {
             if(!$this->isDestinationUpToDate($this->file)) {
                 $filesToExtract[] = $this->file;
             } else {
-            	$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $this->file->getCanonicalPath(), Project::MSG_INFO);
+                $this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $this->file->getCanonicalPath(), Project::MSG_INFO);
             }
         }
         
@@ -100,11 +100,11 @@ abstract class ExtractBaseTask extends MatchingTask {
                     throw new BuildException($compressedArchiveFile->getAbsolutePath() . ' compressed archive cannot be a directory.');
                 }
                 
-            	if(!$this->isDestinationUpToDate($compressedArchiveFile)) {
-            	   $filesToExtract[] = $compressedArchiveFile;
-            	} else {
-            		$this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $compressedArchiveFile->getCanonicalPath(), Project::MSG_INFO);
-            	}
+                if(!$this->isDestinationUpToDate($compressedArchiveFile)) {
+                   $filesToExtract[] = $compressedArchiveFile;
+                } else {
+                    $this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $compressedArchiveFile->getCanonicalPath(), Project::MSG_INFO);
+                }
             }
         }
         
@@ -122,7 +122,7 @@ abstract class ExtractBaseTask extends MatchingTask {
      */
     protected function isDestinationUpToDate(PhingFile $compressedArchiveFile) {
         if (!$compressedArchiveFile->exists()) {
-        	throw new BuildException("Could not find file " . $compressedArchiveFile->__toString() . " to extract.");
+            throw new BuildException("Could not find file " . $compressedArchiveFile->__toString() . " to extract.");
         }
         
         $compressedArchiveContent = $this->listArchiveContent($compressedArchiveFile);
@@ -176,7 +176,7 @@ abstract class ExtractBaseTask extends MatchingTask {
         }
         
         if ($this->file !== null && !$this->file->exists()) {
-        	throw new BuildException("Could not find compressed archive file " . $this->file->__toString() . " to extract.");
+            throw new BuildException("Could not find compressed archive file " . $this->file->__toString() . " to extract.");
         }
     }
     

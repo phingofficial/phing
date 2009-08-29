@@ -84,16 +84,16 @@ class PhingFilterReader extends DataType {
         $o = $this->createClasspath();
         $o->setRefid($r);
     }
-	
-	function addParam(Parameter $param) {
-		$this->parameters[] = $param;
-	}
+    
+    function addParam(Parameter $param) {
+        $this->parameters[] = $param;
+    }
 
     function createParam() {
         $num = array_push($this->parameters, new Parameter());
         return $this->parameters[$num-1];
     }
-		
+        
     function getParams() {
         // We return a COPY
         $ret = array();

@@ -32,147 +32,147 @@ require_once 'simpletest/xml.php';
  */
 class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
 {
-	/**
-	 * @var XmlReporter
-	 */
-	private $logger = NULL;
-	
-	private $xmlData = "";
+    /**
+     * @var XmlReporter
+     */
+    private $logger = NULL;
+    
+    private $xmlData = "";
 
-	function __construct()
-	{
-		$this->logger = new XmlReporter();
-	}
-	
-	function getExtension()
-	{
-		return ".xml";
-	}
-	
-	function getPreferredOutfile()
-	{
-		return "testsuites";
-	}
-	
-	private function captureStart()
-	{
-		ob_start();
-	}
-	
-	private function captureStop()
-	{
-		$this->xmlData .= ob_get_contents();
-		ob_end_clean();
-	}
+    function __construct()
+    {
+        $this->logger = new XmlReporter();
+    }
+    
+    function getExtension()
+    {
+        return ".xml";
+    }
+    
+    function getPreferredOutfile()
+    {
+        return "testsuites";
+    }
+    
+    private function captureStart()
+    {
+        ob_start();
+    }
+    
+    private function captureStop()
+    {
+        $this->xmlData .= ob_get_contents();
+        ob_end_clean();
+    }
 
-	function paintGroupStart($test_name, $size)
-	{
-		parent::paintGroupStart($test_name, $size);
-		
-		$this->captureStart();
-		$this->logger->paintGroupStart($test_name, $size);
-		$this->captureStop();
-	}
-	
-	function paintGroupEnd($test_name)
-	{
-		parent::paintGroupEnd($test_name, $size);
-		
-		$this->captureStart();
-		$this->logger->paintGroupEnd($test_name);
-		$this->captureStop();
+    function paintGroupStart($test_name, $size)
+    {
+        parent::paintGroupStart($test_name, $size);
+        
+        $this->captureStart();
+        $this->logger->paintGroupStart($test_name, $size);
+        $this->captureStop();
+    }
+    
+    function paintGroupEnd($test_name)
+    {
+        parent::paintGroupEnd($test_name, $size);
+        
+        $this->captureStart();
+        $this->logger->paintGroupEnd($test_name);
+        $this->captureStop();
 
-		if (count($this->_test_stack) == 0)
-		{
-			if ($this->out)
-			{
-				$this->out->write($this->xmlData);
-				$this->out->close();
-			}
-		}
-	}
+        if (count($this->_test_stack) == 0)
+        {
+            if ($this->out)
+            {
+                $this->out->write($this->xmlData);
+                $this->out->close();
+            }
+        }
+    }
 
-	function paintCaseStart($test_name)
-	{
-		$this->captureStart();
-		$this->logger->paintCaseStart($test_name);
-		$this->captureStop();
-	}
-	
-	function paintCaseEnd($test_name)
-	{
-		$this->captureStart();
-		$this->logger->paintCaseEnd($test_name);
-		$this->captureStop();
-	}
+    function paintCaseStart($test_name)
+    {
+        $this->captureStart();
+        $this->logger->paintCaseStart($test_name);
+        $this->captureStop();
+    }
+    
+    function paintCaseEnd($test_name)
+    {
+        $this->captureStart();
+        $this->logger->paintCaseEnd($test_name);
+        $this->captureStop();
+    }
 
-	function paintMethodStart($test_name)
-	{
-		$this->captureStart();
-		$this->logger->paintMethodStart($test_name);
-		$this->captureStop();
-	}
-	
-	function paintMethodEnd($test_name)
-	{
-		$this->captureStart();
-		$this->logger->paintMethodEnd($test_name);
-		$this->captureStop();
-	}
+    function paintMethodStart($test_name)
+    {
+        $this->captureStart();
+        $this->logger->paintMethodStart($test_name);
+        $this->captureStop();
+    }
+    
+    function paintMethodEnd($test_name)
+    {
+        $this->captureStart();
+        $this->logger->paintMethodEnd($test_name);
+        $this->captureStop();
+    }
 
-	function paintPass($message)
-	{
-		$this->captureStart();
-		$this->logger->paintPass($message);
-		$this->captureStop();
-	}
-	
-	function paintError($message)
-	{
-		$this->captureStart();
-		$this->logger->paintError($message);
-		$this->captureStop();
-	}
+    function paintPass($message)
+    {
+        $this->captureStart();
+        $this->logger->paintPass($message);
+        $this->captureStop();
+    }
+    
+    function paintError($message)
+    {
+        $this->captureStart();
+        $this->logger->paintError($message);
+        $this->captureStop();
+    }
 
-	function paintFail($message)
-	{
-		$this->captureStart();
-		$this->logger->paintFail($message);
-		$this->captureStop();
-	}
+    function paintFail($message)
+    {
+        $this->captureStart();
+        $this->logger->paintFail($message);
+        $this->captureStop();
+    }
 
-	function paintException($exception)
-	{
-		$this->captureStart();
-		$this->logger->paintException($exception);
-		$this->captureStop();
-	}
+    function paintException($exception)
+    {
+        $this->captureStart();
+        $this->logger->paintException($exception);
+        $this->captureStop();
+    }
 
-	function paintSkip($message)
-	{
-		$this->captureStart();
-		$this->logger->paintSkip($message);
-		$this->captureStop();
-	}
+    function paintSkip($message)
+    {
+        $this->captureStart();
+        $this->logger->paintSkip($message);
+        $this->captureStop();
+    }
 
-	function paintMessage($message)
-	{
-		$this->captureStart();
-		$this->logger->paintMessage($message);
-		$this->captureStop();
-	}
+    function paintMessage($message)
+    {
+        $this->captureStart();
+        $this->logger->paintMessage($message);
+        $this->captureStop();
+    }
 
-	function paintFormattedMessage($message)
-	{
-		$this->captureStart();
-		$this->logger->paintFormattedMessage($message);
-		$this->captureStop();
-	}
+    function paintFormattedMessage($message)
+    {
+        $this->captureStart();
+        $this->logger->paintFormattedMessage($message);
+        $this->captureStop();
+    }
 
-	function paintSignal($type, $payload)
-	{
-		$this->captureStart();
-		$this->logger->paintSignal($type, $payload);
-		$this->captureStop();
-	}
+    function paintSignal($type, $payload)
+    {
+        $this->captureStart();
+        $this->logger->paintSignal($type, $payload);
+        $this->captureStop();
+    }
 }

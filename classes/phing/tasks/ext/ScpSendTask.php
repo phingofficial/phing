@@ -31,162 +31,162 @@ require_once 'phing/Task.php';
  */
 class ScpSendTask extends Task
 {
-	private $localFile = "";
+    private $localFile = "";
 
-	private $remoteFile = "";
+    private $remoteFile = "";
 
-	private $username = "";
+    private $username = "";
 
-	private $password = "";
+    private $password = "";
 
-	private $host = "";
+    private $host = "";
 
-	private $port = 22;
+    private $port = 22;
 
-	private $mode = null;
+    private $mode = null;
 
-	private $_connection = null;
+    private $_connection = null;
 
-	/**
-	 * Sets the remote host
-	 */
-	function setHost($h)
-	{
-		$this->host = $h;
-	}
+    /**
+     * Sets the remote host
+     */
+    function setHost($h)
+    {
+        $this->host = $h;
+    }
 
-	/**
-	 * Returns the remote host
-	 */
-	function getHost()
-	{
-		return $this->host;
-	}
+    /**
+     * Returns the remote host
+     */
+    function getHost()
+    {
+        return $this->host;
+    }
 
-	/**
-	 * Sets the remote host port
-	 */
-	function setPort($p)
-	{
-		$this->port = $p;
-	}
+    /**
+     * Sets the remote host port
+     */
+    function setPort($p)
+    {
+        $this->port = $p;
+    }
 
-	/**
-	 * Returns the remote host port
-	 */
-	function getPort()
-	{
-		return $this->port;
-	}
+    /**
+     * Returns the remote host port
+     */
+    function getPort()
+    {
+        return $this->port;
+    }
 
-	/**
-	 * Sets the mode value
-	 */
-	function setMode($value)
-	{
-		$this->mode = $value;
-	}
+    /**
+     * Sets the mode value
+     */
+    function setMode($value)
+    {
+        $this->mode = $value;
+    }
 
-	/**
-	 * Returns the mode value
-	 */
-	function getMode()
-	{
-		return $this->mode;
-	}
+    /**
+     * Returns the mode value
+     */
+    function getMode()
+    {
+        return $this->mode;
+    }
 
-	/**
-	 * Sets the username of the user to scp
-	 */
-	function setUsername($username)
-	{
-		$this->username = $username;
-	}
+    /**
+     * Sets the username of the user to scp
+     */
+    function setUsername($username)
+    {
+        $this->username = $username;
+    }
 
-	/**
-	 * Returns the username
-	 */
-	function getUsername()
-	{
-		return $this->username;
-	}
+    /**
+     * Returns the username
+     */
+    function getUsername()
+    {
+        return $this->username;
+    }
 
-	/**
-	 * Sets the password of the user to scp
-	 */
-	function setPassword($password)
-	{
-		$this->password = $password;
-	}
+    /**
+     * Sets the password of the user to scp
+     */
+    function setPassword($password)
+    {
+        $this->password = $password;
+    }
 
-	/**
-	 * Returns the password
-	 */
-	function getPassword()
-	{
-		return $this->password;
-	}
+    /**
+     * Returns the password
+     */
+    function getPassword()
+    {
+        return $this->password;
+    }
 
-	/**
-	 * Sets the local path to scp from
-	 */
-	function setLocalFile($lFile)
-	{
-		$this->localFile = $lFile;
-	}
+    /**
+     * Sets the local path to scp from
+     */
+    function setLocalFile($lFile)
+    {
+        $this->localFile = $lFile;
+    }
 
-	/**
-	 * Returns the local path to scp from
-	 */
-	function getLocalFile($lFile)
-	{
-		return $this->localFile;
-	}
+    /**
+     * Returns the local path to scp from
+     */
+    function getLocalFile($lFile)
+    {
+        return $this->localFile;
+    }
 
-	/**
-	 * Sets the remote path to scp to
-	 */
-	function setRemoteFile($rFile)
-	{
-		$this->remoteFile = $rFile;
-	}
+    /**
+     * Sets the remote path to scp to
+     */
+    function setRemoteFile($rFile)
+    {
+        $this->remoteFile = $rFile;
+    }
 
-	/**
-	 * Returns the remote path to scp to
-	 */
-	function getRemoteFile($rFile)
-	{
-		return $this->remoteFile;
-	}
+    /**
+     * Returns the remote path to scp to
+     */
+    function getRemoteFile($rFile)
+    {
+        return $this->remoteFile;
+    }
 
-	/**
-	* The init method: Do init steps.
-	*/
-	public function init()
-	{
-		if (function_exists('ssh2_connect')) {
-			$this->_connection = ssh2_connect($this->host, $this->port);
-			ssh2_auth_password($this->_connection, $this->username, $this->password);
-		} else {
-			print ("ERROR: SSH Extension is not installed");
-		}
-	}
+    /**
+    * The init method: Do init steps.
+    */
+    public function init()
+    {
+        if (function_exists('ssh2_connect')) {
+            $this->_connection = ssh2_connect($this->host, $this->port);
+            ssh2_auth_password($this->_connection, $this->username, $this->password);
+        } else {
+            print ("ERROR: SSH Extension is not installed");
+        }
+    }
 
-	/**
-	 * The main entry point method.
-	 */
-	public function main()
-	{
-		if (function_exists('ssh2_scp_send') && !is_null($this->_connection))
-		{
-			if (!is_null($this->mode)) {
-				ssh2_scp_send($this->_connection, $this->localFile, $this->remoteFile, $this->mode);
-			} else {
-				ssh2_scp_send($this->_connection, $this->localFile, $this->remoteFile);
-			}
-		} else {
-			print ("ERROR: No SSH Connection Available");
-		}
-	}
+    /**
+     * The main entry point method.
+     */
+    public function main()
+    {
+        if (function_exists('ssh2_scp_send') && !is_null($this->_connection))
+        {
+            if (!is_null($this->mode)) {
+                ssh2_scp_send($this->_connection, $this->localFile, $this->remoteFile, $this->mode);
+            } else {
+                ssh2_scp_send($this->_connection, $this->localFile, $this->remoteFile);
+            }
+        } else {
+            print ("ERROR: No SSH Connection Available");
+        }
+    }
 }
 

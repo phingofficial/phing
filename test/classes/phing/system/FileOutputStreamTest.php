@@ -32,62 +32,62 @@ include_once 'phing/system/io/FileOutputStream.php';
  */
 class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
 
-	/**
-	 * @var FileOutputStream
-	 */
+    /**
+     * @var FileOutputStream
+     */
     private $outStream;
     
     public function setUp() {
-		$this->tmpFile = new PhingFile("tmp/" . get_class($this) . ".txt");
+        $this->tmpFile = new PhingFile("tmp/" . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
     
     public function tearDown() {
-    	FileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
+        FileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
     }
     
     public function assertFileContents($contents)
     {
-    	$actual = file_get_contents($this->tmpFile->getAbsolutePath());
-    	$this->assertEquals($contents, $actual, "Expected file contents to match; expected '" . $contents . "', actual '" . $actual . "'");
+        $actual = file_get_contents($this->tmpFile->getAbsolutePath());
+        $this->assertEquals($contents, $actual, "Expected file contents to match; expected '" . $contents . "', actual '" . $actual . "'");
     }
     
     public function testWrite() {
-    	
-    	$string = "0123456789";
-    	$this->outStream->write($string);
-    	
-    	$this->assertFileContents($string);
+        
+        $string = "0123456789";
+        $this->outStream->write($string);
+        
+        $this->assertFileContents($string);
 
-    	$newstring = $string;
-    	
-    	// check offset (no len)
-    	$this->outStream->write($string, 1);
-    	$this->outStream->flush();
-    	$newstring .= '123456789';
-    	$this->assertFileContents($newstring);
-    	
-    	// check len (no offset)
-    	$this->outStream->write($string, 0, 3);
-    	$this->outStream->flush();
-    	$newstring .= '012';
-    	$this->assertFileContents($newstring);
+        $newstring = $string;
+        
+        // check offset (no len)
+        $this->outStream->write($string, 1);
+        $this->outStream->flush();
+        $newstring .= '123456789';
+        $this->assertFileContents($newstring);
+        
+        // check len (no offset)
+        $this->outStream->write($string, 0, 3);
+        $this->outStream->flush();
+        $newstring .= '012';
+        $this->assertFileContents($newstring);
 
-    	
+        
     }
     
     public function testFlush() {
     
-    	$this->outStream->write("Some data");
-		$this->outStream->flush();
-		$this->outStream->close();
+        $this->outStream->write("Some data");
+        $this->outStream->flush();
+        $this->outStream->close();
 
-		try {
-			$this->outStream->flush();
-			$this->fail("Expected IOException when attempting to flush a closed stream.");
-		} catch (IOException $ioe) {
-			// exception is expected
-		}
+        try {
+            $this->outStream->flush();
+            $this->fail("Expected IOException when attempting to flush a closed stream.");
+        } catch (IOException $ioe) {
+            // exception is expected
+        }
     }
     
 }

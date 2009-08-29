@@ -35,8 +35,8 @@ class FileWriter extends OutputStreamWriter {
      * @param boolean $append Append to existing file?
      */
     function __construct($file, $append = false) {
-    	$out = new FileOutputStream($file, $append);
-    	parent::__construct($out);
+        $out = new FileOutputStream($file, $append);
+        parent::__construct($out);
     }
 }
 

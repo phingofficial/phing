@@ -41,15 +41,15 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         }
     }
 
-	function paintCaseStart($test_name)
-	{
-		parent::paintCaseStart($test_name);
-		$this->paint( "Testsuite: $test_name\n");
+    function paintCaseStart($test_name)
+    {
+        parent::paintCaseStart($test_name);
+        $this->paint( "Testsuite: $test_name\n");
     $this->current_case = $test_name;
-	}
+    }
 
   function paintMethodStart($test_name)
-	{
+    {
     parent::paintMethodStart($test_name);
     $this->current_test = $test_name;
     //$msg = "{$this->current_case} :: $test_name\n";

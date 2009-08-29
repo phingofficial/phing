@@ -55,20 +55,20 @@ class TaskHandler extends AbstractHandler {
      * @var Task
      */
     private $task;
-	
-	/**
- 	 * Wrapper for the parent element, if any. The wrapper for this
-	 * element will be added to this wrapper as a child.
-	 * @var RuntimeConfigurable
-	 */
-	private $parentWrapper;
-	
-	/**
-	 * Wrapper for this element which takes care of actually configuring
-	 * the element, if this element is contained within a target.
-	 * Otherwise the configuration is performed with the configure method.
-	 * @see ProjectHelper::configure(Object,AttributeList,Project)
-	 */
+    
+    /**
+     * Wrapper for the parent element, if any. The wrapper for this
+     * element will be added to this wrapper as a child.
+     * @var RuntimeConfigurable
+     */
+    private $parentWrapper;
+    
+    /**
+     * Wrapper for this element which takes care of actually configuring
+     * the element, if this element is contained within a target.
+     * Otherwise the configuration is performed with the configure method.
+     * @see ProjectHelper::configure(Object,AttributeList,Project)
+     */
     private $wrapper;
 
     /**
@@ -84,7 +84,7 @@ class TaskHandler extends AbstractHandler {
      * @param object $parentHandler The parent handler that invoked this handler
      * @param ProjectConfigurator $configurator
      * @param TaskContainer $container The container object this task is contained in (null for top-level tasks).
-	 * @param RuntimeConfigurable $parentWrapper  Wrapper for the parent element, if any.
+     * @param RuntimeConfigurable $parentWrapper  Wrapper for the parent element, if any.
      * @param Target $target The target object this task is contained in (null for top-level tasks).
      */
     function __construct(AbstractSAXParser $parser, $parentHandler, ProjectConfigurator $configurator, $container = null, $parentWrapper = null, $target = null) {
@@ -94,16 +94,16 @@ class TaskHandler extends AbstractHandler {
         if (($container !== null) && !($container instanceof TaskContainer)) {
             throw new Exception("Argument expected to be a TaskContainer, got something else");
         }
-		if (($parentWrapper !== null) && !($parentWrapper instanceof RuntimeConfigurable)) {
+        if (($parentWrapper !== null) && !($parentWrapper instanceof RuntimeConfigurable)) {
             throw new Exception("Argument expected to be a RuntimeConfigurable, got something else.");
         }
         if (($target !== null) && !($target instanceof Target)) {
             throw new Exception("Argument expected to be a Target, got something else");
         }
 
-		$this->configurator = $configurator;
+        $this->configurator = $configurator;
         $this->container = $container;
-		$this->parentWrapper = $parentWrapper;
+        $this->parentWrapper = $parentWrapper;
         $this->target = $target;
     }
 
@@ -150,29 +150,29 @@ class TaskHandler extends AbstractHandler {
         // should be used in task exceptions to provide details
         $this->task->setLocation($this->parser->getLocation());
         $configurator->configureId($this->task, $attrs);
-		
-		if ($this->container) {
-			$this->container->addTask($this->task);
-		}
-		
+        
+        if ($this->container) {
+            $this->container->addTask($this->task);
+        }
+        
         // Top level tasks don't have associated targets
-		// FIXME: if we do like Ant 1.6 and create an implicitTarget in the projectconfigurator object
-		// then we don't need to check for null here ... but there's a lot of stuff that will break if we
-		// do that at this point.
+        // FIXME: if we do like Ant 1.6 and create an implicitTarget in the projectconfigurator object
+        // then we don't need to check for null here ... but there's a lot of stuff that will break if we
+        // do that at this point.
         if ($this->target !== null) {
             $this->task->setOwningTarget($this->target);
             $this->task->init();
             $this->wrapper = $this->task->getRuntimeConfigurableWrapper();
             $this->wrapper->setAttributes($attrs);
             /*
-			Commenting this out as per thread on Premature configurate of ReuntimeConfigurables 
+            Commenting this out as per thread on Premature configurate of ReuntimeConfigurables 
             with Matthias Pigulla: http://phing.tigris.org/servlets/ReadMsg?list=dev&msgNo=251
             
-			if ($this->parentWrapper !== null) { // this may not make sense only within this if-block, but it
-												// seems to address current use cases adequately
-		    	$this->parentWrapper->addChild($this->wrapper);
-			}
-			*/
+            if ($this->parentWrapper !== null) { // this may not make sense only within this if-block, but it
+                                                // seems to address current use cases adequately
+                $this->parentWrapper->addChild($this->wrapper);
+            }
+            */
         } else {
             $this->task->init();
             $configurator->configure($this->task, $attrs, $project);

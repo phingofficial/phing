@@ -32,112 +32,112 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
  */
 class IoncubeLicenseTask extends Task
 {
-	private $ioncubePath = "/usr/local/ioncube";
-	
-	private $licensePath = "";
-	private $passPhrase = "";
-	
-	private $comments = array();
+    private $ioncubePath = "/usr/local/ioncube";
+    
+    private $licensePath = "";
+    private $passPhrase = "";
+    
+    private $comments = array();
 
-	/**
-	 * Sets the path to the ionCube encoder
-	 */
-	function setIoncubePath($ioncubePath)
-	{
-		$this->ioncubePath = $ioncubePath;
-	}
+    /**
+     * Sets the path to the ionCube encoder
+     */
+    function setIoncubePath($ioncubePath)
+    {
+        $this->ioncubePath = $ioncubePath;
+    }
 
-	/**
-	 * Returns the path to the ionCube encoder
-	 */
-	function getIoncubePath()
-	{
-		return $this->ioncubePath;
-	}
+    /**
+     * Returns the path to the ionCube encoder
+     */
+    function getIoncubePath()
+    {
+        return $this->ioncubePath;
+    }
 
-	/**
-	 * Sets the path to the license file to use
-	 */
-	function setLicensePath($licensePath)
-	{
-		$this->licensePath = $licensePath;
-	}
+    /**
+     * Sets the path to the license file to use
+     */
+    function setLicensePath($licensePath)
+    {
+        $this->licensePath = $licensePath;
+    }
 
-	/**
-	 * Returns the path to the license file to use
-	 */
-	function getLicensePath()
-	{
-		return $this->licensePath;
-	}
+    /**
+     * Returns the path to the license file to use
+     */
+    function getLicensePath()
+    {
+        return $this->licensePath;
+    }
 
-	/**
-	 * Sets the passphrase to use when encoding files
-	 */
-	function setPassPhrase($passPhrase)
-	{
-		$this->passPhrase = $passPhrase;
-	}
+    /**
+     * Sets the passphrase to use when encoding files
+     */
+    function setPassPhrase($passPhrase)
+    {
+        $this->passPhrase = $passPhrase;
+    }
 
-	/**
-	 * Returns the passphrase to use when encoding files
-	 */
-	function getPassPhrase()
-	{
-		return $this->passPhrase;
-	}
+    /**
+     * Returns the passphrase to use when encoding files
+     */
+    function getPassPhrase()
+    {
+        return $this->passPhrase;
+    }
 
-	/**
-	 * Adds a comment to be used in encoded files
-	 */
-	function addComment(IoncubeComment $comment)
-	{
-		$this->comments[] = $comment;
-	}
+    /**
+     * Adds a comment to be used in encoded files
+     */
+    function addComment(IoncubeComment $comment)
+    {
+        $this->comments[] = $comment;
+    }
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	function main()
-	{
-		$arguments = $this->constructArguments();
-		
-		$makelicense = new PhingFile($this->ioncubePath, 'make_license');
-		
-		$this->log("Running ionCube make_license...");
-		
-		exec($makelicense->__toString() . " " . $arguments . " 2>&1", $output, $return);
-		
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    function main()
+    {
+        $arguments = $this->constructArguments();
+        
+        $makelicense = new PhingFile($this->ioncubePath, 'make_license');
+        
+        $this->log("Running ionCube make_license...");
+        
+        exec($makelicense->__toString() . " " . $arguments . " 2>&1", $output, $return);
+        
         if ($return != 0)
         {
-			throw new BuildException("Could not execute ionCube make_license: " . implode(' ', $output));
+            throw new BuildException("Could not execute ionCube make_license: " . implode(' ', $output));
         }       
-	}
+    }
 
-	/**
-	 * Constructs an argument string for the ionCube make_license
-	 */
-	private function constructArguments()
-	{
-		$arguments = "";
-		
-		if (!empty($this->passPhrase))
-		{
-			$arguments.= "--passphrase '" . $this->passPhrase . "' ";
-		}
-		
-		foreach ($this->comments as $comment)
-		{
-			$arguments.= "--header-line '" . $comment->getValue() . "' ";
-		}
-		
-		if (!empty($this->licensePath))
-		{
-			$arguments.= "--o '" . $this->licensePath . "' ";
-		}
+    /**
+     * Constructs an argument string for the ionCube make_license
+     */
+    private function constructArguments()
+    {
+        $arguments = "";
+        
+        if (!empty($this->passPhrase))
+        {
+            $arguments.= "--passphrase '" . $this->passPhrase . "' ";
+        }
+        
+        foreach ($this->comments as $comment)
+        {
+            $arguments.= "--header-line '" . $comment->getValue() . "' ";
+        }
+        
+        if (!empty($this->licensePath))
+        {
+            $arguments.= "--o '" . $this->licensePath . "' ";
+        }
 
-		return $arguments;
-	}
+        return $arguments;
+    }
 }

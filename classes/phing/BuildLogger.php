@@ -38,11 +38,11 @@ require_once 'phing/BuildListener.php';
  */
 interface BuildLogger extends BuildListener {
 
-	/**
-	 * Sets the min log level that this logger should respect.
-	 * 
-	 * Messages below this level are ignored.
-	 *
+    /**
+     * Sets the min log level that this logger should respect.
+     * 
+     * Messages below this level are ignored.
+     *
      * Constants for the message levels are in Project.php. The order of
      * the levels, from least to most verbose, is:
      *   - Project::MSG_ERR
@@ -51,8 +51,8 @@ interface BuildLogger extends BuildListener {
      *   - Project::MSG_VERBOSE
      *   - Project::MSG_DEBUG
      *
-	 * @param int $level The log level integer (e.g. Project::MSG_VERBOSE, etc.).
-	 */
+     * @param int $level The log level integer (e.g. Project::MSG_VERBOSE, etc.).
+     */
     public function setMessageOutputLevel($level);
 
     /**

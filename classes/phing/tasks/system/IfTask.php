@@ -148,16 +148,16 @@ class IfTask extends ConditionBase {
     }
 
     public function main() {
-	
+    
         if ($this->countConditions() > 1) {
             throw new BuildException("You must not nest more than one condition into <if>");
         }
         if ($this->countConditions() < 1) {
             throw new BuildException("You must nest a condition into <if>");
         }
-		$conditions = $this->getConditions();
-		$c = $conditions[0];
-		
+        $conditions = $this->getConditions();
+        $c = $conditions[0];
+        
         if ($c->evaluate()) {
             if ($this->thenTasks != null) {
                 $this->thenTasks->main();
@@ -165,8 +165,8 @@ class IfTask extends ConditionBase {
         } else {
             $done = false;
             $sz = count($this->elseIfTasks);
-			for($i=0; $i < $sz && !$done; $i++) {
-				$ei = $this->elseIfTasks[$i];
+            for($i=0; $i < $sz && !$done; $i++) {
+                $ei = $this->elseIfTasks[$i];
                 if ($ei->evaluate()) {
                     $done = true;
                     $ei->main();
@@ -194,28 +194,28 @@ class ElseIfTask extends ConditionBase {
             }
             $this->thenTasks = $t;
         }
-	
-		/**
-		 * @return boolean
-		 */
+    
+        /**
+         * @return boolean
+         */
         public function evaluate() {
-		
+        
             if ($this->countConditions() > 1) {
                 throw new BuildException("You must not nest more than one condition into <elseif>");
             }
             if ($this->countConditions() < 1) {
                 throw new BuildException("You must nest a condition into <elseif>");
             }
-			
-			$conditions = $this->getConditions();
-			$c = $conditions[0];
+            
+            $conditions = $this->getConditions();
+            $c = $conditions[0];
 
             return $c->evaluate();
         }
-		
-		/**
-		 * 
-		 */
+        
+        /**
+         * 
+         */
         public function main() {
             if ($this->thenTasks != null) {
                 $this->thenTasks->main();

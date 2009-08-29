@@ -76,7 +76,7 @@ abstract class Reader {
      * @return boolean
      */
     public function markSupported() {
-    	return false;
+        return false;
     }
     
     /**
@@ -84,7 +84,7 @@ abstract class Reader {
      * @return boolean
      */
     public function ready() {
-    	return true;
+        return true;
     }
 
 }

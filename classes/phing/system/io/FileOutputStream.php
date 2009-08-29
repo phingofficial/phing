@@ -28,12 +28,12 @@ require_once 'phing/system/io/PhingFile.php';
  * @package   phing.system.io
  */
 class FileOutputStream extends OutputStream {
-	
-	/**
-	 * @var PhingFile The associated file.
-	 */
-	protected $file;
-	
+    
+    /**
+     * @var PhingFile The associated file.
+     */
+    protected $file;
+    
     /**
      * Construct a new FileOutputStream.
      * @param mixed $file
@@ -42,7 +42,7 @@ class FileOutputStream extends OutputStream {
      * @throws IOException - if unable to open file.
      */
     public function __construct($file, $append = false) {
-    	if ($file instanceof PhingFile) {
+        if ($file instanceof PhingFile) {
             $this->file = $file;
         } elseif (is_string($file)) {
             $this->file = new PhingFile($file);
@@ -50,12 +50,12 @@ class FileOutputStream extends OutputStream {
             throw new Exception("Invalid argument type for \$file.");
         }
         if ($append) {
-        	$stream = @fopen($this->file->getAbsolutePath(), "ab");
+            $stream = @fopen($this->file->getAbsolutePath(), "ab");
         } else {
-        	$stream = @fopen($this->file->getAbsolutePath(), "wb");
+            $stream = @fopen($this->file->getAbsolutePath(), "wb");
         }
         if ($stream === false) {
-        	throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $php_errormsg);
+            throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $php_errormsg);
         }
         parent::__construct($stream);
     }

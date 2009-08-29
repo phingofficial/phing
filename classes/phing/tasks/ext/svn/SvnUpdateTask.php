@@ -41,16 +41,16 @@ class SvnUpdateTask extends SvnBaseTask
      */
     private $revision = 'HEAD';
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	function main()
-	{
-		$this->setup('update');
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    function main()
+    {
+        $this->setup('update');
 
-		$this->log("Updating SVN repository at '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
+        $this->log("Updating SVN repository at '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
 
         // revision
         $switches = array(

@@ -112,17 +112,17 @@ class ReflexiveTask extends Task {
         
         $this->log("Applying reflexive processing to " . count($files) . " files.");
 
-		// These "slots" allow filters to retrieve information about the currently-being-process files		
-		$slot = $this->getRegisterSlot("currentFile");
-		$basenameSlot = $this->getRegisterSlot("currentFile.basename");	
+        // These "slots" allow filters to retrieve information about the currently-being-process files      
+        $slot = $this->getRegisterSlot("currentFile");
+        $basenameSlot = $this->getRegisterSlot("currentFile.basename"); 
 
         
         foreach($files as $file) {
-			// set the register slots
-			
-			$slot->setValue($file->getPath());
-			$basenameSlot->setValue($file->getName());
-			
+            // set the register slots
+            
+            $slot->setValue($file->getPath());
+            $basenameSlot->setValue($file->getName());
+            
             // 1) read contents of file, pulling through any filters
             $in = null;
             try {                

@@ -73,13 +73,13 @@ class PearLogListener implements BuildListener {
     /**
      * @var Log PEAR Log object.
      */
-   	protected $logger;
-   	
+    protected $logger;
+    
     /**
      * Configure the logger.
      */
     protected function configureLogging() {
-    	
+        
         $type = Phing::getDefinedProperty('pear.log.type');
         $name = Phing::getDefinedProperty('pear.log.name');
         $ident = Phing::getDefinedProperty('pear.log.ident');
@@ -92,7 +92,7 @@ class PearLogListener implements BuildListener {
         
         include_once 'Log.php';
         if (!class_exists('Log')) {
-        	throw new BuildException("Cannot find PEAR Log class for use by PearLogger.");
+            throw new BuildException("Cannot find PEAR Log class for use by PearLogger.");
         }
         
         $this->logger = Log::singleton($type, $name, $ident, $conf, self::$levelMap[$this->msgOutputLevel]);

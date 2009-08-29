@@ -297,10 +297,10 @@ class UnixFileSystem extends FileSystem {
      * @return boolean
      */
     function canDelete(PhingFile $f) 
- 	{ 
- 		@clearstatcache(); 
- 		$dir = dirname($f->getAbsolutePath()); 
- 		return (bool) @is_writable($dir); 
-	}
+    { 
+        @clearstatcache(); 
+        $dir = dirname($f->getAbsolutePath()); 
+        return (bool) @is_writable($dir); 
+    }
     
 }

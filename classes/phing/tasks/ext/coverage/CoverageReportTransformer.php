@@ -35,33 +35,33 @@ require_once 'phing/util/ExtendedFileStream.php';
  */
 class CoverageReportTransformer
 {
-	private $task = NULL;
-	private $styleDir = "";
-	private $toDir = "";
-	private $document = NULL;
+    private $task = NULL;
+    private $styleDir = "";
+    private $toDir = "";
+    private $document = NULL;
 
-	function __construct(Task $task)
-	{
-		$this->task = $task;
-	}
+    function __construct(Task $task)
+    {
+        $this->task = $task;
+    }
 
-	function setStyleDir($styleDir)
-	{
-		$this->styleDir = $styleDir;
-	}
+    function setStyleDir($styleDir)
+    {
+        $this->styleDir = $styleDir;
+    }
 
-	function setToDir($toDir)
-	{
-		$this->toDir = $toDir;
-	}
+    function setToDir($toDir)
+    {
+        $this->toDir = $toDir;
+    }
 
-	function setXmlDocument($document)
-	{
-		$this->document = $document;
-	}
+    function setXmlDocument($document)
+    {
+        $this->document = $document;
+    }
 
-	function transform()
-	{
+    function transform()
+    {
         $dir = new PhingFile($this->toDir);
 
         if (!$dir->exists())
@@ -69,54 +69,54 @@ class CoverageReportTransformer
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
         }
 
-		$xslfile = $this->getStyleSheet();
+        $xslfile = $this->getStyleSheet();
 
-		$xsl = new DOMDocument();
-		$xsl->load($xslfile->getAbsolutePath());
+        $xsl = new DOMDocument();
+        $xsl->load($xslfile->getAbsolutePath());
 
-		$proc = new XSLTProcessor();
-		$proc->importStyleSheet($xsl);
+        $proc = new XSLTProcessor();
+        $proc->importStyleSheet($xsl);
 
-		ExtendedFileStream::registerStream();
+        ExtendedFileStream::registerStream();
 
-		// no output for the framed report
-		// it's all done by extension...
-		$proc->setParameter('', 'output.dir', $dir->toString());
-		$proc->transformToXML($this->document);
-		
-		ExtendedFileStream::unregisterStream();
-	}
+        // no output for the framed report
+        // it's all done by extension...
+        $proc->setParameter('', 'output.dir', $dir->toString());
+        $proc->transformToXML($this->document);
+        
+        ExtendedFileStream::unregisterStream();
+    }
 
-	private function getStyleSheet()
-	{
-		$xslname = "coverage-frames.xsl";
+    private function getStyleSheet()
+    {
+        $xslname = "coverage-frames.xsl";
 
-		if ($this->styleDir)
-		{
-			$file = new PhingFile($this->styleDir, $xslname);
-		}
-		else
-		{
-			$path = Phing::getResourcePath("phing/etc/$xslname");
-			
-			if ($path === NULL)
-			{
-				$path = Phing::getResourcePath("etc/$xslname");
+        if ($this->styleDir)
+        {
+            $file = new PhingFile($this->styleDir, $xslname);
+        }
+        else
+        {
+            $path = Phing::getResourcePath("phing/etc/$xslname");
+            
+            if ($path === NULL)
+            {
+                $path = Phing::getResourcePath("etc/$xslname");
 
-				if ($path === NULL)
-				{
-					throw new BuildException("Could not find $xslname in resource path");
-				}
-			}
-			
-			$file = new PhingFile($path);
-		}
+                if ($path === NULL)
+                {
+                    throw new BuildException("Could not find $xslname in resource path");
+                }
+            }
+            
+            $file = new PhingFile($path);
+        }
 
-		if (!$file->exists())
-		{
-			throw new BuildException("Could not find file " . $file->getPath());
-		}
+        if (!$file->exists())
+        {
+            throw new BuildException("Could not find file " . $file->getPath());
+        }
 
-		return $file;
-	}
+        return $file;
+    }
 }

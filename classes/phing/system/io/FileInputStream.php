@@ -28,12 +28,12 @@ require_once 'phing/system/io/PhingFile.php';
  * @package   phing.system.io
  */
 class FileInputStream extends InputStream {
-	
-	/**
-	 * @var PhingFile The associated file.
-	 */
-	protected $file;
-	
+    
+    /**
+     * @var PhingFile The associated file.
+     */
+    protected $file;
+    
     /**
      * Construct a new FileInputStream.
      * @param mixed $file
@@ -41,7 +41,7 @@ class FileInputStream extends InputStream {
      * @throws IOException - if unable to open file.
      */
     public function __construct($file, $append = false) {
-    	if ($file instanceof PhingFile) {
+        if ($file instanceof PhingFile) {
             $this->file = $file;
         } elseif (is_string($file)) {
             $this->file = new PhingFile($file);
@@ -51,7 +51,7 @@ class FileInputStream extends InputStream {
         
         $stream = @fopen($this->file->getAbsolutePath(), "rb");
         if ($stream === false) {
-        	throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . $php_errormsg);
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . $php_errormsg);
         }
         
         parent::__construct($stream);
@@ -69,7 +69,7 @@ class FileInputStream extends InputStream {
      * Mark is supported by FileInputStream.
      * @return boolean TRUE
      */
-	public function markSupported() {
+    public function markSupported() {
         return true;
     }
 }

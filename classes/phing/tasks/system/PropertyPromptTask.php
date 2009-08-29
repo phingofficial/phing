@@ -36,11 +36,11 @@ include_once 'phing/system/io/ConsoleReader.php';
  * @deprecated - in favor of the more capable InputTask
  */ 
 class PropertyPromptTask extends Task {
-	
-	/**
-	 * The property name to set with the output.
-	 * @var string
-	 */
+    
+    /**
+     * The property name to set with the output.
+     * @var string
+     */
     private $propertyName;        // required
     
     /**
@@ -77,14 +77,14 @@ class PropertyPromptTask extends Task {
      * @throws BuildException
      */
     public function main() {
-    	
+        
         $this->proposedValue = $this->project->getProperty($this->propertyName);
         $currentValue = $this->defaultValue;
         
         if ($currentValue == "" && $this->proposedValue !== null) {
-        		$currentValue = $this->proposedValue;
-       	}
-       	
+                $currentValue = $this->proposedValue;
+        }
+        
         if ($this->useExistingValue !== true || $this->proposedValue === null) {
                         
             $this->log("Prompting user for " . $this->propertyName . ". " . $this->getDefaultMessage(), Project::MSG_VERBOSE);

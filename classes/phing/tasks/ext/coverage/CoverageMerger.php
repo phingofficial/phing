@@ -31,118 +31,118 @@ require_once 'phing/system/util/Properties.php';
  */
 class CoverageMerger
 {
-	private static function mergeCodeCoverage($left, $right)
-	{
-		$coverageMerged = array();
+    private static function mergeCodeCoverage($left, $right)
+    {
+        $coverageMerged = array();
 
-		reset($left);
-		reset($right);
+        reset($left);
+        reset($right);
 
-		while (current($left) && current($right))
-		{
-			$linenr_left = key($left);
-			$linenr_right = key($right);
+        while (current($left) && current($right))
+        {
+            $linenr_left = key($left);
+            $linenr_right = key($right);
 
-			if ($linenr_left < $linenr_right)
-			{
-				$coverageMerged[$linenr_left] = current($left);
+            if ($linenr_left < $linenr_right)
+            {
+                $coverageMerged[$linenr_left] = current($left);
 
-				next($left);
-			}
-			else
-			if ($linenr_right < $linenr_left)
-			{
-				$coverageMerged[$linenr_right] = current($right);
-				next($right);
-			}
-			else
-			{
-				if (current($left) < 0)
-				{
-					$coverageMerged[$linenr_right] = current($right);
-				}
-				else
-				if (current($right) < 0)
-				{
-					$coverageMerged[$linenr_right] = current($left);
-				}
-				else
-				{
-					$coverageMerged[$linenr_right] = current($left) + current($right);
-				}
-				
-				next($left);
-				next($right);
-			}
-		}
+                next($left);
+            }
+            else
+            if ($linenr_right < $linenr_left)
+            {
+                $coverageMerged[$linenr_right] = current($right);
+                next($right);
+            }
+            else
+            {
+                if (current($left) < 0)
+                {
+                    $coverageMerged[$linenr_right] = current($right);
+                }
+                else
+                if (current($right) < 0)
+                {
+                    $coverageMerged[$linenr_right] = current($left);
+                }
+                else
+                {
+                    $coverageMerged[$linenr_right] = current($left) + current($right);
+                }
+                
+                next($left);
+                next($right);
+            }
+        }
 
-		while (current($left))
-		{
-			$coverageMerged[key($left)] = current($left);
-			next($left);
-		}
+        while (current($left))
+        {
+            $coverageMerged[key($left)] = current($left);
+            next($left);
+        }
 
-		while (current($right))
-		{
-			$coverageMerged[key($right)] = current($right);
-			next($right);
-		}
+        while (current($right))
+        {
+            $coverageMerged[key($right)] = current($right);
+            next($right);
+        }
 
-		return $coverageMerged;
-	}
+        return $coverageMerged;
+    }
 
-	static function merge($project, $codeCoverageInformation)
-	{
-		$coverageDatabase = $project->getProperty('coverage.database');
-		
-		if (!$coverageDatabase)
-		{
-			throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
-		}
-		
-		$database = new PhingFile($coverageDatabase);
+    static function merge($project, $codeCoverageInformation)
+    {
+        $coverageDatabase = $project->getProperty('coverage.database');
+        
+        if (!$coverageDatabase)
+        {
+            throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
+        }
+        
+        $database = new PhingFile($coverageDatabase);
 
-		$props = new Properties();
-		$props->load($database);
-		
-		$coverageTotal = $codeCoverageInformation;
-		
-		foreach ($coverageTotal as $filename => $data)
-		{
-			$filename = strtolower($filename);
+        $props = new Properties();
+        $props->load($database);
+        
+        $coverageTotal = $codeCoverageInformation;
+        
+        foreach ($coverageTotal as $filename => $data)
+        {
+            $filename = strtolower($filename);
 
-			if ($props->getProperty($filename) != null)
-			{
-				foreach ($data as $_line => $_data)
-				{
-					if (is_array($_data))
-					{
-						$count = count($_data);
-					}
-					else if ($_data == -1)
-					{
-						$count = -1;
-					}
-					else if ($_data == -2)
-					{
-						continue;
-					}
+            if ($props->getProperty($filename) != null)
+            {
+                foreach ($data as $_line => $_data)
+                {
+                    if (is_array($_data))
+                    {
+                        $count = count($_data);
+                    }
+                    else if ($_data == -1)
+                    {
+                        $count = -1;
+                    }
+                    else if ($_data == -2)
+                    {
+                        continue;
+                    }
 
-					$lines[$_line] = $count;
-				}
+                    $lines[$_line] = $count;
+                }
 
-				ksort($lines);
+                ksort($lines);
 
-				$file = unserialize($props->getProperty($filename));
-				$left = $file['coverage'];
+                $file = unserialize($props->getProperty($filename));
+                $left = $file['coverage'];
 
-				$coverageMerged = CoverageMerger::mergeCodeCoverage($left, $lines);
+                $coverageMerged = CoverageMerger::mergeCodeCoverage($left, $lines);
 
-				$file['coverage'] = $coverageMerged;
-				$props->setProperty($filename, serialize($file));
-			}           
-		}
+                $file['coverage'] = $coverageMerged;
+                $props->setProperty($filename, serialize($file));
+            }           
+        }
 
-		$props->store($database);
-	}
+        $props->store($database);
+    }
 }

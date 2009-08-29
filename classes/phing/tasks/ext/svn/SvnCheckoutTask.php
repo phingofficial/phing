@@ -41,16 +41,16 @@ class SvnCheckoutTask extends SvnBaseTask
      */
     private $revision = 'HEAD';
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	function main()
-	{
-		$this->setup('checkout');
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    function main()
+    {
+        $this->setup('checkout');
 
-		$this->log("Checking out SVN repository to '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
+        $this->log("Checking out SVN repository to '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
 
         // revision
         $switches = array(

@@ -59,30 +59,30 @@ class BufferedReader extends Reader {
      */
     function read($len = null) {
         
-    	// if $len is specified, we'll use that; otherwise, use the configured buffer size.
-    	if ($len === null) $len = $this->bufferSize; 
+        // if $len is specified, we'll use that; otherwise, use the configured buffer size.
+        if ($len === null) $len = $this->bufferSize; 
         
         if ( ($data = $this->in->read($len)) !== -1 ) {
-		
-			// not all files end with a newline character, so we also need to check EOF
-			if (!$this->in->eof()) {
-			
-	            $notValidPart = strrchr($data, "\n");
-	            $notValidPartSize = strlen($notValidPart);
-	        
-	            if ( $notValidPartSize > 1 ) {
-	                // Block doesn't finish on a EOL
-	                // Find the last EOL and forget all following stuff
-	                $dataSize = strlen($data);
-	                $validSize = $dataSize - $notValidPartSize + 1;
-	            
-	                $data = substr($data, 0, $validSize);
-	
-	                // Rewind to the begining of the forgotten stuff.
-	                $this->in->skip(-$notValidPartSize+1);
-	            }
-				
-			} // if !EOF
+        
+            // not all files end with a newline character, so we also need to check EOF
+            if (!$this->in->eof()) {
+            
+                $notValidPart = strrchr($data, "\n");
+                $notValidPartSize = strlen($notValidPart);
+            
+                if ( $notValidPartSize > 1 ) {
+                    // Block doesn't finish on a EOL
+                    // Find the last EOL and forget all following stuff
+                    $dataSize = strlen($data);
+                    $validSize = $dataSize - $notValidPartSize + 1;
+                
+                    $data = substr($data, 0, $validSize);
+    
+                    // Rewind to the begining of the forgotten stuff.
+                    $this->in->skip(-$notValidPartSize+1);
+                }
+                
+            } // if !EOF
         }
         return $data;
     }

@@ -36,51 +36,51 @@ class ScpTask extends Task
     private $mode = null;
 
     private $host = "";
-	private $port = 22;
-	private $username = "";
-	private $password = "";
+    private $port = 22;
+    private $username = "";
+    private $password = "";
     private $localEndpoint = "";
     private $remoteEndpoint = "";
 
-	function setMode($mode)
-	{
-		$this->mode = $mode;
-	}
+    function setMode($mode)
+    {
+        $this->mode = $mode;
+    }
 
-	function getMode()
-	{
-		return $this->mode;
-	}
+    function getMode()
+    {
+        return $this->mode;
+    }
 
-	function setTodir($todir)
-	{
-		$this->todir = $todir;
-	}
+    function setTodir($todir)
+    {
+        $this->todir = $todir;
+    }
 
-	function getTodir()
-	{
-		return $this->todir;
-	}
+    function getTodir()
+    {
+        return $this->todir;
+    }
 
-	function setFile($file)
-	{
-		$this->file = $file;
-	}
+    function setFile($file)
+    {
+        $this->file = $file;
+    }
 
-	function getFile()
-	{
-		return $this->file;
-	}
+    function getFile()
+    {
+        return $this->file;
+    }
 
-	public function init()
+    public function init()
     {
         if (!function_exists('ssh2_connect')) { 
             throw new BuildException("To use ScpTask, you need to install the SSH extension.");
         }
         return TRUE;
-	}
+    }
 
-	public function main()
+    public function main()
     {
         $this->determineEndpoints();
 

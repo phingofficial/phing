@@ -35,112 +35,112 @@ require_once 'phing/system/util/Timer.php';
  */
 class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
 {
-	const SUCCESS = 0;
-	const FAILURES = 1;
-	const ERRORS = 2;
-	const INCOMPLETES = 3;
-	const SKIPPED = 4;
+    const SUCCESS = 0;
+    const FAILURES = 1;
+    const ERRORS = 2;
+    const INCOMPLETES = 3;
+    const SKIPPED = 4;
 
-	private $retCode = 0;
-	private $lastFailureMessage = "";
-	private $formatters = array();
-	
-	private $codecoverage = false;
-	
-	private $project = NULL;
+    private $retCode = 0;
+    private $lastFailureMessage = "";
+    private $formatters = array();
+    
+    private $codecoverage = false;
+    
+    private $project = NULL;
 
-	private $groups = array();
-	private $excludeGroups = array();
+    private $groups = array();
+    private $excludeGroups = array();
 
-	function __construct(Project $project, $groups = array(), $excludeGroups = array())
-	{
-		$this->project = $project;
-		$this->groups = $groups;
-		$this->excludeGroups = $excludeGroups;
-		$this->retCode = self::SUCCESS;
-	}
-	
-	function setCodecoverage($codecoverage)
-	{
-		$this->codecoverage = $codecoverage;
-	}
+    function __construct(Project $project, $groups = array(), $excludeGroups = array())
+    {
+        $this->project = $project;
+        $this->groups = $groups;
+        $this->excludeGroups = $excludeGroups;
+        $this->retCode = self::SUCCESS;
+    }
+    
+    function setCodecoverage($codecoverage)
+    {
+        $this->codecoverage = $codecoverage;
+    }
 
-	function addFormatter($formatter)
-	{
-		$this->formatters[] = $formatter;
-	}
-	
-	public static function handleError($level, $message, $file, $line)
-	{
-		if (!PHPUnit_Util_Filter::isFiltered($file, true, true))
-		{
-			return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
-		}
-	}
-	
-	/**
-	 * Run a test
-	 */
-	function run($test)
-	{
-		$res = new PHPUnit_Framework_TestResult();
+    function addFormatter($formatter)
+    {
+        $this->formatters[] = $formatter;
+    }
+    
+    public static function handleError($level, $message, $file, $line)
+    {
+        if (!PHPUnit_Util_Filter::isFiltered($file, true, true))
+        {
+            return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
+        }
+    }
+    
+    /**
+     * Run a test
+     */
+    function run($test)
+    {
+        $res = new PHPUnit_Framework_TestResult();
 
-		if ($this->codecoverage)
-		{
-			$res->collectCodeCoverageInformation(TRUE);
-		}
-		
-		$res->addListener($this);
+        if ($this->codecoverage)
+        {
+            $res->collectCodeCoverageInformation(TRUE);
+        }
+        
+        $res->addListener($this);
 
-		foreach ($this->formatters as $formatter)
-		{
-			$res->addListener($formatter);
-		}
-		
-		/* Set PHPUnit error handler */
-		$oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
+        foreach ($this->formatters as $formatter)
+        {
+            $res->addListener($formatter);
+        }
+        
+        /* Set PHPUnit error handler */
+        $oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
 
-		$test->run($res, false, $this->groups, $this->excludeGroups);
-		
-		/* Restore Phing error handler */
-		restore_error_handler();
-		
-		if ($this->codecoverage)
-		{
-			$coverageInformation = $res->getCodeCoverageInformation();
+        $test->run($res, false, $this->groups, $this->excludeGroups);
+        
+        /* Restore Phing error handler */
+        restore_error_handler();
+        
+        if ($this->codecoverage)
+        {
+            $coverageInformation = $res->getCodeCoverageInformation();
 
-			$summary = PHPUnit_Util_CodeCoverage::getSummary($coverageInformation);
+            $summary = PHPUnit_Util_CodeCoverage::getSummary($coverageInformation);
 
-			CoverageMerger::merge($this->project, $summary);
-		}
-		
-		if ($res->errorCount() != 0)
-		{
-			$this->retCode = self::ERRORS;
-		}
-		else if ($res->failureCount() != 0)
-		{
-			$this->retCode = self::FAILURES;
-		}
-		else if ($res->notImplementedCount() != 0)
-		{
-			$this->retCode = self::INCOMPLETES;
-		}
-		else if ($res->skippedCount() != 0)
-		{
-			$this->retCode = self::SKIPPED;
-		}
-	}
+            CoverageMerger::merge($this->project, $summary);
+        }
+        
+        if ($res->errorCount() != 0)
+        {
+            $this->retCode = self::ERRORS;
+        }
+        else if ($res->failureCount() != 0)
+        {
+            $this->retCode = self::FAILURES;
+        }
+        else if ($res->notImplementedCount() != 0)
+        {
+            $this->retCode = self::INCOMPLETES;
+        }
+        else if ($res->skippedCount() != 0)
+        {
+            $this->retCode = self::SKIPPED;
+        }
+    }
 
-	function getRetCode()
-	{
-		return $this->retCode;
-	}
-	
-	function getLastFailureMessage()
-	{
-		return $this->lastFailureMessage;
-	}
+    function getRetCode()
+    {
+        return $this->retCode;
+    }
+    
+    function getLastFailureMessage()
+    {
+        return $this->lastFailureMessage;
+    }
 
     /**
      * An error occurred.
@@ -151,7 +151,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
      */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-		$this->lastFailureMessage = "Test ERROR (" . $test->getName() . "): " . $e->getMessage();
+        $this->lastFailureMessage = "Test ERROR (" . $test->getName() . "): " . $e->getMessage();
     }
 
     /**
@@ -163,8 +163,8 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
      */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
-		$this->lastFailureMessage = "Test FAILURE (" . $test->getName() . "): " . $e->getMessage();
-	}
+        $this->lastFailureMessage = "Test FAILURE (" . $test->getName() . "): " . $e->getMessage();
+    }
 
     /**
      * Incomplete test.
@@ -175,8 +175,8 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
      */
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-		$this->lastFailureMessage = "Test INCOMPLETE (" . $test->getName() . "): " . $e->getMessage();
-	}
+        $this->lastFailureMessage = "Test INCOMPLETE (" . $test->getName() . "): " . $e->getMessage();
+    }
 
     /**
      * Skipped test.
@@ -188,8 +188,8 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
      */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-		$this->lastFailureMessage = "Test SKIPPED (" . $test->getName() . "): " . $e->getMessage();
-	}
+        $this->lastFailureMessage = "Test SKIPPED (" . $test->getName() . "): " . $e->getMessage();
+    }
 
     /**
      * A test started.
@@ -228,7 +228,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
      */
     protected function runFailed($message)
     {
-		throw new BuildException($message);
+        throw new BuildException($message);
     }
 }
 

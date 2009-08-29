@@ -59,7 +59,7 @@ class PregEngine implements RegexpEngine {
      */
     private function preparePattern($pattern)
     {
-		// Use backquotes since hardly ever found in a regexp pattern, avoids using preg_quote
+        // Use backquotes since hardly ever found in a regexp pattern, avoids using preg_quote
         return '`'.$pattern.'`'.($this->ignoreCase ? 'i' : '');
     }
     

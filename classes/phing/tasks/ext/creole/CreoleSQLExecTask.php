@@ -374,24 +374,24 @@ class CreoleSQLExecTask extends CreoleTask {
         $sql = "";
         $line = "";
 
-		$buffer = '';
+        $buffer = '';
 
         if ((is_array($this->filterChains)) && (!empty($this->filterChains))) {    
             $in = FileUtils::getChainedReader(new BufferedReader($reader), $this->filterChains, $this->getProject());
-			while(-1 !== ($read = $in->read())) { // -1 indicates EOF
-				   $buffer .= $read;
+            while(-1 !== ($read = $in->read())) { // -1 indicates EOF
+                   $buffer .= $read;
             }
             $lines = explode("\n", $buffer);
         } else {
-	        $in = new BufferedReader($reader);
+            $in = new BufferedReader($reader);
 
             while (($line = $in->readLine()) !== null) {
-				$lines[] = $line;
-			}
-		}
+                $lines[] = $line;
+            }
+        }
 
         try {
-			foreach ($lines as $line) {
+            foreach ($lines as $line) {
                 $line = trim($line);
                 $line = ProjectConfigurator::replaceProperties($this->project, $line,
                         $this->project->getProperties());

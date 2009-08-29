@@ -25,31 +25,31 @@
  * @package   phing.system.io
  */
 class InputStream {
-	
-	/**
-	 * @var resource The attached PHP stream.
-	 */
-	protected $stream;
-	
-	/**
-	 * @var int Position of stream cursor.
-	 */
+    
+    /**
+     * @var resource The attached PHP stream.
+     */
+    protected $stream;
+    
+    /**
+     * @var int Position of stream cursor.
+     */
     protected $currentPosition = 0;
     
     /**
      * @var int Marked position of stream cursor.
      */
     protected $mark = 0;
-	
-	/**
+    
+    /**
      * Construct a new InputStream.
      * @param resource $stream Configured PHP stream for writing.
      */
     public function __construct($stream) {
-    	if (!is_resource($stream)) {
-    		throw new IOException("Passed argument is not a valid stream.");
-    	}
-    	$this->stream = $stream;
+        if (!is_resource($stream)) {
+            throw new IOException("Passed argument is not a valid stream.");
+        }
+        $this->stream = $stream;
     }
 
     /**
@@ -79,20 +79,20 @@ class InputStream {
      * @return string chars read or -1 if eof.
      */
     public function read($len = null) {
-    	
+        
         if ($this->eof()) {
             return -1;
         }
         
         if ($len === null) { // we want to keep reading until we get an eof
-			$out = "";
-        	while(!$this->eof()) {
-        		$out .= fread($this->stream, 8192);
-        		$this->currentPosition = ftell($this->stream);
-        	}
+            $out = "";
+            while(!$this->eof()) {
+                $out .= fread($this->stream, 8192);
+                $this->currentPosition = ftell($this->stream);
+            }
         } else {
-			$out = fread($this->stream, $len); // adding 1 seems to ensure that next call to read() will return EOF (-1)
-        	$this->currentPosition = ftell($this->stream);
+            $out = fread($this->stream, $len); // adding 1 seems to ensure that next call to read() will return EOF (-1)
+            $this->currentPosition = ftell($this->stream);
         }
 
         return $out;
@@ -103,9 +103,9 @@ class InputStream {
      * @throws IOException - if the underlying stream doesn't support this method.
      */
     public function mark() {
-    	if (!$this->markSupported()) {
-    		throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
-    	}
+        if (!$this->markSupported()) {
+            throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
+        }
         $this->mark = $this->currentPosition;
     }
     
@@ -114,7 +114,7 @@ class InputStream {
      * @return boolean
      */
     public function markSupported() {
-    	return false;
+        return false;
     }
     
     /**
@@ -122,14 +122,14 @@ class InputStream {
      * @throws IOException - if the underlying stream doesn't support this method.
      */
     function reset() {
-    	if (!$this->markSupported()) {
-    		throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
-    	}
+        if (!$this->markSupported()) {
+            throw new IOException(get_class($this) . " does not support mark() and reset() methods.");
+        }
         // goes back to last mark, by default this would be 0 (i.e. rewind file).
         fseek($this->stream, SEEK_SET, $this->mark);
         $this->mark = 0;
     }
-	
+    
     /**
      * Closes stream.
      * @throws IOException if stream cannot be closed (note that calling close() on an already-closed stream will not raise an exception)
@@ -164,8 +164,8 @@ class InputStream {
      * @deprecated - Instead, use the read() method or a BufferedReader.
      */
     public function readInto(&$rBuffer) {
-		$rBuffer = $this->read();
-		$this->close();
+        $rBuffer = $this->read();
+        $this->close();
     }
     
     /**

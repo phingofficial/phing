@@ -50,8 +50,8 @@ class SequentialTask extends Task implements TaskContainer {
      * @throws BuildException if one of the nested tasks fails.
      */
     public function main() {
-		foreach($this->nestedTasks as $task) {
-			$task->perform();
-		}
+        foreach($this->nestedTasks as $task) {
+            $task->perform();
+        }
     }
 }

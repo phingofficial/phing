@@ -37,10 +37,10 @@ class DeleteTask extends Task {
     protected $quiet = false;
     protected $failonerror = true;
     protected $verbosity = Project::MSG_VERBOSE;
-	
-	/** Any filelists of files that should be deleted. */
+    
+    /** Any filelists of files that should be deleted. */
     private $filelists = array();
-	
+    
     /** 
      * Set the name of a single file to be removed.
      * @param PhingFile $file
@@ -100,8 +100,8 @@ class DeleteTask extends Task {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
-	
-	/** Nested creator, adds a set of files (nested fileset attribute). */
+    
+    /** Nested creator, adds a set of files (nested fileset attribute). */
     function createFileList() {
         $num = array_push($this->filelists, new FileList());
         return $this->filelists[$num-1];
@@ -147,22 +147,22 @@ class DeleteTask extends Task {
             }
             $this->removeDir($this->dir);
         }
-		
-		// delete the files in the filelists
-		foreach($this->filelists as $fl) {
-			try {
-				$files = $fl->getFiles($this->project);
-				$this->removeFiles($fl->getDir($this->project), $files, $empty=array());
-			} catch (BuildException $be) {
-				// directory doesn't exist or is not readable
-					if ($this->failonerror) {
-					throw $be;
-				} else {
-					$this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
-				}
-			}
-		}
-			
+        
+        // delete the files in the filelists
+        foreach($this->filelists as $fl) {
+            try {
+                $files = $fl->getFiles($this->project);
+                $this->removeFiles($fl->getDir($this->project), $files, $empty=array());
+            } catch (BuildException $be) {
+                // directory doesn't exist or is not readable
+                    if ($this->failonerror) {
+                    throw $be;
+                } else {
+                    $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
+                }
+            }
+        }
+            
         // delete the files in the filesets
         foreach($this->filesets as $fs) {
             try {

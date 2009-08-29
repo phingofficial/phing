@@ -28,13 +28,13 @@ require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
  * This class reprsents the output of a query using a simple XML schema.
  * 
  * <results>
- * 	<row>
- * 	 <col name="id">value</col>
- * 	 <col name="name">value2</col>
+ *  <row>
+ *   <col name="id">value</col>
+ *   <col name="name">value2</col>
  *  </row>
  *  <row>
  *   <col name="id">value</col>
- * 	 <col name="name">value2</col>
+ *   <col name="name">value2</col>
  *  </row>
  * </results>
  *
@@ -47,95 +47,95 @@ require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
  */
 class XMLPDOResultFormatter extends PDOResultFormatter {
 
-	/**
-	 * The XML document being created.
-	 * @var DOMDocument
-	 */
-	private $doc;
+    /**
+     * The XML document being created.
+     * @var DOMDocument
+     */
+    private $doc;
 
-	/**
-	 * @var DOMElement
-	 */
-	private $rootNode;
+    /**
+     * @var DOMElement
+     */
+    private $rootNode;
 
-	/**
-	 * XML document encoding
-	 *
-	 * @var string
-	 */
-	private $encoding;
+    /**
+     * XML document encoding
+     *
+     * @var string
+     */
+    private $encoding;
 
-	/**
-	 * @var boolean
-	 */
-	private $formatOutput = true;
-	
-	/**
-	 * Set the DOM document encoding.
-	 * @param string $v
-	 */
-	public function setEncoding($v) {
-		$this->encoding = $v;
-	}
-	
-	/**
-	 * @param boolean $v
-	 */
-	public function setFormatOutput($v) {
-		$this->formatOutput = (boolean) $v;
-	}
+    /**
+     * @var boolean
+     */
+    private $formatOutput = true;
+    
+    /**
+     * Set the DOM document encoding.
+     * @param string $v
+     */
+    public function setEncoding($v) {
+        $this->encoding = $v;
+    }
+    
+    /**
+     * @param boolean $v
+     */
+    public function setFormatOutput($v) {
+        $this->formatOutput = (boolean) $v;
+    }
 
-	public function initialize() {
-		$this->doc = new DOMDocument("1.0", $this->encoding);
-		$this->rootNode = $this->doc->createElement('results');
-		$this->doc->appendChild($this->rootNode);
-		$this->doc->formatOutput = $this->formatOutput;
-	}
-	
-	/**
-	 * Processes a specific row from PDO result set.
-	 *
-	 * @param array $row Row of PDO result set.
-	 */
-	public function processRow($row) {
-		
-		$rowNode = $this->doc->createElement('row');
-		$this->rootNode->appendChild($rowNode);
+    public function initialize() {
+        $this->doc = new DOMDocument("1.0", $this->encoding);
+        $this->rootNode = $this->doc->createElement('results');
+        $this->doc->appendChild($this->rootNode);
+        $this->doc->formatOutput = $this->formatOutput;
+    }
+    
+    /**
+     * Processes a specific row from PDO result set.
+     *
+     * @param array $row Row of PDO result set.
+     */
+    public function processRow($row) {
+        
+        $rowNode = $this->doc->createElement('row');
+        $this->rootNode->appendChild($rowNode);
 
-		foreach($row as $columnName => $columnValue) {
-			
-			$colNode = $this->doc->createElement('column');
-			$colNode->setAttribute('name', $columnName);
-			
-			if ($columnValue != null) {
-				$columnValue = trim($columnValue);
-				$colNode->nodeValue = $columnValue;
-			}
-			$rowNode->appendChild($colNode);
-		}
-		
-	}
-	
-	/**
-	 * Gets a preferred filename for an output file.
-	 * 
-	 * If no filename is specified, this is where the results will be placed
-	 * (unless usefile=false).
-	 * 
-	 * @return string
-	 */
-	public function getPreferredOutfile()
-	{
-		return new PhingFile('results.xml');
-	}
-	
-	/**
-	 * Write XML to file and free the DOM objects.
-	 */
-	public function close() {
-		$this->out->write($this->doc->saveXML());
-		$this->rootNode = null;
-		$this->doc = null;
-		parent::close();
-	}
+        foreach($row as $columnName => $columnValue) {
+            
+            $colNode = $this->doc->createElement('column');
+            $colNode->setAttribute('name', $columnName);
+            
+            if ($columnValue != null) {
+                $columnValue = trim($columnValue);
+                $colNode->nodeValue = $columnValue;
+            }
+            $rowNode->appendChild($colNode);
+        }
+        
+    }
+    
+    /**
+     * Gets a preferred filename for an output file.
+     * 
+     * If no filename is specified, this is where the results will be placed
+     * (unless usefile=false).
+     * 
+     * @return string
+     */
+    public function getPreferredOutfile()
+    {
+        return new PhingFile('results.xml');
+    }
+    
+    /**
+     * Write XML to file and free the DOM objects.
+     */
+    public function close() {
+        $this->out->write($this->doc->saveXML());
+        $this->rootNode = null;
+        $this->doc = null;
+        parent::close();
+    }
 }

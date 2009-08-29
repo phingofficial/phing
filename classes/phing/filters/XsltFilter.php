@@ -361,10 +361,10 @@ class XSLTParam {
      */
     public function setValue($v)
     {
-    	$this->setExpression($v);
+        $this->setExpression($v);
     }
     
-	/**
+    /**
      * Gets expression value (alias to the getExpression()) method. 
      *
      * @param string $v
@@ -372,7 +372,7 @@ class XSLTParam {
      */
     public function getValue()
     {
-    	return $this->getExpression();
+        return $this->getExpression();
     }
     
     /**

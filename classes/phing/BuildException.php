@@ -29,15 +29,15 @@
 class BuildException extends Exception {
 
     /**
-	 * Location in the xml file.
-	 * @var Location
-	 */
+     * Location in the xml file.
+     * @var Location
+     */
     protected $location;
             
     /**
-	 * The nested "cause" exception.
-	 * @var Exception
-	 */
+     * The nested "cause" exception.
+     * @var Exception
+     */
     protected $cause;
     
     /**

@@ -29,9 +29,9 @@
 
 class DbmsSyntaxMysql extends DbmsSyntax 
 {
-	public function generateTimestamp()
-	{
-		return "NOW()";
-	}
+    public function generateTimestamp()
+    {
+        return "NOW()";
+    }
 }
 

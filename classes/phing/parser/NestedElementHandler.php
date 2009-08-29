@@ -173,14 +173,14 @@ class NestedElementHandler extends AbstractHandler {
      */
     function startElement($name, $attrs) {
         //print(get_class($this) . " name = $name, attrs = " . implode(",",$attrs) . "\n");
-		if ($this->child instanceof TaskContainer) {
+        if ($this->child instanceof TaskContainer) {
                 // taskcontainer nested element can contain other tasks - no other
                 // nested elements possible
-			$tc = new TaskHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
-			$tc->init($name, $attrs);
-		} else {
-			$neh = new NestedElementHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
-        	$neh->init($name, $attrs);
-		}
+            $tc = new TaskHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
+            $tc->init($name, $attrs);
+        } else {
+            $neh = new NestedElementHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
+            $neh->init($name, $attrs);
+        }
     }
 }

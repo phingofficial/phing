@@ -199,12 +199,12 @@ class PhingTask extends Task {
      */
     private function processFile()  {
 
-    	$buildFailed = false;
+        $buildFailed = false;
         $savedDir = $this->dir;
         $savedPhingFile = $this->phingFile;
         $savedTarget = $this->newTarget;
         
-		$savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
+        $savedBasedirAbsPath = null; // this is used to save the basedir *if* we change it
         
         try {
         
@@ -215,17 +215,17 @@ class PhingTask extends Task {
             $this->initializeProject();
             
             if ($this->dir !== null) {
-            	
-            	$dirAbsPath = $this->dir->getAbsolutePath();
-            	
-            	// BE CAREFUL! -- when the basedir is changed for a project,
-            	// all calls to getAbsolutePath() on a relative-path dir will
-            	// be made relative to the project's basedir!  This means
-            	// that subsequent calls to $this->dir->getAbsolutePath() will be WRONG!
-            	
-            	// We need to save the current project's basedir first.
-            	$savedBasedirAbsPath = $this->getProject()->getBasedir()->getAbsolutePath();
-				 
+                
+                $dirAbsPath = $this->dir->getAbsolutePath();
+                
+                // BE CAREFUL! -- when the basedir is changed for a project,
+                // all calls to getAbsolutePath() on a relative-path dir will
+                // be made relative to the project's basedir!  This means
+                // that subsequent calls to $this->dir->getAbsolutePath() will be WRONG!
+                
+                // We need to save the current project's basedir first.
+                $savedBasedirAbsPath = $this->getProject()->getBasedir()->getAbsolutePath();
+                 
                 $this->newProject->setBasedir($this->dir);
                 
                 // Now we must reset $this->dir so that it continues to resolve to the same
@@ -237,9 +237,9 @@ class PhingTask extends Task {
                 }
                 
             } else {
-            	
-            	// Since we're not changing the basedir here (for file resolution),
-            	// we don't need to worry about any side-effects in this scanrio.
+                
+                // Since we're not changing the basedir here (for file resolution),
+                // we don't need to worry about any side-effects in this scanrio.
                 $this->dir = $this->getProject()->getBasedir();   
             }
 
@@ -277,14 +277,14 @@ class PhingTask extends Task {
         } catch (Exception $e) {
             $buildFailed = true;
             $this->log($e->getMessage(), Project::MSG_ERR);
-        	if (Phing::getMsgOutputLevel() <= Project::MSG_DEBUG) { 
-				$lines = explode("\n", $e->getTraceAsString());
-				foreach($lines as $line) {
-					$this->log($line, Project::MSG_DEBUG);
-				}
+            if (Phing::getMsgOutputLevel() <= Project::MSG_DEBUG) { 
+                $lines = explode("\n", $e->getTraceAsString());
+                foreach($lines as $line) {
+                    $this->log($line, Project::MSG_DEBUG);
+                }
             }
             // important!!! continue on to perform cleanup tasks.    
-		}
+        }
         
         
         // reset environment values to prevent side-effects.
@@ -305,8 +305,8 @@ class PhingTask extends Task {
         }
 
         if ($this->haltOnFailure && $buildFailed) {
-			throw new BuildException("Execution of the target buildfile failed. Aborting.");
-		}
+            throw new BuildException("Execution of the target buildfile failed. Aborting.");
+        }
     }
 
     /**
@@ -476,8 +476,8 @@ class PhingTask extends Task {
             $copy->setProject($this->newProject);
         } elseif (in_array('setProject', get_class_methods(get_class($copy)))) {
             $copy->setProject($this->newProject);
-		} elseif ($copy instanceof Project) {
-			// don't copy the old "Project" itself
+        } elseif ($copy instanceof Project) {
+            // don't copy the old "Project" itself
         } else {
             $msg = "Error setting new project instance for "
                 . "reference with id " . $oldKey;

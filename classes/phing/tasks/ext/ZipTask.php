@@ -36,16 +36,16 @@ include_once 'phing/lib/Zip.php';
  */
 class ZipTask extends MatchingTask {
     
-	/**
-	 * @var PhingFile
-	 */
+    /**
+     * @var PhingFile
+     */
     private $zipFile;
     
     /**
      * @var PhingFile
      */
     private $baseDir;
-	
+    
     /**
      * Whether to include empty dirs in the archive.
      */
@@ -120,10 +120,10 @@ class ZipTask extends MatchingTask {
                 
                 if (empty($this->filesets))
                 {
-	                // add the main fileset to the list of filesets to process.
-	                $mainFileSet = new ZipFileSet($this->fileset);
-	                $mainFileSet->setDir($this->baseDir);
-	                $this->filesets[] = $mainFileSet;
+                    // add the main fileset to the list of filesets to process.
+                    $mainFileSet = new ZipFileSet($this->fileset);
+                    $mainFileSet->setDir($this->baseDir);
+                    $this->filesets[] = $mainFileSet;
                 }
             }
 
@@ -137,7 +137,7 @@ class ZipTask extends MatchingTask {
             // fileset
             $upToDate = true;
             foreach($this->filesets as $fs) {
-            	$files = $fs->getFiles($this->project, $this->includeEmpty);
+                $files = $fs->getFiles($this->project, $this->includeEmpty);
                 if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {
                     $upToDate = false;
                 }
@@ -158,11 +158,11 @@ class ZipTask extends MatchingTask {
             $zip = new Archive_Zip($this->zipFile->getAbsolutePath());
             
             foreach($this->filesets as $fs) {
-            	
-            	$files = $fs->getFiles($this->project, $this->includeEmpty);
-            	
+                
+                $files = $fs->getFiles($this->project, $this->includeEmpty);
+                
                 $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
-									$fs->getDir($this->project);
+                                    $fs->getDir($this->project);
                 
                 $filesToZip = array();
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
@@ -225,38 +225,38 @@ class ZipFileSet extends FileSet {
             
             if ($includeEmpty) {
             
-	            // first any empty directories that will not be implicitly added by any of the files
-				$implicitDirs = array();
-				foreach($this->files as $file) {
-					$implicitDirs[] = dirname($file);
-				} 
-				
-				$incDirs = $ds->getIncludedDirectories();
-				
-				// we'll need to add to that list of implicit dirs any directories
-				// that contain other *directories* (and not files), since otherwise
-				// we get duplicate directories in the resulting tar
-				foreach($incDirs as $dir) {
-					foreach($incDirs as $dircheck) {
-						if (!empty($dir) && $dir == dirname($dircheck)) {
-							$implicitDirs[] = $dir;
-						}
-					}
-				}
-				
-				$implicitDirs = array_unique($implicitDirs);
-				
-				// Now add any empty dirs (dirs not covered by the implicit dirs)
-				// to the files array. 
-				
-				foreach($incDirs as $dir) { // we cannot simply use array_diff() since we want to disregard empty/. dirs
-					if ($dir != "" && $dir != "." && !in_array($dir, $implicitDirs)) {
-						// it's an empty dir, so we'll add it.
-						$this->files[] = $dir;
-					}
-				}
-			} // if $includeEmpty
-			
+                // first any empty directories that will not be implicitly added by any of the files
+                $implicitDirs = array();
+                foreach($this->files as $file) {
+                    $implicitDirs[] = dirname($file);
+                } 
+                
+                $incDirs = $ds->getIncludedDirectories();
+                
+                // we'll need to add to that list of implicit dirs any directories
+                // that contain other *directories* (and not files), since otherwise
+                // we get duplicate directories in the resulting tar
+                foreach($incDirs as $dir) {
+                    foreach($incDirs as $dircheck) {
+                        if (!empty($dir) && $dir == dirname($dircheck)) {
+                            $implicitDirs[] = $dir;
+                        }
+                    }
+                }
+                
+                $implicitDirs = array_unique($implicitDirs);
+                
+                // Now add any empty dirs (dirs not covered by the implicit dirs)
+                // to the files array. 
+                
+                foreach($incDirs as $dir) { // we cannot simply use array_diff() since we want to disregard empty/. dirs
+                    if ($dir != "" && $dir != "." && !in_array($dir, $implicitDirs)) {
+                        // it's an empty dir, so we'll add it.
+                        $this->files[] = $dir;
+                    }
+                }
+            } // if $includeEmpty
+            
         } // if ($this->files===null)
         
         return $this->files;

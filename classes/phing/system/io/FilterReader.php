@@ -27,9 +27,9 @@ require_once 'phing/system/io/Reader.php';
  */
 class FilterReader extends Reader {
     
-	/** 
-	 * @var Reader
-	 */
+    /** 
+     * @var Reader
+     */
     protected $in;
     
     function __construct(Reader $in = null) {

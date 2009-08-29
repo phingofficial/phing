@@ -33,9 +33,9 @@ include_once 'phing/filters/ChainableReader.php';
  * @todo -c use new PHP functions to perform this instead of regex.
  */
 class StripWhitespace extends BaseFilterReader implements ChainableReader {
-   	
-	private $processed = false;
-	
+    
+    private $processed = false;
+    
     /**
      * Returns the  stream without Php comments and whitespace.
      * 
@@ -47,33 +47,33 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader {
      */
     function read($len = null) {
     
-		if ($this->processed === true) {
+        if ($this->processed === true) {
             return -1; // EOF
         }
-		
-		// Read XML
+        
+        // Read XML
         $php = null;
         while ( ($buffer = $this->in->read($len)) !== -1 ) {
-			$php .= $buffer;
-		}
-		
+            $php .= $buffer;
+        }
+        
         if ($php === null ) { // EOF?
             return -1;
         }
-		
-		if(empty($php)) {
+        
+        if(empty($php)) {
             $this->log("PHP file is empty!", Project::MSG_WARN);
             return ''; // return empty string, don't attempt to strip whitespace
         }
-		        
-		// write buffer to a temporary file, since php_strip_whitespace() needs a filename
-		$file = new PhingFile(tempnam(PhingFile::getTempDir(), 'stripwhitespace'));
-		file_put_contents($file->getAbsolutePath(), $php);
-		$output = php_strip_whitespace($file->getAbsolutePath());
-		unlink($file->getAbsolutePath());
-		
-		$this->processed = true;
-		
+                
+        // write buffer to a temporary file, since php_strip_whitespace() needs a filename
+        $file = new PhingFile(tempnam(PhingFile::getTempDir(), 'stripwhitespace'));
+        file_put_contents($file->getAbsolutePath(), $php);
+        $output = php_strip_whitespace($file->getAbsolutePath());
+        unlink($file->getAbsolutePath());
+        
+        $this->processed = true;
+        
         return $output;
     }
 

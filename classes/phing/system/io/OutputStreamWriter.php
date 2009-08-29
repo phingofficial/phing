@@ -33,9 +33,9 @@ require_once 'phing/system/io/Writer.php';
  */
 class OutputStreamWriter extends Writer {
 
-	/**
-	 * @var OutputStream
-	 */
+    /**
+     * @var OutputStream
+     */
     protected $outStream;
     
     /**
@@ -45,14 +45,14 @@ class OutputStreamWriter extends Writer {
     public function __construct(OutputStream $outStream) {
         $this->outStream = $outStream;
     }
-	
+    
     /**
      * Close the stream.
      */
     public function close() {
-    	return $this->outStream->close();
+        return $this->outStream->close();
     }
-	
+    
     /**
      * Write char data to stream.
      *
@@ -62,14 +62,14 @@ class OutputStreamWriter extends Writer {
      * @return unknown
      */
     public function write($buf, $off = null, $len = null) {
-    	return $this->outStream->write($buf, $off, $len);
+        return $this->outStream->write($buf, $off, $len);
     }
     
     /**
      * Flush output to the stream.
      */
-	public function flush() {
-    	$this->outStream->flush();
+    public function flush() {
+        $this->outStream->flush();
     }
     
     /**
@@ -78,7 +78,7 @@ class OutputStreamWriter extends Writer {
      * @return string String representation of output stream
      */
     public function getResource() {
-    	return $this->outStream->__toString();
+        return $this->outStream->__toString();
     }
 }
 

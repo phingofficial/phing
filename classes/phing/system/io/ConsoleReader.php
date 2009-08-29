@@ -58,11 +58,11 @@ class ConsoleReader extends Reader {
     }   
         
     function close() {
-		// STDIN is always open
+        // STDIN is always open
     }
 
     function open() {
-		// STDIN is always open
+        // STDIN is always open
     }
 
     /**

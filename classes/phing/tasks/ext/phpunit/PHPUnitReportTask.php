@@ -38,151 +38,151 @@ require_once 'phing/util/ExtendedFileStream.php';
  */
 class PHPUnitReportTask extends Task
 {
-	private $format = "noframes";
-	private $styleDir = "";
-	private $toDir = "";
+    private $format = "noframes";
+    private $styleDir = "";
+    private $toDir = "";
 
-	/** the directory where the results XML can be found */
-	private $inFile = "testsuites.xml";
+    /** the directory where the results XML can be found */
+    private $inFile = "testsuites.xml";
 
-	/**
-	 * Set the filename of the XML results file to use.
-	 */
-	function setInFile($inFile)
-	{
-		$this->inFile = $inFile;
-	}
+    /**
+     * Set the filename of the XML results file to use.
+     */
+    function setInFile($inFile)
+    {
+        $this->inFile = $inFile;
+    }
 
-	/**
-	 * Set the format of the generated report. Must be noframes or frames.
-	 */
-	function setFormat($format)
-	{
-		$this->format = $format;
-	}
+    /**
+     * Set the format of the generated report. Must be noframes or frames.
+     */
+    function setFormat($format)
+    {
+        $this->format = $format;
+    }
 
-	/**
-	 * Set the directory where the stylesheets are located.
-	 */
-	function setStyleDir($styleDir)
-	{
-		$this->styleDir = $styleDir;
-	}
+    /**
+     * Set the directory where the stylesheets are located.
+     */
+    function setStyleDir($styleDir)
+    {
+        $this->styleDir = $styleDir;
+    }
 
-	/**
-	 * Set the directory where the files resulting from the 
-	 * transformation should be written to.
-	 */
-	function setToDir($toDir)
-	{
-		$this->toDir = $toDir;
-	}
-	
-	/**
-	 * Returns the path to the XSL stylesheet
-	 */
-	private function getStyleSheet()
-	{
-		$xslname = "phpunit-" . $this->format . ".xsl";
-		
-		if ($this->styleDir)
-		{
-			$file = new PhingFile($this->styleDir, $xslname);
-		}
-		else
-		{
-			$path = Phing::getResourcePath("phing/etc/$xslname");
-			
-			if ($path === NULL)
-			{
-				$path = Phing::getResourcePath("etc/$xslname");
+    /**
+     * Set the directory where the files resulting from the 
+     * transformation should be written to.
+     */
+    function setToDir($toDir)
+    {
+        $this->toDir = $toDir;
+    }
+    
+    /**
+     * Returns the path to the XSL stylesheet
+     */
+    private function getStyleSheet()
+    {
+        $xslname = "phpunit-" . $this->format . ".xsl";
+        
+        if ($this->styleDir)
+        {
+            $file = new PhingFile($this->styleDir, $xslname);
+        }
+        else
+        {
+            $path = Phing::getResourcePath("phing/etc/$xslname");
+            
+            if ($path === NULL)
+            {
+                $path = Phing::getResourcePath("etc/$xslname");
 
-				if ($path === NULL)
-				{
-					throw new BuildException("Could not find $xslname in resource path");
-				}
-			}
-			
-			$file = new PhingFile($path);
-		}
+                if ($path === NULL)
+                {
+                    throw new BuildException("Could not find $xslname in resource path");
+                }
+            }
+            
+            $file = new PhingFile($path);
+        }
 
-		if (!$file->exists())
-		{
-			throw new BuildException("Could not find file " . $file->getPath());
-		}
+        if (!$file->exists())
+        {
+            throw new BuildException("Could not find file " . $file->getPath());
+        }
 
-		return $file;
-	}
-	
-	/**
-	 * Transforms the DOM document
-	 */
-	private function transform(DOMDocument $document)
-	{
-		$dir = new PhingFile($this->toDir);
-		
-		if (!$dir->exists())
-		{
-			throw new BuildException("Directory '" . $this->toDir . "' does not exist");
-		}
-		
-		$xslfile = $this->getStyleSheet();
+        return $file;
+    }
+    
+    /**
+     * Transforms the DOM document
+     */
+    private function transform(DOMDocument $document)
+    {
+        $dir = new PhingFile($this->toDir);
+        
+        if (!$dir->exists())
+        {
+            throw new BuildException("Directory '" . $this->toDir . "' does not exist");
+        }
+        
+        $xslfile = $this->getStyleSheet();
 
-		$xsl = new DOMDocument();
-		$xsl->load($xslfile->getAbsolutePath());
+        $xsl = new DOMDocument();
+        $xsl->load($xslfile->getAbsolutePath());
 
-		$proc = new XSLTProcessor();
-		$proc->importStyleSheet($xsl);
+        $proc = new XSLTProcessor();
+        $proc->importStyleSheet($xsl);
 
-		if ($this->format == "noframes")
-		{
-			$writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
-			$writer->write($proc->transformToXML($document));
-			$writer->close();
-		}
-		else
-		{
-			ExtendedFileStream::registerStream();
+        if ($this->format == "noframes")
+        {
+            $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
+            $writer->write($proc->transformToXML($document));
+            $writer->close();
+        }
+        else
+        {
+            ExtendedFileStream::registerStream();
 
-			// no output for the framed report
-			// it's all done by extension...
-			$dir = new PhingFile($this->toDir);
-			$proc->setParameter('', 'output.dir', $dir->toString());
-			$proc->transformToXML($document);
-			
-			ExtendedFileStream::unregisterStream();
-		}
-	}
-	
-	/**
-	 * Fixes 'testsuite' elements with no package attribute, adds
-	 * package="default" to those elements.
-	 */
-	private function fixPackages(DOMDocument $document)
-	{
-		$testsuites = $document->getElementsByTagName('testsuite');
-		
-		foreach ($testsuites as $testsuite)
-		{
-			if (!$testsuite->hasAttribute('package'))
-			{
-				$testsuite->setAttribute('package', 'default');
-			}
-		}
-	}
+            // no output for the framed report
+            // it's all done by extension...
+            $dir = new PhingFile($this->toDir);
+            $proc->setParameter('', 'output.dir', $dir->toString());
+            $proc->transformToXML($document);
+            
+            ExtendedFileStream::unregisterStream();
+        }
+    }
+    
+    /**
+     * Fixes 'testsuite' elements with no package attribute, adds
+     * package="default" to those elements.
+     */
+    private function fixPackages(DOMDocument $document)
+    {
+        $testsuites = $document->getElementsByTagName('testsuite');
+        
+        foreach ($testsuites as $testsuite)
+        {
+            if (!$testsuite->hasAttribute('package'))
+            {
+                $testsuite->setAttribute('package', 'default');
+            }
+        }
+    }
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	public function main()
-	{
-		$testSuitesDoc = new DOMDocument();
-		$testSuitesDoc->load($this->inFile);
-		
-		$this->fixPackages($testSuitesDoc);
-		
-		$this->transform($testSuitesDoc);
-	}
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    public function main()
+    {
+        $testSuitesDoc = new DOMDocument();
+        $testSuitesDoc->load($this->inFile);
+        
+        $this->fixPackages($testSuitesDoc);
+        
+        $this->transform($testSuitesDoc);
+    }
 }

@@ -55,12 +55,12 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      */
     protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
     {
-    	foreach($this->logBuffer as $log) {
-    		if (false !== stripos($log, $expected)) {
-    			return;
-    		}
-    	}
-    	$this->fail(sprintf($errormsg, $expected, var_export($this->logBuffer,true)));
+        foreach($this->logBuffer as $log) {
+            if (false !== stripos($log, $expected)) {
+                return;
+            }
+        }
+        $this->fail(sprintf($errormsg, $expected, var_export($this->logBuffer,true)));
     }
     
     /**
@@ -335,7 +335,7 @@ class PhingTestListener implements BuildListener {
     private $parent;
 
     public function __construct($parent) {
-    	$this->parent = $parent;
+        $this->parent = $parent;
     }
 
     /**

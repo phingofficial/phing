@@ -36,33 +36,33 @@ include_once 'phing/RuntimeConfigurable.php';
 abstract class Task extends ProjectComponent {
 
     /**
-	 * @var Target owning Target object
-	 */
+     * @var Target owning Target object
+     */
     protected $target;
     
     /**
-	 * @var string description of the task
-	 */
+     * @var string description of the task
+     */
     protected $description;
     
     /**
-	 * @var string internal taskname (req)
-	 */
+     * @var string internal taskname (req)
+     */
     protected $taskType;
     
     /**
-	 * @var string Taskname for logger
-	 */
+     * @var string Taskname for logger
+     */
     protected $taskName;
     
     /**
-	 * @var Location stored buildfile location
-	 */
+     * @var Location stored buildfile location
+     */
     protected $location;
     
     /**
-	 * @var RuntimeConfigurable wrapper of the task
-	 */
+     * @var RuntimeConfigurable wrapper of the task
+     */
     protected $wrapper;
 
     /**
@@ -127,15 +127,15 @@ abstract class Task extends ProjectComponent {
     public function setTaskType($name) {
         $this->taskType = (string) $name;
     }
-	
-	/**
-	 * Returns a name 
-	 * 
-	 */
-	protected function getRegisterSlot($slotName) {
-		return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
-	}
-	
+    
+    /**
+     * Returns a name 
+     * 
+     */
+    protected function getRegisterSlot($slotName) {
+        return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
+    }
+    
     /**
      * Provides a project level log event to the task.
      *
@@ -205,7 +205,7 @@ abstract class Task extends ProjectComponent {
      * the parser to set location information.
      *
      * @param Location $location The location object describing the position of this
-     *                  		 task within the buildfile.
+     *                           task within the buildfile.
      */
     function setLocation(Location $location) {
         $this->location = $location;

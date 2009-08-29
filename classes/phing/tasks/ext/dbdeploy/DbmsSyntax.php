@@ -29,6 +29,6 @@
 
 abstract class DbmsSyntax
 {
-	public abstract function generateTimestamp();
+    public abstract function generateTimestamp();
 }
 

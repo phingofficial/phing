@@ -397,9 +397,9 @@ class PhingFile {
         clearstatcache();
         
         if (is_link($this->path)) {
-			return true;
-		} else if ($this->isFile()) {
-			return @file_exists($this->path) || is_link($this->path);
+            return true;
+        } else if ($this->isFile()) {
+            return @file_exists($this->path) || is_link($this->path);
         } else {
             return @is_dir($this->path);
         }
@@ -415,7 +415,7 @@ class PhingFile {
      *
      */
     function isDirectory() {
-		clearstatcache();
+        clearstatcache();
         $fs = FileSystem::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to ".$this->path);
@@ -434,7 +434,7 @@ class PhingFile {
      *          false otherwise
      */
     function isFile() {
-		clearstatcache();
+        clearstatcache();
         //$fs = FileSystem::getFileSystem();
         return @is_file($this->path);
     }
@@ -636,13 +636,13 @@ class PhingFile {
         if ($this->exists()) {
             return false;
         }
-		try {
-			if ($this->mkdir($mode)) {
-	            return true;
-	        }
-		} catch (IOException $ioe) {
-			// IOException from mkdir() means that directory propbably didn't exist.
-		}        
+        try {
+            if ($this->mkdir($mode)) {
+                return true;
+            }
+        } catch (IOException $ioe) {
+            // IOException from mkdir() means that directory propbably didn't exist.
+        }        
         $parentFile = $this->getParentFile();
         return (($parentFile !== null) && ($parentFile->mkdirs($mode) && $this->mkdir($mode)));
     }
@@ -739,16 +739,16 @@ class PhingFile {
         return $fs->setReadOnly($this);
     }
 
-	/**
-	 * Sets the owner of the file.
-	 * @param mixed $user User name or number.
-	 */
-	public function setUser($user) {
-		$fs = FileSystem::getFileSystem();
-		return $fs->chown($this->getPath(), $user);
+    /**
+     * Sets the owner of the file.
+     * @param mixed $user User name or number.
+     */
+    public function setUser($user) {
+        $fs = FileSystem::getFileSystem();
+        return $fs->chown($this->getPath(), $user);
     }
     
-	/**
+    /**
      * Retrieve the owner of this file.
      * @return int User ID of the owner of this file. 
      */

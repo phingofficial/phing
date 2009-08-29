@@ -109,7 +109,7 @@ class PEAR_PackageFileManager_Fileset {
                     $path = '/'; // for array index
                 }
                 
-				$parts = explode('.', basename($file));
+                $parts = explode('.', basename($file));
                 $ext = array_pop($parts);
                 if (strlen($ext) == strlen($file)) {
                     $ext = '';

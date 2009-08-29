@@ -147,18 +147,18 @@ class ProjectHandler extends AbstractHandler {
      */
     function startElement($name, $attrs) {
     
-		$project = $this->configurator->project;
+        $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
-		
-		if ($name == "target") {
-			$tf = new TargetHandler($this->parser, $this, $this->configurator);
-			$tf->init($name, $attrs);
-		} elseif (isset($types[$name])) {
+        
+        if ($name == "target") {
+            $tf = new TargetHandler($this->parser, $this, $this->configurator);
+            $tf->init($name, $attrs);
+        } elseif (isset($types[$name])) {
            $tyf = new DataTypeHandler($this->parser, $this, $this->configurator);
            $tyf->init($name, $attrs);
         } else {
-			$tf = new TaskHandler($this->parser, $this, $this->configurator);
-			$tf->init($name, $attrs);
+            $tf = new TaskHandler($this->parser, $this, $this->configurator);
+            $tf->init($name, $attrs);
         }
     }
 

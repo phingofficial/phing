@@ -54,34 +54,34 @@ class MoveTask extends CopyTask {
      */
     protected function validateAttributes() {    
         if ($this->file !== null && $this->file->isDirectory()) {
-			if (($this->destFile !== null && $this->destDir !== null)
-				|| ($this->destFile === null && $this->destDir === null)) {
-					throw new BuildException("One and only one of tofile and todir must be set.");
-			}
+            if (($this->destFile !== null && $this->destDir !== null)
+                || ($this->destFile === null && $this->destDir === null)) {
+                    throw new BuildException("One and only one of tofile and todir must be set.");
+            }
             
             if ($this->destFile === null)
             {
-				$this->destFile = new PhingFile($this->destDir, $this->file->getName());
-			}
+                $this->destFile = new PhingFile($this->destDir, $this->file->getName());
+            }
             
             if ($this->destDir === null)
             {
-				$this->destDir = $this->destFile->getParentFile();
-			}
+                $this->destDir = $this->destFile->getParentFile();
+            }
             
-			$this->completeDirMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
-			
-			$this->file = null;
-		} else {
-			parent::validateAttributes();
-		}
+            $this->completeDirMap[$this->file->getAbsolutePath()] = $this->destFile->getAbsolutePath();
+            
+            $this->file = null;
+        } else {
+            parent::validateAttributes();
+        }
     }
     
     protected function doWork() {
-		if (count($this->completeDirMap) > 0)
-		{
-			foreach ($this->completeDirMap as $from => $to)
-			{
+        if (count($this->completeDirMap) > 0)
+        {
+            foreach ($this->completeDirMap as $from => $to)
+            {
                 $f = new PhingFile($from);
                 $d = new PhingFile($to);
                 
@@ -95,8 +95,8 @@ class MoveTask extends CopyTask {
                     $moved = false;
                     $this->log("Failed to rename $from to $to: " . $ioe->getMessage(), $this->verbosity);
                 }
-			}
-		}
+            }
+        }
     
         $copyMapSize = count($this->fileCopyMap);
         if ($copyMapSize > 0) {
@@ -112,16 +112,16 @@ class MoveTask extends CopyTask {
                 $f = new PhingFile($from);
                 $d = new PhingFile($to);
                 
-				try { // try to move
-					$this->log("Moving $from to $to", $this->verbosity);
+                try { // try to move
+                    $this->log("Moving $from to $to", $this->verbosity);
 
-					$this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject(), $this->mode);
+                    $this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject(), $this->mode);
 
-					$f->delete();
-				} catch (IOException $ioe) {
-					$msg = "Failed to move $from to $to: " . $ioe->getMessage();
-					throw new BuildException($msg, $this->location);
-				}
+                    $f->delete();
+                } catch (IOException $ioe) {
+                    $msg = "Failed to move $from to $to: " . $ioe->getMessage();
+                    throw new BuildException($msg, $this->location);
+                }
             } // foreach fileCopyMap
         } // if copyMapSize
 

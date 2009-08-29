@@ -224,16 +224,16 @@ class ProjectConfigurator {
             $target = $target->getProxy();
         }
         
-		// if the target is an UnknownElement, this means that the tag had not been registered
-		// when the enclosing element (task, target, etc.) was configured.  It is possible, however, 
-		// that the tag was registered (e.g. using <taskdef>) after the original configuration.
-		// ... so, try to load it again:
-		if ($target instanceof UnknownElement) {
-			$tryTarget = $project->createTask($target->getTaskType());
-			if ($tryTarget) {
-				$target = $tryTarget;
-			}
-		}
+        // if the target is an UnknownElement, this means that the tag had not been registered
+        // when the enclosing element (task, target, etc.) was configured.  It is possible, however, 
+        // that the tag was registered (e.g. using <taskdef>) after the original configuration.
+        // ... so, try to load it again:
+        if ($target instanceof UnknownElement) {
+            $tryTarget = $project->createTask($target->getTaskType());
+            if ($tryTarget) {
+                $target = $tryTarget;
+            }
+        }
 
         $bean = get_class($target);
         $ih = IntrospectionHelper::getHelper($bean);
@@ -353,8 +353,8 @@ class ProjectConfigurator {
                     self::$propReplaceProject->log('Property ${'.$propertyName.'} has not been set.', Project::MSG_VERBOSE);
                     return $matches[0];
         } else {
-			self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], Project::MSG_DEBUG);
-		}
+            self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], Project::MSG_DEBUG);
+        }
         return self::$propReplaceProperties[$propertyName];
     }           
 

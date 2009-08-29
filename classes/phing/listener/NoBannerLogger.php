@@ -31,29 +31,29 @@ require_once 'phing/listener/DefaultLogger.php';
  */
 class NoBannerLogger extends DefaultLogger {
 
-	private $targetName = null;
+    private $targetName = null;
 
-	function targetStarted(BuildEvent $event) {
-		$target = $event->getTarget();
-		$this->targetName = $target->getName();
-	}
+    function targetStarted(BuildEvent $event) {
+        $target = $event->getTarget();
+        $this->targetName = $target->getName();
+    }
 
-	function targetFinished(BuildEvent $event) {
-		$this->targetName = null;
-	}
+    function targetFinished(BuildEvent $event) {
+        $this->targetName = null;
+    }
 
-	function messageLogged(BuildEvent $event) {
-		
-		if ($event->getPriority() > $this->msgOutputLevel || null === $event->getMessage() || trim($event->getMessage() === "")) {
-			return;
-		}
-		
-		if ($this->targetName !== null) {
-			$msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $this->targetName . ':' . PHP_EOL;
-			$this->printMessage($msg, $this->out, $event->getPriority());
-			$this->targetName = null;
-		}
+    function messageLogged(BuildEvent $event) {
+        
+        if ($event->getPriority() > $this->msgOutputLevel || null === $event->getMessage() || trim($event->getMessage() === "")) {
+            return;
+        }
+        
+        if ($this->targetName !== null) {
+            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $this->targetName . ':' . PHP_EOL;
+            $this->printMessage($msg, $this->out, $event->getPriority());
+            $this->targetName = null;
+        }
 
-		parent::messageLogged($event);
-	}
+        parent::messageLogged($event);
+    }
 }

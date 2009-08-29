@@ -29,9 +29,9 @@
 
 class DbmsSyntaxSQLite extends DbmsSyntax 
 {
-	public function generateTimestamp()
-	{
-		return "strftime('%s','now')";
-	}
+    public function generateTimestamp()
+    {
+        return "strftime('%s','now')";
+    }
 }
 

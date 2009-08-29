@@ -105,7 +105,7 @@ abstract class AbstractSAXParser {
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     function characters($parser, $data) {
-		$this->handler->characters($data);
+        $this->handler->characters($data);
     }
 
     /**

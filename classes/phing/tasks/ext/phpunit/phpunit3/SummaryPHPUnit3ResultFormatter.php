@@ -28,31 +28,31 @@ require_once 'phing/tasks/ext/phpunit/phpunit3/PHPUnit3ResultFormatter.php';
  * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
- */	
+ */ 
 class SummaryPHPUnit3ResultFormatter extends PHPUnit3ResultFormatter
 {
-	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
-	{
-		$sb = "Test: " . $suite->getName();
-		$sb.= ", Run: " . $this->getRunCount();
-		$sb.= ", Failures: " . $this->getFailureCount();
-		$sb.= ", Errors: " . $this->getErrorCount();
-		$sb.= ", Incomplete: " . $this->getIncompleteCount();
-		$sb.= ", Skipped: " . $this->getSkippedCount();
-		$sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-		
-		parent::endTestSuite($suite);
-		
-		if ($this->out != NULL)
-		{
-			$this->out->write($sb);
-			$this->out->close();
-		}
-	}
-	
-	function getExtension()
-	{
-		return NULL;
-	}
+    function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+        $sb = "Test: " . $suite->getName();
+        $sb.= ", Run: " . $this->getRunCount();
+        $sb.= ", Failures: " . $this->getFailureCount();
+        $sb.= ", Errors: " . $this->getErrorCount();
+        $sb.= ", Incomplete: " . $this->getIncompleteCount();
+        $sb.= ", Skipped: " . $this->getSkippedCount();
+        $sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+        
+        parent::endTestSuite($suite);
+        
+        if ($this->out != NULL)
+        {
+            $this->out->write($sb);
+            $this->out->close();
+        }
+    }
+    
+    function getExtension()
+    {
+        return NULL;
+    }
 }
 

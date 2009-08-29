@@ -83,12 +83,12 @@ class XmlLintTask extends Task {
     } else { // process filesets
       $project = $this->getProject();
       foreach($this->filesets as $fs) {
-	$ds = $fs->getDirectoryScanner($project);
-	$files = $ds->getIncludedFiles();
-	$dir = $fs->getDir($this->project)->getPath();
-	foreach($files as $file) {
-	  $this->lint($dir.DIRECTORY_SEPARATOR.$file);
-	}
+    $ds = $fs->getDirectoryScanner($project);
+    $files = $ds->getIncludedFiles();
+    $dir = $fs->getDir($this->project)->getPath();
+    foreach($files as $file) {
+      $this->lint($dir.DIRECTORY_SEPARATOR.$file);
+    }
       }
     }
     restore_error_handler();
@@ -103,15 +103,15 @@ class XmlLintTask extends Task {
   protected function lint($file) {
     if(file_exists($file)) {
       if(is_readable($file)) {
-	$dom = new DOMDocument();
-	$dom->load($file);
-	if($dom->schemaValidate($this->schema->getPath())) {
-	  $this->log($file.' validated', Project::MSG_INFO);
-	} else {
-	  $this->log($file.' fails to validate (See messages above)', Project::MSG_ERR);
-	}
+    $dom = new DOMDocument();
+    $dom->load($file);
+    if($dom->schemaValidate($this->schema->getPath())) {
+      $this->log($file.' validated', Project::MSG_INFO);
+    } else {
+      $this->log($file.' fails to validate (See messages above)', Project::MSG_ERR);
+    }
       } else {
-	throw new BuildException('Permission denied: '.$file);
+    throw new BuildException('Permission denied: '.$file);
       }
     } else {
       throw new BuildException('File not found: '.$file);

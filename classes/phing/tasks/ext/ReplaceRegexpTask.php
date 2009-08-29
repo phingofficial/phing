@@ -35,95 +35,95 @@ require_once 'phing/Task.php';
  * @author    Jonathan Bond-Caron <jbondc@openmv.com>
  * @version   $Id$
  * @package   phing.tasks.system
- * @see 	  <http://ant.apache.org/manual/OptionalTasks/replaceregexp.html>
+ * @see       <http://ant.apache.org/manual/OptionalTasks/replaceregexp.html>
  */
 class ReplaceRegexpTask extends Task {
     
     /** Single file to process. */
     private $file;
-	
+    
     /** Any filesets that should be processed. */
     private $filesets = array();
-	
+    
     /**
      * Regular expression
      * 
-	 * @var RegularExpression
+     * @var RegularExpression
      */
-	private $_regexp;
+    private $_regexp;
         
     /**
      * File to apply regexp on
      * 
-	 * @param string $path
+     * @param string $path
      */
     function setFile(PhingFile $path)
-	{
+    {
         $this->file = $path;
     }
-	
+    
     /**
      * Sets the regexp match pattern
      * 
-	 * @param string $regexp 
+     * @param string $regexp 
      */
     function setMatch( $regexp )
-	{
+    {
         $this->_regexp->setPattern( $regexp );
     }
 
     /**
-	 * @see setMatch()
+     * @see setMatch()
      */
     function setPattern( $regexp )
-	{
+    {
         $this->setMatch( $regexp );
     }
 
     /**
      * Sets the replacement string
      * 
-	 * @param string $string
+     * @param string $string
      */
     function setReplace( $string )
-	{
- 		$this->_regexp->setReplace( $string );
+    {
+        $this->_regexp->setReplace( $string );
     }
 
     /**
      * Sets the regexp flags
      * 
-	 * @param string $flags
+     * @param string $flags
      */
     function setFlags( $flags )
-	{
+    {
         // TODO... $this->_regexp->setFlags( $flags ); 
     }
 
     /**
      * Match only per line
      * 
-	 * @param bool $yesNo
+     * @param bool $yesNo
      */
     function setByline( $yesNo )
-	{
+    {
         // TODO... $this->_regexp-> 
     }
-	
+    
     /** Nested creator, adds a set of files (nested fileset attribute). */
     function createFileSet()
-	{
+    {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
 
     function init()
-	{
-		$this->_regexp = new RegularExpression;
+    {
+        $this->_regexp = new RegularExpression;
     }
 
     function main()
-	{
+    {
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("You must specify a file or fileset(s) for the <ReplaceRegexp> task.");
         }
@@ -154,24 +154,24 @@ class ReplaceRegexpTask extends Task {
         
         $this->log("Applying Regexp processing to " . count($files) . " files.");
 
-		// These "slots" allow filters to retrieve information about the currently-being-process files		
-		$slot = $this->getRegisterSlot("currentFile");
-		$basenameSlot = $this->getRegisterSlot("currentFile.basename");	
+        // These "slots" allow filters to retrieve information about the currently-being-process files      
+        $slot = $this->getRegisterSlot("currentFile");
+        $basenameSlot = $this->getRegisterSlot("currentFile.basename"); 
 
-		$filter = new FilterChain($this->project);
+        $filter = new FilterChain($this->project);
 
-		$r = new ReplaceRegexp;
-		$r->setRegexps(array($this->_regexp));
+        $r = new ReplaceRegexp;
+        $r->setRegexps(array($this->_regexp));
 
-		$filter->addReplaceRegexp($r);
-		$filters = array($filter);
+        $filter->addReplaceRegexp($r);
+        $filters = array($filter);
 
         foreach($files as $file) {
-			// set the register slots
-			
-			$slot->setValue($file->getPath());
-			$basenameSlot->setValue($file->getName());
-			
+            // set the register slots
+            
+            $slot->setValue($file->getPath());
+            $basenameSlot->setValue($file->getName());
+            
             // 1) read contents of file, pulling through any filters
             $in = null;
             try {                

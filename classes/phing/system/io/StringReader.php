@@ -25,9 +25,9 @@
  */
 class StringReader extends Reader {
     
-	/**
-	 * @var string
-	 */
+    /**
+     * @var string
+     */
     private $_string;
     
     /**

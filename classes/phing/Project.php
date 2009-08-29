@@ -39,13 +39,13 @@ include_once 'phing/input/DefaultInputHandler.php';
  */
 class Project {
 
-	// Logging level constants.
-	const MSG_DEBUG = 4;
-	const MSG_VERBOSE = 3;
-	const MSG_INFO = 2;
-	const MSG_WARN = 1;
-	const MSG_ERR = 0;
-	
+    // Logging level constants.
+    const MSG_DEBUG = 4;
+    const MSG_VERBOSE = 3;
+    const MSG_INFO = 2;
+    const MSG_WARN = 1;
+    const MSG_ERR = 0;
+    
     /** contains the targets */
     private $targets         = array();
     /** global filterset (future use) */
@@ -192,7 +192,7 @@ class Project {
      * @return void
      */
     public function setProperty($name, $value) {
-	
+    
         // command line properties take precedence
         if (isset($this->userProperties[$name])) {
             $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
@@ -269,7 +269,7 @@ class Project {
      */
     private function setPropertyInternal($name, $value) {
         if (isset($this->userProperties[$name])) {
-			$this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
+            $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
             return;
         }
         $this->properties[$name] = $value;
@@ -879,19 +879,19 @@ class Project {
     function getReferences() {
         return $this->references;
     }
-	
-	/**
-	 * Returns a specific reference.
-	 * @param string $key The reference id/key.
-	 * @return Reference or null if not defined
-	 */
-	function getReference($key)
-	{
-		if (isset($this->references[$key])) {
-		    return $this->references[$key];
-		}
-		return null; // just to be explicit
-	}
+    
+    /**
+     * Returns a specific reference.
+     * @param string $key The reference id/key.
+     * @return Reference or null if not defined
+     */
+    function getReference($key)
+    {
+        if (isset($this->references[$key])) {
+            return $this->references[$key];
+        }
+        return null; // just to be explicit
+    }
 
     /**
      * Abstracting and simplifyling Logger calls for project messages

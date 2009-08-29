@@ -127,10 +127,10 @@ class DirectoryScanner implements SelectorScanner {
         "**/SCCS",
         "**/SCCS/**",
         "**/vssver.scc",
-		"**/.svn",
-		"**/.svn/**",
-		"**/._*",
-		"**/.DS_Store",
+        "**/.svn",
+        "**/.svn/**",
+        "**/._*",
+        "**/.DS_Store",
     );
 
     /** The base directory which should be scanned. */
@@ -330,8 +330,8 @@ class DirectoryScanner implements SelectorScanner {
      */
     function setExpandSymbolicLinks($expandSymbolicLinks)
     {
-		$this->expandSymbolicLinks = $expandSymbolicLinks;
-	}
+        $this->expandSymbolicLinks = $expandSymbolicLinks;
+    }
 
     /**
      * Scans the base directory for files that match at least one include
@@ -480,8 +480,8 @@ class DirectoryScanner implements SelectorScanner {
                     $this->everythingIncluded = false;
                     $this->filesNotIncluded[] = $name;
                 }
-			}
-			else
+            }
+            else
             if (@is_dir($file)) {
                 if ($this->isIncluded($name)) {
                     if (!$this->isExcluded($name)) {
@@ -731,13 +731,13 @@ class DirectoryScanner implements SelectorScanner {
      */
     protected function isSelected($name, $file) {
         if ($this->selectors !== null) {
-        	$basedir = new PhingFile($this->basedir);
-        	$file = new PhingFile($file);
-        	foreach($this->selectors as $selector) {
-        		if (!$selector->isSelected($basedir, $name, $file)) {
-        			return false;
-        		}
-        	}
+            $basedir = new PhingFile($this->basedir);
+            $file = new PhingFile($file);
+            foreach($this->selectors as $selector) {
+                if (!$selector->isSelected($basedir, $name, $file)) {
+                    return false;
+                }
+            }
         }
         return true;
     }

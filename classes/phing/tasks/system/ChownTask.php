@@ -25,7 +25,7 @@ include_once 'phing/types/FileSet.php';
 /**
  * Task that changes the permissions on a file/directory.
  *
- * @author	  Mehmet Emre Yilmaz <mehmety@gmail.com>
+ * @author    Mehmet Emre Yilmaz <mehmety@gmail.com>
  * @version   $Revision$
  * @package   phing.tasks.system
  */
@@ -39,21 +39,21 @@ class ChownTask extends Task {
 
     private $filesystem;
 
-	private $quiet = false;
-	private $failonerror = true;
-	private $verbose = true;
+    private $quiet = false;
+    private $failonerror = true;
+    private $verbose = true;
 
-	/**
-	 * This flag means 'note errors to the output, but keep going'
-	 * @see setQuiet()
-	 */
+    /**
+     * This flag means 'note errors to the output, but keep going'
+     * @see setQuiet()
+     */
     function setFailonerror($bool) {
         $this->failonerror = $bool;
     }
 
     /**
      * Set quiet mode, which suppresses warnings if chown() fails.
-	 * @see setFailonerror()
+     * @see setFailonerror()
      */
     function setQuiet($bool) {
         $this->quiet = $bool;
@@ -125,7 +125,7 @@ class ChownTask extends Task {
      */
     private function chown() {
 
-		$user= $this->user;
+        $user= $this->user;
 
         // counters for non-verbose output
         $total_files = 0;
@@ -166,28 +166,28 @@ class ChownTask extends Task {
 
     }
 
-	/**
-	 * Actually change the mode for the file.
-	 * @param PhingFile $file
-	 * @param int $mode
-	 */
+    /**
+     * Actually change the mode for the file.
+     * @param PhingFile $file
+     * @param int $mode
+     */
     private function chownFile(PhingFile $file, $user) {
         if ( !$file->exists() ) {
             throw new BuildException("The file " . $file->__toString() . " does not exist");
         }
 
-		try {
-			$file->setUser($user);
-			if ($this->verbose) {
-				$this->log("Changed file owner on '" . $file->__toString() ."' to " . $user);
-			}
-		} catch (Exception $e) {
-			if($this->failonerror) {
-				throw $e;
-			} else {
-				$this->log($e->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
-			}
-		}
+        try {
+            $file->setUser($user);
+            if ($this->verbose) {
+                $this->log("Changed file owner on '" . $file->__toString() ."' to " . $user);
+            }
+        } catch (Exception $e) {
+            if($this->failonerror) {
+                throw $e;
+            } else {
+                $this->log($e->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
+            }
+        }
     }
 
 }

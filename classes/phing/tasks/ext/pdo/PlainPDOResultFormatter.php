@@ -31,100 +31,100 @@ require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
  */
 class PlainPDOResultFormatter extends PDOResultFormatter
 {
-	/**
-	 * Have column headers been printed?
-	 * @var boolean
-	 */
-	private $colsprinted = false;
+    /**
+     * Have column headers been printed?
+     * @var boolean
+     */
+    private $colsprinted = false;
 
-	/**
-	 * Whether to show headers.
-	 * @var boolean
-	 */
-	private $showheaders = true;
+    /**
+     * Whether to show headers.
+     * @var boolean
+     */
+    private $showheaders = true;
 
-	/**
-	 * Column delimiter.
-	 * Defaults to ','
-	 * @var string
-	 */
-	private $coldelimiter = ",";
+    /**
+     * Column delimiter.
+     * Defaults to ','
+     * @var string
+     */
+    private $coldelimiter = ",";
 
-	/**
-	 * Row delimiter.
-	 * Defaults to PHP_EOL.
-	 * @var string 
-	 */
-	private $rowdelimiter = PHP_EOL;
+    /**
+     * Row delimiter.
+     * Defaults to PHP_EOL.
+     * @var string 
+     */
+    private $rowdelimiter = PHP_EOL;
 
-	/**
-	 * Set the showheaders attribute.
-	 * @param boolean $v
-	 */
-	public function setShowheaders($v) {
-		$this->showheaders = StringHelper::booleanValue($v);
-	}
+    /**
+     * Set the showheaders attribute.
+     * @param boolean $v
+     */
+    public function setShowheaders($v) {
+        $this->showheaders = StringHelper::booleanValue($v);
+    }
 
-	/**
-	 * Sets the column delimiter.
-	 * @param string $v
-	 */
-	public function setColdelim($v) {
-		$this->coldelimiter = $v;
-	}
+    /**
+     * Sets the column delimiter.
+     * @param string $v
+     */
+    public function setColdelim($v) {
+        $this->coldelimiter = $v;
+    }
 
-	/**
-	 * Sets the row delimiter.
-	 * @param string $v
-	 */
-	public function setRowdelim($v) {
-		$this->rowdelimiter = $v;
-	}
+    /**
+     * Sets the row delimiter.
+     * @param string $v
+     */
+    public function setRowdelim($v) {
+        $this->rowdelimiter = $v;
+    }
 
-	/**
-	 * Processes a specific row from PDO result set.
-	 *
-	 * @param array $row Row of PDO result set.
-	 */
-	public function processRow($row) {
+    /**
+     * Processes a specific row from PDO result set.
+     *
+     * @param array $row Row of PDO result set.
+     */
+    public function processRow($row) {
 
-		if (!$this->colsprinted && $this->showheaders) {
-			$first = true;
-			foreach($row as $fieldName => $ignore) {
-				if ($first) $first = false; else $line .= ",";
-				$line .= $fieldName;
-			}
+        if (!$this->colsprinted && $this->showheaders) {
+            $first = true;
+            foreach($row as $fieldName => $ignore) {
+                if ($first) $first = false; else $line .= ",";
+                $line .= $fieldName;
+            }
 
-			$this->out->write($line);
-			$this->out->write(PHP_EOL);
+            $this->out->write($line);
+            $this->out->write(PHP_EOL);
 
-			$line = "";
-			$colsprinted = true;
-		} // if show headers
+            $line = "";
+            $colsprinted = true;
+        } // if show headers
 
-		$first = true;
-		foreach($row as $columnValue) {
+        $first = true;
+        foreach($row as $columnValue) {
 
-			if ($columnValue != null) {
-				$columnValue = trim($columnValue);
-			}
+            if ($columnValue != null) {
+                $columnValue = trim($columnValue);
+            }
 
-			if ($first) {
-				$first = false;
-			} else {
-				$line .= $this->coldelimiter;
-			}
-			$line .= $columnValue;
-		}
-		
-		$this->out->write($line);
-		$this->out->write($this->rowdelimiter);
+            if ($first) {
+                $first = false;
+            } else {
+                $line .= $this->coldelimiter;
+            }
+            $line .= $columnValue;
+        }
+        
+        $this->out->write($line);
+        $this->out->write($this->rowdelimiter);
 
-	}
+    }
 
-	public function getPreferredOutfile()
-	{
-		return new PhingFile('results.txt');
-	}
-	
+    public function getPreferredOutfile()
+    {
+        return new PhingFile('results.txt');
+    }
+    
 }

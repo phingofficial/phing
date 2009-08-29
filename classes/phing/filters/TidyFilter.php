@@ -39,52 +39,52 @@ include_once 'phing/filters/ChainableReader.php';
  * @package   phing.filters
  */
 class TidyFilter extends BaseParamFilterReader implements ChainableReader {
-   	
-	/** @var string Encoding of resulting document. */
-	private $encoding = 'utf8';
+    
+    /** @var string Encoding of resulting document. */
+    private $encoding = 'utf8';
    
     /** @var array Parameter[] */
-	private $configParameters = array();
+    private $configParameters = array();
      
-	/**
-	 * Set the encoding for resulting (X)HTML document.
-	 * @param string $v
-	 */
-	public function setEncoding($v) {
-		$this->encoding = $v;
-	}
-	
-	/**
-	 * Sets the config params.
-	 * @param array Parameter[]
-	 * @see chain()
-	 */
-	public function setConfigParameters($params)
-	{
-		$this->configParameters = $params;
-	}
-	
-	/**
-	 * Adds a <config> element (which is a Parameter).
-	 * @return Parameter
-	 */
-	public function createConfig() {
-		$num = array_push($this->configParameters, new Parameter());
+    /**
+     * Set the encoding for resulting (X)HTML document.
+     * @param string $v
+     */
+    public function setEncoding($v) {
+        $this->encoding = $v;
+    }
+    
+    /**
+     * Sets the config params.
+     * @param array Parameter[]
+     * @see chain()
+     */
+    public function setConfigParameters($params)
+    {
+        $this->configParameters = $params;
+    }
+    
+    /**
+     * Adds a <config> element (which is a Parameter).
+     * @return Parameter
+     */
+    public function createConfig() {
+        $num = array_push($this->configParameters, new Parameter());
         return $this->configParameters[$num-1];
-	}
-	
-	/**
-	 * Converts the Parameter objects being used to store configuration into a simle assoc array.
-	 * @return array
-	 */
-	private function getDistilledConfig() {
-		$config = array();
-		foreach($this->configParameters as $p) {
-			$config[$p->getName()] = $p->getValue();
-		}
-		return $config;
-	}
-	
+    }
+    
+    /**
+     * Converts the Parameter objects being used to store configuration into a simle assoc array.
+     * @return array
+     */
+    private function getDistilledConfig() {
+        $config = array();
+        foreach($this->configParameters as $p) {
+            $config[$p->getName()] = $p->getValue();
+        }
+        return $config;
+    }
+    
     /**
      * Reads input and returns Tidy-filtered output.
      * 
@@ -94,29 +94,29 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader {
      *                        during reading     
      */
     function read($len = null) {
-    	
-		if (!class_exists('Tidy')) {
-			throw new BuildException("You must enable the 'tidy' extension in your PHP configuration in order to use the Tidy filter.");
-		}
-		
-		if ( !$this->getInitialized() ) {
+        
+        if (!class_exists('Tidy')) {
+            throw new BuildException("You must enable the 'tidy' extension in your PHP configuration in order to use the Tidy filter.");
+        }
+        
+        if ( !$this->getInitialized() ) {
             $this->_initialize();
             $this->setInitialized(true);
         }
-		
+        
         $buffer = $this->in->read($len);
         if($buffer === -1) {
             return -1;
         }
-		
-		$config = $this->getDistilledConfig();
-		
-		$tidy = new Tidy();
-		$tidy->parseString($buffer, $config, $this->encoding);
-		$tidy->cleanRepair();
+        
+        $config = $this->getDistilledConfig();
+        
+        $tidy = new Tidy();
+        $tidy->parseString($buffer, $config, $this->encoding);
+        $tidy->cleanRepair();
 
-		return tidy_get_output($tidy);
-		
+        return tidy_get_output($tidy);
+        
     }
 
 
@@ -131,32 +131,32 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader {
      */
     public function chain(Reader $reader) {
         $newFilter = new TidyFilter($reader);
-		$newFilter->setConfigParameters($this->configParameters);
-		$newFilter->setEncoding($this->encoding);
+        $newFilter->setConfigParameters($this->configParameters);
+        $newFilter->setEncoding($this->encoding);
         $newFilter->setProject($this->getProject());
         return $newFilter;
     }
-	
-	/**
+    
+    /**
      * Initializes any parameters (e.g. config options).
      * This method is only called when this filter is used through a <filterreader> tag in build file.
      */
     private function _initialize() {
         $params = $this->getParameters();
-		if ($params) {
-			foreach($params as $param) {
-				if ($param->getType() == "config") {
-					$this->configParameters[] = $param;
-				} else {
-					
-					if ($param->getName() == "encoding") {
-					    $this->setEncoding($param->getValue());
-					}
-					
-				}
-				
-			}
-		}
+        if ($params) {
+            foreach($params as $param) {
+                if ($param->getType() == "config") {
+                    $this->configParameters[] = $param;
+                } else {
+                    
+                    if ($param->getName() == "encoding") {
+                        $this->setEncoding($param->getValue());
+                    }
+                    
+                }
+                
+            }
+        }
     }
 
 }

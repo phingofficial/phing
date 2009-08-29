@@ -32,28 +32,28 @@ require_once 'phing/tasks/ext/dbdeploy/DbmsSyntax.php';
 
 class DbmsSyntaxFactory
 {
-	private $dbms;
-	
-	public function __construct($dbms)
-	{
-		$this->dbms = $dbms;
-	}
-	
-	public function getDbmsSyntax()
-	{
-		switch ($this->dbms){
-			case('sqlite') :
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
-				return new DbmsSyntaxSQLite();
-			case('mysql'):
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
-				return new DbmsSyntaxMysql();
-			case('mssql'):
-				require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
-				return new DbmsSyntaxMsSql();
-			default:
-				throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
-		}
-	}
+    private $dbms;
+    
+    public function __construct($dbms)
+    {
+        $this->dbms = $dbms;
+    }
+    
+    public function getDbmsSyntax()
+    {
+        switch ($this->dbms){
+            case('sqlite') :
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxSQLite.php';
+                return new DbmsSyntaxSQLite();
+            case('mysql'):
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
+                return new DbmsSyntaxMysql();
+            case('mssql'):
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
+                return new DbmsSyntaxMsSql();
+            default:
+                throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
+        }
+    }
 }
 

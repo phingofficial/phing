@@ -58,9 +58,9 @@ class BufferedWriter extends Writer {
     }
     
     public function flush() {
-    	$this->out->flush();
+        $this->out->flush();
     }
-	
+    
     /**
      * Close attached stream.
      */

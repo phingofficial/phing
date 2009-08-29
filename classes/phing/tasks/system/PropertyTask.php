@@ -71,15 +71,15 @@ class PropertyTask extends Task {
     function setValue($value) {
         $this->value = (string) $value;
     }
-	
-	/**
-	 * Sets value of property to CDATA tag contents.
-	 * @param string $values
-	 * @since 2.2.0
-	 */
-	public function addText($value) {
-		$this->setValue($value);
-	}
+    
+    /**
+     * Sets value of property to CDATA tag contents.
+     * @param string $values
+     * @since 2.2.0
+     */
+    public function addText($value) {
+        $this->setValue($value);
+    }
     
     /** Get the value of current property component. */
     function getValue() {
@@ -182,9 +182,9 @@ class PropertyTask extends Task {
         return (string) $this->value;
     }
 
-	/**
-	 * @param Project $p
-	 */
+    /**
+     * @param Project $p
+     */
     function setFallback($p) {
         $this->fallback = $p;
     }

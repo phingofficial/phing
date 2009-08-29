@@ -75,9 +75,9 @@ class DataType extends ProjectComponent {
      * Subclasses may need to check whether any other attributes
      * have been set as well or child elements have been created and
      * thus override this method. if they do they must call parent::setRefid()
-	 * 
-	 * @param Reference $r
-	 * @return void
+     * 
+     * @param Reference $r
+     * @return void
      */
     function setRefid(Reference $r) {
         $this->ref = $r;

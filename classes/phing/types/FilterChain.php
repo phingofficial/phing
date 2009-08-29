@@ -50,10 +50,10 @@ class FilterChain extends DataType {
     private $filterReaders = array();
 
     function __construct($project = null) {
-		if ($project)
-		{
-        	$this->project = $project;
-		}
+        if ($project)
+        {
+            $this->project = $project;
+        }
     }
 
     function getFilterReaders() {
@@ -120,16 +120,16 @@ class FilterChain extends DataType {
         $this->filterReaders[] = $o;        
     }
     
-	function addStripWhitespace(StripWhitespace $o) {
+    function addStripWhitespace(StripWhitespace $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
     
-	function addTidyFilter(TidyFilter $o) {
+    function addTidyFilter(TidyFilter $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
-	
+    
     function addTabToSpaces(TabToSpaces $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;

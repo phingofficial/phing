@@ -25,13 +25,13 @@
  * @package   phing.system.io
  */
 abstract class Writer {
-	
-	/**
-	 * Writes data to output stream.
-	 * @param string $buf
-	 * @param int $off
-	 * @param int $len
-	 */
+    
+    /**
+     * Writes data to output stream.
+     * @param string $buf
+     * @param int $off
+     * @param int $len
+     */
     abstract public function write($buf, $off = null, $len = null);
     
     /**
@@ -39,7 +39,7 @@ abstract class Writer {
      * @throws IOException - if there is an error closing stream.
      */
     abstract public function close();
-	
+    
     /**
      * Flush the stream, if supported by the stream.
      */

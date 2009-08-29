@@ -34,102 +34,102 @@ include_once 'phing/tasks/system/condition/ConditionBase.php';
  */
 class AvailableTask extends Task {
 
-	/** Property to check for. */
-	private $property;
+    /** Property to check for. */
+    private $property;
 
-	/** Value property should be set to. */
-	private $value = "true";
+    /** Value property should be set to. */
+    private $value = "true";
 
-	/** Resource to check for */
-	private $resource;
+    /** Resource to check for */
+    private $resource;
 
-	private $type = null;
-	private $filepath = null;
+    private $type = null;
+    private $filepath = null;
 
-	function setProperty($property) {
-		$this->property = (string) $property;
-	}
+    function setProperty($property) {
+        $this->property = (string) $property;
+    }
 
-	function setValue($value) {
-		$this->value = (string) $value;
-	}
+    function setValue($value) {
+        $this->value = (string) $value;
+    }
 
-	function setFile(PhingFile $file) {
-		$this->file = $file;
-	}
+    function setFile(PhingFile $file) {
+        $this->file = $file;
+    }
 
-	function setResource($resource) {
-		$this->resource = (string) $resource;
-	}
+    function setResource($resource) {
+        $this->resource = (string) $resource;
+    }
 
-	function setType($type) {
-		$this->type = (string) strtolower($type);
-	}
+    function setType($type) {
+        $this->type = (string) strtolower($type);
+    }
 
-	function main() {
-		if ($this->property === null) {
-			throw new BuildException("property attribute is required", $this->location);
-		}
-		if ($this->evaluate()) {
-			$this->project->setProperty($this->property, $this->value);
-		}
-	}
+    function main() {
+        if ($this->property === null) {
+            throw new BuildException("property attribute is required", $this->location);
+        }
+        if ($this->evaluate()) {
+            $this->project->setProperty($this->property, $this->value);
+        }
+    }
 
-	function evaluate() {
-		if ($this->file === null && $this->resource === null) {
-			throw new BuildException("At least one of (file|resource) is required", $this->location);
-		}
+    function evaluate() {
+        if ($this->file === null && $this->resource === null) {
+            throw new BuildException("At least one of (file|resource) is required", $this->location);
+        }
 
-		if ($this->type !== null && ($this->type !== "file" && $this->type !== "dir")) {
-			throw new BuildException("Type must be one of either dir or file", $this->location);
-		}
+        if ($this->type !== null && ($this->type !== "file" && $this->type !== "dir")) {
+            throw new BuildException("Type must be one of either dir or file", $this->location);
+        }
 
-		if (($this->file !== null) && !$this->_checkFile()) {
-			$this->log("Unable to find " . $this->file->__toString() . " to set property " . $this->property, Project::MSG_VERBOSE);
-			return false;
-		}
+        if (($this->file !== null) && !$this->_checkFile()) {
+            $this->log("Unable to find " . $this->file->__toString() . " to set property " . $this->property, Project::MSG_VERBOSE);
+            return false;
+        }
 
-		if (($this->resource !== null) && !$this->_checkResource($this->resource)) {
-			$this->log("Unable to load resource " . $this->resource . " to set property " . $this->property, Project::MSG_VERBOSE);
-			return false;
-		}
+        if (($this->resource !== null) && !$this->_checkResource($this->resource)) {
+            $this->log("Unable to load resource " . $this->resource . " to set property " . $this->property, Project::MSG_VERBOSE);
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	// this is prepared for the path type
-	private function _checkFile() {
-		if ($this->filepath === null) {
-			return $this->_checkFile1($this->file);
-		} else {
-			$paths = $this->filepath->listDir();
-			for($i=0,$pcnt=count($paths); $i < $pcnt; $i++) {
-				$this->log("Searching " . $paths[$i], Project::MSG_VERBOSE);
-				$tmp = new PhingFile($paths[$i], $this->file->getName());
-				if($tmp->isFile()) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+    // this is prepared for the path type
+    private function _checkFile() {
+        if ($this->filepath === null) {
+            return $this->_checkFile1($this->file);
+        } else {
+            $paths = $this->filepath->listDir();
+            for($i=0,$pcnt=count($paths); $i < $pcnt; $i++) {
+                $this->log("Searching " . $paths[$i], Project::MSG_VERBOSE);
+                $tmp = new PhingFile($paths[$i], $this->file->getName());
+                if($tmp->isFile()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-	private function _checkFile1(PhingFile $file) {
-		if ($this->type !== null) {
-			if ($this->type === "dir") {
-				return $file->isDirectory();
-			} else if ($this->type === "file") {
-				return $file->isFile();
-			}
-		}
-		return $file->exists();
-	}
-	
-	private function _checkResource($resource) {
-		if (null != ($resourcePath = Phing::getResourcePath($resource))) {
-			return $this->_checkFile1(new PhingFile($resourcePath));
-		} else {
-			return false;
-		}
-	}
+    private function _checkFile1(PhingFile $file) {
+        if ($this->type !== null) {
+            if ($this->type === "dir") {
+                return $file->isDirectory();
+            } else if ($this->type === "file") {
+                return $file->isFile();
+            }
+        }
+        return $file->exists();
+    }
+    
+    private function _checkResource($resource) {
+        if (null != ($resourcePath = Phing::getResourcePath($resource))) {
+            return $this->_checkFile1(new PhingFile($resourcePath));
+        } else {
+            return false;
+        }
+    }
 }

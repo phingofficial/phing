@@ -185,8 +185,8 @@ class CopyTask extends Task {
         return $this->filesets[$num-1];
     }
 
-	/**
-	 * Nested creator, adds a set of files (nested fileset attribute).
+    /**
+     * Nested creator, adds a set of files (nested fileset attribute).
      *
      * @access  public
      * @return  object  The created filelist object
@@ -250,20 +250,20 @@ class CopyTask extends Task {
 
         $project = $this->getProject();
 
-		// process filelists
-		foreach($this->filelists as $fl) {
+        // process filelists
+        foreach($this->filelists as $fl) {
             $fromDir  = $fl->getDir($project);
             $srcFiles = $fl->getFiles($project);
             $srcDirs  = array($fl->getDir($project));
             
             if (!$this->flatten && $this->mapperElement === null)
             {
-				$this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
-			}
+                $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
+            }
             
             $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
-		}
-		
+        }
+        
         // process filesets
         foreach($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($project);
@@ -273,8 +273,8 @@ class CopyTask extends Task {
             
             if (!$this->flatten && $this->mapperElement === null)
             {
-				$this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
-			}
+                $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
+            }
             
             $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
         }
@@ -382,14 +382,14 @@ class CopyTask extends Task {
      * @throws  BuildException
      */
     protected function doWork() {
-		
-		// These "slots" allow filters to retrieve information about the currently-being-process files		
-		$fromSlot = $this->getRegisterSlot("currentFromFile");
-		$fromBasenameSlot = $this->getRegisterSlot("currentFromFile.basename");	
+        
+        // These "slots" allow filters to retrieve information about the currently-being-process files      
+        $fromSlot = $this->getRegisterSlot("currentFromFile");
+        $fromBasenameSlot = $this->getRegisterSlot("currentFromFile.basename"); 
 
-		$toSlot = $this->getRegisterSlot("currentToFile");
-		$toBasenameSlot = $this->getRegisterSlot("currentToFile.basename");	
-		
+        $toSlot = $this->getRegisterSlot("currentToFile");
+        $toBasenameSlot = $this->getRegisterSlot("currentToFile.basename"); 
+        
         $mapSize = count($this->fileCopyMap);
         $total = $mapSize;
 
@@ -428,18 +428,18 @@ class CopyTask extends Task {
                 }
                 $this->log("From ".$from." to ".$to, $this->verbosity);
                 try { // try to copy file
-				
-					$fromFile = new PhingFile($from);
-					$toFile = new PhingFile($to);
-					
+                
+                    $fromFile = new PhingFile($from);
+                    $toFile = new PhingFile($to);
+                    
                     $fromSlot->setValue($fromFile->getPath());
-					$fromBasenameSlot->setValue($fromFile->getName());
+                    $fromBasenameSlot->setValue($fromFile->getName());
 
-					$toSlot->setValue($toFile->getPath());
-					$toBasenameSlot->setValue($toFile->getName());
-					
+                    $toSlot->setValue($toFile->getPath());
+                    $toBasenameSlot->setValue($toFile->getName());
+                    
                     $this->fileUtils->copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject(), $this->mode);
-			
+            
                     $count++;
                 } catch (IOException $ioe) {
                     $this->log("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage(), Project::MSG_ERR);

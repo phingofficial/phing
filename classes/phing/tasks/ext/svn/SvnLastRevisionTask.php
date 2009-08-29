@@ -33,42 +33,42 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  */
 class SvnLastRevisionTask extends SvnBaseTask
 {
-	private $propertyName = "svn.lastrevision";
+    private $propertyName = "svn.lastrevision";
 
-	/**
-	 * Sets the name of the property to use
-	 */
-	function setPropertyName($propertyName)
-	{
-		$this->propertyName = $propertyName;
-	}
+    /**
+     * Sets the name of the property to use
+     */
+    function setPropertyName($propertyName)
+    {
+        $this->propertyName = $propertyName;
+    }
 
-	/**
-	 * Returns the name of the property to use
-	 */
-	function getPropertyName()
-	{
-		return $this->propertyName;
-	}
+    /**
+     * Returns the name of the property to use
+     */
+    function getPropertyName()
+    {
+        return $this->propertyName;
+    }
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	function main()
-	{
-		$this->setup('info');
-		
-		$output = $this->run();
-		
-		if (preg_match('/Rev:[\s]+([\d]+)/', $output, $matches))
-		{
-			$this->project->setProperty($this->getPropertyName(), $matches[1]);
-		}
-		else
-		{
-			throw new BuildException("Failed to parse the output of 'svn info'.");
-		}
-	}
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    function main()
+    {
+        $this->setup('info');
+        
+        $output = $this->run();
+        
+        if (preg_match('/Rev:[\s]+([\d]+)/', $output, $matches))
+        {
+            $this->project->setProperty($this->getPropertyName(), $matches[1]);
+        }
+        else
+        {
+            throw new BuildException("Failed to parse the output of 'svn info'.");
+        }
+    }
 }

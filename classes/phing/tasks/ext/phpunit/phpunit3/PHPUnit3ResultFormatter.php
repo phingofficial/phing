@@ -33,168 +33,168 @@ require_once 'phing/system/io/Writer.php';
  */
 abstract class PHPUnit3ResultFormatter implements PHPUnit_Framework_TestListener
 {
-	protected $out = NULL;
-	
-	protected $project = NULL;
-	
-	private $timers = false;
-	
-	private $runCounts = false;
-	
-	private $failureCounts = false;
-	
-	private $errorCounts = false;
-	
-	private $incompleteCounts = false;
-	
-	private $skipCounts = false;
-	
-	/**
-	 * Sets the writer the formatter is supposed to write its results to.
-   	 */
-	function setOutput(Writer $out)
-	{
-		$this->out = $out;	
-	}
+    protected $out = NULL;
+    
+    protected $project = NULL;
+    
+    private $timers = false;
+    
+    private $runCounts = false;
+    
+    private $failureCounts = false;
+    
+    private $errorCounts = false;
+    
+    private $incompleteCounts = false;
+    
+    private $skipCounts = false;
+    
+    /**
+     * Sets the writer the formatter is supposed to write its results to.
+     */
+    function setOutput(Writer $out)
+    {
+        $this->out = $out;  
+    }
 
-	/**
-	 * Returns the extension used for this formatter
-	 *
-	 * @return string the extension
-	 */
-	function getExtension()
-	{
-		return "";
-	}
+    /**
+     * Returns the extension used for this formatter
+     *
+     * @return string the extension
+     */
+    function getExtension()
+    {
+        return "";
+    }
 
-	/**
-	 * Sets the project
-	 *
-	 * @param Project the project
-	 */
-	function setProject(Project $project)
-	{
-		$this->project = $project;
-	}
-	
-	function getPreferredOutfile()
-	{
-		return "";
-	}
-	
-	function startTestRun()
-	{
-		$this->timers = array($this->getMicrotime());
-		$this->runCounts = array(0);
-		$this->failureCounts = array(0);
-		$this->errorCounts = array(0);
-		$this->incompleteCounts = array(0);
-		$this->skipCounts = array(0);
-	}
-	
-	function endTestRun()
-	{
-	}
-	
-	function startTestSuite(PHPUnit_Framework_TestSuite $suite)
-	{
-		$this->timers[] = $this->getMicrotime();
-		$this->runCounts[] = 0;
-		$this->failureCounts[] = 0;
-		$this->errorCounts[] = 0;
-		$this->incompleteCounts[] = 0;
-		$this->skipCounts[] = 0;
-	}
-	
-	function endTestSuite(PHPUnit_Framework_TestSuite $suite)
-	{
-		$lastRunCount = array_pop($this->runCounts);
-		$this->runCounts[count($this->runCounts) - 1] += $lastRunCount;
-		
-		$lastFailureCount = array_pop($this->failureCounts);
-		$this->failureCounts[count($this->failureCounts) - 1] += $lastFailureCount;
-		
-		$lastErrorCount = array_pop($this->errorCounts);
-		$this->errorCounts[count($this->errorCounts) - 1] += $lastErrorCount;
-		
-		$lastIncompleteCount = array_pop($this->incompleteCounts);
-		$this->incompleteCounts[count($this->incompleteCounts) - 1] += $lastIncompleteCount;
-		
-		$lastSkipCount = array_pop($this->skipCounts);
-		$this->skipCounts[count($this->skipCounts) - 1] += $lastSkipCount;
-		
-		array_pop($this->timers);
-	}
+    /**
+     * Sets the project
+     *
+     * @param Project the project
+     */
+    function setProject(Project $project)
+    {
+        $this->project = $project;
+    }
+    
+    function getPreferredOutfile()
+    {
+        return "";
+    }
+    
+    function startTestRun()
+    {
+        $this->timers = array($this->getMicrotime());
+        $this->runCounts = array(0);
+        $this->failureCounts = array(0);
+        $this->errorCounts = array(0);
+        $this->incompleteCounts = array(0);
+        $this->skipCounts = array(0);
+    }
+    
+    function endTestRun()
+    {
+    }
+    
+    function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+        $this->timers[] = $this->getMicrotime();
+        $this->runCounts[] = 0;
+        $this->failureCounts[] = 0;
+        $this->errorCounts[] = 0;
+        $this->incompleteCounts[] = 0;
+        $this->skipCounts[] = 0;
+    }
+    
+    function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+        $lastRunCount = array_pop($this->runCounts);
+        $this->runCounts[count($this->runCounts) - 1] += $lastRunCount;
+        
+        $lastFailureCount = array_pop($this->failureCounts);
+        $this->failureCounts[count($this->failureCounts) - 1] += $lastFailureCount;
+        
+        $lastErrorCount = array_pop($this->errorCounts);
+        $this->errorCounts[count($this->errorCounts) - 1] += $lastErrorCount;
+        
+        $lastIncompleteCount = array_pop($this->incompleteCounts);
+        $this->incompleteCounts[count($this->incompleteCounts) - 1] += $lastIncompleteCount;
+        
+        $lastSkipCount = array_pop($this->skipCounts);
+        $this->skipCounts[count($this->skipCounts) - 1] += $lastSkipCount;
+        
+        array_pop($this->timers);
+    }
 
-	function startTest(PHPUnit_Framework_Test $test)
-	{
-		$this->runCounts[count($this->runCounts) - 1]++;
-	}
+    function startTest(PHPUnit_Framework_Test $test)
+    {
+        $this->runCounts[count($this->runCounts) - 1]++;
+    }
 
-	function endTest(PHPUnit_Framework_Test $test, $time)
-	{
-	}
+    function endTest(PHPUnit_Framework_Test $test, $time)
+    {
+    }
 
-	function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
-	{
-		$this->errorCounts[count($this->errorCounts) - 1]++;
-	}
+    function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+        $this->errorCounts[count($this->errorCounts) - 1]++;
+    }
 
-	function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
-	{
-		$this->failureCounts[count($this->failureCounts) - 1]++;
-	}
+    function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    {
+        $this->failureCounts[count($this->failureCounts) - 1]++;
+    }
 
-	function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
-	{
-		$this->incompleteCounts[count($this->incompleteCounts) - 1]++;
-	}
+    function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+        $this->incompleteCounts[count($this->incompleteCounts) - 1]++;
+    }
 
-	function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
-	{
-		$this->skipCounts[count($this->skipCounts) - 1]++;
-	}
-	
-	function getRunCount()
-	{
-		return end($this->runCounts);
-	}
-	
-	function getFailureCount()
-	{
-		return end($this->failureCounts);
-	}
-	
-	function getErrorCount()
-	{
-		return end($this->errorCounts);
-	}
-	
-	function getIncompleteCount()
-	{
-		return end($this->incompleteCounts);
-	}
-	
-	function getSkippedCount()
-	{
-		return end($this->skipCounts);
-	}
-	
-	function getElapsedTime()
-	{
-		if (end($this->timers))
-		{
-			return $this->getMicrotime() - end($this->timers);
-		}
-		else
-		{
-			return 0;
-		}
-	}
+    function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+        $this->skipCounts[count($this->skipCounts) - 1]++;
+    }
+    
+    function getRunCount()
+    {
+        return end($this->runCounts);
+    }
+    
+    function getFailureCount()
+    {
+        return end($this->failureCounts);
+    }
+    
+    function getErrorCount()
+    {
+        return end($this->errorCounts);
+    }
+    
+    function getIncompleteCount()
+    {
+        return end($this->incompleteCounts);
+    }
+    
+    function getSkippedCount()
+    {
+        return end($this->skipCounts);
+    }
+    
+    function getElapsedTime()
+    {
+        if (end($this->timers))
+        {
+            return $this->getMicrotime() - end($this->timers);
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
-	private  function getMicrotime() {
-		list($usec, $sec) = explode(' ', microtime());
-		return (float)$usec + (float)$sec;
-	}
+    private  function getMicrotime() {
+        list($usec, $sec) = explode(' ', microtime());
+        return (float)$usec + (float)$sec;
+    }
 }
 

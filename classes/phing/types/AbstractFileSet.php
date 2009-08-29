@@ -109,8 +109,8 @@ class AbstractFileSet extends DataType implements SelectorContainer {
      */
     function setExpandSymbolicLinks($expandSymbolicLinks)
     {
-		$this->expandSymbolicLinks = $expandSymbolicLinks;
-	}
+        $this->expandSymbolicLinks = $expandSymbolicLinks;
+    }
 
     /**
     * Makes this instance in effect a reference to another PatternSet

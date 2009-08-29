@@ -29,36 +29,36 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  */
 class SvnCopyTask extends SvnBaseTask
 {
-	private $message = "";
+    private $message = "";
 
-	/**
-	 * Sets the message
-	 */
-	function setMessage($message)
-	{
-		$this->message = $message;
-	}
+    /**
+     * Sets the message
+     */
+    function setMessage($message)
+    {
+        $this->message = $message;
+    }
 
-	/**
- 	 * Gets the message
-	 */
-	function getMessage()
-	{
-		return $this->message;
-	}
+    /**
+     * Gets the message
+     */
+    function getMessage()
+    {
+        return $this->message;
+    }
 
-	/**
-	 * The main entry point
-	 *
-	 * @throws BuildException
-	 */
-	function main()
-	{
-		$this->setup('copy');
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    function main()
+    {
+        $this->setup('copy');
 
-		$this->log("Copying SVN repository from '" . $this->getRepositoryUrl()  .  "' to '" . $this->getToDir() . "'");
+        $this->log("Copying SVN repository from '" . $this->getRepositoryUrl()  .  "' to '" . $this->getToDir() . "'");
 
-		$this->run(array($this->getToDir()), array('message' => $this->getMessage()));
-	}
+        $this->run(array($this->getToDir()), array('message' => $this->getMessage()));
+    }
 }
 

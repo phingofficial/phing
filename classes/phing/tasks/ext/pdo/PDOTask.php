@@ -142,9 +142,9 @@ abstract class PDOTask extends Task {
             
             $user = null;
             $pass = null;
-				
+                
             if ($this->userId) {
-            	$user = $this->getUserId();
+                $user = $this->getUserId();
             }
             
             if ($this->password) {
@@ -155,12 +155,12 @@ abstract class PDOTask extends Task {
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
             if ($this->autocommit) {
-            	try {
-					$conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
-				} catch (PDOException $pe) {
-					$this->log("Unable to enable auto-commit for this database: " . $pe->getMessage(), Project::MSG_WARN);
-				}
-			}
+                try {
+                    $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
+                } catch (PDOException $pe) {
+                    $this->log("Unable to enable auto-commit for this database: " . $pe->getMessage(), Project::MSG_WARN);
+                }
+            }
             
             return $conn;
             

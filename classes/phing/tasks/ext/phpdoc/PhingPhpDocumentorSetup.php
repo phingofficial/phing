@@ -32,153 +32,153 @@
  * @package phing.tasks.ext.phpdoc
  */
 class PhingPhpDocumentorSetup extends phpDocumentor_setup {
-	
-	/**
-	 * Constructs a new PhingPhpDocumentorSetup.
-	 *
-	 * @param string $configDir Directory in which to look for configuration files.
-	 */
-	public function __construct($configdir = null) {
-		global $_phpDocumentor_cvsphpfile_exts, $_phpDocumentor_setting, $_phpDocumentor_phpfile_exts;
-		
-		$this->setup = new Io();
-		$this->render = new phpDocumentor_IntermediateParser("Default Title");
-		
-		$GLOBALS['_phpDocumentor_install_dir'] = $configdir;
+    
+    /**
+     * Constructs a new PhingPhpDocumentorSetup.
+     *
+     * @param string $configDir Directory in which to look for configuration files.
+     */
+    public function __construct($configdir = null) {
+        global $_phpDocumentor_cvsphpfile_exts, $_phpDocumentor_setting, $_phpDocumentor_phpfile_exts;
+        
+        $this->setup = new Io();
+        $this->render = new phpDocumentor_IntermediateParser("Default Title");
+        
+        $GLOBALS['_phpDocumentor_install_dir'] = $configdir;
         $this->parseIni();
-		
+        
         // These redundant-looking lines seem to actually make a difference.
         // See: http://phing.info/trac/ticket/150
         $_phpDocumentor_phpfile_exts = $GLOBALS['_phpDocumentor_phpfile_exts'];
-		$_phpDocumentor_cvsphpfile_exts = $GLOBALS['_phpDocumentor_cvsphpfile_exts'];
+        $_phpDocumentor_cvsphpfile_exts = $GLOBALS['_phpDocumentor_cvsphpfile_exts'];
 
-		if (tokenizer_ext) {
+        if (tokenizer_ext) {
             $this->parse = new phpDocumentorTParser();
         } else {
             $this->parse = new Parser();
         }
         
         $this->setMemoryLimit();
-	}
-	
-	/**
-	 * Set whether to generate sourcecode for each file parsed.
-	 *
-	 * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 * @param bool $b
-	 */
-	public function setGenerateSourcecode($b) {
-		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['sourcecode'] = (boolean) $b;
-	}
-	
-	/**
-	 * Set an array of README/INSTALL/CHANGELOG file paths. 
-	 *
-	 * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 * @param array $files Absolute paths to files.
-	 */
-	public function setRicFiles($files) {
-		global $_phpDocumentor_RIC_files;
-		$_phpDocumentor_RIC_files = $files;
-	}
-	
-	/**
-	 * Set comma-separated list of tags to ignore.
-	 *
-	 * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 * @param string $tags
-	 */
-	public function setIgnoreTags($tags) {
-		global $_phpDocumentor_setting; 
-		$ignoretags = explode(',', $tags);
-		$ignoretags = array_map('trim', $ignoretags);
-		$tags = array();
-		foreach($ignoretags as $tag) {
-		    if (!in_array($tag,array('@global', '@access', '@package', '@ignore', '@name', '@param', '@return', '@staticvar', '@var')))
-		        $tags[] = $tag;
-		}
-		$_phpDocumentor_setting['ignoretags'] = $tags;
-	}
-	
-	/**
-	 * Set whether to parse dirs as PEAR repos. 
-	 *
-	 * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 * @param bool $b
-	 */
-	public function setPear($b) {
-		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['pear'] = (boolean) $b;
-	}
-	
-	/**
-	 * Set fullpath to directory to look in for examples. 
-	 *
-	 * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 * @param string $dir
-	 */
-	public function setExamplesDir($dir) {
-		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['examplesdir'] = $dir;
-	}
-	
-	/**
-	 * Sets the default package name.
-	 *
-	 * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 * @param string $name
-	 */
-	public function setDefaultPackageName($name) {
-		$GLOBALS['phpDocumentor_DefaultPackageName'] = trim($name);
-	}
-	
-	/**
-	 * Sets the default category name.
-	 *
-	 * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 * @param string $name
-	 */
-	public function setDefaultCategoryName($name) {
-		$GLOBALS['phpDocumentor_DefaultCategoryName'] = trim($name);
-	}
-	
-	/**
-	 * Enables quiet mode.
-	 *
-	 * This method exists as a hack because the API exposed for this method in PhpDocumentor
-	 * doesn't work correctly.
-	 * 
-	 * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
-	 * is subject to break if PhpDocumentor internals changes.  
-	 * 
-	 */
-	public function setQuietMode() {
-		global $_phpDocumentor_setting;
-		$_phpDocumentor_setting['quiet'] = true;
-		parent::setQuietMode();
-	}
+    }
+    
+    /**
+     * Set whether to generate sourcecode for each file parsed.
+     *
+     * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     * @param bool $b
+     */
+    public function setGenerateSourcecode($b) {
+        global $_phpDocumentor_setting;
+        $_phpDocumentor_setting['sourcecode'] = (boolean) $b;
+    }
+    
+    /**
+     * Set an array of README/INSTALL/CHANGELOG file paths. 
+     *
+     * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     * @param array $files Absolute paths to files.
+     */
+    public function setRicFiles($files) {
+        global $_phpDocumentor_RIC_files;
+        $_phpDocumentor_RIC_files = $files;
+    }
+    
+    /**
+     * Set comma-separated list of tags to ignore.
+     *
+     * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     * @param string $tags
+     */
+    public function setIgnoreTags($tags) {
+        global $_phpDocumentor_setting; 
+        $ignoretags = explode(',', $tags);
+        $ignoretags = array_map('trim', $ignoretags);
+        $tags = array();
+        foreach($ignoretags as $tag) {
+            if (!in_array($tag,array('@global', '@access', '@package', '@ignore', '@name', '@param', '@return', '@staticvar', '@var')))
+                $tags[] = $tag;
+        }
+        $_phpDocumentor_setting['ignoretags'] = $tags;
+    }
+    
+    /**
+     * Set whether to parse dirs as PEAR repos. 
+     *
+     * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     * @param bool $b
+     */
+    public function setPear($b) {
+        global $_phpDocumentor_setting;
+        $_phpDocumentor_setting['pear'] = (boolean) $b;
+    }
+    
+    /**
+     * Set fullpath to directory to look in for examples. 
+     *
+     * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     * @param string $dir
+     */
+    public function setExamplesDir($dir) {
+        global $_phpDocumentor_setting;
+        $_phpDocumentor_setting['examplesdir'] = $dir;
+    }
+    
+    /**
+     * Sets the default package name.
+     *
+     * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     * @param string $name
+     */
+    public function setDefaultPackageName($name) {
+        $GLOBALS['phpDocumentor_DefaultPackageName'] = trim($name);
+    }
+    
+    /**
+     * Sets the default category name.
+     *
+     * This method exists as a hack because there is no API exposed for this in PhpDocumentor.
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     * @param string $name
+     */
+    public function setDefaultCategoryName($name) {
+        $GLOBALS['phpDocumentor_DefaultCategoryName'] = trim($name);
+    }
+    
+    /**
+     * Enables quiet mode.
+     *
+     * This method exists as a hack because the API exposed for this method in PhpDocumentor
+     * doesn't work correctly.
+     * 
+     * Note that because we are setting a "private" GLOBAL(!!) config var with this value, this
+     * is subject to break if PhpDocumentor internals changes.  
+     * 
+     */
+    public function setQuietMode() {
+        global $_phpDocumentor_setting;
+        $_phpDocumentor_setting['quiet'] = true;
+        parent::setQuietMode();
+    }
 
     /**
      * Control whether or not warnings will be shown for undocumented elements.
@@ -197,7 +197,7 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
      *
      * This method exists as a hack because the API exposed for this method in
      * PhpDocumentor doesn't work correctly.
-	 * 
+     * 
      * Note that because we are setting a "private" GLOBAL(!!) config var with
      * this value, this is subject to break if PhpDocumentor internals changes.
      * 
