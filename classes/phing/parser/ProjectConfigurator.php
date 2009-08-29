@@ -322,8 +322,23 @@ class ProjectConfigurator {
         // regex is the simplest / fastest.  PropertyTask, though, uses
         // the old parsePropertyString() method, since it has more stringent
         // requirements.
+
+        $sb = $value;
+        $iteration = 0;
         
-        $sb = preg_replace_callback('/\$\{([^}]+)\}/', array('ProjectConfigurator', 'replacePropertyCallback'), $value);
+        // loop to recursively replace tokens
+        while (strpos($sb, '${') !== false)
+        { 
+            $sb = preg_replace_callback('/\$\{([^\$}]+)\}/', array('ProjectConfigurator', 'replacePropertyCallback'), $sb);
+
+            // keep track of iterations so we can break out of otherwise infinite loops.
+            $iteration++;
+            if ($iteration == 5)
+            {
+                return $sb;
+            }
+        }
+        
         return $sb;        
     }
     
