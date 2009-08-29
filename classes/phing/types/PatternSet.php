@@ -381,6 +381,8 @@ class PatternSet extends DataType {
 
 /**
  * "Internal" class for holding an include/exclude pattern.
+ *
+ * @package  phing.types
  */
 class PatternSetNameEntry {
 

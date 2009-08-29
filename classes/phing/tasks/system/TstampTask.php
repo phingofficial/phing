@@ -96,6 +96,9 @@ class TstampTask extends Task
     }
 }
 
+/**
+ * @package  phing.tasks.system
+ */
 class TstampCustomFormat
 {
     private $propertyName = "";

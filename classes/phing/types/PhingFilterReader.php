@@ -22,7 +22,7 @@
 include_once 'phing/types/DataType.php';
 include_once 'phing/types/Parameter.php';
 
-/*
+/**
  * A PhingFilterReader is a wrapper class that encloses the className
  * and configuration of a Configurable FilterReader.
  *
@@ -30,7 +30,7 @@ include_once 'phing/types/Parameter.php';
  * @version   $Revision$
  * @see       FilterReader
  * @package   phing.types
-*/
+ */
 class PhingFilterReader extends DataType {
 
     private $className;

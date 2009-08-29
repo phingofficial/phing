@@ -48,7 +48,7 @@ include_once 'phing/system/io/StringReader.php';
  * @author    Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @package   phing.tasks.ext
+ * @package   phing.tasks.ext.creole
  * @version   $Revision$
  */
 class CreoleSQLExecTask extends CreoleTask {
@@ -542,6 +542,8 @@ class CreoleSQLExecTask extends CreoleTask {
  * Transactions allow several files or blocks of statements
  * to be executed using the same JDBC connection and commit
  * operation in between.
+ *
+ * @package   phing.tasks.ext.creole
  */
 class SQLExecTransaction {
 

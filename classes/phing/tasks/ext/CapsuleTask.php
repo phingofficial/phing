@@ -453,6 +453,8 @@ class CapsuleTask extends Task {
 /**
  * An "inner" class for holding assigned var values.
  * May be need to expand beyond name/value in the future.
+ *
+ * @package phing.tasks.ext
  */
 class AssignedVar {
     

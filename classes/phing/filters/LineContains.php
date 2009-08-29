@@ -231,6 +231,8 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
 
 /**
  * Holds a contains element.
+ *
+ * @package phing.filters
  */
 class Contains {
 

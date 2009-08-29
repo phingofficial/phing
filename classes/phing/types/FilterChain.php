@@ -38,7 +38,7 @@ include_once 'phing/filters/TranslateGettext.php';
 include_once 'phing/filters/XincludeFilter.php';
 include_once 'phing/filters/XsltFilter.php';
 
-/*
+/**
  * FilterChain may contain a chained set of filter readers.
  *
  * @author    Yannick Lecaillez <yl@seasonfive.com>

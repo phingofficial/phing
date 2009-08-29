@@ -23,7 +23,7 @@ include_once 'phing/types/DataType.php';
 include_once 'phing/Project.php';
 include_once 'phing/util/regexp/Regexp.php';
 
-/*
+/**
  * A regular expression datatype.  Keeps an instance of the
  * compiled expression for speed purposes.  This compiled
  * expression is lazily evaluated (it is compiled the first

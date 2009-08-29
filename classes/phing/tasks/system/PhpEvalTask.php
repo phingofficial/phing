@@ -150,6 +150,8 @@ class PhpEvalTask extends Task {
 
 /**
  * Supports the <param> nested tag for PhpTask.
+ *
+ * @package  phing.tasks.system
  */
 class FunctionParam {
 

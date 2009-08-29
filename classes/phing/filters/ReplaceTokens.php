@@ -24,7 +24,7 @@ include_once 'phing/filters/BaseParamFilterReader.php';
 include_once 'phing/types/TokenSource.php';
 include_once 'phing/filters/ChainableReader.php';
 
-/*
+/**
  * Replaces tokens in the original input with user-supplied values.
  *
  * Example:
@@ -360,6 +360,8 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader {
 
 /**
  * Holds a token.
+ *
+ * @package   phing.filters
  */
 class Token {
 

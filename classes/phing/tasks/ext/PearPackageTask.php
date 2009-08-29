@@ -309,6 +309,8 @@ class PearPackageTask extends MatchingTask {
 
 /**
  * Generic option class is used for non-complex options.
+ *
+ * @package  phing.tasks.ext
  */
 class PearPkgOption {
     
@@ -326,6 +328,8 @@ class PearPkgOption {
 
 /**
  * Handles complex options <mapping> elements which are hashes (assoc arrays).
+ *
+ * @package  phing.tasks.ext
  */
 class PearPkgMapping {
 
@@ -369,6 +373,8 @@ class PearPkgMapping {
 
 /**
  * Sub-element of <mapping>.
+ *
+ * @package  phing.tasks.ext
  */
 class PearPkgMappingElement {
 

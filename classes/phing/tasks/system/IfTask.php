@@ -105,6 +105,7 @@ require_once 'phing/tasks/system/SequentialTask.php';
  * </code>
  *
  * @author <a href="mailto:stefan.bodewig@freenet.de">Stefan Bodewig</a>
+ * @package phing.tasks.system
  */
 class IfTask extends ConditionBase {
 

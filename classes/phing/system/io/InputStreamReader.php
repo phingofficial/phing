@@ -28,7 +28,8 @@ include_once 'phing/system/io/Reader.php';
  * Unlike the Java counterpart, this class does not (yet) handle
  * character set transformations.  This will be an important function
  * of this class with move to supporting PHP6.
- *  * @package   phing.system.io
+ *
+ * @package   phing.system.io
  */
 class InputStreamReader extends Reader {
     

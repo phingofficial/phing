@@ -330,6 +330,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
 
 /**
  * Class that holds an XSLT parameter.
+ *
+ * @package   phing.filters
  */
 class XSLTParam {
     

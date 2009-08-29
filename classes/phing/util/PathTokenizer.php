@@ -45,7 +45,7 @@ include_once 'phing/util/StringHelper.php';
 
  * @author Jeff Tulley <jtulley@novell.com>  (Ant)
 
- * @pacakge phing.util
+ * @package phing.util
 
  */ 
 

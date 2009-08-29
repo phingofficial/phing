@@ -24,6 +24,7 @@
  * Interface indicating that a reader may be chained to another one.
  *
  * @author Magesh Umasankar
+ * @package phing.filters
  */
 interface ChainableReader {
 

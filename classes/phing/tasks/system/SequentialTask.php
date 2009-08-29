@@ -31,6 +31,7 @@ require_once 'phing/TaskContainer.php';
  * sequential task.
  *
  * @since 2.1.2
+ * @package phing.tasks.system
  */
 class SequentialTask extends Task implements TaskContainer {
 

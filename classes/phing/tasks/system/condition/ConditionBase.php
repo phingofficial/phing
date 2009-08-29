@@ -156,6 +156,8 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
 /**
  * "Inner" class for handling enumerations.
  * Uses build-in PHP5 iterator support.
+ *
+ * @package   phing.tasks.system.condition
  */
 class ConditionEnumeration implements Iterator {
     

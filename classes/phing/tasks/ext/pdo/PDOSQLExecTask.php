@@ -49,7 +49,7 @@ include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
  * @author    Jeff Martin <jeff@custommonkey.org> (Ant)
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
- * @package   phing.tasks.ext
+ * @package   phing.tasks.ext.pdo
  * @version   $Revision$
  */
 class PDOSQLExecTask extends PDOTask {
@@ -568,6 +568,8 @@ class PDOSQLExecTask extends PDOTask {
  * Transactions allow several files or blocks of statements
  * to be executed using the same JDBC connection and commit
  * operation in between.
+ *
+ * @package   phing.tasks.ext.pdo
  */
 class PDOSQLExecTransaction {
 

@@ -21,7 +21,7 @@
 
 include_once 'phing/types/DataType.php';
 
-/*
+/**
  * A parameter is composed of a name, type and value. Nested
  * Parameters are also possible, but the using task/type has
  * to support them
@@ -29,7 +29,7 @@ include_once 'phing/types/DataType.php';
  * @author    Manuel Holtgrewe
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @package   phing.types
-*/
+ */
 class Parameter extends DataType {
 
     /** Parameter name */

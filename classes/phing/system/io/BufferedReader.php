@@ -21,7 +21,7 @@
 
 include_once 'phing/system/io/Reader.php';
 
-/*
+/**
  * Convenience class for reading files.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
@@ -29,7 +29,7 @@ include_once 'phing/system/io/Reader.php';
  * @access    public
  * @see       FilterReader
  * @package   phing.system.io
-*/
+ */
 class BufferedReader extends Reader {
 
     private $bufferSize = 0;

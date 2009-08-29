@@ -23,7 +23,7 @@
 include_once 'phing/filters/BaseParamFilterReader.php';
 include_once 'phing/filters/ChainableReader.php';
 
-/*
+/**
  * This filter strips line comments.
  *
  * Example:
@@ -175,9 +175,11 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
     }
 }
 
-/*
+/**
  * The class that holds a comment representation.
-*/
+ *
+ * @package phing.filters
+ */
 class Comment {
     
     /** The prefix for a line comment. */
