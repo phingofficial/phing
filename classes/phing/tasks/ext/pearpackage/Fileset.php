@@ -35,12 +35,6 @@ include_once 'phing/system/io/PhingFile.php';
 class PEAR_PackageFileManager_Fileset {
 
     /**
-     * @access private
-     * @var PEAR_PackageFileManager
-     */
-    private $parent;
-    
-    /**
      * Curent Phing Project.
      * @var Project
      */
@@ -60,9 +54,8 @@ class PEAR_PackageFileManager_Fileset {
      * @param PEAR_PackageFileManager
      * @param array
      */
-    function __construct($parent, $options)
+    function __construct($options)
     {
-        $this->parent = $parent;
         $this->project = $options['phing_project'];
         $this->filesets = $options['phing_filesets'];
     }
