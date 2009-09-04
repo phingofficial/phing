@@ -38,6 +38,8 @@ class BuildPhingPEARPackageTask extends MatchingTask {
     private $state = 'stable';
     private $notes;
     
+    private $mode = 'source';
+    
     private $filesets = array();
     
     /** Package file */
@@ -76,22 +78,28 @@ class BuildPhingPEARPackageTask extends MatchingTask {
             $this->log("Creating [default] package.xml file in base directory.", Project::MSG_INFO);
         }
         
-        // add install exceptions
-        $options['installexceptions'] = array(  'bin/phing.php' => '/',
-                                                'bin/pear-phing' => '/',
-                                                'bin/pear-phing.bat' => '/',
-                                                );
+        if ($this->mode == "docs")
+        {
+            $options['dir_roles'] = array(  'phing_guide' => 'doc',
+                                            'example' => 'doc');
+        }
+        else
+        {
+            // add install exceptions
+            $options['installexceptions'] = array(  'bin/phing.php' => '/',
+                                                    'bin/pear-phing' => '/',
+                                                    'bin/pear-phing.bat' => '/',
+                                                    );
 
-        $options['dir_roles'] = array(  'phing_guide' => 'doc',
-                                        'etc' => 'data',
-                                        'example' => 'doc');
+            $options['dir_roles'] = array(  'etc' => 'data');
 
-        $options['exceptions'] = array( 'bin/pear-phing.bat' => 'script',
-                                        'bin/pear-phing' => 'script',
-                                        'CREDITS' => 'doc',
-                                        'CHANGELOG' => 'doc',
-                                        'README' => 'doc',
-                                        'TODO' => 'doc');
+            $options['exceptions'] = array( 'bin/pear-phing.bat' => 'script',
+                                            'bin/pear-phing' => 'script',
+                                            'CREDITS' => 'doc',
+                                            'CHANGELOG' => 'doc',
+                                            'README' => 'doc',
+                                            'TODO' => 'doc');
+        }
 
         $pkg->setOptions($options);
 
@@ -116,7 +124,15 @@ class BuildPhingPEARPackageTask extends MatchingTask {
         $this->setOptions($package);
 
         // the hard-coded stuff
-        $package->setPackage('phing');
+        if ($this->mode == "docs")
+        {
+            $package->setPackage('phingdocs');
+        }
+        else
+        {
+            $package->setPackage('phing');
+        }
+        
         $package->setSummary('PHP5 project build system based on Apache Ant');
         $package->setDescription('PHing Is Not GNU make; it\'s a project build system based on Apache Ant. 
 You can do anything with it that you could do with a traditional build system like GNU make, and its use of 
@@ -152,20 +168,22 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         // seems really wrong.  Sub-sections should be encapsulated in objects instead of having
         // a "flat" API that does not represent the structure being created....
         
-        
-        // creating a sub-section for 'windows'
+        if ($this->mode != "docs")
+        {
+            // creating a sub-section for 'windows'
             $package->addRelease();
             $package->setOSInstallCondition('windows');
             $package->addInstallAs('bin/phing.php', 'phing.php');
             $package->addInstallAs('bin/pear-phing.bat', 'phing.bat');
             $package->addIgnoreToRelease('bin/pear-phing');
         
-        // creating a sub-section for non-windows
+            // creating a sub-section for non-windows
             $package->addRelease();
             //$package->setOSInstallCondition('(*ix|*ux|darwin*|*BSD|SunOS*)');
             $package->addInstallAs('bin/phing.php', 'phing.php');
             $package->addInstallAs('bin/pear-phing', 'phing');
             $package->addIgnoreToRelease('bin/pear-phing.bat');
+        }
         
 
         // "core" dependencies
@@ -173,21 +191,25 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         $package->setPearinstallerDep('1.4.0');
         
         // "package" dependencies
-        $package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.2');
-        $package->addPackageDepWithChannel( 'optional', 'PHPUnit', 'pear.phpunit.de', '3.2.0');
-        $package->addPackageDepWithChannel( 'optional', 'PhpDocumentor', 'pear.php.net', '1.4.0');
-        $package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pear.php.net', '2.0.5');
-        $package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.0');
-        $package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
+        if ($this->mode != "docs")
+        {
+            $package->addPackageDepWithChannel( 'optional', 'phingdocs', 'pear.phing.info', $this->version);
+            $package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.2');
+            $package->addPackageDepWithChannel( 'optional', 'PHPUnit', 'pear.phpunit.de', '3.2.0');
+            $package->addPackageDepWithChannel( 'optional', 'PhpDocumentor', 'pear.php.net', '1.4.0');
+            $package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pear.php.net', '2.0.5');
+            $package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.0');
+            $package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
 
-        // now add the replacements ....
-        $package->addReplacement('Phing.php', 'pear-config', '@DATA-DIR@', 'data_dir');
-        $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
-        $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@BIN-DIR@', 'bin_dir');
-        $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@PEAR-DIR@', 'php_dir');
-        $package->addReplacement('bin/pear-phing', 'pear-config', '@PHP-BIN@', 'php_bin');
-        $package->addReplacement('bin/pear-phing', 'pear-config', '@BIN-DIR@', 'bin_dir');
-        $package->addReplacement('bin/pear-phing', 'pear-config', '@PEAR-DIR@', 'php_dir');
+            // now add the replacements ....
+            $package->addReplacement('Phing.php', 'pear-config', '@DATA-DIR@', 'data_dir');
+            $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
+            $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@BIN-DIR@', 'bin_dir');
+            $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@PEAR-DIR@', 'php_dir');
+            $package->addReplacement('bin/pear-phing', 'pear-config', '@PHP-BIN@', 'php_bin');
+            $package->addReplacement('bin/pear-phing', 'pear-config', '@BIN-DIR@', 'bin_dir');
+            $package->addReplacement('bin/pear-phing', 'pear-config', '@PEAR-DIR@', 'php_dir');
+        }
         
         // now we run this weird generateContents() method that apparently 
         // is necessary before we can add replacements ... ?
@@ -265,6 +287,14 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         $this->packageFile = $f;
     }
 
+    /**
+     * Sets mode property
+     * @param string $v
+     * @return void
+     */
+    public function setMode($v) {
+        $this->mode = $v;
+    }
 }
 
 

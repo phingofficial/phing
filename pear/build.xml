@@ -7,8 +7,6 @@
 	
 	<property name="phingpkg.home" value=".."/>
 	<property name="build.base.dir" value="build"/>
-	<property name="pkgname" value="phing-${version}"/>		
-	<property name="build.src.dir" value="${build.base.dir}/${pkgname}"/>
 	
 	<!-- some default properties -->
 	<property name="notes">This is the latest release of Phing.</property>
@@ -71,8 +69,10 @@
 		<echo message="====================================================="/>	
 		<input propertyname="version" promptChar=":">Phing version for package</input>
 		
-		<property name="pkgname" value="phing-${version}" override="true"/>		
+		<property name="pkgname" value="phing-${version}" override="true"/>
+		<property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
 		<property name="build.src.dir" value="${build.base.dir}/${pkgname}" override="true"/>
+		<property name="build.docs.dir" value="${build.base.dir}/${pkgname-docs}" override="true"/>
 		
 	</target>
 	
@@ -89,14 +89,22 @@
 		<echo>| Creating directory layout |</echo>
 		<echo>-----------------------------</echo>
 		
+		<property name="pkgname" value="phing-${version}"/>
+		<property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
+		<property name="build.src.dir" value="${build.base.dir}/phing/${pkgname}"/>
+		<property name="build.docs.dir" value="${build.base.dir}/phingdocs/${pkgname-docs}" override="true"/>
+		
 		<delete dir="${build.base.dir}"/>
 		
 		<copy todir="${build.src.dir}">
 			<fileset refid="classes"/>
-			<fileset refid="docs"/>
 			<fileset refid="etc-no-version"/>
 			<fileset refid="scripts"/>
 			<fileset refid="misc"/>
+		</copy>
+
+		<copy todir="${build.docs.dir}">
+			<fileset refid="docs"/>
 		</copy>
 		
 		<append destFile="${build.src.dir}/etc/VERSION.TXT">Phing version ${version}</append>
@@ -120,16 +128,21 @@
 		<echo>... (This step may take some time) ...</echo>
 		
 		<delete	file="${tarfile}"/>
-		<pear-package dir="${build.src.dir}" destFile="${build.base.dir}/package.xml" version="${version}" state="${state}" notes="${notes}">
+		<pear-package mode="source" dir="${build.src.dir}" destFile="${build.base.dir}/phing/package.xml" version="${version}" state="${state}" notes="${notes}">
 			
 			<fileset refid="classes"/>
-			<fileset refid="docs"/>
 			<fileset refid="etc"/>
 			<fileset refid="misc"/>
 			<fileset refid="scripts"/>
 			
 		</pear-package>
-		
+
+		<pear-package mode="docs" dir="${build.docs.dir}" destFile="${build.base.dir}/phingdocs/package.xml" version="${version}" state="${state}" notes="${notes}">
+			
+			<fileset refid="docs"/>
+			
+		</pear-package>
+
 	</target>
 	
 	<!--
@@ -145,12 +158,20 @@
 		
 		<property name="tgzfile" value="${build.base.dir}/${pkgname}.tgz"/>
 		<delete	file="${tgzfile}"/>
-		<tar compression="gzip" destFile="${tgzfile}" basedir="${build.base.dir}" />
+		<tar compression="gzip" destFile="${tgzfile}" basedir="${build.base.dir}/phing" />
 		
 		<property name="tarfile" value="${build.base.dir}/${pkgname}.tar"/>
 		<delete	file="${tarfile}"/>
-		<tar compression="none" destFile="${tarfile}" basedir="${build.base.dir}" />
+		<tar compression="none" destFile="${tarfile}" basedir="${build.base.dir}/phing" />
 		
+		<property name="tgzfile-docs" value="${build.base.dir}/${pkgname-docs}.tgz"/>
+		<delete	file="${tgzfile-docs}"/>
+		<tar compression="gzip" destFile="${tgzfile-docs}" basedir="${build.base.dir}/phingdocs" />
+		
+		<property name="tarfile-docs" value="${build.base.dir}/${pkgname-docs}.tar"/>
+		<delete	file="${tarfile-docs}"/>
+		<tar compression="none" destFile="${tarfile-docs}" basedir="${build.base.dir}/phingdocs" />
+
 	</target>
 	
 </project>
