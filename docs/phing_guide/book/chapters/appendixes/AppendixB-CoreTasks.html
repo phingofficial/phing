@@ -225,6 +225,92 @@ and a directory, <em>properties.yetanother</em> is set to
   </tbody>
 </table>
 
+
+<h2><a name="ChmodTask"></a>ChmodTask</h2>
+<p>
+  Sets the mode of a file or directory.
+</p>
+<h3>Example</h3>
+<pre>
+&lt;chmod file=&quot;test.txt&quot; mode=&quot;0755&quot; /&gt;
+&lt;chmod file=&quot;/home/test&quot; mode=&quot;0775&quot; /&gt;
+&lt;chmod file=&quot;/home/test/mine.txt&quot; mode=&quot;0500&quot; verbose=&quot;true&quot; /&gt;
+</pre>
+<p>
+  For more informations, see <a href="http://php.net/chmod">chmod</a> in the PHP Manual.
+</p>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>The name of the file or directory. You either have to specify this attribute, or use a fileset.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>mode</td>
+      <td>String</td>
+      <td>The new mode (octal) for the file. Specified in octal, even if the first digit is not a '0'.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h2><a name="ChownTask"></a>ChownTask</h2>
+<p>
+  Changes the owner of a file or directory.
+</p>
+<h3>Example</h3>
+<pre>
+&lt;chown file=&quot;my-file.txt&quot; user=&quot;foo&quot; /&gt;
+&lt;chown file=&quot;my-file.txt&quot; user=&quot;username.groupname&quot; /&gt;
+&lt;chown file=&quot;/home/test/my-directory&quot; user=&quot;bar&quot; /&gt;
+&lt;chown file=&quot;/home/test/my-file.txt&quot; user=&quot;foo&quot; verbose=&quot;true&quot; failonerror=&quot;false&quot; /&gt;
+</pre>
+<h3>Attributes</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>file</td>
+      <td>String</td>
+      <td>The name of the file or directory. You either have to specify this attribute, or use a fileset.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>user</td>
+      <td>String</td>
+      <td>The new owner of the file. Can contain a username and a groupname, separated by a dot.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+
 <!-- TODO: write and document
 <h2><a name="ConditionTask"></a>ConditionTask</h2>
 <p>
