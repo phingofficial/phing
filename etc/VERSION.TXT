@@ -1,1 +1,1 @@
-Phing 2.4 BRANCH (2.4dev)
+Phing 2.4.0RC1
