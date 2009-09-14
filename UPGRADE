@@ -3,11 +3,11 @@
 
 
 
-  Upgrading
-  ---------
+  Upgrading to 2.4.0
+  ------------------
 
   This release of Phing contains numerous significant enhancements over
-  previous versions, such as  new tasks (SSH, SCP, JsMin, SVN and more),
+  previous versions, such as new tasks (SSH, SCP, JsMin, SVN and more),
   documentation fixes and various bug fixes.
   
   There were also some changes that might break backwards compatibility,
@@ -31,6 +31,15 @@
   
   To emulate the old behavior, the <fileset> element now accepts the
   boolean argument 'expandsymboliclinks'.
+  
+  PEAR package
+  ------------
+  
+  This release splits the PEAR package in two packages, the existing
+  'phing' and the new (and optional) 'phingdocs'. The latter package
+  is listed as an optional dependency in the 'phing' package, and allows
+  installation on deployment/production machines without the additional
+  footprint of the documentation.
 
   More information
   ----------------
