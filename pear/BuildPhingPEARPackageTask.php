@@ -127,13 +127,14 @@ class BuildPhingPEARPackageTask extends MatchingTask {
         if ($this->mode == "docs")
         {
             $package->setPackage('phingdocs');
+            $package->setSummary('PHP5 project build system based on Apache Ant (documentation)');
         }
         else
         {
             $package->setPackage('phing');
+            $package->setSummary('PHP5 project build system based on Apache Ant');
         }
         
-        $package->setSummary('PHP5 project build system based on Apache Ant');
         $package->setDescription('PHing Is Not GNU make; it\'s a project build system based on Apache Ant. 
 You can do anything with it that you could do with a traditional build system like GNU make, and its use of 
 simple XML build files and extensible PHP "task" classes make it an easy-to-use and highly flexible build framework. 
