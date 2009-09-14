@@ -5,6 +5,66 @@
 TBD - Phing 2.4.0
 
 
+Sep. 14, 2009 - Phing 2.4.0 RC1
+
+356	Documentation for tasks Chmod and Chown
+349	JslLint task fails to escape shell argument
+347	PHPUnit / Coverage tasks do not deal with bootstrap code
+344	Phing ignores public static array named $browsers in Selenium tests
+342	custom-made re-engine in SelectorUtils is awful slow
+339	PHAR signature setting
+336	Use intval to loop through files
+333	XmlLogger doesn't ensure proper ut8 encoding of log messages
+332	Conditions: uptodate does not work
+331	UpToDateTask documentation says that nested FileSet tags are allowed
+330	"DirectoryScanner cannot find a folder/file named ""0"" (zero)"
+326	Add revision to svncheckout and svnupdate
+325	"<filterchain id=""xxx""> and <filterchain refid=""xxx""> don't work"
+322	phpdoc task not parsing and including  RIC files in documentation output
+319	Simpletest sometimes reports an undefined variable
+317	PhpCodeSnifferTask lacks of haltonerror and haltonwarning attributes
+316	Make haltonfailure attribute for ZendCodeAnalyzerTask
+312	SimpleTestXMLResultFormatter
+311	Fileset support for the TouchTask?
+307	Replaceregexp filter works in Copy task but not Move task
+306	Command-line option to output the <target> description attribute text
+303	Documentation of Task Tag SimpleTest
+300	ExecTask should return command output as a property (different from passthru)
+299	PhingCall crashes if an AdhocTask is defined
+292	Svn copy task
+290	Add facility for setting resolveExternals property of DomDocument object in XML related tasks
+289	Undefined property in XincludeFilter class
+282	Import Task fix/improvement
+280	Add Phar support (task) to Phing
+279	Add documentation to PHK package task
+278	Add PHK package task
+277	PhpCodeSnifferTask has mis-named class, patch included
+273	PHPUnit 3.3RC1 error in phpunit task adding files to filter
+270	[patch] ReplaceRegExp
+269	Allow properties to be recursively named.
+263	phpunit code coverage file format change
+262	Archive_Zip fails to extract on Windows
+261	UnZip task reports success on failure on Windows
+259	Unneeded warning in Untar task
+256	Ignore dead code in code coverage
+254	Add extra debug resultformatter to the simpletest task
+252	foreach on a fileset
+248	Extend taskdef task to allow property file style imports
+247	New task: Import
+246	Phing test brocken but no failure entry if test case class has no test method
+245	TAR task
+243	Delete task won't delete all files
+240	phing test succesful while phpunit test is broken
+233	Separate docs from phing package
+231	File::exists() returns false on *existing* but broken symlinks
+229	CopyTask shoul accept filelist subelement
+226	<move> task doesn't support filters
+222	Terminal output dissapears and/or changes color
+221	Support for copying symlinks as is
+212	Make file perms configurable in copy task
+209	Cache the results of PHPLintTask so as to not check unmodified files
+187	"ExecTask attribute ""passthru"" to make use of the PHP function ""passthru"""
+21	svn tasks doesn't work
 
 Dec. 8, 2008 - Phing 2.3.3
 
