@@ -60,15 +60,16 @@ class SvnLastRevisionTask extends SvnBaseTask
     {
         $this->setup('info');
         
-        $output = $this->run();
+        $output = $this->run(array('--xml'));
         
-        if (preg_match('/Rev:[\s]+([\d]+)/', $output, $matches))
+        if ($xmlObj = @simplexml_load_string($output))
         {
-            $this->project->setProperty($this->getPropertyName(), $matches[1]);
+            $lastRevision = (int)$xmlObj->entry['revision'];
+            $this->project->setProperty($this->getPropertyName(), $lastRevision);
         }
         else
         {
-            throw new BuildException("Failed to parse the output of 'svn info'.");
+            throw new BuildException("Failed to parse the output of 'svn info --xml'.");
         }
     }
 }
