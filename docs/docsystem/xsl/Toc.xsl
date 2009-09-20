@@ -24,36 +24,36 @@
                 </xsl:if>
                 <xsl:value-of select="." />
             </a>
+            <ul>
+              <xsl:for-each select="//h2">
+                <li>
+                  <xsl:if test="a">
+                    <a>
+                      <xsl:apply-templates select="a" />
+                      <xsl:value-of select="." />
+                    </a>
+                  </xsl:if>
+                  <xsl:if test="not(a)">
+                    <xsl:value-of select="." />
+                  </xsl:if>
+                </li>
+              </xsl:for-each>
+            </ul>
         </li>
         </xsl:for-each>
-        <ul>
-        <xsl:for-each select="//h2">
-            <li>
-                <xsl:if test="a">
-                <a>
-                    <xsl:apply-templates select="a" />
-                    <xsl:value-of select="." />
-                </a>
-                </xsl:if>
-                <xsl:if test="not(a)">
-                    <xsl:value-of select="." />
-                </xsl:if>
-            </li>
-        </xsl:for-each>
-        </ul>
     </ul>
     </xsl:template>
 
     <xsl:template match="a">
-		<xsl:attribute name="href">
-    		<xsl:text>../</xsl:text><xsl:value-of select="$file_name" />
-    		<xsl:if test="@name">
-        		<xsl:text>#</xsl:text><xsl:value-of select="@name" />
-            </xsl:if>
-		</xsl:attribute>
-        <xsl:if test="$mode = 'frame'">
-            <xsl:attribute name="target"><xsl:text>Content</xsl:text></xsl:attribute>
+      <xsl:attribute name="href">
+    	<xsl:text>../</xsl:text><xsl:value-of select="$file_name" />
+    	<xsl:if test="@name">
+          <xsl:text>#</xsl:text><xsl:value-of select="@name" />
         </xsl:if>
+      </xsl:attribute>
+      <xsl:if test="$mode = 'frame'">
+        <xsl:attribute name="target"><xsl:text>Content</xsl:text></xsl:attribute>
+      </xsl:if>
     </xsl:template>      
-
+    
 </xsl:stylesheet>
