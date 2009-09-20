@@ -1,0 +1,2678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    -File         $Id$
+    -License      GNU LGPL (http://www.gnu.org/copyleft/lgpl.html)
+    -Author       Johan Persson, johanp@aditus.nu
+-->
+<!--
+    ==================================================================================
+
+    Relax-NG XML Schema For Phing build XML scripts. (See http://www.relaxng.org)
+    
+    The purpose of this schema is to facilitate the writing of correct Phing build
+    scripts in a XML and schema aware editor. The schema will help the editor verify
+    the input as well as providing tag completion making it easier and faster to
+    write correct Phing build scripts.
+
+    It can also be used together with one of the many existing R-NG validators to
+    validate a Phing script for adherence to the Phing syntax, like a "lint"
+    for Phing scripts.
+    
+    Note however that it is actually impossible to write a generic schema for 
+    Phing since it is possible to define new elements dynamically which means
+    that the  grammar can never be complete. 
+
+    However, in a particular setup only a few custom tasks is usually
+    used. This is easy to add att the end of this schema so it can be extended to
+    include those additional elements as well. 
+
+    ==================================================================================
+-->
+<grammar xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+    <start>
+        <ref name="project"/>
+    </start>
+
+    <!--
+        ===========================================================================================================
+        Entry point "project" element
+        ===========================================================================================================        
+    -->
+    <define name="project">
+        <element name="project">
+            <interleave>
+                <attribute name="name"/>
+                <attribute name="basedir"/>
+                <optional>
+                    <attribute name="default"/>
+                </optional>
+                <optional>
+                    <attribute name="description"/>
+                </optional>
+            </interleave>
+
+            <interleave>
+                <zeroOrMore>
+                    <ref name="target"/>
+                </zeroOrMore>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+                <ref name="customtasks"/>                
+                <ref name="coretypes"/>
+            </interleave>
+
+        </element>
+    </define>
+
+    <!-- 
+        ===========================================================================================================
+        Macros for all built in tasks (both core and extension) as well as core complex types
+        ===========================================================================================================                
+    -->
+
+    <define name="coretypes">
+        <zeroOrMore>
+            <choice>
+                <ref name="fileset"/>
+                <ref name="filelist"/>
+                <ref name="path"/>
+                <ref name="classpath"/>
+            </choice>
+        </zeroOrMore>
+    </define>
+
+    <define name="optionaltasks">
+        <zeroOrMore>
+            <choice>                
+                <ref name="coverage-merger"/>
+                <ref name="coverage-report"/>
+                <ref name="coverage-setup"/>
+                <ref name="dbdeploy"/>               
+                <ref name="filterchain"/>
+                <ref name="ftpdeploy" />
+                <ref name="headfilter"/>
+                <ref name="ioncubeencoder"/>
+                <ref name="ioncubelicense"/>
+                <ref name="jsllint" />
+                <ref name="jsmin" />
+                <ref name="linecontains"/>
+                <ref name="pdosqlexec"/>
+                <ref name="pearpkg"/>
+                <ref name="pearpkg2"/>
+                <ref name="phpcodesniffer"/>
+                <ref name="phpdocumentor"/>
+                <ref name="phpdocumentorexternal"/>
+                <ref name="phplint"/>
+                <ref name="linecontainsregexp"/>
+                <ref name="phpunit"/>
+                <ref name="phkpackage" />
+                <ref name="prefixlines"/>
+                <ref name="phpunitreport"/>
+                <ref name="simpletest" />
+                <ref name="striplinecomments"/>
+                <ref name="stripphpcomments"/>
+                <ref name="svncheckout"/>
+                <ref name="svnexport"/>
+                <ref name="svncommit" />
+                <ref name="svnlastrevision"/>
+                <ref name="svnupdate"/>
+                <ref name="tabtospace"/>
+                <ref name="tabtospaces"/>
+                <ref name="tailfilter"/>
+                <ref name="tar"/>
+                <ref name="tidyfilter"/>
+                <ref name="untar"/>                
+                <ref name="unzip"/>
+                <ref name="version" />                
+                <ref name="xincludefilter"/>
+                <ref name="xsltfilter"/>
+                <ref name="xmllint"/>
+                <ref name="zendcodeanalyzer"/>
+                <ref name="zip"/>
+                <ref name="contains"/>
+                <ref name="pharpackage" />
+            </choice>
+        </zeroOrMore>
+    </define>
+    
+    <define name="customtasks">
+        <zeroOrMore>
+            <choice>
+                <ref name="highlightsrc"/>
+            </choice>                
+        </zeroOrMore>
+    </define>
+
+    <define name="coretasks">
+        <zeroOrMore>
+            <choice>
+                <ref name="adhoctaskdef"/>
+                <ref name="adhoctypedef"/>
+                <ref name="append"/>
+                <ref name="available"/>
+                <ref name="phingcall"/>
+                <ref name="condition"/>
+                <ref name="copy"/>
+                <ref name="chmod"/>                
+                <ref name="chown"/>                
+                <ref name="delete"/>
+                <ref name="echo"/>
+                <ref name="warn"/>                
+                <ref name="exec"/>
+                <ref name="fail"/>
+                <ref name="foreach"/>
+                <ref name="if"/>
+                <ref name="includepath"/>
+                <ref name="input"/>
+                <ref name="mkdir"/>
+                <ref name="move"/>
+                <ref name="phing"/>
+                <ref name="php"/>
+                <ref name="property"/>
+                <ref name="propertyprompt"/>
+                <ref name="reflexive"/>
+                <ref name="resolvepath"/>
+                <ref name="taskdef"/>
+                <ref name="touch"/>
+                <ref name="tstamp"/>
+                <ref name="typedef"/>
+                <ref name="uptodate"/>
+                <ref name="xslt"/>
+            </choice>
+        </zeroOrMore>
+    </define>
+
+    <!--
+        ===========================================================================================================
+        Target element. 
+        ===========================================================================================================        
+    -->
+    <define name="target">
+        <element name="target">
+
+            <!-- Attributes for target element -->
+            <interleave>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="depends"/>
+                </optional>
+                <optional>
+                    <attribute name="if"/>
+                </optional>
+                <optional>
+                    <attribute name="unless"/>
+                </optional>
+                <optional>
+                    <attribute name="description"/>
+                </optional>
+            </interleave>
+            <interleave>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+                <ref name="customtasks"/>
+            </interleave>
+        </element>
+    </define>
+
+    <!--
+        ===========================================================================================================
+        Core types 
+        ===========================================================================================================        
+    -->
+
+    <define name="filelist">
+        <element name="filelist">
+            <interleave>
+                <attribute name="dir"/>
+                <choice>
+                    <attribute name="files"/>
+                    <attribute name="listfile"/>
+                </choice>
+            </interleave>
+        </element>
+    </define>
+     
+    <define name="fileset">
+        <element name="fileset">
+            <interleave>
+                <choice>
+                    <attribute name="refid">
+                        <data type="IDREF"/>
+                    </attribute>
+                    <group>
+                        <attribute name="dir"/>
+                        <optional>
+                            <choice>
+                                <attribute name="id">
+                                    <data type="ID"/>
+                                </attribute>
+                                <attribute name="refid">
+                                    <data type="IDREF"/>
+                                </attribute>
+                            </choice>
+                        </optional>
+                        <zeroOrMore>
+                            <choice>
+                                <ref name="include"/>
+                                <ref name="exclude"/>
+                            </choice>
+                        </zeroOrMore>
+                    </group>
+                </choice>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="path">
+        <element name="path">
+            <optional>
+                <attribute name="id">
+                    <data type="ID"/>
+                </attribute>
+                <optional>
+                    <attribute name="dir"/>
+                    <attribute name="path"/>
+                </optional>
+            </optional>
+            <choice>
+                <text />
+                <zeroOrMore>
+                    <choice>
+                        <ref name="pathelement"/>
+                        <ref name="fileset"/>
+                        <ref name="dirset"/>
+                    </choice>
+                </zeroOrMore>
+            </choice>
+        </element>
+    </define>
+    
+    <define name="classpath">
+        <element name="classpath">
+            <attribute name="refid">
+                <data type="IDREF"/>
+            </attribute>
+        </element>
+    </define>
+
+    <define name="projdocfileset">
+        <element name="projdocfileset">
+            <attribute name="dir"/>
+            <oneOrMore>
+                <choice>
+                    <ref name="include"/>
+                    <ref name="exclude"/>
+                </choice>
+            </oneOrMore>
+        </element>
+    </define>
+    
+    <define name="dirset">
+        <element name="dirset">
+            <interleave>
+                <optional>
+                    <attribute name="includes"/>
+                </optional>
+                <optional>
+                    <attribute name="includesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="excludes"/>
+                </optional>
+                <optional>
+                    <attribute name="excludesfile"/>
+                </optional>
+                <optional>
+                    <attribute name="casesensitive" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="followsymlinks" a:defaultValue="yes">
+                        <choice>
+                            <value>yes</value>
+                            <value>no</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <choice>
+                    <ref name="include"/>
+                    <ref name="exclude"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="include">
+        <element name="include">
+            <attribute name="name"/>
+        </element>
+    </define>
+
+    <define name="exclude">
+        <element name="exclude">
+            <attribute name="name"/>
+        </element>
+    </define>
+
+    <define name="pathelement">
+        <element name="pathelement">
+            <attribute name="dir"/>
+        </element>
+    </define>
+    
+
+    <!--
+        ===========================================================================================================
+        Core Tasks 
+        ===========================================================================================================        
+    -->
+
+    <define name="adhoctaskdef">
+        <element name="adhoctaskdef">
+            <attribute name="name"/>
+        </element>
+    </define>
+
+    <define name="adhoctypedef">
+        <element name="adhoctypedef">
+            <attribute name="name"/>
+        </element>
+    </define>
+    
+    <define name="append">
+        <element name="append">
+            <attribute name="destfile"/>
+            <optional>
+                <attribute name="text"/>
+            </optional>
+            <optional>
+                <ref name="filterchain"/>
+            </optional>
+            <optional>
+                <choice>
+                    <ref name="filelist"/>
+                    <attribute name="file"/>                    
+                </choice>                    
+            </optional>                            
+        </element>
+    </define>
+    
+    <define name="available">
+        <element name="available">
+            <attribute name="property"/>
+            <optional>
+                <attribute name="value"/>
+            </optional>
+            <choice>
+                <attribute name="file"/>
+                <attribute name="resource"/>
+            </choice>
+            <optional>
+                <attribute name="type"/>
+            </optional>
+        </element>
+    </define>
+    
+    <define name="phingcall">
+        <element name="phingcall">
+            <attribute name="target"/>
+            <zeroOrMore>
+                <choice>
+                    <ref name="property"/>
+                    <ref name="param" />
+                </choice>                    
+            </zeroOrMore>
+        </element>
+    </define>
+    
+    <define name="condition">
+        <element name="condition">
+            <attribute name="property"/>
+            <optional>
+                <attribute name="value"/>
+            </optional>
+            <choice>
+                <ref name="or"/>
+                <ref name="and"/>
+            </choice>
+        </element>
+    </define>
+
+    <define name="delete">
+        <element name="delete">
+            <interleave>
+            <optional>
+                <choice>
+                    <attribute name="file"/>
+                    <attribute name="dir"/>
+                </choice>
+            </optional>                
+            <optional>
+                <attribute name="verbose"/>
+            </optional>
+            <optional>
+                <attribute name="quiet"/>
+            </optional>
+            <optional>
+                <attribute name="failonerror"/>
+            </optional>
+            <optional>
+                <attribute name="includeemptydirs"/>
+            </optional>
+            </interleave>                
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+
+    <define name="warn">
+        <element name="warn">
+            <interleave>
+                <choice>
+                    <attribute name="msg"/>
+                    <attribute name="message"/>
+                </choice>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="append">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="level"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
+
+    <define name="echo">
+        <element name="echo">
+            <interleave>
+                <choice>
+                    <attribute name="msg"/>
+                    <attribute name="message"/>
+                </choice>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="append">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="level"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
+    <define name="exec">
+        <element name="exec">
+            <interleave>
+                <attribute name="command"/>
+                <optional>
+                    <attribute name="passthru">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="checkreturn">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="dir"/>
+                </optional>
+                <optional>
+                    <attribute name="os" />
+                </optional>
+                <optional>
+                    <attribute name="escape">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="spawn">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="returnProperty" />
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="copy">
+        <element name="copy">
+            <interleave>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <choice>
+                    <attribute name="tofile"/>
+                    <attribute name="todir"/>
+                </choice>
+                <optional>
+                    <attribute name="overwrite">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="tstamp">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <choice>
+                    <ref name="mapper"/>
+                    <ref name="filterchain"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+       
+    <define name="fail">
+        <element name="fail">
+            <interleave>
+                <optional>
+                    <attribute name="message"/>
+                </optional>
+                <optional>
+                    <attribute name="if"/>
+                </optional>
+                <optional>
+                    <attribute name="unless"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
+    <define name="foreach">
+        <element name="foreach">
+            <interleave>
+                <attribute name="list"/>
+                <attribute name="target"/>
+                <attribute name="param"/>
+                <optional>
+                    <attribute name="delimiter"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
+    <define name="if">
+        <element name="if">
+            <choice>
+                <ref name="equals"/>
+                <ref name="or"/>
+                <ref name="and"/>
+            </choice>
+            <ref name="then" />
+            <zeroOrMore>
+                <ref name="elseif"/>
+            </zeroOrMore>
+            <optional>
+                <ref name="else"/>
+            </optional>
+        </element>
+    </define>
+    
+    <define name="equals">
+        <element name="equals">
+            <attribute name="arg1"/>
+            <attribute name="arg2"/>
+        </element>
+    </define>
+    
+    <define name="then">
+        <element name="then">
+            <interleave>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+                <ref name="customtasks"/>
+                <ref name="coretypes"/>
+            </interleave>
+        </element>
+    </define>
+    
+    <define name="elseif">
+        <choice>
+            <ref name="equals"/>
+            <ref name="or"/>
+            <ref name="and"/>
+        </choice>
+        <interleave>
+            <ref name="coretasks"/>
+            <ref name="optionaltasks"/>
+            <ref name="customtasks"/>
+            <ref name="coretypes"/>
+        </interleave>        
+    </define>
+    
+    <define name="else">
+        <element name="else">
+            <interleave>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+                <ref name="customtasks"/>
+                <ref name="coretypes"/>
+            </interleave>            
+        </element>
+    </define>
+    
+    <define name="includepath">
+        <element name="includepath">
+            <attribute name="classpath"/>
+        </element>
+    </define>
+
+    <define name="or">
+        <element name="or">
+            <oneOrMore>
+                <ref name="property"/>
+            </oneOrMore>
+        </element>
+    </define>
+    
+    <define name="and">
+        <element name="and">
+            <oneOrMore>
+                <ref name="property"/>
+            </oneOrMore>
+        </element>
+    </define>
+    
+    <define name="mkdir">
+        <element name="mkdir">
+            <attribute name="dir"/>
+        </element>
+    </define>    
+    
+    <define name="input">
+        <element name="input">
+            <interleave>
+                <attribute name="propertyName"/>
+                <attribute name="defaultValue"/>
+                <optional>
+                    <attribute name="message"/>
+                </optional>
+                <optional>
+                    <attribute name="promptChar"/>
+                </optional>
+                <optional>
+                    <attribute name="validArgs"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="move">
+        <element name="move">
+            <interleave>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <choice>
+                    <attribute name="tofile"/>
+                    <attribute name="todir"/>
+                </choice>
+                <optional>
+                    <attribute name="overwrite"/>
+                </optional>
+                <optional>
+                    <attribute name="tstamp"/>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <choice>
+                    <ref name="mapper"/>
+                    <ref name="filterchain"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>       
+
+    <define name="phing">
+        <element name="phing">
+            <interleave>
+                <optional>
+                    <attribute name="phingfile"/>
+                </optional>                    
+                <optional>
+                    <attribute name="inheritAll">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="inheritRefs">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="dir"/>
+                </optional>
+                <optional>
+                    <attribute name="target"/>
+                </optional>
+                <optional>
+                    <attribute name="haltonfailure">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset" />
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="php">
+        <element name="php">
+            <interleave>
+                <choice>
+                    <attribute name="function"/>
+                    <attribute name="expression"/>
+                </choice>
+                <optional>
+                    <attribute name="class"/>
+                </optional>
+                <optional>
+                    <attribute name="returnProperty"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="param" />
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="property">
+        <element name="property">
+            <choice>
+                <group>
+                    <attribute name="name"/>
+                    <attribute name="value"/>
+                </group>
+                <attribute name="file"/>
+            </choice>
+            <optional>
+                <attribute name="override">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+        </element>
+    </define>
+
+    <define name="propertyprompt">
+        <element name="propertyprompt">
+            <interleave>
+                <attribute name="propertyName"/>
+                <attribute name="promptText"/>
+                <optional>
+                    <attribute name="promptCharacter"/>
+                </optional>
+                <optional>
+                    <attribute name="defaultValue"/>
+                </optional>
+                <optional>
+                    <attribute name="useExistingValue"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="reflexive">
+        <element name="reflexive">
+            <choice>
+                <attribute name="file"/>
+                <oneOrMore>
+                    <ref name="fileset"/>
+                </oneOrMore>
+            </choice>
+            <zeroOrMore>                   
+                <ref name="filterchain"/>
+            </zeroOrMore>
+        </element>
+    </define>
+    
+    <define name="resolvepath">
+        <element name="resolvepath">
+            <interleave>
+                <attribute name="file"/>
+                <attribute name="propertyName"/>
+                <optional>
+                    <attribute name="dir"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="taskdef">
+        <element name="taskdef">
+            <interleave>
+                <attribute name="classname"/>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="classpath" />                    
+                </optional>
+                <optional>
+                    <attribute name="classpathref" />
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="touch">
+        <element name="touch">
+            <interleave>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="datetime"/>
+                </optional>
+                <optional>
+                    <attribute name="millis">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
+    <define name="tstamp">
+        <element name="tstamp">
+            <interleave>
+                <optional>
+                    <attribute name="prefix"/>
+                </optional>
+                <optional>
+                    <element name="format">
+                        <interleave>
+                            <attribute name="property"/>
+                            <attribute name="pattern"/>
+                            <optional>
+                                <attribute name="locale"/>
+                            </optional>
+                        </interleave>
+                    </element>
+                </optional>
+            </interleave>                
+        </element>
+    </define>
+    
+    <define name="typedef">
+        <element name="typedef">
+            <interleave>
+                <attribute name="classname"/>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="classpath"/>
+                </optional>
+                <optional>
+                    <attribute name="classpathref"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="classpath"/>
+            </zeroOrMore>
+        </element>
+    </define>
+    
+    <define name="uptodate">
+        <element name="uptodate">
+            <interleave>
+                <attribute name="property"/>
+                <choice>
+                    <attribute name="srcfile"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <choice>
+                    <attribute name="targetfile"/>
+                    <oneOrMore>
+                        <ref name="mapper"/>
+                    </oneOrMore>                        
+                </choice>
+            </interleave>
+        </element>
+    </define>
+        
+    <define name="xslt">
+        <element name="xslt">
+            <interleave>
+                <attribute name="style"/>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <choice>
+                    <attribute name="tofile"/>
+                    <attribute name="todir"/>
+                </choice>
+                <optional>
+                    <attribute name="overwrite">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="tstamp">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <choice>
+                    <ref name="mapper"/>
+                    <ref name="filterchain"/>
+                    <ref name="param"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+    
+    <!-- 
+        ===========================================================================================================
+        Curent undocumnted core tasks
+        ===========================================================================================================        
+    -->
+    
+    
+    <define name="chmod">
+        <element name="chmod">
+            <interleave>
+                <choice>
+                    <attribute name="file" />
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <attribute name="mode" />
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>                
+            </interleave>
+        </element>        
+    </define>
+    
+    <define name="chown">
+        <element name="chown">
+            <interleave>
+                <choice>
+                    <attribute name="file" />
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <attribute name="user" />
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>                
+            </interleave>
+        </element>        
+    </define>
+    
+    
+    <!--
+        ===========================================================================================================
+        Optional Tasks 
+        ===========================================================================================================        
+    -->
+    
+    <!-- 
+        =========================================
+        DbDeployTask
+        =========================================
+    -->
+
+    <define name="dbdeploy">
+        <element name="dbdeploy">
+            <interleave>
+                <attribute name="url"/>
+                <attribute name="dir"/>
+                <optional>
+                    <attribute name="userid"/>
+                </optional>
+                <optional>
+                    <attribute name="password"/>
+                </optional>
+
+                <optional>
+                    <attribute name="outputfile"/>
+                </optional>
+
+                <optional>
+                    <attribute name="undooutputfile"/>
+                </optional>
+
+                <optional>
+                    <attribute name="deltaset"/>
+                </optional>
+
+                <optional>
+                    <attribute name="lastchangetoapply">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        CoverageMergerTask
+        =========================================
+    -->
+    
+    <define name="coverage-merger">
+        <element name="coverage-merger">
+            <oneOrMore>
+                <ref name="fileset"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        CoverageReportTask
+        =========================================
+    -->
+    <define name="coverage-report">
+        <element name="coverage-report">
+            <attribute name="outfile" />
+            <optional>
+                <attribute name="classpath" />
+            </optional>
+            <optional>
+                <attribute name="geshipath" />
+            </optional>
+            <optional>
+                <attribute name="geshilanguagespath" />
+            </optional>            
+            <ref name="report"/>
+        </element>
+    </define>
+
+    <define name="report">
+        <element name="report">
+            <attribute name="todir"/>
+            <attribute name="styledir"/>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        CoverageSetupTask
+        =========================================
+    -->
+    <define name="coverage-setup">
+        <element name="coverage-setup">
+            <interleave>
+                <attribute name="database"/>
+                <zeroOrMore>
+                    <choice>
+                        <ref name="fileset"/>
+                        <ref name="classpath"/>
+                    </choice>                        
+                </zeroOrMore>
+            </interleave>                
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        IoncubeEncoderTask
+        =========================================
+    -->
+    <define name="ioncubeencoder">
+        <element name="ioncubeencoder">
+            <interleave>
+                <attribute name="ignore"/>
+                <attribute name="fromdir"/>            
+                <optional>
+                    <attribute name="allowedserver"/>
+                </optional>
+                <optional>
+                    <attribute name="binary"/>
+                </optional>
+                <optional>
+                    <attribute name="copy"/>
+                </optional>
+                <optional>
+                    <attribute name="encode"/>
+                </optional>
+                <optional>
+                    <attribute name="encrypt"/>
+                </optional>
+                <optional>
+                    <attribute name="expirein"/>
+                </optional>
+                <optional>
+                    <attribute name="expireon"/>
+                </optional>
+                <optional>
+                    <attribute name="ioncubepath"/>
+                </optional>
+                <optional>
+                    <attribute name="keep"/>
+                </optional>
+                <optional>
+                    <attribute name="licensepath"/>
+                </optional>
+                <optional>
+                    <attribute name="nodocomments"/>
+                </optional>
+                <optional>
+                    <attribute name="obfuscation-key"/>
+                </optional>
+                <optional>
+                    <attribute name="obfuscate"/>
+                </optional>
+                <optional>
+                    <attribute name="optimize"/>
+                </optional>
+                <optional>
+                    <attribute name="passphrase"/>
+                </optional>
+                <optional>
+                    <attribute name="phpversion"/>
+                </optional>
+                <optional>
+                    <attribute name="targetoption"/>
+                </optional>
+                <optional>
+                    <attribute name="todir"/>
+                </optional>
+                <optional>
+                    <attribute name="withoutruntimeloadersupport"/>
+                </optional>
+            </interleave>
+            <optional>
+                <ref name="comment"/>
+            </optional>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        IoncubeLicenseTask
+        =========================================
+    -->
+    <define name="ioncubelicense">
+        <element name="ioncubelicense">
+            <interleave>                
+                <optional>
+                    <attribute name="licensepath"/>
+                </optional>
+                <optional>
+                    <attribute name="ioncubepath"/>
+                </optional>
+                <optional>
+                    <attribute name="passphrase"/>
+                </optional>
+            </interleave>
+            <optional>
+                <ref name="comment"/>
+            </optional>
+        </element>
+    </define>
+    
+    <!-- 
+        =========================================
+        JslLintTask
+        =========================================
+    -->    
+    <define name="jsllint">
+        <element name="jsllint">
+            <interleave>
+                <choice>
+                    <attribute name="file" />
+                    <ref name="fileset"/>
+                </choice>
+                <optional>
+                    <attribute name="haltonfailure">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="showwarnings">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="cachefile" />
+                </optional>                
+            </interleave>
+            
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        JsMinTask
+        =========================================
+    -->
+    <define name="jsmin">
+        <element name="jsmin">
+            <interleave>
+                <attribute name="targetdir" />
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+            </interleave>
+            <oneOrMore>
+                <ref name="fileset"/>
+            </oneOrMore>            
+        </element>
+    </define>    
+
+    <!-- 
+        =========================================
+        PDOSQLExecTask
+        =========================================
+    -->
+    <define name="pdosqlexec">
+        <element name="pdosqlexec">
+            <interleave>
+                <attribute name="url"/>
+                <optional>
+                    <attribute name="userid"/>
+                </optional>
+                <optional>
+                    <attribute name="password"/>
+                </optional>
+                <optional>
+                    <attribute name="encoding"/>
+                </optional>
+                <optional>
+                    <attribute name="src"/>
+                </optional>
+                <optional>
+                    <attribute name="onerror"/>
+                </optional>
+                <optional>
+                    <attribute name="delimiter"/>
+                </optional>
+                <optional>
+                    <attribute name="delimitertype"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="transaction"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="formatter"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="transaction">
+        <element name="transaction">
+            <optional>
+                <attribute name="tsrcfile"/>
+            </optional>
+        </element>
+    </define>
+
+    <define name="formatter">
+        <element name="formatter">
+            <interleave>
+                <choice>
+                    <attribute name="type"/>
+                    <attribute name="classname"/>
+                </choice>
+                <optional>
+                    <attribute name="usefile">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="outfile"/>
+                </optional>
+                <optional>
+                    <attribute name="output"/>
+                </optional>                
+                <optional>
+                    <attribute name="showheaders">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="coldelim"/>
+                </optional>
+                <optional>
+                    <attribute name="rowdelim"/>
+                </optional>
+                <optional>
+                    <attribute name="encoding"/>
+                </optional>
+                <optional>
+                    <attribute name="formatoutput">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="todir"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="param"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+
+    <!-- 
+        =========================================
+        PearPackageTask
+        =========================================
+    -->
+    <define name="pearpkg">
+        <element name="pearpkg">
+            <interleave>
+                <attribute name="name"/>
+                <attribute name="dir"/>
+                <optional>
+                    <attribute name="destFile"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <choice>
+                    <ref name="fileset"/>
+                    <ref name="mapping"/>
+                    <ref name="option"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        PearPackage2Task
+        =========================================
+    -->
+    <define name="pearpkg2">
+        <element name="pearpkg2">
+            <interleave>
+                <attribute name="name"/>
+                <attribute name="dir"/>
+            </interleave>
+            <zeroOrMore>
+                <choice>
+                    <ref name="fileset"/>
+                    <ref name="mapping"/>
+                    <ref name="option"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="option">
+        <element name="option">
+            <interleave>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="value"/>
+                </optional>
+            </interleave>
+            <text/>
+        </element>
+    </define>
+
+    <define name="mapping">
+        <element name="mapping">
+            <optional>
+                <attribute name="name"/>
+            </optional>
+            <oneOrMore>
+                <ref name="element"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="element">
+        <element name="element">
+            <interleave>
+                <optional>
+                    <choice>
+                        <attribute name="key"/>
+                        <attribute name="name"/>
+                    </choice>                        
+                </optional>
+                <optional>
+                    <attribute name="value"/>
+                </optional>                
+            </interleave>
+            <zeroOrMore>
+                <ref name="element"></ref>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        PharPackageTask
+        =========================================
+    -->
+    <define name="pharpackage">
+        <element name="pharpackage">
+            <interleave>
+                <attribute name="basedir" />
+                <attribute name="destfile" />
+                <optional>
+                    <attribute name="compress" />
+                </optional>
+                <optional>
+                    <attribute name="webstub" />
+                </optional>
+                <optional>
+                    <attribute name="clistub" />
+                </optional>
+                <optional>
+                    <attribute name="signature" />
+                </optional>
+            </interleave>
+            <oneOrMore>
+                <ref name="fileset" />
+            </oneOrMore>
+            <optional>
+                <ref name="metadata" />
+            </optional>
+        </element>
+    </define>
+
+    <define name="metadata">
+        <element name="metadata">
+            <oneOrMore>
+                <ref name="element" />
+            </oneOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        PhkPackageTask
+        =========================================
+    -->
+    <define name="phkpackage">
+        <element name="phkpackage">
+            <interleave>
+                <attribute name="phkcreatorpath" />
+                <attribute name="inputdirectory" />
+                <attribute name="outputfile" />
+                <optional>
+                    <attribute name="compress" />
+                </optional>
+                <optional>
+                    <attribute name="strip">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="name" />
+                </optional>
+                <optional>
+                    <attribute name="webrunscript" />
+                </optional>
+                <optional>
+                    <attribute name="crccheck" />
+                </optional>
+                <optional>
+                    <ref name="webaccess" />
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
+    <define name="webaccess">
+        <element name="webaccess">
+            <oneOrMore>
+                <ref name="path" />
+            </oneOrMore>
+        </element>
+    </define>
+    
+    <!-- 
+        =========================================
+        PhpCodeSnifferTask
+        =========================================
+    -->
+    <define name="phpcodesniffer">
+        <element name="phpcodesniffer">
+            <interleave>
+                <optional>
+                    <attribute name="standard"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="showSniffs"/>
+                </optional>
+                <optional>
+                    <attribute name="showWarnings"/>
+                </optional>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <optional>
+                    <attribute name="sniffs"/>
+                </optional>
+                <optional>
+                    <attribute name="verbosity"/>
+                </optional>
+                <optional>
+                    <attribute name="tabWidth"/>
+                </optional>
+                <optional>
+                    <attribute name="allowedFileExtensions"/>
+                </optional>
+                <optional>
+                    <attribute name="ignorePatterns"/>
+                </optional>
+                <optional>
+                    <attribute name="noSubdirectories"/>
+                </optional>
+                <optional>
+                    <attribute name="haltonerror" />
+                </optional>
+                <optional>
+                    <attribute name="haltonwarning" />
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="config"/>
+            </zeroOrMore>
+            <zeroOrMore>
+                <ref name="formatter" />
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="config">
+        <element name="config">
+            <attribute name="name"/>
+            <attribute name="value"/>
+        </element>
+    </define>  
+
+
+    <!-- 
+        =========================================
+        PhpDocumentorTask
+        =========================================
+    -->
+    <define name="phpdocumentor">
+        <element name="phpdocumentor">
+            <interleave>
+            <optional>
+                <attribute name="title"/>
+            </optional>
+            <choice>
+                <attribute name="destdir"/>
+                <attribute name="target"/>                
+            </choice>
+            <optional>
+                <attribute name="output"/>
+            </optional>
+            <optional>
+                <attribute name="sourcecode">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="examplesdir"/>
+            </optional>
+            <optional>
+                <attribute name="parseprivate">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="javadocdesc">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="quiet">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="packageoutput"/>
+            </optional>
+            <optional>
+                <attribute name="ignoretags"/>
+            </optional>
+            <optional>
+                <attribute name="defaultpackagename"/>
+            </optional>
+            <optional>
+                <attribute name="defaultcategoryname"/>
+            </optional>
+            <optional>
+                <attribute name="pear"/>
+            </optional>
+            <optional>
+                <attribute name="templatebase"/>
+            </optional>
+            <optional>
+                <attribute name="undocumentedelements"/>
+            </optional>
+            <optional>
+                <attribute name="customtags"/>
+            </optional>
+            </interleave>                
+            <zeroOrMore>
+                <choice>
+                    <ref name="fileset"/>
+                    <ref name="projdocfileset"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+
+
+    <!-- 
+        =========================================
+        PhpDocumentorExternalTask
+        =========================================
+    -->
+    <define name="phpdocumentorexternal">
+        <element name="phpdocumentorexternal">
+            <interleave>
+                <optional>
+                    <attribute name="title"/>
+                </optional>
+                <choice>
+                    <attribute name="destdir"/>
+                    <attribute name="target"/>                
+                </choice>
+                <optional>
+                    <attribute name="output"/>
+                </optional>
+                <optional>
+                    <attribute name="sourcecode">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="examplesdir"/>
+                </optional>
+                <optional>
+                    <attribute name="parseprivate">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="javadocdesc">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="packageoutput"/>
+                </optional>
+                <optional>
+                    <attribute name="ignoretags"/>
+                </optional>
+                <optional>
+                    <attribute name="defaultpackagename"/>
+                </optional>
+                <optional>
+                    <attribute name="defaultcategoryname"/>
+                </optional>
+                <optional>
+                    <attribute name="pear"/>
+                </optional>
+                <optional>
+                    <attribute name="templatebase"/>
+                </optional>
+                <optional>
+                    <attribute name="undocumentedelements"/>
+                </optional>
+                <optional>
+                    <attribute name="customtags"/>
+                </optional>            
+            <optional>
+                <attribute name="programpath"/>
+            </optional>
+            <choice>
+                <attribute name="sourcepath"/>
+                <oneOrMore>
+                    <ref name="fileset"/>
+                </oneOrMore>
+            </choice>
+            </interleave>                
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        PhpLintTask
+        =========================================
+    -->
+    <define name="phplint">
+        <element name="phplint">
+            <choice>
+                <attribute name="file"/>
+                <oneOrMore>
+                    <ref name="fileset" />
+                </oneOrMore>
+            </choice>
+            <optional>
+                <attribute name="haltonfailure">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="errorproperty"/>
+            </optional>
+            <optional>
+                <attribute name="interpretator"/>
+            </optional>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        PHPUnitTask
+        =========================================
+    -->
+    <define name="phpunit">
+        <element name="phpunit">
+            <interleave>
+                <optional>
+                    <attribute name="printsummary">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="bootstrap" />
+                </optional>
+                <optional>
+                    <attribute name="codecoverage">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="haltonerror">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="haltonfailure">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="haltonincomplete">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="haltonskipped">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="failureproperty"/>
+                </optional>
+                <optional>
+                    <attribute name="errorproperty"/>
+                </optional>
+                <optional>
+                    <attribute name="incompleteproperty"/>
+                </optional>
+                <optional>
+                    <attribute name="skippedproperty"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="formatter"/>
+            </zeroOrMore>
+            <optional>
+                <ref name="batchtest"/>
+            </optional>
+        </element>
+    </define>
+
+    <define name="batchtest">
+        <element name="batchtest">
+            <interleave>
+                <optional>
+                    <attribute name="exclude"/>
+                </optional>
+                <optional>
+                    <attribute name="classpath"/>
+                </optional>
+            </interleave>
+            <oneOrMore>
+                <ref name="fileset"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        PHPUnitReporttask
+        =========================================
+    -->
+    <define name="phpunitreport">
+        <element name="phpunitreport">
+            <interleave>
+                <optional>
+                    <attribute name="infile"/>
+                </optional>
+                <optional>
+                    <attribute name="format"/>
+                </optional>
+                <attribute name="styledir"/>
+                <attribute name="todir"/>
+            </interleave>
+        </element>
+    </define>
+    
+    <!-- 
+        =========================================
+        SimpleTestTask
+        =========================================
+    -->    
+    <define name="simpletest">
+        <element name="simpletest">
+            <interleave>
+            <optional>
+                <attribute name="printsummary">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="haltonerror">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="haltonfailure">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="failureproperty" />                
+            </optional>
+            <optional>
+                <attribute name="errorproperty" />                
+            </optional>
+            <optional>
+                <attribute name="debug">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            </interleave>
+            <ref name="formatter" />
+            <oneOrMore>
+                <ref name="fileset"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        SvnCheckoutTask
+        =========================================
+    -->   
+    <define name="svncheckout">
+        <element name="svncheckout">
+            <interleave>
+                <attribute name="repositoryurl"/>
+                <attribute name="todir"/>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="username"/>
+                </optional>
+                <optional>
+                    <attribute name="password"/>
+                </optional>
+                <optional>
+                    <attribute name="nocache">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="recursive">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignoreexternals">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+            </interleave>
+            <empty/>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        SvnCommitTask
+        =========================================
+    -->  
+    <define name="svncommit">
+        <element name="svncommit">
+            <interleave>
+                <attribute name="message" />
+                <attribute name="workingcopy" />
+                <optional>
+                    <attribute name="svnpath" />
+                </optional>
+                <optional>
+                    <attribute name="username" />
+                </optional>
+                <optional>
+                    <attribute name="password" />
+                </optional>
+                <optional>
+                    <attribute name="nocache" >
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="recursive">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignoreexternals">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>                
+                <optional>
+                    <attribute name="propertyname" />
+                </optional>                
+            </interleave>
+        </element>
+    </define>  
+
+    <!-- 
+        =========================================
+        SvnExportTask
+        =========================================
+    -->   
+    <define name="svnexport">
+        <element name="svnexport">
+            <interleave>
+                <attribute name="repositoryurl"/>
+                <attribute name="todir"/>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="username"/>
+                </optional>
+                <optional>
+                    <attribute name="password"/>
+                </optional>
+                <optional>
+                    <attribute name="nocache">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="recursive">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignoreexternals"/>
+                </optional>
+                <optional>
+                    <attribute name="force">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        SvnLastRevisionTask
+        =========================================
+    -->   
+    <define name="svnlastrevision">
+        <element name="svnlastrevision">
+            <interleave>
+                <attribute name="workingcopy"/>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="propertyname"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        SvnUpdateTask
+        =========================================
+    -->  
+    <define name="svnupdate">
+        <element name="svnupdate">
+            <interleave>
+                <attribute name="todir"/>
+                <optional>
+                    <attribute name="svnpath"/>
+                </optional>
+                <optional>
+                    <attribute name="username"/>
+                </optional>
+                <optional>
+                    <attribute name="password"/>
+                </optional>
+                <optional>
+                    <attribute name="nocache">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="recursive">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="ignoreexternals">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
+    
+    <!-- 
+        =========================================
+        TarTask
+        =========================================
+    -->  
+    <define name="tar">
+        <element name="tar">
+            <interleave>
+                <attribute name="destfile"/>
+                <optional>
+                    <attribute name="basedir"/>
+                </optional>
+                <optional>
+                    <attribute name="compression">
+                        <choice>
+                            <value>gzip</value>
+                            <value>bzip2</value>
+                            <value>none</value>
+                        </choice>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="longfile">
+                        <choice>
+                            <value>truncate</value>
+                            <value>fail</value>
+                            <value>warn</value>
+                            <value>gnu</value>
+                            <value>omit</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        UntarTask
+        =========================================
+    -->  
+    <define name="untar">
+        <element name="untar">
+            <interleave>
+                <attribute name="todir"/>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        UnzipTask
+        =========================================
+    -->  
+    <define name="unzip">
+        <element name="unzip">
+            <interleave>
+                <attribute name="todir"/>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        VersionTask
+        =========================================
+    -->  
+    <define name="version">
+        <element name="version">
+            <interleave>
+                <attribute name="releasetype">
+                    <choice>
+                        <value>Major</value>
+                        <value>Minor</value>
+                        <value>Bugfix</value>
+                    </choice>
+                </attribute>
+                <attribute name="file" />
+                <attribute name="property" />
+            </interleave>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        XmlLintTask
+        =========================================
+    -->  
+    <define name="xmllint">
+        <element name="xmllint">
+            <interleave>
+                <attribute name="schema"/>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        ZendCodeAnalyzerTask
+        =========================================
+    -->  
+    <define name="zendcodeanalyzer">
+        <element name="zendcodeanalyzer">
+            <interleave>
+                <attribute name="analyzerPath"/>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="disable"/>
+                </optional>
+                <optional>
+                    <attribute name="enable"/>
+                </optional>
+                <optional>
+                    <attribute name="haltonwarning">
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        ZipTask
+        =========================================
+    -->  
+    <define name="zip">
+        <element name="zip">
+            <interleave>
+                <attribute name="destfile"/>
+                <optional>
+                    <attribute name="basedir"/>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+    
+    <!-- 
+        =========================================
+        FtpDeployTask
+        =========================================
+    -->      
+    <define name="ftpdeploy">
+        <element name="ftpdeploy">
+            <interleave>
+                <attribute name="host" />
+                <attribute name="username" />
+                <attribute name="password" />                
+                <optional>
+                    <attribute name="port" />
+                </optional>
+                <optional>
+                    <attribute name="dir" />
+                </optional>
+                <optional>
+                    <attribute name="mode" />
+                </optional>
+                <optional>
+                    <attribute name="clearFirst" >
+                        <data type="boolean" />
+                    </attribute>
+                </optional>
+                <oneOrMore>
+                    <ref name="fileset"/>
+                </oneOrMore>
+            </interleave>
+        </element>
+    </define>
+
+    <!-- 
+        ======================================================================
+        Filters
+        ======================================================================
+    -->
+
+    <define name="mapper">
+        <element name="mapper">
+            <interleave>
+                <choice>
+                    <attribute name="classname"/>
+                    <attribute name="type">
+                        <choice>
+                            <value type="string">flatten</value>
+                            <value type="string">glob</value>
+                            <value type="string">merge</value>
+                            <value type="string">identity</value>
+                            <value type="string">regexp</value>
+                        </choice>
+                    </attribute>
+                </choice>
+                <optional>
+                    <attribute name="from"/>
+                </optional>
+                <optional>
+                    <attribute name="to"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="param">
+        <element name="param">
+            <optional>
+                <attribute name="type"/>
+            </optional>
+            <optional>
+                <attribute name="key"/>
+            </optional>
+            <optional>
+                <attribute name="value"/>
+            </optional>
+            <optional>
+                <attribute name="name"/>
+            </optional>
+            <optional>
+                <attribute name="expression" />
+            </optional>
+        </element>
+    </define>
+
+    <define name="filterreader">
+        <element name="filterreader">
+            <attribute name="classname"/>
+            <optional>
+                <attribute name="classpath"/>
+            </optional>
+            <optional>
+                <attribute name="classpathref"/>
+            </optional>
+            <zeroOrMore>
+                <ref name="param"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="expandproperties">
+        <element name="expandproperties">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="filterchain">
+        <element name="filterchain">
+            <oneOrMore>
+                <choice>
+                    <ref name="expandproperties"/>
+                    <ref name="filterreader"/>
+                    <ref name="expandproperties"/>
+                    <ref name="headfilter"/>
+                    <ref name="linecontains"/>
+                    <ref name="linecontainsregexp"/>
+                    <ref name="prefixlines"/>
+                    <ref name="replacetokens"/>
+                    <ref name="replaceregexp"/>
+                    <ref name="striplinecomments"/>
+                    <ref name="stripphpcomments"/>
+                    <ref name="stripwhitespace"/>
+                    <ref name="tabtospaces"/>
+                    <ref name="tailfilter"/>
+                    <ref name="tidyfilter"/>
+                    <ref name="xincludefilter"/>
+                    <ref name="xsltfilter"/>
+                </choice>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="linecontains">
+        <element name="linecontains">
+            <oneOrMore>
+                <ref name="contains"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="contains">
+        <element name="contains">
+            <attribute name="value"/>
+        </element>
+    </define>
+
+    <define name="linecontainsregexp">
+        <element name="linecontainsregexp">
+            <ref name="regexp"/>
+        </element>
+    </define>
+
+    <define name="regexp">
+        <element name="regexp">
+            <attribute name="pattern"/>
+            <optional>
+                <attribute name="replace"/>
+            </optional>
+            <optional>
+                <attribute name="ignoreCase"/>
+            </optional>
+        </element>
+    </define>
+
+    <define name="prefixlines">
+        <element name="prefixlines">
+            <attribute name="prefix"/>
+        </element>
+    </define>
+
+    <define name="replacetokens">
+        <element name="replacetokens">
+            <interleave>
+                <optional>
+                    <attribute name="begintoken"/>
+                </optional>
+                <optional>
+                    <attribute name="endtoken"/>
+                </optional>
+            </interleave>
+            <oneOrMore>
+                <ref name="token"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="token">
+        <element name="token">
+            <attribute name="key"/>
+            <attribute name="value"/>
+        </element>
+    </define>
+
+    <define name="replaceregexp">
+        <element name="replaceregexp">
+            <oneOrMore>
+                <ref name="regexp"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="stripwhitespace">
+        <element name="stripwhitespace">
+            <optional>
+                <attribute name="tablength">
+                    <data type="int"/>
+                </attribute>
+            </optional>
+        </element>
+    </define>
+
+    <define name="striplinecomments">
+        <element name="striplinecomments">
+            <oneOrMore>
+                <ref name="comment"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="comment">
+        <element name="comment">
+            <choice>
+                <attribute name="value"/>
+                <text/>
+            </choice>                
+        </element>
+    </define>
+
+    <define name="stripphpcomments">
+        <element name="stripphpcomments">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="tabtospaces">
+        <element name="tabtospaces">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="tabtospace">
+        <element name="tabtospaces">
+            <optional>
+                <attribute name="tablength">
+                    <data type="int"/>
+                </attribute>
+            </optional>
+        </element>
+        <empty/>
+    </define>
+
+    <define name="tailfilter">
+        <element name="tailfilter">
+            <optional>
+                <attribute name="lines">
+                    <data type="int"/>
+                </attribute>
+            </optional>
+        </element>
+        <empty/>
+    </define>
+
+    <define name="headfilter">
+        <element name="headfilter">
+            <optional>
+                <attribute name="lines">
+                    <data type="int"/>
+                </attribute>
+            </optional>
+            <empty/>
+        </element>
+    </define>
+
+    <define name="tidyfilter">
+        <element name="tidyfilter">
+            <optional>
+                <attribute name="encoding"/>
+            </optional>
+            <empty/>
+        </element>
+    </define>
+
+    <define name="xincludefilter">
+        <element name="xincludefilter">
+            <optional>
+                <attribute name="basedir"/>
+            </optional>
+        </element>
+    </define>
+
+    <define name="xsltfilter">
+        <element name="xsltfilter">
+            <interleave>
+                <attribute name="style"/>
+                <optional>
+                    <attribute name="html"/>
+                </optional>
+                <zeroOrMore>
+                    <ref name="param"/>
+                </zeroOrMore>
+            </interleave>
+        </element>
+    </define>
+
+
+    <!-- 
+     ================================================================
+     Custom tasks/filters
+     ================================================================
+    -->
+
+    <define name="highlightsrc">
+        <element name="highlightsrc">
+            <interleave>
+                <optional>
+                    <attribute name="linenumber">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+            </interleave>
+            <interleave>
+                <zeroOrMore>
+                    <choice>
+                        <ref name="fileset"/>
+                        <ref name="filterchain"/>
+                    </choice>
+                </zeroOrMore>
+            </interleave>
+        </element>
+    </define>
+    
+ 
+</grammar>
