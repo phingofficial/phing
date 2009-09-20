@@ -4,12 +4,14 @@
 -Copyright    2002, turing
 -Author       alex black, enigma@turingstudio.com
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Phing Guide - Core Tasks</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link rel="Stylesheet" rev="Stylesheet" href="../../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
+	<link rel="Stylesheet" rev="Stylesheet" href="../../css/Documentation.css" 
+	      type="text/css" media="All" charset="iso-8859-1" />
 </head>
 <body>
 <h1><a name="AppendixB"></a>Appendix B: Core Tasks</h1>
@@ -22,7 +24,7 @@ looking for binarycloud related tasks, look in appendix ?.
 
 <p> This reference lists the tasks alphabetically by the name of the classes that
   implement the tasks. So if you are searching for the reference to the <code>&lt;copy&gt;</code>
-  tag, for example, you will want to look at the reference of CopyTask. </p>
+  tag, for example, you will want to look at the reference of <code>CopyTask</code>. </p>
 <h2><a name="AdhocTaskdefTask"></a>AdhocTaskdefTask</h2>
 <p> The AdhocTaskdefTask allows you to define a task within your build file.</p>
 <pre title="Example of how to use AdhocTaskdefTask">&lt;target name=&quot;main&quot;<br />        description=&quot;==&gt;test AdhocTask &quot;&gt;<br />		<br />		&lt;adhoc-task name=&quot;foo&quot;&gt;&lt;![CDATA[<br />			class FooTest extends Task {<br />				private $bar;<br />				<br />				function setBar($bar) {<br />					$this-&gt;bar = $bar;<br />				}<br />				<br />				function main() {<br />					$this-&gt;log(&quot;In FooTest: &quot; . $this-&gt;bar);<br />				}<br />			}<br />		]]&gt;&lt;/adhoc-task&gt;<br />	<br />		&lt;foo bar=&quot;B.L.I.N.G&quot;/&gt;<br />&lt;/target&gt;</pre>
@@ -265,9 +267,32 @@ and a directory, <em>properties.yetanother</em> is set to
       <td>n/a</td>
       <td>Yes</td>
     </tr>
+    <tr>
+      <td>quiet</td>
+      <td>Boolean</td>
+      <td>Set quiet mode, which suppresses warnings if <code>chmod()</code> fails</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>failonerror</td>
+      <td>Boolean</td>
+      <td>This flag means 'note errors to the output, but keep going'</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>verbose</td>
+      <td>Boolean</td>
+      <td>Give more information in in error message in case of a failure</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>    
   </tbody>
 </table>
-
+  <h3>Supported Nested Tags</h3><ul>
+    <li>fileset</li>
+  </ul>
 
 
 <h2><a name="ChownTask"></a>ChownTask</h2>
@@ -307,16 +332,34 @@ and a directory, <em>properties.yetanother</em> is set to
       <td>n/a</td>
       <td>Yes</td>
     </tr>
+    <tr>
+      <td>quiet</td>
+      <td>Boolean</td>
+      <td>Set quiet mode, which suppresses warnings if <code>chmod()</code> fails</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>failonerror</td>
+      <td>Boolean</td>
+      <td>This flag means 'note errors to the output, but keep going'</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>verbose</td>
+      <td>Boolean</td>
+      <td>Give more information in in error message in case of a failure</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>    
+    
   </tbody>
 </table>
-
-
-<!-- TODO: write and document
-<h2><a name="ConditionTask"></a>ConditionTask</h2>
-<p>
-  The condition system is not yet documented.
-</p>
--->
+  <h3>Supported Nested Tags</h3><ul>
+    <li>fileset</li>
+  </ul>
+  
 
 <h2><a name="ConditionTask"></a>ConditionTask</h2>
 <p>Sets a property if a certain condition holds true - this is a
@@ -509,7 +552,7 @@ with CVS. The CvsTask calls ExecTask which actually does the command execution.<
        module="phing" dest="${ws.dir}"/&gt;
 </pre>
 
-or, more complex:
+<p>or, more complex:</p>
 
 <pre>
 &lt;cvs output="patch"&gt;
@@ -521,11 +564,134 @@ or, more complex:
     &lt;/commandline&gt;
 &lt;/cvs&gt;
 </pre>
-
+  <h3>Attributes</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Required</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>cvsRoot</td>
+        <td>String</td>
+        <td>The root directory on the CVS server</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>CvsRsh</td>
+        <td>String</td>
+        <td>Path to the rsh to execute</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>port</td>
+        <td>Integer</td>
+        <td>Port ion the server to use</td>
+        <td>0</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>passfile</td>
+        <td>String<br /><em>filename</em></td>
+        <td>Name of file with CVS passwords</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>dest</td>
+        <td>String</td>
+        <td>The directory where checked out files should be placed</td>
+        <td>n/a</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>modules</td>
+        <td>String</td>
+        <td>The package/module to operate upon</td>
+        <td>n/a</td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>tag</td>
+        <td>String</td>
+        <td>The tag of the package/module to operate upon</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>date</td>
+        <td>String</td>
+        <td>Use the most recent revision no later than the given date</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>quiet</td>
+        <td>Boolean</td>
+        <td>Quiet run</td>
+        <td>false</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>noexec</td>
+        <td>Boolean</td>
+        <td>If true, only report changes don't actually do anything</td>
+        <td>false</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>setfailonerror</td>
+        <td>Boolean</td>
+        <td>Stop the build process if the command returns any errors</td>
+        <td>false</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>compression</td>
+        <td>Boolean</td>
+        <td>If true, turns on compression using default (3) compression level</td>
+        <td>false</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>compressionlevel</td>
+        <td>Integer</td>
+        <td>Specifies compression level 1-9</td>
+        <td>false</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>output</td>
+        <td>String<br /><em>filename</em></td>
+        <td>File to which output should be written</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>error</td>
+        <td>String<br /><em>filename</em></td>
+        <td>File to which error output should be written</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>      
+    </tbody>
+  </table>
+  <h3>Supported Nested Tags</h3>
+  <ul>
+    <li>CommandLine</li>
+  </ul>  
 <h2><a name="CvsPassTask"></a>CvsPassTask</h2>
 <p> This lets you create your own cvs password file -- i.e. 
 this is necessary if you want to provide a password in your build file. </p>
-
+<p>If no password file is specified the default location <em>.cvspass</em> in suers home directory
+is used.</p>
 <h3>Example</h3>
 <pre>
 &lt;!-- create a password file --&gt;
@@ -534,6 +700,42 @@ this is necessary if you want to provide a password in your build file. </p>
 &lt;!-- use the just-created password file --&gt;
 &lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" module="phing" passFile="cvspass" /&gt;
 </pre>
+  <h3>Attributes</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Required</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>cvsRoot</td>
+        <td>String</td>
+        <td>The root directory on the CVS server</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>passFile</td>
+        <td>String</td>
+        <td>Password file to add password to</td>
+        <td>n/a</td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>password</td>
+        <td>String</td>
+        <td>Password to add to file</td>
+        <td>n/a</td>
+        <td>Yes</td>
+      </tr>      
+    </tbody>
+  </table>
+  
 
 <h2><a name="DeleteTask"></a> DeleteTask</h2>
 <p>
@@ -1030,7 +1232,8 @@ the old target, thus enhancing it with tasks called before or after it.</p>
 
 <p>If import file does not have a name attribute, the phing.file.projectname property will not be set.</p>
 <h3>Resolving Files Against the Imported File</h3>
-<p>Suppose your main build file called <code>importing.xml</code> imports a build file <code>imported.xml</code>, located anywhere on the file system, and <code>imported.xml</code> reads a set of properties from <code>imported.properties</code>:
+<p>Suppose your main build file called <code>importing.xml</code> imports a build file <code>imported.xml</code>, 
+  located anywhere on the file system, and <code>imported.xml</code> reads a set of properties from <code>imported.properties</code>:</p>
 <pre>
 &lt;!-- importing.xml --&gt;
 &lt;project name=&quot;importing&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
@@ -1043,7 +1246,8 @@ the old target, thus enhancing it with tasks called before or after it.</p>
 &lt;/project&gt;
 </pre>
 
-<p>This snippet however will resolve <code>imported.properties</code> against the basedir of <code>importing.xml</code>, because the basedir of <code>imported.xml</code> is ignored by Phing. The right way to use <code>imported.properties</code> is:
+<p>This snippet however will resolve <code>imported.properties</code> against the basedir of <code>importing.xml</code>, 
+  because the basedir of <code>imported.xml</code> is ignored by Phing. The right way to use <code>imported.properties</code> is:</p>
 <pre>
 &lt;!-- imported.xml --&gt;
 &lt;project name=&quot;imported&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
@@ -1165,7 +1369,7 @@ the old target, thus enhancing it with tasks called before or after it.</p>
       <td>Yes</td>
     </tr>
     <tr>
-      <td height="20">message</td>
+      <td>message</td>
       <td>String</td>
       <td> Prompt text (same as CDATA).</td>
       <td>n/a</td>
@@ -2123,7 +2327,9 @@ you can use all the elements allowed there.
       <td>resolvedocumentexternals</td>
       <td>Boolean</td>
       <td>
-        Whether to resolve entities in the XML document. (see <a href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals" target="_blank">this link</a> for details)
+        Whether to resolve entities in the XML document. (see 
+        <a href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals" 
+          target="_blank">this link</a> for details)
       </td>
       <td>false</td>
       <td>No</td>
