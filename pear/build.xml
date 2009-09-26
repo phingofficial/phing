@@ -21,6 +21,7 @@
 	</fileset>
 
 	<fileset dir="${phingpkg.home}/docs" id="docs">
+        <include name="api/output/**"/>
 		<include name="example/**"/>
 		<include name="phing_guide/book/**"/>
 	</fileset>
@@ -71,8 +72,8 @@
 		
 		<property name="pkgname" value="phing-${version}" override="true"/>
 		<property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
-		<property name="build.src.dir" value="${build.base.dir}/${pkgname}" override="true"/>
-		<property name="build.docs.dir" value="${build.base.dir}/${pkgname-docs}" override="true"/>
+		<property name="build.src.dir" value="${build.base.dir}/phing/${pkgname}"/>
+		<property name="build.docs.dir" value="${build.base.dir}/phingdocs/${pkgname-docs}" override="true"/>
 		
 	</target>
 	
