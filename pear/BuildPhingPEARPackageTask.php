@@ -81,6 +81,7 @@ class BuildPhingPEARPackageTask extends MatchingTask {
         if ($this->mode == "docs")
         {
             $options['dir_roles'] = array(  'phing_guide' => 'doc',
+                                            'api' => 'doc',
                                             'example' => 'doc');
         }
         else
@@ -98,6 +99,7 @@ class BuildPhingPEARPackageTask extends MatchingTask {
                                             'CREDITS' => 'doc',
                                             'CHANGELOG' => 'doc',
                                             'README' => 'doc',
+                                            'UPGRADE' => 'doc',
                                             'TODO' => 'doc');
         }
 

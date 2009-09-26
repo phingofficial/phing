@@ -21,7 +21,7 @@
 	</fileset>
 
 	<fileset dir="${phingpkg.home}/docs" id="docs">
-        <include name="api/output/**"/>
+		<include name="api/docs/**"/>
 		<include name="example/**"/>
 		<include name="phing_guide/book/**"/>
 	</fileset>
@@ -45,6 +45,7 @@
 		<include name="CREDITS"/>
 		<include name="README"/>
 		<include name="TODO"/>
+		<include name="UPGRADE"/>
 		<exclude name="INSTALL*"/>
 	</fileset>
 
