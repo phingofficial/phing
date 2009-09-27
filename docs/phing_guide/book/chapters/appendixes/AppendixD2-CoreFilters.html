@@ -4,7 +4,9 @@
 -Copyright    2002, turing
 -Author       alex black, enigma@turingstudio.com
 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Phing Guide - Core Filters</title>
@@ -308,6 +310,88 @@ environment variable <em>BCHOME</em>, you could do the following:
 The <em>ReplaceTokens</em> filter must contain one or more <em>token</em>
 tags. These must have a <em>key</em> and a <em>value</em> attribute.
 </p>
+
+<h2><a name="ReplaceTokensWithFile"></a>ReplaceTokensWithFile</h2>
+<p> The <em>ReplaceTokensWithFile</em> filter will replace certain tokens with the contents of a file. 
+The name of the file to use as replacement is derived from the token name itself. Tokens are strings enclosed 
+in special characters which are user selectable. </p><p>This filter could for example be used to insert 
+code examples in documentation where the example code are real executable files kept outside the 
+documentation.</p>
+<p> If you for example want to replace <em>#!example1##</em> with the content of the file 
+"<code>example1.php</code>" you could do the following </p>
+    <pre>
+      &lt;filterchain&gt;
+      &lt;replacetokenswithfile begintoken=&quot;#!&quot; endtoken=&quot;##&quot;
+          dir="exampledir/" postfix=".php" /&gt;
+      &lt;/filterchain&gt;
+    </pre>
+    <p>The filer above will replace all tokens within the begin and end token specified with the 
+contents of the file whose base name is that of the token with the added postfix &quot;.php&quot;. 
+Only the directory specified in the <em>dir</em> attribute is searched. If the file is not found the 
+token is left untouched and an error message is given. It is important to note that <b>all</b> 
+found tokens will be replaced with the corresponding file. So in the example below even 
+<em>#!example2##</em> will be replaced with the content of the file "<code>example2.php</code>"</p>
+
+<h3>Attributes</h3>
+<table>
+      <caption> Attributes for the <em>&lt;replacetokenswithfile&gt;</em> tag </caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>begintoken</td>
+          <td>string</td>
+          <td>The string that marks the beginning of a token. </td>
+          <td>#@#</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>endtoken</td>
+          <td>string</td>
+          <td>The string that marks the end of a token. </td>
+          <td>#@#</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>prefix</td>
+          <td>string</td>
+          <td>A string that will be added in front of the token to construct the filename that will be used as source when replacing the token.</td>
+          <td>''</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>postfix</td>
+          <td>string</td>
+          <td>A string that will be added to the end of the token to construct the filename that will be used as source when replacing the token.</td>
+          <td>''</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>dir</td>
+          <td>string</td>
+          <td>The directory where to look for the files to use as replacements for the tokens</td>
+          <td>'./'</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>translatehtml</td>
+          <td>boolean</td>
+          <td>If true all html special characters (e.g. ">") in the file to there corresponding html entities (e.g. "&amp;gt;") before the file is inserted.</td>
+          <td>true</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+
+<h3>Nested Tags</h3>
+<p>None.</p>
 
 <h2><a name="ReplaceRegexp"></a>ReplaceRegexp</h2>
 <p>
