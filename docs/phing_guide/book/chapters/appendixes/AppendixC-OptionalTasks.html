@@ -257,6 +257,45 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
       </tbody>
     </table>
 
+<h2><a name="FileSizeTask"></a>FileSizeTask</h2>
+<p>Stores the size of a specified file in a property. The file size is returned in bytes.</p>
+<h3>Example</h3>
+<pre>
+&lt;filesize file="${builddir}/${tarball}.tar.${compression}" /&gt;
+&lt;php expression="floor(${filesize}/1024)" returnProperty="ksize" /&gt;
+&lt;php expression="floor(${filesize}/1024/1024)" returnProperty="msize" /&gt;
+&lt;echo msg="Filesize is: ${ksize} kB"/&gt;
+&lt;echo msg="Filesize is: ${msize} MB"/&gt;
+</pre>
+<h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>file</td>
+          <td>String</td>
+          <td>Filename</td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>propertyname</td>
+          <td>String</td>
+          <td>Name of property where the file size is stored</td>
+          <td>filesize</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+
+
 
     <h2><a name="FtpDeployTask"></a>FtpDeployTask</h2><p>Deploys a set of files to a remote FTP server.</p><h3>Example</h3>
     <pre>&lt;ftpdeploy 

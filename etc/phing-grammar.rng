@@ -135,6 +135,7 @@
                 <ref name="contains"/>
                 <ref name="pharpackage" />
                 <ref name="filehash" />
+                <ref name="filesize" />
             </choice>
         </zeroOrMore>
     </define>
@@ -1188,17 +1189,40 @@
                 <attribute name="file">
                     <data type="string" />
                 </attribute>
-                <attribute name="hashtype">
-                    <data type="string" />
-                </attribute>
-                <attribute name="propertyname">
-                    <data type="string" />
-                </attribute>
+                <optional>
+                    <attribute name="hashtype">
+                        <data type="string" />
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="propertyname">
+                        <data type="string" />
+                    </attribute>
+                </optional>
             </interleave>
         </element>
     </define>    
-            
 
+    <!-- 
+        =========================================
+        FileSizeTask
+        =========================================
+    -->
+    <define name="filesize">
+        <element name="filesize">
+            <interleave>
+                <attribute name="file">
+                    <data type="string" />
+                </attribute>
+                <optional>
+                    <attribute name="propertyname">
+                        <data type="string" />
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>       
+    
     <!-- 
         =========================================
         IoncubeEncoderTask
