@@ -175,7 +175,8 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 &lt;/coverage-report&gt;
 </pre>
     <h2><a name="CoverageSetupTask"
-      ></a>CoverageSetupTask</h2><p>The CoverageSetupTask prepares a database which can be used to gather code coverage information for unit tests.</p><h3>Attributes</h3><table>
+      ></a>CoverageSetupTask</h2><p>The CoverageSetupTask prepares a database which can be used to gather code coverage information for unit tests.</p>
+      <h3>Attributes</h3><table>
       <thead>
         <tr>
           <th>Name</th>
@@ -212,6 +213,51 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 &nbsp;&nbsp;&lt;/batchtest&gt;
 &lt;/phpunit&gt;
 </pre>
+
+<h2><a name="FileHashTask"></a>FileHashTask</h2>
+<p>Calculates either MD5 or SHA1 hash value of a file and stores the value as a
+    hex string in a property.</p>
+<h3>Example</h3>
+<pre>
+&lt;filehash file="${builddir}/${tarball}.tar.${compression}" /&gt;
+&lt;echo "Hashvalue is; ${filehashvalue}" /&gt;
+</pre>
+<h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>file</td>
+          <td>String</td>
+          <td>Filename</td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>hashtype</td>
+          <td>Integer</td>
+          <td>Specifies what hash algorithm to use. 0=MD5, 1=SHA1</td>
+          <td>0</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>propertyname</td>
+          <td>String</td>
+          <td>Name of property where the hash value is stored</td>
+          <td>filehashvalue</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+
+
     <h2><a name="FtpDeployTask"></a>FtpDeployTask</h2><p>Deploys a set of files to a remote FTP server.</p><h3>Example</h3>
     <pre>&lt;ftpdeploy 
   host="${ftp.host}" 

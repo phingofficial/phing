@@ -134,6 +134,7 @@
                 <ref name="zip"/>
                 <ref name="contains"/>
                 <ref name="pharpackage" />
+                <ref name="filehash" />
             </choice>
         </zeroOrMore>
     </define>
@@ -390,7 +391,7 @@
     
     <define name="append">
         <element name="append">
-            <attribute name="destfile"/>
+            <attribute name="destFile"/>
             <optional>
                 <attribute name="text"/>
             </optional>
@@ -1009,14 +1010,7 @@
             </zeroOrMore>
         </element>
     </define>
-    
-    <!-- 
-        ===========================================================================================================
-        Curent undocumnted core tasks
-        ===========================================================================================================        
-    -->
-    
-    
+        
     <define name="chmod">
         <element name="chmod">
             <interleave>
@@ -1181,6 +1175,29 @@
             </interleave>                
         </element>
     </define>
+
+
+    <!-- 
+        =========================================
+        FileHashTask
+        =========================================
+    -->
+    <define name="filehash">
+        <element name="filehash">
+            <interleave>
+                <attribute name="file">
+                    <data type="string" />
+                </attribute>
+                <attribute name="hashtype">
+                    <data type="string" />
+                </attribute>
+                <attribute name="propertyname">
+                    <data type="string" />
+                </attribute>
+            </interleave>
+        </element>
+    </define>    
+            
 
     <!-- 
         =========================================
