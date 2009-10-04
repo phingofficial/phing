@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/Util/ErrorHandler.php';
 require_once 'PHPUnit/Util/Filter.php';
 require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
@@ -33,7 +32,7 @@ require_once 'phing/system/util/Timer.php';
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
  */
-class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
+class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit_Framework_TestListener
 {
     const SUCCESS = 0;
     const FAILURES = 1;
@@ -229,6 +228,45 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner
     protected function runFailed($message)
     {
         throw new BuildException($message);
+    }
+
+    /**
+     * A test suite started.
+     *
+     * @param  PHPUnit_Framework_TestSuite $suite
+     * @since  Method available since Release 2.2.0
+     */
+    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+    }
+
+    /**
+     * A test suite ended.
+     *
+     * @param  PHPUnit_Framework_TestSuite $suite
+     * @since  Method available since Release 2.2.0
+     */
+    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+    }
+
+    /**
+     * A test started.
+     *
+     * @param  PHPUnit_Framework_Test $test
+     */
+    public function startTest(PHPUnit_Framework_Test $test)
+    {
+    }
+
+    /**
+     * A test ended.
+     *
+     * @param  PHPUnit_Framework_Test $test
+     * @param  float                  $time
+     */
+    public function endTest(PHPUnit_Framework_Test $test, $time)
+    {
     }
 }
 

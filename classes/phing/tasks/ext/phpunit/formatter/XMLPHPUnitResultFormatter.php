@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Util/Log/XML.php';
+require_once 'PHPUnit/Util/Log/JUnit.php';
 
 require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 
@@ -34,13 +34,13 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     /**
-     * @var PHPUnit_Util_Log_XML
+     * @var PHPUnit_Util_Log_JUnit
      */
     private $logger = NULL;
 
     function __construct()
     {
-        $this->logger = new PHPUnit_Util_Log_XML(null, true);
+        $this->logger = new PHPUnit_Util_Log_JUnit(null, true);
         $this->logger->setWriteDocument(false);
     }
 
