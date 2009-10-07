@@ -769,6 +769,9 @@
         <element name="phing">
             <interleave>
                 <optional>
+                    <ref name="property"/>
+                </optional>
+                <optional>
                     <attribute name="phingfile"/>
                 </optional>                    
                 <optional>
@@ -2407,6 +2410,9 @@
                     <attribute name="clearFirst" >
                         <data type="boolean" />
                     </attribute>
+                </optional>
+                <optional>
+                    <attribute name="clearfirst" />
                 </optional>
                 <oneOrMore>
                     <ref name="fileset"/>
