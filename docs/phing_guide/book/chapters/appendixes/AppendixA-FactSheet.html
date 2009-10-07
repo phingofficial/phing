@@ -121,8 +121,7 @@
 
 <h2><a name="CommandLineArguments"></a>Command Line Arguments</h2>
 
-<p>Currently, the following command line arguments listed in table
-below are currently available.</p>
+<p>The following table lists the command line arguments currently available.</p>
 
 <table>
 
@@ -136,35 +135,49 @@ below are currently available.</p>
 </thead>
 <tbody>
   <tr>
-    <td>-quiet</td>
+    <td>-h -help</td>
+    <td>Display the help screen</td>
+  </tr>
+  <tr>
+    <td>-v -version</td>
+    <td>Print version information and exit</td>
+  </tr>
+  <tr>
+    <td>-l -list</td>
+    <td>List all available targets in buildfile</td>
+  </tr>
+  <tr>
+    <td>-q -quiet</td>
     <td>Quiet operation, no output at all</td>
   </tr>
   <tr>
    <td>-verbose</td>
-   <td>Verbose, give some output</td>
+   <td>Verbose, give some more output</td>
   </tr>
   <tr>
     <td>-debug</td>
     <td>Output debug information</td>
   </tr>
   <tr>
-    <td>-buildfile [builfile]</td>
-    <td>Specify an alternate builfile name. Default is <em>build.xml</em></td>
+    <td>-logfile &lt;file&gt;</td>
+    <td>Use given file for log</td>
+  </tr>
+  <tr>
+    <td>-D&lt;property&gt;=&lt;value&gt;</td>
+    <td>Set the property to the specified value to be used in the buildfile</td>
+  </tr>
+  <tr>
+    <td>-find &lt;file&gt;</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>-buildfile &lt;file&gt;</td>
+    <td>Specify an alternate buildfile name. Default is <em>build.xml</em></td>
   </tr>
   <tr>
     <td>-logger path.to.Logger</td>
     <td>Specify an alternate logger. Default is <em>phing.listener.DefaultLogger</em>.  Other options include <em>phing.listener.NoBannerLogger</em> and <em>phing.listener.AnsiColorLogger</em></td>
   </tr>
-  <tr>
-    <td>-help</td>
-    <td>Display the help screen</td>
-  </tr>
-  <tr>
-    <td>-projecthelp</td>
-    <td>List the available targets for this project</td>
-  </tr>
-
-  <tr><td colspan="2"><em><strong>TODO Complete this</strong></em></td></tr>
 </tbody>
 </table>
 
