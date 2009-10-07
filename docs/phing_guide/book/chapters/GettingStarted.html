@@ -345,5 +345,45 @@ your build files.
   same build file. So, the second target removes the build directory and calls
   <em>main</em> anew so the project is rebuilt. </p>
 
+
+<h2><a name="RelaxNGGrammar"></a>Relax NG Grammar</h2>
+
+<p>With a little bit of expereince it is not that difficult to write and 
+understand Phing build files  since the XML format in itself tends to be quite 
+verbose. However, it can become a bit tedious and the large (and growing)
+  amount of built-in tasks and filters can sometimes make it difficult to
+  remember the exact syntax of all the available features.</p>
+<p>To help with this the Phing distribution contains a <i>Relax NG Grammar</i>
+(<a href="http://www.relaxng.org/">http://www.relaxng.org/</a>) 
+that describes the (formal) syntax of the build files. 
+This grammar can help validate and write
+Phing build files since there are many XML editors which can make use of this
+type of grammar to validate, on the fly, as well as do context-sensitive 
+auto-completion. Especially the auto-complete feature can significantly reduce
+the time it takes to write a correct, and possible comlpex, Phing build
+  files.</p>
+<p>This grammar is available in the distribution as:</p>
+<pre>
+/etc/phing-grammar.rng
+</pre>
+<p>Since we do not want to neither endorse any particular editor nor forget
+  any XML editors with this capability we do no make available a list of such
+editors. Spending 5 minutes with Google searching for XML-editors is bound
+to reveal a number of good editors.
+<p> However, for only validating Phing build files there is an excellent free Java
+  based command line tool from Sun Microsystems "Sun Multi-Schema Validator" 
+<i>msv</i> (<a href="https://msv.dev.java.net/">https://msv.dev.java.net/</a>) 
+that can take a RNG grammar and a Phing input file and validate the Phing file
+  against the grammar.</p>
+<p>For example, to validate a build file the following 
+command line could be used</p>
+<pre>
+$ java -jar msv.jar phing-grammar.rng build.xml
+start parsing a grammar.
+validating /home/joe/build.xml
+the document is valid.
+$
+</pre>
+
 </body>
 </html>
