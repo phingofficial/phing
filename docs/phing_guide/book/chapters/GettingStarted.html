@@ -54,14 +54,21 @@
   of the build tree:</p>
 
 <pre title="Example of a simple build file">
-&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 
 &lt;project name=&quot;FooBar&quot; default=&quot;dist&quot; basedir=&quot;.&quot;&gt;
+
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- Target: prepare                               --&gt;
+    &lt;!-- ============================================  --&gt;
     &lt;target name=&quot;prepare&quot;&gt;
         &lt;echo msg=&quot;Making directory ./build&quot; /&gt;
         &lt;mkdir dir=&quot;./build&quot; /&gt;
     &lt;/target&gt;
 
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- Target: build                                 --&gt;
+    &lt;!-- ============================================  --&gt;
     &lt;target name=&quot;build&quot; depends=&quot;prepare&quot;&gt;
         &lt;echo msg=&quot;Copying files to build directory...&quot; /&gt;
 
@@ -75,6 +82,9 @@
         &lt;copy file=&quot;./contact.php&quot; tofile=&quot;./build/contact.php&quot; /&gt;
     &lt;/target&gt;
 
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- (DEFAULT)  Target: dist                       --&gt; 
+    &lt;!-- ============================================  --&gt;
     &lt;target name=&quot;dist&quot; depends=&quot;build&quot;&gt;
         &lt;echo msg=&quot;Creating archive...&quot; /&gt;
 
@@ -88,6 +98,23 @@
     &lt;/target&gt;
 &lt;/project&gt;
 </pre>
+<p>A phing build file is normally given the name <i>build.xml</i> which is the default file name
+that the Phing executable will look for if no other file name is specified.<p>
+<p>To run the above build file and execute the default target (assuming it is stored in the current 
+directory with the default name) is only a matter of calling:</p>
+<code>
+$ phing
+</code>
+<p>This will then execute the <i>dist</i> target. 
+While executing the build file each task performed will print some information on what actions
+and what files have been affected.</p>
+<p>To run any of the other target is only a matter of providing the name of the target on the 
+command line. So for example to run the <i>build</i> target one would have to execute</p>
+<code>
+$ phing build
+</code>
+<p>It is also possible to specify a number of additional command line arguments as described in 
+<a href="appendixes/AppendixA-FactSheet.html#BuildInProperties">Appendix A</a></p>
 
 <h3><a name="ProjectElement"></a>Project Element</h3>
 
@@ -274,7 +301,7 @@ for a complete list</p>
 
 <h2><a name="ComplexBuildfile"></a>More Complex Buildfile</h2>
 
-<pre title="More complex build file">&lt;?xml version=&quot;1.0&quot; ?&gt;
+<pre title="More complex build file">&lt;?xml version=&quot;1.0&quot;  encoding=&quot;UTF-8&quot; ?&gt;
 
 &lt;project name=&quot;testsite&quot; basedir=&quot;.&quot; default=&quot;main&quot;&gt;
     &lt;property file=&quot;./build.properties&quot; /&gt;
@@ -288,14 +315,18 @@ for a complete list</p>
         &lt;include name=&quot;**&quot; /&gt;
     &lt;/fileset&gt;
 
-    &lt;!-- Main Target --&gt;
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- (DEFAULT) Target: main                        --&gt;
+    &lt;!-- ============================================  --&gt;
     &lt;target name=&quot;main&quot; description=&quot;main target&quot;&gt;
         &lt;copy todir=&quot;${builddir}&quot;&gt;
             &lt;fileset refid=&quot;allfiles&quot; /&gt;
         &lt;/copy&gt;
     &lt;/target&gt;
 
-    &lt;!-- Rebuild --&gt;
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- Target: Rebuild                               --&gt;
+    &lt;!-- ============================================  --&gt;
     &lt;target name=&quot;rebuild&quot; description=&quot;rebuilds this package&quot;&gt;
         &lt;delete dir=&quot;${builddir}&quot; /&gt;
         &lt;phingcall target=&quot;main&quot; /&gt;
@@ -314,7 +345,7 @@ Let us have a quick rundown of this build file.
 <ul>
   <li>The second <em>property</em> tag contains only the <em>file</em> attribute.
     The value has to be a relative or absolute path to a property file (for the
-    format, see <a href="appendixes/AppendixE-FileFormats.html">Appendix E</a>).
+    format, see <a href="appendixes/AppendixF-FileFormats.html">Appendix F</a>).
   </li>
   <li>The other times, the tag has a <em>name</em> and a <em>value</em> attribute.
     After the call, the value defined in the attribute <em>value</em> is available
@@ -325,9 +356,14 @@ The next noticeable thing in the build file is the <em>&lt;fileset&gt;</em> tag.
 It defines a fileset, i.e. a set of multiple files. You can include and exclude
 Files with <em>include</em> and <em>exclude</em> tags within the <em>fileset</em>
 tag. For more information concerning Filesets (i.e. Patterns) see
-<a href="appendixes/AppendixC-CoreTypes.html#Fileset">Appendix C</a>.
+<a href="appendixes/AppendixD-CoreTypes.html#Fileset">Appendix D</a>.
 The fileset is given an <em>id</em> attribute, so it can be referenced later on.
 </p>
+<p>One thing is worth noting here though and that is the use of double star expression,
+i.e. "**". This special regexp refers to all files in all subdirectories as well. Compare
+this with a single "*" which would only refer to all files in the <i>current</i> subdirectory.
+So for example the expression "**/*.phps" would refer to all files with suffix "'.phps" in all
+subdirectories below the current directory.</p> 
 
 <p>
 The first task only contains a call to <em>CopyTask</em> via
@@ -341,9 +377,16 @@ your build files.
 
 <p> The only noticeable thing in the second target is the call to <em>PhingTask</em>
   with the <em>&lt;phingcall&gt;</em> tag (see <a href="appendixes/AppendixB-CoreTasks.html#PhingCallTask">Appendix
-  B</a> for more information. The task executes a specified target within the
+  B</a> for more information). The task executes a specified target within the
   same build file. So, the second target removes the build directory and calls
   <em>main</em> anew so the project is rebuilt. </p>
+
+<p> A variant is to override properties defined in the build file
+with properties specified on the command line using the <i>-D</i> switch. For example to
+override the <i>builddir</i> in the build file above one could call Phing as</p>
+<code>
+$ phing -Dbuilddir=/tmp/system-test
+</code>
 
 
 <h2><a name="RelaxNGGrammar"></a>Relax NG Grammar</h2>
@@ -367,17 +410,18 @@ the time it takes to write a correct, and possible complex, Phing build
 <code>
 /etc/phing-grammar.rng
 </code>
-<p>Since we do not want to neither endorse any particular editor nor forget
-  any XML editors with this capability we do not make available such a list of 
-editors. Spending 3 minutes with Google searching for XML-editors is bound
-to reveal a number of good editors.
-<p> However, for only validating Phing build files there are several 
-excellent free Java   based command line tool validators. 
-One such validator is Sun Microsystems "Sun Multi-Schema Validator" 
+<p>Since we do not want to neither endorse nor forget
+  any particular XML editor with this capability we do not make available such
+  a list of editors. Instead, spending a few  minutes with Google searching 
+for XML-editors is bound to find a number of editors with this capability.</p>
+<p>For only validating Phing build files there are several 
+excellent free Java  based command line tool validators (unfortunately we are
+  not aware of any existing PHP based validator). 
+One such validator is Sun Microsystems "Sun Multi-Schema Validator" or 
 <i>MSV</i> (available at 
-<a href="https://msv.dev.java.net/">https://msv.dev.java.net/</a>) 
-that can take an RNG grammar file and a XML file and validate the XML file
- against the supplied grammar.</p>
+<a href="https://msv.dev.java.net/">https://msv.dev.java.net/</a>). 
+This validator can take an RNG grammar and validate a given XML file  against 
+the supplied grammar.</p>
 <p>For example, to use MSV to validate a Phing build file the following 
 command line could be used:</p>
 <pre>
