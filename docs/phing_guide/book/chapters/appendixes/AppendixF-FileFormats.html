@@ -18,38 +18,93 @@
 <h2><a name="BuildFileFormat"></a>Build File Format</h2>
 
 <p>
-  The following XML file shows a skelleton build file, that only contains
-  a project and a target. See the references for the Phing Types and Tasks
-  for information on how to use them.
+  The following XML file shows a basic Phing build file skeleton that can be 
+used as a starting point for your own build files.  See the references in 
+<a href="appendixes/AppendixA-FactSheet.html#BuildInProperties">Appendix A</a> and
+<a href="appendixes/AppendixB-CoreTasks.html">AppendixB</a>
+for more detailed information on properties and tasks.
 </p>
 
 <pre title="Buildfile format">
-&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 
-&lt;!--
+&lt;!-- 
+  =========================================================================  
   The root tag of each build file must be a &quot;project&quot; tag.
+  =========================================================================
 --&gt;
 &lt;project name=&quot;(projectname)&quot; [basedir=&quot;(projectbasedir)&quot;]
          [default=&quot;(targetname)&quot;] [description=&quot;(projectdescription)&quot;]&gt;
 
   &lt;!--
-    Type and task calls here, i.e. filesets, patternsets,
-    CopyTask calls etc.
+    =========================================================================  
+    Inclusion of optional overall project properties. 
+    =========================================================================  
+  --&gt;
+  &lt;property file=&quot;(main property file)&quot; /&gt;
+
+  &lt;!--
+    =========================================================================  
+     Build file wide properties used in the targets below
+    =========================================================================  
   --&gt;
 
+  &lt;!-- Useful to make the current buildtime available as a property --&gt;
+  &lt;tstamp&gt;
+      &lt;!-- Format is, e.g. Sat, 03 Oct 2009, 16:31 --&gt;
+      &lt;format property="buildtime" pattern="%a, %d %b %Y, %H:%M"/&gt;
+  &lt;/tstamp&gt;
+
+  &lt;property name=&quot;(first.property1)&quot;  value=&quot;(value1)&quot; override=&quot;true&quot; /&gt;
+  &lt;property name=&quot;(second.property2)&quot;  value=&quot;(value2)&quot; override=&quot;true&quot; /&gt;
+
+  &lt;!--
+    =========================================================================  
+    Type and task calls here, i.e. filesets, patternsets,
+    CopyTask calls etc.
+    =========================================================================  
+  --&gt;
+    &lt;!-- Filesets  --&gt;
+    &lt;fileset dir="(fileset.directory)" id="(fileset.reference)"&gt;
+        &lt;include name="(include.pattern)"/&gt;
+    &lt;/fileset&gt;
+
+    &lt;!-- Custom tasks  --&gt;
+    &lt;taskdef classname="(task.classname)" name="task.name" /&gt;
+    
+  &lt;!--
+    =========================================================================  
+    All target definitions ...
+    =========================================================================  
+  --&gt;
   &lt;target name=&quot;(targetname)&quot; [depends=&quot;targetname1,targetname2&quot;]
           [if=&quot;(ifproperty)&quot;] [unless=&quot;(unlessproperty)&quot;]&gt;
     &lt;!--
+      ----------------------------------------------------------------------
       Type and task calls here, i.e. filesets, patternsets,
       CopyTask calls, etc.
+      ----------------------------------------------------------------------
     --&gt;
   &lt;/target&gt;
 
   &lt;!--
+    =========================================================================  
     More targets here
+    =========================================================================  
   --&gt;
+  &lt;target name=&quot;...&quot; &gt;
+    &lt;!--
+      ----------------------------------------------------------------------
+      Type and task calls here, i.e. filesets, patternsets,
+      CopyTask calls, etc.
+      ----------------------------------------------------------------------
+    --&gt;
+
+  &lt;/target&gt;
 &lt;/project&gt;
 </pre>
+<p><i><b>Note:</b></i> By convention properties are named in <i>dot</i> notation in Phing build files, e.g. <i>ftp.upload</i>, 
+<i>temp.builddir</i> and so on</p>
 
 <h2><a name="PropertyFileFormat"></a>Property File Format</h2>
 
