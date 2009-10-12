@@ -182,7 +182,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         
             // creating a sub-section for non-windows
             $package->addRelease();
-            //$package->setOSInstallCondition('(*ix|*ux|darwin*|*BSD|SunOS*)');
+            $package->setOSInstallCondition('(*ix|*ux|darwin*|*BSD|SunOS*)');
             $package->addInstallAs('bin/phing.php', 'phing.php');
             $package->addInstallAs('bin/pear-phing', 'phing');
             $package->addIgnoreToRelease('bin/pear-phing.bat');
@@ -190,8 +190,8 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         
 
         // "core" dependencies
-        $package->setPhpDep('5.1.0');
-        $package->setPearinstallerDep('1.4.0');
+        $package->setPhpDep('5.2.0');
+        $package->setPearinstallerDep('1.8.0');
         
         // "package" dependencies
         if ($this->mode != "docs")
@@ -204,7 +204,11 @@ etc.), file system operations, interactive build support, SQL execution, and muc
             $package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.0');
             $package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
 
-            // now add the replacements ....
+            // now add the replacements, chdir() to source directory
+            // to allow addReplacement() to find the specified files
+            $cwd = getcwd();
+            chdir($this->dir->getAbsolutePath());
+            
             $package->addReplacement('Phing.php', 'pear-config', '@DATA-DIR@', 'data_dir');
             $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@PHP-BIN@', 'php_bin');
             $package->addReplacement('bin/pear-phing.bat', 'pear-config', '@BIN-DIR@', 'bin_dir');
@@ -212,10 +216,10 @@ etc.), file system operations, interactive build support, SQL execution, and muc
             $package->addReplacement('bin/pear-phing', 'pear-config', '@PHP-BIN@', 'php_bin');
             $package->addReplacement('bin/pear-phing', 'pear-config', '@BIN-DIR@', 'bin_dir');
             $package->addReplacement('bin/pear-phing', 'pear-config', '@PEAR-DIR@', 'php_dir');
+            
+            chdir($cwd);
         }
-        
-        // now we run this weird generateContents() method that apparently 
-        // is necessary before we can add replacements ... ?
+
         $package->generateContents();
         
         $e = $package->writePackageFile();
