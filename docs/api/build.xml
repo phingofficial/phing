@@ -8,7 +8,7 @@ buildfile constructs the Phing API Documentation">
 	
 	<target name="docs">
 		<phpdoc title="Phing API Documentation" destdir="docs" output="HTML:Smarty:PHP"
-		quiet="true" linksource="false" defaultpackagename="phing">
+		quiet="true" sourcecode="false" defaultpackagename="phing">
 			<fileset dir="../../classes">
 				<include name="**/*.php"/>
 			</fileset>
