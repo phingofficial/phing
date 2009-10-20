@@ -182,7 +182,6 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         
             // creating a sub-section for non-windows
             $package->addRelease();
-            $package->setOSInstallCondition('(*ix|*ux|darwin*|*BSD|SunOS*)');
             $package->addInstallAs('bin/phing.php', 'phing.php');
             $package->addInstallAs('bin/pear-phing', 'phing');
             $package->addIgnoreToRelease('bin/pear-phing.bat');
