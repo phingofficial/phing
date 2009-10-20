@@ -4,9 +4,21 @@
 
 TBD - Phing 2.4.0
 
+Oct. 20, 2009 - Phing 2.4.0 RC2
+370	Fatal error: Cannot redeclare class PHPUnit_Framework_TestSuite
+366	Broken link in "Getting Started/More Complex Buildfile"
+365	Phing 2.4rc1 via pear is not usable
+364	2.4.0-rc1 download links broken
+363	PHPUnit task fails with formatter type 'xml'
+359	403 for Documentation (User Guide) Phing HEAD
+355	PDOSQLExecTask should accept filelist subelement
+352	Add API documentation
 
 Sep. 14, 2009 - Phing 2.4.0 RC1
 
+362	Can't get phpunit code coverage to export as XML
+361	Bug in PHPCodeSnifferTask
+357	SvnLastRevisionTask fails when locale != EN
 356	Documentation for tasks Chmod and Chown
 349	JslLint task fails to escape shell argument
 347	PHPUnit / Coverage tasks do not deal with bootstrap code
