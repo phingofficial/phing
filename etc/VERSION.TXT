@@ -1,1 +1,1 @@
-Phing 2.4.0RC1
+Phing 2.4.0RC2
