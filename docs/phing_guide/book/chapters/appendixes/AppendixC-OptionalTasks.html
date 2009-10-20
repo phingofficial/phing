@@ -808,6 +808,7 @@ to be executed using the same JDBC connection and commit operation in between.</
         </table>                 
       </li>
       <li>fileset <p>Files containing SQL statements.</p></li>
+      <li>filelist <p>Files containing SQL statements.</p></li>
       <li>formatter <p>The results of any queries that are executed can be printed in different formats. Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false</em>. The path to the output file file can be specified by the <em>outfile</em> attribute; there is a default filename that will be returned by the formatter if no output file is specified.</p><p>There are three predefined formatters - one prints the query results in XML format, the other emits plain text. Custom formatters that extend phing.tasks.pdo.PDOResultFormatter can be specified.</p><h3>Attributes</h3>
         <table>
           <thead>

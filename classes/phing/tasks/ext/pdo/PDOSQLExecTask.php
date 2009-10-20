@@ -82,6 +82,12 @@ class PDOSQLExecTask extends PDOTask {
     private $filesets = array();
 
     /**
+     * Files to load
+     * @var array FileList[]
+     */
+    private $filelists = array();
+    
+    /**
      * Formatter elements.
      * @var array PDOSQLExecFormatterElement[]
      */
@@ -161,6 +167,13 @@ class PDOSQLExecTask extends PDOTask {
         $this->filesets[] = $set;
     }
 
+    /**
+     * Adds a set of files (nested filelist attribute).
+     */
+    public function addFilelist(FileList $list) {
+        $this->filelists[] = $list;
+    }
+    
     /**
      * Creates a new PDOSQLExecFormatterElement for <formatter> element.
      * @return PDOSQLExecFormatterElement
@@ -278,9 +291,9 @@ class PDOSQLExecTask extends PDOTask {
 
         try {
             if ($this->srcFile === null && $this->sqlCommand === ""
-            && empty($this->filesets)) {
+            && (empty($this->filesets) || empty($this->filelists))) {
                 if (count($this->transactions) === 0) {
-                    throw new BuildException("Source file or fileset, "
+                    throw new BuildException("Source file or fileset/filelist, "
                     . "transactions or sql statement "
                     . "must be set!", $this->location);
                 }
@@ -295,6 +308,17 @@ class PDOSQLExecTask extends PDOTask {
                 $ds = $fs->getDirectoryScanner($this->project);
                 $srcDir = $fs->getDir($this->project);
                 $srcFiles = $ds->getIncludedFiles();
+                // Make a transaction for each file
+                foreach($srcFiles as $srcFile) {
+                    $t = $this->createTransaction();
+                    $t->setSrc(new PhingFile($srcDir, $srcFile));
+                }
+            }
+            
+            // process filelists
+            foreach($this->filelists as $fl) {
+                $srcDir  = $fl->getDir($project);
+                $srcFiles = $fl->getFiles($project);                
                 // Make a transaction for each file
                 foreach($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
