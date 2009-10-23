@@ -708,7 +708,8 @@ class Phing {
                 $message .= ' [line ' . $line . ' of ' . $file . ']';
 
                 switch ($level) {
-
+                    case 16384: // E_USER_DEPRECATED
+                    case 8192:  // E_DEPRECATED
                     case E_STRICT:
                     case E_NOTICE:
                     case E_USER_NOTICE:
