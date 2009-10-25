@@ -42,6 +42,7 @@ require_once 'phing/util/DataStore.php';
     private $badFiles = array();
     
     private $cache = null;
+    private $conf = null;
 
     /**
      * Sets the flag if warnings should be shown
@@ -75,6 +76,16 @@ require_once 'phing/util/DataStore.php';
     public function setCacheFile(PhingFile $file)
     {
       $this->cache = new DataStore($file);
+    }
+
+    /**
+     * jsl config file
+     *
+     * @param PhingFile $file
+     */
+    public function setConfFile(PhingFile $file)
+    {
+      $this->conf = $file;
     }
 
     /**
@@ -123,7 +134,13 @@ require_once 'phing/util/DataStore.php';
      */
     protected function lint($file)
     {
-      $command = 'jsl -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' -process ';
+      $command = 'jsl -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' ';
+
+      if (isset($this->conf)) {
+          $command .= '-conf ' . $this->conf->getPath() . ' ';
+      }
+
+      $command .= '-process ';
 
       if(file_exists($file))
       {
