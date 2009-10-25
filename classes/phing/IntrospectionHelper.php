@@ -309,10 +309,6 @@ class IntrospectionHelper {
             if ($as == "setrefid") {            
                 $value = new Reference($value);
             } else {
-            
-                // decode any html entities in string
-                $value = html_entity_decode($value);                
-                
                 // value is a string representation of a boolean type,
                 // convert it to primitive
                 if (StringHelper::isBoolean($value)) {
