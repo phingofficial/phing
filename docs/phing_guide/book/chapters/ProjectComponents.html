@@ -47,12 +47,11 @@
 
 <h2><a name="ComponentsInGeneral"></a>Project Components in General</h2>
 
-<p> Project components are everything you can be find inside a project. So Targets
-  are project components, as are Tasks, Types, etc. Project components may have
-  attributes and nested tags. Attributes only contain simple values, i.e. strings,
-  integers etc. Nested elements may be complex Phing types (like FileSets) or
-  simple wrapper classes for values with custom keys (see <a href="appendixes/AppendixC-CoreTypes.html#Fileset">FileSet</a>
-  for example). </p>
+<p> Project Components are all the elements found inside a project, i.e. targets, tasks, 
+  types, etc. Project components may have  attributes and nested tags. Attributes 
+  only contain simple values, i.e. strings, integers etc. Nested elements may be 
+  complex Phing types (like FileSets) or simple wrapper classes for values with custom keys
+  (see <a href="appendixes/AppendixC-CoreTypes.html#Fileset">FileSet</a> for example). </p>
 
 <p> Any nested elements must be supported by the class that implements the project
   component, and because the nested tags are handled by the project component
