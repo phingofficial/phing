@@ -23,11 +23,9 @@ require_once 'phing/tasks/system/MatchingTask.php';
 include_once 'phing/util/SourceFileScanner.php';
 include_once 'phing/mappers/MergeMapper.php';
 include_once 'phing/util/StringHelper.php';
-include_once 'phing/lib/Zip.php';
 
 /**
- * Creates a zip archive using PEAR Archive_Zip (which is presently unreleased
- * and included with Phing).
+ * Creates a zip archive using PHP ZipArchive extension/
  *
  * @author    Michiel Rook <michiel.rook@gmail.com>
  * @version   $Id$
@@ -155,7 +153,13 @@ class ZipTask extends MatchingTask {
 
             $this->log("Building zip: " . $this->zipFile->__toString(), Project::MSG_INFO);
             
-            $zip = new Archive_Zip($this->zipFile->getAbsolutePath());
+            $zip = new ZipArchive();
+            $res = $zip->open($this->zipFile->getAbsolutePath(), ZIPARCHIVE::CREATE);
+            
+            if ($res !== true)
+            {
+                throw new Exception("ZipArchive::open() failed with code " . $res);
+            }
             
             foreach($this->filesets as $fs) {
                 
@@ -167,13 +171,13 @@ class ZipTask extends MatchingTask {
                 $filesToZip = array();
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
                     $f = new PhingFile($fsBasedir, $files[$i]);
-                    $filesToZip[] = $f->getAbsolutePath();
-                    $this->log("Adding " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);                        
+                    
+                    $zip->addFile($f->getPath());
+                    $this->log("Adding " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);
                 }
-                $zip->add($filesToZip, array('remove_path' => $fsBasedir->getCanonicalPath()));
             }
-                         
-                
+            
+            $zip->close();
         } catch (IOException $ioe) {
                 $msg = "Problem creating ZIP: " . $ioe->getMessage();
                 $this->filesets = $savedFileSets;
