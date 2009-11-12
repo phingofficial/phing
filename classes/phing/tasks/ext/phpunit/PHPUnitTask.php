@@ -217,6 +217,11 @@ class PHPUnitTask extends Task
             $this->formatters[] = $fe;
         }
         
+        if ($this->bootstrap)
+        {
+            require_once $this->bootstrap;
+        }
+        
         foreach ($this->batchtests as $batchtest)
         {
             $tests = array_merge($tests, $batchtest->elements());
@@ -241,11 +246,6 @@ class PHPUnitTask extends Task
             }
 
             $formatter->startTestRun();
-        }
-        
-        if ($this->bootstrap)
-        {
-            require_once $this->bootstrap;
         }
         
         foreach ($tests as $test)
