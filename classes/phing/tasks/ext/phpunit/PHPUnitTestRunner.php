@@ -50,6 +50,8 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
 
     private $groups = array();
     private $excludeGroups = array();
+    
+    private $useCustomErrorHandler = true;
 
     function __construct(Project $project, $groups = array(), $excludeGroups = array())
     {
@@ -62,6 +64,11 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
+    }
+
+    function setUseCustomErrorHandler($useCustomErrorHandler)
+    {
+        $this->useCustomErrorHandler = $useCustomErrorHandler;
     }
 
     function addFormatter($formatter)
@@ -97,12 +104,18 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         }
         
         /* Set PHPUnit error handler */
-        $oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
+        if ($this->useCustomErrorHandler)
+        {
+            $oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
+        }
 
         $test->run($res, false, $this->groups, $this->excludeGroups);
         
         /* Restore Phing error handler */
-        restore_error_handler();
+        if ($this->useCustomErrorHandler)
+        {
+            restore_error_handler();
+        }
         
         if ($this->codecoverage)
         {

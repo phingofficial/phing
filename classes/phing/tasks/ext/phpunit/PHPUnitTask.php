@@ -52,6 +52,7 @@ class PHPUnitTask extends Task
     private $codecoverage = false;
     private $groups = array();
     private $excludeGroups = array();
+    private $usecustomerrorhandler = true;
 
     /**
      * Initialize Task.
@@ -161,6 +162,11 @@ class PHPUnitTask extends Task
     function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
+    }
+
+    function setUseCustomErrorHandler($usecustomerrorhandler)
+    {
+        $this->usecustomerrorhandler = $usecustomerrorhandler;
     }
 
     function setGroups($groups)
@@ -273,6 +279,7 @@ class PHPUnitTask extends Task
         $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups);
         
         $runner->setCodecoverage($this->codecoverage);
+        $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
 
         foreach ($this->formatters as $fe)
         {

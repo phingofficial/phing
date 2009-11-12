@@ -1819,6 +1819,13 @@ to be executed using the same JDBC connection and commit operation in between.</
           <td>n/a</td>
           <td>No</td>
         </tr>
+        <tr>
+          <td>usecustomerrorhandler</td>
+          <td>Boolean</td>
+          <td> Use a custom Phing/PHPUnit error handler to process PHP errors. </td>
+          <td>true</td>
+          <td>No</td>
+        </tr>
       </tbody>
     </table><h3>Supported Nested Tags</h3><ul>
       <li>formatter <p>The results of the tests can be printed in different formats. Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false</em>. The name of the file is predetermined by the formatter and can be changed by the <em>outfile</em> attribute.</p><p>There are three predefined formatters - one prints the test results in XML format, the other emits plain text. The formatter named brief will only print detailed information for testcases that failed, while plain gives a little statistics line for all test cases. Custom formatters that implement phing.tasks.ext.PHPUnitResultFormatter can be specified.</p><p>If you use the XML formatter, it may not include the same output that your tests have written as some characters are illegal in XML documents and will be dropped.</p><h3>Attributes</h3><table>
