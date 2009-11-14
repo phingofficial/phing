@@ -307,7 +307,20 @@ class CoverageReportTask extends Task
                         $linenr = key($coverageInformation);
                     }
 
-                    if (current($coverageInformation) > 0 && $method->getStartLine() <= $linenr && $linenr <= $method->getEndLine())
+                    $methodCoveredCount = 0;
+                    $methodTotalCount = 0;
+                    
+                    while ($linenr !== null && $linenr <= $method->getEndLine())
+                    {
+                        $methodTotalCount++;
+                        if ($coverageInformation[$linenr] > 0)
+                            $methodCoveredCount++;
+                        
+                        next($coverageInformation);
+                        $linenr = key($coverageInformation);
+                    }
+                    
+                    if ($methodTotalCount == $methodCoveredCount)
                     {
                         $methodscovered++;
                     }
