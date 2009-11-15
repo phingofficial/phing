@@ -53,7 +53,7 @@ class FtpDeployTask extends Task
     private $dir = null;
     private $filesets;
     private $completeDirMap;
-    private $mode = 'binary';
+    private $mode = FTP_BINARY;
     private $clearFirst = false;
     private $passive = false;
     
