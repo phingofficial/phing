@@ -53,6 +53,13 @@ class ZipTask extends MatchingTask {
     private $fileSetFiles = array();
 
     /**
+     * File path prefix in zip archive
+     *
+     * @var string
+     */
+    private $prefix = null;
+
+    /**
      * Add a new fileset.
      * @return FileSet
      */
@@ -76,6 +83,17 @@ class ZipTask extends MatchingTask {
      */
     public function setBasedir(PhingFile $baseDir) {
         $this->baseDir = $baseDir;
+    }
+
+    /**
+     * Sets the file path prefix for file in the zip file.
+     *
+     * @param string $prefix Prefix
+     *
+     * @return void
+     */
+    public function setPrefix($prefix) {
+        $this->prefix = $prefix;
     }
 
     /**
@@ -171,9 +189,15 @@ class ZipTask extends MatchingTask {
                 $filesToZip = array();
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
                     $f = new PhingFile($fsBasedir, $files[$i]);
-                    
-                    $zip->addFile($f->getPath());
-                    $this->log("Adding " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);
+
+                    if ($this->prefix == '') {
+                        $zip->addFile($f->getPath());
+                        $this->log("Adding " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);
+                    } else {
+                        $pathInZip = $this->prefix . $f->getPath();
+                        $zip->addFile($f->getPath(), $pathInZip);
+                        $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
+                    }
                 }
             }
             
