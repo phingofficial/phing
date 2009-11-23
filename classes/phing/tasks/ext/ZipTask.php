@@ -190,14 +190,10 @@ class ZipTask extends MatchingTask {
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
                     $f = new PhingFile($fsBasedir, $files[$i]);
 
-                    if ($this->prefix == '') {
-                        $zip->addFile($f->getPath());
-                        $this->log("Adding " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);
-                    } else {
-                        $pathInZip = $this->prefix . $f->getPath();
-                        $zip->addFile($f->getPath(), $pathInZip);
-                        $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
-                    }
+                    $pathInZip = $this->prefix
+                        . $f->getPathWithoutBase($fsBasedir);
+                    $zip->addFile($f->getPath(), $pathInZip);
+                    $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
                 }
             }
             

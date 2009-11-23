@@ -207,6 +207,28 @@ class PhingFile {
     }
 
     /**
+     * Returns path without leading basedir.
+     *
+     * @param string $basedir Base directory to strip
+     *
+     * @return string Path without basedir
+     *
+     * @uses getPath()
+     */
+    function getPathWithoutBase($basedir)
+    {
+        if (!StringHelper::endsWith(self::$separator, $basedir)) {
+            $basedir .= self::$separator;
+        }
+        $path = $this->getPath();
+        if (!substr($path, 0, strlen($basedir)) == $basedir) {
+            //path does not begin with basedir, we don't modify it
+            return $path;
+        }
+        return substr($path, strlen($basedir));
+    }
+
+    /**
      * Tests whether this abstract pathname is absolute.  The definition of
      * absolute pathname is system dependent.  On UNIX systems, a pathname is
      * absolute if its prefix is "/".  On Win32 systems, a pathname is absolute
