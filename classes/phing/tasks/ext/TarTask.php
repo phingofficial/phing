@@ -60,6 +60,13 @@ class TarTask extends MatchingTask {
      * Compression mode.  Available options "gzip", "bzip2", "none" (null).
      */
     private $compression = null;
+
+    /**
+     * File path prefix in the tar archive
+     *
+     * @var string
+     */
+    private $prefix = null;
     
     /**
      * Ensures that PEAR lib exists.
@@ -160,6 +167,17 @@ class TarTask extends MatchingTask {
                 $this->compression = null;
         }
     }
+
+    /**
+     * Sets the file path prefix for file in the tar file.
+     *
+     * @param string $prefix Prefix
+     *
+     * @return void
+     */
+    public function setPrefix($prefix) {
+        $this->prefix = $prefix;
+    }
     
     /**
      * do the work
@@ -244,7 +262,7 @@ class TarTask extends MatchingTask {
                         $filesToTar[] = $f->getAbsolutePath();
                         $this->log("Adding file " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);                
                     }                    
-                    $tar->addModify($filesToTar, '', $fsBasedir->getAbsolutePath());            
+                    $tar->addModify($filesToTar, $this->prefix, $fsBasedir->getAbsolutePath());            
             }
                          
                 
