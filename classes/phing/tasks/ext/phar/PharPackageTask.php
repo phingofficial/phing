@@ -91,21 +91,21 @@ class PharPackageTask
         /*
          * If we don't support passed algprithm, leave old one.
          */
-        if (in_array($algorithm, array('md5', 'sha1', 'sha256', 'sha512'))) {
-            switch ($algorithm) {
-                case 'md5':
-                    $this->signatureAlgorithm = Phar::MD5;
-                    break;
-                case 'sha1':
-                    $this->signatureAlgorithm = Phar::SHA1;
-                    break;
-                case 'sha256':
-                    $this->signatureAlgorithm = Phar::SHA256;
-                    break;
-                case 'sha512':
-                    $this->signatureAlgorithm = Phar::SHA512;
-                    break;
-            }
+        switch ($algorithm) {
+            case 'md5':
+                $this->signatureAlgorithm = Phar::MD5;
+                break;
+            case 'sha1':
+                $this->signatureAlgorithm = Phar::SHA1;
+                break;
+            case 'sha256':
+                $this->signatureAlgorithm = Phar::SHA256;
+                break;
+            case 'sha512':
+                $this->signatureAlgorithm = Phar::SHA512;
+                break;
+            default:
+                break;
         }
     }
     /**
@@ -116,15 +116,15 @@ class PharPackageTask
         /*
          * If we don't support passed compression, leave old one.
          */
-        if (in_array($compression, array('gzip', 'bzip2'))) {
-            switch ($compression) {
-                case 'gzip':
-                    $this->compression = Phar::GZ;
-                    break;
-                case 'bzip2':
-                    $this->compression = Phar::BZ2;
-                    break;
-            }
+        switch ($compression) {
+            case 'gzip':
+                $this->compression = Phar::GZ;
+                break;
+            case 'bzip2':
+                $this->compression = Phar::BZ2;
+                break;
+            default:
+                break;
         }
     }
     /**
