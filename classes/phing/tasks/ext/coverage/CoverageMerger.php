@@ -109,6 +109,7 @@ class CoverageMerger
         
         foreach ($coverageTotal as $filename => $data)
         {
+            $lines = array();
             $filename = strtolower($filename);
 
             if ($props->getProperty($filename) != null)
