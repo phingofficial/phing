@@ -152,7 +152,7 @@ class PhpCpdTask extends Task {
 				
                 $dir = $fs->getDir($this->project)->getAbsolutePath();
                 foreach ($files as $file) {
-					if (is_file($file))
+					if (is_file($dir.DIRECTORY_SEPARATOR.$file))
 					{
 						$splFileInfo = new SplFileInfo($dir.DIRECTORY_SEPARATOR.$file);
 						$fileList[] = $splFileInfo;
