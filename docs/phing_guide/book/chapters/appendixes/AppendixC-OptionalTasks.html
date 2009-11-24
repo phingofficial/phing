@@ -394,6 +394,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
    optimize="max"
    passphrase="mypassphrase"
    phpversion="4"
+   noshortopentags="false"
    targetoption="replace"
    todir="encoded"
    withoutruntimeloadersupport="true"&gt;
@@ -555,6 +556,13 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
           <td>withoutruntimeloadersupport</td>
           <td>Boolean</td>
           <td>Wether to disable support for runtime initialization of the ionCube Loader</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>noshortopentags</td>
+          <td>Boolean</td>
+          <td>Wether to disable support for short PHP tags</td>
           <td>false</td>
           <td>No</td>
         </tr>

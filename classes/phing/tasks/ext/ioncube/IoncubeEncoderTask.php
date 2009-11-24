@@ -382,6 +382,22 @@ class IoncubeEncoderTask extends Task
     {
         return $this->ionSwitches['without-runtime-loader-support'];
     }
+
+    /**
+     * Sets the no-short-open-tags option
+     */
+    function setNoShortOpenTags($value)
+    {
+        $this->ionSwitches['no-short-open-tags'] = $value;
+    }
+    
+    /**
+     * Returns the no-short-open-tags option
+     */
+    function getNoShortOpenTags()
+    {
+        return $this->ionSwitches['no-short-open-tags'];
+    }
     
     /**
      * Sets the option to use when encoding target directory already exists (defaults to none)
