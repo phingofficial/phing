@@ -206,6 +206,13 @@ class PharPackageTask
             }
 
             $phar->stopBuffering();
+
+            /*
+             * File compression, if needed.
+             */
+            if (Phar::NONE != $this->compression) {
+                $phar->compressFiles($this->compression);
+            }
         } catch (Exception $e) {
             throw new BuildException(
                 'Problem creating package: '.$e->getMessage(),
@@ -250,13 +257,6 @@ class PharPackageTask
         $phar = new Phar($this->destinationFile);
 
         $phar->setSignatureAlgorithm($this->signatureAlgorithm);
-
-        /*
-         * File compression, if needed.
-         */
-        if (Phar::NONE != $this->compression) {
-            $phar->compressFiles($this->compression);
-        }
 
         $phar->setDefaultStub(
             $this->cliStubFile,
