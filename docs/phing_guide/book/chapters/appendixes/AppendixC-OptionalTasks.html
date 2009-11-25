@@ -2719,8 +2719,90 @@ to be executed using the same JDBC connection and commit operation in between.</
 &nbsp;&nbsp;&lt;/fileset&gt;
 &lt;/xmllint&gt;
 </pre>
-    <p>Validate more XML files against one XSD file.</p><h2><a name="ZendCodeAnalyzerTask"
-      ></a>ZendCodeAnalyzerTask</h2><p>The <em>ZendCodeAnalyzerTask</em> analyze PHP source files using the Zend Code Analyzer tool that ships with all versions of Zend Studio.</p><h3>Attributes</h3><table>
+    <p>Validate more XML files against one XSD file.</p><h2><a name="XmlPropertyTask"></a>XmlPropertyTask</h2><p>Loads property values from a well-formed xml file. There are no other restrictions than "well-formed".</p><h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>file</td>
+          <td>String</td>
+          <td>The XML file to parse.</td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>prefix</td>
+          <td>String</td>
+          <td>The prefix to prepend to each property</td>
+          <td>n/a</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>keepRoot</td>
+          <td>Boolean</td>
+          <td>Keep the xml root tag as the first value in the property name.</td>
+          <td>true</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>collapseAttributes</td>
+          <td>Boolean</td>
+          <td>Treat attributes as nested elements.</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>delimiter</td>
+          <td>String</td>
+          <td>Delimiter for splitting multiple values.</td>
+          <td>,</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table><h3>Example</h3>
+    <p>Consider the following XML file:</p>
+    <pre>
+&lt;root-tag myattr="true"&gt;
+    &lt;inner-tag someattr="val"&gt;Text&lt;/inner-tag&gt;
+    &lt;a2&gt;&lt;a3&gt;&lt;a4&gt;false&lt;/a4&gt;&lt;/a3&gt;&lt;/a2&gt;
+&lt;/root-tag&gt;</pre>
+    <p>Used with the the following entry (<b>default</b>):</p>
+    <pre>
+&lt;xmlproperty file=&quot;somefile.xml&quot;/&gt;
+</pre>
+    <p>results in the following properties:</p>
+    <pre>
+root-tag(myattr)=true
+root-tag.inner-tag=Text
+root-tag.inner-tag(someattr)=val
+root-tag.a2.a3.a4=false</pre>
+    <p>Used with the the following entry (<b>collapseAttributes=true</b>):</p>
+    <pre>
+&lt;xmlproperty file=&quot;somefile.xml&quot; collapseAttributes=&quot;true&quot;/&gt;
+</pre>
+    <p>results in the following properties:</p>
+    <pre>
+root-tag.myattr=true
+root-tag.inner-tag=Text
+root-tag.inner-tag.someatt=val
+root-tag.a2.a3.a4=false</pre>
+    <p>Used with the the following entry (<b>keepRoot=false</b>):</p>
+    <pre>
+&lt;xmlproperty file=&quot;somefile.xml&quot; keepRoot=&quot;false&quot;/&gt;
+</pre>
+    <p>results in the following properties:</p>
+    <pre>
+inner-tag=Text
+inner-tag(someattr)=val
+a2.a3.a4=false</pre>
+    <h2><a name="ZendCodeAnalyzerTask"></a>ZendCodeAnalyzerTask</h2><p>The <em>ZendCodeAnalyzerTask</em> analyze PHP source files using the Zend Code Analyzer tool that ships with all versions of Zend Studio.</p><h3>Attributes</h3><table>
       <thead>
         <tr>
           <th>Name</th>

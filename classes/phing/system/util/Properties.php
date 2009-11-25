@@ -235,6 +235,23 @@ class Properties {
     }
     
     /**
+     * Appends a value to a property if it already exists with a delimiter
+     *
+     * If the property does not, it just adds it.
+     * 
+     * @param string $key
+     * @param mixed $value
+     * @param string $delimiter
+     */
+    function append($key, $value, $delimiter = ',') {
+        $newValue = $value;
+        if (isset($this->properties[$key]) && !empty($this->properties[$key]) ) {
+            $newValue = $this->properties[$key] . $delimiter . $value;
+        }
+        $this->properties[$key] = $newValue;
+    }
+
+    /**
      * Same as keys() function, returns an array of property names.
      * @return array
      */
