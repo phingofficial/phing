@@ -66,7 +66,7 @@ class PharPackageTask
     /**
      * @var PharMetadata
      */
-    private $metadata;
+    private $metadata = null;
     /**
      * @return PharMetadata
      */
@@ -234,6 +234,10 @@ class PharPackageTask
             if (!$this->baseDirectory->exists()) {
                 throw new BuildException("basedir does not exist!", $this->getLocation());
             }
+        }
+        
+        if (is_null($this->metadata)) {
+            throw new BuildException("metadata element must be set", $this->getLocation());
         }
     }
     /**
