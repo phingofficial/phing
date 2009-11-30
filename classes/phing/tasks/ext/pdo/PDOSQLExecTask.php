@@ -291,12 +291,11 @@ class PDOSQLExecTask extends PDOTask {
 
         try {
             if ($this->srcFile === null && $this->sqlCommand === ""
-            && (empty($this->filesets) || empty($this->filelists))) {
-                if (count($this->transactions) === 0) {
+                && empty($this->filesets) && empty($this->filelists) 
+                && count($this->transactions) === 0) {
                     throw new BuildException("Source file or fileset/filelist, "
                     . "transactions or sql statement "
                     . "must be set!", $this->location);
-                }
             }
 
             if ($this->srcFile !== null && !$this->srcFile->exists()) {
