@@ -107,7 +107,11 @@ class DbDeployTask extends Task {
                 $fullFileName = $this->dir . '/' . $fileName;
                 $fh = fopen($fullFileName, 'r');
                 $contents = fread($fh,  filesize($fullFileName));
-                $deploySQLFromFile = substr($contents,0,strpos($contents, '-- //@UNDO'));
+                // allow construct with and without space added
+                $deploySQLFromFileSplit = strpos($contents, '-- //@UNDO');
+                if ($deploySQLFromFileSplit === false)
+                    $deploySQLFromFileSplit = strpos($contents, '--//@UNDO');
+                $deploySQLFromFile = substr($contents,0,$deploySQLFromFileSplit);
                 $sqlToPerformDeploy .= $deploySQLFromFile;
                 $sqlToPerformDeploy .= 'UPDATE ' . DbDeployTask::$TABLE_NAME . ' SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . ' WHERE change_number = ' . $fileChangeNumber . ' AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 $sqlToPerformDeploy .= '-- Fragment ends: ' . $fileChangeNumber . ' --' . "\n";
