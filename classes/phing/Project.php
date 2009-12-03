@@ -635,7 +635,7 @@ class Project {
     }
 
     /**
-     * Create a task instance and return reference to it
+     * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
      * @param    string   Type name

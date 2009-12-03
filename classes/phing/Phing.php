@@ -933,7 +933,7 @@ class Phing {
         if ($total > 0) {
             self::$out->write($msg . PHP_EOL);
         }
-    }   
+    }
 
     /**
      * Import a dot-path notation class path.
