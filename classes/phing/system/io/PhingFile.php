@@ -166,7 +166,7 @@ class PhingFile {
         // that's a lastIndexOf
         $index = ((($res = strrpos($this->path, self::$separator)) === false) ? -1 : $res);
         if ($index < $this->prefixLength) {
-            if (($this->prefixLength > 0) && (strlen($this->path > $this->prefixLength))) {
+            if (($this->prefixLength > 0) && (strlen($this->path) > $this->prefixLength)) {
                 return substr($this->path, 0, $this->prefixLength);
             }
             return null;
