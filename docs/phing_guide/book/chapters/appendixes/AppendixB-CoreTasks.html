@@ -1949,8 +1949,14 @@ specified directory or the project basedir (if no dir attribute specified).</p>
 &lt;!-- Includes all tasks from the property file. Each line in the property 
 file defines a task in the format: name=path.to.Task --&gt;
 &lt;taskdef file=&quot;/path/to/mytasks.properties&quot; /&gt;
-
 </pre>
+<p>
+<b>NB:</b> Taskdef now supports the PEAR-style naming convention to define and load tasks:</P>
+<pre>
+&lt;taskdef name=&quot;sampletask&quot; classname=&quot;Dir_Subdir_SampleTask&quot;/&gt;
+</pre>
+<p>
+will load class <i>Dir_Subdir_SampleTask</i> from file <i>Dir/Subdir/SampleTask.php</i>.</p>
 <h3>Attributes</h3>
 <table>
   <thead>
