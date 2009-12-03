@@ -592,24 +592,26 @@ class Project {
      */
     function createTask($taskType) {
         try {
-            $cls = "";
+            $classname = "";
             $tasklwr = strtolower($taskType);
             foreach ($this->taskdefs as $name => $class) {
                 if (strtolower($name) === $tasklwr) {
-                    $cls = StringHelper::unqualify($class);                                    
+                    $classname = $class;
                     break;
                 }
             }
             
-            if ($cls === "") {
+            if ($classname === "") {
                 return null;
             }
+            
+            $cls = Phing::import($classname);
             
             if (!class_exists($cls)) {
                 throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
             }
             
-            $o = new $cls();        
+            $o = new $cls();
     
             if ($o instanceof Task) {
                 $task = $o;

@@ -933,7 +933,7 @@ class Phing {
         if ($total > 0) {
             self::$out->write($msg . PHP_EOL);
         }
-    }
+    }   
 
     /**
      * Import a dot-path notation class path.
@@ -944,9 +944,16 @@ class Phing {
      */
     public static function import($dotPath, $classpath = null) {
 
+        /// check if this is a PEAR-style path (@see http://pear.php.net/manual/en/standards.naming.php)
+        if (strpos($dotPath, '.') === false && strpos($dotPath, '_') !== false) {
+            $classname = $dotPath;
+            $dotPath = str_replace('_', '.', $dotPath);
+        } else {
+            $classname = StringHelper::unqualify($dotPath);
+        }
+        
         // first check to see that the class specified hasn't already been included.
         // (this also handles case where this method is called w/ a classname rather than dotpath)
-        $classname = StringHelper::unqualify($dotPath);
         if (class_exists($classname, false)) {
             return $classname;
         }
