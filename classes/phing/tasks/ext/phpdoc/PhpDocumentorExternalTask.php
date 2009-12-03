@@ -221,7 +221,6 @@ class PhpDocumentorExternalTask extends PhpDocumentorTask
             $aArgs[] = '--ignoresymlinks on';
         }
 
-        var_dump($aArgs);exit;
         return $aArgs;
     }
 
