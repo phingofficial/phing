@@ -194,74 +194,93 @@ class PhpCpdTask extends Task {
 
         // process output
         foreach ($this->formatters as $fe) {
-          $output = '';
-		  $outputFile = $project = $this->getProject()->getBaseDir().DIRECTORY_SEPARATOR.$fe->getOutfile();
+            $output = '';            
 
-          switch ($fe->getType()) {
-            case 'default':
-              // default format goes to logs, no buffering
-              ob_start();
-              $printer = new PHPCPD_TextUI_ResultPrinter;
-			  $printer->printResult($clones, $this->getProject()->getBaseDir());
-			  $output = ob_get_contents();
-              ob_end_clean();
-			  $check = file_put_contents($outputFile, $output);
-              break;
+            switch ($fe->getType()) {
+                case 'default':
+                    // default format goes to logs, no buffering
+                    ob_start();
+                    $printer = new PHPCPD_TextUI_ResultPrinter;
+                    $printer->printResult($clones, $this->getProject()->getBaseDir());
+                    $output = ob_get_contents();
+                    ob_end_clean();
 
-            case 'pmd':
-			  $pmd = new PHPCPD_Log_XML_PMD($outputFile);
-	          $pmd->processClones($clones);
-              break;
+                    if (!$fe->getUseFile()) {
+                        echo $output;
+                    } else {
+                        $outputFile = $fe->getOutfile()->getPath();
+                        $check = file_put_contents($outputFile, $output);
+                    }
+                    break;
 
-            default:
-              $this->log('Unknown output format "' . $fe->getType() . '"', Project::MSG_INFO);
-              continue; //skip to next formatter in list
-              break;
-          } //end switch
+                case 'pmd':
+                    $pmd = new PHPCPD_Log_XML_PMD($outputFile);
+                    $pmd->processClones($clones);
+                    break;
+
+                default:
+                    $this->log('Unknown output format "' . $fe->getType() . '"', Project::MSG_INFO);
+                    continue; //skip to next formatter in list
+                    break;
+            } //end switch
         } //end foreach
     } //end output
 } //end PhpCpdTask
 
 class PhpCpdTask_FormatterElement extends DataType {
 
-  /**
-   * Type of output to generate
-   * @var string
-   */
-  protected $type      = "";
+    /**
+    * Type of output to generate
+    * @var string
+    */
+    protected $type      = "";
 
-  /**
-   * Output file.
-   * @var string
-   */
-  protected $outfile   = "";
+    /**
+    * Output to file?
+    * @var bool
+    */
+    protected $useFile   = true;
 
-  /**
-   * Validate config.
-   */
-  public function parsingComplete () {
+    /**
+    * Output file.
+    * @var string
+    */
+    protected $outfile   = "";
+
+    /**
+    * Validate config.
+    */
+    public function parsingComplete () {
         if(empty($this->type)) {
             throw new BuildException("Format missing required 'type' attribute.");
+        }
+        if ($useFile && empty($this->outfile)) {
+            throw new BuildException("Format requres 'outfile' attribute when 'useFile' is true.");
+        }
     }
-    if (empty($this->outfile)) {
-      throw new BuildException("Format requres 'outfile' attribute");
-    } 
-  }
 
-  public function setType ($type)  {
-    $this->type = $type;
-  }
+    public function setType ($type)  {
+        $this->type = $type;
+    }
 
-  public function getType () {
-    return $this->type;
-  }
+    public function getType () {
+        return $this->type;
+    }
 
-    public function setOutfile ($outfile) {
-    $this->outfile = $outfile;
-  }
-  
-  public function getOutfile () {
-    return $this->outfile;
-  }
+    public function setUseFile ($useFile) {
+        $this->useFile = $useFile;
+    }
+
+    public function getUseFile () {
+        return $this->useFile;
+    }
+
+    public function setOutfile (PhingFile $outfile) {
+        $this->outfile = $outfile;
+    }
+
+    public function getOutfile () {
+        return $this->outfile;
+    }
   
 } //end FormatterElement
