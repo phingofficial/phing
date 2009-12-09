@@ -33,15 +33,19 @@ class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
-        $sb = "Test: " . $suite->getName();
-        $sb.= ", Run: " . $this->getRunCount();
+        parent::endTestSuite($suite);
+    }
+    
+    function endTestRun()
+    {
+        parent::endTestRun();
+        
+        $sb = "Tests run: " . $this->getRunCount();
         $sb.= ", Failures: " . $this->getFailureCount();
         $sb.= ", Errors: " . $this->getErrorCount();
         $sb.= ", Incomplete: " . $this->getIncompleteCount();
         $sb.= ", Skipped: " . $this->getSkippedCount();
         $sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-        
-        parent::endTestSuite($suite);
         
         if ($this->out != NULL)
         {
