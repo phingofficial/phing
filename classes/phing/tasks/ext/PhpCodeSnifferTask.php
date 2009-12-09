@@ -355,18 +355,17 @@ class PhpCodeSnifferTask extends Task {
               break;
           } //end switch
 
-                if (!$fe->getUseFile()) {
-            // output raw to console
-            echo $output;
-
-                } else {
-                  // write to file
-                  $outputFile = $this->getProject()->getBaseDir() . DIRECTORY_SEPARATOR . $fe->getOutfile();
-                  $check = file_put_contents($outputFile, $output);
-            if (is_bool($check) && !$check) {
-              throw new BuildException('Error writing output to ' . $outputFile);
-            }
+            if (!$fe->getUseFile()) {
+                // output raw to console
+                echo $output;
+            } else {
+                // write to file
+                $outputFile = $fe->getOutfile()->getPath();                  
+                $check = file_put_contents($ouputFile, $output);
+                if (is_bool($check) && !$check) {
+                    throw new BuildException('Error writing output to ' . $outputFile);
                 }
+            }
         } //end foreach
     } //end output
 
@@ -484,7 +483,7 @@ class PhpCodeSnifferTask_FormatterElement extends DataType {
     return $this->useFile;
   }
   
-  public function setOutfile ($outfile) {
+  public function setOutfile (PhingFile $outfile) {
     $this->outfile = $outfile;
   }
   
