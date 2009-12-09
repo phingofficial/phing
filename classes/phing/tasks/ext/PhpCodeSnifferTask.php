@@ -361,7 +361,7 @@ class PhpCodeSnifferTask extends Task {
             } else {
                 // write to file
                 $outputFile = $fe->getOutfile()->getPath();                  
-                $check = file_put_contents($ouputFile, $output);
+                $check = file_put_contents($outputFile, $output);
                 if (is_bool($check) && !$check) {
                     throw new BuildException('Error writing output to ' . $outputFile);
                 }
