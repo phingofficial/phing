@@ -24,6 +24,7 @@ require_once 'phing/Task.php';
 /**
  * Copy files to and from a remote host using scp.
  *
+ * @author    Michiel Rook <mrook@php.net>
  * @author    Johan Van den Brande <johan@vandenbrande.com>
  * @version   $Id$
  * @package   phing.tasks.ext
@@ -31,110 +32,266 @@ require_once 'phing/Task.php';
 
 class ScpTask extends Task
 {
-    private $file = "";
-    private $todir = "";
-    private $mode = null;
+    protected $file = "";
+    protected $filesets = array(); // all fileset objects assigned to this task
+    protected $todir = "";
+    protected $mode = null;
 
-    private $host = "";
-    private $port = 22;
-    private $username = "";
-    private $password = "";
-    private $localEndpoint = "";
-    private $remoteEndpoint = "";
+    protected $host = "";
+    protected $port = 22;
+    protected $username = "";
+    protected $password = "";
+    protected $autocreate = true;
+    protected $fetch = false;
+    protected $localEndpoint = "";
+    protected $remoteEndpoint = "";
+       
+    protected $connection = null;
+    protected $sftp = null;
+    
+    protected $count = 0;
 
-    function setMode($mode)
+    /**
+     * Sets the remote host
+     */
+    public function setHost($h)
     {
-        $this->mode = $mode;
+        $this->host = $h;
     }
 
-    function getMode()
+    /**
+     * Returns the remote host
+     */
+    public function getHost()
+    {
+        return $this->host;
+    }
+
+    /**
+     * Sets the remote host port
+     */
+    public function setPort($p)
+    {
+        $this->port = $p;
+    }
+
+    /**
+     * Returns the remote host port
+     */
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    /**
+     * Sets the mode value
+     */
+    public function setMode($value)
+    {
+        $this->mode = $value;
+    }
+
+    /**
+     * Returns the mode value
+     */
+    public function getMode()
     {
         return $this->mode;
     }
 
-    function setTodir($todir)
+    /**
+     * Sets the username of the user to scp
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * Returns the username
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Sets the password of the user to scp
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * Returns the password
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    
+    /**
+     * Sets whether to autocreate remote directories
+     */
+    public function setAutocreate($autocreate)
+    {
+        $this->autocreate = (bool) $autocreate;
+    }
+    
+    /**
+     * Returns whether to autocreate remote directories
+     */
+    public function getAutocreate()
+    {
+        return $this->autocreate;
+    }
+    
+    /**
+     * Set destination directory
+     */
+    public function setTodir($todir)
     {
         $this->todir = $todir;
     }
 
-    function getTodir()
+    /**
+     * Returns the destination directory
+     */
+    public function getTodir()
     {
         return $this->todir;
     }
 
-    function setFile($file)
+    /**
+     * Sets local filename
+     */
+    public function setFile($file)
     {
         $this->file = $file;
     }
 
-    function getFile()
+    /**
+     * Returns local filename
+     */
+    public function getFile()
     {
         return $this->file;
     }
-
+    
+    /**
+     * Sets whether to send (default) or fetch files
+     */
+    public function setFetch($fetch)
+    {
+        $this->fetch = (bool) $fetch;
+    }
+    
+    /**
+     * Returns whether to send (default) or fetch files
+     */
+    public function getFetch()
+    {
+        return $this->fetch;
+    }
+    
+    /**
+     * Nested creator, creates a FileSet for this task
+     *
+     * @return FileSet The created fileset object
+     */
+    public function createFileSet() {
+        $num = array_push($this->filesets, new FileSet());
+        return $this->filesets[$num-1];
+    }
+    
     public function init()
     {
         if (!function_exists('ssh2_connect')) { 
             throw new BuildException("To use ScpTask, you need to install the SSH extension.");
         }
-        return TRUE;
+        return true;
     }
 
     public function main()
     {
-        $this->determineEndpoints();
+        if ($this->file == "" && empty($this->filesets)) {
+            throw new BuildException("Missing either a nested fileset or attribute 'file'");
+        }
+        
+        if ($this->host == "" || $this->username == "") {
+            throw new BuildException("Attribute 'hostname' and 'username' must be set");
+        }
 
-        $connection = ssh2_connect($this->host, $this->port);
-        if (is_null($connection)) {
+        $this->connection = ssh2_connect($this->host, $this->port);
+        if (is_null($this->connection)) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
 
-        $could_auth = ssh2_auth_password($connection, $this->username, $this->password);
+        $could_auth = ssh2_auth_password($this->connection, $this->username, $this->password);
         if (!$could_auth) {
             throw new BuildException("Could not authenticate connection!");
         }
-
-
-        if (!is_null($this->mode)) {
-            ssh2_scp_send($connection, $this->localEndpoint, $this->remoteEndpoint, $this->mode);
+        
+        // prepare sftp resource
+        if ($this->autocreate) {
+            $this->sftp = ssh2_sftp($this->connection);
+        }
+        
+        if ($this->file != "") {
+            $this->copyFile($this->file, basename($this->file));
         } else {
-            ssh2_scp_send($connection, $this->localEndpoint, $this->remoteEndpoint);
+            if ($this->fetch) {
+                throw new BuildException("Unable to use filesets to retrieve files from remote server");
+            }
+            
+            foreach($this->filesets as $fs) {
+                $ds = $fs->getDirectoryScanner($this->project);
+                $files = $ds->getIncludedFiles();
+                $dir = $fs->getDir($this->project)->getPath();
+                foreach($files as $file) {
+                    $path = $dir.DIRECTORY_SEPARATOR.$file;
+                    $this->copyFile($path, $path);
+                }
+            }
         }
+        
+        $this->log("Copied " . $this->counter . " file(s) " . ($this->fetch ? "from" : "to") . " '" . $this->host . "'");
     }
-
-    private function isRemote($url)
+    
+    protected function copyFile($local, $remote)
     {
-        return strstr($url, "@");
-    }
+        $path = rtrim($this->todir, "/") . "/";
+        
+        if ($this->fetch) {
+            $localEndpoint = $path . $remote;
+            $remoteEndpoint = $local;
 
-    private function assignEndpoints($protocol, $localEndpoint)
-    {
-        $this->host = $protocol['host'];
-        if ($protocol['port']) $this->port = $protocol['port'];
-        $this->username = $protocol['user'];
-        $this->password = $protocol['pass'];
+            $ret = @ssh2_scp_recv($this->connection, $remoteEndpoint, $localEndpoint);
+            
+            if ($ret === false) {
+                throw new BuildException("Could not fetch remote file '" . $remoteEndpoint . "'");
+            }
+        } else {
+            $localEndpoint = $local;
+            $remoteEndpoint = $path . $remote;
 
-        $path = $protocol['path'];
-        if ($path) {
-            $path= rtrim($path, "/") . "/";
+            if ($this->autocreate) {
+                ssh2_sftp_mkdir($this->sftp, dirname($remoteEndpoint), (is_null($this->mode) ? 0777 : $this->mode), true);
+            }
+            
+            if (!is_null($this->mode)) {
+                $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint, $this->mode);
+            } else {
+                $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint);
+            }
+
+            if ($ret === false) {
+                throw new BuildException("Could not create remote file '" . $remoteEndpoint . "'");
+            }
         }
-        $this->remoteEndpoint = $path . basename($localEndpoint);
-        $this->localEndpoint = $localEndpoint;
-   }
 
-    private function determineEndpoints()
-    {
-        // determine fetch or send (which part is remote?)
-        if ($this->isRemote($this->file)) {
-            // Fetch from remote
-            $protocol = parse_url("scp://" . $this->file, PHP_URL_PATH);
-            $this->assignEndpoints($protocol, $this->todir);
-        } 
-        elseif ($this->isRemote($this->todir)) {
-            // Send to remote
-            $protocol = parse_url("scp://" . $this->todir);
-            $this->assignEndpoints($protocol, $this->file);
-        }
+        $this->counter++;
     }
 }
 ?>

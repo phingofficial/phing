@@ -2000,7 +2000,109 @@ to be executed using the same JDBC connection and commit operation in between.</
     todir=&quot;reports/tests&quot; 
     styledir=&quot;/home/phing/etc&quot;/&gt;
 </pre>
-    <p>Generates a framed report in the directory <em>reports/tests</em> using the file <em>reports/testsuites.xml</em> as input.</p><p><b>Important note:</b> testclasses that are not explicitly placed in a package (by using a '@package' tag in the class-level DocBlock) are listed under the "default" package.</p><h2><a
+    <p>Generates a framed report in the directory <em>reports/tests</em> using the file <em>reports/testsuites.xml</em> as input.</p><p><b>Important note:</b> testclasses that are not explicitly placed in a package (by using a '@package' tag in the class-level DocBlock) are listed under the "default" package.</p>
+    <h2><a name="ScpTask"></a>ScpTask</h2><p> The <em>ScpTask</em> copies files to and from a remote host using scp. This task requires the <a href="http://pecl.php.net/package/ssh2" target="_blank">PHP SSH2 extension</a> to function.</p>
+    <h3>Examples</h3>
+    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot; fetch=&quot;true&quot;
+todir=&quot;/home/john/backup&quot;
+file=&quot;/www/htdocs/test.html&quot;&gt;
+&lt;/scp&gt;
+    </pre>
+    <p>Fetches a single file from the remote server.</p>
+
+    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot;
+todir=&quot;/www/htdocs/&quot;
+file=&quot;/home/john/dev/test.html&quot;&gt;
+&lt;/scp&gt;
+    </pre>
+    <p>Copies a single file to the remote server.</p>
+
+    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot; fetch=&quot;true&quot;
+todir=&quot;/www/htdocs/project/&quot;
+    &lt;fileset dir=&quot;test&quot;&gt;
+        &lt;include name=&quot;*.html&quot;/&gt;
+    &lt;/fileset&gt;
+&lt;/scp&gt;
+    </pre>
+    <p>Copies multiple files to the remote server.</p>
+
+    <h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>host</td>
+          <td>String</td>
+          <td>Remote host</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>port</td>
+          <td>Integer</td>
+          <td>Remote port</td>
+          <td>22</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>username</td>
+          <td>String</td>
+          <td>Username to use for the connection</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>String</td>
+          <td>Password to use for the connection</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>autocreate</td>
+          <td>Boolean</td>
+          <td>Whether to autocreate remote directories</td>
+          <td>true</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>todir</td>
+          <td>String</td>
+          <td>Directory to put file(s) in</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>file</td>
+          <td>String</td>
+          <td>Filename to use</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>fetch</td>
+          <td>Boolean</td>
+          <td>Whether to fetch (instead of copy to) the file</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>Supported Nested Tags</h3>
+    <ul>
+      <li>fileset</li>
+    </ul>
+    <h2><a
         name="SimpleTestTask"></a>SimpleTestTask</h2><p>This task runs testcases using the <a
         href="http://www.simpletest.org/" target="_blank"
       >SimpleTest</a> framework. </p><h3>Attributes</h3><table>
