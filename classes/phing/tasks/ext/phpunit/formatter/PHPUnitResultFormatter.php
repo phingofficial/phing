@@ -24,7 +24,7 @@ require_once 'PHPUnit/Framework/TestListener.php';
 require_once 'phing/system/io/Writer.php';
 
 /**
- * This abstract class describes classes that format the results of a PHPUnit2 testrun.
+ * This abstract class describes classes that format the results of a PHPUnit testrun.
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @version $Id: PHPUnitResultFormatter.php -1   $
