@@ -155,19 +155,34 @@ class PHPUnitReportTask extends Task
     }
     
     /**
-     * Fixes 'testsuite' elements with no package attribute, adds
-     * package="default" to those elements.
+     * Fixes DOM document tree:
+     *   - adds package="default" to 'testsuite' elements without
+     *     package attribute
+     *   - removes outer 'testsuite' container(s)
      */
-    private function fixPackages(DOMDocument $document)
+    private function fixDocument(DOMDocument $document)
     {
-        $testsuites = $document->getElementsByTagName('testsuite');
+        $rootElement = $document->firstChild;
         
-        foreach ($testsuites as $testsuite)
+        $xp = new DOMXPath($document);
+        
+        $nodes = $xp->query("/testsuites/testsuite");
+        
+        foreach ($nodes as $node)
         {
-            if (!$testsuite->hasAttribute('package'))
-            {
-                $testsuite->setAttribute('package', 'default');
+            $children = $xp->query("./testsuite", $node);
+            
+            foreach ($children as $child)
+            {                
+                if (!$child->hasAttribute('package'))
+                {
+                    $child->setAttribute('package', 'default');
+                }
+                
+                $rootElement->appendChild($child);
             }
+            
+            $rootElement->removeChild($node);
         }
     }
 
@@ -181,7 +196,7 @@ class PHPUnitReportTask extends Task
         $testSuitesDoc = new DOMDocument();
         $testSuitesDoc->load($this->inFile);
         
-        $this->fixPackages($testSuitesDoc);
+        $this->fixDocument($testSuitesDoc);
         
         $this->transform($testSuitesDoc);
     }
