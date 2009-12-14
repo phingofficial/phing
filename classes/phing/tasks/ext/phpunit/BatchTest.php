@@ -57,6 +57,14 @@ class BatchTest
     }
     
     /**
+     * Sets the name of the batchtest/suite
+     */
+    function setName($name)
+    {
+        $this->name = $name;
+    }
+    
+    /**
      * Sets the classes to exclude
      */
     function setExclude($exclude)
