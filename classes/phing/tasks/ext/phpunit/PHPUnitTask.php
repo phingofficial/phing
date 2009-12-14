@@ -252,8 +252,6 @@ class PHPUnitTask extends Task
         foreach ($this->batchtests as $batchtest)
         {
             $this->execute($batchtest->getTestSuite());
-
-            //$tests = array_merge($tests, $batchtest->elements());
         }           
         
         foreach ($this->formatters as $fe)

@@ -87,7 +87,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     /**
      * Run a test
      */
-    function run($test)
+    function run(PHPUnit_Framework_TestSuite $suite)
     {
         $res = new PHPUnit_Framework_TestResult();
 
@@ -109,7 +109,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
             $oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
         }
         
-        $test->run($res, false, $this->groups, $this->excludeGroups);
+        $suite->run($res, false, $this->groups, $this->excludeGroups);
         
         foreach ($this->formatters as $formatter)
         {
