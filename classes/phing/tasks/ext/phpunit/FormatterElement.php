@@ -51,6 +51,12 @@ class FormatterElement
             $this->formatter = new SummaryPHPUnitResultFormatter();
         }
         else
+        if ($this->type == "clover")
+        {
+            require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
+            $this->formatter = new CloverPHPUnitResultFormatter();
+        }
+        else
         if ($this->type == "xml")
         {
             $destFile = new PhingFile($this->toDir, 'testsuites.xml');

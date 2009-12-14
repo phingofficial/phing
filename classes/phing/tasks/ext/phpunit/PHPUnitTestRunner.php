@@ -108,8 +108,13 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         {
             $oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
         }
-
+        
         $test->run($res, false, $this->groups, $this->excludeGroups);
+        
+        foreach ($this->formatters as $formatter)
+        {
+            $formatter->processResult($res);
+        }
         
         /* Restore Phing error handler */
         if ($this->useCustomErrorHandler)

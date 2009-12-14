@@ -228,11 +228,6 @@ class PHPUnitTask extends Task
             require_once $this->bootstrap;
         }
         
-        foreach ($this->batchtests as $batchtest)
-        {
-            $tests = array_merge($tests, $batchtest->elements());
-        }           
-        
         foreach ($this->formatters as $fe)
         {
             $formatter = $fe->getFormatter();
@@ -254,11 +249,13 @@ class PHPUnitTask extends Task
             $formatter->startTestRun();
         }
         
-        foreach ($tests as $test)
+        foreach ($this->batchtests as $batchtest)
         {
-            $this->execute($test);
-        }
+            $this->execute($batchtest->getTestSuite());
 
+            //$tests = array_merge($tests, $batchtest->elements());
+        }           
+        
         foreach ($this->formatters as $fe)
         {
             $formatter = $fe->getFormatter();
@@ -274,7 +271,7 @@ class PHPUnitTask extends Task
     /**
      * @throws BuildException
      */
-    private function execute($test)
+    private function execute($suite)
     {
         $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups);
         
@@ -286,20 +283,6 @@ class PHPUnitTask extends Task
             $formatter = $fe->getFormatter();
 
             $runner->addFormatter($formatter);      
-        }
-        
-        /* Invoke the 'suite' method when it exists in the test class */
-        $testClass = new ReflectionClass($test);
-        
-        if ($testClass->hasMethod('suite'))
-        {
-            $suiteMethod = $testClass->getMethod('suite');
-            
-            $suite = $suiteMethod->invoke(NULL, $testClass->getName());
-        }
-        else
-        {
-            $suite = new PHPUnit_Framework_TestSuite($test);
         }
         
         $runner->run($suite);

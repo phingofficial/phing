@@ -82,6 +82,10 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
         return "";
     }
     
+    function processResult(PHPUnit_Framework_TestResult $result)
+    {
+    }
+    
     function startTestRun()
     {
         $this->timers = array($this->getMicrotime());

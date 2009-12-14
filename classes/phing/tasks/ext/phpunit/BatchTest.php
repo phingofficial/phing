@@ -43,6 +43,9 @@ class BatchTest
     /** names of classes to exclude */
     private $excludeClasses = array();
     
+    /** name of the batchtest/suite */
+    protected $name = "Phing Batchtest";
+    
     /**
      * Create a new batchtest instance
      *
@@ -153,7 +156,7 @@ class BatchTest
      *
      * @return array an array of tests.
      */
-    function elements()
+    protected function elements()
     {
         $filenames = $this->getFilenames();
         
@@ -173,5 +176,24 @@ class BatchTest
         $elements = array_filter($declaredClasses, array($this, "filterTests"));
 
         return $elements;
+    }
+    
+    /**
+     * Returns a testsuite containing all the tests in this batch
+     *
+     * @return PHPUnit_Framework_TestSuite
+     */
+    public function getTestSuite()
+    {
+        $suite = new PHPUnit_Framework_TestSuite($this->name);
+        
+        foreach ($this->elements() as $test)
+        {
+            $testClass = new ReflectionClass($test);
+            
+            $suite->addTestSuite($testClass);
+        }
+        
+        return $suite;
     }
 }

@@ -52,6 +52,14 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     
     function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
+        foreach ($suite->tests() as $test)
+        {
+            if ($test instanceof PHPUnit_Framework_TestSuite)
+            {
+                return false;
+            }
+        }
+        
         $sb = "Testsuite: " . $suite->getName() . "\n";
         $sb.= "Tests run: " . $this->getRunCount();
         $sb.= ", Failures: " . $this->getFailureCount();
@@ -60,13 +68,13 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         $sb.= ", Skipped: " . $this->getSkippedCount();
         $sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
 
-        parent::endTestSuite($suite);
-        
         if ($this->out != NULL)
         {
             $this->out->write($sb);
             $this->out->write($this->inner);
         }
+
+        parent::endTestSuite($suite);
     }
 
     function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
