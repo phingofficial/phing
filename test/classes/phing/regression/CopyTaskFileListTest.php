@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/229
  * - CopyTask should accept filelist subelement
  *
- * @package regression
+ * @package phing.regression
  */
 class CopyTaskFileListTest extends BuildFileTest { 
         

@@ -25,6 +25,7 @@ include_once 'phing/util/FileUtils.php';
 
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
+ * @package phing.filters
  */
 class LineContainsTest extends BuildFileTest {
     

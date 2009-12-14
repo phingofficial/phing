@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/307
  * - Replaceregexp filter works in Copy task but not Move task
  *
- * @package regression
+ * @package phing.regression
  */
 class MoveReplaceRegexpTest extends BuildFileTest { 
         

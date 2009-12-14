@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/337
  * - "Cannot access protected property" error when using custom task that contains a fileset with include
  *
- * @package regression
+ * @package phing.regression
  */
 class CustomTaskFileSetTest extends BuildFileTest { 
         

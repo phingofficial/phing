@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/299
  * - PhingCall crashes if an AdhocTask is defined
  *
- * @package regression
+ * @package phing.regression
  */
 class PhingCallAdhocTest extends BuildFileTest { 
         

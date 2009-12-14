@@ -28,6 +28,7 @@ include_once 'phing/tasks/system/condition/OsCondition.php';
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Revision$
+ * @package phing
  */
 class IntrospectionHelperTest extends PHPUnit_Framework_TestCase {
 

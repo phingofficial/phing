@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/269
  * - Allow properties to be recursively named
  *
- * @package regression
+ * @package phing.regression
  */
 class RecursivePropertyTest extends BuildFileTest { 
         

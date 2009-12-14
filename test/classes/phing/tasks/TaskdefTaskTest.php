@@ -23,6 +23,7 @@ require_once 'phing/BuildFileTest.php';
 
 /**
  * @version $Revision$
+ * @package phing.tasks.system
  */
 class TaskdefTaskTest extends BuildFileTest { 
         

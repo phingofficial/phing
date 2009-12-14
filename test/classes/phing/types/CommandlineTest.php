@@ -30,7 +30,7 @@ include_once 'phing/types/Commandline.php';
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @package propel.types
+ * @package phing.types
  */
 class CommandlineTest extends PHPUnit_Framework_TestCase {
 

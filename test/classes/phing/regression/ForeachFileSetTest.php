@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/252
  * - foreach on a fileset
  *
- * @package regression
+ * @package phing.regression
  */
 class ForeachFileSetTest extends BuildFileTest { 
         

@@ -144,6 +144,9 @@ class MapperTest extends PHPUnit_Framework_TestCase {
 }
 
 
+/**
+ * @package phing.mappers
+ */
 class TaskdefForCopyTest extends BuildFileTest {
 
     public function setUp() {

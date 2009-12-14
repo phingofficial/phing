@@ -29,6 +29,7 @@ include_once 'phing/tasks/system/condition/ContainsCondition.php';
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Revision$
+ * @package phing.tasks.system.condition
  */
 class ContainsConditionTest extends PHPUnit_Framework_TestCase {
 

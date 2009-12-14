@@ -29,6 +29,7 @@ include_once 'phing/tasks/system/condition/EqualsCondition.php';
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Revision$
+ * @package phing.tasks.system.condition
  */
 class EqualsConditionTest extends PHPUnit_Framework_TestCase {
 

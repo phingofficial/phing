@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/363
  * - PHPUnit task fails with formatter type 'xml'
  *
- * @package regression
+ * @package phing.regression
  */
 class PhpUnit34Test extends BuildFileTest { 
         

@@ -26,7 +26,7 @@ require_once 'phing/BuildFileTest.php';
  * Regression test for ticket http://www.phing.info/trac/ticket/360
  * - &amp;amp; transfers into & in new created task
  *
- * @package regression
+ * @package phing.regression
  */
 class HtmlEntitiesTest extends BuildFileTest { 
         

@@ -25,6 +25,7 @@ require_once 'phing/BuildFileTest.php';
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
+ * @package phing.tasks.system
  */
 class PropertyTaskTest extends BuildFileTest { 
         
