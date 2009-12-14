@@ -26,6 +26,7 @@
 	<resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
 	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
 	<resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
+	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
 	
 	<path id="incthis">
 		<pathelement dir="${tests.dir.resolved}"/>
@@ -58,7 +59,8 @@
 				<fileset refid="relevant-tests"/>
 			</batchtest>
 		</phpunit>
-		<phpunitreport format="noframes" todir="${tests.reports.dir}" infile="${tests.reports.dir}/test-results.xml" styledir="${tests.phpunit.dir}/etc/xsl"/>
+		<phpunitreport format="noframes" todir="${tests.reports.dir}" infile="${tests.reports.dir}/test-results.xml"
+		styledir="${phing.etc.dir.resolved}"/>
 	</target>
 	
 	<!-- run the insert-sql target of the build.xml unless we are doing this for one specific test -->
