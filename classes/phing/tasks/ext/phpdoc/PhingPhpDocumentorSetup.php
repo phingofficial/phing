@@ -207,4 +207,14 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
         global $_phpDocumentor_setting;
         $_phpDocumentor_setting['customtags'] = $sCustomtags;
     }
+    
+    /**
+     * Files to ignore
+     *
+     * @param  string  $sIgnore
+     */
+    public function setIgnore($sIgnore) {
+        global $_phpDocumentor_setting;
+        $_phpDocumentor_setting['ignore'] = $sIgnore;
+    }
 }

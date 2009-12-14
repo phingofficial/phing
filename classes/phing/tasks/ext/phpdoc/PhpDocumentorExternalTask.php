@@ -146,6 +146,11 @@ class PhpDocumentorExternalTask extends PhpDocumentorTask
         {
             $aArgs[] = '--parseprivate on';
         }
+        
+        if ($this->ignore)
+        {
+            $aArgs[] = '--ignore ' . $this->ignore;
+        }
 
         // append any files in filesets
         $filesToParse = array();

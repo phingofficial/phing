@@ -132,6 +132,11 @@ class PhpDocumentorTask extends Task
     protected $customtags = '';
     
     /**
+     * @var string  files to ignore
+     */
+    protected $ignore = '';
+    
+    /**
      * Set the title for the generated documentation
      */
     public function setTitle($title) {
@@ -169,7 +174,7 @@ class PhpDocumentorTask extends Task
         $this->setLinksource($b);
     }
 
-    /**
+   /**
      * Set whether to generate sourcecode for each file parsed
      * @param boolean
      */
@@ -305,6 +310,14 @@ class PhpDocumentorTask extends Task
     public function setTemplateBase(PhingFile $oTemplateBase) {
         $this->templateBase = $oTemplateBase;
     }
+    
+    /**
+     * Set files to ignore
+     * @param  string  $sIgnore
+     */
+    public function setIgnore($sIgnore) {
+        $this->ignore = $sIgnore;
+    }
 
     /**
      * Searches include_path for PhpDocumentor install and adjusts include_path appropriately.
@@ -431,6 +444,10 @@ class PhpDocumentorTask extends Task
         
         if ($this->pear) {
             $phpdoc->setPear($this->pear);
+        }
+        
+        if ($this->ignore) {
+            $phpdoc->setIgnore($this->ignore);
         }
         
         // append any files in filesets
