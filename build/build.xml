@@ -20,6 +20,7 @@
     <include name="**/**"/>
     <exclude name="bin/pear-phing"/>
     <exclude name="bin/pear-phing.bat"/>
+    <exclude name="build/**"/>
   </fileset>
 
 	<fileset dir="${phingpkg.home}/classes/phing" id="classes">
@@ -197,6 +198,9 @@
 		<tar compression="gzip" destFile="${tgzfile-full}"
 		basedir="full/${pkgname}" />
 
+    <property name="zipfile-full" value="full/${pkgname}.zip"/>
+		<delete	file="${zipfile-full}"/>
+		<zip destFile="${zipfile-full}"	basedir="full/${pkgname}" />
 	</target>
   
   <target name="clean">
