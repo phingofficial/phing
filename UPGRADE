@@ -16,21 +16,30 @@
   
   Backwards compatibility
   -----------------------
+
+  This release drops or introduces functionality, which may have
+  impact on your build process and require changes to your build files:
+
+  * The way the "basedir" attribute (part of the "project" element in
+    a build file) has changed. Phing now uses the current directory
+    (getcwd()) to resolve relative base directories (such as ".").
+    When the attribute is not present, the parent directory of the 
+    build file is used instead. 
+
+  * PHPUnit2 compatibility is dropped, Phing now requires at least
+    PHPUnit 3.4 to run tests
+
+  * The way Phing treats symbolic links was changed. Phing now considers 
+    symbolic links to be files, regardless of whether they point to an 
+    existing file or directory. Consequently, directory operations on 
+    symbolic links will fail.
+
+  * By default, Phing no longer automatically de-references symbolic 
+    links. In other words, the CopyTask will now copy symbolic links 
+    "as is", not duplicate the contents as with previous versions of Phing.
   
-  Note that this release of Phing drops PHPUnit2 compatibility, and
-  requires PHPUnit3 (www.phpunit.de) to run tests.
-  
-  Additionally, the way Phing treats symbolic links was changed. Phing
-  now considers symbolic links to be files, regardless of whether they
-  point to an existing file or directory.
-  Consequently, directory operations on symbolic links will fail.
-  
-  By default, Phing no longer automatically de-references symbolic links.
-  In other words, the CopyTask will now copy symbolic links "as is", not
-  duplicate the contents as with previous versions of Phing.
-  
-  To emulate the old behavior, the <fileset> element now accepts the
-  boolean argument 'expandsymboliclinks'.
+    To emulate the old behavior, the <fileset> element now accepts the
+    boolean argument 'expandsymboliclinks'.
   
   PEAR package
   ------------
