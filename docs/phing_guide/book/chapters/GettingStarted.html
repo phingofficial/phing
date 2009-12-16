@@ -56,7 +56,7 @@
 <pre title="Example of a simple build file">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 
-&lt;project name=&quot;FooBar&quot; default=&quot;dist&quot; basedir=&quot;.&quot;&gt;
+&lt;project name=&quot;FooBar&quot; default=&quot;dist&quot;
 
     &lt;!-- ============================================  --&gt;
     &lt;!-- Target: prepare                               --&gt;
@@ -142,8 +142,8 @@ attributes:</p>
   </tr>
   <tr>
     <td>basedir</td>
-    <td>The base directory of the project. If none is specified, the
-        current directory is used.</td>
+    <td>The base directory of the project, use &quot;.&quot; do denote the current directory. 
+        strong>Note:</strong> if none is specified, the parent directory of the build file is used!</strong></td>
     <td>No</td>
   </tr>
   <tr>
