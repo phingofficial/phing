@@ -16,12 +16,12 @@
     name="pear-package"
     classname="BuildPhingPEARPackageTask" classpath="."/>
     
-  <fileset dir="${phingpkg.home}" id="all">
-    <include name="**/**"/>
-    <exclude name="bin/pear-phing"/>
-    <exclude name="bin/pear-phing.bat"/>
-    <exclude name="build/**"/>
-  </fileset>
+	<fileset dir="${phingpkg.home}" id="all">
+		<include name="**/**"/>
+		<exclude name="bin/pear-phing"/>
+		<exclude name="bin/pear-phing.bat"/>
+		<exclude name="build/**"/>
+	</fileset>
 
 	<fileset dir="${phingpkg.home}/classes/phing" id="classes">
 		<include name="**"/>
@@ -120,11 +120,11 @@
 			<fileset refid="docs"/>
 		</copy>
 		
-		<append destFile="${build.src.dir}/etc/VERSION.TXT">Phing version ${version}</append>
-    <append destFile="${build.full.dir}/etc/VERSION.TXT">Phing version ${version}</append>
+		<echo append="false" file="${build.src.dir}/etc/VERSION.TXT">Phing version ${version}</echo>
+		<echo append="false" file="${build.full.dir}/etc/VERSION.TXT">Phing version ${version}</echo>
 		
 		<chmod file="${build.src.dir}/bin/pear-phing" mode="755"/>
-    <chmod file="${build.full.dir}/bin/phing" mode="755"/>
+		<chmod file="${build.full.dir}/bin/phing" mode="755"/>
 		
 	</target>
 	
@@ -198,12 +198,12 @@
 		<tar compression="gzip" destFile="${tgzfile-full}"
 		basedir="full/${pkgname}" />
 
-    <property name="zipfile-full" value="full/${pkgname}.zip"/>
+		<property name="zipfile-full" value="full/${pkgname}.zip"/>
 		<delete	file="${zipfile-full}"/>
 		<zip destFile="${zipfile-full}"	basedir="full/${pkgname}" />
 	</target>
   
-  <target name="clean">
+	 <target name="clean">
 		<echo>-----------------------------</echo>
 		<echo>| Deleting build directory  |</echo>
 		<echo>-----------------------------</echo>
@@ -211,6 +211,6 @@
 		<delete dir="${build.pear.dir}"/>
 		<delete dir="full"/>
     
-  </target>
+	</target>
 	
 </project>
