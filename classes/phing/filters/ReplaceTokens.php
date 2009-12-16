@@ -392,7 +392,16 @@ class Token {
      * @param string $value The value for this token. Must not be <code>null</code>.
      */
     function setValue($value) {
-        $this->_value = (string) $value;
+        // special case for boolean values
+        if (is_bool($value)) {
+            if ($value) {
+                $this->_value = "true";
+            } else {
+                $this->_value = "false";
+            }
+        } else {        
+            $this->_value = (string) $value;
+        }
     }
 
     /**
