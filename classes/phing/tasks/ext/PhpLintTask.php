@@ -41,6 +41,8 @@ class PhpLintTask extends Task {
     private $badFiles = array();
     protected $interpreter = ''; // php interpreter to use for linting
     
+    protected $logLevel = Project::MSG_INFO;
+    
     private $cache = null;
 
     /**
@@ -104,6 +106,22 @@ class PhpLintTask extends Task {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
+    
+    /**
+     * Set level of log messages generated (default = info)
+     * @param string $level
+     */
+    public function setLevel($level)
+    {
+        switch ($level)
+        {
+            case "error": $this->logLevel = Project::MSG_ERR; break;
+            case "warning": $this->logLevel = Project::MSG_WARN; break;
+            case "info": $this->logLevel = Project::MSG_INFO; break;
+            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
+            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        }
+    }
 
     /**
      * Execute lint check against PhingFile or a FileSet
@@ -161,7 +179,7 @@ class PhpLintTask extends Task {
                         if ($this->errorProperty) {
                             $this->project->setProperty($this->errorProperty, $messages[1]);
                         }
-                        $this->log($messages[1], Project::MSG_ERR);
+                        $this->log($messages[1], $this->logLevel);
                     } else {
                         $this->log("Could not parse file", Project::MSG_ERR);
                     }
@@ -169,7 +187,7 @@ class PhpLintTask extends Task {
                     $this->hasErrors = true;
                     
                 } else {
-                    $this->log($file.': No syntax errors detected', Project::MSG_INFO);
+                    $this->log($file.': No syntax errors detected', $this->logLevel);
                 }
                 
                 if ($this->cache)
