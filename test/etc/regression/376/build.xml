@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="FooBar" default="main" basedir=".">
+<project name="FooBar" default="main">
 	<target name="main">
 
 	<copy file="testfile" tofile="newfile" overwrite="true">

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="test" default="main" basedir=".">
+<project name="test" default="main">
 	<target name="main">
 		<phpunit haltonerror="true" haltonfailure="true"
 		printsummary="true">

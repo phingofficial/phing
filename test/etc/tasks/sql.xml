@@ -5,7 +5,7 @@
 	would be to add many INPUT tasks, but I prefer to keep it simple
 	for now. -->
 	
-<project name="sql-test" basedir="." default="main">
+<project name="sql-test" default="main">
 
 	<target name="main">	
 		<sql 	  

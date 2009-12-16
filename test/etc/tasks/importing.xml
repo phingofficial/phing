@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="importing" default="" basedir=".">
+<project name="importing" default="">
 
   <import file="imports/imported.xml"/>
 

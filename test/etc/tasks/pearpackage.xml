@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 	
-<project name="pear-package-test" basedir="." default="main">
+<project name="pear-package-test" default="main">
 
 	<taskdef name="pkg" classname="phing.tasks.ext.PearPackageTask"/>
 	

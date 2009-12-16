@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="prompt_test" default="main" basedir=".">
+<project name="prompt_test" default="main">
     <target
         name="main"
         description="==>test prompt">

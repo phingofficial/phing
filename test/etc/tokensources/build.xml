@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<project name="tests.tokensource" basedir="." default="main">
+<project name="tests.tokensource" default="main">
 
     <target name="main" >
         <echo msg="Testing" />

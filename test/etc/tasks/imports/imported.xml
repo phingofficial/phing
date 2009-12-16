@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="imported" default="" basedir=".">
+<project name="imported" default="">
 
   <php function="dirname" returnProperty="imported.basedir">
     <param value="${phing.file.imported}"/>

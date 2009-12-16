@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project default="cleanup" basedir=".">
+<project default="cleanup">
 
  <target name="init">
     <mkdir dir="result" />

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="test" basedir="." default="invalid">
+<project name="test" default="invalid">
 
   <target name="invalid">
     <fail>This file should only be run via a testcase</fail>

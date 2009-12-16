@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="fileset-test" basedir="." default="main">
+<project name="fileset-test" default="main">
 
   <target name="main">
   	<phingcall target="setup"/>
