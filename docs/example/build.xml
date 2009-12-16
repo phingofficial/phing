@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="Hello World Example" default="build" basedir="." description="This is an example buildfile for Phing.">
+<project name="Hello World Example" default="build" description="This is an example buildfile for Phing.">
 	<target name="prepare">
 		<mkdir dir="reports/coverage"/>
 		<mkdir dir="reports/tests"/>
