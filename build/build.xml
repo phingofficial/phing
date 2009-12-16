@@ -120,8 +120,8 @@
 			<fileset refid="docs"/>
 		</copy>
 		
-		<echo append="false" file="${build.src.dir}/etc/VERSION.TXT">Phing version ${version}</echo>
-		<echo append="false" file="${build.full.dir}/etc/VERSION.TXT">Phing version ${version}</echo>
+		<echo append="false" file="${build.src.dir}/etc/VERSION.TXT">Phing ${version}</echo>
+		<echo append="false" file="${build.full.dir}/etc/VERSION.TXT">Phing ${version}</echo>
 		
 		<chmod file="${build.src.dir}/bin/pear-phing" mode="755"/>
 		<chmod file="${build.full.dir}/bin/phing" mode="755"/>
