@@ -34,6 +34,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 class SvnLastRevisionTask extends SvnBaseTask
 {
     private $propertyName = "svn.lastrevision";
+    private $forceCompatible = false;
 
     /**
      * Sets the name of the property to use
@@ -50,6 +51,14 @@ class SvnLastRevisionTask extends SvnBaseTask
     {
         return $this->propertyName;
     }
+    
+    /**
+     * Sets whether to force compatibility with older SVN versions (< 1.2)
+     */
+    public function forceCompatible($force)
+    {
+        $this->forceCompatible = (bool) $force;
+    }
 
     /**
      * The main entry point
@@ -60,16 +69,32 @@ class SvnLastRevisionTask extends SvnBaseTask
     {
         $this->setup('info');
         
-        $output = $this->run(array('--xml'));
-        
-        if ($xmlObj = @simplexml_load_string($output))
+        if ($this->forceCompatible)
         {
-            $lastRevision = (int)$xmlObj->entry['revision'];
-            $this->project->setProperty($this->getPropertyName(), $lastRevision);
+            $output = $this->run();
+
+            if (preg_match('/Rev:[\s]+([\d]+)/', $output, $matches))
+            {
+                $this->project->setProperty($this->getPropertyName(), $matches[1]);
+            }
+            else
+            {
+                throw new BuildException("Failed to parse the output of 'svn info'.");
+            }            
         }
         else
         {
-            throw new BuildException("Failed to parse the output of 'svn info --xml'.");
+            $output = $this->run(array('--xml'));
+            
+            if ($xmlObj = @simplexml_load_string($output))
+            {
+                $lastRevision = (int)$xmlObj->entry['revision'];
+                $this->project->setProperty($this->getPropertyName(), $lastRevision);
+            }
+            else
+            {
+                throw new BuildException("Failed to parse the output of 'svn info --xml'.");
+            }
         }
     }
 }
