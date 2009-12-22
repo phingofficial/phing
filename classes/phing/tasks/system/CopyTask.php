@@ -42,7 +42,7 @@ class CopyTask extends Task {
     protected $destFile      = null;   // the destiantion file (from xml attribute)
     protected $destDir       = null;   // the destination dir (from xml attribute)
     protected $overwrite     = false;  // overwrite destination (from xml attribute)
-    protected $preserveLMT   = true;   // sync timestamps (from xml attribute)
+    protected $preserveLMT   = false;   // sync timestamps (from xml attribute)
     protected $includeEmpty  = true;   // include empty dirs? (from XML)
     protected $flatten       = false;  // apply the FlattenMapper right way (from XML)
     protected $mapperElement = null;
