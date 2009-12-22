@@ -95,7 +95,14 @@ class CopyTask extends Task {
     }
     
     /**
-     * Set the preserve timestmap flag. IntrospectionHelper takes care of
+     * @see CopyTask::setPreserveLastModified
+     */
+    function setTstamp($bool) {
+       $this->setPreserveLastModified($bool); 
+    }
+    
+    /**
+     * Set the preserve timestamp flag. IntrospectionHelper takes care of
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
@@ -103,10 +110,9 @@ class CopyTask extends Task {
      * @return void
      * @access public
      */
-    function setTstamp($bool) {
+    function setPreserveLastModified($bool) {
         $this->preserveLMT = (boolean) $bool;
     }
-
 
     /**
      * Set the include empty dirs flag. IntrospectionHelper takes care of
