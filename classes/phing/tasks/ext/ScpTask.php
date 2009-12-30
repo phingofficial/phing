@@ -251,7 +251,7 @@ class ScpTask extends Task
                 $dir = $fs->getDir($this->project)->getPath();
                 foreach($files as $file) {
                     $path = $dir.DIRECTORY_SEPARATOR.$file;
-                    $this->copyFile($path, $path);
+                    $this->copyFile($path, $file);
                 }
             }
         }
