@@ -56,6 +56,10 @@ class PharPackageTask
      */
     private $webStubFile;
     /**
+     * @var string
+     */
+    private $stubPath;
+    /**
      * @var int
      */
     private $signatureAlgorithm = Phar::SHA1;
@@ -67,6 +71,10 @@ class PharPackageTask
      * @var PharMetadata
      */
     private $metadata = null;
+    /**
+     * @var string
+     */
+    private $alias;
     /**
      * @return PharMetadata
      */
@@ -156,6 +164,20 @@ class PharPackageTask
         $this->webStubFile = $stubFile;
     }
     /**
+     * @param string $stubPath
+     */
+    public function setStub($stubPath)
+    {
+        $this->stubPath = $stubPath;
+    }
+    /**
+     * @param $alias
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+    }
+    /**
      * @throws BuildException
      */
     public function main()
@@ -242,7 +264,7 @@ class PharPackageTask
                 throw new BuildException("basedir does not exist!", $this->getLocation());
             }
         }
-        
+
         if (is_null($this->metadata)) {
             throw new BuildException("metadata element must be set", $this->getLocation());
         }
@@ -258,13 +280,21 @@ class PharPackageTask
 
         $phar->setSignatureAlgorithm($this->signatureAlgorithm);
 
-        $phar->setDefaultStub(
-            $this->cliStubFile,
-            $this->webStubFile
-        );
+        if (isset($this->stubPath)) {
+            $phar->setStub(file_get_contents($this->stubPath));
+        } else {
+            $phar->setDefaultStub(
+                $this->cliStubFile,
+                $this->webStubFile
+            );
+        }
 
         if ($metadata = $this->metadata->toArray()) {
             $phar->setMetadata($metadata);
+        }
+
+        if(!empty($this->alias)){
+            $phar->setAlias($this->alias);
         }
 
         return $phar;
