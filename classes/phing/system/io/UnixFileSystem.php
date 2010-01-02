@@ -68,7 +68,7 @@ class UnixFileSystem extends FileSystem {
      */
     function normalize($strPathname) {
         
-        if (empty($strPathname)) {
+        if (!strlen($strPathname)) {
             return;
         }
         
