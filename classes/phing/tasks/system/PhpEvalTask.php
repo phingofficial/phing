@@ -39,7 +39,7 @@ class PhpEvalTask extends Task {
     protected $expression; // Expression to evaluate
     protected $function; // Function to execute
     protected $class; // Class containing function to execute
-    protected $returnProperty; // name of property to set to return value 
+    protected $returnProperty = null; // name of property to set to return value 
     protected $params = array(); // parameters for function calls
     
     /** Main entry point. */
@@ -57,15 +57,10 @@ class PhpEvalTask extends Task {
             throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.", $this->location);
         }
         
-        $retval = null;
         if ($this->function !== null) {
-            $retval = $this->callFunction();                                    
+            $this->callFunction();                                    
         } elseif ($this->expression !== null) {
-            $retval = $this->evalExpression();
-        }
-        
-        if ($this->returnProperty !== null) {
-            $this->project->setProperty($this->returnProperty, $retval);
+            $this->evalExpression();
         }
     }
     
@@ -98,7 +93,10 @@ class PhpEvalTask extends Task {
         } 
         
         $return = call_user_func_array($user_func, $params);
-        return $return;
+        
+        if ($this->returnProperty !== null) {
+            $this->project->setProperty($this->returnProperty, $return);
+        }
     }
     
     /**
@@ -110,9 +108,14 @@ class PhpEvalTask extends Task {
         if (!StringHelper::endsWith(';', trim($this->expression))) {
             $this->expression .= ';';
         }
-        $retval = null;
-        eval('$retval = ' . $this->expression);
-        return $retval;
+
+        if ($this->returnProperty !== null) {
+            $retval = null;
+            eval('$retval = ' . $this->expression);
+            $this->project->setProperty($this->returnProperty, $retval);
+        } else {
+            eval($this->expression);
+        }
     }
     
     /** Set function to execute */

@@ -1665,6 +1665,7 @@ of evaluating a PHP expression or the result returned by a function/method call.
   &lt;param value=&quot;${auth.root_passwd}&quot;/&gt;
 &lt;/php&gt;</pre>
 <pre>&lt;php expression=&quot;3 + 4&quot; returnProperty=&quot;sum&quot;/&gt;</pre>
+<pre>&lt;php expression=&quot;echo 'test';&quot;&gt;</pre>
 <h3>Attributes</h3>
 <table>
   <thead>
@@ -1701,7 +1702,7 @@ of evaluating a PHP expression or the result returned by a function/method call.
       <td>returnProperty</td>
       <td>String</td>
       <td> The name of the property to set with result of expression or function
-        call.</td>
+        call. <strong>Note:</strong> if this attribute is set, the expression must return a value.</td>
       <td>n/a</td>
       <td>No</td>
     </tr>
