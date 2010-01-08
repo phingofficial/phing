@@ -38,12 +38,12 @@ class PhpLintTask extends Task {
     protected $errorProperty;
     protected $haltOnFailure = false;
     protected $hasErrors = false;
-    private $badFiles = array();
+    protected $badFiles = array();
     protected $interpreter = ''; // php interpreter to use for linting
     
     protected $logLevel = Project::MSG_INFO;
     
-    private $cache = null;
+    protected $cache = null;
 
     /**
      * Initialize the interpreter with the Phing property
