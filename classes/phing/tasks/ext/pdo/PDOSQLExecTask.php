@@ -407,14 +407,21 @@ class PDOSQLExecTask extends PDOTask {
                 $line = ProjectConfigurator::replaceProperties($this->project, $line,
                         $this->project->getProperties());
 
-                if (StringHelper::startsWith("//", $line) ||
+                if (($line != $this->delimiter) && (
+                    StringHelper::startsWith("//", $line) ||
                     StringHelper::startsWith("--", $line) ||
-                    StringHelper::startsWith("#", $line)) {
+                    StringHelper::startsWith("#", $line))) {
                     continue;
                 }
 
                 if (strlen($line) > 4
                         && strtoupper(substr($line,0, 4)) == "REM ") {
+                    continue;
+                }
+
+                // MySQL supports defining new delimiters
+                if (preg_match('/DELIMITER [\'"]?([^\'" $]+)[\'"]?/i', $line, $matches)) {
+                    $this->setDelimiter($matches[1]);
                     continue;
                 }
 
