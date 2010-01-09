@@ -21,6 +21,7 @@
 
 require_once 'phing/Task.php';
 require_once 'phing/util/DataStore.php';
+require_once 'phing/system/io/FileWriter.php';
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
@@ -44,6 +45,8 @@ class PhpLintTask extends Task {
     protected $logLevel = Project::MSG_INFO;
     
     protected $cache = null;
+    
+    protected $tofile = null;
 
     /**
      * Initialize the interpreter with the Phing property
@@ -98,6 +101,16 @@ class PhpLintTask extends Task {
     }
 
     /**
+     * Whether to store last-modified times in cache
+     *
+     * @param PhingFile $file
+     */
+    public function setToFile(PhingFile $tofile)
+    {
+        $this->tofile = $tofile;
+    }
+
+    /**
      * Nested creator, creates a FileSet for this task
      *
      * @return FileSet The created fileset object
@@ -143,6 +156,17 @@ class PhpLintTask extends Task {
                     $this->lint($dir.DIRECTORY_SEPARATOR.$file);
                 }
             }
+        }
+                
+        // write list of 'bad files' to file (if specified)
+        if ($this->tofile) {
+            $writer = new FileWriter($this->tofile);
+            
+            foreach ($this->badFiles as $file) {
+                $writer->write($file . PHP_EOL);
+            }
+            
+            $writer->close();
         }
 
         if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files: '.implode(', ',$this->badFiles));
