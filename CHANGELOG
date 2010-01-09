@@ -4,6 +4,8 @@
 
 TBD - Phing 2.4.0
 
+[414] PhpLintTask: retrieving bad files
+[413] PDOSQLExecTask does not recognize "delimiter" command
 [411] PhpEvalTask calculation should not always returns anything
 [410] Allow setting alias for Phar files as well as a custom stub
 [384] Delete directories fails on '[0]' name
