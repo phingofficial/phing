@@ -8,10 +8,6 @@
 	<property name="phingpkg.home" value=".."/>
 	<property name="build.pear.dir" value="pear"/>
 	
-	<!-- some default properties -->
-	<property name="notes">This is the latest release of Phing.</property>
-	<property name="state" value="beta"/>
-	
 	<taskdef
     name="pear-package"
     classname="BuildPhingPEARPackageTask" classpath="."/>
@@ -61,14 +57,16 @@
 		Main entry point
 		==============================================
 	-->				
-	<target name="main" if="version" depends="versioncheck,clean,copy-files,create-package-xml,tar"/>
+	<target name="main" if="version"
+	depends="versioncheck,setproperties,clean,copy-files,create-package-xml,tar"/>
 
 	<!--
-	 ===================================================================
-	 Target: checks if language was given, otherwise fail
-	 ===================================================================
+		===================================================================
+		Retrieve version number from commandline if not set
+		===================================================================
 	-->
 	<target name="versioncheck" unless="version">
+
 		<echo message="====================================================="/>
 		<echo message="Version not specified. You must enter a version. In"/>
 		<echo message="the future you can add this to build.properties or"/>
@@ -78,12 +76,39 @@
 		<echo message="====================================================="/>	
 		<input propertyname="version" promptChar=":">Phing version for package</input>
 		
-		<property name="pkgname" value="phing-${version}" override="true"/>
+	</target>
+	
+	<!--
+		==============================================
+		Sets some default properties
+		==============================================
+	-->
+	<target name="setproperties">
+
+		<property name="pkgname" value="phing-${version}"/>
 		<property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
 		<property name="build.src.dir" value="${build.pear.dir}/phing/${pkgname}"/>
 		<property name="build.docs.dir" value="${build.pear.dir}/phingdocs/${pkgname-docs}" override="true"/>
-		<property name="build.full.dir" value="${pkgname}"/>
+		<property name="build.full.dir" value="full/${pkgname}"/>
 		
+		<if>
+			<and>
+				<isset property="version"/>
+				<contains string="${version}" substring="RC"/>
+			</and>
+			<then>
+				<property name="notes">This is the latest beta release of Phing.</property>
+				<property name="state" value="beta"/>
+			</then>
+			<else>
+				<property name="notes">This is the latest stable release of Phing.</property>
+				<property name="state" value="stable"/>
+			</else>
+		</if>
+		
+		<echo>Building Phing PEAR/full version ${version}</echo>
+		<echo>Build notes: ${notes} (${state})</echo>
+	
 	</target>
 	
 	<!--
@@ -98,12 +123,6 @@
 		<echo>-----------------------------</echo>
 		<echo>| Creating directory layout |</echo>
 		<echo>-----------------------------</echo>
-		
-		<property name="pkgname" value="phing-${version}"/>
-		<property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
-		<property name="build.src.dir" value="${build.pear.dir}/phing/${pkgname}"/>
-		<property name="build.docs.dir" value="${build.pear.dir}/phingdocs/${pkgname-docs}" override="true"/>
-		<property name="build.full.dir" value="full/${pkgname}"/>
 		
 		<copy todir="${build.full.dir}">
 			<fileset refid="all"/>
@@ -169,6 +188,7 @@
 		==============================================
 	-->
 	<target name="tar">
+
 		<echo>-----------------------------</echo>
 		<echo>| Creating PEAR packages     |</echo>
 		<echo>-----------------------------</echo>	
@@ -203,7 +223,13 @@
 		<zip destFile="${zipfile-full}"	basedir="full/${pkgname}" />
 	</target>
   
+	<!--
+		==============================================
+		Clean up build files.
+		==============================================
+	-->
 	 <target name="clean">
+
 		<echo>-----------------------------</echo>
 		<echo>| Deleting build directory  |</echo>
 		<echo>-----------------------------</echo>
