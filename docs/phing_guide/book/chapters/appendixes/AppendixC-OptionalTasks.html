@@ -214,6 +214,41 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 &lt;/phpunit&gt;
 </pre>
 
+<h2><a name="ExportPropertiesTask"></a>ExportPropertiesTask</h2>
+<p>Exports all defined properties to a specified file.</p>
+<h3>Example</h3>
+<pre>
+&lt;exportproperties targetfile="output.props" /&gt;
+</pre>
+<h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>targetfile</td>
+          <td>String</td>
+          <td>Target file for saved properties</td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>disallowedPropertyPrefixes</td>
+          <td>String</td>
+          <td>Exclude properties starting with these prefixes (separated by <em>,</em></td>
+          <td><em>'host.'</em>, <em>'phing.'</em>, <em>'os.'</em>, <em>'php.'</em>, <em>'line.'</em>, <em>'env.'</em>, <em>'user.'</em></td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+
+
 <h2><a name="FileHashTask"></a>FileHashTask</h2>
 <p>Calculates either MD5 or SHA1 hash value of a file and stores the value as a
     hex string in a property.</p>
