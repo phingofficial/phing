@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  $Id: CapsuleTask.php 557 2009-08-29 13:54:38Z mrook $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +27,7 @@ require_once "phing/Task.php";
  * 
  * @author Andrei Serdeliuc
  * @extends Task
- * @version   $Id: CapsuleTask.php 557 2009-08-29 13:54:38Z mrook $
+ * @version   $Id$
  * @package   phing.tasks.ext
  */
 class ExportProperties extends Task
