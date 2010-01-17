@@ -162,8 +162,8 @@ class PhpLintTask extends Task {
         if ($this->tofile) {
             $writer = new FileWriter($this->tofile);
             
-            foreach ($this->badFiles as $file) {
-                $writer->write($file . PHP_EOL);
+            foreach ($this->badFiles as $file => $msg) {
+                $writer->write($file . "=" . $msg . PHP_EOL);
             }
             
             $writer->close();
@@ -207,7 +207,7 @@ class PhpLintTask extends Task {
                     } else {
                         $this->log("Could not parse file", Project::MSG_ERR);
                     }
-                    $this->badFiles[] = $file;  
+                    $this->badFiles[$file] = $messages[1];
                     $this->hasErrors = true;
                     
                 } else {
