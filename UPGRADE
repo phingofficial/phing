@@ -7,8 +7,8 @@
   ------------------
 
   This release of Phing contains numerous significant enhancements over
-  previous versions, such as new tasks (SSH, SCP, JsMin, SVN and more),
-  documentation fixes and various bug fixes.
+  previous versions, such as new tasks (SSH, SCP, JsMin, SVN and many
+  more),  documentation fixes and various bug fixes.
   
   There were also some changes that might break backwards compatibility,
   or change the behavior of Phing in such a way that requires changes
