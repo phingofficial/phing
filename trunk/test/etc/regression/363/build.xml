@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<project name="test" default="main">
+	<target name="main">
+		<phpunit haltonerror="true" haltonfailure="true"
+		printsummary="true">
+			<formatter type="xml" usefile="false"/>
+			<formatter type="plain" usefile="false"/>
+			<batchtest>
+				<fileset dir=".">
+					<include name="*Test.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+</project>

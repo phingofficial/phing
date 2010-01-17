@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+	
+<project name="pear-package-test" default="main">
+
+	<taskdef name="pkg" classname="phing.tasks.ext.PearPackageTask"/>
+	
+	<target name="main">	
+	
+	<echo>-----------------------------</echo>
+	<echo>| Creating PEAR package.xml |</echo>
+	<echo>-----------------------------</echo>
+	<echo></echo>
+	<echo>This could take some time ...</echo>
+	
+	<pkg name="phing" dir="../../..">
+		
+		<fileset dir="../../..">
+			<exclude name="test/**"/>
+		</fileset>		
+		
+		<!-- Set the simple options -->
+		<option name="description">Test description.</option>
+		<option name="summary">Test summary.</option>
+		<option name="version" value="2.0.0b1"/>
+		<option name="state" value="beta"/>
+		
+		<mapping name="maintainers">
+			<element>
+				<element key="handle" value="hlellelid"/>
+				<element key="name" value="Hans"/>
+				<element key="email" value="hans@xmpl.org"/>
+				<element key="role" value="lead"/>
+			</element>
+			<element>
+				<element key="handle" value="jsmith"/>
+				<element key="name" value="John"/>
+				<element key="email" value="jsmith@xmpl.org"/>
+				<element key="role" value="developer"/>
+			</element>
+		</mapping>
+		
+		<!-- Set the complex options -->
+		<mapping name="installexceptions">
+			<element key="bin/phing.sh" value="/"/>
+			<element key="bin/phing.bat" value="/"/>
+		</mapping>		
+		<mapping name="dir_roles">
+			<element key="docs" value="doc"/>
+		</mapping>
+		<mapping name="exceptions">
+			<element key="INSTALL.UNIX" value="doc"/>
+			<element key="INSTALL.WINDOWS" value="doc"/>
+			<element key="CHANGELOG" value="doc"/>
+		</mapping>
+		
+	</pkg>
+	</target>
+
+</project>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<project name="cvs_test" default="main">
+
+    <target
+        name="main"
+        description="==>test Cvs and CvsPass ">
+		
+		<!-- create a password file -->
+		<cvspass cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" passfile="cvspass" password="guest"/>
+		
+		<!-- use the just-created password file -->
+		<cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" module="phing" passFile="cvspass" />
+	<delete dir="phing"/>		
+	</target>
+
+</project>
