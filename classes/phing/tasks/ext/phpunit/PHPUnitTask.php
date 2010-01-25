@@ -184,7 +184,7 @@ class PHPUnitTask extends Task
     {
         $token = ' ,;';
         $this->excludeGroups = array();
-        $tok = strtok($groups, $token);
+        $tok = strtok($excludeGroups, $token);
         while ($tok !== false) {
             $this->excludeGroups[] = $tok;
             $tok = strtok($token);
