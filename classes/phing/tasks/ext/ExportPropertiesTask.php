@@ -30,7 +30,7 @@ require_once "phing/Task.php";
  * @version   $Id$
  * @package   phing.tasks.ext
  */
-class ExportProperties extends Task
+class ExportPropertiesTask extends Task
 {
     /**
      * Array of project properties
