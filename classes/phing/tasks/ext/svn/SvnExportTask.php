@@ -34,7 +34,6 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  */
 class SvnExportTask extends SvnBaseTask
 {
-#
     /**
      * Which Revision to Export
      * 
