@@ -89,7 +89,7 @@ class MoveTask extends CopyTask {
                 try { // try to rename                    
                     $this->log("Attempting to rename $from to $to", $this->verbosity);
                     $this->fileUtils->copyFile($f, $d, $this->forceOverwrite, $this->preserveLMT, $this->filterChains, $this->getProject(), $this->mode);
-                    $f->delete();
+                    $f->delete(true);
                     $moved = true;
                 } catch (IOException $ioe) {
                     $moved = false;

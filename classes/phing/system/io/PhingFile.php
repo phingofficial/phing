@@ -580,12 +580,12 @@ class PhingFile {
      * @return  true if and only if the file or directory is
      *          successfully deleted; false otherwise
      */
-    function delete() {
+    function delete($recursive = false) {
         $fs = FileSystem::getFileSystem();
         if ($fs->canDelete($this) !== true) {
             throw new IOException("Cannot delete " . $this->path . "\n"); 
         }
-        return $fs->delete($this);
+        return $fs->delete($this, $recursive);
     }
 
     /**

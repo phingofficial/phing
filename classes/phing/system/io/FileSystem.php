@@ -271,9 +271,9 @@ abstract class FileSystem {
      * Delete the file or directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
      */
-    function delete(PhingFile $f) {
+    function delete(PhingFile $f, $recursive = false) {
         if ($f->isDirectory()) {
-            return $this->rmdir($f->getPath());
+            return $this->rmdir($f->getPath(), $recursive);
         } else {
             return $this->unlink($f->getPath());
         }
@@ -396,6 +396,12 @@ abstract class FileSystem {
      */
     function copy(PhingFile $src, PhingFile $dest) {
         global $php_errormsg;
+        
+        // Recursively copy a directory
+        if($src->isDirectory()) {
+            return $this->copyr($src->getAbsolutePath(), $dest->getAbsolutePath());
+        }
+        
         $srcPath  = $src->getAbsolutePath();
         $destPath = $dest->getAbsolutePath();
 
@@ -411,6 +417,50 @@ abstract class FileSystem {
             // [MA] does chmod returns an error on systems that do not support it ?
             // eat it up for now.
         }
+    }
+    
+    /**
+     * Copy a file, or recursively copy a folder and its contents
+     *
+     * @author      Aidan Lister <aidan@php.net>
+     * @version     1.0.1
+     * @link        http://aidanlister.com/repos/v/function.copyr.php
+     * @param       string   $source    Source path
+     * @param       string   $dest      Destination path
+     * @return      bool     Returns TRUE on success, FALSE on failure
+     */
+    function copyr($source, $dest)
+    {
+        // Check for symlinks
+        if (is_link($source)) {
+            return symlink(readlink($source), $dest);
+        }
+    
+        // Simple copy for a file
+        if (is_file($source)) {
+            return copy($source, $dest);
+        }
+    
+        // Make destination directory
+        if (!is_dir($dest)) {
+            mkdir($dest);
+        }
+    
+        // Loop through the folder
+        $dir = dir($source);
+        while (false !== $entry = $dir->read()) {
+            // Skip pointers
+            if ($entry == '.' || $entry == '..') {
+                continue;
+            }
+    
+            // Deep copy directories
+            $this->copyr("$source/$entry", "$dest/$entry");
+        }
+    
+        // Clean up
+        $dir->close();
+        return true;
     }
 
     /**
