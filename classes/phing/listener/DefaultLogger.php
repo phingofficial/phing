@@ -117,6 +117,22 @@ class DefaultLogger implements StreamRequiredBuildLogger {
     }
     
     /**
+     * Return the start time as registered in the current listener
+     */
+    public function getStartTime() {
+        return $this->startTime;
+    }
+    
+    /**
+     * Sets the build start time
+     *
+     * @param int Start time
+     */
+    public function setStartTime($time) {
+        $this->startTime = $time;
+    }
+    
+    /**
     *  Sets the start-time when the build started. Used for calculating
     *  the build-time.
     *

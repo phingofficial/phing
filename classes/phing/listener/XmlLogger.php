@@ -119,6 +119,22 @@ class XmlLogger implements BuildLogger {
     }
     
     /**
+     * Return the start time as registered in the current listener
+     */
+    public function getStartTime() {
+        return $this->startTime;
+    }
+    
+    /**
+     * Sets the build start time
+     *
+     * @param int Start time
+     */
+    public function setStartTime($time) {
+        $this->startTime = $time;
+    }
+    
+    /**
      * Fired when the build starts, this builds the top-level element for the
      * document and remembers the time of the start of the build.
      *
