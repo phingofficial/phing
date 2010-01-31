@@ -69,7 +69,6 @@ class ProjectHandler extends AbstractHandler {
         $id    = null;
         $desc = null;
         $baseDir = null;
-        $listenerDotPath = null;
         
         // some shorthands
         $project = $this->configurator->project;
@@ -86,8 +85,9 @@ class ProjectHandler extends AbstractHandler {
                 $baseDir = $value;
             } elseif ($key === "description") {
                 $desc = $value;
-            } elseif ($key === "listener") {
-                $listenerDotPath = $value;
+            } elseif ($key == 'logger') {
+                // Do nothing, we're just suppresing the error here
+                // @see Phing::addBuildListeners
             } else {
                 throw new ExpatParseException("Unexpected attribute '$key'");
             }
@@ -120,29 +120,6 @@ class ProjectHandler extends AbstractHandler {
           if ($desc !== null) {
             $project->setDescription($desc);
           }
-          
-          // Handle optional default build listener
-          if($listenerDotPath !== null) {
-            $startTime = 0;
-
-            $listenerClass = Phing::import($listenerDotPath);
-            
-            $listeners = $project->getBuildListeners();
-            foreach($listeners as $listener) {
-                $startTime = $listener->getStartTime();
-                $project->removeBuildListener($listener);
-            }
-
-            $listener = new $listenerClass();
-            $listener->setOutputStream(Phing::getOutputStream());
-            $listener->setErrorStream(Phing::getErrorStream());
-            $listener->setMessageOutputLevel(Phing::getMsgOutputLevel());
-            
-            // As we hooked in slightly later, set the start time from one of the previous build listeners
-            $listener->setStartTime($startTime);
-            
-            $project->addBuildListener($listener);
-          }    
 
           if ($project->getProperty("project.basedir") !== null) {
             $project->setBasedir($project->getProperty("project.basedir"));

@@ -103,6 +103,10 @@ class Project {
     
     /**  Build listeneers */
     private $listeners = array();
+    
+    public $currentTree = array();
+    
+    public $lastTargetInTree = null;
 
     /**
      *  Constructor, sets any default vars.
@@ -707,6 +711,9 @@ class Project {
         // invoke topological sort of the target tree and run all targets
         // until targetName occurs.
         $sortedTargets = $this->_topoSort($targetName, $this->targets);        
+
+        $this->currentTree = $sortedTargets;
+        $this->lastTargetInTree = $targetName;
 
         $curIndex = (int) 0;
         $curTarget = null;

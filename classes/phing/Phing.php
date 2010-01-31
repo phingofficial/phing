@@ -580,6 +580,23 @@ class Phing {
      * @return void
      */
     private function addBuildListeners(Project $project) {
+        // Allow the project tag to override the default listener
+        $doc = new DOMDocument();
+        $doc->load($this->buildFile->getAbsolutePath());
+
+        $xpath = new DOMXPath($doc);
+        $projectNode = $xpath->query('/*')->item(0);
+
+        if(is_object($projectNode) && $projectNode->tagName == 'project') {
+            if($projectNode->hasAttribute('logger')) {
+                $this->loggerClassname = $projectNode->getAttribute('logger');
+                
+                if(empty($this->loggerClassname)) {
+                    throw new ConfigurationException('"logger" attribute must not be empty');
+                }
+            }   
+        }
+    
         // Add the default listener
         $project->addBuildListener($this->createLogger());
 

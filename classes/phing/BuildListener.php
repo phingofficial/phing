@@ -35,18 +35,6 @@
 interface BuildListener {
 
     /**
-     * Return the start time as registered in the current listener
-     */
-    function getStartTime();
-    
-    /**
-     * Sets the build start time
-     *
-     * @param int Build start time
-     */
-    function setStartTime($startTime);
-
-    /**
      * Fired before any targets are started.
      *
      * @param BuildEvent The BuildEvent
