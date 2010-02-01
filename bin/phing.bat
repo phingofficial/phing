@@ -33,7 +33,7 @@ goto run
 goto cleanup
 
 :run
-%PHP_COMMAND% -d html_errors=off -qC "%PHING_HOME%\bin\phing.php" %1 %2 %3 %4 %5 %6 %7 %8 %9
+"%PHP_COMMAND%" -d html_errors=off -qC "%PHING_HOME%\bin\phing.php" %1 %2 %3 %4 %5 %6 %7 %8 %9
 goto cleanup
 
 :no_phpcommand
