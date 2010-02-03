@@ -733,6 +733,9 @@ class DirectoryScanner implements SelectorScanner {
         if ($this->selectors !== null) {
             $basedir = new PhingFile($this->basedir);
             $file = new PhingFile($file);
+            if (!$file->canRead())
+                return false;
+            
             foreach($this->selectors as $selector) {
                 if (!$selector->isSelected($basedir, $name, $file)) {
                     return false;
