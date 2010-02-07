@@ -1537,6 +1537,123 @@ to be executed using the same JDBC connection and commit operation in between.</
    &lt;formatter type=&quot;pmd&quot; outfile=&quot;reports/pmd-cpd.xml&quot;/&gt;
  &lt;/phpcpd&gt;
 </pre>
+
+<h2><a name="PHPMDTask"></a>PHPMDTask</h2>
+    <p>This task runs <a href="http://phpmd.org" target="_blank">phpmd</a>,
+    a Project Mess Detector (PMD) for PHP Code. You need an installed version of this software to use this task.</p>
+      <h3>Attributes</h3><table>
+       <thead>
+         <tr>
+           <th>Name</th>
+           <th>Type</th>
+           <th>Description</th>
+           <th>Default</th>
+           <th>Required</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td>file</td>
+           <td>String</td>
+           <td>Path to source file or path</td>
+           <td>n/a</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>rulesets</td>
+           <td>String</td>
+           <td>Sets the rulesets used for analyzing the source code</td>
+           <td>codesize,unusedcode</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>minimumPriority</td>
+           <td>Integer</td>
+           <td>The minimum priority for rules to load.</td>
+           <td>5</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>allowedFileExtensions</td>
+           <td>String</td>
+           <td>Comma-separated list of valid file extensions (without dot) for analyzed files.</td>
+           <td>php</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>ignorePatterns</td>
+           <td>String</td>
+           <td>Comma-separated list of directory patterns to ignore.</td>
+           <td>.git,.svn,CVS,.bzr,.hg</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>format</td>
+           <td>String</td>
+           <td>The format for the report when no nested formatter is used.</td>
+           <td>text</td>
+           <td>No</td>
+         </tr>
+       </tbody>
+      </table>
+      <h3>Supported Nested Tags</h3><ul>
+       <li>fileset <p>This nested tag is required when the <em>file</em> attribute is not set.</p></li>
+       <li>formatter <p>The results of the analysis can be printed in different formats. Output will always be sent to STDOUT, unless you set the <em>usefile</em> attribute to <em>true</em> and set an filename in the <em>outfile</em> attribute.</p><h3>Attributes</h3><table>
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Type</th>
+               <th>Description</th>
+               <th>Default</th>
+               <th>Required</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>type</td>
+               <td>String</td>
+               <td>The output format. Accepts the the same values as the <em>format</em> attribute (<em>xml</em>, <em>html</em>, <em>text</em>).</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+             <tr>
+               <td>usefile</td>
+               <td>Boolean</td>
+               <td>Boolean that determines whether output should be sent to a file.</td>
+               <td>true</td>
+               <td>No</td>
+             </tr>
+             <tr>
+               <td>outfile</td>
+               <td>String</td>
+               <td>Path to write output file to.</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+           </tbody>
+         </table></li>
+     </ul>
+     <h3>Examples</h3>
+<pre>
+ &lt;phpmd file="path/to/source.php"/&gt;
+</pre>
+<p>Checking syntax of one particular source file. Sending Text-Report to STDOUT.</p>
+<pre>
+ &lt;phpmd file="path/to/source"&gt;
+   &lt;formatter type=&quot;html&quot; outfile=&quot;reports/pmd.html&quot;/&gt;
+ &lt;/phpcpd&gt;
+</pre>
+<p>Checking syntax of source files in the given path.</p>
+<pre>
+ &lt;phpmd&gt;
+   &lt;fileset dir=&quot;${builddir}&quot;&gt;
+     &lt;include name=&quot;apps/**/*.php&quot; /&gt;
+     &lt;include name=&quot;lib/de/**/*.php&quot; /&gt;
+   &lt;/fileset&gt;
+   &lt;formatter type=&quot;xml&quot; outfile=&quot;reports/pmd.xml&quot;/&gt;
+ &lt;/phpcpd&gt;
+</pre>
+<p>Checking syntax of source files in the fileset pathes.</p>
     
 <h2><a
         name="PhpDocumentorTask"></a>PhpDocumentorTask</h2><p>This task runs <a
