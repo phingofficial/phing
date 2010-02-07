@@ -69,6 +69,9 @@
 
     <!-- process all packages -->
     <xsl:apply-templates select="./package" mode="write"/>
+
+    <!-- process all subpackages -->
+    <xsl:apply-templates select="./package/subpackage" mode="write"/>
 </xsl:template>
 
 <!-- =======================================================================
@@ -156,6 +159,41 @@
     .small {
        font-size: 9px;
     }
+    td.legendItem {
+      font-weight: bold;
+      padding-bottom: 2px;
+      padding-right: 6px;
+      padding-top: 6px;
+      text-align: right;
+    }
+    td.legendValue {
+      color: #2E3436;
+      font-weight: bold;
+      padding-bottom: 2px;
+      padding-top: 6px;
+      text-align: left;
+    }
+    span.LegendCovered {
+      background-color: #8AE234;
+      margin-right: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
+    span.LegendUncovered {
+      background-color: #F0C8C8;
+      margin-right: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
+    span.LegendDeadCode {
+      background-color: #D3D7CF;
+      margin-right: 2px;
+      padding-left: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
 TD.empty {
     FONT-SIZE: 2px; BACKGROUND: #c0c0c0; BORDER:#9c9c9c 1px solid;
     color: #c0c0c0;
@@ -175,24 +213,40 @@ TD.uncovered {
 PRE.srcLine {
   BACKGROUND: #ffffff; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
 }
-PRE.srcLineHighLight {
+    PRE.srcLineUncovered {
   BACKGROUND: #F0C8C8; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px; 
 }
+    PRE.srcLineCovered {
+      BACKGROUND: #8AE234; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
+    }
+    PRE.srcLineDeadCode {
+      BACKGROUND: #D3D7CF; MARGIN-TOP: 0px; MARGIN-BOTTOM: 0px;
+    }
 td.lineCount, td.coverageCount {
       BACKGROUND: #F0F0F0; PADDING-RIGHT: 3px;
       text-align: right;
 }
-td.lineCountHighlight {
-      background: #C8C8F0; PADDING-RIGHT: 3px;
+    td.lineCountCovered, td.coverageCountCovered {
+          background: #8AE234; PADDING-RIGHT: 3px;
       text-align: right;
 }
-td.coverageCountHighlight {
+    td.srcLineCovered {
+          background: #8AE234;
+    }
+    td.lineCountUncovered, td.coverageCountUncovered {
       background: #F0C8C8; PADDING-RIGHT: 3px;
       text-align: right;
 }
-td.srcLineHighlight {
+    td.srcLineUncovered {
       background: #F0C8C8;
 }
+    td.lineCountDeadCode, td.coverageCountDeadCode {
+          background: #D3D7CF; PADDING-RIGHT: 3px;
+          text-align: right;
+    }
+    td.srcLineDeadCode {
+          background: #D3D7CF;
+    }
 td.srcLine {
       background: #C8C8F0;
 }
@@ -234,7 +288,7 @@ TD.srcLineClassStart {
                     <xsl:variable name="package.name" select="(ancestor::package)[last()]/@name"/>
                     <xsl:variable name="link">
                         <xsl:if test="not($package.name='')">
-                            <xsl:value-of select="translate($package.name,'.','/')"/><xsl:text>/</xsl:text>
+                            <xsl:value-of select="translate($package.name,'._','//')"/><xsl:text>/</xsl:text>
                         </xsl:if><xsl:value-of select="@name"/><xsl:text>.html</xsl:text>
                     </xsl:variable>
                     <tr>
@@ -248,6 +302,33 @@ TD.srcLineClassStart {
 									<i> (<xsl:value-of select="format-number(@totalcovered div @totalcount, '0.0%')"/>)</i>
 								</xsl:otherwise>
 							</xsl:choose>
+                        </td>
+                    </tr>
+                </xsl:for-each>
+                <xsl:for-each select="package/subpackage/class">
+                    <xsl:sort select="@name"/>
+                    <xsl:variable name="package.name" select="(ancestor::package)[last()]/@name"/>
+                    <xsl:variable name="subpackage.name" select="(ancestor::subpackage)[last()]/@name"/>
+                    <xsl:variable name="link">
+                        <xsl:if test="not($package.name='')">
+                            <xsl:value-of select="translate($package.name,'._','//')"/><xsl:text>/</xsl:text>
+                        </xsl:if>
+                        <xsl:if test="not($subpackage.name='')">
+                            <xsl:value-of select="translate($subpackage.name,'._','//')"/><xsl:text>/</xsl:text>
+                        </xsl:if>
+                        <xsl:value-of select="@name"/><xsl:text>.html</xsl:text>
+                    </xsl:variable>
+                    <tr>
+                        <td nowrap="nowrap">
+                            <a target="classFrame" href="{$link}"><xsl:value-of select="@name"/></a>
+                            <xsl:choose>
+                                <xsl:when test="@totalcount=0">
+                                    <i> (-)</i>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <i> (<xsl:value-of select="format-number(@totalcovered div @totalcount, '0.0%')"/>)</i>
+                                </xsl:otherwise>
+                            </xsl:choose>
                         </td>
                     </tr>
                 </xsl:for-each>
@@ -270,7 +351,7 @@ TD.srcLineClassStart {
                     <xsl:sort select="@name" order="ascending"/>
                     <tr>
                         <td nowrap="nowrap">
-                            <a href="{translate(@name,'.','/')}/package-summary.html" target="classFrame">
+                            <a href="{translate(@name,'._','//')}/package-summary.html" target="classFrame">
                                 <xsl:value-of select="@name"/>
                             </a>
                         </td>
@@ -292,9 +373,10 @@ TD.srcLineClassStart {
         <table class="log" cellpadding="5" cellspacing="0" width="100%">
             <tr class="a">
                 <td class="small">Packages: <xsl:value-of select="count(package)"/></td>
-                <td class="small">Classes: <xsl:value-of select="count(package/class)"/></td>
+                <td class="small">Subpackages: <xsl:value-of select="count(package/subpackage)"/></td>
+                <td class="small">Classes: <xsl:value-of select="count(package/class) + count(package/subpackage/class)"/></td>
                 <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
-                <td class="small">LOC: <xsl:value-of select="count(package/class/sourcefile/sourceline)"/></td>
+                <td class="small">LOC: <xsl:value-of select="count(package/class/sourcefile/sourceline) + count(package/subpackage/class/sourcefile/sourceline)"/></td>
                 <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
             </tr>
         </table>        
@@ -325,7 +407,7 @@ TD.srcLineClassStart {
                 <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
                 <tr>
                   <xsl:call-template name="alternate-row"/>
-                    <td><a href="{translate(@name,'.','/')}/package-summary.html"><xsl:value-of select="@name"/></a></td>
+                    <td><a href="{translate(@name,'._','//')}/package-summary.html"><xsl:value-of select="@name"/></a></td>
                     <xsl:call-template name="stats.formatted"/>
                 </tr>
             </xsl:for-each>
@@ -341,7 +423,7 @@ TD.srcLineClassStart {
 -->
 <xsl:template match="package" mode="write">
     <xsl:variable name="package.dir">
-        <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'.','/')"/></xsl:if>
+        <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._','//')"/></xsl:if>
         <xsl:if test="@name = ''">.</xsl:if>
     </xsl:variable>
 
@@ -355,23 +437,63 @@ TD.srcLineClassStart {
         <xsl:apply-templates select="." mode="package.summary"/>
     </exsl:document>
 
-    <!-- for each class, creates a @name.html -->
-    <xsl:for-each select="class">
+    <!-- for each class in package, creates a @name.html -->
+    <xsl:for-each select="./class">
         <exsl:document href="efile://{$output.dir}/{$package.dir}/{@name}.html">
             <xsl:apply-templates select="." mode="class.details"/>
         </exsl:document>
     </xsl:for-each>
+
+    <!-- for each class in subpackage, creates a @name.html -->
+    <xsl:for-each select="subpackage">
+        <xsl:variable name="subpackage.dir">
+            <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._','//')"/></xsl:if>
+            <xsl:if test="@name = ''">.</xsl:if>
+        </xsl:variable>
+        <xsl:for-each select="./class">
+            <exsl:document href="efile://{$output.dir}/{$package.dir}/{$subpackage.dir}/{@name}.html">
+                <xsl:apply-templates select="." mode="class.details"/>
+            </exsl:document>
+        </xsl:for-each>
+    </xsl:for-each>
+</xsl:template>
+
+<!--
+ detailed info for a subpackage. It will output the list of classes and the summary page
+-->
+<xsl:template match="subpackage" mode="write">
+    <xsl:variable name="package.name" select="(ancestor::package)[last()]/@name"/>
+
+    <xsl:variable name="package.dir">
+        <xsl:if test="not($package.name = '')"><xsl:value-of select="translate($package.name,'._','//')"/></xsl:if>
+        <xsl:if test="$package.name = ''">.</xsl:if>
+    </xsl:variable>
+
+    <xsl:variable name="subpackage.dir">
+        <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._','//')"/></xsl:if>
+        <xsl:if test="@name = ''">.</xsl:if>
+    </xsl:variable>
+
+    <!-- create a classes-list.html in the subpackage directory -->
+    <exsl:document href="efile://{$output.dir}/{$package.dir}/{$subpackage.dir}/subpackage-frame.html">
+        <xsl:apply-templates select="." mode="classes.list"/>
+    </exsl:document>
+
+    <!-- create a subpackage-summary.html in the subpackage directory -->
+    <exsl:document href="efile://{$output.dir}/{$package.dir}/{$subpackage.dir}/subpackage-summary.html">
+        <xsl:apply-templates select="." mode="subpackage.summary"/>
+    </exsl:document>
 </xsl:template>
 
 <!-- list of classes in a package -->
 <xsl:template match="package" mode="classes.list">
     <html>
-        <HEAD>
+        <head>
             <xsl:call-template name="create.stylesheet.link">
                 <xsl:with-param name="package.name" select="@name"/>
             </xsl:call-template>
-        </HEAD>
-        <BODY>
+        </head>
+        <body>
             <table width="100%">
                 <tr>
                     <td nowrap="nowrap">
@@ -380,8 +502,28 @@ TD.srcLineClassStart {
                 </tr>
             </table>
 
-            <H2>Classes</H2>
-            <TABLE WIDTH="100%">
+            <h2>Subpackages</h2>
+            <table width="100%">
+                <xsl:for-each select="subpackage">
+                    <xsl:sort select="@name"/>
+                    <tr>
+                        <td nowrap="nowrap">
+                            <a href="{@name}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a>
+                            <xsl:choose>
+                                <xsl:when test="@totalcount=0">
+                                    <i> (-)</i>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <i> (<xsl:value-of select="format-number(@totalcovered div @totalcount, '0.0%')"/>)</i>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </td>
+                    </tr>
+                </xsl:for-each>
+            </table>
+
+            <h2>Classes</h2>
+            <table width="100%">
                 <xsl:for-each select="class">
                     <xsl:sort select="@name"/>
                     <tr>
@@ -398,27 +540,87 @@ TD.srcLineClassStart {
                         </td>
                     </tr>
                 </xsl:for-each>
-            </TABLE>
-        </BODY>
+            </table>
+        </body>
+    </html>
+</xsl:template>
+
+<!-- list of classes in a subpackage -->
+<xsl:template match="subpackage" mode="classes.list">
+    <xsl:variable name="fullpackage.name">
+        <xsl:value-of select="(ancestor::package)[last()]/@name"/>
+        <!-- append subpackage name if exists -->
+        <xsl:if test="not(@name='')">
+            <xsl:choose>
+                <!-- determine path separator -->
+                <xsl:when test="contains((ancestor::package)[last()]/@name, '_') or contains(@name, '_')">
+                    <xsl:text>_</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>.</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:value-of select="@name"/>
+        </xsl:if>
+    </xsl:variable>
+
+    <xsl:variable name="package.name" select="(ancestor::package)[last()]/@name"/>
+
+    <html>
+        <head>
+            <xsl:call-template name="create.stylesheet.link">
+                <xsl:with-param name="package.name" select="$fullpackage.name"/>
+            </xsl:call-template>
+        </head>
+        <body>
+            <table width="100%">
+                <tr>
+                    <td nowrap="nowrap">
+                        <H2><a href="../package-summary.html" target="classFrame"><xsl:value-of select="$package.name"/></a>::<a href="subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a></H2>
+                    </td>
+                </tr>
+            </table>
+
+            <h2>Classes</h2>
+            <table width="100%">
+                <xsl:for-each select="class">
+                    <xsl:sort select="@name"/>
+                    <tr>
+                        <td nowrap="nowrap">
+                            <a href="{@name}.html" target="classFrame"><xsl:value-of select="@name"/></a>
+                            <xsl:choose>
+                                <xsl:when test="@totalcount=0">
+                                    <i> (-)</i>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <i> (<xsl:value-of select="format-number(@totalcovered div @totalcount, '0.0%')"/>)</i>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </td>
+                    </tr>
+                </xsl:for-each>
+            </table>
+        </body>
     </html>
 </xsl:template>
 
 <!-- summary of a package -->
 <xsl:template match="package" mode="package.summary">
-    <HTML>
-        <HEAD>
+    <html>
+        <head>
             <xsl:call-template name="create.stylesheet.link">
                 <xsl:with-param name="package.name" select="@name"/>
             </xsl:call-template>
-        </HEAD>
+        </head>
         <!-- when loading this package, it will open the classes into the frame -->
-        <BODY onload="open('package-frame.html','classListFrame')">
+        <body onload="open('package-frame.html','classListFrame')">
             <xsl:call-template name="pageHeader"/>
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
                 <tr class="a">
-                    <td class="small">Classes: <xsl:value-of select="count(class)"/></td>
+                    <td class="small">Subpackages: <xsl:value-of select="count(subpackage)"/></td>
+                    <td class="small">Classes: <xsl:value-of select="count(class) + count(subpackage/class)"/></td>
                     <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
-                    <td class="small">LOC: <xsl:value-of select="count(class/sourcefile/sourceline)"/></td>
+                    <td class="small">LOC: <xsl:value-of select="count(class/sourcefile/sourceline) + count(subpackage/class/sourcefile/sourceline)"/></td>
                     <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
             </table>        
@@ -432,6 +634,21 @@ TD.srcLineClassStart {
                     <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
                 </tr>
                 <xsl:apply-templates select="." mode="stats"/>
+
+                <xsl:if test="count(subpackage) &gt; 0">
+                    <tr>
+                        <td colspan="3"><br/></td>
+                    </tr>
+                    <tr>
+                        <th width="100%">Subpackages</th>
+                        <th>Statements</th>
+                        <th>Methods</th>
+                        <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
+                    </tr>
+                    <xsl:apply-templates select="subpackage" mode="stats">
+                        <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
+                    </xsl:apply-templates>
+                </xsl:if>
 
                 <xsl:if test="count(class) &gt; 0">
                     <tr>
@@ -449,20 +666,105 @@ TD.srcLineClassStart {
                 </xsl:if>
             </table>
             <xsl:call-template name="pageFooter"/>
-        </BODY>
-    </HTML>
+        </body>
+    </html>
+</xsl:template>
+
+<!-- summary of a subpackage -->
+<xsl:template match="subpackage" mode="subpackage.summary">
+    <xsl:variable name="fullpackage.name">
+        <xsl:value-of select="(ancestor::package)[last()]/@name"/>
+        <!-- append subpackage name if exists -->
+        <xsl:if test="not(@name='')">
+            <xsl:choose>
+                <!-- determine path separator -->
+                <xsl:when test="contains((ancestor::package)[last()]/@name, '_') or contains(@name, '_')">
+                    <xsl:text>_</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>.</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:value-of select="@name"/>
+        </xsl:if>
+    </xsl:variable>
+
+    <html>
+        <head>
+            <xsl:call-template name="create.stylesheet.link">
+                <xsl:with-param name="package.name" select="$fullpackage.name"/>
+            </xsl:call-template>
+        </head>
+        <!-- when loading this subpackage, it will open the classes into the frame -->
+        <body onload="open('subpackage-frame.html','classListFrame')">
+            <xsl:call-template name="pageHeader"/>
+            <table class="log" cellpadding="5" cellspacing="0" width="100%">
+                <tr class="a">
+                    <td class="small">Classes: <xsl:value-of select="count(class)"/></td>
+                    <td class="small">Methods: <xsl:value-of select="@methodcount"/></td>
+                    <td class="small">LOC: <xsl:value-of select="count(class/sourcefile/sourceline)"/></td>
+                    <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
+                </tr>
+            </table>
+            <br/>
+
+            <table class="log" cellpadding="5" cellspacing="0" width="100%">
+                <tr>
+                    <th width="100%">Subpackage</th>
+                    <th>Statements</th>
+                    <th>Methods</th>
+                    <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
+                </tr>
+                <xsl:apply-templates select="." mode="stats.summary"/>
+
+                <xsl:if test="count(class) &gt; 0">
+                    <tr>
+                        <td colspan="3"><br/></td>
+                    </tr>
+                    <tr>
+                        <th width="100%">Classes</th>
+                        <th>Statements</th>
+                        <th>Methods</th>
+                        <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
+                    </tr>
+                    <xsl:apply-templates select="class" mode="stats">
+                        <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
+                    </xsl:apply-templates>
+                </xsl:if>
+            </table>
+            <xsl:call-template name="pageFooter"/>
+        </body>
+    </html>
 </xsl:template>
 
 <!-- details of a class -->
 <xsl:template match="class" mode="class.details">
-    <xsl:variable name="package.name" select="(ancestor::package)[last()]/@name"/>
-    <HTML>
-        <HEAD>
+    <xsl:variable name="subpackage.name" select="(ancestor::subpackage)[last()]/@name"/>
+
+    <xsl:variable name="fullpackage.name">
+        <xsl:value-of select="(ancestor::package)[last()]/@name"/>
+        <!-- append subpackage name if exists -->
+        <xsl:if test="not($subpackage.name='')">
+            <xsl:choose>
+                <!-- determine path/package separator -->
+                <xsl:when test="contains((ancestor::package)[last()]/@name, '_') or contains($subpackage.name, '_')">
+                    <xsl:text>_</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:text>.</xsl:text>
+                </xsl:otherwise>
+            </xsl:choose>
+            <xsl:value-of select="$subpackage.name"/>
+        </xsl:if>
+    </xsl:variable>
+
+    <html>
+        <head>
             <xsl:call-template name="create.stylesheet.link">
-                <xsl:with-param name="package.name" select="$package.name"/>
+                <xsl:with-param name="package.name" select="$fullpackage.name"/>
             </xsl:call-template>
-        </HEAD>
-        <BODY>
+        </head>
+        <body>
             <xsl:call-template name="pageHeader"/>
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
                 <tr class="a">
@@ -471,7 +773,20 @@ TD.srcLineClassStart {
                     <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
                 </tr>
             </table>        
-            <br/>
+
+            <!-- legend -->
+            <table class="log" cellpadding="5" cellspacing="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td class="legendItem" width="0%">Legend:</td>
+                        <td class="legendValue" width="100%">
+                            <span class="legendCovered">executed</span>
+                            <span class="legendUncovered">not executed</span>
+                            <span class="legendDeadCode">dead code</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <!-- class summary -->
             <table class="log" cellpadding="5" cellspacing="0" width="100%">
@@ -492,9 +807,8 @@ TD.srcLineClassStart {
             </table>
             <br/>
             <xsl:call-template name="pageFooter"/>
-        </BODY>
-    </HTML>
-
+        </body>
+    </html>
 </xsl:template>
 
 <!-- Page Header -->
@@ -527,6 +841,22 @@ TD.srcLineClassStart {
 <xsl:template match="package" mode="stats">
     <tr>
       <xsl:call-template name="alternate-row"/>
+        <td><xsl:value-of select="@name"/></td>
+        <xsl:call-template name="stats.formatted"/>
+    </tr>
+</xsl:template>
+
+<xsl:template match="subpackage" mode="stats">
+    <tr>
+        <xsl:call-template name="alternate-row"/>
+        <td><a href="{@name}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a></td>
+        <xsl:call-template name="stats.formatted"/>
+    </tr>
+</xsl:template>
+
+<xsl:template match="subpackage" mode="stats.summary">
+    <tr>
+        <xsl:call-template name="alternate-row"/>
         <td><xsl:value-of select="@name"/></td>
         <xsl:call-template name="stats.formatted"/>
     </tr>
@@ -604,36 +934,60 @@ TD.srcLineClassStart {
 <xsl:template match="sourceline">
     <tr>
         <xsl:if test="@coveredcount>0">
-            <td class="lineCountHighlight"><xsl:value-of select="position()"/></td>
-            <td class="lineCountHighlight"><xsl:value-of select="@coveredcount"/></td>
+            <td class="lineCountCovered"><xsl:value-of select="position()"/></td>
+            <td class="lineCountCovered"><xsl:value-of select="@coveredcount"/></td>
         </xsl:if>
-        <xsl:if test="@coveredcount&lt;0">
-            <td class="lineCountHighlight"><xsl:value-of select="position()"/></td>
-            <td class="coverageCountHighlight">0</td>
+        <xsl:if test="@coveredcount=-1">
+            <td class="lineCountUncovered"><xsl:value-of select="position()"/></td>
+            <td class="coverageCountUncovered"></td>
+        </xsl:if>
+        <xsl:if test="@coveredcount=-2">
+            <td class="lineCountDeadCode"><xsl:value-of select="position()"/></td>
+            <td class="coverageCountDeadCode"></td>
         </xsl:if>
         <xsl:if test="@coveredcount=0">
             <td class="lineCount"><xsl:value-of select="position()"/></td>
             <td class="coverageCount"></td>
         </xsl:if>
-        <td>
+
+        <xsl:if test="@coveredcount>0">
+            <td class="srcLineCovered">
             <xsl:if test="@startclass=1">
             	<xsl:attribute name="class">srcLineClassStart</xsl:attribute>
             </xsl:if>
-            <xsl:if test="@coveredcount>0">
-                <pre class="srcLine"><xsl:value-of select="."/></pre>
+                <pre class="srcLineCovered"><xsl:value-of select="."/></pre>
+            </td>
             </xsl:if>
-            <xsl:if test="@coveredcount&lt;0">
-                <pre class="srcLineHighlight"><xsl:value-of select="."/></pre>
+        <xsl:if test="@coveredcount=-1">
+            <td class="srcLineUncovered">
+                <xsl:if test="@startclass=1">
+                    <xsl:attribute name="class">srcLineClassStart</xsl:attribute>
             </xsl:if>
+                <pre class="srcLineUncovered"><xsl:value-of select="."/></pre>
+            </td>
+        </xsl:if>
+        <xsl:if test="@coveredcount=-2">
+            <td class="srcLineDeadCode">
+                <xsl:if test="@startclass=1">
+                    <xsl:attribute name="class">srcLineClassStart</xsl:attribute>
+                </xsl:if>
+                <pre class="srcLineDeadCode"><xsl:value-of select="."/></pre>
+            </td>
+        </xsl:if>
             <xsl:if test="@coveredcount=0">
+            <td>
+                <xsl:if test="@startclass=1">
+                    <xsl:attribute name="class">srcLineClassStart</xsl:attribute>
+                </xsl:if>
                 <pre class="srcLine"><xsl:value-of select="."/></pre>
+            </td>
             </xsl:if>
-        </td>
     </tr>
 </xsl:template>
 
 <!--
     transform string like a.b.c to ../../../
+    transform string like a_b_c to ../../../
     @param path the path to transform into a descending directory path
 -->
 <xsl:template name="path">
@@ -644,11 +998,16 @@ TD.srcLineClassStart {
             <xsl:with-param name="path"><xsl:value-of select="substring-after($path,'.')"/></xsl:with-param>
         </xsl:call-template>
     </xsl:if>
-    <xsl:if test="not(contains($path,'.')) and not($path = '')">
+    <xsl:if test="contains($path,'_')">
+        <xsl:text>../</xsl:text>
+        <xsl:call-template name="path">
+            <xsl:with-param name="path"><xsl:value-of select="substring-after($path,'_')"/></xsl:with-param>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="not(contains($path,'.')) and not(contains($path,'_')) and not($path = '')">
         <xsl:text>../</xsl:text>
     </xsl:if>
 </xsl:template>
-
 
 <!-- create the link to the stylesheet based on the package name -->
 <xsl:template name="create.stylesheet.link">
@@ -665,5 +1024,3 @@ TD.srcLineClassStart {
 </xsl:template>
 
 </xsl:stylesheet>
-
-

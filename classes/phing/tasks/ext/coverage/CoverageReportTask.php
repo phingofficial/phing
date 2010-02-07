@@ -131,6 +131,79 @@ class CoverageReportTask extends Task
         $package->appendChild($element);
     }
 
+    /**
+     * Adds a subpackage to their package
+     *
+     * @param string $packageName    The name of the package
+     * @param string $subpackageName The name of the subpackage
+     *
+     * @author Benjamin Schultz <bschultz@proqrent.de>
+     * @return void
+     */
+    protected function addSubpackageToPackage($packageName, $subpackageName)
+    {
+        $package    = $this->getPackageElement($packageName);
+        $subpackage = $this->getSubpackageElement($subpackageName);
+
+        if ($package === null) {
+            $package = $this->doc->createElement('package');
+            $package->setAttribute('name', $packageName);
+            $this->doc->documentElement->appendChild($package);
+        }
+
+        if ($subpackage === null) {
+            $subpackage = $this->doc->createElement('subpackage');
+            $subpackage->setAttribute('name', $subpackageName);
+        }
+
+        $package->appendChild($subpackage);
+    }
+
+    /**
+     * Returns the subpackage element
+     *
+     * @param string $subpackageName The name of the subpackage
+     *
+     * @author Benjamin Schultz <bschultz@proqrent.de>
+     * @return DOMNode|null null when no DOMNode with the given name exists
+     */
+    protected function getSubpackageElement($subpackageName)
+    {
+        $subpackages = $this->doc->documentElement->getElementsByTagName('subpackage');
+
+        foreach ($subpackages as $subpackage) {
+            if ($subpackage->getAttribute('name') == $subpackageName) {
+                return $subpackage;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Adds a class to their subpackage
+     *
+     * @param string  $classname The name of the class
+     * @param DOMNode $element   The dom node to append to the subpackage element
+     *
+     * @author Benjamin Schultz <bschultz@proqrent.de>
+     * @return void
+     */
+    protected function addClassToSubpackage($classname, $element)
+    {
+        $subpackageName = PHPUnitUtil::getSubpackageName($classname);
+
+        $subpackage = $this->getSubpackageElement($subpackageName);
+
+        if ($subpackage === null) {
+            $subpackage = $this->doc->createElement('subpackage');
+            $subpackage->setAttribute('name', $subpackageName);
+            $this->doc->documentElement->appendChild($subpackage);
+        }
+
+        $subpackage->appendChild($element);
+    }
+
     protected function stripDiv($source)
     {
         $openpos = strpos($source, "<div");
@@ -238,9 +311,19 @@ class CoverageReportTask extends Task
     
     protected function filterCovered($var)
     {
-        return ($var >= 0);
+        return ($var >= 0 || $var == -2);
     }
 
+    /**
+     * Transforms the coverage information
+     *
+     * @param string $filename            The filename
+     * @param array  $coverageInformation Array with covergae information
+     *
+     * @author Michiel Rook <michiel.rook@gmail.com>
+     * @author Benjamin Schultz <bschultz@proqrent.de>
+     * @return void
+     */
     protected function transformCoverageInformation($filename, $coverageInformation)
     {   
         $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
@@ -256,7 +339,15 @@ class CoverageReportTask extends Task
                 $classElement = $this->doc->createElement('class');
                 $classElement->setAttribute('name', $reflection->getName());
                 
+                $packageName    = PHPUnitUtil::getPackageName($reflection->getName());
+                $subpackageName = PHPUnitUtil::getSubpackageName($reflection->getName());
+
+                if ($subpackageName !== null) {
+                    $this->addSubpackageToPackage($packageName, $subpackageName);
+                    $this->addClassToSubpackage($reflection->getName(), $classElement);
+                } else {
                 $this->addClassToPackage($reflection->getName(), $classElement);
+                }
 
                 $classStartLine = $reflection->getStartLine();
                 
@@ -310,18 +401,22 @@ class CoverageReportTask extends Task
                     $methodCoveredCount = 0;
                     $methodTotalCount = 0;
                     
-                    while ($linenr !== null && $linenr <= $method->getEndLine())
-                    {
+                    $methodHasCoveredLine = false;
+
+                    while ($linenr !== null && $linenr <= $method->getEndLine()) {
                         $methodTotalCount++;
-                        if ($coverageInformation[$linenr] > 0)
+                        $methodHasCoveredLine = true;
+
+                        // set covered when CODE is other than -1 (not executed)
+                        if ($coverageInformation[$linenr] > 0 || $coverageInformation[$linenr] == -2) {
                             $methodCoveredCount++;
+                        }
                         
                         next($coverageInformation);
                         $linenr = key($coverageInformation);
                     }
                     
-                    if ($methodTotalCount == $methodCoveredCount)
-                    {
+                    if (($methodTotalCount == $methodCoveredCount) && $methodHasCoveredLine) {
                         $methodscovered++;
                     }
 
@@ -353,18 +448,45 @@ class CoverageReportTask extends Task
         $totalstatementcount = 0;
         $totalstatementscovered = 0;
 
-        foreach ($packages as $package)
-        {
+        foreach ($packages as $package) {
             $methodcount = 0;
             $methodscovered = 0;
 
             $statementcount = 0;
             $statementscovered = 0;
 
+            $subpackages = $package->getElementsByTagName('subpackage');
+
+            foreach ($subpackages as $subpackage) {
+                $subpackageMethodCount    = 0;
+                $subpackageMethodsCovered = 0;
+
+                $subpackageStatementCount    = 0;
+                $subpackageStatementsCovered = 0;
+
+                $subpackageClasses = $subpackage->getElementsByTagName('class');
+
+                foreach ($subpackageClasses as $subpackageClass) {
+                    $subpackageMethodCount    += $subpackageClass->getAttribute('methodcount');
+                    $subpackageMethodsCovered += $subpackageClass->getAttribute('methodscovered');
+
+                    $subpackageStatementCount    += $subpackageClass->getAttribute('statementcount');
+                    $subpackageStatementsCovered += $subpackageClass->getAttribute('statementscovered');
+                }
+
+                $subpackage->setAttribute('methodcount', $subpackageMethodCount);
+                $subpackage->setAttribute('methodscovered', $subpackageMethodsCovered);
+
+                $subpackage->setAttribute('statementcount', $subpackageStatementCount);
+                $subpackage->setAttribute('statementscovered', $subpackageStatementsCovered);
+
+                $subpackage->setAttribute('totalcount', $subpackageMethodCount + $subpackageStatementCount);
+                $subpackage->setAttribute('totalcovered', $subpackageMethodsCovered + $subpackageStatementsCovered);
+            }
+
             $classes = $package->getElementsByTagName('class');
 
-            foreach ($classes as $class)
-            {
+            foreach ($classes as $class) {
                 $methodcount += $class->getAttribute('methodcount');
                 $methodscovered += $class->getAttribute('methodscovered');
 

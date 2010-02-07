@@ -38,36 +38,20 @@ class CoverageMerger
         reset($left);
         reset($right);
 
-        while (current($left) && current($right))
-        {
+        while (current($left) && current($right)) {
             $linenr_left = key($left);
             $linenr_right = key($right);
 
-            if ($linenr_left < $linenr_right)
-            {
+            if ($linenr_left < $linenr_right) {
                 $coverageMerged[$linenr_left] = current($left);
-
                 next($left);
-            }
-            else
-            if ($linenr_right < $linenr_left)
-            {
+            } elseif ($linenr_right < $linenr_left) {
                 $coverageMerged[$linenr_right] = current($right);
                 next($right);
-            }
-            else
-            {
-                if (current($left) < 0)
-                {
+            } else {
+                if ((current($left) < 0) || (current($right) < 0)) {
                     $coverageMerged[$linenr_right] = current($right);
-                }
-                else
-                if (current($right) < 0)
-                {
-                    $coverageMerged[$linenr_right] = current($left);
-                }
-                else
-                {
+                } else {
                     $coverageMerged[$linenr_right] = current($left) + current($right);
                 }
                 
@@ -76,14 +60,12 @@ class CoverageMerger
             }
         }
 
-        while (current($left))
-        {
+        while (current($left)) {
             $coverageMerged[key($left)] = current($left);
             next($left);
         }
 
-        while (current($right))
-        {
+        while (current($right)) {
             $coverageMerged[key($right)] = current($right);
             next($right);
         }
@@ -95,8 +77,7 @@ class CoverageMerger
     {
         $coverageDatabase = $project->getProperty('coverage.database');
         
-        if (!$coverageDatabase)
-        {
+        if (!$coverageDatabase) {
             throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
         
@@ -107,26 +88,20 @@ class CoverageMerger
         
         $coverageTotal = $codeCoverageInformation;
         
-        foreach ($coverageTotal as $filename => $data)
-        {
+        foreach ($coverageTotal as $filename => $data) {
             $lines = array();
             $filename = strtolower($filename);
 
-            if ($props->getProperty($filename) != null)
-            {
-                foreach ($data as $_line => $_data)
-                {
-                    if (is_array($_data))
-                    {
+            if ($props->getProperty($filename) != null) {
+                foreach ($data as $_line => $_data) {
+                    if (is_array($_data)) {
                         $count = count($_data);
-                    }
-                    else if ($_data == -1)
-                    {
+                    } else if ($_data == -1) {
+                        // not executed
                         $count = -1;
-                    }
-                    else if ($_data == -2)
-                    {
-                        continue;
+                    } else if ($_data == -2) {
+                        // dead code
+                        $count = -2;
                     }
 
                     $lines[$_line] = $count;

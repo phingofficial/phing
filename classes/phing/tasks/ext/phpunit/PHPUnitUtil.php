@@ -52,6 +52,26 @@ class PHPUnitUtil
     }
     
     /**
+     * Returns the subpackage of a class as defined in the docblock of the class
+     * using @subpackage
+     *
+     * @param string $classname the name of the class
+     *
+     * @author Benjamin Schultz <bschultz@proqrent.de>
+     * @return string|null the name of the subpackage
+     */
+    static function getSubpackageName($classname)
+    {
+        $reflect = new ReflectionClass($classname);
+
+        if (preg_match('/@subpackage[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
+            return $matches[1];
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Derives the classname from a filename.
      * Assumes that there is only one class defined in that particular file, and that
      * the naming follows the dot-path (Java) notation scheme.
