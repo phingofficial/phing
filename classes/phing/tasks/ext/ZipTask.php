@@ -192,7 +192,12 @@ class ZipTask extends MatchingTask {
 
                     $pathInZip = $this->prefix
                         . $f->getPathWithoutBase($fsBasedir);
-                    $zip->addFile($f->getPath(), $pathInZip);
+                        
+                    if ($f->isDirectory()) {
+                        $zip->addEmptyDir($pathInZip);
+                    } else {
+                        $zip->addFile($f->getPath(), $pathInZip);
+                    }
                     $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
                 }
             }
