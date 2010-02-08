@@ -1282,7 +1282,7 @@ to be executed using the same JDBC connection and commit operation in between.</
         <tr>
           <td>format</td>
           <td>String</td>
-          <td>The output format. The <em>default</em> format is specified in the task itself. Additionally the formats of CodeSniffer can be choosen: <em>xml</em>, <em>checkstyle</em>, <em>csv</em>, <em>report</em> and <em>summary</em>. A special case is the format <em>doc</em> which generates the documentation of the standard.</td>
+          <td>The output format. The <em>default</em> format is specified in the task itself. Additionally all report formats of PHP_CodeSniffer can be choosen (ex. <em>checkstyle</em>, <em>full</em>, <em>summary</em>, ...).</td>
           <td>default</td>
           <td>No<br/>Ignored if nested <em>formatter</em> elements are supplied.</td>
         </tr>
@@ -1300,10 +1300,31 @@ to be executed using the same JDBC connection and commit operation in between.</
           <td>true</td>
           <td>No</td>
         </tr>
+	<tr>
+          <td>showSources</td>
+          <td>Boolean</td>
+          <td>Flag that determines whether to show sources or not.</td>
+          <td>true</td>
+          <td>No</td>
+        </tr>
+	<tr>
+          <td>docGenerator</td>
+          <td>String</td>
+          <td>The name of the doc generator (HTML, Text).</td>
+          <td>n/a</td>
+          <td>No</td>
+        </tr>
+	<tr>
+          <td>docFile</td>
+          <td>String</td>
+          <td>Path to write output file to. If not set documentation will be written to STDOUT when <em>docGenerator</em> is set.</td>
+          <td>n/a</td>
+          <td>No</td>
+        </tr>
         <tr>
           <td>file</td>
           <td>String</td>
-          <td>The file or folder to check (usally the nested tag <em>fileset</em> is used instead).</td>
+          <td>The file or folder to check (usually the nested tag <em>fileset</em> is used instead).</td>
           <td>false</td>
           <td>Either this attribute or the nested tag <em>fileset</em> is required.</td>
         </tr>
@@ -1326,6 +1347,13 @@ to be executed using the same JDBC connection and commit operation in between.</
           <td>Integer</td>
           <td>Replaces tabs with the given number of spaces. If zero no replacing is done.</td>
           <td>0</td>
+          <td>No</td>
+        </tr>
+	<tr>
+          <td>reportWidth</td>
+          <td>Integer</td>
+          <td>The max. width for the report.</td>
+          <td>80</td>
           <td>No</td>
         </tr>
         <tr>
@@ -1352,14 +1380,14 @@ to be executed using the same JDBC connection and commit operation in between.</
         <tr>
           <td>haltonerror</td>
           <td>Boolean</td>
-          <td> Stop the build process if errors occurred during during the run. </td>
+          <td>Stop the build process if errors occurred during during the run.</td>
           <td>false</td>
           <td>No</td>
         </tr>
         <tr>
           <td>haltonwarning</td>
           <td>Boolean</td>
-          <td> Stop the build process if warnings occurred during the run. </td>
+          <td>Stop the build process if warnings occurred during the run.</td>
           <td>false</td>
           <td>No</td>
         </tr>
@@ -1434,9 +1462,9 @@ to be executed using the same JDBC connection and commit operation in between.</
   file=&quot;/path/to/source-files&quot;
   allowedFileExtensions=&quot;php php5 inc&quot;/&gt;
 </pre>
-    <p>Checks all matching files in the directory <em>dir</em> with a custom external standard, sets the <em>zend_ca_path</em> configuration which may be required by one of the sniffs, prints a list of used sniffs and prints the <em>default</em> report with warnings and the <em>checkstyle</em> report to <em>/path/to/checkstyle.xml</em>.</p>
+    <p>Checks all matching files in the <em>fileset</em> with the <em>Zend</em> standard, sets the <em>zend_ca_path</em> configuration which may be required by one of the sniffs, prints a list of used sniffs and prints the <em>default</em> report with warnings and the <em>checkstyle</em> report to <em>/path/to/checkstyle.xml</em>.</p>
     <pre>&lt;phpcodesniffer
-  standard=&quot;/path/to/external-standard&quot;
+  standard=&quot;Zend&quot;
   showSniffs=&quot;true&quot;
   showWarnings=&quot;true&quot;&gt;
   &lt;fileset dir=&quot;/path/to/source-files&quot;&gt;
@@ -1447,7 +1475,17 @@ to be executed using the same JDBC connection and commit operation in between.</
   &lt;formatter type=&quot;checkstyle&quot; outfile=&quot;/path/to/checkstyle.xml&quot;/&gt;
 &lt;/phpcodesniffer&gt;
 </pre>
-    <p>Externally stored custom standard have to follow the same naming conventions as if they were stored in the <em>Standards</em> subdirectory of PHP_CodeSniffer itself.</p>
+    <p>Checks all files in the directory <em>file</em> with the <em>PEAR</em> standard and prints the <em>checkstyle</em> report without warnings.
+It also generates the documentation for the selected coding standard and writes it to the given file.</p>
+    <pre>&lt;phpcodesniffer
+  standard=&quot;PEAR&quot;
+  file=&quot;/path/to/source-files&quot;
+  docGenerator=&quot;HTML&quot;
+  docFile=&quot;/path/to/doc.html&quot;&gt;
+  &lt;formatter type=&quot;checkstyle&quot; outfile=&quot;/path/to/checkstyle.xml&quot;/&gt;
+&lt;/phpcodesniffer&gt;
+</pre>
+
 
 <h2><a name="PhpCpdTask"></a>PhpCpdTask</h2>
     <p>This task runs <a href="http://github.com/sebastianbergmann/phpcpd/" target="_blank">phpCpd</a>, 
