@@ -416,6 +416,22 @@ class IoncubeEncoderTask extends Task
     }
     
     /**
+     * Sets the callback-file option
+     */
+    function setCallbackFile($value)
+    {
+        $this->ionOptions['callback-file'] = $value;
+    }
+
+    /**
+     * Returns the callback-file option
+     */
+    function getCallbackFile()
+    {
+        return $this->ionOptions['callback-file'];
+    }
+ 
+    /**
      * The main entry point
      *
      * @throws BuildException

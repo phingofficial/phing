@@ -432,7 +432,8 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
    noshortopentags="false"
    targetoption="replace"
    todir="encoded"
-   withoutruntimeloadersupport="true"&gt;
+   withoutruntimeloadersupport="true"
+   callbackfile="errhandler.php"&gt;
   &lt;comment&gt;A project encoded with the ionCube encoder.&lt;/comment&gt;
 &lt;/ioncubeencoder&gt;
 </pre>
@@ -599,6 +600,13 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
           <td>Boolean</td>
           <td>Wether to disable support for short PHP tags</td>
           <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>callbackfile</td>
+          <td>String</td>
+          <td>Path to callback file (.php)</td>
+          <td>n/a</td>
           <td>No</td>
         </tr>
       </tbody>
