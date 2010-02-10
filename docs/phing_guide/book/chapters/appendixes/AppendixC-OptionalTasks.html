@@ -1662,6 +1662,168 @@ to be executed using the same JDBC connection and commit operation in between.</
  &lt;/phpmd&gt;
 </pre>
 <p>Checking syntax of source files in the fileset pathes.</p>
+
+<h2><a name="PhpDependTask"></a>PhpDependTask</h2>
+    <p>This task runs <a href="http://pdepend.org" target="_blank">PHP_Depend</a>,
+    a software analyzer and metric tool for PHP Code. You need an installed version of this software to use this task.</p>
+      <h3>Attributes</h3><table>
+       <thead>
+         <tr>
+           <th>Name</th>
+           <th>Type</th>
+           <th>Description</th>
+           <th>Default</th>
+           <th>Required</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td>file</td>
+           <td>String</td>
+           <td>Path to source file or path</td>
+           <td>n/a</td>
+           <td>No</td>
+         </tr>
+	 <tr>
+           <td>configFile</td>
+           <td>String</td>
+           <td>Path to PHP_Depend configuration file</td>
+           <td>n/a</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>allowedFileExtensions</td>
+           <td>String</td>
+           <td>Comma-separated list of valid file extensions (without dot) for analyzed files.</td>
+           <td>php</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>excludeDirectories</td>
+           <td>String</td>
+           <td>Comma-separated list of directory patterns to ignore.</td>
+           <td>.git,.svn,CVS</td>
+           <td>No</td>
+         </tr>
+	 <tr>
+           <td>excludePackages</td>
+           <td>String</td>
+           <td>Comma-separated list of packages to ignore.</td>
+           <td>n/a</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>withoutAnnotations</td>
+           <td>Boolean</td>
+           <td>Should the parse ignore doc comment annotations?</td>
+           <td>false</td>
+           <td>No</td>
+         </tr>
+	 <tr>
+           <td>supportBadDocumentation</td>
+           <td>Boolean</td>
+           <td>Should PHP_Depend treat <b>+global</b> as a regular project package?</td>
+           <td>false</td>
+           <td>No</td>
+         </tr>
+	 <tr>
+           <td>optimization</td>
+           <td>String</td>
+           <td>Which optimization strategy should be choosen (best, none) ?</td>
+           <td>best</td>
+           <td>No</td>
+         </tr>
+	 <tr>
+           <td>debug</td>
+           <td>Boolean</td>
+           <td>Enable debug output?</td>
+           <td>false</td>
+           <td>No</td>
+         </tr>
+	 <tr>
+           <td>haltonerror</td>
+           <td>Boolean</td>
+           <td>Stop the build process if errors occurred during the run.</td>
+           <td>false</td>
+           <td>No</td>
+         </tr>
+       </tbody>
+      </table>
+      <h3>Supported Nested Tags</h3><ul>
+       <li>fileset <p>This nested tag is required when the <em>file</em> attribute is not set.</p></li>
+       <li>logger <p>The results of the analysis can be parsed by differed loggers. At least one logger is required. Output will always be sent to a file.</p><h3>Attributes</h3><table>
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Type</th>
+               <th>Description</th>
+               <th>Default</th>
+               <th>Required</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>type</td>
+               <td>String</td>
+               <td>The name of the logger. Valid loggers are: <em>jdepend-chart</em>, <em>jdepend-xml</em>, <em>overview-pyramid</em>, <em>phpunit-xml</em> and <em>summary-xml</em>.</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+             <tr>
+               <td>outfile</td>
+               <td>String</td>
+               <td>Path to write output file to.</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+           </tbody>
+         </table></li>
+       <li>analyzer <p>Some additional analyzers can be added to the runner.</p><h3>Attributes</h3><table>
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Type</th>
+               <th>Description</th>
+               <th>Default</th>
+               <th>Required</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>type</td>
+               <td>String</td>
+               <td>The name of the analyzer. Valid analyzers are: <em>coderank-mode</em>.</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+             <tr>
+               <td>value</td>
+               <td>String</td>
+               <td>The value for the analyzer.</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+           </tbody>
+         </table></li>
+     </ul>
+     <h3>Examples</h3>
+<pre>
+ &lt;phpdepend file="path/to/source"&gt;
+   &lt;logger type=&quot;phpunit-xml&quot; outfile=&quot;reports/metrics.xml&quot;/&gt;
+ &lt;/phpdepend&gt;
+</pre>
+<p>Running code analysis for source files in the given path.</p>
+<pre>
+ &lt;phpdepend&gt;
+   &lt;fileset dir=&quot;${builddir}&quot;&gt;
+     &lt;include name=&quot;apps/**/*.php&quot; /&gt;
+     &lt;include name=&quot;lib/de/**/*.php&quot; /&gt;
+   &lt;/fileset&gt;
+   &lt;logger type=&quot;jdepend-xml&quot; outfile=&quot;reports/jdepend.xml&quot;/&gt;
+   &lt;analyzer type=&quot;coderank-mode&quot; value=&quot;method&quot;/&gt;
+ &lt;/phpdepend&gt;
+</pre>
+<p>Running code analysis for source files in the fileset pathes with CodeRank strategy <em>method</em>.</p>
     
 <h2><a
         name="PhpDocumentorTask"></a>PhpDocumentorTask</h2><p>This task runs <a
