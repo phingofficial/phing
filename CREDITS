@@ -9,7 +9,7 @@
 
   New PHP5 PHING/2 Development
   ----------------------------
-    
+
   Sebastian Bergmann <sb@sebastian-bergmann.de>
   Joakim Bodin <joakim.bodin+phing@gmail.com>
   Johan Van den Brande <johan@vandenbrande.com>
@@ -27,6 +27,7 @@
   Dirk Thomas <dirk.thomas@4wdmedia.de>
   Knut Urdalen <knut.urdalen@gmail.com>
   Mike Wittje <mw@mike.wittje.de>
+  Benjamin Schultz <bschultz@proqrent.de>
 
   If you've done work on phing and you are not listed here, please feel free
   to add yourself.
@@ -46,7 +47,7 @@
   Ronald TAO <ronaldtao@hotmail.com>
   Yannick Lecaillez <yl@seasonfive.com>
   Hans Lellelid <hans@xmpl.org>
-  
+
   Other libraries/contributions
   ------------------------------
 
