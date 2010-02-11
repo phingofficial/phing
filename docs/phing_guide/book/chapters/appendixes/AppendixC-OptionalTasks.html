@@ -433,7 +433,8 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
    targetoption="replace"
    todir="encoded"
    withoutruntimeloadersupport="true"
-   callbackfile="errhandler.php"&gt;
+   callbackfile="errhandler.php"
+   obfuscationexlusionsfile="obfex.txt"&gt;
   &lt;comment&gt;A project encoded with the ionCube encoder.&lt;/comment&gt;
 &lt;/ioncubeencoder&gt;
 </pre>
@@ -609,6 +610,13 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
           <td>n/a</td>
           <td>No</td>
         </tr>
+	<tr>
+	  <td>obfuscationexclusionsfile</td>
+          <td>String</td>
+          <td>Path to obfuscation exclusions file</td>
+          <td>n/a</td>
+          <td>No</td>
+	</tr>
       </tbody>
     </table><h3>Supported Nested Tags</h3><ul>
       <li>comment <p>Custom text that is added to the start of each encoded file.</p></li>
@@ -617,7 +625,13 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
         >ionCube</a> make_license program.</p><p>For more information on the meaning of the various options please consult the ionCube <a
         href="http://www.ioncube.com/USER-GUIDE.pdf" target="_blank"
       >user guide</a>.</p><h3>Example</h3>
-    <pre>&lt;ioncubelicense ioncubepath="/usr/local/ioncube" licensepath="mylicense.txt" passphrase="mypassphrase">
+    <pre>&lt;ioncubelicense
+   ioncubepath="/usr/local/ioncube"
+   licensepath="mylicense.txt"
+   passphrase="mypassphrase"
+   allowedserver="00:06:4F:01:8F:2C"
+   expireon="2010-09-01"
+   expirein="7d">
   &lt;comment&gt;A license file made with the ionCube encoder.&lt;/comment&gt;
 &lt;/ioncubelicense&gt;
 </pre>
@@ -650,6 +664,27 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
           <td>passphrase</td>
           <td>String</td>
           <td>The passphrase to use when generating the license file</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+	<tr>
+          <td>allowedserver</td>
+          <td>String</td>
+          <td>Restricts the license to particular servers and/or domains. Consult the IonCude documentation for more information.</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>expirein</td>
+          <td>String</td>
+          <td>Sets a period in seconds (s), minutes (m), hours (h) or days (d) after which the license expires. Accepts: 500s or 55m or 24h or 7d.</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>expireon</td>
+          <td>String</td>
+          <td>Sets a YYYY-MM-DD date to expire the license.</td>
           <td>none</td>
           <td>No</td>
         </tr>

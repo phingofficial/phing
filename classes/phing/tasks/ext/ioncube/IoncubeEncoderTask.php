@@ -123,7 +123,7 @@ class IoncubeEncoderTask extends Task
      */
     function getEncode()
     {
-        return $this->enionOptionsXS['encode'];
+        return $this->ionOptionsXS['encode'];
     }
 
     /**
@@ -430,6 +430,22 @@ class IoncubeEncoderTask extends Task
     {
         return $this->ionOptions['callback-file'];
     }
+
+    /**
+     * Sets the obfuscation-exclusions-file option
+     */
+    function setObfuscationExclusionFile($value)
+    {
+        $this->ionOptions['obfuscation-exclusion-file'] = $value;
+    }
+
+    /**
+     * Returns the obfuscation-exclusions-file option
+     */
+    function getObfuscationExclusionFile()
+    {
+        return $this->ionOptions['obfuscation-exclusion-file'];
+    }
  
     /**
      * The main entry point
@@ -443,9 +459,9 @@ class IoncubeEncoderTask extends Task
         $encoder = new PhingFile($this->ioncubePath, $this->encoderName . ($this->phpVersion == 5 ? '5' : ''));
         
         $this->log("Running ionCube Encoder...");
-        
+       
         exec($encoder->__toString() . ' ' . $arguments . " 2>&1", $output, $return);
-        
+       
         if ($return != 0)
         {
             throw new BuildException("Could not execute ionCube Encoder: " . implode(' ', $output));
@@ -513,7 +529,7 @@ class IoncubeEncoderTask extends Task
         {
             $arguments .= "-o " . $this->toDir . ' ';
         }
-        
+       
         return $arguments;
     }
 }
