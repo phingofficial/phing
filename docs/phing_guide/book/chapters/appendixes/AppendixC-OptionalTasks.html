@@ -1548,8 +1548,8 @@ to be executed using the same JDBC connection and commit operation in between.</
 </pre>
     <p>Externally stored custom standard have to follow the same naming conventions as if they were stored in the <em>Standards</em> subdirectory of PHP_CodeSniffer itself.</p>
 
-<h2><a name="PhpCpdTask"></a>PhpCpdTask</h2>
-    <p>This task runs <a href="http://github.com/sebastianbergmann/phpcpd/" target="_blank">phpCpd</a>, 
+<h2><a name="PHPCPDTask"></a>PHPCPDTask</h2>
+    <p>This task runs <a href="http://github.com/sebastianbergmann/phpcpd/" target="_blank">phpcpd</a>, 
     a Copy/Paste Detector (CPD) for PHP Code. You need an installed version of this software to use this task.</p>
       <h3>Attributes</h3><table>
        <thead>
@@ -1562,32 +1562,39 @@ to be executed using the same JDBC connection and commit operation in between.</
          </tr>
        </thead>
        <tbody>
+	 <tr>
+           <td>file</td>
+           <td>String</td>
+           <td>Path to source file or path</td>
+           <td>n/a</td>
+           <td>No</td>
+         </tr> 
          <tr>
            <td>minTokens</td>
            <td>Integer</td>
-           <td> Sets the  minimum number of identical tokens (default: 70)</td>
+           <td>Sets the minimum number of identical tokens (default: 70)</td>
            <td>70</td>
            <td>No</td>
          </tr>
          <tr>
            <td>minLines</td>
            <td>Integer</td>
-           <td> Sets the  minimum number of identical lines (default: 5)</td>
+           <td>Sets the minimum number of identical lines (default: 5)</td>
            <td>5</td>
            <td>No</td>
          </tr>
-         <tr>
-           <td>haltonerror</td>
-           <td>Boolean</td>
-           <td> Stop the build process if errors occurred during during the run. </td>
-           <td>false</td>
+	 <tr>
+           <td>format</td>
+           <td>String</td>
+           <td>The format for the report when no nested formatter is used.</td>
+           <td>default</td>
            <td>No</td>
          </tr>
        </tbody>
       </table>
       <h3>Supported Nested Tags</h3><ul>
-       <li>fileset <p>This nested tag is required</p></li>
-       <li>formatter <p>The results of the tests can be printed in different formats. Output will always be sent to a file.</p><h3>Attributes</h3><table>
+       <li>fileset <p>This nested tag is required when the <em>file</em> attribute is not set.</p></li>
+       <li>formatter <p>The results of the copy/paste scan can be printed in different formats. Output will always be sent to a file, unless you set the <em>usefile</em> attribute to <em>false</em>.</p><h3>Attributes</h3><table>
            <thead>
              <tr>
                <th>Name</th>
@@ -1606,9 +1613,9 @@ to be executed using the same JDBC connection and commit operation in between.</
                <td>Yes</td>
              </tr>
              <tr>
-               <td>usefile</td>
+               <td>useFile</td>
                <td>Boolean</td>
-               <td>Boolean that determines whether output should be sent to a file.</td>
+               <td>Flag that determines whether output should be sent to a file or not.</td>
                <td>true</td>
                <td>No</td>
              </tr>
@@ -1624,7 +1631,17 @@ to be executed using the same JDBC connection and commit operation in between.</
      </ul>
      <h3>Examples</h3>
 <pre>
- &lt;phpcpd haltonerror="false"&gt;
+ &lt;phpcpd file="path/to/source.php"/&gt;
+</pre>
+<p>Checking for copy/paste code in one particular source file. Sending Default-Report to STDOUT.</p>
+<pre>
+ &lt;phpcpd file="path/to/source"&gt;
+   &lt;formatter type=&quot;pmd&quot; outfile=&quot;reports/pmd-cpd.xml&quot;/&gt;
+ &lt;/phpcpd&gt;
+</pre>
+<p>Checking for copy/paste code in files of the given path.</p>
+<pre>
+ &lt;phpcpd&gt;
    &lt;fileset dir=&quot;${builddir}&quot; id=&quot;filestocpd&quot;&gt;
      &lt;include name=&quot;apps/**/*.php&quot; /&gt;
      &lt;include name=&quot;lib/de/**/*.php&quot; /&gt;
