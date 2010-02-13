@@ -214,6 +214,62 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 &lt;/phpunit&gt;
 </pre>
 
+<h2><a name="CoverageThresholdTask"></a>CoverageThresholdTask</h2><p>This task validates the code coverage database and will stop the build cycle if any class or method or entire project's coverage is lower than the specified threshold.</p>
+      <h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>database</td>
+          <td>String</td>
+          <td>The location of the coverage database. (This is optional if <em>CoverageSetupTask</em> has run before)</td>
+          <td>n/a</td>
+          <td>No</td>
+        </tr>
+	<tr>
+          <td>perProject</td>
+          <td>Integer</td>
+          <td>The minimum code coverage for the entire project.</td>
+          <td>25</td>
+          <td>No</td>
+        </tr>
+	<tr>
+          <td>perClass</td>
+          <td>Integer</td>
+          <td>The minimum code coverage for any class.</td>
+          <td>25</td>
+          <td>No</td>
+        </tr>
+	<tr>
+          <td>perMethod</td>
+          <td>Integer</td>
+          <td>The minimum code coverage for any method.</td>
+          <td>25</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table><h3>Supported Nested Tags</h3><ul>
+      <li>classpath</li>
+    </ul><h3>Example</h3>
+<pre>
+&lt;coverage-threshold database=&quot;./reports/coverage.db&quot;/&gt;
+</pre>
+<p>Validates an optional code coverage database against the default thresholds.</p>
+<pre>
+&lt;coverage-threshold
+    perProject=&quot;50&quot;
+    perClass=&quot;60&quot;
+    perMethod=&quot;70&quot;/&gt;
+</pre>
+<p>Validates the code coverage database (from CoverageSetupTask) against the specified thresholds.</p>
+
 <h2><a name="ExportPropertiesTask"></a>ExportPropertiesTask</h2>
 <p>Exports all defined properties to a specified file.</p>
 <h3>Example</h3>

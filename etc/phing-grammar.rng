@@ -1180,6 +1180,41 @@
         </element>
     </define>
 
+    <!--
+        =========================================
+        CoverageThresholdTask
+        =========================================
+    -->
+    <define name="coverage-threshold">
+        <element name="coverage-threshold">
+            <interleave>
+                <optional>
+                    <attribute name="database">
+                        <data type="string"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="perProject">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="perClass">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="perMethod">
+                        <data type="int"/>
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="classpath"/>   
+            </zeroOrMore>
+        </element>
+    </define>
+
 
     <!-- 
         =========================================
