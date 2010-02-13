@@ -21,7 +21,6 @@
 
 require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
 require_once 'phing/system/util/Properties.php';
 
 /**
