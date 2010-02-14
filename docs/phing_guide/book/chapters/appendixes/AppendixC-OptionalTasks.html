@@ -1164,15 +1164,217 @@ to be executed using the same JDBC connection and commit operation in between.</
       </tbody>
     </table><h3>Supported Nested Tags</h3><ul>
       <li>fileset</li>
-      <li>option</li>
+      <li>
+      	<p>option</p>
+
+		<p>Available options:</p>
+		<table>
+		  <thead>
+		    <tr>
+		      <th>Name</th>
+		      <th>Type</th>
+		      <th>Description</th>
+		      <th>Default</th>
+		      <th>Required</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td>summary</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>description</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>license</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>channel</td>
+		      <td>String</td>
+		      <td>Channel name (not alias!). Must be registered (<code>pear channel-discover <em>channel</em></code>) on the machine, where the build will be.</td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>apiversion</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>releaseversion</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>releasestability</td>
+		      <td>String</td>
+		      <td>One from: snapshot, devel, alpha, beta or stable.</td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>apistability</td>
+		      <td>String</td>
+		      <td>One from: devel, alpha, beta or stable.</td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>note</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>packagetype</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>phpdep</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		    <tr>
+		      <td>pearinstallerdep</td>
+		      <td>String</td>
+		      <td></td>
+		      <td>n/a</td>
+		      <td>Yes</td>
+		    </tr>
+		  </tbody>
+		</table>
+      </li>
       <li><p>mapping</p>
         <p> The &lt;mapping&gt; tag represents a complex data type.  You can use nested &lt;mapping&gt; (and nested &lt;element&gt; with
           &lt;element&gt; tags) to represent the full complexity of the structure.  Bear in mind that what you are creating
           will be mapped to an associative array that will be passed in via <code>PEAR_PackageFileMaintainer::setOptions()</code>.</p>
         <pre>&lt;mapping name="option_name">
-          &lt;element key="key_name" value="key_val"/>
-          &lt;element key="key_name" value="key_val"/>
-          &lt;/mapping></pre>
+    &lt;element key="key_name" value="key_val"/>
+    &lt;element key="key_name" value="key_val"/>
+&lt;/mapping></pre>
+
+	    <p>Available mappings and they structures:</p>
+	    <ul>
+	    	<li>
+	    		deps (optional)
+
+				<table>
+			      <thead>
+			        <tr>
+			          <th>Name</th>
+			          <th>Type</th>
+			          <th>Description</th>
+			          <th>Default</th>
+			          <th>Required</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+                    <tr>
+                      <td>channel</td>
+                      <td>String</td>
+                      <td>Channel name, from package is.</td>
+                      <td>n/a</td>
+                      <td>Yes</td>
+                    </tr>
+			        <tr>
+			          <td>name</td>
+			          <td>String</td>
+			          <td>Package name in channel.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+                    <tr>
+                      <td>version</td>
+                      <td>String</td>
+                      <td>Minimal version.</td>
+                      <td>n/a</td>
+                      <td>Yes</td>
+                    </tr>
+                    <tr>
+                      <td>max</td>
+                      <td>String</td>
+                      <td>Maximum version.</td>
+                      <td>Same as version.</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td>recommended</td>
+                      <td>String</td>
+                      <td>Recommended version.</td>
+                      <td>Same as version.</td>
+                      <td>No</td>
+                    </tr>
+			      </tbody>
+			    </table>
+	    	</li>
+	    	<li>
+	    		maintainers (required at least one)
+
+				<table>
+			      <thead>
+			        <tr>
+			          <th>Name</th>
+			          <th>Type</th>
+			          <th>Description</th>
+			          <th>Default</th>
+			          <th>Required</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr>
+			          <td>handle</td>
+			          <td>String</td>
+			          <td>User identifier in channel.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			        <tr>
+			          <td>name</td>
+			          <td>String</td>
+			          <td>Real name.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			        <tr>
+			          <td>email</td>
+			          <td>String</td>
+			          <td></td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			        <tr>
+			          <td>role</td>
+			          <td>String</td>
+			          <td>One from: lead, developer, contributor or helper.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			      </tbody>
+			    </table>
+	    	</li>
+	    </ul>
       </li>
     </ul>
     
