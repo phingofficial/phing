@@ -132,11 +132,18 @@ class FtpDeployTask extends Task
         require_once 'Net/FTP.php';
         $ftp = new Net_FTP($this->host, $this->port);
         $ret = $ftp->connect();
-        if(PEAR::isError($ret))
+        if(PEAR::isError($ret)) {
             throw new BuildException('Could not connect to FTP server '.$this->host.' on port '.$this->port.': '.$ret->getMessage());
+        } else {
+            $this->log('Connected to FTP server', Project::MSG_VERBOSE);
+        }
+        
         $ret = $ftp->login($this->username, $this->password);
-        if(PEAR::isError($ret))
+        if(PEAR::isError($ret)) {
             throw new BuildException('Could not login to FTP server '.$this->host.' on port '.$this->port.' with username '.$this->username.': '.$ret->getMessage());
+        } else {
+            $this->log('Logged in to FTP server', Project::MSG_VERBOSE);
+        }
         
         if ($this->passive) {
             $this->log('Setting passive mode', Project::MSG_INFO);
@@ -167,6 +174,8 @@ class FtpDeployTask extends Task
         if(PEAR::isError($ret)) {
             $ftp->disconnect();
             throw new BuildException('Could not change to directory '.$dir.': '.$ret->getMessage());
+        } else {
+            $this->log('Changed directory ' . $dir, Project::MSG_VERBOSE);
         }
         
         $fs = FileSystem::getFileSystem();
@@ -201,6 +210,7 @@ class FtpDeployTask extends Task
         }
         
         $ftp->disconnect();
+        $this->log('Disconnected from FTP server', Project::MSG_VERBOSE);
     }
 }
 ?>
