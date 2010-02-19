@@ -2279,7 +2279,7 @@ to be executed using the same JDBC connection and commit operation in between.</
       <li>projdocfileset - Files that should be treated as README/INSTALL/CHANGELOG files</li>
     </ul><h3>Examples</h3>
     <pre>
-&lt;phpdocumentor title=&quot;API Documentation&quot;
+&lt;phpdoc title=&quot;API Documentation&quot;
   destdir=&quot;apidocs&quot;
   sourcecode=&quot;false&quot;
   output=&quot;HTML:Smarty:PHP&quot;&gt;
@@ -2291,7 +2291,7 @@ to be executed using the same JDBC connection and commit operation in between.</
       &lt;include name=&quot;INSTALL&quot; /&gt;
       &lt;include name=&quot;CHANGELOG&quot; /&gt;
    &lt;/projdocfileset&gt;
-&lt;/phpdocumentor&gt;
+&lt;/phpdoc&gt;
 </pre>
     <h2><a name="PhpDocumentorExternalTask"></a>PhpDocumentorExternalTask</h2><p>This is the same as the <a href="#PhpDocumentorTask"
         >PhpDocumentorTask</a> but uses the command line application. Use this as a fallback in case you're running into troubles when using the phpDocumentor-library with the PhpDocumentorTask directly, e.g. when you're using Smarty and have Smarty in your library path too.</p><p>This task supports everything the PhpDocumentorTask supports, differences are documented below.</p><h3>Additional attributes</h3><table>
