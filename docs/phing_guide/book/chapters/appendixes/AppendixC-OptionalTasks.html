@@ -3076,7 +3076,103 @@ todir=&quot;/www/htdocs/project/&quot;
           <td>No</td>
         </tr>
       </tbody>
-    </table><h2><a name="SvnExportTask"></a>SvnExportTask</h2><p> The <em>SvnExportTask</em> exports a Subversion repository to a local directory.</p><h3>Examples</h3>
+    </table>
+    
+    <h2><a name="SvnCopyTask"></a>SvnCopyTask</h2><p> The <em>SvnCopyTask</em> duplicates something in a working copy or repository, remembering history.</p><h3>Examples</h3>
+    <pre>&lt;svncopy
+   svnpath=&quot;/usr/bin/svn&quot;
+   username="anony"
+   password="anony"
+   force="true"
+   nocache="true"
+   repositoryurl=&quot;svn://localhost/project/trunk/&quot;
+   todir=&quot;svn://localhost/project/tags/0.1&quot;/&gt;
+</pre>
+    <h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>message</td>
+          <td>String</td>
+          <td>Log message</td>
+          <td>n/a</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>svnpath</td>
+          <td>String</td>
+          <td>Path to Subversion binary</td>
+          <td>/usr/bin/svn</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>repositoryurl</td>
+          <td>String</td>
+          <td>URL of SVN repository</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>username</td>
+          <td>String</td>
+          <td>A username used to connect to the SVN server</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>String</td>
+          <td>A password used to connect to the SVN server</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>force</td>
+          <td>Boolean</td>
+          <td>Force overwrite files if they already exist</td>
+          <td>False</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>nocache</td>
+          <td>Boolean</td>
+          <td>Connection credentials will not be cached</td>
+          <td>False</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>todir</td>
+          <td>String</td>
+          <td>Path to export to</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>recursive</td>
+          <td>Boolean</td>
+          <td>Recursive behavior</td>
+          <td>True</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>ignoreexternals</td>
+          <td>Boolean</td>
+          <td>Ignore externals definitions</td>
+          <td>False</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <h2><a name="SvnExportTask"></a>SvnExportTask</h2><p> The <em>SvnExportTask</em> exports a Subversion repository to a local directory.</p><h3>Examples</h3>
     <pre>&lt;svnexport
    svnpath=&quot;/usr/bin/svn&quot;
    username="anony"
