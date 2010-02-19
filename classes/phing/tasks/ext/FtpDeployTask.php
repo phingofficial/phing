@@ -135,14 +135,14 @@ class FtpDeployTask extends Task
         if(PEAR::isError($ret)) {
             throw new BuildException('Could not connect to FTP server '.$this->host.' on port '.$this->port.': '.$ret->getMessage());
         } else {
-            $this->log('Connected to FTP server', Project::MSG_VERBOSE);
+            $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, Project::MSG_VERBOSE);
         }
         
         $ret = $ftp->login($this->username, $this->password);
         if(PEAR::isError($ret)) {
             throw new BuildException('Could not login to FTP server '.$this->host.' on port '.$this->port.' with username '.$this->username.': '.$ret->getMessage());
         } else {
-            $this->log('Logged in to FTP server', Project::MSG_VERBOSE);
+            $this->log('Logged in to FTP server with username ' . $this->username, Project::MSG_VERBOSE);
         }
         
         if ($this->passive) {
