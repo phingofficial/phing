@@ -2333,8 +2333,26 @@ to be executed using the same JDBC connection and commit operation in between.</
           <td>Currently not supported. The attribute will be ignored and a warning messag will be generated. The build continues (to ease when changing an existing phpdoc task) however this may have unexpected side effects.</td>
         </tr>
       </tbody>
-    </table><h2><a name="PhpLintTask"
-      ></a>PhpLintTask</h2><p>The <em>PhpLintTask</em> checks syntax (lint) on one or more PHP source code files.</p><h3>Attributes</h3><table>
+    </table>
+    <h3>Examples</h3>
+    <pre>
+&lt;phpdocext title=&quot;API Documentation&quot;
+  programpath=&quot;/usr/bin/phpdoc&quot;
+  destdir=&quot;apidocs&quot;
+  sourcecode=&quot;false&quot;
+  output=&quot;HTML:Smarty:PHP&quot;&gt;
+   &lt;fileset dir=&quot;./classes&quot;&gt;
+      &lt;include name=&quot;**/*.php&quot; /&gt;
+   &lt;/fileset&gt;
+   &lt;projdocfileset dir=&quot;.&quot;&gt;
+      &lt;include name=&quot;README&quot; /&gt;
+      &lt;include name=&quot;INSTALL&quot; /&gt;
+      &lt;include name=&quot;CHANGELOG&quot; /&gt;
+   &lt;/projdocfileset&gt;
+&lt;/phpdocext&gt;
+</pre>
+    
+    <h2><a name="PhpLintTask"></a>PhpLintTask</h2><p>The <em>PhpLintTask</em> checks syntax (lint) on one or more PHP source code files.</p><h3>Attributes</h3><table>
       <thead>
         <tr>
           <th>Name</th>
