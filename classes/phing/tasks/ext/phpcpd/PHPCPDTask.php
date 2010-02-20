@@ -26,7 +26,7 @@ require_once 'phing/Task.php';
  * Refactored original PhpCpdTask provided by
  * Timo Haberkern <timo.haberkern@fantastic-bits.de>
  *
- * @package phing.tasks.ext.phpmd
+ * @package phing.tasks.ext.phpcpd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
  * @version $Id$
  */
