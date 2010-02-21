@@ -227,7 +227,6 @@ class HttpRequestTask extends Task
         // Other dependencies that should only be loaded
         // when class is actually used
         require_once 'HTTP/Request2/Observer/Log.php';
-        require_once 'Log.php';
     }
 
     /**
@@ -277,6 +276,8 @@ class HttpRequestTask extends Task
                 'The received response body did not match the '
                 . 'given regular expression'
             );
+        } else {
+            $this->log('The response body matched the provided regex.');
         }
     }
 }
