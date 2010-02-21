@@ -469,7 +469,150 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
       </tbody>
     </table><h3>Supported Nested Tags</h3><ul>
       <li>fileset <p>The files to deploy</p></li>
-    </ul><h2><a name="IoncubeEncoderTask"></a>IoncubeEncoderTask</h2><p>The <em>IoncubeEncoderTask</em> executes the 
+    </ul>
+
+<h2><a name="HttpRequestTask"></a>HttpRequestTask</h2>
+    <p>This task will make an HTTP request to the provided URL and match the response against the provided regular expression. If the regular expression doesn't match the build will fail. You need an installed version of HTTP_Request2 to use this task.</p>
+      <h3>Attributes</h3><table>
+       <thead>
+         <tr>
+           <th>Name</th>
+           <th>Type</th>
+           <th>Description</th>
+           <th>Default</th>
+           <th>Required</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td>url</td>
+           <td>String</td>
+           <td>The request URL</td>
+           <td>n/a</td>
+           <td>Yes</td>
+         </tr>
+         <tr>
+           <td>responseRegex</td>
+           <td>String</td>
+           <td>The regular expression for matching the response</td>
+           <td>/OK/</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>authUser</td>
+           <td>String</td>
+           <td>The authentication user name</td>
+           <td>n/a</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>authPassword</td>
+           <td>String</td>
+           <td>The authentication password</td>
+           <td>n/a</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>authScheme</td>
+           <td>String</td>
+           <td>The authentication scheme</td>
+           <td>basic</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>verbose</td>
+           <td>Boolean</td>
+           <td>Whether to enable detailed logging</td>
+           <td>false</td>
+           <td>No</td>
+         </tr>
+         <tr>
+           <td>observerEvents</td>
+           <td>String</td>
+           <td>Comma-separated list of events to log when <em>verbose</em> is set to <em>true</em></td>
+           <td>connect, sentHeaders, sentBodyPart, receivedHeaders, receivedBody, disconnect</td>
+           <td>No</td>
+         </tr>
+       </tbody>
+      </table>
+      <h3>Supported Nested Tags</h3><ul>
+       <li>config <p>Holds additional config data. See HTTP_Request2 for supported values.</p><h3>Attributes</h3><table>
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Type</th>
+               <th>Description</th>
+               <th>Default</th>
+               <th>Required</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>name</td>
+               <td>String</td>
+               <td>Config parameter name</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+             <tr>
+               <td>value</td>
+               <td>Mixed</td>
+               <td>Config value</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+           </tbody>
+         </table></li>
+       <li>header <p>Holds additional header <em>name</em> and <em>value</em>.</p><h3>Attributes</h3><table>
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Type</th>
+               <th>Description</th>
+               <th>Default</th>
+               <th>Required</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>name</td>
+               <td>String</td>
+               <td>Header name</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+             <tr>
+               <td>value</td>
+               <td>String</td>
+               <td>Header value</td>
+               <td>n/a</td>
+               <td>Yes</td>
+             </tr>
+           </tbody>
+         </table></li>
+     </ul>
+     <h3>Examples</h3>
+<pre>
+ &lt;http-request url=&quot;http://my-production.example.com/check-deployment.php&quot;/&gt;
+</pre>
+<p>Making an HTTP request to the given URL and matching the response against the default regex.</p>
+<pre>
+ &lt;http-request
+   url=&quot;http://my-production.example.com/check-deployment.php&quot;
+   responseRegex=&quot;/Heartbeat/&quot;
+   verbose&quot;true&quot;
+   observerEvents=&quot;connect, disconnect&quot;/&gt;
+</pre>
+<p>Making an HTTP request to the given URL and matching the response against the given regex. Enable detailed logging and log only the specified events.</p>
+<pre>
+ &lt;http-request url="http://my-production.example.com/check-deployment.php"&gt;
+   &lt;config name=&quot;adapter&quot; value=&quot;HTTP_Request2_Adapter_Curl&quot;/&gt;
+   &lt;header name=&quot;user-agent&quot; value=&quot;Phing HttpRequestTask&quot;/&gt;
+ &lt;/http-request&gt;
+</pre>
+<p>Making an HTTP request to the given URL and matching the response against the default regex. Setting request adapter to curl instead of socket. Setting an additional header.</p>
+
+<h2><a name="IoncubeEncoderTask"></a>IoncubeEncoderTask</h2><p>The <em>IoncubeEncoderTask</em> executes the 
       <a href="http://www.ioncube.com" target="_blank" >ionCube</a> encoder (for either PHP4 or PHP5 projects).</p><p>For more information on the meaning of the various options please consult the ionCube 
         <a href="http://www.ioncube.com/USER-GUIDE.pdf" target="_blank" >user guide</a>.</p><h3>Example</h3>
     <pre>&lt;ioncubeencoder
