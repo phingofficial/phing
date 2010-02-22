@@ -1694,10 +1694,19 @@
                     <attribute name="format"/>
                 </optional>
                 <optional>
-                    <attribute name="showSniffs"/>
+                    <attribute name="showSniffs">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
                 <optional>
-                    <attribute name="showWarnings"/>
+                    <attribute name="showWarnings">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="showSources">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
                 <choice>
                     <attribute name="file"/>
@@ -1715,13 +1724,24 @@
                     <attribute name="tabWidth"/>
                 </optional>
                 <optional>
+                    <attribute name="reportWidth"/>
+                </optional>
+                <optional>
+                    <attribute name="docGenerator"/>
+                </optional>
+                <optional>
+                    <attribute name="docFile"/>
+                </optional>
+                <optional>
                     <attribute name="allowedFileExtensions"/>
                 </optional>
                 <optional>
                     <attribute name="ignorePatterns"/>
                 </optional>
                 <optional>
-                    <attribute name="noSubdirectories"/>
+                    <attribute name="noSubdirectories">
+                        <data type="boolean"/>
+                    </attribute>
                 </optional>
                 <optional>
                     <attribute name="haltonerror" />

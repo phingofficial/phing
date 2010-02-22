@@ -37,6 +37,8 @@ class PhpCodeSnifferTask extends Task {
     protected $standard = 'Generic';
     protected $sniffs = array();
     protected $showWarnings = true;
+    protected $showSources = false;
+    protected $reportWidth = 80;
     protected $verbosity = 0;
     protected $tabWidth = 0;
     protected $allowedFileExtensions = array('php');
@@ -47,10 +49,50 @@ class PhpCodeSnifferTask extends Task {
     // parameters to customize output
     protected $showSniffs = false;
     protected $format = 'default';
-    protected $formatters   = array();
-    
+    protected $formatters = array();
+
+    /**
+     * Holds the type of the doc generator
+     *
+     * @var string
+     */
+    protected $docGenerator = '';
+
+    /**
+     * Holds the outfile for the documentation
+     *
+     * @var PhingFile
+     */
+    protected $docFile = null;
+
     private $haltonerror = false;
-    private $haltonwarning = false; 
+    private $haltonwarning = false;
+
+    /**
+     * Load the necessary environment for running PHP_CodeSniffer.
+     *
+     * @throws BuildException
+     * @return void
+     */
+    public function init()
+    {
+        /**
+         * Determine PHP_CodeSniffer version number
+         */
+        preg_match('/\d\.\d\.\d/', shell_exec('phpcs --version'), $version);
+
+        if (version_compare($version[0], '1.2.2') < 0) {
+            throw new BuildException(
+                'PhpCodeSnifferTask requires PHP_CodeSniffer version >= 1.2.2',
+                $this->getLocation()
+            );
+        }
+
+        /**
+         * Dependencies that should only be loaded when class is actually used.
+         */
+        include_once 'PHP/CodeSniffer.php';
+    }
 
     /**
      * File to be performed syntax check on
@@ -71,12 +113,41 @@ class PhpCodeSnifferTask extends Task {
     }
 
     /**
-     * Sets the standard to test for
-     * @param string $standard
+     * Sets the coding standard to test for
+     *
+     * @param string $standard The coding standard
+     *
+     * @return void
      */
     public function setStandard($standard)
     {
-        if (DIRECTORY_SEPARATOR != '/') $standard = str_replace('/', DIRECTORY_SEPARATOR, $standard);
+        if (PHP_CodeSniffer::isInstalledStandard($standard) === false) {
+            // They didn't select a valid coding standard, so help them
+            // out by letting them know which standards are installed.
+            $installedStandards = PHP_CodeSniffer::getInstalledStandards();
+            $numStandards       = count($installedStandards);
+            $errMsg             = '';
+
+            if ($numStandards === 0) {
+                $errMsg = 'No coding standards are installed.';
+            } else {
+                $lastStandard = array_pop($installedStandards);
+
+                if ($numStandards === 1) {
+                    $errMsg = 'The only coding standard installed is ' . $lastStandard;
+                } else {
+                    $standardList  = implode(', ', $installedStandards);
+                    $standardList .= ' and ' . $lastStandard;
+                    $errMsg = 'The installed coding standards are ' . $standardList;
+                }
+            }
+
+            throw new BuildException(
+                'ERROR: the "' . $standard . '" coding standard is not installed. ' . $errMsg,
+                $this->getLocation()
+            );
+        }
+
         $this->standard = $standard;
     }
 
@@ -95,12 +166,60 @@ class PhpCodeSnifferTask extends Task {
     }
 
     /**
+     * Sets the type of the doc generator
+     *
+     * @param string $generator HTML or Text
+     *
+     * @return void
+     */
+    public function setDocGenerator($generator)
+    {
+        $this->docGenerator = $generator;
+    }
+
+    /**
+     * Sets the outfile for the documentation
+     *
+     * @param PhingFile $file The outfile for the doc
+     *
+     * @return void
+     */
+    public function setDocFile(PhingFile $file)
+    {
+        $this->docFile = $file;
+    }
+
+    /**
      * Sets the flag if warnings should be shown
      * @param boolean $show
      */
     public function setShowWarnings($show)
     {
         $this->showWarnings = StringHelper::booleanValue($show);
+    }
+
+    /**
+     * Sets the flag if sources should be shown
+     *
+     * @param boolean $show Whether to show sources or not
+     *
+     * @return void
+     */
+    public function setShowSources($show)
+    {
+        $this->showSources = StringHelper::booleanValue($show);
+    }
+
+    /**
+     * Sets the width of the report
+     *
+     * @param int $width How wide the screen reports should be.
+     *
+     * @return void
+     */
+    public function setReportWidth($width)
+    {
+        $this->reportWidth = (int) $width;
     }
 
     /**
@@ -193,11 +312,11 @@ class PhpCodeSnifferTask extends Task {
      * @return CodeSniffer_FormatterElement
      */
     public function createFormatter () {
-        $num = array_push($this->formatters, 
+        $num = array_push($this->formatters,
         new PhpCodeSnifferTask_FormatterElement());
         return $this->formatters[$num-1];
     }
-    
+
     /**
      * Sets the haltonerror flag
      * @param boolean $value
@@ -215,7 +334,7 @@ class PhpCodeSnifferTask extends Task {
     {
         $this->haltonwarning = $value;
     }
-    
+
     /**
      * Executes PHP code sniffer against PhingFile or a FileSet
      */
@@ -231,7 +350,7 @@ class PhpCodeSnifferTask extends Task {
           $fmt->setUseFile(false);
           $this->formatters[] = $fmt;
         }
-        
+
         if (!isset($this->file))
         {
             $fileList = array();
@@ -245,11 +364,7 @@ class PhpCodeSnifferTask extends Task {
                 }
             }
         }
-        
-        /* save current directory */
-        $old_cwd = getcwd();
 
-        require_once 'PHP/CodeSniffer.php';
         $codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
         if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
@@ -264,10 +379,28 @@ class PhpCodeSnifferTask extends Task {
             $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
         }
 
-        $this->output($codeSniffer);
-        
-        $report = $codeSniffer->prepareErrorReport(true);           
-        
+        $report = $this->printErrorReport($codeSniffer);
+
+        // generate the documentation
+        if ($this->docGenerator !== '' && $this->docFile !== null) {
+            ob_start();
+
+            $codeSniffer->generateDocs($this->standard, $this->sniffs, $this->docGenerator);
+
+            $output = ob_get_contents();
+            ob_end_clean();
+
+            // write to file
+            $outputFile = $this->docFile->getPath();
+            $check      = file_put_contents($outputFile, $output);
+
+            if (is_bool($check) && !$check) {
+                throw new BuildException('Error writing doc to ' . $outputFile);
+            }
+        } elseif ($this->docGenerator !== '' && $this->docFile === null) {
+            $codeSniffer->generateDocs($this->standard, $this->sniffs, $this->docGenerator);
+        }
+
         if ($this->haltonerror && $report['totals']['errors'] > 0)
         {
             throw new BuildException('phpcodesniffer detected ' . $report['totals']['errors']. ' error' . ($report['totals']['errors'] > 1 ? 's' : ''));
@@ -277,18 +410,20 @@ class PhpCodeSnifferTask extends Task {
         {
             throw new BuildException('phpcodesniffer detected ' . $report['totals']['warnings'] . ' warning' . ($report['totals']['warnings'] > 1 ? 's' : ''));
         }
-        
-        /* reset current directory */
-        chdir($old_cwd);
     }
 
     /**
-     * Outputs the results
-     * @param PHP_CodeSniffer $codeSniffer
+     * Prints the error report.
+     *
+     * @param PHP_CodeSniffer $phpcs The PHP_CodeSniffer object containing
+     *                               the errors.
+     *
+     * @return int The number of error and warning messages shown.
      */
-    protected function output($codeSniffer) {
+    protected function printErrorReport($phpcs)
+    {
         if ($this->showSniffs) {
-            $sniffs = $codeSniffer->getSniffs();
+            $sniffs = $phpcs->getSniffs();
             $sniffStr = '';
             foreach ($sniffs as $sniff) {
                 $sniffStr .= '- ' . $sniff.PHP_EOL;
@@ -296,86 +431,54 @@ class PhpCodeSnifferTask extends Task {
             $this->log('The list of used sniffs (#' . count($sniffs) . '): ' . PHP_EOL . $sniffStr, Project::MSG_INFO);
         }
 
+        $filesViolations = $phpcs->getFilesErrors();
+        $reporting       = new PHP_CodeSniffer_Reporting();
+        $report          = $reporting->prepare($filesViolations, $this->showWarnings);
+
         // process output
         foreach ($this->formatters as $fe) {
-          $output = '';
+            switch ($fe->getType()) {
+                case 'default':
+                    // default format goes to logs, no buffering
+                    $this->outputCustomFormat($report);
+                    $fe->setUseFile(false);
+                    break;
 
-          switch ($fe->getType()) {
-            case 'default':
-              // default format goes to logs, no buffering
-              $this->outputCustomFormat($codeSniffer);
-              $fe->setUseFile(false);
-              break;
+                default:
+                    $reportFile = '';
 
-            case 'xml':
-              ob_start();
-              $codeSniffer->printXMLErrorReport($this->showWarnings);
-              $output = ob_get_contents();
-              ob_end_clean();
-              break;
+                    if ($fe->getUseFile()) {
+                        $reportFile = $fe->getOutfile()->getPath();
+                        ob_start();
+                    }
 
-            case 'checkstyle':
-              ob_start();
-              $codeSniffer->printCheckstyleErrorReport($this->showWarnings);
-              $output = ob_get_contents();
-              ob_end_clean();
-              break;
+                    $reporting->printReport(
+                        $fe->getType(),
+                        $filesViolations,
+                        $this->showWarnings,
+                        $this->showSources,
+                        $reportFile,
+                        $this->reportWidth
+                    );
 
-            case 'csv':
-              ob_start();
-              $codeSniffer->printCSVErrorReport($this->showWarnings);
-              $output = ob_get_contents();
-              ob_end_clean();
-              break;
-
-            case 'report':
-              ob_start();
-              $codeSniffer->printErrorReport($this->showWarnings);
-              $output = ob_get_contents();
-              ob_end_clean();
-              break;
-
-            case 'summary':
-              ob_start();
-              $codeSniffer->printErrorReportSummary($this->showWarnings);
-              $output = ob_get_contents();
-              ob_end_clean();
-              break;
-
-            case 'doc':
-              ob_start();
-              $codeSniffer->generateDocs($this->standard, $this->sniffs);
-              $output = ob_get_contents();
-              ob_end_clean();
-              break;
-
-            default:
-              $this->log('Unknown output format "' . $fe->getType() . '"', Project::MSG_INFO);
-              continue; //skip to next formatter in list
-              break;
-          } //end switch
-
-            if (!$fe->getUseFile()) {
-                // output raw to console
-                echo $output;
-            } else {
-                // write to file
-                $outputFile = $fe->getOutfile()->getPath();                  
-                $check = file_put_contents($outputFile, $output);
-                if (is_bool($check) && !$check) {
-                    throw new BuildException('Error writing output to ' . $outputFile);
-                }
+                    // reporting class uses ob_end_flush(), but we don't want
+                    // an output if we use a file
+                    if ($fe->getUseFile()) {
+                        ob_end_clean();
+                    }
+                    break;
             }
-        } //end foreach
-    } //end output
+        }
+
+        return $report;
+    }
 
     /**
      * Outputs the results with a custom format
-     * @param PHP_CodeSniffer $codeSniffer
+     *
+     * @param array $report Packaged list of all errors in each file
      */
-    protected function outputCustomFormat($codeSniffer) {
-        $report = $codeSniffer->prepareErrorReport($this->showWarnings);
-
+    protected function outputCustomFormat($report) {
         $files = $report['files'];
         foreach ($files as $file => $attributes) {
             $errors = $attributes['errors'];
@@ -462,8 +565,8 @@ class PhpCodeSnifferTask_FormatterElement extends DataType {
             throw new BuildException("Format missing required 'type' attribute.");
     }
     if ($useFile && empty($this->outfile)) {
-      throw new BuildException("Format requres 'outfile' attribute when 'useFile' is true.");
-    } 
+      throw new BuildException("Format requires 'outfile' attribute when 'useFile' is true.");
+    }
 
   }
 
@@ -478,17 +581,17 @@ class PhpCodeSnifferTask_FormatterElement extends DataType {
   public function setUseFile ($useFile) {
     $this->useFile = $useFile;
   }
-  
+
   public function getUseFile () {
     return $this->useFile;
   }
-  
+
   public function setOutfile (PhingFile $outfile) {
     $this->outfile = $outfile;
   }
-  
+
   public function getOutfile () {
     return $this->outfile;
   }
-  
+
 } //end FormatterElement
