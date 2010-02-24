@@ -2996,6 +2996,105 @@ todir=&quot;/www/htdocs/project/&quot;
     <ul>
       <li>fileset</li>
     </ul>
+    
+    <h2><a name="SshTask"></a>SshTask</h2><p> The <em>ScpTask</em> executes commands on a remote host using ssh.. This task requires the <a href="http://pecl.php.net/package/ssh2" target="_blank">PHP SSH2 extension</a> to function.</p>
+    <h3>Examples</h3>
+    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot; fetch=&quot;true&quot;
+todir=&quot;/home/john/backup&quot;
+file=&quot;/www/htdocs/test.html&quot;&gt;
+&lt;/scp&gt;
+    </pre>
+    <p>Fetches a single file from the remote server.</p>
+
+    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot;
+todir=&quot;/www/htdocs/&quot;
+file=&quot;/home/john/dev/test.html&quot;&gt;
+&lt;/scp&gt;
+    </pre>
+    <p>Copies a single file to the remote server.</p>
+
+    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot; fetch=&quot;true&quot;
+todir=&quot;/www/htdocs/project/&quot;
+    &lt;fileset dir=&quot;test&quot;&gt;
+        &lt;include name=&quot;*.html&quot;/&gt;
+    &lt;/fileset&gt;
+&lt;/scp&gt;
+    </pre>
+    <p>Copies multiple files to the remote server.</p>
+
+    <h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>host</td>
+          <td>String</td>
+          <td>Remote host</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>port</td>
+          <td>Integer</td>
+          <td>Remote port</td>
+          <td>22</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>username</td>
+          <td>String</td>
+          <td>Username to use for the connection</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>String</td>
+          <td>Password to use for the connection</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>pubkeyfile</td>
+          <td>String</td>
+          <td>Public key file to use for the connection</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>privkeyfile</td>
+          <td>String</td>
+          <td>Private key file to use for the connection</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>privkeyfilepassphrase</td>
+          <td>String</td>
+          <td>Private key file passphrase to use for the connection</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>command</td>
+          <td>String</td>
+          <td>Command to execute on the remote server</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+      </tbody>
+    </table>
+
     <h2><a
         name="SimpleTestTask"></a>SimpleTestTask</h2><p>This task runs testcases using the <a
         href="http://www.simpletest.org/" target="_blank"
