@@ -36,6 +36,9 @@ class SshTask extends Task {
     private $username = "";
     private $password = "";
     private $command = "";
+    private $pubkeyfile = '';
+    private $privkeyfile = '';
+    private $privkeyfilepassphrase = '';
 
     public function setHost($host) 
     {
@@ -77,6 +80,54 @@ class SshTask extends Task {
         return $this->password;
     }
 
+    /**
+     * Sets the public key file of the user to scp
+     */
+    public function setPubkeyfile($pubkeyfile)
+    {
+        $this->pubkeyfile = $pubkeyfile;
+    }
+
+    /**
+     * Returns the pubkeyfile
+     */
+    public function getPubkeyfile()
+    {
+        return $this->pubkeyfile;
+    }
+    
+    /**
+     * Sets the private key file of the user to scp
+     */
+    public function setPrivkeyfile($privkeyfile)
+    {
+        $this->privkeyfile = $privkeyfile;
+    }
+
+    /**
+     * Returns the private keyfile
+     */
+    public function getPrivkeyfile()
+    {
+        return $this->privkeyfile;
+    }
+    
+    /**
+     * Sets the private key file passphrase of the user to scp
+     */
+    public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
+    {
+        $this->privkeyfilepassphrase = $privkeyfilepassphrase;
+    }
+
+    /**
+     * Returns the private keyfile passphrase
+     */
+    public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
+    {
+        return $this->privkeyfilepassphrase;
+    }
+    
     public function setCommand($command) 
     {
         $this->command = $command;
@@ -97,17 +148,22 @@ class SshTask extends Task {
 
     public function main() 
     {
-        $connection = ssh2_connect($this->host, $this->port);
-        if (is_null($connection)) {
+        $this->connection = ssh2_connect($this->host, $this->port);
+        if (is_null($this->connection)) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
 
-        $could_auth = ssh2_auth_password($connection, $this->username, $this->password);
+        $could_auth = null;
+        if ( $this->pubkeyfile ) {
+            $could_auth = ssh2_auth_pubkey_file($this->connection, $this->username, $this->pubkeyfile, $this->privkeyfile, $this->privkeyfilepassphrase);
+        } else {
+            $could_auth = ssh2_auth_password($this->connection, $this->username, $this->password);
+        }
         if (!$could_auth) {
             throw new BuildException("Could not authenticate connection!");
         }
 
-        $stream = ssh2_exec($connection, $this->command);
+        $stream = ssh2_exec($this->connection, $this->command);
         if (!$stream) {
             throw new BuildException("Could not execute command!");
         }
