@@ -180,11 +180,10 @@ class ZipTask extends MatchingTask {
             }
             
             foreach($this->filesets as $fs) {
-                
-                $files = $fs->getFiles($this->project, $this->includeEmpty);
-                
                 $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
                                     $fs->getDir($this->project);
+                
+                $files = $fs->getFiles($this->project, $this->includeEmpty);
                 
                 $filesToZip = array();
                 for ($i=0, $fcount=count($files); $i < $fcount; $i++) {
@@ -252,40 +251,43 @@ class ZipFileSet extends FileSet {
             $ds = $this->getDirectoryScanner($p);
             $this->files = $ds->getIncludedFiles();
             
-            if ($includeEmpty) {
+            // build a list of directories implicitly added by any of the files
+            $implicitDirs = array();
+            foreach($this->files as $file) {
+                $implicitDirs[] = dirname($file);
+            }
+
+            $incDirs = $ds->getIncludedDirectories();
             
-                // first any empty directories that will not be implicitly added by any of the files
-                $implicitDirs = array();
-                foreach($this->files as $file) {
-                    $implicitDirs[] = dirname($file);
-                } 
-                
-                $incDirs = $ds->getIncludedDirectories();
-                
-                // we'll need to add to that list of implicit dirs any directories
-                // that contain other *directories* (and not files), since otherwise
-                // we get duplicate directories in the resulting tar
-                foreach($incDirs as $dir) {
-                    foreach($incDirs as $dircheck) {
-                        if (!empty($dir) && $dir == dirname($dircheck)) {
-                            $implicitDirs[] = $dir;
-                        }
+            // we'll need to add to that list of implicit dirs any directories
+            // that contain other *directories* (and not files), since otherwise
+            // we get duplicate directories in the resulting tar
+            foreach($incDirs as $dir) {
+                foreach($incDirs as $dircheck) {
+                    if (!empty($dir) && $dir == dirname($dircheck)) {
+                        $implicitDirs[] = $dir;
                     }
                 }
-                
-                $implicitDirs = array_unique($implicitDirs);
-                
+            }
+            
+            $implicitDirs = array_unique($implicitDirs);
+            
+            $emptyDirectories = array();
+            
+            if ($includeEmpty) {
                 // Now add any empty dirs (dirs not covered by the implicit dirs)
                 // to the files array. 
                 
                 foreach($incDirs as $dir) { // we cannot simply use array_diff() since we want to disregard empty/. dirs
                     if ($dir != "" && $dir != "." && !in_array($dir, $implicitDirs)) {
                         // it's an empty dir, so we'll add it.
-                        $this->files[] = $dir;
+                        $emptyDirectories[] = $dir;
                     }
                 }
             } // if $includeEmpty
             
+            $this->files = array_merge($implicitDirs, $emptyDirectories, $this->files);
+            sort($this->files);
         } // if ($this->files===null)
         
         return $this->files;
