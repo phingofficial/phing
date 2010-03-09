@@ -282,8 +282,10 @@ class AbstractFileSet extends DataType implements SelectorContainer {
         if (!$this->dir->exists()) {
             throw new BuildException("Directory ".$this->dir->getAbsolutePath()." not found.");
         }
-        if (!$this->dir->isDirectory()) {
-            throw new BuildException($this->dir->getAbsolutePath()." is not a directory.");
+        if (!$this->dir->isLink() || !$this->expandSymbolicLinks) {
+            if (!$this->dir->isDirectory()) {
+                throw new BuildException($this->dir->getAbsolutePath()." is not a directory.");
+            }
         }
         $ds = new DirectoryScanner();
         $ds->setExpandSymbolicLinks($this->expandSymbolicLinks);
