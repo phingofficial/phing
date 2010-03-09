@@ -994,7 +994,111 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
     </table><h3>Supported Nested Tags</h3><ul>
       <li>fileset <p>JavaScript files to be minified.</p></li>
     </ul>
-    
+
+    <h2><a name="PatchTask"></a>PatchTask</h2>
+    <p>
+    	The <em>PatchTask</em> uses the <a href="http://savannah.gnu.org/projects/patch"
+    	target="_blank">patch</a> program to apply diff file to originals.
+    </p>
+    <p>
+    	<b>NB:</b> the patch program must be in the system path!
+    </p>
+
+    <h3>Attributes</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>patchfile</td>
+          <td>String</td>
+          <td>File that includes the diff output</td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>originalfile</td>
+          <td>String</td>
+          <td>File to patch. If not specified Task tries to guess it from the diff file</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>destfile</td>
+          <td>String</td>
+          <td>File to send the output to instead of patching the file in place</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>backups</td>
+          <td>Boolean</td>
+          <td>Keep backups of the unpatched files</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>quiet</td>
+          <td>Boolean</td>
+          <td>Work silently unless an error occurs</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>reverse</td>
+          <td>Boolean</td>
+          <td>Assume patch was created with old and new files swapped</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>ignorewhitespace</td>
+          <td>Boolean</td>
+          <td>Ignore whitespace differences</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>strip</td>
+          <td>Integer</td>
+          <td>Strip the smallest prefix containing specified number of leading slashes from filenames</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>dir</td>
+          <td>String</td>
+          <td>The directory in which to run the patch command</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>haltonfailure</td>
+          <td>Boolean</td>
+          <td>Stop the build process if the patching process encounters an error.</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Example</h3>
+<pre>
+&lt;patch
+&nbsp;&nbsp;patchfile=&quot;/path/to/patches/file.ext.patch&quot;
+&nbsp;&nbsp;dir=&quot;/path/to/original&quot;
+/&gt;
+</pre>
+
+<p>Apply "file.ext.path" to original file locataed in "/path/to/original" folder.</p>
+
     <h2><a name="PDOSQLExecTask"></a>PDOSQLExecTask</h2><p>The <em>PDOSQLExecTask</em> executes SQL statements using PDO.</p><h3>Examples</h3>
     <pre>&lt;pdosqlexec url="pgsql:host=localhost dbname=test">
   &lt;fileset dir=&quot;sqlfiles&quot;&gt;
