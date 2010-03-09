@@ -2983,27 +2983,21 @@ It also generates the documentation for the selected coding standard and writes 
     <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
 host=&quot;webserver&quot; fetch=&quot;true&quot;
 todir=&quot;/home/john/backup&quot;
-file=&quot;/www/htdocs/test.html&quot;&gt;
-&lt;/scp&gt;
-    </pre>
+file=&quot;/www/htdocs/test.html&quot; /&gt;</pre>
     <p>Fetches a single file from the remote server.</p>
 
     <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
 host=&quot;webserver&quot;
 todir=&quot;/www/htdocs/&quot;
-file=&quot;/home/john/dev/test.html&quot;&gt;
-&lt;/scp&gt;
-    </pre>
+file=&quot;/home/john/dev/test.html&quot; /&gt;</pre>
     <p>Copies a single file to the remote server.</p>
 
     <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
-host=&quot;webserver&quot; fetch=&quot;true&quot;
-todir=&quot;/www/htdocs/project/&quot;
+host=&quot;webserver&quot; todir=&quot;/www/htdocs/project/&quot;&gt;
     &lt;fileset dir=&quot;test&quot;&gt;
-        &lt;include name=&quot;*.html&quot;/&gt;
+        &lt;include name=&quot;*.html&quot; /&gt;
     &lt;/fileset&gt;
-&lt;/scp&gt;
-    </pre>
+&lt;/scp&gt;</pre>
     <p>Copies multiple files to the remote server.</p>
 
     <h3>Attributes</h3><table>
@@ -3103,31 +3097,9 @@ todir=&quot;/www/htdocs/project/&quot;
     
     <h2><a name="SshTask"></a>SshTask</h2><p> The <em>ScpTask</em> executes commands on a remote host using ssh.. This task requires the <a href="http://pecl.php.net/package/ssh2" target="_blank">PHP SSH2 extension</a> to function.</p>
     <h3>Examples</h3>
-    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
-host=&quot;webserver&quot; fetch=&quot;true&quot;
-todir=&quot;/home/john/backup&quot;
-file=&quot;/www/htdocs/test.html&quot;&gt;
-&lt;/scp&gt;
-    </pre>
-    <p>Fetches a single file from the remote server.</p>
-
-    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
-host=&quot;webserver&quot;
-todir=&quot;/www/htdocs/&quot;
-file=&quot;/home/john/dev/test.html&quot;&gt;
-&lt;/scp&gt;
-    </pre>
-    <p>Copies a single file to the remote server.</p>
-
-    <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
-host=&quot;webserver&quot; fetch=&quot;true&quot;
-todir=&quot;/www/htdocs/project/&quot;
-    &lt;fileset dir=&quot;test&quot;&gt;
-        &lt;include name=&quot;*.html&quot;/&gt;
-    &lt;/fileset&gt;
-&lt;/scp&gt;
-    </pre>
-    <p>Copies multiple files to the remote server.</p>
+    <pre>&lt;ssh username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
+    <p>Executes a single command on the remote server.</p>
 
     <h3>Attributes</h3><table>
       <thead>
