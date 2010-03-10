@@ -47,6 +47,8 @@ class PhpLintTask extends Task {
     protected $cache = null;
     
     protected $tofile = null;
+    
+    protected $deprecatedAsError = false;
 
     /**
      * Initialize the interpreter with the Phing property
@@ -135,6 +137,15 @@ class PhpLintTask extends Task {
             case "debug": $this->logLevel = Project::MSG_DEBUG; break;
         }
     }
+    
+    /**
+     * Sets whether to treat deprecated warnings (introduced in PHP 5.3) as errors
+     * @param boolean $deprecatedAsError
+     */
+    public function setDeprecatedAsError($deprecatedAsError)
+    {
+        $this->deprecatedAsError = $deprecatedAsError;
+    }
 
     /**
      * Execute lint check against PhingFile or a FileSet
@@ -197,19 +208,32 @@ class PhpLintTask extends Task {
                 }
                 
                 $messages = array();
-                exec($command.'"'.$file.'"', $messages);
+                exec($command.'"'.$file.'" 2>&1', $messages);
                 if(!preg_match('/^No syntax errors detected/', $messages[0])) {
-                    if (count($messages) > 1) {
-                        if ($this->errorProperty) {
-                            $this->project->setProperty($this->errorProperty, $messages[1]);
-                        }
-                        $this->log($messages[1], $this->logLevel);
-                    } else {
+                    if (count($messages) < 2 ) {
                         $this->log("Could not parse file", Project::MSG_ERR);
+                    } else {
+                        for ($i = 0; $i < count($messages) - 1; $i++) {
+                            $message = $messages[$i];
+                            if (trim($message) == '') {
+                                continue;
+                            }
+                            
+                            if (!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) {
+                                $this->log($message, $this->logLevel);
+                                    
+                                if ($this->errorProperty) {
+                                    $this->project->setProperty($this->errorProperty, $message);
+                                }
+                                
+                                if (!isset($this->badFiles[$file])) {
+                                    $this->badFiles[$file] = $message;
+                                }
+                        
+                                $this->hasErrors = true;
+                            }
+                        }
                     }
-                    $this->badFiles[$file] = $messages[1];
-                    $this->hasErrors = true;
-                    
                 } else {
                     $this->log($file.': No syntax errors detected', $this->logLevel);
                 }
