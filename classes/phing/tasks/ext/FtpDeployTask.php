@@ -132,14 +132,14 @@ class FtpDeployTask extends Task
         require_once 'Net/FTP.php';
         $ftp = new Net_FTP($this->host, $this->port);
         $ret = $ftp->connect();
-        if(PEAR::isError($ret)) {
+        if(@PEAR::isError($ret)) {
             throw new BuildException('Could not connect to FTP server '.$this->host.' on port '.$this->port.': '.$ret->getMessage());
         } else {
             $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, Project::MSG_VERBOSE);
         }
         
         $ret = $ftp->login($this->username, $this->password);
-        if(PEAR::isError($ret)) {
+        if(@PEAR::isError($ret)) {
             throw new BuildException('Could not login to FTP server '.$this->host.' on port '.$this->port.' with username '.$this->username.': '.$ret->getMessage());
         } else {
             $this->log('Logged in to FTP server with username ' . $this->username, Project::MSG_VERBOSE);
@@ -148,7 +148,7 @@ class FtpDeployTask extends Task
         if ($this->passive) {
             $this->log('Setting passive mode', Project::MSG_INFO);
             $ret = $ftp->setPassive();
-            if(PEAR::isError($ret)) {
+            if(@PEAR::isError($ret)) {
                 $ftp->disconnect();
                 throw new BuildException('Could not set PASSIVE mode: '.$ret->getMessage());
             }
@@ -165,13 +165,13 @@ class FtpDeployTask extends Task
         
         // Create directory just in case
         $ret = $ftp->mkdir($dir, true);
-        if(PEAR::isError($ret)) {
+        if(@PEAR::isError($ret)) {
             $ftp->disconnect();
             throw new BuildException('Could not create directory '.$dir.': '.$ret->getMessage());
         }
         
         $ret = $ftp->cd($dir);
-        if(PEAR::isError($ret)) {
+        if(@PEAR::isError($ret)) {
             $ftp->disconnect();
             throw new BuildException('Could not change to directory '.$dir.': '.$ret->getMessage());
         } else {
@@ -191,7 +191,7 @@ class FtpDeployTask extends Task
                     $dirname = str_replace('\\', '/', $dirname);
                 $this->log('Will create directory '.$dirname, Project::MSG_VERBOSE);
                 $ret = $ftp->mkdir($dirname, true);
-                if(PEAR::isError($ret)) {
+                if(@PEAR::isError($ret)) {
                     $ftp->disconnect();
                     throw new BuildException('Could not create directory '.$dirname.': '.$ret->getMessage());
                 }
@@ -202,7 +202,7 @@ class FtpDeployTask extends Task
                     $filename = str_replace('\\', '/', $filename);
                 $this->log('Will copy '.$file->getCanonicalPath().' to '.$filename, Project::MSG_VERBOSE);
                 $ret = $ftp->put($file->getCanonicalPath(), $filename, true, $this->mode);
-                if(PEAR::isError($ret)) {
+                if(@PEAR::isError($ret)) {
                     $ftp->disconnect();
                     throw new BuildException('Could not deploy file '.$filename.': '.$ret->getMessage());
                 }
