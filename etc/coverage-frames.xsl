@@ -508,7 +508,7 @@ TD.srcLineClassStart {
                     <xsl:sort select="@name"/>
                     <tr>
                         <td nowrap="nowrap">
-                            <a href="{@name}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a>
+                            <a href="{translate(@name,'._','//')}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a>
                             <xsl:choose>
                                 <xsl:when test="@totalcount=0">
                                     <i> (-)</i>
@@ -576,7 +576,12 @@ TD.srcLineClassStart {
             <table width="100%">
                 <tr>
                     <td nowrap="nowrap">
-                        <H2><a href="../package-summary.html" target="classFrame"><xsl:value-of select="$package.name"/></a>::<a href="subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a></H2>
+                        <H2>
+                            <xsl:call-template name="create.package-summary.link">
+                                <xsl:with-param name="package.name" select="$package.name"/>
+                                <xsl:with-param name="fullpackage.name" select="$fullpackage.name"/>
+                            </xsl:call-template>::<a href="subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a>
+                        </H2>
                     </td>
                 </tr>
             </table>
@@ -849,7 +854,7 @@ TD.srcLineClassStart {
 <xsl:template match="subpackage" mode="stats">
     <tr>
         <xsl:call-template name="alternate-row"/>
-        <td><a href="{@name}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a></td>
+        <td><a href="{translate(@name,'._','//')}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a></td>
         <xsl:call-template name="stats.formatted"/>
     </tr>
 </xsl:template>
@@ -1013,6 +1018,22 @@ TD.srcLineClassStart {
 <xsl:template name="create.stylesheet.link">
     <xsl:param name="package.name"/>
     <LINK REL ="stylesheet" TYPE="text/css" TITLE="Style"><xsl:attribute name="href"><xsl:if test="not($package.name = 'unnamed package')"><xsl:call-template name="path"><xsl:with-param name="path" select="$package.name"/></xsl:call-template></xsl:if>stylesheet.css</xsl:attribute></LINK>
+</xsl:template>
+
+<!-- create the link to the  package summary -->
+<xsl:template name="create.package-summary.link">
+    <xsl:param name="package.name"/>
+    <xsl:param name="fullpackage.name"/>
+    <a target="classFrame">
+        <xsl:attribute name="href">
+            <xsl:if test="not($fullpackage.name = 'unnamed package')">
+                <xsl:call-template name="path">
+                    <xsl:with-param name="path" select="$fullpackage.name"/>
+                </xsl:call-template>
+            </xsl:if>
+        <xsl:value-of select="$package.name"/>/package-summary.html</xsl:attribute>
+        <xsl:value-of select="$package.name"/>
+    </a>
 </xsl:template>
 
 <!-- alternated row style -->
