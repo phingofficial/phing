@@ -1031,7 +1031,7 @@ TD.srcLineClassStart {
                     <xsl:with-param name="path" select="$fullpackage.name"/>
                 </xsl:call-template>
             </xsl:if>
-        <xsl:value-of select="$package.name"/>/package-summary.html</xsl:attribute>
+        <xsl:value-of select="translate($package.name,'._','//')"/>/package-summary.html</xsl:attribute>
         <xsl:value-of select="$package.name"/>
     </a>
 </xsl:template>
