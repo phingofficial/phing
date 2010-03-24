@@ -68,6 +68,20 @@ class CoverageThresholdTask extends Task
     private $_perMethod = 25;
 
     /**
+     * Holds the minimum found coverage value for a class
+     *
+     * @var integer
+     */
+    private $_minClassCoverageFound = null;
+
+    /**
+     * Holds the minimum found coverage value for a method
+     *
+     * @var integer
+     */
+    private $_minMethodCoverageFound = null;
+
+    /**
      * Number of statements in the entire project
      *
      * @var integer
@@ -243,8 +257,18 @@ class CoverageThresholdTask extends Task
                             'The coverage (' . $methodCoverage . '%) '
                             . 'for method "' . $method->getName() . '" is lower'
                             . ' than the specified threshold ('
-                            . $this->_perMethod . '%)'
+                            . $this->_perMethod . '%), see file: "'
+                            . $filename . '"'
                         );
+                    }
+
+                    // store the minimum coverage value for logging (see #466)
+                    if ($this->_minMethodCoverageFound !== null) {
+                        if ($this->_minMethodCoverageFound > $methodCoverage) {
+                            $this->_minMethodCoverageFound = $methodCoverage;
+                        }
+                    } else {
+                        $this->_minMethodCoverageFound = $methodCoverage;
                     }
                 }
 
@@ -257,18 +281,28 @@ class CoverageThresholdTask extends Task
                 );
 
                 if ($classStatementCount > 0) {
-                    $coverage = (  $classStatementsCovered
-                                 / $classStatementCount) * 100;
+                    $classCoverage = (  $classStatementsCovered
+                                      / $classStatementCount) * 100;
                 } else {
-                    $coverage = 0;
+                    $classCoverage = 0;
                 }
 
-                if ($coverage < $this->_perClass) {
+                if ($classCoverage < $this->_perClass) {
                     throw new BuildException(
-                        'The coverage (' . $coverage . '%) for class "'
+                        'The coverage (' . $classCoverage . '%) for class "'
                         . $reflection->getName() . '" is lower than the '
-                        . 'specified threshold (' . $this->_perClass . '%)'
+                        . 'specified threshold (' . $this->_perClass . '%), '
+                        . 'see file: "' . $filename . '"'
                     );
+                }
+
+                // store the minimum coverage value for logging (see #466)
+                if ($this->_minClassCoverageFound !== null) {
+                    if ($this->_minClassCoverageFound > $classCoverage) {
+                        $this->_minClassCoverageFound = $classCoverage;
+                    }
+                } else {
+                    $this->_minClassCoverageFound = $classCoverage;
                 }
 
                 $this->_projectStatementCount    += $classStatementCount;
@@ -295,7 +329,12 @@ class CoverageThresholdTask extends Task
             $database = $this->_database;
         }
 
-        $this->log('Calculating coverage threshold');
+        $this->log(
+            'Calculating coverage threshold: min. '
+            . $this->_perProject . '% per project, '
+            . $this->_perClass . '% per class and '
+            . $this->_perMethod . '% per method is required'
+        );
 
         $props = new Properties();
         $props->load($database);
@@ -323,5 +362,12 @@ class CoverageThresholdTask extends Task
                 . $this->_perProject . '%)'
             );
         }
+
+        $this->log(
+            'Passed coverage threshold. Minimum found coverage values are: '
+            . round($coverage, 2) . '% per project, '
+            . round($this->_minClassCoverageFound, 2) . '% per class and '
+            . round($this->_minMethodCoverageFound, 2) . '% per method'
+        );
     }
 }
