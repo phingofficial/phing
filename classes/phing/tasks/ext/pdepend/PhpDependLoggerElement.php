@@ -27,6 +27,7 @@ require_once 'phing/system/io/PhingFile.php';
  * @package phing.tasks.ext.pdepend
  * @author  Benjamin Schultz <bschultz@proqrent.de>
  * @version $Id$
+ * @since   2.4.1
  */
 class PhpDependLoggerElement
 {

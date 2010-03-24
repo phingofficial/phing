@@ -28,6 +28,7 @@ require_once 'PHP/PMD/Writer/Stream.php';
  * @package phing.tasks.ext.phpmd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
  * @version $Id$
+ * @since   2.4.1
  */
 class PHPMDFormatterElement
 {

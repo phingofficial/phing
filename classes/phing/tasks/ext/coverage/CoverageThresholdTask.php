@@ -29,6 +29,7 @@ require_once 'phing/system/util/Properties.php';
  * @author  Benjamin Schultz <bschultz@proqrent.de>
  * @version $Id$
  * @package phing.tasks.ext.coverage
+ * @since   2.4.1
  */
 class CoverageThresholdTask extends Task
 {

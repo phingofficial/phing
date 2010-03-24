@@ -29,6 +29,7 @@ require_once 'phing/Task.php';
  * @package phing.tasks.ext
  * @author  Benjamin Schultz <bschultz@proqrent.de>
  * @version $Id$
+ * @since   2.4.1
  */
 class HttpRequestTask extends Task
 {
