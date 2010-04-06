@@ -192,8 +192,12 @@ class ZipTask extends MatchingTask {
                     $pathInZip = $this->prefix
                         . $f->getPathWithoutBase($fsBasedir);
                         
+                    $pathInZip = str_replace('\\', '/', $pathInZip);
+                    
                     if ($f->isDirectory()) {
-                        $zip->addEmptyDir($pathInZip);
+                        if ($pathInZip != '.') {
+                            $zip->addEmptyDir($pathInZip);
+                        }
                     } else {
                         $zip->addFile($f->getPath(), $pathInZip);
                     }
