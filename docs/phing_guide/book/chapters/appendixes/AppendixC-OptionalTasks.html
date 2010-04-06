@@ -1110,6 +1110,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
   &lt;formatter type=&quot;plain&quot; outfile=&quot;path/to/output.txt&quot;/&gt;
   &lt;/pdosqlexec&gt;
 </pre>
+<p><strong>Note:</strong> because of backwards compatiblity, the PDOSQLExecTask can also be called using the <em>'pdo'</em> statement.</p>
     <h3>Attributes</h3><table>
       <thead>
         <tr>
@@ -1180,7 +1181,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
       </tbody>
     </table><h3>Supported Nested Tags</h3><ul>
       <li>transaction <p>Wrapper for a single transaction. Transactions allow several files or blocks of statements                
-to be executed using the same JDBC connection and commit operation in between.</p>
+to be executed using the same PDO connection and commit operation in between.</p>
         <h3>Attributes</h3>
         <table>
           <thead>
