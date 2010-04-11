@@ -480,6 +480,22 @@ abstract class FileSystem {
     }
     
     /**
+     * Change the group on a file or directory.
+     *
+     * @param    string $pathname Path and name of file or directory.
+     * @param    string $group The group of the file or directory. See http://us.php.net/chgrp
+     *
+     * @return void
+     * @throws Exception if operation failed.
+     */
+    function chgrp($pathname, $group) {
+        if (false === @chgrp($pathname, $group)) {// FAILED.
+            $msg = "FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
+            throw new Exception($msg);
+        }
+    }
+
+    /**
      * Change the permissions on a file or directory.
      *
      * @param    pathname    String. Path and name of file or directory.

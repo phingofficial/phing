@@ -779,6 +779,23 @@ class PhingFile {
     }
     
     /**
+     * Sets the group of the file.
+     * @param mixed $user User name or number.
+     */
+    public function setGroup($group) {
+        $fs = FileSystem::getFileSystem();
+        return $fs->chgrp($this->getPath(), $group);
+    }
+    
+    /**
+     * Retrieve the group of this file.
+     * @return int User ID of the owner of this file. 
+     */
+    function getGroup() {
+        return @filegroup($this->getPath());
+    }
+
+    /**
      * Sets the mode of the file
      * @param int $mode Ocatal mode.
      */

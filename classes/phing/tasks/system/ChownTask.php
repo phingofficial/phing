@@ -78,8 +78,11 @@ class ChownTask extends Task {
         $this->file = $file;
     }
 
-    function setUser($str) {
-        $this->user = $str;
+    /**
+     * Sets the user
+     */
+    function setUser($user) {
+        $this->user = $user;
     }
 
     /**
@@ -111,7 +114,7 @@ class ChownTask extends Task {
         }
 
         if ($this->user === null) {
-            throw new BuildException("You have to specify a user for chown.");
+            throw new BuildException("You have to specify an owner for chown.");
         }
 
         // check for mode to be in the correct format
@@ -124,8 +127,15 @@ class ChownTask extends Task {
      * @return void
      */
     private function chown() {
+        $userElements = explode('.', $this->user);
 
-        $user= $this->user;
+        $user = $userElements[0];
+        
+        if (count($userElements) > 1) {
+            $group = $userElements[1];
+        } else {
+            $group = null;
+        }
 
         // counters for non-verbose output
         $total_files = 0;
@@ -134,7 +144,7 @@ class ChownTask extends Task {
         // one file
         if ($this->file !== null) {
             $total_files = 1;
-            $this->chownFile($this->file, $user);
+            $this->chownFile($this->file, $user, $group);
         }
 
         // filesets
@@ -149,13 +159,13 @@ class ChownTask extends Task {
             $filecount = count($srcFiles);
             $total_files = $total_files + $filecount;
             for ($j = 0; $j < $filecount; $j++) {
-                $this->chownFile(new PhingFile($fromDir, $srcFiles[$j]), $user);
+                $this->chownFile(new PhingFile($fromDir, $srcFiles[$j]), $user, $group);
             }
 
             $dircount = count($srcDirs);
             $total_dirs = $total_dirs + $dircount;
             for ($j = 0; $j <  $dircount; $j++) {
-                $this->chownFile(new PhingFile($fromDir, $srcDirs[$j]), $user);
+                $this->chownFile(new PhingFile($fromDir, $srcDirs[$j]), $user, $group);
             }
         }
 
@@ -171,15 +181,20 @@ class ChownTask extends Task {
      * @param PhingFile $file
      * @param int $mode
      */
-    private function chownFile(PhingFile $file, $user) {
+    private function chownFile(PhingFile $file, $user, $group = "") {
         if ( !$file->exists() ) {
             throw new BuildException("The file " . $file->__toString() . " does not exist");
         }
 
         try {
             $file->setUser($user);
+            
+            if (!empty($group)) {
+                $file->setGroup($group);
+            }
+            
             if ($this->verbose) {
-                $this->log("Changed file owner on '" . $file->__toString() ."' to " . $user);
+                $this->log("Changed file owner on '" . $file->__toString() ."' to " . $user . ($group ? "." . $group : ""));
             }
         } catch (Exception $e) {
             if($this->failonerror) {
