@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id$
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -45,7 +45,7 @@ class HttpRequestTask extends Task
      *
      * @var string
      */
-    protected $_responseRegex = '/OK/';
+    protected $_responseRegex = '';
 
     /**
      * Whether to enable detailed logging
@@ -269,16 +269,18 @@ class HttpRequestTask extends Task
 
         $response = $request->send();
 
-        $matches = array();
-        preg_match($this->_responseRegex, $response->getBody(), $matches);
+        if ($this->_responseRegex !== '') {
+            $matches = array();
+            preg_match($this->_responseRegex, $response->getBody(), $matches);
 
-        if (count($matches) === 0) {
-            throw new BuildException(
-                'The received response body did not match the '
-                . 'given regular expression'
-            );
-        } else {
-            $this->log('The response body matched the provided regex.');
+            if (count($matches) === 0) {
+                throw new BuildException(
+                    'The received response body did not match the '
+                    . 'given regular expression'
+                );
+            } else {
+                $this->log('The response body matched the provided regex.');
+            }
         }
     }
 }

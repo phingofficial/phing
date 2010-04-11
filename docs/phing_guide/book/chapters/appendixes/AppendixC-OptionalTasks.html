@@ -472,7 +472,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
     </ul>
 
 <h2><a name="HttpRequestTask"></a>HttpRequestTask</h2>
-    <p>This task will make an HTTP request to the provided URL and match the response against the provided regular expression. If the regular expression doesn't match the build will fail. You need an installed version of HTTP_Request2 to use this task.</p>
+    <p>This task will make an HTTP request to the provided URL and match the response against the provided regular expression. If an regular expression is provided and doesn't match the build will fail. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>
        <thead>
          <tr>
@@ -495,7 +495,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
            <td>responseRegex</td>
            <td>String</td>
            <td>The regular expression for matching the response</td>
-           <td>/OK/</td>
+           <td>n/a</td>
            <td>No</td>
          </tr>
          <tr>
@@ -595,7 +595,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 <pre>
  &lt;http-request url=&quot;http://my-production.example.com/check-deployment.php&quot;/&gt;
 </pre>
-<p>Making an HTTP request to the given URL and matching the response against the default regex.</p>
+<p>Just perform a HTTP request to the given URL.</p>
 <pre>
  &lt;http-request
    url=&quot;http://my-production.example.com/check-deployment.php&quot;
@@ -603,14 +603,14 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
    verbose&quot;true&quot;
    observerEvents=&quot;connect, disconnect&quot;/&gt;
 </pre>
-<p>Making an HTTP request to the given URL and matching the response against the given regex. Enable detailed logging and log only the specified events.</p>
+<p>Perform a HTTP request to the given URL and matching the response against the given regex pattern. Enable detailed logging and log only the specified events.</p>
 <pre>
  &lt;http-request url="http://my-production.example.com/check-deployment.php"&gt;
    &lt;config name=&quot;adapter&quot; value=&quot;HTTP_Request2_Adapter_Curl&quot;/&gt;
    &lt;header name=&quot;user-agent&quot; value=&quot;Phing HttpRequestTask&quot;/&gt;
  &lt;/http-request&gt;
 </pre>
-<p>Making an HTTP request to the given URL and matching the response against the default regex. Setting request adapter to curl instead of socket. Setting an additional header.</p>
+<p>Perform a HTTP request to the given URL. Setting request adapter to curl instead of socket. Setting an additional header.</p>
 
 <h2><a name="IoncubeEncoderTask"></a>IoncubeEncoderTask</h2><p>The <em>IoncubeEncoderTask</em> executes the 
       <a href="http://www.ioncube.com" target="_blank" >ionCube</a> encoder (for either PHP4 or PHP5 projects).</p><p>For more information on the meaning of the various options please consult the ionCube 
