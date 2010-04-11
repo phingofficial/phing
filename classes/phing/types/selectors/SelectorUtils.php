@@ -139,7 +139,7 @@ class SelectorUtils {
         );
         $rePattern = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
         $rePattern = '/^'.$rePattern.'$/'.($isCaseSensitive ? '' : 'i');
-        return preg_match($rePattern, $str);
+        return (bool) preg_match($rePattern, $str);
     }
 
     /**
@@ -164,7 +164,7 @@ class SelectorUtils {
         $rePattern = preg_quote($pattern, '/');
         $rePattern = str_replace(array("\*", "\?"), array('.*', '.'), $rePattern);
         $rePattern = '/^'.$rePattern.'$/'.($isCaseSensitive ? '' : 'i');
-        return preg_match($rePattern, $str);
+        return (bool) preg_match($rePattern, $str);
     }
 
     /**
