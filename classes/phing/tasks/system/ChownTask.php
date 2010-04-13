@@ -116,10 +116,6 @@ class ChownTask extends Task {
         if ($this->user === null) {
             throw new BuildException("You have to specify an owner for chown.");
         }
-
-        // check for mode to be in the correct format
-
-
     }
 
     /**
@@ -170,8 +166,8 @@ class ChownTask extends Task {
         }
 
         if (!$this->verbose) {
-            $this->log('Total files changed to ' . vsprintf('%o', $mode) . ': ' . $total_files);
-            $this->log('Total directories changed to ' . vsprintf('%o', $mode) . ': ' . $total_dirs);
+            $this->log('Total files changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_files);
+            $this->log('Total directories changed to ' . $user . ($group ? "." . $group : "") . ': ' . $total_dirs);
         }
 
     }
@@ -179,7 +175,8 @@ class ChownTask extends Task {
     /**
      * Actually change the mode for the file.
      * @param PhingFile $file
-     * @param int $mode
+     * @param string $user
+     * @param string $group
      */
     private function chownFile(PhingFile $file, $user, $group = "") {
         if ( !$file->exists() ) {
