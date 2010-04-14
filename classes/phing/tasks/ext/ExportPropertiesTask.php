@@ -102,19 +102,11 @@ class ExportPropertiesTask extends Task
         return true;
     }    
 
-    /**
-     * Sets the currently declared properties
-     * 
-     * @access public
-     * @return void
-     */
-    public function init()
-    {
-        $this->_properties = $this->getProject()->getProperties();
-    }
-
     public function main()
     {
+        // Sets the currently declared properties
+        $this->_properties = $this->getProject()->getProperties();
+        
         if(is_array($this->_properties) && !empty($this->_properties) && null !== $this->_targetFile) {
             $propertiesString = '';
             foreach($this->_properties as $propertyName => $propertyValue) {
