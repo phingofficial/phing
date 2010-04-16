@@ -313,7 +313,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
                         $this->_postfix = $params[$i]->getValue();
                         break;
                     case 'translatehtml':
-                        $this->_translateHTML = $params[$i]->getValue();
+                        $this->_translatehtml = $params[$i]->getValue();
                         break;
                     }
                 }
