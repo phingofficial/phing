@@ -56,6 +56,10 @@ class PEAR_PackageFileManager_Fileset {
      */
     function __construct($options)
     {
+        if (!is_array($options)) {
+            $options = $options->getOptions();
+        }
+        
         $this->project = $options['phing_project'];
         $this->filesets = $options['phing_filesets'];
     }
