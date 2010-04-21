@@ -316,8 +316,8 @@ class PDOSQLExecTask extends PDOTask {
             
             // process filelists
             foreach($this->filelists as $fl) {
-                $srcDir  = $fl->getDir($project);
-                $srcFiles = $fl->getFiles($project);                
+                $srcDir  = $fl->getDir($this->project);
+                $srcFiles = $fl->getFiles($this->project);                
                 // Make a transaction for each file
                 foreach($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
