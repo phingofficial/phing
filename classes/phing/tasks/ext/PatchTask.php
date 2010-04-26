@@ -205,6 +205,31 @@ class PatchTask extends Task
 	}
 
 	/**
+	 * Ignore patches that seem to be reversed or already applied
+	 *
+	 * @param bool $flag  If true set the -N (--forward) option
+	 * @return void
+	 */
+	public function setForward($flag)
+	{
+		if ($flag)
+			$this->cmdArgs []= "--forward";
+	}
+
+	/**
+	 * Set the maximum fuzz factor
+	 *
+	 * Defaults to 0
+	 *
+	 * @param string $value  Value of a fuzz factor
+	 * @return void
+	 */
+	public function setFuzz($value)
+	{
+		$this->cmdArgs []= "--fuzz=$value";
+	}
+
+	/**
 	 * If true, stop the build process if the patch command
 	 * exits with an error status.
 	 *
