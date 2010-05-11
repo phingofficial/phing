@@ -43,6 +43,8 @@ require_once 'phing/util/DataStore.php';
     
     private $cache = null;
     private $conf = null;
+    
+    private $executable = "jsl";
 
     /**
      * Sets the flag if warnings should be shown
@@ -87,6 +89,14 @@ require_once 'phing/util/DataStore.php';
     {
       $this->conf = $file;
     }
+    
+    public function setExecutable($path){
+        $this->executable = $path;
+    }
+   
+    public function getExecutable(){
+        return $this->executable;
+    }
 
     /**
      * Nested creator, creates a FileSet for this task
@@ -106,7 +116,7 @@ require_once 'phing/util/DataStore.php';
         throw new BuildException("Missing either a nested fileset or attribute 'file' set");
       }
   
-      exec('jsl', $output);
+      exec($this->executable, $output);
       if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
     
       if($this->file instanceof PhingFile) {
@@ -134,7 +144,7 @@ require_once 'phing/util/DataStore.php';
      */
     protected function lint($file)
     {
-      $command = 'jsl -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' ';
+      $command = $this->executable . ' -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' ';
 
       if (isset($this->conf)) {
           $command .= '-conf ' . $this->conf->getPath() . ' ';
