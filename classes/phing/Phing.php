@@ -536,6 +536,16 @@ class Phing {
             $this->targets[] = $project->getDefaultTarget();
         }
 
+        // make sure that minimum required phing version is satisfied
+        try {
+            $this->comparePhingVersion($project->getPhingVersion()); 
+        } catch(Exception $exc) {
+            $project->fireBuildFinished($exc);
+            restore_error_handler();
+            self::unsetCurrentProject();
+            throw $exc;
+        }
+
         // execute targets if help param was not given
         if (!$this->projectHelp) {
 
@@ -568,6 +578,21 @@ class Phing {
 
         restore_error_handler();
         self::unsetCurrentProject();
+    }
+
+    private function comparePhingVersion($version) {
+        $current = strtolower(self::getPhingVersion());
+        $current = trim(str_replace('phing', '', $current)); 
+
+        // make sure that version checks are not applied to trunk
+        if('dev' === $current) {
+            return 1;
+        }
+
+        if(-1 == version_compare($current, $version)) {
+            throw new BuildException(
+                sprintf('Incompatible Phing version (%s). Version "%s" required.', $current, $version));
+        }
     }
 
     /**

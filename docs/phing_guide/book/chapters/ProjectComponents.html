@@ -45,6 +45,21 @@
   are described below). For a complete reference, see <a href="appendixes/AppendixE-ProjectComponents.html#Project">Appendix
   D</a>. </p>
 
+<h2><a name="Version"></a>Version</h2>
+
+<p>Since Phing 2.4.2 it is possible to include a <em>version</em> attribute
+  in the <em>&lt;project&gt;</em> tag. This attribute allows you to define
+  the minimum Phing version required to execute a build file, in order
+  to prevent compatibility issues.</p>
+  
+<pre title="An Example for the use of the Version attribute">
+&lt;?xml version=&quot;1.0&quot;?&gt;
+
+&lt;project name=&quot;test&quot; version=&quot;2.4.2&quot; &gt;
+  &lt;!-- Everything else here --&gt;
+&lt;project&gt;
+</pre>
+
 <h2><a name="ComponentsInGeneral"></a>Project Components in General</h2>
 
 <p> Project Components are all the elements found inside a project, i.e. targets, tasks, 

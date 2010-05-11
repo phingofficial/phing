@@ -69,6 +69,7 @@ class ProjectHandler extends AbstractHandler {
         $id    = null;
         $desc = null;
         $baseDir = null;
+        $ver = null;
 
         // some shorthands
         $project = $this->configurator->project;
@@ -85,6 +86,8 @@ class ProjectHandler extends AbstractHandler {
                 $baseDir = $value;
             } elseif ($key === "description") {
                 $desc = $value;
+            } elseif ($key === "phingVersion") {
+                $ver = $value;
             } else {
                 throw new ExpatParseException("Unexpected attribute '$key'");
             }
@@ -117,6 +120,10 @@ class ProjectHandler extends AbstractHandler {
           if ($desc !== null) {
             $project->setDescription($desc);
           }        
+
+          if($ver !== null) {
+              $project->setPhingVersion($ver);
+          }
 
           if ($project->getProperty("project.basedir") !== null) {
             $project->setBasedir($project->getProperty("project.basedir"));
