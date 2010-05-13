@@ -102,7 +102,7 @@ class Regexp {
     public function getReplace() {
         return $this->replace;
     }
-    
+
     /**
      * Performs match of specified pattern against $subject.
      * @param string $subject The subject, on which to perform matches.
@@ -146,6 +146,27 @@ class Regexp {
         }
         return $this->groups[$idx];
     }
+
+    /**
+     * Sets pattern modifiers for regex engine
+     *
+     * @param string $mods Modifiers to be applied to a given regex
+     * @return void
+     */
+    public function setModifiers($mods) {
+        $this->engine->setModifiers($mods);
+    }
+
+    /**
+     * Gets pattern modifiers.
+     * Subsequent call to engines getModifiers() filters out duplicates
+     * i.e. if i is provided in $mods, and setIgnoreCase(true), "i" 
+     * modifier would be included only once
+     * @return string
+     */
+    public function getModifiers() {
+        return $this->engine->getModifiers();
+    }
     
     /**
      * Sets whether the regexp matching is case insensitive.
@@ -162,6 +183,22 @@ class Regexp {
      */
     function getIgnoreCase() {
         return $this->engine->getIgnoreCase();
+    }
+
+    /**
+     * Sets whether regexp should be applied in multiline mode.
+     * @param boolean $bit
+     */
+    function setMultiline($bit) {
+        $this->engine->setMultiline($bit);
+    }
+
+    /**
+     * Gets whether regexp is to be applied in multiline mode.
+     * @return boolean
+     */
+    function getMultiline() {
+        return $this->engine->getMultiline();
     }
 } 
 
