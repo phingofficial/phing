@@ -65,7 +65,6 @@ class PregEngine implements RegexpEngine {
      */
     public function getModifiers() {
         $mods = $this->modifiers;
-        var_dump($this->getIgnoreCase());
         if($this->getIgnoreCase()) {
             $mods .= 'i';
         } elseif($this->getIgnoreCase() === false) {
