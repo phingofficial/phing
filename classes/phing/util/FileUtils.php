@@ -99,6 +99,9 @@ class FileUtils {
                     $in->close();
                 if ( $out !== null )
                     $out->close();
+
+                $destFile->setMode($sourceFile->getMode());
+
             } else {
                 // simple copy (no filtering)
                 $sourceFile->copyTo($destFile);
