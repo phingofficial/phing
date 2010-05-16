@@ -411,9 +411,75 @@ to replace references to *.java with *.php:
 <h3>Nested Tags</h3>
 <p>
 The <em>ReplaceTokens</em> filter must contain one or more <em>regexp</em>
-tags. These must have <em>pattern</em> and <em>replace</em> attributes -- and optionally
-the <em>ignoreCase</em> attribute.
+tags. These must have <em>pattern</em> and <em>replace</em> attributes. The full list of supported attributes is as following:
 </p>
+<table>
+      <caption> Attributes for the <em>&lt;regexp&gt;</em> tag </caption>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>pattern</td>
+          <td>string</td>
+          <td>Regular expression used as needle. Phing relies on <a href="http://php.net/pcre">Perl-compatible</a>
+              regular expressions. </td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>replace</td>
+          <td>string</td>
+          <td>Replacement string. </td>
+          <td>n/a</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>ignoreCase</td>
+          <td>boolean</td>
+          <td>Whether search is case-insensitive.</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>multiline</td>
+          <td>boolean</td>
+          <td>Whether regular expression is applied in multi-line mode.</td>
+          <td>false</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>modifiers</td>
+          <td>string</td>
+          <td>Raw regular expression <a
+                  href="http://php.net/manual/en/reference.pcre.pattern.modifiers.php">modifiers</a>. You can pass
+              several modifiers as single string, and use raw modifiers with
+              <em>ignoreCase</em> and <em>multiline</em> attributes. In case of conflict, value specified by dedicated
+              attribute takes precedence.</td>
+          <td>''</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+
+<p>
+The previous example (using <em>modifiers</em> attribute this time):
+</p>
+<pre>
+&lt;filterchain&gt;
+  &lt;replaceregexp&gt;
+	&lt;regexp pattern=&quot;ANT&quot; replace=&quot;Phing&quot; modifiers=&quot;i&quot;/&gt;
+	&lt;regexp pattern=&quot;(\w+)\.java&quot; replace=&quot;\1.php&quot;/&gt;
+  &lt;/replaceregexp&gt;
+&lt;/filterchain&gt;
+</pre>
+
 
 
 <h2><a name="StripLineBreaks"></a>StripLineBreaks</h2>
