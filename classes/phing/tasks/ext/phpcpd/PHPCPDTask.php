@@ -278,7 +278,8 @@ class PHPCPDTask extends Task
 
         $this->log('Processing files...');
 
-        $clones = PHPCPD_Detector::copyPasteDetection(
+        $detector = new PHPCPD_Detector();
+        $clones   = $detector->copyPasteDetection(
             $filesToParse,
             $this->_minLines,
             $this->_minTokens
