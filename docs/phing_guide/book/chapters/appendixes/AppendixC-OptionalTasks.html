@@ -3691,6 +3691,11 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
    workingcopy=&quot;C:/projects/svnwc&quot;
    propertyname=&quot;svn.lastrevision&quot;/&gt;
 </pre>
+    <pre>&lt;svnlastrevision
+   svnpath=&quot;C:/Subversion/bin/svn.exe&quot;
+   repositoryurl=&quot;http://svn.phing.info/&quot;
+   propertyname=&quot;svn.lastrevision&quot;/&gt;
+</pre>
     <h3>Attributes</h3><table>
       <thead>
         <tr>
@@ -3714,7 +3719,14 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
           <td>String</td>
           <td>Working copy directory</td>
           <td>none</td>
-          <td>Yes</td>
+          <td>Yes, or <em>repositoryurl</em></td>
+        </tr>
+        <tr>
+          <td>repositoryurl</td>
+          <td>String</td>
+          <td>URL of remote repository</td>
+          <td>none</td>
+          <td>Yes, or <em>workingcopy</em></td>
         </tr>
         <tr>
           <td>propertyname</td>
