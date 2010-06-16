@@ -213,8 +213,6 @@ class PHPUnitTask extends Task
             throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
         }
 
-        $tests = array();
-        
         if ($this->printsummary)
         {
             $fe = new FormatterElement();
