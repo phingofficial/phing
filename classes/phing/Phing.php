@@ -362,7 +362,7 @@ class Phing {
                 if ($posEq !== false) {
                     $value = substr($name, $posEq+1);
                     $name  = substr($name, 0, $posEq);
-                } elseif ($i < count($args)-1) {
+                } elseif ($i < count($args)-1 && !StringHelper::startsWith("-D", $arg)) {
                     $value = $args[++$i];
                 }
                 self::$definedProps->setProperty($name, $value);
