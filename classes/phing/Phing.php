@@ -1289,7 +1289,7 @@ class Phing {
 
         // should return memory limit in MB
         $mem_limit = (int) ini_get('memory_limit');
-        if ($mem_limit < 32) {
+        if ($mem_limit < 32 && $mem_limit > -1) {
             // We do *not* need to save the original value here, since we don't plan to restore
             // this after shutdown (we don't trust the effectiveness of PHP's garbage collection).
             ini_set('memory_limit', '32M'); // nore: this may need to be higher for many projects

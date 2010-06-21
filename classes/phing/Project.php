@@ -98,9 +98,6 @@ class Project {
     /** project description */
     private $description;
 
-    /** require phing version */
-    private $phingVersion;
-
     /** a FileUtils object */
     private $fileUtils;
     
@@ -441,20 +438,6 @@ class Project {
     /** return the description, null otherwise */
     function getDescription() {
         return $this->description;
-    }
-
-    /** Set the minimum required phing version **/
-    function setPhingVersion($version) {
-        $version = str_replace('phing', '', strtolower($version));
-        $this->phingVersion = (string)trim($version);
-    }
-
-    /** Get the minimum required phing version **/
-    function getPhingVersion() {
-        if($this->phingVersion === null) {
-            $this->setPhingVersion(Phing::getPhingVersion());
-        }
-        return $this->phingVersion;
     }
 
     /** Set basedir object from xml*/

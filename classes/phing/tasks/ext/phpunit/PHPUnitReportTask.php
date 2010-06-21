@@ -48,7 +48,7 @@ class PHPUnitReportTask extends Task
     /**
      * Set the filename of the XML results file to use.
      */
-    public function setInFile($inFile)
+    function setInFile($inFile)
     {
         $this->inFile = $inFile;
     }
@@ -56,7 +56,7 @@ class PHPUnitReportTask extends Task
     /**
      * Set the format of the generated report. Must be noframes or frames.
      */
-    public function setFormat($format)
+    function setFormat($format)
     {
         $this->format = $format;
     }
@@ -64,7 +64,7 @@ class PHPUnitReportTask extends Task
     /**
      * Set the directory where the stylesheets are located.
      */
-    public function setStyleDir($styleDir)
+    function setStyleDir($styleDir)
     {
         $this->styleDir = $styleDir;
     }
@@ -73,7 +73,7 @@ class PHPUnitReportTask extends Task
      * Set the directory where the files resulting from the 
      * transformation should be written to.
      */
-    public function setToDir($toDir)
+    function setToDir($toDir)
     {
         $this->toDir = $toDir;
     }
@@ -81,7 +81,7 @@ class PHPUnitReportTask extends Task
     /**
      * Returns the path to the XSL stylesheet
      */
-    protected function getStyleSheet()
+    private function getStyleSheet()
     {
         $xslname = "phpunit-" . $this->format . ".xsl";
         
@@ -117,7 +117,7 @@ class PHPUnitReportTask extends Task
     /**
      * Transforms the DOM document
      */
-    protected function transform(DOMDocument $document)
+    private function transform(DOMDocument $document)
     {
         $dir = new PhingFile($this->toDir);
         
@@ -160,7 +160,7 @@ class PHPUnitReportTask extends Task
      *     package attribute
      *   - removes outer 'testsuite' container(s)
      */
-    protected function fixDocument(DOMDocument $document)
+    private function fixDocument(DOMDocument $document)
     {
         $rootElement = $document->firstChild;
         
@@ -183,16 +183,6 @@ class PHPUnitReportTask extends Task
             }
             
             $rootElement->removeChild($node);
-        }
-    }
-    
-    /**
-     * Initialize the task
-     */
-    public function init()
-    {
-        if (!class_exists('XSLTProcessor')) {
-            throw new BuildException("PHPUnitReportTask requires the XSL extension");
         }
     }
 
