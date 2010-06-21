@@ -60,7 +60,7 @@ class PHPUnitTask extends Task
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
      */
-    function init() {
+    public function init() {
         if (version_compare(PHP_VERSION, '5.0.3') < 0)
         {
             throw new BuildException("PHPUnitTask requires PHP version >= 5.0.3", $this->getLocation());
@@ -109,67 +109,67 @@ class PHPUnitTask extends Task
      *
      * @param string $bootstrap the name of the bootstrap file
      */
-    function setBootstrap($bootstrap)
+    public function setBootstrap($bootstrap)
     {
         $this->bootstrap = $bootstrap;
     }
     
-    function setErrorproperty($value)
+    public function setErrorproperty($value)
     {
         $this->errorproperty = $value;
     }
     
-    function setFailureproperty($value)
+    public function setFailureproperty($value)
     {
         $this->failureproperty = $value;
     }
     
-    function setIncompleteproperty($value)
+    public function setIncompleteproperty($value)
     {
         $this->incompleteproperty = $value;
     }
     
-    function setSkippedproperty($value)
+    public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
     }
     
-    function setHaltonerror($value)
+    public function setHaltonerror($value)
     {
         $this->haltonerror = $value;
     }
 
-    function setHaltonfailure($value)
+    public function setHaltonfailure($value)
     {
         $this->haltonfailure = $value;
     }
 
-    function setHaltonincomplete($value)
+    public function setHaltonincomplete($value)
     {
         $this->haltonincomplete = $value;
     }
 
-    function setHaltonskipped($value)
+    public function setHaltonskipped($value)
     {
         $this->haltonskipped = $value;
     }
 
-    function setPrintsummary($printsummary)
+    public function setPrintsummary($printsummary)
     {
         $this->printsummary = $printsummary;
     }
     
-    function setCodecoverage($codecoverage)
+    public function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
     }
 
-    function setUseCustomErrorHandler($usecustomerrorhandler)
+    public function setUseCustomErrorHandler($usecustomerrorhandler)
     {
         $this->usecustomerrorhandler = $usecustomerrorhandler;
     }
 
-    function setGroups($groups)
+    public function setGroups($groups)
     {
         $token = ' ,;';
         $this->groups = array();
@@ -180,11 +180,11 @@ class PHPUnitTask extends Task
         }
     }
 
-    function setExcludeGroups($excludeGroups)
+    public function setExcludeGroups($excludeGroups)
     {
         $token = ' ,;';
         $this->excludeGroups = array();
-        $tok = strtok($groups, $token);
+        $tok = strtok($excludeGroups, $token);
         while ($tok !== false) {
             $this->excludeGroups[] = $tok;
             $tok = strtok($token);
@@ -196,7 +196,7 @@ class PHPUnitTask extends Task
      *
      * @param FormatterElement formatter element
      */
-    function addFormatter(FormatterElement $fe)
+    public function addFormatter(FormatterElement $fe)
     {
         $this->formatters[] = $fe;
     }
@@ -206,15 +206,13 @@ class PHPUnitTask extends Task
      *
      * @throws BuildException
      */
-    function main()
+    public function main()
     {
         if ($this->codecoverage && !extension_loaded('xdebug'))
         {
             throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
         }
 
-        $tests = array();
-        
         if ($this->printsummary)
         {
             $fe = new FormatterElement();
@@ -269,7 +267,7 @@ class PHPUnitTask extends Task
     /**
      * @throws BuildException
      */
-    private function execute($suite)
+    protected function execute($suite)
     {
         $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups);
         
@@ -325,7 +323,7 @@ class PHPUnitTask extends Task
         }
     }
 
-    private function getDefaultOutput()
+    protected function getDefaultOutput()
     {
         return new LogWriter($this);
     }
@@ -335,7 +333,7 @@ class PHPUnitTask extends Task
      *
      * @return BatchTest a new instance of a batch test.
      */
-    function createBatchTest()
+    public function createBatchTest()
     {
         $batchtest = new BatchTest($this->getProject());
 
