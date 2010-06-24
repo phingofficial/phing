@@ -143,15 +143,30 @@ class PHPUnitTask extends Task
     {
         $this->haltonfailure = $value;
     }
+    
+    public function getHaltonfailure()
+    {
+        return $this->haltonfailure;
+    }
 
     public function setHaltonincomplete($value)
     {
         $this->haltonincomplete = $value;
     }
+    
+    public function getHaltonincomplete()
+    {
+        return $this->haltonincomplete;
+    }
 
     public function setHaltonskipped($value)
     {
         $this->haltonskipped = $value;
+    }
+    
+    public function getHaltonskipped()
+    {
+        return $this->haltonskipped;
     }
 
     public function setPrintsummary($printsummary)
