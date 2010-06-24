@@ -38,7 +38,7 @@ class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
      */
     private $logger = NULL;
 
-    public function __construct(Task $parentTask)
+    public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
         

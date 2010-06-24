@@ -43,7 +43,7 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
      */
     private $result = NULL;
 
-    public function __construct(Task $parentTask)
+    public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
         

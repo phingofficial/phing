@@ -51,9 +51,9 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
     
     /**
      * Constructor
-     * @param Task $parentTask Calling Task
+     * @param PHPUnitTask $parentTask Calling Task
      */
-    public function __construct(Task $parentTask)
+    public function __construct(PHPUnitTask $parentTask)
     {
         $this->project = $parentTask->getProject();
     }
