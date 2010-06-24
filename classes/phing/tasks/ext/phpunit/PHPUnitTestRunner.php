@@ -53,7 +53,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     
     private $useCustomErrorHandler = true;
 
-    function __construct(Project $project, $groups = array(), $excludeGroups = array())
+    public function __construct(Project $project, $groups = array(), $excludeGroups = array())
     {
         $this->project = $project;
         $this->groups = $groups;
@@ -61,17 +61,17 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         $this->retCode = self::SUCCESS;
     }
     
-    function setCodecoverage($codecoverage)
+    public function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
     }
 
-    function setUseCustomErrorHandler($useCustomErrorHandler)
+    public function setUseCustomErrorHandler($useCustomErrorHandler)
     {
         $this->useCustomErrorHandler = $useCustomErrorHandler;
     }
 
-    function addFormatter($formatter)
+    public function addFormatter($formatter)
     {
         $this->formatters[] = $formatter;
     }
@@ -87,7 +87,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     /**
      * Run a test
      */
-    function run(PHPUnit_Framework_TestSuite $suite)
+    public function run(PHPUnit_Framework_TestSuite $suite)
     {
         $res = new PHPUnit_Framework_TestResult();
 
@@ -150,12 +150,12 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         }
     }
 
-    function getRetCode()
+    public function getRetCode()
     {
         return $this->retCode;
     }
     
-    function getLastFailureMessage()
+    public function getLastFailureMessage()
     {
         return $this->lastFailureMessage;
     }

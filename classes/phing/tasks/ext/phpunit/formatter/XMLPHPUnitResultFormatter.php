@@ -38,18 +38,18 @@ class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
      */
     private $logger = NULL;
 
-    function __construct()
+    public function __construct()
     {
         $this->logger = new PHPUnit_Util_Log_JUnit(null, true);
         $this->logger->setWriteDocument(false);
     }
 
-    function getExtension()
+    public function getExtension()
     {
         return ".xml";
     }
 
-    function getPreferredOutfile()
+    public function getPreferredOutfile()
     {
         return "testsuites";
     }
@@ -61,49 +61,49 @@ class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
         $this->logger->startTestSuite($suite);
     }
 
-    function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         parent::endTestSuite($suite);
 
         $this->logger->endTestSuite($suite);
     }
 
-    function startTest(PHPUnit_Framework_Test $test)
+    public function startTest(PHPUnit_Framework_Test $test)
     {
         parent::startTest($test);
 
         $this->logger->startTest($test);
     }
 
-    function endTest(PHPUnit_Framework_Test $test, $time)
+    public function endTest(PHPUnit_Framework_Test $test, $time)
     {
         parent::endTest($test, $time);
 
         $this->logger->endTest($test, $time);
     }
 
-    function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addError($test, $e, $time);
 
         $this->logger->addError($test, $e, $time);
     }
 
-    function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         parent::addFailure($test, $e, $time);
 
         $this->logger->addFailure($test, $e, $time);
     }
 
-    function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addIncompleteTest($test, $e, $time);
 
         $this->logger->addIncompleteTest($test, $e, $time);
     }
 
-    function endTestRun()
+    public function endTestRun()
     {
         parent::endTestRun();
 

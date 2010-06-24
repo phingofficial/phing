@@ -33,24 +33,24 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     private $inner = "";
     
-    function getExtension()
+    public function getExtension()
     {
         return ".txt";
     }
     
-    function getPreferredOutfile()
+    public function getPreferredOutfile()
     {
         return "testresults";
     }
 
-    function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         parent::startTestSuite($suite);
         
         $this->inner = "";
     }
     
-    function endTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         foreach ($suite->tests() as $test)
         {
@@ -77,27 +77,27 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         parent::endTestSuite($suite);
     }
 
-    function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addError($test, $e, $time);
         
         $this->formatError("ERROR", $test, $e);
     }
 
-    function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
+    public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         parent::addFailure($test, $e, $time);
         $this->formatError("FAILED", $test, $e);
     }
 
-    function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addIncompleteTest($test, $e, $time);
         
         $this->formatError("INCOMPLETE", $test);
     }
 
-    function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addSkippedTest($test, $e, $time);
         $this->formatError("SKIPPED", $test);
@@ -118,7 +118,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         }
     }
     
-    function endTestRun()
+    public function endTestRun()
     {
         parent::endTestRun();
         
