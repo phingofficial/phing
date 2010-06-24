@@ -54,7 +54,7 @@ class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
         return "testsuites";
     }
 
-    function startTestSuite(PHPUnit_Framework_TestSuite $suite)
+    public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         parent::startTestSuite($suite);
 
