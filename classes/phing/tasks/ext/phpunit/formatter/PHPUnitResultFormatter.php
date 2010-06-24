@@ -50,9 +50,18 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
     private $skipCounts = false;
     
     /**
+     * Constructor
+     * @param Task $parentTask Calling Task
+     */
+    public function __construct(Task $parentTask)
+    {
+        $this->project = $parentTask->getProject();
+    }
+    
+    /**
      * Sets the writer the formatter is supposed to write its results to.
      */
-    function setOutput(Writer $out)
+    public function setOutput(Writer $out)
     {
         $this->out = $out;  
     }
@@ -67,16 +76,6 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
         return "";
     }
 
-    /**
-     * Sets the project
-     *
-     * @param Project the project
-     */
-    public function setProject(Project $project)
-    {
-        $this->project = $project;
-    }
-    
     public function getPreferredOutfile()
     {
         return "";

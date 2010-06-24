@@ -198,6 +198,7 @@ class PHPUnitTask extends Task
      */
     public function addFormatter(FormatterElement $fe)
     {
+        $fe->setParent($this);
         $this->formatters[] = $fe;
     }
 

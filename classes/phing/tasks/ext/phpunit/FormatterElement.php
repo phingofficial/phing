@@ -40,6 +40,17 @@ class FormatterElement
     protected $toDir = ".";
     
     protected $outfile = "";
+    
+    protected $parent = NULL;
+    
+    /**
+     * Sets parent task
+     * @param Task $parent Calling Task
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
 
     /**
      * Loads a specific formatter type
@@ -52,27 +63,25 @@ class FormatterElement
         if ($this->type == "summary")
         {
             require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
-            $this->formatter = new SummaryPHPUnitResultFormatter();
+            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
         }
         else
         if ($this->type == "clover")
         {
             require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
-            $this->formatter = new CloverPHPUnitResultFormatter();
+            $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
         }
         else
         if ($this->type == "xml")
         {
-            $destFile = new PhingFile($this->toDir, 'testsuites.xml');
-
             require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
-            $this->formatter = new XMLPHPUnitResultFormatter();
+            $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
         }
         else
         if ($this->type == "plain")
         {
             require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
-            $this->formatter = new PlainPHPUnitResultFormatter();
+            $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
         }
         else
         {
