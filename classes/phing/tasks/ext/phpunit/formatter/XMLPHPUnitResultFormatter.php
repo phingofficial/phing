@@ -42,7 +42,9 @@ class XMLPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         parent::__construct($parentTask);
         
-        $this->logger = new PHPUnit_Util_Log_JUnit(null, true);
+        $logIncompleteSkipped = $parentTask->getHaltonincomplete() || $parentTask->getHaltonskipped();
+        
+        $this->logger = new PHPUnit_Util_Log_JUnit(null, $logIncompleteSkipped);
         $this->logger->setWriteDocument(false);
     }
 
