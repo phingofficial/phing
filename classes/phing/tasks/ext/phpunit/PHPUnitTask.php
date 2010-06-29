@@ -232,6 +232,7 @@ class PHPUnitTask extends Task
         if ($this->printsummary)
         {
             $fe = new FormatterElement();
+            $fe->setParent($this);
             $fe->setType("summary");
             $fe->setUseFile(false);
             $this->formatters[] = $fe;
@@ -245,7 +246,6 @@ class PHPUnitTask extends Task
         foreach ($this->formatters as $fe)
         {
             $formatter = $fe->getFormatter();
-            $formatter->setProject($this->getProject());
 
             if ($fe->getUseFile())
             {
