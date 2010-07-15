@@ -97,6 +97,13 @@ class CoverageThresholdTask extends Task
     private $_projectStatementsCovered = 0;
 
     /**
+     * Whether to enable detailed logging
+     *
+     * @var boolean
+     */
+    private $_verbose = false;
+
+    /**
      * Sets an optional classpath
      *
      * @param Path $classpath The classpath
@@ -134,7 +141,7 @@ class CoverageThresholdTask extends Task
     /**
      * Sets the coverage threshold for entire project
      *
-     * @param string $threshold Coverage threshold for entire project
+     * @param integer $threshold Coverage threshold for entire project
      */
     public function setPerProject($threshold)
     {
@@ -144,7 +151,7 @@ class CoverageThresholdTask extends Task
     /**
      * Sets the coverage threshold for any class
      *
-     * @param string $threshold Coverage threshold for any class
+     * @param integer $threshold Coverage threshold for any class
      */
     public function setPerClass($threshold)
     {
@@ -154,11 +161,21 @@ class CoverageThresholdTask extends Task
     /**
      * Sets the coverage threshold for any method
      *
-     * @param string $threshold Coverage threshold for any method
+     * @param integer $threshold Coverage threshold for any method
      */
     public function setPerMethod($threshold)
     {
         $this->_perMethod = $threshold;
+    }
+
+    /**
+     * Sets whether to enable detailed logging or not
+     *
+     * @param boolean $verbose
+     */
+    public function setVerbose($verbose)
+    {
+        $this->_verbose = StringHelper::booleanValue($verbose);
     }
 
     /**
@@ -189,8 +206,9 @@ class CoverageThresholdTask extends Task
 
                 // Strange PHP5 reflection bug, classes without parent class
                 // or implemented interfaces seem to start one line off
-                if (   $reflection->getParentClass() === null
-                    && count($reflection->getInterfaces()) === 0) {
+                if ($reflection->getParentClass() === null
+                    && count($reflection->getInterfaces()) === 0
+                ) {
                     unset($coverageInformation[$classStartLine + 1]);
                 } else {
                     unset($coverageInformation[$classStartLine]);
@@ -253,7 +271,9 @@ class CoverageThresholdTask extends Task
                         $methodCoverage = 0;
                     }
 
-                    if ($methodCoverage < $this->_perMethod) {
+                    if ($methodCoverage < $this->_perMethod
+                        && !$method->isAbstract()
+                    ) {
                         throw new BuildException(
                             'The coverage (' . $methodCoverage . '%) '
                             . 'for method "' . $method->getName() . '" is lower'
@@ -261,6 +281,15 @@ class CoverageThresholdTask extends Task
                             . $this->_perMethod . '%), see file: "'
                             . $filename . '"'
                         );
+                    } elseif ($methodCoverage < $this->_perMethod
+                              && $method->isAbstract()
+                    ) {
+                        if ($this->_verbose === true) {
+                            $this->log(
+                                'Skipped coverage threshold for abstract method "'
+                                . $method->getName() . '"'
+                            );
+                        }
                     }
 
                     // store the minimum coverage value for logging (see #466)
@@ -288,13 +317,24 @@ class CoverageThresholdTask extends Task
                     $classCoverage = 0;
                 }
 
-                if ($classCoverage < $this->_perClass) {
+                if ($classCoverage < $this->_perClass
+                    && !$reflection->isAbstract()
+                ) {
                     throw new BuildException(
                         'The coverage (' . $classCoverage . '%) for class "'
                         . $reflection->getName() . '" is lower than the '
                         . 'specified threshold (' . $this->_perClass . '%), '
                         . 'see file: "' . $filename . '"'
                     );
+                } elseif ($classCoverage < $this->_perClass
+                          && $reflection->isAbstract()
+                ) {
+                    if ($this->_verbose === true) {
+                        $this->log(
+                            'Skipped coverage threshold for abstract class "'
+                            . $reflection->getName() . '"'
+                        );
+                    }
                 }
 
                 // store the minimum coverage value for logging (see #466)
@@ -321,7 +361,7 @@ class CoverageThresholdTask extends Task
             if (! $coverageDatabase) {
                 throw new BuildException(
                     'Either include coverage-setup in your build file or set '
-                    .'the "database" attribute'
+                    . 'the "database" attribute'
                 );
             }
 
