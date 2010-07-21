@@ -27,6 +27,7 @@
 [472] Add a multiline option to regex replace filter
 [471] ChownTask throws exception if group is given
 [468] CopyTask does not accept a FileList as only source of files
+[467] coverage of abstract class/method is always ZERO
 [466] incomplete logging in coverage-threshold
 [465] PatchTask should support more options
 [463] Broken Links in coverage report
