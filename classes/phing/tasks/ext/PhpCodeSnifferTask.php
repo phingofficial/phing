@@ -87,11 +87,6 @@ class PhpCodeSnifferTask extends Task {
                 $this->getLocation()
             );
         }
-
-        /**
-         * Dependencies that should only be loaded when class is actually used.
-         */
-        include_once 'PHP/CodeSniffer.php';
     }
 
     /**
@@ -121,6 +116,10 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setStandard($standard)
     {
+        if (!class_exists('PHP_CodeSniffer')) {
+            include_once 'PHP/CodeSniffer.php';
+        }
+
         if (PHP_CodeSniffer::isInstalledStandard($standard) === false) {
             // They didn't select a valid coding standard, so help them
             // out by letting them know which standards are installed.
@@ -339,6 +338,10 @@ class PhpCodeSnifferTask extends Task {
      * Executes PHP code sniffer against PhingFile or a FileSet
      */
     public function main() {
+        if (!class_exists('PHP_CodeSniffer')) {
+            include_once 'PHP/CodeSniffer.php';
+        }
+
         if(!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
