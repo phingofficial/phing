@@ -2,7 +2,7 @@
                            P     H     I     N     G
 
 
-, 2010 - Phing 2.4.2
+Jul. 28, 2010 - Phing 2.4.2
 
 [509] Phing.php setIni() does not honor -1 as unlimited
 [506] Patch to allow -D<option> with no "=<value>"
@@ -10,6 +10,7 @@
 [502] Add repository url support to SvnLastRevisionTask
 [500] static function call in PHPCPDTask
 [498] References to Core types page are broken
+[496] __autoload not being called
 [492] Add executable attribute in JslLint task
 [489] PearPackage Task fatal error trying to process Fileset options
 [487] Allow files in subdirectories in ReplaceTokensWithFile filter
