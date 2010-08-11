@@ -51,7 +51,7 @@ class BatchTest
      *
      * @param Project the project it depends on.
      */
-    function __construct(Project $project)
+    public function __construct(Project $project)
     {
         $this->project = $project;
     }
@@ -59,7 +59,7 @@ class BatchTest
     /**
      * Sets the name of the batchtest/suite
      */
-    function setName($name)
+    public function setName($name)
     {
         $this->name = $name;
     }
@@ -67,7 +67,7 @@ class BatchTest
     /**
      * Sets the classes to exclude
      */
-    function setExclude($exclude)
+    public function setExclude($exclude)
     {
         $this->excludeClasses = explode(" ", $exclude);
     }
@@ -75,7 +75,7 @@ class BatchTest
     /**
      * Sets the classpath
      */
-    function setClasspath(Path $classpath)
+    public function setClasspath(Path $classpath)
     {
         if ($this->classpath === null)
         {
@@ -90,7 +90,7 @@ class BatchTest
     /**
      * Creates a new Path object
      */
-    function createClasspath()
+    public function createClasspath()
     {
         $this->classpath = new Path();
         return $this->classpath;
@@ -99,7 +99,7 @@ class BatchTest
     /**
      * Returns the classpath
      */
-    function getClasspath()
+    public function getClasspath()
     {
         return $this->classpath;
     }
@@ -109,7 +109,7 @@ class BatchTest
      *
      * @param FileSet the new fileset containing XML results.
      */
-    function addFileSet(FileSet $fileset)
+    public function addFileSet(FileSet $fileset)
     {
         $this->filesets[] = $fileset;
     }

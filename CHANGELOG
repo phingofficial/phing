@@ -2,6 +2,38 @@
                            P     H     I     N     G
 
 
+Jul. 28, 2010 - Phing 2.4.2
+
+[509] Phing.php setIni() does not honor -1 as unlimited
+[506] Patch to allow -D<option> with no "=<value>"
+[503] PHP Documentor Task not correctly documented
+[502] Add repository url support to SvnLastRevisionTask
+[500] static function call in PHPCPDTask
+[498] References to Core types page are broken
+[496] __autoload not being called
+[492] Add executable attribute in JslLint task
+[489] PearPackage Task fatal error trying to process Fileset options
+[487] Allow files in subdirectories in ReplaceTokensWithFile filter
+[486] PHP Errors in PDOSQLExecTask
+[485] ReplaceTokensWithFile filter does not allow HTML translation to be
+      switched off
+[484] Make handling of incomplete tests when logging XML configurable
+[483] Bug in FileUtils::copyFile() on Linux - when using FilterChains,
+      doesn't preserve attributes
+[482] Bug in ChownTask with verbose set to false
+[480] ExportPropertiesTask does not export all the initialized properties
+[477] HttpRequestTask should NOT validate output if regex is not provided
+[474] Bad Comparisons in FilenameSelector (possibly others)
+[473] CPanel can't read Phing's Zip Files
+[472] Add a multiline option to regex replace filter
+[471] ChownTask throws exception if group is given
+[468] CopyTask does not accept a FileList as only source of files
+[467] coverage of abstract class/method is always ZERO
+[466] incomplete logging in coverage-threshold
+[465] PatchTask should support more options
+[463] Broken Links in coverage report
+[461] version tag in project node
+
 Mar. 10, 2010 - Phing 2.4.1
 
 [460] FtpDeployTask error

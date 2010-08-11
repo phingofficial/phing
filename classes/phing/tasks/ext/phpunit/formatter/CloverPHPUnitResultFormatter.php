@@ -43,27 +43,29 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
      */
     private $result = NULL;
 
-    function __construct()
+    public function __construct(PHPUnitTask $parentTask)
     {
+        parent::__construct($parentTask);
+        
         $this->clover = new PHPUnit_Util_Log_CodeCoverage_XML_Clover(null);
     }
 
-    function getExtension()
+    public function getExtension()
     {
         return ".xml";
     }
 
-    function getPreferredOutfile()
+    public function getPreferredOutfile()
     {
         return "clover-coverage";
     }
 
-    function processResult(PHPUnit_Framework_TestResult $result)
+    public function processResult(PHPUnit_Framework_TestResult $result)
     {
         $this->result = $result;
     }
 
-    function endTestRun()
+    public function endTestRun()
     {
         ob_start();
         $this->clover->process($this->result);

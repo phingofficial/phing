@@ -40,35 +40,48 @@ class FormatterElement
     protected $toDir = ".";
     
     protected $outfile = "";
+    
+    protected $parent = NULL;
+    
+    /**
+     * Sets parent task
+     * @param Task $parent Calling Task
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
 
-    function setType($type)
+    /**
+     * Loads a specific formatter type
+     * @param string $type
+     */
+    public function setType($type)
     {
         $this->type = $type;
         
         if ($this->type == "summary")
         {
             require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
-            $this->formatter = new SummaryPHPUnitResultFormatter();
+            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
         }
         else
         if ($this->type == "clover")
         {
             require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
-            $this->formatter = new CloverPHPUnitResultFormatter();
+            $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
         }
         else
         if ($this->type == "xml")
         {
-            $destFile = new PhingFile($this->toDir, 'testsuites.xml');
-
             require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
-            $this->formatter = new XMLPHPUnitResultFormatter();
+            $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
         }
         else
         if ($this->type == "plain")
         {
             require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
-            $this->formatter = new PlainPHPUnitResultFormatter();
+            $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
         }
         else
         {
@@ -76,39 +89,64 @@ class FormatterElement
         }
     }
 
-    function setClassName($className)
+    /**
+     * Loads a specific formatter class
+     */
+    public function setClassName($className)
     {
         $classNameNoDot = Phing::import($className);
 
         $this->formatter = new $classNameNoDot();
     }
 
-    function setUseFile($useFile)
+    /**
+     * Sets whether to store formatting results in a file
+     */
+    public function setUseFile($useFile)
     {
         $this->useFile = $useFile;
     }
     
-    function getUseFile()
+    /**
+     * Returns whether to store formatting results in a file
+     */
+    public function getUseFile()
     {
         return $this->useFile;
     }
     
-    function setToDir($toDir)
+    /**
+     * Sets output directory
+     * @param string $toDir
+     */
+    public function setToDir($toDir)
     {
         $this->toDir = $toDir;
     }
     
-    function getToDir()
+    /**
+     * Returns output directory
+     * @return string
+     */
+    public function getToDir()
     {
         return $this->toDir;
     }
 
-    function setOutfile($outfile)
+    /**
+     * Sets output filename
+     * @param string $outfile
+     */
+    public function setOutfile($outfile)
     {
         $this->outfile = $outfile;
     }
     
-    function getOutfile()
+    /**
+     * Returns output filename
+     * @return string
+     */
+    public function getOutfile()
     {
         if ($this->outfile)
         {
@@ -120,12 +158,20 @@ class FormatterElement
         }
     }
     
-    function getExtension()
+    /**
+     * Returns extension
+     * @return string
+     */
+    public function getExtension()
     {
         return $this->formatter->getExtension();
     }
 
-    function getFormatter()
+    /**
+     * Returns formatter object
+     * @return PHPUnitResultFormatter
+     */
+    public function getFormatter()
     {
         return $this->formatter;
     }

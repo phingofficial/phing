@@ -143,15 +143,30 @@ class PHPUnitTask extends Task
     {
         $this->haltonfailure = $value;
     }
+    
+    public function getHaltonfailure()
+    {
+        return $this->haltonfailure;
+    }
 
     public function setHaltonincomplete($value)
     {
         $this->haltonincomplete = $value;
     }
+    
+    public function getHaltonincomplete()
+    {
+        return $this->haltonincomplete;
+    }
 
     public function setHaltonskipped($value)
     {
         $this->haltonskipped = $value;
+    }
+    
+    public function getHaltonskipped()
+    {
+        return $this->haltonskipped;
     }
 
     public function setPrintsummary($printsummary)
@@ -198,6 +213,7 @@ class PHPUnitTask extends Task
      */
     public function addFormatter(FormatterElement $fe)
     {
+        $fe->setParent($this);
         $this->formatters[] = $fe;
     }
 
@@ -213,11 +229,10 @@ class PHPUnitTask extends Task
             throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
         }
 
-        $tests = array();
-        
         if ($this->printsummary)
         {
             $fe = new FormatterElement();
+            $fe->setParent($this);
             $fe->setType("summary");
             $fe->setUseFile(false);
             $this->formatters[] = $fe;
@@ -231,7 +246,6 @@ class PHPUnitTask extends Task
         foreach ($this->formatters as $fe)
         {
             $formatter = $fe->getFormatter();
-            $formatter->setProject($this->getProject());
 
             if ($fe->getUseFile())
             {
