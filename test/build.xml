@@ -25,13 +25,11 @@
 	
 	<resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
 	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
-	<resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
 	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
 	
 	<path id="incthis">
 		<pathelement dir="${tests.dir.resolved}"/>
 		<pathelement dir="${tests.classes.dir.resolved}"/>
-		<pathelement dir="${phing.classes.dir.resolved}"/>
 	</path>
 	
 	<target name="configure">
@@ -45,6 +43,8 @@
 		
 		<!-- startup will have changed the include_path, so set it back now -->
 		<includepath classpathRef="incthis"/>
+		
+		<mkdir dir="${tests.reports.dir}"/>
 			
 		<fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
 			<include name="**/*${test.class}Test.php"/>
