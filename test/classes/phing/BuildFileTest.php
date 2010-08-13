@@ -49,7 +49,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
     
     /**
      * Asserts that the log buffer contains specified message at specified priority.
-     * @param string $$expected Message subsctring
+     * @param string $expected Message subsctring
      * @param int $priority Message priority (default: any)
      * @param string $errmsg The error message to display.
      */
