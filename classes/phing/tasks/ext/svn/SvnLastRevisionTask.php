@@ -56,7 +56,7 @@ class SvnLastRevisionTask extends SvnBaseTask
     /**
      * Sets whether to force compatibility with older SVN versions (< 1.2)
      */
-    public function forceCompatible($force)
+    public function setForceCompatible($force)
     {
         $this->forceCompatible = (bool) $force;
     }
