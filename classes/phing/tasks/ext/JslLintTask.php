@@ -224,11 +224,11 @@ require_once 'phing/util/DataStore.php';
             $this->hasErrors = true;
           } else if (!$this->showWarnings || $warningCount == 0) {
             $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
-          }
-
-          if ($this->cache)
-          {
-            $this->cache->put($file, filemtime($file));
+            
+            if ($this->cache)
+            {
+              $this->cache->put($file, filemtime($file));
+            }
           }
         } else {
           throw new BuildException('Permission denied: '.$file);
