@@ -24,6 +24,7 @@
 	<property name="test.class" value="${test}"/>
 	
 	<resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
+    <resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
 	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
 	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
 	
@@ -44,7 +45,7 @@
 		<!-- startup will have changed the include_path, so set it back now -->
 		<includepath classpathRef="incthis"/>
 		
-		<mkdir dir="${tests.reports.dir}"/>
+		<mkdir dir="${tests.reports.dir.resolved}"/>
 			
 		<fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
 			<include name="**/*${test.class}Test.php"/>
@@ -53,13 +54,13 @@
 
 	<target name="reports" depends="configure">
 		<phpunit haltonerror="true" haltonfailure="true" printsummary="true">
-			<formatter type="xml" usefile="true" todir="${tests.reports.dir}" outfile="test-results.xml" />
+			<formatter type="xml" usefile="true" todir="${tests.reports.dir.resolved}" outfile="test-results.xml" />
 			<formatter type="plain" usefile="false"/>
 			<batchtest>
 				<fileset refid="relevant-tests"/>
 			</batchtest>
 		</phpunit>
-		<phpunitreport format="noframes" todir="${tests.reports.dir}" infile="${tests.reports.dir}/test-results.xml"
+		<phpunitreport format="noframes" todir="${tests.reports.dir.resolved}" infile="${tests.reports.dir.resolved}/test-results.xml"
 		styledir="${phing.etc.dir.resolved}"/>
 	</target>
 	
