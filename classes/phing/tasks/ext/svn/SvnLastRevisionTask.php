@@ -35,6 +35,7 @@ class SvnLastRevisionTask extends SvnBaseTask
 {
     private $propertyName = "svn.lastrevision";
     private $forceCompatible = false;
+    private $lastChanged = false;
 
     /**
      * Sets the name of the property to use
@@ -59,6 +60,14 @@ class SvnLastRevisionTask extends SvnBaseTask
     {
         $this->forceCompatible = (bool) $force;
     }
+    
+    /**
+     * Sets whether to retrieve the last changed revision
+     */
+    public function setLastChanged($lastChanged)
+    {
+        $this->lastChanged = (bool) $lastChanged;
+    }
 
     /**
      * The main entry point
@@ -72,8 +81,14 @@ class SvnLastRevisionTask extends SvnBaseTask
         if ($this->forceCompatible)
         {
             $output = $this->run();
+            
+            if ($this->lastChanged) {
+                $found = preg_match('/Rev:[\s]+([\d]+)/', $output, $matches);
+            } else {
+                $found = preg_match('/Last Changed Rev:[\s]+([\d]+)/', $output, $matches);
+            }
 
-            if (preg_match('/Rev:[\s]+([\d]+)/', $output, $matches))
+            if ($found)
             {
                 $this->project->setProperty($this->getPropertyName(), $matches[1]);
             }
@@ -88,7 +103,12 @@ class SvnLastRevisionTask extends SvnBaseTask
             
             if ($xmlObj = @simplexml_load_string($output))
             {
-                $lastRevision = (int)$xmlObj->entry['revision'];
+                if ($this->lastChanged) {
+                    $lastRevision = (int)$xmlObj->entry->commit['revision'];
+                } else {
+                    $lastRevision = (int)$xmlObj->entry['revision'];
+                }
+                
                 $this->project->setProperty($this->getPropertyName(), $lastRevision);
             }
             else
