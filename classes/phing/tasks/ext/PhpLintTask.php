@@ -236,11 +236,11 @@ class PhpLintTask extends Task {
                     }
                 } else {
                     $this->log($file.': No syntax errors detected', $this->logLevel);
-                }
-                
-                if ($this->cache)
-                {
-                    $this->cache->put($file, filemtime($file));
+                    
+                    if ($this->cache)
+                    {
+                        $this->cache->put($file, filemtime($file));
+                    }
                 }
             } else {
                 throw new BuildException('Permission denied: '.$file);
