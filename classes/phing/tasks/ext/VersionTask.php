@@ -100,13 +100,13 @@ class VersionTask extends Task
         $this->checkProperty();
 
         // read file
-        $filecontent = file_get_contents($this->file);
+        $filecontent = trim(file_get_contents($this->file));
 
         // get new version
         $newVersion = $this->getVersion($filecontent);
 
         // write new Version to file
-        file_put_contents($this->file, $newVersion);
+        file_put_contents($this->file, $newVersion . "\n");
 
         // publish new version number as property
         $this->project->setProperty($this->property, $newVersion);
