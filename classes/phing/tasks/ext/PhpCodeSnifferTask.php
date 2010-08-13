@@ -455,14 +455,28 @@ class PhpCodeSnifferTask extends Task {
                         ob_start();
                     }
 
-                    $reporting->printReport(
-                        $fe->getType(),
-                        $filesViolations,
-                        $this->showWarnings,
-                        $this->showSources,
-                        $reportFile,
-                        $this->reportWidth
-                    );
+                    // Determine number of parameters required to
+                    // ensure backwards compatibility
+                    $rm = new ReflectionMethod('PHP_CodeSniffer_Reporting', 'printReport');
+
+                    if ($rm->getNumberOfParameters() == 5) {
+                        $reporting->printReport(
+                            $fe->getType(),
+                            $filesViolations,
+                            $this->showSources,
+                            $reportFile,
+                            $this->reportWidth
+                        );
+                    } else {
+                        $reporting->printReport(
+                            $fe->getType(),
+                            $filesViolations,
+                            $this->showWarnings,
+                            $this->showSources,
+                            $reportFile,
+                            $this->reportWidth
+                        );
+                    }
 
                     // reporting class uses ob_end_flush(), but we don't want
                     // an output if we use a file
