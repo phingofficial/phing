@@ -24,14 +24,26 @@ require_once 'phing/Task.php';
 /**
  * Base class for Git tasks
  *
- * @author Victor Farazdagi <victor@pymag.ru>
+ * @author Victor Farazdagi <simple.square@gmail.com>
  * @version $Id: $
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.2
  */
 abstract class GitBaseTask extends Task
-{}
+{
+    /**
+     * Initialize Task.
+     * Check and include necessary libraries.
+     */
+    public function init() 
+    {
+        require_once 'VersionControl/Git.php';
+        if (false == class_exists('VersionControl_Git')) {
+            throw new Exception("The Git tasks depend on PEAR\'s VersionControl_Git package.");
+        }
+    }
+}
 
 
 
