@@ -32,6 +32,8 @@ require_once 'phing/Task.php';
  */
 abstract class GitBaseTask extends Task
 {
+    private $gitPath = '/usr/bin/git';
+
     /**
      * Initialize Task.
      * Check and include necessary libraries.
@@ -40,8 +42,30 @@ abstract class GitBaseTask extends Task
     {
         require_once 'VersionControl/Git.php';
         if (false == class_exists('VersionControl_Git')) {
-            throw new Exception("The Git tasks depend on PEAR\'s VersionControl_Git package.");
+            throw new Exception("The Git tasks depend on PEAR\'s " 
+                              . "VersionControl_Git package.");
         }
+    }
+
+    /**
+     * Set path to git executable
+     * @param string $gitPath New path to git repository
+     * @return GitBaseTask
+     */
+    public function setGitPath($gitPath)
+    {
+        $this->gitPath = $gitPath;
+        return $this;
+    }
+
+    /**
+     * Get path to git executable
+     *
+     * @return string
+     */
+    public function getGitPath()
+    {
+        return $this->gitPath;
     }
 }
 

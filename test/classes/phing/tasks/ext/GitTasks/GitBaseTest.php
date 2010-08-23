@@ -20,6 +20,7 @@
  */
  
 require_once 'phing/BuildFileTest.php';
+require_once '../classes/phing/tasks/ext/git/GitBaseTask.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -27,11 +28,30 @@ require_once 'phing/BuildFileTest.php';
  * @package phing.tasks.ext
  */
 class GitBaseTest extends BuildFileTest { 
+
+    protected $mock;
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/GitBaseTest.xml");
+        $this->configureProject(PHING_TEST_BASE 
+                              . "/etc/tasks/ext/GitBaseTest.xml");
+        $this->mock = $this->getMockForAbstractClass('GitBaseTask');
     }
 
-    public function testTest()
+    public function testInitialization()
+    {
+        $this->assertType('GitBaseTask', $this->mock);
+    }
+
+    /**
+     * @todo - make sure that required arguments are checked
+     */
+    public function testArguments()
     {}
+
+    public function testMutators()
+    {
+        $oldPath = $this->mock->getGitPath();
+        $this->mock->setGitPath('my-new-path');
+        $this->assertEquals('my-new-path', $this->mock->getGitPath());
+    }
 }
