@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id:$
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -23,7 +23,7 @@ require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id:$
+ * @version $Id$
  * @package phing.tasks.ext
  */
 class GitBaseTest extends BuildFileTest { 
