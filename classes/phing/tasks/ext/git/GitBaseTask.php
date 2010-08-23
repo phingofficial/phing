@@ -32,7 +32,22 @@ require_once 'phing/Task.php';
  */
 abstract class GitBaseTask extends Task
 {
+    /**
+     * Bath to git binary
+     * @var string
+     */
     private $gitPath = '/usr/bin/git';
+
+    /**
+     * @var VersionControl_Git
+     */
+    private $gitClient = null;
+
+    /**
+     * Current repository directory
+     * @var string
+     */
+    private $repoDir; 
 
     /**
      * Initialize Task.
@@ -48,7 +63,30 @@ abstract class GitBaseTask extends Task
     }
 
     /**
+     * Set repository directory
+     *
+     * @param string $repoDir Repo directory
+     * @return GitBaseTask
+     */
+    public function setRepoDir($repoDir)
+    {
+        $this->repoDir = $repoDir;
+        return $this;
+    }
+
+    /**
+     * Get repository directory
+     *
+     * @return string
+     */
+    public function getRepoDir()
+    {
+        return $this->repoDir;
+    }
+
+    /**
      * Set path to git executable
+     *
      * @param string $gitPath New path to git repository
      * @return GitBaseTask
      */
@@ -66,6 +104,17 @@ abstract class GitBaseTask extends Task
     public function getGitPath()
     {
         return $this->gitPath;
+    }
+
+    protected function getGitClient($reset = false)
+    {
+        $this->gitClient = ($reset === true) ? null : $this->gitClient;
+
+        if(null === $this->gitClient) {
+            $this->gitClient = new VersionControl_Git($this->getRepoDir());
+        }
+
+        return $this->gitClient;
     }
 }
 

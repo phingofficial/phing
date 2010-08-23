@@ -50,8 +50,17 @@ class GitBaseTest extends BuildFileTest {
 
     public function testMutators()
     {
-        $oldPath = $this->mock->getGitPath();
+        // gitPath
+        $gitPath = $this->mock->getGitPath();
         $this->mock->setGitPath('my-new-path');
         $this->assertEquals('my-new-path', $this->mock->getGitPath());
+        $this->mock->setGitPath($gitPath);
+
+        // repoDir
+        $repoDir = $this->mock->getRepoDir();
+        $this->mock->setRepoDir('/tmp');
+        $this->assertEquals('/tmp', $this->mock->getRepoDir());
+        $this->mock->setRepoDir($repoDir);
     }
+
 }
