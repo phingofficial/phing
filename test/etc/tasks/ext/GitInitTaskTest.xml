@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<project name="git_init_test" default="main">
+    <target name="main" description="==>Git init tasks UTs">
+	</target>
+</project>
