@@ -478,6 +478,47 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
       <li>fileset <p>The files to deploy</p></li>
     </ul>
 
+<h2><a name="HttpGetTask"></a>HttpGetTask</h2>
+    <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
+      <h3>Attributes</h3><table>
+       <thead>
+         <tr>
+           <th>Name</th>
+           <th>Type</th>
+           <th>Description</th>
+           <th>Default</th>
+           <th>Required</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td>url</td>
+           <td>String</td>
+           <td>The request URL</td>
+           <td>n/a</td>
+           <td>Yes</td>
+         </tr>
+         <tr>
+           <td>dir</td>
+           <td>String</td>
+           <td>The directory to save the file</td>
+           <td>n/a</td>
+           <td>Yes</td>
+         </tr>
+         <tr>
+           <td>filename</td>
+           <td>String</td>
+           <td>The filename for the downloaded file</td>
+           <td>The filename part of the URL</td>
+           <td>No</td>
+         </tr>
+       </tbody>
+      </table>
+     <h3>Example</h3>
+<pre>
+ &lt;httpget url=&quot;http://buildserver.com/builds/latest.stable.tar.bz2&quot; dir=&quot;/usr/local/lib&quot;/&gt;
+</pre>
+
 <h2><a name="HttpRequestTask"></a>HttpRequestTask</h2>
     <p>This task will make an HTTP request to the provided URL and match the response against the provided regular expression. If an regular expression is provided and doesn't match the build will fail. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>
