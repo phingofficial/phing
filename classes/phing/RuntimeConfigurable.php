@@ -95,8 +95,6 @@ class RuntimeConfigurable {
                 $id = $this->attributes["id"];
             }
 
-            $this->attributes = null;
-
             if ($this->characters) {
                 ProjectConfigurator::addText($project, $this->wrappedObject, (string) $this->characters);
                 $this->characters="";
