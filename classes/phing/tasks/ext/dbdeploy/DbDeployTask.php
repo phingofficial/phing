@@ -130,7 +130,11 @@ class DbDeployTask extends Task {
                 $fullFileName = $this->dir . '/' . $fileName;
                 $fh = fopen($fullFileName, 'r');
                 $contents = fread($fh,  filesize($fullFileName));
-                $undoSQLFromFile = substr($contents,strpos($contents, '-- //@UNDO')+10);
+                // allow construct with and without space added 
+                $undoSQLFromFileSplit = strpos($contents, '-- //@UNDO'); 
+                if ($undoSQLFromFileSplit === false) 
+                    $undoSQLFromFileSplit = strpos($contents, '--//@UNDO'); 
+                $undoSQLFromFile = substr($contents,0,$undoSQLFromFileSplit+10); 
                 $sqlToPerformUndo .= $undoSQLFromFile;
                 $sqlToPerformUndo .= 'DELETE FROM ' . DbDeployTask::$TABLE_NAME . ' WHERE change_number = ' . $fileChangeNumber . ' AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 $sqlToPerformUndo .= '-- Fragment ends: ' . $fileChangeNumber . ' --' . "\n";
