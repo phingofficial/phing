@@ -48,7 +48,7 @@ class GitInitTaskTest extends BuildFileTest {
     {
         $this->expectBuildExceptionContaining('wrongRepoDir', 
             'Repository directory not readable', 
-            'You must specified readable directory as repository.');
+            'You must specify readable directory as repository.');
     }
 
     public function testGitInit()
@@ -56,6 +56,7 @@ class GitInitTaskTest extends BuildFileTest {
         $repoDir = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repoDir . '/.git';
         $this->executeTarget('gitInit');
+
         $this->assertInLogs('git-init: initializing "' . $repoDir . '" repository');
         $this->assertTrue(is_dir($repoDir));
         $this->assertTrue(is_dir($gitFilesDir));
@@ -74,6 +75,11 @@ class GitInitTaskTest extends BuildFileTest {
         $this->assertTrue(is_dir($repoDir . '/refs'));
     }
 
-
+    public function testNoRepoDirSpecified()
+    {
+        $this->expectBuildExceptionContaining('noRepoDir', 
+            'Repo dir is required',
+            'repoDir is required parameter');
+    }
 
 }

@@ -20,6 +20,7 @@
  */
  
 require_once 'phing/Task.php';
+require_once 'phing/BuildException.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 
 /**
@@ -45,6 +46,9 @@ class GitInitTask extends GitBaseTask
      */
     public function main()
     {
+        if (null === $this->getRepoDir()) {
+            throw new BuildException('repoDir is required parameter');
+        }
         $client = $this->getGitClient();
 
         $client->initRepository($this->isBare());

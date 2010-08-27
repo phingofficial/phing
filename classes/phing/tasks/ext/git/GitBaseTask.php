@@ -117,7 +117,7 @@ abstract class GitBaseTask extends Task
             } catch (VersionControl_Git_Exception $e) {
                 // re-package
                 throw new BuildException(
-                    'You must specified readable directory as repository.');
+                    'You must specify readable directory as repository.');
 
             }
         }

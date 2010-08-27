@@ -24,8 +24,4 @@
     <target name="noRepoDir" description="No repo dir argument provided">
         <gitinit />
     </target>
-
-    <target name="testArgPassing" description="Check that all arguments do pass">
-        <gitinit />
-    </target>
 </project>
