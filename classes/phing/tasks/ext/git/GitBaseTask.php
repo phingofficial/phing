@@ -20,6 +20,7 @@
  */
  
 require_once 'phing/Task.php';
+require_once 'phing/BuildException.php';
 
 /**
  * Base class for Git tasks
@@ -111,8 +112,16 @@ abstract class GitBaseTask extends Task
         $this->gitClient = ($reset === true) ? null : $this->gitClient;
 
         if(null === $this->gitClient) {
-            $this->gitClient = new VersionControl_Git($this->getRepoDir());
+            try {
+                $this->gitClient = new VersionControl_Git($this->getRepoDir());
+            } catch (VersionControl_Git_Exception $e) {
+                // re-package
+                throw new BuildException(
+                    'You must specified readable directory as repository.');
+
+            }
         }
+        $this->gitClient->setGitCommandPath($this->getGitPath());
 
         return $this->gitClient;
     }

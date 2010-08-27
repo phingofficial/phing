@@ -21,6 +21,7 @@
  
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitInitTask.php';
+require_once dirname(__FILE__) . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
@@ -30,12 +31,49 @@ require_once '../classes/phing/tasks/ext/git/GitInitTask.php';
 class GitInitTaskTest extends BuildFileTest { 
 
     public function setUp() { 
+        // set temp directory used by test cases
+        mkdir(PHING_TEST_BASE . '/tmp/git');
+
         $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/ext/GitInitTaskTest.xml");
+                              . '/etc/tasks/ext/GitInitTaskTest.xml');
+        $this->mock = $this->getMockForAbstractClass('GitInitTask');
     }
 
-    public function testTest()
+    public function tearDown()
     {
-        $this->markTestSkipped();
+        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
     }
+
+    public function testWrongRepoDir()
+    {
+        $this->expectBuildExceptionContaining('wrongRepoDir', 
+            'Repository directory not readable', 
+            'You must specified readable directory as repository.');
+    }
+
+    public function testGitInit()
+    {
+        $repoDir = PHING_TEST_BASE . '/tmp/git';
+        $gitFilesDir = $repoDir . '/.git';
+        $this->executeTarget('gitInit');
+        $this->assertInLogs('git-init: initializing "' . $repoDir . '" repository');
+        $this->assertTrue(is_dir($repoDir));
+        $this->assertTrue(is_dir($gitFilesDir));
+    }
+
+    public function testGitInitBare()
+    {
+        $repoDir = PHING_TEST_BASE . '/tmp/git';
+        $gitFilesDir = $repoDir . '/.git';
+        $this->executeTarget('gitInitBare');
+        $this->assertInLogs('git-init: initializing (bare) "' . $repoDir . '" repository');
+        $this->assertTrue(is_dir($repoDir));
+        $this->assertTrue(is_dir($repoDir . '/branches'));
+        $this->assertTrue(is_dir($repoDir . '/info'));
+        $this->assertTrue(is_dir($repoDir . '/hooks'));
+        $this->assertTrue(is_dir($repoDir . '/refs'));
+    }
+
+
+
 }

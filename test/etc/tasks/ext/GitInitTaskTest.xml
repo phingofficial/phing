@@ -1,5 +1,31 @@
 <?xml version="1.0"?>
-<project name="git_init_test" default="main">
-    <target name="main" description="==>Git init tasks UTs">
+<project name="gitInitTest" default="invalid">
+
+    <property name="tmp.dir" value="./../../../tmp/git" />
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+    
+    <target name="gitInit" description="Normal git init">
+        <gitinit repoDir="${tmp.dir.resolved}"/>
 	</target>
+
+    <target name="gitInitBare" description="Normal git init">
+        <gitinit bare="true" repoDir="${tmp.dir.resolved}"/>
+	</target>
+
+
+    <target name="wrongRepoDir" description="Wrong repository directory">
+        <gitinit repoDir="this-is-plain-wrong"/>
+	</target>
+
+    <target name="noRepoDir" description="No repo dir argument provided">
+        <gitinit />
+    </target>
+
+    <target name="testArgPassing" description="Check that all arguments do pass">
+        <gitinit />
+    </target>
 </project>

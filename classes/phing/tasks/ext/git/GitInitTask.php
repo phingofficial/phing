@@ -33,10 +33,45 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  */
 class GitInitTask extends GitBaseTask
 {
+
+    /**
+     * Whether --bare key should be set for git-init
+     * @var string
+     */
+    private $isBare = false;
+
     /**
      * The main entry point for the task
      */
     public function main()
     {
+        $client = $this->getGitClient();
+
+        $client->initRepository($this->isBare());
+
+        $msg = 'git-init: initializing ' 
+            . ($this->isBare() ? '(bare) ' : '')
+            . '"' . $this->getRepoDir() .'" repository'; 
+        $this->log($msg, Project::MSG_INFO); 
+    }
+
+    /**
+     * Alias @see getBare()
+     *
+     * @return string
+     */
+    public function isBare()
+    {
+        return $this->getBare();
+    }
+
+    public function getBare()
+    {
+        return $this->isBare;
+    }
+
+    public function setBare($flag)
+    {
+        $this->isBare = (bool)$flag;
     }
 }
