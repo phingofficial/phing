@@ -8,11 +8,11 @@
         <fail>This file should only be run via a testcase</fail>
     </target>
     
-    <target name="gitInit" description="Normal git init">
+    <target name="gitInit" description="Initialize normal git repository">
         <gitinit repoDir="${tmp.dir.resolved}"/>
 	</target>
 
-    <target name="gitInitBare" description="Normal git init">
+    <target name="gitInitBare" description="Initialize bare repository">
         <gitinit bare="true" repoDir="${tmp.dir.resolved}"/>
 	</target>
 
