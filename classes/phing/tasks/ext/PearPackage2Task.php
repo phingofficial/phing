@@ -172,8 +172,8 @@ class PearPackage2Task extends PearPackageTask {
                     foreach ($deps as $dep) {
                         $type = isset($dep['optional']) ? 'optional' : 'required';
                         $min = isset($dep['min']) ? $dep['min'] : $dep['version'];
-                        $max = isset($dep['max']) ? $dep['max'] : $dep['version'];
-                        $rec = isset($dep['recommended']) ? $dep['recommended'] : $dep['version'];
+                        $max = isset($dep['max']) ? $dep['max'] : null;
+                        $rec = isset($dep['recommended']) ? $dep['recommended'] : null;
                         $channel = isset($dep['channel']) ? $dep['channel'] : false;
                         $uri = isset($dep['uri']) ? $dep['uri'] : false;
 
