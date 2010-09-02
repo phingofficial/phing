@@ -117,7 +117,7 @@ class PhpLintTask extends Task {
      *
      * @return FileSet The created fileset object
      */
-    function createFileSet() {
+    public function createFileSet() {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }

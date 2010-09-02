@@ -38,38 +38,38 @@ class MailTask extends Task {
     
     protected $msg;
 
-    function main() {
+    public function main() {
         $this->log('Sending mail to ' . $this->recipient );    
         mail($this->recipient, $this->subject, $this->msg);
     }
 
     /** setter for message */
-    function setMsg($msg) {
+    public function setMsg($msg) {
         $this->setMessage($msg);
     }
 
     /** alias setter */
-    function setMessage($msg) {
+    public function setMessage($msg) {
         $this->msg = (string) $msg;
     }
     
     /** setter for subject **/
-    function setSubject($subject) {
+    public function setSubject($subject) {
         $this->subject = (string) $subject;    
     }
 
     /** setter for recipient **/
-    function setRecipient($recipient) {
+    public function setRecipient($recipient) {
         $this->recipient = (string) $recipient;
     }
 
     /** alias for recipient **/
-    function setTo($recipient) {
+    public function setTo($recipient) {
         $this->recipient = (string) $recipient;
     }
         
     /** Supporting the <mail>Message</mail> syntax. */
-    function addText($msg)
+    public function addText($msg)
     {
         $this->msg = (string) $msg;
     }

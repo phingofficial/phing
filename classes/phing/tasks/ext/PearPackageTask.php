@@ -246,7 +246,7 @@ class PearPackageTask extends MatchingTask {
      *
      * @return FileSet The created fileset object
      */
-    function createFileSet() {
+    public function createFileSet() {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
@@ -289,7 +289,7 @@ class PearPackageTask extends MatchingTask {
     /**
      * Handles nested generic <option> elements.
      */
-    function createOption() {
+    public function createOption() {
         $o = new PearPkgOption();
         $this->options[] = $o;
         return $o;
@@ -298,7 +298,7 @@ class PearPackageTask extends MatchingTask {
     /**
      * Handles nested generic <option> elements.
      */
-    function createMapping() {
+    public function createMapping() {
         $o = new PearPkgMapping();
         $this->mappings[] = $o;
         return $o;

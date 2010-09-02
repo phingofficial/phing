@@ -461,19 +461,19 @@ class AssignedVar {
     private $name;
     private $value;
     
-    function setName($v) {
+    public function setName($v) {
         $this->name = $v;
     }
     
-    function setValue($v) {
+    public function setValue($v) {
         $this->value = $v;
     }
     
-    function getName() {
+    public function getName() {
         return $this->name;
     }
     
-    function getValue() {
+    public function getValue() {
         return $this->value;
     }
 

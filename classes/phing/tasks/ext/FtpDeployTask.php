@@ -103,7 +103,7 @@ class FtpDeployTask extends Task
         $this->clearFirst = (bool) $clearFirst;
     }
     
-    function createFileSet() {
+    public function createFileSet() {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }

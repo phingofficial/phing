@@ -99,15 +99,15 @@ class HttpGetTask extends Task
 	$this->log("Contents from " . $this->url . " saved to $filename");
     }
 
-    function setUrl($url) {
+    public function setUrl($url) {
         $this->url = $url;
     }
 
-    function setFilename($filename) {
+    public function setFilename($filename) {
         $this->filename = $filename;
     }
 
-    function setDir($dir) {
+    public function setDir($dir) {
         $this->dir = $dir;
     }
 

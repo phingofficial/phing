@@ -102,7 +102,7 @@ class PhpCodeSnifferTask extends Task {
      *
      * @return FileSet The created fileset object
      */
-    function createFileSet() {
+    public function createFileSet() {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
@@ -320,7 +320,7 @@ class PhpCodeSnifferTask extends Task {
      * Sets the haltonerror flag
      * @param boolean $value
      */
-    function setHaltonerror($value)
+    public function setHaltonerror($value)
     {
         $this->haltonerror = $value;
     }
@@ -329,7 +329,7 @@ class PhpCodeSnifferTask extends Task {
      * Sets the haltonwarning flag
      * @param boolean $value
      */
-    function setHaltonwarning($value)
+    public function setHaltonwarning($value)
     {
         $this->haltonwarning = $value;
     }

@@ -38,7 +38,7 @@ class XmlPropertyTask extends PropertyTask {
     private $_delimiter = ',';
 
     /** Set a file to use as the source for properties. */
-    function setFile($file) {
+    public function setFile($file) {
         if (is_string($file)) {
             $file = new PhingFile($file);
         }
@@ -46,7 +46,7 @@ class XmlPropertyTask extends PropertyTask {
     }
     
     /** Get the PhingFile that is being used as property source. */
-    function getFile() {
+    public function getFile() {
         return $this->file;
     }
 
@@ -57,7 +57,7 @@ class XmlPropertyTask extends PropertyTask {
      * @return void
      * @since 2.0
      */
-    function setPrefix($prefix) {
+    public function setPrefix($prefix) {
         $this->prefix = $prefix;
         if (!StringHelper::endsWith(".", $prefix)) {
             $this->prefix .= ".";
@@ -68,7 +68,7 @@ class XmlPropertyTask extends PropertyTask {
      * @return string
      * @since 2.0
      */
-    function getPrefix() {
+    public function getPrefix() {
         return $this->prefix;
     }
 
@@ -77,14 +77,14 @@ class XmlPropertyTask extends PropertyTask {
      *
      * @param bool $yesNo
      */
-    function setKeepRoot($yesNo) {
+    public function setKeepRoot($yesNo) {
         $this->_keepRoot = (bool)$yesNo;
     }
 
     /**
      * @return bool
      */
-    function getKeepRoot() {
+    public function getKeepRoot() {
         return $this->_keepRoot;
     }
 
@@ -93,14 +93,14 @@ class XmlPropertyTask extends PropertyTask {
      *
      * @param bool $yesNo
      */
-    function setCollapseAttributes($yesNo) {
+    public function setCollapseAttributes($yesNo) {
         $this->_collapseAttr = (bool)$yesNo;
     }
 
     /**
      * @return bool
      */
-    function getCollapseAttributes() {
+    public function getCollapseAttributes() {
         return $this->_collapseAttr;
     }
 
@@ -109,14 +109,14 @@ class XmlPropertyTask extends PropertyTask {
      *
      * @param string $d
      */
-    function setDelimiter($d) {
+    public function setDelimiter($d) {
         $this->_delimiter = $d;
     }
 
     /**
      * @return string
      */
-    function getDelimiter() {
+    public function getDelimiter() {
         return $this->_delimiter;
     }
 
@@ -125,7 +125,7 @@ class XmlPropertyTask extends PropertyTask {
      * if the task was give a file or env attribute
      * here is where it is loaded
      */
-    function main() {
+    public function main() {
 
         if ($this->file === null ) {
             throw new BuildException("You must specify file to load properties from", $this->getLocation());

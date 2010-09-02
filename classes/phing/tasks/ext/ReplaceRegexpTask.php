@@ -57,7 +57,7 @@ class ReplaceRegexpTask extends Task {
      * 
      * @param string $path
      */
-    function setFile(PhingFile $path)
+    public function setFile(PhingFile $path)
     {
         $this->file = $path;
     }
@@ -67,7 +67,7 @@ class ReplaceRegexpTask extends Task {
      * 
      * @param string $regexp 
      */
-    function setMatch( $regexp )
+    public function setMatch( $regexp )
     {
         $this->_regexp->setPattern( $regexp );
     }
@@ -75,7 +75,7 @@ class ReplaceRegexpTask extends Task {
     /**
      * @see setMatch()
      */
-    function setPattern( $regexp )
+    public function setPattern( $regexp )
     {
         $this->setMatch( $regexp );
     }
@@ -85,7 +85,7 @@ class ReplaceRegexpTask extends Task {
      * 
      * @param string $string
      */
-    function setReplace( $string )
+    public function setReplace( $string )
     {
         $this->_regexp->setReplace( $string );
     }
@@ -95,7 +95,7 @@ class ReplaceRegexpTask extends Task {
      * 
      * @param string $flags
      */
-    function setFlags( $flags )
+    public function setFlags( $flags )
     {
         // TODO... $this->_regexp->setFlags( $flags ); 
     }
@@ -105,24 +105,24 @@ class ReplaceRegexpTask extends Task {
      * 
      * @param bool $yesNo
      */
-    function setByline( $yesNo )
+    public function setByline( $yesNo )
     {
         // TODO... $this->_regexp-> 
     }
     
     /** Nested creator, adds a set of files (nested fileset attribute). */
-    function createFileSet()
+    public function createFileSet()
     {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
 
-    function init()
+    public function init()
     {
         $this->_regexp = new RegularExpression;
     }
 
-    function main()
+    public function main()
     {
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("You must specify a file or fileset(s) for the <ReplaceRegexp> task.");
