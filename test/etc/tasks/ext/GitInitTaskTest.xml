@@ -9,19 +9,19 @@
     </target>
     
     <target name="gitInit" description="Initialize normal git repository">
-        <gitinit repoDir="${tmp.dir.resolved}"/>
+        <gitinit repository="${tmp.dir.resolved}"/>
 	</target>
 
     <target name="gitInitBare" description="Initialize bare repository">
-        <gitinit bare="true" repoDir="${tmp.dir.resolved}"/>
+        <gitinit bare="true" repository="${tmp.dir.resolved}"/>
 	</target>
 
 
-    <target name="wrongRepoDir" description="Wrong repository directory">
-        <gitinit repoDir="this-is-plain-wrong"/>
+    <target name="wrongRepository" description="Wrong repository directory">
+        <gitinit repository="this-is-plain-wrong"/>
 	</target>
 
-    <target name="noRepoDir" description="No repo dir argument provided">
+    <target name="noRepository" description="No repo dir argument provided">
         <gitinit />
     </target>
 </project>

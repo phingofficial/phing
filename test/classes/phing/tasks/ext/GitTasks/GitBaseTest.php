@@ -56,11 +56,11 @@ class GitBaseTest extends BuildFileTest {
         $this->assertEquals('my-new-path', $this->mock->getGitPath());
         $this->mock->setGitPath($gitPath);
 
-        // repoDir
-        $repoDir = $this->mock->getRepoDir();
+        // repository
+        $repository = $this->mock->getRepository();
         $this->mock->setRepoDir('/tmp');
-        $this->assertEquals('/tmp', $this->mock->getRepoDir());
-        $this->mock->setRepoDir($repoDir);
+        $this->assertEquals('/tmp', $this->mock->getRepository());
+        $this->mock->setRepoDir($repository);
     }
 
 }

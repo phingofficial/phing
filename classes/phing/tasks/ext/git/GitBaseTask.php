@@ -48,7 +48,7 @@ abstract class GitBaseTask extends Task
      * Current repository directory
      * @var string
      */
-    private $repoDir; 
+    private $repository; 
 
     /**
      * Initialize Task.
@@ -66,12 +66,12 @@ abstract class GitBaseTask extends Task
     /**
      * Set repository directory
      *
-     * @param string $repoDir Repo directory
+     * @param string $repository Repo directory
      * @return GitBaseTask
      */
-    public function setRepoDir($repoDir)
+    public function setRepository($repository)
     {
-        $this->repoDir = $repoDir;
+        $this->repository = $repository;
         return $this;
     }
 
@@ -80,9 +80,9 @@ abstract class GitBaseTask extends Task
      *
      * @return string
      */
-    public function getRepoDir()
+    public function getRepository()
     {
-        return $this->repoDir;
+        return $this->repository;
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class GitBaseTask extends Task
 
         if(null === $this->gitClient) {
             try {
-                $this->gitClient = new VersionControl_Git($this->getRepoDir());
+                $this->gitClient = new VersionControl_Git($this->getRepository());
             } catch (VersionControl_Git_Exception $e) {
                 // re-package
                 throw new BuildException(

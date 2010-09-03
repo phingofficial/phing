@@ -44,42 +44,42 @@ class GitInitTaskTest extends BuildFileTest {
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testWrongRepoDir()
+    public function testWrongRepository()
     {
-        $this->expectBuildExceptionContaining('wrongRepoDir', 
+        $this->expectBuildExceptionContaining('wrongRepository', 
             'Repository directory not readable', 
             'You must specify readable directory as repository.');
     }
 
     public function testGitInit()
     {
-        $repoDir = PHING_TEST_BASE . '/tmp/git';
-        $gitFilesDir = $repoDir . '/.git';
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInit');
 
-        $this->assertInLogs('git-init: initializing "' . $repoDir . '" repository');
-        $this->assertTrue(is_dir($repoDir));
+        $this->assertInLogs('git-init: initializing "' . $repository . '" repository');
+        $this->assertTrue(is_dir($repository));
         $this->assertTrue(is_dir($gitFilesDir));
     }
 
     public function testGitInitBare()
     {
-        $repoDir = PHING_TEST_BASE . '/tmp/git';
-        $gitFilesDir = $repoDir . '/.git';
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInitBare');
-        $this->assertInLogs('git-init: initializing (bare) "' . $repoDir . '" repository');
-        $this->assertTrue(is_dir($repoDir));
-        $this->assertTrue(is_dir($repoDir . '/branches'));
-        $this->assertTrue(is_dir($repoDir . '/info'));
-        $this->assertTrue(is_dir($repoDir . '/hooks'));
-        $this->assertTrue(is_dir($repoDir . '/refs'));
+        $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');
+        $this->assertTrue(is_dir($repository));
+        $this->assertTrue(is_dir($repository . '/branches'));
+        $this->assertTrue(is_dir($repository . '/info'));
+        $this->assertTrue(is_dir($repository . '/hooks'));
+        $this->assertTrue(is_dir($repository . '/refs'));
     }
 
-    public function testNoRepoDirSpecified()
+    public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepoDir', 
+        $this->expectBuildExceptionContaining('noRepository', 
             'Repo dir is required',
-            'repoDir is required parameter');
+            '"repository" is required parameter');
     }
 
 }

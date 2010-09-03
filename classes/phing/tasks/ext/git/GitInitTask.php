@@ -46,8 +46,8 @@ class GitInitTask extends GitBaseTask
      */
     public function main()
     {
-        if (null === $this->getRepoDir()) {
-            throw new BuildException('repoDir is required parameter');
+        if (null === $this->getRepository()) {
+            throw new BuildException('"repository" is required parameter');
         }
 
         $client = $this->getGitClient();
@@ -55,7 +55,7 @@ class GitInitTask extends GitBaseTask
 
         $msg = 'git-init: initializing ' 
             . ($this->isBare() ? '(bare) ' : '')
-            . '"' . $this->getRepoDir() .'" repository'; 
+            . '"' . $this->getRepository() .'" repository'; 
         $this->log($msg, Project::MSG_INFO); 
     }
 

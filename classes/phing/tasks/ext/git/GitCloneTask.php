@@ -49,8 +49,8 @@ class GitCloneTask extends GitBaseTask
      */
     public function main()
     {
-        if (null === $this->getRepoDir()) {
-            throw new BuildException('repoDir is required parameter');
+        if (null === $this->getRepository()) {
+            throw new BuildException('"repository" is required parameter');
         }
 
         if (null === $this->getTargetDir()) {
@@ -58,11 +58,14 @@ class GitCloneTask extends GitBaseTask
         }
 
         $client = $this->getGitClient();
-        $client->createClone($this->getRepoDir(), $this->isBare(), $this->getTargetPath());
+        $client->createClone(
+            $this->getRepository(), 
+            $this->isBare(), 
+            $this->getTargetPath());
 
         $msg = 'git-clone: cloning ' 
             . ($this->isBare() ? '(bare) ' : '')
-            . '"' . $this->getRepoDir() .'" repository'
+            . '"' . $this->getRepository() .'" repository'
             . '"' . $this->getTargetPath() .'" directory'; 
         $this->log($msg, Project::MSG_INFO); 
     }

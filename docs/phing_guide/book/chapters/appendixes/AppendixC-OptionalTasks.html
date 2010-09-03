@@ -501,7 +501,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
             <td>No</td>
         </tr>
         <tr>
-            <td>repoDir</td>
+            <td>repository</td>
             <td>String</td>
             <td>Path to Git repository</td>
             <td>n/a</td>
@@ -523,10 +523,10 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- Initialize normal repository --&gt;
-&lt;gitinit repoDir="${repo.dir.resolved}" /&gt;
+&lt;gitinit repository="${repo.dir.resolved}" /&gt;
 
 &lt;!-- Initialize bare repository --&gt;
-&lt;gitinit bare="true" repoDir="${repo.dir.resolved}" /&gt;
+&lt;gitinit bare="true" repository="${repo.dir.resolved}" /&gt;
 </pre>
 
 
