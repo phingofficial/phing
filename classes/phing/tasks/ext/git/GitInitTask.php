@@ -49,8 +49,8 @@ class GitInitTask extends GitBaseTask
         if (null === $this->getRepoDir()) {
             throw new BuildException('repoDir is required parameter');
         }
-        $client = $this->getGitClient();
 
+        $client = $this->getGitClient();
         $client->initRepository($this->isBare());
 
         $msg = 'git-init: initializing ' 
