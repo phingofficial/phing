@@ -39,10 +39,10 @@ class GitCloneTask extends GitBaseTask
     private $isBare = false;
 
     /**
-     * Path to source repository
+     * Path to target directory
      * @var string
      */
-    private $sourceRepo;
+    private $targetPath;
 
     /**
      * The main entry point for the task
@@ -53,42 +53,55 @@ class GitCloneTask extends GitBaseTask
             throw new BuildException('"repository" is required parameter');
         }
 
-        if (null === $this->getTargetDir()) {
-            throw new BuildException('targetDir is required parameter');
+        if (null === $this->getTargetPath()) {
+            throw new BuildException('"targetPath" is required parameter');
         }
 
-        $client = $this->getGitClient();
-        $client->createClone(
-            $this->getRepository(), 
-            $this->isBare(), 
-            $this->getTargetPath());
+        if ( ($files = @scandir($this->getTargetPath()) && (count($files) > 2) ) ) {
+            throw new BuildException(
+                sprintf(
+                    '"%s" target directory is not empty',
+                    $this->getTargetPath())
+            );
+        }
+
+        $client = $this->getGitClient(false, $this->getTargetPath());
+
+        try {
+            $client->createClone(
+                $this->getRepository(), 
+                $this->isBare(), 
+                $this->getTargetPath());
+        } catch (Exception $e) {
+            throw new BuildException('The remote end hung up unexpectedly');
+        }
 
         $msg = 'git-clone: cloning ' 
             . ($this->isBare() ? '(bare) ' : '')
             . '"' . $this->getRepository() .'" repository'
-            . '"' . $this->getTargetPath() .'" directory'; 
+            . ' to "' . $this->getTargetPath() .'" directory'; 
         $this->log($msg, Project::MSG_INFO); 
     }
 
     /**
-     * Get path to source repo
+     * Get path to target direcotry repo
      *
      * @return string
      */
-    public function getSourceRepo()
+    public function getTargetPath()
     {
-        return $this->sourceRepo;
+        return $this->targetPath;
     }
 
     /**
      * Set path to source repo
      *
-     * @param string $sourceRepo Path to repository used as source
+     * @param string $targetPath Path to repository used as source
      * @return void
      */
-    public function setSourceRepo($sourceRepo)
+    public function setTargetPath($targetPath)
     {
-        $this->sourceRepo = $sourceRepo;
+        $this->targetPath = $targetPath;
     }
 
     /**
