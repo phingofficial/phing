@@ -530,6 +530,71 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 </pre>
 
 
+<h2><a name="GitCloneTask"></a>GitCloneTask</h2>
+<p>Clone a repository into a new directory.</p>
+
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>The (possibly remote) repository to clone from.</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>targetPath</td>
+            <td>String</td>
+            <td>The name of a new directory to clone into. Cloning into an existing directory is only allowed if the
+                directory is empty.</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>bare</td>
+            <td>Boolean</td>
+            <td>Create bare repository. See --bare option of <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html">git-clone</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- Clone repository --&gt;
+&lt;gitclone 
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- Clone bare repository --&gt;
+&lt;gitclone 
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}"
+    bare="true" /&gt;
+</pre>
+
+
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
     <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>
