@@ -7,5 +7,62 @@
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
     </target>
+
+    <target name="allParamsSet" description="Gc with all parameters present">
+        <gitclone 
+            repository="git://github.com/farazdagi/dotfiles.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitgc 
+            repository="${tmp.dir.resolved}" 
+            aggressive="false"
+            auto="false"
+            noprune="false" />
+    </target>
+
+    <target name="autoParamSet" description="Gc --auto">
+        <gitclone 
+            repository="git://github.com/farazdagi/dotfiles.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitgc 
+            repository="${tmp.dir.resolved}" auto="true" />
+    </target>
+
+    <target name="nopruneParamSet" description="Gc --noprune">
+        <gitclone 
+            repository="git://github.com/farazdagi/dotfiles.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitgc 
+            repository="${tmp.dir.resolved}" noprune="true" />
+    </target>
+
+    <target name="aggressiveParamSet" description="Gc --aggressive">
+        <gitclone 
+            repository="git://github.com/farazdagi/dotfiles.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitgc 
+            repository="${tmp.dir.resolved}" aggressive="true" />
+    </target>
+
+    <target name="pruneParamSet" description="Gc --prune=date">
+        <gitclone 
+            repository="git://github.com/farazdagi/dotfiles.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitgc 
+            repository="${tmp.dir.resolved}" prune="1.week.ago" />
+    </target>
+
+    <target name="wrongPrune" description="Gc with conflicting prune option">
+        <gitclone 
+            repository="git://github.com/farazdagi/dotfiles.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitgc 
+            repository="${tmp.dir.resolved}" 
+            prune="2.weeks.ago"
+            noprune="true" />
+    </target>
+
+    <target name="wrongRepository" description="Path to repository not found">
+        <gitgc repository="this-is-plain-wrong" />
+    </target>
     
 </project>
