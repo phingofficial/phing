@@ -58,9 +58,9 @@ class GitBaseTest extends BuildFileTest {
 
         // repository
         $repository = $this->mock->getRepository();
-        $this->mock->setRepoDir('/tmp');
+        $this->mock->setRepository('/tmp');
         $this->assertEquals('/tmp', $this->mock->getRepository());
-        $this->mock->setRepoDir($repository);
+        $this->mock->setRepository($repository);
     }
 
 }
