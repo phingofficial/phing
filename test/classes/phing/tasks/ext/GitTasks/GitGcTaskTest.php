@@ -31,6 +31,11 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 class GitGcTaskTest extends BuildFileTest { 
 
     public function setUp() { 
+        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+            // make sure we purge previously created directory
+            // if left-overs from previous run are found
+            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        }
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
@@ -44,7 +49,12 @@ class GitGcTaskTest extends BuildFileTest {
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    public function testPlaceholder()
-    {}
+    public function testAllParamsSet()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $this->executeTarget('allParamsSet');
+        $this->assertInLogs('git-gc: cleaning up "' . $repository . '" repository');
+
+    }
 
 }

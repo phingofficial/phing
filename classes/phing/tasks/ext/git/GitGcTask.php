@@ -65,9 +65,28 @@ class GitGcTask extends GitBaseTask
             throw new BuildException('"repository" is required parameter');
         }
 
-        $client = $this->getGitClient(false, $this->getTargetPath());
+        $client = $this->getGitClient(false, $this->getRepository());
+        $command = $client->getCommand('gc');
+        $command
+            ->setOption('aggressive', $this->isAggressive())
+            ->setOption('auto', $this->isAuto())
+            ->setOption('no-prune', $this->isNoPrune());
+        if ($this->isNoPrune() == false) {
+            $command->setOption('prune', $this->getPrune());
+        }
 
-        $command = $client->getCommand();
+        // suppress output
+        $command->setOption('q');
+
+        try {
+            $command->execute();
+        } catch (Exception $e) {
+            throw new BuildException('Task execution failed');
+        }
+
+        $this->log(
+            sprintf('git-gc: cleaning up "%s" repository', $this->getRepository()), 
+            Project::MSG_INFO); 
     }
 
     /**

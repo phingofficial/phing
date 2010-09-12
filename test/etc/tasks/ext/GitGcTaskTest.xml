@@ -14,9 +14,9 @@
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" 
-            aggressive="false"
-            auto="false"
-            noprune="false" />
+            aggressive="true"
+            auto="true"
+            noprune="true" />
     </target>
 
     <target name="autoParamSet" description="Gc --auto">
