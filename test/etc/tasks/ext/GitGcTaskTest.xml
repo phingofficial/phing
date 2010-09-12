@@ -54,19 +54,4 @@
         <gitgc 
             repository="${tmp.dir.resolved}" prune="1.week.ago" />
     </target>
-
-    <target name="wrongPrune" description="Gc with conflicting prune option">
-        <gitclone 
-            repository="git://github.com/farazdagi/dotfiles.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gitgc 
-            repository="${tmp.dir.resolved}" 
-            prune="2.weeks.ago"
-            noprune="true" />
-    </target>
-
-    <target name="wrongRepository" description="Path to repository not found">
-        <gitgc repository="this-is-plain-wrong" />
-    </target>
-    
 </project>

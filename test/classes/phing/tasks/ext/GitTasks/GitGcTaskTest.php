@@ -98,5 +98,4 @@ class GitGcTaskTest extends BuildFileTest {
         $this->executeTarget('pruneParamSet');
         $this->assertInLogs($msg);
     }
-
 }
