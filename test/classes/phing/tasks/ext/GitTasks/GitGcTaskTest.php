@@ -54,7 +54,13 @@ class GitGcTaskTest extends BuildFileTest {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-gc: cleaning up "' . $repository . '" repository');
+    }
 
+    public function testNoRepositorySpecified()
+    {
+        $this->expectBuildExceptionContaining('noRepository', 
+            'Repo dir is required',
+            '"repository" is required parameter');
     }
 
 }

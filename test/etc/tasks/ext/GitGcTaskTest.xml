@@ -19,6 +19,10 @@
             noprune="true" />
     </target>
 
+    <target name="noRepository" description="Required param checking">
+        <gitgc />
+    </target>
+
     <target name="autoParamSet" description="Gc --auto">
         <gitclone 
             repository="git://github.com/farazdagi/dotfiles.git"
