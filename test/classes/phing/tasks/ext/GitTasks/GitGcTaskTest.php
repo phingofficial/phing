@@ -63,4 +63,40 @@ class GitGcTaskTest extends BuildFileTest {
             '"repository" is required parameter');
     }
 
+    public function testAutoParameter()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+
+        $this->executeTarget('autoParamSet');
+        $this->assertInLogs($msg);
+    }
+
+    public function testNoPruneParameter()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+
+        $this->executeTarget('nopruneParamSet');
+        $this->assertInLogs($msg);
+    }
+
+    public function testAggressiveParameter()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+
+        $this->executeTarget('aggressiveParamSet');
+        $this->assertInLogs($msg);
+    }
+
+    public function testPruneParameter()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $msg = 'git-gc: cleaning up "' . $repository . '" repository';
+
+        $this->executeTarget('pruneParamSet');
+        $this->assertInLogs($msg);
+    }
+
 }
