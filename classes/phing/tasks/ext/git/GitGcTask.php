@@ -54,7 +54,7 @@ class GitGcTask extends GitBaseTask
      * --prune=<date>option of git-gc
      * @var string
      */
-    private $prune = null;
+    private $prune = '2.weeks.ago';
 
     /**
      * The main entry point for the task

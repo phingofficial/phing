@@ -594,6 +594,88 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
     bare="true" /&gt;
 </pre>
 
+<h2><a name="GitGcTask"></a>GitGcTask</h2>
+<p>Cleanup unnecessary files and optimize the local repository.</p>
+
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>The repository to cleanup.</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>aggressive</td>
+            <td>Boolean</td>
+            <td>This option will cause git gc to more aggressively optimize the repository at the expense of taking much
+                more time. See --aggressive option of <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html">git-gc</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>auto</td>
+            <td>Boolean</td>
+            <td>With this option, git gc checks whether any housekeeping is required; if not, it exits without
+                performing any work. See --auto option of <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html">git-gc</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>noprune</td>
+            <td>Boolean</td>
+            <td>Do not prune any loose objects. See --no-prune option of <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html">git-gc</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>prune</td>
+            <td>string</td>
+            <td>Prune loose objects older than date. See --prune option of <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html">git-gc</a>.</td>
+            <td>2.weeks.ago</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- Clone repository --&gt;
+&lt;gitclone 
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- Cleanup repository--&gt;
+&lt;gitgc 
+    repository="${repo.dir.resolved}" 
+    aggressive="true"
+    prune="1.week.ago" /&gt;
+</pre>
+
 
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
     <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
