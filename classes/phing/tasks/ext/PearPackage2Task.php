@@ -74,6 +74,7 @@ require_once 'phing/tasks/ext/PearPackageTask.php';
  *    <element key="name" value="Hans"/>
  *    <element key="email" value="hans@xmpl.org"/>
  *    <element key="role" value="lead"/>
+ *    <element key="active" value="yes"/>
  *   </element>
  *  </mapping>
  * </pearpkg2>
@@ -209,6 +210,8 @@ class PearPackage2Task extends PearPackageTask {
                     foreach ($maintainers as $maintainer) {
                         if (!isset($maintainer['active'])) {
                             $maintainer['active'] = 'yes';
+                        } else {
+                            $maintainer['active'] = $maintainer['active'] === false ? 'no' : 'yes';
                         }
                         $this->pkg->addMaintainer(
                             $maintainer['role'],
