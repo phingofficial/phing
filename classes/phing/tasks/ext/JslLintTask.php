@@ -147,7 +147,7 @@ require_once 'phing/util/DataStore.php';
       $command = $this->executable . ' -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' ';
 
       if (isset($this->conf)) {
-          $command .= '-conf ' . $this->conf->getPath() . ' ';
+          $command .= '-conf ' . escapeshellarg($this->conf->getPath()) . ' ';
       }
 
       $command .= '-process ';
