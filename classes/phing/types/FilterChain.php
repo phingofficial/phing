@@ -21,6 +21,7 @@
 
 include_once 'phing/types/DataType.php';
 include_once 'phing/filters/HeadFilter.php';
+include_once 'phing/filters/IconvFilter.php';
 include_once 'phing/filters/TailFilter.php';
 include_once 'phing/filters/LineContains.php';
 include_once 'phing/filters/LineContainsRegexp.php';
@@ -72,6 +73,11 @@ class FilterChain extends DataType {
     }
 
     function addHeadFilter(HeadFilter $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
+    function addIconvFilter(IconvFilter $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }

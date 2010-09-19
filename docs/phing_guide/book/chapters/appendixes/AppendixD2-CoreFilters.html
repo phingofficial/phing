@@ -173,6 +173,54 @@ are not further passed through the filter chain. Usage example:
   </tbody>
 </table>
 
+<h2><a name="IconvFilter"></a>IconvFilter</h2>
+
+<p>
+The IconvFilter encodes file from <code>in</code> encoding to <code>out</code> encoding. Usage example:
+</p>
+
+<pre>
+&lt;filterchain&gt;
+    &lt;iconvfilter inputencoding="UTF-8" outputencoding="CP1251" /&gt;
+&lt;/filterchain&gt;
+</pre>
+
+<h3>Attributes</h3>
+<table>
+  <caption>
+  Attributes for the <em>&lt;iconvfilter&gt; </em>tag
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inputencoding</td>
+      <td>string</td>
+      <td>
+        Input encoding.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>outputencoding</td>
+      <td>string</td>
+      <td>
+        Output encoding.
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
 <h2><a name="LineContains"></a>Line Contains</h2>
 <p>
 This filter is only &quot;permeable&quot; for lines that contain

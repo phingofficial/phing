@@ -94,6 +94,7 @@
                 <ref name="filterchain"/>
                 <ref name="ftpdeploy" />
                 <ref name="headfilter"/>
+                <ref name="iconvfilter"/>
                 <ref name="ioncubeencoder"/>
                 <ref name="ioncubelicense"/>
                 <ref name="jsllint" />
@@ -2556,6 +2557,7 @@
                     <ref name="filterreader"/>
                     <ref name="expandproperties"/>
                     <ref name="headfilter"/>
+                    <ref name="iconvfilter"/>
                     <ref name="linecontains"/>
                     <ref name="linecontainsregexp"/>
                     <ref name="prefixlines"/>
@@ -2711,6 +2713,14 @@
                     <data type="int"/>
                 </attribute>
             </optional>
+            <empty/>
+        </element>
+    </define>
+
+    <define name="iconvfilter">
+        <element name="iconvfilter">
+            <attribute name="inputencoding"/>
+            <attribute name="outputencoding"/>
             <empty/>
         </element>
     </define>
