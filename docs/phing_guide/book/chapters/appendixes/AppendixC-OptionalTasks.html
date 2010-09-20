@@ -4070,6 +4070,88 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
           <td>No</td>
         </tr>
       </tbody>
+    </table><h2><a name="SvnSwitchTask"></a>SvnSwitchTask</h2><p> The <em>SvnSwitchTask</em> changes a local directory from one repository to another.</p><h3>Examples</h3>
+    <pre>&lt;svnswitch
+   svnpath=&quot;/usr/bin/svn&quot;
+   username="anony"
+   password="anony"
+   nocache="true"
+   repositoryurl=&quot;http://svn.phing.info/tags/2.4.2&quot;
+   todir=&quot;/home/user/svnwc&quot;/&gt;
+</pre>
+    <pre>&lt;svnswitch
+   svnpath=&quot;C:/Subversion/bin/svn.exe&quot;
+   repositoryurl=&quot;http://svn.phing.info/tags/2.4.2&quot;
+   todir=&quot;C:/projects/svnwc&quot;/&gt;
+</pre>
+    <h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>svnpath</td>
+          <td>String</td>
+          <td>Path to Subversion binary</td>
+          <td>/usr/bin/svn</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>repositoryurl</td>
+          <td>String</td>
+          <td>URL of remote repository</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>todir</td>
+          <td>String</td>
+          <td>Path to the checked out project</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>username</td>
+          <td>String</td>
+          <td>A username used to connect to the SVN server</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>password</td>
+          <td>String</td>
+          <td>A password used to connect to the SVN server</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>nocache</td>
+          <td>Boolean</td>
+          <td>Connection credentials will not be cached</td>
+          <td>False</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>recursive</td>
+          <td>Boolean</td>
+          <td>Recursive behavior</td>
+          <td>True</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>ignoreexternals</td>
+          <td>Boolean</td>
+          <td>Ignore externals definitions</td>
+          <td>False</td>
+          <td>No</td>
+        </tr>
+      </tbody>
     </table><h2><a name="TarTask"></a>TarTask</h2><p> The <em>TarTask</em> creates a tarball from a fileset or directory.</p><h3>Examples</h3>
     <pre>&lt;tar destfile=&quot;phing.tar&quot; compression=&quot;gzip&quot;&gt;
  &lt;fileset dir=&quot;.&quot;&gt;
