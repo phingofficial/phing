@@ -31,5 +31,5 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * @see VersionControl_Git
  * @since 2.4.3
  */
-class GitCheckoutTask extends GitBaseTask
+class GitFetchTask extends GitBaseTask
 {}
