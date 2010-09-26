@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project name="gitBranchTest" default="invalid">
+
+    <property name="tmp.dir" value="./../../../tmp/git" />
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+
+    <target name="invalid">
+        <fail>This file should only be run via a testcase</fail>
+    </target>
+
+    <target name="allParamsSet" description="Gc with all parameters present">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch
+            repository="${tmp.dir.resolved}" 
+            branchname="all-params-set"
+            startpoint="origin/master"
+            track="true"
+            force="true" />
+    </target>
+
+    <target name="noRepository" description="Required param checking">
+        <gitbranch />
+    </target>
+
+    <target name="trackParamSet" description="git-branch --track">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="track-param-set"
+            track="true" />
+    </target>
+
+</project>
