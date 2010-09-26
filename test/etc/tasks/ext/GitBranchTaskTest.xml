@@ -24,6 +24,10 @@
         <gitbranch />
     </target>
 
+    <target name="noBranchname" description="Required param checking">
+        <gitbranch repository="${tmp.dir.resolved}"/>
+    </target>
+
     <target name="trackParamSet" description="git-branch --track">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
@@ -32,6 +36,26 @@
             repository="${tmp.dir.resolved}" 
             branchname="track-param-set"
             track="true" />
+    </target>
+
+    <target name="noTrackParamSet" description="git-branch --no-track">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="no-track-param-set"
+            notrack="true" />
+    </target>
+
+    <target name="setUpstreamParamSet" description="git-branch --set-upstream">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="set-upstream-param-set"
+            setupstream="true" />
     </target>
 
 </project>

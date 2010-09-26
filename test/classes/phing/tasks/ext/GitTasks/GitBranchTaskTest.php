@@ -63,13 +63,38 @@ class GitBranchTaskTest extends BuildFileTest {
             '"repository" is required parameter');
     }
 
+    public function testNoBranchnameSpecified()
+    {
+        $this->expectBuildExceptionContaining('noBranchname', 
+            'Branchname dir is required',
+            '"branchname" is required parameter');
+    }
+
     public function testTrackParameter()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $msg = 'git-branch output: Branch track-param-set set up to track local branch master.';
 
         $this->executeTarget('trackParamSet');
-        $this->assertInLogs($msg);
+        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
+        $this->assertInLogs( 'git-branch output: Branch track-param-set set up to track local branch master.');
+    }
+
+    public function testNoTrackParameter()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->executeTarget('noTrackParamSet');
+        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
+        $this->assertInLogs('git-branch output: '); // no output actually
+    }
+
+    public function testSetUpstreamParameter()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->executeTarget('setUpstreamParamSet');
+        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
+        $this->assertInLogs('Branch set-upstream-param-set set up to track local branch master.'); // no output actually
     }
 
 }
