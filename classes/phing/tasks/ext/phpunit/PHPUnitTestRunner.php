@@ -21,6 +21,8 @@
 
 require_once 'PHPUnit/Util/ErrorHandler.php';
 require_once 'PHPUnit/Util/Filter.php';
+require_once 'PHPUnit/Runner/BaseTestRunner.php';
+require_once 'PHPUnit/Framework/TestListener.php';
 require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 require_once 'phing/system/util/Timer.php';
 
