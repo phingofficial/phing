@@ -22,7 +22,7 @@
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
- * Base class for Git tasks
+ * Wrapper around git-checkout
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @version $Id$
@@ -31,6 +31,4 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * @since 2.4.3
  */
 class GitCheckoutTask extends GitBaseTask
-{
-
-}
+{}
