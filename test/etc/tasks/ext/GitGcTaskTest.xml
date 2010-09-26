@@ -10,7 +10,7 @@
 
     <target name="allParamsSet" description="Gc with all parameters present">
         <gitclone 
-            repository="git://github.com/farazdagi/dotfiles.git"
+            repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" 
@@ -25,7 +25,7 @@
 
     <target name="autoParamSet" description="Gc --auto">
         <gitclone 
-            repository="git://github.com/farazdagi/dotfiles.git"
+            repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" auto="true" />
@@ -33,7 +33,7 @@
 
     <target name="nopruneParamSet" description="Gc --noprune">
         <gitclone 
-            repository="git://github.com/farazdagi/dotfiles.git"
+            repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" noprune="true" />
@@ -41,7 +41,7 @@
 
     <target name="aggressiveParamSet" description="Gc --aggressive">
         <gitclone 
-            repository="git://github.com/farazdagi/dotfiles.git"
+            repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" aggressive="true" />
@@ -49,7 +49,7 @@
 
     <target name="pruneParamSet" description="Gc --prune=date">
         <gitclone 
-            repository="git://github.com/farazdagi/dotfiles.git"
+            repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" prune="1.week.ago" />
