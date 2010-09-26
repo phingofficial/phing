@@ -34,19 +34,19 @@ class GitGcTask extends GitBaseTask
 {
     /**
      * --aggressive key to git-gc
-     * @var string
+     * @var boolean
      */
     private $isAggressive = false;
 
     /**
      * --auto key to git-gc
-     * @var string
+     * @var boolean
      */
     private $isAuto = false;
 
     /**
      * --no-prune key to git-gc
-     * @var string
+     * @var boolean
      */
     private $noPrune = false;
 
