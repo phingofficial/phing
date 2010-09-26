@@ -38,7 +38,7 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
     private $outStream;
     
     public function setUp() {
-        $this->tmpFile = new PhingFile(dirname(__FILE__) . "/../../../tmp/" . get_class($this) . ".txt");
+        $this->tmpFile = new PhingFile(PHING_TEST_BASE .  "/tmp/" . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
     
