@@ -22,7 +22,7 @@
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
- * Wrapper-task around git-clone
+ * Wrapper around git-clone
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @version $Id$
