@@ -91,7 +91,7 @@ class GitFetchTask extends GitBaseTask
      * <repository> argument to git-fetch
      * @var string
      */
-    private $source;
+    private $source = 'origin';
 
     /**
      * <refspec> argument to git-fetch
@@ -121,13 +121,13 @@ class GitFetchTask extends GitBaseTask
         // set operation target
         if ($this->isAllRemotes()) {            // --all
             $command->setOption('all', true);
+        } elseif ($this->getGroup()) {          // <group>
+            $command->addArgument($this->getGroup());
         } elseif ($this->getSource()) {         // <repository> [<refspec>]
             $command->addArgument($this->getSource());
             if ($this->getRefspec()) {
                 $command->addArgument($this->getRefspec());
             }
-        } elseif ($this->getGroup()) {          // <group>
-            $command->addArgument($this->getGroup());
         } else {
             throw new BuildException('No remote repository specified');
         }

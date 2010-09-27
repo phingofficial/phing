@@ -30,7 +30,7 @@
     </target>
 
     <target name="noTarget" description="Required param checking">
-        <gitfetch repository="${tmp.dir.resolved}"/>
+        <gitfetch repository="${tmp.dir.resolved}" source="" />
     </target>
 
     <target name="refspecSet" description="git-fetch --track">
