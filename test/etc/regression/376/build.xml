@@ -11,5 +11,7 @@
 </replacetokens>
 </filterchain>
 	</copy>
+    <!-- clean up -->
+    <delete file="newfile" />
 	</target>
 </project>
