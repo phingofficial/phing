@@ -5,15 +5,17 @@
 <delete file="test.zip"/>
 
 <zip destfile="test.zip">
-      <fileset dir="." defaultexcludes="false">
-        <include name="**"/>
-        <exclude name="**/.gitignore"/>
-        <exclude name=".git/"/>
-        <exclude name="cache/"/>
-        <exclude name="build.xml"/>
-        <exclude name="data/config.php"/>
-      </fileset>
-    </zip>
+    <fileset dir="." defaultexcludes="false">
+    <include name="**"/>
+    <exclude name="**/.gitignore"/>
+    <exclude name=".git/"/>
+    <exclude name="cache/"/>
+    <exclude name="build.xml"/>
+    <exclude name="data/config.php"/>
+    </fileset>
+</zip>
+<!-- cleanup -->
+<delete file="test.zip" />
 </target>
 
 </project>
