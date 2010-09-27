@@ -40,6 +40,12 @@ class GitBranchTask extends GitBaseTask
     private $branchname;
 
     /**
+     * New Branch name for git-branch -m | -M
+     * @var string
+     */
+    private $newbranch;
+
+    /**
      * If not HEAD, specify starting point
      * @var string
      */
@@ -94,6 +100,13 @@ class GitBranchTask extends GitBaseTask
             throw new BuildException('"branchname" is required parameter');
         }
 
+        // if we are moving branch, we need to know new name
+        if ($this->isMove() || $this->isForceMove()) {
+            if (null === $this->getNewbranch()) {
+                throw new BuildException('"newbranch" is required parameter');
+            }
+        }
+
         $client = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('branch');
         $command
@@ -116,6 +129,11 @@ class GitBranchTask extends GitBaseTask
         if (null !== $this->getStartPoint()) {
             $command->addArgument($this->getStartPoint());
         }
+
+        if (null !== $this->getNewbranch()) {
+            $command->addArgument($this->getNewbranch());
+        }
+
 
         // I asked Ebihara to make this method public - will see
         //echo $command->createCommandString();
@@ -224,7 +242,7 @@ class GitBranchTask extends GitBaseTask
 
     public function isDelete()
     {
-        $this->getDelete();
+        return $this->getDelete();
     }
 
     public function setForceDelete($flag)
@@ -249,7 +267,7 @@ class GitBranchTask extends GitBaseTask
 
     public function isMove()
     {
-        $this->getMove();
+        return $this->getMove();
     }
 
     public function setForceMove($flag)
@@ -264,7 +282,17 @@ class GitBranchTask extends GitBaseTask
 
     public function isForceMove()
     {
-        $this->getForceMove();
+        return $this->getForceMove();
+    }
+
+    public function setNewBranch($name)
+    {
+        $this->newbranch = $name;
+    }
+
+    public function getNewBranch()
+    {
+        return $this->newbranch;
     }
 
 }

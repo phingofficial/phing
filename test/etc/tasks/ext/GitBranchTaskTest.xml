@@ -73,7 +73,7 @@
             />
     </target>
 
-    <target name="deleteBranch" description="git-branch -d">
+    <target name="deleteBranch" description="git-branch -d|-D">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
@@ -91,6 +91,68 @@
             repository="${tmp.dir.resolved}" 
             branchname="delete-branch-2" 
             forcedelete="true" />
+    </target>
+
+    <target name="moveBranch" description="git-branch -m">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" track="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" 
+            newbranch="move-branch-2"
+            move="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-2" 
+            delete="true" />
+    </target>
+
+    <target name="forceMoveBranch" description="git-branch -M">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" track="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" 
+            newbranch="move-branch-2"
+            forcemove="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-2" 
+            delete="true" />
+    </target>
+
+    <target name="moveBranchNoNewbranch" description="git-branch -m">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" track="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" 
+            move="true" />
+    </target>
+
+    <target name="forceMoveBranchNoNewbranch" description="git-branch -M">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" track="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="move-branch-1" 
+            forcemove="true" />
     </target>
 
 </project>

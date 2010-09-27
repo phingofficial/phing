@@ -118,4 +118,43 @@ class GitBranchTaskTest extends BuildFileTest {
         $this->assertInLogs('Deleted branch delete-branch-2');
     }
 
+    public function testMoveBranch()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->executeTarget('moveBranch');
+        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
+        // try to delete new branch (thus understanding that rename worked)
+        $this->assertInLogs('Deleted branch move-branch-2');
+    }
+
+    public function testForceMoveBranch()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->executeTarget('forceMoveBranch');
+        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
+        // try to delete new branch (thus understanding that rename worked)
+        $this->assertInLogs('Deleted branch move-branch-2');
+    }
+
+    public function testForceMoveBranchNoNewbranch()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->expectBuildExceptionContaining('forceMoveBranchNoNewbranch', 
+            'New branch name is required in branch move',
+            '"newbranch" is required parameter');
+    }
+
+    public function testMoveBranchNoNewbranch()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->expectBuildExceptionContaining('moveBranchNoNewbranch', 
+            'New branch name is required in branch move',
+            '"newbranch" is required parameter');
+    }
+
+
 }
