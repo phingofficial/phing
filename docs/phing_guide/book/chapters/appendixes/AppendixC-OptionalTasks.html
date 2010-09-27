@@ -827,6 +827,128 @@ Note that you can omit both startpoint and track attributes in this case
     move="true" /&gt;
 
 </pre>
+
+<h2><a name="GitFetchTask"></a>GitFetchTask</h2>
+<p>Download objects and refs from another repository. See official <a
+    href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">documentation</a>.</p>
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>Path to Git repository</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>source</td>
+            <td>String</td>
+            <td>The "remote" repository that is the source of a fetch or pull operation. See &lt;repository&gt; in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>origin</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>refspec</td>
+            <td>String</td>
+            <td>See &lt;refspec&gt; in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td></td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>group</td>
+            <td>String</td>
+            <td>A name referring to a list of repositories as the value of remotes.&lt;group&gt; in the configuration file. See &lt;group&gt; in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td></td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>quiet</td>
+            <td>Boolean</td>
+            <td>Silence any internally used git commands. Progress is not reported to the standard error stream. See --quiet in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>all</td>
+            <td>Boolean</td>
+            <td>Fetch all remotes. See --all in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>keep</td>
+            <td>Boolean</td>
+            <td>Keep downloaded pack. See --keep in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>prune</td>
+            <td>Boolean</td>
+            <td>After fetching, remove any remote tracking branches which no longer exist on the remote. See --prune in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>tags</td>
+            <td>Boolean</td>
+            <td>See --tags in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>no-tags</td>
+            <td>Boolean</td>
+            <td>See --no-tags in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>force</td>
+            <td>Boolean</td>
+            <td>When git fetch is used with &lt;rbranch&gt;:&lt;lbranch&gt;  refspec, it refuses to update the local branch &lt;lbranch&gt; unless the remote branch &lt;rbranch&gt; it fetches is a descendant of &lt;lbranch&gt;. This option overrides that check. See --force in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- Initialize normal repository --&gt;
+&lt;gitinit repository="${repo.dir.resolved}" /&gt;
+
+&lt;!-- Fetch objects from all remotes --&gt;
+&lt;gitfetch
+    repository="${repo.dir.resolved}" all="true" /&gt;
+
+&lt;!-- Fetch from origin/master to "refspec-branch" local branch --&gt;
+&lt;gitfetch 
+    repository="${repo.dir.resolved}" 
+    source="origin"
+    refspec="master:refspec-branch" 
+    quiet="true" /&gt;
+</pre>
+
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
     <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>
