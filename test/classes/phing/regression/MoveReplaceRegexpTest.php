@@ -34,6 +34,11 @@ class MoveReplaceRegexpTest extends BuildFileTest {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/307/build.xml");
     }
 
+    public function tearDown()
+    {
+        @unlink(PHING_TEST_BASE . "/etc/regression/307/anotherfile.bak");
+    }
+
     public function testPhingCallTask () {      
         $this->executeTarget("main");
         
