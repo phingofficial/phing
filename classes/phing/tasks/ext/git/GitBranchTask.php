@@ -70,6 +70,19 @@ class GitBranchTask extends GitBaseTask
     private $force = false;
 
     /**
+     * -d, -D, -m, -M options to git-branch
+     * Respective task options:
+     * delete, forceDelete, move, forceMove
+     * @var array
+     */
+    private $extraOptions = array(
+        'd' => false,
+        'D' => false,
+        'm' => false,
+        'M' => false,
+    );
+
+    /**
      * The main entry point for the task
      */
     public function main()
@@ -91,19 +104,26 @@ class GitBranchTask extends GitBaseTask
             $command->setOption('track', $this->getTrack());
         }
 
+        // check extra options (delete, move)
+        foreach ($this->extraOptions as $option => $flag) {
+            if ($flag) {
+                $command->setOption($option, true);
+            }
+        }
+
         $command->addArgument($this->getBranchname());
 
         if (null !== $this->getStartPoint()) {
             $command->addArgument($this->getStartPoint());
         }
 
+        // I asked Ebihara to make this method public - will see
         //echo $command->createCommandString();
-        //exit;
 
         try {
             $output = $command->execute();
         } catch (Exception $e) {
-            throw new BuildException('Task execution failed');
+            throw new BuildException('Task execution failed.');
         }
 
         $this->log(
@@ -190,6 +210,61 @@ class GitBranchTask extends GitBaseTask
     public function getStartPoint()
     {
         return $this->startPoint;
+    }
+
+    public function setDelete($flag)
+    {
+        $this->extraOptions['d'] = $flag;
+    }
+    
+    public function getDelete()
+    {
+        return $this->extraOptions['d'];
+    }
+
+    public function isDelete()
+    {
+        $this->getDelete();
+    }
+
+    public function setForceDelete($flag)
+    {
+        $this->extraOptions['D'] = $flag;
+    }
+    
+    public function getForceDelete()
+    {
+        return $this->extraOptions['D'];
+    }
+
+    public function setMove($flag)
+    {
+        $this->extraOptions['m'] = $flag;
+    }
+    
+    public function getMove()
+    {
+        return $this->extraOptions['m'];
+    }
+
+    public function isMove()
+    {
+        $this->getMove();
+    }
+
+    public function setForceMove($flag)
+    {
+        $this->extraOptions['M'] = $flag;
+    }
+    
+    public function getForceMove()
+    {
+        return $this->extraOptions['M'];
+    }
+
+    public function isForceMove()
+    {
+        $this->getForceMove();
     }
 
 }

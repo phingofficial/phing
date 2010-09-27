@@ -58,4 +58,39 @@
             setupstream="true" />
     </target>
 
+    <target name="forceParamSet" description="git-branch --force">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="force-param-set" />
+        <!-- try to create already created branck -->
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="force-param-set" 
+            force="true"
+            />
+    </target>
+
+    <target name="deleteBranch" description="git-branch -d">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="delete-branch-1" track="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="delete-branch-2" track="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="delete-branch-1" 
+            delete="true" />
+        <gitbranch 
+            repository="${tmp.dir.resolved}" 
+            branchname="delete-branch-2" 
+            forcedelete="true" />
+    </target>
+
 </project>

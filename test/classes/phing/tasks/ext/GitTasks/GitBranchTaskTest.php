@@ -97,4 +97,25 @@ class GitBranchTaskTest extends BuildFileTest {
         $this->assertInLogs('Branch set-upstream-param-set set up to track local branch master.'); // no output actually
     }
 
+    public function testForceParameter()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->executeTarget('forceParamSet');
+        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
+        $this->assertInLogs('git-branch output: '); // no output actually
+    }
+
+    public function testDeleteBranch()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+
+        $this->executeTarget('deleteBranch');
+        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
+        $this->assertInLogs('Branch delete-branch-1 set up to track local branch master.');
+        $this->assertInLogs('Branch delete-branch-2 set up to track local branch master.');
+        $this->assertInLogs('Deleted branch delete-branch-1');
+        $this->assertInLogs('Deleted branch delete-branch-2');
+    }
+
 }
