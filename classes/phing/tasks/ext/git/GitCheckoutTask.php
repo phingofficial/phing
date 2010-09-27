@@ -31,4 +31,247 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * @since 2.4.3
  */
 class GitCheckoutTask extends GitBaseTask
-{}
+{
+    /**
+     * Branch name
+     * @var string
+     */
+    private $branchname;
+
+    /**
+     * If not HEAD, specify starting point
+     * @var string
+     */
+    private $startPoint;
+
+    /**
+     * --force, -f key to git-checkout
+     * @var boolean
+     */
+    private $force = false;
+
+    /**
+     * --quiet, -q key to git-checkout
+     * @var boolean
+     */
+    private $quiet = false;
+
+    /**
+     * When creating a new branch, set up "upstream" configuration.
+     * --track key to git-checkout
+     * @var boolean
+     */
+    private $track = false;
+
+    /**
+     * Do not set up "upstream" configuration
+     * --no-track key to git-checkout
+     * @var boolean
+     */
+    private $noTrack = false;
+
+    /**
+     * -b, -B, -m, -M options to git-checkout
+     * Respective task options:
+     * create, forceCreate, merge, forceMerge
+     * @var array
+     */
+    private $extraOptions = array(
+        'b' => false,
+        'B' => false,
+        'm' => false,
+        'M' => false,
+    );
+
+    /**
+     * The main entry point for the task
+     */
+    public function main()
+    {
+        if (null === $this->getRepository()) {
+            throw new BuildException('"repository" is required parameter');
+        }
+        if (null === $this->getBranchname()) {
+            throw new BuildException('"branchname" is required parameter');
+        }
+
+        $client = $this->getGitClient(false, $this->getRepository());
+        $command = $client->getCommand('checkout');
+        $command
+            ->setOption('no-track', $this->isNoTrack())
+            ->setOption('q', $this->isQuiet())
+            ->setOption('force', $this->isForce());
+        if ($this->isNoTrack()) {
+            $command->setOption('track', $this->isTrack());
+        }
+
+        // check extra options (create, merge)
+        foreach ($this->extraOptions as $option => $flag) {
+            if ($flag) {
+                $command->setOption($option, true);
+            }
+        }
+
+        $command->addArgument($this->getBranchname());
+
+        if (null !== $this->getStartPoint()) {
+            $command->addArgument($this->getStartPoint());
+        }
+
+        // I asked Ebihara to make this method public - will see
+        echo $command->createCommandString();
+        exit;
+
+        try {
+            $output = $command->execute();
+        } catch (Exception $e) {
+            throw new BuildException('Task execution failed.');
+        }
+
+        $this->log(
+            sprintf('git-checkout: branch "%s" repository', $this->getRepository()), 
+            Project::MSG_INFO); 
+        $this->log('git-checkout output: ' . trim($output), Project::MSG_INFO);
+    }
+
+    public function setBranchname($branchname)
+    {
+        $this->branchname = $branchname;
+    }
+
+    public function getBranchname()
+    {
+        return $this->branchname;
+    }
+
+    public function setStartPoint($startPoint)
+    {
+        $this->startPoint = $startPoint;
+    }
+
+    public function getStartPoint()
+    {
+        return $this->startPoint;
+    }
+
+    public function setForce($flag)
+    {
+        $this->force = $flag;
+    }
+
+    public function getForce($flag)
+    {
+        return $this->force;
+    }
+
+    public function isForce()
+    {
+        return $this->getForce();
+    }
+
+    public function setQuiet($flag)
+    {
+        $this->quiet = $flag;
+    }
+
+    public function getQuiet()
+    {
+        return $this->quiet;
+    }
+
+    public function isQuiet()
+    {
+        return $this->getQuiet();
+    }
+
+    public function setTrack($flag)
+    {
+        $this->track = $flag;
+    }
+
+    public function getTrack()
+    {
+        return $this->track;
+    }
+
+    public function isTrack()
+    {
+        return $this->getTrack();
+    }
+
+    public function setNoTrack($flag)
+    {
+        $this->noTrack = $flag;
+    }
+
+    public function getNoTrack()
+    {
+        return $this->noTrack;
+    }
+
+    public function isNoTrack()
+    {
+        return $this->getNoTrack();
+    }
+    
+    public function setCreate($flag)
+    {
+        $this->extraOptions['b'] = $flag;
+    }
+    
+    public function getCreate()
+    {
+        return $this->extraOptions['b'];
+    }
+
+    public function isCreate()
+    {
+        return $this->getCreate();
+    }
+
+    public function setForceCreate($flag)
+    {
+        $this->extraOptions['B'] = $flag;
+    }
+    
+    public function getForceCreate()
+    {
+        return $this->extraOptions['B'];
+    }
+
+    public function isForceCreate()
+    {
+        return $this->getForceCreate();
+    }
+
+    public function setMerge($flag)
+    {
+        $this->extraOptions['m'] = $flag;
+    }
+    
+    public function getMerge()
+    {
+        return $this->extraOptions['m'];
+    }
+
+    public function isMerge()
+    {
+        return $this->getMerge();
+    }
+
+    public function setForceMerge($flag)
+    {
+        $this->extraOptions['M'] = $flag;
+    }
+    
+    public function getForceMerge()
+    {
+        return $this->extraOptions['M'];
+    }
+
+    public function isForceMerge()
+    {
+        return $this->getForceMerge();
+    }
+
+}
