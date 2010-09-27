@@ -41,7 +41,6 @@ class GitBranchTaskTest extends BuildFileTest {
 
         $this->configureProject(PHING_TEST_BASE 
                               . '/etc/tasks/ext/GitBranchTaskTest.xml');
-        $this->mock = $this->getMockForAbstractClass('GitGcTask');
     }
 
     public function tearDown()

@@ -8,7 +8,7 @@
         <fail>This file should only be run via a testcase</fail>
     </target>
 
-    <target name="allParamsSet" description="Gc with all parameters present">
+    <target name="allParamsSet" description="all parameters present">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />

@@ -20,7 +20,7 @@
  */
  
 require_once 'phing/BuildFileTest.php';
-require_once '../classes/phing/tasks/ext/git/GitBranchTask.php';
+require_once '../classes/phing/tasks/ext/git/GitFetchTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
 
 /**
@@ -40,8 +40,7 @@ class GitFetchTaskTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitBranchTaskTest.xml');
-        $this->mock = $this->getMockForAbstractClass('GitGcTask');
+                              . '/etc/tasks/ext/GitFetchTaskTest.xml');
     }
 
     public function tearDown()
@@ -53,7 +52,16 @@ class GitFetchTaskTest extends BuildFileTest {
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
-        $this->assertInLogs('git-branch output: Branch all-params-set set up to track remote branch master from origin.');
+        $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
+        $this->assertInLogs('git-fetch output: '); // no output actually
+    }
+
+    public function testFetchAllRemotes()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $this->executeTarget('fetchAllRemotes');
+        $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
+        $this->assertInLogs('git-fetch output: Fetching origin');
     }
 
     public function testNoRepositorySpecified()
@@ -63,98 +71,19 @@ class GitFetchTaskTest extends BuildFileTest {
             '"repository" is required parameter');
     }
 
-    public function testNoBranchnameSpecified()
+    public function testNoTargetSpecified()
     {
-        $this->expectBuildExceptionContaining('noBranchname', 
-            'Branchname dir is required',
-            '"branchname" is required parameter');
+        $this->expectBuildExceptionContaining('noTarget', 
+            'Target is required',
+            'No remote repository specified');
     }
 
-    public function testTrackParameter()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->executeTarget('trackParamSet');
-        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs( 'git-branch output: Branch track-param-set set up to track local branch master.');
-    }
-
-    public function testNoTrackParameter()
+    public function testRefspecSet()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->executeTarget('noTrackParamSet');
-        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('git-branch output: '); // no output actually
+        $this->executeTarget('refspecSet');
+        $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
+        $this->assertInLogs('git-fetch output: ');
+        $this->assertInLogs('Deleted branch refspec-branch');
     }
-
-    public function testSetUpstreamParameter()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->executeTarget('setUpstreamParamSet');
-        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('Branch set-upstream-param-set set up to track local branch master.'); // no output actually
-    }
-
-    public function testForceParameter()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->executeTarget('forceParamSet');
-        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('git-branch output: '); // no output actually
-    }
-
-    public function testDeleteBranch()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->executeTarget('deleteBranch');
-        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        $this->assertInLogs('Branch delete-branch-1 set up to track local branch master.');
-        $this->assertInLogs('Branch delete-branch-2 set up to track local branch master.');
-        $this->assertInLogs('Deleted branch delete-branch-1');
-        $this->assertInLogs('Deleted branch delete-branch-2');
-    }
-
-    public function testMoveBranch()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->executeTarget('moveBranch');
-        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        // try to delete new branch (thus understanding that rename worked)
-        $this->assertInLogs('Deleted branch move-branch-2');
-    }
-
-    public function testForceMoveBranch()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->executeTarget('forceMoveBranch');
-        $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
-        // try to delete new branch (thus understanding that rename worked)
-        $this->assertInLogs('Deleted branch move-branch-2');
-    }
-
-    public function testForceMoveBranchNoNewbranch()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->expectBuildExceptionContaining('forceMoveBranchNoNewbranch', 
-            'New branch name is required in branch move',
-            '"newbranch" is required parameter');
-    }
-
-    public function testMoveBranchNoNewbranch()
-    {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-
-        $this->expectBuildExceptionContaining('moveBranchNoNewbranch', 
-            'New branch name is required in branch move',
-            '"newbranch" is required parameter');
-    }
-
-
 }

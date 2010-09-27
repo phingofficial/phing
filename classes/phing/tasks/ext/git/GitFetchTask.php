@@ -40,6 +40,12 @@ class GitFetchTask extends GitBaseTask
     private $force = false;
 
     /**
+     * --quiet, -q key to git-fetch
+     * @var boolean
+     */
+    private $quiet = false;
+
+    /**
      * Fetch all remotes
      * --all key to git-fetch
      * @var boolean
@@ -82,6 +88,12 @@ class GitFetchTask extends GitBaseTask
     private $group;
 
     /**
+     * <repository> argument to git-fetch
+     * @var string
+     */
+    private $source;
+
+    /**
      * <refspec> argument to git-fetch
      * @var string
      */
@@ -95,47 +107,34 @@ class GitFetchTask extends GitBaseTask
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
         }
-        if (null === $this->getBranchname()) {
-            throw new BuildException('"branchname" is required parameter');
-        }
-
-        // if we are moving branch, we need to know new name
-        if ($this->isMove() || $this->isForceMove()) {
-            if (null === $this->getNewbranch()) {
-                throw new BuildException('"newbranch" is required parameter');
-            }
-        }
 
         $client = $this->getGitClient(false, $this->getRepository());
-        $command = $client->getCommand('branch');
+        $command = $client->getCommand('fetch');
         $command
-            ->setOption('set-upstream', $this->isSetUpstream())
-            ->setOption('no-track', $this->isNoTrack())
+            ->setOption('tags', $this->isTags())
+            ->setOption('no-tags', $this->isNoTags())
+            ->setOption('prune', $this->isPrune())
+            ->setOption('keep', $this->isKeepFiles())
+            ->setOption('q', $this->isQuiet())
             ->setOption('force', $this->isForce());
-        if ($this->isNoTrack() == false) {
-            $command->setOption('track', $this->getTrack());
-        }
 
-        // check extra options (delete, move)
-        foreach ($this->extraOptions as $option => $flag) {
-            if ($flag) {
-                $command->setOption($option, true);
+        // set operation target
+        if ($this->isAllRemotes()) {            // --all
+            $command->setOption('all', true);
+        } elseif ($this->getSource()) {         // <repository> [<refspec>]
+            $command->addArgument($this->getSource());
+            if ($this->getRefspec()) {
+                $command->addArgument($this->getRefspec());
             }
+        } elseif ($this->getGroup()) {          // <group>
+            $command->addArgument($this->getGroup());
+        } else {
+            throw new BuildException('No remote repository specified');
         }
-
-        $command->addArgument($this->getBranchname());
-
-        if (null !== $this->getStartPoint()) {
-            $command->addArgument($this->getStartPoint());
-        }
-
-        if (null !== $this->getNewbranch()) {
-            $command->addArgument($this->getNewbranch());
-        }
-
 
         // I asked Ebihara to make this method public - will see
         //echo $command->createCommandString();
+        //exit;
 
         try {
             $output = $command->execute();
@@ -144,9 +143,9 @@ class GitFetchTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-branch: branch "%s" repository', $this->getRepository()), 
+            sprintf('git-fetch: branch "%s" repository', $this->getRepository()), 
             Project::MSG_INFO); 
-        $this->log('git-branch output: ' . trim($output), Project::MSG_INFO);
+        $this->log('git-fetch output: ' . trim($output), Project::MSG_INFO);
     }
 
     public function setForce($flag)
@@ -162,6 +161,21 @@ class GitFetchTask extends GitBaseTask
     public function isForce()
     {
         return $this->getForce();
+    }
+
+    public function setQuiet($flag)
+    {
+        $this->quiet = $flag;
+    }
+
+    public function getQuiet()
+    {
+        return $this->quiet;
+    }
+
+    public function isQuiet()
+    {
+        return $this->getQuiet();
     }
 
     public function setAll($flag)
@@ -237,6 +251,16 @@ class GitFetchTask extends GitBaseTask
     public function isTags()
     {
         return $this->getTags();
+    }
+
+    public function setSource($source)
+    {
+        $this->source = $source;
+    }
+
+    public function getSource()
+    {
+        return $this->source;
     }
 
     public function setRefspec($spec)
