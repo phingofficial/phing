@@ -676,7 +676,157 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
     prune="1.week.ago" /&gt;
 </pre>
 
+<h2><a name="GitBranchTask"></a>GitBranchTask</h2>
+<p>Create, move or delete repository branches. See official <a
+    href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">documentation</a> (branch listing functionality is omitted in current implementation).</p>
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>Path to Git repository</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>branchname</td>
+            <td>String</td>
+            <td>The name of the branch to create or delete.</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>newbranch</td>
+            <td>String</td>
+            <td>The new name for an existing branch.</td>
+            <td>n/a</td>
+            <td>Yes, if branch move invoked</td>
+        </tr>
+        <tr>
+            <td>startpoint</td>
+            <td>String</td>
+            <td>The new branch head will point to this commit. It may be given as a branch name, a commit-id, or a tag. If this option is omitted, the current HEAD will be used instead. See &lt;start-point&gt; argument of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">git-branch</a>.</td>
+            <td></td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>setupstream</td>
+            <td>String</td>
+            <td>If specified branch does not exist yet or if --force has been given, acts exactly like --track. Otherwise sets up configuration like --track would when creating the branch, except that where branch points to is not changed. See --set-upstream option of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">git-branch</a>.</td>
+            <td></td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>track</td>
+            <td>Boolean</td>
+            <td>See --track option of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">git-branch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>notrack</td>
+            <td>Boolean</td>
+            <td>See --no-track option of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html">git-branch</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>force</td>
+            <td>Boolean</td>
+            <td>Reset &lt;branchname&gt; to &lt;startpoint&gt; if &lt;branchname&gt; exists already. Without -f git branch refuses to change an existing branch. </td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>move</td>
+            <td>Boolean</td>
+            <td>Move/rename a branch and the corresponding reflog.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>forcemove</td>
+            <td>Boolean</td>
+            <td>Move/rename a branch even if the new branch name already exists.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>delete</td>
+            <td>Boolean</td>
+            <td>Delete a branch. The branch must be fully merged in its upstream branch, or in HEAD if no upstream was set with --track or --set-upstream. </td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>forcedelete</td>
+            <td>Boolean</td>
+            <td>Delete a branch irrespective of its merged status.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
+&lt;!-- Initialize normal repository --&gt;
+&lt;gitinit repository="${repo.dir.resolved}" /&gt;
+
+&lt;!-- Create branch "sample-branch" tracking current HEAD --&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}" 
+    branchname="sample-branch" /&gt;
+
+&lt;!-- 
+Create branch "sample-branch" tracking origin/master 
+Note that you can omit both startpoint and track attributes in this case
+--&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}" 
+    branchname="sample-branch"
+    startpoint="origin/master"
+    track="true" /&gt;
+
+&lt;!-- Delete fully merged branch "sample-branch" --&gt;
+&lt;gitbranch 
+    repository="${repo.dir.resolved}" 
+    branchname="sample-branch" 
+    delete="true" /&gt;
+
+&lt;!-- Force delete even unmerged branch "sample-branch" --&gt;
+&lt;gitbranch 
+    repository="${repo.dir.resolved}" 
+    branchname="sample-branch" 
+    forcedelete="true" /&gt;
+
+&lt;!-- Renabe "branch1" to "branch2" --&gt;
+&lt;gitbranch 
+    repository="${repo.dir.resolved}" 
+    branchname="branch1" 
+    newbranch="branch2"
+    move="true" /&gt;
+
+</pre>
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
     <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>
