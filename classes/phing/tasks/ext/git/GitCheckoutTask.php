@@ -71,16 +71,15 @@ class GitCheckoutTask extends GitBaseTask
     private $noTrack = false;
 
     /**
-     * -b, -B, -m, -M options to git-checkout
+     * -b, -B, -m  options to git-checkout
      * Respective task options:
-     * create, forceCreate, merge, forceMerge
+     * create, forceCreate, merge
      * @var array
      */
     private $extraOptions = array(
         'b' => false,
         'B' => false,
         'm' => false,
-        'M' => false,
     );
 
     /**
@@ -119,8 +118,8 @@ class GitCheckoutTask extends GitBaseTask
         }
 
         // I asked Ebihara to make this method public - will see
-        echo $command->createCommandString();
-        exit;
+        //echo $command->createCommandString();
+        //exit;
 
         try {
             $output = $command->execute();
@@ -129,7 +128,7 @@ class GitCheckoutTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-checkout: branch "%s" repository', $this->getRepository()), 
+            sprintf('git-checkout: checkout "%s" repository', $this->getRepository()), 
             Project::MSG_INFO); 
         $this->log('git-checkout output: ' . trim($output), Project::MSG_INFO);
     }
@@ -229,9 +228,11 @@ class GitCheckoutTask extends GitBaseTask
         return $this->getCreate();
     }
 
+    // -B flag is not found in all versions of git
+    // --force is present everywhere
     public function setForceCreate($flag)
     {
-        $this->extraOptions['B'] = $flag;
+        $this->setForce($flag);
     }
     
     public function getForceCreate()
@@ -258,20 +259,4 @@ class GitCheckoutTask extends GitBaseTask
     {
         return $this->getMerge();
     }
-
-    public function setForceMerge($flag)
-    {
-        $this->extraOptions['M'] = $flag;
-    }
-    
-    public function getForceMerge()
-    {
-        return $this->extraOptions['M'];
-    }
-
-    public function isForceMerge()
-    {
-        return $this->getForceMerge();
-    }
-
 }
