@@ -158,7 +158,7 @@ class GitCheckoutTask extends GitBaseTask
         $this->force = $flag;
     }
 
-    public function getForce($flag)
+    public function getForce()
     {
         return $this->force;
     }
