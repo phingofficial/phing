@@ -191,7 +191,7 @@ class UnixFileSystem extends FileSystem {
     /* -- most of the following is mapped to the php natives wrapped by FileSystem */    
 
     /* -- Attribute accessors -- */
-    function getBooleanAttributes(&$f) {
+    function getBooleanAttributes($f) {
         //$rv = getBooleanAttributes0($f);
         $name = $f->getName();
         $hidden = (strlen($name) > 0) && ($name{0} == '.');
