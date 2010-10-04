@@ -37,8 +37,16 @@ class MailTask extends Task {
     protected $subject;
     
     protected $msg;
+    
+    protected $from = null;
+    
+    protected $filesets = array();
 
     public function main() {
+        if (empty($this->from)) {
+            throw new BuildException('Missing "from" attribute');
+        }
+        
         $this->log('Sending mail to ' . $this->recipient );    
         mail($this->recipient, $this->subject, $this->msg);
     }
@@ -72,6 +80,24 @@ class MailTask extends Task {
     public function addText($msg)
     {
         $this->msg = (string) $msg;
+    }
+    
+    /**
+     * Sets email address of sender
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+    }
+    
+    /**
+     * Adds a fileset
+     */
+    public function createFileSet()
+    {
+        $fileset = new FileSet();
+        $this->filesets[] = $fileset;
+        return $this->fileset;
     }
 }
 

@@ -314,6 +314,9 @@ class ScpTask extends Task
         }
         
         $this->log("Copied " . $this->counter . " file(s) " . ($this->fetch ? "from" : "to") . " '" . $this->host . "'");
+        
+        // explicitly close ssh connection
+        @ssh2_exec($this->connection, 'exit');
     }
     
     protected function copyFile($local, $remote)
