@@ -31,14 +31,16 @@
  * @version $Id$
  * @package phing.tasks.ext.phpdoc
  */
+
 class PhingPhpDocumentorSetup extends phpDocumentor_setup {
     
     /**
      * Constructs a new PhingPhpDocumentorSetup.
      *
      * @param string $configDir Directory in which to look for configuration files.
+     * @param object $task		The task we're working with, so we can pass it on to the ErrorTracker
      */
-    public function __construct($configdir = null) {
+    public function __construct($configdir = null, $task) {
         global $_phpDocumentor_cvsphpfile_exts, $_phpDocumentor_setting, $_phpDocumentor_phpfile_exts;
         
         $this->setup = new Io();
@@ -59,6 +61,13 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
         }
         
         $this->setMemoryLimit();
+        
+        include_once 'phing/tasks/ext/phpdoc/PhingPhpDocumentorErrorTracker.php';
+        
+        // Inject our own error tracker to PhpDocumentor
+        $GLOBALS['phpDocumentor_errors'] = new PhingPhpDocumentorErrorTracker;
+        $GLOBALS['phpDocumentor_errors']->setTask($task);
+        
     }
     
     /**

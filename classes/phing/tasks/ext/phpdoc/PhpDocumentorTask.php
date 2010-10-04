@@ -362,7 +362,7 @@ class PhpDocumentorTask extends Task
     {
         $this->validate();
         $configdir = $this->configDir ? $this->configDir->getAbsolutePath() : null;
-        $phpdoc = new PhingPhpDocumentorSetup($configdir);
+        $phpdoc = new PhingPhpDocumentorSetup($configdir, $this);
         $this->setPhpDocumentorOptions($phpdoc);
         //$phpdoc->readCommandLineSettings();
         $phpdoc->setupConverters($this->output);
