@@ -101,7 +101,11 @@ class PHPUnitTask extends Task
         }
         
         $path = realpath($pwd . '/../../../');
-        PHPUnit_Util_Filter::addDirectoryToFilter($path);
+        if (version_compare($version, '3.5.0') >= 0) {
+            PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist($path);
+        } else {
+            PHPUnit_Util_Filter::addDirectoryToFilter($path);
+        }
     }
     
     /**

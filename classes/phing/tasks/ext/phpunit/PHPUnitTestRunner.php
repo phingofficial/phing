@@ -19,6 +19,11 @@
  * <http://phing.info>.
  */
 
+// phpunit 3.5 ships with autoloader
+// @todo - find out sane model for Phing and PHPUnit autoloaders/hooks co-existense
+if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
+    require_once 'PHPUnit/Autoload.php';
+}
 require_once 'PHPUnit/Util/ErrorHandler.php';
 require_once 'PHPUnit/Util/Filter.php';
 require_once 'PHPUnit/Runner/BaseTestRunner.php';
@@ -80,8 +85,15 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     
     public static function handleError($level, $message, $file, $line)
     {
-        if (!PHPUnit_Util_Filter::isFiltered($file, true, true))
-        {
+        $isFiltered = false;
+        if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
+            $isFiltered = PHP_CodeCoverage::getInstance()->filter()->isFiltered(
+                $file, array(), true
+            );
+        } else {
+            $isFiltered = PHPUnit_Util_Filter::isFiltered($file, true, true);
+        }
+        if (!$isFiltered) {
             return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
         }
     }
