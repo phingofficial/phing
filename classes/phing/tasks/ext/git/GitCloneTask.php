@@ -57,7 +57,8 @@ class GitCloneTask extends GitBaseTask
             throw new BuildException('"targetPath" is required parameter');
         }
 
-        if ( ($files = @scandir($this->getTargetPath()) && (count($files) > 2) ) ) {
+        $files = @scandir($this->getTargetPath());
+        if (isset($files) && is_array($files) && (count($files) > 2)) {
             throw new BuildException(
                 sprintf(
                     '"%s" target directory is not empty',
