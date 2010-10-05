@@ -36,7 +36,6 @@ class GitCloneTaskTest extends BuildFileTest {
 
         $this->configureProject(PHING_TEST_BASE 
                               . '/etc/tasks/ext/GitCloneTaskTest.xml');
-        $this->mock = $this->getMockForAbstractClass('GitCloneTask');
     }
 
     public function tearDown()
