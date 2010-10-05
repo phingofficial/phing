@@ -22,61 +22,84 @@
 include_once 'phing/Task.php';
 
 /**
- *  Send a message by mail() 
+ *  Send an e-mail message
  *
- *  <mail to="user@example.org" subject="build complete">The build process is a success...</mail> 
+ *  <mail tolist="user@example.org" subject="build complete">The build process is a success...</mail> 
  * 
  *  @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
  *  @version  $Id$
  *  @package  phing.tasks.ext
  */
-class MailTask extends Task {
-
-    protected $recipient;
-      
-    protected $subject;
-    
-    protected $msg;
-    
+class MailTask extends Task
+{
+    protected $tolist = null;
+    protected $subject = null;
+    protected $msg = null;
     protected $from = null;
     
     protected $filesets = array();
-
-    public function main() {
+    
+    public function main()
+    {
         if (empty($this->from)) {
             throw new BuildException('Missing "from" attribute');
         }
         
         $this->log('Sending mail to ' . $this->recipient );    
-        mail($this->recipient, $this->subject, $this->msg);
+        mail($this->tolist, $this->subject, $this->msg);
     }
 
-    /** setter for message */
-    public function setMsg($msg) {
+    /**
+     * Setter for message
+     */
+    public function setMsg($msg)
+    {
         $this->setMessage($msg);
     }
 
-    /** alias setter */
-    public function setMessage($msg) {
+    /**
+     * Alias setter
+     */
+    public function setMessage($msg)
+    {
         $this->msg = (string) $msg;
     }
     
-    /** setter for subject **/
-    public function setSubject($subject) {
-        $this->subject = (string) $subject;    
+    /**
+     * Setter for subject
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = (string) $subject;
     }
 
-    /** setter for recipient **/
-    public function setRecipient($recipient) {
-        $this->recipient = (string) $recipient;
+    /**
+     * Setter for tolist
+     */
+    public function setToList($tolist)
+    {
+        $this->tolist = $tolist;
+    }
+    
+    /**
+     * Alias for (deprecated) recipient
+     */
+    public function setRecipient($recipient)
+    {
+        $this->tolist = (string) $recipient;
     }
 
-    /** alias for recipient **/
-    public function setTo($recipient) {
-        $this->recipient = (string) $recipient;
+    /**
+     * Alias for to
+     */
+    public function setTo($to)
+    {
+        $this->tolist = (string) $to;
     }
         
-    /** Supporting the <mail>Message</mail> syntax. */
+    /**
+     * Supports the <mail>Message</mail> syntax.
+     */
     public function addText($msg)
     {
         $this->msg = (string) $msg;
@@ -100,4 +123,3 @@ class MailTask extends Task {
         return $this->fileset;
     }
 }
-

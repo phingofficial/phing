@@ -1521,6 +1521,56 @@ Note that you can omit both startpoint and track attributes in this case
       <li>fileset <p>JavaScript files to be minified.</p></li>
     </ul>
 
+    <h2><a name="MailTask"></a>MailTask</h2>
+    <p>A task to send email.</p>
+    
+    <h3>Example</h3>
+    <pre>&lt;mail tolist=&quot;user@example.org&quot; subject=&quot;build complete&quot;"&gt;The build process is a success...&lt;/mail&gt;</pre>
+
+    <h3>Attributes</h3><table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+          <th>Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>from</td>
+          <td>String</td>
+          <td>Email address of sender.</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>tolist</td>
+          <td>String</td>
+          <td>Comma-separated list of recipients.</td>
+          <td>none</td>
+          <td>Yes</td>
+        </tr>
+        <tr>
+          <td>message</td>
+          <td>String</td>
+          <td>Message to send in the body of the email.</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>subject</td>
+          <td>String</td>
+          <td>Email subject line.</td>
+          <td>none</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table><h3>Supported Nested Tags</h3><ul>
+      <li>fileset <p>JavaScript files to be minified.</p></li>
+    </ul>
+    
     <h2><a name="PatchTask"></a>PatchTask</h2>
     <p>
     	The <em>PatchTask</em> uses the <a href="http://savannah.gnu.org/projects/patch"
