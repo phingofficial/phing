@@ -21,6 +21,7 @@
 
 require_once 'phing/Task.php';
 include_once 'phing/tasks/system/condition/Condition.php';
+include_once 'phing/tasks/system/PropertyTask.php';
 include_once 'phing/util/DirectoryScanner.php';
 include_once 'phing/util/SourceFileScanner.php';
 include_once 'phing/mappers/MergeMapper.php';
@@ -54,6 +55,14 @@ class UpToDateTask extends Task implements Condition {
      */
     public function setProperty($property) {
         $this->_property = $property;
+    }
+
+    /**
+     * Get property name
+     * @param property the name of the property to set if Target is up-to-date.
+     */
+    public function getProperty() {
+        return $this->_property;
     }
 
     /**
@@ -200,7 +209,12 @@ class UpToDateTask extends Task implements Condition {
         }
         $upToDate = $this->evaluate();
         if ($upToDate) {
-            $this->project->setNewProperty($this->_property, $this->getValue());
+            $property = $this->project->createTask('property');
+            $property->setName($this->getProperty());
+            $property->setValue($this->getValue());
+            $property->setOverride(true);
+            $property->main(); // execute
+
             if ($this->mapperElement === null) {
                 $this->log("File \"" . $this->_targetFile->getAbsolutePath() 
                     . "\" is up-to-date.", Project::MSG_VERBOSE);

@@ -33,8 +33,8 @@ include_once 'phing/IntrospectionHelper.php';
  * This class handles the occurance of registered datatype tags like
  * FileSet
  *
- * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright � 2001,2002 THYRELL. All rights reserved
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Revision$ $Date$
  * @access    public
  * @package   phing.parser
