@@ -7,16 +7,13 @@
          convertNoticesToExceptions="false"
          convertWarningsToExceptions="false"
          processIsolation="true"
-         stopOnFailure="false"
+         stopOnFailure="true"
          syntaxCheck="false"
          verbose="true"
          strict="true">
     <testsuites>
         <testsuite name="AllTests">
             <directory>classes/phing/</directory>
-        </testsuite>
-        <testsuite name="GitTasks">
-            <directory>classes/phing/tasks/ext/GitTasks/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
