@@ -30,6 +30,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  * @package phing.tasks.ext.git
  * @see VersionControl_Git
  * @since 2.4.3
+ * @link http://www.kernel.org/pub/software/scm/git/docs/git-merge.html
  */
 class GitMergeTask extends GitBaseTask
 {
@@ -58,6 +59,18 @@ class GitMergeTask extends GitBaseTask
     private $strategyOption;
 
     /**
+     * --commit key of git-merge
+     * @var boolean
+     */
+    private $commit = false;
+
+    /**
+     * --no-commit key of git-merge
+     * @var boolean
+     */
+    private $noCommit = false;
+
+    /**
      * --quiet, -q key to git-merge
      * @var boolean
      */
@@ -78,7 +91,20 @@ class GitMergeTask extends GitBaseTask
         $client = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('merge');
         $command
+            ->setOption('commit', $this->isCommit())
             ->setOption('q', $this->isQuiet());
+
+        if ($this->isNoCommit()) {
+            $command->setOption('no-commit', $this->isNoCommit());
+        }
+
+        if ($this->getStrategy()) {
+            $command->setOption('strategy', $this->getStrategy());
+            if ($this->getStrategyOption()) {
+                $command->setOption(
+                    'strategy-option', $this->getStrategyOption());
+            }
+        }
 
         $command->addArgument($this->getRemote());
 
@@ -146,5 +172,35 @@ class GitMergeTask extends GitBaseTask
     public function getQuiet()
     {
         return $this->quiet;
+    }
+
+    public function setCommit($flag)
+    {
+        $this->commit = (boolean)$flag;
+    }
+
+    public function getCommit()
+    {
+        return $this->commit;
+    }
+
+    public function isCommit()
+    {
+        return $this->getCommit();
+    }
+
+    public function setNoCommit($flag)
+    {
+        $this->noCommit = (boolean)$flag;
+    }
+
+    public function getNoCommit()
+    {
+        return $this->noCommit;
+    }
+
+    public function isNoCommit()
+    {
+        return $this->getNoCommit();
     }
 }
