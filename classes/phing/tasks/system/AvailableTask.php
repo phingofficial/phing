@@ -28,7 +28,7 @@ include_once 'phing/tasks/system/condition/ConditionBase.php';
  *  Note: implements condition interface (see condition/Condition.php)
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright � 2001,2002 THYRELL. All rights reserved
+ *  @copyright 2001,2002 THYRELL. All rights reserved
  *  @version   $Revision$
  *  @package   phing.tasks.system
  */

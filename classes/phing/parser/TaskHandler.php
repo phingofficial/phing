@@ -28,8 +28,8 @@ include_once 'phing/UnknownElement.php';
  * nested tags (datatypes and tasks) that may be unknown off bat and are
  * initialized on the fly.
  *
- * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright � 2001,2002 THYRELL. All rights reserved
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Revision$
  * @package   phing.parser
  */

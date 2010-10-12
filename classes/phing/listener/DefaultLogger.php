@@ -29,7 +29,7 @@ include_once 'phing/BuildEvent.php';
  *  any messages that get logged.
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright � 2001,2002 THYRELL. All rights reserved
+ *  @copyright 2001,2002 THYRELL. All rights reserved
  *  @version   $Revision$ $Date$
  *  @see       BuildEvent
  *  @package   phing.listener
