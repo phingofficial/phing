@@ -914,7 +914,7 @@ Note that you can omit both startpoint and track attributes in this case
             <td>No</td>
         </tr>
         <tr>
-            <td>no-tags</td>
+            <td>notags</td>
             <td>Boolean</td>
             <td>See --no-tags in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html">git-fetch</a>.</td>
             <td>false</td>
@@ -947,6 +947,132 @@ Note that you can omit both startpoint and track attributes in this case
     source="origin"
     refspec="master:refspec-branch" 
     quiet="true" /&gt;
+</pre>
+
+<h2><a name="GitCheckoutTask"></a>GitCheckoutTask</h2>
+<p>Checkout a branch or paths to the working tree. See official <a
+    href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">documentation</a>.</p>
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>Path to Git repository</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>branchname</td>
+            <td>String</td>
+            <td>Branch to checkout. See &lt;branch&gt; in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a>.</td>
+            <td>origin</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>startpoint</td>
+            <td>String</td>
+            <td>The name of a commit at which to start the new branch; Defaults to HEAD. See &lt;start_point&gt; in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a>.</td>
+            <td></td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>create</td>
+            <td>Boolean</td>
+            <td>Create a new branch named &lt;branchname&gt; and start it at &lt;startpoint&gt;</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>forcecreate</td>
+            <td>Boolean</td>
+            <td>Creates the branch &lt;branchname&gt; and start it at &lt;startpoint&gt;; if it already exists, then
+                reset it to &lt;startpoint&gt;. This is equivalent to running "git branch" with "-f".</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>merge</td>
+            <td>Boolean</td>
+            <td>See --merge in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>track</td>
+            <td>Boolean</td>
+            <td>See --track in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>notrack</td>
+            <td>Boolean</td>
+            <td>See --no-track in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>quiet</td>
+            <td>Boolean</td>
+            <td>Quiet, suppress feedback messages. See --quiet in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>force</td>
+            <td>Boolean</td>
+            <td>When switching branches, proceed even if the index or the working tree differs from HEAD. This is used
+                to throw away local changes. See --force in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html">git-checkout</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- clone repository --&gt;
+&lt;gitclone 
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- create and switch to "mybranch" branch --&gt;
+&lt;gitcheckout
+    repository="${repo.dir.resolved}" 
+    branchname="mybranch" quiet="true" create="true" /&gt;
+
+&lt;!-- get back to "master" branch --&gt;
+&lt;gitcheckout
+    repository="${repo.dir.resolved}" 
+    branchname="master" quiet="true" /&gt;
+
+&lt;!-- create (force) already created branch --&gt;
+&lt;gitcheckout
+    repository="${repo.dir.resolved}" 
+    branchname="mybranch" quiet="true" 
+    forceCreate="true" /&gt;
 </pre>
 
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
