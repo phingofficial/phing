@@ -37,7 +37,7 @@ class GitMergeTask extends GitBaseTask
      * <commit> of git-merge
      * @var
      */
-    private $commit;
+    private $remote;
 
     /**
      * Commit message
@@ -71,8 +71,8 @@ class GitMergeTask extends GitBaseTask
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
         }
-        if (null === $this->getCommit()) {
-            throw new BuildException('"commit" is required parameter');
+        if (null === $this->getRemote()) {
+            throw new BuildException('"remote" is required parameter');
         }
 
         $client = $this->getGitClient(false, $this->getRepository());
@@ -80,7 +80,7 @@ class GitMergeTask extends GitBaseTask
         $command
             ->setOption('q', $this->isQuiet());
 
-        $command->addArgument($this->getCommit());
+        $command->addArgument($this->getRemote());
 
         //echo $command->createCommandString();
         //exit;
@@ -92,20 +92,20 @@ class GitMergeTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-merge: replaying "%s" commits', $this->getCommit()), 
+            sprintf('git-merge: replaying "%s" commits', $this->getRemote()), 
             Project::MSG_INFO); 
         $this->log('git-merge output: ' . trim($output), Project::MSG_INFO);
 
     }
 
-    public function setCommit($commit)
+    public function setRemote($remote)
     {
-        $this->commit = $commit;
+        $this->remote = $remote;
     }
 
-    public function getCommit()
+    public function getRemote()
     {
-        return $this->commit;
+        return $this->remote;
     }
 
     public function setMessage($message)
