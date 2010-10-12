@@ -82,6 +82,7 @@ class TargetHandler extends AbstractHandler {
         $unlessCond = null;
         $id = null;
         $description = null;
+        $isHidden = false;
 
         foreach($attrs as $key => $value) {
             if ($key==="name") {
@@ -94,6 +95,8 @@ class TargetHandler extends AbstractHandler {
                 $unlessCond = (string) $value;
             } else if ($key==="id") {
                 $id = (string) $value;
+            } else if ($key==="hidden") {
+                $isHidden = ($value == 'true' || $value == '1') ? true : false;
             } else if ($key==="description") {
                 $description = (string)$value;
             } else {
@@ -116,6 +119,7 @@ class TargetHandler extends AbstractHandler {
 
         $this->target = new Target();
         $this->target->setName($name);
+        $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
         $this->target->setUnless($unlessCond);
         $this->target->setDescription($description);

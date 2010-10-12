@@ -877,6 +877,9 @@ class Phing {
         foreach($targets as $currentTarget) {
             $targetName = $currentTarget->getName();
             $targetDescription = $currentTarget->getDescription();
+            if ($currentTarget->isHidden()) {
+                continue;
+            }
 
             // subtargets are targets w/o descriptions
             if ($targetDescription === null) {

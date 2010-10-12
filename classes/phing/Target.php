@@ -52,6 +52,12 @@ class Target implements TaskContainer {
     
     /** description of this target */
     private $description;
+
+    /**
+     * Whether to hide target in targets list (-list -p switches)
+     * @var boolean
+     */
+    private $hidden = false;
     
     /** reference to project */
     private $project;
@@ -129,6 +135,37 @@ class Target implements TaskContainer {
      */
     function getName() {
         return (string) $this->name;
+    }
+
+    /**
+     * Set target status. If true, target doesn not come in phing -list
+     *
+     * @return Target
+     */
+    public function setHidden($flag)
+    {
+        $this->hidden = (boolean) $flag;
+        return $this;
+    }
+
+    /**
+     * Get target status. If true, target doesn not come in phing -list
+     *
+     * @return boolean
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
+    }
+
+    /**
+     * Alias for getHidden()
+     *
+     * @return boolean
+     */
+    public function isHidden()
+    {
+        return $this->getHidden();
     }
 
     /**
