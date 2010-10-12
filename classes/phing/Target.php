@@ -138,7 +138,7 @@ class Target implements TaskContainer {
     }
 
     /**
-     * Set target status. If true, target doesn not come in phing -list
+     * Set target status. If true, target does not come in phing -list
      *
      * @return Target
      */
@@ -149,7 +149,7 @@ class Target implements TaskContainer {
     }
 
     /**
-     * Get target status. If true, target doesn not come in phing -list
+     * Get target status. If true, target does not come in phing -list
      *
      * @return boolean
      */
