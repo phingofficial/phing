@@ -2103,6 +2103,12 @@ to be executed using the same PDO connection and commit operation in between.</p
 	    <ul>
 	    	<li>
 	    		deps (optional)
+                <br />
+                see <a
+                    href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php">PEAR_PackageFileManager::addDependency()</a>
+                for more info
+                <br />
+                <br />
 
 				<table>
 			      <thead>
@@ -2153,8 +2159,65 @@ to be executed using the same PDO connection and commit operation in between.</p
 			      </tbody>
 			    </table>
 	    	</li>
+            <li>
+	    		extdeps (optional)
+                <br />
+                see <a
+                    href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php">PEAR_PackageFileManager::addDependency()</a>
+                for more info
+                <br />
+                <br />
+
+				<table>
+			      <thead>
+			        <tr>
+			          <th>Name</th>
+			          <th>Type</th>
+			          <th>Description</th>
+			          <th>Default</th>
+			          <th>Required</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr>
+			          <td>name</td>
+			          <td>String</td>
+			          <td>Package name.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+                    <tr>
+                      <td>version</td>
+                      <td>String</td>
+                      <td>Minimal version.</td>
+                      <td>n/a</td>
+                      <td>Yes</td>
+                    </tr>
+                    <tr>
+                      <td>max</td>
+                      <td>String</td>
+                      <td>Maximum version.</td>
+                      <td>Same as version.</td>
+                      <td>No</td>
+                    </tr>
+                    <tr>
+                      <td>recommended</td>
+                      <td>String</td>
+                      <td>Recommended version.</td>
+                      <td>Same as version.</td>
+                      <td>No</td>
+                    </tr>
+			      </tbody>
+			    </table>
+	    	</li>
 	    	<li>
 	    		maintainers (required at least one)
+                <br />
+                see <a
+                    href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addmaintainer.php">PEAR_PackageFileManager::addMaintainer()</a>
+                for more info
+                <br />
+                <br />
 
 				<table>
 			      <thead>
@@ -2192,6 +2255,57 @@ to be executed using the same PDO connection and commit operation in between.</p
 			          <td>role</td>
 			          <td>String</td>
 			          <td>One from: lead, developer, contributor or helper.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			      </tbody>
+			    </table>
+	    	</li>
+            <li>
+	    		replacements (optional)
+                <br />
+                see <a
+                    href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addreplacement.php">PEAR_PackageFileManager::addReplacement()</a>
+                for more info
+                <br />
+                <br />
+
+				<table>
+			      <thead>
+			        <tr>
+			          <th>Name</th>
+			          <th>Type</th>
+			          <th>Description</th>
+			          <th>Default</th>
+			          <th>Required</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr>
+			          <td>path</td>
+			          <td>String</td>
+			          <td>Relative path of file.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			        <tr>
+			          <td>type</td>
+			          <td>String</td>
+			          <td>Variable type, either php-const, pear-config or package-info.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			        <tr>
+			          <td>from</td>
+			          <td>String</td>
+			          <td>Text to replace in the source file.</td>
+			          <td>n/a</td>
+			          <td>Yes</td>
+			        </tr>
+			        <tr>
+			          <td>to</td>
+			          <td>String</td>
+                      <td>Variable name to use for replacement.</td>
 			          <td>n/a</td>
 			          <td>Yes</td>
 			        </tr>
