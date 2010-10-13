@@ -36,7 +36,7 @@ include_once 'phing/util/StringHelper.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @copyright © 2001,2002 THYRELL. All rights reserved
+ * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Revision$
  * @package   phing
  */
@@ -178,7 +178,7 @@ class IntrospectionHelper {
                     
                 } elseif (strpos($name, "create") === 0) {                            
                     
-                    if (count($method->getParameters()) > 0) {
+                    if ($method->getNumberOfRequiredParameters() > 0) {
                         throw new BuildException($method->getDeclaringClass()->getName()."::".$method->getName()."() may not take any parameters.");
                     }
                     
