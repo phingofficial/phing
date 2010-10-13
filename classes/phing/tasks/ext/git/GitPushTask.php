@@ -133,4 +133,116 @@ class GitPushTask extends GitBaseTask
         $this->log('git-push output: ' . trim($output), Project::MSG_INFO);
     }
 
+    public function setAll($flag)
+    {
+        $this->allRemotes = $flag;
+    }
+
+    public function getAll()
+    {
+        return $this->allRemotes;
+    }
+
+    public function isAllRemotes()
+    {
+        return $this->getAll();
+    }
+
+    public function setMirror($flag)
+    {
+        $this->mirror = (boolean)$flag;
+    }
+
+    public function getMirror()
+    {
+        return $this->mirror;
+    }
+
+    public function isMirror()
+    {
+        return $this->getMirror();
+    }
+
+    public function setDelete($flag)
+    {
+        $this->delete = (boolean)$flag;
+    }
+
+    public function getDelete()
+    {
+        return $this->delete;
+    }
+
+    public function isDelete()
+    {
+        return $this->getDelete();
+    }
+
+    public function setTags($flag)
+    {
+        $this->tags = $flag;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function isTags()
+    {
+        return $this->getTags();
+    }
+
+    public function setDestination($destination)
+    {
+        $this->destination = $destination;
+    }
+
+    public function getDestination()
+    {
+        return $this->destination;
+    }
+
+    public function setRefspec($spec)
+    {
+        $this->refspec = $spec;
+    }
+
+    public function getRefspec()
+    {
+        return $this->refspec;
+    }
+
+    public function setForce($flag)
+    {
+        $this->force = $flag;
+    }
+
+    public function getForce()
+    {
+        return $this->force;
+    }
+
+    public function isForce()
+    {
+        return $this->getForce();
+    }
+    public function setQuiet($flag)
+    {
+        $this->quiet = $flag;
+    }
+
+    public function getQuiet()
+    {
+        return $this->quiet;
+    }
+
+    public function isQuiet()
+    {
+        return $this->getQuiet();
+    }
+
+
+
+
 }
