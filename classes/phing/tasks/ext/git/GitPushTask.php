@@ -23,7 +23,7 @@ require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 
 /**
- * Wrapper aroung git-fetch
+ * Wrapper aroung git-push
  *
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @version $Id$
@@ -227,6 +227,7 @@ class GitPushTask extends GitBaseTask
     {
         return $this->getForce();
     }
+
     public function setQuiet($flag)
     {
         $this->quiet = $flag;
