@@ -173,21 +173,6 @@ class GitPullTask extends GitBaseTask
 
     }
 
-    public function setRebase($flag)
-    {
-        $this->rebase = (boolean)$flag;
-    }
-
-    public function getRebase()
-    {
-        return $this->rebase;
-    }
-
-    public function isRebase()
-    {
-        return $this->getRebase();
-    }
-
     public function setStrategy($strategy)
     {
         $this->strategy = $strategy;
@@ -347,4 +332,20 @@ class GitPullTask extends GitBaseTask
     {
         return $this->getNoRebase();
     }
+
+    public function setForce($flag)
+    {
+        $this->force = $flag;
+    }
+
+    public function getForce()
+    {
+        return $this->force;
+    }
+
+    public function isForce()
+    {
+        return $this->getForce();
+    }
+
 }
