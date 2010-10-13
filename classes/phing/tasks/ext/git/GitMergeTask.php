@@ -84,7 +84,8 @@ class GitMergeTask extends GitBaseTask
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
         }
-        if (null === $this->getRemote()) {
+        $remotes = trim($this->getRemote());
+        if (null === $remotes || '' === $remotes) {
             throw new BuildException('"remote" is required parameter');
         }
 
@@ -94,7 +95,7 @@ class GitMergeTask extends GitBaseTask
             ->setOption('commit', $this->isCommit())
             ->setOption('q', $this->isQuiet());
 
-        if ($this->isNoCommit()) {
+        if (!$this->isCommit()) {
             $command->setOption('no-commit', $this->isNoCommit());
         }
 
@@ -106,7 +107,10 @@ class GitMergeTask extends GitBaseTask
             }
         }
 
-        $command->addArgument($this->getRemote());
+        $remotes = explode(' ', $this->getRemote());
+        foreach ($remotes as $remote) {
+            $command->addArgument($remote);
+        }
 
         //echo $command->createCommandString();
         //exit;
@@ -172,6 +176,11 @@ class GitMergeTask extends GitBaseTask
     public function getQuiet()
     {
         return $this->quiet;
+    }
+
+    public function isQuiet()
+    {
+        return $this->getQuiet();
     }
 
     public function setCommit($flag)
