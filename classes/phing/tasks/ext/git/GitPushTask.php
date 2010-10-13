@@ -1,0 +1,136 @@
+<?php
+/*
+ *  $Id$
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
+ */
+ 
+require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/git/GitBaseTask.php';
+
+/**
+ * Wrapper aroung git-fetch
+ *
+ * @author Victor Farazdagi <simple.square@gmail.com>
+ * @version $Id$
+ * @package phing.tasks.ext.git
+ * @see VersionControl_Git
+ * @since 2.4.3
+ * @link http://www.kernel.org/pub/software/scm/git/docs/git-push.html
+ */
+class GitPushTask extends GitBaseTask
+{
+    /**
+     * Fetch all remotes
+     * --all key to git-push
+     * @var boolean
+     */
+    private $allRemotes = false;
+
+    /**
+     * Mirror to remote repository
+     * --mirror key to git-push
+     * @var boolean
+     */
+    private $mirror = false;
+
+    /**
+     * --delete argument to git-push
+     * @var string
+     */
+    private $delete = false;
+
+    /**
+     * Push all refs under refs/tags
+     * --tags key to git-fetch
+     * @var boolean
+     */
+    private $tags = false;
+
+    /**
+     * <repository> argument to git-push
+     * @var string
+     */
+    private $destination = 'origin';
+
+    /**
+     * <refspec> argument to git-push
+     * @var string
+     */
+    private $refspec;
+
+    /**
+     * --force, -f key to git-push
+     * @var boolean
+     */
+    private $force = false;
+
+    /**
+     * --quiet, -q key to git-push
+     * @var boolean
+     */
+    private $quiet = false;
+
+    /**
+     * The main entry point for the task
+     */
+    public function main()
+    {
+        if (null === $this->getRepository()) {
+            throw new BuildException('"repository" is required parameter');
+        }
+
+        $client = $this->getGitClient(false, $this->getRepository());
+        $command = $client->getCommand('push');
+        $command
+            ->setOption('tags', $this->isTags())
+            ->setOption('mirror', $this->isMirror())
+            ->setOption('delete', $this->isDelete())
+            ->setOption('q', $this->isQuiet())
+            ->setOption('force', $this->isForce());
+
+        // set operation target
+        if ($this->isAllRemotes()) {            // --all
+            $command->setOption('all', true);
+            $this->log('git-push: push to all remotes', Project::MSG_INFO); 
+        } elseif ($this->getSource()) {         // <repository> [<refspec>]
+            $command->addArgument($this->getDestination());
+            if ($this->getRefspec()) {
+                $command->addArgument($this->getRefspec());
+            }
+            $this->log(
+                sprintf('git-push: pushing to %s %s', 
+                    $this->getDestination(), $this->getRefspec()), 
+                Project::MSG_INFO); 
+        } else {
+            throw new BuildException('No remote repository specified');
+        }
+
+        //echo $command->createCommandString();
+        //exit;
+
+        try {
+            $output = $command->execute();
+        } catch (Exception $e) {
+            throw new BuildException('Task execution failed.');
+        }
+
+        $this->log('git-push: complete', Project::MSG_INFO); 
+        $this->log('git-push output: ' . trim($output), Project::MSG_INFO);
+    }
+
+}
