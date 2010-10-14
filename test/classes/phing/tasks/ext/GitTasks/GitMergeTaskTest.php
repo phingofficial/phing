@@ -48,15 +48,20 @@ class GitMergeTaskTest extends BuildFileTest {
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
     }
 
-    /**
-     * @group current
-     */
     public function testAllParamsSet()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
-        $this->assertInLogs('git-merge output: Already up-to-date. Yeeah!');
+        $this->assertInLogs('git-merge output: Already up-to-date.');
+    }
+
+    public function testCommitSet()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $this->executeTarget('commitSet');
+        $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
+        $this->assertInLogs('git-merge output: Already up-to-date.');
     }
 
     public function testNoRepositorySpecified()
@@ -73,12 +78,9 @@ class GitMergeTaskTest extends BuildFileTest {
             '"remote" is required parameter');
     }
 
-    public function testRefspecSet()
+    public function testWrongStrategySet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
-        $this->executeTarget('refspecSet');
-        $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
-        $this->assertInLogs('git-fetch output: ');
-        $this->assertInLogs('Deleted branch refspec-branch');
+        $this->expectBuildExceptionContaining('wrongStrategySet', 
+            'Wrong strategy passed', 'Task execution failed.');
     }
 }

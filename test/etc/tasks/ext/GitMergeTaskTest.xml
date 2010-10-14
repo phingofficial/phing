@@ -32,19 +32,46 @@
         <gitmerge repository="${tmp.dir.resolved}" remote="" />
     </target>
 
-    <target name="refspecSet" description="git-merge --track">
+    <target name="wrongStrategySet" description="git-merge --strategy">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
-        <gitmerge 
-            repository="${tmp.dir.resolved}" 
-            destination="origin"
-            refspec="master:refspec-branch" 
-            quiet="true" />
+        <!-- create couple of test branches -->
         <gitbranch
             repository="${tmp.dir.resolved}" 
-            branchname="refspec-branch" 
-            delete="true" />
+            branchname="merge-test-1" startpoint="origin/master" />
+        <gitmerge
+            repository="${tmp.dir.resolved}" 
+            remote="merge-test-1" 
+            strategy="plain-wrong" />
     </target>
+
+    <target name="strategySet" description="git-merge --strategy">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <!-- create couple of test branches -->
+        <gitbranch
+            repository="${tmp.dir.resolved}" 
+            branchname="merge-test-1" startpoint="origin/master" />
+        <gitmerge
+            repository="${tmp.dir.resolved}" 
+            remote="merge-test-1" 
+            strategy="recursive" />
+    </target>
+
+    <target name="commitSet" description="git-merge commit">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <!-- create couple of test branches -->
+        <gitbranch
+            repository="${tmp.dir.resolved}" 
+            branchname="merge-test-1" startpoint="origin/master" />
+        <gitmerge
+            repository="${tmp.dir.resolved}" 
+            remote="6dbaf4508e75dcd426b5b974a67c462c70d46e1f" />
+    </target>
+
 
 </project>

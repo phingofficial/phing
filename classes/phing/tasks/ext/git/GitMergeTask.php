@@ -48,6 +48,7 @@ class GitMergeTask extends GitBaseTask
 
     /**
      * Merge strategy. See -s <strategy> of git-merge
+     * Available strategies are: octopus ours recursive resolve subtree
      * @var string
      */
     private $strategy;
