@@ -78,6 +78,13 @@ class GitMergeTask extends GitBaseTask
     private $quiet = false;
 
     /**
+     * Valid merge strategies
+     * @var array
+     */
+    private $validStrategies = array(
+        'octopus', 'ours', 'recursive', 'resolve', 'subtree');
+
+    /**
      * The main entry point for the task
      */
     public function main()
@@ -96,12 +103,23 @@ class GitMergeTask extends GitBaseTask
             ->setOption('commit', $this->isCommit())
             ->setOption('q', $this->isQuiet());
 
+        if ($this->getMessage()) {
+            $command->setOption('message', $this->getMessage());
+        }
+
         if (!$this->isCommit()) {
             $command->setOption('no-commit', $this->isNoCommit());
         }
 
-        if ($this->getStrategy()) {
-            $command->setOption('strategy', $this->getStrategy());
+        $strategy = $this->getStrategy();
+        if ($strategy) {
+            // check if strategy is valid
+            if (false === in_array($strategy, $this->validStrategies)) {
+                throw new BuildException(
+                    "Could not find merge strategy '" . $strategy . "'\n".
+                    "Available strategies are: " . implode(', ', $this->validStrategies));
+            }
+            $command->setOption('strategy', $strategy);
             if ($this->getStrategyOption()) {
                 $command->setOption(
                     'strategy-option', $this->getStrategyOption());

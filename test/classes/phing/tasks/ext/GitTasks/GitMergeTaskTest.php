@@ -56,10 +56,18 @@ class GitMergeTaskTest extends BuildFileTest {
         $this->assertInLogs('git-merge output: Already up-to-date.');
     }
 
-    public function testCommitSet()
+    public function testNoCommitSet()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';
-        $this->executeTarget('commitSet');
+        $this->executeTarget('noCommitSet');
+        $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
+        $this->assertInLogs('git-merge output: Already up-to-date.');
+    }
+
+    public function testRemoteSet()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up-to-date.');
     }
@@ -81,6 +89,6 @@ class GitMergeTaskTest extends BuildFileTest {
     public function testWrongStrategySet()
     {
         $this->expectBuildExceptionContaining('wrongStrategySet', 
-            'Wrong strategy passed', 'Task execution failed.');
+            'Wrong strategy passed', 'Could not find merge strategy \'plain-wrong\'');
     }
 }
