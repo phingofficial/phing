@@ -16,4 +16,15 @@
             <directory>classes/phing/</directory>
         </testsuite>
     </testsuites>
+    <groups>
+        <exclude>
+            <group>disable</group>
+        </exclude>
+    </groups>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../classes/phing/tasks/ext/git</directory>
+        </whitelist>
+    </filter>
 </phpunit>
