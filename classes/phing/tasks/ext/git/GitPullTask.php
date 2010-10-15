@@ -108,13 +108,20 @@ class GitPullTask extends GitBaseTask
      * --quiet, -q key to git-pull
      * @var boolean
      */
-    private $quiet = false;
+    private $quiet = true;
 
     /**
      * --force, -f key to git-pull
      * @var boolean
      */
     private $force = false;
+
+    /**
+     * Valid merge strategies
+     * @var array
+     */
+    private $validStrategies = array(
+        'octopus', 'ours', 'recursive', 'resolve', 'subtree');
 
     /**
      * The main entry point for the task
@@ -124,23 +131,39 @@ class GitPullTask extends GitBaseTask
         if (null === $this->getRepository()) {
             throw new BuildException('"repository" is required parameter');
         }
-        if (null === $this->getCommit()) {
-            throw new BuildException('"commit" is required parameter');
-        }
 
         $client = $this->getGitClient(false, $this->getRepository());
         $command = $client->getCommand('pull');
         $command
+            ->setOption('rebase', $this->isRebase());
+
+        if (!$this->isRebase()) {
+            $command->setOption('no-rebase', $this->isNoRebase());
+        }
+
+        $strategy = $this->getStrategy();
+        if ($strategy) {
+            // check if strategy is valid
+            if (false === in_array($strategy, $this->validStrategies)) {
+                throw new BuildException(
+                    "Could not find merge strategy '" . $strategy . "'\n".
+                    "Available strategies are: " . implode(', ', $this->validStrategies));
+            }
+            $command->setOption('strategy', $strategy);
+            if ($this->getStrategyOption()) {
+                $command->setOption(
+                    'strategy-option', $this->getStrategyOption());
+            }
+        }
+
+        // order of arguments is important
+        $command
             ->setOption('tags', $this->isTags())
             ->setOption('no-tags', $this->isNoTags())
             ->setOption('keep', $this->isKeepFiles())
-            ->setOption('rebase', $this->isRebase())
+            ->setOption('append', $this->isAppend())
             ->setOption('q', $this->isQuiet())
             ->setOption('force', $this->isForce());
-
-        if ($this->isNoRebase()) {
-            $command->setOption('no-rebase', $this->isNoRebase());
-        }
 
         // set operation target
         if ($this->isAllRemotes()) {            // --all
@@ -156,7 +179,7 @@ class GitPullTask extends GitBaseTask
                     $this->getSource(), $this->getRefspec()), 
                 Project::MSG_INFO); 
         } else {
-            throw new BuildException('No remote repository specified');
+            throw new BuildException('No source repository specified');
         }
 
         //echo $command->createCommandString();
