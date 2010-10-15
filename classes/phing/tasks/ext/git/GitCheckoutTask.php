@@ -99,16 +99,12 @@ class GitCheckoutTask extends GitBaseTask
         $command
             ->setOption('no-track', $this->isNoTrack())
             ->setOption('q', $this->isQuiet())
-            ->setOption('force', $this->isForce());
+            ->setOption('force', $this->isForce())
+            ->setOption('b', $this->isCreate())
+            ->setOption('B', $this->isForceCreate())
+            ->setOption('m', $this->isMerge());
         if ($this->isNoTrack()) {
             $command->setOption('track', $this->isTrack());
-        }
-
-        // check extra options (create, merge)
-        foreach ($this->extraOptions as $option => $flag) {
-            if ($flag) {
-                $command->setOption($option, true);
-            }
         }
 
         $command->addArgument($this->getBranchname());
@@ -117,7 +113,6 @@ class GitCheckoutTask extends GitBaseTask
             $command->addArgument($this->getStartPoint());
         }
 
-        // I asked Ebihara to make this method public - will see
         //echo $command->createCommandString();
         //exit;
 
