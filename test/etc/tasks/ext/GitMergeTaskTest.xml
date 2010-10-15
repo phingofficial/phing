@@ -21,7 +21,8 @@
             branchname="merge-test-2" startpoint="origin/master" />
         <gitmerge
             repository="${tmp.dir.resolved}" 
-            remote="merge-test-1 merge-test-2" />
+            remote="merge-test-1 merge-test-2" 
+            message="merging repos" commit="true"/>
     </target>
 
     <target name="noRepository" description="Required param checking">
@@ -43,7 +44,7 @@
         <gitmerge
             repository="${tmp.dir.resolved}" 
             remote="merge-test-1" 
-            strategy="plain-wrong" />
+            strategy="plain-wrong" quiet="true" />
     </target>
 
     <target name="strategySet" description="git-merge --strategy">
@@ -60,7 +61,7 @@
             strategy="recursive" />
     </target>
 
-    <target name="commitSet" description="git-merge commit">
+    <target name="remoteSet" description="git-merge commit">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
             targetPath="${tmp.dir.resolved}" />
@@ -71,6 +72,19 @@
         <gitmerge
             repository="${tmp.dir.resolved}" 
             remote="6dbaf4508e75dcd426b5b974a67c462c70d46e1f" />
+    </target>
+
+    <target name="noCommitSet" description="git-merge --no-commit">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <!-- create couple of test branches -->
+        <gitbranch
+            repository="${tmp.dir.resolved}" 
+            branchname="merge-test-1" startpoint="origin/master" />
+        <gitmerge
+            repository="${tmp.dir.resolved}" 
+            remote="6dbaf4508e75dcd426b5b974a67c462c70d46e1f" nocommit="true" />
     </target>
 
 
