@@ -35,7 +35,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
 class GitPushTask extends GitBaseTask
 {
     /**
-     * Fetch all remotes
+     * Instead of naming each ref to push, specifies that all refs
      * --all key to git-push
      * @var boolean
      */
@@ -49,6 +49,7 @@ class GitPushTask extends GitBaseTask
     private $mirror = false;
 
     /**
+     * Same as prefixing repos with colon
      * --delete argument to git-push
      * @var string
      */
@@ -83,7 +84,7 @@ class GitPushTask extends GitBaseTask
      * --quiet, -q key to git-push
      * @var boolean
      */
-    private $quiet = false;
+    private $quiet = true;
 
     /**
      * The main entry point for the task
@@ -106,8 +107,11 @@ class GitPushTask extends GitBaseTask
         // set operation target
         if ($this->isAllRemotes()) {            // --all
             $command->setOption('all', true);
-            $this->log('git-push: push to all remotes', Project::MSG_INFO); 
-        } elseif ($this->getSource()) {         // <repository> [<refspec>]
+            $this->log('git-push: push to all refs', Project::MSG_INFO); 
+        } elseif ($this->isMirror()) {         // <repository> [<refspec>]
+            $command->setOption('mirror', true);
+            $this->log('git-push: mirror all refs', Project::MSG_INFO); 
+        } elseif ($this->getDestination()) {         // <repository> [<refspec>]
             $command->addArgument($this->getDestination());
             if ($this->getRefspec()) {
                 $command->addArgument($this->getRefspec());
@@ -117,7 +121,7 @@ class GitPushTask extends GitBaseTask
                     $this->getDestination(), $this->getRefspec()), 
                 Project::MSG_INFO); 
         } else {
-            throw new BuildException('No remote repository specified');
+            throw new BuildException('At least one destination must be provided');
         }
 
         //echo $command->createCommandString();
@@ -130,6 +134,9 @@ class GitPushTask extends GitBaseTask
         }
 
         $this->log('git-push: complete', Project::MSG_INFO); 
+        if ($this->isDelete()) {
+            $this->log('git-push: branch delete requested', Project::MSG_INFO);
+        }
         $this->log('git-push output: ' . trim($output), Project::MSG_INFO);
     }
 
