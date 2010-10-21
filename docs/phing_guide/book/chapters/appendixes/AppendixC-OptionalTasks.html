@@ -1184,6 +1184,156 @@ Note that you can omit both startpoint and track attributes in this case
     remote="merge-test-1 merge-test-2" 
     message="merging repos" commit="true" /&gt;
 </pre>
+
+<h2><a name="GitPullTask"></a>GitPullTask</h2>
+<p>Fetch from and merge with another repository or a local branch. See official <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">documentation</a>.</p>
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>Path to Git repository</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>all</td>
+            <td>Boolean</td>
+            <td>Fetch all remotes</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>source</td>
+            <td>String</td>
+            <td>The "remote" repository that is the source of a fetch or pull operation. 
+                See &lt;repository&gt; in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>origin</td>
+            <td>Yes, if allRemotes set to false</td>
+        </tr>
+        <tr>
+            <td>refspec</td>
+            <td>String</td>
+            <td>See &lt;refspec&gt; in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>strategy</td>
+            <td>String</td>
+            <td>Merge strategy. One of "resolve", "recursive", "octopus", "ours", or "subtree".
+                See &lt;strategy&gt; in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>strategyOption</td>
+            <td>String</td>
+            <td>Pass merge strategy specific option through to the merge strategy. 
+                See &lt;strategy-option&gt; in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>rebase</td>
+            <td>Boolean</td>
+            <td>See --rebase in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>norebase</td>
+            <td>Boolean</td>
+            <td>See --no-rebase in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>tags</td>
+            <td>Boolean</td>
+            <td>Enable tag references following. See --tags in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>notags</td>
+            <td>Boolean</td>
+            <td>Disable tag references following. See --no-tags in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>keepFiles</td>
+            <td>Boolean</td>
+            <td>See --keep in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>append</td>
+            <td>Boolean</td>
+            <td>See --append in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>quiet</td>
+            <td>Boolean</td>
+            <td>Quiet, suppress feedback messages. See --quiet in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>force</td>
+            <td>Boolean</td>
+            <td>Force update. See --force in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html">git-pull</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- clone repository --&gt;
+&lt;gitclone 
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- pull from all remotes --&gt;
+&lt;gitpull
+    repository="${repo.dir.resolved}" all="true" /&gt;
+
+&lt;!-- pull remote origin/foobranch and rebase when merging --&gt;
+&lt;gitpull
+    repository="${repo.dir.resolved}" 
+    source="origin" refspec="foobranch" 
+    strategy="recursive" keep="true"
+    force="true" quiet="true" rebase="true" /&gt;
+</pre>
+
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
     <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>
