@@ -208,7 +208,7 @@ class S3PutTask extends Service_Amazon_S3
 		$object->data = $data;
 		$object->save();
 		
-		if(!$this->isObjectAvailable($object)) {
+		if(!$this->isObjectAvailable($object->key)) {
 			throw new BuildException('Upload failed');
 		}
 	}
