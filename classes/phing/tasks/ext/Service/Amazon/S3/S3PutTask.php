@@ -26,6 +26,17 @@ class S3PutTask extends Service_Amazon_S3
 	protected $_content = null;
 	
 	/**
+     * Collection of filesets
+     * Used for uploading multiple files
+     * 
+     * (default value: array())
+     * 
+     * @var array
+     * @access protected
+     */
+    protected $_filesets = array();
+	
+	/**
 	 * Wether to try to create buckets or not
 	 * 
 	 * (default value: false)
@@ -99,6 +110,29 @@ class S3PutTask extends Service_Amazon_S3
         return (bool) $this->_createBuckets;
     }
 
+	/**
+     * creator for _filesets
+     * 
+     * @access public
+     * @return FileSet
+     */
+    public function createFileset()
+    {
+        $num = array_push($this->_filesets, new FileSet());
+        return $this->_filesets[$num-1];
+    }
+
+	/**
+     * getter for _filesets
+     * 
+     * @access public
+     * @return array
+     */
+    public function getFilesets()
+    {
+        return $this->_filesets;
+    }
+
     /**
 	 * Determines what we're going to store in the object
 	 * 
@@ -143,13 +177,39 @@ class S3PutTask extends Service_Amazon_S3
 			}
 		}
 		
-		$object = $this->getObjectInstance($this->getObject());
-		$object->data = $this->getObjectData();
+		// Filesets take precedence
+		if(!empty($this->_filesets)) {
+			$objects = array();
+			
+			foreach($this->_filesets as $fs) {
+	            if(!($fs instanceof FileSet)) {
+	                continue;
+	            }
+
+				$ds = $fs->getDirectoryScanner($this->getProject());
+				$objects = array_merge($objects, $ds->getIncludedFiles());
+			}
+			
+			$fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
+			
+			foreach($objects as $object) {
+				$this->saveObject($object, file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
+			}
+			
+			return true;
+		}
 		
+		$this->saveObject($this->getObject(), $this->getObjectData());
+    }
+
+	protected function saveObject($object, $data)
+	{
+		$object = $this->getObjectInstance($object);
+		$object->data = $data;
 		$object->save();
 		
-		if(!$this->isObjectAvailable($this->getObject())) {
-            throw new BuildException('Upload failed');
+		if(!$this->isObjectAvailable($object)) {
+			throw new BuildException('Upload failed');
 		}
-    }
+	}
 }

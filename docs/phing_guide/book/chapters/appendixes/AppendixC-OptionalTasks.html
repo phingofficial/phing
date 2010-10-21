@@ -3824,6 +3824,17 @@ It also generates the documentation for the selected coding standard and writes 
 
 &lt;s3put content=&quot;Some content here&quot; object=&quot;file.txt&quot; /&gt;
 	</pre>
+	<p>It also works with filesets</p>
+	<pre>
+&lt;property name=&quot;amazon.key&quot; value=&quot;my_key&quot; /&gt;
+&lt;property name=&quot;amazon.secret&quot; value=&quot;my_secret&quot; /&gt;
+&lt;property name=&quot;amazon.bucket&quot; value=&quot;mybucket&quot; /&gt;
+&lt;s3put&gt;
+	&lt;fileset dir=&quot;${project.basedir}&quot;&gt;
+		&lt;include name=&quot;**/*.jpg&quot; /&gt;
+	&lt;/fileset&gt;
+&lt;/s3put&gt;	
+	</pre>
 	<h3>Attributes</h3><table>
 	      <thead>
 	        <tr>
@@ -3861,24 +3872,29 @@ It also generates the documentation for the selected coding standard and writes 
 	          <td>String</td>
 	          <td>Content to store in the object</td>
 	          <td>n/a</td>
-	          <td>Yes (or source)</td>
+	          <td>Yes (or source or fileset)</td>
 	        </tr>
 			<tr>
 	          <td>source</td>
 	          <td>String</td>
 	          <td>Where to read content for the object from</td>
 	          <td>n/a</td>
-	          <td>Yes (or content)</td>
+	          <td>Yes (or content or fileset)</td>
 	        </tr>
 			<tr>
 	          <td>object</td>
 	          <td>String</td>
 	          <td>Object name</td>
 	          <td>n/a</td>
-	          <td>Yes</td>
+	          <td>Yes (unless fileset)</td>
 	        </tr>
 	      </tbody>
 	    </table>
+	
+		<h3>Supported Nested Tags</h3>
+		<ul>
+	      <li>fileset</li>
+	    </ul>
 	
 		<h2><a name="S3GetTask"></a>S3GetTask</h2>
 			<p>Downloads an object from Amazon S3. This task requires the PEAR package <a href="http://pear.php.net/package/Services_Amazon_S3" title="Services_Amazon_S3" target="_blank">Services_Amazon_S3</a></p>
