@@ -1334,6 +1334,127 @@ Note that you can omit both startpoint and track attributes in this case
     force="true" quiet="true" rebase="true" /&gt;
 </pre>
 
+
+<h2><a name="GitPushTask"></a>GitPushTask</h2>
+<p>Update remote refs along with associated objects. See official <a
+    href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">documentation</a>.</p>
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>Path to Git repository</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>all</td>
+            <td>Boolean</td>
+            <td>Push all references</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>destination</td>
+            <td>String</td>
+            <td>The "remote" repository that is destination of a push operation.
+                See &lt;repository&gt; in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a>.</td>
+            <td>origin</td>
+            <td>Yes, if allRemotes set to false</td>
+        </tr>
+        <tr>
+            <td>refspec</td>
+            <td>String</td>
+            <td>See &lt;refspec&gt; in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a>.</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>mirror</td>
+            <td>Boolean</td>
+            <td>See --mirror in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>delete</td>
+            <td>Boolean</td>
+            <td>Delete "remote" reference. Same as prefixing the refspec with colon. See --delete in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>tags</td>
+            <td>Boolean</td>
+            <td>Push all references under refs/tags. See --tags in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>quiet</td>
+            <td>Boolean</td>
+            <td>Quiet, suppress feedback messages. See --quiet in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>force</td>
+            <td>Boolean</td>
+            <td>Force update. See --force in <a
+                    href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html">git-push</a>.</td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- clone repository --&gt;
+&lt;gitclone 
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- push branch "master" into "foobranch" on "origin" remote --&gt;
+&lt;gitpush
+    repository="${repo.dir.resolved}" 
+    refspec="master:foobranch" tags="true" /&gt;
+
+&lt;!-- create new branch "newbranch" on "origin" remote --&gt;
+&lt;gitpush
+    repository="${repo.dir.resolved}" 
+    refspec="master:newbranch" quiet="true" /&gt;
+
+&lt;!-- delete "newbranch" branch from "origin" remote --&gt;
+&lt;gitpush
+    repository="${repo.dir.resolved}" 
+    delete="true"
+    refspec="newbranch" quiet="true" /&gt;
+</pre>
+
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
     <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>
