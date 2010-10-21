@@ -96,9 +96,11 @@ class S3GetTask extends Service_Amazon_S3
     
     public function execute()
     {
+		$target = $this->getTarget();
+		
         // Use the object name as the target if the current target is a directory
-        if(is_dir($this->getTarget())) {
-            $target = rtrim($this->getTarget(), '/') . '/' . $this->getObject();
+        if(is_dir($target)) {
+            $target = rtrim($target, '/') . '/' . $this->getObject();
         }
 
 		file_put_contents($target, $this->getObjectContents($this->getObject()));
