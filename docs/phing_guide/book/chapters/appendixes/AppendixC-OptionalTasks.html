@@ -5269,16 +5269,18 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 	</pre>
 	<p>
 		In the fileset example, assuming the contents of "/some/directory" were:
-		<ul>
-			<li>Somedir</li>
-			<li>somefile</li>
-		</ul>
-		Then the contents of "/where/to/symlink" would be:
-		<ul>
-			<li>Somedir -> /some/directory/Somedir</li>
-			<li>somefile -> /some/directory/somefile</li>
-		</ul>
 	</p>
+	<ul>
+		<li>Somedir</li>
+		<li>somefile</li>
+	</ul>
+	<p>
+		Then the contents of "/where/to/symlink" would be:
+	</p>
+	<ul>
+		<li>Somedir -&gt; /some/directory/Somedir</li>
+		<li>somefile -&gt; /some/directory/somefile</li>
+	</ul>
 	<h3>Attributes</h3><table>
 	      <thead>
 	        <tr>
