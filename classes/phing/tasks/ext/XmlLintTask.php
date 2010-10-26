@@ -33,6 +33,8 @@ class XmlLintTask extends Task {
   protected $file;  // the source file (from xml attribute)
   protected $schema; // the schema file (from xml attribute)
   protected $filesets = array(); // all fileset objects assigned to this task
+  
+  protected $haltonfailure = true;
 
   /**
    * File to be performed syntax check on
@@ -60,6 +62,15 @@ class XmlLintTask extends Task {
   public function createFileSet() {
     $num = array_push($this->filesets, new FileSet());
     return $this->filesets[$num-1];
+  }
+  
+  /**
+   * Sets the haltonfailure attribute
+   *
+   * @param bool $haltonfailure
+   */
+  public function setHaltonfailure($haltonfailure) {
+    $this->haltonfailure = (bool) $haltonfailure;
   }
 
   /**
@@ -108,7 +119,11 @@ class XmlLintTask extends Task {
     if($dom->schemaValidate($this->schema->getPath())) {
       $this->log($file.' validated', Project::MSG_INFO);
     } else {
-      $this->log($file.' fails to validate (See messages above)', Project::MSG_ERR);
+      if ($this->haltonfailure) {
+        throw new BuildException($file.' fails to validate (See messages above)'); 
+      } else {
+        $this->log($file.' fails to validate (See messages above)', Project::MSG_ERR);
+      }
     }
       } else {
     throw new BuildException('Permission denied: '.$file);
