@@ -20,8 +20,6 @@
  * <http://phing.info>. 
  */
 
-require_once "Services/Amazon/S3.php";
-
 require_once dirname(dirname(__FILE__)) . "/Amazon.php";
 
 /**
@@ -56,6 +54,8 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      */
     public function getClient()
     {
+        require_once "Services/Amazon/S3.php";
+
         if($this->_client === null) {
             $this->_client = Services_Amazon_S3::getAccount($this->getKey(), $this->getSecret());
         }
