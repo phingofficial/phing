@@ -196,7 +196,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         if ($this->mode != "docs")
         {
             $package->addPackageDepWithChannel( 'optional', 'phingdocs', 'pear.phing.info', $this->version);
-            $package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.2');
+            $package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.4);
             $package->addPackageDepWithChannel( 'optional', 'PHPUnit', 'pear.phpunit.de', '3.4.0');
             $package->addPackageDepWithChannel( 'optional', 'PhpDocumentor', 'pear.php.net', '1.4.0');
             $package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pecl.php.net', '2.0.5');
