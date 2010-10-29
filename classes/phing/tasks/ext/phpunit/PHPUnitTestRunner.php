@@ -138,9 +138,15 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         
         if ($this->codecoverage)
         {
-            $coverage = $res->getCodeCoverage();
+            if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
+                $coverage = $res->getCodeCoverage();
             
-            $summary = $coverage->getSummary();
+                $summary = $coverage->getSummary();
+            } else {
+                $coverageInformation = $res->getCodeCoverageInformation();
+                PHPUnit_Util_CodeCoverage::clearSummary();
+                $summary = PHPUnit_Util_CodeCoverage::getSummary($coverageInformation);
+            }
 
             CoverageMerger::merge($this->project, $summary);
         }
