@@ -67,7 +67,7 @@ require_once 'phing/tasks/system/SequentialTask.php';
  * task before you use it the first time:</p>
  *
  * <pre><code>
- *   <taskdef name="if" classname="net.sf.antcontrib.logic.IfTask" /&gt;
+ *   &lt;taskdef name=&quot;if&quot; classname=&quot;net.sf.antcontrib.logic.IfTask&quot; /&gt;
  * </code></pre>
  *
  * <h3>Crude Example</h3>
