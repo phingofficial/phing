@@ -213,7 +213,7 @@ class PhpLintTask extends Task {
 
                 exec($command.'"'.$file.'" 2>&1', $messages, $returnCode);
 
-                if ($return) {
+                if ($returnCode) {
                     $this->log("Could not parse file", Project::MSG_ERR);
                 } else {
                     for ($i = 0; $i < count($messages) - 1; $i++) {
