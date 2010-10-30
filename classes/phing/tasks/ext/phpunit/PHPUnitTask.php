@@ -87,23 +87,25 @@ class PHPUnitTask extends Task
         require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
         /**
-         * Add some defaults to the PHPUnit filter
+         * point PHPUnit_MAIN_METHOD define to non-existing method
          */
-        $pwd = dirname(__FILE__);
-
-        require_once 'PHPUnit/Framework.php';
-        require_once 'PHPUnit/Util/Filter.php';
-            
-        // point PHPUnit_MAIN_METHOD define to non-existing method
         if (!defined('PHPUnit_MAIN_METHOD'))
         {
             define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
         }
         
+        /**
+         * Add some defaults to the PHPUnit filter
+         */
+        $pwd = dirname(__FILE__);
         $path = realpath($pwd . '/../../../');
+        
         if (version_compare($version, '3.5.0') >= 0) {
             PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist($path);
         } else {
+            require_once 'PHPUnit/Framework.php';
+            require_once 'PHPUnit/Util/Filter.php';
+            
             PHPUnit_Util_Filter::addDirectoryToFilter($path);
         }
     }
