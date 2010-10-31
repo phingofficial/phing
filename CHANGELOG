@@ -1,6 +1,34 @@
                            _________________________
                            P     H     I     N     G
 
+Nov. --, 2010 - Phing 2.4.3
+
+[577] SVN commands fail on Windows XP
+[559] UpToDate not override value of property when target is called by phingcall
+[555] STRICT Declaration of UnixFileSystem::getBooleanAttributes() should be compatible with that of FileSystem::getBooleanAttributes()
+[554] Patch to force PhpDocumentor to log using phing
+[551] SVN Switch Task
+[550] Ability to convert encoding of files
+[549] ScpTask doesn't finish the transfer properly
+[547] The new attribute version does not work
+[543] d51PearPkg2Task: Docs link wrong
+[542] JslLintTask: wrap conf parameter with escapeshellarg
+[537] Install documentation incorrect/incomplete
+[536] DbDeployTask: Undo script wrongly generated
+[534] Task for downloading a file through HTTP
+[531] cachefile parameter of PhpLintTask also caches erroneous files
+[530] XmlLintTask does not stop buid process when schema validation fails
+[529] d51pearpkg2: setOptions() call does not check return value
+[526] pearpkg2: extdeps and replacements mappings not documented
+[525] pearpkg2: minimal version on dependency automatically set max and recommended
+[524] pearpkg2: maintainers mapping does not support "active" tag
+[520] Need SvnLastChangedRevisionTask to grab the last changed revision for the current working directory
+[518] [PHP Error] file_put_contents(): Filename cannot be empty in phpcodesniffer task
+[513] Version tag doesn't increment bugfix portion of the version
+[511] Properties not being set on subsequent sets.
+[510] to show test name when testing fails
+[455] Should be able to ignore a task when listing them from CLI
+[369] Add Git Support
 
 Jul. 28, 2010 - Phing 2.4.2
 
