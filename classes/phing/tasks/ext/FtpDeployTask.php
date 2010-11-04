@@ -56,6 +56,8 @@ class FtpDeployTask extends Task
     private $mode = FTP_BINARY;
     private $clearFirst = false;
     private $passive = false;
+
+    protected $logLevel = Project::MSG_VERBOSE;
     
     public function __construct() {
         $this->filesets = array();
@@ -109,6 +111,22 @@ class FtpDeployTask extends Task
     }
     
     /**
+     * Set level of log messages generated (default = info)
+     * @param string $level
+     */
+    public function setLevel($level)
+    {
+        switch ($level)
+        {
+            case "error": $this->logLevel = Project::MSG_ERR; break;
+            case "warning": $this->logLevel = Project::MSG_WARN; break;
+            case "info": $this->logLevel = Project::MSG_INFO; break;
+            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
+            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        }
+    }
+
+    /**
      * The init method: check if Net_FTP is available
      */
     public function init() {
@@ -135,18 +153,18 @@ class FtpDeployTask extends Task
         if(@PEAR::isError($ret)) {
             throw new BuildException('Could not connect to FTP server '.$this->host.' on port '.$this->port.': '.$ret->getMessage());
         } else {
-            $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, Project::MSG_VERBOSE);
+            $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
         }
         
         $ret = $ftp->login($this->username, $this->password);
         if(@PEAR::isError($ret)) {
             throw new BuildException('Could not login to FTP server '.$this->host.' on port '.$this->port.' with username '.$this->username.': '.$ret->getMessage());
         } else {
-            $this->log('Logged in to FTP server with username ' . $this->username, Project::MSG_VERBOSE);
+            $this->log('Logged in to FTP server with username ' . $this->username, $this->logLevel);
         }
         
         if ($this->passive) {
-            $this->log('Setting passive mode', Project::MSG_INFO);
+            $this->log('Setting passive mode', $this->logLevel);
             $ret = $ftp->setPassive();
             if(@PEAR::isError($ret)) {
                 $ftp->disconnect();
@@ -159,7 +177,7 @@ class FtpDeployTask extends Task
         
         if($this->clearFirst) {
             // TODO change to a loop through all files and directories within current directory
-            $this->log('Clearing directory '.$dir, Project::MSG_INFO);
+            $this->log('Clearing directory '.$dir, $this->logLevel);
             $ftp->rm($dir, true);
         }
         
@@ -175,7 +193,7 @@ class FtpDeployTask extends Task
             $ftp->disconnect();
             throw new BuildException('Could not change to directory '.$dir.': '.$ret->getMessage());
         } else {
-            $this->log('Changed directory ' . $dir, Project::MSG_VERBOSE);
+            $this->log('Changed directory ' . $dir, $this->logLevel);
         }
         
         $fs = FileSystem::getFileSystem();
@@ -189,7 +207,7 @@ class FtpDeployTask extends Task
             foreach($srcDirs as $dirname) {
                 if($convert)
                     $dirname = str_replace('\\', '/', $dirname);
-                $this->log('Will create directory '.$dirname, Project::MSG_VERBOSE);
+                $this->log('Will create directory '.$dirname, $this->logLevel);
                 $ret = $ftp->mkdir($dirname, true);
                 if(@PEAR::isError($ret)) {
                     $ftp->disconnect();
@@ -200,7 +218,7 @@ class FtpDeployTask extends Task
                 $file = new PhingFile($fromDir->getAbsolutePath(), $filename);
                 if($convert)
                     $filename = str_replace('\\', '/', $filename);
-                $this->log('Will copy '.$file->getCanonicalPath().' to '.$filename, Project::MSG_VERBOSE);
+                $this->log('Will copy '.$file->getCanonicalPath().' to '.$filename, $this->logLevel);
                 $ret = $ftp->put($file->getCanonicalPath(), $filename, true, $this->mode);
                 if(@PEAR::isError($ret)) {
                     $ftp->disconnect();
@@ -210,7 +228,7 @@ class FtpDeployTask extends Task
         }
         
         $ftp->disconnect();
-        $this->log('Disconnected from FTP server', Project::MSG_VERBOSE);
+        $this->log('Disconnected from FTP server', $this->logLevel);
     }
 }
 ?>
