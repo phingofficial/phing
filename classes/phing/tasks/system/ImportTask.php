@@ -106,6 +106,7 @@ class ImportTask extends Task {
       $msg = "Unable to find build file: {$file->getPath()}";
       if ($this->optional) {
         $this->log($msg . '... skipped');
+        return;
       } else {
         throw new BuildException($msg);
       }
