@@ -182,6 +182,19 @@ class XmlPropertyTask extends PropertyTask {
 
         if($this->_keepRoot) {
             $path[] = dom_import_simplexml($xml)->tagName;
+            
+            $prefix = implode('.', $path);
+            
+            if (!empty($prefix))
+                $prefix .= '.';
+            
+            // Check for attributes
+            foreach($xml->attributes() as $attribute => $val) {
+                if($this->_collapseAttr)
+                    $prop->setProperty($prefix . "$attribute", (string)$val);
+                else
+                    $prop->setProperty($prefix . "($attribute)", (string)$val);
+            }
         }
 
         $this->_addNode($xml, $path, $prop);
@@ -199,33 +212,26 @@ class XmlPropertyTask extends PropertyTask {
      * @return void
      */
     protected function _addNode($node, $path, $prop) {
-
         foreach($node as $tag => $value) {
             
             $prefix = implode('.', $path);
             
+            if (!empty($prefix) > 0)
+                $prefix .= '.';
             
             // Check for attributes
             foreach($value->attributes() as $attribute => $val) {
-
                 if($this->_collapseAttr)
-                    $prop->setProperty($prefix . ".$attribute", (string)$val);
+                    $prop->setProperty($prefix . "$tag.$attribute", (string)$val);
                 else
-                    $prop->setProperty($prefix . "($attribute)", (string)$val);
+                    $prop->setProperty($prefix . "$tag($attribute)", (string)$val);
             }
             
-            //echo "\r\nCHILDREN ". count($value->children()). is_array($value);
             // Add tag
             if(count($value->children())) {
-            
-                //echo "\r\nOBJECT $prefix.$tag ";
-
                 $path[] = $tag;
                 $this->_addNode($value, $path, $prop);
-
             } else {
-                //echo "\r\nADD $prefix.$tag";
-            
                 $val = (string)$value;
                 
                 /* Check for * and ** on 'exclude' and 'include' tag / ant seems to do this? could use FileSet here
@@ -239,7 +245,7 @@ class XmlPropertyTask extends PropertyTask {
                 // </project>
                 //
                 // Would be come project.exclude = file/a.php,file/a.php
-                $p = empty($prefix) ? $tag : $prefix . ".$tag";
+                $p = empty($prefix) ? $tag : $prefix . $tag;
                 $prop->append($p, (string)$val, $this->_delimiter);
             }
         }
