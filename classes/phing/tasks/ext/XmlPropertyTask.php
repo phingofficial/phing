@@ -229,8 +229,7 @@ class XmlPropertyTask extends PropertyTask {
             
             // Add tag
             if(count($value->children())) {
-                $path[] = $tag;
-                $this->_addNode($value, $path, $prop);
+                $this->_addNode($value, array_merge($path, array($tag)), $prop);
             } else {
                 $val = (string)$value;
                 
