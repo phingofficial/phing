@@ -139,7 +139,7 @@ class TaskdefTask extends Task {
         }
         if ($this->typeFile == null) {
             $this->log("Task " . $this->name . " will be handled by class " . $this->classname, Project::MSG_VERBOSE);
-            $this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
+            $this->doAddTask($this->name, $this->classname, $this->classpath);
         } else {
             try { // try to load taskdefs given in file
                 $props = new Properties();
@@ -153,11 +153,19 @@ class TaskdefTask extends Task {
                 $enum = $props->propertyNames();
                 foreach($enum as $key) {
                     $value = $props->getProperty($key);
-                    $this->project->addTaskDefinition($key, $value, $this->classpath);
+                    $this->doAddTask($key, $value, $this->classpath);
                 }
             } catch (IOException $ioe) {
                 throw new BuildException("Can't load task list {$this->typeFile}");
             }
         }
+    }
+    
+    public function doAddTask($task, $classname, $classpath)
+    {
+        $ph = ComponentHelper::getComponentHelper($this->project);
+        
+        $ph->addTaskDefinition($task, $classname, $classpath);
+        $ph->checkTaskClass($task);
     }
 }
