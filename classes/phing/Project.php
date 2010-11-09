@@ -543,7 +543,7 @@ class Project {
         }
     }
 
-    function &getTaskDefinitions() {
+    function getTaskDefinitions() {
         return $this->taskdefs;
     }
 
