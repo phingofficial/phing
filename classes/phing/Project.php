@@ -536,7 +536,6 @@ class Project {
         if ($class === "") {
             $this->log("Task $name has no class defined.", Project::MSG_ERR);
         }  elseif (!isset($this->taskdefs[$name])) {
-            Phing::import($class, $classpath);
             $this->taskdefs[$name] = $class;
             $this->log("  +Task definiton: $name ($class)", Project::MSG_DEBUG);
         } else {
