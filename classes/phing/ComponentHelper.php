@@ -81,7 +81,7 @@ class ComponentHelper {
     /**
      * Retrieves the instance of ComponentHelper for this project
      */
-    public function getComponentHelper(Project $project)
+    public static function getComponentHelper(Project $project)
     {
         if ($project === null) {
             return null;
