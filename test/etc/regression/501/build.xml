@@ -6,7 +6,7 @@
         <resolvepath propertyName="base.dir.resolved" file="${base.dir}" />
         <resolvepath propertyName="build.dir.resolved" file="${build.dir}" />
         <coverage-setup database="${build.dir}/coverage.db">
-            <fileset dir="${base.dir.resolved}/classes/phing">
+            <fileset dir="${base.dir.resolved}/classes/phing/system">
                 <exclude name="form/**/*.php"/>
             </fileset>
         </coverage-setup>
