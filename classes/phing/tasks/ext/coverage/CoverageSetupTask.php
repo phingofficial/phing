@@ -115,6 +115,18 @@ class CoverageSetupTask extends Task
 
     function main()
     {
+        /**
+         * Whitelist files when using PHPUnit > 3.5
+         */
+        @include_once 'PHPUnit/Runner/Version.php';
+
+        if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >= 0) {
+            $newFilter = true;
+        } else {
+            $newFilter = false;
+            @include_once 'PHPUnit/Util/Filter.php';
+        }
+        
         $files = $this->getFilenames();
 
         $this->log("Setting up coverage database for " . count($files) . " files");
@@ -127,17 +139,11 @@ class CoverageSetupTask extends Task
             $filename = $file['key'];
             
             $props->setProperty($filename, serialize(array('fullname' => $fullname, 'coverage' => array())));
-        }
-
-        /**
-         * Whitelist files when using PHPUnit > 3.5
-         */
-        @include_once 'PHPUnit/Runner/Version.php';
-
-        if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >= 0) {
-            foreach ($files as $file)
-            {
+            
+            if ($newFilter) {
             	PHP_CodeCoverage_Filter::getInstance()->addFileToWhiteList($file['fullname']);
+            } else {
+                PHPUnit_Util_Filter::addFileToWhitelist($file['fullname']);
             }
         }
 
