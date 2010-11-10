@@ -129,6 +129,18 @@ class CoverageSetupTask extends Task
             $props->setProperty($filename, serialize(array('fullname' => $fullname, 'coverage' => array())));
         }
 
+        /**
+         * Whitelist files when using PHPUnit > 3.5
+         */
+        @include_once 'PHPUnit/Runner/Version.php';
+
+        if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >= 0) {
+            foreach ($files as $file)
+            {
+            	PHP_CodeCoverage_Filter::getInstance()->addFileToWhiteList($file['fullname']);
+            }
+        }
+
         $dbfile = new PhingFile($this->database);
 
         $props->store($dbfile);

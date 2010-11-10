@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Util/Log/JUnit.php';
-require_once 'PHPUnit/Util/Log/CodeCoverage/XML/Clover.php';
 require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 
 /**
@@ -34,20 +32,21 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     /**
-     * @var PHPUnit_Util_Log_CodeCoverage_XML_Clover
-     */
-    private $clover = NULL;
-    
-    /**
      * @var PHPUnit_Framework_TestResult
      */
     private $result = NULL;
+    
+    /**
+     * PHPUnit version
+     * @string
+     */
+    private $version = NULL;
 
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
         
-        $this->clover = new PHPUnit_Util_Log_CodeCoverage_XML_Clover(null);
+        $this->version = PHPUnit_Runner_Version::id();
     }
 
     public function getExtension()
@@ -67,17 +66,33 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
 
     public function endTestRun()
     {
-        ob_start();
-        $this->clover->process($this->result);
-        $contents = ob_get_contents();
-        ob_end_clean();
+        if (version_compare($this->version, '3.5.0') >=0) {
+            require_once 'PHP/CodeCoverage/Report/Clover.php';
+            
+            $coverage = $this->result->getCodeCoverage();
+            
+            $clover = new PHP_CodeCoverage_Report_Clover();
+            
+            $contents = $clover->process($coverage);
+        } else {
+            require_once 'PHPUnit/Util/Log/CodeCoverage/XML/Clover.php';
+            
+            $clover = new PHPUnit_Util_Log_CodeCoverage_XML_Clover(null);
+            
+            ob_start();
+            
+            $clover->process($this->result);
+            $contents = ob_get_contents();
+            
+            ob_end_clean();
+        }
 
         if ($this->out)
         {
             $this->out->write($contents);
             $this->out->close();
         }
-
+        
         parent::endTestRun();
     }
 }
