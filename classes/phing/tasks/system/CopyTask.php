@@ -58,6 +58,8 @@ class CopyTask extends Task {
     protected $verbosity     = Project::MSG_VERBOSE;
     
     protected $mode           = 0755;   // mode to create directories with
+    
+    protected $haltonerror   = true;    // stop build on errors
 
     /**
      * Sets up this object internal stuff. i.e. the Fileutils instance
@@ -181,6 +183,18 @@ class CopyTask extends Task {
     }
 
     /**
+     * Set the haltonerror attribute - when true, will
+     * make the build fail when errors are detected.
+     *
+     * @param  boolean  Flag if the build should be stopped on errors
+     * @return void
+     * @access public
+     */
+    function setHaltonerror($haltonerror) {        
+        $this->haltonerror = (boolean) $haltonerror;
+    }
+
+    /**
      * Nested creator, creates a FileSet for this task
      *
      * @access  public
@@ -250,7 +264,7 @@ class CopyTask extends Task {
                 }
             } else {
                 // terminate build
-                throw new BuildException("Could not find file " . $this->file->__toString() . " to copy.");
+                $this->logError("Could not find file " . $this->file->__toString() . " to copy.");
             }
         }
 
@@ -407,7 +421,7 @@ class CopyTask extends Task {
                 $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
-                        $this->log("Unable to create directory " . $d->__toString(), Project::MSG_ERR);
+                        $this->logError("Unable to create directory " . $d->__toString());
                     } else {
                         if ($this->preserveLMT) {
                             $d->setLastModified($s->lastModified());
@@ -448,9 +462,18 @@ class CopyTask extends Task {
             
                     $count++;
                 } catch (IOException $ioe) {
-                    $this->log("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage(), Project::MSG_ERR);
+                    $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
                 }
             }
+        }
+    }
+    
+    protected function logError($message, $location = NULL)
+    {
+        if ($this->haltonerror) {
+            throw new BuildException($message, $location);
+        } else {
+            $this->log($message, Project::MSG_ERR);
         }
     }
 

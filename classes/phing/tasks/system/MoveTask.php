@@ -93,7 +93,7 @@ class MoveTask extends CopyTask {
                     $moved = true;
                 } catch (IOException $ioe) {
                     $moved = false;
-                    $this->log("Failed to rename $from to $to: " . $ioe->getMessage(), $this->verbosity);
+                    $this->logError("Failed to rename $from to $to: " . $ioe->getMessage());
                 }
             }
         }
@@ -119,8 +119,7 @@ class MoveTask extends CopyTask {
 
                     $f->delete();
                 } catch (IOException $ioe) {
-                    $msg = "Failed to move $from to $to: " . $ioe->getMessage();
-                    throw new BuildException($msg, $this->location);
+                    $this->logError("Failed to move $from to $to: " . $ioe->getMessage(), $this->location);
                 }
             } // foreach fileCopyMap
         } // if copyMapSize
@@ -133,7 +132,7 @@ class MoveTask extends CopyTask {
                 $d = new PhingFile((string) $dir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
-                        $this->log("Unable to create directory " . $d->getAbsolutePath(), Project::MSG_ERR);
+                        $this->logError("Unable to create directory " . $d->getAbsolutePath());
                     } else {
                         $count++;
                     }
@@ -197,7 +196,7 @@ class MoveTask extends CopyTask {
         try {
             $d->delete();
         } catch (Exception $e) {
-            throw new BuildException("Unable to delete directory " . $d->__toString() . ": " . $e->getMessage());
+            $this->logError("Unable to delete directory " . $d->__toString() . ": " . $e->getMessage());
         }
     }
 }
