@@ -16,6 +16,7 @@
 		</coverage-setup>
 		<phpunit codecoverage="true">
 			<formatter type="xml" todir="reports"/>
+			<formatter type="clover" todir="."/>
 			<batchtest>
 				<fileset dir="src">
 					<include name="*Test.php"/>
