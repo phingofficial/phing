@@ -207,7 +207,7 @@ class UnixFileSystem extends FileSystem {
             $perms = (int) (@fileperms($strPath) & 0444);
             return FileSystem::Chmod($strPath, $perms);
         } else {
-            throw new Exception("IllegalArgutmentType: Argument is not File");
+            throw new Exception("IllegalArgumentType: Argument is not File");
         }
     }
 
@@ -220,7 +220,7 @@ class UnixFileSystem extends FileSystem {
             $f2Path = $f2->getPath();
             return (boolean) strcmp((string) $f1Path, (string) $f2Path);
         } else {
-            throw new Exception("IllegalArgutmentType: Argument is not PhingFile");
+            throw new Exception("IllegalArgumentType: Argument is not PhingFile");
         }
     }
 
