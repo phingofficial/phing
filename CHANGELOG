@@ -1,9 +1,19 @@
                            _________________________
                            P     H     I     N     G
 
-Nov. --, 2010 - Phing 2.4.3
+Nov. 12, 2010 - Phing 2.4.3
 
+This release adds tasks to interface with Git and Amazon S3, adds support for PHPUnit 3.5,
+and fixes numerous issues.
+
+[583] UnixFileSystem::compare() is broken
+[582] Add haltonerror attribute to copy/move tasks
+[581] XmlProperty creating wrong properties
 [577] SVN commands fail on Windows XP
+[575] xmlproperty - misplaced xml attributes
+[574] Task "phpcodesniffer" broken, no output
+[572] ImportTask don't skipp file if optional is set to true
+[560] [PATCH] Compatibility with PHPUnit 3.5.
 [559] UpToDate not override value of property when target is called by phingcall
 [555] STRICT Declaration of UnixFileSystem::getBooleanAttributes() should be compatible with that of FileSystem::getBooleanAttributes()
 [554] Patch to force PhpDocumentor to log using phing
@@ -23,10 +33,12 @@ Nov. --, 2010 - Phing 2.4.3
 [525] pearpkg2: minimal version on dependency automatically set max and recommended
 [524] pearpkg2: maintainers mapping does not support "active" tag
 [520] Need SvnLastChangedRevisionTask to grab the last changed revision for the current working directory
-[518] [PHP Error] file_put_contents(): Filename cannot be empty in phpcodesniffer task
+[518] [PHP Error] file_put_contents(): Filename cannot be empty in phpcpdesniffer task
 [513] Version tag doesn't increment bugfix portion of the version
 [511] Properties not being set on subsequent sets.
 [510] to show test name when testing fails
+[501] formatter type "clover" of task "phpunit" doesn't generate coverage according to task "coverage-setup"
+[488] FtpDeployTask is very silent, error messages are not clear
 [455] Should be able to ignore a task when listing them from CLI
 [369] Add Git Support
 
