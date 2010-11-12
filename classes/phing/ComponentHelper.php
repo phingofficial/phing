@@ -208,7 +208,7 @@ class ComponentHelper {
             if ($o instanceof Task) {
                 $task = $o;
             } else {
-                $this->log ("  (Using TaskAdapter for: $taskType)", Project::MSG_DEBUG);
+                $this->project->log("  (Using TaskAdapter for: $taskType)", Project::MSG_DEBUG);
                 // not a real task, try adapter
                 $taskA = new TaskAdapter();
                 $taskA->setProxy($o);
