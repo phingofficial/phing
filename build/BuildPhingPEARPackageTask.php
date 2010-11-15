@@ -197,11 +197,13 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         {
             $package->addPackageDepWithChannel( 'optional', 'phingdocs', 'pear.phing.info', $this->version);
             $package->addPackageDepWithChannel( 'optional', 'VersionControl_SVN', 'pear.php.net', '0.3.4');
+            $package->addPackageDepWithChannel( 'optional', 'VersionControl_Git', 'pear.php.net', '0.4.3');
             $package->addPackageDepWithChannel( 'optional', 'PHPUnit', 'pear.phpunit.de', '3.4.0');
             $package->addPackageDepWithChannel( 'optional', 'PhpDocumentor', 'pear.php.net', '1.4.0');
             $package->addPackageDepWithChannel( 'optional', 'Xdebug', 'pecl.php.net', '2.0.5');
             $package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.0');
             $package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
+            $package->addPackageDepWithChannel( 'optional', 'Services_Amazon_S3', 'pear.php.net', '1.3.1');
 
             // now add the replacements, chdir() to source directory
             // to allow addReplacement() to find the specified files
