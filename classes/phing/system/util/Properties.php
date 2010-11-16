@@ -76,11 +76,12 @@ class Properties {
         
         foreach($lines as $line) {
             // strip comments and leading/trailing spaces
-            $line = trim(preg_replace("/[;#].+$/", "", $line));
-    
-            if($line == "")
+            $line = trim(preg_replace("/[;#]\s.+$/", "", $line));
+            
+            if (empty($line) || $line[0] == ';' || $line[0] == '#') {
                 continue;
-                    
+            }
+                
             $pos = strpos($line, '=');
             $property = trim(substr($line, 0, $pos));
             $value = trim(substr($line, $pos + 1));                
