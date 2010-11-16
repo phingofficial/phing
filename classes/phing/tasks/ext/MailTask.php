@@ -45,7 +45,7 @@ class MailTask extends Task
             throw new BuildException('Missing "from" attribute');
         }
         
-        $this->log('Sending mail to ' . $this->recipient );    
+        $this->log('Sending mail to ' . $this->tolist);
         mail($this->tolist, $this->subject, $this->msg);
     }
 
