@@ -280,7 +280,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      */
     protected function assertPropertyEquals($property, $value) {
         $result = $this->project->getProperty($property);
-        $this->assertEquals("property " . $property,$value,$result);
+        $this->assertEquals($value, $result, "property " . $property);
     }
 
     /**
