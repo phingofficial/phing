@@ -483,8 +483,8 @@ class DirectoryScanner implements SelectorScanner {
             }
             else
             if (@is_dir($file)) {
-                if ($this->isIncluded($name)) {
-                    if (!$this->isExcluded($name)) {
+                if ($this->isIncluded($name.DIRECTORY_SEPARATOR)) {
+                    if (!$this->isExcluded($name.DIRECTORY_SEPARATOR)) {
                         if ($this->isSelected($name, $file)) {
                             $this->dirsIncluded[] = $name;
                             if ($_fast) {
