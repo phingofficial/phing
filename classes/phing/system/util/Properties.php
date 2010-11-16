@@ -75,21 +75,16 @@ class Properties {
         $sec_name = "";
         
         foreach($lines as $line) {
-            
-            $line = trim($line);
+            // strip comments and leading/trailing spaces
+            $line = trim(preg_replace("/[;#].+$/", "", $line));
     
             if($line == "")
                 continue;
                     
-            if ($line{0} == '#' or $line{0} == ';') {
-                // it's a comment, so continue to next line
-                continue;
-            } else {
-                $pos = strpos($line, '=');
-                $property = trim(substr($line, 0, $pos));
-                $value = trim(substr($line, $pos + 1));                
-                $this->properties[$property] = $this->inVal($value);
-            }
+            $pos = strpos($line, '=');
+            $property = trim(substr($line, 0, $pos));
+            $value = trim(substr($line, $pos + 1));                
+            $this->properties[$property] = $this->inVal($value);
             
         } // for each line        
     }
