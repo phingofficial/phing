@@ -46,6 +46,7 @@ include_once 'phing/system/io/OutputStream.php';
 include_once 'phing/system/io/FileOutputStream.php';
 include_once 'phing/system/io/FileReader.php';
 include_once 'phing/system/util/Register.php';
+include_once 'phing/util/PhingAutoLoader.php';
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from

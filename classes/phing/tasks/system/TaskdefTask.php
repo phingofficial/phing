@@ -166,6 +166,5 @@ class TaskdefTask extends Task {
         $ph = ComponentHelper::getComponentHelper($this->project);
         
         $ph->addTaskDefinition($task, $classname, $classpath);
-        $ph->checkTaskClass($task);
     }
 }

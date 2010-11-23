@@ -111,10 +111,12 @@ class ComponentHelper {
     {
         $name  = $name;
         $class = $class;
+        
         if ($class === "") {
             $this->project->log("Task $name has no class defined.", Project::MSG_ERR);
         }  elseif (!isset($this->taskdefs[$name])) {
-            $this->taskdefs[$name] = $class;
+            $className = PhingAutoLoader::addLocation($class, (string) $classpath);
+            $this->taskdefs[$name] = $className;
             $this->project->log("  +Task definiton: $name ($class)", Project::MSG_DEBUG);
         } else {
             $this->project->log("Task $name ($class) already registerd, skipping", Project::MSG_VERBOSE);
@@ -130,16 +132,6 @@ class ComponentHelper {
     }
     
     /**
-     * Import/load class
-     */
-    public function checkTaskClass($name)
-    {
-        $classname = $this->taskdefs[$name];
-        
-        return Phing::import($classname);
-    }
-
-    /**
      * Adds a data type definition.
      * @param string $name Name of tag.
      * @param string $class The class path to use.
@@ -148,8 +140,8 @@ class ComponentHelper {
     public function addDataTypeDefinition($typeName, $typeClass, $classpath = null)
     {
         if (!isset($this->typedefs[$typeName])) {
-            Phing::import($typeClass, $classpath);
-            $this->typedefs[$typeName] = $typeClass;
+            $className = PhingAutoLoader::addLocation($typeClass, (string) $classpath);
+            $this->typedefs[$typeName] = $className;
             $this->project->log("  +User datatype: $typeName ($typeClass)", Project::MSG_DEBUG);
         } else {
             $this->project->log("Type $typeName ($typeClass) already registerd, skipping", Project::MSG_VERBOSE);
@@ -184,20 +176,19 @@ class ComponentHelper {
     public function createTask($taskType)
     {
         try {
-            $classname = "";
+            $cls = "";
             $tasklwr = strtolower($taskType);
+            
             foreach ($this->taskdefs as $name => $class) {
                 if (strtolower($name) === $tasklwr) {
-                    $classname = $class;
+                    $cls = $class;
                     break;
                 }
             }
             
-            if ($classname === "") {
+            if ($cls === "") {
                 return null;
             }
-            
-            $cls = Phing::import($classname);
             
             if (!class_exists($cls)) {
                 throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
