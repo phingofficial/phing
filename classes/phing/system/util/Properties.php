@@ -35,6 +35,20 @@ include_once 'phing/system/io/FileWriter.php';
 class Properties {
 
     private $properties = array();
+    
+    /**
+     * Constructor
+     *
+     * @param array $properties
+     */
+    function __construct($properties = NULL)
+    {
+        if (is_array($properties)) {
+            foreach ($properties as $key => $value) {
+                $this->setProperty($key, $value);
+            }
+        }
+    }
 
     /**
      * Load properties from a file.
