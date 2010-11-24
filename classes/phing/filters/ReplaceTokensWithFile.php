@@ -128,6 +128,13 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     }
 
     /**
+     * Returns the drectory where to look for the files to use for token replacement
+     */
+    function getTranslateHTML() {
+        return $this->_translatehtml;
+    }
+    
+    /**
      * Sets the drectory where to look for the files to use for token replacement
      *
      * @param string $dir
@@ -136,6 +143,13 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         $this->_dir = (string) $dir;
     }
 
+    /**
+     * Returns the drectory where to look for the files to use for token replacement
+     */
+    function getDir() {
+        return $this->_dir;
+    }
+        
     /**
      * Sets the prefix that is prepended to the token in order to create the file
      * name. For example if the token is 01 and the prefix is "example" then
@@ -147,6 +161,15 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         $this->_prefix = (string) $prefix;
     }
 
+    /*
+     * Returns the prefix that is prepended to the token in order to create the file
+     * name. For example if the token is 01 and the prefix is "example" then
+     * the filename to look for will be "example01"
+     */
+    function getPrefix() {
+        return $this->_prefix;
+    }
+    
     /**
      * Sets the postfix that is added to the token in order to create the file
      * name. For example if the token is 01 and the postfix is ".php" then
@@ -158,6 +181,15 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         $this->_postfix = (string) $postfix;
     }
 
+    /**
+     * Returns the postfix that is added to the token in order to create the file
+     * name. For example if the token is 01 and the postfix is ".php" then
+     * the filename to look for will be "01.php"
+     */
+    function getPostfix() {
+        return $this->_postfix;
+    }
+    
     /**
      * Sets the "begin token" character.
      *
@@ -277,6 +309,9 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     function chain(Reader $reader) {
         $newFilter = new ReplaceTokensWithFile($reader);
         $newFilter->setProject($this->getProject());
+        $newFilter->setTranslateHTML($this->getTranslateHTML());
+        $newFilter->setDir($this->getDir());
+        $newFilter->setPrefix($this->getPrefix());
         $newFilter->setBeginToken($this->getBeginToken());
         $newFilter->setEndToken($this->getEndToken());
         $newFilter->setInitialized(true);
