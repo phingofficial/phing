@@ -107,6 +107,11 @@ class FilterChain extends DataType {
         $this->filterReaders[] = $o;
     }
 
+    function addReplaceTokensWithFile(ReplaceTokensWithFile $o) { 
+        $o->setProject($this->project); 
+        $this->filterReaders[] = $o; 
+    } 
+
     function addReplaceRegexp(ReplaceRegexp $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
