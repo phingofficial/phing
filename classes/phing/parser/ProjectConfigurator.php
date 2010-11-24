@@ -355,7 +355,18 @@ class ProjectConfigurator {
         } else {
             self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], Project::MSG_DEBUG);
         }
-        return self::$propReplaceProperties[$propertyName];
+        
+        $propertyValue = self::$propReplaceProperties[$propertyName];
+        
+        if (is_bool($propertyValue)) {
+            if ($propertyValue === true) {
+                $propertyValue = "true";
+            } else {
+                $propertyValue = "false";
+            }
+        }
+        
+        return $propertyValue;
     }           
 
     /**
