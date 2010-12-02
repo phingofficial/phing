@@ -1,6 +1,21 @@
                            _________________________
                            P     H     I     N     G
 
+Dec. , 2010 - Phing 2.4.4
+
+This release fixes several issues.
+
+[595] FilterChain without ReplaceTokensWithFile creator
+[594] Taskdef in phing 2.4.3 was broken!
+[590] PhpLintTask don't flag files that can't be parsed as bad files
+[589] Mail Task don't show recipients list on log
+[588] Add (optional) dependency to VersionControl_Git and Services_Amazon_S3 packages
+[585] Same line comments in property files are included in the property value
+[570] XmlLintTask - check well-formedness only
+[568] Boolean properties get incorrectly expanded
+[544] Wrong file set when exclude test/**/** is used
+[536] DbDeployTask: Undo script wrongly generated
+
 Nov. 12, 2010 - Phing 2.4.3
 
 This release adds tasks to interface with Git and Amazon S3, adds support for PHPUnit 3.5,
