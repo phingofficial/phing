@@ -209,33 +209,28 @@ class PhpLintTask extends Task {
                 
                 $messages = array();
                 $errorCount = 0;
-                $returnCode = 0;
 
-                exec($command.'"'.$file.'" 2>&1', $messages, $returnCode);
-
-                if ($returnCode) {
-                    $this->log("Could not parse file", Project::MSG_ERR);
-                } else {
-                    for ($i = 0; $i < count($messages) - 1; $i++) {
-                        $message = $messages[$i];
-                        if (trim($message) == '') {
-                            continue;
+                exec($command.'"'.$file.'" 2>&1', $messages);
+                
+                for ($i = 0; $i < count($messages) - 1; $i++) {
+                    $message = $messages[$i];
+                    if (trim($message) == '') {
+                        continue;
+                    }
+                    
+                    if ((!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match('/^No syntax errors detected/', $message)) {
+                        $this->log($message, $this->logLevel);
+                        
+                        if ($this->errorProperty) {
+                            $this->project->setProperty($this->errorProperty, $message);
                         }
                         
-                        if ((!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match('/^No syntax errors detected/', $message)) {
-                            $this->log($message, $this->logLevel);
-                                
-                            if ($this->errorProperty) {
-                                $this->project->setProperty($this->errorProperty, $message);
-                            }
-                            
-                            if (!isset($this->badFiles[$file])) {
-                                $this->badFiles[$file] = $message;
-                            }
-                    
-                            $this->hasErrors = true;
-                            $errorCount++;
+                        if (!isset($this->badFiles[$file])) {
+                            $this->badFiles[$file] = $message;
                         }
+                        
+                        $this->hasErrors = true;
+                        $errorCount++;
                     }
                 }
 

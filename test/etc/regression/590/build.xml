@@ -1,0 +1,9 @@
+<project name="Regression #590" default="main">
+	<target name="main">
+		<phplint deprecatedaserror="true">
+			<fileset dir=".">
+				<include name="*.php"/>
+			</fileset>
+		</phplint>
+	</target>
+</project>
