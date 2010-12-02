@@ -45,18 +45,6 @@ class TypedefTaskTest extends BuildFileTest {
         $this->expectBuildException("noClassname", "required argument not specified");
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
-    public function testClassNotFound() { 
-        try {
-            $this->executeTarget("classNotFound");
-            $this->fail("Should throw ConfigurationException because: " . 
-              "classname specified doesn't exist");
-        } catch (ConfigurationException $ignored) {
-        }
-    }
-
     public function testGlobal() {
         $this->expectLog("testGlobal", "Adding reference: global -> TypedefTestType");
         $refs = $this->project->getReferences();
