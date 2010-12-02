@@ -134,7 +134,7 @@ class DbDeployTask extends Task {
                 $undoSQLFromFileSplit = strpos($contents, '-- //@UNDO'); 
                 if ($undoSQLFromFileSplit === false) 
                     $undoSQLFromFileSplit = strpos($contents, '--//@UNDO'); 
-                $undoSQLFromFile = substr($contents,0,$undoSQLFromFileSplit+10); 
+                $undoSQLFromFile = substr($contents,$undoSQLFromFileSplit+10); 
                 $sqlToPerformUndo .= $undoSQLFromFile;
                 $sqlToPerformUndo .= 'DELETE FROM ' . DbDeployTask::$TABLE_NAME . ' WHERE change_number = ' . $fileChangeNumber . ' AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 $sqlToPerformUndo .= '-- Fragment ends: ' . $fileChangeNumber . ' --' . "\n";
