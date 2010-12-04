@@ -183,7 +183,7 @@ class ReplaceRegexpTask extends Task {
                 $in->close();
             } catch (Exception $e) {
                 if ($in) $in->close();
-                $this->log("Erorr reading file: " . $e->getMessage(), Project::MSG_WARN);
+                $this->log("Error reading file: " . $e->getMessage(), Project::MSG_WARN);
             }
             
             try {
