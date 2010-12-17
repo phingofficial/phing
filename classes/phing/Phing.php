@@ -46,7 +46,6 @@ include_once 'phing/system/io/OutputStream.php';
 include_once 'phing/system/io/FileOutputStream.php';
 include_once 'phing/system/io/FileReader.php';
 include_once 'phing/system/util/Register.php';
-include_once 'phing/util/PhingAutoLoader.php';
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -972,7 +971,38 @@ class Phing {
      * @throws BuildException - if cannot find the specified file
      */
     public static function import($dotPath, $classpath = null) {
-        return PhingAutoLoader::addLocation($dotPath, (string) $classpath);
+
+        /// check if this is a PEAR-style path (@see http://pear.php.net/manual/en/standards.naming.php)
+        if (strpos($dotPath, '.') === false && strpos($dotPath, '_') !== false) {
+            $classname = $dotPath;
+            $dotPath = str_replace('_', '.', $dotPath);
+        } else {
+            $classname = StringHelper::unqualify($dotPath);
+        }
+        
+        // first check to see that the class specified hasn't already been included.
+        // (this also handles case where this method is called w/ a classname rather than dotpath)
+        if (class_exists($classname, false)) {
+            return $classname;
+        }
+
+        $dotClassname = basename($dotPath);
+        $dotClassnamePos = strlen($dotPath) - strlen($dotClassname);
+
+        // 1- temporarily replace escaped '.' with another illegal char (#)
+        $tmp = str_replace('\.', '##', $dotClassname);
+        // 2- swap out the remaining '.' with DIR_SEP
+        $tmp = strtr($tmp, '.', DIRECTORY_SEPARATOR);
+        // 3- swap back the escaped '.'
+        $tmp = str_replace('##', '.', $tmp);
+
+        $classFile = $tmp . ".php";
+
+        $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
+
+        Phing::__import($path, $classpath);
+
+        return $classname;
     }
 
     /**
