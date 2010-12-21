@@ -82,12 +82,12 @@ class AdhocTaskdefTask extends AdhocTask
 
             $classes = $this->getNewClasses();
             
-            if (count($classes) !== 1)
+            if (count($classes) < 1)
             {
-                throw new BuildException("You must define one (and only one) class for AdhocTaskdefTask.");
+                throw new BuildException("You must define at least one class for AdhocTaskdefTask.");
             }
             
-            $classname = array_shift($classes);
+            $classname = array_pop($classes);
 
             // instantiate it to make sure it is an instance of Task
             $t = new $classname();
