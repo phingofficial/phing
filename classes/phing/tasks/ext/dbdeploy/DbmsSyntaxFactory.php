@@ -51,6 +51,9 @@ class DbmsSyntaxFactory
             case('mssql'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
                 return new DbmsSyntaxMsSql();
+            case('pgsql'):
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
+                return new DbmsSyntaxPgSQL();
             default:
                 throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
         }
