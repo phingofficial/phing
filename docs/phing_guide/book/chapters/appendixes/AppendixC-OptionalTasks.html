@@ -5691,7 +5691,336 @@ a2.a3.a4=false</pre>
 &nbsp;&nbsp;&lt;/fileset&gt;
 &lt;/zendcodeanalyzer&gt;
 </pre>
-    <p>Analyze a set of PHP source files and disable a few warnings.</p><p><b>NOTE:</b> the <em>analyze</em> tag has been deprecated as of Phing 2.4.</p><h2><a
+    <p>Analyze a set of PHP source files and disable a few warnings.</p><p><b>NOTE:</b> the <em>analyze</em> tag has been deprecated as of Phing 2.4.</p>
+    
+<h2><a name="ZendGuardEncodeTask"></a>ZendGuardEncodeTask</h2>
+<p>The <em>ZendGuardEncodeTask</em> is a wrapper for
+ZendGuard zendenc executable. It pre-compiles the PHP code which
+improves speed and can prevent unauthorized code modification.
+Additionally it allows signing or licensing the code so it can only be
+used with a valid license.&nbsp;</p>
+<p>For more information about ZendGuard encode
+parameters see the <a
+ href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf">ZendGuard
+documentation</a>.</p>
+<h3>Attributes</h3>
+<table>
+  <thead> <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+    <th>Required</th>
+  </tr>
+  </thead> <tbody>
+    <tr>
+      <td>zendEncoderPath</td>
+      <td>String</td>
+      <td>Path to &nbsp;zendenc or zendenc5 binary.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>deleteSource</td>
+      <td>Boolean</td>
+      <td>Whether to delete the original file and replace with
+encoded.</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>renameSourceExt</td>
+      <td>String</td>
+      <td>If defined the original file will be &nbsp;copied
+to originalfile.renameSourceExt before encoding. This property
+overrides &nbsp;the deleteSource property.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>shortTags</td>
+      <td>Boolean</td>
+      <td>Turns on/off support for PHP short tags (&lt;?).
+True to enable support.</td>
+      <td>true</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>aspTags</td>
+      <td>Boolean</td>
+      <td>Turns on/off support for ASP tags (&lt;%). True to
+enable support.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>noHeader</td>
+      <td>Boolean</td>
+      <td>Disables the PHP-compatible header that is added to the
+top of every encoded file by default and is displayed if the Zend
+Optimizer is not properly installed.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>useCrypto</td>
+      <td>Boolean</td>
+      <td>Enables cryptography support.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>encodedOnly</td>
+      <td>Boolean</td>
+      <td>If enabled the encoded files will only work with other
+encoded files ( I.e. encoded and not-encoded files cannot be used
+together).</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>forceEncode</td>
+      <td>Boolean</td>
+      <td>Allow encoding previously encoded files. Not
+recommended.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>expires</td>
+      <td>String</td>
+      <td>Make an encoded file to expire on the given data. Date
+is in yyyy-mm-dd format.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>obfuscationLevel</td>
+      <td>Integer</td>
+      <td>Level of obfuscation. Defaults to 0 (no
+obfuscation).&nbsp;</td>
+      <td>0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>optMask</td>
+      <td>Integer</td>
+      <td>Optimization mask. Integer representing a bit mask.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>privateKeyPath</td>
+      <td>String</td>
+      <td>Path to the company private key. This is required when
+either signProduct or licenseProduct is enabled.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>licenseProduct</td>
+      <td>Boolean</td>
+      <td>Enabled product licensing. The encoded files won't work
+without a valid license. If enabled privateKeyPath property also needs
+to be defined.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>signProduct</td>
+      <td>Boolean</td>
+      <td>Enabled product signing. If signing is enabled the
+files will be encoded with license support. However valid license won't
+be required for the files to work. If enabled privatKeyPath property
+also needs to be defined.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>productName</td>
+      <td>String</td>
+      <td>Name of the product. This must match the product name
+in the license and is required when either licenseProduct or
+signProduct is enabled.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>prologFile</td>
+      <td>String</td>
+      <td>Path to a file containing a text that will be prepended
+to each encoded file and displayed in case the Zend Optimizer is not
+installed.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+  <li>fileset</li>
+</ul>
+<h3>Example</h3>
+<pre>&lt;zendguardencode<br /> shortTags="false"<br /> productName="Phing"<br /> privateKeyPath="/var/data/phing.key"<br /> licenseProduct="true"<br /> zendEncoderPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc5"<br /> &gt;<br /><br /> &lt;fileset dir="src"&gt;<br /> &lt;include name="**/*.php" /&gt;<br /> &lt;exclude name="cache/**" /&gt;<br /> &lt;exclude name="plugins/**" /&gt;<br /> &lt;/fileset&gt;<br /> <br /> &lt;fileset dir="src"&gt;<br /> &lt;include name="plugins/cs*/**/*.php" /&gt;<br /> &lt;include name="plugins/cs*/*.php" /&gt;<br /> &lt;/fileset&gt;<br />&lt;/zendguardencode&gt;<br /></pre>
+<p>Encode all php files in the current directory and
+subdirectories. Exlude everything in cache/ and plugins/ but include
+everything in plugins that starts with cs.</p>
+<p></p>
+<h2><a name="ZendGuardLicenseTask"></a>ZendGuardLicenseTask</h2>
+<p>The <em>ZendGuardLicenseTask</em> is a wrapper
+for
+ZendGuard zendenc_sign executable. &nbsp;It generates ZendGuard
+license either from a license template file or from the defined
+properties.</p>
+<p>For more information about ZendGuard sign
+parameters see the <a
+ href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf">ZendGuard
+documentation</a>.</p>
+<h3>Attributes</h3>
+<table>
+  <thead> <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+    <th>Required</th>
+  </tr>
+  </thead> <tbody>
+    <tr>
+      <td>zendsignPath</td>
+      <td>String</td>
+      <td>Path to &nbsp;zendenc_sign binary.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>privateKeyPath</td>
+      <td>String</td>
+      <td>Path to the company private key.&nbsp;</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>outputFile</td>
+      <td>String</td>
+      <td>Path where should the license be generated.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>licenseTemplate</td>
+      <td>String</td>
+      <td>Path to a license template file. If &nbsp;defined
+all other licensing properties will be ignored (even if they are
+otherwise required).</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>productName</td>
+      <td>String</td>
+      <td>Name of the product. This has to match the product name
+that was used to encode the files (see ZendGuardEncodeTask).</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>registeredTo</td>
+      <td>String</td>
+      <td>Name to which the product will be registered to.</td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>expires</td>
+      <td>Mixed</td>
+      <td>This allows to define when the license will expire.
+&nbsp;The license can be issued so it either never expires or
+expires at a specified data. <br />
+Use:<br />
+      <ul>
+        <li>&nbsp;'Never', 0 or false to set expiry data to
+Never.</li>
+        <li>Date in yyyy-mm-dd format to set the expiry date to a
+specific date.</li>
+        <li>Relative format supported by strtotime function (e.g.
+'+6
+months' to generate a license that will expire in half a year).</li>
+      </ul>
+      </td>
+      <td>n/a</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>ipRange</td>
+      <td>String</td>
+      <td>Limits the use of the license to IP addresses that fall
+within specification. Supports wildcards for any of the IP place
+holders, as well as the two types of the net masks (e.g. 10.1.0.0/16 or
+10.1.0.0./255.255.0.0).</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>hardwareLocked</td>
+      <td>Boolean</td>
+      <td>Option that indicates if the license will be locked to
+a specific machine using the Zend Host ID code(s). If set to true the
+Host-ID property is required.</td>
+      <td>false</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>hostID</td>
+      <td>String</td>
+      <td>Coded string (Zend Host ID) used to lock the license to
+a specific hardware. The Zend Host Id obtained from the machine where
+the encoded files and license are to be installed. Can be obtained by
+using the zendid utility.<br />
+      <br />
+This is REQUIRED if the Hardware-Locked property is set to true. You
+can define multiple Host IDs separated by semicolon.</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>userDefinedValues</td>
+      <td>String</td>
+      <td>Optional user defined values in format key=value.
+Multiple key-value pairs can be defined and separated by semicolon.
+These values then will be part of the license and can be obtained using
+the zend guard api (provided by Zend Optimizer). These values CANNOT be
+modified after the license is generated. Their modification would
+invalidate the license.<br />
+Example: &nbsp;Drink=Tea;Material=Wood</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>xUserDefinedValues</td>
+      <td>String</td>
+      <td>Optional user defined values in format key=value.
+Multiple key-value
+pairs can be defined and separated by semicolon. These values then will
+be part of the license and can be obtained using the zend guard api
+(provided by Zend Optimizer). These values CAN be modified after the
+license is generated. Their modification won't invalidate the license.<br />
+Example: &nbsp;Drink=Tea;Material=Wood</td>
+      <td>n/a</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<span style="font-weight: bold;">Examples</span>
+<pre>&lt;zendguardlicense<br />            privateKeyPath="/var/data/phing.key"<br />            zendsignPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc_sign"<br />            outputFile="./data/license/license.zl"<br />            productName="Phing"<br />            registeredTo="YourCustomerName"<br />            hardwareLocked="true"<br />            expires="+6 months"<br />            HostID="H:MFM43-Q9CXC-B9EDX-GWYSU;H:MFM43-Q9CXC-B9EDX-GWYTY"<br />            ipRange="10.1.*.*"<br />            userDefinedValues="Drink=Tea;Material=Wood"<br />            xUserDefinedValues="Drink=Tea;Material=Wood"<br />/&gt;<br /></pre>
+<p>Creates a license using the given properties.</p>
+<pre>&lt;zendguardlicense<br />            privateKeyPath="/var/data/phing.key"<br />            zendsignPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc_sign"<br />            outputFile="./data/license/license.zl"<br />            licenseTemplate="./data/license/license.template.zl"<br />/&gt;<br /></pre>
+<p>Creates a license using a license template file.</p>
+<p></p>
+
+    
+    <h2><a
         name="ZipTask"></a>ZipTask</h2><p> The <em>ZipTask</em> creates a .zip archive from a fileset or directory.</p><h3>Examples</h3>
     <pre>&lt;zip destfile=&quot;phing.zip&quot;&gt;
  &lt;fileset dir=&quot;.&quot;&gt;
