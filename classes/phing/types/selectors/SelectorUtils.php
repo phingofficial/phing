@@ -131,8 +131,8 @@ class SelectorUtils {
         $rePattern = preg_quote($pattern, '/');
         $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
         $patternReplacements = array(
-            $dirSep.'\*\*'.$dirSep => '\/.*\/?',
-            $dirSep.'\*\*' => '\/.*',
+            $dirSep.'\*\*'.$dirSep => $dirSep.'.*'.$dirSep.'?',
+            $dirSep.'\*\*' => $dirSep.'.*',
             '\*\*'.$dirSep => '.*',
             '\*\*' => '.*',
             '\*' => '[^'.$dirSep.']*',
