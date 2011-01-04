@@ -33,35 +33,47 @@ class ImportTaskTest extends BuildFileTest {
     }
 
     public function testOverloadedTarget () {
+      $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/importing.xml");
+      
       $this->executeTarget("main");
-      $this->assertInLogs("This is " . PHING_TEST_BASE . "/etc/tasks/importing.xml main target.");
+      $this->assertInLogs("This is " . $f1->getAbsolutePath() . " main target.");
     }
         
     public function testImportedTarget () {
+      $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
+      $f2 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports");
+      
       $this->executeTarget("imported");
-      $this->assertInLogs("phing.file.imported=" . PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
-      $this->assertInLogs("imported.basedir=" . PHING_TEST_BASE . "/etc/tasks/imports");
+      $this->assertInLogs("phing.file.imported=" . $f1->getAbsolutePath());
+      $this->assertInLogs("imported.basedir=" . $f2->getAbsolutePath());
     }
 
     public function testImported2Target () {
+      $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/importedImport.xml");
+      
       $this->executeTarget("imported2");
-      $this->assertInLogs("This is " . PHING_TEST_BASE . "/etc/tasks/imports/importedImport.xml imported2 target.");
+      $this->assertInLogs("This is " . $f1->getAbsolutePath() . " imported2 target.");
     }
         
     public function testCascadeTarget () {
+      $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
+      $f2 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/importing.xml");
+      
       $this->executeTarget("cascade");
       $this->assertInLogs("This comes from the imported.properties file");
-      $this->assertInLogs("This is " . PHING_TEST_BASE . "/etc/tasks/imports/imported.xml main target.");
-      $this->assertInLogs("This is " . PHING_TEST_BASE . "/etc/tasks/importing.xml cascade target.");
+      $this->assertInLogs("This is " . $f1->getAbsolutePath() . " main target.");
+      $this->assertInLogs("This is " . $f2->getAbsolutePath() . " cascade target.");
     }
 
     public function testFlipFlopTarget () {
       // calls target in main that depends on target in import that depends on 
       // target orverridden in main
       $this->executeTarget("flipflop");
-      $this->assertInLogs("This is " . PHING_TEST_BASE . "/etc/tasks/importing.xml flop target.");
-      $this->assertInLogs("This is " . PHING_TEST_BASE . "/etc/tasks/imports/imported.xml flip target.");
-      $this->assertInLogs("This is " . PHING_TEST_BASE . "/etc/tasks/importing.xml flipflop target.");
+      $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/importing.xml");
+      $f2 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
+      $this->assertInLogs("This is " . $f1->getAbsolutePath() . " flop target.");
+      $this->assertInLogs("This is " . $f2->getAbsolutePath() . " flip target.");
+      $this->assertInLogs("This is " . $f1->getAbsolutePath() . " flipflop target.");
 
     }
 }
