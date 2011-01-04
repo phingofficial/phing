@@ -368,6 +368,7 @@ class PhpCodeSnifferTask extends Task {
             }
         }
 
+        $cwd = getcwd();
         $codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
         if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
@@ -381,6 +382,7 @@ class PhpCodeSnifferTask extends Task {
         } else {
             $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
         }
+        chdir($cwd);
 
         $report = $this->printErrorReport($codeSniffer);
 
