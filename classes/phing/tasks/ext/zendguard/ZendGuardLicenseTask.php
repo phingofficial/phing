@@ -211,7 +211,7 @@ class ZendGuardLicenseTask extends Task
             if (!$time) {
                 throw new BuildException("Unsupported expires format: " . $expires);
             }
-            $this->expires = date('j-M-Y', $time);
+            $this->expires = date('d-M-Y', $time);
         }
     }
 
