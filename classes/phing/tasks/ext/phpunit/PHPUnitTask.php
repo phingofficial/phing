@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Util/Filter.php';
 require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
