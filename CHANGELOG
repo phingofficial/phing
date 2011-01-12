@@ -6,13 +6,17 @@ Jan. ??, 2010 - Phing 2.4.5
 This release fixes several issues, and reverts the changes
 that introduced the ComponentHelper class.
 
+[624] PDOSQLExec fails with Fatal error: Class 'LogWriter' not found in PDOSQLExecFormatterElement
+[623] 2.4.5RC1 requires PHPUnit erroneously
 [621] PhpLintTask outputs all messages (info and errors) to same loglevel
 [614] phpcodesniffer task changes Phing build working directory
 [610] BUG: AdhocTaskdefTask fails when creating a task that extends from an existing task
 [607] v 2.4.4 broke taskdef for tasks following PEAR naming standard
+[603] Add support to PostgreSQL in DbDeployTask
 [601] Add HTTP_Request2 to optional dependencies
 [600] typo in ReplaceRegexpTask
 [598] Wrong version for optional Services_Amazon_S3 dependency
+[593] Ssh/scp task: Move ssh2_connect checking from init to main
 [544] Wrong file set when exclude test/**/** is used
 
 Dec. 2, 2010 - Phing 2.4.4
