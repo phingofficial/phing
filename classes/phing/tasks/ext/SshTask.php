@@ -140,14 +140,14 @@ class SshTask extends Task {
 
     public function init() 
     {
-        if (!function_exists('ssh2_connect')) { 
-            throw new BuildException("To use SshTask, you need to install the SSH extension.");
-        }
-        return TRUE;
     }
 
     public function main() 
     {
+        if (!function_exists('ssh2_connect')) { 
+            throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
+        }
+        
         $this->connection = ssh2_connect($this->host, $this->port);
         if (is_null($this->connection)) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");

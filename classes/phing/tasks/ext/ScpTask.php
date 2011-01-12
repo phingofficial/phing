@@ -259,14 +259,14 @@ class ScpTask extends Task
     
     public function init()
     {
-        if (!function_exists('ssh2_connect')) { 
-            throw new BuildException("To use ScpTask, you need to install the SSH extension.");
-        }
-        return true;
     }
 
     public function main()
     {
+        if (!function_exists('ssh2_connect')) { 
+            throw new BuildException("To use ScpTask, you need to install the PHP SSH2 extension.");
+        }
+        
         if ($this->file == "" && empty($this->filesets)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file'");
         }
