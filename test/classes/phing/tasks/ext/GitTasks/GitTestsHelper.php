@@ -1,7 +1,8 @@
 <?php
 class GitTestsHelper
 {
-    public static function rmdir($dir) {
+    public static function rmdir($dir) 
+    {
         if (!file_exists($dir)) return true;
         if (!is_dir($dir)) return unlink($dir);
         foreach (scandir($dir) as $item) {
@@ -10,4 +11,48 @@ class GitTestsHelper
         }
         return rmdir($dir);
     }
+
+    /**
+     * Get relative date
+     *
+     * @param int $timestamp Timestamp to us as pin-point
+     * @param string $type Whether 'fulldate' or 'time'
+     */
+    public static function getRelativeDate($timestamp, $type = 'fulldate')
+    {
+        // calculate the diffrence
+        $timediff = time () - $timestamp ;
+
+        if ($timediff < 3600) {
+            if ($timediff < 120) {
+                $returndate = "1 minute ago";
+            } else {
+                $returndate =  round($timediff / 60) . " minutes ago";
+            }
+        } else if ($timediff < 7200) {
+            $returndate = "1 hour ago.";
+        } else if ($timediff < 86400) {
+            $returndate = round($timediff / 3600) . " hours ago";
+        } else if ($timediff < 172800) {
+            $returndate = "1 day ago.";
+        } else if ($timediff < 604800) {
+            $returndate = round($timediff / 86400) . " days ago";
+        } else if ($timediff < 1209600) {
+            $returndate = "1 week ago.";
+        } else if ($timediff < 3024000) {
+            $returndate = round($timediff / 604900) . " weeks ago";
+        } else if ($timediff < 31556926) {
+            $returndate = round($timediff / 2629744) . " months ago";
+        } else {
+            $returndate = @date('n-j-Y', $timestamp);
+            if($type=="fulldate") {  
+                $returndate = @date('n-j-y, H:i', $timestamp);
+            } else if ($type=="time") {
+                $returndate = @date('H:i', $timestamp);
+            }
+        }
+
+        return $returndate;
+    }
+
 }
