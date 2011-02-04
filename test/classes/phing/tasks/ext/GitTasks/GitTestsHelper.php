@@ -39,8 +39,10 @@ class GitTestsHelper
             $returndate = round($timediff / 86400) . " days ago";
         } else if ($timediff < 1209600) {
             $returndate = "1 week ago.";
+            $returndate = round($timediff / 86400) . " days ago";
         } else if ($timediff < 3024000) {
             $returndate = round($timediff / 604900) . " weeks ago";
+            $returndate = round($timediff / 86400) . " days ago";
         } else if ($timediff < 31556926) {
             $returndate = round($timediff / 2629744) . " months ago";
         } else {
