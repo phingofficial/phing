@@ -153,7 +153,7 @@ class PDOSQLExecFormatterElement
 
         $out = $this->getOutputWriter();
 
-        print "Setting output writer to: " . get_class($out) . "\n";
+        $this->parentTask->log("Setting output writer to: " . get_class($out), Project::MSG_VERBOSE);
         $this->formatter->setOutput($out);
 
         if ($this->formatter instanceof PlainPDOResultFormatter) {
