@@ -142,7 +142,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader {
             $replaceWith = $this->_beginToken . $key . $this->_endToken;            
             $this->log("No token defined for key \"".$this->_beginToken  . $key . $this->_endToken."\"");
         } else {
-            $this->log("Replaced \"".$this->_beginToken  . $key . $this->_endToken ."\" with \"".$replaceWith."\"");
+            $this->log("Replaced \"".$this->_beginToken  . $key . $this->_endToken ."\" with \"".$replaceWith."\"", Project::MSG_VERBOSE);
         }
 
         return $replaceWith;
