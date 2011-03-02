@@ -72,6 +72,15 @@ class GitMergeTaskTest extends BuildFileTest {
         $this->assertInLogs('git-merge output: Already up-to-date.');
     }
 
+    public function testFastForwardCommitSet()
+    {
+        $repository = PHING_TEST_BASE . '/tmp/git';
+        $this->executeTarget('fastForwardCommitSet');
+        $this->assertInLogs('git-merge command: /usr/bin/git merge --no-ff \'origin/master\'');
+        $this->assertInLogs('git-merge: replaying "origin/master" commits');
+        $this->assertInLogs('Merge remote branch \'origin/master\' into merge-test-1');
+    }
+
     public function testNoRepositorySpecified()
     {
         $this->expectBuildExceptionContaining('noRepository', 

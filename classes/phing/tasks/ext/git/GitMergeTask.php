@@ -72,6 +72,12 @@ class GitMergeTask extends GitBaseTask
     private $noCommit = false;
 
     /**
+     * --ff --no-ff keys to git-merge
+     * @var boolean
+     */
+    private $fastForwardCommit = false;
+
+    /**
      * --quiet, -q key to git-merge
      * @var boolean
      */
@@ -111,6 +117,10 @@ class GitMergeTask extends GitBaseTask
             $command->setOption('no-commit', $this->isNoCommit());
         }
 
+        if ($this->isFastForwardCommit()) {
+            $command->setOption('no-ff', true);
+        }
+
         $strategy = $this->getStrategy();
         if ($strategy) {
             // check if strategy is valid
@@ -131,8 +141,7 @@ class GitMergeTask extends GitBaseTask
             $command->addArgument($remote);
         }
 
-        //echo $command->createCommandString();
-        //exit;
+        $this->log('git-merge command: ' . $command->createCommandString(), Project::MSG_INFO);
 
         try {
             $output = $command->execute();
@@ -230,5 +239,20 @@ class GitMergeTask extends GitBaseTask
     public function isNoCommit()
     {
         return $this->getNoCommit();
+    }
+
+    public function setFastForwardCommit($flag)
+    {
+        $this->fastForwardCommit = $flag;
+    }
+
+    public function getFastForwardCommit()
+    {
+        return $this->fastForwardCommit;
+    }
+
+    public function isFastForwardCommit()
+    {
+        return $this->getFastForwardCommit();
     }
 }
