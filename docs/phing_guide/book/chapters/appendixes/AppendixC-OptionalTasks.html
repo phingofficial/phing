@@ -1129,6 +1129,15 @@ Note that you can omit both startpoint and track attributes in this case
             <td>No</td>
         </tr>
         <tr>
+            <td>fastForwardCommit</td>
+            <td>Boolean</td>
+            <td>If set false (default), will not generate a merge commit if the merge resolved as a fast-forward, only update the branch pointer.<br />
+                If set true, will generate a merge commit even if the merge resolved as a fast-forward.
+                See --ff/--no-ff options in <a href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html">git-merge</a>.</td>
+            <td>False</td>
+            <td>No</td>
+        </tr>
+        <tr>
             <td>strategy</td>
             <td>String</td>
             <td>Merge strategy. One of "resolve", "recursive", "octopus", "ours", or "subtree".
