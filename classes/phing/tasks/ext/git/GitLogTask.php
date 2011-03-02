@@ -125,13 +125,16 @@ class GitLogTask extends GitBaseTask
         }
         $command->setOption('until', $this->getUntil());
 
+        $command->addDoubleDash(true);
         if (null !== $this->getPaths()) {
-            $command->addArgument('--');
+            $command->addDoubleDash(false);
             $paths = explode(PATH_SEPARATOR, $this->getPaths());
             foreach ($paths as $path) {
                 $command->addArgument($path);
             }
         }
+
+        $this->log('git-log command: ' . $command->createCommandString(), Project::MSG_INFO);
 
         try {
             $output = $command->execute();
