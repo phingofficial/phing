@@ -336,8 +336,8 @@ class MyEchoTask extends Task {
 <pre title="A simple buildfile that tests the echo task">
 &lt;?xml version=&quot;1.0&quot; ?&gt;
 
-&lt;project name=&quot;test&quot; basedir=&quot;.&quot; default=&quot;myecho&quot;&gt;
-    &lt;taskdef name=&quot;myecho&quot; classname=&quot;phing.tasks.my.MyEcho&quot; /&gt;
+&lt;project name=&quot;test&quot; basedir=&quot;.&quot; default=&quot;test.myecho&quot;&gt;
+    &lt;taskdef name=&quot;myecho&quot; classname=&quot;phing.tasks.my.MyEchoTask&quot; /&gt;
 
     &lt;target name=&quot;test.myecho&quot;&gt;
       &lt;myecho message=&quot;Hello World&quot; /&gt;
