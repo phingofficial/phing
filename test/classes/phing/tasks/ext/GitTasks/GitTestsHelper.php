@@ -40,18 +40,14 @@ class GitTestsHelper
         } else if ($timediff < 1209600) {
             $returndate = "1 week ago.";
             $returndate = round($timediff / 86400) . " days ago";
+        } else if ($timediff < 2629744) {
+            $returndate = round($timediff / 86400) . " days ago";
         } else if ($timediff < 3024000) {
             $returndate = round($timediff / 604900) . " weeks ago";
-            $returndate = round($timediff / 86400) . " days ago";
-        } else if ($timediff < 31556926) {
+        } else if ($timediff > 5259486) {
             $returndate = round($timediff / 2629744) . " months ago";
         } else {
-            $returndate = @date('n-j-Y', $timestamp);
-            if($type=="fulldate") {  
-                $returndate = @date('n-j-y, H:i', $timestamp);
-            } else if ($type=="time") {
-                $returndate = @date('H:i', $timestamp);
-            }
+            $returndate = round($timediff / 604900) . " weeks ago";
         }
 
         return $returndate;
