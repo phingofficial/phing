@@ -1472,6 +1472,191 @@ Note that you can omit both startpoint and track attributes in this case
     refspec="newbranch" quiet="true" /&gt;
 </pre>
 
+<h2><a name="GitTagTask"></a>GitTagTask</h2>
+<p>Create, list, delete or verify a tag object signed with GPG. See official 
+<a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">documentation</a>.</p>
+<h3>Attributes</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Default</th>
+            <th>Required</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>gitPath</td>
+            <td>String</td>
+            <td>Path to Git binary</td>
+            <td>/usr/bin/git</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>String</td>
+            <td>Path to Git repository</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>message</td>
+            <td>String</td>
+            <td>Use given tag message. 
+                See -m of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>name</td>
+            <td>String</td>
+            <td>Tag name</td>
+            <td>n/a</td>
+            <td>Yes</td>
+        </tr>
+        <tr>
+            <td>commit</td>
+            <td>String</td>
+            <td>&lt;commit&gt; argument to git-tag</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>object</td>
+            <td>String</td>
+            <td>&lt;object&gt; argument to git-tag</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>pattern</td>
+            <td>String</td>
+            <td>&lt;pattern&gt; argument to git-tag</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>outputProperty</td>
+            <td>String</td>
+            <td>Property name to set with output value from git-tag</td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>file</td>
+            <td>String</td>
+            <td>Take tag message from given file. 
+                See -F of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>annotate</td>
+            <td>Boolean</td>
+            <td>Make unsigned, annotated tag object. 
+                See -a of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>force</td>
+            <td>Boolean</td>
+            <td>Replace existing tag with given name. 
+                See -f of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>delete</td>
+            <td>Boolean</td>
+            <td>Delete existing tags with given names. 
+                See -d of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>list</td>
+            <td>Boolean</td>
+            <td>List tags with names matching given pattern. 
+                See -l of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>num</td>
+            <td>Integer</td>
+            <td>Specifies how many lines from the annotation, if any, are printed when using -l. 
+                See -n of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>contains</td>
+            <td>String</td>
+            <td>Only list tags containing specified commit. 
+                See --contains of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>sign</td>
+            <td>Boolean</td>
+            <td>Make GPG-signed tag.
+                See -a of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>keySign</td>
+            <td>String</td>
+            <td>Make GPG-signed tag, using given key. 
+                See -u of git-tag of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>n/a</td>
+            <td>No</td>
+        </tr>
+        <tr>
+            <td>verify</td>
+            <td>Boolean</td>
+            <td>Verify GPG signature of given tag names. 
+                See -v of <a href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html">git-tag</a></td>
+            <td>false</td>
+            <td>No</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Example</h3>
+<pre>
+&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- clone repository --&gt;
+&lt;gitclone 
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;gittag repository="${repo.dir.resolved}" name="ver1.0" /&gt;
+&lt;!-- Force duplicate tag creation --&gt;
+&lt;gittag 
+    repository="${repo.dir.resolved}" 
+    name="ver1.0" force="true"/&gt;
+&lt;!-- Create tag with annotation and message --&gt;
+&lt;gittag 
+    repository="${repo.dir.resolved}" 
+    name="ver1.0"
+    annotate="true" message="Version 1.0 tag"/&gt;
+&lt;!-- Delete tag --&gt;
+&lt;gittag 
+    repository="${repo.dir.resolved}"
+        name="ver2.0" delete="true" /&gt;
+&lt;!-- List tags matching to patter "marked" into "tags" variable --&gt;
+&lt;gittag repository="${repo.dir.resolved}" 
+    list="true"
+    outputProperty="tags" 
+    pattern="marked" /&gt;
+</pre>
+
 <h2><a name="HttpGetTask"></a>HttpGetTask</h2>
     <p>This task will download a file through HTTP GET and save it to a specified directory. You need an installed version of HTTP_Request2 to use this task.</p>
       <h3>Attributes</h3><table>

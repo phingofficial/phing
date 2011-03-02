@@ -65,7 +65,7 @@ class GitTagTask extends GitBaseTask
     private $delete = false;
     
     /**
-     * Verify gpg signature of given tag names.. See -v of git-tag
+     * Verify gpg signature of given tag names. See -v of git-tag
      * @var boolean
      */
     private $verify = false;
