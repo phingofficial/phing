@@ -182,8 +182,7 @@ class GitPullTask extends GitBaseTask
             throw new BuildException('No source repository specified');
         }
 
-        //echo $command->createCommandString();
-        //exit;
+        $this->log('git-pull command: ' . $command->createCommandString(), Project::MSG_INFO);
 
         try {
             $output = $command->execute();

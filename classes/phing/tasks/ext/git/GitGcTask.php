@@ -78,6 +78,8 @@ class GitGcTask extends GitBaseTask
         // suppress output
         $command->setOption('q');
 
+        $this->log('git-gc command: ' . $command->createCommandString(), Project::MSG_INFO);
+
         try {
             $command->execute();
         } catch (Exception $e) {

@@ -124,8 +124,7 @@ class GitPushTask extends GitBaseTask
             throw new BuildException('At least one destination must be provided');
         }
 
-        //echo $command->createCommandString();
-        //exit;
+        $this->log('git-push command: ' . $command->createCommandString(), Project::MSG_INFO);
 
         try {
             $output = $command->execute();
