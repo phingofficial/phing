@@ -155,7 +155,7 @@ attributes:</p>
   <tr>
     <td>description</td>
     <td>The description of the project.</td>
-    <td>Yes</td>
+    <td>No</td>
   </tr>
 </tbody>
 
@@ -182,6 +182,12 @@ target depends on it, in this case the dependant is only executed
 once:</p>
 
 <pre>
+	&lt;target name="A" /&gt;
+	
+	&lt;target name="B" depends="A" /&gt;
+
+	&lt;target name="C" depends="B" /&gt;
+	
     &lt;target name="D" depends="C,B,A" /&gt;
 </pre>
 
@@ -275,8 +281,8 @@ code of other tasks.</p>
 
 <p><em>Properties</em> are essentially variables that can be used in the buildfile.
   These might be set in the buildfile by calling the <a href="appendixes/AppendixB-CoreTasks.html#PropertyTask">PropertyTask</a>,
-  or might be set outside Phing on the command line (properties set on the command
-  always line override the ones in the buildfile). A property has a name and a
+  or might be set outside Phing on the command line (properties set on the command line
+  always override the ones in the buildfile). A property has a name and a
   value only. Properties may be used in the value of task attributes. This is
   done by placing the property name between &quot; <tt>${</tt> &quot; and &quot;
   <tt>}</tt> &quot; in the attribute value. For example, if there is a BC_BUILD_DIR
@@ -354,7 +360,7 @@ Let us have a quick rundown of this build file.
 <p>
 The next noticeable thing in the build file is the <em>&lt;fileset&gt;</em> tag.
 It defines a fileset, i.e. a set of multiple files. You can include and exclude
-Files with <em>include</em> and <em>exclude</em> tags within the <em>fileset</em>
+files with the <em>include</em> and <em>exclude</em> tags within the <em>fileset</em>
 tag. For more information concerning Filesets (i.e. Patterns) see
 <a href="appendixes/AppendixD-CoreTypes.html#Fileset">Appendix D</a>.
 The fileset is given an <em>id</em> attribute, so it can be referenced later on.
@@ -370,7 +376,7 @@ The first task only contains a call to <em>CopyTask</em> via
 <em>&lt;copy&gt;</em>. The interesting thing is within the
 <em>copy</em> tag. Here, a fileset task is not written out with
 nested <em>include</em> or <em>exclude</em> elements, but
-via the <em>refid</em>, the earlier create Fileset is referenced.
+via the <em>refid</em>, the Fileset created earlier is referenced.
 This way, you can use a once defined fileset multiple times in
 your build files.
 </p>
@@ -379,7 +385,7 @@ your build files.
   with the <em>&lt;phingcall&gt;</em> tag (see <a href="appendixes/AppendixB-CoreTasks.html#PhingCallTask">Appendix
   B</a> for more information). The task executes a specified target within the
   same build file. So, the second target removes the build directory and calls
-  <em>main</em> anew so the project is rebuilt. </p>
+  <em>main</em> again, thus rebuilding the project. </p>
 
 <p> A variant is to override properties defined in the build file
 with properties specified on the command line using the <i>-D</i> switch. For example to
