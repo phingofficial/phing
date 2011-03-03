@@ -6,6 +6,8 @@ Jan. ??, 2010 - Phing 2.4.5
 This release fixes several issues, and reverts the changes
 that introduced the ComponentHelper class.
 
+[657] Wrong example of creating task in stable documentation.
+[656] Many erratas on the "Getting Started"-page.
 [651] Messages of ReplaceTokens should be verbose
 [641] 2.4.4 packages contains .rej and .orig files in release tarball
 [640] "phing -q" does not work: "Unknown argument: -q"
