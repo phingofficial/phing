@@ -1,7 +1,7 @@
                            _________________________
                            P     H     I     N     G
 
-Jan. ??, 2010 - Phing 2.4.5
+Mar. 3, 2011 - Phing 2.4.5
 
 This release fixes several issues, and reverts the changes
 that introduced the ComponentHelper class.
