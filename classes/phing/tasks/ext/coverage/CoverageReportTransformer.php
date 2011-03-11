@@ -40,6 +40,9 @@ class CoverageReportTransformer
     private $toDir = "";
     private $document = NULL;
 
+    /** title of the project, used in the coverage report */
+    private $title = "";
+    
     function __construct(Task $task)
     {
         $this->task = $task;
@@ -58,6 +61,13 @@ class CoverageReportTransformer
     function setXmlDocument($document)
     {
         $this->document = $document;
+    }
+
+    /**
+     * Setter for title parameter
+     */
+    function setTitle($title) {
+        $this->title = $title;
     }
 
     function transform()
@@ -82,6 +92,7 @@ class CoverageReportTransformer
         // no output for the framed report
         // it's all done by extension...
         $proc->setParameter('', 'output.dir', $dir->toString());
+        $proc->setParameter('', 'document.title', $this->title);
         $proc->transformToXML($this->document);
         
         ExtendedFileStream::unregisterStream();

@@ -37,6 +37,7 @@
 
 <!-- default output directory is current directory -->
 <xsl:param name="output.dir" select="'.'"/>
+<xsl:param name="document.title" select="''"/>
 
 <!-- ======================================================================
     Root element
@@ -80,7 +81,7 @@
     ======================================================================= -->
 <xsl:template name="index.html">
 <html>
-    <head><title>Coverage Results.</title></head>
+    <head><title><xsl:value-of select="$document.title"/> Coverage Results</title></head>
     <frameset cols="20%,80%">
         <frameset rows="30%,70%">
             <frame src="overview-frame.html" name="packageListFrame"/>
@@ -390,7 +391,7 @@ TD.srcLineClassStart {
                 <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
             </tr>
             <tr class="a">
-        	<td><b>Project</b></td>
+        	<td><b>Project <xsl:value-of select="$document.title"/></b></td>
                 <xsl:call-template name="stats.formatted"/>
             </tr>
             <tr>
