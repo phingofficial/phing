@@ -829,7 +829,7 @@ TD.srcLineClassStart {
         <td style="text-align:right"><h2>Source Code Coverage</h2></td>
         </tr>
         <tr>
-        <td style="text-align:right">Designed for use with <a href='http://pear.php.net/package/PHPUnit2'>PHPUnit2</a>, <a href='http://www.xdebug.org/'>Xdebug</a> and <a href='http://phing.info/'>Phing</a>.</td>
+        <td style="text-align:right">Designed for use with <a href='http://www.phpunit.de'>PHPUnit</a>, <a href='http://www.xdebug.org/'>Xdebug</a> and <a href='http://phing.info/'>Phing</a>.</td>
         </tr>
   </table>
     <hr size="1"/>
