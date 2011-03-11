@@ -275,7 +275,7 @@ class CoverageThresholdTask extends Task
                         && !$method->isAbstract()
                     ) {
                         throw new BuildException(
-                            'The coverage (' . $methodCoverage . '%) '
+                            'The coverage (' . round($methodCoverage, 2) . '%) '
                             . 'for method "' . $method->getName() . '" is lower'
                             . ' than the specified threshold ('
                             . $this->_perMethod . '%), see file: "'
@@ -321,7 +321,7 @@ class CoverageThresholdTask extends Task
                     && !$reflection->isAbstract()
                 ) {
                     throw new BuildException(
-                        'The coverage (' . $classCoverage . '%) for class "'
+                        'The coverage (' . round($classCoverage, 2) . '%) for class "'
                         . $reflection->getName() . '" is lower than the '
                         . 'specified threshold (' . $this->_perClass . '%), '
                         . 'see file: "' . $filename . '"'
@@ -398,7 +398,7 @@ class CoverageThresholdTask extends Task
 
         if ($coverage < $this->_perProject) {
             throw new BuildException(
-                'The coverage (' . $coverage . '%) for the entire project '
+                'The coverage (' . round($coverage, 2) . '%) for the entire project '
                 . 'is lower than the specified threshold ('
                 . $this->_perProject . '%)'
             );
