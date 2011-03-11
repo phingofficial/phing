@@ -25,7 +25,7 @@
 		</phpunit>
 		<phpunitreport infile="reports/testsuites.xml" format="frames" todir="reports/tests" styledir="../../etc"/>
 		<coverage-report outfile="reports/coverage.xml">
-			<report todir="reports/coverage" styledir="../../etc" title="Test Title Jan"/>
+			<report todir="reports/coverage" styledir="../../etc" title="Demo Project"/>
 		</coverage-report>
 	</target>
 	
