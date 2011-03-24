@@ -54,6 +54,8 @@ class ScpTask extends Task
     protected $sftp = null;
     
     protected $count = 0;
+    
+    protected $logLevel = Project::MSG_VERBOSE;
 
     /**
      * Sets the remote host
@@ -257,6 +259,22 @@ class ScpTask extends Task
         return $this->filesets[$num-1];
     }
     
+    /**
+     * Set level of log messages generated (default = info)
+     * @param string $level
+     */
+    public function setLevel($level)
+    {
+        switch ($level)
+        {
+            case "error": $this->logLevel = Project::MSG_ERR; break;
+            case "warning": $this->logLevel = Project::MSG_WARN; break;
+            case "info": $this->logLevel = Project::MSG_INFO; break;
+            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
+            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        }
+    }
+
     public function init()
     {
     }
@@ -327,6 +345,8 @@ class ScpTask extends Task
             $localEndpoint = $path . $remote;
             $remoteEndpoint = $local;
 
+            $this->log('Will fetch ' . $remoteEndpoint . ' to ' . $localEndpoint, $this->logLevel);
+
             $ret = @ssh2_scp_recv($this->connection, $remoteEndpoint, $localEndpoint);
             
             if ($ret === false) {
@@ -339,6 +359,8 @@ class ScpTask extends Task
             if ($this->autocreate) {
                 ssh2_sftp_mkdir($this->sftp, dirname($remoteEndpoint), (is_null($this->mode) ? 0777 : $this->mode), true);
             }
+            
+            $this->log('Will copy ' . $localEndpoint . ' to ' . $remoteEndpoint, $this->logLevel);
             
             if (!is_null($this->mode)) {
                 $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint, $this->mode);
