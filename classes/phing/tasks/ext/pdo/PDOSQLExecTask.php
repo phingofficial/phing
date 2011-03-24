@@ -353,6 +353,7 @@ class PDOSQLExecTask extends PDOTask {
                         }
                     }
                 } catch (Exception $e) {
+                    $this->closeConnection();
                     throw $e;
                 }
             } catch (IOException $e) {
@@ -361,6 +362,7 @@ class PDOSQLExecTask extends PDOTask {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {}
                 }
+                $this->closeConnection();
                 throw new BuildException($e->getMessage(), $this->location);
             } catch (PDOException $e){
                 if (!$this->isAutocommit() && $this->conn !== null && $this->onError == "abort") {
@@ -368,6 +370,7 @@ class PDOSQLExecTask extends PDOTask {
                         $this->conn->rollback();
                     } catch (PDOException $ex) {}
                 }
+                $this->closeConnection();
                 throw new BuildException($e->getMessage(), $this->location);
             }
                 
@@ -380,12 +383,13 @@ class PDOSQLExecTask extends PDOTask {
         } catch (Exception $e) {
             $this->transactions = $savedTransaction;
             $this->sqlCommand = $savedSqlCommand;
+            $this->closeConnection();
             throw $e;
         }
         // finally {
         $this->transactions = $savedTransaction;
         $this->sqlCommand = $savedSqlCommand;
-
+        $this->closeConnection();
     }
 
 
@@ -590,6 +594,16 @@ class PDOSQLExecTask extends PDOTask {
             throw $x;
         }
 
+    }
+
+    /**
+     * Closes current connection
+     */
+    protected function closeConnection()
+    {
+        if ($this->conn) {
+            unset($this->conn);
+        }
     }
 }
 
