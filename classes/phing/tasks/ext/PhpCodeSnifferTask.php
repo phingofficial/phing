@@ -369,6 +369,9 @@ class PhpCodeSnifferTask extends Task {
         }
 
         $cwd = getcwd();
+        // Save command line arguments because it confuses PHPCS (version 1.3.0)
+        $oldArgs = $_SERVER['argv'];
+        $_SERVER['argv'] = array();
         $codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
         if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
@@ -382,6 +385,8 @@ class PhpCodeSnifferTask extends Task {
         } else {
             $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
         }
+        // Restore command line arguments
+        $_SERVER['argv'] = $oldArgs;
         chdir($cwd);
 
         $report = $this->printErrorReport($codeSniffer);
