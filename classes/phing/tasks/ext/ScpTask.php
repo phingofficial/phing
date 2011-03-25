@@ -260,7 +260,7 @@ class ScpTask extends Task
     }
     
     /**
-     * Set level of log messages generated (default = info)
+     * Set level of log messages generated (default = verbose)
      * @param string $level
      */
     public function setLevel($level)
