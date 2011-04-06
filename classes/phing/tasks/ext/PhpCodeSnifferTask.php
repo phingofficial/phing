@@ -67,26 +67,15 @@ class PhpCodeSnifferTask extends Task {
 
     private $haltonerror = false;
     private $haltonwarning = false;
+    private $skipVersionCheck = false;
 
     /**
      * Load the necessary environment for running PHP_CodeSniffer.
      *
-     * @throws BuildException
      * @return void
      */
     public function init()
     {
-        /**
-         * Determine PHP_CodeSniffer version number
-         */
-        preg_match('/\d\.\d\.\d/', shell_exec('phpcs --version'), $version);
-
-        if (version_compare($version[0], '1.2.2') < 0) {
-            throw new BuildException(
-                'PhpCodeSnifferTask requires PHP_CodeSniffer version >= 1.2.2',
-                $this->getLocation()
-            );
-        }
     }
 
     /**
@@ -333,6 +322,15 @@ class PhpCodeSnifferTask extends Task {
     {
         $this->haltonwarning = $value;
     }
+    
+    /**
+     * Sets the skipversioncheck flag
+     * @param boolean $value
+     */
+    public function setSkipVersionCheck($value)
+    {
+        $this->skipversioncheck = $value;
+    }
 
     /**
      * Executes PHP code sniffer against PhingFile or a FileSet
@@ -340,6 +338,20 @@ class PhpCodeSnifferTask extends Task {
     public function main() {
         if (!class_exists('PHP_CodeSniffer')) {
             include_once 'PHP/CodeSniffer.php';
+        }
+
+        /**
+         * Determine PHP_CodeSniffer version number
+         */
+        if (!$this->skipVersionCheck) {
+            preg_match('/\d\.\d\.\d/', shell_exec('phpcs --version'), $version);
+
+            if (version_compare($version[0], '1.2.2') < 0) {
+                throw new BuildException(
+                    'PhpCodeSnifferTask requires PHP_CodeSniffer version >= 1.2.2',
+                    $this->getLocation()
+                );
+            }
         }
 
         if(!isset($this->file) and count($this->filesets) == 0) {
