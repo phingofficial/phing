@@ -106,7 +106,7 @@ class PropertyPromptTask extends Task {
                 $this->proposedValue = $this->defaultValue;
             }
             
-            if (isset($this->proposedValue) && $this->proposedValue !== "") {                    
+            if (isset($this->proposedValue)) {                    
                 $this->project->setProperty($this->propertyName, $this->proposedValue);
             }
              
