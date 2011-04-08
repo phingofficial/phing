@@ -566,12 +566,12 @@ with CVS. The CvsTask calls ExecTask which actually does the command execution.<
 
 <pre>
 &lt;cvs output="patch"&gt;
-    &lt;commandline&gt;
+    &lt;command&gt;
         &lt;argument value="-q"/&gt;
         &lt;argument value="diff"/&gt;
         &lt;argument value="-u"/&gt;
         &lt;argument value="-N"/&gt;
-    &lt;/commandline&gt;
+    &lt;/command&gt;
 &lt;/cvs&gt;
 </pre>
   <h3>Attributes</h3>
@@ -695,7 +695,7 @@ with CVS. The CvsTask calls ExecTask which actually does the command execution.<
   </table>
   <h3>Supported Nested Tags</h3>
   <ul>
-    <li>CommandLine</li>
+    <li>command</li>
   </ul>  
 <h2><a name="CvsPassTask"></a>CvsPassTask</h2>
 <p> This lets you create your own cvs password file -- i.e. 
