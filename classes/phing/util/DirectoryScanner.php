@@ -131,6 +131,8 @@ class DirectoryScanner implements SelectorScanner {
         "**/.svn/**",
         "**/._*",
         "**/.DS_Store",
+    	"**/.darcs",
+    	"**/.darcs/**"
     );
 
     /** The base directory which should be scanned. */
