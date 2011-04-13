@@ -173,13 +173,26 @@ class PhpLintTask extends Task {
         if ($this->tofile) {
             $writer = new FileWriter($this->tofile);
             
-            foreach ($this->badFiles as $file => $msg) {
-                $writer->write($file . "=" . $msg . PHP_EOL);
+            foreach ($this->badFiles as $file => $messages) {
+            	foreach ($messages as $msg) {
+                	$writer->write($file . "=" . $msg . PHP_EOL);
+            	}
             }
             
             $writer->close();
         }
 
+        // save list of 'bad files' with errors to property errorproperty (if specified)
+        if ($this->errorProperty) {
+            $message = '';
+            foreach ($this->badFiles as $file => $messages) {
+                foreach ($messages as $msg) {
+                    $message .= $file . "=" . $msg . PHP_EOL;
+                }
+            }
+            $this->project->setProperty($this->errorProperty, $message);
+        }
+        
         if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files: '.implode(', ',$this->badFiles));
     }
 
@@ -221,13 +234,11 @@ class PhpLintTask extends Task {
                     if ((!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match('/^No syntax errors detected/', $message)) {
                         $this->log($message, Project::MSG_ERR);
                         
-                        if ($this->errorProperty) {
-                            $this->project->setProperty($this->errorProperty, $message);
+                        if (!isset($this->badFiles[$file])) {
+                            $this->badFiles[$file] = array();
                         }
                         
-                        if (!isset($this->badFiles[$file])) {
-                            $this->badFiles[$file] = $message;
-                        }
+                        array_push($this->badFiles[$file], $message);
                         
                         $this->hasErrors = true;
                         $errorCount++;
