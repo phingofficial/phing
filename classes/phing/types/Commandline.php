@@ -308,7 +308,7 @@ class Commandline {
     /**
      * Returns a String that describes the command and arguments
      * suitable for verbose output before a call to
-     * <code>Runtime.exec(String[])<code>.
+     * <code>Runtime.exec(String[])</code>.
      *
      * <p>This method assumes that the first entry in the array is the
      * executable to run.</p>
@@ -340,7 +340,7 @@ class Commandline {
     /**
      * Returns a String that describes the arguments suitable for
      * verbose output before a call to
-     * <code>Runtime.exec(String[])<code>
+     * <code>Runtime.exec(String[])</code>
      * @param $args arguments to use (default is to use current class args)
      * @param $offset ignore entries before this index
      * @return string
