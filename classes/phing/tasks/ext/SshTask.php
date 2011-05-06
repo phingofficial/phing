@@ -28,7 +28,6 @@ require_once 'phing/Task.php';
  * @version   $Id$
  * @package   phing.tasks.ext
  */
-
 class SshTask extends Task {
 
     private $host = "";

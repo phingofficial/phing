@@ -570,7 +570,7 @@ class PDOSQLExecTask extends PDOTask {
 
     /**
      * Passes results from query to any formatters.
-     * @throw PDOException
+     * @throws PDOException
      */
     protected function processResults() {
 

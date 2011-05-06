@@ -47,14 +47,14 @@ class GitPullTask extends GitBaseTask
 
     /**
      * --rebase key to git-pull
-     * @boolean
+     * @var boolean
      */
     private $rebase = false;
 
     /**
      * --no-rebase key to git-pull
      * Allow to override --rebase (if set to default true in configuration)
-     * @boolean
+     * @var boolean
      */
     private $noRebase = false;
 

@@ -36,7 +36,7 @@ class GitMergeTask extends GitBaseTask
 {
     /**
      * <commit> of git-merge
-     * @var
+     * @var string
      */
     private $remote;
 

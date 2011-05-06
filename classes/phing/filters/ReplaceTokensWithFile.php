@@ -23,7 +23,7 @@
 include_once 'phing/filters/BaseParamFilterReader.php';
 include_once 'phing/filters/ChainableReader.php';
 
-/*
+/**
  * Replaces tokens in the original input with the contents of a file.
  * The file to be used is controlled by the name of the token which
  * corresponds to the basename of the file to be used together with

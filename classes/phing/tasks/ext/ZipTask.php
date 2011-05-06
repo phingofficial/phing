@@ -238,6 +238,7 @@ class ZipTask extends MatchingTask {
  * Permissions are currently not implemented by PEAR Archive_Tar,
  * but hopefully they will be in the future.
  * 
+ * @package phing.tasks.ext
  */
 class ZipFileSet extends FileSet {
 

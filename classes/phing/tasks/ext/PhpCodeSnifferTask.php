@@ -573,6 +573,9 @@ class PhpCodeSnifferTask extends Task {
 
 } //end phpCodeSnifferTask
 
+/**
+ * @package phing.tasks.ext
+ */
 class PhpCodeSnifferTask_FormatterElement extends DataType {
 
   /**

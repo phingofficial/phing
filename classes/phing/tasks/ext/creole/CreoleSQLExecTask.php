@@ -470,7 +470,7 @@ class CreoleSQLExecTask extends CreoleTask {
     
     /**
      * print any results in the statement.
-     * @throw SQLException
+     * @throws SQLException
      */
     protected function printResults($out = null) {
         

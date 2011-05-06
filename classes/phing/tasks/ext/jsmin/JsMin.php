@@ -286,6 +286,8 @@ class JSMin {
   }
 }
 
-// -- Exceptions ---------------------------------------------------------------
+/**
+ * @package JSMin
+ */
 class JSMinException extends Exception {}
 ?>

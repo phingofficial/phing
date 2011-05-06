@@ -33,8 +33,7 @@
  * @author Timo A. Hummel <privat@timohummel.com> @author felicitus
  * @version $Id$
  * @package phing.tasks.ext.phpdoc
- */
- 
+ */ 
 class PhingPhpDocumentorErrorTracker extends ErrorTracker {
 	
 	/*

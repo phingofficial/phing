@@ -169,8 +169,8 @@ class FilterChain extends DataType {
      * <p>You must not set another attribute or nest elements inside
      * this element if you make it a reference.</p>
      *
-     * @param r the reference to which this instance is associated
-     * @throw BuildException if this instance already has been configured.
+     * @param  $r the reference to which this instance is associated
+     * @throws BuildException if this instance already has been configured.
     */
     function setRefid(Reference $r) {
 

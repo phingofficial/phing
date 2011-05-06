@@ -31,7 +31,6 @@
  * @version $Id$
  * @package phing.tasks.ext.phpdoc
  */
-
 class PhingPhpDocumentorSetup extends phpDocumentor_setup {
     
     /**

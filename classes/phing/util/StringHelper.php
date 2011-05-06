@@ -18,9 +18,9 @@ class StringHelper {
     /**
      * Replaces identifier tokens with corresponding text values in passed string.
      *
-     * @params array $strings Array of strings to multiply. (If string is passed, will convert to array)
-     * @params array $tokens The tokens to search for.
-     * @params array $replacements The values with which to replace found tokens.
+     * @param array $strings Array of strings to multiply. (If string is passed, will convert to array)
+     * @param array $tokens The tokens to search for.
+     * @param array $replacements The values with which to replace found tokens.
      * @return string
      */
     public static function multiply($strings, $tokens, $replacements) {

@@ -45,7 +45,7 @@ class FileSizeTask extends Task
     private $propertyName = "filesize";
     
     /**
-     * Which file for calculate the has value of
+     * Which file to calculate the file size of
      * @param PhingFile $file
      */
     public function setFile($file)
@@ -54,9 +54,9 @@ class FileSizeTask extends Task
     }
 
     /**
-     * Set the name of the property to use to return the has value
+     * Set the name of the property to store the file size
      * @param $property
-     * @return
+     * @return void
      */
     public function setPropertyName($property)
     {

@@ -151,7 +151,7 @@ class PhpDocumentorTask extends Task
     }
     
     /**
-     * Alias for {@link setDestdir()).
+     * Alias for {@link setDestdir()}.
      * @see setDestdir()
      */
     public function setTarget(PhingFile $destdir) {

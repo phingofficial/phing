@@ -484,6 +484,7 @@ class ZendGuardEncodeTask extends MatchingTask
  * Permissions are currently not implemented by PEAR Archive_Tar,
  * but hopefully they will be in the future.
  *
+ * @package phing.tasks.ext.zendguard
  */
 class ZendGuardFileSet extends FileSet
 {

@@ -25,7 +25,7 @@ require_once dirname(dirname(__FILE__)) . '/S3.php';
 /**
  * Downloads an object off S3
  * 
- * @version $ID$
+ * @version $Id$
  * @package phing.tasks.ext
  * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @extends Service_Amazon_S3

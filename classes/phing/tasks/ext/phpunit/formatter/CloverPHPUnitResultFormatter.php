@@ -38,7 +38,7 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
     
     /**
      * PHPUnit version
-     * @string
+     * @var string
      */
     private $version = NULL;
 

@@ -370,6 +370,8 @@ class Commandline {
 
 /**
  * "Inner" class used for nested xml command line definitions.
+ *
+ * @package phing.types
  */
 class CommandlineArgument {
 
@@ -433,10 +435,13 @@ class CommandlineArgument {
 
 /**
  * Class to keep track of the position of an Argument.
+ *
+ * <p>This class is there to support the srcfile and targetfile
+ * elements of &lt;execon&gt; and &lt;transform&gt; - don't know
+ * whether there might be additional use cases.</p> --SB
+ *
+ * @package phing.types
  */
-// <p>This class is there to support the srcfile and targetfile
-// elements of &lt;execon&gt; and &lt;transform&gt; - don't know
-// whether there might be additional use cases.</p> --SB
 class CommandlineMarker {
 
     private $position;

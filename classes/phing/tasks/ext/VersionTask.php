@@ -77,9 +77,9 @@ class VersionTask extends Task
     }
 
     /**
-     * Set
+     * Set name of property to be set
      * @param $property
-     * @return
+     * @return void
      */
     public function setProperty($property)
     {
