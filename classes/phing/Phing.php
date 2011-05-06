@@ -994,7 +994,7 @@ class Phing {
         
         // first check to see that the class specified hasn't already been included.
         // (this also handles case where this method is called w/ a classname rather than dotpath)
-        if (class_exists($classname, false)) {
+        if (class_exists($classname)) {
             return $classname;
         }
 
