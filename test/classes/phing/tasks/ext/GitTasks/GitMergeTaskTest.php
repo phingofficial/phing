@@ -78,7 +78,7 @@ class GitMergeTaskTest extends BuildFileTest {
         $this->executeTarget('fastForwardCommitSet');
         $this->assertInLogs('git-merge command: /usr/bin/git merge --no-ff \'origin/master\'');
         $this->assertInLogs('git-merge: replaying "origin/master" commits');
-        $this->assertInLogs('Merge remote branch \'origin/master\' into merge-test-1');
+        $this->assertInLogs('Merge remote-tracking branch \'origin/master\' into merge-test-1');
     }
 
     public function testNoRepositorySpecified()
