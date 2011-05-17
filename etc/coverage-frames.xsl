@@ -823,14 +823,14 @@ TD.srcLineClassStart {
   <table border="0" cellpadding="0" cellspacing="0" width="100%">
   <tr>
     <td class="bannercell" rowspan="2">
-      <a href="http://phing.info/">
-      <img src="http://phing.info/images/phing.gif" alt="http://phing.info/" align="left" border="0"/>
+      <a href="http://www.phing.info/">
+      <img src="http://www.phing.info/images/phing.gif" alt="http://www.phing.info/" align="left" border="0"/>
       </a>
     </td>
         <td style="text-align:right"><h2>Source Code Coverage</h2></td>
         </tr>
         <tr>
-        <td style="text-align:right">Designed for use with <a href='http://www.phpunit.de'>PHPUnit</a>, <a href='http://www.xdebug.org/'>Xdebug</a> and <a href='http://phing.info/'>Phing</a>.</td>
+        <td style="text-align:right">Designed for use with <a href='http://www.phpunit.de'>PHPUnit</a>, <a href='http://www.xdebug.org/'>Xdebug</a> and <a href='http://www.phing.info/'>Phing</a>.</td>
         </tr>
   </table>
     <hr size="1"/>
