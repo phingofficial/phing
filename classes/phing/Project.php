@@ -425,9 +425,9 @@ class Project {
     /**
      * Returns the name of this project
      *
-     * @returns  string  projectname
-     * @access   public
-     * @author   Andreas Aderhold, andi@binarycloud.com
+     * @return  string  projectname
+     * @access  public
+     * @author  Andreas Aderhold, andi@binarycloud.com
      */
     function getName() {
         return (string) $this->name;
@@ -483,10 +483,10 @@ class Project {
     /**
      * Returns the basedir of this project
      *
-     * @returns  PhingFile  Basedir PhingFile object
-     * @access   public
-     * @throws   BuildException
-     * @author   Andreas Aderhold, andi@binarycloud.com
+     * @return  PhingFile  Basedir PhingFile object
+     * @access  public
+     * @throws  BuildException
+     * @author  Andreas Aderhold, andi@binarycloud.com
      */
     function getBasedir() {
         if ($this->basedir === null) {            
@@ -603,7 +603,7 @@ class Project {
      * unless there's any good reason not to.
      *
      * @param    string    $taskType    Task name
-     * @returns  Task                A task object
+     * @return   Task                A task object
      * @throws   BuildException
      *           Exception
      */
@@ -655,10 +655,10 @@ class Project {
      * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
-     * @param    string   Type name
-     * @returns  object   A datatype object
-     * @throws   BuildException
-     *           Exception
+     * @param   string   Type name
+     * @return  object   A datatype object
+     * @throws  BuildException
+     *          Exception
      */
     function createDataType($typeName) {        
         try {
@@ -697,9 +697,9 @@ class Project {
     /**
      * Executes a list of targets
      *
-     * @param    array  List of target names to execute
-     * @returns  void
-     * @throws   BuildException
+     * @param   array  List of target names to execute
+     * @return  void
+     * @throws  BuildException
      */
     function executeTargets($targetNames) {
         foreach($targetNames as $tname) {
@@ -710,9 +710,9 @@ class Project {
     /**
      * Executes a target
      *
-     * @param    string  Name of Target to execute
-     * @returns  void
-     * @throws   BuildException
+     * @param   string  Name of Target to execute
+     * @return  void
+     * @throws  BuildException
      */
     function executeTarget($targetName) {
 
