@@ -71,10 +71,29 @@ class ForeachTask extends Task {
     private $filesets = array();
     
     /**
+     * Array of filelists
+     * @var array
+     */
+    private $filelists = array();
+    
+    /**
      * Target to execute.
      * @var string
      */
     private $calleeTarget;
+    
+    /**
+     * Total number of files processed 
+     * @var integer
+     */
+    private $total_files = 0;
+    
+    /**
+     * Total number of directories processed 
+     * @var integer
+     */
+    private $total_dirs  = 0;
+    
 
     function init() {
         $this->callee = $this->project->createTask("phingcall");
@@ -118,61 +137,79 @@ class ForeachTask extends Task {
             }
         }
 
-        $total_files = 0;
-        $total_dirs  = 0;
+        // filelists
+        foreach ($this->filelists as $fl) {
+            $srcFiles = $fl->getFiles($this->project);
+
+            $this->process($callee, $fl->getDir($this->project), $srcFiles, array());
+        }
 
         // filesets
         foreach ($this->filesets as $fs) {
             $ds       = $fs->getDirectoryScanner($this->project);
-            $fromDir  = $fs->getDir($this->project);
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs  = $ds->getIncludedDirectories();
 
-            $this->log(count($srcDirs) . ' directories and ' . count($srcFiles) . ' files', Project::MSG_VERBOSE);
+            $this->process($callee, $fs->getDir($this->project), $srcFiles, $srcDirs);
+        }
 
-            $filecount = count($srcFiles);
-            $total_files = $total_files + $filecount;
-            for ($j = 0; $j < $filecount; $j++) {
-                $value = $srcFiles[$j];
-                if ($this->param) {
-                    $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
-                    $prop = $callee->createProperty();
-                    $prop->setOverride(true);
-                    $prop->setName($this->param);
-                    $prop->setValue($value);
-                }
+        $this->log("Processed {$this->total_dirs} directories and {$this->total_files} files", Project::MSG_VERBOSE);
+    }
 
-                if ($this->absparam) {
-                    $prop = $callee->createProperty();
-                    $prop->setOverride(true);
-                    $prop->setName($this->absparam);
-                    $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
-                }
-
-                $callee->main();
+    /**
+     * Processes a list of files & directories 
+     * 
+     * @param Task      $callee
+     * @param PhingFile $fromDir
+     * @param array     $srcFiles
+     * @param array     $srcDirs
+     */
+    protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
+    {
+        $filecount = count($srcFiles);
+        $this->total_files += $filecount;
+        
+        for ($j = 0; $j < $filecount; $j++) {
+            $value = $srcFiles[$j];
+            if ($this->param) {
+                $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->param);
+                $prop->setValue($value);
             }
 
-            $dircount = count($srcDirs);
-            $total_dirs = $total_dirs + $dircount;
-            for ($j = 0; $j <  $dircount; $j++) {
-                $value = $srcDirs[$j];
-                if ($this->param) {
-                    $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
-                    $prop = $callee->createProperty();
-                    $prop->setOverride(true);
-                    $prop->setName($this->param);
-                    $prop->setValue($value);
-                }
-
-                if ($this->absparam) {
-                    $prop = $callee->createProperty();
-                    $prop->setOverride(true);
-                    $prop->setName($this->absparam);
-                    $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
-                }
-
-                $callee->main();
+            if ($this->absparam) {
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->absparam);
+                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
             }
+
+            $callee->main();
+        }
+
+        $dircount = count($srcDirs);
+        $this->total_dirs += $dircount;
+        
+        for ($j = 0; $j <  $dircount; $j++) {
+            $value = $srcDirs[$j];
+            if ($this->param) {
+                $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->param);
+                $prop->setValue($value);
+            }
+
+            if ($this->absparam) {
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->absparam);
+                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+            }
+
+            $callee->main();
         }
     }
 
@@ -211,4 +248,12 @@ class ForeachTask extends Task {
         return $this->callee->createProperty();
     }
 
+    /**
+     * Supports embedded <filelist> element.
+     * @return FileList
+     */
+    public function createFileList() {
+        $num = array_push($this->filelists, new FileList());
+        return $this->filelists[$num-1];
+    }
 }
