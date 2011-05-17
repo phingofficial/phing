@@ -313,7 +313,7 @@ class PHPUnitTask extends Task
             }
             if ($this->haltonerror) {
                 $this->testfailed = true;
-                $this->testfailuremessage = $runner->getLastFailureMessage();
+                $this->testfailuremessage = $runner->getLastErrorMessage();
             }
         } elseif ($retcode == PHPUnitTestRunner::FAILURES) {
             if ($this->failureproperty) {
@@ -331,7 +331,7 @@ class PHPUnitTask extends Task
             
             if ($this->haltonincomplete) {
                 $this->testfailed = true;
-                $this->testfailuremessage = $runner->getLastFailureMessage();
+                $this->testfailuremessage = $runner->getLastIncompleteMessage();
             }
         } elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
             if ($this->skippedproperty) {
@@ -340,7 +340,7 @@ class PHPUnitTask extends Task
             
             if ($this->haltonskipped) {
                 $this->testfailed = true;
-                $this->testfailuremessage = $runner->getLastFailureMessage();
+                $this->testfailuremessage = $runner->getLastSkippedMessage();
             }
         }
     }
