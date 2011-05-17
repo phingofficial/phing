@@ -38,6 +38,7 @@
 
 -->
 <xsl:param name="output.dir" select="'.'"/>
+<xsl:param name="output.sorttable" select="'.'"/>
 
 
 <xsl:template match="testsuites">
@@ -47,7 +48,7 @@
     </exsl:document>
 
     <!-- create the stylesheet.css -->
-    <exsl:document href="efile://{$output.dir}/stylesheet.css">
+    <exsl:document omit-xml-declaration="yes" href="efile://{$output.dir}/stylesheet.css">
         <xsl:call-template name="stylesheet.css"/>
     </exsl:document>
 
@@ -201,6 +202,11 @@ a {
 a:hover {
   color: #888888;
 }
+<xsl:if test="$output.sorttable = 1">
+.sortable th {
+    cursor: pointer;
+}
+</xsl:if>
 </xsl:template>
 
 
@@ -214,7 +220,10 @@ a:hover {
     <xsl:variable name="class.name"><xsl:if test="not($package.name = '')"><xsl:value-of select="$package.name"/>.</xsl:if><xsl:value-of select="@name"/></xsl:variable>
     <html>
         <head>
-          <title>Unit Test Results: <xsl:value-of select="$class.name"/></title>
+            <title>Unit Test Results: Class <xsl:value-of select="$class.name"/></title>
+            <xsl:if test="$output.sorttable = 1">           
+                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+            </xsl:if>
             <xsl:call-template name="create.stylesheet.link">
                 <xsl:with-param name="package.name" select="$package.name"/>
             </xsl:call-template>
@@ -223,19 +232,18 @@ a:hover {
             <xsl:call-template name="pageHeader"/>
             <h3>Class <xsl:value-of select="$class.name"/></h3>
 
-
             <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
                 <xsl:call-template name="testsuite.test.header"/>
                 <xsl:apply-templates select="." mode="print.test"/>
             </table>
 
             <h2>Tests</h2>
-            <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
-        <xsl:call-template name="testcase.test.header"/>
-              <!--
-              test can even not be started at all (failure to load the class)
-              so report the error directly
-              -->
+            <table class="details sortable" border="0" cellpadding="5" cellspacing="2" width="95%">
+                <xsl:call-template name="testcase.test.header"/>
+                <!--
+                test can even not be started at all (failure to load the class)
+                so report the error directly
+                -->
                 <xsl:if test="./error">
                     <tr class="Error">
                         <td colspan="4"><xsl:apply-templates select="./error"/></td>
@@ -372,6 +380,9 @@ a:hover {
     <html>
         <head>
             <title>Unit Test Results: Summary</title>
+            <xsl:if test="$output.sorttable = 1">
+                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+            </xsl:if>
             <xsl:call-template name="create.stylesheet.link">
                 <xsl:with-param name="package.name"/>
             </xsl:call-template>
@@ -426,7 +437,7 @@ a:hover {
         </table>
 
         <h2>Packages</h2>
-        <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+        <table class="details sortable" border="0" cellpadding="5" cellspacing="2" width="95%">
             <xsl:call-template name="testsuite.test.header"/>
             <xsl:for-each select="testsuite[not(./@package = preceding-sibling::testsuite/@package)]">
                 <xsl:sort select="@package" order="ascending"/>
@@ -466,6 +477,10 @@ a:hover {
     <xsl:param name="name"/>
     <html>
         <head>
+            <title>Unit Test Results: Package <xsl:value-of select="$name"/></title>
+            <xsl:if test="$output.sorttable = 1">
+                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+            </xsl:if>
             <xsl:call-template name="create.stylesheet.link">
                 <xsl:with-param name="package.name" select="$name"/>
             </xsl:call-template>
@@ -484,7 +499,7 @@ a:hover {
             <xsl:if test="count($insamepackage) &gt; 0">
                 <h2>Classes</h2>
                 <p>
-                <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+                <table class="details sortable" border="0" cellpadding="5" cellspacing="2" width="95%">
                     <xsl:call-template name="testsuite.test.header"/>
                     <xsl:apply-templates select="$insamepackage" mode="print.test">
                         <xsl:sort select="@name"/>

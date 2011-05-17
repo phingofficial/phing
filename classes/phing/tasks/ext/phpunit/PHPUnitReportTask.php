@@ -41,6 +41,14 @@ class PHPUnitReportTask extends Task
     private $format = "noframes";
     private $styleDir = "";
     private $toDir = "";
+    
+    /**
+     * Whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @var boolean
+     */
+    private $useSortTable = false;
 
     /** the directory where the results XML can be found */
     private $inFile = "testsuites.xml";
@@ -76,6 +84,17 @@ class PHPUnitReportTask extends Task
     public function setToDir($toDir)
     {
         $this->toDir = $toDir;
+    }
+    
+    /**
+     * Sets whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @param boolean $useSortTable
+     */
+    public function setUseSortTable($useSortTable)
+    {
+        $this->useSortTable = (boolean) $useSortTable;
     }
     
     /**
@@ -133,6 +152,7 @@ class PHPUnitReportTask extends Task
 
         $proc = new XSLTProcessor();
         $proc->importStyleSheet($xsl);
+        $proc->setParameter('', 'output.sorttable', $this->useSortTable);
 
         if ($this->format == "noframes")
         {

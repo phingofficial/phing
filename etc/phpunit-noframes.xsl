@@ -37,75 +37,85 @@
  @author Erik Hatcher <a href="mailto:ehatcher@apache.org"/>
  
 -->
+<xsl:param name="output.sorttable" select="'.'"/>
+
 <xsl:template match="testsuites">
     <html>
         <head>
             <title>Unit Test Results</title>
-    <style type="text/css">
-    body {
-        font-family: verdana,arial,helvetica;
-        color:#000000;
-        font-size: 12px;
-    }
-    table tr td, table tr th {
-        font-family: verdana,arial,helvetica;
-        font-size: 12px;
-    }
-    table.details tr th{
-        font-family: verdana,arial,helvetica;
-        font-weight: bold;
-        text-align:left;
-        background:#a6caf0;
-    }
-    table.details tr td{
-        background:#eeeee0;
-    }
-
-    p {
-        line-height:1.5em;
-        margin-top:0.5em; margin-bottom:1.0em;
-        font-size: 12px;
-    }
-    h1 {
-        margin: 0px 0px 5px;
-        font-family: verdana,arial,helvetica;
-    }
-    h2 {
-        margin-top: 1em; margin-bottom: 0.5em;
-        font-family: verdana,arial,helvetica;
-    }
-    h3 {
-        margin-bottom: 0.5em;
-        font-family: verdana,arial,helvetica;
-    }
-    h4 {
-        margin-bottom: 0.5em;
-        font-family: verdana,arial,helvetica;
-    }
-    h5 {
-        margin-bottom: 0.5em;
-        font-family: verdana,arial,helvetica;
-    }
-    h6 {
-        margin-bottom: 0.5em;
-        font-family: verdana,arial,helvetica;
-    }
-    .Error {
-        font-weight:bold; color:red;
-    }
-    .Failure {
-        font-weight:bold; color:purple;
-    }
-    .small {
-       font-size: 9px;
-    }
-    a {
-      color: #003399;
-    }
-    a:hover {
-      color: #888888;
-    }
-    </style>
+            <xsl:if test="$output.sorttable = 1">
+                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+            </xsl:if>
+		    <style type="text/css">
+		    body {
+		        font-family: verdana,arial,helvetica;
+		        color:#000000;
+		        font-size: 12px;
+		    }
+		    table tr td, table tr th {
+		        font-family: verdana,arial,helvetica;
+		        font-size: 12px;
+		    }
+		    table.details tr th{
+		        font-family: verdana,arial,helvetica;
+		        font-weight: bold;
+		        text-align:left;
+		        background:#a6caf0;
+		    }
+		    table.details tr td{
+		        background:#eeeee0;
+		    }
+		
+		    p {
+		        line-height:1.5em;
+		        margin-top:0.5em; margin-bottom:1.0em;
+		        font-size: 12px;
+		    }
+		    h1 {
+		        margin: 0px 0px 5px;
+		        font-family: verdana,arial,helvetica;
+		    }
+		    h2 {
+		        margin-top: 1em; margin-bottom: 0.5em;
+		        font-family: verdana,arial,helvetica;
+		    }
+		    h3 {
+		        margin-bottom: 0.5em;
+		        font-family: verdana,arial,helvetica;
+		    }
+		    h4 {
+		        margin-bottom: 0.5em;
+		        font-family: verdana,arial,helvetica;
+		    }
+		    h5 {
+		        margin-bottom: 0.5em;
+		        font-family: verdana,arial,helvetica;
+		    }
+		    h6 {
+		        margin-bottom: 0.5em;
+		        font-family: verdana,arial,helvetica;
+		    }
+		    .Error {
+		        font-weight:bold; color:red;
+		    }
+		    .Failure {
+		        font-weight:bold; color:purple;
+		    }
+		    .small {
+		       font-size: 9px;
+		    }
+		    a {
+		      color: #003399;
+		    }
+		    a:hover {
+		      color: #888888;
+		    }
+			<xsl:if test="$output.sorttable = 1">
+			.sortable th {
+			    cursor: pointer;
+			}
+			</xsl:if>
+		    </style>
         </head>
         <body>
             <a name="top"></a>
@@ -140,7 +150,7 @@
     <xsl:template name="packagelist">   
         <h2>Packages</h2>
         Note: package statistics are not computed recursively, they only sum up all of its testsuites numbers.
-        <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+        <table class="details sortable" border="0" cellpadding="5" cellspacing="2" width="95%">
             <xsl:call-template name="testsuite.test.header"/>
             <!-- list all packages recursively -->
             <xsl:for-each select="./testsuite[not(./@package = preceding-sibling::testsuite/@package)]">
@@ -187,7 +197,7 @@
                 <a name="{@package}"></a>
                 <h3>Package <xsl:value-of select="@package"/></h3>
                 
-                <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+                <table class="details sortable" border="0" cellpadding="5" cellspacing="2" width="95%">
                     <xsl:call-template name="testsuite.test.header"/>
             
                     <!-- match the testsuites of this package -->
@@ -206,7 +216,7 @@
             <a name="{@name}"></a>
             <h3>TestCase <xsl:value-of select="@name"/></h3>
             
-            <table class="details" border="0" cellpadding="5" cellspacing="2" width="95%">
+            <table class="details sortable" border="0" cellpadding="5" cellspacing="2" width="95%">
               <xsl:call-template name="testcase.test.header"/>
               <!--
               test can even not be started at all (failure to load the class)

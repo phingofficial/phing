@@ -37,6 +37,7 @@
 
 <!-- default output directory is current directory -->
 <xsl:param name="output.dir" select="'.'"/>
+<xsl:param name="output.sorttable" select="'.'"/>
 <xsl:param name="document.title" select="''"/>
 
 <!-- ======================================================================
@@ -49,7 +50,7 @@
     </exsl:document>
 
     <!-- create the stylesheet.css -->
-    <exsl:document href="efile://{$output.dir}/stylesheet.css">
+    <exsl:document omit-xml-declaration="yes" href="efile://{$output.dir}/stylesheet.css">
         <xsl:call-template name="stylesheet.css"/>
     </exsl:document>
 
@@ -103,6 +104,11 @@
     ======================================================================= -->
 <!-- this is the stylesheet css to use for nearly everything -->
 <xsl:template name="stylesheet.css">
+	<xsl:if test="$output.sorttable = 1">
+	.sortable th {
+	    cursor: pointer;
+	}
+	</xsl:if>
     .bannercell {
       border: 0px;
       padding: 0px;
@@ -367,6 +373,10 @@ TD.srcLineClassStart {
 <xsl:template match="snapshot" mode="overview.packages">
     <html>
         <head>
+            <title>Coverage Results Overview</title>
+            <xsl:if test="$output.sorttable = 1">
+                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+            </xsl:if>
             <xsl:call-template name="create.stylesheet.link"/>
         </head>
         <body onload="open('allclasses-frame.html','classListFrame')">
@@ -380,7 +390,7 @@ TD.srcLineClassStart {
                 <td class="small">LOC: <xsl:value-of select="count(package/class/sourcefile/sourceline) + count(package/subpackage/class/sourcefile/sourceline)"/></td>
                 <td class="small">Statements: <xsl:value-of select="@statementcount"/></td>
             </tr>
-        </table>        
+        </table>
         <br/>
 
         <table class="log" cellpadding="5" cellspacing="0" width="100%">
@@ -394,9 +404,10 @@ TD.srcLineClassStart {
         	<td><b>Project <xsl:value-of select="$document.title"/></b></td>
                 <xsl:call-template name="stats.formatted"/>
             </tr>
-            <tr>
-                <td colspan="3"><br/></td>
-            </tr>
+            <tr><td colspan="4"><br/></td></tr>
+        </table>
+        
+        <table class="log sortable" cellpadding="5" cellspacing="0" width="100%">
             <tr>
                 <th width="100%">Packages</th>
                 <th>Statements</th>
@@ -614,6 +625,10 @@ TD.srcLineClassStart {
 <xsl:template match="package" mode="package.summary">
     <html>
         <head>
+            <title>Coverage Results for <xsl:value-of select="@name"/></title>
+            <xsl:if test="$output.sorttable = 1">
+                <script language="JavaScript" src="http://www.phing.info/support/sorttable.js"/>
+            </xsl:if>
             <xsl:call-template name="create.stylesheet.link">
                 <xsl:with-param name="package.name" select="@name"/>
             </xsl:call-template>
@@ -640,37 +655,41 @@ TD.srcLineClassStart {
                     <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
                 </tr>
                 <xsl:apply-templates select="." mode="stats"/>
-
-                <xsl:if test="count(subpackage) &gt; 0">
-                    <tr>
-                        <td colspan="3"><br/></td>
-                    </tr>
-                    <tr>
-                        <th width="100%">Subpackages</th>
-                        <th>Statements</th>
-                        <th>Methods</th>
-                        <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
-                    </tr>
-                    <xsl:apply-templates select="subpackage" mode="stats">
-                        <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
-
-                <xsl:if test="count(class) &gt; 0">
-                    <tr>
-                        <td colspan="3"><br/></td>
-                    </tr>
-                    <tr>
-                        <th width="100%">Classes</th>
-                        <th>Statements</th>
-                        <th>Methods</th>
-                        <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
-                    </tr>
-                    <xsl:apply-templates select="class" mode="stats">
-                        <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
-                    </xsl:apply-templates>
-                </xsl:if>
+                <tr>
+                    <td colspan="5"><br/></td>
+                </tr>
             </table>
+
+            <xsl:if test="count(subpackage) &gt; 0">
+            <table class="log sortable" cellpadding="5" cellspacing="0" width="100%">
+                <tr>
+                    <th width="100%">Subpackages</th>
+                    <th>Statements</th>
+                    <th>Methods</th>
+                    <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
+                </tr>
+                <xsl:apply-templates select="subpackage" mode="stats">
+                    <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
+                </xsl:apply-templates>
+                <tr>
+                    <td colspan="5"><br/></td>
+                </tr>
+            </table>
+            </xsl:if>
+
+            <xsl:if test="count(class) &gt; 0">
+            <table class="log sortable" cellpadding="5" cellspacing="0" width="100%">
+                <tr>
+                    <th width="100%">Classes</th>
+                    <th>Statements</th>
+                    <th>Methods</th>
+                    <th width="350" colspan="2" nowrap="nowrap">Total coverage</th>
+                </tr>
+                <xsl:apply-templates select="class" mode="stats">
+                    <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
+                </xsl:apply-templates>
+            </table>
+            </xsl:if>
             <xsl:call-template name="pageFooter"/>
         </body>
     </html>
