@@ -27,7 +27,8 @@ require_once 'phing/system/io/FileOutputStream.php';
  *
  * @author    Michiel Rook <mrook@php.net>
  * @version   $Revision$
- * @package   phing.tasks.system
+ * @since     2.4.6
+ * @package   phing.tasks.ext.docblox
  */
 class DocBloxTask extends Task
 {
