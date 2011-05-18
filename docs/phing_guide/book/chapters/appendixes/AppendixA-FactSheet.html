@@ -7,191 +7,214 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Phing Guide - Fact Sheet</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link rel="Stylesheet" rev="Stylesheet" href="../../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
+<title>Phing Guide - Fact Sheet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="Stylesheet" rev="Stylesheet"
+	href="../../css/Documentation.css" type="text/css" media="All"
+	charset="iso-8859-1" />
 </head>
 <body>
-<h1>Appendix A: Fact Sheet</h1>
+	<h1>Appendix A: Fact Sheet</h1>
 
-<h2><a name="BuiltInProperties"></a>Built-In Properties</h2>
+	<h2>
+		<a name="BuiltInProperties"></a>Built-In Properties
+	</h2>
 
-<table>
-<caption>Phing Built-In Properties</caption>
-<thead>
-  <tr>
-    <th>Property</th>
-    <th>Contents</th>
-  </tr>
-</thead>
-<tbody>
-<tr>
-  <td>application.startdir</td>
-  <td>Current work directory</td>
-</tr>
-<tr>
-  <td>env.*</td>
-  <td>Environment variables, extracted from <em>$_SERVER</em>.</td>
-</tr>
-<tr>
-  <td>host.arch</td>
-  <td>System architecture, i.e. <em>i586</em>.
-      <em>Not available on Windows machines.</em></td>
-</tr>
-<tr>
-  <td>host.domain</td>
-  <td>DNS domain name, i.e. php.net. <em>Not available on Windows machines.</em></td>
-</tr>
-<tr>
-  <td>host.fstype</td>
-  <td>The type of the filesystem. Possible values are <em>UNIX</em>,
-      <em>WINNT</em> and <em>WIN32</em></td>
-</tr>
-<tr>
-  <td>host.name</td>
-  <td>Operating System hostname as returned by <em>posix_uname()</em>.
-      <em>Not available on Windows machines.</em></td>
-</tr>
-<tr>
-  <td>host.os</td>
-  <td>Operating System description as set in <em>PHP_OS</em> variable (see <a
-      href="http://www.php.net/manual/en/reserved.constants.core.php">PHP Manual</a>).</td>
-</tr>
-<tr>
-  <td>host.os.release</td>
-  <td>Operating version release, i.e. <em> 2.2.10</em>.
-      <em>Not available on Windows machines.</em></td>
-</tr>
-<tr>
-  <td>host.os.version</td>
-  <td>Operating system version, i.e. <em>#4 Tue Jul 20 17:01:36 MEST 1999</em>.
-      <em>Not available on Windows machines.</em></td>
-</tr>
-<tr>
-  <td>line.separator</td>
-  <td>Character(s) that signal the end of a line, &quot;\n&quot; for Linux,
-      &quot;\r\n&quot; for Windows system, &quot;\r&quot; for Macintosh.</td>
-</tr>
-<tr>
-  <td>os.name</td>
-  <td>Operating System description as set in <em>PHP_OS</em> variable.</td>
-</tr>
+	<table>
+		<caption>Phing Built-In Properties</caption>
+		<thead>
+			<tr>
+				<th>Property</th>
+				<th>Contents</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>application.startdir</td>
+				<td>Current work directory</td>
+			</tr>
+			<tr>
+				<td>env.*</td>
+				<td>Environment variables, extracted from <em>$_SERVER</em>.</td>
+			</tr>
+			<tr>
+				<td>host.arch</td>
+				<td>System architecture, i.e. <em>i586</em>. <em>Not
+						available on Windows machines.</em>
+				</td>
+			</tr>
+			<tr>
+				<td>host.domain</td>
+				<td>DNS domain name, i.e. php.net. <em>Not available on
+						Windows machines.</em>
+				</td>
+			</tr>
+			<tr>
+				<td>host.fstype</td>
+				<td>The type of the filesystem. Possible values are <em>UNIX</em>,
+					<em>WINNT</em> and <em>WIN32</em>
+				</td>
+			</tr>
+			<tr>
+				<td>host.name</td>
+				<td>Operating System hostname as returned by <em>posix_uname()</em>.
+					<em>Not available on Windows machines.</em>
+				</td>
+			</tr>
+			<tr>
+				<td>host.os</td>
+				<td>Operating System description as set in <em>PHP_OS</em>
+					variable (see <a
+					href="http://www.php.net/manual/en/reserved.constants.core.php">PHP
+						Manual</a>).</td>
+			</tr>
+			<tr>
+				<td>host.os.release</td>
+				<td>Operating version release, i.e. <em> 2.2.10</em>. <em>Not
+						available on Windows machines.</em>
+				</td>
+			</tr>
+			<tr>
+				<td>host.os.version</td>
+				<td>Operating system version, i.e. <em>#4 Tue Jul 20
+						17:01:36 MEST 1999</em>. <em>Not available on Windows machines.</em>
+				</td>
+			</tr>
+			<tr>
+				<td>line.separator</td>
+				<td>Character(s) that signal the end of a line, &quot;\n&quot;
+					for Linux, &quot;\r\n&quot; for Windows system, &quot;\r&quot; for
+					Macintosh.</td>
+			</tr>
+			<tr>
+				<td>os.name</td>
+				<td>Operating System description as set in <em>PHP_OS</em>
+					variable.</td>
+			</tr>
 
-<tr>
-  <td>phing.file</td>
-  <td>Full path to current buildfile.</td>
-</tr>
-<tr>
-  <td>phing.home</td>
-  <td>Phing installation directory, not set in <em>PEAR</em> installations.</td>
-</tr>
-<tr>
-  <td>phing.version</td>
-  <td>Current Phing version.</td>
-</tr>
-<tr>
-  <td>phing.project.name</td>
-  <td>Name of the currently processed project.</td>
-</tr>
+			<tr>
+				<td>phing.file</td>
+				<td>Full path to current buildfile.</td>
+			</tr>
+			<tr>
+				<td>phing.home</td>
+				<td>Phing installation directory, not set in <em>PEAR</em>
+					installations.</td>
+			</tr>
+			<tr>
+				<td>phing.version</td>
+				<td>Current Phing version.</td>
+			</tr>
+			<tr>
+				<td>phing.project.name</td>
+				<td>Name of the currently processed project.</td>
+			</tr>
 
-<tr>
-  <td>php.classpath</td>
-  <td>The value of the environment variable <em>PHP_CLASSPATH</em>.</td>
-</tr>
-<tr>
-  <td>php.version</td>
-  <td>Version of the PHP interpreter. Same as PHP constant <em>PHP_VERSION</em>
-      (see <a href="http://www.php.net/manual/en/reserved.constants.core.php">PHP Manual</a>).
-      </td>
-</tr>
+			<tr>
+				<td>php.classpath</td>
+				<td>The value of the environment variable <em>PHP_CLASSPATH</em>.</td>
+			</tr>
+			<tr>
+				<td>php.version</td>
+				<td>Version of the PHP interpreter. Same as PHP constant <em>PHP_VERSION</em>
+					(see <a
+					href="http://www.php.net/manual/en/reserved.constants.core.php">PHP
+						Manual</a>).</td>
+			</tr>
 
-<tr>
-  <td>project.basedir</td>
-  <td>The current project basedir.</td>
-</tr>
+			<tr>
+				<td>project.basedir</td>
+				<td>The current project basedir.</td>
+			</tr>
 
-<tr>
-  <td>user.home</td>
-  <td>Value of the environment variable <em>HOME</em>.</td>
-</tr>
+			<tr>
+				<td>user.home</td>
+				<td>Value of the environment variable <em>HOME</em>.</td>
+			</tr>
 
-  </tbody>
-</table>
-
-
-<h2><a name="CommandLineArguments"></a>Command Line Arguments</h2>
-
-<p>The following table lists the command line arguments currently available.</p>
-
-<table>
-
-<caption>Phing Command Line Arguments</caption>
-
-<thead>
-  <tr>
-    <th>Parameter</th>
-    <th>Meaning</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>-h -help</td>
-    <td>Display the help screen</td>
-  </tr>
-  <tr>
-    <td>-v -version</td>
-    <td>Print version information and exit</td>
-  </tr>
-  <tr>
-    <td>-l -list</td>
-    <td>List all available targets in buildfile</td>
-  </tr>
-  <tr>
-    <td>-q -quiet</td>
-    <td>Quiet operation, no output at all</td>
-  </tr>
-  <tr>
-   <td>-verbose</td>
-   <td>Verbose, give some more output</td>
-  </tr>
-  <tr>
-    <td>-debug</td>
-    <td>Output debug information</td>
-  </tr>
-  <tr>
-    <td>-logfile &lt;file&gt;</td>
-    <td>Use given file for log</td>
-  </tr>
-  <tr>
-    <td>-D&lt;property&gt;=&lt;value&gt;</td>
-    <td>Set the property to the specified value to be used in the buildfile</td>
-  </tr>
-  <tr>
-    <td>-find &lt;file&gt;</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>-buildfile &lt;file&gt;</td>
-    <td>Specify an alternate buildfile name. Default is <em>build.xml</em></td>
-  </tr>
-  <tr>
-    <td>-logger path.to.Logger</td>
-    <td>Specify an alternate logger. Default is <em>phing.listener.DefaultLogger</em>.  Other options include
-    <em>phing.listener.NoBannerLogger</em>,
-    <em>phing.listener.AnsiColorLogger</em>,
-    <em>phing.listener.XmlLogger</em> and
-    <em>phing.listener.HtmlColorLogger</em>.</td>
-  </tr>
-  <tr>
-    <td>-propertyfile &lt;file&gt;</td>
-    <td>Load properties from the specified file</td>
-</tbody>
-</table>
+		</tbody>
+	</table>
 
 
-<h2><a name="DistributionFileLayout"></a>Distribution File Layout</h2>
+	<h2>
+		<a name="CommandLineArguments"></a>Command Line Arguments
+	</h2>
 
-<pre title="DistributionFileLayout">$PHING_HOME
+	<p>The following table lists the command line arguments currently
+		available.</p>
+
+	<table>
+
+		<caption>Phing Command Line Arguments</caption>
+
+		<thead>
+			<tr>
+				<th>Parameter</th>
+				<th>Meaning</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>-h -help</td>
+				<td>Display the help screen</td>
+			</tr>
+			<tr>
+				<td>-v -version</td>
+				<td>Print version information and exit</td>
+			</tr>
+			<tr>
+				<td>-l -list</td>
+				<td>List all available targets in buildfile</td>
+			</tr>
+			<tr>
+				<td>-q -quiet</td>
+				<td>Quiet operation, no output at all</td>
+			</tr>
+			<tr>
+				<td>-verbose</td>
+				<td>Verbose, give some more output</td>
+			</tr>
+			<tr>
+				<td>-debug</td>
+				<td>Output debug information</td>
+			</tr>
+			<tr>
+				<td>-logfile &lt;file&gt;</td>
+				<td>Use given file for log</td>
+			</tr>
+			<tr>
+				<td>-D&lt;property&gt;=&lt;value&gt;</td>
+				<td>Set the property to the specified value to be used in the
+					buildfile</td>
+			</tr>
+			<tr>
+				<td>-find &lt;file&gt;</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>-buildfile &lt;file&gt;</td>
+				<td>Specify an alternate buildfile name. Default is <em>build.xml</em>
+				</td>
+			</tr>
+			<tr>
+				<td>-logger path.to.Logger</td>
+				<td>Specify an alternate logger. Default is <em>phing.listener.DefaultLogger</em>.
+					Other options include <em>phing.listener.NoBannerLogger</em>, <em>phing.listener.AnsiColorLogger</em>,
+					<em>phing.listener.XmlLogger</em> and <em>phing.listener.HtmlColorLogger</em>.</td>
+			</tr>
+			<tr>
+				<td>-propertyfile &lt;file&gt;</td>
+				<td>Load properties from the specified file</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<h2>
+		<a name="DistributionFileLayout"></a>Distribution File Layout
+	</h2>
+
+	<pre title="DistributionFileLayout">$PHING_HOME
   |-- bin
   |-- classes
   |    `-- phing
@@ -212,52 +235,56 @@
 	   `-- etc
 </pre>
 
-<h2><a name="ProgramExitCodes"></a>Program Exit Codes</h2>
+	<h2>
+		<a name="ProgramExitCodes"></a>Program Exit Codes
+	</h2>
 
-<p>Phing is script-safe - means that you can execute Phing and
-Configure within a automated script context. To check back the
-success of a Phing call it returns an exit code that can be
-captured by your calling script. The following list gives you
-details on the used exit codes and their meaning.</p>
+	<p>Phing is script-safe - means that you can execute Phing and
+		Configure within a automated script context. To check back the success
+		of a Phing call it returns an exit code that can be captured by your
+		calling script. The following list gives you details on the used exit
+		codes and their meaning.</p>
 
-<table>
-<caption>Program Exit Codes</caption>
+	<table>
+		<caption>Program Exit Codes</caption>
 
-<thead>
-  <tr>
-    <th>Exitcode</th>
-    <th>Description</th>
-  </tr>
-</thead>
+		<thead>
+			<tr>
+				<th>Exitcode</th>
+				<th>Description</th>
+			</tr>
+		</thead>
 
-<tbody>
-  <tr>
-    <td>-2</td>
-    <td>Environment not properly defined</td>
-  </tr>
-  <tr>
-    <td>-1</td>
-    <td>Parameter error occured, printed help screen</td>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>Successful execution, no warnings, no errors</td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>Successful execution, but warnings occured</td>
-  </tr>
-</tbody>
+		<tbody>
+			<tr>
+				<td>-2</td>
+				<td>Environment not properly defined</td>
+			</tr>
+			<tr>
+				<td>-1</td>
+				<td>Parameter error occured, printed help screen</td>
+			</tr>
+			<tr>
+				<td>0</td>
+				<td>Successful execution, no warnings, no errors</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Successful execution, but warnings occured</td>
+			</tr>
+		</tbody>
 
-</table>
+	</table>
 
-<h2><a name="LGPLLicense"></a>The LGPL License</h2>
+	<h2>
+		<a name="LGPLLicense"></a>The LGPL License
+	</h2>
 
-<p>
-  Source <a href="http://www.gnu.org/licenses/lgpl.txt">http://www.gnu.org/licenses/lgpl.txt</a>
-</p>
+	<p>
+		Source <a href="http://www.gnu.org/licenses/lgpl.txt">http://www.gnu.org/licenses/lgpl.txt</a>
+	</p>
 
-<pre>
+	<pre>
 		  GNU LESSER GENERAL PUBLIC LICENSE
 		       Version 2.1, February 1999
 
@@ -762,5 +789,5 @@ necessary.  Here is a sample; alter the names:
 That's all there is to it!
 </pre>
 
-  </body>
+</body>
 </html>
