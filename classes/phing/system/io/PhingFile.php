@@ -871,7 +871,7 @@ class PhingFile {
      * @throws      IOException
      * @access      public
      */
-    function createTempFile($prefix, $suffix, PhingFile $directory) {
+    public static function createTempFile($prefix, $suffix, PhingFile $directory) {
         
         // quick but efficient hack to create a unique filename ;-)
         $result = null;
