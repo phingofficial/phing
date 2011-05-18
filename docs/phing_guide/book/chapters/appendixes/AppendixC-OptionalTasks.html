@@ -355,6 +355,61 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 			</tr>
 		</tbody>
 	</table>
+    <h2>
+        <a name="DocBloxTask"></a>DocBloxTask
+    </h2>
+    <p>
+        This task runs <a href="http://www.docblox-project.org/" target="_blank">DocBlox</a>,
+        a PHP 5.3-compatible API documentation tool.
+    </p>
+    <h3>Attributes</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Default</th>
+                <th>Required</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>title</td>
+                <td>String</td>
+                <td>Title of the project.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>destdir</td>
+                <td>String</td>
+                <td>Destination directory for output files.</td>
+                <td>n/a</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>quiet</td>
+                <td>Boolean</td>
+                <td>Suppress DocBlox chatter.</td>
+                <td>true</td>
+                <td>No</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Supported Nested Tags</h3>
+    <ul>
+        <li>fileset - Files that should be included for parsing</li>
+    </ul>
+    <h3>Examples</h3>
+    <pre>
+&lt;docblox title=&quot;API Documentation&quot;
+  destdir=&quot;apidocs&quot;
+   &lt;fileset dir=&quot;./classes&quot;&gt;
+      &lt;include name=&quot;**/*.php&quot; /&gt;
+   &lt;/fileset&gt;
+&lt;/phpdoc&gt;
+</pre>
 	<h2>
 		<a name="ExportPropertiesTask"></a>ExportPropertiesTask
 	</h2>
