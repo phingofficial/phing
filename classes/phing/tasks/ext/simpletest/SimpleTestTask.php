@@ -155,13 +155,13 @@ class SimpleTestTask extends Task
      */
     function main()
     {
-        $group = new GroupTest();
+        $suite= new TestSuite();
         
         $filenames = $this->getFilenames();
         
         foreach ($filenames as $testfile)
         {
-            $group->addTestFile($testfile);
+            $suite->addFile($testfile);
         }
         
         if ($this->debug)
@@ -199,7 +199,7 @@ class SimpleTestTask extends Task
             }
         }
         
-        $this->execute($group);
+        $this->execute($suite);
         
         if ($this->testfailed && $this->formatters[0]->getFormatter() instanceof SimpleTestDebugResultFormatter )
         {
