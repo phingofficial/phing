@@ -45,6 +45,7 @@ class DocBloxTask extends Task
     
     /**
      * Title of the project
+     * @var string
      */
     private $title = "";
     
@@ -82,7 +83,7 @@ class DocBloxTask extends Task
     }
     
     /**
-     * Initializes the Zend Autoloader to load DocBlox
+     * Finds and initializes the DocBlox installation
      */
     private function initializeDocBlox()
     {
@@ -96,7 +97,7 @@ class DocBloxTask extends Task
             }
         }
         if (empty($docbloxPath)) {
-            throw new BuildException("The DocBlox task depends on DocBlox being installed and on the include_path.", $this->getLocation());
+            throw new BuildException("Please make sure DocBlox is installed and on the include_path.", $this->getLocation());
         }
         
         require_once 'Zend/Loader/Autoloader.php';
@@ -113,7 +114,7 @@ class DocBloxTask extends Task
     }
     
     /**
-     * 
+     * Build a list of files (from the fileset elements) and call the DocBlox parser
      * @return string
      */
     private function parseFiles()
