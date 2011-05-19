@@ -23,7 +23,7 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/FileOutputStream.php';
 
 /**
- * DocBlox Task ({@link http://www.docblox-project.org})
+ * DocBlox Task (http://www.docblox-project.org)
  *
  * @author    Michiel Rook <mrook@php.net>
  * @version   $Revision$
@@ -81,6 +81,15 @@ class DocBloxTask extends Task
     public function setTitle($title)
     {
         $this->title = (string) $title;
+    }
+    
+    /**
+     * Forces DocBlox to be quiet
+     * @param boolean $quiet
+     */
+    public function setQuiet($quiet)
+    {
+        $this->quiet = (boolean) $quiet;
     }
     
     /**
