@@ -116,11 +116,6 @@ class DocBloxTask extends Task
         
         $autoloader = Zend_Loader_Autoloader::getInstance();
         $autoloader->registerNamespace('DocBlox_');
-        
-        /**
-         * @fixme Including this here since we bypass DocBlox_Core_Application
-         */
-        @require_once 'Image/GraphViz.php';
     }
     
     /**
@@ -172,15 +167,9 @@ class DocBloxTask extends Task
         
         $xml = $this->parseFiles();
         
-        $file = PhingFile::createTempFile('summary', '.xml', new PhingFile($this->destDir));
-        
-        $stream = new FileOutputStream($file);
-        $stream->write($xml);
-        $stream->close();
-        
         $transformer = new DocBlox_Transformer();
         
-        $transformer->setSource((string) $file);
+        $transformer->setSource($xml);
         $transformer->setTarget($this->destDir);
         
         $transformer->execute();
