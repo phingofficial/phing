@@ -26,6 +26,7 @@
 	<resolvepath propertyName="tests.dir.resolved" file="${tests.phpunit.dir}"/>
     <resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
 	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
+	<resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
 	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
 	
 	<path id="incthis">
@@ -45,7 +46,8 @@
 		<!-- startup will have changed the include_path, so set it back now -->
 		<includepath classpathRef="incthis"/>
 		
-		<mkdir dir="${tests.reports.dir.resolved}"/>
+		<mkdir dir="${tests.reports.dir.resolved}/tests"/>
+		<mkdir dir="${tests.reports.dir.resolved}/coverage"/>
 			
 		<fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
 			<include name="**/*${test.class}Test.php"/>
@@ -53,15 +55,25 @@
 	</target>
 
 	<target name="reports" depends="configure">
-		<phpunit haltonerror="true" haltonfailure="true" printsummary="true">
+		<coverage-setup database="reports/coverage.db">
+            <fileset dir="${phing.classes.dir.resolved}">
+                <include name="**/*.php"/>
+            </fileset>
+		</coverage-setup>
+		<phpunit codecoverage="true" haltonerror="true" haltonfailure="true" printsummary="true">
 			<formatter type="xml" usefile="true" todir="${tests.reports.dir.resolved}" outfile="test-results.xml" />
 			<formatter type="plain" usefile="false"/>
 			<batchtest>
 				<fileset refid="relevant-tests"/>
 			</batchtest>
 		</phpunit>
-		<phpunitreport format="noframes" todir="${tests.reports.dir.resolved}" infile="${tests.reports.dir.resolved}/test-results.xml"
-		styledir="${phing.etc.dir.resolved}"/>
+		<phpunitreport format="frames" todir="${tests.reports.dir.resolved}/tests"
+			infile="${tests.reports.dir.resolved}/test-results.xml"
+			styledir="${phing.etc.dir.resolved}"/>
+        <coverage-report outfile="reports/coverage.xml">
+            <report todir="reports/coverage" styledir="${phing.etc.dir.resolved}" title="Phing"
+                usesorttable="true"/>
+        </coverage-report>
 	</target>
 	
 	<!-- run the insert-sql target of the build.xml unless we are doing this for one specific test -->

@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+require_once 'PhpDocumentor/phpDocumentor/Errors.inc';
+
 /**
  * Phing subclass of the ErrorTracker class provided with PhpDocumentor to work around limitations in PhpDocumentor API.
  * 
