@@ -311,7 +311,7 @@ class CoverageReportTask extends Task
     
     protected function filterCovered($var)
     {
-        return ($var >= 0 || $var == -2);
+        return ($var >= 0);
     }
 
     /**
