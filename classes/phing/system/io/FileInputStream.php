@@ -30,13 +30,16 @@ require_once 'phing/system/io/PhingFile.php';
 class FileInputStream extends InputStream {
     
     /**
-     * @var PhingFile The associated file.
+     * The associated file.
+     * @var PhingFile
      */
     protected $file;
     
     /**
      * Construct a new FileInputStream.
-     * @param mixed $file
+     * 
+     * @param PhingFile|string $file Path to the file
+     * @param boolean $append Whether to append (ignored)
      * @throws Exception - if invalid argument specified.
      * @throws IOException - if unable to open file.
      */

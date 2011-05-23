@@ -984,7 +984,7 @@ class Phing {
      */
     public static function import($dotPath, $classpath = null) {
 
-        /// check if this is a PEAR-style path (@see http://pear.php.net/manual/en/standards.naming.php)
+        /// check if this is a PEAR-style path (@link http://pear.php.net/manual/en/standards.naming.php)
         if (strpos($dotPath, '.') === false && strpos($dotPath, '_') !== false) {
             $classname = $dotPath;
             $dotPath = str_replace('_', '.', $dotPath);

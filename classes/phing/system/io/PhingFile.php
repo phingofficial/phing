@@ -43,7 +43,10 @@ class PhingFile {
      */
     private $path = null;
 
-    /** The length of this abstract pathname's prefix, or zero if it has no prefix. */
+    /**
+     * The length of this abstract pathname's prefix, or zero if it has no prefix.
+     * @var int
+     */
     private $prefixLength = 0;
 
     /** constructor */
@@ -71,14 +74,23 @@ class PhingFile {
         }
     }
 
-    /** Returns the length of this abstract pathname's prefix. */
+    /**
+     * Returns the length of this abstract pathname's prefix.
+     * 
+     * @return int
+     */
     function getPrefixLength() {
         return (int) $this->prefixLength;
     }
     
     /* -- constructors not called by signature match, so we need some helpers --*/
 
-    function _constructPathname($pathname) {
+    /**
+     * 
+     * Enter description here ...
+     * @param unknown_type $pathname
+     */
+    protected function _constructPathname($pathname) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -90,7 +102,13 @@ class PhingFile {
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
-    function _constructStringParentStringChild($parent, $child = null) {
+    /**
+     * 
+     * Enter description here ...
+     * @param unknown_type $parent
+     * @param unknown_type $child
+     */
+    protected function _constructStringParentStringChild($parent, $child = null) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -109,7 +127,13 @@ class PhingFile {
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
-    function _constructFileParentStringChild($parent, $child = null) {
+    /**
+     * 
+     * Enter description here ...
+     * @param unknown_type $parent
+     * @param unknown_type $child
+     */
+    protected function _constructFileParentStringChild($parent, $child = null) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -623,6 +647,7 @@ class PhingFile {
      * will appear in any specific order; they are not, in particular,
      * guaranteed to appear in alphabetical order.
      *
+     * @param $filter string
      * @return array An array of strings naming the files and directories in the
      *               directory denoted by this abstract pathname.  The array will be
      *               empty if the directory is empty.  Returns null if
@@ -634,6 +659,11 @@ class PhingFile {
         return $fs->lister($this, $filter);
     }
 
+    /**
+     * 
+     * Enter description here ...
+     * @param PhingFile[] $filter
+     */
     function listFiles($filter = null) {
         $ss = $this->listDir($filter);
         if ($ss === null) {
