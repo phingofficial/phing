@@ -553,6 +553,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
   username="${ftp.username}" 
   password="${ftp.password}"
   dir="${ftp.dir}" 
+  passive=&quot;false&quot;
   mode="${ftp.mode}"&gt;
   &lt;fileset dir=&quot;.&quot;&gt;
     &lt;include name=&quot;**&quot;/&gt;
@@ -622,6 +623,13 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 				<td>clearfirst</td>
 				<td>Boolean</td>
 				<td>Delete all files in the remote directory before uploading</td>
+				<td>false</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>passive</td>
+				<td>Boolean</td>
+				<td>Open connection in passive mode</td>
 				<td>false</td>
 				<td>No</td>
 			</tr>
