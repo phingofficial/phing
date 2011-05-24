@@ -56,7 +56,7 @@ class PHPUnitTask extends Task
 
     /**
      * Initialize Task.
-     * This method includes any necessary PHPUnit2 libraries and triggers
+     * This method includes any necessary PHPUnit libraries and triggers
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
      */
@@ -70,6 +70,10 @@ class PHPUnitTask extends Task
          * Determine PHPUnit version number
          */
         @include_once 'PHPUnit/Runner/Version.php';
+        
+        if (!class_exists('PHPUnit_Runner_Version')) {
+            throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
+        }
 
         $version = PHPUnit_Runner_Version::id();
 
