@@ -260,7 +260,10 @@ class CoverageReportTask extends Task
                 
                 $line = rtrim($line);
                 
-                if (function_exists('mb_convert_encoding'))
+                if (function_exists('mb_check_encoding') && mb_check_encoding($line, 'UTF-8')) {
+                	$lines[$i] = $line;
+                }
+                else if (function_exists('mb_convert_encoding'))
                 {
                     $lines[$i] = mb_convert_encoding($line, 'UTF-8');
                 }
