@@ -89,6 +89,13 @@ class CoverageMerger
         $coverageTotal = $codeCoverageInformation;
         
         foreach ($coverageTotal as $filename => $data) {
+            if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
+                $ignoreLines = PHP_CodeCoverage_Util::getLinesToBeIgnored($filename);
+            } else {
+                // FIXME retrieve ignored lines for PHPUnit Version < 3.5.0
+                $ignoreLines = array();
+            }
+            
             $lines = array();
             $filename = strtolower($filename);
 
@@ -96,6 +103,9 @@ class CoverageMerger
                 foreach ($data as $_line => $_data) {
                     if (is_array($_data)) {
                         $count = count($_data);
+                    } else if(isset($ignoreLines[$_line])) {
+                    	// line is marked as ignored
+                    	$count = 1;
                     } else if ($_data == -1) {
                         // not executed
                         $count = -1;
