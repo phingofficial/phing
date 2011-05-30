@@ -124,8 +124,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 						<td>No</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 	</ul>
 	<h3>Example</h3>
 	<pre>
@@ -355,54 +354,55 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 			</tr>
 		</tbody>
 	</table>
-    <h2>
-        <a name="DocBloxTask"></a>DocBloxTask
-    </h2>
-    <p>
-        This task runs <a href="http://www.docblox-project.org/" target="_blank">DocBlox</a>,
-        a PHP 5.3-compatible API documentation tool.
-    </p>
-    <h3>Attributes</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Default</th>
-                <th>Required</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>title</td>
-                <td>String</td>
-                <td>Title of the project.</td>
-                <td>n/a</td>
-                <td>No</td>
-            </tr>
-            <tr>
-                <td>destdir</td>
-                <td>String</td>
-                <td>Destination directory for output files.</td>
-                <td>n/a</td>
-                <td>Yes</td>
-            </tr>
-            <tr>
-                <td>quiet</td>
-                <td>Boolean</td>
-                <td>Suppress DocBlox chatter.</td>
-                <td>true</td>
-                <td>No</td>
-            </tr>
-        </tbody>
-    </table>
-    <h3>Supported Nested Tags</h3>
-    <ul>
-        <li>fileset - Files that should be included for parsing</li>
-    </ul>
-    <h3>Examples</h3>
-    <pre>
+	<h2>
+		<a name="DocBloxTask"></a>DocBloxTask
+	</h2>
+	<p>
+		This task runs <a href="http://www.docblox-project.org/"
+			target="_blank">DocBlox</a>, a PHP 5.3-compatible API documentation
+		tool.
+	</p>
+	<h3>Attributes</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Required</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>title</td>
+				<td>String</td>
+				<td>Title of the project.</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>destdir</td>
+				<td>String</td>
+				<td>Destination directory for output files.</td>
+				<td>n/a</td>
+				<td>Yes</td>
+			</tr>
+			<tr>
+				<td>quiet</td>
+				<td>Boolean</td>
+				<td>Suppress DocBlox chatter.</td>
+				<td>true</td>
+				<td>No</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>Supported Nested Tags</h3>
+	<ul>
+		<li>fileset - Files that should be included for parsing</li>
+	</ul>
+	<h3>Examples</h3>
+	<pre>
 &lt;docblox title=&quot;API Documentation&quot;
   destdir=&quot;apidocs&quot;
    &lt;fileset dir=&quot;./classes&quot;&gt;
@@ -441,11 +441,9 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 				<td>disallowedPropertyPrefixes</td>
 				<td>String</td>
 				<td>Exclude properties starting with these prefixes (separated
-					by <em>,</em>
-				</td>
+					by <em>,</em></td>
 				<td><em>'host.'</em>, <em>'phing.'</em>, <em>'os.'</em>, <em>'php.'</em>,
-					<em>'line.'</em>, <em>'env.'</em>, <em>'user.'</em>
-				</td>
+					<em>'line.'</em>, <em>'env.'</em>, <em>'user.'</em></td>
 				<td>No</td>
 			</tr>
 		</tbody>
@@ -639,8 +637,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 				<td>Control the level at which the task reports status
 					messages. One of <em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>,
 					<em>debug</em>.</td>
-				<td><em>verbose</em>
-				</td>
+				<td><em>verbose</em></td>
 				<td>No</td>
 			</tr>
 		</tbody>
@@ -648,8 +645,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>fileset
-			<p>The files to deploy</p>
-		</li>
+			<p>The files to deploy</p></li>
 	</ul>
 
 	<h2>
@@ -1994,8 +1990,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>String</td>
 				<td>Commit format. See --format of git-log. Can be one of <i>oneline</i>,
 					<i>short</i>, <i>medium</i>, <i>full</i>, <i>fuller</i>, <i>email</i>,
-					<i>raw</i> and <i>format:&lt;string&gt;</i>
-				</td>
+					<i>raw</i> and <i>format:&lt;string&gt;</i></td>
 				<td>medium</td>
 				<td>No</td>
 			</tr>
@@ -2186,8 +2181,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>observerEvents</td>
 				<td>String</td>
 				<td>Comma-separated list of events to log when <em>verbose</em>
-					is set to <em>true</em>
-				</td>
+					is set to <em>true</em></td>
 				<td>connect, sentHeaders, sentBodyPart, receivedHeaders,
 					receivedBody, disconnect</td>
 				<td>No</td>
@@ -2226,8 +2220,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 		<li>header
 			<p>
 				Holds additional header <em>name</em> and <em>value</em>.
@@ -2259,8 +2252,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 	</ul>
 	<h3>Examples</h3>
 	<pre>
@@ -2363,8 +2355,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>encode</td>
 				<td>String</td>
 				<td>Specifies additional file patterns, files or directories to
-					encode, or to reverse the effect of <em>copy</em>
-				</td>
+					encode, or to reverse the effect of <em>copy</em></td>
 				<td>none</td>
 				<td>No</td>
 			</tr>
@@ -2381,8 +2372,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>String</td>
 				<td>Sets a period in seconds (s), minutes (m), hours (h) or
 					days (d) after which the files expire. Accepts: <em>500s</em> or <em>55m</em>
-					or <em>24h</em> or <em>7d</em>
-				</td>
+					or <em>24h</em> or <em>7d</em></td>
 				<td>none</td>
 				<td>No</td>
 			</tr>
@@ -2461,8 +2451,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>optimize</td>
 				<td>String</td>
 				<td>Controls the optimization of the encoded files, accepts
-					either <em>more</em> or <em>max</em>
-				</td>
+					either <em>more</em> or <em>max</em></td>
 				<td>none</td>
 				<td>No</td>
 			</tr>
@@ -2484,8 +2473,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>targetoption</td>
 				<td>String</td>
 				<td>Option to use when target directory exists, accepts <em>replace</em>,
-					<em>merge</em>, <em>update</em> and <em>rename</em>
-				</td>
+					<em>merge</em>, <em>update</em> and <em>rename</em></td>
 				<td>none</td>
 				<td>No</td>
 			</tr>
@@ -2530,8 +2518,7 @@ Note that you can omit both startpoint and track attributes in this case
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>comment
-			<p>Custom text that is added to the start of each encoded file.</p>
-		</li>
+			<p>Custom text that is added to the start of each encoded file.</p></li>
 	</ul>
 	<h2>
 		<a name="IoncubeLicenseTask"></a>IoncubeLicenseTask
@@ -2619,8 +2606,7 @@ Note that you can omit both startpoint and track attributes in this case
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>comment
-			<p>Custom text that is added to the start of each encoded file.</p>
-		</li>
+			<p>Custom text that is added to the start of each encoded file.</p></li>
 	</ul>
 	<h2>
 		<a name="JslLintTask"></a>JslLintTask
@@ -2761,8 +2747,7 @@ Note that you can omit both startpoint and track attributes in this case
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>fileset
-			<p>JavaScript files to be minified.</p>
-		</li>
+			<p>JavaScript files to be minified.</p></li>
 	</ul>
 
 	<h2>
@@ -2818,8 +2803,7 @@ Note that you can omit both startpoint and track attributes in this case
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>fileset
-			<p>JavaScript files to be minified.</p>
-		</li>
+			<p>JavaScript files to be minified.</p></li>
 	</ul>
 
 	<h2>
@@ -3064,13 +3048,12 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>No</td>
 					</tr>
 				</tbody>
-			</table></li>
+			</table>
+		</li>
 		<li>fileset
-			<p>Files containing SQL statements.</p>
-		</li>
+			<p>Files containing SQL statements.</p></li>
 		<li>filelist
-			<p>Files containing SQL statements.</p>
-		</li>
+			<p>Files containing SQL statements.</p></li>
 		<li>formatter
 			<p>
 				The results of any queries that are executed can be printed in
@@ -3180,7 +3163,8 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;!-- No output file + usefile=false means it goes to phing log --&gt;
   &lt;formatter type=&quot;plain&quot; usefile=&quot;false&quot; /&gt;<br />&lt;/pdo&gt;
-</pre></li>
+</pre>
+		</li>
 	</ul>
 	<h2>
 		<a name="PearPackageTask"></a> PearPackageTask
@@ -3188,8 +3172,8 @@ Note that you can omit both startpoint and track attributes in this case
 	<p>
 		With the PearPackageTask, you can create a package.xml which can be
 		installed using the PEAR installer. Use this in conjunction with the <a
-			href="#Tasks.TarTask">TarTask</a> to completely script the
-		building of a PEAR package.
+			href="#Tasks.TarTask">TarTask</a> to completely script the building
+		of a PEAR package.
 	</p>
 
 	<p>
@@ -3279,7 +3263,8 @@ Note that you can omit both startpoint and track attributes in this case
 			</p> <pre>&lt;mapping name="option_name"&gt;
     &lt;element key="key_name" value="key_val"/&gt;
     &lt;element key="key_name" value="key_val"/&gt;
-&lt;/mapping&gt;</pre></li>
+&lt;/mapping&gt;</pre>
+		</li>
 	</ul>
 
 	<h2>
@@ -3288,8 +3273,8 @@ Note that you can omit both startpoint and track attributes in this case
 	<p>
 		With the PearPackage2Task, you can create a <em>version 2</em>
 		package.xml which can be installed using the PEAR installer. Use this
-		in conjunction with the <a href="#Tasks.TarTask">TarTask</a>
-		to completely script the building of a PEAR package.
+		in conjunction with the <a href="#Tasks.TarTask">TarTask</a> to
+		completely script the building of a PEAR package.
 	</p>
 	<p>
 		This task uses the PEAR_PackageFileManager2 class. In order to be
@@ -3439,7 +3424,8 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table></li>
+			</table>
+		</li>
 		<li><p>mapping</p>
 			<p>
 				The &lt;mapping&gt; tag represents a complex data type. You can use
@@ -3507,7 +3493,8 @@ Note that you can omit both startpoint and track attributes in this case
 								<td>No</td>
 							</tr>
 						</tbody>
-					</table></li>
+					</table>
+				</li>
 				<li>extdeps (optional) <br /> see <a
 					href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php">PEAR_PackageFileManager::addDependency()</a>
 					for more info <br /> <br />
@@ -3552,7 +3539,8 @@ Note that you can omit both startpoint and track attributes in this case
 								<td>No</td>
 							</tr>
 						</tbody>
-					</table></li>
+					</table>
+				</li>
 				<li>maintainers (required at least one) <br /> see <a
 					href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addmaintainer.php">PEAR_PackageFileManager::addMaintainer()</a>
 					for more info <br /> <br />
@@ -3597,7 +3585,8 @@ Note that you can omit both startpoint and track attributes in this case
 								<td>Yes</td>
 							</tr>
 						</tbody>
-					</table></li>
+					</table>
+				</li>
 				<li>replacements (optional) <br /> see <a
 					href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addreplacement.php">PEAR_PackageFileManager::addReplacement()</a>
 					for more info <br /> <br />
@@ -3643,8 +3632,10 @@ Note that you can omit both startpoint and track attributes in this case
 								<td>Yes</td>
 							</tr>
 						</tbody>
-					</table></li>
-			</ul></li>
+					</table>
+				</li>
+			</ul>
+		</li>
 	</ul>
 
 
@@ -3655,9 +3646,8 @@ Note that you can omit both startpoint and track attributes in this case
 		<a href="http://www.php.net/manual/en/book.phar.php" target="_blank">Phar</a>
 		packages generating with Phing. This task <strong>require <a
 			href="http://pecl.php.net/package/phar" target="_blank">PECL's
-				Phar</a>
-		</strong> extension to be installed on your system. Phar is built-in in PHP
-		from 5.3 version.
+				Phar</a> </strong> extension to be installed on your system. Phar is built-in in
+		PHP from 5.3 version.
 	</p>
 	<h3>Attributes</h3>
 	<table>
@@ -3742,8 +3732,7 @@ Note that you can omit both startpoint and track attributes in this case
     TODO Describe metadata element.
   -->
 		<li>metadata
-			<p />
-		</li>
+			<p /></li>
 	</ul>
 	<h3>Examples</h3>
 	<p>Sample build command:</p>
@@ -3853,8 +3842,7 @@ Note that you can omit both startpoint and track attributes in this case
 			<p>
 				Collection of <em>path</em> tags (see example below), that will be
 				visible outside package in web mode.
-			</p>
-		</li>
+			</p></li>
 	</ul>
 	<h3>Examples</h3>
 	<p>Sample build command:</p>
@@ -3876,8 +3864,8 @@ Note that you can omit both startpoint and track attributes in this case
 	</h2>
 	<p>
 		This task runs <a href="http://pear.php.net/package/PHP_CodeSniffer"
-			target="_blank">PHP_CodeSniffer</a> to detect violations of a
-		defined set of coding standards.
+			target="_blank">PHP_CodeSniffer</a> to detect violations of a defined
+		set of coding standards.
 	</p>
 	<h3>Attributes</h3>
 	<table>
@@ -4041,8 +4029,7 @@ Note that you can omit both startpoint and track attributes in this case
 		<li>fileset
 			<p>
 				Either this nested tag or the attribute <em>file</em> is required.
-			</p>
-		</li>
+			</p></li>
 		<li>config
 			<p>The configuration parameters which are usually loaded from the
 				CodeSniffer.conf can be set.</p>
@@ -4073,8 +4060,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 		<li>formatter
 			<p>
 				The results of the tests can be printed in different formats. Output
@@ -4118,8 +4104,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes, if <em>usefile</em> is <em>true</em>.</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 	</ul>
 	<h3>Examples</h3>
 	<p>
@@ -4223,8 +4208,7 @@ Note that you can omit both startpoint and track attributes in this case
 			<p>
 				This nested tag is required when the <em>file</em> attribute is not
 				set.
-			</p>
-		</li>
+			</p></li>
 		<li>formatter
 			<p>
 				The results of the copy/paste scan can be printed in different
@@ -4267,8 +4251,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 	</ul>
 	<h3>Examples</h3>
 	<pre>
@@ -4367,8 +4350,7 @@ Note that you can omit both startpoint and track attributes in this case
 			<p>
 				This nested tag is required when the <em>file</em> attribute is not
 				set.
-			</p>
-		</li>
+			</p></li>
 		<li>formatter
 			<p>
 				The results of the analysis can be printed in different formats.
@@ -4412,8 +4394,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 	</ul>
 	<h3>Examples</h3>
 	<pre>
@@ -4531,8 +4512,7 @@ Note that you can omit both startpoint and track attributes in this case
 			<p>
 				This nested tag is required when the <em>file</em> attribute is not
 				set.
-			</p>
-		</li>
+			</p></li>
 		<li>logger
 			<p>The results of the analysis can be parsed by differed loggers.
 				At least one logger is required. Output will always be sent to a
@@ -4566,8 +4546,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 		<li>analyzer
 			<p>Some additional analyzers can be added to the runner.</p>
 			<h3>Attributes</h3>
@@ -4597,8 +4576,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>Yes</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 	</ul>
 	<h3>Examples</h3>
 	<pre>
@@ -4943,8 +4921,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>Control the level at which phplint reports status messages.
 					One of <em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>,
 					<em>debug</em>.</td>
-				<td><em>info</em>
-				</td>
+				<td><em>info</em></td>
 				<td>No</td>
 			</tr>
 			<tr>
@@ -5168,8 +5145,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<td>No</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 		<li>batchtest
 			<p>
 				Define a number of tests based on pattern matching. <em>batchtest</em>
@@ -5222,8 +5198,7 @@ Note that you can omit both startpoint and track attributes in this case
 			<h3>Supported Nested Tags</h3>
 			<ul>
 				<li>fileset</li>
-			</ul>
-		</li>
+			</ul></li>
 	</ul>
 	<h3>Examples</h3>
 	<pre>&lt;phpunit&gt;
@@ -5320,8 +5295,7 @@ Note that you can omit both startpoint and track attributes in this case
 							phpunit-frames.xsl.</li>
 						<li>noframes format: the stylesheet must be named
 							phpunit-noframes.xsl.</li>
-					</ul>
-				</td>
+					</ul></td>
 				<td>n/a</td>
 				<td>Yes</td>
 			</tr>
@@ -5656,8 +5630,7 @@ host=&quot;webserver&quot; todir=&quot;/www/htdocs/project/&quot;&gt;
 				<td>Control the level at which the task reports status
 					messages. One of <em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>,
 					<em>debug</em>.</td>
-				<td><em>verbose</em>
-				</td>
+				<td><em>verbose</em></td>
 				<td>No</td>
 			</tr>
 		</tbody>
@@ -5748,20 +5721,21 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 				<td>none</td>
 				<td>Yes</td>
 			</tr>
-            <tr>
-                <td>property</td>
-                <td>String</td>
-                <td>The name of the property to capture (any) output of the command</td>
-                <td>none</td>
-                <td>No</td>
-            </tr>
-            <tr>
-                <td>display</td>
-                <td>Boolean</td>
-                <td>Whether to display the output of the command</td>
-                <td>true</td>
-                <td>No</td>
-            </tr>
+			<tr>
+				<td>property</td>
+				<td>String</td>
+				<td>The name of the property to capture (any) output of the
+					command</td>
+				<td>none</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>display</td>
+				<td>Boolean</td>
+				<td>Whether to display the output of the command</td>
+				<td>true</td>
+				<td>No</td>
+			</tr>
 		</tbody>
 	</table>
 
@@ -5899,8 +5873,7 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 						<td>No</td>
 					</tr>
 				</tbody>
-			</table>
-		</li>
+			</table></li>
 		<li>fileset</li>
 	</ul>
 	<h3>Examples</h3>
@@ -6379,16 +6352,14 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 				<td>String</td>
 				<td>Working copy directory</td>
 				<td>none</td>
-				<td>Yes, or <em>repositoryurl</em>
-				</td>
+				<td>Yes, or <em>repositoryurl</em></td>
 			</tr>
 			<tr>
 				<td>repositoryurl</td>
 				<td>String</td>
 				<td>URL of remote repository</td>
 				<td>none</td>
-				<td>Yes, or <em>workingcopy</em>
-				</td>
+				<td>Yes, or <em>workingcopy</em></td>
 			</tr>
 			<tr>
 				<td>propertyname</td>
@@ -6415,6 +6386,182 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 			</tr>
 		</tbody>
 	</table>
+
+	<h2>
+		<a name="SvnListTask"></a> SvnListTask
+	</h2>
+	<p>
+		The <em>SvnListTask</em> stores the output of a svn list command on a
+		workingcopy or repositoryurl in a property.
+	</p>
+	<p>
+		Currently it always uses the <em>forceCompatiple</em> mode so the
+		supplied attribute is ignored. It uses svn's --verbose switch to get
+		additional data about the listed items. The result will be stored in
+		an array, one string that is seperated by ' | ' (in words: space pipe
+		space) for easy parsing.
+	</p>
+	<h3>Examples</h3>
+	<pre>&lt;svnlist svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.list"/&gt; </pre>
+	<pre>&lt;svnlist svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/tags" orderDescending="true" limit="10" /&gt; </pre>
+	<p>The latter example could produce a list of your tags like this:</p>
+	<pre>
+revision | author | date         | item
+4028     | tony   | May 19 18:31 | Release_2.9.1.7
+4026     | tony   | May 18 14:33 | Release_2.9.1.6
+4023     | tony   | May 16 15:53 | Release_2.9.1.5
+4018     | tony   | May 13 11:55 | Release_2.9.1.4
+4005     | tony   | Apr 27 12:09 | Release_2.9.1.3
+...
+</pre>
+	<h3>Attributes</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Required</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>svnpath</td>
+				<td>String</td>
+				<td>Path to Subversion binary</td>
+				<td>/usr/bin/svn</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>workingcopy</td>
+				<td>String</td>
+				<td>Working copy directory</td>
+				<td>none</td>
+				<td>Yes, or <em>repositoryurl</em></td>
+			</tr>
+			<tr>
+				<td>repositoryurl</td>
+				<td>String</td>
+				<td>URL of remote repository</td>
+				<td>none</td>
+				<td>
+			</tr>
+			<tr>
+				<td>propertyname</td>
+				<td>String</td>
+				<td>Name of property to use</td>
+				<td>svn.list</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>forceCompatible</td>
+				<td>Boolean</td>
+				<td>Sets whether to force compatibility with older SVN versions
+					(&lt; 1.2)</td>
+				<td>true</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>limit</td>
+				<td>Integer</td>
+				<td>Limits the number of items to get back from the command</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>orderDescending</td>
+				<td>Boolean</td>
+				<td>Sets whether to reverse the order of the listed items</td>
+				<td>false</td>
+				<td>No</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h2>
+		<a name="SvnLogTask"></a> SvnLogTask
+	</h2>
+	<p>
+		The <em>SvnLogTask</em> stores the output of a svn log command on a
+		workingcopy or repositoryurl in a property.
+	</p>
+	<p>
+		Currently it always uses the <em>forceCompatiple</em> mode so the
+		supplied attribute is ignored. The result will be stored in an array,
+		one string that is seperated by ' | ' (in words: space pipe space) for
+		easy parsing.
+	</p>
+	<h3>Examples</h3>
+	<pre>&lt;svnlog svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.log"/&gt; </pre>
+	<pre>&lt;svnlog svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /&gt; </pre>
+	<p>The latter example could produce a history of the latest
+		revisions in the trunk:</p>
+	<pre>
+4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
+4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
+4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
+...
+</pre>
+	<h3>Attributes</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Required</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>svnpath</td>
+				<td>String</td>
+				<td>Path to Subversion binary</td>
+				<td>/usr/bin/svn</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>workingcopy</td>
+				<td>String</td>
+				<td>Working copy directory</td>
+				<td>none</td>
+				<td>Yes, or <em>repositoryurl</em></td>
+			</tr>
+			<tr>
+				<td>repositoryurl</td>
+				<td>String</td>
+				<td>URL of remote repository</td>
+				<td>none</td>
+				<td>
+			</tr>
+			<tr>
+				<td>propertyname</td>
+				<td>String</td>
+				<td>Name of property to use</td>
+				<td>svn.list</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>forceCompatible</td>
+				<td>Boolean</td>
+				<td>Sets whether to force compatibility with older SVN versions
+					(&lt; 1.2)</td>
+				<td>true</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>limit</td>
+				<td>Integer</td>
+				<td>Limits the number of items to get back from the command</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+		</tbody>
+	</table>
+
+
 	<h2>
 		<a name="SvnUpdateTask"></a>SvnUpdateTask
 	</h2>
@@ -6724,8 +6871,7 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 							the maximum</li>
 						<li>omit - paths greater than the maximum are omitted from
 							the archive</li>
-					</ul>
-				</td>
+					</ul></td>
 				<td>warn</td>
 				<td>No</td>
 			</tr>
@@ -7384,7 +7530,8 @@ a2.a3.a4=false</pre>
 							specific date.</li>
 						<li>Relative format supported by strtotime function (e.g. '+6
 							months' to generate a license that will expire in half a year).</li>
-					</ul></td>
+					</ul>
+				</td>
 				<td>n/a</td>
 				<td>Yes</td>
 			</tr>

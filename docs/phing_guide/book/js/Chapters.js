@@ -14,8 +14,8 @@ new Array('chapters/appendixes/AppendixA-FactSheet.html','Appendix A: Fact Sheet
 new Array('chapters/appendixes/AppendixB-CoreTasks.html','
 		Appendix B: Core Tasks
 	'),
-new Array('chapters/appendixes/AppendixC-OptionalTasks.html','
-		Appendix C: Optional Tasks
+new Array('chapters/appendixes/AppendixC-OptionalTasks.html','&#13;
+		Appendix C: Optional Tasks&#13;
 	'),
 new Array('chapters/appendixes/AppendixD-CoreTypes.html','
 		Appendix D: Core Types
