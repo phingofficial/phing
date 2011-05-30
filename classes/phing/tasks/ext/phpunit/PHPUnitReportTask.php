@@ -188,21 +188,20 @@ class PHPUnitReportTask extends Task
         
         $nodes = $xp->query("/testsuites/testsuite");
         
-        foreach ($nodes as $node)
-        {
+        foreach ($nodes as $node) {
             $children = $xp->query("./testsuite", $node);
             
-            foreach ($children as $child)
-            {                
-                if (!$child->hasAttribute('package'))
-                {
-                    $child->setAttribute('package', 'default');
+            if ($children->length) {
+                foreach ($children as $child) {
+                    if (!$child->hasAttribute('package'))
+                    {
+                        $child->setAttribute('package', 'default');
+                    }
+                    $rootElement->appendChild($child);
                 }
                 
-                $rootElement->appendChild($child);
+                $rootElement->removeChild($node);
             }
-            
-            $rootElement->removeChild($node);
         }
     }
     
