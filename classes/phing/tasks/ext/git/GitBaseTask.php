@@ -56,10 +56,10 @@ abstract class GitBaseTask extends Task
      */
     public function init() 
     {
-        require_once 'VersionControl/Git.php';
+        @include_once 'VersionControl/Git.php';
         if (false == class_exists('VersionControl_Git')) {
-            throw new Exception("The Git tasks depend on PEAR\'s " 
-                              . "VersionControl_Git package.");
+            throw new BuildException("The Git tasks depend on PEAR\'s " 
+                . "VersionControl_Git package.", $this->getLocation());
         }
     }
 
