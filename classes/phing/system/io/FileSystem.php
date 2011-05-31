@@ -30,7 +30,7 @@
  * *FileSystem drivers to access the real filesystem via this class using natives.
  *
  * FIXME:
- *  - Error handling reduced to min fallthrough runtime excetions
+ *  - Error handling reduced to min fallthrough runtime exceptions
  *    more precise errorhandling is done by the PhingFile class
  *    
  * @author Charlie Killian <charlie@tizac.com>
@@ -40,19 +40,38 @@
  */
 abstract class FileSystem {    
 
-    /* properties for simple boolean attributes */
+    /**
+     * @var int
+     */
     const BA_EXISTS    = 0x01;
+    
+    /**
+     * @var int
+     */
     const BA_REGULAR   = 0x02;
+    
+    /**
+     * @var int
+     */
     const BA_DIRECTORY = 0x04;
+    
+    /**
+     * @var int
+     */
     const BA_HIDDEN    = 0x08;
     
-    /** Instance for getFileSystem() method. */
+    /**
+     * Instance for getFileSystem() method.
+     * @var FileSystem
+     */
     private static $fs;
     
     /**
      * Static method to return the FileSystem singelton representing
      * this platform's local filesystem driver.
+     * 
      * @return FileSystem
+     * @throws IOException
      */
     public static function getFileSystem() {
         if (self::$fs === null) {
@@ -70,7 +89,7 @@ abstract class FileSystem {
                     self::$fs = new WinNTFileSystem();
                 break;
                 default:
-                    throw new Exception("Host uses unsupported filesystem, unable to proceed");
+                    throw new IOException("Host uses unsupported filesystem, unable to proceed");
             }
         }
         return self::$fs;
@@ -91,12 +110,16 @@ abstract class FileSystem {
     /**
      * Convert the given pathname string to normal form.  If the string is
      * already in normal form then it is simply returned.
+     * 
+     * @param string $strPath
      */
     abstract function normalize($strPath);
 
     /**
      * Compute the length of this pathname string's prefix.  The pathname
      * string must be in normal form.
+     * 
+     * @param string $pathname
      */
     abstract function prefixLength($pathname);
 
@@ -104,12 +127,17 @@ abstract class FileSystem {
      * Resolve the child pathname string against the parent.
      * Both strings must be in normal form, and the result
      * will be a string in normal form.
+     * 
+     * @param string $parent
+     * @param string $child
      */
     abstract function resolve($parent, $child);
     
     /**
      * Resolve the given abstract pathname into absolute form.  Invoked by the
      * getAbsolutePath and getCanonicalPath methods in the PhingFile class.
+     * 
+     * @param PhingFile $f
      */
     abstract function resolveFile(PhingFile $f);
 
@@ -125,6 +153,8 @@ abstract class FileSystem {
      * win32, e.g., to transform "/c:/foo" into "c:/foo".  The path string
      * still has slash separators; code in the PhingFile class will translate them
      * after this method returns.
+     * 
+     * @param string $path
      */
     abstract function fromURIPath($path);
     
@@ -132,11 +162,14 @@ abstract class FileSystem {
 
     /**
      * Tell whether or not the given abstract pathname is absolute.
+     * 
+     * @param PhingFile $f
      */
     abstract function isAbsolute(PhingFile $f);
 
     /** 
      * canonicalize filename by checking on disk 
+     * @param string $strPath 
      * @return mixed Canonical path or false if the file doesn't exist.
      */
     function canonicalize($strPath) {
@@ -149,9 +182,11 @@ abstract class FileSystem {
      * Return the simple boolean attributes for the file or directory denoted
      * by the given abstract pathname, or zero if it does not exist or some
      * other I/O error occurs.
+     * 
+     * @param PhingFile $f
      */
     function getBooleanAttributes($f) {
-        throw new Exception("SYSTEM ERROR method getBooleanAttributes() not implemented by fs driver");
+        throw new IOException("getBooleanAttributes() not implemented by fs driver");
     }
 
     /**
@@ -161,6 +196,9 @@ abstract class FileSystem {
      * argument is true, then a check for write (not read-write)
      * access is made.  Return false if access is denied or an I/O error
      * occurs.
+     * 
+     * @param PhingFile $f
+     * @param boolean   $write
      */
     function checkAccess(PhingFile $f, $write = false) {
         // we clear stat cache, its expensive to look up from scratch,
@@ -207,6 +245,10 @@ abstract class FileSystem {
      * Return the time at which the file or directory denoted by the given
      * abstract pathname was last modified, or zero if it does not exist or
      * some other I/O error occurs.
+     * 
+     * @param  PhingFile $f
+     * @return int
+     * @throws IOException
      */
     function getLastModifiedTime(PhingFile $f) {
         
@@ -220,7 +262,7 @@ abstract class FileSystem {
         if (false === $mtime) {
             // FAILED. Log and return err.
             $msg = "FileSystem::Filemtime() FAILED. Can not get modified time of $strPath. $php_errormsg";
-            throw new Exception($msg);
+            throw new IOException($msg);
         } else {
             return (int) $mtime;
         }
@@ -230,6 +272,10 @@ abstract class FileSystem {
      * Return the length in bytes of the file denoted by the given abstract
      * pathname, or zero if it does not exist, is a directory, or some other
      * I/O error occurs.
+     * 
+     * @param  PhingFile $f
+     * @throws IOException
+     * @return int
      */
     function getLength(PhingFile $f) {
         $strPath = (string) $f->getAbsolutePath();
@@ -238,7 +284,7 @@ abstract class FileSystem {
             return $fs;
         } else {
             $msg = "FileSystem::Read() FAILED. Cannot get filesize of $strPath. $php_errormsg";
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
     }
 
@@ -250,9 +296,9 @@ abstract class FileSystem {
      * file or directory with the given pathname already exists.  Throw an
      * IOException if an I/O error occurs.
      *
-     * @param       string      Path of the file to be created.
-     *     
-     * @throws      IOException
+     * @param  string $strPathname Path of the file to be created.
+     * @throws IOException
+     * @return boolean
      */
     function createNewFile($strPathname) {
         if (@file_exists($strPathname))
@@ -270,6 +316,10 @@ abstract class FileSystem {
     /**
      * Delete the file or directory denoted by the given abstract pathname,
      * returning true if and only if the operation succeeds.
+     * 
+     * @param PhingFile $f
+     * @param boolean $recursive
+     * @return void
      */
     function delete(PhingFile $f, $recursive = false) {
         if ($f->isDirectory()) {
@@ -282,16 +332,21 @@ abstract class FileSystem {
     /**
      * Arrange for the file or directory denoted by the given abstract
      * pathname to be deleted when Phing::shutdown is called, returning
-    * true if and only if the operation succeeds.
+     * true if and only if the operation succeeds.
+     * 
+     * @param  PhingFile $f
+     * @throws IOException
      */
     function deleteOnExit($f) {
-        throw new Exception("deleteOnExit() not implemented by local fs driver");
+        throw new IOException("deleteOnExit() not implemented by local fs driver");
     }
 
     /**
      * List the elements of the directory denoted by the given abstract
      * pathname.  Return an array of strings naming the elements of the
      * directory if successful; otherwise, return <code>null</code>.
+     * 
+     * @param PhingFile $f
      */
     function listDir(PhingFile $f) {
         $strPath = (string) $f->getAbsolutePath();
@@ -315,6 +370,10 @@ abstract class FileSystem {
      * returning true if and only if the operation succeeds.
      *
      * NOTE: umask() is reset to 0 while executing mkdir(), and restored afterwards
+     * 
+     * @param PhingFile $f
+     * @param  int $mode
+     * @return boolean
      */
     function createDirectory(&$f, $mode = 0755) {
         $old_umask = umask(0);
@@ -331,7 +390,7 @@ abstract class FileSystem {
      * @param PhingFile $f1 abstract source file
      * @param PhingFile $f2 abstract destination file
      * @return void    
-     * @throws Exception if rename cannot be performed
+     * @throws IOException if rename cannot be performed
      */
     function rename(PhingFile $f1, PhingFile $f2) {        
         // get the canonical paths of the file to rename
@@ -339,7 +398,7 @@ abstract class FileSystem {
         $dest = $f2->getAbsolutePath();
         if (false === @rename($src, $dest)) {
             $msg = "Rename FAILED. Cannot rename $src to $dest. $php_errormsg";
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
     }
 
@@ -347,14 +406,17 @@ abstract class FileSystem {
      * Set the last-modified time of the file or directory denoted by the
      * given abstract pathname returning true if and only if the
      * operation succeeds.
+     * 
+     * @param  PhingFile $f
+     * @param  int $time
      * @return void
-     * @throws Exception
+     * @throws IOException
      */
     function setLastModifiedTime(PhingFile $f, $time) {        
         $path = $f->getPath();
         $success = @touch($path, $time);
         if (!$success) {
-            throw new Exception("Could not touch '" . $path . "' due to: $php_errormsg");
+            throw new IOException("Could not touch '" . $path . "' due to: $php_errormsg");
         }
     }
 
@@ -362,27 +424,34 @@ abstract class FileSystem {
      * Mark the file or directory denoted by the given abstract pathname as
      * read-only, returning <code>true</code> if and only if the operation
      * succeeds.
+     * 
+     * @param  PhingFile $f
+     * @throws IOException
      */
     function setReadOnly($f) {
-        throw new Exception("setReadonle() not implemented by local fs driver");
+        throw new IOException("setReadonly() not implemented by local fs driver");
     }
 
     /* -- Filesystem interface -- */
 
     /**
      * List the available filesystem roots, return array of PhingFile objects
+     * @throws IOException
      */
     function listRoots() {
-        throw new Exception("SYSTEM ERROR [listRoots() not implemented by local fs driver]");
+        throw new IOException("listRoots() not implemented by local fs driver");
     }
 
     /* -- Basic infrastructure -- */
 
     /**
      * Compare two abstract pathnames lexicographically.
+     * 
+     * @param PhingFile $f1
+     * @param PhingFile $f2
      */
     function compare($f1, $f2) {
-        throw new Exception("SYSTEM ERROR [compare() not implemented by local fs driver]");
+        throw new IOException("compare() not implemented by local fs driver");
     }
 
     /**
@@ -392,7 +461,7 @@ abstract class FileSystem {
      * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void     
-     * @throws Exception if file cannot be copied.
+     * @throws IOException if file cannot be copied.
      */
     function copy(PhingFile $src, PhingFile $dest) {
         global $php_errormsg;
@@ -408,7 +477,7 @@ abstract class FileSystem {
         if (false === @copy($srcPath, $destPath)) { // Copy FAILED. Log and return err.
             // Add error from php to end of log message. $php_errormsg.
             $msg = "FileSystem::copy() FAILED. Cannot copy $srcPath to $destPath. $php_errormsg";
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
         
         try {
@@ -475,47 +544,49 @@ abstract class FileSystem {
     function chown($pathname, $user) {
         if (false === @chown($pathname, $user)) {// FAILED.
             $msg = "FileSystem::chown() FAILED. Cannot chown $pathname. User $user." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
     }
     
     /**
      * Change the group on a file or directory.
      *
-     * @param    string $pathname Path and name of file or directory.
-     * @param    string $group The group of the file or directory. See http://us.php.net/chgrp
+     * @param  string $pathname Path and name of file or directory.
+     * @param  string $group The group of the file or directory. See http://us.php.net/chgrp
      *
      * @return void
-     * @throws Exception if operation failed.
+     * @throws IOException if operation failed.
      */
     function chgrp($pathname, $group) {
         if (false === @chgrp($pathname, $group)) {// FAILED.
             $msg = "FileSystem::chgrp() FAILED. Cannot chown $pathname. Group $group." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
     }
 
     /**
      * Change the permissions on a file or directory.
      *
-     * @param    pathname    String. Path and name of file or directory.
-     * @param    mode        Int. The mode (permissions) of the file or
-     *                        directory. If using octal add leading 0. eg. 0777.
-     *                        Mode is affected by the umask system setting.
+     * @param  string $pathname Path and name of file or directory.
+     * @param  int    $mode     The mode (permissions) of the file or
+     *                          directory. If using octal add leading 0. eg. 0777.
+     *                          Mode is affected by the umask system setting.
      *
      * @return void     
-     * @throws Exception if operation failed.
+     * @throws IOException if operation failed.
      */
     function chmod($pathname, $mode) {    
         $str_mode = decoct($mode); // Show octal in messages.    
         if (false === @chmod($pathname, $mode)) {// FAILED.
             $msg = "FileSystem::chmod() FAILED. Cannot chmod $pathname. Mode $str_mode." . (isset($php_errormsg) ? ' ' . $php_errormsg : "");
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
     }
 
     /**
      * Locks a file and throws an Exception if this is not possible.
+     * 
+     * @param  PhingFile $f
      * @return void
      * @throws Exception
      */
@@ -525,14 +596,15 @@ abstract class FileSystem {
         $result = @flock($fp, LOCK_EX);
         @fclose($fp);
         if (!$result) {
-            throw new Exception("Could not lock file '$filename'");
+            throw new IOException("Could not lock file '$filename'");
         }
     }
 
     /**
      * Unlocks a file and throws an IO Error if this is not possible.
      *
-     * @throws Exception
+     * @param  PhingFile $f
+     * @throws IOException
      * @return void
      */
     function unlock(PhingFile $f) {
@@ -548,16 +620,16 @@ abstract class FileSystem {
     /**
      * Delete a file.
      *
-     * @param    file    String. Path and/or name of file to delete.
+     * @param  string $file Path and/or name of file to delete.
      *
      * @return void
-     * @throws Exception - if an error is encountered.
+     * @throws IOException - if an error is encountered.
      */
     function unlink($file) {
         global $php_errormsg;
         if (false === @unlink($file)) {
             $msg = "FileSystem::unlink() FAILED. Cannot unlink '$file'. $php_errormsg";
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
     }
 
@@ -578,7 +650,7 @@ abstract class FileSystem {
         if (false === @symlink($target, $link)) {
             // Add error from php to end of log message. $php_errormsg.
             $msg = "FileSystem::Symlink() FAILED. Cannot symlink '$target' to '$link'. $php_errormsg";
-            throw new Exception($msg);
+            throw new IOException($msg);
         }
 
     }
