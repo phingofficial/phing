@@ -110,7 +110,7 @@ class CoverageReportTransformer
 
         // no output for the framed report
         // it's all done by extension...
-        $proc->setParameter('', 'output.dir', $dir->toString());
+        $proc->setParameter('', 'output.dir', urlencode((string) $dir));
         $proc->setParameter('', 'output.sorttable', $this->useSortTable);
         $proc->setParameter('', 'document.title', $this->title);
         $proc->transformToXML($this->document);
