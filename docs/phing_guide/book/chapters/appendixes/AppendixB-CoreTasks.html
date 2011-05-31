@@ -1508,6 +1508,50 @@
 			<!-- TODO : Add "os" as soon as it is supported -->
 		</tbody>
 	</table>
+	
+    <h2>
+        <a name="LoadFileTask"></a>LoadFileTask
+    </h2>
+    <p>
+        The <em>LoadFileTask</em> loads the contents of a (text) file into a single property.
+    </p>
+    <h3>Example</h3>
+    <pre>
+&lt;loadfile property=&quot;version&quot; file=&quot;version.txt&quot;/&gt;
+</pre>
+    <h3>Attributes</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Default</th>
+                <th>Required</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>property</td>
+                <td>String</td>
+                <td>The name of the property to set.</td>
+                <td>n/a</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>file (or <em>srcFile</em>)</td>
+                <td>String</td>
+                <td>The file to load.</td>
+                <td>n/a</td>
+                <td>Yes</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Supported Nested Tags:</h3>
+    <ul>
+        <li>filterchain</li>
+    </ul>
+	
 	<h2>
 		<a name="MkdirTask"></a>MkdirTask
 	</h2>
