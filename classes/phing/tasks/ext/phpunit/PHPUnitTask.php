@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Util/Filter.php';
 require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
@@ -57,7 +56,7 @@ class PHPUnitTask extends Task
 
     /**
      * Initialize Task.
-     * This method includes any necessary PHPUnit2 libraries and triggers
+     * This method includes any necessary PHPUnit libraries and triggers
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
      */
@@ -71,6 +70,10 @@ class PHPUnitTask extends Task
          * Determine PHPUnit version number
          */
         @include_once 'PHPUnit/Runner/Version.php';
+        
+        if (!class_exists('PHPUnit_Runner_Version')) {
+            throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
+        }
 
         $version = PHPUnit_Runner_Version::id();
 
@@ -314,7 +317,7 @@ class PHPUnitTask extends Task
             }
             if ($this->haltonerror) {
                 $this->testfailed = true;
-                $this->testfailuremessage = $runner->getLastFailureMessage();
+                $this->testfailuremessage = $runner->getLastErrorMessage();
             }
         } elseif ($retcode == PHPUnitTestRunner::FAILURES) {
             if ($this->failureproperty) {
@@ -332,7 +335,7 @@ class PHPUnitTask extends Task
             
             if ($this->haltonincomplete) {
                 $this->testfailed = true;
-                $this->testfailuremessage = $runner->getLastFailureMessage();
+                $this->testfailuremessage = $runner->getLastIncompleteMessage();
             }
         } elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
             if ($this->skippedproperty) {
@@ -341,7 +344,7 @@ class PHPUnitTask extends Task
             
             if ($this->haltonskipped) {
                 $this->testfailed = true;
-                $this->testfailuremessage = $runner->getLastFailureMessage();
+                $this->testfailuremessage = $runner->getLastSkippedMessage();
             }
         }
     }

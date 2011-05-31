@@ -119,20 +119,6 @@ class PhpDependTask extends Task
     protected $_runner = null;
 
     /**
-     * Holds the optimization
-     *
-     * @var string
-     */
-    protected $_optimization = '';
-
-    /**
-     * Holds the available optimizations
-     *
-     * @var array<string>
-     */
-    private $_optimizations = array();
-
-    /**
      * Flag that determines whether to halt on error
      *
      * @var boolean
@@ -160,18 +146,13 @@ class PhpDependTask extends Task
             );
         }
 
-        $this->_optimizations[] = PHP_Depend_TextUI_Runner::OPTIMZATION_BEST;
-        $this->_optimizations[] = PHP_Depend_TextUI_Runner::OPTIMZATION_NONE;
-
         /**
          * Other dependencies that should only be loaded
          * when class is actually used
          */
         require_once 'phing/tasks/ext/pdepend/PhpDependLoggerElement.php';
         require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
-        require_once 'PHP/Depend/TextUI/ResultPrinter.php';
-        require_once 'PHP/Depend/Util/Configuration.php';
-        require_once 'PHP/Depend/Util/ConfigurationInstance.php';
+        require_once 'PHP/Depend/Autoload.php';
     }
 
     /**
@@ -353,6 +334,9 @@ class PhpDependTask extends Task
      */
     public function main()
     {
+        $autoload = new PHP_Depend_Autoload();
+        $autoload->register();
+
         if (!isset($this->_file) and count($this->_filesets) == 0) {
             throw new BuildException(
                 "Missing either a nested fileset or attribute 'file' set"
@@ -385,6 +369,10 @@ class PhpDependTask extends Task
 
         $this->_runner = new PHP_Depend_TextUI_Runner();
         $this->_runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
+
+        $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
+        $configuration = $configurationFactory->createDefault();
+        $this->_runner->setConfiguration($configuration);
 
         $this->_runner->setSourceArguments($filesToParse);
 
@@ -427,18 +415,6 @@ class PhpDependTask extends Task
         // Check for exclude packages
         if (count($this->_excludePackages) > 0) {
             $this->_runner->setExcludePackages($this->_excludePackages);
-        }
-
-        // Check optimization strategy
-        if ($this->_optimization !== '') {
-            if (in_array($this->_optimization, $this->_optimizations)) {
-                // Set optimization strategy
-                $this->_runner->setOptimization($this->_optimization);
-            } else {
-                throw new BuildException(
-                    'Invalid optimization "' . $this->_optimization . '" given.'
-                );
-            }
         }
 
         // Check for configuration option

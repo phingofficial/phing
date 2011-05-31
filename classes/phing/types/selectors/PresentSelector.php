@@ -92,8 +92,8 @@ class PresentSelector extends BaseSelector {
      * that already exist in the source directory, hence the lack of
      * a <code>destonly</code> option.
      *
-     * @param string $fp An attribute set to either <code>srconly</code or
-     *           ><code>both</code>.
+     * @param string $fp An attribute set to either <code>srconly</code> or
+     *           <code>both</code>.
      */
     public function setPresent($fp) {
         $idx = array_search($fp, self::$filePresence, true);

@@ -29,7 +29,7 @@ include_once 'phing/tasks/system/PropertyTask.php';
  * @version   $Revision$
  * @package   phing.tasks.ext
  * @since     2.4.0
- * @see       http://ant.apache.org/manual/CoreTasks/xmlproperty.html
+ * @link      http://ant.apache.org/manual/CoreTasks/xmlproperty.html
  */
 class XmlPropertyTask extends PropertyTask {
 

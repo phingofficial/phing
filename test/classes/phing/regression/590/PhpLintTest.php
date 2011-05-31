@@ -34,10 +34,10 @@ class PhpLintFlagTest extends BuildFileTest {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/590/build.xml");
     }
 
-    public function testPhingCallTask () {
+    public function testPhpLintTask () {
       $this->executeTarget("main");
-      $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ./my_file.php");
-      $this->assertInLogs("./my_file_ok.php: No syntax errors detected");
-      $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in ./my_file_depr.php");
+      $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ." . DIRECTORY_SEPARATOR . "my_file.php");
+      $this->assertInLogs("." . DIRECTORY_SEPARATOR . "my_file_ok.php: No syntax errors detected");
+      $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in ." . DIRECTORY_SEPARATOR . "my_file_depr.php");
     }
 }

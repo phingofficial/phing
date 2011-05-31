@@ -48,7 +48,10 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     const SKIPPED = 4;
 
     private $retCode = 0;
-    private $lastFailureMessage = "";
+    private $lastErrorMessage = '';
+    private $lastFailureMessage = '';
+    private $lastIncompleteMessage = '';
+    private $lastSkippedMessage = '';
     private $formatters = array();
     
     private $codecoverage = false;
@@ -174,14 +177,29 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         return $this->retCode;
     }
     
+    public function getLastErrorMessage()
+    {
+        return $this->lastErrorMessage;
+    }
+    
     public function getLastFailureMessage()
     {
         return $this->lastFailureMessage;
     }
     
+    public function getLastIncompleteMessage()
+    {
+        return $this->lastIncompleteMessage;
+    }
+    
+    public function getLastSkippedMessage()
+    {
+        return $this->lastSkippedMessage;
+    }
+    
     protected function composeMessage($message, PHPUnit_Framework_Test $test, Exception $e)
     {
-        $this->lastFailureMessage = "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();
+        return "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();
     }
 
     /**
@@ -193,7 +211,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-        $this->composeMessage("ERROR", $test, $e);
+        $this->lastErrorMessage = $this->composeMessage("ERROR", $test, $e);
     }
 
     /**
@@ -205,7 +223,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
-        $this->composeMessage("FAILURE", $test, $e);
+        $this->lastFailureMessage = $this->composeMessage("FAILURE", $test, $e);
     }
 
     /**
@@ -217,7 +235,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      */
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-        $this->composeMessage("INCOMPLETE", $test, $e);
+        $this->lastIncompleteMessage = $this->composeMessage("INCOMPLETE", $test, $e);
     }
 
     /**
@@ -230,7 +248,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
-        $this->composeMessage("SKIPPED", $test, $e);
+        $this->lastSkippedMessage = $this->composeMessage("SKIPPED", $test, $e);
     }
 
     /**

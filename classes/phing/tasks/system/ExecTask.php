@@ -73,6 +73,12 @@ class ExecTask extends Task {
      * @var boolean
      */
     protected $logOutput = false;
+    
+    /**
+     * Logging level for status messages
+     * @var integer
+     */
+    protected $logLevel = Project::MSG_VERBOSE;
 
     /**
      * Where to direct error output.
@@ -147,15 +153,15 @@ class ExecTask extends Task {
 
         if ($this->error !== null) {
             $this->command .= ' 2> ' . $this->error->getPath();
-            $this->log("Writing error output to: " . $this->error->getPath());
+            $this->log("Writing error output to: " . $this->error->getPath(), $this->logLevel);
         }
 
         if ($this->output !== null) {
             $this->command .= ' 1> ' . $this->output->getPath();
-            $this->log("Writing standard output to: " . $this->output->getPath());
+            $this->log("Writing standard output to: " . $this->output->getPath(), $this->logLevel);
         } elseif ($this->spawn) {
             $this->command .= ' 1>/dev/null';
-            $this->log("Sending ouptut to /dev/null");
+            $this->log("Sending ouptut to /dev/null", $this->logLevel);
         }
 
         // If neither output nor error are being written to file
@@ -171,7 +177,7 @@ class ExecTask extends Task {
             $this->command .= ' &';
         }
 
-        $this->log("Executing command: " . $this->command);
+        $this->log("Executing command: " . $this->command, $this->logLevel);
 
         $output = array();
         $return = null;
@@ -302,6 +308,22 @@ class ExecTask extends Task {
      */
     function setOutputProperty($prop) {
         $this->outputProperty = $prop;
+    }
+    
+    /**
+     * Set level of log messages generated (default = verbose)
+     * @param string $level
+     */
+    public function setLevel($level)
+    {
+        switch ($level)
+        {
+            case "error": $this->logLevel = Project::MSG_ERR; break;
+            case "warning": $this->logLevel = Project::MSG_WARN; break;
+            case "info": $this->logLevel = Project::MSG_INFO; break;
+            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
+            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        }
     }
 }
 

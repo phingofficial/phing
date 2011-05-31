@@ -43,7 +43,10 @@ class PhingFile {
      */
     private $path = null;
 
-    /** The length of this abstract pathname's prefix, or zero if it has no prefix. */
+    /**
+     * The length of this abstract pathname's prefix, or zero if it has no prefix.
+     * @var int
+     */
     private $prefixLength = 0;
 
     /** constructor */
@@ -71,14 +74,23 @@ class PhingFile {
         }
     }
 
-    /** Returns the length of this abstract pathname's prefix. */
+    /**
+     * Returns the length of this abstract pathname's prefix.
+     * 
+     * @return int
+     */
     function getPrefixLength() {
         return (int) $this->prefixLength;
     }
     
     /* -- constructors not called by signature match, so we need some helpers --*/
 
-    function _constructPathname($pathname) {
+    /**
+     * 
+     * Enter description here ...
+     * @param unknown_type $pathname
+     */
+    protected function _constructPathname($pathname) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -90,7 +102,13 @@ class PhingFile {
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
-    function _constructStringParentStringChild($parent, $child = null) {
+    /**
+     * 
+     * Enter description here ...
+     * @param unknown_type $parent
+     * @param unknown_type $child
+     */
+    protected function _constructStringParentStringChild($parent, $child = null) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -109,7 +127,13 @@ class PhingFile {
         $this->prefixLength = (int) $fs->prefixLength($this->path);
     }
 
-    function _constructFileParentStringChild($parent, $child = null) {
+    /**
+     * 
+     * Enter description here ...
+     * @param unknown_type $parent
+     * @param unknown_type $child
+     */
+    protected function _constructFileParentStringChild($parent, $child = null) {
         // obtain ref to the filesystem layer
         $fs = FileSystem::getFileSystem();
 
@@ -200,7 +224,7 @@ class PhingFile {
      * string uses the default name-separator character to separate the names
      * in the name sequence.
      *
-     * @return  The string form of this abstract pathname
+     * @return string The string form of this abstract pathname
      */
     function getPath() {
         return (string) $this->path;
@@ -235,7 +259,7 @@ class PhingFile {
      * if its prefix is a drive specifier followed by "\\", or if its prefix
      * is "\\".
      *
-     * @return  true if this abstract pathname is absolute, false otherwise
+     * @return boolean true if this abstract pathname is absolute, false otherwise
      */
     function isAbsolute() {
         return ($this->prefixLength !== 0);
@@ -257,9 +281,9 @@ class PhingFile {
      * pathname, if any; if not, it is resolved against the current user
      * directory.
      *
-     * @return  The absolute pathname string denoting the same file or
-     *          directory as this abstract pathname
-     * @see     #isAbsolute()
+     * @return string The absolute pathname string denoting the same file or
+     *                directory as this abstract pathname
+     * @see    #isAbsolute()
      */
     function getAbsolutePath() {
         $fs = FileSystem::getFileSystem();        
@@ -270,8 +294,8 @@ class PhingFile {
      * Returns the absolute form of this abstract pathname.  Equivalent to
      * getAbsolutePath.
      *
-     * @return  The absolute abstract pathname denoting the same file or
-     *          directory as this abstract pathname
+     * @return string The absolute abstract pathname denoting the same file or
+     *                directory as this abstract pathname
      */
     function getAbsoluteFile() {
         return new PhingFile((string) $this->getAbsolutePath());
@@ -299,8 +323,8 @@ class PhingFile {
      * file or directory may be different from the canonical form of the same
      * pathname after the file or directory is deleted.
      *
-     * @return  The canonical pathname string denoting the same file or
-     *          directory as this abstract pathname
+     * @return string The canonical pathname string denoting the same file or
+     *                directory as this abstract pathname
      */
     function getCanonicalPath() {
         $fs = FileSystem::getFileSystem();
@@ -331,8 +355,8 @@ class PhingFile {
      * URI, via the toURI() method, and then converting the URI
      * into a URL via the URI::toURL()
      *
-     * @return  A URL object representing the equivalent file URL
-     *
+     * @return void A URL object representing the equivalent file URL
+     * @todo   Not implemented yet
      *
      */
     function toURL() {
@@ -344,7 +368,8 @@ class PhingFile {
 
     /**
      * Constructs a file: URI that represents this abstract pathname.
-     * Not implemented yet
+     * @todo   Not implemented yet
+     * @return void
      */
     function toURI() {
         /*
@@ -356,6 +381,13 @@ class PhingFile {
         */
     }
 
+    /**
+     * 
+     * Enter description here ...
+     * @param  PhingFile|string $path
+     * @param  boolean $isDirectory
+     * @return string
+     */
     function _slashify($path, $isDirectory) {
         $p = (string) $path;
 
@@ -380,9 +412,9 @@ class PhingFile {
      * Tests whether the application can read the file denoted by this
      * abstract pathname.
      *
-     * @return  true if and only if the file specified by this
-     *          abstract pathname exists and can be read by the
-     *          application; false otherwise
+     * @return boolean true if and only if the file specified by this
+     *                 abstract pathname exists and can be read by the
+     *                 application; false otherwise
      */
     function canRead() {
         $fs = FileSystem::getFileSystem();
@@ -397,11 +429,10 @@ class PhingFile {
      * Tests whether the application can modify to the file denoted by this
      * abstract pathname.
      *
-     * @return  true if and only if the file system actually
-     *          contains a file denoted by this abstract pathname and
-     *          the application is allowed to write to the file;
-     *          false otherwise.
-     *
+     * @return boolean true if and only if the file system actually
+     *                 contains a file denoted by this abstract pathname and
+     *                 the application is allowed to write to the file;
+     *                 false otherwise.
      */
     function canWrite() {
         $fs = FileSystem::getFileSystem();
@@ -411,9 +442,8 @@ class PhingFile {
     /**
      * Tests whether the file denoted by this abstract pathname exists.
      *
-     * @return  true if and only if the file denoted by this
-     *          abstract pathname exists; false otherwise
-     *
+     * @return boolean true if and only if the file denoted by this
+     *                 abstract pathname exists; false otherwise
      */
     function exists() {                
         clearstatcache();
@@ -431,10 +461,9 @@ class PhingFile {
      * Tests whether the file denoted by this abstract pathname is a
      * directory.
      *
-     * @return true if and only if the file denoted by this
-     *         abstract pathname exists and is a directory;
-     *         false otherwise
-     *
+     * @return boolean true if and only if the file denoted by this
+     *                 abstract pathname exists and is a directory;
+     *                 false otherwise
      */
     function isDirectory() {
         clearstatcache();
@@ -451,9 +480,9 @@ class PhingFile {
      * addition, satisfies other system-dependent criteria.  Any non-directory
      * file created by a Java application is guaranteed to be a normal file.
      *
-     * @return  true if and only if the file denoted by this
-     *          abstract pathname exists and is a normal file;
-     *          false otherwise
+     * @return boolean true if and only if the file denoted by this
+     *                 abstract pathname exists and is a normal file;
+     *                 false otherwise
      */
     function isFile() {
         clearstatcache();
@@ -469,9 +498,9 @@ class PhingFile {
      * hidden if it has been marked as such in the filesystem. Currently there
      * seems to be no way to dermine isHidden on Win file systems via PHP
      *
-     * @return  true if and only if the file denoted by this
-     *          abstract pathname is hidden according to the conventions of the
-     *          underlying platform
+     * @return boolean true if and only if the file denoted by this
+     *                 abstract pathname is hidden according to the conventions of the
+     *                 underlying platform
      */
     function isHidden() {
         $fs = FileSystem::getFileSystem();
@@ -484,9 +513,9 @@ class PhingFile {
     /**
      * Tests whether the file denoted by this abstract pathname is a symbolic link.
      *
-     * @return  true if and only if the file denoted by this
-     *          abstract pathname exists and is a symbolic link;
-     *          false otherwise
+     * @return boolean true if and only if the file denoted by this
+     *                 abstract pathname exists and is a symbolic link;
+     *                 false otherwise
      */
     public function isLink()
     {
@@ -501,7 +530,7 @@ class PhingFile {
     /**
      * Returns the target of the symbolic link denoted by this abstract pathname
      *
-     * @return  the target of the symbolic link denoted by this abstract pathname
+     * @return string the target of the symbolic link denoted by this abstract pathname
      */
     public function getLinkTarget()
     {
@@ -512,10 +541,10 @@ class PhingFile {
      * Returns the time that the file denoted by this abstract pathname was
      * last modified.
      *
-     * @return  A integer value representing the time the file was
-     *          last modified, measured in milliseconds since the epoch
-     *          (00:00:00 GMT, January 1, 1970), or 0 if the
-     *          file does not exist or if an I/O error occurs
+     * @return int An integer value representing the time the file was
+     *             last modified, measured in milliseconds since the epoch
+     *             (00:00:00 GMT, January 1, 1970), or 0 if the
+     *             file does not exist or if an I/O error occurs
      */
     function lastModified() {
         $fs = FileSystem::getFileSystem();
@@ -529,8 +558,8 @@ class PhingFile {
      * Returns the length of the file denoted by this abstract pathname.
      * The return value is unspecified if this pathname denotes a directory.
      *
-     * @return  The length, in bytes, of the file denoted by this abstract
-     *          pathname, or 0 if the file does not exist
+     * @return int The length, in bytes, of the file denoted by this abstract
+     *             pathname, or 0 if the file does not exist
      */
     function length() {
         $fs = FileSystem::getFileSystem();
@@ -562,9 +591,9 @@ class PhingFile {
      * are a single operation that is atomic with respect to all other
      * filesystem activities that might affect the file.
      *
-     * @return  true if the named file does not exist and was
-     *          successfully created; <code>false</code> if the named file
-     *          already exists
+     * @return boolean true if the named file does not exist and was
+     *                 successfully created; <code>false</code> if the named file
+     *                 already exists
      * @throws IOException if file can't be created
      */
     function createNewFile($parents=true, $mode=0777) {
@@ -577,8 +606,8 @@ class PhingFile {
      * this pathname denotes a directory, then the directory must be empty in
      * order to be deleted.
      *
-     * @return  true if and only if the file or directory is
-     *          successfully deleted; false otherwise
+     * @return boolean true if and only if the file or directory is
+     *                 successfully deleted; false otherwise
      */
     function delete($recursive = false) {
         $fs = FileSystem::getFileSystem();
@@ -618,18 +647,23 @@ class PhingFile {
      * will appear in any specific order; they are not, in particular,
      * guaranteed to appear in alphabetical order.
      *
-     * @return  An array of strings naming the files and directories in the
-     *          directory denoted by this abstract pathname.  The array will be
-     *          empty if the directory is empty.  Returns null if
-     *          this abstract pathname does not denote a directory, or if an
-     *          I/O error occurs.
-     *
+     * @param $filter string
+     * @return array An array of strings naming the files and directories in the
+     *               directory denoted by this abstract pathname.  The array will be
+     *               empty if the directory is empty.  Returns null if
+     *               this abstract pathname does not denote a directory, or if an
+     *               I/O error occurs.
      */
     function listDir($filter = null) {
         $fs = FileSystem::getFileSystem();
         return $fs->lister($this, $filter);
     }
 
+    /**
+     * 
+     * Enter description here ...
+     * @param PhingFile[] $filter
+     */
     function listFiles($filter = null) {
         $ss = $this->listDir($filter);
         if ($ss === null) {
@@ -649,10 +683,10 @@ class PhingFile {
      * operation fails it may have succeeded in creating some of the necessary
      * parent directories.
      *
-     * @return  true if and only if the directory was created,
-     *          along with all necessary parent directories; false
-     *          otherwise
-     * @throws  IOException
+     * @return boolean true if and only if the directory was created,
+     *                 along with all necessary parent directories; false
+     *                 otherwise
+     * @throws IOException
      */
     function mkdirs($mode = 0755) {
         if ($this->exists()) {
@@ -672,8 +706,8 @@ class PhingFile {
     /**
      * Creates the directory named by this abstract pathname.
      *
-     * @return  true if and only if the directory was created; false otherwise
-     * @throws  IOException
+     * @return boolean true if and only if the directory was created; false otherwise
+     * @throws IOException
      */
     function mkdir($mode = 0755) {
         $fs = FileSystem::getFileSystem();
@@ -687,8 +721,8 @@ class PhingFile {
     /**
      * Renames the file denoted by this abstract pathname.
      *
-     * @param   destFile  The new abstract pathname for the named file
-     * @return  true if and only if the renaming succeeded; false otherwise
+     * @param  PhingFile $destFile The new abstract pathname for the named file
+     * @return boolean true if and only if the renaming succeeded; false otherwise
      */
     function renameTo(PhingFile $destFile) {
         $fs = FileSystem::getFileSystem();
@@ -702,8 +736,8 @@ class PhingFile {
      * Simple-copies file denoted by this abstract pathname into another
      * PhingFile
      *
-     * @param PhingFile $destFile  The new abstract pathname for the named file
-     * @return true if and only if the renaming succeeded; false otherwise
+     * @param  PhingFile $destFile  The new abstract pathname for the named file
+     * @return boolean true if and only if the renaming succeeded; false otherwise
      */
     function copyTo(PhingFile $destFile) {
         $fs = FileSystem::getFileSystem();
@@ -729,9 +763,9 @@ class PhingFile {
      * lastModified method will return the (possibly truncated) time argument
      * that was passed to this method.
      *
-     * @param  time  The new last-modified time, measured in milliseconds since
-     *               the epoch (00:00:00 GMT, January 1, 1970)
-     * @return true if and only if the operation succeeded; false otherwise
+     * @param  int $time The new last-modified time, measured in milliseconds since
+     *                   the epoch (00:00:00 GMT, January 1, 1970)
+     * @return boolean true if and only if the operation succeeded; false otherwise
      */
     function setLastModified($time) {
         $time = (int) $time;
@@ -750,7 +784,7 @@ class PhingFile {
      * marked to allow write access.  Whether or not a read-only file or
      * directory may be deleted depends upon the underlying system.
      *
-     * @return true if and only if the operation succeeded; false otherwise
+     * @return boolean true if and only if the operation succeeded; false otherwise
      */
     function setReadOnly() {
         $fs = FileSystem::getFileSystem();
@@ -842,10 +876,10 @@ class PhingFile {
      * platform will be returned by this method, while PhingFile
      * objects containing UNC pathnames will not be returned by this method.
      *
-     * @return  An array of PhingFile objects denoting the available
-     *          filesystem roots, or null if the set of roots
-     *          could not be determined.  The array will be empty if there are
-     *          no filesystem roots.
+     * @return array An array of PhingFile objects denoting the available
+     *               filesystem roots, or null if the set of roots
+     *               could not be determined.  The array will be empty if there are
+     *               no filesystem roots.
      */
     function listRoots() {
         $fs = FileSystem::getFileSystem();
@@ -856,6 +890,7 @@ class PhingFile {
 
     /**
      * Returns the path to the temp directory.
+     * @return string
      */
     function getTempDir() {
         return Phing::getProperty('php.tmpdir');
@@ -867,11 +902,11 @@ class PhingFile {
      * is a reference to a PhingFile Object.
      * Then, the file is locked for exclusive reading/writing.
      *
-     * @author      manuel holtgrewe, grin@gmx.net
-     * @throws      IOException
-     * @access      public
+     * @author manuel holtgrewe, grin@gmx.net
+     * @throws IOException
+     * @return PhingFile
      */
-    function createTempFile($prefix, $suffix, PhingFile $directory) {
+    public static function createTempFile($prefix, $suffix, PhingFile $directory) {
         
         // quick but efficient hack to create a unique filename ;-)
         $result = null;
@@ -938,13 +973,23 @@ class PhingFile {
         return false;
     }
 
-    /** Backwards compatibility -- use PHP5's native __tostring method. */
-    function toString() {
-        return $this->getPath();
+    /**
+     * Backwards compatibility - @see __toString()
+     * 
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->__toString();
     }
     
-    /** PHP5's native method. */
-    function __toString() {
+    /**
+     * Return string representation of the object
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
         return $this->getPath();
     }
 }

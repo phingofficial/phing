@@ -43,6 +43,7 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
     }
     
     public function tearDown() {
+        $this->outStream->close();
         FileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
     }
     

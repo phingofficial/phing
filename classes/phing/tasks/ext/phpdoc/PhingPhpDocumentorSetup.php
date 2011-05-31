@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+require_once 'PhpDocumentor/phpDocumentor/Setup.inc.php';
+
 /**
  * Phing subclass of the phpDocumentor_setup class provided with PhpDocumentor to work around limitations in PhpDocumentor API.
  * 
@@ -31,7 +33,6 @@
  * @version $Id$
  * @package phing.tasks.ext.phpdoc
  */
-
 class PhingPhpDocumentorSetup extends phpDocumentor_setup {
     
     /**

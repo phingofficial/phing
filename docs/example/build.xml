@@ -23,9 +23,11 @@
 				</fileset>
 			</batchtest>
 		</phpunit>
-		<phpunitreport infile="reports/testsuites.xml" format="frames" todir="reports/tests" styledir="../../etc"/>
+		<phpunitreport infile="reports/testsuites.xml" format="frames" todir="reports/tests"
+			styledir="../../etc" usesorttable="true"/>
 		<coverage-report outfile="reports/coverage.xml">
-			<report todir="reports/coverage" styledir="../../etc"/>
+			<report todir="reports/coverage" styledir="../../etc" title="Demo Project"
+				usesorttable="true"/>
 		</coverage-report>
 	</target>
 	

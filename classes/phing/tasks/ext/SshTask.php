@@ -28,7 +28,6 @@ require_once 'phing/Task.php';
  * @version   $Id$
  * @package   phing.tasks.ext
  */
-
 class SshTask extends Task {
 
     private $host = "";
@@ -39,6 +38,18 @@ class SshTask extends Task {
     private $pubkeyfile = '';
     private $privkeyfile = '';
     private $privkeyfilepassphrase = '';
+    
+    /**
+     * The name of the property to capture (any) output of the command
+     * @var string
+     */
+    private $property = "";
+    
+    /**
+     * Whether to display the output of the command
+     * @var boolean
+     */
+    private $display = true;
 
     public function setHost($host) 
     {
@@ -137,17 +148,35 @@ class SshTask extends Task {
     {
         return $this->command;
     }
+    
+    /**
+     * Sets the name of the property to capture (any) output of the command
+     * @param string $property
+     */
+    public function setProperty($property)
+    {
+        $this->property = $property;
+    }
+    
+    /**
+     * Sets whether to display the output of the command
+     * @param boolean $display
+     */
+    public function setDisplay($display)
+    {
+        $this->display = (boolean) $display;
+    }
 
     public function init() 
     {
-        if (!function_exists('ssh2_connect')) { 
-            throw new BuildException("To use SshTask, you need to install the SSH extension.");
-        }
-        return TRUE;
     }
 
     public function main() 
     {
+        if (!function_exists('ssh2_connect')) { 
+            throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
+        }
+        
         $this->connection = ssh2_connect($this->host, $this->port);
         if (is_null($this->connection)) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
@@ -167,11 +196,24 @@ class SshTask extends Task {
         if (!$stream) {
             throw new BuildException("Could not execute command!");
         }
-
+        
+        $this->log("Executing command {$this->command}", Project::MSG_VERBOSE);
+        
+        $output = "";
         stream_set_blocking( $stream, true );
+        
         while( $buf = fread($stream,4096) ){
-            print($buf);
+            if ($this->display) {
+                print($buf);
+            }
+            
+            $output .= $buf;
         }
+        
+        if (!empty($this->property)) {
+            $this->project->setProperty($this->property, $output);
+        }
+        
         fclose($stream);
     }
 }

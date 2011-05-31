@@ -358,14 +358,6 @@ class ProjectConfigurator {
         
         $propertyValue = self::$propReplaceProperties[$propertyName];
         
-        if (is_bool($propertyValue)) {
-            if ($propertyValue === true) {
-                $propertyValue = "true";
-            } else {
-                $propertyValue = "false";
-            }
-        }
-        
         return $propertyValue;
     }           
 

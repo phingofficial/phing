@@ -7,25 +7,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Phing Guide - File Formats</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<link rel="Stylesheet" rev="Stylesheet" href="../../css/Documentation.css" type="text/css" media="All" charset="iso-8859-1" />
+<title>Phing Guide - File Formats</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="Stylesheet" rev="Stylesheet"
+	href="../../css/Documentation.css" type="text/css" media="All"
+	charset="iso-8859-1" />
 </head>
 <body>
 
-<h1><a name="AppendixFFileFormats"></a>Appendix F: File Formats</h1>
+	<h1>
+		<a name="AppendixFFileFormats"></a>Appendix F: File Formats
+	</h1>
 
-<h2><a name="BuildFileFormat"></a>Build File Format</h2>
+	<h2>
+		<a name="BuildFileFormat"></a>Build File Format
+	</h2>
 
-<p>
-  The following XML file shows a basic Phing build file skeleton that can be 
-used as a starting point for your own build files.  See the references in 
-<a href="appendixes/AppendixA-FactSheet.html#BuildInProperties">Appendix A</a> and
-<a href="appendixes/AppendixB-CoreTasks.html">AppendixB</a>
-for more detailed information on properties and tasks.
-</p>
+	<p>
+		The following XML file shows a basic Phing build file skeleton that
+		can be used as a starting point for your own build files. See the
+		references in <a href="AppendixA-FactSheet.html#BuildInProperties">Appendix
+			A</a> and <a href="AppendixB-CoreTasks.html">AppendixB</a> for more
+		detailed information on properties and tasks.
+	</p>
 
-<pre title="Buildfile format">
+	<pre title="Buildfile format">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 
 &lt;!-- 
@@ -103,19 +109,24 @@ for more detailed information on properties and tasks.
   &lt;/target&gt;
 &lt;/project&gt;
 </pre>
-<p><i><b>Note:</b></i> By convention properties are named in <i>dot</i> notation in Phing build files, e.g. <i>ftp.upload</i>, 
-<i>temp.builddir</i> and so on</p>
+	<p>
+		<i><b>Note:</b>
+		</i> By convention properties are named in <i>dot</i> notation in Phing
+		build files, e.g. <i>ftp.upload</i>, <i>temp.builddir</i> and so on
+	</p>
 
-<h2><a name="PropertyFileFormat"></a>Property File Format</h2>
+	<h2>
+		<a name="PropertyFileFormat"></a>Property File Format
+	</h2>
 
-<p>
-<em>Property Files</em> define properties. Properties are
-stored in key/value pairs and may only contain plain text.
-The suffix of these files should be <em>.properties</em>, the
-default Property File for a Build File is <em>build.properties</em>
-</p>
+	<p>
+		<em>Property Files</em> define properties. Properties are stored in
+		key/value pairs and may only contain plain text. The suffix of these
+		files should be <em>.properties</em>, the default Property File for a
+		Build File is <em>build.properties</em>
+	</p>
 
-<pre>
+	<pre>
 # Property files contain key/value pairs
 key=value
 

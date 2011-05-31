@@ -40,6 +40,17 @@ class CoverageReportTransformer
     private $toDir = "";
     private $document = NULL;
 
+    /** title of the project, used in the coverage report */
+    private $title = "";
+    
+    /**
+     * Whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @var boolean
+     */
+    private $useSortTable = false;
+    
     function __construct(Task $task)
     {
         $this->task = $task;
@@ -60,6 +71,24 @@ class CoverageReportTransformer
         $this->document = $document;
     }
 
+    /**
+     * Setter for title parameter
+     */
+    function setTitle($title) {
+        $this->title = $title;
+    }
+
+    /**
+     * Sets whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @param boolean $useSortTable
+     */
+    public function setUseSortTable($useSortTable)
+    {
+        $this->useSortTable = (boolean) $useSortTable;
+    }
+    
     function transform()
     {
         $dir = new PhingFile($this->toDir);
@@ -81,7 +110,9 @@ class CoverageReportTransformer
 
         // no output for the framed report
         // it's all done by extension...
-        $proc->setParameter('', 'output.dir', $dir->toString());
+        $proc->setParameter('', 'output.dir', urlencode((string) $dir));
+        $proc->setParameter('', 'output.sorttable', $this->useSortTable);
+        $proc->setParameter('', 'document.title', $this->title);
         $proc->transformToXML($this->document);
         
         ExtendedFileStream::unregisterStream();

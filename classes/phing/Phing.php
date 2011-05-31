@@ -46,7 +46,6 @@ include_once 'phing/system/io/OutputStream.php';
 include_once 'phing/system/io/FileOutputStream.php';
 include_once 'phing/system/io/FileReader.php';
 include_once 'phing/system/util/Register.php';
-include_once 'phing/util/PhingAutoLoader.php';
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -297,7 +296,7 @@ class Phing {
         // 2) Next pull out stand-alone args.
         // Note: The order in which these are executed is important (if multiple of these options are specified)
 
-        if (false !== ($key = array_search('-quiet', $args, true))) {
+        if (false !== ($key = array_search('-quiet', $args, true)) || false !== ($key = array_search('-q', $args, true))) {
             self::$msgOutputLevel = Project::MSG_WARN;
             unset($args[$key]);
         }
@@ -363,7 +362,7 @@ class Phing {
                 if ($posEq !== false) {
                     $value = substr($name, $posEq+1);
                     $name  = substr($name, 0, $posEq);
-                } elseif ($i < count($args)-1 && !StringHelper::startsWith("-D", $arg)) {
+                } elseif ($i < count($args)-1 && !StringHelper::startsWith("-D", $args[$i + 1])) {
                     $value = $args[++$i];
                 }
                 self::$definedProps->setProperty($name, $value);
@@ -383,6 +382,17 @@ class Phing {
                     throw new ConfigurationException($msg);
                 } else {
                     $this->inputHandlerClassname = $args[++$i];
+                }
+            } elseif ($arg == "-propertyfile") {
+                if (!isset($args[$i+1])) {
+                    $msg = "You must specify a filename when using the -propertyfile argument";
+                    throw new ConfigurationException($msg);
+                } else {
+                    $p = new Properties();
+                    $p->load(new PhingFile($args[++$i]));
+                    foreach ($p->getProperties() as $prop => $value) {
+                        $this->setProperty($prop, $value);
+                    }
                 }
             } elseif ($arg == "-longtargets") {
                 self::$definedProps->setProperty('phing.showlongtargets', 1);
@@ -807,6 +817,7 @@ class Phing {
         $msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
         $msg .= "  -f -buildfile <file>   use given buildfile" . PHP_EOL;
         $msg .= "  -D<property>=<value>   use value for given property" . PHP_EOL;
+        $msg .= "  -propertyfile <file>   load all properties from file" . PHP_EOL;
         $msg .= "  -find <file>           search for buildfile towards the root of the" . PHP_EOL;
         $msg .= "                         filesystem and use it" . PHP_EOL;
         $msg .= "  -inputhandler <file>   the class to use to handle user input" . PHP_EOL;
@@ -972,7 +983,38 @@ class Phing {
      * @throws BuildException - if cannot find the specified file
      */
     public static function import($dotPath, $classpath = null) {
-        return PhingAutoLoader::addLocation($dotPath, (string) $classpath);
+
+        /// check if this is a PEAR-style path (@link http://pear.php.net/manual/en/standards.naming.php)
+        if (strpos($dotPath, '.') === false && strpos($dotPath, '_') !== false) {
+            $classname = $dotPath;
+            $dotPath = str_replace('_', '.', $dotPath);
+        } else {
+            $classname = StringHelper::unqualify($dotPath);
+        }
+        
+        // first check to see that the class specified hasn't already been included.
+        // (this also handles case where this method is called w/ a classname rather than dotpath)
+        if (class_exists($classname)) {
+            return $classname;
+        }
+
+        $dotClassname = basename($dotPath);
+        $dotClassnamePos = strlen($dotPath) - strlen($dotClassname);
+
+        // 1- temporarily replace escaped '.' with another illegal char (#)
+        $tmp = str_replace('\.', '##', $dotClassname);
+        // 2- swap out the remaining '.' with DIR_SEP
+        $tmp = strtr($tmp, '.', DIRECTORY_SEPARATOR);
+        // 3- swap back the escaped '.'
+        $tmp = str_replace('##', '.', $tmp);
+
+        $classFile = $tmp . ".php";
+
+        $path = substr_replace($dotPath, $classFile, $dotClassnamePos);
+
+        Phing::__import($path, $classpath);
+
+        return $classname;
     }
 
     /**

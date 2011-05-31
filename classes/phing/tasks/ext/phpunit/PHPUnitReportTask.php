@@ -41,6 +41,14 @@ class PHPUnitReportTask extends Task
     private $format = "noframes";
     private $styleDir = "";
     private $toDir = "";
+    
+    /**
+     * Whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @var boolean
+     */
+    private $useSortTable = false;
 
     /** the directory where the results XML can be found */
     private $inFile = "testsuites.xml";
@@ -76,6 +84,17 @@ class PHPUnitReportTask extends Task
     public function setToDir($toDir)
     {
         $this->toDir = $toDir;
+    }
+    
+    /**
+     * Sets whether to use the sorttable JavaScript library, defaults to false
+     * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
+     *
+     * @param boolean $useSortTable
+     */
+    public function setUseSortTable($useSortTable)
+    {
+        $this->useSortTable = (boolean) $useSortTable;
     }
     
     /**
@@ -133,6 +152,7 @@ class PHPUnitReportTask extends Task
 
         $proc = new XSLTProcessor();
         $proc->importStyleSheet($xsl);
+        $proc->setParameter('', 'output.sorttable', $this->useSortTable);
 
         if ($this->format == "noframes")
         {
@@ -147,7 +167,7 @@ class PHPUnitReportTask extends Task
             // no output for the framed report
             // it's all done by extension...
             $dir = new PhingFile($this->toDir);
-            $proc->setParameter('', 'output.dir', $dir->toString());
+            $proc->setParameter('', 'output.dir', urlencode((string) $dir));
             $proc->transformToXML($document);
             
             ExtendedFileStream::unregisterStream();
@@ -168,21 +188,20 @@ class PHPUnitReportTask extends Task
         
         $nodes = $xp->query("/testsuites/testsuite");
         
-        foreach ($nodes as $node)
-        {
+        foreach ($nodes as $node) {
             $children = $xp->query("./testsuite", $node);
             
-            foreach ($children as $child)
-            {                
-                if (!$child->hasAttribute('package'))
-                {
-                    $child->setAttribute('package', 'default');
+            if ($children->length) {
+                foreach ($children as $child) {
+                    if (!$child->hasAttribute('package'))
+                    {
+                        $child->setAttribute('package', 'default');
+                    }
+                    $rootElement->appendChild($child);
                 }
                 
-                $rootElement->appendChild($child);
+                $rootElement->removeChild($node);
             }
-            
-            $rootElement->removeChild($node);
         }
     }
     

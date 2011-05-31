@@ -153,7 +153,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
     }
 
     /**
-     * Adds a <code><contains></code> nested element.
+     * Adds a <code>contains</code> nested element.
      *
      * @return Contains The <code>contains</code> element added.
      *                  Must not be <code>null</code>.
@@ -169,7 +169,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader {
      *
      * @param array $contains An array of words which must be contained
      *                 within a line in order for it to match in this filter.
-     *                 Must not be <code>null<code>.
+     *                 Must not be <code>null</code>.
      */
     function setContains($contains) {
         // type check, error must never occur, bad code of it does

@@ -39,7 +39,7 @@ class GitBaseTest extends BuildFileTest {
 
     public function testInitialization()
     {
-        $this->assertType('GitBaseTask', $this->mock);
+        $this->assertInstanceOf('GitBaseTask', $this->mock);
     }
 
     /**

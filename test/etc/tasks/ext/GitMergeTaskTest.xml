@@ -74,6 +74,27 @@
             remote="6dbaf4508e75dcd426b5b974a67c462c70d46e1f" />
     </target>
 
+    <target name="fastForwardCommitSet" description="git-merge --no-ff">
+        <gitclone 
+            repository="git://github.com/farazdagi/phing-tests.git"
+            targetPath="${tmp.dir.resolved}" />
+        <gitbranch
+            repository="${tmp.dir.resolved}" 
+            branchname="merge-test-1" startpoint="6dbaf4508e75dcd426b5b974a67c462c70d46e1f" />
+        <gitcheckout
+            repository="${tmp.dir.resolved}" 
+            branchname="merge-test-1" quiet="true" />
+        <gitmerge
+            fastForwardCommit="true"
+            repository="${tmp.dir.resolved}" 
+            remote="origin/master" />
+        <gitlog 
+            format="oneline"
+            maxCount="2"
+            stat="true"
+            repository="${tmp.dir.resolved}" />
+    </target>
+
     <target name="noCommitSet" description="git-merge --no-commit">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"

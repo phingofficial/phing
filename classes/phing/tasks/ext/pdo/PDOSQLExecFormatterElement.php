@@ -22,6 +22,7 @@
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/tasks/ext/pdo/PlainPDOResultFormatter.php';
 require_once 'phing/tasks/ext/pdo/XMLPDOResultFormatter.php';
+require_once 'phing/util/LogWriter.php';
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.
@@ -152,7 +153,7 @@ class PDOSQLExecFormatterElement
 
         $out = $this->getOutputWriter();
 
-        print "Setting output writer to: " . get_class($out) . "\n";
+        $this->parentTask->log("Setting output writer to: " . get_class($out), Project::MSG_VERBOSE);
         $this->formatter->setOutput($out);
 
         if ($this->formatter instanceof PlainPDOResultFormatter) {

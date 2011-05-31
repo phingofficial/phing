@@ -144,6 +144,7 @@ class DbDeployTask extends Task {
     }
     
    function getDeltasFilesArray(){
+        $files = array();
         $baseDir = realpath($this->dir);
         $dh = opendir($baseDir);
         $fileChangeNumberPrefix = '';

@@ -151,7 +151,7 @@ class PhpDocumentorTask extends Task
     }
     
     /**
-     * Alias for {@link setDestdir()).
+     * Alias for {@link setDestdir()}.
      * @see setDestdir()
      */
     public function setTarget(PhingFile $destdir) {
@@ -345,21 +345,16 @@ class PhpDocumentorTask extends Task
     }
     
     /**
-     * Load the necessary environment for running PhpDoc.
-     *
-     * @throws BuildException - if the phpdoc classes can't be loaded.
-     */
-    public function init()
-    {
-        $this->findPhpDocumentorInstall();
-        include_once 'phing/tasks/ext/phpdoc/PhingPhpDocumentorSetup.php';
-    }
-    
-    /**
      * Main entrypoint of the task
+     * Loads the necessary environment for running PhpDoc, then runs PhpDoc
+     * 
+     * @throws BuildException - if the phpdoc classes can't be loaded.
      */
     function main()
     {
+        $this->findPhpDocumentorInstall();
+        include_once 'phing/tasks/ext/phpdoc/PhingPhpDocumentorSetup.php';
+        
         $this->validate();
         $configdir = $this->configDir ? $this->configDir->getAbsolutePath() : null;
         $phpdoc = new PhingPhpDocumentorSetup($configdir, $this);

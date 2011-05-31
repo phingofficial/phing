@@ -113,8 +113,7 @@ class GitCheckoutTask extends GitBaseTask
             $command->addArgument($this->getStartPoint());
         }
 
-        //echo $command->createCommandString();
-        //exit;
+        $this->log('git-checkout command: ' . $command->createCommandString(), Project::MSG_INFO);
 
         try {
             $output = $command->execute();

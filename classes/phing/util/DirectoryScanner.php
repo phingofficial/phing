@@ -131,6 +131,8 @@ class DirectoryScanner implements SelectorScanner {
         "**/.svn/**",
         "**/._*",
         "**/.DS_Store",
+    	"**/.darcs",
+    	"**/.darcs/**"
     );
 
     /** The base directory which should be scanned. */
@@ -483,8 +485,8 @@ class DirectoryScanner implements SelectorScanner {
             }
             else
             if (@is_dir($file)) {
-                if ($this->isIncluded($name.DIRECTORY_SEPARATOR)) {
-                    if (!$this->isExcluded($name.DIRECTORY_SEPARATOR)) {
+                if ($this->isIncluded($name)) {
+                    if (!$this->isExcluded($name)) {
                         if ($this->isSelected($name, $file)) {
                             $this->dirsIncluded[] = $name;
                             if ($_fast) {

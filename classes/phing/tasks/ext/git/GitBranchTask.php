@@ -134,9 +134,7 @@ class GitBranchTask extends GitBaseTask
             $command->addArgument($this->getNewbranch());
         }
 
-
-        // I asked Ebihara to make this method public - will see
-        //echo $command->createCommandString();
+        $this->log('git-branch command: ' . $command->createCommandString(), Project::MSG_INFO);
 
         try {
             $output = $command->execute();

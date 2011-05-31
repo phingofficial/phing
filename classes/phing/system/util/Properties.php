@@ -99,7 +99,7 @@ class Properties {
             $pos = strpos($line, '=');
             $property = trim(substr($line, 0, $pos));
             $value = trim(substr($line, $pos + 1));                
-            $this->properties[$property] = $this->inVal($value);
+            $this->properties[$property] = $value;
             
         } // for each line        
     }

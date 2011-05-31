@@ -132,9 +132,7 @@ class GitFetchTask extends GitBaseTask
             throw new BuildException('No remote repository specified');
         }
 
-        // I asked Ebihara to make this method public - will see
-        //echo $command->createCommandString();
-        //exit;
+        $this->log('git-fetch command: ' . $command->createCommandString(), Project::MSG_INFO);
 
         try {
             $output = $command->execute();

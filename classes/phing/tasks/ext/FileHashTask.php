@@ -64,7 +64,7 @@ class FileHashTask extends Task
     }
 
     /**
-     * Which file for calculate the has value of
+     * Which file to calculate the hash value of
      * @param PhingFile $file
      */
     public function setFile($file)
@@ -73,9 +73,9 @@ class FileHashTask extends Task
     }
 
     /**
-     * Set the name of the property to use to return the has value
+     * Set the name of the property to store the hash value in
      * @param $property
-     * @return
+     * @return void
      */
     public function setPropertyName($property)
     {

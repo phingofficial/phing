@@ -97,7 +97,6 @@ class Regexp {
     /**
      * Gets replacement string.
      * @return string The pattern to replace matches with.
-     * @return void
      */
     public function getReplace() {
         return $this->replace;

@@ -35,7 +35,7 @@ require_once 'phing/Task.php';
  * @author    Jonathan Bond-Caron <jbondc@openmv.com>
  * @version   $Id$
  * @package   phing.tasks.system
- * @see       <http://ant.apache.org/manual/OptionalTasks/replaceregexp.html>
+ * @link      http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
  */
 class ReplaceRegexpTask extends Task {
     

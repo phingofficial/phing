@@ -54,8 +54,8 @@ class PatternSet extends DataType {
     /**
     * Add a name entry on the include list
     *
-    * @returns PatternSetNameEntry Reference to object
-    * @throws  BuildException
+    * @return PatternSetNameEntry Reference to object
+    * @throws BuildException
     */
     function createInclude() {
         if ($this->isReference()) {
@@ -68,8 +68,8 @@ class PatternSet extends DataType {
     /**
     * Add a name entry on the include files list
     *
-    * @returns PatternSetNameEntry Reference to object
-    * @throws  BuildException
+    * @return PatternSetNameEntry Reference to object
+    * @throws BuildException
     */
     function createIncludesFile() {
         if ($this->isReference()) {
@@ -81,8 +81,8 @@ class PatternSet extends DataType {
     /**
     * Add a name entry on the exclude list
     *
-    * @returns PatternSetNameEntry Reference to object
-    * @throws  BuildException
+    * @return PatternSetNameEntry Reference to object
+    * @throws BuildException
     */
     function createExclude() {
         if ($this->isReference()) {
@@ -94,8 +94,8 @@ class PatternSet extends DataType {
     /**
      * add a name entry on the exclude files list
      *
-     * @returns PatternSetNameEntry Reference to object
-     * @throws  BuildException
+     * @return PatternSetNameEntry Reference to object
+     * @throws BuildException
      */
     function createExcludesFile() {
         if ($this->isReference()) {
@@ -110,9 +110,9 @@ class PatternSet extends DataType {
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param   string the string containing the include patterns
-     * @returns void
-     * @throws  BuildException
+     * @param  string the string containing the include patterns
+     * @return void
+     * @throws BuildException
      */
     function setIncludes($includes) {
         if ($this->isReference()) {
@@ -133,9 +133,9 @@ class PatternSet extends DataType {
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param string the string containing the exclude patterns
-     * @returns void
-     * @throws  BuildException
+     * @param  string the string containing the exclude patterns
+     * @return void
+     * @throws BuildException
      */
     function setExcludes($excludes) {
         if ($this->isReference()) {
@@ -154,8 +154,8 @@ class PatternSet extends DataType {
     /**
      * add a name entry to the given list
      *
-     * @param array List onto which the nameentry should be added
-     * @returns PatternSetNameEntry  Reference to the created PsetNameEntry instance
+     * @param  array List onto which the nameentry should be added
+     * @return PatternSetNameEntry  Reference to the created PsetNameEntry instance
      */
     private function addPatternToList(&$list) {
         $num = array_push($list, new PatternSetNameEntry());

@@ -152,15 +152,8 @@ abstract class PDOTask extends Task {
             }            
             
             $conn = new PDO($this->getUrl(), $user, $pass);
+            $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            if ($this->autocommit) {
-                try {
-                    $conn->setAttribute(PDO::ATTR_AUTOCOMMIT, $this->autocommit);
-                } catch (PDOException $pe) {
-                    $this->log("Unable to enable auto-commit for this database: " . $pe->getMessage(), Project::MSG_WARN);
-                }
-            }
             
             return $conn;
             
