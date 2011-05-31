@@ -136,7 +136,7 @@ class ProjectHandler extends AbstractHandler {
               if ($f->isAbsolute()) {
                 $project->setBasedir($baseDir);
               } else {
-                $project->setBaseDir($project->resolveFile($baseDir, new PhingFile(getcwd())));
+                $project->setBaseDir($project->resolveFile($baseDir, $buildFileParent));
               }
             }
           }
