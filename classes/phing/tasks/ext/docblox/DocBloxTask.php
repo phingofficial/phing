@@ -73,6 +73,15 @@ class DocBloxTask extends Task
     {
         $this->destDir = (string) $destDir;
     }
+
+    /**
+     * Convenience setter (@see setDestDir)
+     * @param string $output
+     */
+    public function setOutput($output)
+    {
+        $this->destDir = (string) $output;
+    }
     
     /**
      * Sets the title of the project
