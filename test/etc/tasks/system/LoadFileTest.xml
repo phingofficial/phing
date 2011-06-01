@@ -6,7 +6,12 @@
     </target>
     
     <target name="test-filterchain">
-        <loadfile property="version" file="filter-test.xml">
+    	<property name="input" value="filterchain-test-123"/>
+        <loadfile property="output" file="LoadFileTest-filterchain.xml">
+        	<filterchain>
+        		<expandproperties/>
+        	</filterchain>
         </loadfile>
+        <echo>${output}</echo>
     </target>
 </project>
