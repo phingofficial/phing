@@ -47,9 +47,6 @@ class ProjectConfigurator {
     public $buildFile;
     public $buildFileParent;
 
-    /** Targets in current file */
-    private $currentTargets;
-
     /** Synthetic target that will be called at the end to the parse phase */
     private $parseEndTarget;
 
@@ -140,10 +137,6 @@ class ProjectConfigurator {
      */
     public function setIgnoreProjectTag($flag) {
         $this->ignoreProjectTag = $flag;
-    }
-
-    public function &getCurrentTargets () {
-      return $this->currentTargets;
     }
 
     public function isParsing () {

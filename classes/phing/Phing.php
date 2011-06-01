@@ -895,7 +895,7 @@ class Phing {
 
             // subtargets are targets w/o descriptions
             if ($targetDescription === null) {
-                $subNames[] = $targetName;
+                $subNames[$targetName] = $targetName;
             } else {
                 // topNames and topDescriptions are handled later
                 // here we store in hash map (for sorting purposes)
