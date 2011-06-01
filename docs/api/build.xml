@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 
-<project name="Phing API Docs" default="build" basedir="." description="This
-buildfile constructs the Phing API Documentation">
+<project name="Phing API Docs" default="build" basedir="."
+	description="This buildfile constructs the Phing API Documentation">
 	<target name="prepare">
 		<mkdir dir="docs"/>
 	</target>
 	
 	<target name="docs">
-		<phpdoc title="Phing API Documentation" destdir="docs" output="HTML:Smarty:PHP"
-		quiet="true" sourcecode="false" defaultpackagename="phing">
+		<docblox title="Phing API Documentation" output="docs"
+			quiet="true">
 			<fileset dir="../../classes">
 				<include name="**/*.php"/>
 			</fileset>
-		</phpdoc>		
+		</docblox>		
  	</target>
 	
 	<target name="build" depends="prepare,docs">
