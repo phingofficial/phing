@@ -182,7 +182,5 @@ class DocBloxTask extends Task
         $transformer->setTarget($this->destDir);
         
         $transformer->execute();
-        
-        $file->delete();
     }
 }
