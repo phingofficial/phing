@@ -81,6 +81,14 @@
                         <entry>Path that contains the current buildfile.</entry>
                     </row>
                     <row>
+                        <entry><literal>phing.file.<emphasis>projectname</emphasis></literal></entry>
+                        <entry>Full path to an imported buildfile containing the project named <emphasis>projectname</emphasis>.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>phing.dir.<emphasis>projectname</emphasis></literal></entry>
+                        <entry>Path that contains the imported buildfile for the project named <emphasis>projectname</emphasis>.</entry>
+                    </row>
+                    <row>
                         <entry><literal>phing.home</literal></entry>
                         <entry>Phing installation directory, not set in PEAR installations.</entry>
                     </row>

@@ -1277,45 +1277,67 @@
  &lt;/else&gt;
 &lt;/if&gt;
 </pre>
-		<h2>
-			<a name="ImportTask"></a>ImportTask </h2>
-		<p>Imports another build file into the current project.</p>
-		<p>On execution it will read another Phing file into the same Project. Functionally it is
-			nearly the same as copy and pasting the imported file onto the end of the importing
-			file.</p>
-		<h3>Target Overriding</h3>
-		<p>If a target in the main file is also present in at least one of the imported files, the
-			one from the main file takes precedence.</p>
-		<p> So if I import for example a <em>docs/build.xml</em> file named
-				<strong>builddocs</strong>, that contains a "<strong>docs</strong>" target, I can
-			redefine it in my main buildfile and that is the one that will be called. This makes it
-			easy to keep the same target name, so that the overriding target is still called by any
-			other targets--in either the main or imported buildfile(s)--for which it is a
-			dependency, with a different implementation. The target from <em>docs/build.xml</em> is
-			made available by the name "<strong>builddocs.docs</strong>". This enables the new
-			implementation to call the old target, thus enhancing it with tasks called before or
-			after it. </p>
-		<h3>Special Properties</h3>
-		<p>Imported files are treated as they are present in the main buildfile. This makes it easy
-			to understand, but it makes it impossible for them to reference files and resources
-			relative to their path. Because of this, for every imported file, Phing adds a property
-			that contains the path to the imported buildfile. With this path, the imported buildfile
-			can keep resources and be able to reference them relative to its position.</p>
-		<p> So if I import for example a <em>docs/build.xml</em> file named
-				<strong>builddocs</strong>, I can get its path as
-				<strong>phing.file.builddocs</strong>, similarly to the <strong>phing.file</strong>
-			property of the main buildfile. Additionally, the directory will be stored in 
-			<strong>phing.dir.builddocs</strong>.</p>
-		<p>Note that "builddocs" is not the filename, but the name attribute present in the imported
-			project tag.</p>
-		<p>If import file does not have a name attribute, the <strong>phing.file.projectname</strong>
-		    and <strong>phing.dir.projectname</strong> properties will not be set.</p>
-		<h3>Resolving Files Against the Imported File</h3>
-		<p> Suppose your main build file called <code>importing.xml</code> imports a build file
-				<code>imported.xml</code> , located anywhere on the file system, and
-				<code>imported.xml</code> reads a set of properties from
-				<code>imported.properties</code> : </p>
-		<pre>
+	<h2>
+		<a name="ImportTask"></a>ImportTask
+	</h2>
+	<p>Imports another build file into the current project.</p>
+	<p>On execution it will read another Phing file into the same
+		Project. Functionally it is nearly the same as copy and pasting the
+		imported file onto the end of the importing file.</p>
+	<h3>Target Overriding</h3>
+	<p>If a target in the main file is also present in at least one of
+		the imported files, the one from the main file takes precedence.</p>
+
+	<p>
+		So if I import for example a <em>docs/build.xml</em> file named <strong>builddocs</strong>,
+               that contains a "<strong>docs</strong>" target, I can redefine "<strong>docs</strong>" in
+		my main buildfile and that is the one that will be called. This makes
+		it easy to keep the same target name, so that the overriding target is
+		still called by any other targets--in either the main or imported
+		buildfile(s)--for which it is a dependency, with a different
+               implementation.</p>
+
+       <h3>Target "namespacing"</h3>
+               <p>A target defined in an imported file will always be available under the
+               name <strong>importName</strong>.<strong>targetName</strong>.</p> 
+
+                <p>Considering the previous example, the target <strong>docs</strong> from <em>docs/build.xml</em> will always
+               be available by the name "<strong>builddocs.docs</strong>". This enables
+		the new implementation to call the old target, thus enhancing it with
+               tasks called before or after it. On the other hand, by calling <strong>builddocs.docs</strong>
+               from <em>docs/build.xml</em>, targets from the <strong>builddocs</strong> file can be sure 
+               to call "their" implementation.</p>
+
+	<h3>Special Properties</h3>
+       <p>Imported files are treated as if they were present in the main
+               buildfile. However, this means that properties like <strong>phing.file</strong> and 
+               <strong>project.basedir</strong> take values according to the main build file. Especially
+               with "reusable" build logic that get imported into a lot of different files, this might not 
+               be what you want.</p>
+
+       <p>To make it possible for imported files to reference files and resources relative to their own
+       location, Phing adds the following properties, where <em>projectname</em> is the name attribute
+       present in the imported file's <code>&lt;project&gt;</code> tag:</p>
+       <ul>
+       <li><strong>project.basedir.<em>projectname</em></strong>: The imported project's basedir as determined by the basedir attribute
+       from the imported file.</li>
+       <li><strong>phing.file.<em>projectname</em></strong>: The path to the imported build file.</li>
+	   <li><strong>phing.dir.<em>projectname</em></strong>: The directory containing the imported build file.</li>
+       </ul>
+
+       <p>If the imported file does not have a name attribute, these properties will not be set.</p>
+
+       <p>As an example, 
+               suppose your main build file called
+		<code>importing.xml</code>
+		imports a build file
+		<code>imported.xml</code>, located anywhere on the file system, and
+		<code>imported.xml</code>
+		reads a set of properties from
+		<code>imported.properties</code>
+		:
+	</p>
+	<pre>
 &lt;!-- importing.xml --&gt;
 &lt;project name=&quot;importing&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
   &lt;import file=&quot;${path_to_imported}/imported.xml&quot;/&gt;
@@ -1326,22 +1348,27 @@
   &lt;property file=&quot;imported.properties&quot;/&gt;
 &lt;/project&gt;
 </pre>
-		<p> This snippet however will resolve <code>imported.properties</code> against the basedir
-			of <code>importing.xml</code> , because the basedir of <code>imported.xml</code> is
-			ignored by Phing. The right way to use <code>imported.properties</code> is: </p>
-		<pre>
+	<p>
+               Because of the way the ImportTask works, this will resolve
+		<code>imported.properties</code>
+		against the basedir of
+               <code>importing.xml</code>, not that of <code>imported.xml</code>. The right way to use
+		<code>imported.properties</code>
+		is:
+	</p>
+	<pre>
 &lt;!-- imported.xml --&gt;
 &lt;project name=&quot;imported&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
-  &lt;property file=&quot;${phing.dir.imported}/imported.properties&quot;/&gt;
+  &lt;property file=&quot;${project.basedir.imported}/imported.properties&quot;/&gt;
 &lt;/project&gt;
 </pre>
-		<p> As explained above <code>${phing.file.imported}</code> stores the full path of the build
-			script, that defines the project called <strong>imported</strong>, (in short it stores
-			the path to <em>imported.xml</em>) and <code>${phing.dir.imported}</code> stores its
-			directory. This technique also allows <em>imported.xml</em> to be used as a standalone
-			file (without being imported in other project). </p>
-		<h3>Example</h3>
-		<pre>
+	<p>
+                This technique also allows
+		<em>imported.xml</em> to be used as a standalone file (without being
+		imported in other project).
+	</p>
+	<h3>Example</h3>
+	<pre>
 &lt;import file=&quot;path/to/build.xml&quot;/&gt;
 &lt;import file=&quot;path/to/build.xml&quot; optional=&quot;true&quot;/&gt;
 </pre>

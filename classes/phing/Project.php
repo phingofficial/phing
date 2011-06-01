@@ -627,10 +627,6 @@ class Project {
         $this->log("  +Target: $targetName", Project::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
-
-        $ctx = $this->getReference("phing.parsing.context");
-        $current = $ctx->getConfigurator()->getCurrentTargets();
-        $current[$targetName] = $target;
     }
 
     /**
@@ -814,19 +810,18 @@ class Project {
 
         // invoke topological sort of the target tree and run all targets
         // until targetName occurs.
-        $sortedTargets = $this->_topoSort($targetName, $this->targets);        
+        foreach ($this->_topoSort($targetName) as $t) {
 
-        $curIndex = (int) 0;
-        $curTarget = null;
-        do {
             try {
-                $curTarget = $sortedTargets[$curIndex++];
-                $curTarget->performTasks();
+                $t->performTasks();
             } catch (BuildException $exc) {
-                $this->log("Execution of target \"".$curTarget->getName()."\" failed for the following reason: ".$exc->getMessage(), Project::MSG_ERR);
+                $this->log("Execution of target \"".$t->getName()."\" failed for the following reason: ".$exc->getMessage(), Project::MSG_ERR);
                 throw $exc;
             }
-        } while ($curTarget->getName() !== $targetName);
+
+            if ($t === $this->targets[$targetName])
+               return;
+        }        
     }
 
     /**
@@ -840,6 +835,12 @@ class Project {
         }
     }    
 
+    protected function _targetSequenceToString($seq) {
+       $r = "";
+       foreach ($seq as $t) $r .= $t->toString() . " ";
+       return $r;
+    }
+    
     /**
      * Topologically sort a set of Targets.
      * @param  string $root is the (String) name of the root Target. The sort is
@@ -849,7 +850,7 @@ class Project {
      * @return An array of Strings with the names of the targets in
      *         sorted order.
      */
-    public function _topoSort($root, &$targets) {
+    public function _topoSort($root) {
 
         $root     = (string) $root;
         $ret      = array();
@@ -864,35 +865,20 @@ class Project {
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
-        $this->_tsort($root, $targets, $state, $visiting, $ret);
+        $this->_tsort($root, $state, $visiting, $ret);
 
-        $retHuman = "";
-        for ($i=0, $_i=count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString()." ";
-        }
-        $this->log("Build sequence for target '$root' is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Build sequence for target '$root' is: " . $this->_targetSequenceToString($ret), Project::MSG_VERBOSE);
 
-        $keys = array_keys($targets);
-        while($keys) {
-            $curTargetName = (string) array_shift($keys);
-            if (!isset($state[$curTargetName])) {
-                $st = null;
-            } else {
-                $st = (string) $state[$curTargetName];
-            }
-
-            if ($st === null) {
-                $this->_tsort($curTargetName, $targets, $state, $visiting, $ret);
-            } elseif ($st === "VISITING") {
-                throw new Exception("Unexpected node in visiting state: $curTargetName");
+        foreach ($this->targets as $t) {
+               $name = $t->getName(); // "canonical" name
+                       if (!isset($state[$name])) {
+                               $this->_tsort($name, $state, $visiting, $ret);
+                       } else if ($state[$name] == 'VISITING') {
+                               throw new Exception("Unexpected node in visiting state: $name");
             }
         }
 
-        $retHuman = "";
-        for ($i=0,$_i=count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString()." ";
-        }
-        $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Complete build sequence is: " . $this->_targetSequenceToString($ret), Project::MSG_VERBOSE);
 
         return $ret;
     }
@@ -914,51 +900,42 @@ class Project {
     //    "ret" now contains the sorted sequence of Targets upto the current
     //    Target.
 
-    public function _tsort($root, &$targets, &$state, &$visiting, &$ret) {
-        $state[$root] = "VISITING";
-        $visiting[]  = $root;
+    public function _tsort($root, &$state, &$visiting, &$ret) {
 
-        if (!isset($targets[$root]) || !($targets[$root] instanceof Target)) {
-            $target = null;
-        } else {
-            $target = $targets[$root];
-        }
-
-        // make sure we exist
-        if ($target === null) {
+       // Make sure target named $root exists.
+        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
             $sb = "Target '$root' does not exist in this project.";
-            array_pop($visiting);
             if (!empty($visiting)) {
-                $parent = (string) $visiting[count($visiting)-1];
+                $parent = end($visiting);
                 $sb .= " It is a dependency of target '$parent'.";
             }
             throw new BuildException($sb);
         }
 
-        $deps = $target->getDependencies();
+        // Fetch $root's "canonical" name
+        $target = $this->targets[$root];
+        $name = $target->getName();
+        
+        // Put $root on DFS stack
+        $state[$name] = 'VISITING';
+        $visiting[] = $name;
 
-        while($deps) {
-            $cur = (string) array_shift($deps);
-            if (!isset($state[$cur])) {
-                $m = null;
-            } else {
-                $m = (string) $state[$cur];
-            }
-            if ($m === null) {
-                // not been visited
-                $this->_tsort($cur, $targets, $state, $visiting, $ret);
-            } elseif ($m == "VISITING") {
-                // currently visiting this node, so have a cycle
-                throw $this->_makeCircularException($cur, $visiting);
-            }
+               // Recursively visit $root's dependencies
+        foreach ($target->getDependencies() as $dep) {
+
+               // Map names to "canonical" form.
+               $depname = $this->targets[$dep]->getName();
+        
+               if (!isset($state[$depname]))
+                       $this->_tsort($depname, $state, $visiting, $ret);
+               else if ($state[$depname] == 'VISITING')
+                       throw $this->_makeCircularException($depname, $visiting);
         }
 
-        $p = (string) array_pop($visiting);
-        if ($root !== $p) {
-            throw new Exception("Unexpected internal error: expected to pop $root but got $p");
-        }
-
-        $state[$root] = "VISITED";
+        // Finishing/leaving $root.
+        if ($name !== array_pop($visiting)) 
+            throw new Exception("Unexpected internal error: expected to pop $name but got $p");
+        $state[$name] = "VISITED";
         $ret[] = $target;
     }
 
