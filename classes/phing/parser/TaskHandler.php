@@ -190,6 +190,23 @@ class TaskHandler extends AbstractHandler {
      * @param string $data The CDATA that comes in
      */
     function characters($data) {
+       /*
+        * Caution: 
+        * characters() may be called by the SAX parser several times for a single element, 
+        * for example in cases like
+        * <tag>foo<!-- xx -->bar</tag>
+        * as the name "addText" on ProjectConfigurator, RuntimeConfigurable and 
+        * in IntrospectionHelper - thus in many concrete tasks - suggests.
+        * 
+        * However, many tasks included in Phing assume that a call to their addText() 
+        * method will always set the complete text (and override previously existing text).
+        * It seems that by now this always worked because of the way RuntimeConfigurable 
+        * is used:
+        * 
+        * Several CDATA fragments will be concatenated in RuntimeConfigurable and be 
+        * passed as one to the underlying ProjectConfigurator::addText() and thus
+        * the call to the tasks addText setter.
+        */
         if ($this->wrapper === null) {
             $configurator = $this->configurator;
             $project = $this->configurator->project;
