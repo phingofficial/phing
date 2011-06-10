@@ -24,40 +24,152 @@
 			href="AppendixD-CoreTypes.html#Fileset">FileSet</a> (or DirSet).
 	</p>
 
-	<p>
-		<strong>This documentation has not yet been written; please
-			use the <a
-			href="http://ant.apache.org/manual/CoreTypes/selectors.html">Ant
-				documentation</a> for now, since the APIs for the Phing selectors are
-			largely the same.</strong>
-	</p>
-
 	<p>Phing supports the following selectors, which typically match on
 		both files and directories in a &lt;fileset&gt;:</p>
 
 	<ul>
-		<li>&lt;contains&gt; - Select files that contain a specific
+		<li><a href="#Contains">&lt;contains&gt;</a> - Select files that contain a specific
 			string</li>
-		<li>&lt;date&gt; - Select files/directories that have been
+		<li><a href="#Date">&lt;date&gt;</a> - Select files/directories that have been
 			modified either before or after a specific date/time</li>
-		<li>&lt;depend&gt; - Select files/directories that have been
+		<li><a href="#Depend">&lt;depend&gt;</a> - Select files/directories that have been
 			modified more recently than equivalent items elsewhere</li>
-		<li>&lt;depth&gt; - Select files/directories that appear at a
+		<li><a href="#Depth">&lt;depth&gt;</a> - Select files/directories that appear at a
 			specific depth in a directory tree</li>
-		<li>&lt;different&gt; - Select files that are different from
+		<li><a href="#Different">&lt;different&gt;</a> - Select files that are different from
 			those elsewhere</li>
-		<li>&lt;filename&gt; - Select files/directories whose name
+		<li><a href="#Filename">&lt;filename&gt;</a> - Select files/directories whose name
 			matches a particular pattern. Equivalent to the include and exclude
 			elements of a patternset.</li>
-		<li>&lt;present&gt; - Select files/directories that either do or
+		<li><a href="#Present">&lt;present&gt;</a> - Select files/directories that either do or
 			do not exist in some other location</li>
-		<li>&lt;containsregexp&gt; - Select files that contain text
+		<li><a href="#Containsregexp">&lt;containsregexp&gt;</a> - Select files that contain text
 			matching a regular expression</li>
-		<li>&lt;size&gt; - Select files that are larger or smaller than a
+		<li><a href="#Size">&lt;size&gt;</a> - Select files that are larger or smaller than a
 			particular number of bytes.</li>
-		<li>&lt;type&gt; - Select files/directories by type ('file' or
+		<li><a href="#Type">&lt;type&gt;</a> - Select files/directories by type ('file' or
 			'dir')</li>
 	</ul>
 
+    <h2>
+        <a name="Contains"></a>Contains
+    </h2>
+
+    <h2>
+        <a name="Date"></a>Date
+    </h2>
+
+    <h2>
+        <a name="Depend"></a>Depend
+    </h2>
+
+    <h2>
+        <a name="Depth"></a>Depth
+    </h2>
+
+    <h2>
+        <a name="Different"></a>Different
+    </h2>
+
+    <h2>
+        <a name="Filename"></a>Filename
+    </h2>
+
+    <h2>
+        <a name="Present"></a>Present
+    </h2>
+
+    <h2>
+        <a name="Containsregexp"></a>Containsregexp
+    </h2>
+
+    <h2>
+        <a name="Size"></a>Size
+    </h2>
+
+    <p>
+    The &lt;size&gt; tag selects files matching a specified size limit.
+    </p>
+
+    <pre>
+&lt;fileset dir=&quot;${src}&quot;&gt;
+  &lt;size value=&quot;4&quot; when=&quot;more&quot;/&gt;
+&lt;/fileset&gt;</pre>
+    
+    <h3>Attributes</h3>
+    <table>
+        <caption>
+            Attributes for the <em>&lt;size&gt;</em> selector
+        </caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Default</th>
+                <th>Required</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>value</td>
+                <td>The size of the file which should be tested for.</td>
+                <td>n/a</td>
+                <td>Yes</td>
+            </tr>
+            <tr>
+                <td>units</td>
+                <td>The units that the value attribute is expressed in. When using the standard single letter SI designations, such as "k","M", or "G", multiples of 1000 are used. If you want to use power of 2 units, use the IEC standard: "Ki" for 1024, "Mi" for 1048576, and so on. The default is no units, which means the value attribute expresses the exact number of bytes.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>when</td>
+                <td>Indicates how to interpret the size, whether the files to be selected should be larger, smaller, or equal to that value. Accepted values are:
+                <ul>                
+<li>less - select files less than the indicated size</li>
+<li>more - select files greater than the indicated size</li>
+<li>equal - select files this exact size</li></ul></td>
+                <td>equal</td>
+                <td>No</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>
+        <a name="Type"></a>Type
+    </h2>
+    
+    <p>
+    The &lt;type&gt; tag selects files of a certain type: directory or regular.
+    Here is an example of how to use the Type Selector to select only directories in ${src}
+    </p>
+
+    <pre>
+&lt;fileset dir=&quot;${src}&quot;&gt;
+  &lt;type type=&quot;dir&quot;/&gt;
+&lt;/fileset&gt;</pre>
+    
+    <h3>Attributes</h3>
+    <table>
+        <caption>
+            Attributes for the <em>&lt;type&gt;</em> selector
+        </caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Default</th>
+                <th>Required</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>type</td>
+                <td>The type of file which should be tested for. Either <em>file</em> or <em>dir</em>.</td>
+                <td>n/a</td>
+                <td>Yes</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>

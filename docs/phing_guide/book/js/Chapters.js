@@ -17,8 +17,8 @@ new Array('chapters/appendixes/AppendixB-CoreTasks.html','&#13;
 new Array('chapters/appendixes/AppendixC-OptionalTasks.html','
 		Appendix C: Optional Tasks
 	'),
-new Array('chapters/appendixes/AppendixD-CoreTypes.html','
-		Appendix D: Core Types
+new Array('chapters/appendixes/AppendixD-CoreTypes.html','&#13;
+		Appendix D: Core Types&#13;
 	'),
 new Array('chapters/appendixes/AppendixD2-CoreFilters.html','
 		Appendix D-2: Core Filters
