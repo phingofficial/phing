@@ -571,14 +571,14 @@ class MyEchoTask extends Task {
 
 	<p>For each attribute you want to import to the task's namespace
 		you have to define a method named exactly after the very attribute
-		plus the string "Set" prepended. This method accepts exactly one
+		plus the string "set" prepended. This method accepts exactly one
 		parameter that holds the value of the attribute. No you can set the
 		value an class internal property to the value incoming via the setter
 		method.</p>
 
 	<p>
-		In out example the setter is named <em>SetMessage</em> , because the
-		XML attribute the echo task accepts is "message". SetMessage now takes
+		In out example the setter is named <em>setMessage</em> , because the
+		XML attribute the echo task accepts is "message". setMessage now takes
 		the string "Hello World" provided by the parser and sets the value of
 		the internal class property <em>$strMessage</em> to "Hello World". It
 		is now available to the task for further disposal.
