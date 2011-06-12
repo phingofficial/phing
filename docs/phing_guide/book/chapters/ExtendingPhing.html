@@ -465,7 +465,7 @@ class MyEchoTask extends Task {
 		common well formed structure:</p>
 
 	<ul>
-		<li>Package imports to import all required packages</li>
+		<li>Include/require statements to import all required classes</li>
 		<li>The class declaration and definition</li>
 		<li>The class's properties</li>
 		<li>The class's constructor</li>
@@ -477,21 +477,14 @@ class MyEchoTask extends Task {
 	</ul>
 
 	<h3>
-		<a name="PackageImports"></a>Package Imports
+		<a name="Includes"></a>Includes
 	</h3>
 
 	<p>
-		Always import all the packages/files needed for this task in full
-		written notation. Furthermore you should always import <em>phing.Task</em>
-		at the very top of your <em>import</em> block. Then import all other
-		required system or proprietary packages. Import works quite similar to
-		PHP's native <em>include_once</em> but with some Java-stylish
-		additions providing a file system independent notation.
-	</p>
-
-	<p>For a more in-depth explanation of the used package mechanism
-		and the package support API reference, see [package support] For a
-		list of stock packages provided with Phing, see [package list].</p>
+		Always include/require all the classes needed for this task in full
+		written notation. Furthermore you should always include <em>phing/Task.php</em>
+		at the very top of your include block. Then include all other
+		required system or proprietary classes.</p>
 
 	<h3>
 		<a name="ClassDeclaration"></a>Class Declaration

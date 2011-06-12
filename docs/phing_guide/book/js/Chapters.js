@@ -1,7 +1,7 @@
 var Chapters = new Array(new Array('chapters/AboutThisBook.html','About this book'),
 new Array('chapters/Introduction.html','Introduction'),
-new Array('chapters/Setup.html','
-		Setting-Up Phing
+new Array('chapters/Setup.html','&#13;
+		Setting-Up Phing&#13;
 	'),
 new Array('chapters/GettingStarted.html','
 		Getting Started
@@ -26,8 +26,8 @@ new Array('chapters/appendixes/AppendixD2-CoreFilters.html','
 new Array('chapters/appendixes/AppendixD3-CoreMappers.html','
 		Appendix D-3: Core Mappers
 	'),
-new Array('chapters/appendixes/AppendixD4-CoreSelectors.html','
-		Appendix D-4: Core Selectors
+new Array('chapters/appendixes/AppendixD4-CoreSelectors.html','&#13;
+		Appendix D-4: Core Selectors&#13;
 	'),
 new Array('chapters/appendixes/AppendixE-ProjectComponents.html','
 		Appendix E: Project Components
