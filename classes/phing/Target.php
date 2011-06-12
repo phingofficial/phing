@@ -314,19 +314,16 @@ class Target implements TaskContainer {
      *                    <code>false</code> otherwise
      */
     private function testIfCondition() {
-        if ($this->ifCondition === "") {
-            return true;
-        }
+    	// Targets won't be runtime configured, so we have to (possibly) expand properties
+    	// in our attributes ourselves.
+        if ($this->ifCondition) 
+	        foreach (explode(",", $this->ifCondition) as $property) {
+	            $test = $this->getProject()->replaceProperties($property);
+	            if ($this->project->getProperty($test) === null)
+	          	  return false;
+	        }
 
-        $properties = explode(",", $this->ifCondition);
-
-        $result = true;
-        foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties($this->getProject(), $property, $this->project->getProperties());
-            $result = $result && ($this->project->getProperty($test) !== null);
-        }
-
-        return $result;
+	        return true;
     }
 
     /**
@@ -337,18 +334,16 @@ class Target implements TaskContainer {
      *                    <code>false</code> otherwise
      */
     private function testUnlessCondition() {
-        if ($this->unlessCondition === "") {
-            return true;
-        }
-        
-        $properties = explode(",", $this->unlessCondition);
+    	// Targets won't be runtime configured, so we have to (possibly) expand properties
+    	// in our attributes ourselves.
+        if ($this->unlessCondition) 
+	        foreach (explode(",", $this->ifCondition) as $property) {
+	            $test = $this->getProject()->replaceProperties($property);
+	            if ($this->project->getProperty($test) !== null)
+	          	  return false;
+	        }
 
-        $result = true;
-        foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties($this->getProject(), $property, $this->project->getProperties());
-            $result = $result && ($this->project->getProperty($test) === null);
-        }
-        return $result;
+		return true;
     }
 
 }

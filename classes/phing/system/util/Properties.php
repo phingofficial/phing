@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -22,6 +21,7 @@
 
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/FileWriter.php';
+include_once 'phing/PropertySet.php';
 
 /**
  * Convenience class for reading and writing property files.
@@ -31,10 +31,12 @@ include_once 'phing/system/io/FileWriter.php';
  *
  * @package    phing.system.util
  * @version $Revision$
+ * @author 	Matthias Pigulla <mp@webfactory.de>
+ * @author  ...and many others
  */
 class Properties {
 
-    private $properties = array();
+    private $properties;
     
     /**
      * Constructor
@@ -43,6 +45,8 @@ class Properties {
      */
     function __construct($properties = NULL)
     {
+    	$this->properties = new PropertySet();
+    	
         if (is_array($properties)) {
             foreach ($properties as $key => $value) {
                 $this->setProperty($key, $value);
@@ -57,9 +61,9 @@ class Properties {
      * @return void
      * @throws IOException - if unable to read file.
      */
-    function load(PhingFile $file) {
+    function load(PhingFile $file, $section = null) {
         if ($file->canRead()) {
-            $this->parse($file->getPath(), false);                    
+            $this->parse($file->getPath(), $section);                    
         } else {
             throw new IOException("Can not read file ".$file->getPath());
         }
@@ -75,33 +79,60 @@ class Properties {
      * @param boolean $processSections Whether to honor [SectionName] sections in INI file.
      * @return array Properties loaded from file (no prop replacements done yet).
      */
-    protected function parse($filePath) {
+    protected function parse($filePath, $section) {
 
+    	$section = (string) $section;
+    	
         // load() already made sure that file is readable                
         // but we'll double check that when reading the file into 
         // an array
-        
-        if (($lines = @file($filePath)) === false) {
+
+    	if (($lines = @file($filePath)) === false) {
             throw new IOException("Unable to parse contents of $filePath");
         }
         
-        $this->properties = array();
-        $sec_name = "";
+        $currentSection = '';
+        $sect = array($currentSection => array(), $section => array());
+        $depends = array();
         
-        foreach($lines as $line) {
-            // strip comments and leading/trailing spaces
-            $line = trim(preg_replace("/[;#]\s.+$/", "", $line));
-            
-            if (empty($line) || $line[0] == ';' || $line[0] == '#') {
-                continue;
-            }
-                
-            $pos = strpos($line, '=');
-            $property = trim(substr($line, 0, $pos));
-            $value = trim(substr($line, $pos + 1));                
-            $this->properties[$property] = $value;
-            
-        } // for each line        
+        foreach ($lines as $l) {
+        	if (!($l = trim($l))) 
+        		continue;
+        	
+        	if ($l[0] == '#' || $l[0] == ';')
+        		continue;
+
+        	if (preg_match('/^\[(\w+)(?:\s*:\s*(\w+))?\]$/', $l, $matches)) {
+        		$currentSection = $matches[1];
+        		$sect[$currentSection] = array();
+        		if (isset($matches[2])) $depends[$currentSection] = $matches[2];
+        		continue;
+        	}
+        	
+			$pos = strpos($l, '=');
+			$name = trim(substr($l, 0, $pos));
+			$value = $this->inVal(trim(substr($l, $pos + 1)));
+
+			/*
+			 * Take care: Property file may contain identical keys like
+			 * a[] = first
+			 * a[] = second
+			 */
+			$sect[$currentSection][] = array($name, $value);
+        }
+        
+        $dependencyOrder = array();
+        while ($section) {
+        	array_unshift($dependencyOrder, $section);
+        	$section = isset($depends[$section]) ? $depends[$section] : '';
+        }
+        array_unshift($dependencyOrder, '');
+
+        foreach ($dependencyOrder as $section) 
+        	foreach ($sect[$section] as $def) {
+        		list ($name, $value) = $def;
+        		$this->setProperty($name, $value);
+        	} 
     }
     
     /**
@@ -150,6 +181,7 @@ class Properties {
         return $buf;    
     }
     
+	// store() is only used by tasks/ext/coverage/* (within Phing). 
     /**
      * Stores current properties to specified file.
      * 
@@ -194,10 +226,7 @@ class Properties {
      * @see get()
      */
     function getProperty($prop) {
-        if (!isset($this->properties[$prop])) {
-            return null;
-        }
-        return $this->properties[$prop];
+    	return $this->get($prop);
     }
 
     /**
@@ -284,7 +313,7 @@ class Properties {
      * @return array
      */
     function keys() {
-        return array_keys($this->properties);
+    	return $this->properties->keys();
     }
     
     /**

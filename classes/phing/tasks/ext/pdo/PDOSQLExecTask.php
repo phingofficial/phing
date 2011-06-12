@@ -407,9 +407,7 @@ class PDOSQLExecTask extends PDOTask {
 
         try {
             while (($line = $in->readLine()) !== null) {
-                $line = trim($line);
-                $line = ProjectConfigurator::replaceProperties($this->project, $line,
-                        $this->project->getProperties());
+                $line = $this->project->replaceProperties(trim($line));
 
                 if (($line != $this->delimiter) && (
                     StringHelper::startsWith("//", $line) ||

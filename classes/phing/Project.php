@@ -25,6 +25,7 @@ include_once 'phing/TaskAdapter.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/BuildEvent.php';
 include_once 'phing/input/DefaultInputHandler.php';
+include_once 'phing/PropertySet.php';
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -54,7 +55,7 @@ class Project {
     private $globalFilters   = array();
     
     /** Project properties map (usually String to String). */
-    private $properties = array();
+    private $properties;
     
     /**
      * Map of "user" properties (as created in the Ant task, for example).
@@ -62,7 +63,7 @@ class Project {
      * project properties, so only the project properties need to be queried.
      * Mapping is String to String.
      */
-    private $userProperties = array();
+    private $userProperties;
     
     /**
      * Map of inherited "user" properties - that are those "user"
@@ -70,7 +71,7 @@ class Project {
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties = array();
+    private $inheritedProperties;
     
     /** task definitions for this project*/
     private $taskdefs = array();
@@ -113,6 +114,9 @@ class Project {
     function __construct() {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
+        $this->properties = new PropertySet();
+        $this->inheritedProperties = new PropertySet();
+        $this->userProperties = new PropertySet();
     }
 
     /**
@@ -146,11 +150,9 @@ class Project {
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach($enum as $key) {
-                $value = $props->getProperty($key);
+            foreach ($props->getProperties() as $key => $value) 
                 $this->addTaskDefinition($key, $value);
-            }
+
         } catch (IOException $ioe) {
             throw new BuildException("Can't load default task list");
         }
@@ -166,11 +168,9 @@ class Project {
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach($enum as $key) {
-                $value = $props->getProperty($key);
-                $this->addDataTypeDefinition($key, $value);
-            }
+            foreach ($props->getProperties() as $key => $value) 
+				$this->addDataTypeDefinition($key, $value);
+
         } catch(IOException $ioe) {
             throw new BuildException("Can't load default datatype list");
         }
@@ -195,7 +195,6 @@ class Project {
      * @return void
      */
     public function setProperty($name, $value) {
-    
         // command line properties take precedence
         if (isset($this->userProperties[$name])) {
             $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
@@ -291,35 +290,30 @@ class Project {
         if (!isset($this->properties[$name])) {
             return null;
         }
-        $found = $this->properties[$name];
-        // check to see if there are unresolved property references
-        if (false !== strpos($found, '${')) {
-          // attempt to resolve properties
-          $found = $this->replaceProperties($found);
-          // save resolved value
-          $this->properties[$name] = $found;
-        }
-        return $found;
+        return $this->properties[$name];
     }
 
     /**
-     * Replaces ${} style constructions in the given value with the
-     * string value of the corresponding data types.
-     *
-     * @param value The string to be scanned for property references.
-     *              May be <code>null</code>.
-     *
-     * @return the given string with embedded property names replaced
-     *         by values, or <code>null</code> if the given string is
-     *         <code>null</code>.
-     *
-     * @exception BuildException if the given value has an unclosed
-     *                           property name, e.g. <code>${xxx</code>
+     * Returns the value of a property, if it is set.
+     * Property references in the property's value will
+     * be expanded.
+     * @param string The property value with references to other properties expanded.
      */
-    public function replaceProperties($value) {
-        return ProjectConfigurator::replaceProperties($this, $value, $this->properties);
+    public function getExpandedProperty($name) {
+    	$p = $this->getProperty($name);
+    	
+    	if ($p === null)
+    		return null;
+    	
+    	if (is_array($p)) {
+    		foreach ($p as $key => $value)
+    			$p[$key] = $this->replaceProperties($value);
+    		return $p;
+    	}
+    	
+    	return $this->replaceProperties($p);
     }
-
+    
     /**
      * Returns the value of a user property, if it is set.
      *
@@ -394,7 +388,73 @@ class Project {
             $other->setInheritedProperty($arg, $value);
         }        
     }
+
+    /**
+     * Replaces ${} style constructions in the given value with the
+     * string value of the corresponding data types.
+     *
+     * @param value The string to be scanned for property references.
+     *              May be <code>null</code>.
+     *
+     * @return the given string with embedded property names replaced
+     *         by values, or <code>null</code> if the given string is
+     *         <code>null</code>.
+     *
+     * @exception BuildException if the given value has an unclosed
+     *                           property name, e.g. <code>${xxx</code>
+     */
+	public function replaceProperties($buffer) {
+        if ($buffer === null) {
+            return null;
+        }
+        
+        // Because we're not doing anything special (like multiple passes),
+        // regex is the simplest / fastest.  PropertyTask, though, uses
+        // the old parsePropertyString() method, since it has more stringent
+        // requirements.
+
+        $sb = $buffer;
+        $iteration = 0;
+        
+        // loop to recursively replace tokens
+        while (strpos($sb, '${') !== false)
+        { 
+            $sb = preg_replace_callback('/\$\{([^\$}]+)\}/', array($this, '_replacePropertyCallback'), $sb);
+
+            // keep track of iterations so we can break out of otherwise infinite loops.
+            $iteration++;
+            if ($iteration == 5)
+            {
+                return $sb;
+            }
+        }
+        
+        return $sb;        
+    }
     
+    /**
+     * Private [static] function for use by preg_replace_callback to replace a single param.
+     * This method makes use of a static variable to hold the 
+     */
+    public function _replacePropertyCallback($matches)
+    {
+		$propertyName = $matches[1];
+		
+		if (($propertyValue = $this->getProperty($propertyName)) === null) {
+			$this->log('Property ${'.$propertyName.'} has not been set.', Project::MSG_VERBOSE);
+			return $matches[0];
+        }
+		
+        if (is_bool($propertyValue))
+            $propertyValue = $propertyValue ? "true" : "false";
+        
+		else if (is_array($propertyValue))
+        	$propertyValue = implode(',', $propertyValue); 
+         
+        $this->log('Property ${'.$propertyName.'} => ' . $propertyValue, Project::MSG_DEBUG);
+
+        return $propertyValue;
+    }
     // ---------------------------------------------------------
     //  END Properties methods
     // ---------------------------------------------------------
@@ -507,10 +567,11 @@ class Project {
     function setSystemProperties() {
         
         // first get system properties
-        $systemP = array_merge( self::getProperties(), Phing::getProperties() );
-        foreach($systemP as $name => $value) {
+        foreach( self::getProperties() as $name => $value)
             $this->setPropertyInternal($name, $value);
-        }
+
+		foreach(Phing::getProperties() as $name => $value)
+            $this->setPropertyInternal($name, $value);
         
         // and now the env vars
         foreach($_SERVER as $name => $value) {
@@ -827,11 +888,14 @@ class Project {
         $state[$name] = 'VISITING';
         $visiting[] = $name;
 
-               // Recursively visit $root's dependencies
+        // Recursively visit $root's dependencies
         foreach ($target->getDependencies() as $dep) {
 
                // Map names to "canonical" form.
-               $depname = $this->targets[$dep]->getName();
+               $t = $this->targets[$dep];
+               if (!$t) throw new BuildException("Unknown depencency $dep in target $root.");
+               
+               $depname = $t->getName();
         
                if (!isset($state[$depname]))
                        $this->_tsort($depname, $state, $visiting, $ret);

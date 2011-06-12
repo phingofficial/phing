@@ -392,9 +392,7 @@ class CreoleSQLExecTask extends CreoleTask {
 
         try {
             foreach ($lines as $line) {
-                $line = trim($line);
-                $line = ProjectConfigurator::replaceProperties($this->project, $line,
-                        $this->project->getProperties());
+                $line = $this->project->replaceProperties(trim($line));
                 
                 if (StringHelper::startsWith("//", $line) || 
                     StringHelper::startsWith("--", $line) ||
