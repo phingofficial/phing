@@ -27,7 +27,7 @@ new Array('chapters/appendixes/AppendixD3-CoreMappers.html','
 		Appendix D-3: Core Mappers
 	'),
 new Array('chapters/appendixes/AppendixD4-CoreSelectors.html','&#13;
-		Appendix D-4: Core Selectors&#13;
+		Appendix D-4: Selectors&#13;
 	'),
 new Array('chapters/appendixes/AppendixE-ProjectComponents.html','
 		Appendix E: Project Components
