@@ -246,7 +246,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
             $this->executeTarget($target);
         } catch (BuildException $ex) {
             $this->buildException = $ex;
-            if (($msg !== null) && (!$ex->getMessage() == $msg)) {
+            if (($msg !== null) && ($ex->getMessage() != $msg)) {
                 $this->fail("Should throw BuildException because '" . $cause
                         . "' with message '" . $msg
                         . "' (actual message '" . $ex->getMessage() . "' instead)");
