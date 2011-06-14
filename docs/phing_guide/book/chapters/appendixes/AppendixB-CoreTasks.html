@@ -447,8 +447,7 @@
 	<h2>
 		<a name="CopyTask"></a>CopyTask
 	</h2>
-	<p>The phing Copy Task. Copies a file or directory to a new file or
-		directory. Files are only copied if the source file is newer than the
+	<p>Copies files or directories. Files are only copied if the source file is newer than the
 		destination file, or when the destination file does not exist. It is
 		possible to explictly overwrite existing files.</p>
 	<h3>Example</h3>
@@ -459,16 +458,12 @@
 	<p>
 		Additionally, <em>CopyTask</em> supports Filesets, i.e. you can easily
 		include/exclude one or more files. For more information, see <a
-			href="AppendixD-CoreTypes.html#Fileset">Appendix D</a>. Mappers and
-		Filterchains are also supported by <em>CopyTask</em>, so you can do
+			href="AppendixD-CoreTypes.html#Fileset">Appendix D</a> -- pay particular attention to the <em>defaultexcludes</em> attribute. <a href="AppendixD3-CoreMappers.html">Mappers</a> and
+		<a href="AppendixD2-CoreFilters.html">Filters</a> are also supported by <em>CopyTask</em>, so you can do
 		almost everything that needs processing the content of the files or
 		the filename.
 	</p>
-	<p>
-		<em>Notice:</em> <em>CopyTask</em> does not allow self copying, i.e.
-		copying a file to the same name for security reasons.
-	</p>
-	<pre>
+    <pre>
 &lt;copy todir=&quot;/tmp/backup&quot; &gt;
   &lt;fileset dir=&quot;.&quot;&gt;
     &lt;include name=&quot;**/*.txt&quot; /&gt;
@@ -478,6 +473,23 @@
   &lt;filelist dir=&quot;.&quot; files=&quot;test.html&quot;/&gt;
 &lt;/copy&gt;
 </pre>
+    <pre>
+&lt;copy todir=&quot;build&quot; &gt;
+  &lt;fileset defaultexcludes=&quot;false&quot; expandsymboliclinks=&quot;true&quot; dir=&quot;.&quot;&gt;
+    &lt;include name=&quot;**/*.php&quot; /&gt;
+  &lt;/fileset&gt;
+&lt;/copy&gt;
+</pre>
+	<p>
+		<em>Notice:</em> <em>CopyTask</em> does not allow self copying, i.e.
+		copying a file to the same name for security reasons.
+	</p>
+	<h3>Symbolic links</h3>
+    <p>
+        By default, <em>CopyTask</em> does not expand / dereference symbolic links, and will simply copy the link itself. To
+        enable dereferencing, set <em>expandsymboliclinks</em> to <em>true</em> in the <em>&lt;fileset&gt;</em> tag.
+    </p>
+	
 	<h3>Attributes</h3>
 	<table>
 		<thead>
