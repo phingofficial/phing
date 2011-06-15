@@ -1567,7 +1567,7 @@
 	<h2>
 		<a name="MkdirTask"></a>MkdirTask
 	</h2>
-	<p>Create a directory.</p>
+	<p>Creates a directory, including any necessary but non-existent parent directories. Does nothing if the directory already exists.</p>
 	<h3>Example</h3>
 	<pre>&lt;-- Create a temp directory --&gt;
 &lt;mkdir dir=&quot;/tmp/foo&quot; /&gt;
@@ -1594,6 +1594,13 @@
 				<td>n/a</td>
 				<td>Yes</td>
 			</tr>
+            <tr>
+                <td>mode</td>
+                <td>Integer</td>
+                <td>The mode to create the directory with.</td>
+                <td>0755</td>
+                <td>No</td>
+            </tr>
 		</tbody>
 	</table>
 
