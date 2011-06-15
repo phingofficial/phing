@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+require_once('phing/util/properties/PropertySet.php');
 
 /**
  * A container for properties (name-value-pairs). Basically it behaves
@@ -26,7 +27,7 @@
  * 
  * @author Matthias Pigulla <mp@webfactory.de>
  */
-class PropertySet implements ArrayAccess, IteratorAggregate {
+class PropertySetImpl implements PropertySet {
 		protected $p = array();
 		
 		public function getIterator() {
@@ -81,5 +82,9 @@ class PropertySet implements ArrayAccess, IteratorAggregate {
 		
 		public function keys() {
 			return array_keys($this->p);
+		}
+		
+		public function isEmpty() {
+			return empty($this->p);
 		}
 	}

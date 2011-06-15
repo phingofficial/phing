@@ -39,7 +39,7 @@ include_once 'phing/parser/TargetHandler.php';
 include_once 'phing/parser/DataTypeHandler.php';
 include_once 'phing/parser/NestedElementHandler.php';
 
-include_once 'phing/system/util/Properties.php';
+include_once 'phing/util/properties/PropertySet.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/OutputStream.php';
@@ -277,7 +277,7 @@ class Phing {
      */
     public function execute($args) {
 
-        self::$definedProps = new Properties();
+        self::$definedProps = new PropertySetImpl();
         $this->searchForThis = null;
 
         // 1) First handle any options which should always
@@ -365,7 +365,7 @@ class Phing {
                 } elseif ($i < count($args)-1 && !StringHelper::startsWith("-D", $args[$i + 1])) {
                     $value = $args[++$i];
                 }
-                self::$definedProps->setProperty($name, $value);
+                self::setDefinedProperty($name, $value);
             } elseif ($arg == "-logger") {
                 if (!isset($args[$i+1])) {
                     $msg = "You must specify a classname when using the -logger argument";
@@ -395,7 +395,7 @@ class Phing {
                     }
                 }
             } elseif ($arg == "-longtargets") {
-                self::$definedProps->setProperty('phing.showlongtargets', 1);
+            	 self::setDefinedProperty('phing.showlongtargets', 1);
             } elseif ($arg == "-projecthelp" || $arg == "-targets" || $arg == "-list" || $arg == "-l" || $arg == "-p") {
                 // set the flag to display the targets and quit
                 $this->projectHelp = true;
@@ -520,13 +520,8 @@ class Phing {
 
         $project->setUserProperty("phing.version", $this->getPhingVersion());
 
-        $e = self::$definedProps->keys();
-        while (count($e)) {
-            $arg   = (string) array_shift($e);
-            $value = (string) self::$definedProps->getProperty($arg);
-            $project->setUserProperty($arg, $value);
-        }
-        unset($e);
+        foreach (self::$definedProps as $key => $value) 
+        	$project->setUserProperty($key, $value);
 
         $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
 
@@ -1208,7 +1203,9 @@ class Phing {
      * @return string value of found property (or null, if none found).
      */
     public static function getDefinedProperty($name) {
-        return self::$definedProps->getProperty($name);
+    	if (isset(self::$definedProps[$name]))
+    		return self::$definedProps[$name];
+    	return null;
     }
 
     /**
@@ -1218,7 +1215,7 @@ class Phing {
      * @return string value of found property (or null, if none found).
      */
     public static function setDefinedProperty($name, $value) {
-        return self::$definedProps->setProperty($name, $value);
+        self::$definedProps[$name] = $value;
     }
 
     /**

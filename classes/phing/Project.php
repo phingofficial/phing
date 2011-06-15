@@ -25,7 +25,9 @@ include_once 'phing/TaskAdapter.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/BuildEvent.php';
 include_once 'phing/input/DefaultInputHandler.php';
-include_once 'phing/PropertySet.php';
+require_once('phing/system/util/Properties.php');
+require_once('phing/util/properties/PropertySetImpl.php');
+require_once('phing/util/properties/PropertyExpansionHelper.php');
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -114,9 +116,10 @@ class Project {
     function __construct() {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
-        $this->properties = new PropertySet();
-        $this->inheritedProperties = new PropertySet();
-        $this->userProperties = new PropertySet();
+        $this->properties = new PropertySetImpl();
+        $this->inheritedProperties = new PropertySetImpl();
+        $this->userProperties = new PropertySetImpl();
+        $this->propertyExpansionHelper = new PropertyExpansionHelper($this->properties);
     }
 
     /**
@@ -150,7 +153,7 @@ class Project {
             }
             $props->load($in);
 
-            foreach ($props->getProperties() as $key => $value) 
+            foreach ($props as $key => $value) 
                 $this->addTaskDefinition($key, $value);
 
         } catch (IOException $ioe) {
@@ -168,7 +171,7 @@ class Project {
             }
             $props->load($in);
 
-            foreach ($props->getProperties() as $key => $value) 
+            foreach ($props as $key => $value) 
 				$this->addDataTypeDefinition($key, $value);
 
         } catch(IOException $ioe) {
@@ -287,33 +290,23 @@ class Project {
      *         or if a <code>null</code> name is provided.
      */
     public function getProperty($name) {
-        if (!isset($this->properties[$name])) {
+        if (!isset($this->propertyExpansionHelper[$name])) {
             return null;
         }
-        return $this->properties[$name];
-    }
-
-    /**
-     * Returns the value of a property, if it is set.
-     * Property references in the property's value will
-     * be expanded.
-     * @param string The property value with references to other properties expanded.
-     */
-    public function getExpandedProperty($name) {
-    	$p = $this->getProperty($name);
-    	
-    	if ($p === null)
-    		return null;
-    	
-    	if (is_array($p)) {
-    		foreach ($p as $key => $value)
-    			$p[$key] = $this->replaceProperties($value);
-    		return $p;
-    	}
-    	
-    	return $this->replaceProperties($p);
+        return $this->propertyExpansionHelper[$name];
     }
     
+    /**
+     * Returns a copy of the properties table in which all property
+     * references are being expanded.
+     * 
+     * @return array A hashtable containing all properties
+     *         (including user properties).
+     */
+    public function getProperties() {
+        return $this->propertyExpansionHelper;
+    }
+
     /**
      * Returns the value of a user property, if it is set.
      *
@@ -327,24 +320,7 @@ class Project {
         if (!isset($this->userProperties[$name])) {
             return null;
         }
-        return $this->userProperties[$name];
-    }
-
-    /**
-     * Returns a copy of the properties table.
-     * @return array A hashtable containing all properties
-     *         (including user properties).
-     */
-    public function getProperties() {
-        return $this->properties;
-    }
-
-    /**
-     * Returns a copy of the user property hashtable
-     * @return a hashtable containing just the user properties
-     */
-    public function getUserProperties() {
-        return $this->userProperties;
+        return $this->getProperty($name);
     }
 
     /**
@@ -389,72 +365,9 @@ class Project {
         }        
     }
 
-    /**
-     * Replaces ${} style constructions in the given value with the
-     * string value of the corresponding data types.
-     *
-     * @param value The string to be scanned for property references.
-     *              May be <code>null</code>.
-     *
-     * @return the given string with embedded property names replaced
-     *         by values, or <code>null</code> if the given string is
-     *         <code>null</code>.
-     *
-     * @exception BuildException if the given value has an unclosed
-     *                           property name, e.g. <code>${xxx</code>
-     */
 	public function replaceProperties($buffer) {
-        if ($buffer === null) {
-            return null;
-        }
-        
-        // Because we're not doing anything special (like multiple passes),
-        // regex is the simplest / fastest.  PropertyTask, though, uses
-        // the old parsePropertyString() method, since it has more stringent
-        // requirements.
-
-        $sb = $buffer;
-        $iteration = 0;
-        
-        // loop to recursively replace tokens
-        while (strpos($sb, '${') !== false)
-        { 
-            $sb = preg_replace_callback('/\$\{([^\$}]+)\}/', array($this, '_replacePropertyCallback'), $sb);
-
-            // keep track of iterations so we can break out of otherwise infinite loops.
-            $iteration++;
-            if ($iteration == 5)
-            {
-                return $sb;
-            }
-        }
-        
-        return $sb;        
-    }
-    
-    /**
-     * Private [static] function for use by preg_replace_callback to replace a single param.
-     * This method makes use of a static variable to hold the 
-     */
-    public function _replacePropertyCallback($matches)
-    {
-		$propertyName = $matches[1];
-		
-		if (($propertyValue = $this->getProperty($propertyName)) === null) {
-			$this->log('Property ${'.$propertyName.'} has not been set.', Project::MSG_VERBOSE);
-			return $matches[0];
-        }
-		
-        if (is_bool($propertyValue))
-            $propertyValue = $propertyValue ? "true" : "false";
-        
-		else if (is_array($propertyValue))
-        	$propertyValue = implode(',', $propertyValue); 
-         
-        $this->log('Property ${'.$propertyName.'} => ' . $propertyValue, Project::MSG_DEBUG);
-
-        return $propertyValue;
-    }
+		return $this->propertyExpansionHelper->expand($buffer);
+	}
     // ---------------------------------------------------------
     //  END Properties methods
     // ---------------------------------------------------------

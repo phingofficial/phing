@@ -1,0 +1,26 @@
+; do property expansion within a file
+a = foo
+b = ${a}bar
+array[] = first
+array[] = second
+first.second = ${array}
+
+; leave unkown references alone
+unexpanded = ${unknown}ref
+
+; resolve late = late, although expansion is defined later
+late = ${expansion}
+expansion = late
+
+; global is always available, also when loading sub-sections
+global = global
+
+; inherited sections override
+
+section = global
+
+[top]
+section = top
+
+[inherited : top]
+section = inherited

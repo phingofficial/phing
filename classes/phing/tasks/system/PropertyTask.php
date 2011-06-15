@@ -20,7 +20,6 @@
  */
 
 include_once 'phing/Task.php';
-include_once 'phing/system/util/Properties.php';
 
 /**
  * Task for setting properties in buildfiles.
@@ -262,14 +261,16 @@ class PropertyTask extends Task {
 	 * @param string $prefix prefix to place before them
 	 */
 	protected function loadEnvironment($prefix) {
-
-		$props = new Properties();
+		
+		require_once('phing/util/properties/PropertySetImpl.php');
+		$props = new PropertySetImpl();
+		
 		if ( substr($prefix, strlen($prefix)-1) == '.' ) {
 			$prefix .= ".";
 		}
 		$this->log("Loading Environment $prefix", Project::MSG_VERBOSE);
 		foreach($_ENV as $key => $value) {
-			$props->setProperty($prefix . '.' . $key, $value);
+			$props["$prefix.$key"] = $value;
 		}
 		$this->addProperties($props);
 	}
@@ -278,7 +279,7 @@ class PropertyTask extends Task {
 	 * iterate through a set of properties,
 	 * resolve them then assign them
 	 */
-	protected function addProperties($props) {
+	protected function addProperties(PropertySet $props) {
 		foreach($props as $key => $value) {
 			if ($this->prefix) $key = "{$this->prefix}$key";
 			$this->addProperty($key, $value);
@@ -324,8 +325,14 @@ class PropertyTask extends Task {
 	}
 
 	protected function fetchPropertiesFromFile(PhingFile $f) {
-		$p = new Properties();
-		$p->load($f, $this->section);
-		return $p->getProperties();
+		require_once('phing/util/properties/PropertySetImpl.php');
+		require_once('phing/util/properties/PropertyFileReader.php');
+		
+		// do not use the "Properties" façade to defer property expansion
+		// (the Project will take care of it)
+		$p = new PropertySetImpl();
+		$r = new PropertyFileReader($p);
+		$r->load($f, $this->section);
+		return $p;
 	}
 }

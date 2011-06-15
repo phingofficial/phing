@@ -25,7 +25,7 @@
  */
 
 require_once 'phing/tasks/system/PropertyTask.php';
-require_once 'phing/PropertySet.php';
+require_once('phing/util/properties/PropertySetImpl.php');
 
 /**
  * Task for setting properties from an XML file in buildfiles.
@@ -110,7 +110,7 @@ class XmlPropertyTask extends PropertyTask {
     	if (($xml = simplexml_load_file($f)) === false)
 			throw new IOException("Unable to parse XML file $f");
     	
-        $prop = new PropertySet();
+        $prop = new PropertySetImpl();
         $path = array();
 
         if ($this->_keepRoot) {
