@@ -65,15 +65,13 @@ class PropertyExpansionHelper implements PropertySet {
         if (is_array($b))
         	return $this->expandArray($b);
         
-        // Because we're not doing anything special (like multiple passes),
-        // regex is the simplest / fastest.  PropertyTask, though, uses
-        // the old parsePropertyString() method, since it has more stringent
-        // requirements.
-
-        $iterations = 5;
+        $this->refStack = array();
         
-        // loop to recursively replace tokens
-        while (strpos($b, '${') !== false && $iterations--)
+        return $this->match($b);
+	}
+	
+	protected function match($b) {
+		if (strpos($b, '${') !== false)
             $b = preg_replace_callback('/\$\{([^\$}]+)\}/', array($this, 'replacePropertyCallback'), $b);
         
         return $b;        
@@ -81,6 +79,9 @@ class PropertyExpansionHelper implements PropertySet {
     
     protected function replacePropertyCallback($matches) {
 		$propertyName = $matches[1];
+		
+		if (in_array($propertyName, $this->refStack))
+			$this->circularException();
 		
 		if (!isset($this->props[$propertyName]))			
 			return $matches[0];
@@ -92,10 +93,21 @@ class PropertyExpansionHelper implements PropertySet {
         
 		else if (is_array($propertyValue))
         	$propertyValue = implode(',', $propertyValue); 
-         
+
+        else {
+        	array_push($this->refStack, $propertyName);
+        	$propertyValue = $this->match($propertyValue);
+        	array_pop($this->refStack);
+        }
+
         return $propertyValue;
     }
-	
+
+    protected function circularException() {
+    	$n = array_pop($this->refStack);
+    	throw new BuildException("Property $n was circularly defined: " . implode(" => ", $this->refStack));	
+    }
+    
     protected function expandArray(array $a) {
 		$r = array();
 		foreach ($a as $key => $value) {
