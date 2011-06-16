@@ -101,6 +101,12 @@ class PearPackageTask extends MatchingTask {
     /** Nested <mapping> (complex options) types. */
     protected $mappings = array();
     
+    /**
+     * Nested <role> elements
+     * @var PearPkgRole[]
+     */
+    protected $roles = array();
+    
     public function init() {
         include_once 'PEAR/PackageFileManager.php';
         if (!class_exists('PEAR_PackageFileManager')) {
@@ -303,6 +309,17 @@ class PearPackageTask extends MatchingTask {
         $this->mappings[] = $o;
         return $o;
     }
+    
+    /**
+     * Handles nested <role> elements
+     * @return PearPkgRole
+     */
+    public function createRole()
+    {
+        $role = new PearPkgRole();
+        $this->roles[] = $role;
+        return $role;
+    }
 }
 
 
@@ -424,4 +441,58 @@ class PearPkgMappingElement {
         return $e;
     }
     
+}
+
+/**
+ * Encapsulates file roles
+ *
+ * @package phing.tasks.ext
+ */
+class PearPkgRole
+{
+    /**
+     * @var string
+     */
+    private $extension;
+    
+    /**
+     * @var string
+     */
+    private $role;
+    
+    /**
+     * Sets the file extension
+     * @param string $extension
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+    }
+    
+    /**
+     * Retrieves the file extension
+     * @return string
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+    
+    /**
+     * Sets the role
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+    
+    /**
+     * Retrieves the role
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
 }
