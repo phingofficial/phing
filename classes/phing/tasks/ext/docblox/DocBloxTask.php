@@ -58,6 +58,8 @@ class DocBloxTask extends Task
     
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
+     * 
+     * @return FileSet
      */
     public function createFileSet()
     {
