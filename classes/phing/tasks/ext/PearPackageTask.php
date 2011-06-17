@@ -153,6 +153,11 @@ class PearPackageTask extends MatchingTask {
         if (PEAR::isError($e)) {
             throw new BuildException("Unable to set options.", new Exception($e->getMessage()));
         }
+        
+        // convert roles
+        foreach ($this->roles as $role) {
+            $this->pkg->addRole($role->getExtension(), $role->getRole());
+        }
     }
     
     /**
