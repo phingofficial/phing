@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project name="FileSet" default="test">
+	<target name="test">
+		<patternset id="test">
+			<include name="." />
+		</patternset>
+		
+		<fileset id="fs" dir="${project.basedir}">
+			<patternset refid="test" />
+		</fileset>
+
+		<echo>Expect to call target "echo"</echo>
+		<foreach param="ignored" absparam="file" target="echo">
+			<fileset refid="fs"/> 
+		</foreach>
+	</target>
+	<target name="echo">
+		<echo>Match ${file}</echo>
+	</target>
+</project>
