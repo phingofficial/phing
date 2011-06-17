@@ -97,6 +97,9 @@
 		a file/directory name within a directory level. Two asterisks (<strong>**</strong>)
 		may include above the &quot;border&quot; of the directory separator.
 	</p>
+	<p>There is one "shorthand": if a pattern ends with / or \, then ** is appended, 
+	effectively matching all files and directories under the directory provided.</p>
+	
 
 	<h3>Examples</h3>
 	<ul>
@@ -109,6 +112,9 @@
 			attribute of the <em>&lt;fileset&gt;</em> tag. However, it will not
 			include any files that are directly in the base directory of the file
 			set.</li>
+		<li><em>test/</em> is interpreted as <em>test/**</em>, matching a file 
+		<em>test/foo.html</em>, a directory <em>test/sub</em> and also a file 
+		<em>test/sub/bar.html</em>.</li>
 	</ul>
 
 	<h3>Usage Example</h3>
