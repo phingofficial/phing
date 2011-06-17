@@ -127,8 +127,9 @@ class SelectorUtils {
      *         or <code>false</code> otherwise.
      */
     public static function matchPath($pattern, $str, $isCaseSensitive = true) {
-    
-        $rePattern = preg_quote($pattern, '/');
+		if ($pattern == '.' && $str == '') return true;
+    	
+    	$rePattern = preg_quote($pattern, '/');
         $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
         $patternReplacements = array(
             $dirSep.'\*\*'.$dirSep => $dirSep.'.*('.$dirSep.')?',
