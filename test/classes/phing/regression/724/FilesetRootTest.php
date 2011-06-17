@@ -11,8 +11,13 @@ class FilesetRootTest extends BuildFileTest {
     public function testOnlyFilesetRootMatches() {
       $f = new PhingFile(__DIR__."/build.xml");
       $this->executeTarget("test");
-      $this->assertInLogs("Match ".__DIR__);
-      $this->assertNotInLogs("Match ".__DIR__."/foo");
-      $this->assertNotInLogs("Match ".__DIR__."/foo/bar");
+
+      $this->assertInLogs("include ".__DIR__."/*");
+      $this->assertNotInLogs("include ".__DIR__."/foo");
+      
+      $this->assertNotInLogs("exclude ".__DIR__."/*");
+      $this->assertInLogs("exclude ".__DIR__."/foo*");
+      $this->assertInLogs("exclude ".__DIR__."/foo/bar/file*");
+      
     }
 }

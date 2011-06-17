@@ -1,20 +1,27 @@
 <?xml version="1.0"?>
 <project name="FileSet" default="test">
 	<target name="test">
-		<patternset id="test">
-			<include name="." />
-		</patternset>
-		
-		<fileset id="fs" dir="${project.basedir}">
-			<patternset refid="test" />
-		</fileset>
 
-		<echo>Expect to call target "echo"</echo>
-		<foreach param="ignored" absparam="file" target="echo">
-			<fileset refid="fs"/> 
+		<foreach param="ignored" absparam="file" target="include">
+			<fileset dir="${project.basedir}">
+				<include name="." />
+			</fileset>
 		</foreach>
+		
+		<foreach param="ignored" absparam="file" target="exclude">
+			<fileset dir="${project.basedir}">
+				<exclude name="." />
+			</fileset>
+		</foreach>
+
 	</target>
-	<target name="echo">
-		<echo>Match ${file}</echo>
+
+	<target name="include">
+		<echo>include ${file}*</echo>
 	</target>
+	
+	<target name="exclude">
+		<echo>exclude ${file}*</echo>
+	</target>
+	
 </project>
