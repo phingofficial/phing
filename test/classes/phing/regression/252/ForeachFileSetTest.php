@@ -31,12 +31,13 @@ require_once 'phing/BuildFileTest.php';
 class ForeachFileSetTest extends BuildFileTest { 
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/252/build.xml");
+        $this->configureProject(__DIR__."/build.xml");
     }
 
     public function testCustomTask () {
-      $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/252/build.xml");
+      $f = new PhingFile(__DIR__."/build.xml");
       $this->executeTarget("main");
-      $this->assertInLogs("Calling Buildfile '" . $f->getAbsolutePath() . "' with target 'subtask'");
+      $this->assertInLogs("Found file a.");
+      $this->assertInLogs("Found file b.");
     }
 }

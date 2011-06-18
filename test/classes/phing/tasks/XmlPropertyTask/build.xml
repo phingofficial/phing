@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XmlPropertyTask" default="test">
+	<target name="test">
+		<xmlproperty file="property.xml" />
+		<php expression="is_array($this->getProject()->getProperty('xml.simpleArray.array'));" returnProperty="ret" />
+		<echo>assert true == ${ret}</echo>
+		<echo>assert first == ${xml.simpleArray.array[0]}</echo>
+		<echo>assert second == ${xml.simpleArray.array[1]}</echo>
+		
+		<php expression="is_array($this->getProject()->getProperty('xml.keyedArray.array'));" returnProperty="ret" />
+		<echo>assert true == ${ret}</echo>
+		<echo>assert 1st == ${xml.keyedArray.array[first]}</echo>
+		<echo>assert 2nd == ${xml.keyedArray.array[second]}</echo>
+	</target>
+</project>

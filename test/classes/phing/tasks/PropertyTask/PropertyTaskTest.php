@@ -30,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
 class PropertyTaskTest extends BuildFileTest { 
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
+        $this->configureProject(__DIR__."/build.xml");
     }
         
 
@@ -40,7 +40,7 @@ class PropertyTaskTest extends BuildFileTest {
     }
 
     public function test2() { 
-        $this->expectLog("test2", "testprop1=aa, testprop3=xxyy, testprop4=aazz");
+    	$this->scanAssertionsInLogs("test2");
     }
     
     public function test3() {        
@@ -50,19 +50,42 @@ class PropertyTaskTest extends BuildFileTest {
             $this->assertTrue(strpos($e->getMessage(), "was circularly defined") !== false, "Circular definition not detected - ");
             return;                     
         }
-        $this->fail("Did not throw exception on circular exception");          
+        $this->fail("Did not throw exception on circular expression");          
     }
     
     
     public function test4() { 
-        $this->expectLog("test4", "http.url is http://localhost:999");
+    	$this->scanAssertionsInLogs("test4");
+    }
+    
+    public function test5() {
+    	$this->scanAssertionsInLogs("test5");
+    }
+    
+    public function test7() {
+    	$this->scanAssertionsInLogs("test7");
+    }
+    
+    public function testPropertyArrays() {
+    	$this->scanAssertionsInLogs("property-arrays");
     }
     
     public function testPrefixSuccess() {
-        $this->executeTarget("prefix.success");
-        $this->assertEquals("80", $this->project->getProperty("server1.http.port"));
+        $this->scanAssertionsInLogs("prefix.success");
     }
     
+    public function testPropertyFileSections1() {
+        $this->scanAssertionsInLogs("property-file-sections-1");
+        $this->assertPropertyUnset('section');
+    }
+    
+	public function testPropertyFileSections2() { 
+        $this->scanAssertionsInLogs("property-file-sections-2");
+	}
+	
+	public function testPropertyFileSections3() {
+        $this->scanAssertionsInLogs("property-file-sections-3");
+    }
     
     public function testPrefixFailure() {
        try {

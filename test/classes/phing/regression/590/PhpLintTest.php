@@ -31,13 +31,14 @@ require_once 'phing/BuildFileTest.php';
 class PhpLintFlagTest extends BuildFileTest { 
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/590/build.xml");
+        $this->configureProject(__DIR__."/build.xml");
     }
 
     public function testPhpLintTask () {
       $this->executeTarget("main");
       $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ." . DIRECTORY_SEPARATOR . "my_file.php");
       $this->assertInLogs("." . DIRECTORY_SEPARATOR . "my_file_ok.php: No syntax errors detected");
+      // Probably a bad idea to rely on such messages as they might change in the future? Also out-of-scope for the bug report in question.
       $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in ." . DIRECTORY_SEPARATOR . "my_file_depr.php");
     }
 }

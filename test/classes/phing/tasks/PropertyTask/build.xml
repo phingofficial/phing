@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<project name="property-test" default="ignored">
+
+  <target name="test1">
+    <property environment="testenv"/>
+  </target>
+
+  <target name="test2">
+    <property name="testprop1" value="aa"/>
+    <property file="property1.properties"/>
+    <echo>assert aa == ${testprop1}</echo>
+    <echo>assert xxyy == ${testprop3}</echo>
+    <echo>assert aazz == ${testprop4}</echo>
+  </target>
+
+  <target name="test3">
+    <property file="property2.properties"/>
+    <echo>${testprop1}</echo>
+  </target>
+
+  <target name="test4">
+	<!-- This test also relies on late expansion, see regression 320 -->    
+    <!-- port is 999 because property3.properties did not override! -->
+    <property name="http.port" value="999" />
+    <property file="property3.properties"/>
+    <echo>assert http://localhost:999 == ${http.url}</echo>
+    
+    <property file="property3.properties" override="true" />
+    <echo>assert http://localhost:80 == ${http.url}</echo>
+  </target>
+  
+  <target name="test5">
+  	<!-- 
+  		Test loading property files from a filelist, where latter definitions of a property
+  		override former ones. Only the final set of properties is copied to the project.
+  	-->
+  	<property>
+		<filelist dir="." files="property1.properties, property4.properties" />
+  	</property>
+    <echo>assert XXyy==${testprop3}</echo>
+    <echo>assert first,second==${array}</echo>
+  </target>
+  
+  <target name="test7">
+	<property name="inner" value="outer" />
+	<property name="outer" value="variable-variables" />
+	<echo>assert variable-variables == ${${inner}}</echo>
+  </target>
+  
+  <target name="prefix.success">
+    <property file="property3.properties" prefix="server1"/>
+    <echo>assert 80 == ${server1.http.port}</echo>
+  </target>
+
+  <target name="prefix.fail">
+    <property name="someprop" value="value" prefix="prefix"/>
+  </target>
+  
+  <target name="property-arrays">
+	<property file="array.properties" />
+	<php expression="is_array($this->getProject()->getProperty('array'));" returnProperty="ret" />
+	<echo>assert true == ${ret}</echo>
+	
+	<echo>assert first == ${array[0]}</echo>
+	<echo>assert second == ${array[1]}</echo>
+	<echo>assert index == ${array[index]}</echo>
+
+	<!-- Using properties that are arrays in XML should inline the values: -->
+	<echo>assert first,second,index == ${array}</echo>
+	<!-- Also works for xml attributes -->
+	<echo msg="assert first,second,index == ${array}" />
+	
+	<!-- Set array property directly from XML, not reading files -->
+	<property name="direct[first]" value="direct1" />
+	<property name="direct[]" value="direct2" />
+	<php expression="is_array($this->getProject()->getProperty('direct'));" returnProperty="ret" />
+	<echo>assert true == ${ret}</echo>
+	<echo>assert direct1 == ${direct[first]}</echo>
+	<echo>assert direct2 == ${direct[0]}</echo>
+  </target>
+  
+  <target name="property-file-sections-1">
+  	<property file="sections.properties" />
+  	<echo>assert global == ${global}</echo>
+  </target>
+
+  <target name="property-file-sections-2">
+  	<property file="sections.properties" section="s1" />
+  	<!-- The "global" section is always available -->
+  	<echo>assert global == ${global}</echo>
+  	<echo>assert s1 == ${section}</echo>
+  </target>
+
+  <target name="property-file-sections-3">
+  	<property file="sections.properties" section="s2" />
+  	<echo>assert global == ${global}</echo>
+  	<echo>assert s2 == ${section}</echo>
+  </target>
+
+
+</project>

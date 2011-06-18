@@ -8,18 +8,13 @@
     </fileset>
 
     <target name="test">
-        <echo>${test.msg}</echo>
-        <echo>${test.absmsg}</echo>
+        <echo>dir ${test.msg}</echo>
     </target>
 
     <target name="main">
-    	<mkdir dir="data"/>
-    	<mkdir dir="files"/>
         <foreach param="test.msg" absparam="test.absmsg" target="test">
             <fileset refid="folders" />
         </foreach>
-    	<delete dir="data"/>
-    	<delete dir="files"/>
     </target>
 
 </project>

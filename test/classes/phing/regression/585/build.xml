@@ -1,6 +1,7 @@
 <project name="test" default="main">
 	<target name="main">
 		<property file="test.properties"/>
-		<echo>${setting}</echo>
+		<echo>assert ${setting} == value</echo>
+		<echo>assert ${setting2} == value</echo>
 	</target>
 </project>
