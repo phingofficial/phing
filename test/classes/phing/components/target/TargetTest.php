@@ -31,18 +31,36 @@ require_once 'phing/BuildFileTest.php';
  */
 class TargetTest extends BuildFileTest {
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/components/Target/Target.xml");
+		$this->configureProject(__DIR__."/build.xml");
     }
 
     public function testHiddenTargets()
     {
         $phingExecutable = PHING_TEST_BASE . '/../bin/phing';
-        $buildFile = PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml';
+        $buildFile = __DIR__. '/build.xml';
         $cmd = $phingExecutable . ' -l -f ' . $buildFile;
         exec($cmd, $out);
         $out = implode("\n", $out);
         $this->assertFalse(strpos($out, 'HideInListTarget'));
         $this->assertTrue(strpos($out, 'ShowInListTarget') !== false);
     }
+    
+    public function testIfConditionHolds() {
+    	$this->expectLogContaining('run-if-condition', 'if-condition!');
+    }
+	
+    public function testIfConditionHolds2() {
+    	$this->executeTarget('if-condition');
+    	$this->assertNotInLogs('if-condition!');
+    }
+    
+    public function testUnlessConditionHolds() {
+    	$this->expectLogContaining('unless-condition', 'unless-condition!');
+    }
+	
+    public function testUnlessConditionHolds2() {
+    	$this->executeTarget('fail-unless-condition');
+    	$this->assertNotInLogs('unless-condition!');
+    }
+    
 }
