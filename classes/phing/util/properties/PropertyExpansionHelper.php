@@ -19,30 +19,17 @@
  * <http://phing.info>.
  */
 require_once('phing/util/properties/PropertySet.php');
-require_once('phing/util/properties/PropertyExpansionIterator.php');
 
 /**
  * A class that can expand ${}-style references in arbitrary strings with the 
  * corresponding values from a PropertySet.
- * 
- * As this class already "contains" a property set, it also acts as a decorator 
- * for it and takes care of expanding propery references in the property values
- * themselves.
  */
-class PropertyExpansionHelper implements PropertySet {
-	protected $props;
+class PropertyExpansionHelper {
+	protected $set;
 	
-	public function __construct(PropertySet $props) {
-		$this->props = $props;
+	public function __construct(PropertySet $s) {
+		$this->set = $s;
 	}
-
-	public function offsetGet($key) { return $this->expand($this->props->offsetGet($key)); }
-	public function offsetSet($key, $value) { $this->props->offsetSet($key, $value); }
-	public function offsetExists($key) { return $this->props->offsetExists($key); }
-	public function offsetUnset($key) { $this->props->offsetUnset($key); }
-	public function getIterator() { return new PropertyExpansionIterator($this, $this->props->getIterator()); }
-	public function isEmpty() { return $this->props->isEmpty(); }
-	public function keys() { return $this->props->keys(); }
 	
 	/**
      * Replaces ${} style constructions in the given value with the
@@ -62,8 +49,10 @@ class PropertyExpansionHelper implements PropertySet {
         if ($b === null) 
             return null;
         
-        if (is_array($b))
-        	return $this->expandArray($b);
+        if (is_array($b)) {
+        	$s = $this->expandArray($b);
+        	return $s;
+        }
         
         $this->refStack = array();
         
@@ -71,9 +60,10 @@ class PropertyExpansionHelper implements PropertySet {
 	}
 	
 	protected function match($b) {
-		if (strpos($b, '${') !== false)
+		do {
+			$old = $b;
             $b = preg_replace_callback('/\$\{([^\$}]+)\}/', array($this, 'replacePropertyCallback'), $b);
-        
+		} while ($old != $b);
         return $b;        
     }
     
@@ -83,10 +73,10 @@ class PropertyExpansionHelper implements PropertySet {
 		if (in_array($propertyName, $this->refStack))
 			$this->circularException();
 		
-		if (!isset($this->props[$propertyName]))			
+		if (!isset($this->set[$propertyName]))			
 			return $matches[0];
 		
-		$propertyValue = $this->props[$propertyName];
+		$propertyValue = $this->set[$propertyName];
 		
         if (is_bool($propertyValue))
             $propertyValue = $propertyValue ? "true" : "false";
@@ -94,11 +84,9 @@ class PropertyExpansionHelper implements PropertySet {
 		else if (is_array($propertyValue))
         	$propertyValue = implode(',', $propertyValue); 
 
-        else {
-        	array_push($this->refStack, $propertyName);
-        	$propertyValue = $this->match($propertyValue);
-        	array_pop($this->refStack);
-        }
+        array_push($this->refStack, $propertyName);
+        $propertyValue = $this->match($propertyValue);
+        array_pop($this->refStack);
 
         return $propertyValue;
     }

@@ -1,12 +1,12 @@
 <?php
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'phing/util/properties/PropertySetImpl.php';
-require_once 'phing/util/properties/ExpansionWrapper.php';
+require_once 'phing/util/properties/PropertyExpansionWrapper.php';
 
 class PropertyExpansionTest extends PHPUnit_Framework_TestCase {
 	
 	public function testFindPrefix() {
-		$s = new ExpansionWrapper(new PropertySetImpl());
+		$s = new PropertyExpansionWrapper(new PropertySetImpl());
 		
 		$s['foo.one'] = 1;
 		$s['foo.fortytwo'] = '${bar}';

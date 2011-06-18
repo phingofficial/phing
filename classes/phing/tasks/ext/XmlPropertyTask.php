@@ -102,15 +102,14 @@ class XmlPropertyTask extends PropertyTask {
             throw new BuildException("You must specify file to load properties from", $this->getLocation());
         }
 
-        $this->loadFile($this->file);
+        $this->loadFile();
     }
 
-    protected function fetchPropertiesFromFile(PhingFile $f) {
+    protected function fetchPropertiesFromFile(PhingFile $f, PropertySet $prop) {
 
     	if (($xml = simplexml_load_file($f)) === false)
 			throw new IOException("Unable to parse XML file $f");
     	
-        $prop = new PropertySetImpl();
         $path = array();
 
         if ($this->_keepRoot) {
@@ -119,8 +118,6 @@ class XmlPropertyTask extends PropertyTask {
         	foreach ($xml as $tag => $node)
         		$this->addNode($node, "{$this->prefix}$tag.", $prop);
         }
-
-        return $prop;
     }
 
     /**

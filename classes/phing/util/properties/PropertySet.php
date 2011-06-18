@@ -22,4 +22,5 @@
 interface PropertySet extends ArrayAccess, IteratorAggregate {
 	public function isEmpty();
 	public function keys();
+	public function prefix($prefix);
 } 

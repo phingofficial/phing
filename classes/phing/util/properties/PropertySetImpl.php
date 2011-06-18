@@ -87,4 +87,19 @@ class PropertySetImpl implements PropertySet {
 		public function isEmpty() {
 			return empty($this->p);
 		}
+		
+		public function prefix($pre) {
+			if (substr($pre, -1) !== '.') $pre .= '.';
+			
+			$r = array();
+			$l = strlen($pre);
+			
+			foreach ($this->p as $k => $v) {
+				if (strpos($k, $pre) === 0)
+					$r[substr($k, $l)] = $v;
+			}
+			
+			$i = new PropertySetImpl(); $i->p = $r;
+			return $i;
+		}
 	}

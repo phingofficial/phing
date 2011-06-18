@@ -21,6 +21,7 @@
 
 require_once('phing/util/properties/PropertySetImpl.php');
 require_once('phing/util/properties/PropertyExpansionHelper.php');
+require_once('phing/util/properties/PropertyExpansionWrapper.php');
 
 
 /**
@@ -53,7 +54,7 @@ class Properties implements IteratorAggregate {
      */
     public function __construct($properties = null)
     {
-    	$this->properties = new PropertyExpansionHelper(new PropertySetImpl());
+    	$this->properties = new PropertyExpansionWrapper(new PropertySetImpl());
     	
         if (is_array($properties)) {
             foreach ($properties as $key => $value) {

@@ -27,6 +27,7 @@ include_once 'phing/BuildEvent.php';
 include_once 'phing/input/DefaultInputHandler.php';
 require_once('phing/system/util/Properties.php');
 require_once('phing/util/properties/PropertySetImpl.php');
+require_once('phing/util/properties/PropertyExpansionWrapper.php');
 require_once('phing/util/properties/PropertyExpansionHelper.php');
 
 /**
@@ -116,9 +117,11 @@ class Project {
     function __construct() {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
-        $this->properties = new PropertySetImpl();
+         
         $this->inheritedProperties = new PropertySetImpl();
         $this->userProperties = new PropertySetImpl();
+        
+        $this->properties = new PropertySetImpl();
         $this->propertyExpansionHelper = new PropertyExpansionHelper($this->properties);
     }
 
@@ -290,10 +293,10 @@ class Project {
      *         or if a <code>null</code> name is provided.
      */
     public function getProperty($name) {
-        if (!isset($this->propertyExpansionHelper[$name])) {
+        if (!isset($this->properties[$name])) {
             return null;
         }
-        return $this->propertyExpansionHelper[$name];
+        return $this->propertyExpansionHelper->expand($this->properties[$name]);
     }
     
     /**
@@ -304,7 +307,7 @@ class Project {
      *         (including user properties).
      */
     public function getProperties() {
-        return $this->propertyExpansionHelper;
+        return new PropertyExpansionWrapper($this->properties);
     }
 
     /**
