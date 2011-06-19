@@ -31,7 +31,8 @@ include_once 'phing/types/DataType.php';
  * @package  phing.types
  */
 class PatternSet extends DataType {
-
+	protected $creators = array();
+	
     private $includeList = array();
     private $excludeList = array();
     private $includesFileList = array();
@@ -58,10 +59,10 @@ class PatternSet extends DataType {
     * @throws BuildException
     */
     function createInclude() {
-        if ($this->isReference()) {
+        if ($this->isReference()) 
             throw $this->noChildrenAllowed();
-        }
-        return $this->addPatternToList($this->includeList);
+
+		return $this->creator($this->includeList);
     }
 
 
@@ -72,10 +73,10 @@ class PatternSet extends DataType {
     * @throws BuildException
     */
     function createIncludesFile() {
-        if ($this->isReference()) {
+        if ($this->isReference())
             throw $this->noChildrenAllowed();
-        }
-        return $this->addPatternToList($this->includesFileList);
+
+		return $this->creator($this->includesFileList);
     }
 
     /**
@@ -85,10 +86,10 @@ class PatternSet extends DataType {
     * @throws BuildException
     */
     function createExclude() {
-        if ($this->isReference()) {
+        if ($this->isReference())
             throw $this->noChildrenAllowed();
-        }
-        return $this->addPatternToList($this->excludeList);
+        
+        return $this->creator($this->excludeList);
     }
 
     /**
@@ -98,11 +99,10 @@ class PatternSet extends DataType {
      * @throws BuildException
      */
     function createExcludesFile() {
-        if ($this->isReference()) {
+        if ($this->isReference()) 
             throw $this->noChildrenAllowed();
-            return;
-        }
-        return $this->addPatternToList($this->excludesFileList);
+
+		return $this->creator($this->excludesFileList);
     }
 
 
@@ -115,19 +115,11 @@ class PatternSet extends DataType {
      * @throws BuildException
      */
     function setIncludes($includes) {
-        if ($this->isReference()) {
+		if ($this->isReference()) 
             throw $this->tooManyAttributes();
-        }
-        if ($includes !== null && strlen($includes) > 0) {
-            $tok = strtok($includes, ", ");
-            while ($tok !== false) {
-                $o = $this->createInclude();
-                $o->setName($tok);
-                $tok = strtok(", ");
-            }
-        }
+    	
+    	$this->createInclude()->setName($includes);
     }
-
 
     /**
      * Sets the set of exclude patterns. Patterns may be separated by a comma
@@ -138,17 +130,10 @@ class PatternSet extends DataType {
      * @throws BuildException
      */
     function setExcludes($excludes) {
-        if ($this->isReference()) {
+		if ($this->isReference()) 
             throw $this->tooManyAttributes();
-        }
-        if ($excludes !== null && strlen($excludes) > 0) {
-            $tok = strtok($excludes, ", ");
-            while ($tok !== false) {
-                $o = $this->createExclude();
-                $o->setName($tok);
-                $tok = strtok(", ");
-            }
-        }
+    	
+    	$this->createExclude()->setName($excludes);
     }
 
     /**
@@ -157,9 +142,10 @@ class PatternSet extends DataType {
      * @param  array List onto which the nameentry should be added
      * @return PatternSetNameEntry  Reference to the created PsetNameEntry instance
      */
-    private function addPatternToList(&$list) {
-        $num = array_push($list, new PatternSetNameEntry());
-        return $list[$num-1];
+    private function creator(&$list) {
+    	$c = new PatternSetNameEntryCreator($list);
+    	$this->creators[] = $c;
+    	return $c;
     }
 
     /**
@@ -167,15 +153,14 @@ class PatternSet extends DataType {
      *
      * @param includesFile The file to fetch the include patterns from.
      */
-    function setIncludesFile($includesFile) {
-        if ($this->isReference()) {
+    function setIncludesFile($file) {
+        if ($this->isReference()) 
             throw $this->tooManyAttributes();
-        }
-        if ($includesFile instanceof File) {
-            $includesFile = $includesFile->getPath();
-        }
-        $o = $this->createIncludesFile();
-        $o->setName($includesFile);
+
+		if ($file instanceof File) 
+            $file = $file->getPath();
+
+		$this->createIncludesFiles()->setName($file);
     }
 
     /**
@@ -183,17 +168,15 @@ class PatternSet extends DataType {
      *
      * @param excludesFile The file to fetch the exclude patterns from.
      */
-    function setExcludesFile($excludesFile) {
-        if ($this->isReference()) {
+    function setExcludesFile($file) {
+		if ($this->isReference()) 
             throw $this->tooManyAttributes();
-        }
-        if ($excludesFile instanceof File) {
-            $excludesFile = $excludesFile->getPath();
-        }
-        $o = $this->createExcludesFile();
-        $o->setName($excludesFile);
-    }
 
+		if ($file instanceof File) 
+            $file = $file->getPath();
+
+		$this->createExcludesFile()->setName($file);
+    }
 
     /**
      *  Reads path matching patterns from a file and adds them to the
@@ -255,6 +238,7 @@ class PatternSet extends DataType {
             $o = $this->getRef($p);
             return $o->getIncludePatterns($p);
         } else {
+        	$this->applyCreators();
             $this->readFiles($p);
             return $this->makeArray($this->includeList, $p);
         }
@@ -266,6 +250,7 @@ class PatternSet extends DataType {
             $o = $this->getRef($p);
             return $o->getExcludePatterns($p);
         } else {
+        	$this->applyCreators();
             $this->readFiles($p);
             return $this->makeArray($this->excludeList, $p);
         }
@@ -273,6 +258,7 @@ class PatternSet extends DataType {
 
     /** helper for FileSet. */
     function hasPatterns() {
+    	$this->applyCreators();
         return (boolean) count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
         || count($this->includeList) > 0 || count($this->excludeList) > 0;
     }
@@ -313,6 +299,15 @@ class PatternSet extends DataType {
         return $tmpNames;
     }
 
+    protected function applyCreators() {
+    	/* We could use DataType::parsingComplete() for this, however I'm not 
+    	 * sure whether there are any clients directly using PatternSet (withour
+    	 * going through a SAX parser) and so they might not make this call.
+    	 */ 
+    	while ($c = array_shift($this->creators))
+    		$c->apply();
+    }
+    
     /** Read includesfile or excludesfile if not already done so. */
     private function readFiles(Project $p) {
         if (!empty($this->includesFileList)) {
@@ -347,7 +342,8 @@ class PatternSet extends DataType {
 
 
     function toString() {
-
+		$this->applyCreators();
+		
         // We can't compile includeList into array because, toString() does
         // not know about project:
         //
@@ -378,6 +374,31 @@ class PatternSet extends DataType {
     }
 }
 
+class PatternSetNameEntryCreator {
+	protected $target;
+	protected $name, $ifCond, $unlessCond;
+	
+	public function __construct(&$target) { $this->target =& $target; }
+	public function setName($name) { $this->name = $name; }
+	public function setIf($cond) { $this->ifCond = $cond; }
+	public function setUnless($cond) { $this->unlessCond = $cond; }
+
+	public function apply() {
+		foreach (explode(",", $this->name) as $n) {
+			$n = trim($n); 
+			if (!$n) continue;
+			$this->target[] = $this->create($n);
+		}
+	}
+
+	protected function create($name) {
+		$c = new PatternSetNameEntry();
+		if ($name !== null) $c->setName($name);
+		if ($this->ifCond !== null) $c->setIf($this->ifCond);
+		if ($this->unlessCond !== null) $c->setUnless($this->unlessCond);
+		return $c;
+	}
+}
 
 /**
  * "Internal" class for holding an include/exclude pattern.
@@ -461,7 +482,7 @@ class PatternSetNameEntry {
      * @param Project $project
      * @return boolean
      */
-    public function valid(Project $project) {
+    protected function valid(Project $project) {
         if ($this->ifCond !== null && $project->getProperty($this->ifCond) === null) {
             return false;
         } else if ($this->unlessCond !== null && $project->getProperty($this->unlessCond) !== null) {
