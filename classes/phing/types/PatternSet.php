@@ -35,8 +35,6 @@ class PatternSet extends DataType {
 	
     private $includeList = array();
     private $excludeList = array();
-    private $includesFileList = array();
-    private $excludesFileList = array();
 
     /**
      * Makes this instance in effect a reference to another PatternSet
@@ -62,7 +60,7 @@ class PatternSet extends DataType {
         if ($this->isReference()) 
             throw $this->noChildrenAllowed();
 
-		return $this->creator($this->includeList);
+		return $this->creatorValue($this->includeList);
     }
 
 
@@ -76,7 +74,7 @@ class PatternSet extends DataType {
         if ($this->isReference())
             throw $this->noChildrenAllowed();
 
-		return $this->creator($this->includesFileList);
+		return $this->creatorFile($this->includeList);
     }
 
     /**
@@ -89,7 +87,7 @@ class PatternSet extends DataType {
         if ($this->isReference())
             throw $this->noChildrenAllowed();
         
-        return $this->creator($this->excludeList);
+        return $this->creatorValue($this->excludeList);
     }
 
     /**
@@ -102,7 +100,7 @@ class PatternSet extends DataType {
         if ($this->isReference()) 
             throw $this->noChildrenAllowed();
 
-		return $this->creator($this->excludesFileList);
+		return $this->creatorFile($this->excludeList);
     }
 
 
@@ -142,12 +140,18 @@ class PatternSet extends DataType {
      * @param  array List onto which the nameentry should be added
      * @return PatternSetNameEntry  Reference to the created PsetNameEntry instance
      */
-    private function creator(&$list) {
-    	$c = new PatternSetNameEntryCreator($list);
+    protected function creatorValue(&$list) {
+    	$c = new PatternSetNameEntryValueCreator($list);
     	$this->creators[] = $c;
     	return $c;
     }
 
+    protected function creatorFile(&$list) {
+    	$c = new PatternSetNameEntryFileCreator($list, $this->project);
+    	$this->creators[] = $c;
+    	return $c;
+    }
+    
     /**
      * Sets the name of the file containing the includes patterns.
      *
@@ -157,10 +161,7 @@ class PatternSet extends DataType {
         if ($this->isReference()) 
             throw $this->tooManyAttributes();
 
-		if ($file instanceof File) 
-            $file = $file->getPath();
-
-		$this->createIncludesFiles()->setName($file);
+		$this->createIncludesFile()->setName($file);
     }
 
     /**
@@ -172,45 +173,12 @@ class PatternSet extends DataType {
 		if ($this->isReference()) 
             throw $this->tooManyAttributes();
 
-		if ($file instanceof File) 
-            $file = $file->getPath();
-
 		$this->createExcludesFile()->setName($file);
     }
 
-    /**
-     *  Reads path matching patterns from a file and adds them to the
-     *  includes or excludes list
-     */
-    private function readPatterns(PhingFile $patternfile, &$patternlist, Project $p) {
-        $patternReader = null;
-        try {
-            // Get a FileReader
-            $patternReader = new BufferedReader(new FileReader($patternfile));
-
-            // Create one NameEntry in the appropriate pattern list for each
-            // line in the file.
-            $line = $patternReader->readLine();
-            while ($line !== null) {
-                if (!empty($line)) {
-                    $line = $p->replaceProperties($line);
-                    $this->addPatternToList($patternlist)->setName($line);
-                }
-                $line = $patternReader->readLine();
-            }
-
-        } catch (IOException $ioe)  {
-            $msg = "An error occured while reading from pattern file: " . $patternfile->__toString();
-            if($patternReader) $patternReader->close();
-            throw new BuildException($msg, $ioe);
-        }
-
-        $patternReader->close();
-    }
-
-
     /** Adds the patterns of the other instance to this set. */
     function append($other, $p) {
+    	// FIXME - if/unless-Conditions not copied?
         if ($this->isReference()) {
             throw new BuildException("Cannot append to a reference");
         }
@@ -239,7 +207,6 @@ class PatternSet extends DataType {
             return $o->getIncludePatterns($p);
         } else {
         	$this->applyCreators();
-            $this->readFiles($p);
             return $this->makeArray($this->includeList, $p);
         }
     }
@@ -251,7 +218,6 @@ class PatternSet extends DataType {
             return $o->getExcludePatterns($p);
         } else {
         	$this->applyCreators();
-            $this->readFiles($p);
             return $this->makeArray($this->excludeList, $p);
         }
     }
@@ -259,8 +225,7 @@ class PatternSet extends DataType {
     /** helper for FileSet. */
     function hasPatterns() {
     	$this->applyCreators();
-        return (boolean) count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
-        || count($this->includeList) > 0 || count($this->excludeList) > 0;
+        return count($this->includeList) > 0 || count($this->excludeList) > 0;
     }
 
     /**
@@ -308,88 +273,31 @@ class PatternSet extends DataType {
     		$c->apply();
     }
     
-    /** Read includesfile or excludesfile if not already done so. */
-    private function readFiles(Project $p) {
-        if (!empty($this->includesFileList)) {
-            foreach($this->includesFileList as $ne) {
-                $fileName = (string) $ne->evalName($p);
-                if ($fileName !== null) {
-                    $inclFile = $p->resolveFile($fileName);
-                    if (!$inclFile->exists()) {
-                        throw new BuildException("Includesfile ".$inclFile->getAbsolutePath()." not found.");
-                    }
-                    $this->readPatterns($inclFile, $this->includeList, $p);
-                }
-            }
-            $this->includesFileList = array();
-        }
-
-        if (!empty($this->excludesFileList)) {
-            foreach($this->excludesFileList as $ne) {
-                $fileName = (string) $ne->evalName($p);
-                if ($fileName !== null) {
-                    $exclFile = $p->resolveFile($fileName);
-                    if (!$exclFile->exists()) {
-                        throw new BuildException("Excludesfile ".$exclFile->getAbsolutePath()." not found.");
-                        return;
-                    }
-                    $this->readPatterns($exclFile, $this->excludeList, $p);
-                }
-            }
-            $this->excludesFileList = array();
-        }
-    }
-
-
+    public function __toString() { return $this->toString(); }
+    
     function toString() {
 		$this->applyCreators();
 		
-        // We can't compile includeList into array because, toString() does
-        // not know about project:
-        //
-        // $includes = $this->makeArray($this->includeList, $this->project);
-        // $excludes = $this->makeArray($this->excludeList, $this->project);
-
-        if (empty($this->includeList)) {
-            $includes = "empty";
-        } else {
-            $includes = "";
-            foreach($this->includeList as $ne) {
-                $includes .= $ne->toString() . ",";
-            }
-            $includes = rtrim($includes, ",");
-        }
-
-        if (empty($this->excludeList)) {
-            $excludes = "empty";
-        } else {
-            $excludes = "";
-            foreach($this->excludeList as $ne) {
-                $excludes .= $ne->toString() . ",";
-            }
-            $excludes = rtrim($excludes, ",");
-        }
-
-        return "patternSet{ includes: $includes  excludes: $excludes }";
+		$includes = implode(", ", $this->includeList);
+		$excludes = implode(", ", $this->excludeList);
+		
+        return "patternSet{ 
+        	includes: { $includes }
+        	excludes: { $excludes }
+        }";
     }
 }
 
-class PatternSetNameEntryCreator {
+abstract class PatternSetNameEntryCreatorBase {
 	protected $target;
 	protected $name, $ifCond, $unlessCond;
 	
 	public function __construct(&$target) { $this->target =& $target; }
-	public function setName($name) { $this->name = $name; }
-	public function setIf($cond) { $this->ifCond = $cond; }
-	public function setUnless($cond) { $this->unlessCond = $cond; }
+	public function setName($name) { $this->name = $name; return $this; }
+	public function setIf($cond) { $this->ifCond = $cond; return $this; }
+	public function setUnless($cond) { $this->unlessCond = $cond; return $this; }
 
-	public function apply() {
-		foreach (explode(",", $this->name) as $n) {
-			$n = trim($n); 
-			if (!$n) continue;
-			$this->target[] = $this->create($n);
-		}
-	}
+	abstract public function apply();
 
 	protected function create($name) {
 		$c = new PatternSetNameEntry();
@@ -399,6 +307,66 @@ class PatternSetNameEntryCreator {
 		return $c;
 	}
 }
+
+class PatternSetNameEntryValueCreator extends PatternSetNameEntryCreatorBase {
+	public function apply() {
+		foreach (explode(",", $this->name) as $n) {
+			$n = trim($n); 
+			if (!$n) continue;
+			$this->target[] = $this->create($n);
+		}
+	}
+}
+
+class PatternSetNameEntryFileCreator extends PatternSetNameEntryCreatorBase {
+	protected $project;
+	
+	public function __construct(&$target, Project $p) {
+		parent::__construct($target);
+		$this->project = $p;
+	}
+	
+	public function setName($n) {
+		if ($n instanceof File) $n = $n->getPath();
+		parent::setName($n);
+	}
+	
+	public function apply() {
+		$f = $this->project->resolveFile($this->name);
+		
+		if (!$f->exists()) {
+			$this->project->log('Pattern file ' . $f->getAbsolutePath() . ' not found.', Project::MSG_WARN);
+			return;
+		}
+
+		$patternReader = null;
+        try {
+            // Get a FileReader
+            $patternReader = new BufferedReader(new FileReader($f));
+
+            // Create one NameEntry in the appropriate pattern list for each
+            // line in the file.
+            for(
+            	$line = $patternReader->readLine();
+            	$line !== null;
+            	$line = $patternReader->readLine()
+            ) {
+            	if (!($line = trim($line))) continue;
+				$line = $this->project->replaceProperties($line);
+                $this->target[] = $this->create($line);
+            }
+
+        } catch (IOException $ioe)  {
+            $msg = "An error occured while reading from pattern file: " . $f->__toString();
+            if ($patternReader) $patternReader->close();
+            throw new BuildException($msg, $ioe);
+        }
+
+        $patternReader->close();
+	}
+	
+}
+
 
 /**
  * "Internal" class for holding an include/exclude pattern.
@@ -431,7 +399,7 @@ class PatternSetNameEntry {
      * @param string $pattern
      */
     public function setPattern($pattern) {
-        $this->setName($pattern);
+        return $this->setName($pattern);
     }
 
     /**
@@ -440,6 +408,7 @@ class PatternSetNameEntry {
      */
     public function setName($name) {
         $this->name = (string) $name;
+        return $this;
     }
 
     /**
@@ -448,6 +417,7 @@ class PatternSetNameEntry {
      */
     public function setIf($cond) {
         $this->ifCond = (string) $cond;
+        return $this;
     }
 
 
@@ -457,6 +427,7 @@ class PatternSetNameEntry {
      */
     public function setUnless($cond) {
         $this->unlessCond = (string) $cond;
+        return $this;
     }
 
     /**
@@ -490,6 +461,8 @@ class PatternSetNameEntry {
         }
         return true;
     }
+    
+    public function __toString() { return $this->toString(); }
 
     /**
      * Gets a string representation of this pattern.
