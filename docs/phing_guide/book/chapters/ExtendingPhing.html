@@ -465,7 +465,7 @@ class MyEchoTask extends Task {
 		common well formed structure:</p>
 
 	<ul>
-		<li>Package imports to import all required packages</li>
+		<li>Include/require statements to import all required classes</li>
 		<li>The class declaration and definition</li>
 		<li>The class's properties</li>
 		<li>The class's constructor</li>
@@ -477,21 +477,14 @@ class MyEchoTask extends Task {
 	</ul>
 
 	<h3>
-		<a name="PackageImports"></a>Package Imports
+		<a name="Includes"></a>Includes
 	</h3>
 
 	<p>
-		Always import all the packages/files needed for this task in full
-		written notation. Furthermore you should always import <em>phing.Task</em>
-		at the very top of your <em>import</em> block. Then import all other
-		required system or proprietary packages. Import works quite similar to
-		PHP's native <em>include_once</em> but with some Java-stylish
-		additions providing a file system independent notation.
-	</p>
-
-	<p>For a more in-depth explanation of the used package mechanism
-		and the package support API reference, see [package support] For a
-		list of stock packages provided with Phing, see [package list].</p>
+		Always include/require all the classes needed for this task in full
+		written notation. Furthermore you should always include <em>phing/Task.php</em>
+		at the very top of your include block. Then include all other
+		required system or proprietary classes.</p>
 
 	<h3>
 		<a name="ClassDeclaration"></a>Class Declaration
@@ -571,14 +564,14 @@ class MyEchoTask extends Task {
 
 	<p>For each attribute you want to import to the task's namespace
 		you have to define a method named exactly after the very attribute
-		plus the string "Set" prepended. This method accepts exactly one
-		parameter that holds the value of the attribute. No you can set the
-		value an class internal property to the value incoming via the setter
+		plus the string "set" prepended. This method accepts exactly one
+		parameter that holds the value of the attribute. Now you can set the
+		a class internal property to the value that is passed via the setter
 		method.</p>
 
 	<p>
-		In out example the setter is named <em>SetMessage</em> , because the
-		XML attribute the echo task accepts is "message". SetMessage now takes
+		In out example the setter is named <em>setMessage</em> , because the
+		XML attribute the echo task accepts is "message". setMessage now takes
 		the string "Hello World" provided by the parser and sets the value of
 		the internal class property <em>$strMessage</em> to "Hello World". It
 		is now available to the task for further disposal.
@@ -639,21 +632,6 @@ class MyEchoTask extends Task {
     // definition
 }
 </pre>
-
-	<p>More reading on this particular topic can be sound in See Naming
-		And Coding Standards.</p>
-
-	<h3>
-		<a name="Summary"></a>Summary
-	</h3>
-
-	<p>You now have learned how to create and use a task. However we
-		guess there are much questions open concerning task development: "How
-		do I use filesets and mapper" or "How do I implement custom nested
-		tags in my task". Most of these concepts and the proper usage will be
-		clear if you continue reading this doc. Additionally you might check
-		out the appendices for the advanced examples (See Advanced Task
-		Example).</p>
 
 	<h2>
 		<a name="WritingTypes"></a>Writing Types

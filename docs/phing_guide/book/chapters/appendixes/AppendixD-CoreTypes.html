@@ -91,8 +91,8 @@
 	</h2>
 
 	<p>
-		Filesets offer a easy and straigtforward way to include files. You can
-		include/exclude files in/from a fileset using the <em>&lt;include&gt;</em>/<em>&lt;exclude&gt;</em>
+		FileSets offer an easy and straightforward way to include files. The tag supports <a href="AppendixD4-CoreSelectors.html">Selectors</a> and <a href="#PatternSet">PatternSets</a>.
+		Additionally, you can include/exclude files in/from a fileset using the <em>&lt;include&gt;</em>/<em>&lt;exclude&gt;</em>
 		tags. </p>
 	<p>
 		In patterns, one asterisk (<strong>*</strong>) maps to a part of
@@ -126,6 +126,13 @@
 	<pre>&lt;fileset dir=&quot;/etc&quot; &gt;
   &lt;include name=&quot;httpd/**&quot; /&gt;
   &lt;include name=&quot;php.ini&quot; /&gt;
+&lt;/fileset&gt;
+
+&lt;fileset dir=&quot;/etc&quot; &gt;
+  &lt;patternset&gt;
+    &lt;include name=&quot;**/*.php&quot;/&gt;
+    &lt;exclude name=&quot;**/*Test*&quot;/&gt;
+  &lt;/patternset&gt;
 &lt;/fileset&gt;
 </pre>
 	<p>
@@ -180,13 +187,108 @@
 				<td>False</td>
 				<td>No</td>
 			</tr>
+			<tr>
+			    <td>includes</td>
+			    <td>String</td>
+			    <td>Comma- or space-separated list of patterns of files that must be included; all files are included when omitted.</td>
+			    <td>n/a</td>
+			    <td>No</td>
+			</tr>
+            <tr>
+                <td>includesfile</td>
+                <td>String</td>
+                <td>The name of a file; each line of this file is taken to be an include pattern.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>excludes</td>
+                <td>String</td>
+                <td>comma- or space-separated list of patterns of files that must be excluded; no files (except default excludes) are excluded when omitted.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>excludesfile</td>
+                <td>String</td>
+                <td>The name of a file; each line of this file is taken to be an exclude pattern.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
 		</tbody>
 	</table>
+    <h3>Nested Tags</h3>
 	<p>
-		The only tags that are supported by <em>Fileset</em> are the <em>&lt;include&gt;</em>
-		and the <em>&lt;exclude&gt;</em> tags. These tags must have a <em>name</em>
+		The tags that are supported by <em>Fileset</em> are <em>&lt;include&gt;</em>,
+		<em>&lt;exclude&gt;</em> and <em>&lt;patternset&gt;</em>. The <em>&lt;include&gt;</em>
+        and the <em>&lt;exclude&gt;</em> tags tags must have a <em>name</em>
 		attribute that contains the pattern to include/exclude.
 	</p>
+
+    <h2>
+        <a name="PatternSet"></a>PatternSet
+    </h2>
+    <p>The PatternSet data type defines patterns that can be grouped into sets and nested into <a href="#FileSet">FileSets</a>. Patterns can be specified by nested &lt;include&gt; or &lt;exclude&gt; elements.</p>
+    
+    <h3>Usage Example</h3>
+    <pre>&lt;patternset id=&quot;no.tests&quot;&gt;
+  &lt;include name=&quot;**/*.php&quot;/&gt;
+  &lt;exclude name=&quot;**/*Test*&quot;/&gt;
+&lt;/patternset&gt;
+</pre>
+    <h3>Attributes</h3>
+    <table>
+        <caption>
+            Attributes for <em>&lt;patternset&gt;</em> tag
+        </caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Default</th>
+                <th>Required</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>includes</td>
+                <td>String</td>
+                <td>Comma- or space-separated list of patterns of files that must be included; all files are included when omitted.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>includesfile</td>
+                <td>String</td>
+                <td>The name of a file; each line of this file is taken to be an include pattern.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>excludes</td>
+                <td>String</td>
+                <td>comma- or space-separated list of patterns of files that must be excluded; no files (except default excludes) are excluded when omitted.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>excludesfile</td>
+                <td>String</td>
+                <td>The name of a file; each line of this file is taken to be an exclude pattern.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Nested Tags</h3>
+    <p>
+        The <em>&lt;patternset&gt;</em> tag only supports <em>&lt;include&gt;</em> and
+        <em>&lt;exclude&gt;</em>. The <em>&lt;include&gt;</em>
+        and the <em>&lt;exclude&gt;</em> tags tags must have a <em>name</em>
+        attribute that contains the pattern to include/exclude.
+    </p>
+
 	<h2>
 		<a name="Path"></a>Path / Classpath
 	</h2>
@@ -202,6 +304,7 @@
   &lt;taskdef name=&quot;mytask&quot; path=&quot;myapp.phing.tasks.MyTask&quot;&gt;
     &lt;classpath refid=&quot;project.class.path&quot;/&gt;
   &lt;/taskdef&gt;<br />&lt;/target&gt;</pre>
+    <h3>Attributes</h3>
 	<table>
 		<caption>
 			Attributes for <em>&lt;path&gt;</em> tag

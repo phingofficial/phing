@@ -33,6 +33,12 @@ class MkdirTask extends Task {
 
     /** directory to create*/
     private $dir;
+    
+    /**
+     * Mode to create directory with
+     * @var integer
+     */
+    private $mode = 0755;
 
     /**
      * create the directory and all parents
@@ -47,7 +53,7 @@ class MkdirTask extends Task {
             throw new BuildException("Unable to create directory as a file already exists with that name: " . $this->dir->getAbsolutePath());
         }
         if (!$this->dir->exists()) {
-            $result = $this->dir->mkdirs();
+            $result = $this->dir->mkdirs($this->mode);
             if (!$result) {
                 $msg = "Directory " . $this->dir->getAbsolutePath() . " creation was not successful for an unknown reason";
                 throw new BuildException($msg, $this->location);
@@ -59,6 +65,15 @@ class MkdirTask extends Task {
     /** the directory to create; required. */
     function setDir(PhingFile $dir) {
         $this->dir = $dir;
+    }
+    
+    /**
+     * Sets mode to create directory with
+     * @param mixed $mode
+     */
+    function setMode($mode)
+    {
+        $this->mode = $mode;
     }
 
 }
