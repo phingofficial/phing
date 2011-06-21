@@ -103,7 +103,7 @@ class PhpLintTask extends Task {
     }
 
     /**
-     * Whether to store last-modified times in cache
+     * File to save error messages to
      *
      * @param PhingFile $file
      */
