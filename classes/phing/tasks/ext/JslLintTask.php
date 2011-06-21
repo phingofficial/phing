@@ -18,21 +18,21 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-  
+
 require_once 'phing/Task.php';
 require_once 'phing/util/DataStore.php';
 
-  /**
-  * A Javascript lint task. Checks syntax of Javascript files.
-  * Javascript lint (http://www.javascriptlint.com) must be in the system path.
-  * This class is based on Knut Urdalen's PhpLintTask.
-  *
-  * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
-  * @version $Id$
-  * @package phing.tasks.ext
-  */
-  class JslLintTask extends Task
-  {
+/**
+ * A Javascript lint task. Checks syntax of Javascript files.
+ * Javascript lint (http://www.javascriptlint.com) must be in the system path.
+ * This class is based on Knut Urdalen's PhpLintTask.
+ *
+ * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
+ * @version $Id$
+ * @package phing.tasks.ext
+ */
+class JslLintTask extends Task
+{
     protected $file;  // the source file (from xml attribute)
     protected $filesets = array(); // all fileset objects assigned to this task
 
@@ -40,10 +40,10 @@ require_once 'phing/util/DataStore.php';
     protected $haltOnFailure = false;
     protected $hasErrors = false;
     private $badFiles = array();
-    
+
     private $cache = null;
     private $conf = null;
-    
+
     private $executable = "jsl";
 
     /**
@@ -51,7 +51,7 @@ require_once 'phing/util/DataStore.php';
      * @param boolean $show
      */
     public function setShowWarnings($show) {
-      $this->showWarnings = StringHelper::booleanValue($show);
+        $this->showWarnings = StringHelper::booleanValue($show);
     }
 
     /**
@@ -59,17 +59,17 @@ require_once 'phing/util/DataStore.php';
      * @param boolean $aValue
      */
     public function setHaltOnFailure($aValue) {
-      $this->haltOnFailure = $aValue;
+        $this->haltOnFailure = $aValue;
     }
-  
+
     /**
      * File to be performed syntax check on
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file) {
-      $this->file = $file;
+        $this->file = $file;
     }
-    
+
     /**
      * Whether to store last-modified times in cache
      *
@@ -77,7 +77,7 @@ require_once 'phing/util/DataStore.php';
      */
     public function setCacheFile(PhingFile $file)
     {
-      $this->cache = new DataStore($file);
+        $this->cache = new DataStore($file);
     }
 
     /**
@@ -87,13 +87,13 @@ require_once 'phing/util/DataStore.php';
      */
     public function setConfFile(PhingFile $file)
     {
-      $this->conf = $file;
+        $this->conf = $file;
     }
-    
+
     public function setExecutable($path){
         $this->executable = $path;
     }
-   
+     
     public function getExecutable(){
         return $this->executable;
     }
@@ -104,38 +104,38 @@ require_once 'phing/util/DataStore.php';
      * @return FileSet The created fileset object
      */
     public function createFileSet() {
-      $num = array_push($this->filesets, new FileSet());
-      return $this->filesets[$num-1];
+        $num = array_push($this->filesets, new FileSet());
+        return $this->filesets[$num-1];
     }
-  
+
     /**
      * Execute lint check against PhingFile or a FileSet
      */
     public function main() {
-      if(!isset($this->file) and count($this->filesets) == 0) {
-        throw new BuildException("Missing either a nested fileset or attribute 'file' set");
-      }
-  
-      exec($this->executable, $output);
-      if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
-    
-      if($this->file instanceof PhingFile) {
-        $this->lint($this->file->getPath());
-      } else { // process filesets
-        $project = $this->getProject();
-        foreach($this->filesets as $fs) {
-          $ds = $fs->getDirectoryScanner($project);
-          $files = $ds->getIncludedFiles();
-          $dir = $fs->getDir($this->project)->getPath();
-          foreach($files as $file) {
-            $this->lint($dir.DIRECTORY_SEPARATOR.$file);
-          }
+        if(!isset($this->file) and count($this->filesets) == 0) {
+            throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
-      }
-  
-      if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in JS files:' .implode(', ',$this->badFiles));
+
+        exec($this->executable, $output);
+        if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
+
+        if($this->file instanceof PhingFile) {
+            $this->lint($this->file->getPath());
+        } else { // process filesets
+            $project = $this->getProject();
+            foreach($this->filesets as $fs) {
+                $ds = $fs->getDirectoryScanner($project);
+                $files = $ds->getIncludedFiles();
+                $dir = $fs->getDir($this->project)->getPath();
+                foreach($files as $file) {
+                    $this->lint($dir.DIRECTORY_SEPARATOR.$file);
+                }
+            }
+        }
+
+        if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in JS files:' .implode(', ',$this->badFiles));
     }
-  
+
     /**
      * Performs the actual syntax check
      *
@@ -144,99 +144,99 @@ require_once 'phing/util/DataStore.php';
      */
     protected function lint($file)
     {
-      $command = $this->executable . ' -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' ';
+        $command = $this->executable . ' -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' ';
 
-      if (isset($this->conf)) {
-          $command .= '-conf ' . escapeshellarg($this->conf->getPath()) . ' ';
-      }
-
-      $command .= '-process ';
-
-      if(file_exists($file))
-      {
-        if(is_readable($file))
-        {
-          if ($this->cache)
-          {
-            $lastmtime = $this->cache->get($file);
-
-            if ($lastmtime >= filemtime($file))
-            {
-              $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
-              return false;
-            }
-          }
-
-          $messages = array();
-          exec($command.'"'.$file.'"', $messages);
-
-          $summary = $messages[sizeof($messages) - 1];
-
-          preg_match('/(\d+)\serror/', $summary, $matches);
-          $errorCount = $matches[1];
-          
-          preg_match('/(\d+)\swarning/', $summary, $matches);
-          $warningCount = $matches[1];
-
-          $errors = array();
-          $warnings = array();
-          if ($errorCount > 0 || $warningCount > 0) {
-            $last = false;
-            foreach ($messages as $message) {
-              $matches = array();
-              if (preg_match('/^(\.*)\^$/', $message)) {
-                $column = strlen($message);
-                if ($last == 'error') {
-                  $errors[count($errors) - 1]['column'] = $column;
-                } else if ($last == 'warning') {
-                  $warnings[count($warnings) - 1]['column'] = $column;
-                }
-                $last = false;
-              }
-              if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', $message, $matches)) continue;
-              $msg = $matches[3];
-              $data = array('filename' => $matches[1], 'line' => $matches[2], 'message' => $msg);
-              if (preg_match('/^.*error:.+$/i', $msg)) {
-                $errors[] = $data;
-                $last = 'error';
-              } else if (preg_match('/^.*warning:.+$/i', $msg)) {
-                $warnings[] = $data;
-                $last = 'warning';
-              }
-            }
-          }
-
-          if($this->showWarnings && $warningCount > 0)
-          {
-            $this->log($file . ': ' . $warningCount . ' warnings detected', Project::MSG_WARN);
-            foreach ($warnings as $warning) {
-              $this->log('- line ' . $warning['line'] . (isset($warning['column']) ? ' column ' . $warning['column'] : '') . ': ' . $warning['message'], Project::MSG_WARN);
-            }
-          }
-            
-          if($errorCount > 0)
-          {
-            $this->log($file . ': ' . $errorCount . ' errors detected', Project::MSG_ERR);
-            foreach ($errors as $error) {
-              $this->log('- line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'], Project::MSG_ERR);
-            }
-            $this->badFiles[] = $file;
-            $this->hasErrors = true;
-          } else if (!$this->showWarnings || $warningCount == 0) {
-            $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
-            
-            if ($this->cache)
-            {
-              $this->cache->put($file, filemtime($file));
-            }
-          }
-        } else {
-          throw new BuildException('Permission denied: '.$file);
+        if (isset($this->conf)) {
+            $command .= '-conf ' . escapeshellarg($this->conf->getPath()) . ' ';
         }
-      } else {
-        throw new BuildException('File not found: '.$file);
-      }
+
+        $command .= '-process ';
+
+        if(file_exists($file))
+        {
+            if(is_readable($file))
+            {
+                if ($this->cache)
+                {
+                    $lastmtime = $this->cache->get($file);
+
+                    if ($lastmtime >= filemtime($file))
+                    {
+                        $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
+                        return false;
+                    }
+                }
+
+                $messages = array();
+                exec($command.'"'.$file.'"', $messages);
+
+                $summary = $messages[sizeof($messages) - 1];
+
+                preg_match('/(\d+)\serror/', $summary, $matches);
+                $errorCount = $matches[1];
+
+                preg_match('/(\d+)\swarning/', $summary, $matches);
+                $warningCount = $matches[1];
+
+                $errors = array();
+                $warnings = array();
+                if ($errorCount > 0 || $warningCount > 0) {
+                    $last = false;
+                    foreach ($messages as $message) {
+                        $matches = array();
+                        if (preg_match('/^(\.*)\^$/', $message)) {
+                            $column = strlen($message);
+                            if ($last == 'error') {
+                                $errors[count($errors) - 1]['column'] = $column;
+                            } else if ($last == 'warning') {
+                                $warnings[count($warnings) - 1]['column'] = $column;
+                            }
+                            $last = false;
+                        }
+                        if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', $message, $matches)) continue;
+                        $msg = $matches[3];
+                        $data = array('filename' => $matches[1], 'line' => $matches[2], 'message' => $msg);
+                        if (preg_match('/^.*error:.+$/i', $msg)) {
+                            $errors[] = $data;
+                            $last = 'error';
+                        } else if (preg_match('/^.*warning:.+$/i', $msg)) {
+                            $warnings[] = $data;
+                            $last = 'warning';
+                        }
+                    }
+                }
+
+                if($this->showWarnings && $warningCount > 0)
+                {
+                    $this->log($file . ': ' . $warningCount . ' warnings detected', Project::MSG_WARN);
+                    foreach ($warnings as $warning) {
+                        $this->log('- line ' . $warning['line'] . (isset($warning['column']) ? ' column ' . $warning['column'] : '') . ': ' . $warning['message'], Project::MSG_WARN);
+                    }
+                }
+
+                if($errorCount > 0)
+                {
+                    $this->log($file . ': ' . $errorCount . ' errors detected', Project::MSG_ERR);
+                    foreach ($errors as $error) {
+                        $this->log('- line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'], Project::MSG_ERR);
+                    }
+                    $this->badFiles[] = $file;
+                    $this->hasErrors = true;
+                } else if (!$this->showWarnings || $warningCount == 0) {
+                    $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
+
+                    if ($this->cache)
+                    {
+                        $this->cache->put($file, filemtime($file));
+                    }
+                }
+            } else {
+                throw new BuildException('Permission denied: '.$file);
+            }
+        } else {
+            throw new BuildException('File not found: '.$file);
+        }
     }
-  }
+}
 
 
