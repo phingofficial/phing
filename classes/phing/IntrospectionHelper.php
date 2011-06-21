@@ -312,7 +312,6 @@ class IntrospectionHelper {
                 // value is a string representation of a boolean type,
                 // convert it to primitive
                 if (StringHelper::isBoolean($value)) {
-
                     $value = StringHelper::booleanValue($value);
                 }
                 
@@ -322,7 +321,7 @@ class IntrospectionHelper {
 
                 $classname = null;
                 
-                if (($hint = $params[0]->getClass()) !== null) { 
+                if (($hint = $params[0]->getClass()) !== null) {
                     $classname = $hint->getName();    
                 }
                 
@@ -337,7 +336,9 @@ class IntrospectionHelper {
                             break;
                         case "reference":
                             $value = new Reference($value);
-                            break;            
+                            break;
+                        default:
+                        	throw new BuildException("Method {$method->name} in {$this->getElementName($project, $element)} expects its parameter to be of type $classname, but that is not supported.");
                         // any other object params we want to support should go here ...
                     }
                     
