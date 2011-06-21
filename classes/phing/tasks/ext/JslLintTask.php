@@ -45,6 +45,11 @@ class JslLintTask extends Task
     private $conf = null;
 
     private $executable = "jsl";
+    
+    /**
+     * @var PhingFile
+     */
+    protected $tofile = null;
 
     /**
      * Sets the flag if warnings should be shown
@@ -109,6 +114,16 @@ class JslLintTask extends Task
     }
 
     /**
+     * File to save error messages to
+     *
+     * @param PhingFile $file
+     */
+    public function setToFile(PhingFile $tofile)
+    {
+        $this->tofile = $tofile;
+    }
+
+    /**
      * Execute lint check against PhingFile or a FileSet
      */
     public function main() {
@@ -133,7 +148,20 @@ class JslLintTask extends Task
             }
         }
 
-        if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in JS files:' .implode(', ',$this->badFiles));
+        // write list of 'bad files' to file (if specified)
+        if ($this->tofile) {
+            $writer = new FileWriter($this->tofile);
+            
+            foreach ($this->badFiles as $file => $messages) {
+            	foreach ($messages as $msg) {
+                	$writer->write($file . "=" . $msg . PHP_EOL);
+            	}
+            }
+            
+            $writer->close();
+        }
+
+        if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in JS files:' .implode(', ', array_keys($this->badFiles)));
     }
 
     /**
@@ -217,10 +245,15 @@ class JslLintTask extends Task
                 if($errorCount > 0)
                 {
                     $this->log($file . ': ' . $errorCount . ' errors detected', Project::MSG_ERR);
-                    foreach ($errors as $error) {
-                        $this->log('- line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'], Project::MSG_ERR);
+                    if (!isset($this->badFiles[$file])) {
+                        $this->badFiles[$file] = array();
                     }
-                    $this->badFiles[] = $file;
+                        
+                    foreach ($errors as $error) {
+                        $message = 'line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'];
+                        $this->log('- ' . $message, Project::MSG_ERR);
+                        array_push($this->badFiles[$file], $message);
+                    }
                     $this->hasErrors = true;
                 } else if (!$this->showWarnings || $warningCount == 0) {
                     $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
