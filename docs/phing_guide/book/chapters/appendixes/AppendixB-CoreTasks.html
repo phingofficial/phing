@@ -1630,11 +1630,15 @@
 	</h2>
 	<p>
 		This task calls another build file. You may specify the target that is
-		to be called within the build file. Additionally, the
-		<code>&lt;phing&gt;</code>
-		Tag may contain
+		to be called within the build file.</p>
+		<p> Additionally, the
+		<code>&lt;phing&gt;</code> 
+		tag may contain
 		<code>&lt;property&gt;</code>
-		Tags (see <a href="#PropertyTask">PropertyTask</a>).
+		tags (see <a href="#PropertyTask">PropertyTask</a>) to set <em>user properties</em> for the
+		called buildfile. As user properties are also created when setting property values on the
+		command line during Phing invocation, the <code>&lt;phing&gt;</code> call and a direct
+		invocation of Phing on the command line behave the same way.
 	</p>
 	<h3>Example</h3>
 	<pre>&lt;-- Call target &quot;xslttest&quot; from buildfile &quot;alternativebuildfile.xml&quot; --&gt;
@@ -1713,6 +1717,7 @@
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>Fileset</li>
+		<li>Property</li>
 	</ul>
 
 	<h3>Base directory of the new project</h3>
