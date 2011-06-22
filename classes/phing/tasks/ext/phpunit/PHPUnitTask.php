@@ -146,12 +146,12 @@ class PHPUnitTask extends Task
     
     public function setHaltonerror($value)
     {
-        $this->haltonerror = $value;
+        $this->haltonerror = Boolean::cast($value);
     }
 
     public function setHaltonfailure($value)
     {
-        $this->haltonfailure = $value;
+        $this->haltonfailure = Boolean::cast($value);
     }
     
     public function getHaltonfailure()
@@ -161,7 +161,7 @@ class PHPUnitTask extends Task
 
     public function setHaltonincomplete($value)
     {
-        $this->haltonincomplete = $value;
+        $this->haltonincomplete = Boolean::cast($value);
     }
     
     public function getHaltonincomplete()
@@ -171,7 +171,7 @@ class PHPUnitTask extends Task
 
     public function setHaltonskipped($value)
     {
-        $this->haltonskipped = $value;
+        $this->haltonskipped = Boolean::cast($value);
     }
     
     public function getHaltonskipped()
@@ -181,12 +181,12 @@ class PHPUnitTask extends Task
 
     public function setPrintsummary($printsummary)
     {
-        $this->printsummary = $printsummary;
+        $this->printsummary = Boolean::cast($printsummary);
     }
     
     public function setCodecoverage($codecoverage)
     {
-        $this->codecoverage = $codecoverage;
+        $this->codecoverage = Boolean::cast($codecoverage);
     }
 
     public function setUseCustomErrorHandler($usecustomerrorhandler)
@@ -313,7 +313,7 @@ class PHPUnitTask extends Task
         
         if ($retcode == PHPUnitTestRunner::ERRORS) {
             if ($this->errorproperty) {
-                $this->project->setNewProperty($this->errorproperty, true);
+                $this->project->setProperty($this->errorproperty, true);
             }
             if ($this->haltonerror) {
                 $this->testfailed = true;
@@ -321,7 +321,7 @@ class PHPUnitTask extends Task
             }
         } elseif ($retcode == PHPUnitTestRunner::FAILURES) {
             if ($this->failureproperty) {
-                $this->project->setNewProperty($this->failureproperty, true);
+                $this->project->setProperty($this->failureproperty, true);
             }
             
             if ($this->haltonfailure) {
@@ -330,7 +330,7 @@ class PHPUnitTask extends Task
             }
         } elseif ($retcode == PHPUnitTestRunner::INCOMPLETES) {
             if ($this->incompleteproperty) {
-                $this->project->setNewProperty($this->incompleteproperty, true);
+                $this->project->setProperty($this->incompleteproperty, true);
             }
             
             if ($this->haltonincomplete) {
@@ -339,7 +339,7 @@ class PHPUnitTask extends Task
             }
         } elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
             if ($this->skippedproperty) {
-                $this->project->setNewProperty($this->skippedproperty, true);
+                $this->project->setProperty($this->skippedproperty, true);
             }
             
             if ($this->haltonskipped) {

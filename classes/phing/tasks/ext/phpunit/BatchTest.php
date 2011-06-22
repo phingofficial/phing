@@ -136,7 +136,6 @@ class BatchTest
                 $filenames[] = $ds->getBaseDir() . "/" . $file;
             }
         }
-
         return $filenames;
     }
     

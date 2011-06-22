@@ -1,8 +1,8 @@
 <?php
 class Boolean {
 	
-	protected static $TRUE_VALUES = array("on", "true", "t", "yes", "y");
-    protected static $FALSE_VALUES = array("off", "false", "f", "no", "n");
+	protected static $TRUE_VALUES = array("on", "true", "t", "yes", "y", "1");
+    protected static $FALSE_VALUES = array("off", "false", "f", "no", "n", "0");
 	
 	public static function cast($value) {
 		if (!self::isBoolean($value))

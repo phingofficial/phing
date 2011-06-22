@@ -1,0 +1,9 @@
+<?php
+
+class DummyTestError extends PHPUnit_Framework_TestCase { 
+	
+	public function testError() {
+		print 1/0;
+	}
+	
+}
