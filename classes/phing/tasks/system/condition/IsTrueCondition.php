@@ -52,7 +52,7 @@ class IsTrueCondition extends ProjectComponent implements Condition {
         if ($this->value === null) {
             throw new BuildException("Nothing to test for falsehood");
         }
-        return $this->value;
+        return Boolean::booleanValue($this->value);
     }
 
 }

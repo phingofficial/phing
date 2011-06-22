@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+
+<project name="495" default="test">
+	<target name="test">
+		<property name="test" value="true"/>
+		
+		<if>
+			<equals arg1="${test}" arg2="true"/> 
+			<then>
+				<echo>assert ${test} == true</echo>
+			</then><else>
+				<fail />
+			</else>
+		</if>
+		
+		<if>
+			<istrue value="${test}" /> 
+			<then>
+				<echo>assert istrue == istrue</echo>
+			</then><else>
+				<fail />
+			</else>
+		</if>
+		
+		<!--  Regression for bug ends here. -->
+		
+		<!-- <istrue> / <isfalse> try to cast their argument to bool meaningfully -->
+		<if>
+			<istrue value="true" /> 
+			<then>
+				<echo>assert istrue == istrue</echo>
+			</then><else>
+				<fail />
+			</else>
+		</if>
+		<if>
+			<istrue value="yes" /> 
+			<then>
+				<echo>assert istrue == istrue</echo>
+			</then><else>
+				<fail />
+			</else>
+		</if>
+
+		<!-- "anything" is not a true value for phing/util/Boolean.php -->
+		<if>
+			<istrue value="anything" /> 
+			<then>
+				<fail>"anything" is not true</fail>
+			</then><else>
+				<echo>assert false == false</echo>
+			</else>
+		</if>
+		
+	</target>
+</project>
