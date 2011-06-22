@@ -38,7 +38,7 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
     private $outStream;
     
     public function setUp() {
-        $this->tmpFile = new PhingFile(PHING_TEST_BASE .  "/tmp/" . get_class($this) . ".txt");
+        $this->tmpFile = new PhingFile(PHING_TEST_TMP . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
     
@@ -77,18 +77,14 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
         
     }
     
+    /**
+     * @expectedException IOException
+     */
     public function testFlush() {
-    
         $this->outStream->write("Some data");
         $this->outStream->flush();
         $this->outStream->close();
-
-        try {
-            $this->outStream->flush();
-            $this->fail("Expected IOException when attempting to flush a closed stream.");
-        } catch (IOException $ioe) {
-            // exception is expected
-        }
+		$this->outStream->flush(); // cannot flush closed stream
     }
     
 }

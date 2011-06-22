@@ -31,11 +31,13 @@ require_once 'phing/BuildFileTest.php';
 class ReplaceTokenBooleanTest extends BuildFileTest { 
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/376/build.xml");
+        $this->configureProject(__DIR__ . "/build.xml");
     }
 
     public function testCustomTask () {
       $this->executeTarget("main");
-      $this->assertInLogs("Replaced \"@TOKEN_KEY_TRUE@\" with \"true\"");
+      $c = file_get_contents(PHING_TEST_TMP.'/newfile');
+      $this->assertContains('true', $c);
+      $this->assertContains('false', $c);
     }
 }
