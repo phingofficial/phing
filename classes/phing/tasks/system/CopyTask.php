@@ -72,9 +72,7 @@ class CopyTask extends Task {
     }
 
     /**
-     * Set the overwrite flag. IntrospectionHelper takes care of
-     * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
+     * Set the overwrite flag. 
      *
      * @param  boolean  Overwrite the destination file(s) if it/they already exist
      * @return void
