@@ -81,6 +81,11 @@ class SymlinkTask extends Task
      */
     private $_filesets = array();
     
+    /** Whether to override existing links.
+     * @var boolean
+     */
+    protected $overwrite = false;
+    
     /**
      * setter for _target
      * 
@@ -103,6 +108,17 @@ class SymlinkTask extends Task
     public function setLink($link)
     {        
         $this->_link = $link;
+    }
+
+    /**
+     * Set the overwrite flag. 
+     *
+     * @param  boolean  Overwrite the destination file(s) if it/they already exist
+     * @return void
+     * @access public
+     */
+    public function setOverwrite($bool) {
+        $this->overwrite = Boolean::cast($bool);
     }
     
     /**
@@ -249,8 +265,12 @@ class SymlinkTask extends Task
     protected function symlink($target, $link)
     {
         if(file_exists($link)) {
-            $this->log('Link exists: ' . $link, Project::MSG_ERR);
-            return false;
+        	if ($this->overwrite)
+        		unlink($link);
+        	else {
+            	$this->log('Link exists: ' . $link, Project::MSG_ERR);
+            	return false;
+        	}
         }
     
         $fs = FileSystem::getFileSystem();
