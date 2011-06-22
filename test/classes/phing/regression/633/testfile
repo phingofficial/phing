@@ -1,0 +1,1 @@
+define('WP_DEBUG', false);
