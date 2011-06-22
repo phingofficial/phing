@@ -49,7 +49,7 @@ class ChmodTask extends Task {
      * @see setQuiet()
      */
     function setFailonerror($bool) {
-        $this->failonerror = $bool;
+        $this->failonerror = Boolean::cast($bool);
     }   
 
     /**
@@ -57,7 +57,7 @@ class ChmodTask extends Task {
      * @see setFailonerror()
      */
     function setQuiet($bool) {
-        $this->quiet = $bool;
+        $this->quiet = Boolean::cast($bool);
         if ($this->quiet) {
             $this->failonerror = false;
         }
