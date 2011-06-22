@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <project name="gitFetchTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../tmp/git" />
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    
+    <property name="tmp.dir" value="${PHING_TEST_TMP}/git" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -11,17 +11,17 @@
     <target name="fetchAllRemotes" description="Fetch from all remotes">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitfetch
-            repository="${tmp.dir.resolved}" all="true" />
+            repository="${tmp.dir}" all="true" />
     </target>
 
     <target name="allParamsSet" description="all parameters present">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitfetch
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             source="origin" tags="true" keep="true" force="true" />
     </target>
 
@@ -30,20 +30,20 @@
     </target>
 
     <target name="noTarget" description="Required param checking">
-        <gitfetch repository="${tmp.dir.resolved}" source="" />
+        <gitfetch repository="${tmp.dir}" source="" />
     </target>
 
     <target name="refspecSet" description="git-fetch --track">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitfetch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             source="origin"
             refspec="master:refspec-branch" 
             quiet="true" />
         <gitbranch
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="refspec-branch" 
             delete="true" />
     </target>

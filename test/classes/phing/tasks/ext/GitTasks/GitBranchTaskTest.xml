@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <project name="gitBranchTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../tmp/git" />
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    
+    <property name="tmp.dir" value="${PHING_TEST_TMP}/git" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -11,9 +11,9 @@
     <target name="allParamsSet" description="all parameters present">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="all-params-set"
             startpoint="origin/master"
             track="true"
@@ -25,15 +25,15 @@
     </target>
 
     <target name="noBranchname" description="Required param checking">
-        <gitbranch repository="${tmp.dir.resolved}"/>
+        <gitbranch repository="${tmp.dir}"/>
     </target>
 
     <target name="trackParamSet" description="git-branch --track">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="track-param-set"
             track="true" />
     </target>
@@ -41,9 +41,9 @@
     <target name="noTrackParamSet" description="git-branch --no-track">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="no-track-param-set"
             notrack="true" />
     </target>
@@ -51,9 +51,9 @@
     <target name="setUpstreamParamSet" description="git-branch --set-upstream">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="set-upstream-param-set"
             setupstream="true" />
     </target>
@@ -61,13 +61,13 @@
     <target name="forceParamSet" description="git-branch --force">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="force-param-set" />
         <!-- try to create already created branck -->
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="force-param-set" 
             force="true"
             />
@@ -76,19 +76,19 @@
     <target name="deleteBranch" description="git-branch -d|-D">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="delete-branch-1" track="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="delete-branch-2" track="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="delete-branch-1" 
             delete="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="delete-branch-2" 
             forcedelete="true" />
     </target>
@@ -96,17 +96,17 @@
     <target name="moveBranch" description="git-branch -m">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" track="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" 
             newbranch="move-branch-2"
             move="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-2" 
             delete="true" />
     </target>
@@ -114,17 +114,17 @@
     <target name="forceMoveBranch" description="git-branch -M">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" track="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" 
             newbranch="move-branch-2"
             forcemove="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-2" 
             delete="true" />
     </target>
@@ -132,12 +132,12 @@
     <target name="moveBranchNoNewbranch" description="git-branch -m">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" track="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" 
             move="true" />
     </target>
@@ -145,12 +145,12 @@
     <target name="forceMoveBranchNoNewbranch" description="git-branch -M">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" track="true" />
         <gitbranch 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             branchname="move-branch-1" 
             forcemove="true" />
     </target>

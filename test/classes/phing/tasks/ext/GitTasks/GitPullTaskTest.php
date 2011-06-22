@@ -31,26 +31,25 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 class GitPullTaskTest extends BuildFileTest { 
 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+        if (is_readable(PHING_TEST_TMP . '/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitPullTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitPullTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testAllParamsSet()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        /*$repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');
@@ -61,7 +60,7 @@ class GitPullTaskTest extends BuildFileTest {
 
     public function testAllParamsSetRebase()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        /*$repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allParamsSetRebase');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');
@@ -73,7 +72,7 @@ class GitPullTaskTest extends BuildFileTest {
 
     public function testAllReposSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allReposSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');
@@ -81,7 +80,7 @@ class GitPullTaskTest extends BuildFileTest {
 
     public function testTagsSet()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        /*$repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('tagsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');
@@ -92,7 +91,7 @@ class GitPullTaskTest extends BuildFileTest {
 
     public function testAppendSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('appendSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');
@@ -101,7 +100,7 @@ class GitPullTaskTest extends BuildFileTest {
 
     public function testNoTagsSet()
     {
-        /*$repository = PHING_TEST_BASE . '/tmp/git';
+        /*$repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('noTagsSet');
         $this->assertInLogs('git-pull: pulling from origin foobranch');
         $this->assertInLogs('git-pull: complete');

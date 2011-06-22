@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <project name="gitTagTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../tmp/git" />
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    
+    <property name="tmp.dir" value="${PHING_TEST_TMP}/git" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -13,9 +13,9 @@
         <!-- obtain test repo -->
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
     <target name="gitTagCreateDuplicate" 
@@ -23,9 +23,9 @@
         <!-- obtain test repo -->
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
     </target>
 
     <target name="gitTagForceCreateDuplicate" 
@@ -33,12 +33,12 @@
         <!-- obtain test repo -->
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
         <gittag 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             name="ver1.0" force="true"/>
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
     <target name="gitTagReplaceCreateDuplicate" 
@@ -46,72 +46,72 @@
         <!-- obtain test repo -->
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
         <gittag 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             name="ver1.0" replace="true"/>
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
     <target name="gitTagCreateAnnotatedNoMessage" 
         description="git-tag -a tagname">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gittag 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             name="ver1.0"
             annotate="true" />
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
     <target name="gitTagCreateAnnotated" 
         description="git-tag -a tagname">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gittag 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             name="ver1.0"
             annotate="true" message="Version 1.0 tag"/>
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
     <target name="gitTagCreateAnnotatedImplicit" 
         description="git-tag -a tagname w/o providing -a option explicitly">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gittag 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             name="ver1.0"
             message="Version 1.0 tag"/>
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
     <target name="gitTagDelete" 
         description="git-tag -d tagname(s)">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
-        <gittag repository="${tmp.dir.resolved}" name="ver2.0" />
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
+        <gittag repository="${tmp.dir}" name="ver2.0" />
         <gittag 
-            repository="${tmp.dir.resolved}"
+            repository="${tmp.dir}"
              name="ver2.0" delete="true" />
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
     <target name="gitTagListByPattern" 
         description="git-tag -l pattern">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
-        <gittag repository="${tmp.dir.resolved}" name="ver2.0" />
-        <gittag repository="${tmp.dir.resolved}" name="marked" />
-        <gittag repository="${tmp.dir.resolved}" 
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
+        <gittag repository="${tmp.dir}" name="ver2.0" />
+        <gittag repository="${tmp.dir}" name="marked" />
+        <gittag repository="${tmp.dir}" 
             list="true" pattern="marked" />
     </target>
 
@@ -119,11 +119,11 @@
         description="git-tag -l pattern">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" name="ver1.0" />
-        <gittag repository="${tmp.dir.resolved}" name="ver2.0" />
-        <gittag repository="${tmp.dir.resolved}" name="marked" />
-        <gittag repository="${tmp.dir.resolved}" 
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" name="ver1.0" />
+        <gittag repository="${tmp.dir}" name="ver2.0" />
+        <gittag repository="${tmp.dir}" name="marked" />
+        <gittag repository="${tmp.dir}" 
             list="true"
             outputProperty="gitLogOutput" 
             pattern="marked" />
@@ -133,28 +133,28 @@
         description="git-tag c573116f395d36497a1ac1dba565ecd3d3944277">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" 
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" 
             name="ver1.0" 
             commit="c573116f395d36497a1ac1dba565ecd3d3944277" />
         <gitlog 
             format="oneline"
             paths="ver1.0"
-            repository="${tmp.dir.resolved}" />
+            repository="${tmp.dir}" />
     </target>
 
     <target name="gitTagWithObjectSet" 
         description="git-tag c573116f395d36497a1ac1dba565ecd3d3944277">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" 
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" 
             name="ver1.0" 
             object="c573116f395d36497a1ac1dba565ecd3d3944277" />
         <gitlog 
             format="oneline"
             paths="ver1.0"
-            repository="${tmp.dir.resolved}" />
+            repository="${tmp.dir}" />
     </target>
 
     <target name="gitTagFileSet" description="git-tag -F">
@@ -162,11 +162,11 @@
         <resolvepath propertyName="msg.dir.resolved" file="${msg.dir}" />
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
-        <gittag repository="${tmp.dir.resolved}" 
+            targetPath="${tmp.dir}" />
+        <gittag repository="${tmp.dir}" 
             name="ver1.0" 
             file="${msg.dir.resolved}/msg.txt" />
-        <gittag repository="${tmp.dir.resolved}" 
+        <gittag repository="${tmp.dir}" 
             list="true" num="1" />
     </target>
 
@@ -175,12 +175,12 @@
         description="git-tag -s tagname">
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"
-            targetPath="${tmp.dir.resolved}" />
+            targetPath="${tmp.dir}" />
         <gittag 
-            repository="${tmp.dir.resolved}" 
+            repository="${tmp.dir}" 
             name="ver1.0" sign="true"
             message="Version 1.0 tag"/>
-        <gittag repository="${tmp.dir.resolved}" list="true"/>
+        <gittag repository="${tmp.dir}" list="true"/>
     </target>
 
 

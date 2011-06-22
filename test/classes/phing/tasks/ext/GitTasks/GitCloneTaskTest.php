@@ -32,15 +32,14 @@ class GitCloneTaskTest extends BuildFileTest {
 
     public function setUp() { 
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitCloneTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitCloneTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testWrongRepository()
@@ -59,7 +58,7 @@ class GitCloneTaskTest extends BuildFileTest {
 
     public function testGitClone()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitClone');
 
@@ -72,7 +71,7 @@ class GitCloneTaskTest extends BuildFileTest {
 
     public function testGitCloneBare()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitCloneBare');
         $this->assertInLogs('git-clone: cloning (bare) "git://github.com/farazdagi/phing-tests.git" repository to "' . $repository . '" directory');

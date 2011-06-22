@@ -31,26 +31,25 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 class GitBranchTaskTest extends BuildFileTest { 
 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+        if (is_readable(PHING_TEST_TMP . '/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitBranchTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitBranchTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-branch output: Branch all-params-set set up to track remote branch master from origin.');
     }
@@ -71,7 +70,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testTrackParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->executeTarget('trackParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -80,7 +79,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testNoTrackParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->executeTarget('noTrackParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -89,7 +88,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testSetUpstreamParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->executeTarget('setUpstreamParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -98,7 +97,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testForceParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->executeTarget('forceParamSet');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -107,7 +106,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testDeleteBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->executeTarget('deleteBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -119,7 +118,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testMoveBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->executeTarget('moveBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -129,7 +128,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testForceMoveBranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->executeTarget('forceMoveBranch');
         $this->assertInLogs('git-branch: branch "' . $repository . '" repository');
@@ -139,7 +138,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testForceMoveBranchNoNewbranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->expectBuildExceptionContaining('forceMoveBranchNoNewbranch', 
             'New branch name is required in branch move',
@@ -148,7 +147,7 @@ class GitBranchTaskTest extends BuildFileTest {
 
     public function testMoveBranchNoNewbranch()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
 
         $this->expectBuildExceptionContaining('moveBranchNoNewbranch', 
             'New branch name is required in branch move',

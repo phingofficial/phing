@@ -32,15 +32,14 @@ class GitInitTaskTest extends BuildFileTest {
 
     public function setUp() { 
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitInitTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitInitTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testWrongRepository()
@@ -52,7 +51,7 @@ class GitInitTaskTest extends BuildFileTest {
 
     public function testGitInit()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInit');
 
@@ -63,7 +62,7 @@ class GitInitTaskTest extends BuildFileTest {
 
     public function testGitInitBare()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitInitBare');
         $this->assertInLogs('git-init: initializing (bare) "' . $repository . '" repository');

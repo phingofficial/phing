@@ -31,26 +31,25 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 class GitGcTaskTest extends BuildFileTest { 
 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+        if (is_readable(PHING_TEST_TMP . '/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitGcTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitGcTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-gc: cleaning up "' . $repository . '" repository');
     }
@@ -64,7 +63,7 @@ class GitGcTaskTest extends BuildFileTest {
 
     public function testAutoParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('autoParamSet');
@@ -73,7 +72,7 @@ class GitGcTaskTest extends BuildFileTest {
 
     public function testNoPruneParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('nopruneParamSet');
@@ -82,7 +81,7 @@ class GitGcTaskTest extends BuildFileTest {
 
     public function testAggressiveParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('aggressiveParamSet');
@@ -91,7 +90,7 @@ class GitGcTaskTest extends BuildFileTest {
 
     public function testPruneParameter()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $msg = 'git-gc: cleaning up "' . $repository . '" repository';
 
         $this->executeTarget('pruneParamSet');

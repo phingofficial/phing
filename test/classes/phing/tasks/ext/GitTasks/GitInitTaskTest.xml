@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <project name="gitInitTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../tmp/git" />
-    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    
+    <property name="tmp.dir" value="${PHING_TEST_TMP}/git" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
     </target>
     
     <target name="gitInit" description="Initialize normal git repository">
-        <gitinit repository="${tmp.dir.resolved}"/>
+        <gitinit repository="${tmp.dir}"/>
 	</target>
 
     <target name="gitInitBare" description="Initialize bare repository">
-        <gitinit bare="true" repository="${tmp.dir.resolved}"/>
+        <gitinit bare="true" repository="${tmp.dir}"/>
 	</target>
 
 
