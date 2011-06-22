@@ -67,7 +67,7 @@ class ChownTask extends Task {
      * of what happened.
      */
     function setVerbose($bool) {
-        $this->verbose = (bool)$bool;
+        $this->verbose = Boolean::cast($bool);
     }
 
     /**

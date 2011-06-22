@@ -81,7 +81,7 @@ class CopyTask extends Task {
      * @access public
      */
     function setOverwrite($bool) {
-        $this->overwrite = (boolean) $bool;
+        $this->overwrite = Boolean::cast($bool);
     }
 
     /**
@@ -113,7 +113,7 @@ class CopyTask extends Task {
      * @access public
      */
     function setPreserveLastModified($bool) {
-        $this->preserveLMT = (boolean) $bool;
+        $this->preserveLMT = Boolean::cast($bool);
     }
 
     /**
@@ -126,7 +126,7 @@ class CopyTask extends Task {
      * @access public
      */
     function setIncludeEmptyDirs($bool) {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = Boolean::cast($bool);
     }
 
 
@@ -191,7 +191,7 @@ class CopyTask extends Task {
      * @access public
      */
     function setHaltonerror($haltonerror) {        
-        $this->haltonerror = (boolean) $haltonerror;
+        $this->haltonerror = Boolean::cast($haltonerror);
     }
 
     /**

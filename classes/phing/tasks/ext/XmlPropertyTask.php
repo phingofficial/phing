@@ -49,7 +49,7 @@ class XmlPropertyTask extends PropertyTask {
      * @param bool $yesNo
      */
     public function setKeepRoot($yesNo) {
-        $this->_keepRoot = (bool)$yesNo;
+        $this->_keepRoot = Boolean::cast($yesNo);
     }
 
     /**
@@ -65,7 +65,7 @@ class XmlPropertyTask extends PropertyTask {
      * @param bool $yesNo
      */
     public function setCollapseAttributes($yesNo) {
-        $this->_collapseAttr = (bool)$yesNo;
+        $this->_collapseAttr = Boolean::cast($yesNo);
     }
 
     /**

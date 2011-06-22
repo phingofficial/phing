@@ -41,6 +41,7 @@ include_once 'phing/parser/NestedElementHandler.php';
 
 include_once 'phing/util/properties/PropertySet.php';
 include_once 'phing/util/StringHelper.php';
+include_once 'phing/util/Boolean.php';
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/OutputStream.php';
 include_once 'phing/system/io/FileOutputStream.php';

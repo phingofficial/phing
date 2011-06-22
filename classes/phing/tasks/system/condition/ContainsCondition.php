@@ -56,7 +56,7 @@ class ContainsCondition implements Condition {
      * Whether to search ignoring case or not.
      */
     public function setCaseSensitive($b) {
-        $this->caseSensitive = (boolean) $b;
+        $this->caseSensitive = Boolean::cast($b);
     }
 
     /** 

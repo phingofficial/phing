@@ -130,12 +130,12 @@ class S3PutTask extends Service_Amazon_S3
 
 	public function setCreateBuckets($createBuckets)
     {
-        $this->_createBuckets = (bool) $createBuckets;
+        $this->_createBuckets = Boolean::cast($createBuckets);
     }
 
 	public function getCreateBuckets()
     {
-        return (bool) $this->_createBuckets;
+        return $this->_createBuckets;
     }
 
 	/**

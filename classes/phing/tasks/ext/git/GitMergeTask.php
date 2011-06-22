@@ -213,7 +213,7 @@ class GitMergeTask extends GitBaseTask
 
     public function setCommit($flag)
     {
-        $this->commit = (boolean)$flag;
+        $this->commit = Boolean::cast($flag);
     }
 
     public function getCommit()
@@ -228,7 +228,7 @@ class GitMergeTask extends GitBaseTask
 
     public function setNoCommit($flag)
     {
-        $this->noCommit = (boolean)$flag;
+        $this->noCommit = Boolean::cast($flag);
     }
 
     public function getNoCommit()

@@ -134,7 +134,7 @@ abstract class MatchingTask extends Task implements SelectorContainer {
      *                           shouldn't be used.
      */
     public function setDefaultexcludes($useDefaultExcludes) {
-        $this->useDefaultExcludes = (boolean) $useDefaultExcludes;
+        $this->useDefaultExcludes = Boolean::cast($useDefaultExcludes);
     }
 
     /**

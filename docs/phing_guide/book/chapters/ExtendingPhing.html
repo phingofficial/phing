@@ -377,7 +377,7 @@ class MyEchoTask extends Task {
     /**
      * The message passed in the buildfile.
      */
-    private $message = null;
+    protected $message = null;
 
     /**
      * The setter for the attribute &quot;message&quot;
@@ -472,7 +472,7 @@ class MyEchoTask extends Task {
 		<li>Setter methods for each XML attribute</li>
 		<li>The <em>init()</em> method</li>
 		<li>The <em>main()</em> method</li>
-		<li>Arbitrary <em>private</em> (or <em>protected</em>)<em> </em>class
+		<li>Arbitrary <em>protected</em> (or even <em>private</em>)<em> </em>class
 			methods</li>
 	</ul>
 
@@ -576,6 +576,30 @@ class MyEchoTask extends Task {
 		the internal class property <em>$strMessage</em> to "Hello World". It
 		is now available to the task for further disposal.
 	</p>
+	
+	<h4>Boolean setters (flags)</h4>
+	<p>If you are writing a setter that controls a boolean flag - say, 
+		<em>setVerboseOutput</em> - you should use <em>Boolean::cast()</em> to 
+		turn the passed-in value into a boolean like in the following example.
+	</p>
+	<pre
+	 title="A setter that takes a boolean value" >...
+public function setVerboseLogging($flag) {
+	$this->verbose = Boolean::cast($flag);
+}
+...</pre>
+	<h4>Other special setters</h4>
+	<p>This is definetly something for advanced Task developers :-). 
+	Phing supports some special types of setters that take one of the following
+	classes as arguments:</p>
+	<ul>
+		<li><em>PhingFile</em></li>
+		<li><em>Path</em></li>
+		<li><em>Reference</em></li>
+	</ul>
+	<p>If your setter type-hints one of these classes for its first (and only) parameter,
+	<em>IntrospectionHelper::setAttribute()</em> will take care of creating the appropriate object
+	and passing it into the setter.</p>
 
 	<h3>
 		<a name="CreatorMethods"></a>Creator Methods
@@ -625,10 +649,10 @@ class MyEchoTask extends Task {
 		of the task is coded in the Main() method. However for more complex
 		tasks common sense dictates that particular action should be swapped
 		to smaller, logically contained units of code. The most common way to
-		do this is separating logic into private class methods - and in even
+		do this is separating logic into protected class methods - and in even
 		more complex tasks in separate libraries.</p>
 
-	<pre>private function myPrivateMethod() {
+	<pre>protected function myPrivateMethod() {
     // definition
 }
 </pre>
@@ -814,6 +838,8 @@ class DSN extends DataType {
 		<a name="TypeSourceDisc"></a>Source Discussion
 	</h3>
 	<h4>Getters &amp; Setters</h4>
+	<p>As to setters, the same rules that were previously explained for Tasks
+	also apply to Types.</p>
 	<p>You must provide a setter method for every attribute you want to
 		set from the XML build file. It is good practice to also provide a
 		getter method, but in practice you can decide how your tasks will use

@@ -26,7 +26,7 @@ require_once 'phing/tasks/system/condition/Condition.php';
  *  binary safe manner. Implements the condition interface specification.
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
+ *  @copyright ï¿½ 2001,2002 THYRELL. All rights reserved
  *  @version   $Revision$ $Date$
  *  @access    public
  *  @package   phing.tasks.system.condition
@@ -51,7 +51,7 @@ class EqualsCondition implements Condition {
      * @param boolean $b
      */
     public function setTrim($b) {
-        $this->trim = (boolean) $b;
+        $this->trim = Boolean::cast($b);
     }
 
     /**
@@ -59,7 +59,7 @@ class EqualsCondition implements Condition {
      * @param boolean $b
      */
     public function setCaseSensitive($b) {
-        $this->caseSensitive = (boolean) $b;
+        $this->caseSensitive = Boolean::cast($b);
     } 
     
     public function evaluate() {

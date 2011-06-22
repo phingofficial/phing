@@ -144,8 +144,7 @@ class Target implements TaskContainer {
      */
     public function setHidden($flag)
     {
-        $this->hidden = (boolean) $flag;
-        return $this;
+        $this->hidden = Boolean::cast($flag);
     }
 
     /**

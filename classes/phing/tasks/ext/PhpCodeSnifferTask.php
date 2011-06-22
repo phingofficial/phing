@@ -183,7 +183,7 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setShowWarnings($show)
     {
-        $this->showWarnings = StringHelper::booleanValue($show);
+        $this->showWarnings = Boolean::cast($show);
     }
 
     /**
@@ -195,7 +195,7 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setShowSources($show)
     {
-        $this->showSources = StringHelper::booleanValue($show);
+        $this->showSources = Boolean::cast($show);
     }
 
     /**
@@ -264,7 +264,7 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setNoSubdirectories($subdirectories)
     {
-        $this->noSubdirectories = StringHelper::booleanValue($subdirectories);
+        $this->noSubdirectories = Boolean::cast($subdirectories);
     }
 
     /**
@@ -283,7 +283,7 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setShowSniffs($show)
     {
-        $this->showSniffs = StringHelper::booleanValue($show);
+        $this->showSniffs = Boolean::cast($show);
     }
 
     /**

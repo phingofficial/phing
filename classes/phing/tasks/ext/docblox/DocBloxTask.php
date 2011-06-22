@@ -100,7 +100,7 @@ class DocBloxTask extends Task
      */
     public function setQuiet($quiet)
     {
-        $this->quiet = (boolean) $quiet;
+        $this->quiet = Boolean::cast($quiet);
     }
     
     /**

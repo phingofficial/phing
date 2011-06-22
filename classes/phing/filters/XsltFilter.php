@@ -128,8 +128,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
      * Whether to use HTML parser for XML.
      * @param boolean $b
      */
-    function setHtml($b) {        
-        $this->html = (boolean) $b;
+    function setHtml($flag) {        
+        $this->html = Boolean::cast($flag);
     }
     
     /**
@@ -147,8 +147,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
      * 
      * @since 2.4
      */
-    function setResolveDocumentExternals($resolveExternals) {
-        $this->resolveDocumentExternals = (bool)$resolveExternals;
+    function setResolveDocumentExternals($flag) {
+        $this->resolveDocumentExternals = Boolean::cast($flag);
     }
     
     /**
@@ -167,8 +167,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
      * 
      * @since 2.4
      */
-    function setResolveStylesheetExternals($resolveExternals) {
-        $this->resolveStylesheetExternals = (bool)$resolveExternals;
+    function setResolveStylesheetExternals($flag) {
+        $this->resolveStylesheetExternals = Boolean::cast($flag);
     }
     
     /**

@@ -203,22 +203,22 @@ class ZendGuardEncodeTask extends MatchingTask
 
     public function setShortTags($value)
     {
-        $this->shortTags = (bool) $value;
+        $this->shortTags = Boolean::cast($value);
     }
 
     public function setAspTags($value)
     {
-        $this->aspTags = (bool) $value;
+        $this->aspTags = Boolean::cast($value);
     }
 
     public function setDeleteSource($value)
     {
-        $this->shortTags = (bool) $value;
+        $this->shortTags = Boolean::cast($value);
     }
 
     public function setUseCrypto($value)
     {
-        $this->useCrypto = (bool) $value;
+        $this->useCrypto = Boolean::cast($value);
     }
 
     public function setObfuscationLevel($value)
@@ -228,7 +228,7 @@ class ZendGuardEncodeTask extends MatchingTask
 
     public function setLicenseProduct($value)
     {
-        $this->licenseProduct = (bool) $value;
+        $this->licenseProduct = Boolean::cast($value);
     }
 
     public function setPrologFile($value)
@@ -238,22 +238,22 @@ class ZendGuardEncodeTask extends MatchingTask
 
     public function setSignProduct($value)
     {
-        $this->signProduct = (bool) $value;
+        $this->signProduct = Boolean::cast($value);
     }
 
     public function setForceEncode($value)
     {
-        $this->forceEncode = (bool) $value;
+        $this->forceEncode = Boolean::cast($value);
     }
 
     public function setEncodedOnly($value)
     {
-        $this->encodedOnly = (bool) $value;
+        $this->encodedOnly = Boolean::cast($value);
     }
 
     public function setIgnoreFileModes($value)
     {
-        $this->ignoreFileModes = (bool) $value;
+        $this->ignoreFileModes = Boolean::cast($value);
     }
 
     public function setExpires($value)
@@ -278,7 +278,7 @@ class ZendGuardEncodeTask extends MatchingTask
 
     public function setNoHeader($value)
     {
-        $this->noHeader = (bool) $value;
+        $this->noHeader = Boolean::cast($value);
     }
 
     /**

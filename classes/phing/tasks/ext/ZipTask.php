@@ -103,7 +103,7 @@ class ZipTask extends MatchingTask {
      * @access public
      */
     public function setIncludeEmptyDirs($bool) {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = Boolean::cast($bool);
     }
     
     /**

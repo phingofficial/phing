@@ -112,7 +112,7 @@ class InputTask extends Task {
             if (count($accept) == 2) {
                 $yesno = true;
                 foreach($accept as $ans) {
-                    if(!StringHelper::isBoolean($ans)) {
+                    if(!Boolean::isBoolean($ans)) {
                         $yesno = false;
                         break;
                     }

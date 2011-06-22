@@ -60,7 +60,7 @@ class SvnLogTask extends SvnBaseTask
      */
     public function setForceCompatible($force)
     {
-        //$this->forceCompatible = (bool) $force;
+        //$this->forceCompatible = Boolean::cast($force);
         // see below, we need this to be true as xml mode does not work
     }
 

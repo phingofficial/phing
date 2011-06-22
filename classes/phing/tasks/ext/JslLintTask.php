@@ -51,7 +51,7 @@ require_once 'phing/util/DataStore.php';
      * @param boolean $show
      */
     public function setShowWarnings($show) {
-      $this->showWarnings = StringHelper::booleanValue($show);
+      $this->showWarnings = Boolean::cast($show);
     }
 
     /**

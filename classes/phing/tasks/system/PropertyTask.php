@@ -51,7 +51,7 @@ class PropertyTask extends Task {
 
 	/** Whether property should be treated as "user" property. */
 	protected $userProperty = false;
-	
+
 	protected $filelists = array(); // all filelist objects assigned to this task
 
 	/**
@@ -71,7 +71,7 @@ class PropertyTask extends Task {
 	 * @param    mixed      Value of name, all scalars allowed
 	 */
 	function setValue($value) {
-		$this->value = (string) $value;
+		$this->value = $value;
 	}
 
 	/**
@@ -179,7 +179,7 @@ class PropertyTask extends Task {
 	 * @param boolean $v
 	 */
 	function setUserProperty($v) {
-		$this->userProperty = (boolean) $v;
+		$this->userProperty = Boolean::cast($v);
 	}
 
 	function getUserProperty() {
@@ -187,7 +187,7 @@ class PropertyTask extends Task {
 	}
 
 	function setOverride($v) {
-		$this->override = (boolean) $v;
+		$this->override = Boolean::cast($v);
 	}
 
 	function getOverride() {
@@ -208,37 +208,37 @@ class PropertyTask extends Task {
 	function getFallback() {
 		return $this->fallback;
 	}
-	
+
 	public function createFileList() {
 		$fl = new FileList();
 		$this->filelists[] = $fl;
 		return $fl;
-    }
-	
-    protected function fail($msg) {
-    	throw new BuildException($msg, $this->getLocation());
-    }
-    
+	}
+
+	protected function fail($msg) {
+		throw new BuildException($msg, $this->getLocation());
+	}
+
 	/**
 	 * set the property in the project to the value.
 	 * if the task was give a file or env attribute
 	 * here is where it is loaded
 	 */
 	public function main() {
-		
+
 		if ($this->name !== null || $this->env !== null) {
 
 			if ($this->prefix !== null)
 				$this->fail("Prefix is only valid when loading from a file.");
-			
-			if ($this->section !== null) 
+				
+			if ($this->section !== null)
 				$this->fail("Section is only valid when loading from a file.");
 		}
 
 		if ($this->name !== null) {
 			// Set a single property value with a given name
 
-			if ($this->value !== null) { 
+			if ($this->value !== null) {
 				$this->addProperty($this->name, $this->value);
 				return;
 			}
@@ -256,10 +256,10 @@ class PropertyTask extends Task {
 				}
 				return;
 			}
-			
+				
 			$this->fail("You must specify value or refid with the name attribute");
 		}
-		
+
 		if ($this->env !== null) {
 			// Load environment variables
 			$this->loadEnvironment($this->env);
@@ -277,10 +277,10 @@ class PropertyTask extends Task {
 	 * @param string $prefix prefix to place before them
 	 */
 	protected function loadEnvironment($prefix) {
-		
+
 		require_once('phing/util/properties/PropertySetImpl.php');
 		$props = new PropertySetImpl();
-		
+
 		if ( substr($prefix, strlen($prefix)-1) == '.' ) {
 			$prefix .= ".";
 		}
@@ -330,7 +330,7 @@ class PropertyTask extends Task {
 	protected function loadFile() {
 		require_once('phing/util/properties/PropertySetImpl.php');
 		$p = new PropertySetImpl();
-		
+
 		if ($this->file)
 			$this->processFile($this->file, $p);
 
@@ -341,10 +341,10 @@ class PropertyTask extends Task {
 					$this->processFile(new PhingFile("$fromDir/$srcFile"), $p);
 			}
 		}
-		
+
 		$this->addProperties($p);
 	}
-	
+
 	protected function processFile(PhingFile $file, PropertySet $p) {
 		$this->log("Loading properties from ". $file->getAbsolutePath(), Project::MSG_INFO);
 		try { // try to load file
@@ -360,10 +360,10 @@ class PropertyTask extends Task {
 
 	protected function fetchPropertiesFromFile(PhingFile $f, PropertySet $p) {
 		require_once('phing/util/properties/PropertyFileReader.php');
-		
+
 		// do not use the "Properties" façade to defer property expansion
 		// (the Project will take care of it)
-		
+
 		$r = new PropertyFileReader($p);
 		$r->load($f, $this->section);
 	}

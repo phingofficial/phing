@@ -96,7 +96,7 @@ class TargetHandler extends AbstractHandler {
             } else if ($key==="id") {
                 $id = (string) $value;
             } else if ($key==="hidden") {
-                $isHidden = ($value == 'true' || $value == '1') ? true : false;
+                $isHidden = (string) $value;
             } else if ($key==="description") {
                 $description = (string)$value;
             } else {

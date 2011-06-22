@@ -70,7 +70,7 @@ class XmlLintTask extends Task {
    * @param bool $haltonfailure
    */
   public function setHaltonfailure($haltonfailure) {
-    $this->haltonfailure = (bool) $haltonfailure;
+    $this->haltonfailure = Boolean::cast($haltonfailure);
   }
 
   /**

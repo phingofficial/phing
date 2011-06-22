@@ -252,7 +252,7 @@ class GitPullTask extends GitBaseTask
 
     public function setAppend($flag)
     {
-        $this->append = (boolean)$flag;
+        $this->append = Boolean::cast($flag);
     }
 
     public function getAppend()
@@ -327,7 +327,7 @@ class GitPullTask extends GitBaseTask
 
     public function setRebase($flag)
     {
-        $this->rebase = (boolean)$flag;
+        $this->rebase = Boolean::cast($flag);
     }
 
     public function getRebase()
@@ -342,7 +342,7 @@ class GitPullTask extends GitBaseTask
 
     public function setNoRebase($flag)
     {
-        $this->noRebase = (boolean)$flag;
+        $this->noRebase = Boolean::cast($flag);
     }
 
     public function getNoRebase()

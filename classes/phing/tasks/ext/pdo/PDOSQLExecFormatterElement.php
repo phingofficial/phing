@@ -206,7 +206,7 @@ class PDOSQLExecFormatterElement
      * @param boolean $useFile
      */
     function setUseFile($useFile) {
-        $this->useFile = (boolean) $useFile;
+        $this->useFile = Boolean::cast($useFile);
     }
 
     /**
@@ -243,7 +243,7 @@ class PDOSQLExecFormatterElement
      * @param boolean $append
      */
     public function setAppend($append) {
-        $this->append = (boolean) $append;
+        $this->append = Boolean::cast($append);
     }
     
     /**
@@ -260,7 +260,7 @@ class PDOSQLExecFormatterElement
      * @param boolean $showheaders
      */
     public function setShowheaders($showheaders) {
-        $this->showheaders = (boolean) $showheaders;
+        $this->showheaders = Boolean::cast($showheaders);
     }
     
     /**
@@ -291,7 +291,7 @@ class PDOSQLExecFormatterElement
      * @param boolean $v
      */
     public function setFormatOutput($v) {
-        $this->formatOutput = (boolean) $v;
+        $this->formatOutput = Boolean::cast($v);
     }
     
     /**

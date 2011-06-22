@@ -227,7 +227,7 @@ class ZendGuardLicenseTask extends Task
 
     public function setHardwareLocked($hardwareLocked)
     {
-        $this->hardwareLocked = (bool) $hardwareLocked;
+        $this->hardwareLocked = Boolean::cast($hardwareLocked);
     }
 
     public function setUserDefinedValues($userDefinedValues)

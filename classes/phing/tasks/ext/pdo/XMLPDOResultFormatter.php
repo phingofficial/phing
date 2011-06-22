@@ -82,7 +82,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter {
      * @param boolean $v
      */
     public function setFormatOutput($v) {
-        $this->formatOutput = (boolean) $v;
+        $this->formatOutput = Boolean::cast($v);
     }
 
     public function initialize() {

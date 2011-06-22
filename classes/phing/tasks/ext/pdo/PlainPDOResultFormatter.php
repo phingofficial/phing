@@ -62,7 +62,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * @param boolean $v
      */
     public function setShowheaders($v) {
-        $this->showheaders = StringHelper::booleanValue($v);
+        $this->showheaders = Boolean::cast($v);
     }
 
     /**

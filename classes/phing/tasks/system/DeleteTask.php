@@ -92,7 +92,7 @@ class DeleteTask extends Task {
 
     /** Used to delete empty directories.*/
     function setIncludeEmptyDirs($includeEmpty) {
-        $this->includeEmpty = (boolean) $includeEmpty;
+        $this->includeEmpty = Boolean::cast($includeEmpty);
     }
 
     /** Nested creator, adds a set of files (nested fileset attribute). */

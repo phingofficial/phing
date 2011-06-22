@@ -51,10 +51,10 @@ class FileInputStream extends InputStream {
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }
-        
+
         $stream = @fopen($this->file->getAbsolutePath(), "rb");
         if ($stream === false) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . $php_errormsg);
+            throw new IOException("Unable to open " . $this->file->__toString() . " for reading.");
         }
         
         parent::__construct($stream);

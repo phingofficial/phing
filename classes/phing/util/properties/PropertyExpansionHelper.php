@@ -78,10 +78,7 @@ class PropertyExpansionHelper {
 		
 		$propertyValue = $this->set[$propertyName];
 		
-        if (is_bool($propertyValue))
-            $propertyValue = $propertyValue ? "true" : "false";
-        
-		else if (is_array($propertyValue))
+        if (is_array($propertyValue))
         	$propertyValue = implode(',', $propertyValue); 
 
         array_push($this->refStack, $propertyName);

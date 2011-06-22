@@ -181,7 +181,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader {
      * @param string $beginToken the character used to denote the beginning of a token.
      */
     function setBeginToken($beginToken) {
-        $this->_beginToken = (string) $beginToken;
+        $this->_beginToken = $beginToken;
     }
 
     /**
@@ -199,7 +199,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader {
      * @param string $endToken the character used to denote the end of a token
      */
     function setEndToken($endToken) {
-        $this->_endToken = (string) $endToken;
+        $this->_endToken = $endToken;
     }
 
     /**
@@ -383,7 +383,7 @@ class Token {
      * @param string $key The key for this token. Must not be <code>null</code>.
      */
     function setKey($key) {
-        $this->_key = (string) $key;
+        $this->_key = $key;
     }
 
     /**
@@ -392,16 +392,7 @@ class Token {
      * @param string $value The value for this token. Must not be <code>null</code>.
      */
     function setValue($value) {
-        // special case for boolean values
-        if (is_bool($value)) {
-            if ($value) {
-                $this->_value = "true";
-            } else {
-                $this->_value = "false";
-            }
-        } else {        
-            $this->_value = (string) $value;
-        }
+		$this->_value = $value;
     }
 
     /**
