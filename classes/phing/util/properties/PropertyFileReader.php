@@ -53,8 +53,8 @@ class PropertyFileReader {
 
         	if (!($l = trim($l))) 
         		continue;
-        		
-        	if (preg_match('/^\[(\w+)(?:\s*:\s*(\w+))?\]$/', $l, $matches)) {
+
+        	if (preg_match('/^\[([\w-]+)(?:\s*:\s*([\w-]+))?\]$/', $l, $matches)) {
         		$currentSection = $matches[1];
         		$sect[$currentSection] = array();
         		if (isset($matches[2])) $depends[$currentSection] = $matches[2];
@@ -72,7 +72,7 @@ class PropertyFileReader {
 			 */
 			$sect[$currentSection][] = array($name, $value);
         }
-        
+
         $dependencyOrder = array();
         while ($section) {
         	array_unshift($dependencyOrder, $section);
