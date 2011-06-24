@@ -53,6 +53,7 @@ class PropertyTask extends Task {
 	protected $userProperty = false;
 
 	protected $filelists = array(); // all filelist objects assigned to this task
+	protected $filesets = array(); // all filesets assigned to this task
 
 	/**
 	 * Sets a the name of current property component
@@ -215,6 +216,12 @@ class PropertyTask extends Task {
 		return $fl;
 	}
 
+	public function createFileSet() {
+		$fs = new FileSet();
+		$this->filesets[] = $fs;
+		return $fs;
+	}
+	
 	protected function fail($msg) {
 		throw new BuildException($msg, $this->getLocation());
 	}
@@ -266,10 +273,10 @@ class PropertyTask extends Task {
 			return;
 		}
 
-		if ($this->file === null && !$this->filelists)
-			$this->fail("You must specify name and value, environment, file or provide a FileList.");
+		if ($this->file === null && !$this->filelists && !$this->filesets)
+			$this->fail("You must specify name and value, environment, file or provide a FileList or FileSet.");
 			
-		$this->loadFile();
+		$this->loadFromFiles();
 	}
 
 	/**
@@ -327,7 +334,7 @@ class PropertyTask extends Task {
 	 * load properties from a file.
 	 * @param PhingFile $file
 	 */
-	protected function loadFile() {
+	protected function loadFromFiles() {
 		require_once('phing/util/properties/PropertySetImpl.php');
 		$p = new PropertySetImpl();
 
@@ -340,6 +347,15 @@ class PropertyTask extends Task {
 				foreach ($fl->getFiles($this->project) as $srcFile)
 					$this->processFile(new PhingFile("$fromDir/$srcFile"), $p);
 			}
+		}
+
+		if ($this->filesets) {
+	        foreach($this->filesets as $fs) {
+	        	$fromDir = $fs->getDir($this->project);
+	        	$ds = $fs->getDirectoryScanner($this->project);
+	        	foreach ($ds->getIncludedFiles() as $srcFile)
+	        		$this->processFile(new PhingFile("$fromDir/$srcFile"), $p);
+	        }
 		}
 
 		$this->addProperties($p);
