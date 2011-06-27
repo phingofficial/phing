@@ -121,14 +121,13 @@
 
 	<p>
 		<em>Property Files</em> define properties. Properties are stored in
-		key/value pairs and may only contain plain text. The suffix of these
-		files should be <em>.properties</em>, the default Property File for a
-		Build File is <em>build.properties</em>
+		key/value pairs and may only contain plain text. 
 	</p>
 
 	<pre>
+# This is a comment, but you can also use &quot;;&quot; for that
 # Property files contain key/value pairs
-key=value
+key=value		# comments can go here as well
 
 # Property keys may contain alphanumeric chars and colons, but
 # not special chars. This way you can create pseudo-namespaces
@@ -145,8 +144,24 @@ text.width=${myapp.window.hsize}
 # not have to enclose strings:
 text=This is some text, Your OS is ${php.os}
 
-# I guess that is all there is to property files
+# Property arrays are also supported
+delicious.food[] = Pasta
+delicious.food[] = Steak
 </pre>
+	<h3>Property sections</h3>
+	<p>Property files can contain <em>sections</em> and sections can inherit from each other (single-inheritance). <a href="AppendixB-CoreTasks.html#PropertyTask">PropertyTask</a> supports reading from particular sections. Example:</p>
+<pre>
+# This is the global section that will always be read.
+db.dsn = someValue
 
+[production]
+; The production environment uses logging.
+logging.enabled = true
+
+[development : production]
+; Development also displays errors
+display.errors = true
+</pre>
+<p>When reading the section &quot;development&quot; from this file, you will effectively import the properties <em>db.dsn</em> (because it's in the <em>global section</em>), <em>logging.enabled</em> (because <em>development</em> inherits from that) and <em>display.errors</em>.</p>
 </body>
 </html>

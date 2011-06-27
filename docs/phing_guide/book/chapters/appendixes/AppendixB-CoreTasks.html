@@ -1892,15 +1892,30 @@
 	</h2>
 	<p>
 		With PropertyTask, you can define properties in your
-		build file.
-	</p>
-	<p>You can also read property definitions from a single or several files by using
+		build file. You can also read property definitions from a single or several files by using
 	the <em>file</em> attribute or the nested <em>fileset</em> and/or <em>filelist</em> tags.</p>
+	<p>Properties can be arrays. To turn a property into an array, append <em>[]</em> to its name, optionally
+	providing an array key. This should be familiar to you if you have used PHP before ;-), although you omit the
+	quotes in this case. </p><p>The following examples
+	show a properties file, but the same rules apply if you directly use PropertyTask instead and set the name and
+	value attributes accordingly.</p>
+<pre>; With the following definitions, using ${delicious.food} results in &quot;Pasta, Steak&quot;
+delicious.food[] = Pasta
+delicious.food[] = Steak
+
+; The usage of array keys allows you to override array elements...
+food.likes[pasta] = true
+food.likes[steak] = true
+; ... so maybe later on you can change your mind:
+food.likes[steak] = false
+</pre>
 	<h3>Reading from property files</h3>
 	<p>When reading from file(s), the <em>section</em> attribute can contain the name of
-	a property file section that is to be read. The global section will always be read.</p>
+	a property file section that is to be read. See 
+	<a href="AppendixF-FileFormats.html#PropertyFileFormat">Appendix F</a> to learn more about property file sections.</p>
 	<p>When reading from multiple files
-	the behaviour is that all files are first read with latter property definitions overwriting former ones.
+	the behaviour is that all files are first read with latter property definitions overwriting (for simple properties)
+	or appending to former ones (for property arrays).
 	The resulting set of properties is then applied according to the <em>override</em> and <em>userProperty</em>
 	attributes.</p>
 	<h3>Example</h3>
@@ -1985,8 +2000,8 @@
 	</table>
 	<h3>Supported Nested Tags:</h3>
 	<ul>
-		<li>fileset</li>
-		<li>filelist</li>
+		<li>FileSet</li>
+		<li>FileList</li>
 	</ul>
 	
 
