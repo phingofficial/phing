@@ -1891,9 +1891,18 @@
 		<a name="PropertyTask"></a>PropertyTask
 	</h2>
 	<p>
-		With PropertyTask, you can define <em>user</em> properties in your
+		With PropertyTask, you can define properties in your
 		build file.
 	</p>
+	<p>You can also read property definitions from a single or several files by using
+	the <em>file</em> attribute or the nested <em>fileset</em> and/or <em>filelist</em> tags.</p>
+	<h3>Reading from property files</h3>
+	<p>When reading from file(s), the <em>section</em> attribute can contain the name of
+	a property file section that is to be read. The global section will always be read.</p>
+	<p>When reading from multiple files
+	the behaviour is that all files are first read with latter property definitions overwriting former ones.
+	The resulting set of properties is then applied according to the <em>override</em> and <em>userProperty</em>
+	attributes.</p>
 	<h3>Example</h3>
 	<pre>&lt;property name=&quot;strings.test&quot; value=&quot;Harr harr, more power!&quot; /&gt;
 &lt;echo message=&quot;${strings.test}&quot; /&gt;
@@ -1901,7 +1910,15 @@
 &lt;property name=&quot;foo.bar&quot; value=&quot;Yet another property...&quot; /&gt;
 &lt;echo message=&quot;${foo.bar}&quot; /&gt;
 
-&lt;property file=&quot;build.properties&quot;  /&gt;
+&lt;property file=&quot;build.properties&quot; /&gt;
+
+&lt;property prefix=&quot;settings&quot; section=&quot;deploy&quot; /&gt;
+	&lt;fileset dir=&quot;.&quot;&gt;
+		&lt;include name=&quot;**/configuration.properties&quot; &gt;
+	&lt;/fileset&gt;
+&lt;/property&gt;
+
+
 </pre>
 	<h3>Attributes</h3>
 	<table>
@@ -1920,14 +1937,14 @@
 				<td>String</td>
 				<td>The name of the Property.</td>
 				<td>n/a</td>
-				<td>Yes (unless using file)</td>
+				<td>Yes (unless using file or nested FileList/Fileset tags)</td>
 			</tr>
 			<tr>
 				<td>value</td>
 				<td>String</td>
 				<td>The value of the Property.</td>
 				<td>n/a</td>
-				<td>Yes (unless using file)</td>
+				<td>Yes (unless using file or nested FileList/Fileset tags)</td>
 			</tr>
 			<tr>
 				<td>override</td>
@@ -1937,14 +1954,41 @@
 				<td>No</td>
 			</tr>
 			<tr>
+				<td>userProperty</td>
+				<td>Boolean</td>
+				<td>Whether the property is to be treated as a <em>user property</em>, as are properties given on the command line.</td>
+				<td>false</td>
+				<td>No</td>
+			</tr>
+			<tr>
 				<td>file</td>
 				<td>String</td>
-				<td>Path to properties file.</td>
+				<td>Path to a properties file.</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>section</td>
+				<td>String</td>
+				<td>Name of the property file section to read, only when reading from file(s). If omitted, the &quot;global section&quot; will be read.</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>prefix</td>
+				<td>String</td>
+				<td>Prefix that will be added to all properties, only when reading from file(s).</td>
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
 		</tbody>
 	</table>
+	<h3>Supported Nested Tags:</h3>
+	<ul>
+		<li>fileset</li>
+		<li>filelist</li>
+	</ul>
+	
 
 	<h2>
 		<a name="PropertyPromptTask"></a>PropertyPromptTask
