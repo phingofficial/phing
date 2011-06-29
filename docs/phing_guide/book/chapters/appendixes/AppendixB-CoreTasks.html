@@ -1376,6 +1376,12 @@
 	<pre>
 &lt;import file=&quot;path/to/build.xml&quot;/&gt;
 &lt;import file=&quot;path/to/build.xml&quot; optional=&quot;true&quot;/&gt;
+&lt;import&gt;
+	&lt;fileset dir=&quot;path/to/modules&quot;&gt;
+		&lt;include name=&quot;*/module.xml&quot; /&gt;
+	&lt;/fileset&gt;
+&lt;/import&gt;
+
 </pre>
 	<h3>Attributes</h3>
 	<table>
@@ -1394,7 +1400,7 @@
 				<td>String</td>
 				<td>The file to import.</td>
 				<td>n/a</td>
-				<td>Yes</td>
+				<td>Yes (unless using a FileSet)</td>
 			</tr>
 			<tr>
 				<td>optional</td>
@@ -1406,6 +1412,9 @@
 		</tbody>
 	</table>
 
+	<h3>Supported nested tags:</h3>
+	<ul><li>FileSet</li></ul>
+	
 	<h2>
 		<a name="IncludePathTask"></a>IncludePathTask
 	</h2>
