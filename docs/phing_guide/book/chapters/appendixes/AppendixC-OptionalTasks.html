@@ -5409,14 +5409,19 @@ Note that you can omit both startpoint and track attributes in this case
 							phpunit-frames.xsl.</li>
 						<li>noframes format: the stylesheet must be named
 							phpunit-noframes.xsl.</li>
-					</ul></td>
+					</ul>
+					
+					If unspecified, the task will look for the stylesheet(s) in 
+					the following directories: the PHP include path, the Phing
+					home directory and the PEAR data directory (if applicable). 
+					</td>
 				<td>n/a</td>
-				<td>Yes</td>
+				<td>No</td>
 			</tr>
 			<tr>
 				<td>todir</td>
 				<td>String</td>
-				<td>The directory where the files resulting from the
+				<td>An existing directory where the files resulting from the
 					transformation should be written to.</td>
 				<td />
 				<td>Yes</td>
