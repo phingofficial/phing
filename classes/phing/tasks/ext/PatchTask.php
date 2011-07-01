@@ -34,10 +34,10 @@ require_once 'phing/Task.php';
 class PatchTask extends Task
 {
 	/**
-	 * Base command to be executed
+	 * Base command to be executed (must end with a space character!)
 	 * @var string
 	 */
-	const CMD = 'patch --batch ';
+	const CMD = 'patch --batch --silent ';
 
 	/**
 	 * File to be patched
@@ -82,9 +82,10 @@ class PatchTask extends Task
 	public function setPatchFile($file)
 	{
 		if (!is_file($file))
+		{
 			throw new BuildException(sprintf('Patchfile %s doesn\'t exist', $file));
-
-    $this->patchFile = $file;
+		}
+		$this->patchFile = $file;
 	}
 
 	/**
@@ -112,7 +113,9 @@ class PatchTask extends Task
 	public function setDestFile($file)
 	{
 		if ($file !== null)
+		{
 			$this->cmdArgs []= "--output=$file";
+		}
 	}
 
 	/**
@@ -126,7 +129,9 @@ class PatchTask extends Task
 	public function setBackups($backups)
 	{
 		if ($backups)
+		{
 			$this->cmdArgs []= '--backup';
+		}
 	}
 
 	/**
@@ -140,7 +145,9 @@ class PatchTask extends Task
 	public function setIgnoreWhiteSpace($ignore)
 	{
 		if ($ignore)
+		{
 			$this->cmdArgs []= '--ignore-whitespace';
+		}
 	}
 
 	/**
@@ -156,7 +163,9 @@ class PatchTask extends Task
 	public function setStrip($num)
 	{
 		if ($num < 0)
+		{
 			throw new BuildException('strip has to be >= 0');
+		}
 
 		$this->strip = $num;
 	}
@@ -171,7 +180,9 @@ class PatchTask extends Task
 	public function setQuiet($flag)
 	{
 		if ($flag)
+		{
 			$this->cmdArgs []= '--silent';
+		}
 	}
 
 	/**
@@ -185,7 +196,9 @@ class PatchTask extends Task
 	public function setReverse($flag)
 	{
 		if ($flag)
+		{
 			$this->cmdArgs []= '--reverse';
+		}
 	}
 
 	/**
@@ -210,7 +223,9 @@ class PatchTask extends Task
 	public function setForward($flag)
 	{
 		if ($flag)
+		{
 			$this->cmdArgs []= "--forward";
+		}
 	}
 
 	/**
@@ -249,16 +264,22 @@ class PatchTask extends Task
 	public function main()
 	{
 		if ($this->patchFile == null)
+		{
 			throw new BuildException('patchfile argument is required');
+		}
 
 		// Define patch file
 		$this->cmdArgs []= '-i ' . $this->patchFile;
 		// Define strip factor
 		if ($this->strip != null)
+		{
 			$this->cmdArgs []= '--strip=' . $this->strip;
+		}
 		// Define original file if specified
 		if ($this->originalFile != null)
-	 	   $this->cmdArgs []= $this->originalFile;
+		{
+			$this->cmdArgs []= $this->originalFile;
+		}
 
 		$cmd = self::CMD . implode(' ', $this->cmdArgs);
 
@@ -267,10 +288,14 @@ class PatchTask extends Task
 		exec($cmd, $output, $exitCode);
 
 		foreach ($output as $line)
+		{
 			$this->log($line, Project::MSG_VERBOSE);
+		}
 
 		if ($exitCode != 0 && $this->haltOnFailure)
+		{
 			throw new BuildException( "Task exited with code $exitCode" );
+		}
 
 	}
 }
