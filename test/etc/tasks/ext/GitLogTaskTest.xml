@@ -73,7 +73,7 @@
             targetPath="${tmp.dir.resolved}" />
         <gitlog 
             format="oneline"
-            since="2011-01-23"
+            since="2011-01-22"
             until="Mon Jan 24 09:50:33 2011 +0300"
             repository="${tmp.dir.resolved}" />
     </target>
