@@ -156,7 +156,6 @@ etc.), file system operations, interactive build support, SQL execution, and muc
         $package->setLicense('LGPL', 'http://www.gnu.org/licenses/lgpl.html');
         
         // Add package maintainers
-        $package->addMaintainer('lead', 'hans', 'Hans Lellelid', 'hans@xmpl.org');
         $package->addMaintainer('lead', 'mrook', 'Michiel Rook', 'mrook@php.net');
         
         
