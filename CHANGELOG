@@ -1,6 +1,65 @@
                            _________________________
                            P     H     I     N     G
 
+Jul. ?, 2011 - Phing 2.4.6
+
+This release fixes a large number of issues, improves a number of tasks
+and adds several new tasks (SVN log/list, DocBlox and LoadFile). 
+
+[732] execTask fails to chdir if the chdir parameter is a symlink to a dir
+[730] phpunitreport: styledir not required
+[729] CopyTask fails when todir="" does not exist
+[725] Clarify documentation for using AvailableTask as a condition
+[723] setIni() fails with memory_limit not set in Megabytes
+[719] TouchTask: file not required?
+[718] mkdir: are parent directories created?
+[715] Fix for mail task documentation
+[712] expectSpecificBuildException fails to detect wrong exception message
+[708] typo in docs: "No you can set"
+[706] Advanced task example missing
+[705] Missing links in Writing Tasks: Summary
+[704] Case problem in "Writing Tasks" with setMessage
+[703] missing links in "Package Imports"
+[701] Setting more then two properties in command line not possible on windows
+[699] Add loadfile task
+[698] Add documentation for patternset element to user guide
+[696] CoverageReportTask doesn't recognize UTF-8 source code
+[695] phpunit Task doesn't support @codeCoverageIgnore[...] comments
+[692] Class 'GroupTest' not found in /usr/share/php/phing/tasks/ext/simpletest/SimpleTestTask.php on line 158
+[691] foreach doesn't work with filelists
+[690] Support DocBlox
+[689] Improve documentation about selectors
+[688] SshTask Adding (+propertysetter, +displaysetter)
+[685] SvnLogTask and SvnListTask
+[682] Loading custom tasks should use the autoloading mechanism
+[681] phpunit report does not work with a single testcase
+[680] phpunitreport: make tables sortable
+[679] IoncubeEncoderTask improved
+[673] new listener HtmlColorLogger
+[672] DbDeployTask::getDeltasFilesArray has undefined variable
+[671] fix CvsTask documentation
+[670] DirectoryScanner: add darcs to default excludes
+[668] Empty Default Value Behaves Like the Value is not set
+[667] Document how symbolic links and hidden files are treated in copy task
+[663] __toString for register slots
+[662] Hiding the command that is excecuted with "ExecTask"
+[659] optionally skip version check in codesniffer task
+[654] fileset not selecting folders
+[652] PDOSQLExec task doesn't close the DB connection before throw an exception or at the end of the task.
+[642] ERROR: option "-o" not known with phpcs version 1.3.0RC2 and phing/phpcodesniffer 2.4.4
+[639] Add verbose mode for SCPTask
+[635] ignored autocommit="false" in PDOTask?
+[626] Coverage threshold message is too detailed...
+[616] PhpDocumentor prematurely checks for executable
+[613] Would be nice to have -properties=<file> CLI option
+[611] Attribute "title" is wanted in CoverageReportTask
+[608] Tweak test failure message from PHPUnitTask
+[591] PhpLintTask don't log all errors for each file
+[563] Make PatchTask silent on FreeBSD
+[546] Support of filelist in CodeCoverageTask
+[527] pearpkg2: unable to specify different file roles
+[521] jslint warning logger
+
 Mar. 3, 2011 - Phing 2.4.5
 
 This release fixes several issues, and reverts the changes
