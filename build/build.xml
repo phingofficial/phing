@@ -66,7 +66,6 @@
 		===================================================================
 	-->
 	<target name="versioncheck" unless="version">
-
 		<echo message="====================================================="/>
 		<echo message="Version not specified. You must enter a version. In"/>
 		<echo message="the future you can add this to build.properties or"/>
@@ -92,18 +91,29 @@
 		<property name="build.full.dir" value="full/${pkgname}"/>
 		
 		<if>
-			<and>
-				<isset property="version"/>
-				<contains string="${version}" substring="RC"/>
-			</and>
+			<isset property="version"/>
 			<then>
-				<property name="notes">This is the latest beta release of Phing.</property>
-				<property name="state" value="beta"/>
+				<if>
+					<contains string="${version}" substring="RC"/>
+					<then>
+						<property name="notes">This is the latest beta release of Phing.</property>
+						<property name="state" value="beta"/>
+					</then>
+				
+					<elseif>
+						<contains string="${version}" substring="snapshot"/>
+						<then>
+							<property name="notes">This is a snapshot release that might not be functional.</property>
+							<property name="state" value="alpha"/>
+						</then>
+					</elseif>
+	
+					<else>
+						<property name="notes">This is the latest stable release of Phing.</property>
+						<property name="state" value="stable"/>
+					</else>
+				</if>
 			</then>
-			<else>
-				<property name="notes">This is the latest stable release of Phing.</property>
-				<property name="state" value="stable"/>
-			</else>
 		</if>
 		
 		<echo>Building Phing PEAR/full version ${version}</echo>
