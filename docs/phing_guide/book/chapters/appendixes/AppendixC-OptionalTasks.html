@@ -239,6 +239,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>classpath</li>
+        <li>excludes</li>
 	</ul>
 	<h3>Example</h3>
 	<pre>
@@ -254,6 +255,23 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 </pre>
 	<p>Validates the code coverage database (from CoverageSetupTask)
 		against the specified thresholds.</p>
+
+    <pre>
+&lt;coverage-threshold
+    perProject=&quot;50&quot;
+    perClass=&quot;60&quot;
+    perMethod=&quot;70&quot;/&gt;
+    &lt;excludes&gt;
+        &lt;file&gt;**/*Processor.php&lt;/file&gt;
+        &lt;class&gt;Model_Filter_Windows&lt;/class&gt;
+        &lt;method&gt;Model_System::execute()&lt;/method&gt;
+    &lt;/excludes&gt;
+</pre>
+    <p>Validates the code coverage database (from CoverageSetupTask)
+        against the specified thresholds and excludes the given file, class and method from
+        threshold validation. The filename is relative to the project basedir. 
+        A Method can be named either "Model_System::execute()" or "Model_System::execute". 
+        The method name is considered only for the given class "Model_System".</p>
 
 	<h2>
 		<a name="DbDeployTask"></a>DbDeployTask

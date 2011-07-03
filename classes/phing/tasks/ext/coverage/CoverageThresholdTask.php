@@ -22,6 +22,7 @@
 require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/util/Properties.php';
+require_once 'phing/types/Excludes.php';
 
 /**
  * Stops the build if any of the specified coverage threshold was not reached
@@ -39,6 +40,13 @@ class CoverageThresholdTask extends Task
      * @var Path
      */
     private $_classpath = null;
+
+    /**
+     * Holds the exclusions
+     *
+     * @var Excludes
+     */
+    private $_excludes = null;
 
     /**
      * Holds an optional database file
@@ -190,6 +198,17 @@ class CoverageThresholdTask extends Task
     }
 
     /**
+     * Create excludes object
+     *
+     * @return Excludes
+     */
+    public function createExcludes()
+    {
+        $this->_excludes = new Excludes($this->project);
+        return $this->_excludes;
+    }
+
+    /**
      * Calculates the coverage threshold
      *
      * @param string $filename            The filename to analyse
@@ -201,6 +220,13 @@ class CoverageThresholdTask extends Task
 
         if (is_array($classes)) {
             foreach ($classes as $className) {
+                // Skip class if excluded from coverage threshold validation
+                if ($this->_excludes !== null) {
+                    if (in_array($className, $this->_excludes->getExcludedClasses())) {
+                        continue;
+                    }
+                }
+
                 $reflection     = new ReflectionClass($className);
                 $classStartLine = $reflection->getStartLine();
 
@@ -223,6 +249,19 @@ class CoverageThresholdTask extends Task
                     // to be part of a subclass, we don't
                     if ($method->getDeclaringClass()->getName() != $reflection->getName()) {
                         continue;
+                    }
+
+                    // Skip method if excluded from coverage threshold validation
+                    if ($this->_excludes !== null) {
+                        $excludedMethods = $this->_excludes->getExcludedMethods();
+
+                        if (isset($excludedMethods[$className])) {
+                            if (in_array($method->getName(), $excludedMethods[$className])
+                                || in_array($method->getName() . '()', $excludedMethods[$className])
+                            ) {
+                                continue;
+                            }
+                        }
                     }
 
                     $methodStartLine = $method->getStartLine();
@@ -283,13 +322,12 @@ class CoverageThresholdTask extends Task
                         );
                     } elseif ($methodCoverage < $this->_perMethod
                               && $method->isAbstract()
+                              && $this->_verbose === true
                     ) {
-                        if ($this->_verbose === true) {
-                            $this->log(
-                                'Skipped coverage threshold for abstract method "'
-                                . $method->getName() . '"'
-                            );
-                        }
+                        $this->log(
+                            'Skipped coverage threshold for abstract method "'
+                            . $method->getName() . '"'
+                        );
                     }
 
                     // store the minimum coverage value for logging (see #466)
@@ -328,13 +366,12 @@ class CoverageThresholdTask extends Task
                     );
                 } elseif ($classCoverage < $this->_perClass
                           && $reflection->isAbstract()
+                          && $this->_verbose === true
                 ) {
-                    if ($this->_verbose === true) {
-                        $this->log(
-                            'Skipped coverage threshold for abstract class "'
-                            . $reflection->getName() . '"'
-                        );
-                    }
+                    $this->log(
+                        'Skipped coverage threshold for abstract class "'
+                        . $reflection->getName() . '"'
+                    );
                 }
 
                 // store the minimum coverage value for logging (see #466)
@@ -382,6 +419,13 @@ class CoverageThresholdTask extends Task
 
         foreach ($props->keys() as $filename) {
             $file = unserialize($props->getProperty($filename));
+
+            // Skip file if excluded from coverage threshold validation
+            if ($this->_excludes !== null) {
+                if (in_array($file['fullname'], $this->_excludes->getExcludedFiles())) {
+                    continue;
+                }
+            }
 
             $this->calculateCoverageThreshold(
                 $file['fullname'],
