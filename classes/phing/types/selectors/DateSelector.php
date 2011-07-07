@@ -30,7 +30,7 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
  * @version   $Revision$
- * @package   phing.types.selecctors
+ * @package   phing.types.selectors
  */
 class DateSelector extends BaseExtendSelector {
 
