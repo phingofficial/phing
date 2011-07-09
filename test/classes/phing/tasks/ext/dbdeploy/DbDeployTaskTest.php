@@ -29,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
 class DbDeployTaskTest extends BuildFileTest { 
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/dbdeploy/build.xml");
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/dbdeploy/build.xml");
         $this->executeTarget("prepare");
     }
         

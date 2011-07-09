@@ -40,7 +40,7 @@ class GitPushTaskTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitPushTaskTest.xml');
+                              . '/etc/tasks/ext/git/GitPushTaskTest.xml');
     }
 
     public function tearDown()

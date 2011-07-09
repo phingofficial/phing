@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="gitGcTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../tmp/git" />
+    <property name="tmp.dir" value="./../../../../tmp/git" />
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
 
     <target name="invalid">

@@ -33,7 +33,7 @@ class GitBaseTest extends BuildFileTest {
         
     public function setUp() { 
         $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/ext/GitBaseTest.xml");
+                              . "/etc/tasks/ext/git/GitBaseTest.xml");
         $this->mock = $this->getMockForAbstractClass('GitBaseTask');
     }
 

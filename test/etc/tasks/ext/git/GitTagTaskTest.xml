@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="gitTagTest" default="invalid">
 
-    <property name="tmp.dir" value="./../../../tmp/git" />
+    <property name="tmp.dir" value="./../../../../tmp/git" />
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
 
     <target name="invalid">
@@ -158,7 +158,7 @@
     </target>
 
     <target name="gitTagFileSet" description="git-tag -F">
-        <property name="msg.dir" value="./../../../tmp" />
+        <property name="msg.dir" value="./../../../../tmp" />
         <resolvepath propertyName="msg.dir.resolved" file="${msg.dir}" />
         <gitclone 
             repository="git://github.com/farazdagi/phing-tests.git"

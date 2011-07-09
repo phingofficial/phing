@@ -110,7 +110,7 @@ class GitLogTaskTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitLogTaskTest.xml');
+                              . '/etc/tasks/ext/git/GitLogTaskTest.xml');
     }
 
     public function tearDown()

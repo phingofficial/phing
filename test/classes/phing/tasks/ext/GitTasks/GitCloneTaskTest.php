@@ -35,7 +35,7 @@ class GitCloneTaskTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitCloneTaskTest.xml');
+                              . '/etc/tasks/ext/git/GitCloneTaskTest.xml');
     }
 
     public function tearDown()

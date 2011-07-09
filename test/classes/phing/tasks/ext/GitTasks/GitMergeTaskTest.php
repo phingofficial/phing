@@ -40,7 +40,7 @@ class GitMergeTaskTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitMergeTaskTest.xml');
+                              . '/etc/tasks/ext/git/GitMergeTaskTest.xml');
     }
 
     public function tearDown()

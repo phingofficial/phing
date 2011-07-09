@@ -40,7 +40,7 @@ class GitFetchTaskTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/GitFetchTaskTest.xml');
+                              . '/etc/tasks/ext/git/GitFetchTaskTest.xml');
     }
 
     public function tearDown()
