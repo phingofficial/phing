@@ -46,6 +46,7 @@ class DbDeployTask extends Task {
     protected $deltaSet = 'Main';
     protected $lastChangeToApply = 999;
     protected $dbmsSyntax = null;
+    protected $appliedChangeNumbers = array();
     
     function main() {
         try{
