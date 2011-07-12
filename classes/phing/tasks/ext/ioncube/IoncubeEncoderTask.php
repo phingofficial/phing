@@ -27,6 +27,7 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
  *
  * @author Michiel Rook <michiel.rook@gmail.com>
  * @author Andrew Eddie <andrew.eddie@jamboworks.com> 
+ * @author Domenico Sgarbossa <sbraaaa@yahoo.it> 
  * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0
@@ -52,6 +53,16 @@ class IoncubeEncoderTask extends Task
     private $targetOption = '';
 
     private $toDir = '';
+
+    private $showCommandLine = false;
+ 
+    /**
+     * Sets whether to show command line before it is executed
+     */
+    function setShowCommandLine($value)
+    {
+        $this->showCommandLine = $value;
+    }
 
     /**
      * Adds a comment to be used in encoded files
@@ -398,7 +409,87 @@ class IoncubeEncoderTask extends Task
     {
         return $this->ionSwitches['no-short-open-tags'];
     }
-    
+
+    /**
+     * Sets the ignore-deprecated-warnings option
+     */
+    function setIgnoreDeprecatedWarnings($value)
+    {
+        $this->ionSwitches['ignore-deprecated-warnings'] = $value;
+    }
+
+    /**
+     * Returns the ignore-deprecated-warnings option
+     */
+    function getIgnoreDeprecatedWarnings()
+    {
+        return $this->ionSwitches['ignore-deprecated-warnings'];
+    }
+
+    /**
+     * Sets the ignore-strict-warnings option
+     */
+    function setIgnoreStrictWarnings($value)
+    {
+        $this->ionSwitches['ignore-strict-warnings'] = $value;
+    }
+
+    /**
+     * Returns the ignore-strict-warnings option
+     */
+    function getIgnoreStrictWarnings()
+    {
+        return $this->ionSwitches['ignore-strict-warnings'];
+    }
+
+    /**
+     * Sets the allow-encoding-into-source option
+     */
+    function setAllowEncodingIntoSource($value)
+    {
+        $this->ionSwitches['allow-encoding-into-source'] = $value;
+    }
+
+    /**
+     * Returns the allow-encoding-into-source option
+     */
+    function getAllowEncodingIntoSource()
+    {
+        return $this->ionSwitches['allow-encoding-into-source'];
+    }
+
+    /**
+     * Sets the message-if-no-loader option
+     */
+    function setMessageIfNoLoader($value)
+    {
+        $this->ionOptions['message-if-no-loader'] = $value;
+    }
+
+    /**
+     * Returns the message-if-no-loader option
+     */
+    function getMessageIfNoLoader()
+    {
+        return $this->ionOptions['message-if-no-loader'];
+    }
+
+    /**
+     * Sets the action-if-no-loader option
+     */
+    function setActionIfNoLoader($value)
+    {
+        $this->ionOptions['action-if-no-loader'] = $value;
+    }
+
+    /**
+     * Returns the action-if-no-loader option
+     */
+    function getActionIfNoLoader()
+    {
+        return $this->ionOptions['action-if-no-loader'];
+    }
+
     /**
      * Sets the option to use when encoding target directory already exists (defaults to none)
      */
@@ -460,6 +551,11 @@ class IoncubeEncoderTask extends Task
         
         $this->log("Running ionCube Encoder...");
        
+        if ($this->showCommandLine)
+        {
+            $this->log("Command line: ".$encoder->__toString() . ' ' . $arguments);
+        }
+
         exec($encoder->__toString() . ' ' . $arguments . " 2>&1", $output, $return);
        
         if ($return != 0)
@@ -485,7 +581,18 @@ class IoncubeEncoderTask extends Task
 
         foreach ($this->ionOptions as $name => $value)
         {
-            $arguments.= "--$name '$value' ";
+            /**
+             * action-if-no-loader value is a php source snippet so it is
+	         * better to handle it this way to prevent quote problems!
+	         */		
+            if ($name == 'action-if-no-loader')
+            {
+                $arguments.= "--$name \"$value\" ";
+            }
+            else
+            {
+                $arguments.= "--$name '$value' ";
+            }            
         }
 
         foreach ($this->ionOptionsXS as $name => $value)

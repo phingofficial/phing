@@ -26,7 +26,7 @@ require_once 'phing/util/regexp/RegexpEngine.php';
  * Implements a regexp engine using PHP's preg_match(), preg_match_all(), and preg_replace() functions.
  * 
  * @author hans lellelid, hans@velum.net
- * @package phing.util.regex
+ * @package phing.util.regexp
  */
 class PregEngine implements RegexpEngine {
 

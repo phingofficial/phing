@@ -1,15 +1,15 @@
                          _________________________
                          P     H     I     N     G
 
-  Lead Developers
+  Lead Developer
   ---------------
 
-  Hans Lellelid <hans@xmpl.org>
   Michiel Rook <mrook@php.net>
 
   New PHP5 PHING/2 Development
   ----------------------------
 
+  Hans Lellelid <hans@xmpl.org> (previous Lead Developer)
   Sebastian Bergmann <sb@sebastian-bergmann.de>
   Joakim Bodin <joakim.bodin+phing@gmail.com>
   Johan Van den Brande <johan@vandenbrande.com>
@@ -29,8 +29,10 @@
   Mike Wittje <mw@mike.wittje.de>
   Benjamin Schultz <bschultz@proqrent.de>
   Andrei Serdeliuc <andrei@serdeliuc.ro>
+  Christian Weiske
+  Matthias Pigulla
 
-  If you've done work on phing and you are not listed here, please feel free
+  If you've done work on Phing and you are not listed here, please feel free
   to add yourself.
 
   Original PHING/1 Development

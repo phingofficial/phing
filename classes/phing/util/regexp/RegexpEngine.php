@@ -24,7 +24,7 @@
  * engine-specific implementations that sub-classes must override.
  * 
  * @author Hans Lellelid <hans@velum.net>
- * @package phing.util.regex
+ * @package phing.util.regexp
  * @version $Revision$
  */
 interface RegexpEngine {

@@ -40,7 +40,7 @@ class ExecTask extends Task {
 
     /**
      * Working directory.
-     * @var File
+     * @var PhingFile
      */
     protected $dir;
 
@@ -137,11 +137,12 @@ class ExecTask extends Task {
         }
 
         if ($this->dir !== null) {
-            if ($this->dir->isDirectory()) {
+            // expand any symbolic links first
+            if ($this->dir->getCanonicalFile()->isDirectory()) {
                 $currdir = getcwd();
                 @chdir($this->dir->getPath());
             } else {
-                throw new BuildException("Can't chdir to:" . $this->dir->__toString());
+                throw new BuildException("'" . (string) $this->dir . "' is not a valid directory");
             }
         }
 

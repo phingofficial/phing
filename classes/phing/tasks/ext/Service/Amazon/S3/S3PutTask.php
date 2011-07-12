@@ -65,7 +65,7 @@ class S3PutTask extends Service_Amazon_S3
     protected $_filesets = array();
 	
 	/**
-	 * Wether to try to create buckets or not
+	 * Whether to try to create buckets or not
 	 * 
 	 * (default value: false)
 	 * 

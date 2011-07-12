@@ -199,22 +199,27 @@ class SshTask extends Task {
         
         $this->log("Executing command {$this->command}", Project::MSG_VERBOSE);
         
-        $output = "";
-        stream_set_blocking( $stream, true );
+        stream_set_blocking($stream, true);
+        $result = stream_get_contents($stream);
         
-        while( $buf = fread($stream,4096) ){
-            if ($this->display) {
-                print($buf);
-            }
-            
-            $output .= $buf;
+        if (!strlen($result)) {
+            $stderr_stream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
+            stream_set_blocking($stderr_stream, true);
+            $result = stream_get_contents($stderr_stream);
+        }
+        
+        if ($this->display) {
+            print($result);
         }
         
         if (!empty($this->property)) {
-            $this->project->setProperty($this->property, $output);
+            $this->project->setProperty($this->property, $result);
         }
         
         fclose($stream);
+        if (isset($stderr_stream)) {
+            fclose($stderr_stream);
+        }
     }
 }
 ?>

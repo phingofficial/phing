@@ -162,6 +162,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 	<ul>
 		<li>classpath</li>
 		<li>fileset</li>
+		<li>filelist</li>
 	</ul>
 	<h3>Example</h3>
 	<pre>
@@ -238,6 +239,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 	<h3>Supported Nested Tags</h3>
 	<ul>
 		<li>classpath</li>
+        <li>excludes</li>
 	</ul>
 	<h3>Example</h3>
 	<pre>
@@ -253,6 +255,23 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 </pre>
 	<p>Validates the code coverage database (from CoverageSetupTask)
 		against the specified thresholds.</p>
+
+    <pre>
+&lt;coverage-threshold
+    perProject=&quot;50&quot;
+    perClass=&quot;60&quot;
+    perMethod=&quot;70&quot;/&gt;
+    &lt;excludes&gt;
+        &lt;file&gt;**/*Processor.php&lt;/file&gt;
+        &lt;class&gt;Model_Filter_Windows&lt;/class&gt;
+        &lt;method&gt;Model_System::execute()&lt;/method&gt;
+    &lt;/excludes&gt;
+</pre>
+    <p>Validates the code coverage database (from CoverageSetupTask)
+        against the specified thresholds and excludes the given file, class and method from
+        threshold validation. The filename is relative to the project basedir. 
+        A Method can be named either "Model_System::execute()" or "Model_System::execute". 
+        The method name is considered only for the given class "Model_System".</p>
 
 	<h2>
 		<a name="DbDeployTask"></a>DbDeployTask
@@ -2487,7 +2506,7 @@ Note that you can omit both startpoint and track attributes in this case
 			<tr>
 				<td>withoutruntimeloadersupport</td>
 				<td>Boolean</td>
-				<td>Wether to disable support for runtime initialization of the
+				<td>Whether to disable support for runtime initialization of the
 					ionCube Loader</td>
 				<td>false</td>
 				<td>No</td>
@@ -2495,7 +2514,7 @@ Note that you can omit both startpoint and track attributes in this case
 			<tr>
 				<td>noshortopentags</td>
 				<td>Boolean</td>
-				<td>Wether to disable support for short PHP tags</td>
+				<td>Whether to disable support for short PHP tags</td>
 				<td>false</td>
 				<td>No</td>
 			</tr>
@@ -2513,6 +2532,48 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
+            <tr>
+                <td>ignoredeprecatedwarnings</td>
+                <td>Boolean</td>
+                <td>Whether to ignore deprecated warnings</td>
+                <td>false</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>ignorestrictwarnings</td>
+                <td>Boolean</td>
+                <td>Whether to ignore strict warnings</td>
+                <td>false</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>allowencodingintosource</td>
+                <td>Boolean</td>
+                <td>Whether to allow encoding into the source tree</td>
+                <td>false</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>messageifnoloader</td>
+                <td>String</td>
+                <td>A valid PHP expression to customize the "no loader installed" message</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>actionifnoloader</td>
+                <td>String</td>
+                <td>A valid PHP expression to replace the "no loader installed" action</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>showcommandline</td>
+                <td>Boolean</td>
+                <td>whether to show command line before it is executed</td>
+                <td>false</td>
+                <td>No</td>
+            </tr>
 		</tbody>
 	</table>
 	<h3>Supported Nested Tags</h3>
@@ -2676,7 +2737,14 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>none</td>
 				<td>No</td>
 			</tr>
-		</tbody>
+            <tr>
+                <td>tofile</td>
+                <td>String</td>
+                <td>File to write list of 'bad files' to.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+   		</tbody>
 	</table>
 	<h3>Supported Nested Tags</h3>
 	<ul>
@@ -5359,14 +5427,19 @@ Note that you can omit both startpoint and track attributes in this case
 							phpunit-frames.xsl.</li>
 						<li>noframes format: the stylesheet must be named
 							phpunit-noframes.xsl.</li>
-					</ul></td>
+					</ul>
+					
+					If unspecified, the task will look for the stylesheet(s) in 
+					the following directories: the PHP include path, the Phing
+					home directory and the PEAR data directory (if applicable). 
+					</td>
 				<td>n/a</td>
-				<td>Yes</td>
+				<td>No</td>
 			</tr>
 			<tr>
 				<td>todir</td>
 				<td>String</td>
-				<td>The directory where the files resulting from the
+				<td>An existing directory where the files resulting from the
 					transformation should be written to.</td>
 				<td />
 				<td>Yes</td>

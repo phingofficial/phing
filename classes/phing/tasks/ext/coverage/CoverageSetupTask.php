@@ -38,6 +38,9 @@ class CoverageSetupTask extends Task
     /** the list of filesets containing the .php filename rules */
     private $filesets = array();
 
+    /** Any filelists of files containing the .php filenames */
+    private $filelists = array();
+
     /** the filename of the coverage database */
     private $database = "coverage.db";
 
@@ -52,6 +55,15 @@ class CoverageSetupTask extends Task
     function addFileSet(FileSet $fileset)
     {
         $this->filesets[] = $fileset;
+    }
+
+    /**
+     * Supports embedded <filelist> element.
+     * @return FileList
+     */
+    function createFileList() {
+        $num = array_push($this->filelists, new FileList());
+        return $this->filelists[$num-1];
     }
 
     /**
@@ -90,6 +102,19 @@ class CoverageSetupTask extends Task
     private function getFilenames()
     {
         $files = array();
+
+        foreach($this->filelists as $fl) {
+            try {
+                $list = $fl->getFiles($this->project);
+                foreach($list as $file) {
+                    $fs = new PhingFile(strval($fl->getDir($this->project)), $file);
+                    $files[] = array('key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath());
+                }
+            } catch (BuildException $be) {
+                $this->log($be->getMessage(), Project::MSG_WARN);
+            }
+        }
+
 
         foreach ($this->filesets as $fileset)
         {

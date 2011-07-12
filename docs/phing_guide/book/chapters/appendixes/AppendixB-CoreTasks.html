@@ -189,6 +189,7 @@
 		exists, <em>AvailableTask</em> will set <em>foo.bar</em> to <em>&quot;Well,
 			yes&quot;</em>.
 	</p>
+	<p><b>NB:</b> the Available task can also be used as a <a href="../ProjectComponents.html#Conditions">condition</a>.</p>
 	<h3>Parameters</h3>
 	<table>
 		<thead>
@@ -529,7 +530,7 @@
 				<td>String</td>
 				<td>The directory the file is to be copied to. The file will
 					have the same name of the source file. If you want to specify a
-					different name, use <em>tofile</em>.</td>
+					different name, use <em>tofile</em>. The directory must exist.</td>
 				<td>n/a</td>
 				<td>Yes (or <em>tofile</em>)</td>
 			</tr>
@@ -1026,7 +1027,7 @@
 			<tr>
 				<td>spawn</td>
 				<td>Boolean</td>
-				<td>Wether to spawn unix programs to the background,
+				<td>Whether to spawn unix programs to the background,
 					redirecting stdout.</td>
 				<td>FALSE</td>
 				<td>No</td>
@@ -1048,7 +1049,7 @@
 			<tr>
 				<td>checkreturn</td>
 				<td>Boolean</td>
-				<td>Wether to check the return code of the program, throws a
+				<td>Whether to check the return code of the program, throws a
 					BuildException when returncode != 0.</td>
 				<td>FALSE</td>
 				<td>No</td>
