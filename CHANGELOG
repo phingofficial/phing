@@ -1,7 +1,7 @@
                            _________________________
                            P     H     I     N     G
 
-Jul. ?, 2011 - Phing 2.4.6
+Jul. 12, 2011 - Phing 2.4.6
 
 This release fixes a large number of issues, improves a number of tasks
 and adds several new tasks (SVN log/list, DocBlox and LoadFile). 
@@ -49,6 +49,7 @@ and adds several new tasks (SVN log/list, DocBlox and LoadFile).
 [642] ERROR: option "-o" not known with phpcs version 1.3.0RC2 and phing/phpcodesniffer 2.4.4
 [639] Add verbose mode for SCPTask
 [635] ignored autocommit="false" in PDOTask?
+[632] CoverageThresholdTask needs exclusion option/attribute
 [626] Coverage threshold message is too detailed...
 [616] PhpDocumentor prematurely checks for executable
 [613] Would be nice to have -properties=<file> CLI option
