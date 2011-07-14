@@ -994,10 +994,24 @@
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
+            <tr>
+                <td>output</td>
+                <td>String</td>
+                <td>Where to direct stdout.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>error</td>
+                <td>String</td>
+                <td>Where to direct stderr.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
 			<tr>
 				<td>os</td>
 				<td>String</td>
-				<td>Only execute if os.name contains specified text.</td>
+				<td>Only execute if the <a href="AppendixA-FactSheet.html#BuiltInProperties">os.name</a> property contains specified text.</td>
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
@@ -1054,6 +1068,15 @@
 				<td>FALSE</td>
 				<td>No</td>
 			</tr>
+            <tr>
+                <td>level</td>
+                <td>String</td>
+                <td>Control the level at which status messages are reported. One of
+                    <em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>,
+                    <em>debug</em>.</td>
+                <td><em>verbose</em></td>
+                <td>No</td>
+            </tr>
 		</tbody>
 	</table>
 
