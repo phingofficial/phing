@@ -65,6 +65,31 @@ class AvailableTask extends Task {
     function setType($type) {
         $this->type = (string) strtolower($type);
     }
+    
+    /**
+     * Set the path to use when looking for a file.
+     * 
+     * @param Path $filepath a Path instance containing the search path for files.
+     */
+    public function setFilepath(Path $filepath) {
+        if ($this->filepath === null) {
+            $this->filepath = $filepath;
+        } else {
+            $this->filepath->append($filepath);
+        }
+    }
+
+    /**
+     * Creates a path to be configured
+     * 
+     * @return Path
+     */ 
+    public function createFilepath() {
+        if ($this->filepath === null) {
+            $this->filepath = new Path($this->project);
+        }
+        return $this->filepath->createPath();
+    }
 
     function main() {
         if ($this->property === null) {
@@ -102,7 +127,7 @@ class AvailableTask extends Task {
         if ($this->filepath === null) {
             return $this->_checkFile1($this->file);
         } else {
-            $paths = $this->filepath->listDir();
+            $paths = $this->filepath->listPaths();
             for($i=0,$pcnt=count($paths); $i < $pcnt; $i++) {
                 $this->log("Searching " . $paths[$i], Project::MSG_VERBOSE);
                 $tmp = new PhingFile($paths[$i], $this->file->getName());
