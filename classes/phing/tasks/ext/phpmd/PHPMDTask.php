@@ -280,18 +280,22 @@ class PHPMDTask extends Task
                 }
             }
         }
-
-        $inputPath = implode(',', $filesToParse);
-
-        $this->log('Processing files...');
-
-        $phpmd->processFiles(
-            $inputPath,
-            $this->rulesets,
-            $reportRenderers,
-            $ruleSetFactory
-        );
-
-        $this->log('Finished processing files');
+        
+        if (count($filesToParse) > 0) {
+            $inputPath = implode(',', $filesToParse);
+    
+            $this->log('Processing files...');
+    
+            $phpmd->processFiles(
+                $inputPath,
+                $this->rulesets,
+                $reportRenderers,
+                $ruleSetFactory
+            );
+    
+            $this->log('Finished processing files');
+        } else {
+            $this->log('No files to process');
+        }
     }
 }
