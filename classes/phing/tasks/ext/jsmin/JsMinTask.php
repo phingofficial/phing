@@ -48,6 +48,14 @@ class JsMinTask extends Task
      * @var boolean
      */
     protected $failonerror = false;
+    
+    /**
+     * Define if the target should use or not a suffix -min
+     *
+     * @var boolean
+     */
+    protected $suffix   = '-min';
+    
     /**
      * directory to put minified javascript files into
      *
@@ -74,6 +82,16 @@ class JsMinTask extends Task
         $this->failonerror = $value;
     }
 
+    /**
+     * Define if the task should or not use a suffix (-min is the default)
+     *
+     * @param string $value
+     */
+    public function setSuffix($value)
+    {
+        $this->suffix = $value;
+    }
+    
     /**
      * sets the directory where minified javascript files should be put inot
      *
@@ -104,7 +122,7 @@ class JsMinTask extends Task
                 foreach ($files as $file) {
                     $this->log('Minifying file ' . $file);
                     try {
-                        $target = $this->targetDir . '/' . str_replace($fullPath, '', str_replace('.js', '-min.js', $file));
+                        $target = $this->targetDir . '/' . str_replace($fullPath, '', str_replace('.js', $this->suffix . '.js', $file));
                         if (file_exists(dirname($target)) === false) {
                             mkdir(dirname($target), 0700, true);
                         }
