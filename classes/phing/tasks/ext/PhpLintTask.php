@@ -193,6 +193,10 @@ class PhpLintTask extends Task {
             $this->project->setProperty($this->errorProperty, $message);
         }
         
+        if (!empty($this->cache)) {
+            $this->cache->commit();
+        }
+        
         if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files: '.implode(', ',$this->badFiles));
     }
 
