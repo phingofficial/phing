@@ -61,13 +61,16 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     private $groups = array();
     private $excludeGroups = array();
     
+    private $processIsolation = false;
+    
     private $useCustomErrorHandler = true;
 
-    public function __construct(Project $project, $groups = array(), $excludeGroups = array())
+    public function __construct(Project $project, $groups = array(), $excludeGroups = array(), $processIsolation = false)
     {
         $this->project = $project;
         $this->groups = $groups;
         $this->excludeGroups = $excludeGroups;
+        $this->processIsolation = $processIsolation;
         $this->retCode = self::SUCCESS;
     }
     
@@ -126,7 +129,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
             $oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
         }
         
-        $suite->run($res, false, $this->groups, $this->excludeGroups);
+        $suite->run($res, false, $this->groups, $this->excludeGroups, $this->processIsolation);
         
         foreach ($this->formatters as $formatter)
         {

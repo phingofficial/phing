@@ -52,6 +52,7 @@ class PHPUnitTask extends Task
     private $codecoverage = false;
     private $groups = array();
     private $excludeGroups = array();
+    private $processIsolation = false;
     private $usecustomerrorhandler = true;
 
     /**
@@ -189,6 +190,11 @@ class PHPUnitTask extends Task
         $this->codecoverage = $codecoverage;
     }
 
+    public function setProcessIsolation($processIsolation)
+    {
+        $this->processIsolation = $processIsolation;
+    }
+
     public function setUseCustomErrorHandler($usecustomerrorhandler)
     {
         $this->usecustomerrorhandler = $usecustomerrorhandler;
@@ -295,7 +301,7 @@ class PHPUnitTask extends Task
      */
     protected function execute($suite)
     {
-        $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups);
+        $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
         
         $runner->setCodecoverage($this->codecoverage);
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
