@@ -105,37 +105,6 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setStandard($standard)
     {
-        if (!class_exists('PHP_CodeSniffer')) {
-            include_once 'PHP/CodeSniffer.php';
-        }
-
-        if (PHP_CodeSniffer::isInstalledStandard($standard) === false) {
-            // They didn't select a valid coding standard, so help them
-            // out by letting them know which standards are installed.
-            $installedStandards = PHP_CodeSniffer::getInstalledStandards();
-            $numStandards       = count($installedStandards);
-            $errMsg             = '';
-
-            if ($numStandards === 0) {
-                $errMsg = 'No coding standards are installed.';
-            } else {
-                $lastStandard = array_pop($installedStandards);
-
-                if ($numStandards === 1) {
-                    $errMsg = 'The only coding standard installed is ' . $lastStandard;
-                } else {
-                    $standardList  = implode(', ', $installedStandards);
-                    $standardList .= ' and ' . $lastStandard;
-                    $errMsg = 'The installed coding standards are ' . $standardList;
-                }
-            }
-
-            throw new BuildException(
-                'ERROR: the "' . $standard . '" coding standard is not installed. ' . $errMsg,
-                $this->getLocation()
-            );
-        }
-
         $this->standard = $standard;
     }
 
@@ -337,7 +306,11 @@ class PhpCodeSnifferTask extends Task {
      */
     public function main() {
         if (!class_exists('PHP_CodeSniffer')) {
-            include_once 'PHP/CodeSniffer.php';
+            @include_once 'PHP/CodeSniffer.php';
+            
+            if (!class_exists('PHP_CodeSniffer')) {
+                throw new BuildException("This task requires the PHP_CodeSniffer package installed and available on the include path", $this->getLocation());
+            }
         }
 
         /**
@@ -356,6 +329,33 @@ class PhpCodeSnifferTask extends Task {
 
         if(!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
+        }
+
+        if (PHP_CodeSniffer::isInstalledStandard($this->standard) === false) {
+            // They didn't select a valid coding standard, so help them
+            // out by letting them know which standards are installed.
+            $installedStandards = PHP_CodeSniffer::getInstalledStandards();
+            $numStandards       = count($installedStandards);
+            $errMsg             = '';
+
+            if ($numStandards === 0) {
+                $errMsg = 'No coding standards are installed.';
+            } else {
+                $lastStandard = array_pop($installedStandards);
+
+                if ($numStandards === 1) {
+                    $errMsg = 'The only coding standard installed is ' . $lastStandard;
+                } else {
+                    $standardList  = implode(', ', $installedStandards);
+                    $standardList .= ' and ' . $lastStandard;
+                    $errMsg = 'The installed coding standards are ' . $standardList;
+                }
+            }
+
+            throw new BuildException(
+                'ERROR: the "' . $this->standard . '" coding standard is not installed. ' . $errMsg,
+                $this->getLocation()
+            );
         }
 
         if (count($this->formatters) == 0) {
