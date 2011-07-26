@@ -12,7 +12,7 @@
 ::       E.g. for PHP 4.2 C:\phpdev\php-4.2-Win32\php-cli.exe
 ::            for PHP 4.3 C:\phpdev\php-4.3-Win32\cli\php.exe
   
-  SET phpCli=@PHP-BIN@
+SET phpCli=@PHP-BIN@
 
 ::---------------------------------------------------------------------------------
 ::---------------------------------------------------------------------------------
@@ -34,7 +34,7 @@ GOTO :PAUSE_END
 :NoPhpCli
 ECHO ** ERROR *****************************************************************
 ECHO * Sorry, can't find the php.exe file.
-ECHO * You must edit this file to point to your php.exe (CLI version!)
+ECHO * You must edit this file (%~s0) to point to your php.exe (CLI)
 ECHO *    [Currently set to %phpCli%]
 ECHO **************************************************************************
 
