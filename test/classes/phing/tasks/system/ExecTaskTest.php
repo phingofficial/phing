@@ -206,6 +206,12 @@ class ExecTaskTest extends BuildFileTest
         );
     }
 
+    public function testExecuteOnCorrectOs()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('this should be executed');
+    }
+
 
     /**
      * @expectedException BuildException

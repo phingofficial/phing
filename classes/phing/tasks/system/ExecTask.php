@@ -114,39 +114,81 @@ class ExecTask extends Task {
 
     /**
      * Main method: wraps execute() command.
+     *
      * @return void
      */
-    public function main() {
-        $this->execute();
+    public function main()
+    {
+        if (!$this->isApplicable()) {
+            return;
+        }
+
+        $this->prepare();
+        $this->buildCommand();
+        list($return, $output) = $this->executeCommand();
+        $this->cleanup($return, $output);
     }
 
     /**
-     * Executes a program and returns the return code.
-     * Output from command is logged at INFO level.
-     * @return int Return code from execution.
+     * Checks whether the command shall be executed
+     *
+     * @return boolean False if the exec command shall not be run
      */
-    public function execute() {
+    protected function isApplicable()
+    {
+        if ($this->os === null) {
+            return true;
+        }
 
-        // test if os match
-        $myos = Phing::getProperty("os.name");
-        $this->log("Myos = " . $myos, Project::MSG_VERBOSE);
-        if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
+        $myos = Phing::getProperty('os.name');
+        $this->log('Myos = ' . $myos, Project::MSG_VERBOSE);
+
+        if (strpos($this->os, $myos) !== false) {
             // this command will be executed only on the specified OS
-            $this->log("Not found in " . $this->os, Project::MSG_VERBOSE);
-            return 0;
+            // OS matches
+            return true;
         }
 
-        if ($this->dir !== null) {
-            // expand any symbolic links first
-            if ($this->dir->getCanonicalFile()->isDirectory()) {
-                $currdir = getcwd();
-                @chdir($this->dir->getPath());
-            } else {
-                throw new BuildException("'" . (string) $this->dir . "' is not a valid directory");
-            }
+        $this->log(
+            sprintf(
+                'Operating system %s not found in %s',
+                $myos, $this->os
+            ),
+            Project::MSG_VERBOSE
+        );
+        return false;
+    }
+
+    /**
+     * Prepares the command building and execution, i.e.
+     * changes to the specified directory.
+     *
+     * @return void
+     */
+    protected function prepare()
+    {
+        if ($this->dir === null) {
+            return;
         }
 
+        // expand any symbolic links first
+        if (!$this->dir->getCanonicalFile()->isDirectory()) {
+            throw new BuildException(
+                "'" . (string) $this->dir . "' is not a valid directory"
+            );
+        }
+        $this->currdir = getcwd();
+        @chdir($this->dir->getPath());
+    }
 
+    /**
+     * Builds the full command to execute and stores it in $command.
+     *
+     * @return void
+     * @uses   $command
+     */
+    protected function buildCommand()
+    {
         if ($this->escape == true) {
             // FIXME - figure out whether this is correct behavior
             $this->command = escapeshellcmd($this->command);
@@ -159,10 +201,13 @@ class ExecTask extends Task {
 
         if ($this->output !== null) {
             $this->command .= ' 1> ' . $this->output->getPath();
-            $this->log("Writing standard output to: " . $this->output->getPath(), $this->logLevel);
+            $this->log(
+                "Writing standard output to: " . $this->output->getPath(),
+                $this->logLevel
+            );
         } elseif ($this->spawn) {
             $this->command .= ' 1>/dev/null';
-            $this->log("Sending ouptut to /dev/null", $this->logLevel);
+            $this->log("Sending output to /dev/null", $this->logLevel);
         }
 
         // If neither output nor error are being written to file
@@ -177,27 +222,49 @@ class ExecTask extends Task {
         if ($this->spawn) {
             $this->command .= ' &';
         }
+    }
 
+    /**
+     * Executes the command and returns return code and output.
+     *
+     * @return array array(return code, array with output)
+     */
+    protected function executeCommand()
+    {
         $this->log("Executing command: " . $this->command, $this->logLevel);
 
         $output = array();
         $return = null;
         
-        if ($this->passthru)
-        {
+        if ($this->passthru) {
             passthru($this->command, $return);
-        }
-        else
-        {
+        } else {
             exec($this->command, $output, $return);
         }
 
+        return array($return, $output);
+    }
+
+    /**
+     * Runs all tasks after command execution:
+     * - change working directory back
+     * - log output
+     * - verify return value
+     *
+     * @param integer $return Return code
+     * @param array   $output Array with command output
+     *
+     * @return void
+     */
+    protected function cleanup($return, $output)
+    {
         if ($this->dir !== null) {
-            @chdir($currdir);
+            @chdir($this->currdir);
         }
 
+        $outloglevel = $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE;
         foreach($output as $line) {
-            $this->log($line,  ($this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE));
+            $this->log($line, $outloglevel);
         }
 
         if ($this->returnProperty) {
@@ -211,9 +278,8 @@ class ExecTask extends Task {
         if($return != 0 && $this->checkreturn) {
             throw new BuildException("Task exited with code $return");
         }
-
-        return $return;
     }
+
 
     /**
      * The command to use.

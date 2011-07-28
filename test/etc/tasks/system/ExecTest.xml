@@ -76,6 +76,11 @@
         <exec command="echo 'this should not be executed'" os="unknownos"/>
     </target>
 
+    <target name="testExecuteOnCorrectOs">
+        <exec command="echo 'this should be executed'"
+              os="Windows Linux Darwin BSD" />
+    </target>
+
     <target name="testFailOnNonExistingDir">
         <exec command="echo 'foo'" dir="/this/dir/does/not/exist"/>
     </target>
