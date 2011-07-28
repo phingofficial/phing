@@ -450,7 +450,7 @@ abstract class FileSystem {
      * @param PhingFile $f1
      * @param PhingFile $f2
      */
-    function compare($f1, $f2) {
+    function compare(PhingFile $f1, PhingFile $f2) {
         throw new IOException("compare() not implemented by local fs driver");
     }
 
