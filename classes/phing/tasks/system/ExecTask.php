@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -25,12 +25,14 @@ require_once 'phing/Task.php';
 /**
  * Executes a command on the shell.
  *
- * @author   Andreas Aderhold <andi@binarycloud.com>
- * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Revision$
- * @package  phing.tasks.system
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Christian Weiske <cweiske@cweiske.de>
+ * @version $Revision$
+ * @package phing.tasks.system
  */
-class ExecTask extends Task {
+class ExecTask extends Task
+{
 
     /**
      * Command to execute.
@@ -196,7 +198,10 @@ class ExecTask extends Task {
 
         if ($this->error !== null) {
             $this->command .= ' 2> ' . $this->error->getPath();
-            $this->log("Writing error output to: " . $this->error->getPath(), $this->logLevel);
+            $this->log(
+                "Writing error output to: " . $this->error->getPath(),
+                $this->logLevel
+            );
         }
 
         if ($this->output !== null) {
@@ -263,7 +268,7 @@ class ExecTask extends Task {
         }
 
         $outloglevel = $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE;
-        foreach($output as $line) {
+        foreach ($output as $line) {
             $this->log($line, $outloglevel);
         }
 
@@ -272,10 +277,12 @@ class ExecTask extends Task {
         }
 
         if ($this->outputProperty) {
-            $this->project->setProperty($this->outputProperty, implode("\n", $output));
+            $this->project->setProperty(
+                $this->outputProperty, implode("\n", $output)
+            );
         }
 
-        if($return != 0 && $this->checkreturn) {
+        if ($return != 0 && $this->checkreturn) {
             throw new BuildException("Task exited with code $return");
         }
     }
@@ -283,103 +290,154 @@ class ExecTask extends Task {
 
     /**
      * The command to use.
+     *
      * @param mixed $command String or string-compatible (e.g. w/ __toString()).
+     *
+     * @return void
      */
-    function setCommand($command) {
+    public function setCommand($command)
+    {
         $this->command = "" . $command;
     }
 
     /**
      * Whether to use escapeshellcmd() to escape command.
-     * @param boolean $escape
+     *
+     * @param boolean $escape If the command shall be escaped or not
+     *
+     * @return void
      */
-    function setEscape($escape) {
+    public function setEscape($escape)
+    {
         $this->escape = (bool) $escape;
     }
 
     /**
      * Specify the working directory for executing this command.
-     * @param PhingFile $dir
+     *
+     * @param PhingFile $dir Working directory
+     *
+     * @return void
      */
-    function setDir(PhingFile $dir) {
+    public function setDir(PhingFile $dir)
+    {
         $this->dir = $dir;
     }
 
     /**
      * Specify OS (or muliple OS) that must match in order to execute this command.
-     * @param string $os
+     *
+     * @param string $os Operating system string (e.g. "Linux")
+     *
+     * @return void
      */
-    function setOs($os) {
+    public function setOs($os)
+    {
         $this->os = (string) $os;
     }
 
     /**
      * File to which output should be written.
-     * @param PhingFile $output
+     *
+     * @param PhingFile $f Output log file
+     *
+     * @return void
      */
-    function setOutput(PhingFile $f) {
+    public function setOutput(PhingFile $f)
+    {
         $this->output = $f;
     }
 
     /**
      * File to which error output should be written.
-     * @param PhingFile $output
+     *
+     * @param PhingFile $f Error log file
+     *
+     * @return void
      */
-    function setError(PhingFile $f) {
+    public function setError(PhingFile $f)
+    {
         $this->error = $f;
     }
 
     /**
      * Whether to use PHP's passthru() function instead of exec()
-     * @param boolean $passthru
+     *
+     * @param boolean $passthru If passthru shall be used
+     *
+     * @return void
      */
-    function setPassthru($passthru) {
+    public function setPassthru($passthru)
+    {
         $this->passthru = (bool) $passthru;
     }
 
     /**
      * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
-     * @param boolean $passthru
+     *
+     * @param boolean $logOutput If output shall be logged visibly
+     *
+     * @return void
      */
-    function setLogoutput($logOutput) {
+    public function setLogoutput($logOutput)
+    {
         $this->logOutput = (bool) $logOutput;
     }
 
     /**
      * Whether to suppress all output and run in the background.
-     * @param boolean $spawn
+     *
+     * @param boolean $spawn If the command is to be run in the background
+     *
+     * @return void
      */
-    function setSpawn($spawn) {
+    public function setSpawn($spawn)
+    {
         $this->spawn  = (bool) $spawn;
     }
 
     /**
      * Whether to check the return code.
-     * @param boolean $checkreturn
+     *
+     * @param boolean $checkreturn If the return code shall be checked
+     *
+     * @return void
      */
-    function setCheckreturn($checkreturn) {
+    public function setCheckreturn($checkreturn)
+    {
         $this->checkreturn = (bool) $checkreturn;
     }
     
     /**
      * The name of property to set to return value from exec() call.
-     * @param string $prop
+     *
+     * @param string $prop Property name
+     *
+     * @return void
      */
-    function setReturnProperty($prop) {
+    public function setReturnProperty($prop)
+    {
         $this->returnProperty = $prop;
     }
 
     /**
      * The name of property to set to output value from exec() call.
-     * @param string $prop
+     *
+     * @param string $prop Property name
+     *
+     * @return void
      */
-    function setOutputProperty($prop) {
+    public function setOutputProperty($prop)
+    {
         $this->outputProperty = $prop;
     }
     
     /**
      * Set level of log messages generated (default = verbose)
-     * @param string $level
+     *
+     * @param string $level Log level
+     *
+     * @return void
      */
     public function setLevel($level)
     {
