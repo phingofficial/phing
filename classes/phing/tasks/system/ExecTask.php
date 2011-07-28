@@ -317,13 +317,26 @@ class ExecTask extends Task {
      */
     public function setLevel($level)
     {
-        switch ($level)
-        {
-            case "error": $this->logLevel = Project::MSG_ERR; break;
-            case "warning": $this->logLevel = Project::MSG_WARN; break;
-            case "info": $this->logLevel = Project::MSG_INFO; break;
-            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
-            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        switch ($level) {
+        case 'error':
+            $this->logLevel = Project::MSG_ERR;
+            break;
+        case 'warning':
+            $this->logLevel = Project::MSG_WARN;
+            break;
+        case 'info':
+            $this->logLevel = Project::MSG_INFO;
+            break;
+        case 'verbose':
+            $this->logLevel = Project::MSG_VERBOSE;
+            break;
+        case 'debug':
+            $this->logLevel = Project::MSG_DEBUG;
+            break;
+        default:
+            throw new BuildException(
+                sprintf('Unknown log level "%s"', $level)
+            );
         }
     }
 }
