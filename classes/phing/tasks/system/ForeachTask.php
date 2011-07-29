@@ -108,8 +108,8 @@ class ForeachTask extends Task {
      * @return void
      */   
     function main() {
-        if ($this->list === null && count($this->filesets) == 0) {
-            throw new BuildException("Need either list or nested fileset to iterate through");
+        if ($this->list === null && count($this->filesets) == 0 && count($this->filelists) == 0) {
+            throw new BuildException("Need either list, nested fileset or nested filelist to iterate through");
         }
         if ($this->param === null) {
             throw new BuildException("You must supply a property name to set on each iteration in param");
