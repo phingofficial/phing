@@ -302,6 +302,30 @@ class ExecTaskTest extends BuildFileTest
             . ' - otherwise it looks as spawning did not work'
         );
     }
+
+    public function testNestedArg()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('nested-arg b  ar');
+    }
+
+    /**
+     * @expectedException BuildException
+     * @expectedExceptionMessage ExecTask: Either use "command" OR "executable"
+     */
+    public function testExecutableAndCommand()
+    {
+        $this->executeTarget(__FUNCTION__);
+    }
+
+    /**
+     * @expectedException BuildException
+     * @expectedExceptionMessage ExecTask: Please provide "command" OR "executable"
+     */
+    public function testMissingExecutableAndCommand()
+    {
+        $this->executeTarget(__FUNCTION__);
+    }
 }
 
 ?>

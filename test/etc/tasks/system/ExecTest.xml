@@ -132,4 +132,23 @@
         <exec command="sleep 5" spawn="true"/>
     </target>
 
+
+    <target name="testNestedArg">
+        <exec executable="echo">
+            <arg value="nested-arg"/>
+            <arg value="b  ar"/>
+        </exec>
+    </target>
+
+    <target name="testExecutableAndCommand">
+        <exec executable="echo" command="echo nested-arg">
+            <arg value="nested-arg"/>
+        </exec>
+    </target>
+
+    <target name="testMissingExecutableAndCommand">
+        <exec>
+        </exec>
+    </target>
+
 </project>

@@ -41,6 +41,13 @@ class ExecTask extends Task
     protected $command;
 
     /**
+     * Commandline managing object
+     *
+     * @var Commandline
+     */
+    protected $commandline;
+
+    /**
      * Working directory.
      * @var PhingFile
      */
@@ -113,6 +120,13 @@ class ExecTask extends Task
      * @var boolean
      */
     protected $checkreturn = false;
+
+
+
+    public function __construct()
+    {
+        $this->commandline = new Commandline();
+    }
 
     /**
      * Main method: wraps execute() command.
@@ -191,9 +205,22 @@ class ExecTask extends Task
      */
     protected function buildCommand()
     {
-        if ($this->escape == true) {
-            // FIXME - figure out whether this is correct behavior
-            $this->command = escapeshellcmd($this->command);
+        if ($this->command === null && $this->commandline->getExecutable() === null) {
+            throw new BuildException(
+                'ExecTask: Please provide "command" OR "executable"'
+            );
+        } else if ($this->command === null) {
+            $this->command = (string)$this->commandline;
+        } else if ($this->commandline->getExecutable() === null) {
+            //we need to escape the command only if it's specified directly
+            // commandline takes care of "executable" already
+            if ($this->escape == true) {
+                $this->command = escapeshellcmd($this->command);
+            }
+        } else {
+            throw new BuildException(
+                'ExecTask: Either use "command" OR "executable"'
+            );
         }
 
         if ($this->error !== null) {
@@ -298,6 +325,18 @@ class ExecTask extends Task
     public function setCommand($command)
     {
         $this->command = "" . $command;
+    }
+
+    /**
+     * The executable to use.
+     *
+     * @param mixed $executable String or string-compatible (e.g. w/ __toString()).
+     *
+     * @return void
+     */
+    public function setExecutable($executable)
+    {
+        $this->commandline->setExecutable((string)$executable);
     }
 
     /**
@@ -462,6 +501,16 @@ class ExecTask extends Task
                 sprintf('Unknown log level "%s"', $level)
             );
         }
+    }
+
+    /**
+     * Creates a nested <arg> tag.
+     *
+     * @return CommandlineArgument Argument object
+     */
+    public function createArg()
+    {
+        return $this->commandline->createArgument();
     }
 }
 
