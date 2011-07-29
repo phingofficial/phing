@@ -284,8 +284,8 @@ class PharPackageTask
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             $phar->setDefaultStub(
-                $this->cliStubFile,
-                $this->webStubFile
+                $this->cliStubFile->getPathWithoutBase($this->baseDirectory),
+                $this->webStubFile->getPathWithoutBase($this->baseDirectory)
             );
         }
 
