@@ -121,12 +121,27 @@ class DocBloxTask extends Task
             throw new BuildException("Please make sure DocBlox is installed and on the include_path.", $this->getLocation());
         }
         
-        require_once 'Zend/Loader/Autoloader.php';
-        
         set_include_path($docbloxPath . PATH_SEPARATOR . get_include_path());
         
-        $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->registerNamespace('DocBlox_');
+        if (file_exists($docbloxPath.'/ZendX/Loader/StandardAutoloader.php')) {
+            require_once $docbloxPath.'/ZendX/Loader/StandardAutoloader.php';
+            
+            $autoloader = new ZendX_Loader_StandardAutoloader(
+                array(
+                    'prefixes' => array(
+                        'Zend'    => $docbloxPath.'/Zend',
+                        'DocBlox' => $docbloxPath.'/DocBlox'
+                    ),
+                    'fallback_autoloader' => true 
+                )
+            );
+            $autoloader->register();
+        } else {
+            require_once 'Zend/Loader/Autoloader.php';
+        
+            $autoloader = Zend_Loader_Autoloader::getInstance();
+            $autoloader->registerNamespace('DocBlox_');
+        }
     }
     
     /**
