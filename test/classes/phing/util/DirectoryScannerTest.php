@@ -316,9 +316,6 @@ class DirectoryScannerTest extends BuildFileTest
         $includedFiles = $ds->getIncludedFiles();
         $includedDirectories = $ds->getIncludedDirectories();
         
-        $this->assertEquals(count($includedFiles), count($expectedFiles), 'files present');
-        $this->assertEquals(count($includedDirectories), count($expectedDirectories), 'directories present');
-        
         if (count($includedFiles)) {
             array_map(array($this, 'replaceSeparator'), $includedFiles);
             natsort($includedFiles);
