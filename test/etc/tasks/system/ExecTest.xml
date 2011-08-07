@@ -78,7 +78,7 @@
 
     <target name="testExecuteOnCorrectOs">
         <exec command="echo 'this should be executed'"
-              os="Windows Linux Darwin BSD" />
+              os="WINNT WIN32 Linux Darwin BSD" />
     </target>
 
     <target name="testFailOnNonExistingDir">

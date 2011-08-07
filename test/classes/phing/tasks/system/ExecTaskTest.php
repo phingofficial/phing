@@ -30,11 +30,18 @@ require_once 'phing/BuildFileTest.php';
  */
 class ExecTaskTest extends BuildFileTest
 {
+   /**
+    * Whether test is being run on windows
+    * @var bool
+    */
+    protected $windows;
+
     public function setUp()
     {
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/system/ExecTest.xml'
         );
+        $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
     }
 
     protected function getTargetByName($name)
@@ -213,24 +220,34 @@ class ExecTaskTest extends BuildFileTest
     }
 
 
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage '/this/dir/does/not/exist' is not a valid directory
-     */
     public function testFailOnNonExistingDir()
     {
-        $this->executeTarget(__FUNCTION__);
+        try {
+            $this->executeTarget(__FUNCTION__);
+            $this->fail('Expected BuildException was not thrown');
+        } catch (BuildException $e) {
+            $this->assertContains(
+                str_replace('/', DIRECTORY_SEPARATOR, "'/this/dir/does/not/exist' is not a valid directory"),
+                $e->getMessage()
+            );
+        }
     }
 
 
     public function testChangeToDir()
     {
+        if ($this->windows) {
+            $this->markTestSkipped("Windows does not have 'ls'");
+        }
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('ExecTaskTest.php');
     }
 
     public function testCheckreturnTrue()
     {
+        if ($this->windows) {
+            $this->markTestSkipped("Windows does not have '/bin/true'");
+        }
         $this->executeTarget(__FUNCTION__);
         $this->assertTrue(true);
     }
@@ -241,6 +258,9 @@ class ExecTaskTest extends BuildFileTest
      */
     public function testCheckreturnFalse()
     {
+        if ($this->windows) {
+            $this->markTestSkipped("Windows does not have '/bin/false'");
+        }
         $this->executeTarget(__FUNCTION__);
     }
 
@@ -259,7 +279,7 @@ class ExecTaskTest extends BuildFileTest
     public function testEscape()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('foo | cat');
+        $this->assertInLogs($this->windows ? 'foo  |  cat' : 'foo | cat');
     }
 
     public function testPassthru()
@@ -267,7 +287,7 @@ class ExecTaskTest extends BuildFileTest
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $out = ob_get_clean();
-        $this->assertEquals("foo\n", $out);
+        $this->assertEquals("foo", rtrim($out, " \r\n"));
         //foo should not be in logs, except for the logged command
         $this->assertInLogs('echo foo');
         $this->assertNotContains('foo', $this->logBuffer);
@@ -284,6 +304,9 @@ class ExecTaskTest extends BuildFileTest
 
     public function testError()
     {
+        if ($this->windows) {
+            $this->markTestSkipped("The script is unlikely to run on Windows");
+        }
         $file = tempnam(sys_get_temp_dir(), 'phing-exectest-');
         $this->project->setProperty('execTmpFile', $file);
         $this->executeTarget(__FUNCTION__);
@@ -306,7 +329,7 @@ class ExecTaskTest extends BuildFileTest
     public function testNestedArg()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('nested-arg b  ar');
+        $this->assertInLogs($this->windows ? 'nested-arg "b  ar"' : 'nested-arg b  ar');
     }
 
     /**
