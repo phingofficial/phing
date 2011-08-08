@@ -57,8 +57,14 @@ class SvnCopyTask extends SvnBaseTask
         $this->setup('copy');
 
         $this->log("Copying SVN repository from '" . $this->getRepositoryUrl()  .  "' to '" . $this->getToDir() . "'");
+        
+        $options = array();
+        
+        if (strlen($this->getMessage()) > 0) {
+            $options['message'] = $this->getMessage();
+        }
 
-        $this->run(array($this->getToDir()), array('message' => $this->getMessage()));
+        $this->run(array($this->getToDir()), $options);
     }
 }
 
