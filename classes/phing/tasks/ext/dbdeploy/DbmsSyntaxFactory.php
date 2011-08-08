@@ -48,6 +48,7 @@ class DbmsSyntaxFactory
             case('mysql'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
                 return new DbmsSyntaxMysql();
+            case 'odbc':
             case('mssql'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
                 return new DbmsSyntaxMsSql();
