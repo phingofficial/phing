@@ -132,7 +132,7 @@ class SelectorUtils {
         $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
         $patternReplacements = array(
             $dirSep.'\*\*'.$dirSep => $dirSep.'.*('.$dirSep.')?',
-            $dirSep.'\*\*' => $dirSep.'.*',
+            $dirSep.'\*\*' => '(' . $dirSep .')?.*',
             '\*\*'.$dirSep => '.*',
             '\*\*' => '.*',
             '\*' => '[^'.$dirSep.']*',
