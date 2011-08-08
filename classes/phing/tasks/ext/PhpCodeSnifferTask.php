@@ -467,7 +467,7 @@ class PhpCodeSnifferTask extends Task {
                     break;
 
                 default:
-                    $reportFile = '';
+                    $reportFile = null;
 
                     if ($fe->getUseFile()) {
                         $reportFile = $fe->getOutfile()->getPath();
@@ -625,7 +625,7 @@ class PhpCodeSnifferTask_FormatterElement extends DataType {
     return $this->useFile;
   }
 
-  public function setOutfile (PhingFile $outfile) {
+  public function setOutfile ($outfile) {
     $this->outfile = $outfile;
   }
 
