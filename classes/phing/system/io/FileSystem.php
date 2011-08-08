@@ -258,14 +258,25 @@ abstract class FileSystem {
 
         @clearstatcache();
         $strPath = (string) $f->getPath();
-        $mtime = @filemtime($strPath);
+        
+        if (@is_link($strPath)) {
+            $stats = @lstat($strPath);
+            
+            if (!isset($stats['mtime'])) {
+                $mtime = false;
+            } else {
+                $mtime = $stats['mtime'];
+            } 
+        } else {
+            $mtime = @filemtime($strPath);
+        }
+            
         if (false === $mtime) {
-            // FAILED. Log and return err.
             $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of $strPath. $php_errormsg";
             throw new IOException($msg);
-        } else {
-            return (int) $mtime;
         }
+            
+        return (int) $mtime;
     }
 
     /**
