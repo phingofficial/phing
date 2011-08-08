@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DeleteTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+    
+    <fileset dir="vendor" id="vendor">
+        <include name="*"/>
+    </fileset>
+    
+    <target name="setup">
+        <mkdir dir="${tmp.dir}/base"/>
+        <symlink target="p" link="${tmp.dir}/base/dangling_symlink"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+    
+    <target name="testDeleteDanglingSymlink">
+        <delete>
+            <fileset dir="${tmp.dir}/base">
+                <include name="*"/>
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="main"/>
+</project>
