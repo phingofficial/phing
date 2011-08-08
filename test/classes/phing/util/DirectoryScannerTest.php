@@ -309,7 +309,24 @@ class DirectoryScannerTest extends BuildFileTest
             array($tmpdir . "/alpha/beta/gamma")
         );
     }
+    
+    /**
+     * Inspired by http://www.phing.info/trac/ticket/137
+     */
+    public function testMultipleExcludes()
+    {
+        $this->executeTarget("multiple-setup");
         
+        $ds = new DirectoryScanner();
+        $ds->setBasedir($this->_basedir . "/echo");
+        var_dump($this->_basedir . "/echo");
+        $ds->setIncludes(array("**"));
+        $ds->setExcludes(array("**/.gitignore", ".svn/", ".git/", "cache/", "build.xml", "a/a.xml"));
+        $ds->scan();
+
+        $this->compareFiles($ds, array("b/b.xml"), array("", "a", "b"));
+    }
+    
     protected function replaceSeparator($item)
     {
         $fs = FileSystem::getFileSystem();

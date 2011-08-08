@@ -37,6 +37,19 @@
         <delete dir="${tmp.dir}" quiet="true"/>
     </target>
 
+    <target name="multiple-setup" depends="setup">
+        <mkdir dir="${tmp.dir}/echo"/>
+		<mkdir dir="${tmp.dir}/echo/.svn"/>
+		<mkdir dir="${tmp.dir}/echo/.git"/>
+		<mkdir dir="${tmp.dir}/echo/cache"/>
+		<mkdir dir="${tmp.dir}/echo/a"/>
+		<mkdir dir="${tmp.dir}/echo/b"/>
+		<touch file="${tmp.dir}/echo/cache/cachefile"/>
+        <touch file="${tmp.dir}/echo/build.xml"/>
+		<touch file="${tmp.dir}/echo/a/a.xml"/>
+		<touch file="${tmp.dir}/echo/b/b.xml"/>
+    </target>
+	
     <target name="symlink-setup" depends="setup">
         <mkdir dir="${tmp.dir}/epsilon/gamma"/>
         <delete dir="${tmp.dir}/alpha/beta"/>
