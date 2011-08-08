@@ -261,7 +261,7 @@ abstract class FileSystem {
         $mtime = @filemtime($strPath);
         if (false === $mtime) {
             // FAILED. Log and return err.
-            $msg = "FileSystem::Filemtime() FAILED. Can not get modified time of $strPath. $php_errormsg";
+            $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of $strPath. $php_errormsg";
             throw new IOException($msg);
         } else {
             return (int) $mtime;
