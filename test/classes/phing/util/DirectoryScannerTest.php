@@ -221,11 +221,12 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $base = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . "/tmp", $base->getPrefixLength());
+        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
         
         $this->executeTarget("extended-setup");
         
         $ds = new DirectoryScanner();
-        $ds->setBasedir("/");
+        $ds->setBasedir($prefix);
         $ds->setIncludes(array($tmpdir . "/**/*"));
         $ds->scan();
         
@@ -246,10 +247,13 @@ class DirectoryScannerTest extends BuildFileTest
     
     public function testAbsolute2()
     {
+        $base = $this->getProject()->getBasedir();
+        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
+
         $this->executeTarget("setup");
         
         $ds = new DirectoryScanner();
-        $ds->setBasedir("/");
+        $ds->setBasedir($prefix);
         $ds->setIncludes(array("alpha/**", "alpha/beta/gamma/**"));
         $ds->scan();
         
@@ -260,11 +264,12 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $base = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . "/tmp", $base->getPrefixLength());
+        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
                 
         $this->executeTarget("extended-setup");
         
         $ds = new DirectoryScanner();
-        $ds->setBasedir("/");
+        $ds->setBasedir($prefix);
         $ds->setIncludes(array($tmpdir . "/**/*"));
         $ds->setExcludes(array("**/alpha", "**/delta/*"));
         $ds->scan();
@@ -286,11 +291,12 @@ class DirectoryScannerTest extends BuildFileTest
     {
         $base = $this->getProject()->getBasedir();
         $tmpdir = substr($this->replaceSeparator($base->getAbsolutePath()) . "/tmp", $base->getPrefixLength());
-                
+        $prefix = substr($base->getAbsolutePath(), 0, $base->getPrefixLength());
+        
         $this->executeTarget("extended-setup");
         
         $ds = new DirectoryScanner();
-        $ds->setBasedir("/");
+        $ds->setBasedir($prefix);
         $ds->setIncludes(array($tmpdir . "/alpha/beta/**/*", $tmpdir . "/delta/*"));
         $ds->setExcludes(array("**/beta.xml"));
         $ds->scan();
@@ -317,13 +323,13 @@ class DirectoryScannerTest extends BuildFileTest
         $includedDirectories = $ds->getIncludedDirectories();
         
         if (count($includedFiles)) {
-            array_map(array($this, 'replaceSeparator'), $includedFiles);
+            $includedFiles = array_map(array($this, 'replaceSeparator'), $includedFiles);
             natsort($includedFiles);
             $includedFiles = array_values($includedFiles);
         }
         
         if (count($includedDirectories)) {
-            array_map(array($this, 'replaceSeparator'), $includedDirectories);
+            $includedDirectories = array_map(array($this, 'replaceSeparator'), $includedDirectories);
             natsort($includedDirectories);
             $includedDirectories = array_values($includedDirectories);
         }
