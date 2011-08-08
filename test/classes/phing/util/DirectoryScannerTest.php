@@ -319,7 +319,6 @@ class DirectoryScannerTest extends BuildFileTest
         
         $ds = new DirectoryScanner();
         $ds->setBasedir($this->_basedir . "/echo");
-        var_dump($this->_basedir . "/echo");
         $ds->setIncludes(array("**"));
         $ds->setExcludes(array("**/.gitignore", ".svn/", ".git/", "cache/", "build.xml", "a/a.xml"));
         $ds->scan();
