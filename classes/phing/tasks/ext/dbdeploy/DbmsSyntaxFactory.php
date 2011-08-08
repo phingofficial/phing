@@ -55,6 +55,9 @@ class DbmsSyntaxFactory
             case('pgsql'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
                 return new DbmsSyntaxPgSQL();
+            case 'oci':
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxOracle.php';
+                return new DbmsSyntaxOracle();
             default:
                 throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
         }
