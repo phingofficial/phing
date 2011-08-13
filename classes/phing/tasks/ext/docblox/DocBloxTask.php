@@ -193,11 +193,11 @@ class DocBloxTask extends Task
         
         $xml = $this->parseFiles();
         
-        $transformer = new DocBlox_Transformer();
+        $this->log("Transforming...", Project::MSG_VERBOSE);
         
+        $transformer = new DocBlox_Transformer();
         $transformer->setSource($xml);
         $transformer->setTarget($this->destDir);
-        
         $transformer->execute();
     }
 }
