@@ -7,8 +7,6 @@
 	</fileset>
 	
 	<target name="setup">
-		<mkdir dir="${tmp.dir}/base"/>
-		<symlink target="p" link="${tmp.dir}/base/dangling_symlink"/>
 	</target>
 	
 	<target name="clean">
@@ -16,11 +14,17 @@
 	</target>
 	
 	<target name="testCopyDanglingSymlink">
+		<mkdir dir="${tmp.dir}/base"/>
+		<symlink target="${tmp.dir}/base/all" link="${tmp.dir}/base/dangling_symlink"/>
+		
 		<copy todir="${tmp.dir}/new">
 			<fileset dir="${tmp.dir}/base">
 			    <include name="*"/>
 			</fileset>
 		</copy>
+
+		<delete dir="${tmp.dir}/base"/>
+		<delete dir="${tmp.dir}/new"/>
 	</target>
 	
 	<target name="main"/>

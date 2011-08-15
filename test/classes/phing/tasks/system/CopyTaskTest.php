@@ -44,6 +44,10 @@ class CopyTaskTest extends BuildFileTest
 
     public function testCopyDanglingSymlink()
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped("Dangling symlinks don't work on Windows");
+        }
+
         $this->executeTarget("testCopyDanglingSymlink");
         $this->assertInLogs("Copying 1 file to");
     }
