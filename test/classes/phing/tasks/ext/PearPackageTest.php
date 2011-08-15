@@ -29,6 +29,8 @@ require_once 'phing/BuildFileTest.php';
  * @package phing.tasks.ext
  */
 class PearPackageTest extends BuildFileTest { 
+    protected $backupGlobals = FALSE;
+    
     private $savedErrorLevel;
         
     public function setUp() { 
