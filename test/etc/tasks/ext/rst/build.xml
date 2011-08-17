@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test" basedir="." default="test.single.all">
-	<taskdef name="rST" classname="phing.tasks.ext.rSTTask" />
-
 	<target name="testSingleFileParameterFile" description="render a single rST file. Only the file attribute is set">
 		<rST file="files/single.rst" />
 	</target>

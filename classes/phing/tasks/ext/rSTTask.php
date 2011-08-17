@@ -1,4 +1,5 @@
 <?php
+
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
  *
@@ -10,7 +11,9 @@
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       https://gitorious.org/phing/rsttask
+ * @version    SVN: $Id$
  */
+
 require_once 'phing/Task.php';
 require_once 'phing/util/FileUtils.php';
 require_once 'System.php';
