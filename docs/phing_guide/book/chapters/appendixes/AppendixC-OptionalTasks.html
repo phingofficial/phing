@@ -5485,6 +5485,263 @@ Note that you can omit both startpoint and track attributes in this case
 		listed under the "default" package.
 	</p>
 
+    <h2>
+        <a name="rSTTask"></a>rSTTask
+    </h2>
+    <p>
+        Renders rST (reStructuredText) files into different output formats.
+    </p>
+    <p>
+        This task requires the <em>python docutils</em> installed. They contain
+        <cite>rst2html</cite>, <cite>rst2latex</cite>, <cite>rst2man</cite>,
+        <cite>rst2odt</cite>, <cite>rst2s5</cite>, <cite>rst2xml</cite>.
+    </p>
+    <p>
+        Homepage: <a href="https://gitorious.org/phing/rsttask">https://gitorious.org/phing/rsttask</a>
+    </p>
+    <h3>Features</h3>
+    <ul>
+        <li>renders single files</li>
+        <li>render nested filesets</li>
+        <li>mappers to generate output file names based on the rst ones</li>
+        <li>multiple output formats</li>
+        <li>filter chains to e.g. replace variables after rendering</li>
+        <li>custom parameters to the rst2* tool</li>
+        <li>configurable rst tool path</li>
+        <li>uptodate check</li>
+        <li>automatically overwrites old files</li>
+        <li>automatically creates target directories</li>
+    </ul>
+            
+    <h3>Attributes</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Default</th>
+                <th>Required</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>file</td>
+                <td>String</td>
+                <td>rST input file to render</td>
+                <td>n/a</td>
+                <td>Yes (or fileset)</td>
+            </tr>
+            <tr>
+                <td>format</td>
+                <td>String</td>
+                <td><p>Output format:</p>
+                    <ul>
+                        <li>html</li>
+                        <li>latex</li>
+                        <li>man</li>
+                        <li>odt</li>
+                        <li>s5</li>
+                        <li>xml</li>
+                    </ul></td>
+                <td>html</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>destination</td>
+                <td>String</td>
+                <td>Path to store the rendered file to. Used as directory if
+                    it ends with a <em>/</em>.</td>
+                <td>magically determined from input file</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>uptodate</td>
+                <td>Boolean</td>
+                <td>Only render if the input file is newer than the target
+                    file</td>
+                <td>false</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>toolpath</td>
+                <td>String</td>
+                <td>Path to the rst2* tool</td>
+                <td>determined from <em>format</em></td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>toolparam</td>
+                <td>String</td>
+                <td>Additional commandline parameters to the rst2* tool</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Supported Nested Tags</h3>
+    <ul>
+        <li>fileset</li>
+        <li>mapper</li>
+        <li>filterchain</li>
+    </ul>
+    <h3>Examples</h3>
+    <h4>
+        Render a single rST file to HTML
+    </h4>
+    <p>By default, HTML is generated. If no target file is
+        specified, the input file name is taken, and its extension replaced
+        with the correct one for the output format.</p>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;single&quot;&gt;
+  &lt;target name=&quot;single&quot; description=&quot;render a single rST file to HTML&quot;&gt;
+
+    &lt;rST file=&quot;path/to/file.rst&quot; /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+    <h4>
+        Render a single rST file to any supported format
+    </h4>
+    <p>
+        The <em>format</em>
+        attribute determines the output format:
+    </p>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;single&quot;&gt;
+  &lt;target name=&quot;single&quot; description=&quot;render a single rST file to S5 HTML&quot;&gt;
+
+    &lt;rST file=&quot;path/to/file.rst&quot; format=&quot;s5&quot; /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+    <h4>
+        Specifying the output file name
+    </h4>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;single&quot;&gt;
+  &lt;target name=&quot;single&quot; description=&quot;render a single rST file&quot;&gt;
+
+    &lt;rST file=&quot;path/to/file.rst&quot; destination=&quot;path/to/output/file.html&quot; /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+    <h4>
+        Rendering multiple files
+    </h4>
+    <p>
+        A nested <em>fileset</em>
+        tag may be used to specify multiple files.
+    </p>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;multiple&quot;&gt;
+  &lt;target name=&quot;multiple&quot; description=&quot;renders several rST files&quot;&gt;
+
+    &lt;rST&gt;
+     &lt;fileset dir=&quot;.&quot;&gt;
+       &lt;include name=&quot;README.rst&quot; /&gt;
+       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+     &lt;/fileset&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+    <h4>
+        Rendering multiple files to another directory
+    </h4>
+    <p>
+        A nested <em>mapper</em>
+        may be used to determine the output file names.
+    </p>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;multiple&quot;&gt;
+  &lt;target name=&quot;multiple&quot; description=&quot;renders several rST files&quot;&gt;
+
+    &lt;rST&gt;
+     &lt;fileset dir=&quot;.&quot;&gt;
+       &lt;include name=&quot;README.rst&quot; /&gt;
+       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+     &lt;/fileset&gt;
+     &lt;mapper type=&quot;glob&quot; from=&quot;\*.rst&quot; to=&quot;path/to/my/\*.xhtml&quot;/&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+    <h4>
+        Modifying files after rendering
+    </h4>
+    <p>You may have variables in your rST code that can be replaced
+        after rendering, i.e. the version of your software.</p>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;filterchain&quot;&gt;
+  &lt;target name=&quot;filterchain&quot; description=&quot;renders several rST files&quot;&gt;
+
+    &lt;rST&gt;
+     &lt;fileset dir=&quot;.&quot;&gt;
+       &lt;include name=&quot;README.rst&quot; /&gt;
+       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+     &lt;/fileset&gt;
+     &lt;filterchain&gt;
+       &lt;replacetokens begintoken=&quot;##&quot; endtoken=&quot;##&quot;&gt;
+         &lt;token key=&quot;VERSION&quot; value=&quot;1.23.0&quot; /&gt;
+       &lt;/replacetokens&gt;
+     &lt;/filterchain&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+    <h4>
+        Rendering changed files only
+    </h4>
+    <p>
+        The <em>uptodate</em>
+        attribute determines if only those files should be rendered that
+        are newer than their output file.
+    </p>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;multiple&quot;&gt;
+  &lt;target name=&quot;multiple&quot; description=&quot;renders several rST files&quot;&gt;
+
+    &lt;rST uptodate=&quot;true&quot;&gt;
+     &lt;fileset dir=&quot;.&quot;&gt;
+       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+     &lt;/fileset&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+    <h4>
+        Specify a custom CSS file
+    </h4>
+    <p>
+        You may pass any additional parameters to the rst conversion tools
+        with the <em>toolparam</em> attribute.
+    </p>
+    <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;project name=&quot;example&quot; basedir=&quot;.&quot; default=&quot;single&quot;&gt;
+  &lt;target name=&quot;single&quot; description=&quot;render a single rST file to S5 HTML&quot;&gt;
+
+    &lt;rST file=&quot;path/to/file.rst&quot; toolparam=&quot;--stylesheet-path=custom.css&quot; /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;
+</pre>
+
 	<h2>
 		<a name="S3PutTask"></a>S3PutTask
 	</h2>
