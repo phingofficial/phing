@@ -4,7 +4,7 @@
 Aug. 18, 2011 - Phing 2.4.7
 
 This release fixes and improves several tasks (particularly the DocBlox
-task) adds OCI/ODBC support to the dbdeploy task and introduces
+task), adds OCI/ODBC support to the dbdeploy task and introduces
 a task to render reStructuredText.
 
 [771] Undefined offset: 1 [line 204 of /usr/share/php/phing/tasks/ext/JslLintTask.php]
