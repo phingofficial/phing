@@ -36,8 +36,11 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      * Processes a list of clones.
      *
      * @param PHPCPD_CloneMap $clones
+     * @param Project $project
+     * @param boolean $useFile
+     * @param PhingFile|null $outfile
      */
-    public function processClones(PHPCPD_CloneMap $clones, PhingFile $outfile, Project $project)
+    public function processClones(PHPCPD_CloneMap $clones, Project $project, $useFile = false, $outFile = null)
     {
         $logger = new PHPCPD_TextUI_ResultPrinter();
         // default format goes to logs, no buffering
@@ -46,11 +49,10 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
         $output = ob_get_contents();
         ob_end_clean();
 
-        if (!$this->usefile) {
+        if (!$useFile || empty($outFile)) {
             echo $output;
         } else {
-            $outputFile = $outfile->getPath();
-            file_put_contents($outputFile, $output);
+            file_put_contents($outFile->getPath(), $output);
         }
     }
 }

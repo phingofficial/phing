@@ -291,9 +291,10 @@ class PHPCPDTask extends Task
             $formatter = $fe->getFormatter();
             $formatter->processClones(
                 $clones,
-                $fe->getOutfile(),
-                $this->project
-            );
+                $this->project,
+                $fe->getUseFile(),
+                $fe->getOutfile()
+                );
         }
     }
 

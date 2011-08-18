@@ -1,6 +1,7 @@
 <?php
-/**
- * $Id$
+
+/*
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,23 +19,38 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+ 
+require_once 'phing/BuildFileTest.php';
 
 /**
- * This abstract class describes classes that format the results of a PHPCPD run.
- *
- * @package phing.tasks.ext.phpcpd.formatter
- * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
+ * Tests for PHPCPDTask
+ * 
+ * @author Michiel Rook <mrook@php.net>
+ * @package phing.tasks.ext
  */
-abstract class PHPCPDResultFormatter
-{
-    /**
-     * Processes a list of clones.
-     *
-     * @param PHPCPD_CloneMap $clones
-     * @param Project $project
-     * @param boolean $useFile
-     * @param PhingFile|null $outfile
-     */
-    abstract public function processClones(PHPCPD_CloneMap $clones, Project $project, $useFile = false, $outFile = null);
+class PHPCPDTaskTest extends BuildFileTest { 
+        
+    public function setUp() { 
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
+    }
+
+    public function testFormatterOutfile() {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
+    }
+
+    public function testFormatterPMD() {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
+    }
+
+    public function testFormatterNoFile() { 
+        $this->executeTarget(__FUNCTION__);
+    }
 }
