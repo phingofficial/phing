@@ -1,7 +1,7 @@
                            _________________________
                            P     H     I     N     G
 
-Aug. ??, 2011 - Phing 2.4.7
+Aug. 18, 2011 - Phing 2.4.7
 
 This release fixes and improves several tasks (particularly the DocBlox
 task) adds OCI/ODBC support to the dbdeploy task and introduces
@@ -27,6 +27,7 @@ a task to render reStructuredText.
 [741] ExecTask: missing docs for "output", "error" and "level"
 [740] PHPMDTask: "InvalidArgumentException" with no globbed files.
 [739] Making the jsMin suffix optional
+[737] PHPCPDTask: omitting 'outfile' attribute with 'useFIle="false"'
 [735] CopyTask can't copy broken symlinks when included in fileset
 [733] DeleteTask cannot delete dangling symlinks
 [731] Implement filepath support in Available Task
