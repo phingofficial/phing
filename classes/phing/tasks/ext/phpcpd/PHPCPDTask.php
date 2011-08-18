@@ -252,7 +252,7 @@ class PHPCPDTask extends Task
         if (count($this->_formatters) == 0) {
             // turn legacy format attribute into formatter
             $fmt = new PHPCPDFormatterElement($this);
-            $fmt->setType($this->format);
+            $fmt->setType($this->_format);
             $fmt->setUseFile(false);
             $this->_formatters[] = $fmt;
         }
