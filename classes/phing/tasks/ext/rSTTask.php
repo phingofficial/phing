@@ -6,8 +6,7 @@
  * PHP version 5
  *
  * @category   Tasks
- * @package    Phing
- * @subpackage rST
+ * @package    phing.tasks.ext
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       https://gitorious.org/phing/rsttask
@@ -24,8 +23,7 @@ require_once 'System.php';
  * PHP version 5
  *
  * @category   Tasks
- * @package    Phing
- * @subpackage rST
+ * @package    phing.tasks.ext
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       https://gitorious.org/phing/rsttask
