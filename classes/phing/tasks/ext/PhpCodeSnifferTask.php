@@ -472,7 +472,7 @@ class PhpCodeSnifferTask extends Task {
                     $reportFile = null;
 
                     if ($fe->getUseFile()) {
-                        $reportFile = $fe->getOutfile()->getPath();
+                        $reportFile = $fe->getOutfile();
                         ob_start();
                     }
 
