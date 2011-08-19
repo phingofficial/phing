@@ -426,12 +426,12 @@ class CoverageReportTask extends Task
 
                 $statementcount = count(array_filter(
                     $coverageInformation, 
-                    function($var) { return ($var != -2); }
+                    create_function('$var', 'return ($var != -2);')
                 ));
                 
                 $statementscovered = count(array_filter(
                     $coverageInformation, 
-                    function($var) { return ($var >= 0); }
+                    create_function('$var', 'return ($var >= 0);')
                 ));
                 
                 $classElement->appendChild($this->transformSourceFile($filename, $coverageInformation, $classStartLine));
