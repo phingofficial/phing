@@ -1,6 +1,13 @@
                            _________________________
                            P     H     I     N     G
 
+Aug. 19, 2011 - Phing 2.4.7.1
+
+This is a hotfix release.
+
+[774] Fix PHP 5.3 dependency in CoverageReportTask
+[773] Fix for Ticket #744 breaks PHPCodeSnifferTask's nested formatters
+
 Aug. 18, 2011 - Phing 2.4.7
 
 This release fixes and improves several tasks (particularly the DocBlox
