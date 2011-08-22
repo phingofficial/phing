@@ -290,7 +290,7 @@ class ScpTask extends Task
         }
         
         if ($this->host == "" || $this->username == "") {
-            throw new BuildException("Attribute 'hostname' and 'username' must be set");
+            throw new BuildException("Attribute 'host' and 'username' must be set");
         }
 
         $this->connection = ssh2_connect($this->host, $this->port);
