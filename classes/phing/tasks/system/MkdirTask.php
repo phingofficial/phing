@@ -73,7 +73,7 @@ class MkdirTask extends Task {
      */
     function setMode($mode)
     {
-        $this->mode = $mode;
+        $this->mode = base_convert((int) $mode, 8, 10);
     }
 
 }

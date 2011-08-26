@@ -56,7 +56,7 @@ class PHPUnitReportTask extends Task
     /**
      * Set the filename of the XML results file to use.
      */
-    public function setInFile($inFile)
+    public function setInFile(PhingFile $inFile)
     {
         $this->inFile = $inFile;
     }
@@ -81,7 +81,7 @@ class PHPUnitReportTask extends Task
      * Set the directory where the files resulting from the 
      * transformation should be written to.
      */
-    public function setToDir($toDir)
+    public function setToDir(PhingFile $toDir)
     {
         $this->toDir = $toDir;
     }
@@ -138,9 +138,7 @@ class PHPUnitReportTask extends Task
      */
     protected function transform(DOMDocument $document)
     {
-        $dir = new PhingFile($this->toDir);
-        
-        if (!$dir->exists())
+        if (!$this->toDir->exists())
         {
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
         }
@@ -166,8 +164,7 @@ class PHPUnitReportTask extends Task
 
             // no output for the framed report
             // it's all done by extension...
-            $dir = new PhingFile($this->toDir);
-            $proc->setParameter('', 'output.dir', urlencode((string) $dir));
+            $proc->setParameter('', 'output.dir', urlencode((string) $this->toDir));
             $proc->transformToXML($document);
             
             ExtendedFileStream::unregisterStream();
@@ -223,7 +220,7 @@ class PHPUnitReportTask extends Task
     public function main()
     {
         $testSuitesDoc = new DOMDocument();
-        $testSuitesDoc->load($this->inFile);
+        $testSuitesDoc->load((string) $this->inFile);
         
         $this->fixDocument($testSuitesDoc);
         

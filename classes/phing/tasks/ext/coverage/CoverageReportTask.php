@@ -312,11 +312,6 @@ class CoverageReportTask extends Task
         return $sourceElement;
     }
     
-    protected function filterCovered($var)
-    {
-        return ($var >= 0);
-    }
-
     /**
      * Transforms the coverage information
      *
@@ -366,6 +361,9 @@ class CoverageReportTask extends Task
                 {
                     unset($coverageInformation[$classStartLine]);
                 }
+                
+                // Remove out-of-bounds info
+                unset($coverageInformation[0]);
                 
                 reset($coverageInformation);                
                 
@@ -426,9 +424,16 @@ class CoverageReportTask extends Task
                     $methodcount++;
                 }
 
-                $statementcount = count($coverageInformation);
-                $statementscovered = count(array_filter($coverageInformation, array($this, 'filterCovered')));
-
+                $statementcount = count(array_filter(
+                    $coverageInformation, 
+                    create_function('$var', 'return ($var != -2);')
+                ));
+                
+                $statementscovered = count(array_filter(
+                    $coverageInformation, 
+                    create_function('$var', 'return ($var >= 0);')
+                ));
+                
                 $classElement->appendChild($this->transformSourceFile($filename, $coverageInformation, $classStartLine));
 
                 $classElement->setAttribute('methodcount', $methodcount);

@@ -14,7 +14,7 @@
 	
 	<pearpkg name="phing" dir=".">
 		
-		<fileset dir="../../../">
+		<fileset dir="../../../../">
 			<include name="bin/**"/>
 			<include name="**/*.php"/>
 		</fileset>		

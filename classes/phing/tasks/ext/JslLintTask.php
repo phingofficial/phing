@@ -201,11 +201,11 @@ class JslLintTask extends Task
                 $summary = $messages[sizeof($messages) - 1];
 
                 preg_match('/(\d+)\serror/', $summary, $matches);
-                $errorCount = $matches[1];
+                $errorCount = (count($matches) > 1 ? $matches[1] : 0);
 
                 preg_match('/(\d+)\swarning/', $summary, $matches);
-                $warningCount = $matches[1];
-
+                $warningCount = (count($matches) > 1 ? $matches[1] : 0);
+                
                 $errors = array();
                 $warnings = array();
                 if ($errorCount > 0 || $warningCount > 0) {

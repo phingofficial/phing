@@ -258,14 +258,25 @@ abstract class FileSystem {
 
         @clearstatcache();
         $strPath = (string) $f->getPath();
-        $mtime = @filemtime($strPath);
-        if (false === $mtime) {
-            // FAILED. Log and return err.
-            $msg = "FileSystem::Filemtime() FAILED. Can not get modified time of $strPath. $php_errormsg";
-            throw new IOException($msg);
+        
+        if (@is_link($strPath)) {
+            $stats = @lstat($strPath);
+            
+            if (!isset($stats['mtime'])) {
+                $mtime = false;
+            } else {
+                $mtime = $stats['mtime'];
+            } 
         } else {
-            return (int) $mtime;
+            $mtime = @filemtime($strPath);
         }
+            
+        if (false === $mtime) {
+            $msg = "FileSystem::getLastModifiedTime() FAILED. Can not get modified time of $strPath. $php_errormsg";
+            throw new IOException($msg);
+        }
+            
+        return (int) $mtime;
     }
 
     /**
@@ -450,7 +461,7 @@ abstract class FileSystem {
      * @param PhingFile $f1
      * @param PhingFile $f2
      */
-    function compare($f1, $f2) {
+    function compare(PhingFile $f1, PhingFile $f2) {
         throw new IOException("compare() not implemented by local fs driver");
     }
 

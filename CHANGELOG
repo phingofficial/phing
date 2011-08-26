@@ -1,6 +1,49 @@
                            _________________________
                            P     H     I     N     G
 
+Aug. 19, 2011 - Phing 2.4.7.1
+
+This is a hotfix release.
+
+[774] Fix PHP 5.3 dependency in CoverageReportTask
+[773] Fix for Ticket #744 breaks PHPCodeSnifferTask's nested formatters
+
+Aug. 18, 2011 - Phing 2.4.7
+
+This release fixes and improves several tasks (particularly the DocBlox
+task), adds OCI/ODBC support to the dbdeploy task and introduces
+a task to render reStructuredText.
+
+[771] Undefined offset: 1 [line 204 of /usr/share/php/phing/tasks/ext/JslLintTask.php]
+[767] PharPackageTask: metadata should not be required
+[766] The DocBlox task does not load the markdown library.
+[765] CoverageReportTask incorrectly considers dead code to be unexecuted
+[762] Gratuitous unit test failures on Windows
+[760] SelectorUtils::matchPath() directory matching broken
+[759] DocBloxTask throws an error when using DocBlox 0.12.2
+[757] Grammar error in ChmodTask documentation
+[755] PharPackageTask Web/Cli stub path is incorrect
+[754] ExecTask: <arg> support
+[753] ExecTask: Unit tests and refactoring
+[752] Declaration of Win32FileSystem::compare()
+[750] Enable process isolation support in the PHPUnit task
+[747] Improve "can't load default task list" message
+[745] MkdirTask mode param mistake
+[744] PHP_CodeSniffer formatter doesn't work with summary
+[742] ExecTask docs: link os.name in os attribute
+[741] ExecTask: missing docs for "output", "error" and "level"
+[740] PHPMDTask: "InvalidArgumentException" with no globbed files.
+[739] Making the jsMin suffix optional
+[737] PHPCPDTask: omitting 'outfile' attribute with 'useFIle="false"'
+[735] CopyTask can't copy broken symlinks when included in fileset
+[733] DeleteTask cannot delete dangling symlinks
+[731] Implement filepath support in Available Task
+[720] rSTTask to render reStructuredText
+[658] Add support to Oracle (OCI) in DbDeployTask
+[580] ODBC in DbDeployTask
+[553] copy task bails on symbolic links (filemtime)
+[499] PDO cannot handle PL/Perl function creation statements in PostgreSQL
+
 Jul. 12, 2011 - Phing 2.4.6
 
 This release fixes a large number of issues, improves a number of tasks

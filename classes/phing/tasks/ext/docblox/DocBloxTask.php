@@ -111,22 +111,49 @@ class DocBloxTask extends Task
         $docbloxPath = null;
         
         foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
-            $testpath = $path . DIRECTORY_SEPARATOR . 'DocBlox' . DIRECTORY_SEPARATOR . 'src';
-            if (file_exists($testpath)) {
-                $docbloxPath = $testpath;
-                break;
+            $testDocBloxPath = $path . DIRECTORY_SEPARATOR . 'DocBlox' . DIRECTORY_SEPARATOR . 'src';
+            $testMarkdownPath = $path . DIRECTORY_SEPARATOR . 'markdown.php';
+
+            if (file_exists($testDocBloxPath)) {
+                $docbloxPath = $testDocBloxPath;
+            }
+
+            if (file_exists($testMarkdownPath)) {
+                $markdownPath = $testMarkdownPath;
             }
         }
+
         if (empty($docbloxPath)) {
             throw new BuildException("Please make sure DocBlox is installed and on the include_path.", $this->getLocation());
         }
-        
-        require_once 'Zend/Loader/Autoloader.php';
+
+        if (empty($markdownPath)) {
+            throw new BuildException("Please make sure Markdown Extra is installed and on the include_path.", $this->getLocation());
+        }
         
         set_include_path($docbloxPath . PATH_SEPARATOR . get_include_path());
         
-        $autoloader = Zend_Loader_Autoloader::getInstance();
-        $autoloader->registerNamespace('DocBlox_');
+        if (file_exists($docbloxPath.'/ZendX/Loader/StandardAutoloader.php')) {
+            require_once $docbloxPath.'/ZendX/Loader/StandardAutoloader.php';
+            
+            $autoloader = new ZendX_Loader_StandardAutoloader(
+                array(
+                    'prefixes' => array(
+                        'Zend'    => $docbloxPath.'/Zend',
+                        'DocBlox' => $docbloxPath.'/DocBlox'
+                    ),
+                    'fallback_autoloader' => true 
+                )
+            );
+            $autoloader->register();
+        } else {
+            require_once 'Zend/Loader/Autoloader.php';
+        
+            $autoloader = Zend_Loader_Autoloader::getInstance();
+            $autoloader->registerNamespace('DocBlox_');
+        }
+
+        require_once $markdownPath;
     }
     
     /**
@@ -178,11 +205,11 @@ class DocBloxTask extends Task
         
         $xml = $this->parseFiles();
         
-        $transformer = new DocBlox_Transformer();
+        $this->log("Transforming...", Project::MSG_VERBOSE);
         
+        $transformer = new DocBlox_Transformer();
         $transformer->setSource($xml);
         $transformer->setTarget($this->destDir);
-        
         $transformer->execute();
     }
 }

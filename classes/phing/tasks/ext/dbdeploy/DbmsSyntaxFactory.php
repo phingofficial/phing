@@ -48,12 +48,16 @@ class DbmsSyntaxFactory
             case('mysql'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMysql.php';
                 return new DbmsSyntaxMysql();
+            case 'odbc':
             case('mssql'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
                 return new DbmsSyntaxMsSql();
             case('pgsql'):
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxPgSQL.php';
                 return new DbmsSyntaxPgSQL();
+            case 'oci':
+                require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxOracle.php';
+                return new DbmsSyntaxOracle();
             default:
                 throw new Exception($this->dbms . ' is not supported by dbdeploy task.');
         }

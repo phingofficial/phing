@@ -264,10 +264,6 @@ class PharPackageTask
                 throw new BuildException("basedir does not exist!", $this->getLocation());
             }
         }
-
-        if (is_null($this->metadata)) {
-            throw new BuildException("metadata element must be set", $this->getLocation());
-        }
     }
     /**
      * Build and configure Phar object.
@@ -284,8 +280,8 @@ class PharPackageTask
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             $phar->setDefaultStub(
-                $this->cliStubFile,
-                $this->webStubFile
+                $this->cliStubFile->getPathWithoutBase($this->baseDirectory),
+                $this->webStubFile->getPathWithoutBase($this->baseDirectory)
             );
         }
 

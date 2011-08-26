@@ -1,0 +1,11 @@
+<project name="PHPCS" default="test">
+	<target name="testNestedFormatters">
+		<phpcodesniffer
+			standard="Zend"
+			file="test.php"
+			allowedFileExtensions="php">
+			<formatter type="summary" usefile="false"  />
+			<formatter type="full" outfile="report.txt" />
+		</phpcodesniffer>
+	</target>
+</project>

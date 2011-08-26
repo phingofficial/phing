@@ -105,37 +105,6 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setStandard($standard)
     {
-        if (!class_exists('PHP_CodeSniffer')) {
-            include_once 'PHP/CodeSniffer.php';
-        }
-
-        if (PHP_CodeSniffer::isInstalledStandard($standard) === false) {
-            // They didn't select a valid coding standard, so help them
-            // out by letting them know which standards are installed.
-            $installedStandards = PHP_CodeSniffer::getInstalledStandards();
-            $numStandards       = count($installedStandards);
-            $errMsg             = '';
-
-            if ($numStandards === 0) {
-                $errMsg = 'No coding standards are installed.';
-            } else {
-                $lastStandard = array_pop($installedStandards);
-
-                if ($numStandards === 1) {
-                    $errMsg = 'The only coding standard installed is ' . $lastStandard;
-                } else {
-                    $standardList  = implode(', ', $installedStandards);
-                    $standardList .= ' and ' . $lastStandard;
-                    $errMsg = 'The installed coding standards are ' . $standardList;
-                }
-            }
-
-            throw new BuildException(
-                'ERROR: the "' . $standard . '" coding standard is not installed. ' . $errMsg,
-                $this->getLocation()
-            );
-        }
-
         $this->standard = $standard;
     }
 
@@ -337,7 +306,11 @@ class PhpCodeSnifferTask extends Task {
      */
     public function main() {
         if (!class_exists('PHP_CodeSniffer')) {
-            include_once 'PHP/CodeSniffer.php';
+            @include_once 'PHP/CodeSniffer.php';
+            
+            if (!class_exists('PHP_CodeSniffer')) {
+                throw new BuildException("This task requires the PHP_CodeSniffer package installed and available on the include path", $this->getLocation());
+            }
         }
 
         /**
@@ -356,6 +329,33 @@ class PhpCodeSnifferTask extends Task {
 
         if(!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
+        }
+
+        if (PHP_CodeSniffer::isInstalledStandard($this->standard) === false) {
+            // They didn't select a valid coding standard, so help them
+            // out by letting them know which standards are installed.
+            $installedStandards = PHP_CodeSniffer::getInstalledStandards();
+            $numStandards       = count($installedStandards);
+            $errMsg             = '';
+
+            if ($numStandards === 0) {
+                $errMsg = 'No coding standards are installed.';
+            } else {
+                $lastStandard = array_pop($installedStandards);
+
+                if ($numStandards === 1) {
+                    $errMsg = 'The only coding standard installed is ' . $lastStandard;
+                } else {
+                    $standardList  = implode(', ', $installedStandards);
+                    $standardList .= ' and ' . $lastStandard;
+                    $errMsg = 'The installed coding standards are ' . $standardList;
+                }
+            }
+
+            throw new BuildException(
+                'ERROR: the "' . $this->standard . '" coding standard is not installed. ' . $errMsg,
+                $this->getLocation()
+            );
         }
 
         if (count($this->formatters) == 0) {
@@ -384,6 +384,7 @@ class PhpCodeSnifferTask extends Task {
         // Save command line arguments because it confuses PHPCS (version 1.3.0)
         $oldArgs = $_SERVER['argv'];
         $_SERVER['argv'] = array();
+        $_SERVER['argc'] = 0;
         $codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
         if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
@@ -399,6 +400,7 @@ class PhpCodeSnifferTask extends Task {
         }
         // Restore command line arguments
         $_SERVER['argv'] = $oldArgs;
+        $_SERVER['argc'] = count($oldArgs);
         chdir($cwd);
 
         $report = $this->printErrorReport($codeSniffer);
@@ -467,10 +469,10 @@ class PhpCodeSnifferTask extends Task {
                     break;
 
                 default:
-                    $reportFile = '';
+                    $reportFile = null;
 
                     if ($fe->getUseFile()) {
-                        $reportFile = $fe->getOutfile()->getPath();
+                        $reportFile = $fe->getOutfile();
                         ob_start();
                     }
 
@@ -625,7 +627,7 @@ class PhpCodeSnifferTask_FormatterElement extends DataType {
     return $this->useFile;
   }
 
-  public function setOutfile (PhingFile $outfile) {
+  public function setOutfile ($outfile) {
     $this->outfile = $outfile;
   }
 

@@ -29,6 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @package phing.regression
  */
 class PhpUnit34Test extends BuildFileTest { 
+    protected $backupGlobals = FALSE;
         
     public function setUp() { 
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/363/build.xml");

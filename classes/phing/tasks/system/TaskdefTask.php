@@ -79,7 +79,7 @@ class TaskdefTask extends Task {
     /**
      * Set the classpath to be used when searching for component being defined
      * 
-     * @param Path $classpath An Path object containing the classpath.
+     * @param Path $classpath A Path object containing the classpath.
      */
     public function setClasspath(Path $classpath) {
         if ($this->classpath === null) {
@@ -91,6 +91,8 @@ class TaskdefTask extends Task {
 
     /**
      * Create the classpath to be used when searching for component being defined
+     * 
+     * @return Path
      */ 
     public function createClasspath() {
         if ($this->classpath === null) {

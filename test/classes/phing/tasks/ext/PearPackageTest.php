@@ -26,27 +26,29 @@ require_once 'phing/BuildFileTest.php';
  *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
- * @package phing.tasks.system
+ * @package phing.tasks.ext
  */
 class PearPackageTest extends BuildFileTest { 
+    protected $backupGlobals = FALSE;
+    
     private $savedErrorLevel;
         
     public function setUp() { 
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
-        $buildFile = PHING_TEST_BASE . "/etc/tasks/pearpackage.xml";
+        $buildFile = PHING_TEST_BASE . "/etc/tasks/ext/pearpackage.xml";
         $this->configureProject($buildFile);
     }
     
     public function tearDown()
     {
         error_reporting($this->savedErrorLevel);
-        unlink(PHING_TEST_BASE . '/etc/tasks/package.xml');
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
     }
 
     public function testRoleSet () {      
         $this->executeTarget("main");
-        $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/package.xml');
+        $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
         $this->assertTrue(strpos($content, '<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>') !== false);
     }
 }

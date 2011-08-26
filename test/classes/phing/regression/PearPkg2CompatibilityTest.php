@@ -29,6 +29,7 @@ require_once 'phing/BuildFileTest.php';
  */
 class PearPkg2CompatibilityTest extends BuildFileTest { 
     private $savedErrorLevel;
+    protected $backupGlobals = FALSE;
         
     public function setUp() { 
         $this->savedErrorLevel = error_reporting();

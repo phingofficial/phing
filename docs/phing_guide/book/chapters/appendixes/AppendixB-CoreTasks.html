@@ -239,9 +239,20 @@
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
+			<tr>
+				<td>filepath</td>
+				<td>String</td>
+				<td>The path to use when looking up <em>file</em>.</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
 		</tbody>
 	</table>
 
+	<h3>Supported Nested Tags</h3>
+	<ul>
+		<li>filepath</li>
+	</ul>
 
 	<h2>
 		<a name="ChmodTask"></a>ChmodTask
@@ -303,7 +314,7 @@
 			<tr>
 				<td>verbose</td>
 				<td>Boolean</td>
-				<td>Give more information in in error message in case of a
+				<td>Give more information in error message in case of a
 					failure</td>
 				<td>true</td>
 				<td>No</td>
@@ -985,7 +996,14 @@
 				<td>String</td>
 				<td>The command that is to be executed.</td>
 				<td>n/a</td>
-				<td>Yes</td>
+				<td rowspan="2">One of the two</td>
+			</tr>
+			<tr>
+				<td>executable</td>
+				<td>String</td>
+				<td>The command to execute without any
+				command line arguments.</td>
+				<td>n/a</td>
 			</tr>
 			<tr>
 				<td>dir</td>
@@ -994,10 +1012,24 @@
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
+            <tr>
+                <td>output</td>
+                <td>String</td>
+                <td>Where to direct stdout.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>error</td>
+                <td>String</td>
+                <td>Where to direct stderr.</td>
+                <td>n/a</td>
+                <td>No</td>
+            </tr>
 			<tr>
 				<td>os</td>
 				<td>String</td>
-				<td>Only execute if os.name contains specified text.</td>
+				<td>Only execute if the <a href="AppendixA-FactSheet.html#BuiltInProperties">os.name</a> property contains specified text.</td>
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
@@ -1054,9 +1086,72 @@
 				<td>FALSE</td>
 				<td>No</td>
 			</tr>
+            <tr>
+                <td>level</td>
+                <td>String</td>
+                <td>Control the level at which status messages are reported. One of
+                    <em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>,
+                    <em>debug</em>.</td>
+                <td><em>verbose</em></td>
+                <td>No</td>
+            </tr>
 		</tbody>
 	</table>
 
+	<h3>Supported Nested Tags</h3>
+	<ul>
+		<li>arg
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+					<th>Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>value</td>
+					<td>String</td>
+					<td>A single command-line argument;
+					can contain space characters.</td>
+					<td>n/a</td>
+					<td rowspan="4">One of these</td>
+				</tr>
+				<tr>
+					<td>file</td>
+					<td>String</td>
+					<td>The name of a file as a single
+					command-line argument; will be
+					replaced with the absolute filename
+					of the file.</td>
+					<td>n/a</td>
+				</tr>
+				<tr>
+					<td>path</td>
+					<td>String</td>
+					<td>A string that will be treated as
+					a path-like string as a single
+					command-line argument; you can use ;
+					or : as path separators and Ant will
+					convert it to the platform's local
+					conventions.</td>
+					<td>n/a</td>
+				</tr>
+				<tr>
+					<td>line</td>
+					<td>String</td>
+					<td>A space-delimited list of
+					command-line arguments.</td>
+					<td>n/a</td>
+				</tr>
+			</tbody>
+		</table>
+		</li>
+	</ul>
+	
 	<h2>
 		<a name="ExitTask"></a>ExitTask
 	</h2>

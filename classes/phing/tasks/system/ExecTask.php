@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -25,18 +25,27 @@ require_once 'phing/Task.php';
 /**
  * Executes a command on the shell.
  *
- * @author   Andreas Aderhold <andi@binarycloud.com>
- * @author   Hans Lellelid <hans@xmpl.org>
- * @version  $Revision$
- * @package  phing.tasks.system
+ * @author  Andreas Aderhold <andi@binarycloud.com>
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @author  Christian Weiske <cweiske@cweiske.de>
+ * @version $Revision$
+ * @package phing.tasks.system
  */
-class ExecTask extends Task {
+class ExecTask extends Task
+{
 
     /**
      * Command to execute.
      * @var string
      */
     protected $command;
+
+    /**
+     * Commandline managing object
+     *
+     * @var Commandline
+     */
+    protected $commandline;
 
     /**
      * Working directory.
@@ -112,57 +121,125 @@ class ExecTask extends Task {
      */
     protected $checkreturn = false;
 
-    /**
-     * Main method: wraps execute() command.
-     * @return void
-     */
-    public function main() {
-        $this->execute();
+
+
+    public function __construct()
+    {
+        $this->commandline = new Commandline();
     }
 
     /**
-     * Executes a program and returns the return code.
-     * Output from command is logged at INFO level.
-     * @return int Return code from execution.
+     * Main method: wraps execute() command.
+     *
+     * @return void
      */
-    public function execute() {
+    public function main()
+    {
+        if (!$this->isApplicable()) {
+            return;
+        }
 
-        // test if os match
-        $myos = Phing::getProperty("os.name");
-        $this->log("Myos = " . $myos, Project::MSG_VERBOSE);
-        if (($this->os !== null) && (strpos($this->os, $myos) === false)) {
+        $this->prepare();
+        $this->buildCommand();
+        list($return, $output) = $this->executeCommand();
+        $this->cleanup($return, $output);
+    }
+
+    /**
+     * Checks whether the command shall be executed
+     *
+     * @return boolean False if the exec command shall not be run
+     */
+    protected function isApplicable()
+    {
+        if ($this->os === null) {
+            return true;
+        }
+
+        $myos = Phing::getProperty('os.name');
+        $this->log('Myos = ' . $myos, Project::MSG_VERBOSE);
+
+        if (strpos($this->os, $myos) !== false) {
             // this command will be executed only on the specified OS
-            $this->log("Not found in " . $this->os, Project::MSG_VERBOSE);
-            return 0;
+            // OS matches
+            return true;
         }
 
-        if ($this->dir !== null) {
-            // expand any symbolic links first
-            if ($this->dir->getCanonicalFile()->isDirectory()) {
-                $currdir = getcwd();
-                @chdir($this->dir->getPath());
-            } else {
-                throw new BuildException("'" . (string) $this->dir . "' is not a valid directory");
+        $this->log(
+            sprintf(
+                'Operating system %s not found in %s',
+                $myos, $this->os
+            ),
+            Project::MSG_VERBOSE
+        );
+        return false;
+    }
+
+    /**
+     * Prepares the command building and execution, i.e.
+     * changes to the specified directory.
+     *
+     * @return void
+     */
+    protected function prepare()
+    {
+        if ($this->dir === null) {
+            return;
+        }
+
+        // expand any symbolic links first
+        if (!$this->dir->getCanonicalFile()->isDirectory()) {
+            throw new BuildException(
+                "'" . (string) $this->dir . "' is not a valid directory"
+            );
+        }
+        $this->currdir = getcwd();
+        @chdir($this->dir->getPath());
+    }
+
+    /**
+     * Builds the full command to execute and stores it in $command.
+     *
+     * @return void
+     * @uses   $command
+     */
+    protected function buildCommand()
+    {
+        if ($this->command === null && $this->commandline->getExecutable() === null) {
+            throw new BuildException(
+                'ExecTask: Please provide "command" OR "executable"'
+            );
+        } else if ($this->command === null) {
+            $this->command = (string)$this->commandline;
+        } else if ($this->commandline->getExecutable() === null) {
+            //we need to escape the command only if it's specified directly
+            // commandline takes care of "executable" already
+            if ($this->escape == true) {
+                $this->command = escapeshellcmd($this->command);
             }
-        }
-
-
-        if ($this->escape == true) {
-            // FIXME - figure out whether this is correct behavior
-            $this->command = escapeshellcmd($this->command);
+        } else {
+            throw new BuildException(
+                'ExecTask: Either use "command" OR "executable"'
+            );
         }
 
         if ($this->error !== null) {
             $this->command .= ' 2> ' . $this->error->getPath();
-            $this->log("Writing error output to: " . $this->error->getPath(), $this->logLevel);
+            $this->log(
+                "Writing error output to: " . $this->error->getPath(),
+                $this->logLevel
+            );
         }
 
         if ($this->output !== null) {
             $this->command .= ' 1> ' . $this->output->getPath();
-            $this->log("Writing standard output to: " . $this->output->getPath(), $this->logLevel);
+            $this->log(
+                "Writing standard output to: " . $this->output->getPath(),
+                $this->logLevel
+            );
         } elseif ($this->spawn) {
             $this->command .= ' 1>/dev/null';
-            $this->log("Sending ouptut to /dev/null", $this->logLevel);
+            $this->log("Sending output to /dev/null", $this->logLevel);
         }
 
         // If neither output nor error are being written to file
@@ -177,27 +254,49 @@ class ExecTask extends Task {
         if ($this->spawn) {
             $this->command .= ' &';
         }
+    }
 
+    /**
+     * Executes the command and returns return code and output.
+     *
+     * @return array array(return code, array with output)
+     */
+    protected function executeCommand()
+    {
         $this->log("Executing command: " . $this->command, $this->logLevel);
 
         $output = array();
         $return = null;
         
-        if ($this->passthru)
-        {
+        if ($this->passthru) {
             passthru($this->command, $return);
-        }
-        else
-        {
+        } else {
             exec($this->command, $output, $return);
         }
 
+        return array($return, $output);
+    }
+
+    /**
+     * Runs all tasks after command execution:
+     * - change working directory back
+     * - log output
+     * - verify return value
+     *
+     * @param integer $return Return code
+     * @param array   $output Array with command output
+     *
+     * @return void
+     */
+    protected function cleanup($return, $output)
+    {
         if ($this->dir !== null) {
-            @chdir($currdir);
+            @chdir($this->currdir);
         }
 
-        foreach($output as $line) {
-            $this->log($line,  ($this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE));
+        $outloglevel = $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE;
+        foreach ($output as $line) {
+            $this->log($line, $outloglevel);
         }
 
         if ($this->returnProperty) {
@@ -205,126 +304,213 @@ class ExecTask extends Task {
         }
 
         if ($this->outputProperty) {
-            $this->project->setProperty($this->outputProperty, implode("\n", $output));
+            $this->project->setProperty(
+                $this->outputProperty, implode("\n", $output)
+            );
         }
 
-        if($return != 0 && $this->checkreturn) {
+        if ($return != 0 && $this->checkreturn) {
             throw new BuildException("Task exited with code $return");
         }
-
-        return $return;
     }
+
 
     /**
      * The command to use.
+     *
      * @param mixed $command String or string-compatible (e.g. w/ __toString()).
+     *
+     * @return void
      */
-    function setCommand($command) {
+    public function setCommand($command)
+    {
         $this->command = "" . $command;
     }
 
     /**
-     * Whether to use escapeshellcmd() to escape command.
-     * @param boolean $escape
+     * The executable to use.
+     *
+     * @param mixed $executable String or string-compatible (e.g. w/ __toString()).
+     *
+     * @return void
      */
-    function setEscape($escape) {
+    public function setExecutable($executable)
+    {
+        $this->commandline->setExecutable((string)$executable);
+    }
+
+    /**
+     * Whether to use escapeshellcmd() to escape command.
+     *
+     * @param boolean $escape If the command shall be escaped or not
+     *
+     * @return void
+     */
+    public function setEscape($escape)
+    {
         $this->escape = Boolean::cast($escape);
     }
 
     /**
      * Specify the working directory for executing this command.
-     * @param PhingFile $dir
+     *
+     * @param PhingFile $dir Working directory
+     *
+     * @return void
      */
-    function setDir(PhingFile $dir) {
+    public function setDir(PhingFile $dir)
+    {
         $this->dir = $dir;
     }
 
     /**
      * Specify OS (or muliple OS) that must match in order to execute this command.
-     * @param string $os
+     *
+     * @param string $os Operating system string (e.g. "Linux")
+     *
+     * @return void
      */
-    function setOs($os) {
+    public function setOs($os)
+    {
         $this->os = (string) $os;
     }
 
     /**
      * File to which output should be written.
-     * @param PhingFile $output
+     *
+     * @param PhingFile $f Output log file
+     *
+     * @return void
      */
-    function setOutput(PhingFile $f) {
+    public function setOutput(PhingFile $f)
+    {
         $this->output = $f;
     }
 
     /**
      * File to which error output should be written.
-     * @param PhingFile $output
+     *
+     * @param PhingFile $f Error log file
+     *
+     * @return void
      */
-    function setError(PhingFile $f) {
+    public function setError(PhingFile $f)
+    {
         $this->error = $f;
     }
 
     /**
      * Whether to use PHP's passthru() function instead of exec()
-     * @param boolean $passthru
+     *
+     * @param boolean $passthru If passthru shall be used
+     *
+     * @return void
      */
-    function setPassthru($passthru) {
+    public function setPassthru($passthru)
+    {
         $this->passthru = Boolean::cast($passthru);
     }
 
     /**
      * Whether to log returned output as MSG_INFO instead of MSG_VERBOSE
-     * @param boolean $passthru
+     *
+     * @param boolean $logOutput If output shall be logged visibly
+     *
+     * @return void
      */
-    function setLogoutput($logOutput) {
+    public function setLogoutput($logOutput)
+    {
         $this->logOutput = Boolean::cast($logOutput);
     }
 
     /**
      * Whether to suppress all output and run in the background.
-     * @param boolean $spawn
+     *
+     * @param boolean $spawn If the command is to be run in the background
+     *
+     * @return void
      */
-    function setSpawn($spawn) {
+    public function setSpawn($spawn)
+    {
         $this->spawn  = Boolean::cast($spawn);
     }
 
     /**
      * Whether to check the return code.
-     * @param boolean $checkreturn
+     *
+     * @param boolean $checkreturn If the return code shall be checked
+     *
+     * @return void
      */
-    function setCheckreturn($checkreturn) {
+    public function setCheckreturn($checkreturn)
+    {
         $this->checkreturn = Boolean::cast($checkreturn);
     }
     
     /**
      * The name of property to set to return value from exec() call.
-     * @param string $prop
+     *
+     * @param string $prop Property name
+     *
+     * @return void
      */
-    function setReturnProperty($prop) {
+    public function setReturnProperty($prop)
+    {
         $this->returnProperty = $prop;
     }
 
     /**
      * The name of property to set to output value from exec() call.
-     * @param string $prop
+     *
+     * @param string $prop Property name
+     *
+     * @return void
      */
-    function setOutputProperty($prop) {
+    public function setOutputProperty($prop)
+    {
         $this->outputProperty = $prop;
     }
     
     /**
      * Set level of log messages generated (default = verbose)
-     * @param string $level
+     *
+     * @param string $level Log level
+     *
+     * @return void
      */
     public function setLevel($level)
     {
-        switch ($level)
-        {
-            case "error": $this->logLevel = Project::MSG_ERR; break;
-            case "warning": $this->logLevel = Project::MSG_WARN; break;
-            case "info": $this->logLevel = Project::MSG_INFO; break;
-            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
-            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        switch ($level) {
+        case 'error':
+            $this->logLevel = Project::MSG_ERR;
+            break;
+        case 'warning':
+            $this->logLevel = Project::MSG_WARN;
+            break;
+        case 'info':
+            $this->logLevel = Project::MSG_INFO;
+            break;
+        case 'verbose':
+            $this->logLevel = Project::MSG_VERBOSE;
+            break;
+        case 'debug':
+            $this->logLevel = Project::MSG_DEBUG;
+            break;
+        default:
+            throw new BuildException(
+                sprintf('Unknown log level "%s"', $level)
+            );
         }
+    }
+
+    /**
+     * Creates a nested <arg> tag.
+     *
+     * @return CommandlineArgument Argument object
+     */
+    public function createArg()
+    {
+        return $this->commandline->createArgument();
     }
 }
 
