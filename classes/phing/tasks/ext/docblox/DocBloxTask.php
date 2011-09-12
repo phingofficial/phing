@@ -163,13 +163,14 @@ class DocBloxTask extends Task
     private function parseFiles()
     {
         $parser = new DocBlox_Parser();
+        DocBlox_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
         $parser->setTitle($this->title);
         
         if ($this->quiet) {
-            $parser->setLogLevel(Zend_Log::CRIT);
+       //     $parser->setLogLevel(Zend_Log::CRIT);
         }
         
-        $files = array();
+        $paths = array();
         
         // filesets
         foreach ($this->filesets as $fs) {
@@ -178,11 +179,14 @@ class DocBloxTask extends Task
             $srcFiles = $ds->getIncludedFiles();
             
             foreach ($srcFiles as $file) {
-                $files[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
+                $paths[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
             }
         }
         
-        $this->log("Will parse " . count($files) . " file(s)", Project::MSG_VERBOSE);
+        $this->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
+        
+        $files = new DocBlox_Parser_Files();
+        $files->addFiles($paths);
         
         return $parser->parseFiles($files);
     }
