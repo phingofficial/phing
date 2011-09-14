@@ -40,9 +40,9 @@ class DocBloxTask extends Task
     
     /**
      * Destination/target directory
-     * @var string
+     * @var PhingFile
      */
-    private $destDir = "";
+    private $destDir = null;
     
     /**
      * Title of the project
@@ -69,20 +69,20 @@ class DocBloxTask extends Task
     
     /**
      * Sets destination/target directory
-     * @param string $destDir
+     * @param PhingFile $destDir
      */
-    public function setDestDir($destDir)
+    public function setDestDir(PhingFile $destDir)
     {
-        $this->destDir = (string) $destDir;
+        $this->destDir = $destDir;
     }
 
     /**
      * Convenience setter (@see setDestDir)
-     * @param string $output
+     * @param PhingFile $output
      */
-    public function setOutput($output)
+    public function setOutput(PhingFile $output)
     {
-        $this->destDir = (string) $output;
+        $this->destDir = $output;
     }
     
     /**
@@ -188,6 +188,8 @@ class DocBloxTask extends Task
         $files = new DocBlox_Parser_Files();
         $files->addFiles($paths);
         
+        $parser->setPath($files->getProjectRoot());
+        
         return $parser->parseFiles($files);
     }
 
@@ -212,8 +214,10 @@ class DocBloxTask extends Task
         $this->log("Transforming...", Project::MSG_VERBOSE);
         
         $transformer = new DocBlox_Transformer();
+        $transformer->setThemesPath(DocBlox_Core_Abstract::config()->paths->themes);
+        $transformer->setTemplates(DocBlox_Core_Abstract::config()->transformations->template->name);
         $transformer->setSource($xml);
-        $transformer->setTarget($this->destDir);
+        $transformer->setTarget($this->destDir->getAbsolutePath());
         $transformer->execute();
     }
 }
