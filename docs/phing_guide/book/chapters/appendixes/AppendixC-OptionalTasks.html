@@ -5647,7 +5647,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;rST&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
        &lt;include name=&quot;README.rst&quot; /&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
     &lt;/rST&gt;
 
@@ -5669,9 +5669,9 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;rST&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
        &lt;include name=&quot;README.rst&quot; /&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
-     &lt;mapper type=&quot;glob&quot; from=&quot;\*.rst&quot; to=&quot;path/to/my/\*.xhtml&quot;/&gt;
+     &lt;mapper type=&quot;glob&quot; from=&quot;*.rst&quot; to=&quot;path/to/my/*.xhtml&quot;/&gt;
     &lt;/rST&gt;
 
   &lt;/target&gt;
@@ -5690,7 +5690,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;rST&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
        &lt;include name=&quot;README.rst&quot; /&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
      &lt;filterchain&gt;
        &lt;replacetokens begintoken=&quot;##&quot; endtoken=&quot;##&quot;&gt;
@@ -5717,7 +5717,7 @@ Note that you can omit both startpoint and track attributes in this case
 
     &lt;rST uptodate=&quot;true&quot;&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
     &lt;/rST&gt;
 
