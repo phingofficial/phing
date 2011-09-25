@@ -15,7 +15,6 @@
 
 require_once 'phing/Task.php';
 require_once 'phing/util/FileUtils.php';
-require_once 'System.php';
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
@@ -124,6 +123,13 @@ class rSTTask extends Task
     protected $uptodate = false;
 
 
+    /**
+     * Init method: requires the PEAR System class
+     */
+    public function init()
+    {
+        require_once 'System.php';
+    }
 
     /**
      * The main entry point method.
