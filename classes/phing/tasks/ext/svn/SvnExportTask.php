@@ -54,10 +54,11 @@ class SvnExportTask extends SvnBaseTask
         
         $this->log("Exporting SVN repository to '" . $this->getToDir() . "'");
 
-        // revision
-        $switches = array(
-            'r' => $this->revision,
-        );
+        $switches = array();
+
+        if (!empty($this->revision)) {
+            $switches['r'] = $this->revision;
+        }
 
         $this->run(array($this->getToDir()), $switches);
     }
