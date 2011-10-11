@@ -146,6 +146,14 @@ class DocBloxTask extends Task
                 )
             );
             $autoloader->register();
+            
+            if ($this->quiet) {
+                DocBlox_Core_Abstract::config()->logging->level = 'quiet';
+            } else {
+                DocBlox_Core_Abstract::config()->logging->level = 'debug';
+            }
+            
+            DocBlox_Bootstrap::createInstance()->registerPlugins($autoloader);
         } else {
             require_once 'Zend/Loader/Autoloader.php';
         
@@ -165,10 +173,6 @@ class DocBloxTask extends Task
         $parser = new DocBlox_Parser();
         DocBlox_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
         $parser->setTitle($this->title);
-        
-        if ($this->quiet) {
-       //     $parser->setLogLevel(Zend_Log::CRIT);
-        }
         
         $paths = array();
         
