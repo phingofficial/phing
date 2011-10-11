@@ -210,7 +210,7 @@ class PhpLintTask extends Task {
         $command = $this->Interpreter == ''
             ? 'php'
             : $this->Interpreter;
-        $command .= ' -l ';
+        $command .= ' -n -l ';
         if(file_exists($file)) {
             if(is_readable($file)) {
                 if ($this->cache)
