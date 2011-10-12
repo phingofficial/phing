@@ -45,12 +45,15 @@
         <element name="project">
             <interleave>
                 <attribute name="name"/>
-                <attribute name="basedir"/>
                 <optional>
-                    <attribute name="default"/>
+                    <attribute name="basedir"/>
                 </optional>
+                <attribute name="default"/>
                 <optional>
                     <attribute name="description"/>
+                </optional>
+                <optional>
+                    <attribute name="phingVersion"/>
                 </optional>
             </interleave>
 
@@ -152,6 +155,7 @@
     <define name="coretasks">
         <zeroOrMore>
             <choice>
+                <ref name="adhoc"/>
                 <ref name="adhoctaskdef"/>
                 <ref name="adhoctypedef"/>
                 <ref name="append"/>
@@ -214,6 +218,7 @@
             </interleave>
             <interleave>
                 <ref name="coretasks"/>
+                <ref name="coretypes"/>
                 <ref name="optionaltasks"/>
                 <ref name="customtasks"/>
             </interleave>
@@ -379,6 +384,12 @@
         ===========================================================================================================        
     -->
 
+    <define name="adhoc">
+        <element name="adhoc">
+            <text/>
+        </element>
+    </define>
+
     <define name="adhoctaskdef">
         <element name="adhoctaskdef">
             <attribute name="name"/>
@@ -508,6 +519,7 @@
                 <choice>
                     <attribute name="msg"/>
                     <attribute name="message"/>
+                    <text/>
                 </choice>
                 <optional>
                     <attribute name="file"/>
@@ -611,6 +623,7 @@
                 <optional>
                     <attribute name="unless"/>
                 </optional>
+                <text/>
             </interleave>
         </element>
     </define>
@@ -690,7 +703,10 @@
     
     <define name="includepath">
         <element name="includepath">
-            <attribute name="classpath"/>
+            <choice>
+                <attribute name="classpath"/>
+                <attribute name="classpathRef"/>
+            </choice>
         </element>
     </define>
 
@@ -831,11 +847,15 @@
                     <attribute name="value"/>
                 </group>
                 <attribute name="file"/>
+                <attribute name="environment"/>
             </choice>
             <optional>
                 <attribute name="override">
                     <data type="boolean" />
                 </attribute>
+            </optional>
+            <optional>
+                <attribute name="prefix"/>
             </optional>
         </element>
     </define>
@@ -1159,6 +1179,12 @@
         <element name="report">
             <attribute name="todir"/>
             <attribute name="styledir"/>
+            <optional>
+                <attribute name="title" />
+            </optional>
+            <optional>
+                <attribute name="usesorttable" />
+            </optional>
         </element>
     </define>
 
