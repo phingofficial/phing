@@ -211,6 +211,11 @@ class PhpLintTask extends Task {
             ? 'php'
             : $this->Interpreter;
         $command .= ' -n -l ';
+        
+        if ($this->deprecatedAsError) {
+            $command .= '-d error_reporting=32767 ';
+        }
+        
         if(file_exists($file)) {
             if(is_readable($file)) {
                 if ($this->cache)
