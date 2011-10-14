@@ -112,23 +112,14 @@ class DocBloxTask extends Task
         
         foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
             $testDocBloxPath = $path . DIRECTORY_SEPARATOR . 'DocBlox' . DIRECTORY_SEPARATOR . 'src';
-            $testMarkdownPath = $path . DIRECTORY_SEPARATOR . 'markdown.php';
 
             if (file_exists($testDocBloxPath)) {
                 $docbloxPath = $testDocBloxPath;
-            }
-
-            if (file_exists($testMarkdownPath)) {
-                $markdownPath = $testMarkdownPath;
             }
         }
 
         if (empty($docbloxPath)) {
             throw new BuildException("Please make sure DocBlox is installed and on the include_path.", $this->getLocation());
-        }
-
-        if (empty($markdownPath)) {
-            throw new BuildException("Please make sure Markdown Extra is installed and on the include_path.", $this->getLocation());
         }
         
         set_include_path($docbloxPath . PATH_SEPARATOR . get_include_path());
@@ -160,8 +151,6 @@ class DocBloxTask extends Task
             $autoloader = Zend_Loader_Autoloader::getInstance();
             $autoloader->registerNamespace('DocBlox_');
         }
-
-        require_once $markdownPath;
     }
     
     /**
