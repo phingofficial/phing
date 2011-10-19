@@ -254,6 +254,8 @@ class PHPUnitTask extends Task
             $this->formatters[] = $fe;
         }
         
+        $autoloadSave = spl_autoload_functions();
+        
         if ($this->bootstrap)
         {
             require_once $this->bootstrap;
@@ -293,6 +295,15 @@ class PHPUnitTask extends Task
         if ($this->testfailed)
         {
             throw new BuildException($this->testfailuremessage);
+        }
+        
+        $autoloadNew = spl_autoload_functions();
+        foreach ($autoloadNew as $autoload) {
+            spl_autoload_unregister($autoload);
+        }
+        
+        foreach ($autoloadSave as $autoload) {
+            spl_autoload_register($autoload);
         }
     }
 
