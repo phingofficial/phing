@@ -284,7 +284,7 @@ class PHPUnitTask extends Task
         foreach ($this->batchtests as $batchtest)
         {
             $this->execute($batchtest->getTestSuite());
-        }           
+        }
         
         foreach ($this->formatters as $fe)
         {
