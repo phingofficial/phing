@@ -124,33 +124,19 @@ class DocBloxTask extends Task
         
         set_include_path($docbloxPath . PATH_SEPARATOR . get_include_path());
         
-        if (file_exists($docbloxPath.'/ZendX/Loader/StandardAutoloader.php')) {
-            require_once $docbloxPath.'/ZendX/Loader/StandardAutoloader.php';
+        require_once $docbloxPath.'/DocBlox/Bootstrap.php';
             
-            $autoloader = new ZendX_Loader_StandardAutoloader(
-                array(
-                    'prefixes' => array(
-                        'Zend'    => $docbloxPath.'/Zend',
-                        'DocBlox' => $docbloxPath.'/DocBlox'
-                    ),
-                    'fallback_autoloader' => true 
-                )
-            );
-            $autoloader->register();
+        $bootstrap = DocBlox_Bootstrap::createInstance();
             
-            if ($this->quiet) {
-                DocBlox_Core_Abstract::config()->logging->level = 'quiet';
-            } else {
-                DocBlox_Core_Abstract::config()->logging->level = 'debug';
-            }
+        $autoloader = $bootstrap->registerAutoloader();
             
-            DocBlox_Bootstrap::createInstance()->registerPlugins($autoloader);
+        if ($this->quiet) {
+            DocBlox_Core_Abstract::config()->logging->level = 'quiet';
         } else {
-            require_once 'Zend/Loader/Autoloader.php';
-        
-            $autoloader = Zend_Loader_Autoloader::getInstance();
-            $autoloader->registerNamespace('DocBlox_');
+            DocBlox_Core_Abstract::config()->logging->level = 'debug';
         }
+            
+        $bootstrap->registerPlugins($autoloader);
     }
     
     /**
