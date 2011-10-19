@@ -310,7 +310,7 @@ class PHPUnitTask extends Task
         {
             $formatter = $fe->getFormatter();
 
-            $runner->addFormatter($formatter);      
+            $runner->addFormatter($formatter);
         }
         
         $runner->run($suite);
