@@ -31,7 +31,7 @@ require_once 'phing/BuildFileTest.php';
 class PhpLintFlagTest extends BuildFileTest { 
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/590/build.xml");
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");
     }
 
     public function testPhpLintTask () {
