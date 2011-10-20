@@ -30,14 +30,26 @@ require_once 'phing/BuildFileTest.php';
  */
 class PhpLintFlagTest extends BuildFileTest { 
         
-    public function setUp() { 
+    public function setUp()
+    { 
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");
     }
 
-    public function testPhpLintTask () {
-      $this->executeTarget("main");
-      $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ." . DIRECTORY_SEPARATOR . "my_file.php");
-      $this->assertInLogs("." . DIRECTORY_SEPARATOR . "my_file_ok.php: No syntax errors detected");
-      $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in ." . DIRECTORY_SEPARATOR . "my_file_depr.php");
+    public function testSyntaxOK()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("." . DIRECTORY_SEPARATOR . "my_file_ok.php: No syntax errors detected");
+    }
+
+    public function testSyntaxError()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ." . DIRECTORY_SEPARATOR . "my_file.php");
+    }
+
+    public function testDeprecated()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in ." . DIRECTORY_SEPARATOR . "my_file_depr.php");
     }
 }
