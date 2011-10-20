@@ -12,6 +12,10 @@
 	</target>
 	
 	<target name="testHaltOnFailure">
-		<phplint haltOnFailure="true" file="my_file.php"/>
+		<phplint haltOnFailure="true">
+			<fileset dir=".">
+				<include name="my_file.php"/>
+			</fileset>
+		</phplint>
 	</target>
 </project>

@@ -38,18 +38,23 @@ class PhpLintFlagTest extends BuildFileTest {
     public function testSyntaxOK()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("." . DIRECTORY_SEPARATOR . "my_file_ok.php: No syntax errors detected");
+        $this->assertInLogs("my_file_ok.php: No syntax errors detected");
     }
 
     public function testSyntaxError()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ." . DIRECTORY_SEPARATOR . "my_file.php");
+        $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in");
     }
 
     public function testDeprecated()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in ." . DIRECTORY_SEPARATOR . "my_file_depr.php");
+        $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in");
+    }
+
+    public function testHaltOnFailure()
+    {
+        $this->expectBuildException(__FUNCTION__, " Syntax error(s) in PHP files: ./my_file.php=Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ./my_file.php on line 2");
     }
 }
