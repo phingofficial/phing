@@ -45,6 +45,7 @@ class PhpCodeSnifferTask extends Task {
     protected $ignorePatterns = false;
     protected $noSubdirectories = false;
     protected $configData = array();
+    protected $encoding = 'iso-8859-1';
 
     // parameters to customize output
     protected $showSniffs = false;
@@ -195,6 +196,15 @@ class PhpCodeSnifferTask extends Task {
     public function setTabWidth($width)
     {
         $this->tabWidth = (int)$width;
+    }
+    
+    /**
+     * Sets file encoding
+     * @param string $encoding
+     */
+    public function setEncoding($encoding)
+    {
+        $this->encoding = $encoding;
     }
 
     /**
@@ -385,7 +395,7 @@ class PhpCodeSnifferTask extends Task {
         $oldArgs = $_SERVER['argv'];
         $_SERVER['argv'] = array();
         $_SERVER['argc'] = 0;
-        $codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth);
+        $codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth, $this->encoding);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
         if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
         foreach ($this->configData as $configData) {
