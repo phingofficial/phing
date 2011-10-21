@@ -66,14 +66,18 @@ class DefaultInputHandler implements InputHandler {
      */
     protected function getPrompt(InputRequest $request) {
         $prompt = $request->getPrompt();
+        $defaultValue = $request->getDefaultValue();
         
         if ($request instanceof YesNoInputRequest) {
+            $choices = $request->getChoices();
+            $defaultValue = $choices[(int) !$request->getDefaultValue()];
             $prompt .= '(' . implode('/', $request->getChoices()) .')';
         } elseif ($request instanceof MultipleChoiceInputRequest) { // (a,b,c,d)
             $prompt .= '(' . implode(',', $request->getChoices()) . ')';            
         }
+        
         if ($request->getDefaultValue() !== null) {
-            $prompt .= ' ['.$request->getDefaultValue().']';
+            $prompt .= ' ['.$defaultValue.']';
         }
         $pchar = $request->getPromptChar();        
         return $prompt . ($pchar ? $pchar . ' ' : ' ');
