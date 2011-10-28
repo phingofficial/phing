@@ -191,6 +191,7 @@
                 <ref name="uptodate"/>
                 <ref name="xslt"/>
                 <ref name="loadfile"/>
+                <ref name="import"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -1150,6 +1151,17 @@
             <zeroOrMore>
                 <ref name="filterchain"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="import">
+        <element name="import">
+            <attribute name="file"/>
+            <optional>
+                <attribute name="verbose">
+                    <data type="boolean" />
+                </attribute>
+            </optional>                
         </element>
     </define>
     
