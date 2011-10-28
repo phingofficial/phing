@@ -523,22 +523,20 @@
 		such a list of editors. Instead, spending a few minutes with Google
 		searching for XML-editors is bound to find a number of editors with
 		this capability.</p>
-	<p>
-		For only validating Phing build files there are several excellent free
-		Java based command line tool validators (unfortunately we are not
-		aware of any existing PHP based validator). One such validator is Sun
-		Microsystems "Sun Multi-Schema Validator" or <i>MSV</i> (available at
-		<a href="https://msv.dev.java.net/">https://msv.dev.java.net/</a>).
-		This validator can take an RNG grammar and validate a given XML file
+	
+	<p>If you wish to validate your Phing build file, there are numerous
+		options. Links to various validation tools and XML editors
+		are available at the RELAX NG home page, <a
+		href="http://www.relaxng.org/">http://www.relaxng.org/</a>.
+		The command line tool <em>xmllint</em> that comes with
+		libxml2 is also able to validate a given XML file
 		against the supplied grammar.
 	</p>
-	<p>For example, to use MSV to validate a Phing build file the
+	<p>For example, to use xmllint to validate a Phing build file the
 		following command line could be used:</p>
 	<pre>
-$ java -jar msv.jar phing-grammar.rng build.xml
-start parsing a grammar.
-validating /home/joe/build.xml
-the document is valid.
+$ xmllint -noout -relaxng phing-grammar.rng build.xml
+build.xml validates
 $
 </pre>
 </body>
