@@ -903,6 +903,10 @@
 	<p>The task can also echo to a file, in which case the option to
 		append rather than overwrite the file is available, and the level
 		option is ignored</p>
+	
+	<p>Additionally, the task can echo the contents of a nested fileset
+		element.</p>
+	
 	<h3>Examples</h3>
 	<pre>&lt;echo msg=&quot;Phing rocks!&quot; /&gt;
 
@@ -963,6 +967,11 @@
 		</tbody>
 	</table>
 
+	<h3>Supported Nested Tags</h3>
+	<ul>
+		<li>Fileset</li>
+	</ul>
+	
 	<h2>
 		<a name="ExecTask"></a>ExecTask
 	</h2>
