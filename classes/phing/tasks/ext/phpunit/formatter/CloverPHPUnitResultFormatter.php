@@ -66,26 +66,13 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
 
     public function endTestRun()
     {
-        if (version_compare($this->version, '3.5.0') >=0) {
-            require_once 'PHP/CodeCoverage/Report/Clover.php';
-            
-            $coverage = $this->result->getCodeCoverage();
-            
-            $clover = new PHP_CodeCoverage_Report_Clover();
-            
-            $contents = $clover->process($coverage);
-        } else {
-            require_once 'PHPUnit/Util/Log/CodeCoverage/XML/Clover.php';
-            
-            $clover = new PHPUnit_Util_Log_CodeCoverage_XML_Clover(null);
-            
-            ob_start();
-            
-            $clover->process($this->result);
-            $contents = ob_get_contents();
-            
-            ob_end_clean();
-        }
+        require_once 'PHP/CodeCoverage/Report/Clover.php';
+        
+        $coverage = $this->result->getCodeCoverage();
+        
+        $clover = new PHP_CodeCoverage_Report_Clover();
+        
+        $contents = $clover->process($coverage);
 
         if ($this->out)
         {

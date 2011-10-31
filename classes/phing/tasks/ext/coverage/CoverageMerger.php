@@ -38,7 +38,7 @@ class CoverageMerger
         reset($left);
         reset($right);
 
-        while (current($left) && current($right)) {
+        while (current($left) !== false && current($right) !== false) {
             $linenr_left = key($left);
             $linenr_right = key($right);
 
@@ -60,12 +60,12 @@ class CoverageMerger
             }
         }
 
-        while (current($left)) {
+        while (current($left) !== false) {
             $coverageMerged[key($left)] = current($left);
             next($left);
         }
 
-        while (current($right)) {
+        while (current($right) !== false) {
             $coverageMerged[key($right)] = current($right);
             next($right);
         }
@@ -89,12 +89,7 @@ class CoverageMerger
         $coverageTotal = $codeCoverageInformation;
         
         foreach ($coverageTotal as $filename => $data) {
-            if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
-                $ignoreLines = PHP_CodeCoverage_Util::getLinesToBeIgnored($filename);
-            } else {
-                // FIXME retrieve ignored lines for PHPUnit Version < 3.5.0
-                $ignoreLines = array();
-            }
+            $ignoreLines = PHP_CodeCoverage_Util::getLinesToBeIgnored($filename);
             
             $lines = array();
             $filename = strtolower($filename);

@@ -19,15 +19,7 @@
  * <http://phing.info>.
  */
 
-// phpunit 3.5 ships with autoloader
-// @todo - find out sane model for Phing and PHPUnit autoloaders/hooks co-existense
-if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
-    require_once 'PHPUnit/Autoload.php';
-}
-require_once 'PHPUnit/Util/ErrorHandler.php';
-require_once 'PHPUnit/Util/Filter.php';
-require_once 'PHPUnit/Runner/BaseTestRunner.php';
-require_once 'PHPUnit/Framework/TestListener.php';
+require_once 'PHPUnit/Autoload.php';
 require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 require_once 'phing/system/util/Timer.php';
 
@@ -54,7 +46,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     private $lastSkippedMessage = '';
     private $formatters = array();
     
-    private $codecoverage = false;
+    private $codecoverage = null;
     
     private $project = NULL;
 
@@ -89,16 +81,16 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         $this->formatters[] = $formatter;
     }
     
-    public static function handleError($level, $message, $file, $line)
+    public function handleError($level, $message, $file, $line)
     {
         $isFiltered = false;
-        if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
-            $isFiltered = PHP_CodeCoverage::getInstance()->filter()->isFiltered(
+        
+        if ($this->codecoverage) {
+            $isFiltered = $this->codecoverage->filter()->isFiltered(
                 $file, array(), true
             );
-        } else {
-            $isFiltered = PHPUnit_Util_Filter::isFiltered($file, true, true);
         }
+        
         if (!$isFiltered) {
             return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
         }
@@ -113,7 +105,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
 
         if ($this->codecoverage)
         {
-            $res->collectCodeCoverageInformation(TRUE);
+            $res->setCodeCoverage($this->codecoverage);
         }
         
         $res->addListener($this);
@@ -126,7 +118,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         /* Set PHPUnit error handler */
         if ($this->useCustomErrorHandler)
         {
-            $oldErrorHandler = set_error_handler(array('PHPUnitTestRunner', 'handleError'), E_ALL | E_STRICT);
+            $oldErrorHandler = set_error_handler(array($this, 'handleError'), E_ALL | E_STRICT);
         }
         
         $suite->run($res, false, $this->groups, $this->excludeGroups, $this->processIsolation);
@@ -144,17 +136,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         
         if ($this->codecoverage)
         {
-            if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
-                $coverage = $res->getCodeCoverage();
-            
-                $summary = $coverage->getSummary();
-            } else {
-                $coverageInformation = $res->getCodeCoverageInformation();
-                PHPUnit_Util_CodeCoverage::clearSummary();
-                $summary = PHPUnit_Util_CodeCoverage::getSummary($coverageInformation);
-            }
-
-            CoverageMerger::merge($this->project, $summary);
+            CoverageMerger::merge($this->project, $this->codecoverage->getData());
         }
         
         if ($res->errorCount() != 0)

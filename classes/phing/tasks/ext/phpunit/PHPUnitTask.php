@@ -49,7 +49,7 @@ class PHPUnitTask extends Task
     private $printsummary = false;
     private $testfailed = false;
     private $testfailuremessage = "";
-    private $codecoverage = false;
+    private $codecoverage = null;
     private $groups = array();
     private $excludeGroups = array();
     private $processIsolation = false;
@@ -62,11 +62,6 @@ class PHPUnitTask extends Task
      * because we may want this class to be loaded w/o triggering an error.
      */
     public function init() {
-        if (version_compare(PHP_VERSION, '5.0.3') < 0)
-        {
-            throw new BuildException("PHPUnitTask requires PHP version >= 5.0.3", $this->getLocation());
-        }
-        
         /**
          * Determine PHPUnit version number
          */
@@ -78,9 +73,9 @@ class PHPUnitTask extends Task
 
         $version = PHPUnit_Runner_Version::id();
 
-        if (version_compare($version, '3.2.0') < 0)
+        if (version_compare($version, '3.6.0') < 0)
         {
-            throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.2.0", $this->getLocation());
+            throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.6.0", $this->getLocation());
         }
             
         /**
@@ -96,21 +91,6 @@ class PHPUnitTask extends Task
         if (!defined('PHPUnit_MAIN_METHOD'))
         {
             define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
-        }
-        
-        /**
-         * Add some defaults to the PHPUnit filter
-         */
-        $pwd = dirname(__FILE__);
-        $path = realpath($pwd . '/../../../');
-        
-        if (version_compare($version, '3.5.0') >= 0) {
-            PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist($path);
-        } else {
-            require_once 'PHPUnit/Framework.php';
-            require_once 'PHPUnit/Util/Filter.php';
-            
-            PHPUnit_Util_Filter::addDirectoryToFilter($path);
         }
     }
     
@@ -314,7 +294,18 @@ class PHPUnitTask extends Task
     {
         $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
         
-        $runner->setCodecoverage($this->codecoverage);
+        if ($this->codecoverage) {
+            /**
+             * Add some defaults to the PHPUnit filter
+             */
+            $pwd = dirname(__FILE__);
+            $path = realpath($pwd . '/../../../');
+            
+            $filter = new PHP_CodeCoverage_Filter();
+            $filter->addDirectoryToBlacklist($path);
+            $runner->setCodecoverage(new PHP_CodeCoverage(null, $filter));
+        }
+        
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
 
         foreach ($this->formatters as $fe)

@@ -166,7 +166,7 @@ class CoverageSetupTask extends Task
             $props->setProperty($filename, serialize(array('fullname' => $fullname, 'coverage' => array())));
             
             if ($newFilter) {
-            	PHP_CodeCoverage_Filter::getInstance()->addFileToWhiteList($file['fullname']);
+            	//PHP_CodeCoverage_Filter::getInstance()->addFileToWhiteList($file['fullname']);
             } else {
                 PHPUnit_Util_Filter::addFileToWhitelist($file['fullname']);
             }
