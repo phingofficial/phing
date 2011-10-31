@@ -98,7 +98,7 @@ class PHPCPDTask extends Task
         /**
          * Determine PHPCPD installation
          */
-        @include_once 'PHPCPD/TextUI/Command.php';
+        @include_once 'PHPCPD/Autoload.php';
 
         if (! class_exists('PHPCPD_TextUI_Command')) {
             throw new BuildException(
@@ -111,7 +111,6 @@ class PHPCPDTask extends Task
         // Other dependencies that should only be loaded
         // when class is actually used
         require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
-        require_once 'PHPCPD/Detector.php';
     }
 
     /**
@@ -278,7 +277,7 @@ class PHPCPDTask extends Task
 
         $this->log('Processing files...');
 
-        $detector = new PHPCPD_Detector();
+        $detector = new PHPCPD_Detector(new PHPCPD_Detector_Strategy_Default());
         $clones   = $detector->copyPasteDetection(
             $filesToParse,
             $this->_minLines,
