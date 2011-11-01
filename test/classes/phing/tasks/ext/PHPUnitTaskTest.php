@@ -28,6 +28,7 @@ require_once 'phing/BuildFileTest.php';
  * @package phing.tasks.ext
  */
 class PHPUnitTaskTest extends BuildFileTest { 
+    protected $backupGlobals = FALSE;
         
     public function setUp()
     { 
@@ -36,11 +37,21 @@ class PHPUnitTaskTest extends BuildFileTest {
 
     /**
      * Regression test for http://www.phing.info/trac/ticket/655
-     * "PlainPHPUnitResultFormatter does not display errors if @dataProvider was used"
+     * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used"
      */
     public function testPlainFormatterDataProvider()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Tests run: 2, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
     }
+
+    /**    
+     * Regression test for ticket http://www.phing.info/trac/ticket/363
+     * "PHPUnit task fails with formatter type 'xml'"
+     */
+    public function testHelloWorld() {
+      $this->executeTarget(__FUNCTION__);
+      $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
+    }
+    
 }

@@ -10,5 +10,18 @@
 				</fileset>
 			</batchtest>
 		</phpunit>
-	 </target>
+	</target>
+
+        <target name="testHelloWorld">
+                <phpunit haltonerror="true" haltonfailure="true"
+	                printsummary="true">
+                        <formatter type="xml" usefile="false"/>
+                        <formatter type="plain" usefile="false"/>
+                        <batchtest>
+                                <fileset dir=".">
+                                        <include name="HelloWorldTest.php"/>
+                                </fileset>
+                        </batchtest>
+                </phpunit>
+        </target>
 </project>
