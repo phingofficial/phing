@@ -70,14 +70,16 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
         
         $coverage = $this->result->getCodeCoverage();
         
-        $clover = new PHP_CodeCoverage_Report_Clover();
-        
-        $contents = $clover->process($coverage);
-
-        if ($this->out)
-        {
-            $this->out->write($contents);
-            $this->out->close();
+        if (!empty($coverage)) {
+            $clover = new PHP_CodeCoverage_Report_Clover();
+            
+            $contents = $clover->process($coverage);
+    
+            if ($this->out)
+            {
+                $this->out->write($contents);
+                $this->out->close();
+            }
         }
         
         parent::endTestRun();
