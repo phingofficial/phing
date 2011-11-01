@@ -23,10 +23,9 @@
 require_once 'phing/BuildFileTest.php';
 
 /**
- * Regression test for ticket http://www.phing.info/trac/ticket/590
- * - PhpLintTask don't flag files that can't be parsed as bad files
+ * Unit tests for PhpLintTask
  *
- * @package phing.regression
+ * @package phing.tasks.ext
  */
 class PhpLintFlagTest extends BuildFileTest { 
         
@@ -47,6 +46,9 @@ class PhpLintFlagTest extends BuildFileTest {
         $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in");
     }
 
+    /**
+     * Regression test for ticket http://www.phing.info/trac/ticket/590
+     */
     public function testDeprecated()
     {
         $this->executeTarget(__FUNCTION__);
