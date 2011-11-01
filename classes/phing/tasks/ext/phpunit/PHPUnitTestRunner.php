@@ -95,6 +95,10 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
 
         if ($this->codecoverage)
         {
+            $whitelist = CoverageMerger::getWhiteList($this->project);
+            
+            $this->codecoverage->filter()->addFilesToWhiteList($whitelist);
+            
             $res->setCodeCoverage($this->codecoverage);
         }
         

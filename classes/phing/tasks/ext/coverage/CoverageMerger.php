@@ -72,8 +72,13 @@ class CoverageMerger
 
         return $coverageMerged;
     }
-
-    static function merge($project, $codeCoverageInformation)
+    
+    /**
+     * @param  Project $project
+     * @return Properties
+     * @throws BuildException
+     */
+    protected static function _getDatabase($project)
     {
         $coverageDatabase = $project->getProperty('coverage.database');
         
@@ -85,6 +90,26 @@ class CoverageMerger
 
         $props = new Properties();
         $props->load($database);
+        
+        return $props;
+    }
+    
+    public static function getWhiteList($project)
+    {
+        $whitelist = array();
+        $props = self::_getDatabase($project);
+        
+        foreach ($props->getProperties() as $property) {
+            $data = unserialize($property);
+            $whitelist[] = $data['fullname'];
+        }
+        
+        return $whitelist;
+    }
+
+    public static function merge($project, $codeCoverageInformation)
+    {
+        $props = self::_getDatabase($project);
         
         $coverageTotal = $codeCoverageInformation;
         
@@ -124,6 +149,6 @@ class CoverageMerger
             }           
         }
 
-        $props->store($database);
+        $props->store();
     }
 }
