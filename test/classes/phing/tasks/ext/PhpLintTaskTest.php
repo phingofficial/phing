@@ -27,7 +27,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.tasks.ext
  */
-class PhpLintFlagTest extends BuildFileTest { 
+class PhpLintTaskTest extends BuildFileTest { 
         
     public function setUp()
     { 
