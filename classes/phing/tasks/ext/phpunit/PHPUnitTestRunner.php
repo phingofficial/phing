@@ -87,7 +87,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         
         if ($this->codecoverage) {
             $isFiltered = $this->codecoverage->filter()->isFiltered(
-                $file, array(), true
+                $file, true
             );
         }
         
