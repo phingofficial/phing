@@ -12,6 +12,7 @@
  * @link     https://gitorious.org/phing/pearPackageFileSet
  */
 require_once 'phing/util/DirectoryScanner.php';
+require_once 'PEAR/Config.php';
 
 /**
  * Scans for files in a PEAR package.
