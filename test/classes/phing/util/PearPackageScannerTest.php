@@ -33,6 +33,9 @@ require_once 'phing/util/PearPackageScanner.php';
 class PearPackageScannerTest extends BuildFileTest 
 { 
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
     public function testLoadPackageInfo()
     {
         $ppfs = new PearPackageScanner();
@@ -71,6 +74,9 @@ class PearPackageScannerTest extends BuildFileTest
         $ppfs->setRole(null);
     }
 
+    /**
+     * @expectedException PHPUnit_Framework_Error_Deprecated
+     */
     public function testScanRoleDocCorrectDirectory()
     {
         $pps = new PearPackageScanner();
