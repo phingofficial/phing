@@ -37,6 +37,11 @@ class Properties {
     private $properties = array();
     
     /**
+     * @var PhingFile
+     */
+    private $file = null;
+    
+    /**
      * Constructor
      *
      * @param array $properties
@@ -60,6 +65,8 @@ class Properties {
     function load(PhingFile $file) {
         if ($file->canRead()) {
             $this->parse($file->getPath(), false);                    
+
+            $this->file = $file;
         } else {
             throw new IOException("Can not read file ".$file->getPath());
         }
@@ -158,7 +165,15 @@ class Properties {
      * @return void
      * @throws IOException - on error writing properties file.
      */
-    function store(PhingFile $file, $header = null) {
+    function store(PhingFile $file = null, $header = null) {
+        if ($file == null) {
+            $file = $this->file;
+        }
+        
+        if ($file == null) {
+            throw new IOException("Unable to write to empty filename");
+        }
+        
         // stores the properties in this object in the file denoted
         // if file is not given and the properties were loaded from a
         // file prior, this method stores them in the file used by load()        
