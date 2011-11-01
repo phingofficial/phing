@@ -261,10 +261,20 @@ class PHPUnitTask extends Task
             $formatter->startTestRun();
         }
         
+        $suite = new PHPUnit_Framework_TestSuite('AllTests');
+        
         foreach ($this->batchtests as $batchtest)
         {
-            $this->execute($batchtest->getTestSuite());
+            $elements = $batchtest->elements();
+            
+            foreach ($elements as $element) {
+                $suite->addTestSuite(new ReflectionClass($element));
+            }
+            
+            //$suite->addTestSuite($batchtest->getTestSuite());
         }
+        
+        $this->execute($suite);
         
         foreach ($this->formatters as $fe)
         {

@@ -165,7 +165,7 @@ class BatchTest
      *
      * @return array an array of tests.
      */
-    protected function elements()
+    public function elements()
     {
         $filenames = $this->getFilenames();
         
