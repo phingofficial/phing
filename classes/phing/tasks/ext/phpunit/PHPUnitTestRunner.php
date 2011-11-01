@@ -83,17 +83,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     
     public function handleError($level, $message, $file, $line)
     {
-        $isFiltered = false;
-        
-        if ($this->codecoverage) {
-            $isFiltered = $this->codecoverage->filter()->isFiltered(
-                $file, true
-            );
-        }
-        
-        if (!$isFiltered) {
-            return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
-        }
+        return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
     }
     
     /**
