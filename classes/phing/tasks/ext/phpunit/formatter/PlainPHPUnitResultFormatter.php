@@ -54,7 +54,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     {
         foreach ($suite->tests() as $test)
         {
-            if ($test instanceof PHPUnit_Framework_TestSuite)
+            if ($suite->getName() == 'AllTests')
             {
                 return false;
             }
