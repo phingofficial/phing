@@ -52,12 +52,9 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
-        foreach ($suite->tests() as $test)
+        if ($suite->getName() == 'AllTests')
         {
-            if ($suite->getName() == 'AllTests')
-            {
-                return false;
-            }
+            return false;
         }
         
         $sb = "Testsuite: " . $suite->getName() . "\n";
