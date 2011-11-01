@@ -241,46 +241,14 @@ class PHPUnitTask extends Task
             require_once $this->bootstrap;
         }
         
-        foreach ($this->formatters as $fe)
-        {
-            $formatter = $fe->getFormatter();
-
-            if ($fe->getUseFile())
-            {
-                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
-                
-                $writer = new FileWriter($destFile->getAbsolutePath());
-
-                $formatter->setOutput($writer);
-            }
-            else
-            {
-                $formatter->setOutput($this->getDefaultOutput());
-            }
-
-            $formatter->startTestRun();
-        }
-        
         $suite = new PHPUnit_Framework_TestSuite('AllTests');
         
         foreach ($this->batchtests as $batchtest)
         {
-            $elements = $batchtest->elements();
-            
-            foreach ($elements as $element) {
-                $suite->addTestSuite(new ReflectionClass($element));
-            }
-            
-            //$suite->addTestSuite($batchtest->getTestSuite());
+            $batchtest->addToTestSuite($suite);
         }
         
         $this->execute($suite);
-        
-        foreach ($this->formatters as $fe)
-        {
-            $formatter = $fe->getFormatter();
-            $formatter->endTestRun();
-        }
         
         if ($this->testfailed)
         {
@@ -322,11 +290,32 @@ class PHPUnitTask extends Task
         {
             $formatter = $fe->getFormatter();
 
+            if ($fe->getUseFile())
+            {
+                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                
+                $writer = new FileWriter($destFile->getAbsolutePath());
+
+                $formatter->setOutput($writer);
+            }
+            else
+            {
+                $formatter->setOutput($this->getDefaultOutput());
+            }
+
             $runner->addFormatter($formatter);
+
+            $formatter->startTestRun();
         }
         
         $runner->run($suite);
 
+        foreach ($this->formatters as $fe)
+        {
+            $formatter = $fe->getFormatter();
+            $formatter->endTestRun();
+        }
+        
         $retcode = $runner->getRetCode();
         
         if ($retcode == PHPUnitTestRunner::ERRORS) {
