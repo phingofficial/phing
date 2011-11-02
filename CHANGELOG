@@ -1,6 +1,36 @@
                            _________________________
                            P     H     I     N     G
 
+Nov. 2, 2011 - Phing 2.4.8
+
+[814] Class 'PHPCPD_Log_XML' not found in /home/m/www/elvis/vendor/phpcpd/PHPCPD/Log/XML/PMD.php on line 55
+[812] Fix PHPUnit 3.6 / PHP_CodeCoverage 1.1.0 compatibility
+[808] Bad example for the <or> selector
+[805] phing executable has bug in ENV/PHP_COMMAND
+[804] PhpUnitTask overwrites autoload stack
+[801] PhpCodeSnifferTask doesn't pass files encoding to PHP_CodeSniffer
+[800] CoverageReportTask fails with "runtime error" on PHP 5.4.0beta1
+[799] DbDeploy does not support pdo-dblib
+[798] ReplaceTokensWithFile - postfix attribute ignored
+[797] PhpLintTask performance improvement
+[794] Fix rSTTask to avoid the need of PEAR everytime
+[793] Corrected spelling of name
+[792] EchoTask: Fileset support
+[789] rSTTask unittests fix
+[788] rSTTask documentation: fix examples
+[787] Add pearPackageFileSet type
+[785] method execute doesn't exists in CvsTask.php
+[784] Refactor DocBlox task to work with DocBlox 0.14+
+[783] SvnExportTask impossible to export current version from working copy
+[779] phplint task error summary doesn't display the errors
+[775] ScpTask: mis-leading error message if 'host' attribute is not set
+[772] Support for filelist in UpToDateTask
+[770] Keep the RelaxNG grammar in sync with the code/doc
+[707] Writing Tasks/class properties: taskname not correctly used
+[655] PlainPHPUnitResultFormatter does not display errors if @dataProvider was used
+[578] [PATCH] Add mapper support to ForeachTask
+[552] 2 validargs to input task does not display defaults correctly
+
 Aug. 19, 2011 - Phing 2.4.7.1
 
 This is a hotfix release.
