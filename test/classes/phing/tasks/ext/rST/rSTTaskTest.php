@@ -30,10 +30,10 @@ class rSTTaskTest extends BuildFileTest
 { 
     public function setUp() 
     { 
+        chdir(PHING_TEST_BASE . '/etc/tasks/ext/rst');
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/build.xml'
         );
-        chdir(PHING_TEST_BASE . '/etc/tasks/ext/rst');
         //$this->assertInLogs('Property ${version} => 1.0.1');
     }
 

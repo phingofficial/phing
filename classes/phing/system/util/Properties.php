@@ -48,6 +48,11 @@ class Properties implements IteratorAggregate {
     protected $properties;
     
     /**
+     * @var PhingFile
+     */
+    private $file = null;
+    
+    /**
      * Constructor
      *
      * @param array $properties
@@ -74,6 +79,7 @@ class Properties implements IteratorAggregate {
     	require_once('phing/util/properties/PropertyFileReader.php');
     	$r = new PropertyFileReader($this->properties);
     	$r->load($file, $section);
+        $this->file = $file;
     }
 
     /**
@@ -84,7 +90,15 @@ class Properties implements IteratorAggregate {
      * @return void
      * @throws IOException - on error writing properties file.
      */
-    public function store(PhingFile $file, $header = null) {
+    public function store(PhingFile $file = null, $header = null) {
+        if ($file == null) {
+            $file = $this->file;
+        }
+        
+        if ($file == null) {
+            throw new IOException("Unable to write to empty filename");
+        }
+        
     	require_once('phing/util/properties/PropertyFileWriter.php');
     	$w = new PropertyFileWriter($this->properties);
     	$w->store($file, $header);

@@ -182,14 +182,15 @@ class PhpLintTask extends Task {
             $writer->close();
         }
 
+        $message = '';
+        foreach ($this->badFiles as $file => $messages) {
+            foreach ($messages as $msg) {
+                $message .= $file . "=" . $msg . PHP_EOL;
+            }
+        }
+        
         // save list of 'bad files' with errors to property errorproperty (if specified)
         if ($this->errorProperty) {
-            $message = '';
-            foreach ($this->badFiles as $file => $messages) {
-                foreach ($messages as $msg) {
-                    $message .= $file . "=" . $msg . PHP_EOL;
-                }
-            }
             $this->project->setProperty($this->errorProperty, $message);
         }
         
@@ -197,7 +198,9 @@ class PhpLintTask extends Task {
             $this->cache->commit();
         }
         
-        if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in PHP files: '.implode(', ',$this->badFiles));
+        if ($this->haltOnFailure && $this->hasErrors) {
+            throw new BuildException('Syntax error(s) in PHP files: ' . $message);
+        }
     }
 
     /**
@@ -210,7 +213,7 @@ class PhpLintTask extends Task {
         $command = $this->Interpreter == ''
             ? 'php'
             : $this->Interpreter;
-        $command .= ' -d error_reporting=E_ALL\|E_STRICT -l ';
+        $command .= ' -d error_reporting=E_ALL\|E_STRICT -n -l ';
         if(file_exists($file)) {
             if(is_readable($file)) {
                 if ($this->cache)

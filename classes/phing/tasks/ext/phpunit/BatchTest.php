@@ -189,6 +189,7 @@ class BatchTest
     /**
      * Returns a testsuite containing all the tests in this batch
      *
+     * @deprecated
      * @return PHPUnit_Framework_TestSuite
      */
     public function getTestSuite()
@@ -204,4 +205,16 @@ class BatchTest
         
         return $suite;
     }
+    
+    /**
+     * Add the tests in this batchtest to a test suite
+     * @param PHPUnit_Framework_TestSuite $suite
+     */
+    public function addToTestSuite(PHPUnit_Framework_TestSuite $suite)
+    {
+        foreach ($this->elements() as $element) {
+            $suite->addTestSuite(new ReflectionClass($element));
+        }
+    }
+    
 }

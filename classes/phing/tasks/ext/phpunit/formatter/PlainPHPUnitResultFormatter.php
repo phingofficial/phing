@@ -52,12 +52,9 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
-        foreach ($suite->tests() as $test)
+        if ($suite->getName() == 'AllTests')
         {
-            if ($test instanceof PHPUnit_Framework_TestSuite)
-            {
-                return false;
-            }
+            return false;
         }
         
         $sb = "Testsuite: " . $suite->getName() . "\n";
@@ -114,7 +111,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         
         if ($e !== null) {
             $this->inner.= $e->getMessage() . "\n";
-            $this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e, false) . "\n";
+            // $this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e, true) . "\n";
         }
     }
     

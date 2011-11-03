@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,25 +18,48 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
+ * 
+ * @package phing.util
  */
- 
 require_once 'phing/BuildFileTest.php';
 
 /**
- * Regression test for ticket http://www.phing.info/trac/ticket/363
- * - PHPUnit task fails with formatter type 'xml'
- *
- * @package phing.regression
+ * Testcases for phing.types.PearPackageFileSet
+ * 
+ * @author  Christian Weiske <cweiske@cweiske.de>
+ * @package phing.types
  */
-class PhpUnit34Test extends BuildFileTest { 
-    protected $backupGlobals = FALSE;
-        
-    public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/363/build.xml");
+class PearPackageFileSetBuildTest extends BuildFileTest 
+{ 
+    public function setUp() 
+    {
+        //needed for PEAR's Config and Registry classes
+        error_reporting(error_reporting() & ~E_DEPRECATED);
+
+        $this->configureProject(
+            PHING_TEST_BASE . '/etc/types/PearPackageFileSetBuildTest.xml'
+        );
     }
 
-    public function testPhingCallTask () {
-      $this->executeTarget("main");
-      $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
+    public function testConsoleGetopt()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Console/Getopt.php');
+    }
+
+    public function testRoleDoc()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('/LICENSE');
+    }
+
+    public function testCopyConsoleGetopt()
+    {
+        $this->executeTarget(__FUNCTION__);
+    }
+
+    public function testCopyMapperConsoleGetopt()
+    {
+        $this->executeTarget(__FUNCTION__);
     }
 }

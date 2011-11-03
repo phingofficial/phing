@@ -40,9 +40,9 @@ class DocBloxTask extends Task
     
     /**
      * Destination/target directory
-     * @var string
+     * @var PhingFile
      */
-    private $destDir = "";
+    private $destDir = null;
     
     /**
      * Title of the project
@@ -69,20 +69,20 @@ class DocBloxTask extends Task
     
     /**
      * Sets destination/target directory
-     * @param string $destDir
+     * @param PhingFile $destDir
      */
-    public function setDestDir($destDir)
+    public function setDestDir(PhingFile $destDir)
     {
-        $this->destDir = (string) $destDir;
+        $this->destDir = $destDir;
     }
 
     /**
      * Convenience setter (@see setDestDir)
-     * @param string $output
+     * @param PhingFile $output
      */
-    public function setOutput($output)
+    public function setOutput(PhingFile $output)
     {
-        $this->destDir = (string) $output;
+        $this->destDir = $output;
     }
     
     /**
@@ -112,48 +112,31 @@ class DocBloxTask extends Task
         
         foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
             $testDocBloxPath = $path . DIRECTORY_SEPARATOR . 'DocBlox' . DIRECTORY_SEPARATOR . 'src';
-            $testMarkdownPath = $path . DIRECTORY_SEPARATOR . 'markdown.php';
 
             if (file_exists($testDocBloxPath)) {
                 $docbloxPath = $testDocBloxPath;
-            }
-
-            if (file_exists($testMarkdownPath)) {
-                $markdownPath = $testMarkdownPath;
             }
         }
 
         if (empty($docbloxPath)) {
             throw new BuildException("Please make sure DocBlox is installed and on the include_path.", $this->getLocation());
         }
-
-        if (empty($markdownPath)) {
-            throw new BuildException("Please make sure Markdown Extra is installed and on the include_path.", $this->getLocation());
-        }
         
         set_include_path($docbloxPath . PATH_SEPARATOR . get_include_path());
         
-        if (file_exists($docbloxPath.'/ZendX/Loader/StandardAutoloader.php')) {
-            require_once $docbloxPath.'/ZendX/Loader/StandardAutoloader.php';
+        require_once $docbloxPath.'/DocBlox/Bootstrap.php';
             
-            $autoloader = new ZendX_Loader_StandardAutoloader(
-                array(
-                    'prefixes' => array(
-                        'Zend'    => $docbloxPath.'/Zend',
-                        'DocBlox' => $docbloxPath.'/DocBlox'
-                    ),
-                    'fallback_autoloader' => true 
-                )
-            );
-            $autoloader->register();
+        $bootstrap = DocBlox_Bootstrap::createInstance();
+            
+        $autoloader = $bootstrap->registerAutoloader();
+            
+        if ($this->quiet) {
+            DocBlox_Core_Abstract::config()->logging->level = 'quiet';
         } else {
-            require_once 'Zend/Loader/Autoloader.php';
-        
-            $autoloader = Zend_Loader_Autoloader::getInstance();
-            $autoloader->registerNamespace('DocBlox_');
+            DocBlox_Core_Abstract::config()->logging->level = 'debug';
         }
-
-        require_once $markdownPath;
+            
+        $bootstrap->registerPlugins($autoloader);
     }
     
     /**
@@ -163,13 +146,10 @@ class DocBloxTask extends Task
     private function parseFiles()
     {
         $parser = new DocBlox_Parser();
+        DocBlox_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
         $parser->setTitle($this->title);
         
-        if ($this->quiet) {
-            $parser->setLogLevel(Zend_Log::CRIT);
-        }
-        
-        $files = array();
+        $paths = array();
         
         // filesets
         foreach ($this->filesets as $fs) {
@@ -178,11 +158,16 @@ class DocBloxTask extends Task
             $srcFiles = $ds->getIncludedFiles();
             
             foreach ($srcFiles as $file) {
-                $files[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
+                $paths[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
             }
         }
         
-        $this->log("Will parse " . count($files) . " file(s)", Project::MSG_VERBOSE);
+        $this->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
+        
+        $files = new DocBlox_Parser_Files();
+        $files->addFiles($paths);
+        
+        $parser->setPath($files->getProjectRoot());
         
         return $parser->parseFiles($files);
     }
@@ -208,8 +193,10 @@ class DocBloxTask extends Task
         $this->log("Transforming...", Project::MSG_VERBOSE);
         
         $transformer = new DocBlox_Transformer();
+        $transformer->setThemesPath(DocBlox_Core_Abstract::config()->paths->themes);
+        $transformer->setTemplates(DocBlox_Core_Abstract::config()->transformations->template->name);
         $transformer->setSource($xml);
-        $transformer->setTarget($this->destDir);
+        $transformer->setTarget($this->destDir->getAbsolutePath());
         $transformer->execute();
     }
 }

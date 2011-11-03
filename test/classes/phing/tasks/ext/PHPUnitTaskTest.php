@@ -23,22 +23,35 @@
 require_once 'phing/BuildFileTest.php';
 
 /**
- * Regression test for ticket http://www.phing.info/trac/ticket/590
- * - PhpLintTask don't flag files that can't be parsed as bad files
+ * Unit tests for PHPUnit task
  *
- * @package phing.regression
+ * @package phing.tasks.ext
  */
-class PhpLintFlagTest extends BuildFileTest { 
+class PHPUnitTaskTest extends BuildFileTest { 
+    protected $backupGlobals = FALSE;
         
-    public function setUp() { 
-        $this->configureProject(__DIR__."/build.xml");
+    public function setUp()
+    { 
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpunit/build.xml");
     }
 
-    public function testPhpLintTask () {
-      $this->executeTarget("main");
-      $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ." . DIRECTORY_SEPARATOR . "my_file.php");
-      $this->assertInLogs("." . DIRECTORY_SEPARATOR . "my_file_ok.php: No syntax errors detected");
-      // Probably a bad idea to rely on such messages as they might change in the future? Also out-of-scope for the bug report in question.
-      $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in ." . DIRECTORY_SEPARATOR . "my_file_depr.php");
+    /**
+     * Regression test for http://www.phing.info/trac/ticket/655
+     * "PlainPHPUnitResultFormatter does not display errors if dataProvider was used"
+     */
+    public function testPlainFormatterDataProvider()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Tests run: 2, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
     }
+
+    /**    
+     * Regression test for ticket http://www.phing.info/trac/ticket/363
+     * "PHPUnit task fails with formatter type 'xml'"
+     */
+    public function testHelloWorld() {
+      $this->executeTarget(__FUNCTION__);
+      $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
+    }
+    
 }

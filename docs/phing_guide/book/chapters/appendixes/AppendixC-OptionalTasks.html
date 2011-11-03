@@ -4099,6 +4099,13 @@ Note that you can omit both startpoint and track attributes in this case
 				<td>No</td>
 			</tr>
 			<tr>
+				<td>encoding</td>
+				<td>String</td>
+				<td>The encoding of the files to check</td>
+				<td>iso-8859-1</td>
+				<td>No</td>
+			</tr>
+			<tr>
 				<td>tabWidth</td>
 				<td>Integer</td>
 				<td>Replaces tabs with the given number of spaces. If zero no
@@ -5647,7 +5654,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;rST&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
        &lt;include name=&quot;README.rst&quot; /&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
     &lt;/rST&gt;
 
@@ -5669,9 +5676,9 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;rST&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
        &lt;include name=&quot;README.rst&quot; /&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
-     &lt;mapper type=&quot;glob&quot; from=&quot;\*.rst&quot; to=&quot;path/to/my/\*.xhtml&quot;/&gt;
+     &lt;mapper type=&quot;glob&quot; from=&quot;*.rst&quot; to=&quot;path/to/my/*.xhtml&quot;/&gt;
     &lt;/rST&gt;
 
   &lt;/target&gt;
@@ -5690,7 +5697,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;rST&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
        &lt;include name=&quot;README.rst&quot; /&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
      &lt;filterchain&gt;
        &lt;replacetokens begintoken=&quot;##&quot; endtoken=&quot;##&quot;&gt;
@@ -5717,7 +5724,7 @@ Note that you can omit both startpoint and track attributes in this case
 
     &lt;rST uptodate=&quot;true&quot;&gt;
      &lt;fileset dir=&quot;.&quot;&gt;
-       &lt;include name=&quot;docs/\*.rst&quot; /&gt;
+       &lt;include name=&quot;docs/*.rst&quot; /&gt;
      &lt;/fileset&gt;
     &lt;/rST&gt;
 

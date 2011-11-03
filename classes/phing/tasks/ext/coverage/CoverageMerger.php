@@ -38,7 +38,7 @@ class CoverageMerger
         reset($left);
         reset($right);
 
-        while (current($left) && current($right)) {
+        while (current($left) !== false && current($right) !== false) {
             $linenr_left = key($left);
             $linenr_right = key($right);
 
@@ -60,20 +60,25 @@ class CoverageMerger
             }
         }
 
-        while (current($left)) {
+        while (current($left) !== false) {
             $coverageMerged[key($left)] = current($left);
             next($left);
         }
 
-        while (current($right)) {
+        while (current($right) !== false) {
             $coverageMerged[key($right)] = current($right);
             next($right);
         }
 
         return $coverageMerged;
     }
-
-    static function merge($project, $codeCoverageInformation)
+    
+    /**
+     * @param  Project $project
+     * @return Properties
+     * @throws BuildException
+     */
+    protected static function _getDatabase($project)
     {
         $coverageDatabase = $project->getProperty('coverage.database');
         
@@ -86,15 +91,30 @@ class CoverageMerger
         $props = new Properties();
         $props->load($database);
         
+        return $props;
+    }
+    
+    public static function getWhiteList($project)
+    {
+        $whitelist = array();
+        $props = self::_getDatabase($project);
+        
+        foreach ($props->getProperties() as $property) {
+            $data = unserialize($property);
+            $whitelist[] = $data['fullname'];
+        }
+        
+        return $whitelist;
+    }
+
+    public static function merge($project, $codeCoverageInformation)
+    {
+        $props = self::_getDatabase($project);
+        
         $coverageTotal = $codeCoverageInformation;
         
         foreach ($coverageTotal as $filename => $data) {
-            if (version_compare(PHPUnit_Runner_Version::id(), '3.5.0') >=0) {
-                $ignoreLines = PHP_CodeCoverage_Util::getLinesToBeIgnored($filename);
-            } else {
-                // FIXME retrieve ignored lines for PHPUnit Version < 3.5.0
-                $ignoreLines = array();
-            }
+            $ignoreLines = PHP_CodeCoverage_Util::getLinesToBeIgnored($filename);
             
             $lines = array();
             $filename = strtolower($filename);
@@ -129,6 +149,6 @@ class CoverageMerger
             }           
         }
 
-        $props->store($database);
+        $props->store();
     }
 }

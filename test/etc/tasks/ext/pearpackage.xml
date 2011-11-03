@@ -16,7 +16,7 @@
 		
 		<fileset dir="../../../../">
 			<include name="bin/**"/>
-			<include name="**/*.php"/>
+			<include name="classes/phing/types/*.php"/>
 		</fileset>		
 		
 		<!-- Set the simple options -->

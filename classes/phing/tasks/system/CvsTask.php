@@ -202,7 +202,7 @@ class CvsTask extends Task {
         try {
             $actualCommandLine = $toExecuteStr; // we converted to string above
             $this->log($actualCommandLine, Project::MSG_INFO);
-            $retCode = $exe->execute();
+            $retCode = $exe->main();
             $this->log("retCode=" . $retCode, Project::MSG_DEBUG);
             /*Throw an exception if cvs exited with error. (Iulian)*/
             if ($this->failOnError && $retCode !== 0) {

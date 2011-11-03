@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<project name="PHPUnit Tests" default="testAll">
+	<target name="testPlainFormatterDataProvider">
+		<phpunit codecoverage="false" haltonfailure="false" haltonerror="false">
+			<formatter type="plain" usefile="false"/>
+			<formatter type="summary" usefile="false"/>
+			<batchtest>
+				<fileset dir=".">
+					<include name="provider_failTest.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+
+        <target name="testHelloWorld">
+                <phpunit haltonerror="true" haltonfailure="true"
+	                printsummary="true">
+                        <formatter type="xml" usefile="false"/>
+                        <formatter type="plain" usefile="false"/>
+                        <batchtest>
+                                <fileset dir=".">
+                                        <include name="HelloWorldTest.php"/>
+                                </fileset>
+                        </batchtest>
+                </phpunit>
+        </target>
+</project>

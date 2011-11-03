@@ -50,6 +50,7 @@ class DbmsSyntaxFactory
                 return new DbmsSyntaxMysql();
             case 'odbc':
             case('mssql'):
+            case 'dblib':
                 require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxMsSql.php';
                 return new DbmsSyntaxMsSql();
             case('pgsql'):

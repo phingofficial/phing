@@ -45,12 +45,15 @@
         <element name="project">
             <interleave>
                 <attribute name="name"/>
-                <attribute name="basedir"/>
                 <optional>
-                    <attribute name="default"/>
+                    <attribute name="basedir"/>
                 </optional>
+                <attribute name="default"/>
                 <optional>
                     <attribute name="description"/>
+                </optional>
+                <optional>
+                    <attribute name="phingVersion"/>
                 </optional>
             </interleave>
 
@@ -104,6 +107,7 @@
                 <ref name="pearpkg"/>
                 <ref name="pearpkg2"/>
                 <ref name="phpcodesniffer"/>
+                <ref name="phpdoc"/>
                 <ref name="phpdocumentor"/>
                 <ref name="phpdocumentorexternal"/>
                 <ref name="phplint"/>
@@ -115,6 +119,7 @@
                 <ref name="simpletest" />
                 <ref name="striplinecomments"/>
                 <ref name="stripphpcomments"/>
+                <ref name="symlink" />
                 <ref name="svncheckout"/>
                 <ref name="svnexport"/>
                 <ref name="svncommit" />
@@ -152,6 +157,7 @@
     <define name="coretasks">
         <zeroOrMore>
             <choice>
+                <ref name="adhoc"/>
                 <ref name="adhoctaskdef"/>
                 <ref name="adhoctypedef"/>
                 <ref name="append"/>
@@ -184,6 +190,8 @@
                 <ref name="typedef"/>
                 <ref name="uptodate"/>
                 <ref name="xslt"/>
+                <ref name="loadfile"/>
+                <ref name="import"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -214,6 +222,7 @@
             </interleave>
             <interleave>
                 <ref name="coretasks"/>
+                <ref name="coretypes"/>
                 <ref name="optionaltasks"/>
                 <ref name="customtasks"/>
             </interleave>
@@ -371,6 +380,12 @@
             <attribute name="dir"/>
         </element>
     </define>
+
+    <define name="arg">
+        <element name="arg">
+            <attribute name="value"/>
+        </element>
+    </define>
     
 
     <!--
@@ -378,6 +393,12 @@
         Core Tasks 
         ===========================================================================================================        
     -->
+
+    <define name="adhoc">
+        <element name="adhoc">
+            <text/>
+        </element>
+    </define>
 
     <define name="adhoctaskdef">
         <element name="adhoctaskdef">
@@ -505,10 +526,14 @@
     <define name="echo">
         <element name="echo">
             <interleave>
-                <choice>
-                    <attribute name="msg"/>
-                    <attribute name="message"/>
-                </choice>
+                <oneOrMore>
+		    <choice>
+                        <attribute name="msg"/>
+                        <attribute name="message"/>
+                        <text/>
+                        <ref name="fileset"/>
+                    </choice>
+                </oneOrMore>
                 <optional>
                     <attribute name="file"/>
                 </optional>
@@ -527,7 +552,12 @@
     <define name="exec">
         <element name="exec">
             <interleave>
-                <attribute name="command"/>
+                <oneOrMore>
+                    <choice>
+                        <attribute name="command"/>
+                        <attribute name="executable"/>
+                    </choice>
+                </oneOrMore>
                 <optional>
                     <attribute name="passthru">
                         <data type="boolean"/>
@@ -557,7 +587,25 @@
                 <optional>
                     <attribute name="returnProperty" />
                 </optional>
+                <optional>
+                    <attribute name="outputProperty" />
+                </optional>
+                <optional>
+                    <attribute name="logoutput" />
+                </optional>
+                <optional>
+                    <attribute name="output" />
+                </optional>
+                <optional>
+                    <attribute name="error" />
+                </optional>
+                <optional>
+                    <attribute name="level" />
+                </optional>
             </interleave>
+            <zeroOrMore>
+                <ref name="arg" />
+            </zeroOrMore>
         </element>
     </define>
 
@@ -611,6 +659,7 @@
                 <optional>
                     <attribute name="unless"/>
                 </optional>
+                <text/>
             </interleave>
         </element>
     </define>
@@ -690,7 +739,10 @@
     
     <define name="includepath">
         <element name="includepath">
-            <attribute name="classpath"/>
+            <choice>
+                <attribute name="classpath"/>
+                <attribute name="classpathRef"/>
+            </choice>
         </element>
     </define>
 
@@ -831,11 +883,15 @@
                     <attribute name="value"/>
                 </group>
                 <attribute name="file"/>
+                <attribute name="environment"/>
             </choice>
             <optional>
                 <attribute name="override">
                     <data type="boolean" />
                 </attribute>
+            </optional>
+            <optional>
+                <attribute name="prefix"/>
             </optional>
         </element>
     </define>
@@ -881,6 +937,13 @@
                     <attribute name="dir"/>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="symlink">
+        <element name="symlink">
+            <attribute name="target"/>
+            <attribute name="link"/>
         </element>
     </define>
 
@@ -941,8 +1004,12 @@
     <define name="typedef">
         <element name="typedef">
             <interleave>
-                <attribute name="classname"/>
-                <attribute name="name"/>
+                <optional>
+                    <attribute name="classname"/>
+                </optional>
+                <optional>
+                    <attribute name="name"/>
+                </optional>
                 <optional>
                     <attribute name="classpath"/>
                 </optional>
@@ -960,6 +1027,9 @@
         <element name="uptodate">
             <interleave>
                 <attribute name="property"/>
+                <optional>
+                    <attribute name="value"/>
+                </optional>
                 <choice>
                     <attribute name="srcfile"/>
                     <oneOrMore>
@@ -1073,6 +1143,27 @@
             </interleave>
         </element>        
     </define>
+
+    <define name="loadfile">
+        <element name="loadfile">
+            <attribute name="property"/>
+            <attribute name="file"/>
+            <zeroOrMore>
+                <ref name="filterchain"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="import">
+        <element name="import">
+            <attribute name="file"/>
+            <optional>
+                <attribute name="verbose">
+                    <data type="boolean" />
+                </attribute>
+            </optional>                
+        </element>
+    </define>
     
     
     <!--
@@ -1159,6 +1250,12 @@
         <element name="report">
             <attribute name="todir"/>
             <attribute name="styledir"/>
+            <optional>
+                <attribute name="title" />
+            </optional>
+            <optional>
+                <attribute name="usesorttable" />
+            </optional>
         </element>
     </define>
 
@@ -1846,6 +1943,82 @@
 
     <!-- 
         =========================================
+        PhpDocumentorTask (alias)
+        =========================================
+    -->
+    <define name="phpdoc">
+        <element name="phpdoc">
+            <interleave>
+            <optional>
+                <attribute name="title"/>
+            </optional>
+            <choice>
+                <attribute name="destdir"/>
+                <attribute name="target"/>                
+            </choice>
+            <optional>
+                <attribute name="output"/>
+            </optional>
+            <optional>
+                <attribute name="linksource">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="examplesdir"/>
+            </optional>
+            <optional>
+                <attribute name="parseprivate">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="javadocdesc">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="quiet">
+                    <data type="boolean" />
+                </attribute>
+            </optional>
+            <optional>
+                <attribute name="packageoutput"/>
+            </optional>
+            <optional>
+                <attribute name="ignoretags"/>
+            </optional>
+            <optional>
+                <attribute name="defaultpackagename"/>
+            </optional>
+            <optional>
+                <attribute name="defaultcategoryname"/>
+            </optional>
+            <optional>
+                <attribute name="pear"/>
+            </optional>
+            <optional>
+                <attribute name="templatebase"/>
+            </optional>
+            <optional>
+                <attribute name="undocumentedelements"/>
+            </optional>
+            <optional>
+                <attribute name="customtags"/>
+            </optional>
+            </interleave>                
+            <zeroOrMore>
+                <choice>
+                    <ref name="fileset"/>
+                    <ref name="projdocfileset"/>
+                </choice>
+            </zeroOrMore>
+        </element>
+    </define>
+
+
+    <!-- 
+        =========================================
         PhpDocumentorExternalTask
         =========================================
     -->
@@ -1969,9 +2142,7 @@
                     <attribute name="bootstrap" />
                 </optional>
                 <optional>
-                    <attribute name="codecoverage">
-                        <data type="boolean" />
-                    </attribute>
+                    <attribute name="codecoverage" />
                 </optional>
                 <optional>
                     <attribute name="haltonerror">
@@ -2047,6 +2218,9 @@
                 </optional>
                 <attribute name="styledir"/>
                 <attribute name="todir"/>
+                <optional>
+                    <attribute name="usesorttable"/>
+                </optional>
             </interleave>
         </element>
     </define>

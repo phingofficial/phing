@@ -304,6 +304,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         $newFilter->setTranslateHTML($this->getTranslateHTML());
         $newFilter->setDir($this->getDir());
         $newFilter->setPrefix($this->getPrefix());
+        $newFilter->setPostfix($this->getPostfix());
         $newFilter->setBeginToken($this->getBeginToken());
         $newFilter->setEndToken($this->getEndToken());
         $newFilter->setInitialized(true);

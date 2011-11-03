@@ -40,6 +40,8 @@ class EchoTask extends Task {
     
     protected $level = "info";
 
+    protected $filesets = array();
+
     function main() {       
         switch ($this->level)
         {
@@ -48,6 +50,13 @@ class EchoTask extends Task {
             case "info": $loglevel = Project::MSG_INFO; break;
             case "verbose": $loglevel = Project::MSG_VERBOSE; break;
             case "debug": $loglevel = Project::MSG_DEBUG; break;
+        }
+
+        if (count($this->filesets)) {
+            if (trim(substr($this->msg, -1)) != '') {
+                $this->msg .= "\n";
+            }
+            $this->msg .= $this->getFilesetsMsg();
         }
         
         if (empty($this->file))
@@ -69,6 +78,30 @@ class EchoTask extends Task {
             
             fclose($handle);
         }
+    }
+
+    /**
+     * Merges all filesets into a string to be echoed out
+     *
+     * @return string String to echo
+     */
+    protected function getFilesetsMsg()
+    {
+        $project = $this->getProject();
+        $msg = '';
+        foreach ($this->filesets as $fs) {
+            $ds = $fs->getDirectoryScanner($project);
+            $fromDir  = $fs->getDir($project);
+            $srcFiles = $ds->getIncludedFiles();
+            $msg .= 'Directory: ' . $fromDir . ' => '
+                . realpath($fromDir) . "\n";
+            foreach ($srcFiles as $file) {
+                $relPath = $fromDir . DIRECTORY_SEPARATOR . $file;
+                $msg .= $relPath . "\n";
+            }
+        }
+
+        return $msg;
     }
     
     /** setter for file */
@@ -103,5 +136,17 @@ class EchoTask extends Task {
     function addText($msg)
     {
         $this->msg = (string) $msg;
+    }
+
+    /**
+     * Adds a fileset to echo the files of
+     *
+     * @param FileSet $fs Set of files to echo
+     *
+     * @return void
+     */
+    public function addFileSet(FileSet $fs)
+    {
+        $this->filesets[] = $fs;
     }
 }

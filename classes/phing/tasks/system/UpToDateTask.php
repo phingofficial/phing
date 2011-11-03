@@ -44,6 +44,7 @@ class UpToDateTask extends Task implements Condition {
     private $_sourceFile;
     private $_targetFile;
     private $sourceFileSets = array();
+    private $_filelists = array();
 
     protected $mapperElement = null;
 
@@ -129,6 +130,15 @@ class UpToDateTask extends Task implements Condition {
     }
     
     /**
+     * Supports embedded <filelist> element.
+     * @return FileList
+     */
+    public function createFileList() {
+        $num = array_push($this->_filelists, new FileList());
+        return $this->_filelists[$num-1];
+    }
+   
+    /**
      * Defines the FileNameMapper to use (nested mapper element).
      */
     public function createMapper() {
@@ -179,6 +189,13 @@ class UpToDateTask extends Task implements Condition {
             $ds = $fs->getDirectoryScanner($this->project);
             $upToDate = $upToDate && $this->scanDir($fs->getDir($this->project),
                                            $ds->getIncludedFiles());
+        }
+
+        for($i=0,$size=count($this->_filelists); $i < $size && $upToDate; $i++) {
+            $fl = $this->_filelists[$i];
+            $srcFiles = $fl->getFiles($this->project);
+            $upToDate = $upToDate && $this->scanDir($fs->getDir($this->project),
+                                           $srcFiles);
         }
 
         if ($this->_sourceFile !== null) {

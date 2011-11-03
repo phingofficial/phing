@@ -45,7 +45,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
         $logger = new PHPCPD_TextUI_ResultPrinter();
         // default format goes to logs, no buffering
         ob_start();
-        $logger->printResult($clones, $project->getBaseDir());
+        $logger->printResult($clones, $project->getBaseDir(), true);
         $output = ob_get_contents();
         ob_end_clean();
 

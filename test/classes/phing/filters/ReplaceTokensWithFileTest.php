@@ -1,6 +1,7 @@
 <?php
+
 /*
- *  $Id$
+ *  $Id: LineContainsTest.php 655 2009-12-14 12:53:15Z mrook $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,19 +17,29 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
-include_once 'phing/system/io/Win32FileSystem.php';
+require_once 'phing/BuildFileTest.php'; 
 
 /**
- * FileSystem for Windows NT/2000.
- * @package phing.system.io
+ * @author Michiel Rook <mrook@php.net>
+ * @package phing.filters
  */
-class WinNTFileSystem extends Win32FileSystem {
-
-    /* -- class only for convenience and future use everything is inherinted --*/
-
-
+class ReplaceTokensWithFileTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
+    }
+    
+    /**
+     * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
+     */
+    public function testPostfix()
+    {
+        $this->executeTarget(__FUNCTION__);
+        
+        $this->assertInLogs('[filter:ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"');
+    }
 }
-

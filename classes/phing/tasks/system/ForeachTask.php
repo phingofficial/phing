@@ -21,6 +21,7 @@
 
 require_once 'phing/Task.php';
 require_once 'phing/system/io/FileSystem.php';
+include_once 'phing/mappers/FileNameMapper.php';
 include_once 'phing/tasks/system/PhingTask.php';
 
 /**
@@ -69,6 +70,9 @@ class ForeachTask extends Task {
     
     /** Array of filesets */
     private $filesets = array();
+    
+    /** Instance of mapper **/
+    private $mapperElement;
     
     /**
      * Array of filelists
@@ -122,13 +126,27 @@ class ForeachTask extends Task {
         $callee->setTarget($this->calleeTarget);
         $callee->setInheritAll(true);
         $callee->setInheritRefs(true);
+        $mapper = null;
+        
+        if ($this->mapperElement !== null) {
+            $mapper = $this->mapperElement->getImplementation();
+        }
         
         if (trim($this->list)) {
             $arr = explode($this->delimiter, $this->list);
         
             foreach ($arr as $value) {
                 $value = trim($value);
-                $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
+                $premapped = '';
+                if ($mapper !== null) {
+                    $premapped = $value;
+                    $value = $mapper->main($value);
+                    if ($value === null) {
+                        continue;
+                    }
+                    $value = array_shift($value);
+                }
+                $this->log("Setting param '$this->param' to value '$value'" . ($premapped ? " (mapped from '$premapped')" : ''), Project::MSG_VERBOSE);
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->param);
@@ -166,24 +184,41 @@ class ForeachTask extends Task {
      */
     protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
     {
+        $mapper = null;
+        
+        if ($this->mapperElement !== null) {
+            $mapper = $this->mapperElement->getImplementation();
+        }
+        
         $filecount = count($srcFiles);
         $this->total_files += $filecount;
         
         for ($j = 0; $j < $filecount; $j++) {
             $value = $srcFiles[$j];
-            if ($this->param) {
-                $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
-                $prop = $callee->createProperty();
-                $prop->setOverride(true);
-                $prop->setName($this->param);
-                $prop->setValue($value);
-            }
+            $premapped = "";
 
             if ($this->absparam) {
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
                 $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+            }
+            
+            if ($mapper !== null) {
+                $premapped = $value;
+                $value = $mapper->main($value);
+                if ($value === null) {
+                    continue;
+                }
+                $value = array_shift($value);
+            }
+            
+            if ($this->param) {
+                $this->log("Setting param '$this->param' to value '$value'" . ($premapped ? " (mapped from '$premapped')" : ''), Project::MSG_VERBOSE);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->param);
+                $prop->setValue($value);
             }
 
             $callee->main();
@@ -194,19 +229,30 @@ class ForeachTask extends Task {
         
         for ($j = 0; $j <  $dircount; $j++) {
             $value = $srcDirs[$j];
-            if ($this->param) {
-                $this->log("Setting param '$this->param' to value '$value'", Project::MSG_VERBOSE);
-                $prop = $callee->createProperty();
-                $prop->setOverride(true);
-                $prop->setName($this->param);
-                $prop->setValue($value);
-            }
+            $premapped = "";
 
             if ($this->absparam) {
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
                 $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+            }
+            
+            if ($mapper !== null) {
+                $premapped = $value;
+                $value = $mapper->main($value);
+                if ($value === null) {
+                    continue;
+                }
+                $value = array_shift($value);
+            }
+            
+            if ($this->param) {
+                $this->log("Setting param '$this->param' to value '$value'" . ($premapped ? " (mapped from '$premapped')" : ''), Project::MSG_VERBOSE);
+                $prop = $callee->createProperty();
+                $prop->setOverride(true);
+                $prop->setName($this->param);
+                $prop->setValue($value);
             }
 
             $callee->main();
@@ -239,6 +285,21 @@ class ForeachTask extends Task {
     function createFileSet() {
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
+    }
+
+    /**
+     * Nested creator, creates one Mapper for this task
+     *
+     * @access  public
+     * @return  object  The created Mapper type object
+     * @throws  BuildException
+     */
+    function createMapper() {
+        if ($this->mapperElement !== null) {
+            throw new BuildException("Cannot define more than one mapper", $this->location);
+        }
+        $this->mapperElement = new Mapper($this->project);
+        return $this->mapperElement;
     }
 
     /**
