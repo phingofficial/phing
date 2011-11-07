@@ -76,7 +76,7 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
     
     function paintGroupEnd($test_name)
     {
-        parent::paintGroupEnd($test_name, $size);
+        parent::paintGroupEnd($test_name);
         
         $this->captureStart();
         $this->logger->paintGroupEnd($test_name);
