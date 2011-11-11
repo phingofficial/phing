@@ -34,6 +34,7 @@ class ChownTask extends Task {
     private $file;
 
     private $user;
+    private $group;
 
     private $filesets = array();
 
@@ -86,6 +87,13 @@ class ChownTask extends Task {
     }
 
     /**
+     * Sets the group
+     */
+    function setGroup($group) {
+        $this->group = $group;
+    }
+
+    /**
      * Nested creator, adds a set of files (nested fileset attribute).
      */
     function createFileSet() {
@@ -113,8 +121,8 @@ class ChownTask extends Task {
             throw new BuildException("Specify at least one source - a file or a fileset.");
         }
 
-        if ($this->user === null) {
-            throw new BuildException("You have to specify an owner for chown.");
+        if ($this->user === null && $this->group === null) {
+            throw new BuildException("You have to specify either an owner or a group for chown.");
         }
     }
 
@@ -130,7 +138,7 @@ class ChownTask extends Task {
         if (count($userElements) > 1) {
             $group = $userElements[1];
         } else {
-            $group = null;
+            $group = $this->group;
         }
 
         // counters for non-verbose output
@@ -184,7 +192,9 @@ class ChownTask extends Task {
         }
 
         try {
-            $file->setUser($user);
+            if (!empty($user)) {
+                $file->setUser($user);
+            }
             
             if (!empty($group)) {
                 $file->setGroup($group);
