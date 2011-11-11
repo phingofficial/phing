@@ -82,6 +82,17 @@ class SymlinkTask extends Task
     private $_filesets = array();
     
     /**
+     * Whether to override the symlink if it exists but points
+     * to a different location
+     *
+     * (default value: false)
+     *
+     * @var boolean
+     * @access private
+     */
+    private $_overwrite = false;
+
+    /**
      * setter for _target
      * 
      * @access public
@@ -116,7 +127,19 @@ class SymlinkTask extends Task
         $num = array_push($this->_filesets, new FileSet());
         return $this->_filesets[$num-1];
     }
-    
+
+    /**
+     * setter for _overwrite
+     *
+     * @access public
+     * @param boolean $overwrite
+     * @return void
+     */
+    public function setOverwrite($overwrite)
+    {
+        $this->_overwrite = $overwrite;
+    }
+
     /**
      * getter for _target
      * 
@@ -157,7 +180,18 @@ class SymlinkTask extends Task
     {
         return $this->_filesets;
     }
-    
+
+    /**
+     * getter for _overwrite
+     *
+     * @access public
+     * @return boolean
+     */
+    public function getOverwrite()
+    {
+        return $this->_overwrite;
+    }
+
     /**
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
@@ -248,9 +282,18 @@ class SymlinkTask extends Task
      */
     protected function symlink($target, $link)
     {
-        if(file_exists($link)) {
-            $this->log('Link exists: ' . $link, Project::MSG_ERR);
-            return false;
+        if (file_exists($link)) {
+            if (!is_link($link)) {
+                $this->log('File exists: ' . $link, Project::MSG_ERR);
+                return false;
+            }
+
+            if (readlink($link) == $target || !$this->getOverwrite()) {
+                $this->log('Link exists: ' . $link, Project::MSG_ERR);
+                return false;
+            }
+
+            unlink($link);
         }
     
         $fs = FileSystem::getFileSystem();
