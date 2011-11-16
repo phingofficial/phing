@@ -24,7 +24,7 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that selects a certain kind of file: directory or regular file.
- * 
+ *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Jeff Turner <jefft@apache.org> (Ant)
  * @version   $Id$
@@ -36,10 +36,10 @@ class TypeSelector extends BaseExtendSelector {
 
     /** Key to used for parameterized custom selector */
     const TYPE_KEY = "type";
-    
+
     /** Valid types */
-    private static $types = array('file', 'dir');
-    
+    private static $types = array('file', 'dir', 'link');
+
     /**
      * @return string A string describing this object
      */
@@ -52,7 +52,7 @@ class TypeSelector extends BaseExtendSelector {
      * Set the type of file to require.
      * @param string $type The type of file - 'file' or 'dir'
      */
-    public function setType($type) {       
+    public function setType($type) {
         $this->type = $type;
     }
 
@@ -99,11 +99,18 @@ class TypeSelector extends BaseExtendSelector {
      * @return boolean Whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
-
         // throw BuildException on error
         $this->validate();
 
-        if ($file->isDirectory()) {
+		if ($file->isLink()) {
+			if ($this->type == 'link')
+				return true;
+
+			$this->log($file->getAbsolutePath() . " is a link, proceeding with " . $file->getCanonicalPath() . " instead.", Project::MSG_DEBUG);
+			$file = new PhingFile($file->getCanonicalPath());
+		}
+
+		if ($file->isDirectory()) {
             return $this->type === 'dir';
         } else {
             return $this->type === 'file';
