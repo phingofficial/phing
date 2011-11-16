@@ -54,9 +54,9 @@
 	<p>Additionally, to create more complex selections, a variety of
 		selectors that contain other selectors are available for your use.
 		They combine the selections of their child selectors in various ways.</p>
-		
+
 	<p>Phing supports the following selector containers:</p>
-	
+
 	<ul>
 	   <li><a href="#And">&lt;and&gt;</a> - Select a file only if all the contained selectors select it.</li>
 	   <li><a href="#Majority">&lt;majority&gt;</a> - Select a file only if all the contained selectors select it.</li>
@@ -518,8 +518,10 @@
 
 	<p>
 		The <em>&lt;type&gt;</em> tag selects files of a certain type:
-		directory or regular.
+		directory, symlink or regular.
 	</p>
+
+	<p>When it comes to symbolic links, this selector will </p>
 
 	<pre>
 &lt;fileset dir=&quot;${src}&quot;&gt;
@@ -542,14 +544,14 @@
 		<tbody>
 			<tr>
 				<td>type</td>
-				<td>The type of file which should be tested for. Either <em>file</em>
+				<td>The type of file which should be tested for. Either <em>file</em>, <em>link</em>
 					or <em>dir</em>.</td>
 				<td>n/a</td>
 				<td>Yes</td>
 			</tr>
 		</tbody>
 	</table>
-	
+
 	<h2>
         <a name="And"></a>And
     </h2>
@@ -565,7 +567,7 @@
     &lt;date datetime=&quot;01/01/2011 12:00 AM&quot; when=&quot;before&quot;/&gt;
   &lt;/and&gt;
 &lt;/fileset&gt;</pre>
-    
+
     <h2>
         <a name="Majority"></a>Majority
     </h2>
@@ -605,7 +607,7 @@
             </tr>
         </tbody>
     </table>
-    
+
     <h2>
         <a name="None"></a>None
     </h2>
@@ -621,7 +623,7 @@
     &lt;date datetime=&quot;01/01/2011 12:00 AM&quot; when=&quot;before&quot;/&gt;
   &lt;/none&gt;
 &lt;/fileset&gt;</pre>
-    
+
     <h2>
         <a name="Not"></a>Not
     </h2>
@@ -636,7 +638,7 @@
     &lt;contains text=&quot;Phing&quot;/&gt;
   &lt;/not&gt;
 &lt;/fileset&gt;</pre>
-    
+
     <h2>
         <a name="Or"></a>Or
     </h2>
@@ -654,7 +656,7 @@
     &lt;filename name=&quot;*.jpg&quot;/&gt;
   &lt;/or&gt;
 &lt;/fileset&gt;</pre>
-    
+
     <h2>
         <a name="Selector"></a>Selector
     </h2>
@@ -662,6 +664,6 @@
     <p>
         The <em>&lt;selector&gt;</em> tag is used to create selectors that can be reused through references. It is the only selector which can be used outside of any target, as an element of the <em>&lt;project&gt;</em> tag. It can contain only one other selector, but of course that selector can be a container.
     </p>
-	
+
 </body>
 </html>
