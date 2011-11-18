@@ -81,11 +81,17 @@ class SymlinkTask extends Task
      */
     private $_filesets = array();
     
-    /** Whether to override existing links.
+    /**
+     * Whether to override the symlink if it exists but points
+     * to a different location
+     *
+     * (default value: false)
+     *
      * @var boolean
+     * @access private
      */
-    protected $overwrite = false;
-    
+    private $_overwrite = false;
+
     /**
      * setter for _target
      * 
@@ -118,7 +124,7 @@ class SymlinkTask extends Task
      * @access public
      */
     public function setOverwrite($bool) {
-        $this->overwrite = Boolean::cast($bool);
+        $this->_overwrite = Boolean::cast($bool);
     }
     
     /**
@@ -132,7 +138,7 @@ class SymlinkTask extends Task
         $num = array_push($this->_filesets, new FileSet());
         return $this->_filesets[$num-1];
     }
-    
+
     /**
      * getter for _target
      * 
@@ -173,7 +179,18 @@ class SymlinkTask extends Task
     {
         return $this->_filesets;
     }
-    
+
+    /**
+     * getter for _overwrite
+     *
+     * @access public
+     * @return boolean
+     */
+    public function getOverwrite()
+    {
+        return $this->_overwrite;
+    }
+
     /**
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
@@ -264,13 +281,18 @@ class SymlinkTask extends Task
      */
     protected function symlink($target, $link)
     {
-        if(file_exists($link)) {
-        	if ($this->overwrite)
-        		unlink($link);
-        	else {
-            	$this->log('Link exists: ' . $link, Project::MSG_ERR);
-            	return false;
-        	}
+        if (file_exists($link)) {
+            if (!is_link($link)) {
+                $this->log('File exists: ' . $link, Project::MSG_ERR);
+                return false;
+            }
+
+            if (readlink($link) == $target || !$this->getOverwrite()) {
+                $this->log('Link exists: ' . $link, Project::MSG_ERR);
+                return false;
+            }
+
+            unlink($link);
         }
     
         $fs = FileSystem::getFileSystem();
