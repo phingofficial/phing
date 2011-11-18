@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/Task.php';
 
 /**
@@ -31,39 +31,36 @@ include_once 'phing/Task.php';
  */
 
 class EchoTask extends Task {
-    
+
     protected $msg = "";
-    
+
     protected $file = "";
-    
+
     protected $append = false;
-    
-    protected $level = "info";
+
+    protected $logLevels = array(
+        "error"     => Project::MSG_ERR,
+        "warning"   => Project::MSG_WARN,
+        "info"      => Project::MSG_INFO,
+        "verbose"   => Project::MSG_VERBOSE,
+        "debug"     => Project::MSG_DEBUG
+    );
+
+    protected $level = Project::MSG_INFO;
 
     protected $filesets = array();
 
-    function main() {       
-        switch ($this->level)
-        {
-            case "error": $loglevel = Project::MSG_ERR; break;
-            case "warning": $loglevel = Project::MSG_WARN; break;
-            case "info": $loglevel = Project::MSG_INFO; break;
-            case "verbose": $loglevel = Project::MSG_VERBOSE; break;
-            case "debug": 
-            default:
-                $loglevel = Project::MSG_DEBUG; break;
-        }
-
+    function main() {
         if (count($this->filesets)) {
             if (trim(substr($this->msg, -1)) != '') {
                 $this->msg .= "\n";
             }
             $this->msg .= $this->getFilesetsMsg();
         }
-        
+
         if (empty($this->file))
         {
-            $this->log($this->msg, $loglevel);
+            $this->log($this->msg, $this->level);
         }
         else
         {
@@ -75,9 +72,9 @@ class EchoTask extends Task {
             {
                 $handle = fopen($this->file, "w");
             }
-            
+
             fwrite($handle, $this->msg);
-            
+
             fclose($handle);
         }
     }
@@ -105,7 +102,7 @@ class EchoTask extends Task {
 
         return $msg;
     }
-    
+
     /** setter for file */
     function setFile($file)
     {
@@ -115,7 +112,12 @@ class EchoTask extends Task {
     /** setter for level */
     function setLevel($level)
     {
-        $this->level = (string) $level;
+        if (!$level) $level = "info";
+
+        if (!isset($this->logLevels[$level]))
+            throw new BuildException("$level is not a valid log level for the echo task");
+
+        $this->level = $this->logLevels[$level];
     }
 
     /** setter for append */
@@ -133,7 +135,7 @@ class EchoTask extends Task {
     function setMessage($msg) {
         $this->msg = (string) $msg;
     }
-    
+
     /** Supporting the <echo>Message</echo> syntax. */
     function addText($msg)
     {
