@@ -49,7 +49,15 @@ class PropertiesFacadeTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('first', $p->get('first'));
 		$this->assertEquals(array('array1', 'array2', 'index' => 'index'), $p->get('array'));
 	}
-	
+
+	public function testMergingArrays() {
+		$p = new Properties();
+		$p->load(new PhingFile(__DIR__.'/keys.test'));
+		$this->assertEquals(array('array1', 'array2', 'index' => 'index'), $p->get('array'));
+		$p->load(new PhingFile(__DIR__.'/keys2.test'));
+		$this->assertEquals(array('array1', 'array2', 'index' => 'index', 'index2' => 'index2'), $p->get('array'));
+	}	
+
 	public function testStore() {
 		$p = new Properties();
 		$p->load(new PhingFile(__DIR__.'/keys.test'));
