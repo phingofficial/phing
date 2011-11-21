@@ -221,7 +221,7 @@ class PropertyTask extends Task {
 		$this->filesets[] = $fs;
 		return $fs;
 	}
-	
+
 	protected function fail($msg) {
 		throw new BuildException($msg, $this->getLocation());
 	}
@@ -237,7 +237,7 @@ class PropertyTask extends Task {
 
 			if ($this->prefix !== null)
 				$this->fail("Prefix is only valid when loading from a file.");
-				
+
 			if ($this->section !== null)
 				$this->fail("Section is only valid when loading from a file.");
 		}
@@ -263,7 +263,7 @@ class PropertyTask extends Task {
 				}
 				return;
 			}
-				
+
 			$this->fail("You must specify value or refid with the name attribute");
 		}
 
@@ -275,7 +275,7 @@ class PropertyTask extends Task {
 
 		if ($this->file === null && !$this->filelists && !$this->filesets)
 			$this->fail("You must specify name and value, environment, file or provide a FileList or FileSet.");
-			
+
 		$this->loadFromFiles();
 	}
 
@@ -305,7 +305,16 @@ class PropertyTask extends Task {
 	protected function addProperties(PropertySet $props) {
 		foreach($props as $key => $value) {
 			if ($this->prefix) $key = "{$this->prefix}$key";
-			$this->addProperty($key, $value);
+            if (is_array($value))
+                foreach ($value as $k => $v) {
+                    if (is_numeric($k))
+                        $this->addProperty("{$key}[]", $v);
+                    else
+                        $this->addProperty("{$key}[{$k}]", $v);
+                }
+
+            else
+               	$this->addProperty($key, $value);
 		}
 	}
 
@@ -315,13 +324,13 @@ class PropertyTask extends Task {
 	 * @param string $value value to set
 	 */
 	protected function addProperty($name, $value) {
-		if ($this->userProperty) {
-			if ($this->project->getUserProperty($name) === null || $this->override) {
-				$this->project->setInheritedProperty($name, $value);
-			} else {
-				$this->log("Override ignored for " . $name, Project::MSG_VERBOSE);
-			}
-		} else {
+        if ($this->userProperty) {
+            if ($this->project->getUserProperty($name) === null || $this->override) {
+                $this->project->setInheritedProperty($name, $value);
+            } else {
+                $this->log("Override ignored for " . $name, Project::MSG_VERBOSE);
+            }
+        } else {
 			if ($this->override) {
 				$this->project->setProperty($name, $value);
 			} else {
