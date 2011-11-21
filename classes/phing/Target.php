@@ -263,6 +263,15 @@ class Target implements TaskContainer
     }
 
     /**
+     * Get the if-condition for this target.
+     *
+     * @return string The current if-condition.
+     */
+    public function getIf() {
+        return $this->ifCondition;
+    }
+
+    /**
      * Set the unless-condition from the XML tag, if any. The property name
      * given as parameter must be present so the unless condition evaluates
      * to true
@@ -273,6 +282,16 @@ class Target implements TaskContainer
     public function setUnless($property)
     {
         $this->unlessCondition = ($property === null) ? "" : $property;
+    }
+
+    /**
+     * Get the unless-condition for this target.
+     *
+     * @return string The current unless-condition.
+     */
+    public function getUnless()
+    {
+        return $this->unlessCondition;
     }
 
     /**
