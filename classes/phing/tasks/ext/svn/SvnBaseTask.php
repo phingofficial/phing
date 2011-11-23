@@ -230,6 +230,22 @@ abstract class SvnBaseTask extends Task
         return isset( $this->svnSwitches['ignore-externals'] ) ? $this->svnSwitches['ignore-externals'] : '';
     }
     
+	/**
+     * Sets the trust-server-cert switch
+     */
+    public function setTrustServerCert($value)
+    {
+        $this->svnSwitches['trust-server-cert'] = $value;
+    }
+
+    /**
+     * Returns the trust-server-cert switch
+     */
+    public function getTrustServerCert()
+    {
+        return isset($this->svnSwitches['trust-server-cert']) ? $this->svnSwitches['trust-server-cert'] : '';
+    }
+    
     /**
      * Creates a VersionControl_SVN class based on $mode
      *
