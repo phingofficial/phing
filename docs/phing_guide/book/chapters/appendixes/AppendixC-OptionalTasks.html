@@ -6980,7 +6980,7 @@ revision | author | date         | item
 		<a name="SvnUpdateTask"></a>SvnUpdateTask
 	</h2>
 	<p>
-		The <em>SvnCheckoutTask</em> updates a local directory.
+		The <em>SvnUpdateTask</em> updates a local directory.
 	</p>
 	<h3>Examples</h3>
 	<pre>&lt;svnupdate
@@ -7037,15 +7037,15 @@ revision | author | date         | item
 			<tr>
 				<td>todir</td>
 				<td>String</td>
-				<td>Path to export to</td>
+				<td>Path to the working copy</td>
 				<td>none</td>
 				<td>Yes</td>
 			</tr>
 			<tr>
-				<td>recursive</td>
-				<td>Boolean</td>
-				<td>Recursive behavior</td>
-				<td>Frue</td>
+				<td>revision</td>
+				<td>Integer</td>
+				<td>Specific revision to update the working copy to</td>
+				<td>none</td>
 				<td>No</td>
 			</tr>
 			<tr>
