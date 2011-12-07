@@ -261,7 +261,7 @@ class PharPackageTask
         }
         if (!is_null($this->baseDirectory)) {
             if (!$this->baseDirectory->exists()) {
-                throw new BuildException("basedir does not exist!", $this->getLocation());
+                throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation());
             }
         }
     }
