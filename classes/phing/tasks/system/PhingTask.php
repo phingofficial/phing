@@ -151,45 +151,47 @@ class PhingTask extends Task {
         }
 
         // if no filesets are given stop here; else process filesets
-        if (empty($this->filesets)) { 
-            return;
-        }
-        
-        // preserve old settings
-        $savedDir = $this->dir;
-        $savedPhingFile = $this->phingFile;
-        $savedTarget = $this->newTarget;
-
-        // set no specific target for files in filesets
-        // [HL] I'm commenting this out; I don't know why this should not be supported!
-        // $this->newTarget = null;
-        
-        foreach($this->filesets as $fs) {
-
-            $ds = $fs->getDirectoryScanner($this->project);
-
-            $fromDir  = $fs->getDir($this->project);
-            $srcFiles = $ds->getIncludedFiles();
-
-            foreach($srcFiles as $fname) {            
-                $f = new PhingFile($ds->getbasedir(), $fname);
-                $f = $f->getAbsoluteFile();
-                $this->phingFile = $f->getAbsolutePath();
-                $this->dir = $f->getParentFile();
-                $this->processFile();    // run Phing!
+        if (!empty($this->filesets)) { 
+            // preserve old settings
+            $savedDir = $this->dir;
+            $savedPhingFile = $this->phingFile;
+            $savedTarget = $this->newTarget;
+    
+            // set no specific target for files in filesets
+            // [HL] I'm commenting this out; I don't know why this should not be supported!
+            // $this->newTarget = null;
+            
+            foreach($this->filesets as $fs) {
+    
+                $ds = $fs->getDirectoryScanner($this->project);
+    
+                $fromDir  = $fs->getDir($this->project);
+                $srcFiles = $ds->getIncludedFiles();
+    
+                foreach($srcFiles as $fname) {            
+                    $f = new PhingFile($ds->getbasedir(), $fname);
+                    $f = $f->getAbsoluteFile();
+                    $this->phingFile = $f->getAbsolutePath();
+                    $this->dir = $f->getParentFile();
+                    $this->processFile();    // run Phing!
+                }
+            }        
+            
+            // side effect free programming ;-)
+            $this->dir = $savedDir;        
+            $this->phingFile = $savedPhingFile;
+            $this->newTarget = $savedTarget;
+            
+            // [HL] change back to correct dir
+            if ($this->dir !== null) {
+                chdir($this->dir->getAbsolutePath());
             }
-        }        
-        
-        // side effect free programming ;-)
-        $this->dir = $savedDir;        
-        $this->phingFile = $savedPhingFile;
-        $this->newTarget = $savedTarget;
-        
-        // [HL] change back to correct dir
-        if ($this->dir !== null) {
-            chdir($this->dir->getAbsolutePath());
         }
         
+        // Remove any dangling references to help the GC
+        foreach ($this->properties as $property) {
+            $property->setFallback(null);
+        }
     }
     
     /**
