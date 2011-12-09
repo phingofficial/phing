@@ -22,7 +22,7 @@
 /**
  * FileSet adapter to SPL's Iterator.
  *
- * @package phing.tasks.ext.phar
+ * @package phing.types
  * @author Alexey Shockov <alexey@shockov.com>
  * @since 2.4.0
  * @internal
