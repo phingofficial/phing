@@ -37,7 +37,12 @@ class CoverageReportTransformer
 {
     private $task = NULL;
     private $styleDir = "";
+    
+    /**
+     * @var PhingFile
+     */
     private $toDir = "";
+    
     private $document = NULL;
 
     /** title of the project, used in the coverage report */
@@ -61,7 +66,7 @@ class CoverageReportTransformer
         $this->styleDir = $styleDir;
     }
 
-    function setToDir($toDir)
+    function setToDir(PhingFile $toDir)
     {
         $this->toDir = $toDir;
     }
@@ -91,9 +96,7 @@ class CoverageReportTransformer
     
     function transform()
     {
-        $dir = new PhingFile($this->toDir);
-
-        if (!$dir->exists())
+        if (!$this->toDir->exists())
         {
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
         }
@@ -117,9 +120,16 @@ class CoverageReportTransformer
 
         ExtendedFileStream::registerStream();
 
+        $toDir = (string) $this->toDir;
+            
+        if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+            $toDir = urlencode($toDir);
+        }
+
         // no output for the framed report
         // it's all done by extension...
-        $proc->setParameter('', 'output.dir', urlencode((string) $dir));
+        $proc->setParameter('', 'output.dir', $toDir);
+
         $proc->setParameter('', 'output.sorttable', $this->useSortTable);
         $proc->setParameter('', 'document.title', $this->title);
         $proc->transformToXML($this->document);

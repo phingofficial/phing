@@ -170,10 +170,16 @@ class PHPUnitReportTask extends Task
         else
         {
             ExtendedFileStream::registerStream();
+            
+            $toDir = (string) $this->toDir;
+            
+            if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+                $toDir = urlencode($toDir);
+            }
 
             // no output for the framed report
             // it's all done by extension...
-            $proc->setParameter('', 'output.dir', urlencode((string) $this->toDir));
+            $proc->setParameter('', 'output.dir', $toDir);
             $proc->transformToXML($document);
             
             ExtendedFileStream::unregisterStream();

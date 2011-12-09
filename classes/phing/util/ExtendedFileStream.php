@@ -56,15 +56,7 @@
         
         function stream_open($path, $mode, $options, &$opened_path)
         {
-            /** Small fix for Windows */
-            if ($path[8] == DIRECTORY_SEPARATOR)
-            {
-                $filepath = substr($path, 7);
-            }
-            else
-            {
-                $filepath = substr($path, 8);
-            }
+            $filepath = substr($path, 8);
             
             $this->createDirectories(dirname($filepath));
             
