@@ -206,25 +206,12 @@ class PharPackageTask
             $baseDirectory = realpath($this->baseDirectory->getPath());
 
             foreach ($this->filesets as $fileset) {
-                foreach ($fileset as $realFileName) {
-                    /*
-                     * Calculate local file name.
-                     */
-                    $localFileName = $realFileName;
-                    if (0 === strpos($realFileName, $baseDirectory)) {
-                        $localFileName = substr(
-                            $realFileName,
-                            strlen($baseDirectory)
-                        );
-                    }
-
-                    $this->log(
-                        'Adding '.$realFileName.' as '.$localFileName.' to package',
-                        Project::MSG_VERBOSE
-                    );
-
-                    $phar->addFile($realFileName, $localFileName);
-                }
+                $this->log(
+                    'Adding specified files in ' . $fileset->getDir($this->project) . ' to package',
+                    Project::MSG_VERBOSE
+                );
+                
+                $phar->buildFromIterator($fileset, $baseDirectory);
             }
 
             $phar->stopBuffering();
