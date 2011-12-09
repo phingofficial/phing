@@ -20,7 +20,7 @@
  */
 
 require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phing/util/IterableFileSet.php';
+require_once 'phing/types/IterableFileSet.php';
 require_once 'phing/tasks/ext/phar/PharMetadata.php';
 
 /**
