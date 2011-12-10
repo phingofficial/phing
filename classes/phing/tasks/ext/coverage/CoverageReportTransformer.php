@@ -122,6 +122,7 @@ class CoverageReportTransformer
 
         $toDir = (string) $this->toDir;
             
+        // urlencode() the path if we're on Windows
         if (FileSystem::getFileSystem()->getSeparator() == '\\') {
             $toDir = urlencode($toDir);
         }
