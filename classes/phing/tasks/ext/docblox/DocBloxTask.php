@@ -193,7 +193,7 @@ class DocBloxTask extends Task
         $this->log("Transforming...", Project::MSG_VERBOSE);
         
         $transformer = new DocBlox_Transformer();
-        $transformer->setThemesPath(DocBlox_Core_Abstract::config()->paths->themes);
+        $transformer->setTemplatesPath(DocBlox_Core_Abstract::config()->paths->templates);
         $transformer->setTemplates(DocBlox_Core_Abstract::config()->transformations->template->name);
         $transformer->setSource($xml);
         $transformer->setTarget($this->destDir->getAbsolutePath());
