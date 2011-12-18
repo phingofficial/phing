@@ -1884,27 +1884,40 @@
 		<a name="PhingCallTask"></a>PhingCallTask
 	</h2>
 	<p>
-		The PhingCallTask calls a target from the same Phing project. A <em>&lt;phingcall&gt;</em>
-		tag may contain <em>&lt;property&gt;</em> tags that define new
-		properties. In the following example, the properties <em>property1</em>
-		and <em>foo</em> are defined and only accessible inside the called
-		target.
+		The PhingCallTask calls a target within the same Phing project.
 	</p>
+	
 	<p>
-		However, this will only work if the properties are not yet set outside
+    	A <em>&lt;phingcall&gt;</em> tag may contain <em>&lt;property&gt;</em>
+    	tags that define new properties. These properties are only set if properties
+    	of the same name have not been set outside
 		the
 		<code>&quot;phingcall&quot;</code>
 		tag.
 	</p>
+	
+	<p>
+	   <b>Important note about scope:</b> every <em>&lt;phingcall&gt;</em> tag
+	   creates a new local scope. Thus, any properties or other variables set inside
+	   that scope will cease to exist (or revert to their previous value) once
+	   the <em>&lt;phingcall&gt;</em> tag completes. 
+	</p>
+	
 	<h3>Example</h3>
 	<pre>&lt;target name=&quot;foo&quot;&gt;
     &lt;phingcall target=&quot;bar&quot;&gt;
         &lt;property name=&quot;property1&quot; value=&quot;aaaaa&quot; /&gt;
         &lt;property name=&quot;foo&quot; value=&quot;baz&quot; /&gt;
     &lt;/phingcall&gt;
-&lt;/target&gt;
+&lt;/target&gt;</pre>
 
-&lt;target name=&quot;bar&quot; depends=&quot;init&quot;&gt;
+    <p>
+        In the example above, the properties <em>property1</em>
+        and <em>foo</em> are defined and only accessible inside the called
+        target.
+    </p>
+
+<pre>&lt;target name=&quot;bar&quot; depends=&quot;init&quot;&gt;
     &lt;echo message=&quot;prop is ${property1} ${foo}&quot; /&gt;
 &lt;/target&gt;</pre>
 	<h3>Parameters</h3>
@@ -2024,6 +2037,15 @@
 		With PropertyTask, you can define <em>user</em> properties in your
 		build file.
 	</p>
+	
+	<p>
+       <b>Important note about scope:</b> when the <em>&lt;property&gt;</em> tag
+       is called inside a <em>&lt;phingcall&gt;</em> tag, any properties are
+       set in a new local scope. Thus, any properties or other variables set inside
+       that scope will cease to exist (or revert to their previous value) once
+       the parent <em>&lt;phingcall&gt;</em> tag completes. 
+    </p>
+	
 	<h3>Example</h3>
 	<pre>&lt;property name=&quot;strings.test&quot; value=&quot;Harr harr, more power!&quot; /&gt;
 &lt;echo message=&quot;${strings.test}&quot; /&gt;
