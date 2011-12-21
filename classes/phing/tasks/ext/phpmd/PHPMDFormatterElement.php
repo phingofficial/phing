@@ -20,7 +20,6 @@
  */
 
 require_once 'phing/system/io/PhingFile.php';
-require_once 'PHP/PMD/Writer/Stream.php';
 
 /**
  * A wrapper for the implementations of PHPMDResultFormatter.
@@ -173,6 +172,8 @@ class PHPMDFormatterElement
             $stream = fopen($this->getOutfile()->getAbsoluteFile(), 'wb');
         }
 
+        require_once 'PHP/PMD/Writer/Stream.php';
+        
         $renderer->setWriter(new PHP_PMD_Writer_Stream($stream));
 
         return $renderer;
