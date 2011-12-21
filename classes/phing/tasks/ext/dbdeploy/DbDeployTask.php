@@ -252,7 +252,7 @@ class DbDeployTask extends Task
                     $split = strpos($contents, '--//@UNDO');
 
                 if ($undo) {
-                    $sql .= substr($contents, $split + 10);
+                    $sql .= substr($contents, $split + 10) . "\n";
                     $sql .= 'DELETE FROM ' . DbDeployTask::$TABLE_NAME . '
 	                         WHERE change_number = ' . $fileChangeNumber . '
 	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
