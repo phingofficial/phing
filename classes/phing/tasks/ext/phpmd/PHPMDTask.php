@@ -221,7 +221,7 @@ class PHPMDTask extends Task
      */
     public function createFormatter()
     {
-        $num = array_push($this->formatters, new PHPMDFormatterElement($this));
+        $num = array_push($this->formatters, new PHPMDFormatterElement());
         return $this->formatters[$num-1];
     }
 
