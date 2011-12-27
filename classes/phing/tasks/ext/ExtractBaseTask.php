@@ -39,6 +39,13 @@ abstract class ExtractBaseTask extends MatchingTask {
     protected $todir;
     protected $removepath;
     protected $filesets = array(); // all fileset objects assigned to this task
+    
+    /**
+     * Set to true to always extract (and possibly overwrite)
+     * all files from the archive 
+     * @var boolean
+     */
+    protected $forceExtract = false;
 
     /**
      * Add a new fileset.
@@ -70,6 +77,15 @@ abstract class ExtractBaseTask extends MatchingTask {
     {
         $this->removepath = $removepath;
     }
+    
+    /**
+     * Sets the forceExtract attribute
+     * @param boolean $forceExtract
+     */
+    public function setForceExtract($forceExtract)
+    {
+        $this->forceExtract = (bool) $forceExtract;
+    }
 
     /**
      * do the work
@@ -100,7 +116,7 @@ abstract class ExtractBaseTask extends MatchingTask {
                     throw new BuildException($compressedArchiveFile->getAbsolutePath() . ' compressed archive cannot be a directory.');
                 }
                 
-                if(!$this->isDestinationUpToDate($compressedArchiveFile)) {
+                if ($this->forceExtract || !$this->isDestinationUpToDate($compressedArchiveFile)) {
                    $filesToExtract[] = $compressedArchiveFile;
                 } else {
                     $this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $compressedArchiveFile->getCanonicalPath(), Project::MSG_INFO);
