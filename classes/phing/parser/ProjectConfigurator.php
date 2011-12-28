@@ -286,7 +286,7 @@ class ProjectConfigurator {
         $ih->storeElement($project, $parent, $child, $tag);
     }
 
-    // The following two properties are a sort of hack
+    // The following three properties are a sort of hack
     // to enable a static function to serve as the callback
     // for preg_replace_callback().  Clearly we cannot use object
     // variables, since the replaceProperties() is called statically.
@@ -294,19 +294,21 @@ class ProjectConfigurator {
     
     private static $propReplaceProject;
     private static $propReplaceProperties;
+    private static $propReplaceLogLevel = Project::MSG_VERBOSE;
          
     /**
      * Replace ${} style constructions in the given value with the
      * string value of the corresponding data types. This method is
      * static.
      *
-     * @param  object  the project that should be used for property look-ups
-     * @param  string  the string to be scanned for property references
-     * @param  array   proeprty keys
+     * @param  object  $project  the project that should be used for property look-ups
+     * @param  string  $value    the string to be scanned for property references
+     * @param  array   $keys     property keys
+     * @param  integer $logLevel the level of generated log messages
      * @return string  the replaced string or <code>null</code> if the string
      *                 itself was null
      */
-    public static function replaceProperties(Project $project, $value, $keys) {
+    public static function replaceProperties(Project $project, $value, $keys, $logLevel = Project::MSG_VERBOSE) {
         
         if ($value === null) {
             return null;
@@ -317,6 +319,7 @@ class ProjectConfigurator {
         // make sure these get initialized every time        
         self::$propReplaceProperties = $keys;
         self::$propReplaceProject = $project;
+        self::$propReplaceLogLevel = $logLevel;
         
         // Because we're not doing anything special (like multiple passes),
         // regex is the simplest / fastest.  PropertyTask, though, uses
@@ -350,10 +353,10 @@ class ProjectConfigurator {
     {
         $propertyName = $matches[1];
         if (!isset(self::$propReplaceProperties[$propertyName])) {
-                    self::$propReplaceProject->log('Property ${'.$propertyName.'} has not been set.', Project::MSG_VERBOSE);
-                    return $matches[0];
+            self::$propReplaceProject->log('Property ${'.$propertyName.'} has not been set.', self::$propReplaceLogLevel);
+            return $matches[0];
         } else {
-            self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], Project::MSG_DEBUG);
+            self::$propReplaceProject->log('Property ${'.$propertyName.'} => ' . self::$propReplaceProperties[$propertyName], self::$propReplaceLogLevel);
         }
         
         $propertyValue = self::$propReplaceProperties[$propertyName];
