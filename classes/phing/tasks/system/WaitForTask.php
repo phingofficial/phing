@@ -166,12 +166,12 @@ class WaitForTask extends ConditionBase
         $maxWaitMillis = $this->maxWait * $this->maxWaitMultiplier;
         $checkEveryMillis = $this->checkEvery * $this->checkEveryMultiplier;
         
-        $start = microtime(true) / 1000;
+        $start = microtime(true) * 1000;
         $end = $start + $maxWaitMillis;
         
-        while (microtime(true) / 1000 < $end) {
+        while (microtime(true) * 1000 < $end) {
             if ($condition->evaluate()) {
-                $this->log(getTaskName() + ": condition was met", Project.MSG_VERBOSE);
+                $this->log("waitfor: condition was met", Project::MSG_VERBOSE);
                 
                 return;
             }
@@ -179,9 +179,9 @@ class WaitForTask extends ConditionBase
             usleep($checkEveryMillis * 1000);
         }
         
-        $this->log(getTaskName() + ": timeout", Project.MSG_VERBOSE);
+        $this->log("waitfor: timeout", Project::MSG_VERBOSE);
         
-        if ($tihs->timeoutProperty != null) {
+        if ($this->timeoutProperty != null) {
             $this->project->setNewProperty($this->timeoutProperty, "true");
         }
     }
