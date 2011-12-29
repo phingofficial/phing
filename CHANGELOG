@@ -1,6 +1,30 @@
                            _________________________
                            P     H     I     N     G
 
+Dec. 29, 2011 - Phing 2.4.9
+
+[837] PHPMDTask should check external dep in main()
+[836] DocBlox task breaks with version 0.17.0: function getThemesPath not found
+[831] dbdeploy undo script SQL is not formatted correctly
+[822] rSTTask: add debug statement when creating target directory
+[821] phingcall using a lot of memory
+[819] Documentation for SvnUpdateTask is outdated
+[818] [patch] Add overwrite option to Symlink task
+[817] Adding the "trust-server-cert" option to SVN tasks
+[816] Fix notice in SimpleTestXmlResultFormatter
+[811] phpunitreport path fails on linux
+[810] AvailableTask resolving symbolic links
+[807] SVN tasks do not always show error message
+[795] Untar : allow overwriting of newer files when extracting
+[782] PharTask is very slow for big project
+[776] Add waitFor task
+[736] Incompatibility when copying from Windows to Linux on ScpTask
+[709] talk about invalid property values
+[697] More descriptive error messages in PharPackageTask
+[674] Properties: global or local in tasks?
+[653] Allow ChownTask to change only group
+[619] verbose level in ExpandPropertiesFilter
+
 Nov. 2, 2011 - Phing 2.4.8
 
 [814] Class 'PHPCPD_Log_XML' not found in /home/m/www/elvis/vendor/phpcpd/PHPCPD/Log/XML/PMD.php on line 55
