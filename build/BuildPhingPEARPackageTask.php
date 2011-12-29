@@ -208,7 +208,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
             $package->addPackageDepWithChannel( 'optional', 'PHP_Depend', 'pear.pdepend.org', '0.10.0');
             $package->addPackageDepWithChannel( 'optional', 'PHP_PMD', 'pear.phpmd.org', '1.1.0');
             $package->addPackageDepWithChannel( 'optional', 'phpcpd', 'pear.phpunit.de', '1.3.3');
-            $package->addPackageDepWithChannel( 'optional', 'DocBlox', 'pear.docblox-project.org', '0.15.0');
+            $package->addPackageDepWithChannel( 'optional', 'DocBlox', 'pear.docblox-project.org', '0.17.2');
             $package->addPackageDepWithChannel( 'optional', 'PHP_CodeSniffer', 'pear.php.net', '1.3.0');
 
             // now add the replacements, chdir() to source directory
