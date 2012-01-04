@@ -56,6 +56,8 @@
 	</target>
 
 	<target name="reports" depends="configure">
+		<delete dir="tmp"/>
+		<mkdir dir="tmp"/>
 		<if>
 		    <equals arg1="${tests.codecoverage}" arg2="true"/>
 			<then>
