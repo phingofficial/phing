@@ -25,90 +25,90 @@ require_once 'phing/Task.php';
  * A HTTP request task.
  * Making an HTTP request and try to match the response against an provided
  * regular expression.
- *
  * @package phing.tasks.ext
  * @author  Ole Markus With <o.with@sportradar.com>
  * @version $Id$
  */
-class HttpGetTask extends Task
-{
-    /**
-     * Holds the request URL
-     *
-     * @var string
-     */
-    protected $url = null;
+class HttpGetTask extends Task {
+  /**
+   * Holds the request URL
+   * @var string
+   */
+  protected $url = null;
 
-    /**
-     * Holds the save location
-     *
-     * @var string
-     */
-    protected $dir = null;
+  /**
+   * Holds the save location
+   * @var string
+   */
+  protected $dir = null;
 
+  /**
+   * Holds the config.
+   * @var array()
+   */
+  protected $config = array();
 
-    /**
-     * Load the necessary environment for running this task.
-     *
-     * @throws BuildException
-     */
-    public function init()
-    {
-        require_once 'HTTP/Request2.php';
+  /**
+   * Load the necessary environment for running this task.
+   * @throws BuildException
+   */
+  public function init() {
+    require_once 'HTTP/Request2.php';
+  }
+
+  /**
+   * Make the GET request
+   * @throws BuildException
+   */
+  public function main() {
+    if (!isset($this->url)) {
+      throw new BuildException("Missing attribute 'url'");
     }
 
-
-    /**
-     * Make the GET request
-     *
-     * @throws BuildException
-     */
-    public function main()
-    {
-        if (!isset($this->url)) {
-            throw new BuildException("Missing attribute 'url'");
-        }
-
-        if (!isset($this->dir)) {
-            throw new BuildException("Missing attribute 'dir'");
-        }
-
-	$this->log("Fetching " . $this->url);
-
-        $request = new HTTP_Request2($this->url);
-	$response =  $request->send();
-	if ($response->getStatus() != 200) {
-		throw new BuildException("Request unsuccessfull. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
-	}
-	$content = $response->getBody();
-	if ($this->filename) {
-		$filename = $this->filename;
-	} elseif ($disposition = $response->getHeader('content-disposition')
-	        && 0 == strpos($disposition, 'attachment')
-		&& preg_match('/filename="([^"]+)"/', $disposition, $m)) {
-		$filename = basename($m[1]);
-	} else {
-		$filename = basename(parse_url($this->url, PHP_URL_PATH));
-	}
-
-	if (!is_writable($this->dir)) {
-		throw new BuildException("Cannot write to directory: " . $this->dir);
-	}
-	$filename = $this->dir . "/" . $filename;
-	file_put_contents($filename, $content);
-	$this->log("Contents from " . $this->url . " saved to $filename");
+    if (!isset($this->dir)) {
+      throw new BuildException("Missing attribute 'dir'");
     }
 
-    public function setUrl($url) {
-        $this->url = $url;
+    $this->log("Fetching " . $this->url);
+
+    $request = new HTTP_Request2($this->url, '', $this->config);
+    $response = $request->send();
+    if ($response->getStatus() != 200) {
+      throw new BuildException("Request unsuccessfull. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
+    }
+    $content = $response->getBody();
+    if ($this->filename) {
+      $filename = $this->filename;
+    } elseif ($disposition = $response->getHeader('content-disposition')
+        && 0 == strpos($disposition, 'attachment')
+        && preg_match('/filename="([^"]+)"/', $disposition, $m)
+    ) {
+      $filename = basename($m[1]);
+    } else {
+      $filename = basename(parse_url($this->url, PHP_URL_PATH));
     }
 
-    public function setFilename($filename) {
-        $this->filename = $filename;
+    if (!is_writable($this->dir)) {
+      throw new BuildException("Cannot write to directory: " . $this->dir);
     }
+    $filename = $this->dir . "/" . $filename;
+    file_put_contents($filename, $content);
+    $this->log("Contents from " . $this->url . " saved to $filename");
+  }
 
-    public function setDir($dir) {
-        $this->dir = $dir;
-    }
+  public function setUrl($url) {
+    $this->url = $url;
+  }
 
+  public function setFilename($filename) {
+    $this->filename = $filename;
+  }
+
+  public function setDir($dir) {
+    $this->dir = $dir;
+  }
+
+  public function setConfig($config) {
+    $this->config = $config;
+  }
 }
