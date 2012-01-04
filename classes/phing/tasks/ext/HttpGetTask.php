@@ -43,10 +43,10 @@ class HttpGetTask extends Task {
   protected $dir = null;
 
   /**
-   * Holds the config.
-   * @var array()
+   * Holds the proxy.
+   * @var string
    */
-  protected $config = array();
+  protected $proxy = null;
 
   /**
    * Load the necessary environment for running this task.
@@ -69,9 +69,18 @@ class HttpGetTask extends Task {
       throw new BuildException("Missing attribute 'dir'");
     }
 
+    $config = array();
+    if (isset($this->proxy)) {
+      $url = parse_url($this->proxy);
+      $config['proxy_user'] = $url['user'];
+      $config['proxy_password'] = $url['password'];
+      $config['proxy_host'] = $url['host'];
+      $config['proxy_port'] = $url['port'];
+    }
+
     $this->log("Fetching " . $this->url);
 
-    $request = new HTTP_Request2($this->url, '', $this->config);
+    $request = new HTTP_Request2($this->url, '', $config);
     $response = $request->send();
     if ($response->getStatus() != 200) {
       throw new BuildException("Request unsuccessfull. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
@@ -108,7 +117,7 @@ class HttpGetTask extends Task {
     $this->dir = $dir;
   }
 
-  public function setConfig($config) {
-    $this->config = $config;
+  public function setProxy($proxy) {
+    $this->proxy = $proxy;
   }
 }
