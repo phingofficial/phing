@@ -36,12 +36,13 @@ class PearPkg2CompatibilityTest extends BuildFileTest {
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/regression/524/build.xml";
         $this->configureProject($buildFile);
+        $this->executeTarget("setup");
     }
     
     public function tearDown()
     {
         error_reporting($this->savedErrorLevel);
-        unlink(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
+        $this->executeTarget("teardown");
     }
 
     public function testInactiveMaintainers () {      

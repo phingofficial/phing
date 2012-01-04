@@ -3,7 +3,16 @@
     <target name="main">
         <echo msg="Call target explicitly" />
     </target>
-	<target name="inactive">
+    
+    <target name="setup">
+        <mkdir dir="out"/>
+    </target>
+    
+    <target name="teardown">
+    	<mkdir dir="out"/>
+    </target>
+    
+    <target name="inactive">
         <pearpkg2 name="MockPackage" dir="./mockpackage">
             <option name="outputdirectory" value="./out"/>
             <option name="packagefile" value="package2.xml"/>
@@ -32,8 +41,9 @@
                 <include name="**/**" />
             </fileset>
         </pearpkg2>
-	</target>
-	<target name="active">
+    </target>
+    
+    <target name="active">
         <pearpkg2 name="MockPackage" dir="./mockpackage">
             <option name="outputdirectory" value="./out"/>
             <option name="packagefile" value="package2.xml"/>
@@ -62,8 +72,9 @@
                 <include name="**/**" />
             </fileset>
         </pearpkg2>
-	</target>
-	<target name="notset">
+    </target>
+    
+    <target name="notset">
         <pearpkg2 name="MockPackage" dir="./mockpackage">
             <option name="outputdirectory" value="./out"/>
             <option name="packagefile" value="package2.xml"/>
@@ -91,5 +102,5 @@
                 <include name="**/**" />
             </fileset>
         </pearpkg2>
-	</target>
+    </target>
 </project>
