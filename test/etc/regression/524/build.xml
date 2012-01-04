@@ -9,7 +9,7 @@
     </target>
     
     <target name="teardown">
-    	<mkdir dir="out"/>
+    	<delete dir="out"/>
     </target>
     
     <target name="inactive">
