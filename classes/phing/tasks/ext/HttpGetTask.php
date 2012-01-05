@@ -45,7 +45,13 @@ class HttpGetTask extends Task
      * @var string
      */
     protected $dir = null;
-
+    
+    /**
+     * Holds the proxy
+     *
+     * @var string
+     */
+    protected $_proxy = null;
 
     /**
      * Load the necessary environment for running this task.
@@ -54,7 +60,15 @@ class HttpGetTask extends Task
      */
     public function init()
     {
-        require_once 'HTTP/Request2.php';
+        @include_once 'HTTP/Request2.php';
+
+        if (! class_exists('HTTP_Request2')) {
+            throw new BuildException(
+                'HttpRequestTask depends on HTTP_Request2 being installed '
+                . 'and on include_path.',
+                $this->getLocation()
+            );
+        }
     }
 
 
@@ -72,31 +86,42 @@ class HttpGetTask extends Task
         if (!isset($this->dir)) {
             throw new BuildException("Missing attribute 'dir'");
         }
+        
+        $config = array();
+        if (isset($this->_proxy) && $url = parse_url($this->_proxy)) {
+            $config['proxy_user'] = $url['user'];
+            $config['proxy_password'] = $url['pass'];
+            $config['proxy_host'] = $url['host'];
+            $config['proxy_port'] = $url['port'];
+        }
 
-	$this->log("Fetching " . $this->url);
+	    $this->log("Fetching " . $this->url);
 
-        $request = new HTTP_Request2($this->url);
-	$response =  $request->send();
-	if ($response->getStatus() != 200) {
-		throw new BuildException("Request unsuccessfull. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
-	}
-	$content = $response->getBody();
-	if ($this->filename) {
-		$filename = $this->filename;
-	} elseif ($disposition = $response->getHeader('content-disposition')
-	        && 0 == strpos($disposition, 'attachment')
-		&& preg_match('/filename="([^"]+)"/', $disposition, $m)) {
-		$filename = basename($m[1]);
-	} else {
-		$filename = basename(parse_url($this->url, PHP_URL_PATH));
-	}
-
-	if (!is_writable($this->dir)) {
-		throw new BuildException("Cannot write to directory: " . $this->dir);
-	}
-	$filename = $this->dir . "/" . $filename;
-	file_put_contents($filename, $content);
-	$this->log("Contents from " . $this->url . " saved to $filename");
+        $request = new HTTP_Request2($this->url, $config);
+	    $response =  $request->send();
+	    if ($response->getStatus() != 200) {
+    		throw new BuildException("Request unsuccessful. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
+    	}
+    	
+    	$content = $response->getBody();
+    	if ($this->filename) {
+    		$filename = $this->filename;
+    	} elseif ($disposition = $response->getHeader('content-disposition')
+    	        && 0 == strpos($disposition, 'attachment')
+    		&& preg_match('/filename="([^"]+)"/', $disposition, $m)) {
+    		$filename = basename($m[1]);
+    	} else {
+    		$filename = basename(parse_url($this->url, PHP_URL_PATH));
+    	}
+    
+    	if (!is_writable($this->dir)) {
+    		throw new BuildException("Cannot write to directory: " . $this->dir);
+    	}
+    	
+    	$filename = $this->dir . "/" . $filename;
+    	file_put_contents($filename, $content);
+    	
+    	$this->log("Contents from " . $this->url . " saved to $filename");
     }
 
     public function setUrl($url) {
@@ -111,4 +136,12 @@ class HttpGetTask extends Task
         $this->dir = $dir;
     }
 
+    /**
+     * Sets the proxy
+     * 
+     * @param string $proxy
+     */
+    public function setProxy($proxy) {
+        $this->_proxy = $proxy;
+    }
 }

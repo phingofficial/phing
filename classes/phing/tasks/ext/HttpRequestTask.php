@@ -41,6 +41,13 @@ class HttpRequestTask extends Task
     protected $_url = null;
 
     /**
+     * Holds the proxy
+     *
+     * @var string
+     */
+    protected $_proxy = null;
+
+    /**
      * Holds the regular expression that should match the response
      *
      * @var string
@@ -113,6 +120,15 @@ class HttpRequestTask extends Task
         $this->_url = $url;
     }
 
+    /**
+     * Sets the proxy
+     * 
+     * @param string $proxy
+     */
+    public function setProxy($proxy) {
+        $this->_proxy = $proxy;
+    }
+    
     /**
      * Sets the response regex
      *
@@ -239,7 +255,15 @@ class HttpRequestTask extends Task
             throw new BuildException("Missing attribute 'url' set");
         }
 
-        $request = new HTTP_Request2($this->_url);
+        $config = array();
+        if (isset($this->_proxy) && $url = parse_url($this->_proxy)) {
+            $config['proxy_user'] = $url['user'];
+            $config['proxy_password'] = $url['pass'];
+            $config['proxy_host'] = $url['host'];
+            $config['proxy_port'] = $url['port'];
+        }
+        
+        $request = new HTTP_Request2($this->_url, $config);
 
         // set the authentication data
         if (!empty($this->_authUser)) {
