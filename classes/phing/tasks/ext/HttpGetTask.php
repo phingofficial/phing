@@ -71,7 +71,7 @@ class HttpGetTask extends Task {
     if (isset($this->proxy)) {
       $url = parse_url($this->proxy);
       $config['proxy_user'] = $url['user'];
-      $config['proxy_password'] = $url['password'];
+      $config['proxy_password'] = $url['pass'];
       $config['proxy_host'] = $url['host'];
       $config['proxy_port'] = $url['port'];
     }
