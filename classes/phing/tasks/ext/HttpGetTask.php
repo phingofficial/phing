@@ -97,7 +97,7 @@ class HttpGetTask extends Task
 
 	    $this->log("Fetching " . $this->url);
 
-        $request = new HTTP_Request2($this->url, $config);
+        $request = new HTTP_Request2($this->url, '', $config);
 	    $response =  $request->send();
 	    if ($response->getStatus() != 200) {
     		throw new BuildException("Request unsuccessful. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
