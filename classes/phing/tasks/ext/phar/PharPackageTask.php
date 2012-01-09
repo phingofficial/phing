@@ -266,10 +266,19 @@ class PharPackageTask
         if (isset($this->stubPath)) {
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
-            $phar->setDefaultStub(
-                $this->cliStubFile->getPathWithoutBase($this->baseDirectory),
-                $this->webStubFile->getPathWithoutBase($this->baseDirectory)
-            );
+            if (!empty($this->cliStubFile)) {
+                $cliStubFile = $this->cliStubFile->getPathWithoutBase($this->baseDirectory);
+            } else {
+                $cliStubFile = null;
+            }
+
+            if (!empty($this->webStubFile)) {
+                $webStubFile = $this->webStubFile->getPathWithoutBase($this->baseDirectory);
+            } else {
+                $webStubFile = null;
+            }
+            
+            $phar->setDefaultStub($cliStubFile, $webStubFile);
         }
 
         if ($metadata = $this->metadata->toArray()) {
