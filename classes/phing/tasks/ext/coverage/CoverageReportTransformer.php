@@ -107,13 +107,16 @@ class CoverageReportTransformer
         $xsl->load($xslfile->getAbsolutePath());
 
         $proc = new XSLTProcessor();
-        if (version_compare(PHP_VERSION,'5.4',"<"))
+        if (defined('XSL_SECPREF_WRITE_FILE'))
         {
-            ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-        }
-        else
-        {
-            $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            if (version_compare(PHP_VERSION,'5.4',"<"))
+            {
+                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            }
+            else
+            {
+                $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            }
         }
         
         $proc->importStyleSheet($xsl);
