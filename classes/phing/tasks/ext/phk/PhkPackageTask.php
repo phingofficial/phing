@@ -224,7 +224,7 @@ class PhkPackageTask extends Task
          * Print with Phing log...
          */
         $output = trim(ob_get_clean());
-        $output = split("\n", $output);
+        $output = explode("\n", $output);
         foreach ($output as $line) {
             /*
              * Delete all '--- *' lines. Bluh!
