@@ -1165,7 +1165,6 @@ class Phing {
         switch (strtoupper(PHP_OS)) {
             case 'WINNT':
                 self::setProperty('host.fstype', 'WINNT');
-                self::setProperty('php.interpreter', getenv('PHP_COMMAND'));
                 break;
             case 'WIN32':
                 self::setProperty('host.fstype', 'WIN32');
@@ -1175,6 +1174,7 @@ class Phing {
                 break;
         }
 
+        self::setProperty('php.interpreter', getenv('PHP_COMMAND'));
         self::setProperty('line.separator', PHP_EOL);
         self::setProperty('php.version', PHP_VERSION);
         self::setProperty('user.home', getenv('HOME'));
