@@ -9,7 +9,7 @@
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @version  SVN: $Id$
- * @link     https://gitorious.org/phing/pearPackageFileSet
+ * @link     http://www.phing.info/
  */
 require_once 'phing/util/DirectoryScanner.php';
 require_once 'PEAR/Config.php';
@@ -21,7 +21,7 @@ require_once 'PEAR/Config.php';
  * @package  phing.util
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     https://gitorious.org/phing/pearPackageFileSet
+ * @link     http://www.phing.info/
  */
 class PearPackageScanner extends DirectoryScanner
 {
