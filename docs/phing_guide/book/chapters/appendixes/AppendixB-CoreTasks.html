@@ -1000,7 +1000,7 @@
 &lt;exec command=&quot;make&quot; dir=&quot;/usr/src/php-4.0&quot; /&gt;
 
 &lt;-- List the contents of &quot;/tmp&quot; out to a file. --&gt;
-&lt;exec command=&quot;ls -l /tmp &gt; foo.out&quot; escape=&quot;false&quot; /&gt;
+&lt;exec command=&quot;ls -l /tmp &gt; foo.out&quot; /&gt;
 </pre>
 	<h3>Attributes</h3>
 	<table>
@@ -1059,16 +1059,17 @@
 			<tr>
 				<td>escape</td>
 				<td>Boolean</td>
-				<td>By default, we escape shell metacharacters before
-					executing. Setting this to false will disable this precaution.</td>
-				<td>TRUE</td>
+				<td>By default, shell metacharacters are not
+				escaped before executing. Setting this to true will
+				enable this precaution.</td>
+				<td>False</td>
 				<td>No</td>
 			</tr>
 			<tr>
 				<td>passthru</td>
 				<td>Boolean</td>
 				<td>Whether to use PHP's passthru() function instead of exec().</td>
-				<td>FALSE</td>
+				<td>False</td>
 				<td>No</td>
 			</tr>
 			<tr>
@@ -1076,7 +1077,7 @@
 				<td>Boolean</td>
 				<td>Whether to log returned output as MSG_INFO instead of
 					MSG_VERBOSE.</td>
-				<td>FALSE</td>
+				<td>False</td>
 				<td>No</td>
 			</tr>
 			<tr>
@@ -1084,7 +1085,7 @@
 				<td>Boolean</td>
 				<td>Whether to spawn unix programs to the background,
 					redirecting stdout.</td>
-				<td>FALSE</td>
+				<td>False</td>
 				<td>No</td>
 			</tr>
 			<tr>
