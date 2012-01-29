@@ -57,6 +57,7 @@ class TaskAdapter extends Task {
                 $this->proxy->main($this->project);
             } catch (Exception $ex) {
                 $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
+                $this->log($ex->getTraceAsString(), Project::MSG_DEBUG);
                 throw new BuildException($ex->getMessage());
             }
         } else {
