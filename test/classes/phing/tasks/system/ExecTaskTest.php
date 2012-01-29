@@ -349,6 +349,15 @@ class ExecTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
     }
+    
+    /**
+     * Inspired by {@link http://www.phing.info/trac/ticket/833}
+     */
+    public function testEscapedArg()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyEquals('outval', 'abc$b3!SB');
+    }
 }
 
 ?>

@@ -210,7 +210,7 @@ class ExecTask extends Task
                 'ExecTask: Please provide "command" OR "executable"'
             );
         } else if ($this->command === null) {
-            $this->command = (string)$this->commandline;
+            $this->command = Commandline::toString($this->commandline->getCommandline(), $this->escape);
         } else if ($this->commandline->getExecutable() === null) {
             //we need to escape the command only if it's specified directly
             // commandline takes care of "executable" already
