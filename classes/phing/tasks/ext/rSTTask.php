@@ -430,14 +430,15 @@ class rSTTask extends Task
 
 
     /**
-     * Nested creator, creates a FileSet for this task
+     * Add a set of files to be rendered.
      *
-     * @return object The created fileset object
+     * @param FileSet $fileset Set of rst files to render
+     *
+     * @return void
      */
-    public function createFileSet()
+    public function addFileset(FileSet $fileset)
     {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+        $this->filesets[] = $fileset;
     }
 
 

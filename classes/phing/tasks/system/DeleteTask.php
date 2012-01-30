@@ -96,9 +96,8 @@ class DeleteTask extends Task {
     }
 
     /** Nested creator, adds a set of files (nested fileset attribute). */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
     
     /** Nested creator, adds a set of files (nested fileset attribute). */

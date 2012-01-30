@@ -128,12 +128,13 @@ class PHPCPDTask extends Task
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
      *
-     * @return FileSet The created fileset object
+     * @param FileSet $fs List of files to scan
+     *
+     * @return void
      */
-    public function createFileSet()
+    public function addFileSet(FileSet $fs)
     {
-        $num = array_push($this->_filesets, new FileSet());
-        return $this->_filesets[$num-1];
+        $this->_filesets[] = $fs;
     }
 
     /**

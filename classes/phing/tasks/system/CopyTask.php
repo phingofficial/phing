@@ -197,12 +197,12 @@ class CopyTask extends Task {
     /**
      * Nested creator, creates a FileSet for this task
      *
-     * @access  public
-     * @return  object  The created fileset object
+     * @param FileSet $fileset Set of files to copy
+     *
+     * @return void
      */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**

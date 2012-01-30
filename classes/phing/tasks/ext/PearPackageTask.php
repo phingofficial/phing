@@ -255,11 +255,12 @@ class PearPackageTask extends MatchingTask {
     /**
      * Nested creator, creates a FileSet for this task
      *
-     * @return FileSet The created fileset object
+     * @param FileSet $fileset Set of files to add to the package
+     *
+     * @return void
      */
-    public function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
     
     /**

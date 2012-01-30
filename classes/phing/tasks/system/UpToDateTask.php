@@ -123,10 +123,8 @@ class UpToDateTask extends Task implements Condition {
     /**
      * Nested <fileset> element.
      */
-    public function createFileset() {
-        $fs = new FileSet();
+    public function addFileset(FileSet $fs) {
         $this->sourceFileSets[] = $fs;
-        return $fs;
     }
     
     /**
