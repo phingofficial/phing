@@ -527,7 +527,7 @@
         <element name="echo">
             <interleave>
                 <oneOrMore>
-		    <choice>
+                    <choice>
                         <attribute name="msg"/>
                         <attribute name="message"/>
                         <text/>
@@ -667,12 +667,20 @@
     <define name="foreach">
         <element name="foreach">
             <interleave>
-                <attribute name="list"/>
                 <attribute name="target"/>
                 <attribute name="param"/>
                 <optional>
+                    <attribute name="list"/>                    
                     <attribute name="delimiter"/>
                 </optional>
+            </interleave>
+            <interleave>
+                <zeroOrMore>
+                    <ref name="fileset" />
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="mapper" />
+                </zeroOrMore>
             </interleave>
         </element>
     </define>
@@ -2559,6 +2567,9 @@
                 <attribute name="schema"/>
                 <optional>
                     <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="useRNG" />
                 </optional>
             </interleave>
             <zeroOrMore>
