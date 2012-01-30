@@ -837,7 +837,7 @@ class Project {
             array_pop($visiting);
             if (!empty($visiting)) {
                 $parent = (string) $visiting[count($visiting)-1];
-                $sb .= "It is used from target '$parent'.";
+                $sb .= " It is a dependency of target '$parent'.";
             }
             throw new BuildException($sb);
         }
