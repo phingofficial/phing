@@ -878,6 +878,12 @@
   &lt;xsltfilter style=&quot;somexslt.xsl&quot; /&gt;
 &lt;/filterchain&gt;
 </pre>
+	<p>
+		This filter relies on PHP5 XSL support via <em>libxslt</em> which must be 
+		available for php5. 
+		Usually this means including the <em>php5_xsl</em> module when configuring PHP5. 
+		In essence this uses the same core libraries as "xsltproc" processor.
+	</p>
 	<h3>Attributes</h3>
 	<table>
 		<caption>
