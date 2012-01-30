@@ -6393,6 +6393,82 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 			</tbody>
 		</table>
 		<h2>
+			<a name="SvnInfoTask"></a>SvnInfoTask </h2>
+		<p> The <em>SvnInfoTask</em> parses the output of the 'svn
+			info --xml' command and extracts one specified
+			element (+ optional sub element) from that
+			output. </p>
+		<h3>Examples</h3>
+		<pre>&lt;svninfo
+   svnpath=&quot;/usr/bin/svn&quot;
+   workingcopy=&quot;/home/user/svnwc&quot;
+   element=&quot;url&quot;
+   propertyname=&quot;svn.url&quot;/&gt;
+</pre>
+		<pre>&lt;svninfo
+   repositoryurl=&quot;http://svn.phing.info/&quot;
+   element=&quot;commit&quot;
+   subelement=&quot;author&quot;
+   propertyname=&quot;svn.author&quot;/&gt;
+</pre>
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+					<th>Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>svnpath</td>
+					<td>String</td>
+					<td>Path to Subversion binary</td>
+					<td>/usr/bin/svn</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>workingcopy</td>
+					<td>String</td>
+					<td>Working copy directory</td>
+					<td>none</td>
+					<td>Yes, or <em>repositoryurl</em></td>
+				</tr>
+				<tr>
+					<td>repositoryurl</td>
+					<td>String</td>
+					<td>URL of remote repository</td>
+					<td>none</td>
+					<td>Yes, or <em>workingcopy</em></td>
+				</tr>
+				<tr>
+					<td>propertyname</td>
+					<td>String</td>
+					<td>Name of property to use</td>
+					<td>svn.lastrevision</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>element</td>
+					<td>String</td>
+					<td>Sets whether to store actual last changed revision of the directory/file
+						mentioned</td>
+					<td>url</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>subelement</td>
+					<td>String</td>
+					<td>Sets whether to force compatibility with older SVN versions (&lt; 1.2)</td>
+					<td>none</td>
+					<td>No</td>
+				</tr>
+			</tbody>
+		</table>
+		<h2>
 			<a name="SvnLastRevisionTask"></a>SvnLastRevisionTask </h2>
 		<p> The <em>SvnLastRevisionTask</em> stores the number of the last revision of a Subversion
 			workingcopy in a property. </p>
