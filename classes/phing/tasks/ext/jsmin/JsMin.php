@@ -290,4 +290,3 @@ class JSMin {
  * @package JSMin
  */
 class JSMinException extends Exception {}
-?>

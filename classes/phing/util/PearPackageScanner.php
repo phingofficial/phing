@@ -168,5 +168,3 @@ class PearPackageScanner extends DirectoryScanner
     }
 
 }
-
-?>

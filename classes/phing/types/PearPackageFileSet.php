@@ -177,5 +177,3 @@ class PearPackageFileSet extends FileSet
         $this->config = $config;
     }
 }
-
-?>
