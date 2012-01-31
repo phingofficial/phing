@@ -146,11 +146,7 @@ class DocBloxTask extends Task
     private function parseFiles()
     {
         $parser = new DocBlox_Parser();
-        
-        //Only initialize the dispatcher when not already done
-        if (is_null(DocBlox_Parser_Abstract::$event_dispatcher)) {
-            DocBlox_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
-        }
+        DocBlox_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
         $parser->setTitle($this->title);
         
         $paths = array();
