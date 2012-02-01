@@ -378,4 +378,3 @@ class ScpTask extends Task
         $this->counter++;
     }
 }
-?>
