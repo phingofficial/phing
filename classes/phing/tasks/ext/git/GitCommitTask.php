@@ -48,6 +48,10 @@ class GitCommitTask extends GitBaseTask
      */
     public function main()
     {
+        if (null === $this->getRepository()) {
+            throw new BuildException('"repository" is required parameter');
+        }
+
         if (null === $this->getTargetPath()) {
             throw new BuildException('"targetPath" is required parameter');
         }
