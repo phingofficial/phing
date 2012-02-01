@@ -226,10 +226,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<h3>Supported Nested Tags</h3>
-		<ul>
-			<li>filepath</li>
-		</ul>
 		<h2>
 			<a name="ChmodTask"></a>ChmodTask </h2>
 		<p>Sets the mode of a file or directory.</p>
@@ -414,6 +410,11 @@
 				</tr>
 			</tbody>
 		</table>
+		<h3>Supported Nested Tags</h3>
+		<ul>
+			<li>or</li>
+			<li>and</li>
+		</ul>
 		<h2>
 			<a name="CopyTask"></a>CopyTask </h2>
 		<p>Copies files or directories. Files are only copied if the source file is newer than the
@@ -550,16 +551,9 @@
 &lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
        module="phing" dest="${ws.dir}"/&gt;
 </pre>
-		<p>or, more complex:</p>
+		<p>or, using the optional command line arguments:</p>
 		<pre>
-&lt;cvs output="patch"&gt;
-    &lt;command&gt;
-        &lt;argument value="-q"/&gt;
-        &lt;argument value="diff"/&gt;
-        &lt;argument value="-u"/&gt;
-        &lt;argument value="-N"/&gt;
-    &lt;/command&gt;
-&lt;/cvs&gt;
+&lt;cvs output="patch" command="-q diff -u -N" /&gt;
 </pre>
 		<h3>Attributes</h3>
 		<table>
@@ -681,12 +675,15 @@
 					<td>n/a</td>
 					<td>No</td>
 				</tr>
+				<tr>
+					<td>command</td>
+					<td>String</td>
+					<td>Optional command line to be given to the CVS task</td>
+					<td>null</td>
+					<td>No</td>
+				</tr>
 			</tbody>
 		</table>
-		<h3>Supported Nested Tags</h3>
-		<ul>
-			<li>command</li>
-		</ul>
 		<h2>
 			<a name="CvsPassTask"></a>CvsPassTask </h2>
 		<p>This lets you create your own cvs password file -- i.e. this is necessary if you want to
