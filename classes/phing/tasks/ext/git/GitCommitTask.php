@@ -56,6 +56,11 @@ class GitCommitTask extends GitBaseTask
             throw new BuildException('"targetPath" is required parameter');
         }
 
+        if ($this->allFiles !== true && empty($this->files))
+        {
+        	throw new BuildException('"allFiles" cannot be false if no files are specified.');
+        }
+
         $client = $this->getGitClient(false, $this->getTargetPath());
 
         $options = Array();
