@@ -474,4 +474,3 @@ class rSTTask extends Task
         return $this->filterChains[$num-1];
     }
 }
-?>
