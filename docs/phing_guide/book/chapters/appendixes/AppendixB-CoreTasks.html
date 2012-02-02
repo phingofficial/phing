@@ -688,7 +688,7 @@
 			<a name="CvsPassTask"></a>CvsPassTask </h2>
 		<p>This lets you create your own cvs password file -- i.e. this is necessary if you want to
 			provide a password in your build file.</p>
-		<p> If no password file is specified the default location <em>.cvspass</em> in suers home
+		<p> If no password file is specified the default location <em>.cvspass</em> in users home
 			directory is used. </p>
 		<h3>Example</h3>
 		<pre>
@@ -715,7 +715,7 @@
 					<td>String</td>
 					<td>The root directory on the CVS server</td>
 					<td>n/a</td>
-					<td>No</td>
+					<td>Yes</td>
 				</tr>
 				<tr>
 					<td>passFile</td>
@@ -1072,13 +1072,13 @@
 			(optional) error message.</p>
 		<h3>Example</h3>
 		<pre>&lt;-- Exit w/ message --&gt;
-&lt;fail message=&quot;Failed for some reason!&quot; /&gt;
+&lt;exit message=&quot;Failed for some reason!&quot; /&gt;
 
 &lt;--  Exit if ${errorprop} is defined --&gt;
-&lt;fail if=&quot;errorprop&quot; message=&quot;Detected error!&quot; /&gt;
+&lt;exit if=&quot;errorprop&quot; message=&quot;Detected error!&quot; /&gt;
 
 &lt;-- Exit unless ${dontfail} prop is defined. --&gt;
-&lt;fail unless=&quot;dontfail&quot; message=&quot;Detected error!&quot; /&gt;
+&lt;exit unless=&quot;dontfail&quot; message=&quot;Detected error!&quot; /&gt;
 
 </pre>
 		<h3>Attributes</h3>
@@ -1097,6 +1097,13 @@
 					<td>message</td>
 					<td>String</td>
 					<td>The message to display (reason for script abort).</td>
+					<td>&quot;No Message&quot;</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>msg</td>
+					<td>String</td>
+					<td>Alias for message</td>
 					<td>&quot;No Message&quot;</td>
 					<td>No</td>
 				</tr>
@@ -1149,7 +1156,7 @@
 			<tbody>
 				<tr>
 					<td>list</td>
-					<td>string</td>
+					<td>String</td>
 					<td>The list of values to process, with the delimiter character, indicated by
 						the "delimiter" attribute, separating each value.</td>
 					<td>n/a</td>
@@ -1157,7 +1164,7 @@
 				</tr>
 				<tr>
 					<td>target</td>
-					<td>string</td>
+					<td>String</td>
 					<td>The target to call for each token, passing the token as the parameter with
 						the name indicated by the "param" attribute.</td>
 					<td>n/a</td>
@@ -1165,14 +1172,14 @@
 				</tr>
 				<tr>
 					<td>param</td>
-					<td>string</td>
+					<td>String</td>
 					<td>The name of the parameter to pass the tokens in as to the target.</td>
 					<td>n/a</td>
 					<td>Yes</td>
 				</tr>
 				<tr>
 					<td>absparam</td>
-					<td>string</td>
+					<td>String</td>
 					<td>The name of the absolute pathparameter to pass the tokens in as to the
 						target (used while processing nested filesets).</td>
 					<td>n/a</td>
@@ -1180,7 +1187,7 @@
 				</tr>
 				<tr>
 					<td>delimiter</td>
-					<td>string</td>
+					<td>String</td>
 					<td>The delimiter string that separates the values in the "list" parameter. The
 						default is ",".</td>
 					<td>,</td>
@@ -1347,9 +1354,17 @@
 		<h2>
 			<a name="IncludePathTask"></a>IncludePathTask </h2>
 		<p>Sets the PHP include_path configuration option for the duration of this phing run.</p>
-		<h3>Example</h3>
+		<h3>Example 1 - Trivial use</h3>
 		<pre>&lt;includepath classpath=&quot;new/path/here&quot; /&gt;
 &lt;includepath classpath=&quot;path1:path2&quot; /&gt;</pre>
+		<h3>Example 2 - Referencing a previously defined path</h3>
+		<pre>&lt;path id="project.class.path">
+  &lt;pathelement dir="lib/"/>
+  &lt;pathelement dir="ext/"/>
+&lt;/path>
+
+&lt;includepath classpathref="project.class.path" />
+</pre>
 		<h3>Attributes</h3>
 		<table>
 			<thead>
@@ -1368,6 +1383,13 @@
 					<td>the new include path[s]</td>
 					<td>n/a</td>
 					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>classPathRef</td>
+					<td>String</td>
+					<td>Reference to a previously defined Path type</td>
+					<td>n/a</td>
+					<td>No</td>
 				</tr>
 			</tbody>
 		</table>
@@ -1412,7 +1434,7 @@
 					<td>String</td>
 					<td>The name of the property to set.</td>
 					<td>n/a</td>
-					<td>Yes</td>
+					<td>No</td>
 				</tr>
 				<tr>
 					<td>defaultValue</td>
@@ -1426,7 +1448,7 @@
 					<td>String</td>
 					<td>Prompt text (same as CDATA).</td>
 					<td>n/a</td>
-					<td>No</td>
+					<td>Yes</td>
 				</tr>
 				<tr>
 					<td>promptChar</td>
@@ -1724,6 +1746,11 @@
     -->
 			</tbody>
 		</table>
+		<h3>Supported Nested Tags</h3>
+		<ul>
+			<li>property</li>
+			<li>param (alias for property)</li>
+		</ul>
 		<h2>
 			<a name="PhpEvalTask"></a>PhpEvalTask </h2>
 		<p>With the PhpEvalTask, you can set a property to the results of evaluating a PHP
@@ -1845,6 +1872,39 @@
 					<td>file</td>
 					<td>String</td>
 					<td>Path to properties file.</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>prefix</td>
+					<td>String</td>
+					<td>Used when properites are loaded from file. Prefix is applied to properties
+						loaded from specified file. A "." is appended to the prefix if not
+						specified.</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>environment</td>
+					<td>String</td>
+					<td>The prefix to use when retrieving environment variables. * Thus if you
+						specify environment="myenv" you will be able to access OS-specific *
+						environment variables via property names "myenv.PATH" or "myenv.TERM".</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>refid</td>
+					<td>String</td>
+					<td>A reference to a previously defined propeprty</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>fallback</td>
+					<td>String</td>
+					<td>If a reference cannot be found within the current project scope this
+						attribute specifies a fallback project scope.</td>
 					<td>n/a</td>
 					<td>No</td>
 				</tr>
@@ -2341,7 +2401,9 @@ file defines a task in the format: name=path.to.Task --&gt;
 		<p> With <em>XsltTask</em>, you can run a XSLT tranformation on an XML file. Actually,
 				<em>XsltTask</em> extends <em>CopyTask</em>, so you can use all the elements allowed
 			there. </p><p><em>XsltTask</em> is implemented by means of the <em>XsltFlter</em> and
-			hence relies on PHP5 XSLT support via (libxslt) which must be available php5. </p>
+			hence relies on PHP5 XSLT support via (<em>libxslt</em>) which must be available in
+			php5. The <em>XsltTask</em> is equivalent to running command line <b>xsltproc</b> since
+			that is a frontend for libxslt.</p>
 		<h3>Example</h3>
 		<pre>&lt;!-- Transform docbook with an imaginary XSLT file --&gt;
 &lt;xslt todir=&quot;/srv/docs/phing&quot; style=&quot;dbk2html.xslt&quot; &gt;
@@ -2390,6 +2452,11 @@ file defines a task in the format: name=path.to.Task --&gt;
 		<p><em>Note:</em> You can also use all the attributes available for <a href="#CopyTask"
 				>CopyTask</a>. </p>
 		<h3>Suppported Nested Elements</h3>
+		<ul>
+			<li>mapper</li>
+			<li>filterchain</li>
+			<li>param</li>
+		</ul>
 		<p>
 			<em>Note:</em> You can use all the elements also available for <a href="#CopyTask"
 				>CopyTask</a>. </p>
