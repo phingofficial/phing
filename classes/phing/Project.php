@@ -110,13 +110,14 @@ class Project {
     /**
      *  Constructor, sets any default vars.
      */
-    function __construct() {
+    public function __construct() {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
     }
 
     /**
      * Sets the input handler
+     * @param InputHandler $handler
      */
     public function setInputHandler(InputHandler $handler) {
         $this->inputHandler = $handler;
@@ -124,13 +125,14 @@ class Project {
 
     /**
      * Retrieves the current input handler.
+     * @return InputHandler
      */
     public function getInputHandler() {
         return $this->inputHandler;
     }
 
     /** inits the project, called from main app */
-    function init() {
+    public function init() {
         // set builtin properties
         $this->setSystemProperties();
         
@@ -177,7 +179,7 @@ class Project {
     }
 
     /** returns the global filterset (future use) */
-    function getGlobalFilterSet() {
+    public function getGlobalFilterSet() {
         return $this->globalFilterSet;
     }
 
@@ -382,7 +384,7 @@ class Project {
      * <p>To copy all "user" properties, you will also have to call
      * {@link #copyUserProperties copyUserProperties}.</p>
      *
-     * @param other the project to copy the properties to.  Must not be null.
+     * @param Project $other the project to copy the properties to.  Must not be null.
      *
      * @since phing 2.0
      */
@@ -400,24 +402,31 @@ class Project {
     // ---------------------------------------------------------
 
 
-    function setDefaultTarget($targetName) {
+    /**
+     * Sets default target
+     * @param string $targetName
+     */
+    public function setDefaultTarget($targetName) {
         $this->defaultTarget = (string) trim($targetName);
     }
 
-    function getDefaultTarget() {
+    /**
+     * Returns default target
+     * @return string
+     */
+    public function getDefaultTarget() {
         return (string) $this->defaultTarget;
     }
 
     /**
      * Sets the name of the current project
      *
-     * @param    string   name of project
+     * @param    string $name   name of project
      * @return   void
      * @access   public
      * @author   Andreas Aderhold, andi@binarycloud.com
      */
-
-    function setName($name) {
+    public function setName($name) {
         $this->name = (string) trim($name);
         $this->setProperty("phing.project.name", $this->name);
     }
@@ -429,36 +438,51 @@ class Project {
      * @access  public
      * @author  Andreas Aderhold, andi@binarycloud.com
      */
-    function getName() {
+    public function getName() {
         return (string) $this->name;
     }
 
-    /** Set the projects description */
-    function setDescription($description) {
+    /**
+     * Set the projects description
+     * @param string $description
+     */
+    public function setDescription($description) {
         $this->description = (string) trim($description);
     }
 
-    /** return the description, null otherwise */
-    function getDescription() {
+    /**
+     * return the description, null otherwise
+     * @return string|null
+     */
+    public function getDescription() {
         return $this->description;
     }
 
-    /** Set the minimum required phing version **/
-    function setPhingVersion($version) {
+    /**
+     * Set the minimum required phing version
+     * @param string $version
+     */
+    public function setPhingVersion($version) {
         $version = str_replace('phing', '', strtolower($version));
         $this->phingVersion = (string)trim($version);
     }
 
-    /** Get the minimum required phing version **/
-    function getPhingVersion() {
+    /**
+     * Get the minimum required phing version
+     * @return string
+     */
+    public function getPhingVersion() {
         if($this->phingVersion === null) {
             $this->setPhingVersion(Phing::getPhingVersion());
         }
         return $this->phingVersion;
     }
 
-    /** Set basedir object from xml*/
-    function setBasedir($dir) {
+    /**
+     * Set basedir object from xm
+     * @param PhingFile|string $dir
+     */
+    public function setBasedir($dir) {
         if ($dir instanceof PhingFile) {
             $dir = $dir->getAbsolutePath();
         }
@@ -488,7 +512,7 @@ class Project {
      * @throws  BuildException
      * @author  Andreas Aderhold, andi@binarycloud.com
      */
-    function getBasedir() {
+    public function getBasedir() {
         if ($this->basedir === null) {            
             try { // try to set it
                 $this->setBasedir(".");
@@ -504,7 +528,7 @@ class Project {
      * 
      * @return void
      */
-    function setSystemProperties() {
+    public function setSystemProperties() {
         
         // first get system properties
         $systemP = array_merge( self::getProperties(), Phing::getProperties() );
@@ -530,7 +554,7 @@ class Project {
      * @param string $class The class path to use.
      * @param string $classpath The classpat to use.
      */
-    function addTaskDefinition($name, $class, $classpath = null) {
+    public function addTaskDefinition($name, $class, $classpath = null) {
         $name  = $name;
         $class = $class;
         if ($class === "") {
@@ -544,17 +568,21 @@ class Project {
         }
     }
 
-    function getTaskDefinitions() {
+    /**
+     * Returns the task definitions
+     * @return array
+     */
+    public function getTaskDefinitions() {
         return $this->taskdefs;
     }
 
     /**
      * Adds a data type definition.
-     * @param string $name Name of tag.
-     * @param string $class The class path to use.
-     * @param string $classpath The classpat to use.
+     * @param string $typeName Name of the type.
+     * @param string $typeClass The class to use.
+     * @param string $classpath The classpath to use.
      */
-    function addDataTypeDefinition($typeName, $typeClass, $classpath = null) {    
+    public function addDataTypeDefinition($typeName, $typeClass, $classpath = null) {    
         if (!isset($this->typedefs[$typeName])) {        
             Phing::import($typeClass, $classpath);
             $this->typedefs[$typeName] = $typeClass;
@@ -564,19 +592,32 @@ class Project {
         }
     }
 
-    function getDataTypeDefinitions() {
+    /**
+     * Returns the data type definitions
+     * @return array
+     */
+    public function getDataTypeDefinitions() {
         return $this->typedefs;
     }
 
-    /** add a new target to the project */
-    function addTarget($targetName, &$target) {
+    /**
+     * Add a new target to the project
+     * @param string $targetName
+     * @param Target $target
+     */
+    public function addTarget($targetName, &$target) {
         if (isset($this->targets[$targetName])) {
             throw new BuildException("Duplicate target: $targetName");
         }
         $this->addOrReplaceTarget($targetName, $target);
     }
 
-    function addOrReplaceTarget($targetName, &$target) {
+    /**
+     * Adds or replaces a target in the project
+     * @param string $targetName
+     * @param Target $target
+     */
+    public function addOrReplaceTarget($targetName, &$target) {
         $this->log("  +Target: $targetName", Project::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
@@ -586,7 +627,11 @@ class Project {
         $current[$targetName] = $target;
     }
 
-    function getTargets() {
+    /**
+     * Returns the available targets
+     * @return array
+     */
+    public function getTargets() {
         return $this->targets;
     }
 
@@ -607,7 +652,7 @@ class Project {
      * @throws   BuildException
      *           Exception
      */
-    function createTask($taskType) {
+    public function createTask($taskType) {
         try {
             $classname = "";
             $tasklwr = strtolower($taskType);
@@ -655,12 +700,12 @@ class Project {
      * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
-     * @param   string   Type name
+     * @param   string $typeName Type name
      * @return  object   A datatype object
      * @throws  BuildException
      *          Exception
      */
-    function createDataType($typeName) {        
+    public function createDataType($typeName) {        
         try {
             $cls = "";
             $typelwr = strtolower($typeName);
@@ -697,11 +742,11 @@ class Project {
     /**
      * Executes a list of targets
      *
-     * @param   array  List of target names to execute
+     * @param   array $targetNames List of target names to execute
      * @return  void
      * @throws  BuildException
      */
-    function executeTargets($targetNames) {
+    public function executeTargets($targetNames) {
         foreach($targetNames as $tname) {
             $this->executeTarget($tname);
         }
@@ -710,11 +755,11 @@ class Project {
     /**
      * Executes a target
      *
-     * @param   string  Name of Target to execute
+     * @param   string $targetName Name of Target to execute
      * @return  void
      * @throws  BuildException
      */
-    function executeTarget($targetName) {
+    public function executeTarget($targetName) {
 
         // complain about executing void
         if ($targetName === null) {
@@ -738,8 +783,10 @@ class Project {
         } while ($curTarget->getName() !== $targetName);
     }
 
-
-    function resolveFile($fileName, $rootDir = null) {
+    /**
+     * Helper function
+     */
+    public function resolveFile($fileName, $rootDir = null) {
         if ($rootDir === null) {
             return $this->fileUtils->resolveFile($this->basedir, $fileName);
         } else {
@@ -749,14 +796,14 @@ class Project {
 
     /**
      * Topologically sort a set of Targets.
-     * @param  $root is the (String) name of the root Target. The sort is
+     * @param  string $root is the (String) name of the root Target. The sort is
      *         created in such a way that the sequence of Targets until the root
      *         target is the minimum possible such sequence.
-     * @param  $targets is a array representing a "name to Target" mapping
+     * @param  array $targets is a array representing a "name to Target" mapping
      * @return An array of Strings with the names of the targets in
      *         sorted order.
      */
-    function _topoSort($root, &$targets) {
+    public function _topoSort($root, &$targets) {
 
         $root     = (string) $root;
         $ret      = array();
@@ -821,7 +868,7 @@ class Project {
     //    "ret" now contains the sorted sequence of Targets upto the current
     //    Target.
 
-    function _tsort($root, &$targets, &$state, &$visiting, &$ret) {
+    public function _tsort($root, &$targets, &$state, &$visiting, &$ret) {
         $state[$root] = "VISITING";
         $visiting[]  = $root;
 
@@ -869,7 +916,7 @@ class Project {
         $ret[] = $target;
     }
 
-    function _makeCircularException($end, $stk) {
+    public function _makeCircularException($end, $stk) {
         $sb = "Circular dependency: $end";
         do {
             $c = (string) array_pop($stk);
@@ -882,8 +929,10 @@ class Project {
      * Adds a reference to an object. This method is called when the parser
      * detects a id="foo" attribute. It passes the id as $name and a reference
      * to the object assigned to this id as $value
+     * @param string $name
+     * @param object $object
      */
-    function addReference($name, $object) {
+    public function addReference($name, $object) {
         if (isset($this->references[$name])) {
             $this->log("Overriding previous definition of reference to $name", Project::MSG_WARN);
         }
@@ -895,16 +944,16 @@ class Project {
      * Returns the references array.
      * @return array
      */
-    function getReferences() {
+    public function getReferences() {
         return $this->references;
     }
     
     /**
      * Returns a specific reference.
      * @param string $key The reference id/key.
-     * @return Reference or null if not defined
+     * @return object Reference or null if not defined
      */
-    function getReference($key)
+    public function getReference($key)
     {
         if (isset($this->references[$key])) {
             return $this->references[$key];
@@ -914,8 +963,10 @@ class Project {
 
     /**
      * Abstracting and simplifyling Logger calls for project messages
+     * @param string $msg
+     * @param int $level
      */
-    function log($msg, $level = Project::MSG_INFO) {
+    public function log($msg, $level = Project::MSG_INFO) {
         $this->logObject($this, $msg, $level);
     }
 
