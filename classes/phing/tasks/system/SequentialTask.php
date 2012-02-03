@@ -36,7 +36,7 @@ require_once 'phing/TaskContainer.php';
 class SequentialTask extends Task implements TaskContainer {
 
     /** Optional Vector holding the nested tasks */
-    private $nestedTasks = array();
+    protected $nestedTasks = array();
 
     /**
      * Add a nested task to Sequential.
