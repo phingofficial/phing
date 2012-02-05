@@ -72,7 +72,7 @@
 
     <!-- 
         ===========================================================================================================
-        Macros for all built in tasks (both core and extension) as well as core complex types
+        Macros for all built in tasks (both core and optional) as well as for core complex types
         ===========================================================================================================                
     -->
 
@@ -91,6 +91,7 @@
     <define name="optionaltasks">
         <zeroOrMore>
             <choice>
+                <ref name="apigen"/>
                 <ref name="coverage-merger"/>
                 <ref name="coverage-report"/>
                 <ref name="coverage-setup"/>
@@ -1495,6 +1496,128 @@
         Optional Tasks 
         ===========================================================================================================        
     -->
+
+    <!-- 
+        =========================================
+        ApiGenTask
+        =========================================
+    -->   
+
+    <define name="apigen">
+        <element name="apigen">
+            <interleave>
+                <optional>
+                    <attribute name="executable"/>
+                </optional>
+                <optional>
+                    <attribute name="config"/>
+                </optional>
+                <optional>
+                    <attribute name="source"/>
+                </optional>
+                <optional>
+                    <attribute name="destination"/>
+                </optional>
+                <optional>
+                    <attribute name="exclude"/>
+                </optional>
+                <optional>
+                    <attribute name="skipdocpath"/>
+                </optional>
+                <optional>
+                    <attribute name="skipdocprefix"/>
+                </optional>
+                <optional>
+                    <attribute name="charset"/>
+                </optional>
+                <optional>
+                    <attribute name="main"/>
+                </optional>
+                <optional>
+                    <attribute name="title"/>
+                </optional>
+                <optional>
+                    <attribute name="baseurl"/>
+                </optional>
+                <optional>
+                    <attribute name="googlecseid"/>
+                </optional>
+                <optional>
+                    <attribute name="googlecselabel"/>
+                </optional>
+                <optional>
+                    <attribute name="googleanalytics"/>
+                </optional>
+                <optional>
+                    <attribute name="templateconfig"/>
+                </optional>
+                <optional>
+                    <attribute name="allowedhtml"/>
+                </optional>
+                <optional>
+                    <attribute name="accesslevels"/>
+                </optional>
+                <optional>
+                    <attribute name="internal">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="php">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="tree">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="deprecated">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="todo">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="sourcecode">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="download">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="report"/>
+                </optional>
+                <optional>
+                    <attribute name="wipeout">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="updatecheck">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="debug">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
 
     <!-- 
         =========================================
@@ -4105,7 +4228,7 @@
                     </attribute>
                 </optional>
                 <optional>
-                    <attribute name="prefix"/>                        
+                    <attribute name="prefix"/>
                 </optional>
             </interleave>
             <zeroOrMore>
@@ -4214,7 +4337,7 @@
             </zeroOrMore>
         </element>
     </define>
-    
+
     <!-- 
         =========================================
         XmlPropertyTask
@@ -4360,8 +4483,8 @@
             </zeroOrMore>
         </element>
     </define>
-    
-    
+
+
     <!-- 
         =========================================
         ZendGuardLicenseTask
@@ -4381,7 +4504,7 @@
                 </optional>
                 <optional>
                     <attribute name="iprange"/>
-                </optional>    
+                </optional>
                 <optional>
                     <attribute name="hardwarelocked">
                         <data type="boolean"/>
@@ -4395,7 +4518,7 @@
                 </optional>
                 <optional>
                     <attribute name="xuserdefinedvalues"/>
-                </optional>                
+                </optional>
             </interleave>
         </element>
     </define>
