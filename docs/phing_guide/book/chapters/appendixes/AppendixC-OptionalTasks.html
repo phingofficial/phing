@@ -592,7 +592,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 				</tr>
 				<tr>
 					<td>port</td>
-					<td>Boolean</td>
+					<td>Integer</td>
 					<td>The port of the remote server.</td>
 					<td>21</td>
 					<td>No</td>
@@ -3027,6 +3027,13 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>false</td>
 					<td>No</td>
 				</tr>
+				<tr>
+					<td>encoding</td>
+					<td>String</td>
+					<td>Encoding to use for read SQL files</td>
+					<td>none</td>
+					<td>No</td>
+				</tr>
 			</tbody>
 		</table>
 		<h3>Supported Nested Tags</h3>
@@ -4885,8 +4892,8 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>deprecatedAsError</td>
 					<td>Boolean</td>
 					<td>Whether to treat deprecated warnings (introduced in PHP 5.3) as errors.</td>
-					<td>n/a</td>
 					<td>false</td>
+					<td>No</td>
 				</tr>
 			</tbody>
 		</table>
@@ -6470,7 +6477,7 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 					<td>propertyname</td>
 					<td>String</td>
 					<td>Name of property to use</td>
-					<td>svn.lastrevision</td>
+					<td>svn.info</td>
 					<td>No</td>
 				</tr>
 				<tr>
@@ -7249,7 +7256,7 @@ revision | author | date         | item
 				</tr>
 				<tr>
 					<td>useRNG</td>
-					<td>String</td>
+					<td>Boolean</td>
 					<td>Set to Yes if the Schema is in the n Relax NG format</td>
 					<td>false</td>
 					<td>No</td>
