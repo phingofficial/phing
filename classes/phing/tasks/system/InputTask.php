@@ -104,6 +104,10 @@ class InputTask extends Task {
             throw new BuildException("You must specify a value for propertyName attribute.");
         }
         
+        if ($this->message === "") {
+            throw new BuildException("You must specify a message for input task.");
+        }
+        
         if ($this->validargs !== null) {
             $accept = preg_split('/[\s,]+/', $this->validargs);
             
