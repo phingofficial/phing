@@ -3964,8 +3964,23 @@ Note that you can omit both startpoint and track attributes in this case
 				<tr>
 					<td>signature</td>
 					<td>String</td>
-					<td>Signature algorithm (md5, sha1, sha256, sha512), used for this package.</td>
+					<td>Signature algorithm (md5, sha1, sha256, sha512, openssl), used for this 
+						package.</td>
 					<td>sha1</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>key</td>
+					<td>String</td>
+					<td>OpenSSL private key used to sign the phar package.</td>
+					<td>n/a</td>
+					<td>Yes, when using the <em>openssl</em> signature algorithm</td>
+				</tr>
+				<tr>
+					<td>keypassword</td>
+					<td>String</td>
+					<td>Password for the OpenSSL private key.</td>
+					<td></td>
 					<td>No</td>
 				</tr>
 			</tbody>
