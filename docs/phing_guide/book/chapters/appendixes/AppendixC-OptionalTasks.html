@@ -284,8 +284,11 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 </pre>
 		<h2>
 			<a name="CoverageReportTask"></a>CoverageReportTask </h2>
-		<p>The CoverageReportTask formats a coverage database into a framed HTML report using
-			XSLT.</p>
+		<p>The CoverageReportTask formats a coverage database into a framed HTML report using XSLT.
+			The report can optionally make use of the <b>Ge</b>neric <b>S</b>yntax
+			<b>Hi</b>ghlighting library, <em>GeSHi</em> (See <a href="http://qbnz.com/highlighter/"
+				>GeSHi Homepage</a>) library to mark up source code. The path to the library (if not
+			in the default path) can be specified as an attribute.</p>
 		<h3>Attributes</h3>
 		<table>
 			<thead>
@@ -304,6 +307,27 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 					<td>The location for the intermediate XML file.</td>
 					<td>coverage.db</td>
 					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>classpath</td>
+					<td>String</td>
+					<td>Additional classpath to locate source referenced in the report</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>geshipath</td>
+					<td>String</td>
+					<td>Path to GeSHi highlighting library</td>
+					<td>n/a</td>
+					<td>No/Yes* If syntax highlighting si to be enabled</td>
+				</tr>
+				<tr>
+					<td>geshilanguagespath</td>
+					<td>String</td>
+					<td>Language to use with GeSHi</td>
+					<td>n/a</td>
+					<td>No</td>
 				</tr>
 			</tbody>
 		</table>
@@ -807,7 +831,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 				</tr>
 				<tr>
 					<td>port</td>
-					<td>Boolean</td>
+					<td>Integer</td>
 					<td>The port of the remote server.</td>
 					<td>21</td>
 					<td>No</td>
@@ -3242,6 +3266,13 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>false</td>
 					<td>No</td>
 				</tr>
+				<tr>
+					<td>encoding</td>
+					<td>String</td>
+					<td>Encoding to use for read SQL files</td>
+					<td>none</td>
+					<td>No</td>
+				</tr>
 			</tbody>
 		</table>
 		<h3>Supported Nested Tags</h3>
@@ -5100,8 +5131,8 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>deprecatedAsError</td>
 					<td>Boolean</td>
 					<td>Whether to treat deprecated warnings (introduced in PHP 5.3) as errors.</td>
-					<td>n/a</td>
 					<td>false</td>
+					<td>No</td>
 				</tr>
 			</tbody>
 		</table>
@@ -6633,10 +6664,8 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 		</table>
 		<h2>
 			<a name="SvnInfoTask"></a>SvnInfoTask </h2>
-		<p> The <em>SvnInfoTask</em> parses the output of the 'svn
-			info --xml' command and extracts one specified
-			element (+ optional sub element) from that
-			output. </p>
+		<p> The <em>SvnInfoTask</em> parses the output of the 'svn info --xml' command and extracts
+			one specified element (+ optional sub element) from that output. </p>
 		<h3>Examples</h3>
 		<pre>&lt;svninfo
    svnpath=&quot;/usr/bin/svn&quot;
@@ -6687,7 +6716,7 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 					<td>propertyname</td>
 					<td>String</td>
 					<td>Name of property to use</td>
-					<td>svn.lastrevision</td>
+					<td>svn.info</td>
 					<td>No</td>
 				</tr>
 				<tr>
@@ -7466,8 +7495,8 @@ revision | author | date         | item
 				</tr>
 				<tr>
 					<td>useRNG</td>
-					<td>String</td>
-					<td>Set to Yes if the Schema is in the newer  Relax NG format</td>
+					<td>Boolean</td>
+					<td>Set to Yes if the Schema is in the n Relax NG format</td>
 					<td>false</td>
 					<td>No</td>
 				</tr>
