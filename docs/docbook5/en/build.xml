@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
+    type="application/xml" 
+    schematypens="http://relaxng.org/ns/structure/1.0"?>
+<!-- 
+ * ==============================================================================
+ * Main build file for Phing manual
+ * Public targets are:
+ *  
+ * html (default)    Produce single page HTML output
+ * chunk             Produce chunked HTML output
+ * pdf               Produce PDF output
+ * epub              Experimental support for EPUB
+ *   
+ * Revision: $Id$
+ * ==============================================================================    
+-->  
+
+<project name="PhingDocBookGuide" 
+         default="html" 
+         basedir="."
+         description="Build script to produce Phing documentatoin from DocBook source" >
+
+    <!-- Name of the master XML file -->
+    <property name="master.document" value="source/master.xml" />
+    
+    <!-- Name of the master XML file without file suffix-->
+    <property name="master.document.strip" value="source/master" />
+    
+    <!-- Path to DocBook script to help produce ePub output format -->
+    <property name="dbtoepub" value="/usr/share/xml/docbook/stylesheet/nwalsh5/current/epub/bin/dbtoepub" />
+    
+    <!-- DocBook Grammar. Used when running validation script -->
+    <property name="docbook.relaxngc" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rnc"/>
+    <property name="docbook.relaxng" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/>
+
+    <!-- Base directory for XSL stylesheets processed by xsltproc. No trailing '/' -->
+    <property name="dbxsl.dir" value="stylesheets/xsl" />
+    
+    <!-- Base directory for css stylesheets. No trailing '/' -->
+    <property name="dbcss.dir" value="stylesheets/css"/>
+        
+    <!-- 
+        Run the "tidy" program to clean up the prodcude html.
+        Note: If this is set to "yes" the "tidy" program must be in the standard search path.
+    -->
+    <property name="flag.tidy" value="yes"/>    
+    
+    <!-- 
+        Possible CSS stylesheet for use with the HTML output.
+        The "book-fancyterm.css" variant uses a more grphic illustration of screen
+        (or terminal) output in the image of a real terminal window.
+        
+        NOTE: If you change these names you must also update the corresponding
+        xsl stylesheet since this name is set as a parameter there
+    -->
+    <property name="css.style" value="${dbcss.dir}/book.css" />
+    <property name="css.style.fancy" value="${dbcss.dir}/book-fancyterm.css" />
+    
+    <!-- Canonical name used to reference the chosen CSS stylesheet from the generated (X)HTML -->
+    <property name="css.name" value="book.css" />
+    
+    <!-- Which CSS checkmark image to use in the final HTML -->
+    <property name="css.checkmark" value="${dbcss.dir}/checkmark-green.png" />    
+
+    <!-- Which CSS checkmark image to use in the final HTML -->
+    <property name="css.checkmarkplain" value="${dbcss.dir}/checkmark-plain.gif" />
+    
+    <!-- Should we generate HTML or XHTML as output -->
+    <property name="html.type" value="html" />
+    
+    <!-- The temporary build directory -->
+    <property name="tmp.dir" value="./tmp/" />    
+    
+    <!-- Check if version was specified on the command line -->
+    <php function="preg_match" returnProperty="version_match">
+        <param value="/[\d]+\.[\d]+\.[\d]+/"/>
+        <param value="${version}"/>
+    </php>
+       
+    <!-- 
+        Runtime parameters for HTML output. We only need to tell xsltproc to use xinclude
+        The rest of the parameters are stored in the customized XSL stylesheets
+    -->
+    <property name="xsl.html.params" value = "--xinclude" />
+
+    <!-- Runtime parameters for PDF output -->
+    <property name="xsl.pdf.params" value = "--xinclude" />
+
+    <!-- 
+        Fileset for admon graphics used in HTML output. These are the images that are used
+        with <note>, <warning>, <imnportant> etc. tags.
+    -->
+    <fileset dir="stylesheets/css" id="admon">
+        <include name="admon*.png"/>
+    </fileset>
+    
+    <!-- All source files needed -->
+    <fileset dir="source" id="sources">
+        <include name="chapters/*.xml"/>
+        <include name="appendixes/*.xml"/>
+        <include name="*.xml"/>
+    </fileset>
+
+   
+    <!-- 
+        ================================================================== 
+        Create necessary output directories
+        Parameters:
+        ${dir}  String  Subdirectory.One of html,pdf,chunk,epub,xhtml
+        ================================================================== 
+     -->
+    <target name="prepare.output">
+        <mkdir dir="output/${dir}" />
+        <!-- 
+            The fancy checkmarks (if used) myst be in the same root directory 
+            as the html et.al output.         
+        -->
+        <copy file="${css.checkmark}" tofile="output/${dir}/checkmark.png"/>
+        <copy file="${css.checkmarkplain}" tofile="output/${dir}/checkmark-plain.gif"/>
+        
+        <!-- Copy all figures used in the documentation -->
+        <available file="source/figures" property="figures.exist"/>
+        <if>
+            <equals arg1="figures.exist" arg2="true"/>
+            <then>
+                <copy todir="output/${dir}/figures">            
+                    <fileset dir="source/figures">
+                        <include name="*.png"/>
+                        <include name="*.jpg"/>
+                    </fileset>
+                </copy>                        
+            </then>
+        </if>
+        
+        <!-- 
+            Copy all admonition graphics for <note>, <warning> etc to the correct 
+            output place.
+        -->
+        <copy todir="output/${dir}/">
+            <fileset refid="admon" />            
+        </copy>
+    </target>        
+    
+    <!-- 
+        ================================================================================
+        For html output we also need the custom images referenced from the
+        css stylesheets.
+        ================================================================================
+    -->
+    <target name="prepare.html.output">        
+        <copy todir="output/html/img">
+            <fileset dir="${dbcss.dir}/img">
+                <include name="*"/>
+            </fileset>
+        </copy>
+    </target>
+
+
+    <!--
+        ================================================================================
+        TARGET: zhtml 
+        Create zipped tar balls of the html manual 
+        ================================================================================
+    -->        
+    <target name="zhtml" depends="html">
+        <delete file="output/book-html.tar.gz" />
+        <tar destfile="output/book-html.tar.gz" compression="gzip">
+            <fileset dir="output">
+                <include name="html"/>
+            </fileset>
+        </tar>
+    </target>    
+    
+    <!--
+        ================================================================================
+        TARGET: zchunk
+        Create zipped tar balls of the chunked html manual 
+        ================================================================================
+    -->        
+    <target name="zchunk" depends="chunk">
+        <delete file="output/book-chunk.tar.gz" />
+        <tar destfile="output/book-chunk.tar.gz" compression="gzip">
+            <fileset dir="output">
+                <include name="chunkhtml"/>
+            </fileset>            
+        </tar>
+    </target>
+    
+    <!--
+        ================================================================================
+        TARGET: Clean 
+        ================================================================================
+    -->    
+    <target name="clean">
+        <delete dir="output/img"/>
+        <delete dir="output/html"/>
+        <delete dir="output/chunkhtml"/>
+        <delete dir="output/pdf"/>        
+        <delete dir="output/"/>
+    </target>
+
+    <!--
+        ================================================================================
+        TARGET: validate
+        Use Jing to validate book against DocBook Relax NG
+	    ================================================================================
+    -->
+    <target name="validate">
+        <xmllint schema="${docbook.relaxng}" useRNG="yes">
+            <fileset refid="sources" />
+        </xmllint>
+    </target>
+    
+    <!--
+        ================================================================================
+        Target: _html 
+        Main entry point to create the html rendered output
+        ================================================================================
+    -->    
+    <target name="_html">        
+        <phingcall target="prepare.output" >
+            <property name="dir" value="html" />
+        </phingcall>        
+        <phingcall target="prepare.html.output" />        
+        <copy file="${css.style}" tofile="output/html/${css.name}"/>        
+        
+        <exec command="xsltproc ${xsl.html.params} 
+            --output 'output/html/index.html' 
+            ${dbxsl.dir}/${format}.xsl ${master.document}" 
+            checkreturn="true" passthru="true" dir="./" />        
+        <if>
+            <equals arg1="flag.tidy" arg2="yes"/>
+            <then>
+                <exec command="tidy -m -utf8 output/html/index.html" />        
+            </then>
+        </if>                
+        <echo message="HTML version of manual ready." />        
+    </target>
+    
+    <target name="html">
+        <phingcall target="_html">
+            <property name="format" value="html"/>
+        </phingcall>
+    </target>
+    
+    <target name="htmlfancy">
+        <phingcall target="_html">
+            <property name="format" value="html.fancycmd"/>
+        </phingcall>
+    </target>
+    
+
+    <!--
+        ================================================================================
+        Target: chunk
+        ================================================================================
+    -->
+    
+    <target name="chunk" >
+        <phingcall target="prepare.output" >
+            <property name="dir" value="chunkhtml" />
+        </phingcall>
+               
+        <exec command="xsltproc ${xsl.html.params}  
+            --stringparam base.dir 'output/chunkhtml/' 
+            ${dbxsl.dir}/chunk.xsl ${master.document}" 
+            checkreturn="true" passthru="true" dir="./" />        
+        <echo message="Chunked HTML version of manual ready." />
+    </target>
+   
+    <!--
+        ================================================================================
+        Target: PDF  
+        Note: This format does not yet support syntax highlighting        
+        ================================================================================
+    -->
+    
+    <!-- 
+        We use a helper target that does the internmediate XSL-FO work in a
+        temporary directoy
+    -->
+    <target name="prepare.pdf">
+                
+        <mkdir dir="output/${dir}" />      
+        <mkdir dir="${tmp.dir}" />
+        <mkdir dir="${tmp.dir}figures" />
+        <mkdir dir="${tmp.dir}source" />
+
+        <copy todir="${tmp.dir}">
+            <fileset dir=".">
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${tmp.dir}source">
+            <fileset dir="source">
+                <include name="**/*"/>
+            </fileset>
+        </copy>                
+        <available file="source/figures" property="figures.exist"/>
+        <if>
+            <equals arg1="figures.exist" arg2="true"/>
+            <then>
+                <copy todir="${tmp.dir}figures">            
+                    <fileset dir="source/figures">
+                        <include name="*.png"/>
+                        <include name="*.jpg"/>
+                    </fileset>
+                </copy>                        
+            </then>
+        </if>
+        <copy todir="${tmp.dir}">
+            <fileset refid="admon" />            
+        </copy>        
+
+        <copy file="${css.checkmark}" tofile="${tmp.dir}checkmark.png"/>        
+        <copy file="${css.checkmarkplain}" tofile="${tmp.dir}checkmark-plain.gif"/>
+
+    </target>
+    
+    <target name="pdf" >        
+           
+        <phingcall target="prepare.pdf" >
+            <property name="dir" value="pdf" />
+        </phingcall>
+        <exec command="xsltproc ${xsl.pdf.params}
+            --output ${tmp.dir}manual.fo                
+            ${dbxsl.dir}/fo.xsl ${tmp.dir}${master.document}" 
+            checkreturn="true" passthru="true" dir="./" />        
+        <exec command="fop manual.fo -pdf ../output/pdf/manual.pdf" dir="${tmp.dir}"
+            checkreturn="true" passthru="true" />           
+        <delete dir="${tmp.dir}" />        
+        <echo message="PDF version of manual ready." />                
+    </target>
+    
+    <!--
+        ================================================================================
+        Target: EPUB  
+        Note: Experimental support for ePub format. (Basically a zipped HTML with
+        a XML index file.)
+        ================================================================================
+    -->
+    <target name="epub">
+        <mkdir dir="output/epub" />   
+        <exec command="${dbtoepub} -s ${dbxsl.dir}/epub.xsl -c ${css.style} ${master.document} -o output/epub/${master.document.strip}.epub" />               
+    </target>
+    
+    <target name="all">
+        <phingcall target="htmlfancy" />   
+        <phingcall target="chunk" />
+        <phingcall target="pdf" />
+        <phingcall target="epub" />
+    </target>
+        
+</project>
