@@ -22,9 +22,9 @@
  * @package phing.tasks.ext
  */
 
-require_once 'DocBlox/Manager.php';
-require_once 'DocBlox/Worker.php';
-require_once 'DocBlox/WorkerPipe.php';
+require_once 'DocBlox/Parallel/Manager.php';
+require_once 'DocBlox/Parallel/Worker.php';
+require_once 'DocBlox/Parallel/WorkerPipe.php';
 
 /**
  * Uses the DocBlox_Parallel library to run nested Phing tasks concurrently.
