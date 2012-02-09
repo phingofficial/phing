@@ -2,18 +2,58 @@
 <?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="phing-guide">
     <info>
         <title>Phing Guide</title>
-        <author>
-            <orgname>Phing Group</orgname>
-            <email>phing@php.net</email>
-        </author>
+        <authorgroup>
+            <author>
+                <personname>
+                    <firstname>Andreas</firstname>
+                    <surname>Aderhold</surname>
+                </personname>
+                <email>andi@binarycloud.com</email>
+            </author>
+            <author>
+                <personname>
+                    <firstname>Alex</firstname>
+                    <surname>Black</surname>
+                </personname>
+                <email>enigma@turingstudio.com</email>
+            </author>
+            <author>
+                <personname>
+                    <firstname>Manuel</firstname>
+                    <surname>Holtgrewe</surname>
+                </personname>
+                <email>grin@gmx.net</email>
+            </author>
+            <author>
+                <personname>
+                    <firstname>Hans</firstname>
+                    <surname>Lellelid</surname>
+                </personname>
+                <email>hans@xmpl.org</email>
+            </author>
+            <author>
+                <personname>
+                    <firstname>Michiel</firstname>
+                    <surname>Rook</surname>
+                </personname>
+                <email>mrook@php.net</email>
+            </author>
+            <author>
+                <personname>
+                    <firstname>Johan</firstname>
+                    <surname>Persson</surname>
+                </personname>
+                <email>johan162@gmail.com</email>
+            </author>
+        </authorgroup>
         <pubdate><?dbtimestamp format="Y-m-d"?></pubdate>
         <copyright>
             <year>2007-2012</year>
             <holder>Phing Group</holder>
-        </copyright>        
+        </copyright>
     </info>
     <preface>
         <title>Preface</title>
@@ -54,14 +94,14 @@
             </listitem>
         </itemizedlist>
     </preface>
-    
+
     <xi:include href="chapters/about.xml" parse="xml"/>
     <xi:include href="chapters/introduction.xml" parse="xml"/>
     <xi:include href="chapters/settingup.xml" parse="xml"/>
     <xi:include href="chapters/gettingstarted.xml" parse="xml"/>
     <xi:include href="chapters/projcomponents.xml" parse="xml"/>
     <xi:include href="chapters/extending.xml" parse="xml"/>
-    
+
     <xi:include href="appendixes/factsheet.xml" parse="xml"/>
     <xi:include href="appendixes/coretasks.xml" parse="xml"/>
     <xi:include href="appendixes/optionaltasks.xml" parse="xml"/>
