@@ -121,7 +121,7 @@
 		<para> Simple parameters are basically strings. For example, if you pass a value <literal>"A
 				simple string."</literal> as a parameter, it is evaluated as a string and accessible
 			as one. You can also reference properties as described in <xref
-				xlink:href="ch.gettingstarted"/>. </para>
+				xlink:href="#ch.gettingstarted"/>. </para>
 
 		<para>
 			<literal>Note:</literal> There are special values that are not mapped to strings, but to
@@ -403,8 +403,8 @@
 				<title>OS Attributes</title>
 				<tgroup cols="3">
 					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="1*"/>
-					<colspec colname="c3" colnum="3" colwidth="2*"/>
+					<colspec colname="c2" colnum="2" colwidth="2*"/>
+					<colspec colname="c3" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -442,8 +442,8 @@
 				<title>equals Attributes</title>
 				<tgroup cols="3">
 					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="1*"/>
-					<colspec colname="c3" colnum="3" colwidth="2*"/>
+					<colspec colname="c2" colnum="2" colwidth="2*"/>
+					<colspec colname="c3" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -485,8 +485,8 @@
 				<title>isset Attributes</title>
 				<tgroup cols="3">
 					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="1*"/>
-					<colspec colname="c3" colnum="3" colwidth="2*"/>
+					<colspec colname="c2" colnum="2" colwidth="2*"/>
+					<colspec colname="c3" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -512,8 +512,8 @@
 				<title>contains Attributes</title>
 				<tgroup cols="3">
 					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="1*"/>
-					<colspec colname="c3" colnum="3" colwidth="2*"/>
+					<colspec colname="c2" colnum="2" colwidth="2*"/>
+					<colspec colname="c3" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -550,8 +550,8 @@
 				<title>istrue Attributes</title>
 				<tgroup cols="3">
 					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="1*"/>
-					<colspec colname="c3" colnum="3" colwidth="2*"/>
+					<colspec colname="c2" colnum="2" colwidth="2*"/>
+					<colspec colname="c3" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -580,8 +580,8 @@
 				<title>isfalse Attributes</title>
 				<tgroup cols="3">
 					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="1*"/>
-					<colspec colname="c3" colnum="3" colwidth="2*"/>
+					<colspec colname="c2" colnum="2" colwidth="2*"/>
+					<colspec colname="c3" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -609,8 +609,8 @@
 				<title>referenceexists Attributes</title>
 				<tgroup cols="3">
 					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="1*"/>
-					<colspec colname="c3" colnum="3" colwidth="2*"/>
+					<colspec colname="c2" colnum="2" colwidth="2*"/>
+					<colspec colname="c3" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>

@@ -17,7 +17,7 @@
     
     <para>The following XML file shows a basic Phing build file skeleton that
         can be used as a starting point for your own build files. See the
-        references in <xref xlink:href="app.factsheet"/> and <xref xlink:href="app.coretasks"/> for more
+        references in <xref xlink:href="#app.factsheet"/> and <xref xlink:href="#app.coretasks"/> for more
         detailed information on properties and tasks.</para>
     
     <programlisting>

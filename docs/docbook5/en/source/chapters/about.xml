@@ -6,7 +6,7 @@
     <title>About this book</title>
     <sect1>
         <title>Authors</title>
-        <itemizedlist>
+        <itemizedlist>           
             <listitem>
                 <para>Andreas Aderhold, andi@binarycloud.com</para>
             </listitem>

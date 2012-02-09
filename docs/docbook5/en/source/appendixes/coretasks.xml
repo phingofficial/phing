@@ -2,8 +2,8 @@
 <?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.coretasks">
-	<title>Core tasks</title>
+	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" >
+	<title xml:id="app.coretasks">Core tasks</title>
 
 	<para>This appendix contains a reference of all core tasks, i.e. all tasks that are needed to
 		build a basic project.</para>
@@ -551,9 +551,9 @@
 			<programlisting>&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/></programlisting>
 			<para>Additionally, <literal>CopyTask</literal> supports Filesets, i.e. you can easily
 				include/exclude one or more files. For more information, see <xref
-					xlink:href="app.coretypes"/> -- pay particular attention to the
-					<literal>defaultexcludes</literal> attribute. <xref xlink:href="app.coremappers"
-				/> and <xref xlink:href="app.coreFfilters"/> are also supported by
+					xlink:href="#app.coretypes"/> -- pay particular attention to the
+					<literal>defaultexcludes</literal> attribute. <xref xlink:href="#app.coremappers"
+				/> and <xref xlink:href="#app.corefilters"/> are also supported by
 					<literal>CopyTask</literal>, so you can do almost everything that needs
 				processing the content of the files or the filename.</para>
 			<programlisting>&lt;copy todir="/tmp/backup" >
@@ -895,7 +895,7 @@
 	<sect1 role="taskdef">
 		<title xml:id="DeleteTask"> DeleteTask </title>
 		<para>Deletes a file or directory, or set of files defined by a fileset. See <xref
-				xlink:href="app.coretypes"/> for information on Filesets.</para>
+				xlink:href="#app.coretypes"/> for information on Filesets.</para>
 		<example>
 			<title>Example</title>
 			<programlisting>&lt;-- Delete a specific file -->
@@ -1154,7 +1154,7 @@
 					<row>
 						<entry><literal>os</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Only execute if the <xref xlink:href="app.factsheet"/> property contains
+						<entry>Only execute if the <xref xlink:href="#app.factsheet"/> property contains
 							specified text.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
@@ -1446,7 +1446,7 @@
 		<sect2 role="taskattributes">
 			<title>Attributes</title>
 			<para>This task doesn't have any attributes, the condition to test is specified by a
-				nested element - see the <xref xlink:href="ch.projcomponents"/> for a complete list
+				nested element - see the <xref xlink:href="#ch.projcomponents"/> for a complete list
 				of nested elements.</para>
 			<para>Just like the <literal>&lt;condition></literal> task, only a single condition can
 				be specified - you combine them using <literal>&lt;and></literal> or

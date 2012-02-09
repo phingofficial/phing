@@ -297,7 +297,7 @@
 
             <para><literal>Properties</literal> are essentially variables that can be used in the
                 buildfile. These might be set in the buildfile by calling the <xref
-                    xlink:href="app.coretasks"/>, or might be set outside Phing on the command line
+                    xlink:href="#app.coretasks"/>, or might be set outside Phing on the command line
                 (properties set on the command line always override the ones in the buildfile). A
                 property has a name and a value only. Properties may be used in the value of task
                 attributes. This is done by placing the property name between &quot;
@@ -383,7 +383,7 @@
             tag. It defines a <literal>fileset</literal>, i.e. a set of multiple files. You can
             include and exclude files with the <literal>include</literal> and
                 <literal>exclude</literal> tags within the <literal>fileset</literal> tag. For more
-            information concerning Filesets (i.e. Patterns) see <xref xlink:href="app.coretypes"/>.
+            information concerning Filesets (i.e. Patterns) see <xref xlink:href="#app.coretypes"/>.
             The <literal>fileset</literal> is given an <literal>id</literal> attribute, so it can be
             referenced later on. </para>
         <para>One thing is worth noting here though and that is the use of double star expression,
@@ -402,7 +402,7 @@
 
         <para>The only noticeable thing in the second target is the call to
                 <literal>PhingTask</literal> with the <literal>&lt;phingcall&gt;</literal> tag (see
-                <xref xlink:href="app.coretasks"/> for more information). The task executes a
+                <xref xlink:href="#app.coretasks"/> for more information). The task executes a
             specified target within the same build file. So, the second target removes the build
             directory and calls <literal>main</literal> again, thus rebuilding the project. </para>
 

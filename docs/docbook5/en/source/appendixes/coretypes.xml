@@ -6,8 +6,8 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" 
     version="5.0"
-    xml:id="ch.coretypes">
-    <title>Core Types</title>
+    xml:id="app.coretypes">
+	<title>Core Types</title>
 
 
 	<para>

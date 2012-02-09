@@ -7,7 +7,7 @@
 
 
     <para>Selectors are a specific subset of Phing <literal>data types</literal> that allow you to
-        fine-tune matching in a <xref xlink:href="app.coretypes"/>FileSet (or DirSet).</para>
+        fine-tune matching in a <xref xlink:href="#app.coretypes"/>FileSet (or DirSet).</para>
 
     <para>Phing supports the following core selectors, which typically match on both files and
         directories in a<literal> &lt;fileset></literal>:</para>

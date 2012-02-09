@@ -27,37 +27,41 @@ h2 {
     font-variant: small-caps;
     color: #555;
     line-height: 1.7em;
-    margin: 15px 0 15px 0;
+    border-top: 4px solid #777;
+    margin: 35px 0 15px 0;
 }
 
 /* This is reserved for the sect1 header */
 div[class=sect1] h2 {
-    font-size: 1.8em;
-    font-weight: normal;
-    color:#aa4444;
+    font-family:serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    color:#555;
     line-height: 1.7em;
-    margin: 55px 0px 15px 0px;  
-    border-bottom: none;
+    margin: 15px 0px 5px 0px;  
+    border: none;
 }
 
 /* This is reserved for the sect2 header */
 div[class=sect2] h3 {
+    font-family:serif;
     font-size: 1.2em;
     font-weight: normal;
-    color:#aa4444;
+    color:#555;
     line-height: 1.5em;
-    margin: 35px 0 15px 15px;    
+    margin: 15px 0 5px 15px;    
     border-bottom: none;
 }
 
 /* This is reserved for the sect3 header */
 div[class=sect3] h4.title {
+    font-family:serif;
     font-size: 1.1em;
     font-weight: normal;
-    color:#444;
+    color:#555;
     line-height: 1.3em;
     /*top right bot left */
-    margin: 15px 0 15px 15px;
+    margin: 15px 0 5px 15px;
     border-bottom: none;
 }
 
@@ -254,7 +258,7 @@ div.mediaobject {
 }
 
 p, .synopsis, .example, .important, .formaltable {
-    margin: 0 15px 1em 15px;
+    margin: 0 10px 1em 10px;
 }
 
 a:hover {
@@ -306,7 +310,8 @@ p.formal-object-title span.title {
     margin-bottom: 25px;
     margin-top: 12px;
     margin-left: 15px;
-    margin-right: 15px;
+    /*margin-right: 15px;*/
+    width:800px;
     color: black;
     padding: 8pt;
     font-size: 95%;
@@ -366,7 +371,7 @@ span.command strong {
 }
 code.literal {
     font-family:monospace;
-    font-size:125%;
+    font-size:1.1em;
 }
 
 acronym.acronym {
@@ -408,7 +413,7 @@ div.table {
     text-align: center;
 }
 div.table-contents {
-    margin-bottom:12px;
+    margin-bottom:4px;
     display:block;    
 }
 table {
@@ -436,6 +441,7 @@ div.table-contents table {
 
 div.table-contents td {
     border: 1px solid #ccc;
+    padding:2px;
 }
 
 div.table-contents td p.checkmark:before {
