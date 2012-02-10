@@ -142,7 +142,25 @@
     <xsl:template match="d:application">
         <xsl:call-template name="inline.italicseq"/>
     </xsl:template>
-
+    
+    <!--        
+        ==================================================================================
+        Some generic markup to display some colored text
+        Note: We use <phrase> tag and not <emphasis> since <phrase> is really menant to be
+        used for this kind of semi-visual markup.
+        ==================================================================================
+    -->
+    <xsl:template match="d:phrase[@role='red']">
+        <fo:inline color="red">
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>    
+    <xsl:template match="d:phrase[@role='blue']">
+        <fo:inline color="blue">
+            <xsl:apply-templates/>
+        </fo:inline>
+    </xsl:template>    
+    
     <!--
         ================================================================================================
         PROGRAMLISTING Template
@@ -164,7 +182,6 @@
         <xsl:attribute name="border-right-width">2pt</xsl:attribute>
         <xsl:attribute name="border-bottom">solid</xsl:attribute>
         <xsl:attribute name="border-bottom-width">2pt</xsl:attribute>
-<!--        <xsl:attribute name="border-color">#888888</xsl:attribute>-->
         <xsl:attribute name="border-color">#777777</xsl:attribute>
         <xsl:attribute name="background-color">#eeeeee</xsl:attribute>
         <xsl:attribute name="padding">3pt</xsl:attribute>
@@ -250,7 +267,7 @@
     </xsl:attribute-set>
 
     <!-- We need to customize the template wince we want to have lines
-    above and below the admonition. Note that they way we do it we only 
+    above and below the admonition. Note that the way we do it we only 
     add lines over the actual body part. The lines do not stretch to the
     left margin over and above the graphic. If you want to do that you need
     to add the borders in the sourrounding fo:block on the 8:th line in 
@@ -296,7 +313,6 @@
         </fo:block>
     </xsl:template>
 
-
     <!-- Include figures and tables in TOC -->
     <xsl:param name="generate.division.figure.lot" select="1"/>
     <xsl:param name="generate.division.table.lot" select="1"/>
@@ -312,7 +328,7 @@
     ==================================================================================
     -->
 
-    <!-- Do not leave the table "open" at page breaks-->
+    <!-- Try hard not to leave the table "open" at page breaks-->
     <xsl:attribute-set name="table.table.properties">
         <xsl:attribute name="border-after-width.conditionality">retain</xsl:attribute>
         <xsl:attribute name="border-before-width.conditionality">retain</xsl:attribute>

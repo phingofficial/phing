@@ -11,7 +11,7 @@
     version="1.0">
     <xsl:param name="formal.title.placement">
         figure after
-        example before
+        example after
         equation after
         table before
         procedure before

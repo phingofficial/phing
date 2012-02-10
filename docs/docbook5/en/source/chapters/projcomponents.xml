@@ -402,9 +402,9 @@
 			<table>
 				<title>OS Attributes</title>
 				<tgroup cols="3">
-					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="2*"/>
-					<colspec colname="c3" colnum="3" colwidth="1*"/>
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -441,9 +441,9 @@
 			<table>
 				<title>equals Attributes</title>
 				<tgroup cols="3">
-					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="2*"/>
-					<colspec colname="c3" colnum="3" colwidth="1*"/>
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -484,9 +484,9 @@
 			<table>
 				<title>isset Attributes</title>
 				<tgroup cols="3">
-					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="2*"/>
-					<colspec colname="c3" colnum="3" colwidth="1*"/>
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -511,9 +511,9 @@
 			<table>
 				<title>contains Attributes</title>
 				<tgroup cols="3">
-					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="2*"/>
-					<colspec colname="c3" colnum="3" colwidth="1*"/>
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -549,9 +549,9 @@
 			<table>
 				<title>istrue Attributes</title>
 				<tgroup cols="3">
-					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="2*"/>
-					<colspec colname="c3" colnum="3" colwidth="1*"/>
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -579,9 +579,9 @@
 			<table>
 				<title>isfalse Attributes</title>
 				<tgroup cols="3">
-					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="2*"/>
-					<colspec colname="c3" colnum="3" colwidth="1*"/>
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>
@@ -608,9 +608,9 @@
 			<table>
 				<title>referenceexists Attributes</title>
 				<tgroup cols="3">
-					<colspec colname="c1" colnum="1" colwidth="1*"/>
-					<colspec colname="c2" colnum="2" colwidth="2*"/>
-					<colspec colname="c3" colnum="3" colwidth="1*"/>
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
 					<thead>
 						<row>
 							<entry>Attribute</entry>

@@ -51,54 +51,52 @@
     &lt;token key="bar" value="foo" />
   &lt;/replacetokens>
 &lt;/filterchain></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title>Attributes for <literal>&lt;filterreader></literal>
-                </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>classname</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>Name of class to use (in dot-path notation).</entry>
-                            <entry>n/a</entry>
-                            <entry>Yes</entry>
-                        </row>
-                        <row>
-                            <entry><literal>classpath</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The classpath to use when including classes. This is added to
-                                PHP's include_path.</entry>
-                            <entry>n/a</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry>classpatxlink:href</entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>Reference to classpath to use when including classes. This is
-                                added to PHP's include_path.</entry>
-                            <entry>n/a</entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title>Attributes for <literal>&lt;filterreader></literal>
+            </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>classname</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Name of class to use (in dot-path notation).</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>classpath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The classpath to use when including classes. This is added to PHP's
+                            include_path.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry>classpatxlink:href</entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Reference to classpath to use when including classes. This is added
+                            to PHP's include_path.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
         <sect2>
             <title>Nested tags</title>
             <para>The <literal>PhingFilterReader</literal> supports nested &lt;classpaentry>.</para>
@@ -130,41 +128,39 @@
 &lt;/copy></programlisting>
         <para>And the string <literal>${description.txt}</literal> it will be replaced by
                 <literal>This is a text file</literal>.</para>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for <literal>&lt;expandproperties></literal>
-                </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>level</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>Control the level at which this message is reported. One of
-                                    <literal>error</literal>, <literal>warning</literal>,
-                                    <literal>info</literal>, <literal>verbose</literal>,
-                                    <literal>debug</literal>.</entry>
-                            <entry><literal>info</literal></entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for <literal>&lt;expandproperties></literal>
+            </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>level</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Control the level at which this message is reported. One of
+                                <literal>error</literal>, <literal>warning</literal>,
+                                <literal>info</literal>, <literal>verbose</literal>,
+                                <literal>debug</literal>.</entry>
+                        <entry><literal>info</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
     <sect1 role="filterdef" xml:id="HeadFilter">
         <title>HeadFilter</title>
@@ -173,37 +169,35 @@
         <programlisting>&lt;filterchain>
   &lt;headfilter lines="20" />
 &lt;/filterchain></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;headfilter> </literal>tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>lines</literal></entry>
-                            <entry><literal role="type">Integer</literal></entry>
-                            <entry>Number of lines to read.</entry>
-                            <entry>10</entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for the <literal>&lt;headfilter> </literal>tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>lines</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Number of lines to read.</entry>
+                        <entry>10</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
     <sect1 role="filterdef" xml:id="IconvFilter">
         <title>IconvFilter</title>
@@ -215,44 +209,42 @@
     &lt;iconvfilter inputencoding="UTF-8" outputencoding="CP1251" />
 &lt;/filterchain></programlisting>
 
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;iconvfilter> </literal>tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>inputencoding</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>Input encoding.</entry>
-                            <entry>n/a</entry>
-                            <entry>Yes</entry>
-                        </row>
-                        <row>
-                            <entry><literal>outputencoding</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>Output encoding.</entry>
-                            <entry>n/a</entry>
-                            <entry>Yes</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for the <literal>&lt;iconvfilter> </literal>tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>inputencoding</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Input encoding.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>outputencoding</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Output encoding.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
     <sect1 role="filterdef" xml:id="LineContains">
         <title>Line Contains </title>
@@ -299,37 +291,35 @@
         <programlisting>&lt;filterchain>
   &lt;prefixlines prefix="foo: " />
 &lt;/filterchain></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;prefixlines></literal> tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>prefix</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>Strint to prepend to every line.</entry>
-                            <entry>n/a</entry>
-                            <entry>Yes</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for the <literal>&lt;prefixlines></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>prefix</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Strint to prepend to every line.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
     <sect1 role="filterdef" xml:id="ReplaceTokens">
         <title>ReplaceTokens</title>
@@ -344,44 +334,42 @@
     &lt;token key="BCHOME" value="${env.BCHOME}" />
   &lt;/replacetokens>
 &lt;/filterchain></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;replacetokens></literal> tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>begintoken</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The string that marks the beginning of a token.</entry>
-                            <entry>@</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>endtoken</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The string that marks the end of a token.</entry>
-                            <entry>@</entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for the <literal>&lt;replacetokens></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>begintoken</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The string that marks the beginning of a token.</entry>
+                        <entry>@</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>endtoken</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The string that marks the end of a token.</entry>
+                        <entry>@</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
         <sect2>
             <title>Nested tags</title>
             <para>The <literal>ReplaceTokens</literal> filter must contain one or more
@@ -412,80 +400,76 @@
                 <literal>#!example2##</literal> will be replaced with the content of the file "
                 <code>example2.php</code> "</para>
 
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;replacetokenswithfile></literal> tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>begintoken</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The string that marks the beginning of a token.</entry>
-                            <entry>#@#</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>endtoken</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The string that marks the end of a token.</entry>
-                            <entry>#@#</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>prefix</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>A string that will be added in front of the token to construct
-                                the filename that will be used as source when replacing the
-                                token.</entry>
-                            <entry>''</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>postfix</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>A string that will be added to the end of the token to construct
-                                the filename that will be used as source when replacing the
-                                token.</entry>
-                            <entry>''</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>dir</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The directory where to look for the files to use as replacements
-                                for the tokens</entry>
-                            <entry>'./'</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>translatehtml</literal></entry>
-                            <entry><literal role="type">Boolean</literal></entry>
-                            <entry>If true all html special characters (e.g. ">") in the file to
-                                there corresponding html entities (e.g. "&amp;gt;") before the file
-                                is inserted.</entry>
-                            <entry><literal>true</literal></entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
 
-        </sect2>
+        <table>
+            <title> Attributes for the <literal>&lt;replacetokenswithfile></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>begintoken</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The string that marks the beginning of a token.</entry>
+                        <entry>#@#</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>endtoken</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The string that marks the end of a token.</entry>
+                        <entry>#@#</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>prefix</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A string that will be added in front of the token to construct the
+                            filename that will be used as source when replacing the token.</entry>
+                        <entry>''</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>postfix</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A string that will be added to the end of the token to construct the
+                            filename that will be used as source when replacing the token.</entry>
+                        <entry>''</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>dir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory where to look for the files to use as replacements for
+                            the tokens</entry>
+                        <entry>'./'</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>translatehtml</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If true all html special characters (e.g. ">") in the file to there
+                            corresponding html entities (e.g. "&amp;gt;") before the file is
+                            inserted.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
         <sect2>
             <title>Nested tags</title>
             <para>None.</para>
@@ -639,37 +623,35 @@
         <programlisting>&lt;filterchain>
   &lt;tabtospaces tablength="8" />
 &lt;/filterchain></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;tabtospaces></literal> filter </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>tablength</literal></entry>
-                            <entry><literal role="type">Integer</literal></entry>
-                            <entry>The number of space characters that a tab is to represent. </entry>
-                            <entry>8</entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for the <literal>&lt;tabtospaces></literal> filter </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>tablength</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>The number of space characters that a tab is to represent. </entry>
+                        <entry>8</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
     <sect1 role="filterdef" xml:id="TailFilter">
         <title>TailFilter</title>
@@ -679,37 +661,35 @@
         <programlisting>&lt;filterchain>
   &lt;tailfilter lines="20" />
 &lt;/filterchain></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;tailfilter></literal> tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>lines</literal></entry>
-                            <entry><literal role="type">Integer</literal></entry>
-                            <entry>Number of lines from the back to read.</entry>
-                            <entry>10</entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for the <literal>&lt;tailfilter></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>lines</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Number of lines from the back to read.</entry>
+                        <entry>10</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
     <sect1 role="filterdef" xml:id="TidyFilter">
         <title>TidyFilter</title>
@@ -722,37 +702,35 @@
     &lt;config name="output-xhtml" value="true" />
   &lt;/tidyfilter>
 &lt;/filterchain></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;tidyfilter></literal> tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>encoding</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The expected input encoding of the file.</entry>
-                            <entry>utf8</entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title> Attributes for the <literal>&lt;tidyfilter></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>encoding</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The expected input encoding of the file.</entry>
+                        <entry>utf8</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
         <sect2>
             <title>Nested tags</title>
             <para>The <literal>TidyFilter</literal> supports nested &lt;config> tags to configure
@@ -782,48 +760,46 @@
     &lt;include name="manual.xml" />
   &lt;/fileset>
 &lt;/copy></programlisting>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title>Attributes for the <literal>&lt;xincludefilter></literal> tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>basedir</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The working directory from which to process the
-                                    <literal>Xincludes</literal>. Relative pathnames in the include
-                                tags are based on this location. </entry>
-                            <entry>Project basedir</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>resolveexternals</literal></entry>
-                            <entry><literal role="type">Boolean</literal></entry>
-                            <entry>Whether to resolve entities. (see <link
-                                    xlink:href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals"
-                                    role="extern">this link</link> for details)</entry>
-                            <entry><literal>false</literal></entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-        </sect2>
+
+        <table>
+            <title>Attributes for the <literal>&lt;xincludefilter></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>basedir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The working directory from which to process the
+                                <literal>Xincludes</literal>. Relative pathnames in the include tags
+                            are based on this location. </entry>
+                        <entry>Project basedir</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>resolveexternals</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to resolve entities. (see <link
+                                xlink:href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals"
+                                role="extern">this link</link> for details)</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
     </sect1>
     <sect1 role="filterdef" xml:id="XsltFilter">
         <title>XsltFilter</title>
@@ -837,62 +813,60 @@
             available for php5. Usually this means including the <literal>php5_xsl</literal> module
             when configuring PHP5. In essence this uses the same core libraries as "xsltproc"
             processor.</para>
-        <sect2>
-            <title>Attributes</title>
-            <table>
-                <title> Attributes for the <literal>&lt;xsltfilter></literal> tag </title>
-                <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
-                    <thead>
-                        <row>
-                            <entry>Name</entry>
-                            <entry>Type</entry>
-                            <entry>Description</entry>
-                            <entry>Default</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><literal>style</literal></entry>
-                            <entry><literal role="type">String</literal></entry>
-                            <entry>The XSLT stylesheet to use for transformation.</entry>
-                            <entry>n/a</entry>
-                            <entry>Yes</entry>
-                        </row>
-                        <row>
-                            <entry><literal>html</literal></entry>
-                            <entry><literal role="type">Boolean</literal></entry>
-                            <entry>Whether to parse the input as HTML (using libxml2
-                                DOMDocument::loadHTML()).</entry>
-                            <entry><literal>false</literal></entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>resolvedocumentexternals</literal></entry>
-                            <entry><literal role="type">Boolean</literal></entry>
-                            <entry>Whether to resolve entities in the XML document. (see <link
-                                    xlink:href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals"
-                                    role="extern">this link</link> for details)</entry>
-                            <entry><literal>false</literal></entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry><literal>resolvestylesheetexternals</literal></entry>
-                            <entry><literal role="type">Boolean</literal></entry>
-                            <entry>Whether to resolve entities in the stylesheet.</entry>
-                            <entry><literal>false</literal></entry>
-                            <entry>No</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
 
-        </sect2>
+        <table>
+            <title> Attributes for the <literal>&lt;xsltfilter></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="c1" colnum="1" colwidth="2*"/>
+                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
+                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
+                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
+                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>style</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The XSLT stylesheet to use for transformation.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>html</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to parse the input as HTML (using libxml2
+                            DOMDocument::loadHTML()).</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>resolvedocumentexternals</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to resolve entities in the XML document. (see <link
+                                xlink:href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals"
+                                role="extern">this link</link> for details)</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>resolvestylesheetexternals</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to resolve entities in the stylesheet.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
         <sect2>
             <title>Nested tags</title>
             <para>The <literal>XsltFilter</literal> filter may contain one or more

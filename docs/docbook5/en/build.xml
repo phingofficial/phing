@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
+<?xml-model href="../../../etc/phing-grammar.rng" 
     type="application/xml" 
     schematypens="http://relaxng.org/ns/structure/1.0"?>
 <!-- 
@@ -207,7 +207,7 @@
 	    ================================================================================
     -->
     <target name="validate">
-        <xmllint schema="${docbook.relaxng}" useRNG="yes">
+        <xmllint schema="${docbook.relaxng}" useRNG="true">
             <fileset refid="sources" />
         </xmllint>
     </target>
@@ -228,11 +228,12 @@
         <exec command="xsltproc ${xsl.html.params} 
             --output 'output/html/index.html' 
             ${dbxsl.dir}/${format}.xsl ${master.document}" 
-            checkreturn="true" passthru="true" dir="./" />        
+            checkreturn="true" passthru="true" dir="./" />     
         <if>
-            <equals arg1="flag.tidy" arg2="yes"/>
+            <istrue value="flag.tidy"/>
             <then>
-                <exec command="tidy -m -utf8 output/html/index.html" />        
+                <echo message="Running HTML tidy ..."/>
+                <exec command="/usr/bin/tidy -m -utf8 output/html/index.html" />        
             </then>
         </if>                
         <echo message="HTML version of manual ready." />        
