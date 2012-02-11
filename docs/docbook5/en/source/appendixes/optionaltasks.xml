@@ -3662,9 +3662,6 @@ Note that you can omit both startpoint and track attributes in this case
             <para>Because of backwards compatiblity, the PDOSQLExecTask can also be called using the
                 <literal>'pdo'</literal> statement. </para>
         </note>
-        </sect2>
-        <sect2>
-            <title>Example</title>
             <programlisting>&lt;pdo url="pgsql:host=localhost dbname=test">
   &lt;fileset dir="sqlfiles">
 	  &lt;include name="*.sql"/>
@@ -8622,7 +8619,7 @@ host="webserver" command="ls" /></programlisting>
             </tgroup>
         </table>
         <sect2>
-            <title>Example 1</title>
+            <title>Examples</title>
             <programlisting>&lt;xmllint schema="schema.xsd" file="config.xml"/></programlisting>
             <para>Validate one XML file against one XSD file.</para>
             <programlisting>&lt;xmllint schema="schema.xsd">

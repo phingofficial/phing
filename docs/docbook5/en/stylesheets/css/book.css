@@ -83,7 +83,7 @@ div[class = caution] h3{
     padding-left:10px;
 }
 
-div[class = sect1] p {
+div[class = sect1] p{
     margin-top:5px;
     margin-bottom:5px;
 }
@@ -142,6 +142,7 @@ pre.screen{
     margin-left:10px;
     margin-right:15px;
     margin-top:8px;
+    width:800px;
 }
 
 .synopsis{
@@ -394,6 +395,7 @@ acronym.acronym{
     font-family:sans-serif;
     color:#282;
     font-weight:bold;
+    font-size:0.9em;
 }
 
 span.markup{
@@ -492,6 +494,10 @@ li.listitem p{
     margin-bottom:0px;
 }
 
+/* Term list*/
+span.term{
+    font-weight:bold;
+}
 
 /* TOC */
 
@@ -598,7 +604,6 @@ div.navfooter td{
     font-size:small;
     color:#700000;
 }
-
 
 
 

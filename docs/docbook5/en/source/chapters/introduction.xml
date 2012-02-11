@@ -6,14 +6,15 @@
     <title>Introduction</title>
     <sect1>
         <title>What Phing Is</title>
-        <para><acronym>Phing</acronym> is a project build system based on Apache ant <xref
-                xlink:href="#app.bibliography" xlink:title="[ant]"/>. You can do anything with
+        <para><acronym>Phing</acronym> is a project build system based on Apache ant (See <xref
+                xlink:href="#ant" xlink:title="[ant]"/>). You can do anything with
                 <acronym>Phing</acronym> that you could do with a traditional build system like Gnu
-            make <xref xlink:href="#app.bibliography"/>, and <acronym>Phing's</acronym> use of
+            make (See <xref xlink:href="#gnumake" xlink:title="[gmake]"/>), and 
+            <acronym>Phing's</acronym> use of
             simple XML build files and extensible PHP task classes make it an easy-to-use and highly
             flexible build framework. </para>
         <para>Because <acronym>Phing</acronym> is based on Ant, parts of this manual are also
-            adapted from the ant manual (see <xref xlink:href="#app.bibliography"/>). We are
+            adapted from the ant manual (see <xref xlink:href="#ant" xlink:title="[ant]"/>). We are
             extremely grateful to the folks in the Ant project for creating (and continuing to
             create) such an inspiring build system model, and for the open-source licensing that
             makes it possible for us to learn from each other and build increasingly better tools. </para>

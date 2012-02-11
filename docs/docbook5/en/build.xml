@@ -8,6 +8,7 @@
  * Public targets are:
  *  
  * html (default)    Produce single page HTML output
+ * htmlfancy         Alternative styling for single page HTML output
  * chunk             Produce chunked HTML output
  * pdf               Produce PDF output
  * epub              Experimental support for EPUB
@@ -19,7 +20,7 @@
 <project name="PhingDocBookGuide" 
          default="html" 
          basedir="."
-         description="Build script to produce Phing documentatoin from DocBook source" >
+         description="Build script to produce Phing documentation from DocBook source" >
 
     <!-- Name of the master XML file -->
     <property name="master.document" value="source/master.xml" />
@@ -41,20 +42,29 @@
     <property name="dbcss.dir" value="stylesheets/css"/>
         
     <!-- 
-        Run the "tidy" program to clean up the prodcude html.
-        Note: If this is set to "yes" the "tidy" program must be in the standard search path.
+        Run the "tidy" program to clean up the produced html.
+        This is mostly useful when tweaking the styling when the output produced by the
+        XSL sheets muts be studied. Running tidy makes it easier to read the resulting
+        (x)HTML source.        
     -->
-    <property name="flag.tidy" value="yes"/>    
+    <property name="flag.tidy" value="0"/>    
     
     <!-- 
         Possible CSS stylesheet for use with the HTML output.
         The "book-fancyterm.css" variant uses a more grphic illustration of screen
         (or terminal) output in the image of a real terminal window.
         
-        NOTE: If you change these names you must also update the corresponding
-        xsl stylesheet since this name is set as a parameter there
+        NOTE: If you change the name you must also update the corresponding
+        xsl stylesheet since this name is set as a parameter there to tell which
+        css file to use
     -->
     <property name="css.style" value="${dbcss.dir}/book.css" />
+    
+    <!--
+        Alternate CSS file for some more "fancy" styling. As for now this only
+        includes a more graphic illustration of the screen element to make it
+        resemble a terminal window.
+    -->
     <property name="css.style.fancy" value="${dbcss.dir}/book-fancyterm.css" />
     
     <!-- Canonical name used to reference the chosen CSS stylesheet from the generated (X)HTML -->
@@ -223,16 +233,15 @@
             <property name="dir" value="html" />
         </phingcall>        
         <phingcall target="prepare.html.output" />        
-        <copy file="${css.style}" tofile="output/html/${css.name}"/>        
+        <copy file="${cssfile}" tofile="output/html/${css.name}"/>        
         
         <exec command="xsltproc ${xsl.html.params} 
             --output 'output/html/index.html' 
-            ${dbxsl.dir}/${format}.xsl ${master.document}" 
+            ${dbxsl.dir}/${xslformat}.xsl ${master.document}" 
             checkreturn="true" passthru="true" dir="./" />     
         <if>
-            <istrue value="flag.tidy"/>
+            <equals arg1="${flag.tidy}" arg2="1"/>
             <then>
-                <echo message="Running HTML tidy ..."/>
                 <exec command="/usr/bin/tidy -m -utf8 output/html/index.html" />        
             </then>
         </if>                
@@ -241,13 +250,15 @@
     
     <target name="html">
         <phingcall target="_html">
-            <property name="format" value="html"/>
+            <property name="xslformat" value="html"/>
+            <property name="cssfile" value="${css.style}"/>
         </phingcall>
     </target>
     
     <target name="htmlfancy">
         <phingcall target="_html">
-            <property name="format" value="html.fancycmd"/>
+            <property name="xslformat" value="html.fancycmd"/>
+            <property name="cssfile" value="${css.style.fancy}"/>
         </phingcall>
     </target>
     

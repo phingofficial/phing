@@ -1499,8 +1499,6 @@
 		<para>On execution it will read another Phing file into the same Project. Functionally it is
 			nearly the same as copy and pasting the imported file onto the end of the importing
 			file.</para>
-		<sect2 role="taskattributes">
-			<title>Attributes</title>
 			<table>
 				<title>Attributes</title>
 				<tgroup cols="5">
@@ -1537,7 +1535,6 @@
 					</tbody>
 				</tgroup>
 			</table>
-		</sect2>
 		<sect2>
 			<title>Target Overriding</title>
 			<para>If a target in the main file is also present in at least one of the imported

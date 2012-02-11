@@ -6,59 +6,63 @@
  */
 
 /* This is reserved for the part header */
-h1 {
-    font-size: 1.7em;
-    font-weight: bold;
-    color: white;
-    background-color: #3780aE;
-    border:2px solid  #17608E;
-    margin-left: 0px;
-    margin-bottom: 15px;
-    margin-top: 0px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-bottom: 15px;
-    padding-top: 15px;
+h1{
+    font-size:1.7em;
+    font-weight:bold;
+    color:white;
+    background-color:#3780aE;
+    border:2px solid #17608E;
+    margin-left:0px;
+    margin-bottom:15px;
+    margin-top:0px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-bottom:15px;
+    padding-top:15px;
 }
 /* This is reserved for the chapter header */
-h2 {
-    font-size: 1.8em;
-    font-weight: bold;
-    font-variant: small-caps;
-    color: #555;
-    line-height: 1.7em;
-    margin: 15px 0 15px 0;
+h2{
+    font-size:1.8em;
+    font-weight:bold;
+    font-variant:small-caps;
+    color:#555;
+    line-height:1.7em;
+    border-top:4px solid #777;
+    margin:35px 0 15px 0;
 }
 
 /* This is reserved for the sect1 header */
-div[class=sect1] h2 {
-    font-size: 1.8em;
-    font-weight: normal;
-    color:#aa4444;
-    line-height: 1.7em;
-    margin: 55px 0px 15px 0px;  
-    border-bottom: none;
+div[class = sect1] h2{
+    font-family:serif;
+    font-size:1.5em;
+    font-weight:bold;
+    color:#555;
+    line-height:1.7em;
+    margin:15px 0px 5px 0px;
+    border:none;
 }
 
 /* This is reserved for the sect2 header */
-div[class=sect2] h3 {
-    font-size: 1.2em;
-    font-weight: normal;
-    color:#aa4444;
-    line-height: 1.5em;
-    margin: 35px 0 15px 15px;    
-    border-bottom: none;
+div[class = sect2] h3{
+    font-family:serif;
+    font-size:1.2em;
+    font-weight:normal;
+    color:#555;
+    line-height:1.5em;
+    margin:15px 0 5px 10px;
+    border-bottom:none;
 }
 
 /* This is reserved for the sect3 header */
-div[class=sect3] h4.title {
-    font-size: 1.1em;
-    font-weight: normal;
-    color:#444;
-    line-height: 1.3em;
+div[class = sect3] h4.title{
+    font-family:serif;
+    font-size:1.1em;
+    font-weight:normal;
+    color:#555;
+    line-height:1.3em;
     /*top right bot left */
-    margin: 15px 0 15px 15px;
-    border-bottom: none;
+    margin:15px 0 5px 10px;
+    border-bottom:none;
 }
 
 /* This is used for generic h3 header, e.g. sect2 */
@@ -70,21 +74,28 @@ div[class=sect3] h4.title {
     padding-left: 15px;
 }*/
 /* This is used for generic h3 header, e.g. sect3 */
-div[class=note] h3,
-div[class=tip] h3,
-div[class=caution] h3{
-    font-size: 1em;
-    color: #56a;
-    font-weight: bold;
-    padding-left: 15px;
+div[class = note] h3,
+div[class = tip] h3,
+div[class = caution] h3{
+    font-size:1em;
+    color:#56a;
+    font-weight:bold;
+    padding-left:10px;
 }
 
-.filename, .option {
+div[class = sect1] p {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.filename,
+.option {
     font-family: "Bitstream Vera Sans Mono", Courier, monospace;
 }
-.guimenu, .guimenuitem {
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
-    padding: 0 3px;
+.guimenu,
+.guimenuitem{
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
+    padding:0 3px;
     background-color:#FF7;
 }
 .classname {
@@ -95,8 +106,8 @@ div[class=caution] h3{
     font-family: "Bitstream Vera Sans Mono", Courier, monospace;
     font-weight:bold;
 }
-.command {
-    font-weight: bold;
+.command{
+    font-weight:bold;
 }
 .parameter {
     font-family: "Bitstream Vera Sans Mono", Courier, monospace;
@@ -108,14 +119,14 @@ div[class=caution] h3{
 .function {
     font-family: "Bitstream Vera Sans Mono", Courier, monospace;
 }
-.variablelist {
-    margin-left: 15px;
+.variablelist{
+    margin-left:15px;
 }
-.variablelist td {
-    font-size: 1em;
+.variablelist td{
+    font-size:1em;
 }
-.variablelist th {
-    font-size: 1em;
+.variablelist th{
+    font-size:1em;
 }
 
 .synopsis {
@@ -144,31 +155,31 @@ div.mediaobject {
 /* Admonitions */
 
 .note,
-.tip {
-    background-color: #F8F7EF;
-    padding-bottom: 2px;
+.tip{
+    background-color:#F8F7EF;
+    padding-bottom:2px;
     margin-bottom:40px;
     margin-top:30px;
     padding-left:60px;
     border-left:6px solid #e68a00;
-    background-image: url("admon-note.png");
-    background-position: 6px 0.5em;
-    background-repeat: no-repeat;
-    box-shadow: 5px 5px 5px #888;    
+    background-image:url("admon-note.png");
+    background-position:6px 0.5em;
+    background-repeat:no-repeat;
+    box-shadow:5px 5px 5px #888;
 }
 
 .caution,
-.warning {
-    background-color: #F8F7EF;
-    padding-bottom: 2px;
+.warning{
+    background-color:#F8F7EF;
+    padding-bottom:2px;
     margin-bottom:40px;
     margin-top:30px;
     padding-left:60px;
     border-left:6px solid #D55C21;
-    background-image: url("admon-warning.png");
-    background-position: 6px 0.5em;
-    background-repeat: no-repeat;
-    box-shadow: 5px 5px 5px #888;
+    background-image:url("admon-warning.png");
+    background-position:6px 0.5em;
+    background-repeat:no-repeat;
+    box-shadow:5px 5px 5px #888;
 }
 
 
@@ -285,17 +296,18 @@ p.formal-object-title span.title {
 
 .programlisting {
     display:block;
-    background-color: #eee;
-    box-shadow: 5px 5px 5px #888;
-    border: none;
-    margin-bottom: 25px;
-    margin-top: 12px;
-    margin-left: 15px;
-    margin-right: 15px;
-    color: black;
-    padding: 8pt;
-    font-size: 95%;
-    overflow: hidden; 
+    background-color:#eee;
+    box-shadow:5px 5px 5px #888;
+    border:none;
+    margin-bottom:15px;
+    margin-top:5px;
+    margin-left:15px;
+    /*margin-right: 15px;*/
+    width:800px;
+    color:black;
+    padding:8pt;
+    font-size:95%;
+    overflow:hidden;
 }
 
 code {
@@ -351,19 +363,20 @@ span.command strong {
 }
 code.literal {
     font-family:monospace;
-    font-size:125%;
+    font-size:1.1em;
 }
 
 acronym.acronym {
     font-family:sans-serif;
     color: #282;
-    font-weight:bold;    
+    font-weight:bold;  
+    font-size:0.9em;
 }
 
-span.markup {
-    font-weight: bold;
-    color: #8b2500;
-    background-color: #eee;    
+span.markup{
+    font-weight:bold;
+    color:#8b2500;
+    background-color:#eee;
 }
 
 .figure {
@@ -382,19 +395,20 @@ span.markup {
 
 /* Tables */
 
-div.informaltable table {
-    width: 90%;
-    text-align: center;
+div.informaltable table{
+    width:90%;
+    text-align:center;
 }
 
-div.table {
-    width: 100%;
+div.table{
+    width:100%;
     display:block;
     text-align: center;
+    margin-top:15px;
 }
-div.table-contents {
-    margin-bottom:12px;
-    display:block;    
+div.table-contents{
+    margin-bottom:4px;
+    display:block;
 }
 table {
     margin-left: auto;
@@ -419,12 +433,45 @@ div.table-contents table {
     border-collapse: collapse;
 }
 
-div.table-contents td {
-    border: 1px solid #ccc;
+div.table-contents td{
+    border:1px solid #ccc;
+    padding:2px;
 }
 
-div.table-contents td p.checkmark:before {
-    content: url("checkmark.png");
+div.table-contents td p.checkmark:before{
+    content:url("checkmark.png");
+}
+
+/* table column for attribute tables */
+col.name{
+    width:150px;
+}
+col.type{
+    width:80px;
+}
+col.description{
+    width:420px;
+}
+col.default{
+    width:100px;
+}
+col.required{
+    width:85px;
+}
+
+/* itemized lists*/
+li.listitem{
+    margin-top:0px;
+    margin-bottom:0px;
+}
+li.listitem p{
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+/* Term list*/
+span.term{
+    font-weight:bold;
 }
 
 /* TOC */

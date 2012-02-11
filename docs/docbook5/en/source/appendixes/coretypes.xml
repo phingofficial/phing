@@ -229,7 +229,7 @@
 			</tgroup>
 		</table>
 		<sect2>
-			<title>Examples</title>
+			<title>Using wildcards</title>
 			<itemizedlist>
 				<listitem>
 					<para><literal>test*.xml</literal> will include <literal>test_42.xml</literal>,

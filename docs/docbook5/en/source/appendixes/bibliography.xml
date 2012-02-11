@@ -253,6 +253,18 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
+            <varlistentry>
+                <term xml:id="git-book">[git-book]</term>
+                <listitem>
+                    <para>Pro-git (free book)</para>
+                    <itemizedlist>
+                        <listitem>
+                            <para><link xlink:href="http://progit.org/" role="extern"
+                                >http://progit.org/</link></para>
+                        </listitem>
+                    </itemizedlist>
+                </listitem>
+            </varlistentry>
         </variablelist>
     </sect1>
     <sect1 xml:id="OtherResources">

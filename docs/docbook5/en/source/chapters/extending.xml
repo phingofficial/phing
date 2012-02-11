@@ -63,13 +63,11 @@
             <title> Files And Directories </title>
 
             <para>Before you are going to start to extend Phing let's have a look at the source
-                layout. You should be comfortable with the organization of files witchin the source
+                layout. You should be comfortable with the organization of files witch in the source
                 tree of Phing before start coding. After you extracted the source distribution or
                 checked it out from CVS you should see the following directory structure:</para>
 
-            <figure xml:id="fig.dirlayout">
-                <title>Directory layout</title>
-            <literallayout>$PHING_HOME
+            <literallayout xml:id="phing.dirlayout">$PHING_HOME
   |-- bin
   |-- classes
   |    `-- phing
@@ -87,8 +85,7 @@
   |    `-- phing_guide
   `-- test
        |-- classes
-	   `-- etc</literallayout>
-            </figure>
+       `-- etc</literallayout>
             <para>The following table briefly describes the contents of the major
                 directories:</para>
 
@@ -139,8 +136,8 @@
             </table>
 
             <para>Currently there is no distinction between the <literal>source</literal> layout and
-                the <literal>build</literal> layout of Phing. The <xref
-                    xlink:href="#fig.dirlayout"/> shows the CVS tree that carries some
+                the <literal>build</literal> layout of Phing. The <link
+                    xlink:href="#phing.dirlayout">directory layout</link> shows the file tree that carries some
                 additional files like the Phing website. Later on there may be a buildfile to create
                 a clean distribution tree of Phing itself. </para>
 

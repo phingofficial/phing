@@ -632,7 +632,7 @@
 		</sect2>
 		<sect2>
 			<title><literal>available</literal></title>
-			<para>This condition is identical to the <xref xlink:href="#app.coretasks"/> task, all
+			<para>This condition is identical to the <link xlink:href="#AvailableTask">Available</link> task, all
 				attributes and nested elements of that task are supported, the property and value
 				attributes are redundant and will be ignored.</para>
 		</sect2>
