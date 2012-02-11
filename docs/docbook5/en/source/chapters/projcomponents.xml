@@ -143,14 +143,14 @@
 		<para>Here, <literal>CopyTask</literal> is passed a complex parameter, a Fileset. Tasks may
 			support multiple complex types in addition to simple parameters. Note that the names of
 			the nested tags used to create the complex types depend on the task implementation.
-			Tasks may support default Phing types (see <xref xlink:href="#Types"/>) or may introduce
+			Tasks may support default Phing types (see <xref xlink:href="#sec.types"/>) or may introduce
 			other types, for example to wrap key/value pairs. </para>
 
 		<para> Refer to <xref xlink:href="#app.coretasks"/> for a list of system tasks and their
 			parameters. </para>
 
 	</sect1>
-	<sect1>
+	<sect1 xml:id="sec.types">
 		<title> Types </title>
 
 		<sect2>

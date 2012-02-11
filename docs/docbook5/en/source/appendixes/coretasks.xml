@@ -2,7 +2,7 @@
 <?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" >
+	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
 	<title xml:id="app.coretasks">Core tasks</title>
 
 	<para>This appendix contains a reference of all core tasks, i.e. all tasks that are needed to
@@ -12,18 +12,19 @@
 		tag, for example, you will want to look at the reference of
 		<literal>CopyTask</literal>.</para>
 	<sect1 role="taskdef" xml:id="AdhocTaskdefTask">
-<title>AdhocTaskdefTask </title>
+		<title>AdhocTaskdefTask </title>
 		<para>The AdhocTaskdefTask allows you to define a task within your build file.</para>
 		<para>Note that you should use &lt;![CDATA[ ... ]]&gt; so that you don't have to quote
 			entities within your<literal> &lt;adhoc-task>&lt;/adhoc-task></literal> tags.</para>
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -41,9 +42,11 @@
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;target name="main"
         description="==>test AdhocTask ">
 		
@@ -64,20 +67,21 @@
 		&lt;foo bar="B.L.I.N.G"/>
 &lt;/target></programlisting>
 		</sect2>
-		
+
 	</sect1>
 	<sect1 role="taskdef" xml:id="AdhocTypedefTask">
-<title>AdhocTypedefTask </title>
+		<title>AdhocTypedefTask </title>
 		<para>The AdhocTypedefTask allows you to define a datatype within your build file.</para>
 		<para>Note that you should use &lt;![CDATA[ ... ]]&gt; so that you don't have to quote
 			entities within your<literal> &lt;adhoc-type>&lt;/adhoc-type></literal> tags.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -95,8 +99,9 @@
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
+				</tbody>
+			</tgroup>
+		</table>
 		<sect2>
 			<title>Example</title>
 			<programlisting>&lt;target name="main"
@@ -125,21 +130,22 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="AppendTask">
-<title>AppendTask </title>
+		<title>AppendTask </title>
 		<para>The Append Task appends text or contents of files to a specified file.</para>
 		<para>In the example above, AppendTask is reading a filename from
 				<literal>book/PhingGuide.book</literal>, processing the file contents with XSLT, and
 			then appending the result to the file located at
 				<literal>${process.outputfile}</literal>. This is a real example from the build file
 			used to generate this book!</para>
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -171,9 +177,11 @@
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;append destFile="${process.outputfile}">
   &lt;filterchain>
     &lt;xsltfilter style="${process.stylesheet}">
@@ -183,7 +191,7 @@
   &lt;filelist dir="book/" listfile="book/PhingGuide.book"/>
 &lt;/append></programlisting>
 		</sect2>
-		
+
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -200,7 +208,7 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="AvailableTask">
-<title>AvailableTask </title>
+		<title>AvailableTask </title>
 		<para>Available Task tests if a resource/file is set and sets a certain property to a
 			certain value if it exists.</para>
 		<para>Here, <literal>AvailableTask</literal> first checks for the existance of either file
@@ -216,14 +224,15 @@
 				role="bold">k</emphasis></para>
 		<para><emphasis role="bold">NB:</emphasis> the Available task can also be used as a <xref
 				xlink:href="#ch.projcomponents"/>.</para>
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -265,9 +274,9 @@
 					<row>
 						<entry><literal>type</literal></entry>
 						<entry><literal role="type">String</literal> (file|dir)</entry>
-						<entry>Determines if <literal>AvailableTask</literal> should look for a file or
-							a directory at the position set by <literal>file</literal>. If empty, it
-							checks for either file or directory.</entry>
+						<entry>Determines if <literal>AvailableTask</literal> should look for a file
+							or a directory at the position set by <literal>file</literal>. If empty,
+							it checks for either file or directory.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
@@ -286,30 +295,33 @@
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;available file="/tmp/test.txt" property="test_txt_exists" value="Yes"/>
 
 &lt;available file="/home/foo" type="dir" property="properties.yetanother" />
 
 &lt;available file="/home/foo/bar" property="foo.bar" value="Well, yes" /></programlisting>
 		</sect2>
-		
+
 	</sect1>
 	<sect1 role="taskdef" xml:id="ChmodTask">
-<title>ChmodTask </title>
+		<title>ChmodTask </title>
 		<para>Sets the mode of a file or directory.</para>
 
 		<para>For more informations, see <link xlink:href="http://php.net/chmod">chmod</link> in the
 			PHP Manual.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -331,16 +343,16 @@
 					<row>
 						<entry><literal>mode</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The new mode (octal) for the file. Specified in octal, even if the first
-							digit is not a '0'.</entry>
+						<entry>The new mode (octal) for the file. Specified in octal, even if the
+							first digit is not a '0'.</entry>
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
 					<row>
 						<entry><literal>quiet</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Set quiet mode, which suppresses warnings if <literal>chmod()</literal>
-							fails</entry>
+						<entry>Set quiet mode, which suppresses warnings if
+								<literal>chmod()</literal> fails</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
@@ -358,9 +370,11 @@
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;chmod file="test.txt" mode="0755" />
 &lt;chmod file="/home/test" mode="0775" />
 &lt;chmod file="/home/test/mine.txt" mode="0500" verbose="true" /></programlisting>
@@ -375,15 +389,16 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ChownTask">
-<title>ChownTask </title>
+		<title>ChownTask </title>
 		<para>Changes the owner of a file or directory.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -420,8 +435,8 @@
 					<row>
 						<entry><literal>quiet</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Set quiet mode, which suppresses warnings if <literal>chmod()</literal>
-							fails</entry>
+						<entry>Set quiet mode, which suppresses warnings if
+								<literal>chmod()</literal> fails</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
@@ -435,18 +450,21 @@
 					<row>
 						<entry><literal>verbose</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Give more information in in error message in case of a failure</entry>
+						<entry>Give more information in in error message in case of a
+							failure</entry>
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;chown file="my-file.txt" user="foo" />
 &lt;chown file="my-file.txt" user="username.groupname" />
 &lt;chown file="/home/test/my-directory" user="bar" />
 &lt;chown file="/home/test/my-file.txt" user="foo" verbose="true" failonerror="false" /></programlisting>
-		</sect2>	
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -457,7 +475,7 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ConditionTask">
-<title>ConditionTask </title>
+		<title>ConditionTask </title>
 		<para>Sets a property if a certain condition holds true - this is a generalization of <xref
 				xlink:href="#AvailableTask"/> and <xref xlink:href="#UpToDateTask"/>.</para>
 		<para>If the condition holds true, the property value is set to true by default; otherwise,
@@ -466,13 +484,14 @@
 		<para>Conditions are specified as nested elements, you must specify exactly one condition -
 			see the <xref xlink:href="#ch.projcomponents"/> for a complete list of nested
 			elements.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -497,16 +516,18 @@
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;condition property="isMacOrWindows">
     &lt;or>
       &lt;os family="mac"/>
       &lt;os family="windows"/>
     &lt;/or>
   &lt;/condition></programlisting>
-		</sect2>		
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -521,18 +542,19 @@
 	</sect1>
 	<sect1 role="taskdef" xml:id="CopyTask">
 		<title>CopyTask </title>
-		<para>Copies files or directories. Files are only copied if the source file is newer than the
-			destination file, or when the destination file does not exist. It is possible to
+		<para>Copies files or directories. Files are only copied if the source file is newer than
+			the destination file, or when the destination file does not exist. It is possible to
 			explictly overwrite existing files.</para>
 		<para><literal>CopyTask</literal> does not allow self copying, i.e. copying a file to the
 			same name for security reasons.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -566,9 +588,9 @@
 					<row>
 						<entry><literal>todir</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The directory the file is to be copied to. The file will have the same
-							name of the source file. If you want to specify a different name, use
-								<literal>tofile</literal>. The directory must exist.</entry>
+						<entry>The directory the file is to be copied to. The file will have the
+							same name of the source file. If you want to specify a different name,
+							use <literal>tofile</literal>. The directory must exist.</entry>
 						<entry>n/a</entry>
 						<entry>Yes (or <literal>tofile</literal>)</entry>
 					</row>
@@ -582,8 +604,8 @@
 					<row>
 						<entry>tstamp or preservelastmodified</entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>If set to <literal>true</literal>, the new file will have the same mtime
-							as the old one.</entry>
+						<entry>If set to <literal>true</literal>, the new file will have the same
+							mtime as the old one.</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
@@ -609,8 +631,9 @@
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
+				</tbody>
+			</tgroup>
+		</table>
 		<note>
 			<para>No automatic exapnsion of symbolic links</para>
 			<para>By default, <literal>CopyTask</literal> does not expand / dereference symbolic
@@ -618,16 +641,17 @@
 					<literal>expandsymboliclinks</literal> to <literal>true</literal> in the
 					<literal>&lt;fileset></literal> tag.</para>
 		</note>
-		<sect2><title>Examples</title>
+		<sect2>
+			<title>Examples</title>
 			<para>On the one hand, CopyTask can be used to copy file by file:</para>
 			<programlisting>&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/></programlisting>
 			<para>Additionally, <literal>CopyTask</literal> supports Filesets, i.e. you can easily
 				include/exclude one or more files. For more information, see <xref
 					xlink:href="#app.coretypes"/> -- pay particular attention to the
-				<literal>defaultexcludes</literal> attribute. <xref xlink:href="#app.coremappers"
-				/> and <xref xlink:href="#app.corefilters"/> are also supported by
-				<literal>CopyTask</literal>, so you can do almost everything that needs
-				processing the content of the files or the filename.</para>
+					<literal>defaultexcludes</literal> attribute. <xref
+					xlink:href="#app.coremappers"/> and <xref xlink:href="#app.corefilters"/> are
+				also supported by <literal>CopyTask</literal>, so you can do almost everything that
+				needs processing the content of the files or the filename.</para>
 			<programlisting>&lt;copy todir="/tmp/backup" >
   &lt;fileset dir=".">
     &lt;include name="**/*.txt" />
@@ -641,7 +665,7 @@
     &lt;include name="**/*.php" />
   &lt;/fileset>
 &lt;/copy></programlisting>
-		</sect2>		
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -661,17 +685,18 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="CvsTask">
-<title>CvsTask </title>
+		<title>CvsTask </title>
 		<para>Allows rudimentary interfacing with the CVS versioning system.</para>
 		<para>As you would expect, this lets you do pretty much anything with CVS. The CvsTask calls
 			ExecTask which actually does the command execution.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -762,7 +787,8 @@
 					<row>
 						<entry><literal>compression</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>If true, turns on compression using default (3) compression level</entry>
+						<entry>If true, turns on compression using default (3) compression
+							level</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
@@ -794,28 +820,31 @@
 						<entry>null</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
        module="phing" dest="${ws.dir}"/></programlisting>
 			<para>or, using the optional command line arguments:</para>
 			<programlisting>&lt;cvs output="patch" command="-q diff -u -N" /></programlisting>
-		</sect2>		
+		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="CvsPassTask">
-<title>CvsPassTask </title>
+		<title>CvsPassTask </title>
 		<para>This lets you create your own cvs password file -- i.e. this is necessary if you want
 			to provide a password in your build file.</para>
 		<para>If no password file is specified the default location <literal>.cvspass</literal> in
 			users home directory is used.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -847,27 +876,30 @@
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;!-- create a password file -->
 &lt;cvspass cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" passfile="cvspass" password="guest"/>
 
 &lt;!-- use the just-created password file -->
 &lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" module="phing" passFile="cvspass" /></programlisting>
-		</sect2>		
+		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="DeleteTask">
-<title> DeleteTask </title>
+		<title> DeleteTask </title>
 		<para>Deletes a file or directory, or set of files defined by a fileset. See <xref
 				xlink:href="#app.coretypes"/> for information on Filesets.</para>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -931,9 +963,11 @@
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;-- Delete a specific file -->
 &lt;delete file="/tmp/foo.bar" />
 
@@ -946,7 +980,7 @@
     &lt;include name="*.bar" />
   &lt;/fileset>
 &lt;/delete></programlisting>
-		</sect2>		
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -957,7 +991,7 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="EchoTask">
-<title>EchoTask </title>
+		<title>EchoTask </title>
 		<para>Echoes a message to the current loggers and listeners which means standard out unless
 			overridden. A level can be specified, which controls at what logging level the message
 			is filtered at.</para>
@@ -965,13 +999,14 @@
 			overwrite the file is available, and the level option is ignored</para>
 		<para>Additionally, the task can echo the contents of a nested fileset element.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1020,9 +1055,11 @@
 						<entry><literal>info</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;echo msg="Phing rocks!" />
 
 &lt;echo message="Binarycloud, too." />
@@ -1030,7 +1067,7 @@
 &lt;echo>And don't forget Propel.&lt;/echo>
 
 &lt;echo file="test.txt" append="false">This is a test message&lt;/echo></programlisting>
-		</sect2>		
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -1041,18 +1078,19 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ExecTask">
-<title>ExecTask </title>
+		<title>ExecTask </title>
 		<para>Executes a shell command. You can use this to quickly add a new command to Phing.
 			However, if you want to use this regularly, you should think about writing a Task for
 			it.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1100,8 +1138,8 @@
 					<row>
 						<entry><literal>os</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Only execute if the <xref xlink:href="#app.factsheet"/> property contains
-							specified text.</entry>
+						<entry>Only execute if the <xref xlink:href="#app.factsheet"/> property
+							contains specified text.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
@@ -1123,7 +1161,8 @@
 					<row>
 						<entry><literal>logoutput</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Whether to log returned output as MSG_INFO instead of MSG_VERBOSE.</entry>
+						<entry>Whether to log returned output as MSG_INFO instead of
+							MSG_VERBOSE.</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
@@ -1152,8 +1191,8 @@
 					<row>
 						<entry><literal>checkreturn</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Whether to check the return code of the program, throws a BuildException
-							when returncode != 0.</entry>
+						<entry>Whether to check the return code of the program, throws a
+							BuildException when returncode != 0.</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
@@ -1167,9 +1206,11 @@
 						<entry><literal>verbose</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;-- List the contents of "/home". -->
 &lt;exec command="ls -l" dir="/home" />
 
@@ -1178,59 +1219,63 @@
 
 &lt;-- List the contents of "/tmp" out to a file. -->
 &lt;exec command="ls -l /tmp > foo.out" escape="false" /></programlisting>
-		</sect2>		
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
 					<para>arg <table>
-							<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
-							<thead>
-								<row>
-									<entry>Name</entry>
-									<entry>Type</entry>
-									<entry>Description</entry>
-									<entry>Default</entry>
-									<entry>Required</entry>
-								</row>
-							</thead>
-							<tbody>
-								<row>
-									<entry><literal>value</literal></entry>
-									<entry><literal role="type">String</literal></entry>
-									<entry>A single command-line argument; can contain space
-										characters.</entry>
-									<entry>n/a</entry>
-									<entry morerows="3">One of these</entry>
-								</row>
-								<row>
-									<entry><literal>file</literal></entry>
-									<entry><literal role="type">String</literal></entry>
-									<entry>The name of a file as a single command-line argument; will
-										be replaced with the absolute filename of the file.</entry>
-									<entry>n/a</entry>
-								</row>
-								<row>
-									<entry><literal>path</literal></entry>
-									<entry><literal role="type">String</literal></entry>
-									<entry>A string that will be treated as a path-like string as a
-										single command-line argument; you can use ; or : as path
-										separators and Ant will convert it to the platform's local
-										conventions.</entry>
-									<entry>n/a</entry>
-								</row>
-								<row>
-									<entry><literal>line</literal></entry>
-									<entry><literal role="type">String</literal></entry>
-									<entry>A space-delimited list of command-line arguments.</entry>
-									<entry>n/a</entry>
-								</row>
-							</tbody></tgroup>
+							<title>Attributes</title>
+							<tgroup cols="5">
+								<colspec colname="name" colnum="1" colwidth="1.5*"/>
+								<colspec colname="type" colnum="2" colwidth="0.8*"/>
+								<colspec colname="description" colnum="3" colwidth="3.5*"/>
+								<colspec colname="default" colnum="4" colwidth="0.8*"/>
+								<colspec colname="required" colnum="5" colwidth="1.2*"/>
+								<thead>
+									<row>
+										<entry>Name</entry>
+										<entry>Type</entry>
+										<entry>Description</entry>
+										<entry>Default</entry>
+										<entry>Required</entry>
+									</row>
+								</thead>
+								<tbody>
+									<row>
+										<entry><literal>value</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>A single command-line argument; can contain space
+											characters.</entry>
+										<entry>n/a</entry>
+										<entry morerows="3">One of these</entry>
+									</row>
+									<row>
+										<entry><literal>file</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>The name of a file as a single command-line argument;
+											will be replaced with the absolute filename of the
+											file.</entry>
+										<entry>n/a</entry>
+									</row>
+									<row>
+										<entry><literal>path</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>A string that will be treated as a path-like string
+											as a single command-line argument; you can use ; or : as
+											path separators and Ant will convert it to the
+											platform's local conventions.</entry>
+										<entry>n/a</entry>
+									</row>
+									<row>
+										<entry><literal>line</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>A space-delimited list of command-line
+											arguments.</entry>
+										<entry>n/a</entry>
+									</row>
+								</tbody>
+							</tgroup>
 						</table>
 					</para>
 				</listitem>
@@ -1238,17 +1283,18 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ExitTask">
-<title>ExitTask </title>
+		<title>ExitTask </title>
 		<para>Causes the current build script execution to fail and the script to exit with an
 			(optional) error message.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1288,9 +1334,11 @@
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;-- Exit w/ message -->
 &lt;exit message="Failed for some reason!" />
 
@@ -1302,18 +1350,19 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ForeachTask">
-<title>ForeachTask </title>
+		<title>ForeachTask </title>
 		<para>The foreach task iterates over a list, a list of filesets, or both. If both, list and
 			filesets, are specified, the list will be evaluated first. Nested filesets are evaluated
 			in the order they appear in the task.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1327,8 +1376,8 @@
 					<row>
 						<entry><literal>list</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The list of values to process, with the delimiter character, indicated
-							by the "delimiter" attribute, separating each value.</entry>
+						<entry>The list of values to process, with the delimiter character,
+							indicated by the "delimiter" attribute, separating each value.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
@@ -1343,29 +1392,32 @@
 					<row>
 						<entry><literal>param</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The name of the parameter to pass the tokens in as to the target.</entry>
+						<entry>The name of the parameter to pass the tokens in as to the
+							target.</entry>
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
 					<row>
 						<entry><literal>absparam</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The name of the absolute pathparameter to pass the tokens in as to the
-							target (used while processing nested filesets).</entry>
+						<entry>The name of the absolute pathparameter to pass the tokens in as to
+							the target (used while processing nested filesets).</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
 					<row>
 						<entry><literal>delimiter</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The delimiter string that separates the values in the "list" parameter.
-							The default is ",".</entry>
+						<entry>The delimiter string that separates the values in the "list"
+							parameter. The default is ",".</entry>
 						<entry>,</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;!-- loop through languages, and call buildlang task with setted param -->
 &lt;property name="languages" value="en,fr,de" />
 &lt;foreach list="${languages}" param="lang" target="buildlang" />
@@ -1390,30 +1442,30 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="IfTask">
-<title>IfTask </title>
+		<title>IfTask </title>
 		<para>Perform some tasks based on whether a given condition holds true or not.</para>
-			<para>This task doesn't have any attributes, the condition to test is specified by a
-				nested element - see the <xref xlink:href="#ch.projcomponents"/> for a complete list
-				of nested elements.</para>
-			<para>Just like the <literal>&lt;condition></literal> task, only a single condition can
-				be specified - you combine them using <literal>&lt;and></literal> or
-					<literal>&lt;or></literal> conditions.</para>
-			<para>In addition to the condition, you can specify three different child elements,
-					<literal>&lt;elseif></literal> , <literal>&lt;then></literal> and
-					<literal>&lt;else></literal> . All three subelements are optional. Both
-					<literal>&lt;then></literal> and <literal>&lt;else></literal> must not be used
-				more than once inside the if task. Both are containers for Phing tasks.</para>
-			<para>The <literal>&lt;elseif></literal> behaves exactly like an
-					<literal>&lt;if></literal> except that it cannot contain the
-					<literal>&lt;else></literal> element inside of it. You may specify as may of
-				these as you like, and the order they are specified is the order they are evaluated
-				in. If the condition on the <literal>&lt;if></literal> is false, then the first
-					<literal>&lt;elseif></literal> who's conditional evaluates to true will be
-				executed. The <literal>&lt;else></literal> will be executed only if the
-					<literal>&lt;if></literal> and all <literal>&lt;elseif></literal> conditions are
-				false.</para>
-			<sect2><title>Examples</title>
-				<programlisting>&lt;if>
+		<para>This task doesn't have any attributes, the condition to test is specified by a nested
+			element - see the <xref xlink:href="#ch.projcomponents"/> for a complete list of nested
+			elements.</para>
+		<para>Just like the <literal>&lt;condition></literal> task, only a single condition can be
+			specified - you combine them using <literal>&lt;and></literal> or
+				<literal>&lt;or></literal> conditions.</para>
+		<para>In addition to the condition, you can specify three different child elements,
+				<literal>&lt;elseif></literal> , <literal>&lt;then></literal> and
+				<literal>&lt;else></literal> . All three subelements are optional. Both
+				<literal>&lt;then></literal> and <literal>&lt;else></literal> must not be used more
+			than once inside the if task. Both are containers for Phing tasks.</para>
+		<para>The <literal>&lt;elseif></literal> behaves exactly like an <literal>&lt;if></literal>
+			except that it cannot contain the <literal>&lt;else></literal> element inside of it. You
+			may specify as may of these as you like, and the order they are specified is the order
+			they are evaluated in. If the condition on the <literal>&lt;if></literal> is false, then
+			the first <literal>&lt;elseif></literal> who's conditional evaluates to true will be
+			executed. The <literal>&lt;else></literal> will be executed only if the
+				<literal>&lt;if></literal> and all <literal>&lt;elseif></literal> conditions are
+			false.</para>
+		<sect2>
+			<title>Examples</title>
+			<programlisting>&lt;if>
  &lt;equals arg1="${foo}" arg2="bar" />
  &lt;then>
    &lt;echo message="The value of property foo is bar" />
@@ -1422,7 +1474,7 @@
    &lt;echo message="The value of property foo is not bar" />
  &lt;/else>
 &lt;/if></programlisting>
-				<programlisting>&lt;if>
+			<programlisting>&lt;if>
  &lt;equals arg1="${foo}" arg2="bar" />
  &lt;then>
    &lt;echo message="The value of property foo is 'bar'" />
@@ -1439,10 +1491,10 @@
    &lt;echo message="The value of property foo is not 'foo' or 'bar'" />
  &lt;/else>
 &lt;/if></programlisting>
-			</sect2>
+		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ImportTask">
-<title>ImportTask </title>
+		<title>ImportTask </title>
 		<para>Imports another build file into the current project.</para>
 		<para>On execution it will read another Phing file into the same Project. Functionally it is
 			nearly the same as copy and pasting the imported file onto the end of the importing
@@ -1450,7 +1502,8 @@
 		<sect2 role="taskattributes">
 			<title>Attributes</title>
 			<table>
-				<title>Attributes</title><tgroup cols="5">
+				<title>Attributes</title>
+				<tgroup cols="5">
 					<colspec colname="name" colnum="1" colwidth="1.5*"/>
 					<colspec colname="type" colnum="2" colwidth="0.8*"/>
 					<colspec colname="description" colnum="3" colwidth="3.5*"/>
@@ -1476,13 +1529,15 @@
 						<row>
 							<entry><literal>optional</literal></entry>
 							<entry><literal role="type">Boolean</literal></entry>
-							<entry>If true, do not stop the build if the file does not exist.</entry>
+							<entry>If true, do not stop the build if the file does not
+								exist.</entry>
 							<entry><literal>false</literal></entry>
 							<entry>No</entry>
 						</row>
-					</tbody></tgroup>
+					</tbody>
+				</tgroup>
 			</table>
-		</sect2>		
+		</sect2>
 		<sect2>
 			<title>Target Overriding</title>
 			<para>If a target in the main file is also present in at least one of the imported
@@ -1549,17 +1604,19 @@
 
 		</sect2>
 
-		<sect2><title>Examples</title>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;import file="path/to/build.xml"/>
 &lt;import file="path/to/build.xml" optional="true"/></programlisting>
-		</sect2>		
+		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="IncludePathTask">
-<title>IncludePathTask </title>
+		<title>IncludePathTask </title>
 		<para>Sets the PHP include_path configuration option for the duration of this phing
 			run.</para>
 		<table>
-			<title>Attributes</title><tgroup cols="5">
+			<title>Attributes</title>
+			<tgroup cols="5">
 				<colspec colname="name" colnum="1" colwidth="1.5*"/>
 				<colspec colname="type" colnum="2" colwidth="0.8*"/>
 				<colspec colname="description" colnum="3" colwidth="3.5*"/>
@@ -1589,7 +1646,8 @@
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
+				</tbody>
+			</tgroup>
 		</table>
 		<sect2>
 			<title>Examples</title>
@@ -1603,16 +1661,17 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="InputTask">
-<title>InputTask </title>
+		<title>InputTask </title>
 		<para>The <literal>InputTask</literal> can be used to interactively set property values
-			based on input from the console (or other Reader).</para>		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+			based on input from the console (or other Reader).</para>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1654,15 +1713,17 @@
 					<row>
 						<entry><literal>validArgs</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Comma-separated list of valid choices the user must supply. If used, one
-							of these options must be chosen.</entry>
+						<entry>Comma-separated list of valid choices the user must supply. If used,
+							one of these options must be chosen.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
 					<!-- TODO : Add "os" as soon as it is supported -->
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;!-- Getting string input -->
 &lt;echo>HTML pages installing to: ${documentRoot}&lt;/echo>
 &lt;echo>PHP classes installing to: ${servletDirectory}&lt;/echo>
@@ -1683,17 +1744,18 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="LoadFileTask">
-<title>LoadFileTask </title>
+		<title>LoadFileTask </title>
 		<para>The <literal>LoadFileTask</literal> loads the contents of a (text) file into a single
 			property.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1718,9 +1780,11 @@
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;loadfile property="version" file="version.txt"/></programlisting>
 		</sect2>
 		<sect2 role="nestedtags">
@@ -1733,17 +1797,18 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="MkdirTask">
-<title>MkdirTask </title>
+		<title>MkdirTask </title>
 		<para>Creates a directory, including any necessary but non-existent parent directories. Does
 			nothing if the directory already exists.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1768,9 +1833,11 @@
 						<entry>0755</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;-- Create a temp directory -->
 &lt;mkdir dir="/tmp/foo" />
 
@@ -1780,14 +1847,15 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="MoveTask">
-<title>MoveTask </title>
+		<title>MoveTask </title>
 		<para>Moves a file or directory to a new file or directory. By default, the destination file
 			is overwritten if it already exists. When overwrite is turned off, then files are only
 			moved if the source file is newer than the destination file, or when the destination
 			file does not exist.</para>
 		<para>Source files and directories are only deleted if the file or directory has been copied
 			to the destination successfully.</para>
-		<sect2><title>Examples</title>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;-- The following will move the file "somefile.txt" to "/tmp" and
     change its filename to "anotherfile.bak". It will overwrite
     an existing file. -->
@@ -1805,19 +1873,20 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PhingTask">
-<title>PhingTask </title>
+		<title>PhingTask </title>
 		<para>This task calls another build file. You may specify the target that is to be called
 			within the build file. Additionally, the <literal>&lt;phing></literal> Tag may contain
 				<literal>&lt;property></literal> Tags (see <xref xlink:href="#PropertyTask"
 			/>).</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1856,8 +1925,8 @@
 					<row>
 						<entry><literal>phingFile</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The build file to use. Defaults to "build.xml". This file is expected to
-							be a filename relative to the dir attribute given.</entry>
+						<entry>The build file to use. Defaults to "build.xml". This file is expected
+							to be a filename relative to the dir attribute given.</entry>
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
@@ -1876,9 +1945,11 @@
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
  &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
 
@@ -1907,56 +1978,58 @@
 				<tgroup cols="3">
 					<colspec colname="name" colnum="1" colwidth="1*"/>
 					<colspec colname="type" colnum="2" colwidth="1*"/>
-					<colspec colname="description" colnum="3" colwidth="2*"/>        
-				<thead>
-					<row>
-						<entry><literal>dir</literal></entry>
-						<entry><literal>inheritAll</literal></entry>
-						<entry>new project's basedir</entry>
-					</row>
-				</thead>
-				<tbody>
-					<row>
-						<entry>value provided</entry>
-						<entry><literal>true</literal></entry>
-						<entry>value of <literal>dir</literal> attribute</entry>
-					</row>
-					<row>
-						<entry>value provided</entry>
-						<entry><literal>false</literal></entry>
-						<entry>value of <literal>dir</literal> attribute</entry>
-					</row>
-					<row>
-						<entry><literal>omitted</literal></entry>
-						<entry><literal>true</literal></entry>
-						<entry>basedir of calling task (the build file containing the
-								<literal>&lt;phing></literal> call.</entry>
-					</row>
-					<row>
-						<entry><literal>omitted</literal></entry>
-						<entry><literal>false</literal></entry>
-						<entry>basedir attribute of the <literal>&lt;project></literal> element of the
-							new project</entry>
-					</row>
-				</tbody></tgroup>
+					<colspec colname="description" colnum="3" colwidth="2*"/>
+					<thead>
+						<row>
+							<entry><literal>dir</literal></entry>
+							<entry><literal>inheritAll</literal></entry>
+							<entry>new project's basedir</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>value provided</entry>
+							<entry><literal>true</literal></entry>
+							<entry>value of <literal>dir</literal> attribute</entry>
+						</row>
+						<row>
+							<entry>value provided</entry>
+							<entry><literal>false</literal></entry>
+							<entry>value of <literal>dir</literal> attribute</entry>
+						</row>
+						<row>
+							<entry><literal>omitted</literal></entry>
+							<entry><literal>true</literal></entry>
+							<entry>basedir of calling task (the build file containing the
+									<literal>&lt;phing></literal> call.</entry>
+						</row>
+						<row>
+							<entry><literal>omitted</literal></entry>
+							<entry><literal>false</literal></entry>
+							<entry>basedir attribute of the <literal>&lt;project></literal> element
+								of the new project</entry>
+						</row>
+					</tbody>
+				</tgroup>
 			</table>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PhingCallTask">
-<title>PhingCallTask </title>
+		<title>PhingCallTask </title>
 		<para>The PhingCallTask calls a target within the same Phing project.</para>
 		<para>A <literal>&lt;phingcall></literal> tag may contain <literal>&lt;property></literal>
 			tags that define new properties. These properties are only set if properties of the same
 			name have not been set outside the <literal>"phingcall"</literal> tag.</para>
 
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1970,7 +2043,8 @@
 					<row>
 						<entry><literal>target</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The name of the target in the same project that is to be called.</entry>
+						<entry>The name of the target in the same project that is to be
+							called.</entry>
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
@@ -1993,8 +2067,9 @@
       <entry>No</entry>
     </row>
     -->
-				</tbody></tgroup>
-			</table>
+				</tbody>
+			</tgroup>
+		</table>
 		<note>
 			<para>Local scope.</para>
 			<para>Every <literal>&lt;phingcall></literal> tag creates a new local scope. Thus, any
@@ -2002,7 +2077,8 @@
 				to their previous value) once the <literal>&lt;phingcall></literal> tag
 				completes.</para>
 		</note>
-		<sect2><title>Examples</title>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;target name="foo">
     &lt;phingcall target="bar">
         &lt;property name="property1" value="aaaaa" />
@@ -2029,18 +2105,19 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PhpEvalTask">
-<title>PhpEvalTask </title>
+		<title>PhpEvalTask </title>
 		<para>With the PhpEvalTask, you can set a property to the results of evaluating a PHP
 			expression or the result returned by a function/method call.</para>
 
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2090,9 +2167,11 @@
 						<entry><literal>info</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;php function="crypt" returnProperty="enc_passwd">
   &lt;param value="${auth.root_passwd}"/>
 &lt;/php></programlisting>
@@ -2109,18 +2188,19 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PropertyTask">
-<title>PropertyTask </title>
+		<title>PropertyTask </title>
 		<para>With PropertyTask, you can define <literal>user</literal> properties in your build
 			file.</para>
 
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2171,8 +2251,8 @@
 					<row>
 						<entry><literal>environment</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The prefix to use when retrieving environment variables. * Thus if you
-							specify environment="myenv" you will be able to access OS-specific *
+						<entry>The prefix to use when retrieving environment variables. * Thus if
+							you specify environment="myenv" you will be able to access OS-specific *
 							environment variables via property names "myenv.PATH" or
 							"myenv.TERM".</entry>
 						<entry>n/a</entry>
@@ -2193,8 +2273,9 @@
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
+				</tbody>
+			</tgroup>
+		</table>
 		<note>
 			<para>Important note about scope: when the <literal>&lt;property></literal> tag is
 				called inside a <literal>&lt;phingcall></literal> tag, any properties are set in a
@@ -2202,7 +2283,8 @@
 				cease to exist (or revert to their previous value) once the parent
 					<literal>&lt;phingcall></literal> tag completes.</para>
 		</note>
-		<sect2><title>Examples</title>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;property name="strings.test" value="Harr harr, more power!" />
 &lt;echo message="${strings.test}" />
 
@@ -2213,18 +2295,19 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PropertyPromptTask">
-<title>PropertyPromptTask </title>
+		<title>PropertyPromptTask </title>
 		<para>PropertyPromptTask is a simple task to read in user input into a property. If you need
 			something more advanced, see the <xref xlink:href="#InputTask"/>.</para>
 
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2266,32 +2349,35 @@
 					<row>
 						<entry><literal>useExistingValue</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Whether existing property should be used if available. (This will result
-							in user only being prompted if the propertyName property is not already
-							set.)</entry>
+						<entry>Whether existing property should be used if available. (This will
+							result in user only being prompted if the propertyName property is not
+							already set.)</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;propertyprompt propertyName="someprop" defaultValue="/var/www"
 		promptText="Enter your web root" />
 &lt;echo>${someprop}&lt;/echo></programlisting>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ReflexiveTask">
-<title>ReflexiveTask </title>
+		<title>ReflexiveTask </title>
 		<para>The ReflexiveTask performs operations on files. It is essentially a convenient way to
 			transform (using filter chains) files without copying them.</para>
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2309,9 +2395,11 @@
 						<entry>n/a</entry>
 						<entry>Yes (unless &lt;fileset> provided)</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;reflexive>
   &lt;fileset dir=".">
     &lt;include pattern="*.html">
@@ -2336,7 +2424,7 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ResolvePathTask">
-<title>ResolvePathTask </title>
+		<title>ResolvePathTask </title>
 		<para>The ResolvePathTask turns a relative path into an absolute path, with respect to
 			specified directory or the project basedir (if no dir attribute specified).</para>
 		<para>This task is useful for turning a user-defined relative path into an absolute path in
@@ -2344,14 +2432,15 @@
 			buildfiles lower in the directory tree would mis-interpret the user-defined relative
 			paths.</para>
 
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2361,7 +2450,7 @@
 						<entry>Required</entry>
 					</row>
 				</thead>
-					<tbody>
+				<tbody>
 					<row>
 						<entry><literal>file</literal></entry>
 						<entry><literal role="type">String</literal></entry>
@@ -2379,13 +2468,16 @@
 					<row>
 						<entry><literal>propertyName</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The name of the property to set with resolved (absolute) path.</entry>
+						<entry>The name of the property to set with resolved (absolute)
+							path.</entry>
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;property name="relative_path" value="./dirname"/>
 
 &lt;resolvepath propertyName="absolute_path" file="${relative_path}"/>
@@ -2394,16 +2486,17 @@
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="TaskdefTask">
-<title>TaskdefTask </title>
+		<title>TaskdefTask </title>
 		<para>With the TaskdefTask you can import a user task into your buildfile.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2450,14 +2543,16 @@
 					<row>
 						<entry><literal>classpathref</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Reference to classpath to use when including classes. This is added to
-							PHP's include_path.</entry>
+						<entry>Reference to classpath to use when including classes. This is added
+							to PHP's include_path.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;!-- Includes the Task named "ValidateHTMLTask" and makes it available by
      &lt;validatehtml> -->
 &lt;taskdef classname="user.tasks.ValidateHTMLTask" name="validatehtml" />
@@ -2474,9 +2569,9 @@ file defines a task in the format: name=path.to.Task -->
 				convention to define and load tasks:</para>
 			<programlisting>&lt;taskdef name="sampletask" classname="Dir_Subdir_SampleTask"/></programlisting>
 			<para>will load class <literal>Dir_Subdir_SampleTask</literal> from file
-				<filename>Dir/Subdir/SampleTask.php</filename>.</para>
+					<filename>Dir/Subdir/SampleTask.php</filename>.</para>
 		</sect2>
-		
+
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2487,18 +2582,19 @@ file defines a task in the format: name=path.to.Task -->
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="TouchTask">
-<title>TouchTask </title>
+		<title>TouchTask </title>
 		<para>The TouchTask works like the Unix <literal>touch</literal> command: It sets the
 			modtime of a file to a specific time. Default is the current time.</para>
 
-		
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2519,21 +2615,24 @@ file defines a task in the format: name=path.to.Task -->
 					<row>
 						<entry><literal>datetime</literal></entry>
 						<entry><literal role="type">DateTime</literal></entry>
-						<entry>The date and time the mtime of the file is to be set to. The format is
-							"MM/DD/YYYY HH:MM AM or PM"</entry>
+						<entry>The date and time the mtime of the file is to be set to. The format
+							is "MM/DD/YYYY HH:MM AM or PM"</entry>
 						<entry><literal>now</literal></entry>
 						<entry>No</entry>
 					</row>
 					<row>
 						<entry><literal>millis</literal></entry>
 						<entry><literal role="type">Integer</literal></entry>
-						<entry>The number of milliseconds since Midnight Jan 1 1970 (Unix epoche).</entry>
+						<entry>The number of milliseconds since Midnight Jan 1 1970 (Unix
+							epoche).</entry>
 						<entry><literal>now</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;touch file="README.txt" millis="102134111" />
 
 &lt;touch file="COPYING.lib" datetime="10/10/1999 09:31 AM" /></programlisting>
@@ -2548,7 +2647,7 @@ file defines a task in the format: name=path.to.Task -->
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="TstampTask">
-<title>TstampTask </title>
+		<title>TstampTask </title>
 		<para>Sets the DSTAMP, TSTAMP, and TODAY properties in the current project. By default, the
 			DSTAMP property is in the format "%Y%m%d", TSTAMP is in the format "%H%M", and TODAY is
 			in the format "%B %d %Y". Use the nested &lt;format> element to specify a different
@@ -2558,13 +2657,14 @@ file defines a task in the format: name=path.to.Task -->
 			example, the release date. The best place for this task is probably in an initialization
 			target.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2582,9 +2682,11 @@ file defines a task in the format: name=path.to.Task -->
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;tstamp/></programlisting>
 			<para>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default
 				formats.</para>
@@ -2596,7 +2698,7 @@ file defines a task in the format: name=path.to.Task -->
 			<programlisting>&lt;tstamp prefix="start"/></programlisting>
 			<para>sets three properties with the standard formats, prefixed with "start.":
 				start.DSTAMP, start.TSTAMP, and start.TODAY.</para>
-		</sect2>		
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2607,14 +2709,15 @@ file defines a task in the format: name=path.to.Task -->
 						date/time patterns are as defined in the PHP strftime() function.</para>
 				</listitem>
 			</itemizedlist>
-			
-				<table>
-					<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+
+			<table>
+				<title>Attributes</title>
+				<tgroup cols="5">
+					<colspec colname="name" colnum="1" colwidth="1.5*"/>
+					<colspec colname="type" colnum="2" colwidth="0.8*"/>
+					<colspec colname="description" colnum="3" colwidth="3.5*"/>
+					<colspec colname="default" colnum="4" colwidth="0.8*"/>
+					<colspec colname="required" colnum="5" colwidth="1.2*"/>
 					<thead>
 						<row>
 							<entry>Name</entry>
@@ -2636,34 +2739,36 @@ file defines a task in the format: name=path.to.Task -->
 						<row>
 							<entry><literal>classname</literal></entry>
 							<entry><literal role="type">String</literal></entry>
-							<entry>The date/time pattern to be used. The values are as defined by the
-								PHP strftime() function.</entry>
+							<entry>The date/time pattern to be used. The values are as defined by
+								the PHP strftime() function.</entry>
 							<entry>n/a</entry>
 							<entry>Yes</entry>
 						</row>
 						<row>
 							<entry><literal>locale</literal></entry>
 							<entry><literal role="type">String</literal></entry>
-							<entry>The locale used to create date/time string. For more information see
-								the PHP setlocale() function.</entry>
+							<entry>The locale used to create date/time string. For more information
+								see the PHP setlocale() function.</entry>
 							<entry>n/a</entry>
 							<entry>No</entry>
 						</row>
-					</tbody></tgroup>
-				</table>
+					</tbody>
+				</tgroup>
+			</table>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="TypedefTask">
-<title>TypedefTask </title>
+		<title>TypedefTask </title>
 		<para>With the TypedefTask you can import a user type into your buildfile.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2701,19 +2806,21 @@ file defines a task in the format: name=path.to.Task -->
 					<row>
 						<entry><literal>classpathref</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Reference to classpath to use when including classes. This is added to
-							PHP's include_path.</entry>
+						<entry>Reference to classpath to use when including classes. This is added
+							to PHP's include_path.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;!-- Includes the Type named "CustomProject" and makes it available by
      &lt;cproject> -->
 &lt;taskdef classname="user.types.CustomProject" name="cproject" /></programlisting>
 		</sect2>
-		
+
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2724,7 +2831,7 @@ file defines a task in the format: name=path.to.Task -->
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="UpToDateTask">
-<title>UpToDateTask </title>
+		<title>UpToDateTask </title>
 		<para>UpToDateTask tests if a resource/file is set and sets a certain property to a certain
 			value if it exists.</para>
 
@@ -2732,53 +2839,56 @@ file defines a task in the format: name=path.to.Task -->
 				<literal>${deploy}/propelClasses.tgz</literal> file is more up-to-date than any of
 			the PHP class files in the <literal>${src}/propel</literal> directory.</para>
 		<table>
-			<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
-			<thead>
-				<row>
-					<entry>Name</entry>
-					<entry>Type</entry>
-					<entry>Description</entry>
-					<entry>Default</entry>
-					<entry>Required</entry>
-				</row>
-			</thead>
-			<tbody>
-				<row>
-					<entry><literal>property</literal></entry>
-					<entry><literal role="type">String</literal></entry>
-					<entry>Name of the property that is to be set.</entry>
-					<entry>n/a</entry>
-					<entry>Yes</entry>
-				</row>
-				<row>
-					<entry><literal>value</literal></entry>
-					<entry><literal role="type">String</literal></entry>
-					<entry>The value the propert is to be set to.</entry>
-					<entry><literal>true</literal></entry>
-					<entry>No</entry>
-				</row>
-				<row>
-					<entry><literal>srcfile</literal></entry>
-					<entry><literal role="type">String</literal></entry>
-					<entry>The file to check against target file(s).</entry>
-					<entry>n/a</entry>
-					<entry>Yes (or nested <literal>fileset</literal>)</entry>
-				</row>
-				<row>
-					<entry><literal>targetfile</literal></entry>
-					<entry><literal role="type">String</literal></entry>
-					<entry>The file for which we want to determine the status.</entry>
-					<entry>n/a</entry>
-					<entry>Yes (or nested<literal> mapper</literal>)</entry>
-				</row>
-			</tbody></tgroup>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
+				<thead>
+					<row>
+						<entry>Name</entry>
+						<entry>Type</entry>
+						<entry>Description</entry>
+						<entry>Default</entry>
+						<entry>Required</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry><literal>property</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Name of the property that is to be set.</entry>
+						<entry>n/a</entry>
+						<entry>Yes</entry>
+					</row>
+					<row>
+						<entry><literal>value</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>The value the propert is to be set to.</entry>
+						<entry><literal>true</literal></entry>
+						<entry>No</entry>
+					</row>
+					<row>
+						<entry><literal>srcfile</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>The file to check against target file(s).</entry>
+						<entry>n/a</entry>
+						<entry>Yes (or nested <literal>fileset</literal>)</entry>
+					</row>
+					<row>
+						<entry><literal>targetfile</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>The file for which we want to determine the status.</entry>
+						<entry>n/a</entry>
+						<entry>Yes (or nested<literal> mapper</literal>)</entry>
+					</row>
+				</tbody>
+			</tgroup>
 		</table>
-		<sect2><title>Examples</title>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" >
   &lt;fileset dir="${src}/propel">
     &lt;include="**/*.php"/>
@@ -2801,7 +2911,7 @@ file defines a task in the format: name=path.to.Task -->
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="XsltTask">
-<title>XsltTask </title>
+		<title>XsltTask </title>
 		<para>With <literal>XsltTask</literal>, you can run a XSLT transformation on an XML file.
 			Actually, <literal>XsltTask</literal> extends <literal>CopyTask</literal>, so you can
 			use all the elements allowed there.</para>
@@ -2811,13 +2921,14 @@ file defines a task in the format: name=path.to.Task -->
 				<literal>XsltTask</literal> is equivalent to running command line
 				<literal>xsltproc</literal> since that is a frontend for libxslt.</para>
 
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -2851,18 +2962,20 @@ file defines a task in the format: name=path.to.Task -->
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
-				</tbody></tgroup>
-			</table>
-			<para><literal>Note:</literal> You can also use all the attributes available for <xref
-					xlink:href="#CopyTask"/>.</para>
-		<sect2><title>Examples</title>
+				</tbody>
+			</tgroup>
+		</table>
+		<para><literal>Note:</literal> You can also use all the attributes available for <xref
+				xlink:href="#CopyTask"/>.</para>
+		<sect2>
+			<title>Examples</title>
 			<programlisting>&lt;!-- Transform docbook with an imaginary XSLT file -->
 &lt;xslt todir="/srv/docs/phing" style="dbk2html.xslt" >
   &lt;fileset dir=".">
     &lt;include name="**/*.xml" />
   &lt;/fileset>
 &lt;/xslt></programlisting>
-		</sect2>		
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Elements</title>
 			<itemizedlist>

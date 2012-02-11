@@ -129,11 +129,11 @@
 				read in that list and perform some action to those files. </para>
 		</sect2>
 	</sect1>
-	<sect1 role="typedef" xml:id="Fileset">
+	<sect1 role="typedef" xml:id="FileSet">
 		<title>FileSet </title>
 
 		<para> FileSets offer an easy and straightforward way to include files. The tag supports
-				<xref xlink:href="#app.coreselectors"/> and <xref xlink:href="#patternset"/>.
+				<link xlink:href="#app.selectors">Selectors</link> and <link xlink:href="#PatternSet">PatternSets</link>.
 			Additionally, you can include/exclude files in/from a fileset using the
 				<literal>&lt;include></literal>/<literal>&lt;exclude></literal> tags. In patterns,
 			one asterisk (<literal>*</literal>) maps to a part of a file/directory name within a
@@ -286,7 +286,7 @@
 	<sect1 role="typedef" xml:id="PatternSet">
 		<title>PatternSet </title>
 		<para>The PatternSet data type defines patterns that can be grouped into sets and nested
-			into <xref xlink:href="#FileSet"/>. Patterns can be specified by nested &lt;include> or
+			into <link xlink:href="#FileSet">FileSets</link>. Patterns can be specified by nested &lt;include> or
 			&lt;exclude> elements.</para>
 		<table>
 			<title> Attributes for <literal>&lt;patternset></literal> tag </title>

@@ -13,17 +13,17 @@
 
     <itemizedlist>
         <listitem>
-            <para>The Standard Recommendation of XML by the w3c <link
+            <para>The Standard Recommendation of XML by the W3C <link
                     xlink:href="http://www.w3.org/TR/2000/REC-xml"
                     >http://www.w3.org/TR/2000/REC-xml</link>: very technical but exhaustive.</para>
         </listitem>
         <listitem>
-            <para>XML In 10 Points<link xlink:href="http://www.w3.org/XML/1999/XML-in-10-points"
+            <para>XML In 10 Points <link xlink:href="http://www.w3.org/XML/1999/XML-in-10-points"
                     >http://www.w3.org/XML/1999/XML-in-10-points</link>: Quick introduction into
                 XML.</para>
         </listitem>
         <listitem>
-            <para>A technical introduction to XML<link
+            <para>A technical introduction to XML <link
                     xlink:href="http://www.xml.com/pub/a/98/10/guide0.html"
                     >http://www.xml.com/pub/a/98/10/guide0.html</link>: Interesting article by the
                 creator of DocBook.</para>
@@ -134,40 +134,41 @@
                 other elements and can/must have the following attributes: </para>
 
             <table>
-                <title>&lt;project> Attributes</title><tgroup cols="2">
-<colspec colname="c1" colnum="1" colwidth="1*"/>
-<colspec colname="c2" colnum="2" colwidth="1*"/>
-<colspec colname="c3" colnum="3" colwidth="2*"/>
+                <title>&lt;project> Attributes</title>
+                <tgroup cols="3">
+<colspec colname="name" colnum="1" colwidth="1*"/>
+<colspec colname="description" colnum="2" colwidth="2*"/>
+<colspec colname="required" colnum="3" colwidth="1*"/>
 
                 <thead>
                     <row>
                         <entry>Attribute</entry>
-                        <entry>Meaning</entry>
+                        <entry>Description</entry>
                         <entry>Required</entry>
                     </row>
                 </thead>
 
                 <tbody>
                     <row>
-                        <entry>name</entry>
+                        <entry><literal>name</literal></entry>
                         <entry>The name of the project</entry>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry>basedir</entry>
+                        <entry><literal>basedir</literal></entry>
                         <entry>The base directory of the project, use &quot;.&quot; do denote the
-                            current directory. <emphasis role="bold">Note: if none is specified, the
-                                parent directory of the build file is used!</emphasis></entry>
+                            current directory. <emphasis role="bold">Note:</emphasis> if none is specified, the
+                                parent directory of the build file is used!</entry>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry>default</entry>
+                        <entry><literal>default</literal></entry>
                         <entry>The default target that is to be executed if no target(s) are specified
                             when calling this build file.</entry>
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry>description</entry>
+                        <entry><literal>description</literal></entry>
                         <entry>The description of the project.</entry>
                         <entry>No</entry>
                     </row>
@@ -221,14 +222,16 @@
                     element.</para>
 
                 <table>
-                    <title>&lt;target> Attributes</title><tgroup cols="2">
-<colspec colname="c1" colnum="1" colwidth="1*"/>
-<colspec colname="c2" colnum="2" colwidth="1*"/>
-<colspec colname="c3" colnum="3" colwidth="2*"/>
-                    <thead>
+                    <title>&lt;target> Attributes</title>
+                    <tgroup cols="3">
+                        <colspec colname="name" colnum="1" colwidth="1*"/>
+                        <colspec colname="description" colnum="2" colwidth="2*"/>
+                        <colspec colname="required" colnum="3" colwidth="1*"/>
+                        
+                        <thead>
                         <row>
                             <entry>Attribute</entry>
-                            <entry>Meaning</entry>
+                            <entry>Description</entry>
                             <entry>Required</entry>
                         </row>
                     </thead>
@@ -420,9 +423,9 @@
             become a bit tedious and the large (and growing) amount of built-in tasks and filters
             can sometimes make it difficult to remember the exact syntax of all the available
             features.</para>
-        <para>To help with this the Phing distribution contains a <filename>Relax NG
-                Grammar</filename> (REgular LAnguage for XML Next Generation, <link
-                xlink:href="http://www.relaxng.org/">http://www.relaxng.org/</link>) that describes
+        <para>To help with this the Phing distribution contains a Relax NG
+                Grammar (REgular LAnguage for XML Next Generation, <link
+                xlink:href="http://www.relaxng.org/">http://www.relaxng.org/</link>) file that describes
             the (formal) syntax of the build files. This grammar can help validate and write Phing
             build files since there are many XML editors which can make use of this type of grammar
             to validate, on the fly, as well as do context-sensitive auto-completion. Especially the
@@ -440,8 +443,8 @@
             Please note that since the phing-grammar does not have an official designation we must
             use the absolute filename to specify the grammar (instead of a canonical URI that is
             resolved by the systems XML-catalogue). </para>
-        <para>This grammar is available (as a plain text file) in the distribution at: <code>
-                /etc/phing-grammar.rng </code>
+        <para>This grammar is available (as a plain text file) in the distribution at: <filename>
+                /etc/phing-grammar.rng </filename>
         </para>
         <para>Since we do not want to neither endorse nor forget any particular XML editor with this
             capability we do not make available such a list of editors. Instead, spending a few

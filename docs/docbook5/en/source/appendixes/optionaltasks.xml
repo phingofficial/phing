@@ -252,7 +252,7 @@
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;apigen
   source="classes"
@@ -261,7 +261,7 @@
   title="My Project API Documentation"
   deprecated="true"
   todo="true"/></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="CoverageMergerTask">
         <title>CoverageMergerTask</title>
@@ -269,6 +269,14 @@
             existing code coverage database.</para>
         <para>The format of the code coverage files is expected to be identical to:</para>
         <programlisting>file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code_coverage));</programlisting>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;coverage-merger>
+  &lt;fileset dir="/www/live/testcases">
+    &lt;include name="**/*.data"/>
+  &lt;/fileset>
+&lt;/coverage-merger></programlisting>
+        </sect2>        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -276,14 +284,6 @@
                     <para>fileset</para>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;coverage-merger>
-  &lt;fileset dir="/www/live/testcases">
-    &lt;include name="**/*.data"/>
-  &lt;/fileset>
-&lt;/coverage-merger></programlisting>
-            </example>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="CoverageReportTask">
@@ -345,6 +345,13 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;coverage-report outfile="reports/coverage.xml">
+  &lt;report todir="reports/coverage" styledir="/home/phing/etc"/>
+&lt;/coverage-report></programlisting>
+        </sect2>
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -406,12 +413,6 @@
                     </table>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;coverage-report outfile="reports/coverage.xml">
-  &lt;report todir="reports/coverage" styledir="/home/phing/etc"/>
-&lt;/coverage-report></programlisting>
-            </example>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="CoverageSetupTask">
@@ -446,6 +447,22 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;coverage-setup database="./reports/coverage.db">
+  &lt;fileset dir="classes">
+    &lt;include name="**/*.php"/>
+  &lt;/fileset>
+&lt;/coverage-setup>
+&lt;phpunit codecoverage="true">
+  &lt;batchtest>
+    &lt;fileset dir="src">
+      &lt;include name="*Test.php"/>
+    &lt;/fileset>
+  &lt;/batchtest>
+&lt;/phpunit></programlisting>
+        </sect2>
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -459,21 +476,6 @@
                     <para>filelist</para>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;coverage-setup database="./reports/coverage.db">
-  &lt;fileset dir="classes">
-    &lt;include name="**/*.php"/>
-  &lt;/fileset>
-&lt;/coverage-setup>
-&lt;phpunit codecoverage="true">
-  &lt;batchtest>
-    &lt;fileset dir="src">
-      &lt;include name="*Test.php"/>
-    &lt;/fileset>
-  &lt;/batchtest>
-&lt;/phpunit></programlisting>
-            </example>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="CoverageThresholdTask">
@@ -539,6 +541,10 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;coverage-threshold database="./reports/coverage.db"/></programlisting>
+        </sect2>        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -549,10 +555,6 @@
                     <para>excludes</para>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;coverage-threshold database="./reports/coverage.db"/></programlisting>
-            </example>
             <para>Validates an optional code coverage database against the default
                 thresholds.</para>
             <programlisting>&lt;coverage-threshold
@@ -585,26 +587,7 @@
                 xlink:href="http://dbdeploy.com/documentation/getting-started/rules-for-using-dbdeploy/"
                 >rules for using dbdeploy</link> for more information. You will need a changelog
             table like so: </para>
-        <programlisting>CREATE TABLE changelog (
-  change_number BIGINT NOT NULL,
-  delta_set VARCHAR(10) NOT NULL,
-  start_dt TIMESTAMP NOT NULL,
-  complete_dt TIMESTAMP NULL,
-  applied_by VARCHAR(100) NOT NULL,
-  description VARCHAR(500) NOT NULL
-)</programlisting>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;dbdeploy
-  url="sqlite:${project.basedir}/data/db.sqlite"
-  userid="dbdeploy"
-  password="dbdeploy"
-  dir="${project.basedir}/data/dbdeploy/deltas"
-/></programlisting>
-        </example>
-        <para>The above example uses a sqlite database and delta scripts located in dbdeploy/deltas
-            in the project base dir.</para>
-
+        
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -682,6 +665,26 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+        <programlisting>CREATE TABLE changelog (
+  change_number BIGINT NOT NULL,
+  delta_set VARCHAR(10) NOT NULL,
+  start_dt TIMESTAMP NOT NULL,
+  complete_dt TIMESTAMP NULL,
+  applied_by VARCHAR(100) NOT NULL,
+  description VARCHAR(500) NOT NULL
+)</programlisting>
+            <programlisting>&lt;dbdeploy
+  url="sqlite:${project.basedir}/data/db.sqlite"
+  userid="dbdeploy"
+  password="dbdeploy"
+  dir="${project.basedir}/data/dbdeploy/deltas"
+/></programlisting>
+
+        <para>The above example uses a sqlite database and delta scripts located in dbdeploy/deltas
+            in the project base dir.</para>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="DocBloxTask">
         <title>DocBloxTask</title>
@@ -730,6 +733,15 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;docblox title="API Documentation"
+  destdir="apidocs">
+   &lt;fileset dir="./classes">
+      &lt;include name="**/*.php" />
+   &lt;/fileset>
+&lt;/docblox></programlisting>
+        </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -737,25 +749,11 @@
                     <para>fileset - Files that should be included for parsing</para>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;docblox title="API Documentation"
-  destdir="apidocs">
-   &lt;fileset dir="./classes">
-      &lt;include name="**/*.php" />
-   &lt;/fileset>
-&lt;/docblox></programlisting>
-            </example>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ExportPropertiesTask">
         <title>ExportPropertiesTask</title>
         <para>Exports all defined properties to a specified file.</para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;exportproperties targetfile="output.props" /></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -795,17 +793,16 @@
                 </tbody>
             </tgroup>
         </table>
-    </sect1>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;exportproperties targetfile="output.props" /></programlisting>
+        </sect2>
+        
+   </sect1>
     <sect1 role="taskdef" xml:id="FileHashTask">
         <title>FileHashTask</title>
         <para>Calculates either MD5 or SHA1 hash value of a file and stores the value as a hex
             string in a property.</para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;filehash file="${builddir}/${tarball}.tar.${compression}" />
-&lt;echo "Hashvalue is; ${filehashvalue}" /></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -848,20 +845,16 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;filehash file="${builddir}/${tarball}.tar.${compression}" />
+&lt;echo "Hashvalue is; ${filehashvalue}" /></programlisting>
+        </sect2>        
     </sect1>
     <sect1 role="taskdef" xml:id="FileSizeTask">
         <title>FileSizeTask</title>
         <para>Stores the size of a specified file in a property. The file size is returned in
             bytes.</para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;filesize file="${builddir}/${tarball}.tar.${compression}" />
-&lt;php expression="floor(${filesize}/1024)" returnProperty="ksize" />
-&lt;php expression="floor(${filesize}/1024/1024)" returnProperty="msize" />
-&lt;echo msg="Filesize is: ${ksize} kB"/>
-&lt;echo msg="Filesize is: ${msize} MB"/></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -897,31 +890,19 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;filesize file="${builddir}/${tarball}.tar.${compression}" />
+&lt;php expression="floor(${filesize}/1024)" returnProperty="ksize" />
+&lt;php expression="floor(${filesize}/1024/1024)" returnProperty="msize" />
+&lt;echo msg="Filesize is: ${ksize} kB"/>
+&lt;echo msg="Filesize is: ${msize} MB"/></programlisting>
+        </sect2>
+                
     </sect1>
     <sect1 role="taskdef" xml:id="FtpDeployTask">
         <title>FtpDeployTask</title>
         <para>Deploys a set of files to a remote FTP server.</para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;ftpdeploy 
-  host="${ftp.host}" 
-  port="${ftp.port}" 
-  username="${ftp.username}" 
-  password="${ftp.password}"
-  dir="${ftp.dir}" 
-  passive="false"
-  mode="${ftp.mode}">
-  &lt;fileset dir=".">
-    &lt;include name="**"/>
-    &lt;exclude name="phing"/>
-    &lt;exclude name="build.xml"/>
-    &lt;exclude name="images/**.png"/>
-    &lt;exclude name="images/**.gif"/>
-    &lt;exclude name="images/**.jpg"/>
-  &lt;/fileset>
-&lt;/ftpdeploy></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -1010,6 +991,26 @@
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;ftpdeploy 
+  host="${ftp.host}" 
+  port="${ftp.port}" 
+  username="${ftp.username}" 
+  password="${ftp.password}"
+  dir="${ftp.dir}" 
+  passive="false"
+  mode="${ftp.mode}">
+  &lt;fileset dir=".">
+    &lt;include name="**"/>
+    &lt;exclude name="phing"/>
+    &lt;exclude name="build.xml"/>
+    &lt;exclude name="images/**.png"/>
+    &lt;exclude name="images/**.gif"/>
+    &lt;exclude name="images/**.jpg"/>
+  &lt;/fileset>
+&lt;/ftpdeploy></programlisting>
+        </sect2>               
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -1068,7 +1069,7 @@
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -1078,7 +1079,7 @@
 
 &lt;!-- Initialize bare repository -->
 &lt;gitinit bare="true" repository="${repo.dir.resolved}" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitCloneTask">
         <title>GitCloneTask</title>
@@ -1136,7 +1137,7 @@
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -1151,7 +1152,7 @@
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}"
     bare="true" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitGcTask">
         <title>GitGcTask</title>
@@ -1231,7 +1232,7 @@
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -1246,7 +1247,7 @@
     repository="${repo.dir.resolved}" 
     aggressive="true"
     prune="1.week.ago" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitBranchTask">
         <title>GitBranchTask</title>
@@ -1386,7 +1387,7 @@
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -1427,7 +1428,7 @@ Note that you can omit both startpoint and track attributes in this case
     branchname="branch1" 
     newbranch="branch2"
     move="true" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitFetchTask">
         <title>GitFetchTask</title>
@@ -1567,7 +1568,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -1585,7 +1586,7 @@ Note that you can omit both startpoint and track attributes in this case
     source="origin"
     refspec="master:refspec-branch" 
     quiet="true" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitCheckoutTask">
         <title>GitCheckoutTask</title>
@@ -1711,7 +1712,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -1736,7 +1737,7 @@ Note that you can omit both startpoint and track attributes in this case
     repository="${repo.dir.resolved}" 
     branchname="mybranch" quiet="true" 
     forceCreate="true" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitMergeTask">
         <title>GitMergeTask</title>
@@ -1858,7 +1859,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -1881,7 +1882,7 @@ Note that you can omit both startpoint and track attributes in this case
     repository="${repo.dir.resolved}" 
     remote="merge-test-1 merge-test-2" 
     message="merging repos" commit="true" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitPullTask">
         <title>GitPullTask</title>
@@ -2042,7 +2043,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -2062,7 +2063,7 @@ Note that you can omit both startpoint and track attributes in this case
     source="origin" refspec="foobranch" 
     strategy="recursive" keep="true"
     force="true" quiet="true" rebase="true" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitPushTask">
         <title>GitPushTask</title>
@@ -2177,7 +2178,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -2202,7 +2203,7 @@ Note that you can omit both startpoint and track attributes in this case
     repository="${repo.dir.resolved}" 
     delete="true"
     refspec="newbranch" quiet="true" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitTagTask">
         <title>GitTagTask</title>
@@ -2391,7 +2392,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -2420,7 +2421,7 @@ Note that you can omit both startpoint and track attributes in this case
     list="true"
     outputProperty="tags" 
     pattern="marked" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitLogTask">
         <title>GitLogTask</title>
@@ -2542,7 +2543,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
@@ -2562,7 +2563,7 @@ Note that you can omit both startpoint and track attributes in this case
     until="Mon Jan 24 09:59:33 2011 +0300"
     outputProperty="logs" 
     repository="${repo.dir.resolved}" /></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="HttpGetTask">
         <title>HttpGetTask</title>
@@ -2611,10 +2612,10 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;httpget url="http://buildserver.com/builds/latest.stable.tar.bz2" dir="/usr/local/lib"/></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="HttpRequestTask">
         <title>HttpRequestTask</title>
@@ -2695,6 +2696,26 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;http-request url="http://my-production.example.com/check-deployment.php"/></programlisting>
+
+        <para>Just perform a HTTP request to the given URL.</para>
+        <programlisting>&lt;http-request
+   url="http://my-production.example.com/check-deployment.php"
+   responseRegex="/Heartbeat/"
+   verbose"true"
+   observerEvents="connect, disconnect"/></programlisting>
+        <para>Perform a HTTP request to the given URL and matching the response against the
+            given regex pattern. Enable detailed logging and log only the specified
+            events.</para>
+        <programlisting>&lt;http-request url="http://my-production.example.com/check-deployment.php">
+   &lt;config name="adapter" value="HTTP_Request2_Adapter_Curl"/>
+   &lt;header name="user-agent" value="Phing HttpRequestTask"/>
+ &lt;/http-request></programlisting>
+        <para>Perform a HTTP request to the given URL. Setting request adapter to curl instead
+            of socket. Setting an additional header.</para>
+        </sect2>        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -2780,25 +2801,6 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;http-request url="http://my-production.example.com/check-deployment.php"/></programlisting>
-            </example>
-            <para>Just perform a HTTP request to the given URL.</para>
-            <programlisting>&lt;http-request
-   url="http://my-production.example.com/check-deployment.php"
-   responseRegex="/Heartbeat/"
-   verbose"true"
-   observerEvents="connect, disconnect"/></programlisting>
-            <para>Perform a HTTP request to the given URL and matching the response against the
-                given regex pattern. Enable detailed logging and log only the specified
-                events.</para>
-            <programlisting>&lt;http-request url="http://my-production.example.com/check-deployment.php">
-   &lt;config name="adapter" value="HTTP_Request2_Adapter_Curl"/>
-   &lt;header name="user-agent" value="Phing HttpRequestTask"/>
- &lt;/http-request></programlisting>
-            <para>Perform a HTTP request to the given URL. Setting request adapter to curl instead
-                of socket. Setting an additional header.</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="IoncubeEncoderTask">
@@ -2809,31 +2811,6 @@ Note that you can omit both startpoint and track attributes in this case
         <para> For more information on the meaning of the various options please consult the ionCube
                 <link xlink:href="http://www.ioncube.com/USER-GUIDE.pdf" role="extern">user
                 guide</link>. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;ioncubeencoder
-   binary="true"
-   copy="*.ini config/*"
-   encode="*.inc licenses/license.key"
-   encrypt="*.tpl *.xml"
-   fromdir="files"
-   ignore="*.bak RCS/ *~ docs/"
-   ioncubepath="/usr/local/ioncube"
-   keep="docs/README"
-   licensepath="mylicense.txt"
-   optimize="max"
-   passphrase="mypassphrase"
-   phpversion="4"
-   noshortopentags="false"
-   targetoption="replace"
-   todir="encoded"
-   withoutruntimeloadersupport="true"
-   callbackfile="errhandler.php"
-   obfuscationexlusionsfile="obfex.txt">
-  &lt;comment>A project encoded with the ionCube encoder.&lt;/comment>
-&lt;/ioncubeencoder></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3089,6 +3066,31 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;ioncubeencoder
+   binary="true"
+   copy="*.ini config/*"
+   encode="*.inc licenses/license.key"
+   encrypt="*.tpl *.xml"
+   fromdir="files"
+   ignore="*.bak RCS/ *~ docs/"
+   ioncubepath="/usr/local/ioncube"
+   keep="docs/README"
+   licensepath="mylicense.txt"
+   optimize="max"
+   passphrase="mypassphrase"
+   phpversion="4"
+   noshortopentags="false"
+   targetoption="replace"
+   todir="encoded"
+   withoutruntimeloadersupport="true"
+   callbackfile="errhandler.php"
+   obfuscationexlusionsfile="obfex.txt">
+  &lt;comment>A project encoded with the ionCube encoder.&lt;/comment>
+&lt;/ioncubeencoder></programlisting>
+        </sect2>
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -3107,19 +3109,6 @@ Note that you can omit both startpoint and track attributes in this case
         <para> For more information on the meaning of the various options please consult the ionCube
                 <link xlink:href="http://www.ioncube.com/USER-GUIDE.pdf" role="extern">user
                 guide</link>. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;ioncubelicense
-   ioncubepath="/usr/local/ioncube"
-   licensepath="mylicense.txt"
-   passphrase="mypassphrase"
-   allowedserver="00:06:4F:01:8F:2C"
-   expireon="2010-09-01"
-   expirein="7d">
-  &lt;comment>A license file made with the ionCube encoder.&lt;/comment>
-&lt;/ioncubelicense></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3186,7 +3175,19 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;ioncubelicense
+   ioncubepath="/usr/local/ioncube"
+   licensepath="mylicense.txt"
+   passphrase="mypassphrase"
+   allowedserver="00:06:4F:01:8F:2C"
+   expireon="2010-09-01"
+   expirein="7d">
+  &lt;comment>A license file made with the ionCube encoder.&lt;/comment>
+&lt;/ioncubelicense></programlisting>
+        </sect2>
+                <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
@@ -3278,6 +3279,18 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;jsllint file="path/to/source.php"/></programlisting>
+
+        <para>Checking syntax of one particular source file.</para>
+        <programlisting>&lt;jsllint>
+  &lt;fileset dir="src">
+    &lt;include name="**/*.php"/>
+  &lt;/fileset>
+&lt;/jsllint></programlisting>
+        <para>Check syntax of a fileset of source files.</para>
+        </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -3285,17 +3298,6 @@ Note that you can omit both startpoint and track attributes in this case
                     <para>fileset</para>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;jsllint file="path/to/source.php"/></programlisting>
-            </example>
-            <para>Checking syntax of one particular source file.</para>
-            <programlisting>&lt;jsllint>
-  &lt;fileset dir="src">
-    &lt;include name="**/*.php"/>
-  &lt;/fileset>
-&lt;/jsllint></programlisting>
-            <para>Check syntax of a fileset of source files.</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="JsMinTask">
@@ -3306,15 +3308,6 @@ Note that you can omit both startpoint and track attributes in this case
         <para> For more information on minifying JavaScript files see <link
                 xlink:href="http://www.crockford.com/javascript/jsmin.html" role="extern">Douglas
                 Crockford's introduction to minifying JavaScript files</link>. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;jsMin targetDir="docroot/script/minified" failOnError="false">
-  &lt;fileset dir="docroot/script">
-    &lt;include name="**/*.js"/>
-  &lt;/fileset>
-&lt;/jsMin></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3358,6 +3351,14 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;jsMin targetDir="docroot/script/minified" failOnError="false">
+  &lt;fileset dir="docroot/script">
+    &lt;include name="**/*.js"/>
+  &lt;/fileset>
+&lt;/jsMin></programlisting>
+        </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -3371,11 +3372,6 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="MailTask">
         <title>MailTask</title>
         <para>A task to send email.</para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;mail tolist="user@example.org" subject="build complete"">The build process is a success...&lt;/mail></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3425,6 +3421,11 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;mail tolist="user@example.org" subject="build complete"">The build process is a success...&lt;/mail></programlisting>
+        </sect2>
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -3538,35 +3539,18 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;patch
   patchfile="/path/to/patches/file.ext.patch"
   dir="/path/to/original"
 /></programlisting>
-        </example>
         <para>Apply "file.ext.path" to original file locataed in "/path/to/original" folder.</para>
+        </sect2>            
     </sect1>
     <sect1 role="taskdef" xml:id="PDOSQLExecTask">
         <title>PDOSQLExecTask</title>
         <para> The <literal>PDOSQLExecTask</literal> executes SQL statements using PDO. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;pdosqlexec url="pgsql:host=localhost dbname=test">
-  &lt;fileset dir="sqlfiles">
-	  &lt;include name="*.sql"/>
-	  &lt;/fileset>
-&lt;/pdosqlexec></programlisting>
-        </example>
-        <programlisting>&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password">
-  &lt;transaction src="path/to/sqlfile.sql"/>
-  &lt;formatter type="plain" outfile="path/to/output.txt"/>
-  &lt;/pdosqlexec></programlisting>
-        <note>
-            <para>Because of backwards compatiblity, the PDOSQLExecTask can also be called using the
-                    <literal>'pdo'</literal> statement. </para>
-        </note>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3662,6 +3646,43 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;pdosqlexec url="pgsql:host=localhost dbname=test">
+  &lt;fileset dir="sqlfiles">
+	  &lt;include name="*.sql"/>
+	  &lt;/fileset>
+&lt;/pdosqlexec></programlisting>
+
+        <programlisting>&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password">
+  &lt;transaction src="path/to/sqlfile.sql"/>
+  &lt;formatter type="plain" outfile="path/to/output.txt"/>
+  &lt;/pdosqlexec></programlisting>
+        <note>
+            <para>Because of backwards compatiblity, the PDOSQLExecTask can also be called using the
+                <literal>'pdo'</literal> statement. </para>
+        </note>
+        </sect2>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;pdo url="pgsql:host=localhost dbname=test">
+  &lt;fileset dir="sqlfiles">
+	  &lt;include name="*.sql"/>
+  &lt;/fileset>
+
+  &lt;!-- xml formatter -->
+  &lt;formatter type="xml" output="output.xml"/>
+
+  &lt;!-- custom formatter -->
+  &lt;formatter classname="path.to.CustomFormatterClass">
+    &lt;param name="someClassAttrib" value="some-value"/>
+  &lt;/formatter>
+
+  &lt;!-- No output file + usefile=false means it goes to phing log -->
+  &lt;formatter type="plain" usefile="false" />
+&lt;/pdo></programlisting>
+        </sect2>
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -3811,25 +3832,6 @@ Note that you can omit both startpoint and track attributes in this case
                             </tbody>
                         </tgroup>
                     </table>
-                    <example>
-                        <title>Example</title>
-                        <programlisting>&lt;pdo url="pgsql:host=localhost dbname=test">
-  &lt;fileset dir="sqlfiles">
-	  &lt;include name="*.sql"/>
-  &lt;/fileset>
-
-  &lt;!-- xml formatter -->
-  &lt;formatter type="xml" output="output.xml"/>
-
-  &lt;!-- custom formatter -->
-  &lt;formatter classname="path.to.CustomFormatterClass">
-    &lt;param name="someClassAttrib" value="some-value"/>
-  &lt;/formatter>
-
-  &lt;!-- No output file + usefile=false means it goes to phing log -->
-  &lt;formatter type="plain" usefile="false" />
-&lt;/pdo></programlisting>
-                    </example>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -3849,28 +3851,6 @@ Note that you can omit both startpoint and track attributes in this case
                 <code>PEAR_PackageFileManager::setOptions()</code> . Use the
                 <literal>&lt;mapping></literal> tag to represent complex values (which are turned
             into associative arrays and also set using <code>setOptions()</code> method). </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;pearpkg name="phing" dir="${build.src.dir}" destFile="${build.base.dir}/package.xml">
-&lt;fileset dir=".">
-  &lt;include name="**"/>
-&lt;/fileset>
-&lt;option name="notes">Sample release notes here.&lt;/option>
-&lt;option name="description">Package description&lt;/option>
-&lt;option name="summary">Short description&lt;/option>
-&lt;option name="version" value="2.0.0b1"/>
-&lt;option name="state" value="beta"/>
- &lt;mapping name="maintainers">
-  &lt;element>
-   &lt;element key="handle" value="hlellelid"/>
-   &lt;element key="name" value="Hans"/>
-   &lt;element key="email" value="hans@xmpl.org"/>
-   &lt;element key="role" value="lead"/>
-  &lt;/element>
-&lt;/mapping>
-&lt;/pearpkg></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3913,6 +3893,28 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;pearpkg name="phing" dir="${build.src.dir}" destFile="${build.base.dir}/package.xml">
+&lt;fileset dir=".">
+  &lt;include name="**"/>
+&lt;/fileset>
+&lt;option name="notes">Sample release notes here.&lt;/option>
+&lt;option name="description">Package description&lt;/option>
+&lt;option name="summary">Short description&lt;/option>
+&lt;option name="version" value="2.0.0b1"/>
+&lt;option name="state" value="beta"/>
+ &lt;mapping name="maintainers">
+  &lt;element>
+   &lt;element key="handle" value="hlellelid"/>
+   &lt;element key="name" value="Hans"/>
+   &lt;element key="email" value="hans@xmpl.org"/>
+   &lt;element key="role" value="lead"/>
+  &lt;/element>
+&lt;/mapping>
+&lt;/pearpkg></programlisting>
+        </sect2>
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -3983,7 +3985,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PearPackage2Task</title>
         <para> With the PearPackage2Task, you can create a <literal>version 2</literal> package.xml
             which can be installed using the PEAR installer. Use this in conjunction with the <link
-                xlink:href="#Tasks.TarTask">TarTask</link> to completely script the building of a
+                xlink:href="#TarTask">TarTask</link> to completely script the building of a
             PEAR package. </para>
         <para> This task uses the PEAR_PackageFileManager2 class. In order to be maximally flexible,
             the majority of options are set generically (using <literal>&lt;option></literal> tag)
@@ -3992,36 +3994,6 @@ Note that you can omit both startpoint and track attributes in this case
         <para> Note that Travis Swicegood has created a more complete implementation of this
             functionality which can be found here: <link xlink:href="http://pear.domain51.com/"
                 role="extern">pear.domain51.com</link>. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;pearpkg2 name="phing" dir="${build.src.dir}">
-   &lt;option name="outputdirectory" value="./build"/>
-   &lt;option name="packagefile" value="package2.xml"/>
-   &lt;option name="packagedirectory" value="./${build.dist.dir}"/>
-   &lt;option name="baseinstalldir" value="${pkg.prefix}"/>
-   &lt;option name="channel" value="my.pear-channel.com"/>
-   &lt;option name="summary" value="${pkg.summary}"/>
-   &lt;option name="description" value="${pkg.description}"/>
-   &lt;option name="apiversion" value="${pkg.version}"/>
-   &lt;option name="apistability" value="beta"/>
-   &lt;option name="releaseversion" value="${pkg.version}"/>
-   &lt;option name="releasestability" value="beta"/>
-   &lt;option name="license" value="none"/>
-   &lt;option name="phpdep" value="5.0.0"/>
-   &lt;option name="pearinstallerdep" value="1.4.6"/>
-   &lt;option name="packagetype" value="php"/>
-   &lt;option name="notes" value="${pkg.relnotes}"/>
-   &lt;mapping name="maintainers">
-    &lt;element>
-     &lt;element key="handle" value="hlellelid"/>
-     &lt;element key="name" value="Hans"/>
-     &lt;element key="email" value="hans@xmpl.org"/>
-     &lt;element key="role" value="lead"/>
-    &lt;/element>
-   &lt;/mapping>
-&lt;/pearpkg2></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4057,6 +4029,35 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;pearpkg2 name="phing" dir="${build.src.dir}">
+   &lt;option name="outputdirectory" value="./build"/>
+   &lt;option name="packagefile" value="package2.xml"/>
+   &lt;option name="packagedirectory" value="./${build.dist.dir}"/>
+   &lt;option name="baseinstalldir" value="${pkg.prefix}"/>
+   &lt;option name="channel" value="my.pear-channel.com"/>
+   &lt;option name="summary" value="${pkg.summary}"/>
+   &lt;option name="description" value="${pkg.description}"/>
+   &lt;option name="apiversion" value="${pkg.version}"/>
+   &lt;option name="apistability" value="beta"/>
+   &lt;option name="releaseversion" value="${pkg.version}"/>
+   &lt;option name="releasestability" value="beta"/>
+   &lt;option name="license" value="none"/>
+   &lt;option name="phpdep" value="5.0.0"/>
+   &lt;option name="pearinstallerdep" value="1.4.6"/>
+   &lt;option name="packagetype" value="php"/>
+   &lt;option name="notes" value="${pkg.relnotes}"/>
+   &lt;mapping name="maintainers">
+    &lt;element>
+     &lt;element key="handle" value="hlellelid"/>
+     &lt;element key="name" value="Hans"/>
+     &lt;element key="email" value="hans@xmpl.org"/>
+     &lt;element key="role" value="lead"/>
+    &lt;/element>
+   &lt;/mapping>
+&lt;/pearpkg2></programlisting>
+        </sect2>        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -4551,24 +4552,10 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset</para>
-                </listitem>
-                <!--
-    TODO Describe metadata element.
-  -->
-                <listitem>
-                    <para>metadata </para>
-                    <para/>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example</title>
-                <para>Sample build command:</para>
-                <programlisting>&lt;pharpackage
+        <sect2>
+            <title>Example</title>
+            <para>Sample build command:</para>
+            <programlisting>&lt;pharpackage
   destfile="./build/package.phar"
   basedir="./">
   &lt;fileset dir="./classes">
@@ -4583,7 +4570,21 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;/element>
   &lt;/metadata>
 &lt;/pharpackage></programlisting>
-            </example>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+                <!--
+    TODO Describe metadata element.
+  -->
+                <listitem>
+                    <para>metadata </para>
+                    <para/>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhkPackageTask">
@@ -4673,19 +4674,10 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>webaccess </para>
-                    <para> Collection of <literal>path</literal> tags (see example below), that will
-                        be visible outside package in web mode. </para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example</title>
-                <para>Sample build command:</para>
-                <programlisting>&lt;phkpackage
+        <sect2>
+            <title>Example</title>
+            <para>Sample build command:</para>
+            <programlisting>&lt;phkpackage
     phkcreatorpath="/path/to/PHK_Creator.phk"
     inputdirectory="src"
     outputfile="build/sample-project.phk"
@@ -4697,7 +4689,16 @@ Note that you can omit both startpoint and track attributes in this case
         &lt;paentry>/&lt;/paentry>
     &lt;/webaccess>
 &lt;/phkpackage></programlisting>
-            </example>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>webaccess </para>
+                    <para> Collection of <literal>path</literal> tags (see example below), that will
+                        be visible outside package in web mode. </para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpCodeSnifferTask">
@@ -4983,45 +4984,6 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Examples</title>
-                <para> Checks all files in the directory <literal>file</literal> matching the
-                    allowed file extension with the <literal>PEAR</literal> standard and prints the
-                        <literal>summary</literal> report without warnings. </para>
-                <programlisting>&lt;phpcodesniffer
-  standard="PEAR"
-  format="summary"
-  file="/path/to/source-files"
-  allowedFileExtensions="php php5 inc"/></programlisting>
-                <para> Checks all matching files in the <literal>fileset</literal> with the
-                        <literal>Zend</literal> standard, sets the <literal>zend_ca_path</literal>
-                    configuration which may be required by one of the sniffs, prints a list of used
-                    sniffs and prints the <literal>default</literal> report with warnings and the
-                        <literal>checkstyle</literal> report to
-                        <literal>/path/to/checkstyle.xml</literal>. </para>
-                <programlisting>&lt;phpcodesniffer
-  standard="Zend"
-  showSniffs="true"
-  showWarnings="true">
-  &lt;fileset dir="/path/to/source-files">
-    &lt;include name="**/*.php"/>
-  &lt;/fileset>
-  &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/>
-  &lt;formatter type="default" usefile="false"/>
-  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
-&lt;/phpcodesniffer></programlisting>
-                <para> Checks all files in the directory <literal>file</literal> with the
-                        <literal>PEAR</literal> standard and prints the
-                        <literal>checkstyle</literal> report without warnings. It also generates the
-                    documentation for the selected coding standard and writes it to the given file. </para>
-                <programlisting>&lt;phpcodesniffer
-  standard="PEAR"
-  file="/path/to/source-files"
-  docGenerator="HTML"
-  docFile="/path/to/doc.html">
-  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
-&lt;/phpcodesniffer></programlisting>
-            </example>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PHPCPDTask">
@@ -5079,6 +5041,65 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Examples</title>
+            <para> Checks all files in the directory <literal>file</literal> matching the
+                allowed file extension with the <literal>PEAR</literal> standard and prints the
+                <literal>summary</literal> report without warnings. </para>
+            <programlisting>&lt;phpcodesniffer
+  standard="PEAR"
+  format="summary"
+  file="/path/to/source-files"
+  allowedFileExtensions="php php5 inc"/></programlisting>
+            <para> Checks all matching files in the <literal>fileset</literal> with the
+                <literal>Zend</literal> standard, sets the <literal>zend_ca_path</literal>
+                configuration which may be required by one of the sniffs, prints a list of used
+                sniffs and prints the <literal>default</literal> report with warnings and the
+                <literal>checkstyle</literal> report to
+                <literal>/path/to/checkstyle.xml</literal>. </para>
+            <programlisting>&lt;phpcodesniffer
+  standard="Zend"
+  showSniffs="true"
+  showWarnings="true">
+  &lt;fileset dir="/path/to/source-files">
+    &lt;include name="**/*.php"/>
+  &lt;/fileset>
+  &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/>
+  &lt;formatter type="default" usefile="false"/>
+  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
+&lt;/phpcodesniffer></programlisting>
+            <para> Checks all files in the directory <literal>file</literal> with the
+                <literal>PEAR</literal> standard and prints the
+                <literal>checkstyle</literal> report without warnings. It also generates the
+                documentation for the selected coding standard and writes it to the given file. </para>
+            <programlisting>&lt;phpcodesniffer
+  standard="PEAR"
+  file="/path/to/source-files"
+  docGenerator="HTML"
+  docFile="/path/to/doc.html">
+  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
+&lt;/phpcodesniffer></programlisting>
+            <programlisting>&lt;phpcpd file="path/to/source.php"/></programlisting>
+            
+            <para>Checking for copy/paste code in one particular source file. Sending Default-Report
+                to STDOUT.</para>
+            <programlisting>&lt;phpcpd file="path/to/source">
+   &lt;formatter type="pmd" outfile="reports/pmd-cpd.xml"/>
+ &lt;/phpcpd></programlisting>
+            <para>Checking for copy/paste code in files of the given path.</para>
+            <programlisting>&lt;phpcpd>
+   &lt;fileset dir="${builddir}" id="filestocpd">
+     &lt;include name="apps/**/*.php" />
+     &lt;include name="lib/de/**/*.php" />
+     &lt;include name="lib/task/**/*.php" />
+     &lt;include name="lib/services/**/*.php" />
+     &lt;include name="lib/form/**/*.php" />
+     &lt;include name="lib/model/**/*.php" />
+   &lt;/fileset>
+   &lt;formatter type="pmd" outfile="reports/pmd-cpd.xml"/>
+ &lt;/phpcpd></programlisting>
+            
+        </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -5141,27 +5162,6 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;phpcpd file="path/to/source.php"/></programlisting>
-            </example>
-            <para>Checking for copy/paste code in one particular source file. Sending Default-Report
-                to STDOUT.</para>
-            <programlisting>&lt;phpcpd file="path/to/source">
-   &lt;formatter type="pmd" outfile="reports/pmd-cpd.xml"/>
- &lt;/phpcpd></programlisting>
-            <para>Checking for copy/paste code in files of the given path.</para>
-            <programlisting>&lt;phpcpd>
-   &lt;fileset dir="${builddir}" id="filestocpd">
-     &lt;include name="apps/**/*.php" />
-     &lt;include name="lib/de/**/*.php" />
-     &lt;include name="lib/task/**/*.php" />
-     &lt;include name="lib/services/**/*.php" />
-     &lt;include name="lib/form/**/*.php" />
-     &lt;include name="lib/model/**/*.php" />
-   &lt;/fileset>
-   &lt;formatter type="pmd" outfile="reports/pmd-cpd.xml"/>
- &lt;/phpcpd></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PHPMDTask">
@@ -5234,6 +5234,25 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;phpmd file="path/to/source.php"/></programlisting>
+            
+            <para>Checking syntax of one particular source file. Sending Text-Report to
+                STDOUT.</para>
+            <programlisting>&lt;phpmd file="path/to/source">
+   &lt;formatter type="html" outfile="reports/pmd.html"/>
+ &lt;/phpmd></programlisting>
+            <para>Checking syntax of source files in the given path.</para>
+            <programlisting>&lt;phpmd>
+   &lt;fileset dir="${builddir}">
+     &lt;include name="apps/**/*.php" />
+     &lt;include name="lib/de/**/*.php" />
+   &lt;/fileset>
+   &lt;formatter type="xml" outfile="reports/pmd.xml"/>
+ &lt;/phpmd></programlisting>
+            <para>Checking syntax of source files in the fileset pathes.</para>
+        </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -5297,24 +5316,6 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;phpmd file="path/to/source.php"/></programlisting>
-            </example>
-            <para>Checking syntax of one particular source file. Sending Text-Report to
-                STDOUT.</para>
-            <programlisting>&lt;phpmd file="path/to/source">
-   &lt;formatter type="html" outfile="reports/pmd.html"/>
- &lt;/phpmd></programlisting>
-            <para>Checking syntax of source files in the given path.</para>
-            <programlisting>&lt;phpmd>
-   &lt;fileset dir="${builddir}">
-     &lt;include name="apps/**/*.php" />
-     &lt;include name="lib/de/**/*.php" />
-   &lt;/fileset>
-   &lt;formatter type="xml" outfile="reports/pmd.xml"/>
- &lt;/phpmd></programlisting>
-            <para>Checking syntax of source files in the fileset pathes.</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpDependTask">
@@ -5409,6 +5410,24 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;phpdepend file="path/to/source">
+   &lt;logger type="phpunit-xml" outfile="reports/metrics.xml"/>
+ &lt;/phpdepend></programlisting>
+            
+            <para>Running code analysis for source files in the given path.</para>
+            <programlisting>&lt;phpdepend>
+   &lt;fileset dir="${builddir}">
+     &lt;include name="apps/**/*.php" />
+     &lt;include name="lib/de/**/*.php" />
+   &lt;/fileset>
+   &lt;logger type="jdepend-xml" outfile="reports/jdepend.xml"/>
+   &lt;analyzer type="coderank-mode" value="method"/>
+ &lt;/phpdepend></programlisting>
+            <para> Running code analysis for source files in the fileset pathes with CodeRank
+                strategy <literal>method</literal>. </para>
+        </sect2>                
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -5505,23 +5524,6 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;phpdepend file="path/to/source">
-   &lt;logger type="phpunit-xml" outfile="reports/metrics.xml"/>
- &lt;/phpdepend></programlisting>
-            </example>
-            <para>Running code analysis for source files in the given path.</para>
-            <programlisting>&lt;phpdepend>
-   &lt;fileset dir="${builddir}">
-     &lt;include name="apps/**/*.php" />
-     &lt;include name="lib/de/**/*.php" />
-   &lt;/fileset>
-   &lt;logger type="jdepend-xml" outfile="reports/jdepend.xml"/>
-   &lt;analyzer type="coderank-mode" value="method"/>
- &lt;/phpdepend></programlisting>
-            <para> Running code analysis for source files in the fileset pathes with CodeRank
-                strategy <literal>method</literal>. </para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentorTask">
@@ -5686,20 +5688,9 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset - Files that should be included for parsing</para>
-                </listitem>
-                <listitem>
-                    <para>projdocfileset - Files that should be treated as README/INSTALL/CHANGELOG
-                        files</para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;phpdoc title="API Documentation"
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;phpdoc title="API Documentation"
   destdir="apidocs"
   sourcecode="false"
   output="HTML:Smarty:PHP">
@@ -5712,7 +5703,18 @@ Note that you can omit both startpoint and track attributes in this case
       &lt;include name="CHANGELOG" />
    &lt;/projdocfileset>
 &lt;/phpdoc></programlisting>
-            </example>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset - Files that should be included for parsing</para>
+                </listitem>
+                <listitem>
+                    <para>projdocfileset - Files that should be treated as README/INSTALL/CHANGELOG
+                        files</para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentorExternalTask">
@@ -5782,7 +5784,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;phpdocext title="API Documentation"
   programpath="/usr/bin/phpdoc"
@@ -5798,7 +5800,7 @@ Note that you can omit both startpoint and track attributes in this case
       &lt;include name="CHANGELOG" />
    &lt;/projdocfileset>
 &lt;/phpdocext></programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpLintTask">
         <title>PhpLintTask</title>
@@ -5891,17 +5893,10 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset</para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;phplint file="path/to/source.php"/></programlisting>
-            </example>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;phplint file="path/to/source.php"/></programlisting>
+            
             <para>Checking syntax of one particular source file.</para>
             <programlisting>&lt;phplint>
   &lt;fileset dir="src">
@@ -5909,6 +5904,14 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/fileset>
 &lt;/phplint></programlisting>
             <para>Check syntax of a fileset of source files.</para>
+        </sect2>        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+            </itemizedlist>
+
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PHPUnitTask">
@@ -6178,16 +6181,9 @@ Note that you can omit both startpoint and track attributes in this case
                 </listitem>
             </itemizedlist>
         </sect2>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset</para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;phpunit>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;phpunit>
   &lt;formatter todir="reports" type="xml"/>
   &lt;batchtest>
     &lt;fileset dir="tests">
@@ -6196,7 +6192,6 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;/fileset>
   &lt;/batchtest>
 &lt;/phpunit></programlisting>
-            </example>
             <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
                 XML results to the directory <literal>reports</literal>. </para>
             <programlisting>&lt;phpunit codecoverage="true" haltonfailure="true" haltonerror="true">
@@ -6226,6 +6221,14 @@ Note that you can omit both startpoint and track attributes in this case
                 "AllTests.php" file to execute testcases will bypass the Phing hooks used for
                 reporting and counting, and could possibly lead to strange results. Instead, use one
                 of more fileset's to provide a list of testcases to execute. </para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+            </itemizedlist>                
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PHPUnitReport">
@@ -6302,19 +6305,19 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <programlisting>&lt;phpunitreport infile="reports/testsuites.xml" 
     format="frames" 
     todir="reports/tests" 
     styledir="/home/phing/etc"/></programlisting>
-        </example>
         <para> Generates a framed report in the directory <literal>reports/tests</literal> using the
             file <literal>reports/testsuites.xml</literal> as input. </para>
         <para>
             <emphasis role="bold">Important note:</emphasis> testclasses that are not explicitly
             placed in a package (by using a '@package' tag in the class-level DocBlock) are listed
             under the "default" package. </para>
+        </sect2>            
     </sect1>
     <sect1 role="taskdef" xml:id="rSTTask">
         <title>rSTTask</title>
@@ -6447,26 +6450,13 @@ Note that you can omit both startpoint and track attributes in this case
                 </listitem>
             </itemizedlist>
         </sect2>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset</para>
-                </listitem>
-                <listitem>
-                    <para>mapper</para>
-                </listitem>
-                <listitem>
-                    <para>filterchain</para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Examples</title>
-                <para>Render a single rST file to HTML </para>
-                <para>By default, HTML is generated. If no target file is specified, the input file
-                    name is taken, and its extension replaced with the correct one for the output
-                    format.</para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+        <sect2>
+            <title>Examples</title>
+            <para>Render a single rST file to HTML </para>
+            <para>By default, HTML is generated. If no target file is specified, the input file
+                name is taken, and its extension replaced with the correct one for the output
+                format.</para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file to HTML">
 
@@ -6474,9 +6464,9 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-                <para> Render a single rST file to any supported format </para>
-                <para> The <literal>format</literal> attribute determines the output format: </para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> Render a single rST file to any supported format </para>
+            <para> The <literal>format</literal> attribute determines the output format: </para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file to S5 HTML">
 
@@ -6484,8 +6474,8 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-                <para> Specifying the output file name </para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> Specifying the output file name </para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file">
 
@@ -6493,10 +6483,10 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-                <para> Rendering multiple files </para>
-                <para> A nested <literal>fileset</literal> tag may be used to specify multiple
-                    files. </para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> Rendering multiple files </para>
+            <para> A nested <literal>fileset</literal> tag may be used to specify multiple
+                files. </para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
   &lt;target name="multiple" description="renders several rST files">
 
@@ -6509,10 +6499,10 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-                <para> Rendering multiple files to another directory </para>
-                <para> A nested <literal>mapper</literal> may be used to determine the output file
-                    names. </para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> Rendering multiple files to another directory </para>
+            <para> A nested <literal>mapper</literal> may be used to determine the output file
+                names. </para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
   &lt;target name="multiple" description="renders several rST files">
 
@@ -6526,10 +6516,10 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-                <para> Modifying files after rendering </para>
-                <para>You may have variables in your rST code that can be replaced after rendering,
-                    i.e. the version of your software.</para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> Modifying files after rendering </para>
+            <para>You may have variables in your rST code that can be replaced after rendering,
+                i.e. the version of your software.</para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="filterchain">
   &lt;target name="filterchain" description="renders several rST files">
 
@@ -6547,10 +6537,10 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-                <para> Rendering changed files only </para>
-                <para> The <literal>uptodate</literal> attribute determines if only those files
-                    should be rendered that are newer than their output file. </para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> Rendering changed files only </para>
+            <para> The <literal>uptodate</literal> attribute determines if only those files
+                should be rendered that are newer than their output file. </para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
   &lt;target name="multiple" description="renders several rST files">
 
@@ -6562,10 +6552,10 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-                <para> Specify a custom CSS file </para>
-                <para> You may pass any additional parameters to the rst conversion tools with the
-                        <literal>toolparam</literal> attribute. </para>
-                <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> Specify a custom CSS file </para>
+            <para> You may pass any additional parameters to the rst conversion tools with the
+                <literal>toolparam</literal> attribute. </para>
+            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file to S5 HTML">
 
@@ -6573,7 +6563,20 @@ Note that you can omit both startpoint and track attributes in this case
 
   &lt;/target>
 &lt;/project></programlisting>
-            </example>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+                <listitem>
+                    <para>mapper</para>
+                </listitem>
+                <listitem>
+                    <para>filterchain</para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="S3PutTask">
@@ -6582,33 +6585,6 @@ Note that you can omit both startpoint and track attributes in this case
                 xlink:href="http://pear.php.net/package/Services_Amazon_S3" role="extern"
                 >Services_Amazon_S3</link>
         </para>
-        <example>
-            <title>Example</title>
-            <para>Uploading a file</para>
-            <programlisting>&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
-            <para>You can also define "bucket, key, secret" outside of the task call:</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
-&lt;property name="amazon.secret" value="my_secret" />
-&lt;property name="amazon.bucket" value="mybucket" />
-
-&lt;s3put source="/path/to/file.txt" object="file.txt" /></programlisting>
-            <para>You can also specify inline content instead of a file to upload:</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
-&lt;property name="amazon.secret" value="my_secret" />
-&lt;property name="amazon.bucket" value="mybucket" />
-
-&lt;s3put content="Some content here" object="file.txt" /></programlisting>
-            <para>It also works with filesets</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
-&lt;property name="amazon.secret" value="my_secret" />
-&lt;property name="amazon.bucket" value="mybucket" />
-&lt;s3put>
-	&lt;fileset dir="${project.basedir}">
-		&lt;include name="**/*.jpg" />
-	&lt;/fileset>
-&lt;/s3put></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -6672,6 +6648,32 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <para>Uploading a file</para>
+            <programlisting>&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
+            <para>You can also define "bucket, key, secret" outside of the task call:</para>
+            <programlisting>&lt;property name="amazon.key" value="my_key" />
+&lt;property name="amazon.secret" value="my_secret" />
+&lt;property name="amazon.bucket" value="mybucket" />
+
+&lt;s3put source="/path/to/file.txt" object="file.txt" /></programlisting>
+            <para>You can also specify inline content instead of a file to upload:</para>
+            <programlisting>&lt;property name="amazon.key" value="my_key" />
+&lt;property name="amazon.secret" value="my_secret" />
+&lt;property name="amazon.bucket" value="mybucket" />
+
+&lt;s3put content="Some content here" object="file.txt" /></programlisting>
+            <para>It also works with filesets</para>
+            <programlisting>&lt;property name="amazon.key" value="my_key" />
+&lt;property name="amazon.secret" value="my_secret" />
+&lt;property name="amazon.bucket" value="mybucket" />
+&lt;s3put>
+	&lt;fileset dir="${project.basedir}">
+		&lt;include name="**/*.jpg" />
+	&lt;/fileset>
+&lt;/s3put></programlisting>
+        </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -6687,18 +6689,6 @@ Note that you can omit both startpoint and track attributes in this case
                 xlink:href="http://pear.php.net/package/Services_Amazon_S3" role="extern"
                 >Services_Amazon_S3</link>
         </para>
-        <example>
-            <title>Example</title>
-            <para>Downloading an object</para>
-            <programlisting>&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
-            <para>You can also define "bucket, key, secret" outside of the task call:</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
-&lt;property name="amazon.secret" value="my_secret" />
-&lt;property name="amazon.bucket" value="mybucket" />
-
-&lt;s3get object="file.txt" target="${project.basedir}" /></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -6755,32 +6745,24 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <para>Downloading an object</para>
+            <programlisting>&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
+            <para>You can also define "bucket, key, secret" outside of the task call:</para>
+            <programlisting>&lt;property name="amazon.key" value="my_key" />
+&lt;property name="amazon.secret" value="my_secret" />
+&lt;property name="amazon.bucket" value="mybucket" />
+
+&lt;s3get object="file.txt" target="${project.basedir}" /></programlisting>
+        </sect2>
+        
     </sect1>
     <sect1 role="taskdef" xml:id="ScpTask">
         <title>ScpTask</title>
         <para> The <literal>ScpTask</literal> copies files to and from a remote host using scp. This
             task requires the <link xlink:href="http://pecl.php.net/package/ssh2" role="extern">PHP
                 SSH2 extension</link> to function. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;scp username="john" password="smith"
-host="webserver" fetch="true"
-todir="/home/john/backup"
-file="/www/htdocs/test.html" /></programlisting>
-        </example>
-        <para>Fetches a single file from the remote server.</para>
-        <programlisting>&lt;scp username="john" password="smith"
-host="webserver"
-todir="/www/htdocs/"
-file="/home/john/dev/test.html" /></programlisting>
-        <para>Copies a single file to the remote server.</para>
-        <programlisting>&lt;scp username="john" password="smith"
-host="webserver" todir="/www/htdocs/project/">
-    &lt;fileset dir="test">
-        &lt;include name="*.html" />
-    &lt;/fileset>
-&lt;/scp></programlisting>
-        <para>Copies multiple files to the remote server.</para>
 
         <table>
             <title>Attributes</title>
@@ -6890,6 +6872,27 @@ host="webserver" todir="/www/htdocs/project/">
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;scp username="john" password="smith"
+host="webserver" fetch="true"
+todir="/home/john/backup"
+file="/www/htdocs/test.html" /></programlisting>
+            
+            <para>Fetches a single file from the remote server.</para>
+            <programlisting>&lt;scp username="john" password="smith"
+host="webserver"
+todir="/www/htdocs/"
+file="/home/john/dev/test.html" /></programlisting>
+            <para>Copies a single file to the remote server.</para>
+            <programlisting>&lt;scp username="john" password="smith"
+host="webserver" todir="/www/htdocs/project/">
+    &lt;fileset dir="test">
+        &lt;include name="*.html" />
+    &lt;/fileset>
+&lt;/scp></programlisting>
+            <para>Copies multiple files to the remote server.</para>
+        </sect2>        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -6904,12 +6907,6 @@ host="webserver" todir="/www/htdocs/project/">
         <para> The <literal>ScpTask</literal> executes commands on a remote host using ssh.. This
             task requires the <link xlink:href="http://pecl.php.net/package/ssh2" role="extern">PHP
                 SSH2 extension</link> to function. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;ssh username="john" password="smith"
-host="webserver" command="ls" /></programlisting>
-        </example>
-        <para>Executes a single command on the remote server.</para>
 
         <table>
             <title>Attributes</title>
@@ -7003,6 +7000,14 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;ssh username="john" password="smith"
+host="webserver" command="ls" /></programlisting>
+            
+            <para>Executes a single command on the remote server.</para>
+        </sect2>
+        
     </sect1>
     <sect1 role="taskdef" xml:id="SimpleTestTask">
         <title>SimpleTestTask</title>
@@ -7074,6 +7079,28 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;simpletest>
+  &lt;formatter type="plain"/>
+  &lt;fileset dir="tests">
+    &lt;include name="**/*Test*.php"/>
+    &lt;exclude name="**/Abstract*.php"/>
+  &lt;/fileset>
+&lt;/simpletest></programlisting>
+            
+            <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
+                plain text results to the console. </para>
+            <programlisting>&lt;simpletest haltonfailure="true" haltonerror="true">
+  &lt;formatter type="plain" usefile="false"/>
+  &lt;fileset dir="tests">
+    &lt;include name="**/*Test*.php"/>
+  &lt;/fileset>
+&lt;/simpletest></programlisting>
+            <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
+                plain text results to the console. The build process is aborted if a test fails.
+            </para>
+        </sect2>        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -7156,47 +7183,13 @@ host="webserver" command="ls" /></programlisting>
                     <para>fileset</para>
                 </listitem>
             </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;simpletest>
-  &lt;formatter type="plain"/>
-  &lt;fileset dir="tests">
-    &lt;include name="**/*Test*.php"/>
-    &lt;exclude name="**/Abstract*.php"/>
-  &lt;/fileset>
-&lt;/simpletest></programlisting>
-            </example>
-            <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
-                plain text results to the console. </para>
-            <programlisting>&lt;simpletest haltonfailure="true" haltonerror="true">
-  &lt;formatter type="plain" usefile="false"/>
-  &lt;fileset dir="tests">
-    &lt;include name="**/*Test*.php"/>
-  &lt;/fileset>
-&lt;/simpletest></programlisting>
-            <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
-                plain text results to the console. The build process is aborted if a test fails.
-            </para>
+                
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnCheckoutTask">
         <title>SvnCheckoutTask</title>
         <para> The <literal>SvnCheckoutTask</literal> checks out a Subversion repository to a local
             directory. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svncheckout
-   svnpath="/usr/bin/svn"
-   username="anony"
-   password="anony"
-   nocache="true"
-   repositoryurl="svn://localhost/project/trunk/"
-   todir="/home/user/svnwc"/></programlisting>
-        </example>
-        <programlisting>&lt;svncheckout
-   svnpath="C:/Subversion/bin/svn.exe"
-   repositoryurl="svn://localhost/project/trunk/"
-   todir="C:/projects/svnwc"/></programlisting>
 
         <table>
             <title>Attributes</title>
@@ -7282,27 +7275,27 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svncheckout
+   svnpath="/usr/bin/svn"
+   username="anony"
+   password="anony"
+   nocache="true"
+   repositoryurl="svn://localhost/project/trunk/"
+   todir="/home/user/svnwc"/></programlisting>
+            
+            <programlisting>&lt;svncheckout
+   svnpath="C:/Subversion/bin/svn.exe"
+   repositoryurl="svn://localhost/project/trunk/"
+   todir="C:/projects/svnwc"/></programlisting>
+        </sect2>    
     </sect1>
     <sect1 role="taskdef" xml:id="SvnCommitTask">
         <title>SvnCommitTask</title>
         <para> The <literal>SvnCommitTask</literal> commits a local working copy to a SVN repository
             and sets the specified property ( default <literal>svn.committedrevision</literal>) to
             the revision number of the committed revision. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svncommit
-    svnpath="/usr/bin/svn"
-    username="anony"
-    password="anony"
-    nocache="true"
-    workingcopy="/home/joe/dev/project"    
-    message="Updated documentation, fixed typos" /></programlisting>
-        </example>
-        <para>The most basic usage only needs the working copy and the commit message as in</para>
-        <programlisting>&lt;svncommit
-    workingcopy="/home/joe/dev/project"
-    message="Updated documentation, fixed typos" />
-&lt;echo message="Committed revision: ${svn.committedrevision}"/></programlisting>
 
         <table>
             <title>Attributes</title>
@@ -7395,23 +7388,26 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svncommit
+    svnpath="/usr/bin/svn"
+    username="anony"
+    password="anony"
+    nocache="true"
+    workingcopy="/home/joe/dev/project"    
+    message="Updated documentation, fixed typos" /></programlisting>
+            <para>The most basic usage only needs the working copy and the commit message as in</para>
+            <programlisting>&lt;svncommit
+    workingcopy="/home/joe/dev/project"
+    message="Updated documentation, fixed typos" />
+&lt;echo message="Committed revision: ${svn.committedrevision}"/></programlisting>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnCopyTask">
         <title>SvnCopyTask</title>
         <para> The <literal>SvnCopyTask</literal> duplicates something in a working copy or
             repository, remembering history. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svncopy
-   svnpath="/usr/bin/svn"
-   username="anony"
-   password="anony"
-   force="true"
-   nocache="true"
-   repositoryurl="svn://localhost/project/trunk/"
-   todir="svn://localhost/project/tags/0.1"/></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7510,26 +7506,23 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
-    </sect1>
-    <sect1 role="taskdef" xml:id="SvnExportTask">
-        <title>SvnExportTask</title>
-        <para> The <literal>SvnExportTask</literal> exports a Subversion repository to a local
-            directory. </para>
-        <example>
+        <sect2>
             <title>Example</title>
-            <programlisting>&lt;svnexport
+            <programlisting>&lt;svncopy
    svnpath="/usr/bin/svn"
    username="anony"
    password="anony"
    force="true"
    nocache="true"
    repositoryurl="svn://localhost/project/trunk/"
-   todir="/home/user/svnwc"/></programlisting>
-        </example>
-        <programlisting>&lt;svnexport
-   svnpath="C:/Subversion/bin/svn.exe"
-   repositoryurl="svn://localhost/project/trunk/"
-   todir="C:/projects/svnwc"/></programlisting>
+   todir="svn://localhost/project/tags/0.1"/></programlisting>
+        </sect2>
+        
+    </sect1>
+    <sect1 role="taskdef" xml:id="SvnExportTask">
+        <title>SvnExportTask</title>
+        <para> The <literal>SvnExportTask</literal> exports a Subversion repository to a local
+            directory. </para>
 
         <table>
             <title>Attributes</title>
@@ -7629,25 +7622,27 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svnexport
+   svnpath="/usr/bin/svn"
+   username="anony"
+   password="anony"
+   force="true"
+   nocache="true"
+   repositoryurl="svn://localhost/project/trunk/"
+   todir="/home/user/svnwc"/></programlisting>
+            
+            <programlisting>&lt;svnexport
+   svnpath="C:/Subversion/bin/svn.exe"
+   repositoryurl="svn://localhost/project/trunk/"
+   todir="C:/projects/svnwc"/></programlisting>
+        </sect2>    
     </sect1>
     <sect1 role="taskdef" xml:id="SvnInfoTask">
         <title>SvnInfoTask</title>
         <para> The <literal>SvnInfoTask</literal> parses the output of the 'svn info --xml' command
             and extracts one specified element (+ optional sub element) from that output. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svninfo
-   svnpath="/usr/bin/svn"
-   workingcopy="/home/user/svnwc"
-   element="url"
-   propertyname="svn.url"/></programlisting>
-        </example>
-        <programlisting>&lt;svninfo
-   repositoryurl="http://svn.phing.info/"
-   element="commit"
-   subelement="author"
-   propertyname="svn.author"/></programlisting>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7713,26 +7708,24 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svninfo
+   svnpath="/usr/bin/svn"
+   workingcopy="/home/user/svnwc"
+   element="url"
+   propertyname="svn.url"/></programlisting>
+            <programlisting>&lt;svninfo
+   repositoryurl="http://svn.phing.info/"
+   element="commit"
+   subelement="author"
+   propertyname="svn.author"/></programlisting>
+        </sect2>        
     </sect1>
     <sect1 role="taskdef" xml:id="SvnLastRevisionTask">
         <title>SvnLastRevisionTask</title>
         <para> The <literal>SvnLastRevisionTask</literal> stores the number of the last revision of
             a Subversion workingcopy in a property. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svnlastrevision
-   svnpath="/usr/bin/svn"
-   workingcopy="/home/user/svnwc"
-   propertyname="svn.lastrevision"/></programlisting>
-        </example>
-        <programlisting>&lt;svnlastrevision
-   svnpath="C:/Subversion/bin/svn.exe"
-   workingcopy="C:/projects/svnwc"
-   propertyname="svn.lastrevision"/></programlisting>
-        <programlisting>&lt;svnlastrevision
-   svnpath="C:/Subversion/bin/svn.exe"
-   repositoryurl="http://svn.phing.info/"
-   propertyname="svn.lastrevision"/></programlisting>
 
         <table>
             <title>Attributes</title>
@@ -7799,6 +7792,21 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svnlastrevision
+   svnpath="/usr/bin/svn"
+   workingcopy="/home/user/svnwc"
+   propertyname="svn.lastrevision"/></programlisting>
+            <programlisting>&lt;svnlastrevision
+   svnpath="C:/Subversion/bin/svn.exe"
+   workingcopy="C:/projects/svnwc"
+   propertyname="svn.lastrevision"/></programlisting>
+            <programlisting>&lt;svnlastrevision
+   svnpath="C:/Subversion/bin/svn.exe"
+   repositoryurl="http://svn.phing.info/"
+   propertyname="svn.lastrevision"/></programlisting>
+        </sect2>        
     </sect1>
     <sect1 role="taskdef" xml:id="SvnListTask">
         <title>SvnListTask</title>
@@ -7808,20 +7816,6 @@ host="webserver" command="ls" /></programlisting>
             attribute is ignored. It uses svn's --verbose switch to get additional data about the
             listed items. The result will be stored in an array, one string that is seperated by ' |
             ' (in words: space pipe space) for easy parsing. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svnlist svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.list"/></programlisting>
-            <programlisting>&lt;svnlist svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/tags" orderDescending="true" limit="10" /></programlisting>
-            <para>The latter example could produce a list of your tags like this:</para>
-            <programlisting>revision | author | date         | item
-4028     | tony   | May 19 18:31 | Release_2.9.1.7
-4026     | tony   | May 18 14:33 | Release_2.9.1.6
-4023     | tony   | May 16 15:53 | Release_2.9.1.5
-4018     | tony   | May 13 11:55 | Release_2.9.1.4
-4005     | tony   | Apr 27 12:09 | Release_2.9.1.3
-...</programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7892,6 +7886,20 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svnlist svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.list"/></programlisting>
+            <programlisting>&lt;svnlist svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/tags" orderDescending="true" limit="10" /></programlisting>
+            <para>The latter example could produce a list of your tags like this:</para>
+            <programlisting>revision | author | date         | item
+4028     | tony   | May 19 18:31 | Release_2.9.1.7
+4026     | tony   | May 18 14:33 | Release_2.9.1.6
+4023     | tony   | May 16 15:53 | Release_2.9.1.5
+4018     | tony   | May 13 11:55 | Release_2.9.1.4
+4005     | tony   | Apr 27 12:09 | Release_2.9.1.3
+...</programlisting>
+        </sect2>
+        
     </sect1>
     <sect1 role="taskdef" xml:id="SvnLogTask">
         <title>SvnLogTask</title>
@@ -7900,18 +7908,6 @@ host="webserver" command="ls" /></programlisting>
         <para> Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
             attribute is ignored. The result will be stored in an array, one string that is
             seperated by ' | ' (in words: space pipe space) for easy parsing. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svnlog svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
-        </example>
-        <programlisting>&lt;svnlog svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
-        <para>The latter example could produce a history of the latest revisions in the
-            trunk:</para>
-        <programlisting>4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
-4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
-4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
-...</programlisting>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7975,23 +7971,21 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svnlog svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
+            <programlisting>&lt;svnlog svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
+            <para>The latter example could produce a history of the latest revisions in the
+                trunk:</para>
+            <programlisting>4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
+4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
+4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
+...</programlisting>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnUpdateTask">
         <title>SvnUpdateTask</title>
         <para> The <literal>SvnUpdateTask</literal> updates a local directory. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svnupdate
-   svnpath="/usr/bin/svn"
-   username="anony"
-   password="anony"
-   nocache="true"
-   todir="/home/user/svnwc"/></programlisting>
-        </example>
-        <programlisting>&lt;svnupdate
-   svnpath="C:/Subversion/bin/svn.exe"
-   todir="C:/projects/svnwc"/></programlisting>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8069,25 +8063,24 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svnupdate
+   svnpath="/usr/bin/svn"
+   username="anony"
+   password="anony"
+   nocache="true"
+   todir="/home/user/svnwc"/></programlisting>
+            
+            <programlisting>&lt;svnupdate
+   svnpath="C:/Subversion/bin/svn.exe"
+   todir="C:/projects/svnwc"/></programlisting>
+        </sect2>    
     </sect1>
     <sect1 role="taskdef" xml:id="SvnSwitchTask">
         <title>SvnSwitchTask</title>
         <para> The <literal>SvnSwitchTask</literal> changes a local directory from one repository to
             another. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;svnswitch
-   svnpath="/usr/bin/svn"
-   username="anony"
-   password="anony"
-   nocache="true"
-   repositoryurl="http://svn.phing.info/tags/2.4.2"
-   todir="/home/user/svnwc"/></programlisting>
-        </example>
-        <programlisting>&lt;svnswitch
-   svnpath="C:/Subversion/bin/svn.exe"
-   repositoryurl="http://svn.phing.info/tags/2.4.2"
-   todir="C:/projects/svnwc"/></programlisting>
 
         <table>
             <title>Attributes</title>
@@ -8173,42 +8166,26 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;svnswitch
+   svnpath="/usr/bin/svn"
+   username="anony"
+   password="anony"
+   nocache="true"
+   repositoryurl="http://svn.phing.info/tags/2.4.2"
+   todir="/home/user/svnwc"/></programlisting>
+            
+            <programlisting>&lt;svnswitch
+   svnpath="C:/Subversion/bin/svn.exe"
+   repositoryurl="http://svn.phing.info/tags/2.4.2"
+   todir="C:/projects/svnwc"/></programlisting>
+        </sect2>    
     </sect1>
     <sect1 role="taskdef" xml:id="SymlinkTask">
         <title>SymlinkTask</title>
         <para>Creates symlink(s) to a specified file / directory or a collection of files /
             directories.</para>
-        <example>
-            <title>Example</title>
-            <para>Single symlink</para>
-            <programlisting>&lt;symlink target="/path/to/original/file" link="/where/to/symlink" /></programlisting>
-            <para>Using filesets</para>
-            <programlisting>&lt;symlink link="/where/to/symlink">
-	&lt;fileset dir="/some/directory">
-		&lt;include name="*" />
-	&lt;/fileset>
-&lt;/symlink></programlisting>
-            <para>In the fileset example, assuming the contents of "/some/directory" were:</para>
-            <itemizedlist>
-                <listitem>
-                    <para>Somedir</para>
-                </listitem>
-                <listitem>
-                    <para>somefile</para>
-                </listitem>
-            </itemizedlist>
-            <para>Then the contents of "/where/to/symlink" would be:</para>
-            <itemizedlist>
-                <listitem>
-                    <para>Somedir -> /some/directory/Somedir</para>
-                </listitem>
-                <listitem>
-                    <para>somefile -> /some/directory/somefile</para>
-                </listitem>
-            </itemizedlist>
-        </example>
-
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8252,6 +8229,37 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <para>Single symlink</para>
+            <programlisting>&lt;symlink target="/path/to/original/file" link="/where/to/symlink" /></programlisting>
+            <para>Using filesets</para>
+            <programlisting>&lt;symlink link="/where/to/symlink">
+	&lt;fileset dir="/some/directory">
+		&lt;include name="*" />
+	&lt;/fileset>
+&lt;/symlink></programlisting>
+            <para>In the fileset example, assuming the contents of "/some/directory" were:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Somedir</para>
+                </listitem>
+                <listitem>
+                    <para>somefile</para>
+                </listitem>
+            </itemizedlist>
+            <para>Then the contents of "/where/to/symlink" would be:</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Somedir -> /some/directory/Somedir</para>
+                </listitem>
+                <listitem>
+                    <para>somefile -> /some/directory/somefile</para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+        
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -8264,19 +8272,6 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="TarTask">
         <title>TarTask</title>
         <para> The <literal>TarTask</literal> creates a tarball from a fileset or directory. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;tar destfile="phing.tar" compression="gzip">
- &lt;fileset dir=".">
-	 &lt;include name="**/**" />
- &lt;/fileset>
-&lt;/tar></programlisting>
-        </example>
-        <para>The above example uses a fileset to determine which files to include in the
-            archive.</para>
-        <programlisting>&lt;tar destfile="phing.tar" basedir="." compression="gzip"/></programlisting>
-        <para>The second example uses the basedir attribute to include the contents of that
-            directory (including subdirectories) in the archive.</para>
 
         <table>
             <title>Attributes</title>
@@ -8356,7 +8351,20 @@ host="webserver" command="ls" /></programlisting>
             <para>using basedir and fileset simultaneously can result in strange contents in the
                 archive. </para>
         </note>
-        <sect2 role="nestedtags">
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;tar destfile="phing.tar" compression="gzip">
+ &lt;fileset dir=".">
+	 &lt;include name="**/**" />
+ &lt;/fileset>
+&lt;/tar></programlisting>
+            
+            <para>The above example uses a fileset to determine which files to include in the
+                archive.</para>
+            <programlisting>&lt;tar destfile="phing.tar" basedir="." compression="gzip"/></programlisting>
+            <para>The second example uses the basedir attribute to include the contents of that
+                directory (including subdirectories) in the archive.</para>
+        </sect2>        <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
@@ -8368,16 +8376,6 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="UntarTask">
         <title>UntarTask</title>
         <para> The <literal>UntarTask</literal> unpacks one or more tar archives. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;untar file="testtar.tar.gz" todir="dest">
-  &lt;fileset dir=".">
-    &lt;include name="*.tar.gz"/>
-    &lt;include name="*.tar"/>
-  &lt;/fileset>
-&lt;/untar></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8429,6 +8427,16 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;untar file="testtar.tar.gz" todir="dest">
+  &lt;fileset dir=".">
+    &lt;include name="*.tar.gz"/>
+    &lt;include name="*.tar"/>
+  &lt;/fileset>
+&lt;/untar></programlisting>
+        </sect2>
+        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -8441,15 +8449,6 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="UnzipTask">
         <title>UnzipTask</title>
         <para> The <literal>UnzipTask</literal> unpacks one or more ZIP archives. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;unzip file="testzip.zip" todir="dest">
-  &lt;fileset dir=".">
-    &lt;include name="*.zip"/>
-  &lt;/fileset>
-&lt;/unzip></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8494,6 +8493,14 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;unzip file="testzip.zip" todir="dest">
+  &lt;fileset dir=".">
+    &lt;include name="*.zip"/>
+  &lt;/fileset>
+&lt;/unzip></programlisting>
+        </sect2>        
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -8510,11 +8517,6 @@ host="webserver" command="ls" /></programlisting>
             published under supplied property. </para>
         <para>The version number in the text file is expected in the format of Major.Minor.Bugfix
             (e.g. 1.3.2).</para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;version releasetype="Major" file="version.txt" property="version.number"/></programlisting>
-        </example>
-
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8557,6 +8559,11 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;version releasetype="Major" file="version.txt" property="version.number"/></programlisting>
+        </sect2>
+        
     </sect1>
     <sect1 role="taskdef" xml:id="XmlLintTask">
         <title>XmlLintTask</title>
@@ -8614,27 +8621,18 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset</para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example 1</title>
-                <programlisting>&lt;xmllint schema="schema.xsd" file="config.xml"/></programlisting>
-                <para>Validate one XML file against one XSD file.</para>
-                <programlisting>&lt;xmllint schema="schema.xsd">
+        <sect2>
+            <title>Example 1</title>
+            <programlisting>&lt;xmllint schema="schema.xsd" file="config.xml"/></programlisting>
+            <para>Validate one XML file against one XSD file.</para>
+            <programlisting>&lt;xmllint schema="schema.xsd">
   &lt;fileset dir=".">
     &lt;include name="**/config.xml"/>
   &lt;/fileset>
 &lt;/xmllint></programlisting>
-                <para>Validate more XML files against one XSD file.</para>
-            </example>
-            <example>
-                <title>Example 2</title>
-                <programlisting>&lt;fileset dir="./sources" id="sources">
+            <para>Validate more XML files against one XSD file.</para>
+            
+            <programlisting>&lt;fileset dir="./sources" id="sources">
   &lt;include name="main.xml"/>
   &lt;include name="chapter*.xml"/>
   &lt;include name="appendix*.xml"/>
@@ -8644,8 +8642,15 @@ host="webserver" command="ls" /></programlisting>
 &lt;xmllint schema="${docbook.relaxng}" useRNG="yes">
   &lt;fileset refid="sources" />
 &lt;/xmllint></programlisting>
-                <para>Validate a set of DocBook files against the DocBook RNG grammar</para>
-            </example>
+            <para>Validate a set of DocBook files against the DocBook RNG grammar</para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="XmlPropertyTask">
@@ -8710,7 +8715,7 @@ host="webserver" command="ls" /></programlisting>
                 </tbody>
             </tgroup>
         </table>
-        <example>
+        <sect2>
             <title>Example</title>
             <para>Consider the following XML file:</para>
             <programlisting>&lt;root-tag myattr="true">
@@ -8737,7 +8742,7 @@ root-tag.a2.a3.a4=false</programlisting>
             <programlisting>inner-tag=Text
 inner-tag(someattr)=val
 a2.a3.a4=false</programlisting>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ZendCodeAnalyzerTask">
         <title>ZendCodeAnalyzerTask</title>
@@ -8800,17 +8805,10 @@ a2.a3.a4=false</programlisting>
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset</para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" file="SomeClass.php"/></programlisting>
-            </example>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" file="SomeClass.php"/></programlisting>
+            
             <para>Analyze one PHP source file with all default warnings enabled.</para>
             <programlisting>&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" disable="var-ref-notmodified,if-if-else">
   &lt;fileset dir=".">
@@ -8821,6 +8819,14 @@ a2.a3.a4=false</programlisting>
             <para>
                 <emphasis role="bold">NOTE:</emphasis> the <literal>analyze</literal> tag has been
                 deprecated as of Phing 2.4. </para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ZendGuardEncodeTask">
@@ -8991,16 +8997,9 @@ a2.a3.a4=false</programlisting>
                 </tbody>
             </tgroup>
         </table>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset</para>
-                </listitem>
-            </itemizedlist>
-            <example>
-                <title>Example</title>
-                <programlisting>&lt;zendguardencode
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;zendguardencode
  shortTags="false"
  productName="Phing"
  privateKeyPath="/var/data/phing.key"
@@ -9019,11 +9018,19 @@ a2.a3.a4=false</programlisting>
  &lt;include name="plugins/cs*/*.php" />
  &lt;/fileset>
 &lt;/zendguardencode></programlisting>
-            </example>
+            
             <para>Encode all php files in the current directory and subdirectories. Exlude
                 everything in cache/ and plugins/ but include everything in plugins that starts with
                 cs.</para>
             <para/>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset</para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ZendGuardLicenseTask">
@@ -9170,7 +9177,7 @@ a2.a3.a4=false</programlisting>
         </table>
 
 
-        <example>
+        <sect2>
             <title>Examples</title>
             <programlisting>&lt;zendguardlicense
             privateKeyPath="/var/data/phing.key"
@@ -9193,24 +9200,11 @@ a2.a3.a4=false</programlisting>
             licenseTemplate="./data/license/license.template.zl"
 /></programlisting>
             <para>Creates a license using a license template file.</para>
-        </example>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ZipTask">
         <title>ZipTask</title>
         <para> The <literal>ZipTask</literal> creates a .zip archive from a fileset or directory. </para>
-        <example>
-            <title>Example</title>
-            <programlisting>&lt;zip destfile="phing.zip">
- &lt;fileset dir=".">
-	 &lt;include name="**/**" />
- &lt;/fileset>
-&lt;/zip></programlisting>
-        </example>
-        <para>The above example uses a fileset to determine which files to include in the
-            archive.</para>
-        <programlisting>&lt;zip destfile="phing.zip" basedir="."/></programlisting>
-        <para>The second example uses the basedir attribute to include the contents of that
-            directory (including subdirectories) in the archive.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -9264,6 +9258,20 @@ a2.a3.a4=false</programlisting>
         <para>
             <emphasis role="bold">Important note:</emphasis> using basedir and fileset
             simultaneously can result in strange contents in the archive. </para>
+        <sect2>
+            <title>Example</title>
+            <programlisting>&lt;zip destfile="phing.zip">
+ &lt;fileset dir=".">
+	 &lt;include name="**/**" />
+ &lt;/fileset>
+&lt;/zip></programlisting>
+            
+            <para>The above example uses a fileset to determine which files to include in the
+                archive.</para>
+            <programlisting>&lt;zip destfile="phing.zip" basedir="."/></programlisting>
+            <para>The second example uses the basedir attribute to include the contents of that
+                directory (including subdirectories) in the archive.</para>
+        </sect2>            
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
