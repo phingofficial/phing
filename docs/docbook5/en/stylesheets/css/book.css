@@ -61,7 +61,7 @@ div[class = sect3] h4.title{
     color:#555;
     line-height:1.3em;
     /*top right bot left */
-    margin:15px 0 5px 15px;
+    margin:15px 0 5px 10px;
     border-bottom:none;
 }
 
@@ -80,7 +80,12 @@ div[class = caution] h3{
     font-size:1em;
     color:#56a;
     font-weight:bold;
-    padding-left:15px;
+    padding-left:10px;
+}
+
+div[class = sect1] p {
+    margin-top:5px;
+    margin-bottom:5px;
 }
 
 .filename,
@@ -259,6 +264,7 @@ div.mediaobject{
     margin-right:15px;
 }
 
+
 p,
 .synopsis,
 .example,
@@ -266,6 +272,8 @@ p,
 .formaltable{
     margin:0 10px 1em 10px;
 }
+
+
 
 a:hover{
     border-bottom:1px solid gray;
@@ -315,7 +323,7 @@ p.formal-object-title span.title{
     box-shadow:5px 5px 5px #888;
     border:none;
     margin-bottom:15px;
-    margin-top:2px;
+    margin-top:5px;
     margin-left:15px;
     /*margin-right: 15px;*/
     width:800px;
@@ -419,6 +427,7 @@ div.table{
     width:100%;
     display:block;
     text-align:center;
+    margin-top:15px;
 }
 div.table-contents{
     margin-bottom:4px;

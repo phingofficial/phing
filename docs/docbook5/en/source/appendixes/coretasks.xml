@@ -11,31 +11,9 @@
 		the tasks. So if you are searching for the reference to the <literal>&lt;copy></literal>
 		tag, for example, you will want to look at the reference of
 		<literal>CopyTask</literal>.</para>
-	<sect1 role="taskdef">
-		<title xml:id="AdhocTaskdefTask">AdhocTaskdefTask </title>
+	<sect1 role="taskdef" xml:id="AdhocTaskdefTask">
+<title>AdhocTaskdefTask </title>
 		<para>The AdhocTaskdefTask allows you to define a task within your build file.</para>
-		<example>
-			<title>Example of how to use AdhocTaskdefTask</title>
-			<programlisting>&lt;target name="main"
-        description="==>test AdhocTask ">
-		
-		&lt;adhoc-task name="foo">&lt;![CDATA[
-			class FooTest extends Task {
-				private $bar;
-				
-				function setBar($bar) {
-					$this->bar = $bar;
-				}
-				
-				function main() {
-					$this->log("In FooTest: " . $this->bar);
-				}
-			}
-		]]&gt;&lt;/adhoc-task>
-	
-		&lt;foo bar="B.L.I.N.G"/>
-&lt;/target></programlisting>
-		</example>
 		<para>Note that you should use &lt;![CDATA[ ... ]]&gt; so that you don't have to quote
 			entities within your<literal> &lt;adhoc-task>&lt;/adhoc-task></literal> tags.</para>
 		
@@ -65,37 +43,32 @@
 					</row>
 				</tbody></tgroup>
 			</table>
-
-	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="AdhocTypedefTask">AdhocTypedefTask </title>
-		<para>The AdhocTypedefTask allows you to define a datatype within your build file.</para>
-		<example>
-			<title>Example of how to use AdhocTypedefTask</title>
+		<sect2><title>Examples</title>
 			<programlisting>&lt;target name="main"
-        description="==>test AdhocType">
+        description="==>test AdhocTask ">
 		
-		&lt;adhoc-type name="dsn">&lt;![CDATA[
-			class CreoleDSN extends DataType {
-				private $url;
+		&lt;adhoc-task name="foo">&lt;![CDATA[
+			class FooTest extends Task {
+				private $bar;
 				
-				function setUrl($url) {
-					$this->url = $url;
+				function setBar($bar) {
+					$this->bar = $bar;
 				}
 				
-				function getUrl() {
-  				return $this->url;
-				}				
+				function main() {
+					$this->log("In FooTest: " . $this->bar);
+				}
 			}
-		]]&gt;&lt;/adhoc-type>
-
-     &lt;!-- creole-sql task doesn't exist; just an example -->
-     &lt;creole-sql file="test.sql">
-       &lt;dsn url="mysql://root@localhost/test"/>
-		&lt;/creole-sql>
-
+		]]&gt;&lt;/adhoc-task>
+	
+		&lt;foo bar="B.L.I.N.G"/>
 &lt;/target></programlisting>
-		</example>
+		</sect2>
+		
+	</sect1>
+	<sect1 role="taskdef" xml:id="AdhocTypedefTask">
+<title>AdhocTypedefTask </title>
+		<para>The AdhocTypedefTask allows you to define a datatype within your build file.</para>
 		<para>Note that you should use &lt;![CDATA[ ... ]]&gt; so that you don't have to quote
 			entities within your<literal> &lt;adhoc-type>&lt;/adhoc-type></literal> tags.</para>
 			<table>
@@ -124,21 +97,36 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2>
+			<title>Example</title>
+			<programlisting>&lt;target name="main"
+        description="==>test AdhocType">
+		
+		&lt;adhoc-type name="dsn">&lt;![CDATA[
+			class CreoleDSN extends DataType {
+				private $url;
+				
+				function setUrl($url) {
+					$this->url = $url;
+				}
+				
+				function getUrl() {
+  				return $this->url;
+				}				
+			}
+		]]&gt;&lt;/adhoc-type>
+
+     &lt;!-- creole-sql task doesn't exist; just an example -->
+     &lt;creole-sql file="test.sql">
+       &lt;dsn url="mysql://root@localhost/test"/>
+		&lt;/creole-sql>
+
+&lt;/target></programlisting>
+		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="AppendTask">AppendTask </title>
+	<sect1 role="taskdef" xml:id="AppendTask">
+<title>AppendTask </title>
 		<para>The Append Task appends text or contents of files to a specified file.</para>
-		<example>
-			<title>Example of how to use AppendTask</title>
-			<programlisting>&lt;append destFile="${process.outputfile}">
-  &lt;filterchain>
-    &lt;xsltfilter style="${process.stylesheet}">
-	     &lt;param name="mode" expression="${process.xslt.mode}"/>
-    &lt;/xsltfilter>
-  &lt;/filterchain>
-  &lt;filelist dir="book/" listfile="book/PhingGuide.book"/>
-&lt;/append></programlisting>
-		</example>
 		<para>In the example above, AppendTask is reading a filename from
 				<literal>book/PhingGuide.book</literal>, processing the file contents with XSLT, and
 			then appending the result to the file located at
@@ -185,6 +173,17 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;append destFile="${process.outputfile}">
+  &lt;filterchain>
+    &lt;xsltfilter style="${process.stylesheet}">
+	     &lt;param name="mode" expression="${process.xslt.mode}"/>
+    &lt;/xsltfilter>
+  &lt;/filterchain>
+  &lt;filelist dir="book/" listfile="book/PhingGuide.book"/>
+&lt;/append></programlisting>
+		</sect2>
+		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -200,18 +199,10 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="AvailableTask">AvailableTask </title>
+	<sect1 role="taskdef" xml:id="AvailableTask">
+<title>AvailableTask </title>
 		<para>Available Task tests if a resource/file is set and sets a certain property to a
 			certain value if it exists.</para>
-		<example>
-			<title>Example of how to use AvailableTask</title>
-			<programlisting>&lt;available file="/tmp/test.txt" property="test_txt_exists" value="Yes"/>
-
-&lt;available file="/home/foo" type="dir" property="properties.yetanother" />
-
-&lt;available file="/home/foo/bar" property="foo.bar" value="Well, yes" /></programlisting>
-		</example>
 		<para>Here, <literal>AvailableTask</literal> first checks for the existance of either file
 			or directory named <literal>test.txt</literal> in <literal>/tmp</literal>. Then, it
 			checks for the directory <literal>foo</literal> in <literal>/home</literal> and then for
@@ -297,16 +288,19 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;available file="/tmp/test.txt" property="test_txt_exists" value="Yes"/>
+
+&lt;available file="/home/foo" type="dir" property="properties.yetanother" />
+
+&lt;available file="/home/foo/bar" property="foo.bar" value="Well, yes" /></programlisting>
+		</sect2>
+		
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ChmodTask">ChmodTask </title>
+	<sect1 role="taskdef" xml:id="ChmodTask">
+<title>ChmodTask </title>
 		<para>Sets the mode of a file or directory.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;chmod file="test.txt" mode="0755" />
-&lt;chmod file="/home/test" mode="0775" />
-&lt;chmod file="/home/test/mine.txt" mode="0500" verbose="true" /></programlisting>
-		</example>
+
 		<para>For more informations, see <link xlink:href="http://php.net/chmod">chmod</link> in the
 			PHP Manual.</para>
 			<table>
@@ -366,6 +360,11 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;chmod file="test.txt" mode="0755" />
+&lt;chmod file="/home/test" mode="0775" />
+&lt;chmod file="/home/test/mine.txt" mode="0500" verbose="true" /></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -375,17 +374,9 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ChownTask">ChownTask </title>
+	<sect1 role="taskdef" xml:id="ChownTask">
+<title>ChownTask </title>
 		<para>Changes the owner of a file or directory.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;chown file="my-file.txt" user="foo" />
-&lt;chown file="my-file.txt" user="username.groupname" />
-&lt;chown file="/home/test/my-directory" user="bar" />
-&lt;chown file="/home/test/my-file.txt" user="foo" verbose="true" failonerror="false" /></programlisting>
-		</example>
-
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -450,6 +441,12 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;chown file="my-file.txt" user="foo" />
+&lt;chown file="my-file.txt" user="username.groupname" />
+&lt;chown file="/home/test/my-directory" user="bar" />
+&lt;chown file="/home/test/my-file.txt" user="foo" verbose="true" failonerror="false" /></programlisting>
+		</sect2>	
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -459,8 +456,8 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ConditionTask">ConditionTask </title>
+	<sect1 role="taskdef" xml:id="ConditionTask">
+<title>ConditionTask </title>
 		<para>Sets a property if a certain condition holds true - this is a generalization of <xref
 				xlink:href="#AvailableTask"/> and <xref xlink:href="#UpToDateTask"/>.</para>
 		<para>If the condition holds true, the property value is set to true by default; otherwise,
@@ -469,15 +466,6 @@
 		<para>Conditions are specified as nested elements, you must specify exactly one condition -
 			see the <xref xlink:href="#ch.projcomponents"/> for a complete list of nested
 			elements.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;condition property="isMacOrWindows">
-    &lt;or>
-      &lt;os family="mac"/>
-      &lt;os family="windows"/>
-    &lt;/or>
-  &lt;/condition></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -511,6 +499,14 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;condition property="isMacOrWindows">
+    &lt;or>
+      &lt;os family="mac"/>
+      &lt;os family="windows"/>
+    &lt;/or>
+  &lt;/condition></programlisting>
+		</sect2>		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -523,46 +519,13 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="CopyTask">CopyTask </title>
-		<para>Copies files or directories. Files are only copied if the source file is newer than
-			the destination file, or when the destination file does not exist. It is possible to
+	<sect1 role="taskdef" xml:id="CopyTask">
+		<title>CopyTask </title>
+		<para>Copies files or directories. Files are only copied if the source file is newer than the
+			destination file, or when the destination file does not exist. It is possible to
 			explictly overwrite existing files.</para>
-		<example>
-			<title>Example</title>
-			<para>On the one hand, CopyTask can be used to copy file by file:</para>
-			<programlisting>&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/></programlisting>
-			<para>Additionally, <literal>CopyTask</literal> supports Filesets, i.e. you can easily
-				include/exclude one or more files. For more information, see <xref
-					xlink:href="#app.coretypes"/> -- pay particular attention to the
-					<literal>defaultexcludes</literal> attribute. <xref xlink:href="#app.coremappers"
-				/> and <xref xlink:href="#app.corefilters"/> are also supported by
-					<literal>CopyTask</literal>, so you can do almost everything that needs
-				processing the content of the files or the filename.</para>
-			<programlisting>&lt;copy todir="/tmp/backup" >
-  &lt;fileset dir=".">
-    &lt;include name="**/*.txt" />
-    &lt;include name="**/*.doc" />
-    &lt;include name="**/*.swx" />
-  &lt;/fileset>
-  &lt;filelist dir="." files="test.html"/>
-&lt;/copy></programlisting>
-			<programlisting>&lt;copy todir="build" >
-  &lt;fileset defaultexcludes="false" expandsymboliclinks="true" dir=".">
-    &lt;include name="**/*.php" />
-  &lt;/fileset>
-&lt;/copy></programlisting>
-		</example>
-		<para>
-			<literal>Notice:</literal>
-			<literal>CopyTask</literal> does not allow self copying, i.e. copying a file to the same
-			name for security reasons.</para>
-			<note><para>Symbolic links</para>
-			<para>By default, <literal>CopyTask</literal> does not expand / dereference symbolic
-				links, and will simply copy the link itself. To enable dereferencing, set
-					<literal>expandsymboliclinks</literal> to <literal>true</literal> in the
-					<literal>&lt;fileset></literal> tag.</para>
-			</note>
+		<para><literal>CopyTask</literal> does not allow self copying, i.e. copying a file to the
+			same name for security reasons.</para>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -648,6 +611,37 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<note>
+			<para>No automatic exapnsion of symbolic links</para>
+			<para>By default, <literal>CopyTask</literal> does not expand / dereference symbolic
+				links, and will simply copy the link itself. To enable dereferencing, set
+					<literal>expandsymboliclinks</literal> to <literal>true</literal> in the
+					<literal>&lt;fileset></literal> tag.</para>
+		</note>
+		<sect2><title>Examples</title>
+			<para>On the one hand, CopyTask can be used to copy file by file:</para>
+			<programlisting>&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/></programlisting>
+			<para>Additionally, <literal>CopyTask</literal> supports Filesets, i.e. you can easily
+				include/exclude one or more files. For more information, see <xref
+					xlink:href="#app.coretypes"/> -- pay particular attention to the
+				<literal>defaultexcludes</literal> attribute. <xref xlink:href="#app.coremappers"
+				/> and <xref xlink:href="#app.corefilters"/> are also supported by
+				<literal>CopyTask</literal>, so you can do almost everything that needs
+				processing the content of the files or the filename.</para>
+			<programlisting>&lt;copy todir="/tmp/backup" >
+  &lt;fileset dir=".">
+    &lt;include name="**/*.txt" />
+    &lt;include name="**/*.doc" />
+    &lt;include name="**/*.swx" />
+  &lt;/fileset>
+  &lt;filelist dir="." files="test.html"/>
+&lt;/copy></programlisting>
+			<programlisting>&lt;copy todir="build" >
+  &lt;fileset defaultexcludes="false" expandsymboliclinks="true" dir=".">
+    &lt;include name="**/*.php" />
+  &lt;/fileset>
+&lt;/copy></programlisting>
+		</sect2>		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -666,18 +660,11 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="CvsTask">CvsTask </title>
+	<sect1 role="taskdef" xml:id="CvsTask">
+<title>CvsTask </title>
 		<para>Allows rudimentary interfacing with the CVS versioning system.</para>
 		<para>As you would expect, this lets you do pretty much anything with CVS. The CvsTask calls
 			ExecTask which actually does the command execution.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
-       module="phing" dest="${ws.dir}"/></programlisting>
-			<para>or, using the optional command line arguments:</para>
-			<programlisting>&lt;cvs output="patch" command="-q diff -u -N" /></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -809,21 +796,19 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
+       module="phing" dest="${ws.dir}"/></programlisting>
+			<para>or, using the optional command line arguments:</para>
+			<programlisting>&lt;cvs output="patch" command="-q diff -u -N" /></programlisting>
+		</sect2>		
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="CvsPassTask">CvsPassTask </title>
+	<sect1 role="taskdef" xml:id="CvsPassTask">
+<title>CvsPassTask </title>
 		<para>This lets you create your own cvs password file -- i.e. this is necessary if you want
 			to provide a password in your build file.</para>
 		<para>If no password file is specified the default location <literal>.cvspass</literal> in
 			users home directory is used.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;!-- create a password file -->
-&lt;cvspass cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" passfile="cvspass" password="guest"/>
-
-&lt;!-- use the just-created password file -->
-&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" module="phing" passFile="cvspass" /></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -864,26 +849,18 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;!-- create a password file -->
+&lt;cvspass cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" passfile="cvspass" password="guest"/>
+
+&lt;!-- use the just-created password file -->
+&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" module="phing" passFile="cvspass" /></programlisting>
+		</sect2>		
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="DeleteTask"> DeleteTask </title>
+	<sect1 role="taskdef" xml:id="DeleteTask">
+<title> DeleteTask </title>
 		<para>Deletes a file or directory, or set of files defined by a fileset. See <xref
 				xlink:href="#app.coretypes"/> for information on Filesets.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;-- Delete a specific file -->
-&lt;delete file="/tmp/foo.bar" />
-
-&lt;-- Delete a directory -->
-&lt;delete dir="/tmp/darl" includeemptydirs="true" verbose="true" failonerror="true" />
-
-&lt;-- Delete using a fileset -->
-&lt;delete>
-  &lt;fileset dir="/tmp">
-    &lt;include name="*.bar" />
-  &lt;/fileset>
-&lt;/delete></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -956,6 +933,20 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;-- Delete a specific file -->
+&lt;delete file="/tmp/foo.bar" />
+
+&lt;-- Delete a directory -->
+&lt;delete dir="/tmp/darl" includeemptydirs="true" verbose="true" failonerror="true" />
+
+&lt;-- Delete using a fileset -->
+&lt;delete>
+  &lt;fileset dir="/tmp">
+    &lt;include name="*.bar" />
+  &lt;/fileset>
+&lt;/delete></programlisting>
+		</sect2>		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -965,24 +956,15 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="EchoTask">EchoTask </title>
+	<sect1 role="taskdef" xml:id="EchoTask">
+<title>EchoTask </title>
 		<para>Echoes a message to the current loggers and listeners which means standard out unless
 			overridden. A level can be specified, which controls at what logging level the message
 			is filtered at.</para>
 		<para>The task can also echo to a file, in which case the option to append rather than
 			overwrite the file is available, and the level option is ignored</para>
 		<para>Additionally, the task can echo the contents of a nested fileset element.</para>
-		<example>
-			<title>Examples</title>
-			<programlisting>&lt;echo msg="Phing rocks!" />
 
-&lt;echo message="Binarycloud, too." />
-
-&lt;echo>And don't forget Propel.&lt;/echo>
-
-&lt;echo file="test.txt" append="false">This is a test message&lt;/echo></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1040,6 +1022,15 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;echo msg="Phing rocks!" />
+
+&lt;echo message="Binarycloud, too." />
+
+&lt;echo>And don't forget Propel.&lt;/echo>
+
+&lt;echo file="test.txt" append="false">This is a test message&lt;/echo></programlisting>
+		</sect2>		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -1049,22 +1040,12 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ExecTask">ExecTask </title>
+	<sect1 role="taskdef" xml:id="ExecTask">
+<title>ExecTask </title>
 		<para>Executes a shell command. You can use this to quickly add a new command to Phing.
 			However, if you want to use this regularly, you should think about writing a Task for
 			it.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;-- List the contents of "/home". -->
-&lt;exec command="ls -l" dir="/home" />
 
-&lt;-- Start the make process in "/usr/src/php-4.0". -->
-&lt;exec command="make" dir="/usr/src/php-4.0" />
-
-&lt;-- List the contents of "/tmp" out to a file. -->
-&lt;exec command="ls -l /tmp > foo.out" escape="false" /></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1188,6 +1169,16 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;-- List the contents of "/home". -->
+&lt;exec command="ls -l" dir="/home" />
+
+&lt;-- Start the make process in "/usr/src/php-4.0". -->
+&lt;exec command="make" dir="/usr/src/php-4.0" />
+
+&lt;-- List the contents of "/tmp" out to a file. -->
+&lt;exec command="ls -l /tmp > foo.out" escape="false" /></programlisting>
+		</sect2>		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -1246,21 +1237,11 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ExitTask">ExitTask </title>
+	<sect1 role="taskdef" xml:id="ExitTask">
+<title>ExitTask </title>
 		<para>Causes the current build script execution to fail and the script to exit with an
 			(optional) error message.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;-- Exit w/ message -->
-&lt;exit message="Failed for some reason!" />
 
-&lt;--  Exit if ${errorprop} is defined -->
-&lt;exit if="errorprop" message="Detected error!" />
-
-&lt;-- Exit unless ${dontfail} prop is defined. -->
-&lt;exit unless="dontfail" message="Detected error!" /></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1309,25 +1290,23 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;-- Exit w/ message -->
+&lt;exit message="Failed for some reason!" />
+
+&lt;--  Exit if ${errorprop} is defined -->
+&lt;exit if="errorprop" message="Detected error!" />
+
+&lt;-- Exit unless ${dontfail} prop is defined. -->
+&lt;exit unless="dontfail" message="Detected error!" /></programlisting>
+		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ForeachTask">ForeachTask </title>
+	<sect1 role="taskdef" xml:id="ForeachTask">
+<title>ForeachTask </title>
 		<para>The foreach task iterates over a list, a list of filesets, or both. If both, list and
 			filesets, are specified, the list will be evaluated first. Nested filesets are evaluated
 			in the order they appear in the task.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;!-- loop through languages, and call buildlang task with setted param -->
-&lt;property name="languages" value="en,fr,de" />
-&lt;foreach list="${languages}" param="lang" target="buildlang" />
 
-&lt;!-- loop through files, and call subtask task with set param and absparam -->
-&lt;foreach param="filename" absparam="absfilename" target="subtask">
-  &lt;fileset dir=".">
-    &lt;include name="*.php"/>
-  &lt;/fileset>
-&lt;/foreach></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1386,6 +1365,18 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;!-- loop through languages, and call buildlang task with setted param -->
+&lt;property name="languages" value="en,fr,de" />
+&lt;foreach list="${languages}" param="lang" target="buildlang" />
+
+&lt;!-- loop through files, and call subtask task with set param and absparam -->
+&lt;foreach param="filename" absparam="absfilename" target="subtask">
+  &lt;fileset dir=".">
+    &lt;include name="*.php"/>
+  &lt;/fileset>
+&lt;/foreach></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -1398,8 +1389,8 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="IfTask">IfTask </title>
+	<sect1 role="taskdef" xml:id="IfTask">
+<title>IfTask </title>
 		<para>Perform some tasks based on whether a given condition holds true or not.</para>
 			<para>This task doesn't have any attributes, the condition to test is specified by a
 				nested element - see the <xref xlink:href="#ch.projcomponents"/> for a complete list
@@ -1421,8 +1412,7 @@
 				executed. The <literal>&lt;else></literal> will be executed only if the
 					<literal>&lt;if></literal> and all <literal>&lt;elseif></literal> conditions are
 				false.</para>
-			<example>
-				<title>Example</title>
+			<sect2><title>Examples</title>
 				<programlisting>&lt;if>
  &lt;equals arg1="${foo}" arg2="bar" />
  &lt;then>
@@ -1449,14 +1439,50 @@
    &lt;echo message="The value of property foo is not 'foo' or 'bar'" />
  &lt;/else>
 &lt;/if></programlisting>
-			</example>
+			</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ImportTask">ImportTask </title>
+	<sect1 role="taskdef" xml:id="ImportTask">
+<title>ImportTask </title>
 		<para>Imports another build file into the current project.</para>
 		<para>On execution it will read another Phing file into the same Project. Functionally it is
 			nearly the same as copy and pasting the imported file onto the end of the importing
 			file.</para>
+		<sect2 role="taskattributes">
+			<title>Attributes</title>
+			<table>
+				<title>Attributes</title><tgroup cols="5">
+					<colspec colname="name" colnum="1" colwidth="1.5*"/>
+					<colspec colname="type" colnum="2" colwidth="0.8*"/>
+					<colspec colname="description" colnum="3" colwidth="3.5*"/>
+					<colspec colname="default" colnum="4" colwidth="0.8*"/>
+					<colspec colname="required" colnum="5" colwidth="1.2*"/>
+					<thead>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+							<entry>Default</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>file</literal></entry>
+							<entry><literal role="type">String</literal></entry>
+							<entry>The file to import.</entry>
+							<entry>n/a</entry>
+							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry><literal>optional</literal></entry>
+							<entry><literal role="type">Boolean</literal></entry>
+							<entry>If true, do not stop the build if the file does not exist.</entry>
+							<entry><literal>false</literal></entry>
+							<entry>No</entry>
+						</row>
+					</tbody></tgroup>
+			</table>
+		</sect2>		
 		<sect2>
 			<title>Target Overriding</title>
 			<para>If a target in the main file is also present in at least one of the imported
@@ -1520,73 +1546,25 @@
 				function="dirname"> takes its directory. This technique also allows
 					<literal>imported.xml</literal> to be used as a standalone file (without being
 				imported in other project).</para>
-			<example>
-				<title>Example</title>
-				<programlisting>&lt;import file="path/to/build.xml"/>
+
+		</sect2>
+
+		<sect2><title>Examples</title>
+			<programlisting>&lt;import file="path/to/build.xml"/>
 &lt;import file="path/to/build.xml" optional="true"/></programlisting>
-			</example>
-		</sect2>
-		<sect2 role="taskattributes">
-			<title>Attributes</title>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
-				<thead>
-					<row>
-						<entry>Name</entry>
-						<entry>Type</entry>
-						<entry>Description</entry>
-						<entry>Default</entry>
-						<entry>Required</entry>
-					</row>
-				</thead>
-				<tbody>
-					<row>
-						<entry><literal>file</literal></entry>
-						<entry><literal role="type">String</literal></entry>
-						<entry>The file to import.</entry>
-						<entry>n/a</entry>
-						<entry>Yes</entry>
-					</row>
-					<row>
-						<entry><literal>optional</literal></entry>
-						<entry><literal role="type">Boolean</literal></entry>
-						<entry>If true, do not stop the build if the file does not exist.</entry>
-						<entry><literal>false</literal></entry>
-						<entry>No</entry>
-					</row>
-				</tbody></tgroup>
-			</table>
-		</sect2>
+		</sect2>		
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="IncludePathTask">IncludePathTask </title>
+	<sect1 role="taskdef" xml:id="IncludePathTask">
+<title>IncludePathTask </title>
 		<para>Sets the PHP include_path configuration option for the duration of this phing
 			run.</para>
-		<example>
-			<title>Example 1 - Trivial use</title>
-			<programlisting>&lt;includepath classpath="new/path/here" />
-&lt;includepath classpath="path1:path2" /></programlisting>
-		</example>
-		<example>
-			<title>Example 2 - Referencing a previously defined path</title>
-			<programlisting>&lt;path id="project.class.path">
-  &lt;pathelement dir="lib/"/>
-  &lt;pathelement dir="ext/"/>
-&lt;/paentry>
-&lt;includepath classpathref="project.class.path" /></programlisting>
-		</example>
-			<table>
-				<title>Attributes</title><tgroup cols="5">
-<colspec colname="name" colnum="1" colwidth="1.5*"/>
-<colspec colname="type" colnum="2" colwidth="0.8*"/>
-<colspec colname="description" colnum="3" colwidth="3.5*"/>
-<colspec colname="default" colnum="4" colwidth="0.8*"/>
-<colspec colname="required" colnum="5" colwidth="1.2*"/>
+		<table>
+			<title>Attributes</title><tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -1612,34 +1590,22 @@
 						<entry>No</entry>
 					</row>
 				</tbody></tgroup>
-			</table>
+		</table>
+		<sect2>
+			<title>Examples</title>
+			<programlisting>&lt;includepath classpath="new/path/here" />
+&lt;includepath classpath="path1:path2" /></programlisting>
+			<programlisting>&lt;path id="project.class.path">
+  &lt;pathelement dir="lib/"/>
+  &lt;pathelement dir="ext/"/>
+&lt;/paentry>
+&lt;includepath classpathref="project.class.path" /></programlisting>
+		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="InputTask">InputTask </title>
+	<sect1 role="taskdef" xml:id="InputTask">
+<title>InputTask </title>
 		<para>The <literal>InputTask</literal> can be used to interactively set property values
-			based on input from the console (or other Reader).</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;!-- Getting string input -->
-&lt;echo>HTML pages installing to: ${documentRoot}&lt;/echo>
-&lt;echo>PHP classes installing to: ${servletDirectory}&lt;/echo>
-
-&lt;input propertyname="documentRoot">Web application document root&lt;/input>
-&lt;input propertyname="servletDirectory"
-  defaultValue="/usr/servlets" promptChar="?">PHP classes install dir&lt;/input>
-
-&lt;echo>HTML pages installed to ${documentRoot}&lt;/echo>
-&lt;echo>PHP classes installed to ${servletDirectory}&lt;/echo>
-
-&lt;!-- Having the user choose from a set of valid choices -->
-&lt;echo>Choose a valid option:&lt;/echo>
-
-&lt;input propertyname="optionsChoice" validargs="foo,bar,bob">
-  Which item would you like to use
-&lt;/input></programlisting>
-		</example>
-		<sect2 role="taskattributes">
-			<title>Attributes</title>
+			based on input from the console (or other Reader).</para>		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1696,16 +1662,31 @@
 					<!-- TODO : Add "os" as soon as it is supported -->
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;!-- Getting string input -->
+&lt;echo>HTML pages installing to: ${documentRoot}&lt;/echo>
+&lt;echo>PHP classes installing to: ${servletDirectory}&lt;/echo>
+
+&lt;input propertyname="documentRoot">Web application document root&lt;/input>
+&lt;input propertyname="servletDirectory"
+  defaultValue="/usr/servlets" promptChar="?">PHP classes install dir&lt;/input>
+
+&lt;echo>HTML pages installed to ${documentRoot}&lt;/echo>
+&lt;echo>PHP classes installed to ${servletDirectory}&lt;/echo>
+
+&lt;!-- Having the user choose from a set of valid choices -->
+&lt;echo>Choose a valid option:&lt;/echo>
+
+&lt;input propertyname="optionsChoice" validargs="foo,bar,bob">
+  Which item would you like to use
+&lt;/input></programlisting>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="LoadFileTask">LoadFileTask </title>
+	<sect1 role="taskdef" xml:id="LoadFileTask">
+<title>LoadFileTask </title>
 		<para>The <literal>LoadFileTask</literal> loads the contents of a (text) file into a single
 			property.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;loadfile property="version" file="version.txt"/></programlisting>
-		</example>
+
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1739,6 +1720,9 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;loadfile property="version" file="version.txt"/></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags:</title>
 			<itemizedlist>
@@ -1748,19 +1732,11 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="MkdirTask">MkdirTask </title>
+	<sect1 role="taskdef" xml:id="MkdirTask">
+<title>MkdirTask </title>
 		<para>Creates a directory, including any necessary but non-existent parent directories. Does
 			nothing if the directory already exists.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;-- Create a temp directory -->
-&lt;mkdir dir="/tmp/foo" />
 
-&lt;-- Using mkdir with a property -->
-&lt;mkdir dir="${dirs.install}/tmp" />
-</programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1794,17 +1770,24 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;-- Create a temp directory -->
+&lt;mkdir dir="/tmp/foo" />
+
+&lt;-- Using mkdir with a property -->
+&lt;mkdir dir="${dirs.install}/tmp" />
+</programlisting>
+		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="MoveTask">MoveTask </title>
+	<sect1 role="taskdef" xml:id="MoveTask">
+<title>MoveTask </title>
 		<para>Moves a file or directory to a new file or directory. By default, the destination file
 			is overwritten if it already exists. When overwrite is turned off, then files are only
 			moved if the source file is newer than the destination file, or when the destination
 			file does not exist.</para>
 		<para>Source files and directories are only deleted if the file or directory has been copied
 			to the destination successfully.</para>
-		<example>
-			<title>Example</title>
+		<sect2><title>Examples</title>
 			<programlisting>&lt;-- The following will move the file "somefile.txt" to "/tmp" and
     change its filename to "anotherfile.bak". It will overwrite
     an existing file. -->
@@ -1814,30 +1797,20 @@
     preserving the directory name. So the final name is
     "/home/default/tmp/tmp". Empty directories are also copied -->
 &lt;move file="/tmp" todir="/home/default/tmp" includeemptydirs="true" /></programlisting>
-		</example>
+		</sect2>
 		<sect2 role="taskattributes">
 			<title>Attributes and Nested Elements</title>
 			<para>For further documentation, see <xref xlink:href="#CopyTask"/>, since MoveTask only
 				is a child of CopyTask and inherits all attributes.</para>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="PhingTask">PhingTask </title>
+	<sect1 role="taskdef" xml:id="PhingTask">
+<title>PhingTask </title>
 		<para>This task calls another build file. You may specify the target that is to be called
 			within the build file. Additionally, the <literal>&lt;phing></literal> Tag may contain
 				<literal>&lt;property></literal> Tags (see <xref xlink:href="#PropertyTask"
 			/>).</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
- &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
 
-&lt;-- Do a more complex call -->
-&lt;phing phingfile="somebuild.xml" target="sometarget">
-  &lt;property name="foo" value="bar" />
-  &lt;property name="anotherone" value="32" />
-&lt;/phing></programlisting>
-		</example>
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1905,6 +1878,16 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
+ &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
+
+&lt;-- Do a more complex call -->
+&lt;phing phingfile="somebuild.xml" target="sometarget">
+  &lt;property name="foo" value="bar" />
+  &lt;property name="anotherone" value="32" />
+&lt;/phing></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -1959,33 +1942,12 @@
 			</table>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="PhingCallTask">PhingCallTask </title>
+	<sect1 role="taskdef" xml:id="PhingCallTask">
+<title>PhingCallTask </title>
 		<para>The PhingCallTask calls a target within the same Phing project.</para>
 		<para>A <literal>&lt;phingcall></literal> tag may contain <literal>&lt;property></literal>
 			tags that define new properties. These properties are only set if properties of the same
 			name have not been set outside the <literal>"phingcall"</literal> tag.</para>
-		<note>
-			<para>Important note about scope: every <literal>&lt;phingcall></literal> tag creates a
-				new local scope. Thus, any properties or other variables set inside that scope will
-				cease to exist (or revert to their previous value) once the
-					<literal>&lt;phingcall></literal> tag completes.</para>
-		</note>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;target name="foo">
-    &lt;phingcall target="bar">
-        &lt;property name="property1" value="aaaaa" />
-        &lt;property name="foo" value="baz" />
-    &lt;/phingcall>
-&lt;/target></programlisting>
-		</example>
-		<para>In the example above, the properties <literal>property1</literal> and
-				<literal>foo</literal> are defined and only accessible inside the called
-			target.</para>
-		<programlisting>&lt;target name="bar" depends="init">
-    &lt;echo message="prop is ${property1} ${foo}" />
-&lt;/target></programlisting>
 
 		
 			<table>
@@ -2033,6 +1995,27 @@
     -->
 				</tbody></tgroup>
 			</table>
+		<note>
+			<para>Local scope.</para>
+			<para>Every <literal>&lt;phingcall></literal> tag creates a new local scope. Thus, any
+				properties or other variables set inside that scope will cease to exist (or revert
+				to their previous value) once the <literal>&lt;phingcall></literal> tag
+				completes.</para>
+		</note>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;target name="foo">
+    &lt;phingcall target="bar">
+        &lt;property name="property1" value="aaaaa" />
+        &lt;property name="foo" value="baz" />
+    &lt;/phingcall>
+&lt;/target></programlisting>
+			<para>In the example above, the properties <literal>property1</literal> and
+					<literal>foo</literal> are defined and only accessible inside the called
+				target.</para>
+			<programlisting>&lt;target name="bar" depends="init">
+    &lt;echo message="prop is ${property1} ${foo}" />
+&lt;/target></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2045,18 +2028,11 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="PhpEvalTask">PhpEvalTask </title>
+	<sect1 role="taskdef" xml:id="PhpEvalTask">
+<title>PhpEvalTask </title>
 		<para>With the PhpEvalTask, you can set a property to the results of evaluating a PHP
 			expression or the result returned by a function/method call.</para>
-		<example>
-			<title>Examples</title>
-			<programlisting>&lt;php function="crypt" returnProperty="enc_passwd">
-  &lt;param value="${auth.root_passwd}"/>
-&lt;/php></programlisting>
-			<programlisting>&lt;php expression="3 + 4" returnProperty="sum"/></programlisting>
-			<programlisting>&lt;php expression="echo 'test';"></programlisting>
-		</example>
+
 		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
@@ -2116,6 +2092,13 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;php function="crypt" returnProperty="enc_passwd">
+  &lt;param value="${auth.root_passwd}"/>
+&lt;/php></programlisting>
+			<programlisting>&lt;php expression="3 + 4" returnProperty="sum"/></programlisting>
+			<programlisting>&lt;php expression="echo 'test';"></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2125,27 +2108,11 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="PropertyTask">PropertyTask </title>
+	<sect1 role="taskdef" xml:id="PropertyTask">
+<title>PropertyTask </title>
 		<para>With PropertyTask, you can define <literal>user</literal> properties in your build
 			file.</para>
-		<note>
-			<para>Important note about scope: when the <literal>&lt;property></literal> tag is
-				called inside a <literal>&lt;phingcall></literal> tag, any properties are set in a
-				new local scope. Thus, any properties or other variables set inside that scope will
-				cease to exist (or revert to their previous value) once the parent
-					<literal>&lt;phingcall></literal> tag completes.</para>
-		</note>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;property name="strings.test" value="Harr harr, more power!" />
-&lt;echo message="${strings.test}" />
 
-&lt;property name="foo.bar" value="Yet another property..." />
-&lt;echo message="${foo.bar}" />
-
-&lt;property file="build.properties"  /></programlisting>
-		</example>
 		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
@@ -2228,17 +2195,28 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<note>
+			<para>Important note about scope: when the <literal>&lt;property></literal> tag is
+				called inside a <literal>&lt;phingcall></literal> tag, any properties are set in a
+				new local scope. Thus, any properties or other variables set inside that scope will
+				cease to exist (or revert to their previous value) once the parent
+					<literal>&lt;phingcall></literal> tag completes.</para>
+		</note>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;property name="strings.test" value="Harr harr, more power!" />
+&lt;echo message="${strings.test}" />
+
+&lt;property name="foo.bar" value="Yet another property..." />
+&lt;echo message="${foo.bar}" />
+
+&lt;property file="build.properties"  /></programlisting>
+		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="PropertyPromptTask">PropertyPromptTask </title>
+	<sect1 role="taskdef" xml:id="PropertyPromptTask">
+<title>PropertyPromptTask </title>
 		<para>PropertyPromptTask is a simple task to read in user input into a property. If you need
 			something more advanced, see the <xref xlink:href="#InputTask"/>.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;propertyprompt propertyName="someprop" defaultValue="/var/www"
-		promptText="Enter your web root" />
-&lt;echo>${someprop}&lt;/echo></programlisting>
-		</example>
+
 		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
@@ -2296,24 +2274,16 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;propertyprompt propertyName="someprop" defaultValue="/var/www"
+		promptText="Enter your web root" />
+&lt;echo>${someprop}&lt;/echo></programlisting>
+		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ReflexiveTask">ReflexiveTask </title>
+	<sect1 role="taskdef" xml:id="ReflexiveTask">
+<title>ReflexiveTask </title>
 		<para>The ReflexiveTask performs operations on files. It is essentially a convenient way to
 			transform (using filter chains) files without copying them.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;reflexive>
-  &lt;fileset dir=".">
-    &lt;include pattern="*.html">
-  &lt;/fileset>
-  &lt;filterchain>
-    &lt;replaceregexp>
-      &lt;regexp pattern="\r\n" replace="\n"/>
-    &lt;/replaceregexp>
-  &lt;/filterchain>
-&lt;/reflexive></programlisting>
-		</example>
 		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
@@ -2341,6 +2311,18 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;reflexive>
+  &lt;fileset dir=".">
+    &lt;include pattern="*.html">
+  &lt;/fileset>
+  &lt;filterchain>
+    &lt;replaceregexp>
+      &lt;regexp pattern="\r\n" replace="\n"/>
+    &lt;/replaceregexp>
+  &lt;/filterchain>
+&lt;/reflexive></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags:</title>
 			<itemizedlist>
@@ -2353,22 +2335,15 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="ResolvePathTask">ResolvePathTask </title>
+	<sect1 role="taskdef" xml:id="ResolvePathTask">
+<title>ResolvePathTask </title>
 		<para>The ResolvePathTask turns a relative path into an absolute path, with respect to
 			specified directory or the project basedir (if no dir attribute specified).</para>
 		<para>This task is useful for turning a user-defined relative path into an absolute path in
 			cases where buildfiles will be called in different directories. Without this task,
 			buildfiles lower in the directory tree would mis-interpret the user-defined relative
 			paths.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;property name="relative_path" value="./dirname"/>
 
-&lt;resolvepath propertyName="absolute_path" file="${relative_path}"/>
-
-&lt;echo>Resolved [absolute] path: ${absolute_path}&lt;/echo></programlisting>
-		</example>
 		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
@@ -2410,31 +2385,18 @@
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;property name="relative_path" value="./dirname"/>
+
+&lt;resolvepath propertyName="absolute_path" file="${relative_path}"/>
+
+&lt;echo>Resolved [absolute] path: ${absolute_path}&lt;/echo></programlisting>
+		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="TaskdefTask">TaskdefTask </title>
+	<sect1 role="taskdef" xml:id="TaskdefTask">
+<title>TaskdefTask </title>
 		<para>With the TaskdefTask you can import a user task into your buildfile.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;!-- Includes the Task named "ValidateHTMLTask" and makes it available by
-     &lt;validatehtml> -->
-&lt;taskdef classname="user.tasks.ValidateHTMLTask" name="validatehtml" />
 
-&lt;!-- Includes the Task "RebootTask" from "user/sometasks" somewhere inside
-     the $PHP_CLASSPATH -->
-&lt;taskdef classname="user.sometasks.RebootTask" name="reboot" />
-
-&lt;!-- Includes all tasks from the property file. Each line in the property 
-file defines a task in the format: name=path.to.Task -->
-&lt;taskdef file="/path/to/mytasks.properties" /></programlisting>
-			<para>
-				<emphasis role="bold">NB:</emphasis> Taskdef now supports the PEAR-style naming
-				convention to define and load tasks:</para>
-			<programlisting>&lt;taskdef name="sampletask" classname="Dir_Subdir_SampleTask"/></programlisting>
-			<para>will load class <literal>Dir_Subdir_SampleTask</literal> from file
-					<filename>Dir/Subdir/SampleTask.php</filename>.</para>
-		</example>
-		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -2495,6 +2457,26 @@ file defines a task in the format: name=path.to.Task -->
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;!-- Includes the Task named "ValidateHTMLTask" and makes it available by
+     &lt;validatehtml> -->
+&lt;taskdef classname="user.tasks.ValidateHTMLTask" name="validatehtml" />
+
+&lt;!-- Includes the Task "RebootTask" from "user/sometasks" somewhere inside
+     the $PHP_CLASSPATH -->
+&lt;taskdef classname="user.sometasks.RebootTask" name="reboot" />
+
+&lt;!-- Includes all tasks from the property file. Each line in the property 
+file defines a task in the format: name=path.to.Task -->
+&lt;taskdef file="/path/to/mytasks.properties" /></programlisting>
+			<para>
+				<emphasis role="bold">NB:</emphasis> Taskdef now supports the PEAR-style naming
+				convention to define and load tasks:</para>
+			<programlisting>&lt;taskdef name="sampletask" classname="Dir_Subdir_SampleTask"/></programlisting>
+			<para>will load class <literal>Dir_Subdir_SampleTask</literal> from file
+				<filename>Dir/Subdir/SampleTask.php</filename>.</para>
+		</sect2>
+		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2504,16 +2486,11 @@ file defines a task in the format: name=path.to.Task -->
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="TouchTask">TouchTask </title>
+	<sect1 role="taskdef" xml:id="TouchTask">
+<title>TouchTask </title>
 		<para>The TouchTask works like the Unix <literal>touch</literal> command: It sets the
 			modtime of a file to a specific time. Default is the current time.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;touch file="README.txt" millis="102134111" />
 
-&lt;touch file="COPYING.lib" datetime="10/10/1999 09:31 AM" /></programlisting>
-		</example>
 		
 			<table>
 				<title>Attributes</title><tgroup cols="5">
@@ -2556,6 +2533,11 @@ file defines a task in the format: name=path.to.Task -->
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;touch file="README.txt" millis="102134111" />
+
+&lt;touch file="COPYING.lib" datetime="10/10/1999 09:31 AM" /></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2565,8 +2547,8 @@ file defines a task in the format: name=path.to.Task -->
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="TstampTask">TstampTask </title>
+	<sect1 role="taskdef" xml:id="TstampTask">
+<title>TstampTask </title>
 		<para>Sets the DSTAMP, TSTAMP, and TODAY properties in the current project. By default, the
 			DSTAMP property is in the format "%Y%m%d", TSTAMP is in the format "%H%M", and TODAY is
 			in the format "%B %d %Y". Use the nested &lt;format> element to specify a different
@@ -2575,21 +2557,7 @@ file defines a task in the format: name=path.to.Task -->
 			filenames, or used to replace placeholder tags inside documents to indicate, for
 			example, the release date. The best place for this task is probably in an initialization
 			target.</para>
-		<example>
-			<title>Examples</title>
-			<programlisting>&lt;tstamp/></programlisting>
-			<para>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default
-				formats.</para>
-			<programlisting>&lt;tstamp>
-  &lt;format property="DATE" pattern="%c" locale="nl_NL"/>
-&lt;/tstamp></programlisting>
-			<para>sets the standard properties as well as the property DATE with the date/time
-				pattern "%c" using the Dutch locale.</para>
-			<programlisting>&lt;tstamp prefix="start"/></programlisting>
-			<para>sets three properties with the standard formats, prefixed with "start.":
-				start.DSTAMP, start.TSTAMP, and start.TODAY.</para>
-		</example>
-		
+
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -2616,6 +2584,19 @@ file defines a task in the format: name=path.to.Task -->
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;tstamp/></programlisting>
+			<para>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default
+				formats.</para>
+			<programlisting>&lt;tstamp>
+  &lt;format property="DATE" pattern="%c" locale="nl_NL"/>
+&lt;/tstamp></programlisting>
+			<para>sets the standard properties as well as the property DATE with the date/time
+				pattern "%c" using the Dutch locale.</para>
+			<programlisting>&lt;tstamp prefix="start"/></programlisting>
+			<para>sets three properties with the standard formats, prefixed with "start.":
+				start.DSTAMP, start.TSTAMP, and start.TODAY.</para>
+		</sect2>		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2626,8 +2607,7 @@ file defines a task in the format: name=path.to.Task -->
 						date/time patterns are as defined in the PHP strftime() function.</para>
 				</listitem>
 			</itemizedlist>
-			<sect3 role="taskattributes">
-				<title>Attributes</title>
+			
 				<table>
 					<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -2671,19 +2651,12 @@ file defines a task in the format: name=path.to.Task -->
 						</row>
 					</tbody></tgroup>
 				</table>
-			</sect3>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="TypedefTask">TypedefTask </title>
+	<sect1 role="taskdef" xml:id="TypedefTask">
+<title>TypedefTask </title>
 		<para>With the TypedefTask you can import a user type into your buildfile.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;!-- Includes the Type named "CustomProject" and makes it available by
-     &lt;cproject> -->
-&lt;taskdef classname="user.types.CustomProject" name="cproject" /></programlisting>
-		</example>
-		
+
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -2735,6 +2708,12 @@ file defines a task in the format: name=path.to.Task -->
 					</row>
 				</tbody></tgroup>
 			</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;!-- Includes the Type named "CustomProject" and makes it available by
+     &lt;cproject> -->
+&lt;taskdef classname="user.types.CustomProject" name="cproject" /></programlisting>
+		</sect2>
+		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2744,18 +2723,11 @@ file defines a task in the format: name=path.to.Task -->
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="UpToDateTask">UpToDateTask </title>
+	<sect1 role="taskdef" xml:id="UpToDateTask">
+<title>UpToDateTask </title>
 		<para>UpToDateTask tests if a resource/file is set and sets a certain property to a certain
 			value if it exists.</para>
-		<example>
-			<title>Example of how to use AvailableTask</title>
-			<programlisting>&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" >
-  &lt;fileset dir="${src}/propel">
-    &lt;include="**/*.php"/>
-  &lt;/fileset>
-&lt;/uptodate></programlisting>
-		</example>
+
 		<para>sets the property <literal>propelBuild.notRequired</literal> to true if the
 				<literal>${deploy}/propelClasses.tgz</literal> file is more up-to-date than any of
 			the PHP class files in the <literal>${src}/propel</literal> directory.</para>
@@ -2806,6 +2778,13 @@ file defines a task in the format: name=path.to.Task -->
 				</row>
 			</tbody></tgroup>
 		</table>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" >
+  &lt;fileset dir="${src}/propel">
+    &lt;include="**/*.php"/>
+  &lt;/fileset>
+&lt;/uptodate></programlisting>
+		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
@@ -2821,8 +2800,8 @@ file defines a task in the format: name=path.to.Task -->
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef">
-		<title xml:id="XsltTask">XsltTask </title>
+	<sect1 role="taskdef" xml:id="XsltTask">
+<title>XsltTask </title>
 		<para>With <literal>XsltTask</literal>, you can run a XSLT transformation on an XML file.
 			Actually, <literal>XsltTask</literal> extends <literal>CopyTask</literal>, so you can
 			use all the elements allowed there.</para>
@@ -2831,16 +2810,7 @@ file defines a task in the format: name=path.to.Task -->
 				(<literal>libxslt</literal>) which must be available in php5. The
 				<literal>XsltTask</literal> is equivalent to running command line
 				<literal>xsltproc</literal> since that is a frontend for libxslt.</para>
-		<example>
-			<title>Example</title>
-			<programlisting>&lt;!-- Transform docbook with an imaginary XSLT file -->
-&lt;xslt todir="/srv/docs/phing" style="dbk2html.xslt" >
-  &lt;fileset dir=".">
-    &lt;include name="**/*.xml" />
-  &lt;/fileset>
-&lt;/xslt></programlisting>
-		</example>
-		
+
 			<table>
 				<title>Attributes</title><tgroup cols="5">
 <colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -2885,6 +2855,14 @@ file defines a task in the format: name=path.to.Task -->
 			</table>
 			<para><literal>Note:</literal> You can also use all the attributes available for <xref
 					xlink:href="#CopyTask"/>.</para>
+		<sect2><title>Examples</title>
+			<programlisting>&lt;!-- Transform docbook with an imaginary XSLT file -->
+&lt;xslt todir="/srv/docs/phing" style="dbk2html.xslt" >
+  &lt;fileset dir=".">
+    &lt;include name="**/*.xml" />
+  &lt;/fileset>
+&lt;/xslt></programlisting>
+		</sect2>		
 		<sect2 role="nestedtags">
 			<title>Supported Nested Elements</title>
 			<itemizedlist>

@@ -18,13 +18,13 @@
 
     <xsl:param name="chunker.output.encoding" select="'UTF-8'" />
     <xsl:param name="section.autolabel" select="1" />
-    <xsl:param name="section.autolabel.max.depth" select="3" />
+    <xsl:param name="section.autolabel.max.depth" select="2" />
     <xsl:param name="section.label.includes.component.label" select="1" />
     <xsl:param name="generate.section.toc.level" select="0" />
-    <xsl:param name="toc.max.depth" select="3" />
+    <xsl:param name="toc.max.depth" select="2" />
     <xsl:param name="emphasis.propagates.style" select="1" />
     <xsl:param name="para.propagates.style" select="1" /> 
-    <xsl:param name="xref.with.number.and.title" select="0" />
+    <xsl:param name="xref.with.number.and.title" select="1" />
     <xsl:param name="make.valid.html" select="0" />
     <xsl:param name="html.stylesheet" select="'book.css'" />
 <!--    <xsl:param name="appendix.autolabel" select="A" />-->
