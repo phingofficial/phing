@@ -3,8 +3,7 @@
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.bibliography">
-    <title>Bibliography</title>    
-
+    <title>Bibliography</title>
     <sect1 xml:id="InternationalStandards">
         <title>International Standards</title>
         <variablelist>
@@ -84,7 +83,6 @@
     </sect1>
     <sect1 xml:id="os-projects">
         <title>Open Source Projects</title>
-
         <variablelist>
             <varlistentry>
                 <term xml:id="bc">[bc] </term>
@@ -260,7 +258,7 @@
                     <itemizedlist>
                         <listitem>
                             <para><link xlink:href="http://progit.org/" role="extern"
-                                >http://progit.org/</link></para>
+                                    >http://progit.org/</link></para>
                         </listitem>
                     </itemizedlist>
                 </listitem>
