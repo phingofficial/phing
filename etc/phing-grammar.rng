@@ -901,6 +901,11 @@
                 <ref name="equals"/>
                 <ref name="or"/>
                 <ref name="and"/>
+                <ref name="isfalse"/>
+                <ref name="istrue"/>
+                <ref name="isset"/>
+                <ref name="contains_cond"/>
+                <ref name="referenceexists"/>
             </choice>
             <ref name="then"/>
             <zeroOrMore>
@@ -912,10 +917,54 @@
         </element>
     </define>
 
+    <define name="istrue">
+        <element name="istrue">
+            <attribute name="value"/>            
+        </element>
+    </define>
+    
+    <define name="isset">
+        <element name="isset">
+            <attribute name="property"/>
+        </element>
+    </define>
+    
+    <define name="isfalse">
+        <element name="isfalse">
+            <attribute name="value"/>
+        </element>
+    </define>
+    
+    <define name="referenceexists">
+        <element name="referenceexists">
+            <attribute name="ref"/>
+        </element>
+    </define>
+    
+    <define name="contains_cond">
+        <element name="contains">
+            <interleave>
+                <attribute name="string"/>
+                <attribute name="substring"/>
+                <optional>
+                    <attribute name="casesensitive"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+    
     <define name="equals">
         <element name="equals">
-            <attribute name="arg1"/>
-            <attribute name="arg2"/>
+            <interleave>
+                <attribute name="arg1"/>
+                <attribute name="arg2"/>
+                <optional>
+                    <attribute name="casesensitive"/>
+                </optional>
+                <optional>
+                    <attribute name="trim"/>
+                </optional>
+            </interleave>
         </element>
     </define>
 
@@ -935,6 +984,11 @@
             <ref name="equals"/>
             <ref name="or"/>
             <ref name="and"/>
+            <ref name="isfalse"/>
+            <ref name="istrue"/>
+            <ref name="isset"/>
+            <ref name="contains_cond"/>
+            <ref name="referenceexists"/>
         </choice>
         <interleave>
             <ref name="coretasks"/>
@@ -967,7 +1021,15 @@
     <define name="or">
         <element name="or">
             <oneOrMore>
-                <ref name="property"/>
+                <interleave>
+                    <ref name="property"/>
+                    <ref name="and"/>
+                    <ref name="isfalse"/>
+                    <ref name="istrue"/>
+                    <ref name="isset"/>
+                    <ref name="contains_cond"/>
+                    <ref name="referenceexists"/>                    
+                </interleave>
             </oneOrMore>
         </element>
     </define>
@@ -975,7 +1037,15 @@
     <define name="and">
         <element name="and">
             <oneOrMore>
-                <ref name="property"/>
+                <interleave>
+                    <ref name="property"/>
+                    <ref name="or"/>
+                    <ref name="isfalse"/>
+                    <ref name="istrue"/>
+                    <ref name="isset"/>
+                    <ref name="contains_cond"/>
+                    <ref name="referenceexists"/>                    
+                </interleave>
             </oneOrMore>
         </element>
     </define>
@@ -1501,7 +1571,7 @@
         =========================================
         ApiGenTask
         =========================================
-    -->   
+    -->
 
     <define name="apigen">
         <element name="apigen">
