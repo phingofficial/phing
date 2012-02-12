@@ -208,6 +208,26 @@ class ApiGenTask extends Task
     }
 
     /**
+     * Sets how elements should be grouped in the menu.
+     *
+     * @param string $groups
+     */
+    public function setGroups($groups)
+    {
+        $this->options['groups'] = (string) $groups;
+    }
+
+    /**
+     * Sets element types for search input autocomplete.
+     *
+     * @param string $autocomplete
+     */
+    public function setAutocomplete($autocomplete)
+    {
+        $this->options['autocomplete'] = (string) $autocomplete;
+    }
+
+    /**
      * Sets the element access levels.
      *
      * Documentation only for methods and properties with the given access level will be generated.
