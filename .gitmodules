@@ -1,0 +1,3 @@
+[submodule "classes/DocBlox/Parallel"]
+	path = classes/DocBlox/Parallel
+	url = git://github.com/docblox/Parallel.git

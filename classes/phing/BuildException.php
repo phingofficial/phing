@@ -49,8 +49,11 @@ class BuildException extends Exception {
      *         throw new BuildException($msg, $causeExc);
      *         throw new BuildException($msg, $loc);
      *         throw new BuildException($msg, $causeExc, $loc);
+     * @param Exception|string $p1
+     * @param Location|Exception|null $p2
+     * @param Location|null $p3
      */
-    function __construct($p1, $p2 = null, $p3 = null) {        
+    public function __construct($p1, $p2 = null, $p3 = null) {        
         
         $cause = null;
         $loc = null;
@@ -111,7 +114,7 @@ class BuildException extends Exception {
     /**
      * Sets the location of error in XML file.
      *
-     * @param Locaiton $loc
+     * @param Location $loc
      */
     public function setLocation(Location $loc) {        
         $this->location = $loc;

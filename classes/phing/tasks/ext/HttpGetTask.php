@@ -40,6 +40,13 @@ class HttpGetTask extends Task
     protected $url = null;
 
     /**
+     * Holds the filename to store the output in
+     *
+     * @var string
+     */
+    protected $filename = null;    
+
+    /**
      * Holds the save location
      *
      * @var string
@@ -95,50 +102,66 @@ class HttpGetTask extends Task
             $config['proxy_port'] = $url['port'];
         }
 
-	    $this->log("Fetching " . $this->url);
+        $this->log("Fetching " . $this->url);
 
         $request = new HTTP_Request2($this->url, '', $config);
-	    $response =  $request->send();
-	    if ($response->getStatus() != 200) {
-    		throw new BuildException("Request unsuccessful. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
-    	}
-    	
-    	$content = $response->getBody();
-    	if ($this->filename) {
-    		$filename = $this->filename;
-    	} elseif ($disposition = $response->getHeader('content-disposition')
-    	        && 0 == strpos($disposition, 'attachment')
-    		&& preg_match('/filename="([^"]+)"/', $disposition, $m)) {
-    		$filename = basename($m[1]);
-    	} else {
-    		$filename = basename(parse_url($this->url, PHP_URL_PATH));
-    	}
-    
-    	if (!is_writable($this->dir)) {
-    		throw new BuildException("Cannot write to directory: " . $this->dir);
-    	}
-    	
-    	$filename = $this->dir . "/" . $filename;
-    	file_put_contents($filename, $content);
-    	
-    	$this->log("Contents from " . $this->url . " saved to $filename");
+        $response =  $request->send();
+        if ($response->getStatus() != 200) {
+            throw new BuildException("Request unsuccessful. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
+        }
+         
+        $content = $response->getBody();
+        $disposition = $response->getHeader('content-disposition');
+        
+        if ($this->filename) {
+            $filename = $this->filename;
+        } elseif ($disposition && 0 == strpos($disposition, 'attachment')
+            && preg_match('/filename="([^"]+)"/', $disposition, $m)) {
+            $filename = basename($m[1]);
+        } else {
+            $filename = basename(parse_url($this->url, PHP_URL_PATH));
+        }
+
+        if (!is_writable($this->dir)) {
+            throw new BuildException("Cannot write to directory: " . $this->dir);
+        }
+         
+        $filename = $this->dir . "/" . $filename;
+        file_put_contents($filename, $content);
+         
+        $this->log("Contents from " . $this->url . " saved to $filename");
     }
 
+    /**
+     * Sets the request URL
+     * 
+     * @param string $url
+     */
     public function setUrl($url) {
         $this->url = $url;
     }
 
+    /**
+     * Sets the filename to store the output in
+     * 
+     * @param string $filename
+     */
     public function setFilename($filename) {
         $this->filename = $filename;
     }
 
+    /**
+     * Sets the save location
+     * 
+     * @param string $dir
+     */
     public function setDir($dir) {
         $this->dir = $dir;
     }
 
     /**
      * Sets the proxy
-     * 
+     *
      * @param string $proxy
      */
     public function setProxy($proxy) {

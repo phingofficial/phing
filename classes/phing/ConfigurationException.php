@@ -41,13 +41,15 @@ class ConfigurationException extends Exception {
     protected $cause;
 
     /**
-     * Construct a BuildException.
+     * Construct a ConfigurationException.
      * Supported signatures:
      *         throw new BuildException($causeExc);
      *         throw new BuildException($msg);
      *         throw new BuildException($msg, $causeExc);
+     * @param Exception|string $p1
+     * @param Exception|null $p2
      */
-    function __construct($p1, $p2 = null, $p3 = null) {
+    public function __construct($p1, $p2 = null) {
 
         $cause = null;
         $msg = "";
