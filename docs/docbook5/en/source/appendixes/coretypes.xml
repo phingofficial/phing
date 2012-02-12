@@ -27,11 +27,11 @@
 			<table>
 				<title> Common attributes for all <literal>File, Class, Method</literal> tags </title>
 				<tgroup cols="5">
-					<colspec colname="c1" colnum="1" colwidth="1.5*"/>
-					<colspec colname="c2" colnum="2" colwidth="0.8*"/>
-					<colspec colname="c3" colnum="3" colwidth="3.5*"/>
-					<colspec colname="c4" colnum="4" colwidth="0.8*"/>
-					<colspec colname="c5" colnum="5" colwidth="1.2*"/>
+					<colspec colname="name" colnum="1" colwidth="1.5*"/>
+					<colspec colname="type" colnum="2" colwidth="0.8*"/>
+					<colspec colname="description" colnum="3" colwidth="3.5*"/>
+					<colspec colname="default" colnum="4" colwidth="0.8*"/>
+					<colspec colname="required" colnum="5" colwidth="1.2*"/>
 					<thead>
 						<row>
 							<entry>Name</entry>
@@ -68,7 +68,7 @@
 		</sect2>
 	</sect1>
 	<sect1 role="typedef" xml:id="FileList">
-		<title>FileList </title>
+		<title>FileList</title>
 		<para>FileLists offer a way to represent a specific list of files. Unlike FileSets,
 			FileLists may contain files that do not exist on the filesystem. Also, FileLists can
 			represent files in a specific order -- whereas FileSets represent files in whichever
@@ -76,11 +76,11 @@
 		<table>
 			<title> Attributes for the <literal>&lt;fileset></literal> tag </title>
 			<tgroup cols="5">
-				<colspec colname="c1" colnum="1" colwidth="1.5*"/>
-				<colspec colname="c2" colnum="2" colwidth="0.8*"/>
-				<colspec colname="c3" colnum="3" colwidth="3.5*"/>
-				<colspec colname="c4" colnum="4" colwidth="0.8*"/>
-				<colspec colname="c5" colnum="5" colwidth="1.2*"/>
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>				
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -130,11 +130,12 @@
 		</sect2>
 	</sect1>
 	<sect1 role="typedef" xml:id="FileSet">
-		<title>FileSet </title>
+		<title>FileSet</title>
 
 		<para> FileSets offer an easy and straightforward way to include files. The tag supports
-				<link xlink:href="#app.selectors">Selectors</link> and <link xlink:href="#PatternSet">PatternSets</link>.
-			Additionally, you can include/exclude files in/from a fileset using the
+				<link xlink:href="#app.selectors">Selectors</link> and <link
+				xlink:href="#PatternSet">PatternSets</link>. Additionally, you can include/exclude
+			files in/from a fileset using the
 				<literal>&lt;include></literal>/<literal>&lt;exclude></literal> tags. In patterns,
 			one asterisk (<literal>*</literal>) maps to a part of a file/directory name within a
 			directory level. Two asterisks (<literal>**</literal>) may include above the "border" of
@@ -142,11 +143,11 @@
 		<table>
 			<title> Attributes for the <literal>&lt;fileset></literal> tag </title>
 			<tgroup cols="5">
-				<colspec colname="c1" colnum="1" colwidth="1.5*"/>
-				<colspec colname="c2" colnum="2" colwidth="0.8*"/>
-				<colspec colname="c3" colnum="3" colwidth="3.5*"/>
-				<colspec colname="c4" colnum="4" colwidth="0.8*"/>
-				<colspec colname="c5" colnum="5" colwidth="1.2*"/>
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>				
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -170,9 +171,14 @@
 						<entry><literal>defaultexcludes</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
 						<entry>Whether default exclusions should be used or not. Default excludes
-							are: <literal>*~, #*#, .#*, %*%, CVS, CVS/**, .cvsignore, SCCS, SCCS/**,
-								vssver.scc, .svn, .svn/**, ._*, .DS_Store, .darcs, .darcs/**
-							</literal>
+							are: <literal>*~</literal>, <literal>#*#</literal>,
+								<literal>.#*</literal>, <literal>%*%</literal>,
+								<literal>CVS</literal>, <literal>CVS/**</literal>,
+								<literal>.cvsignore</literal>, <literal>SCCS</literal>,
+								<literal>SCCS/**</literal>, <literal>vssver.scc</literal>,
+								<literal>.svn</literal>, <literal>.svn/**</literal>,
+								<literal>._*</literal>, <literal>.DS_Store</literal>,
+								<literal>.darcs</literal>, <literal>.darcs/**</literal>
 						</entry>
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
@@ -286,16 +292,16 @@
 	<sect1 role="typedef" xml:id="PatternSet">
 		<title>PatternSet </title>
 		<para>The PatternSet data type defines patterns that can be grouped into sets and nested
-			into <link xlink:href="#FileSet">FileSets</link>. Patterns can be specified by nested &lt;include> or
-			&lt;exclude> elements.</para>
+			into <link xlink:href="#FileSet">FileSets</link>. Patterns can be specified by nested
+			&lt;include> or &lt;exclude> elements.</para>
 		<table>
 			<title> Attributes for <literal>&lt;patternset></literal> tag </title>
 			<tgroup cols="5">
-				<colspec colname="c1" colnum="1" colwidth="1.5*"/>
-				<colspec colname="c2" colnum="2" colwidth="0.8*"/>
-				<colspec colname="c3" colnum="3" colwidth="3.5*"/>
-				<colspec colname="c4" colnum="4" colwidth="0.8*"/>
-				<colspec colname="c5" colnum="5" colwidth="1.2*"/>
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>				
 				<thead>
 					<row>
 						<entry>Name</entry>
@@ -376,11 +382,11 @@
 		<table>
 			<title> Attributes for <literal>&lt;paentry></literal> tag </title>
 			<tgroup cols="5">
-				<colspec colname="c1" colnum="1" colwidth="1.5*"/>
-				<colspec colname="c2" colnum="2" colwidth="0.8*"/>
-				<colspec colname="c3" colnum="3" colwidth="3.5*"/>
-				<colspec colname="c4" colnum="4" colwidth="0.8*"/>
-				<colspec colname="c5" colnum="5" colwidth="1.2*"/>
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>				
 				<thead>
 					<row>
 						<entry>Name</entry>

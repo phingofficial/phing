@@ -148,7 +148,7 @@
                         <entry><literal>allowedhtml</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>List of HTML tags allowed in the documentation.</entry>
-                        <entry>b,i,a,ul,ol,li,p,br,var,samp,kbd,tt</entry>
+                        <entry>b, i, a, ul, ol, li, p, br, var, samp, kbd, tt</entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -156,7 +156,7 @@
                         <entry><literal role="type">String</literal></entry>
                         <entry>Element access levels. Documentation only for methods and properties
                             with the given access level will be generated.</entry>
-                        <entry>public,protected</entry>
+                        <entry>public, protected</entry>
                         <entry>No</entry>
                     </row>
                     <row>

@@ -56,11 +56,11 @@
             <title>Attributes for <literal>&lt;filterreader></literal>
             </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -133,11 +133,11 @@
             <title> Attributes for <literal>&lt;expandproperties></literal>
             </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -173,11 +173,11 @@
         <table>
             <title> Attributes for the <literal>&lt;headfilter> </literal>tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -213,11 +213,11 @@
         <table>
             <title> Attributes for the <literal>&lt;iconvfilter> </literal>tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -295,11 +295,11 @@
         <table>
             <title> Attributes for the <literal>&lt;prefixlines></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -338,11 +338,11 @@
         <table>
             <title> Attributes for the <literal>&lt;replacetokens></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -404,11 +404,11 @@
         <table>
             <title> Attributes for the <literal>&lt;replacetokenswithfile></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -496,11 +496,11 @@
             <table>
                 <title> Attributes for the <literal>&lt;regexp></literal> tag </title>
                 <tgroup cols="5">
-                    <colspec colname="c1" colnum="1" colwidth="2*"/>
-                    <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                    <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                    <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>                    
                     <thead>
                         <row>
                             <entry>Name</entry>
@@ -627,11 +627,11 @@
         <table>
             <title> Attributes for the <literal>&lt;tabtospaces></literal> filter </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -665,11 +665,11 @@
         <table>
             <title> Attributes for the <literal>&lt;tailfilter></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -706,11 +706,11 @@
         <table>
             <title> Attributes for the <literal>&lt;tidyfilter></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -764,11 +764,11 @@
         <table>
             <title>Attributes for the <literal>&lt;xincludefilter></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -817,11 +817,11 @@
         <table>
             <title> Attributes for the <literal>&lt;xsltfilter></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="2*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
                 <thead>
                     <row>
                         <entry>Name</entry>
