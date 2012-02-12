@@ -14,17 +14,21 @@
   <xsl:import href="/usr/share/xml/docbook/stylesheet/nwalsh5/current/html/onechunk.xsl"/>
   <xsl:import href="common.xsl"/>
 
-    <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
+  <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
   <xsl:param name="section.autolabel" select="1"/>
   <xsl:param name="section.autolabel.max.depth" select="3"/>
   <xsl:param name="section.label.includes.component.label" select="1"/>
-    <xsl:param name="generate.section.toc.level" select="0"/>
-    <xsl:param name="toc.max.depth" select="2" />
-    <xsl:param name="emphasis.propagates.style" select="1"/>
+  <xsl:param name="generate.section.toc.level" select="0"/>
+  <xsl:param name="toc.max.depth" select="2"/>
+  <xsl:param name="emphasis.propagates.style" select="1"/>
   <xsl:param name="para.propagates.style" select="1"/>
   <xsl:param name="xref.with.number.and.title" select="0"/>
   <xsl:param name="make.valid.html" select="0"/>
-  <xsl:param name="html.stylesheet" select="'book.css'" />
+  <xsl:param name="html.stylesheet" select="'book.css'"/>
+  <!-- Only include top level Book components in the TOC
+       This means no example, figures, programlisting etc.
+  -->
+  <xsl:param name="generate.toc" select="'book toc'"/>
 
   <!--    <xsl:param name="appendix.autolabel" select="A" />-->
 
@@ -100,7 +104,7 @@
         -->
         <xsl:choose>
           <xsl:when test="local-name(.) = 'screen'">
-            <div class="terminal">             
+            <div class="terminal">
               <div class="terminaltop"> </div>
               <xsl:element name="{$div.element}">
                 <xsl:apply-templates select="." mode="common.html.attributes"/>

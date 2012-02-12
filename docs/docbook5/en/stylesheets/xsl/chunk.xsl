@@ -26,7 +26,12 @@
     <xsl:param name="xref.with.number.and.title" select="0" />
     <xsl:param name="make.valid.html" select="0" />    
     <xsl:param name="html.stylesheet" select="'book.css'" />
-
+    
+    <!-- Only include top level Book components in the TOC
+       This means no example, figures, programlisting etc.
+  -->
+    <xsl:param name="generate.toc" select="'book toc'"/>
+    
     <!--  
         * ==============================================================================
         * Customize the titles for figures and tables. This will vreak the heading from

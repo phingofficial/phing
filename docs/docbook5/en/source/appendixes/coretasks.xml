@@ -2,8 +2,8 @@
 <?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
-	<title xml:id="app.coretasks">Core tasks</title>
+	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"  xml:id="app.coretasks">
+	<title>Core tasks</title>
 
 	<para>This appendix contains a reference of all core tasks, i.e. all tasks that are needed to
 		build a basic project.</para>

@@ -29,9 +29,12 @@
     <xsl:param name="default.table.frame" select="'topbot'"/>
 
     <!--    <xsl:param name="table.frame.border.style" select="'none'" />-->
-
-    <!--    <xsl:param name="column.count.body" select="2"/>
-<xsl:param name="column.count.back" select="1"/> -->
+    
+    <!-- Only include top level Book components in the TOC
+       This means no example, figures, programlisting etc.
+  -->
+    <xsl:param name="generate.toc" select="'book toc'"/>
+    
     
     <xsl:template match="processing-instruction('hard-pagebreak')">
         <fo:block break-after='page'/>

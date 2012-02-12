@@ -24,6 +24,11 @@
   <!--  <xsl:param name="ignore.image.scaling" select="1" /> -->
     <xsl:param name="xref.with.number.and.title" select="0" />
     
+  <!-- Only include top level Book components in the TOC
+       This means no example, figures, programlisting etc.
+  -->
+  <xsl:param name="generate.toc" select="'book toc'"/>
+  
  
  <!--  
    * ==============================================================================

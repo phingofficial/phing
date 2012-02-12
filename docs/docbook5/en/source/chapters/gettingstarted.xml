@@ -63,7 +63,7 @@
             to a target location, creates an archive of this files and provides an optional clean-up
             of the build tree:</para>
 
-        <programlisting>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        <programlisting language="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 
 &lt;project name=&quot;FooBar&quot; default=&quot;dist&quot;&gt;
 

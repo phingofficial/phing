@@ -36,8 +36,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="unicode">[unicode] </term>
+            <varlistentry xml:id="unicode">
+                <term>[unicode] </term>
                 <listitem>
                     <para>Unicode</para>
                     <itemizedlist>
@@ -84,8 +84,8 @@
     <sect1 xml:id="os-projects">
         <title>Open Source Projects</title>
         <variablelist>
-            <varlistentry>
-                <term xml:id="bc">[bc] </term>
+            <varlistentry xml:id="bc">
+                <term>[bc] </term>
                 <listitem>
                     <para>Binarycloud</para>
                     <itemizedlist>
@@ -112,8 +112,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="phpdoc">[phpdoc] </term>
+            <varlistentry xml:id="phpdoc">
+                <term>[phpdoc] </term>
                 <listitem>
                     <para>The PHPDoc Project</para>
                     <itemizedlist>
@@ -124,8 +124,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="phpclasses">[phpclasses] </term>
+            <varlistentry xml:id="phpclasses">
+                <term>[phpclasses] </term>
                 <listitem>
                     <para>Manuel Lemos' PHPClasses Repository</para>
                     <itemizedlist>
@@ -136,8 +136,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="pear">[pear] </term>
+            <varlistentry xml:id="pear">
+                <term>[pear] </term>
                 <listitem>
                     <para>PEAR (Php Extension Archive Repository)</para>
                     <itemizedlist>
@@ -148,8 +148,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="ant">[ant] </term>
+            <varlistentry xml:id="ant">
+                <term>[ant] </term>
                 <listitem>
                     <para>Ant, a Java Build Tool, the main inspiration for Phing</para>
                     <itemizedlist>
@@ -160,8 +160,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="gnumake">[gnumake] </term>
+            <varlistentry xml:id="gnumake">
+                <term>[gnumake] </term>
                 <listitem>
                     <para>GNU make, an inspiration for Phing</para>
                     <itemizedlist>
@@ -173,8 +173,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="pollo">[pollo] </term>
+            <varlistentry xml:id="pollo">
+                <term>[pollo] </term>
                 <listitem>
                     <para>Pollo, a visual editor for XML files. A schema to edit phing build files
                         is shipped with Phing.</para>
@@ -186,8 +186,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="gingerall">[gingerall] </term>
+            <varlistentry xml:id="gingerall">
+                <term>[gingerall] </term>
                 <listitem>
                     <para>Ginger Alliance - Home Of Sablotorn</para>
                     <itemizedlist>
@@ -198,8 +198,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="php">[php] </term>
+            <varlistentry xml:id="php">
+                <term>[php] </term>
                 <listitem>
                     <para>The PHP homepage - PHP Hypertext Preprocessor</para>
                     <itemizedlist>
@@ -210,8 +210,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="gnu">[gnu] </term>
+            <varlistentry xml:id="gnu">
+                <term>[gnu] </term>
                 <listitem>
                     <para>The GNU (GNU's Not Unix) Organization</para>
                     <itemizedlist>
@@ -222,8 +222,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="phing">[phing] </term>
+            <varlistentry xml:id="phing">
+                <term>[phing] </term>
                 <listitem>
                     <para>Phing (PHing Is Not Gnumake)</para>
                     <itemizedlist>
@@ -268,8 +268,8 @@
     <sect1 xml:id="OtherResources">
         <title>Other Resources</title>
         <variablelist>
-            <varlistentry>
-                <term xml:id="javadoc">[javadoc] </term>
+            <varlistentry xml:id="javadoc">
+                <term>[javadoc] </term>
                 <listitem>
                     <para>Sun Javadoc</para>
                     <itemizedlist>
@@ -280,8 +280,8 @@
                     </itemizedlist>
                 </listitem>
             </varlistentry>
-            <varlistentry>
-                <term xml:id="zend">[zend] </term>
+            <varlistentry xml:id="zend">
+                <term>[zend] </term>
                 <listitem>
                     <para>Zend Technologies, Ltd.</para>
                     <itemizedlist>
