@@ -171,13 +171,13 @@
                     </tbody>
                 </tgroup>
             </table>
-            <important>
+            <caution>
                 <para>The if and unless attributes only enable or disable the target to which they
                     are attached. They do not control whether or not targets that a conditional
                     target depends upon get executed. In fact, they do not even get evaluated until
                     the target is about to be executed, and all its predecessors have already
                     run.</para>
-            </important>
+            </caution>
         </sect2>
     </sect1>
 </appendix>

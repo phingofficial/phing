@@ -89,7 +89,7 @@ div.authorgroup{
     margin-right:auto;
     margin-bottom:60px;
     text-align:center;
-    border: solid 2px #ddd;
+    border:solid 2px #ddd;
     width:350px;
     height:400px;
     box-shadow:5px 5px 5px #888;
@@ -115,14 +115,14 @@ p.pubdate:before{
     content:"Publishing date: ";
 }
 
-div[class = sect1] p {
+div[class = sect1] p{
     margin-top:5px;
     margin-bottom:5px;
 }
 
 .filename,
-.option {
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
+.option{
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
 }
 .guimenu,
 .guimenuitem{
@@ -130,26 +130,26 @@ div[class = sect1] p {
     padding:0 3px;
     background-color:#FF7;
 }
-.classname {
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
+.classname{
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
     font-weight:bold;
 }
-.methodname {
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
+.methodname{
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
     font-weight:bold;
 }
 .command{
     font-weight:bold;
 }
-.parameter {
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
+.parameter{
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
 }
-.envar {
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
+.envar{
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
     font-weight:bold;
 }
-.function {
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
+.function{
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
 }
 .variablelist{
     margin-left:15px;
@@ -161,26 +161,26 @@ div[class = sect1] p {
     font-size:1em;
 }
 
-.synopsis {
-    padding-left: 5px;
-    font-family: "Bitstream Vera Sans Mono", Courier, monospace;
-    background-color: #fef3c1;
+.synopsis{
+    padding-left:5px;
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
+    background-color:#fef3c1;
 }
 
-.important {
-    margin-top: 10px;
-    margin-bottom: 10px;
+.important{
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
-div.mediaobject {
-    margin-top: 15px;
-    margin-bottom: 15px;
+div.mediaobject{
+    margin-top:15px;
+    margin-bottom:15px;
 }
 
-.mediaobject img {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
+.mediaobject img{
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
 }
 
 
@@ -216,117 +216,99 @@ div.mediaobject {
 
 
 .tip h3,
-.note h3, 
+.note h3,
 .caution h3,
-.warning h3 {
-    padding-top: 4px;
-    background-color: #F8F7EF;
+.warning h3{
+    padding-top:4px;
+    background-color:#F8F7EF;
     color:#56a;
-    font-weight: bold;
-    font-style: italic;
+    font-weight:bold;
+    font-style:italic;
     /*font-size: 1.05em;*/
-    font-size: 105%;
-    margin-right:15px;   
+    font-size:105%;
+    margin-right:15px;
 }
 
-.tip {
-    background-image: url("admon-tip.png");
+.tip{
+    background-image:url("admon-tip.png");
 }
 
 .note p,
 .tip p,
 .caution p,
-.warning p {
-    font-size: .85em;
-    font: italic .85em Georgia, serif;
+.warning p{
+    font-size:.85em;
+    font:italic .85em Georgia, serif;
 }
 
 .caution h3,
-.warning h3 {
-    padding-top: 4px;
-    color: #922;
-    font-weight: bold;
-    font-style: italic;
-    font-size: 1.05em;
+.warning h3{
+    padding-top:4px;
+    color:#922;
+    font-weight:bold;
+    font-style:italic;
+    font-size:1.05em;
+}
+
+.screenshot{
+    margin:10px;
+    text-align:center;
+}
+.variablelist{
+    margin-left:15px;
+    margin-right:15px;
+}
+
+p,
+.synopsis,
+.example,
+.formaltable{
+    margin:0 15px 1em 15px;
+}
+
+a:hover{
+    border-bottom:1px solid gray;
+}
+
+a,
+a:visited{
+    color:#000055;
+    font-weight:normal;
+    text-decoration:none;
+}
+
+.example{
+    background:#fff;
+    border:none;
+    margin-left:0px;
+    margin-right:15px;
+}
+
+.example p.title{
+    font-size:0.85em;
+}
+
+p.formal-object-title span.label{
+    font-weight:bold;
+    font-style:italic;
+    font-size:100%;
+    color:#000; /*#aa5555;*/
+    font-family:serif;
+}
+
+p.formal-object-title span.title{
+    font-style:italic;
+    font-family:serif;
+    font-size:100%;
+}
+
+.example-contents{
+    background-color:#fff;
+    padding:2px;
 }
 
 
-.warning {
-    background-image: url("admon-bug2_small.png");
-}
-
-
-.important {
-    background-color: #f18b8b;
-}
-
-.important h1 {
-    background-color: #f18b8b;
-}
-
-.important .important_content {
-    background-color: #f8cbcb;
-    border-left: 4px solid #f18b8b;
-    border-right: 4px solid #f18b8b;
-    border-bottom: 4px solid #f18b8b;
-    padding: 5px 0;
-}
-
-.screenshot {
-    margin: 10px;
-    text-align: center;
-}
-.variablelist {
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-p, .synopsis, .example, .important, .formaltable {
-    margin: 0 15px 1em 15px;
-}
-
-a:hover {
-    border-bottom: 1px solid gray;
-}
-
-a, a:visited {
-    color: #000055;
-    font-weight: normal;
-    text-decoration: none;
-}
-
-.example {
-	background: #fff;
-	border: none;
-	margin-left: 0px;
-	margin-right: 15px;
-}
-
-.example p.title {
-    font-size: 0.85em;
-}
-
-p.formal-object-title span.label {
-    font-weight: bold;
-    font-style: italic;
-    font-size: 100%;
-    color: #000; /*#aa5555;*/
-    font-family: serif;
-}
-
-p.formal-object-title span.title {
-    font-style: italic;
-    font-family: serif;
-    font-size: 100%;
-}
-
-.example-contents {
-    background-color: #fff;
-    padding: 2px;
-}
-
-
-.programlisting {
+.programlisting{
     display:block;
     background-color:#eee;
     box-shadow:5px 5px 5px #888;
@@ -342,66 +324,67 @@ p.formal-object-title span.title {
     overflow:hidden;
 }
 
-code {
-    white-space: pre;
-    font-size: 1.05em;    
+code{
+    white-space:pre;
+    font-size:1.05em;
 }
 
-code.filename {
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #00688b;
+code.filename{
+    font-weight:bold;
+    font-size:0.9em;
+    color:#00688b;
 }
 
-a.uri {
-    font-weight: bold;
-    font-size: 1.1em;
+a.uri{
+    font-weight:bold;
+    font-size:1.1em;
     /*color: #00283b;*/
-     color: #A34D32;
+    color:#A34D32;
 }
 
 /* Cross reference links in the text */
-a[class=xref] {
-    text-decoration: none;
-    color: #A34D32;
-    font-weight: bold;
+a[class = xref]{
+    text-decoration:none;
+    color:#A34D32;
+    font-weight:bold;
 }
 
-a[class=xref]:hover {
-    text-decoration: none;
-    color: #537d7b;
+a[class = xref]:hover{
+    text-decoration:none;
+    color:#537d7b;
 }
 
-.uri .filename, uri.filename {
-    font-size: 1.25em;    
-    background-image: url("text-document.png");
-    background-position: 1px 0px;
-    background-repeat: no-repeat;
+.uri .filename,
+uri.filename{
+    font-size:1.25em;
+    background-image:url("text-document.png");
+    background-position:1px 0px;
+    background-repeat:no-repeat;
     margin-left:1px;
     padding-left:18px;
 }
 
-span.application {
+span.application{
     font-family:sans-serif;
-    color: #282;
+    color:#282;
     font-style:italic;
-    font-weight: bold;
+    font-weight:bold;
 }
-span.command strong {
+span.command strong{
     font-family:monospace;
-    font-weight: bold;
+    font-weight:bold;
     font-size:120%;
     color:#336699;
 }
-code.literal {
+code.literal{
     font-family:monospace;
     font-size:1.1em;
 }
 
-acronym.acronym {
+acronym.acronym{
     font-family:sans-serif;
-    color: #282;
-    font-weight:bold;  
+    color:#282;
+    font-weight:bold;
     font-size:0.9em;
 }
 
@@ -411,12 +394,12 @@ span.markup{
     background-color:#eee;
 }
 
-.figure {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
+.figure{
+    margin-top:15px;
+    margin-bottom:15px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
 }
 
 /*
@@ -435,34 +418,34 @@ div.informaltable table{
 div.table{
     width:100%;
     display:block;
-    text-align: center;
+    text-align:center;
     margin-top:15px;
 }
 div.table-contents{
     margin-bottom:4px;
     display:block;
 }
-table {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;  
+table{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
 }
-thead {
-    background: #eee;
-}
-
-thead th {
-    border: 1px solid #ccc;
-    text-align: center;
+thead{
+    background:#eee;
 }
 
-div.table {
-    margin-left: 15px;      
+thead th{
+    border:1px solid #ccc;
+    text-align:center;
 }
 
-div.table-contents table {
-    border: 1px solid #ccc;
-    border-collapse: collapse;
+div.table{
+    margin-left:15px;
+}
+
+div.table-contents table{
+    border:1px solid #ccc;
+    border-collapse:collapse;
 }
 
 div.table-contents td{
@@ -508,31 +491,31 @@ span.term{
 
 /* TOC */
 
-.toc span.preface {
-    padding-left: 15px;
-    font: bold 1.05em Arial, serif;
-    font-style: italic;
+.toc span.preface{
+    padding-left:15px;
+    font:bold 1.05em Arial, serif;
+    font-style:italic;
 }
 
 
-.toc span.part {
-    padding-left: 15px;
-    font: bold 1.3em Arial, serif;
+.toc span.part{
+    padding-left:15px;
+    font:bold 1.3em Arial, serif;
 }
 
-span.chapter {
-    padding-left: 15px;
-    font: normal 1.05em Arial, serif;
+span.chapter{
+    padding-left:15px;
+    font:normal 1.05em Arial, serif;
 }
 
-span.sect1 {
-    padding-left: 15px;
-    font-size: .85em;
-    font: normal .85em Georgia, serif;
+span.sect1{
+    padding-left:15px;
+    font-size:.85em;
+    font:normal .85em Georgia, serif;
 
 }
 
-div.toc {
+div.toc{
     background-color:#efeedd;
     border:1px solid #cebcac;
     padding-bottom:2px;
@@ -540,16 +523,16 @@ div.toc {
     margin-bottom:15px;
 }
 
-span.sect2 {
-    padding-left: 15px;
-    font-size: .85em;
-    font: normal .85em Georgia, serif;
+span.sect2{
+    padding-left:15px;
+    font-size:.85em;
+    font:normal .85em Georgia, serif;
 
 }
 
 
-.toc b {
-    font-size: 1.5em;
+.toc b{
+    font-size:1.5em;
     color:#555;
 }
 
@@ -558,91 +541,90 @@ div.list-of-tables
 {
     padding-top:10px;
     padding-bottom:5px;
-    background-color:#e5ded2; 
+    background-color:#e5ded2;
     background-color:#efeedd;
-    border:1px solid #c5beb2; 
-    margin-bottom: -1px;
+    border:1px solid #c5beb2;
+    margin-bottom:-1px;
 }
 
 div.list-of-tables dl,
-div.list-of-examples dl {
-    margin-left: 25px;
+div.list-of-examples dl{
+    margin-left:25px;
 }
 
-div.list-of-figures  {
+div.list-of-figures{
     padding-top:10px;
     padding-bottom:5px;
-    background-color:#e5ded2; 
+    background-color:#e5ded2;
     background-color:#efeedd;
-    border:1px solid #c5beb2; 
-    margin-bottom: -1px;
-    margin-top: -16px;
+    border:1px solid #c5beb2;
+    margin-bottom:-1px;
+    margin-top:-16px;
 }
 
-div.list-of-figures dl {
-    margin-left: 25px;
+div.list-of-figures dl{
+    margin-left:25px;
 }
 
 /* Navigation part of the output */
 
-div.navheader {
+div.navheader{
     background-color:#ebf1e8;
 }
 
-div.navfooter {
+div.navfooter{
     background-color:#ebf1e8;
 }
 
-div.navheader td {
+div.navheader td{
     font-size:0.85em;
 }
 
-div.navfooter td {
+div.navfooter td{
     font-size:0.85em;
 }
 
 
-.error-text {
-    font-size: small;
-    color: #700000;
+.error-text{
+    font-size:small;
+    color:#700000;
 }
 
-.error-number {
-    font-size: small;
-    color: #700000;
+.error-number{
+    font-size:small;
+    color:#700000;
 }
 
 /* Fancy screen/commands */
 
 pre.screen
 {
-  margin: 0px; 
-  margin-left: 15px;
-  padding: 0px 5px;  
-  font-size: 10pt;
-  display:block;
-  font-family: "Bitstream Vera Sans Mono", Courier, monospace;
-  font-weight: normal;
-  overflow: hidden;  
-  background: url(img/code-anonymous-middle.png) repeat-y;
+    margin:0px;
+    margin-left:15px;
+    padding:0px 5px;
+    font-size:10pt;
+    display:block;
+    font-family:"Bitstream Vera Sans Mono", Courier, monospace;
+    font-weight:normal;
+    overflow:hidden;
+    background:url(img/code-anonymous-middle.png) repeat-y;
 }
 
 .terminaltop
 {
-  margin-left: 15px;
-  background: url(img/code-anonymous-top.png) no-repeat;
-  height: 41px;
-  /*width: 750px;*/
+    margin-left:15px;
+    background:url(img/code-anonymous-top.png) no-repeat;
+    height:41px;
+    /*width: 750px;*/
 }
 
-.terminalbottom 
+.terminalbottom
 {
-  margin-left: 15px;
-  height: 37px;
-  /*width: 750px;*/
-  background: url(img/code-anonymous-bottom.png) no-repeat;
+    margin-left:15px;
+    height:37px;
+    /*width: 750px;*/
+    background:url(img/code-anonymous-bottom.png) no-repeat;
 }
-
 
 
 

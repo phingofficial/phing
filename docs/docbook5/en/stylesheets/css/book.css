@@ -218,7 +218,8 @@ div.mediaobject{
 }
 
 .caution,
-.warning{
+.warning,
+.important{
     background-color:#F8F7EF;
     padding-bottom:2px;
     margin-bottom:40px;
@@ -267,28 +268,6 @@ div.mediaobject{
     font-size:1.05em;
 }
 
-
-.warning{
-    background-image:url("admon-bug2_small.png");
-}
-
-
-.important{
-    background-color:#f18b8b;
-}
-
-.important h1{
-    background-color:#f18b8b;
-}
-
-.important .important_content{
-    background-color:#f8cbcb;
-    border-left:4px solid #f18b8b;
-    border-right:4px solid #f18b8b;
-    border-bottom:4px solid #f18b8b;
-    padding:5px 0;
-}
-
 .screenshot{
     margin:10px;
     text-align:center;
@@ -298,16 +277,12 @@ div.mediaobject{
     margin-right:15px;
 }
 
-
 p,
 .synopsis,
 .example,
-.important,
 .formaltable{
     margin:0 10px 1em 10px;
 }
-
-
 
 a:hover{
     border-bottom:1px solid gray;
