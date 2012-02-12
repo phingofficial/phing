@@ -37,14 +37,14 @@
     </sect1>
     <sect1>
         <title>License</title>
-        <literallayout>See the GNU FDL (<xref xlink:href="#ch.about"/>[gnu-fdl], which is included in this book. 
-
+        <para>This documentation is made available under 
+        the GNU Free Document License (see <xref xlink:href="#gnu-fdl" xlink:title="[gnu-fdl]"/>)</para>
+        <literallayout>            
 Copyright (c) 2002 - 2009, turing 
 
 Permission is granted to copy, distribute and/or modify this document 
 under the terms of the GNU Free Documentation License, Version 1.1 or 
 any later version published by the Free Software Foundation; 
-
-A copy of the license is included in <xref xlink:href="#app.bibliography"/></literallayout>
+</literallayout>
     </sect1>
 </chapter>

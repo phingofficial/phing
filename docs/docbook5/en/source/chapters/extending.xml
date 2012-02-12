@@ -65,7 +65,7 @@
             <para>Before you are going to start to extend Phing let's have a look at the source
                 layout. You should be comfortable with the organization of files witch in the source
                 tree of Phing before start coding. After you extracted the source distribution or
-                checked it out from CVS you should see the following directory structure:</para>
+                checked it out from <acronym>git</acronym> you should see the following directory structure:</para>
 
             <literallayout xml:id="phing.dirlayout">$PHING_HOME
   |-- bin
@@ -127,7 +127,7 @@
                             <entry><para><filename role="dir">test</filename></para></entry>
                             <entry>
                                 <para>A set of testcases for different tasks, mappers and types. If
-                                    you are developing in CVS you should add a testcase for each
+                                    you are developing in <acronym>git</acronym> you should add a testcase for each
                                     implementation you check in.</para>
                             </entry>
                         </row>
@@ -195,7 +195,7 @@
     <sect1>
         <title> System Initialization </title>
 
-        <para> PHP installations are typically quite customized -- e.g. different memory_limit,
+        <para>PHP installations are typically quite customized -- e.g. different memory_limit,
             execution timeout values, etc. The first thing that Phing does is modify PHP INI
             variables to create a standard PHP environment. This is performed by the <literal>init
                 layer</literal> of Phing that uses a three-level initialization procedure. It
@@ -251,7 +251,7 @@
         <sect2>
             <title> The Phing Class </title>
 
-            <para> Given that all the prior initialization steps passed successfully the Phing is
+            <para>Given that all the prior initialization steps passed successfully the Phing is
                 included and <literal>Phing::startup()</literal> is invoked by the main application
                 script. It sets-up the system components, system constants ini-settings, PEAR and
                 some other stuff. The detailed start-up process is as follows: </para>
@@ -498,13 +498,14 @@ class MyEchoTask extends Task {
                 <listitem>
                     <para>Your classname must be exactly like the taskname you are going to
                         implement plus the suffix "Task". In our example case the classname is
-                            <literal>MyEchoTask</literal> (constructed by the taskname "myecho" plus
-                        the suffix "task"). The upper/lower case casing is currently only for better
-                        reading. However, it is encouraged that you use it this way.</para>
+                            <literal>MyEchoTask</literal> (constructed by the taskname
+                            "<literal>myecho</literal>" plus the suffix "<literal>task</literal>").
+                        The upper/lower case casing is currently only for better reading. However,
+                        it is encouraged that you use it this way.</para>
                 </listitem>
                 <listitem>
-                    <para>The task class you are creating must at least extend "Task" to inherit all
-                        task specific methods.</para>
+                    <para>The task class you are creating must at least extend
+                            "<literal>Task</literal>" to inherit all task specific methods.</para>
                 </listitem>
             </itemizedlist>
 
@@ -585,14 +586,14 @@ class MyEchoTask extends Task {
             <title>
                 <literal>init()</literal> Method </title>
 
-            <para>The init method gets called when the <literal>&lt;taskname></literal> xml element
-                closes. It must be implemented even if it does nothing like in the example above.
-                You can do init steps here required to setup your task object properly. After
-                calling the Init-Method the task object remains untouched by the parser. Init should
-                not perform operations related somehow to the action the task performs. An example
-                of using init may be cleaning up the $strMessage variable in our example (i.e.
-                    <literal>trim($strMessage)</literal>) or importing additional workers needed for
-                this task.</para>
+            <para>The <literal>init</literal> method gets called when the
+                    <literal>&lt;taskname></literal> xml element closes. It must be implemented even
+                if it does nothing like in the example above. You can do init steps here required to
+                setup your task object properly. After calling the Init-Method the task object
+                remains untouched by the parser. Init should not perform operations related somehow
+                to the action the task performs. An example of using init may be cleaning up the
+                $strMessage variable in our example (i.e. <literal>trim($strMessage)</literal>) or
+                importing additional workers needed for this task.</para>
 
             <para>The init method should return true or an error object evaluated by the governing
                 logic. If you don't implement init method, phing will shout down with a fatal
@@ -647,7 +648,7 @@ class MyEchoTask extends Task {
             <para>In this example we are creating a DSN type because we have written a number of
                 DB-related Tasks, each of which need to know how to connect to the database; instead
                 of having database parameters for each task, we've created a DSN type so that we can
-                identify the connection params once and then use it in all our db Tasks.</para>
+                identify the connection parameters once and then use it in all our db Tasks.</para>
             <programlisting>require_once "phing/types/DataType.php";
 
 /**
@@ -809,9 +810,9 @@ class DSN extends DataType {
                     for each attribute.</para>
                 <para>Also important to note is that the getter method needs to check to see whether
                     the current DataType is a reference to a previously defined DataType -- the
-                    DataType::isReference() exists for this purpose. For this reason, the getter
-                    methods need to be called with the current project, because References are
-                    stored relative to a project.</para>
+                        <literal>DataType::isReference()</literal> exists for this purpose. For this
+                    reason, the getter methods need to be called with the current project, because
+                    References are stored relative to a project.</para>
             </sect3>
             <sect3>
                 <title>The getRef() Method</title>
@@ -899,7 +900,7 @@ class DOSMapper implements FileNameMapper {
         </sect2>
         <sect2>
             <title> Using the Mapper </title>
-            <para> Assuming that this mapper is saved to <literal>myapp/mappers/DOSMapper.php
+            <para>Assuming that this mapper is saved to <literal>myapp/mappers/DOSMapper.php
                 </literal>(relative to a path on PHP's <literal>include_path</literal> or in
                     <literal>PHP_CLASSPATH</literal> env variable), then you would refer to it like
                 this in your build file: </para>

@@ -83,6 +83,39 @@ div[class = caution] h3{
     padding-left:10px;
 }
 
+/* Titlepage authorgroup format */
+div.authorgroup{
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:60px;
+    text-align:center;
+    border: solid 2px #ddd;
+    width:350px;
+    height:400px;
+    box-shadow:5px 5px 5px #888;
+}
+
+h3.author{
+    margin-bottom:4px;
+}
+
+p.copyright{
+    text-align:center;
+    font-weight:bold;
+}
+
+p.pubdate{
+    text-align:center;
+    font-weight:normal;
+    font-style:italic;
+    color:#555;
+}
+
+p.pubdate:before{
+    content:"Publishing date: ";
+}
+
+
 div[class = sect1] p{
     margin-top:5px;
     margin-bottom:5px;

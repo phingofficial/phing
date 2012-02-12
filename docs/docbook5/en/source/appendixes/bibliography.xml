@@ -68,7 +68,7 @@
                 </listitem>
             </varlistentry>
             <varlistentry>
-                <term xml:id="gnu-fdl">[gnu-fdl] </term>
+                <term xml:id="gnu-fdl">[gnu-fdl]</term>
                 <listitem>
                     <para>The Gnu FDL (Free Documentation License), the license used for this
                         documentation</para>
