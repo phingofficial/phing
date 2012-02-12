@@ -29,16 +29,16 @@
     <xsl:param name="default.table.frame" select="'topbot'"/>
 
     <!--    <xsl:param name="table.frame.border.style" select="'none'" />-->
-    
+
     <!-- Only include top level Book components in the TOC
        This means no example, figures, programlisting etc.
   -->
     <xsl:param name="generate.toc" select="'book toc'"/>
-    
-    
+
+
     <xsl:template match="processing-instruction('hard-pagebreak')">
-        <fo:block break-after='page'/>
-    </xsl:template>    
+        <fo:block break-after="page"/>
+    </xsl:template>
 
     <!-- 
         ==========================================================================
@@ -61,7 +61,7 @@
         <xsl:attribute name="color">#003399</xsl:attribute>
         <xsl:attribute name="space-before.minimum">1.5em</xsl:attribute>
         <xsl:attribute name="space-before.optimum">2.0em</xsl:attribute>
-        <xsl:attribute name="space-before.maximum">3.0em</xsl:attribute>        
+        <xsl:attribute name="space-before.maximum">3.0em</xsl:attribute>
     </xsl:attribute-set>
 
     <xsl:attribute-set name="section.title.level2.properties">
@@ -71,7 +71,7 @@
         <xsl:attribute name="color">#003399</xsl:attribute>
         <xsl:attribute name="space-before.minimum">1.5em</xsl:attribute>
         <xsl:attribute name="space-before.optimum">2.0em</xsl:attribute>
-        <xsl:attribute name="space-before.maximum">3.0em</xsl:attribute>        
+        <xsl:attribute name="space-before.maximum">3.0em</xsl:attribute>
     </xsl:attribute-set>
 
     <xsl:attribute-set name="section.title.level3.properties">
@@ -82,7 +82,7 @@
         <xsl:attribute name="margin-left">3em</xsl:attribute>
         <xsl:attribute name="space-before.minimum">1.5em</xsl:attribute>
         <xsl:attribute name="space-before.optimum">2.0em</xsl:attribute>
-        <xsl:attribute name="space-before.maximum">3.0em</xsl:attribute>        
+        <xsl:attribute name="space-before.maximum">3.0em</xsl:attribute>
     </xsl:attribute-set>
 
 
@@ -145,7 +145,7 @@
     <xsl:template match="d:application">
         <xsl:call-template name="inline.italicseq"/>
     </xsl:template>
-    
+
     <!--        
         ==================================================================================
         Some generic markup to display some colored text
@@ -157,13 +157,13 @@
         <fo:inline color="red">
             <xsl:apply-templates/>
         </fo:inline>
-    </xsl:template>    
+    </xsl:template>
     <xsl:template match="d:phrase[@role='blue']">
         <fo:inline color="blue">
             <xsl:apply-templates/>
         </fo:inline>
-    </xsl:template>    
-    
+    </xsl:template>
+
     <!--
         ================================================================================================
         PROGRAMLISTING Template
@@ -178,7 +178,7 @@
         - A thick border below and to the right
         ================================================================================================
     -->
-    
+
     <xsl:attribute-set name="programlisting.style">
         <!-- <xsl:attribute name="border-style">dashed</xsl:attribute>-->
         <xsl:attribute name="border-right">solid</xsl:attribute>
@@ -193,8 +193,8 @@
         <xsl:attribute name="margin-left">6pt</xsl:attribute>
         <xsl:attribute name="margin-right">1pt</xsl:attribute>
     </xsl:attribute-set>
-    
-    
+
+
     <xsl:template match="d:programlisting">
         <fo:block xsl:use-attribute-sets="monospace.verbatim.properties programlisting.style">
             <xsl:attribute name="writing-mode">lr-tb</xsl:attribute>
@@ -259,14 +259,14 @@
     <xsl:attribute-set name="admonition.properties">
         <xsl:attribute name="font-size">90%</xsl:attribute>
     </xsl:attribute-set>
-    
+
     <xsl:attribute-set name="graphical.admonition.properties">
         <xsl:attribute name="space-before.minimum">2em</xsl:attribute>
         <xsl:attribute name="space-before.optimum">2.5em</xsl:attribute>
         <xsl:attribute name="space-before.maximum">3em</xsl:attribute>
         <xsl:attribute name="space-after.minimum">2em</xsl:attribute>
         <xsl:attribute name="space-after.optimum">2.5em</xsl:attribute>
-        <xsl:attribute name="space-after.maximum">3em</xsl:attribute>        
+        <xsl:attribute name="space-after.maximum">3em</xsl:attribute>
     </xsl:attribute-set>
 
     <!-- We need to customize the template wince we want to have lines
@@ -406,7 +406,7 @@
         <xsl:attribute name="hyphenate">false</xsl:attribute>
         <xsl:attribute name="space-after.minimum">0.4em</xsl:attribute>
         <xsl:attribute name="space-after.optimum">0.6em</xsl:attribute>
-        <xsl:attribute name="space-after.maximum">0.8em</xsl:attribute>  
+        <xsl:attribute name="space-after.maximum">0.8em</xsl:attribute>
     </xsl:attribute-set>
 
     <xsl:template name="formal.object.heading">

@@ -5,7 +5,6 @@
 	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.projcomponents">
 	<title>Project components</title>
 
-
 	<para>This goal of this chapter is to make you familiar with the basic components of a
 		buildfile. After reading this chapter, you should be able to read and understand the basic
 		structure of any buildfile even if you don't know exactly what the individual pieces
@@ -143,8 +142,8 @@
 		<para>Here, <literal>CopyTask</literal> is passed a complex parameter, a Fileset. Tasks may
 			support multiple complex types in addition to simple parameters. Note that the names of
 			the nested tags used to create the complex types depend on the task implementation.
-			Tasks may support default Phing types (see <xref xlink:href="#sec.types"/>) or may introduce
-			other types, for example to wrap key/value pairs. </para>
+			Tasks may support default Phing types (see <xref xlink:href="#sec.types"/>) or may
+			introduce other types, for example to wrap key/value pairs. </para>
 
 		<para> Refer to <xref xlink:href="#app.coretasks"/> for a list of system tasks and their
 			parameters. </para>
@@ -632,9 +631,10 @@
 		</sect2>
 		<sect2>
 			<title><literal>available</literal></title>
-			<para>This condition is identical to the <link xlink:href="#AvailableTask">Available</link> task, all
-				attributes and nested elements of that task are supported, the property and value
-				attributes are redundant and will be ignored.</para>
+			<para>This condition is identical to the <link xlink:href="#AvailableTask"
+					>Available</link> task, all attributes and nested elements of that task are
+				supported, the property and value attributes are redundant and will be
+				ignored.</para>
 		</sect2>
 	</sect1>
 

@@ -2,7 +2,7 @@
 <?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0"  xml:id="app.coretasks">
+	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.coretasks">
 	<title>Core tasks</title>
 
 	<para>This appendix contains a reference of all core tasks, i.e. all tasks that are needed to
@@ -1499,42 +1499,41 @@
 		<para>On execution it will read another Phing file into the same Project. Functionally it is
 			nearly the same as copy and pasting the imported file onto the end of the importing
 			file.</para>
-			<table>
-				<title>Attributes</title>
-				<tgroup cols="5">
-					<colspec colname="name" colnum="1" colwidth="1.5*"/>
-					<colspec colname="type" colnum="2" colwidth="0.8*"/>
-					<colspec colname="description" colnum="3" colwidth="3.5*"/>
-					<colspec colname="default" colnum="4" colwidth="0.8*"/>
-					<colspec colname="required" colnum="5" colwidth="1.2*"/>
-					<thead>
-						<row>
-							<entry>Name</entry>
-							<entry>Type</entry>
-							<entry>Description</entry>
-							<entry>Default</entry>
-							<entry>Required</entry>
-						</row>
-					</thead>
-					<tbody>
-						<row>
-							<entry><literal>file</literal></entry>
-							<entry><literal role="type">String</literal></entry>
-							<entry>The file to import.</entry>
-							<entry>n/a</entry>
-							<entry>Yes</entry>
-						</row>
-						<row>
-							<entry><literal>optional</literal></entry>
-							<entry><literal role="type">Boolean</literal></entry>
-							<entry>If true, do not stop the build if the file does not
-								exist.</entry>
-							<entry><literal>false</literal></entry>
-							<entry>No</entry>
-						</row>
-					</tbody>
-				</tgroup>
-			</table>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
+				<thead>
+					<row>
+						<entry>Name</entry>
+						<entry>Type</entry>
+						<entry>Description</entry>
+						<entry>Default</entry>
+						<entry>Required</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry><literal>file</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>The file to import.</entry>
+						<entry>n/a</entry>
+						<entry>Yes</entry>
+					</row>
+					<row>
+						<entry><literal>optional</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>If true, do not stop the build if the file does not exist.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
 		<sect2>
 			<title>Target Overriding</title>
 			<para>If a target in the main file is also present in at least one of the imported

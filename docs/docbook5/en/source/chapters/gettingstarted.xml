@@ -5,8 +5,6 @@
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.gettingstarted">
     <title>Getting started</title>
 
-
-
     <para>Phing buildfiles are written in XML, and so you will need to know at least some basic
         things about XML to understand the following chapter. There is a lot of information
         available on the web:</para>
@@ -136,43 +134,44 @@
             <table>
                 <title>&lt;project> Attributes</title>
                 <tgroup cols="3">
-<colspec colname="name" colnum="1" colwidth="1*"/>
-<colspec colname="description" colnum="2" colwidth="2*"/>
-<colspec colname="required" colnum="3" colwidth="1*"/>
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
 
-                <thead>
-                    <row>
-                        <entry>Attribute</entry>
-                        <entry>Description</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
 
-                <tbody>
-                    <row>
-                        <entry><literal>name</literal></entry>
-                        <entry>The name of the project</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>basedir</literal></entry>
-                        <entry>The base directory of the project, use &quot;.&quot; do denote the
-                            current directory. <emphasis role="bold">Note:</emphasis> if none is specified, the
-                                parent directory of the build file is used!</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>default</literal></entry>
-                        <entry>The default target that is to be executed if no target(s) are specified
-                            when calling this build file.</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>description</literal></entry>
-                        <entry>The description of the project.</entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
+                    <tbody>
+                        <row>
+                            <entry><literal>name</literal></entry>
+                            <entry>The name of the project</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>basedir</literal></entry>
+                            <entry>The base directory of the project, use &quot;.&quot; do denote
+                                the current directory. <emphasis role="bold">Note:</emphasis> if
+                                none is specified, the parent directory of the build file is
+                                used!</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>default</literal></entry>
+                            <entry>The default target that is to be executed if no target(s) are
+                                specified when calling this build file.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>description</literal></entry>
+                            <entry>The description of the project.</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
                 </tgroup>
             </table>
         </sect2>
@@ -227,39 +226,40 @@
                         <colspec colname="name" colnum="1" colwidth="1*"/>
                         <colspec colname="description" colnum="2" colwidth="2*"/>
                         <colspec colname="required" colnum="3" colwidth="1*"/>
-                        
+
                         <thead>
-                        <row>
-                            <entry>Attribute</entry>
-                            <entry>Description</entry>
-                            <entry>Required</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry>name</entry>
-                            <entry>The name of the target</entry>
-                            <entry>Yes</entry>
-                        </row>
-                        <row>
-                            <entry>depends</entry>
-                            <entry>A comma-seperated list of targets this target depends on.</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry>if</entry>
-                            <entry>The name of the <literal>Property</literal> that has to be set in
-                                order for this target to be executed</entry>
-                            <entry>No</entry>
-                        </row>
-                        <row>
-                            <entry>unless</entry>
-                            <entry>The name of the <literal>Property</literal> that must
-                                    <literal>not</literal> be set in order for this target to be
-                                executed.</entry>
-                            <entry/>
-                        </row>
-                    </tbody>
+                            <row>
+                                <entry>Attribute</entry>
+                                <entry>Description</entry>
+                                <entry>Required</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry>name</entry>
+                                <entry>The name of the target</entry>
+                                <entry>Yes</entry>
+                            </row>
+                            <row>
+                                <entry>depends</entry>
+                                <entry>A comma-seperated list of targets this target depends
+                                    on.</entry>
+                                <entry>No</entry>
+                            </row>
+                            <row>
+                                <entry>if</entry>
+                                <entry>The name of the <literal>Property</literal> that has to be
+                                    set in order for this target to be executed</entry>
+                                <entry>No</entry>
+                            </row>
+                            <row>
+                                <entry>unless</entry>
+                                <entry>The name of the <literal>Property</literal> that must
+                                        <literal>not</literal> be set in order for this target to be
+                                    executed.</entry>
+                                <entry/>
+                            </row>
+                        </tbody>
                     </tgroup>
                 </table>
             </sect3>
@@ -423,14 +423,14 @@
             become a bit tedious and the large (and growing) amount of built-in tasks and filters
             can sometimes make it difficult to remember the exact syntax of all the available
             features.</para>
-        <para>To help with this the Phing distribution contains a Relax NG
-                Grammar (REgular LAnguage for XML Next Generation, <link
-                xlink:href="http://www.relaxng.org/">http://www.relaxng.org/</link>) file that describes
-            the (formal) syntax of the build files. This grammar can help validate and write Phing
-            build files since there are many XML editors which can make use of this type of grammar
-            to validate, on the fly, as well as do context-sensitive auto-completion. Especially the
-            auto-complete feature can significantly reduce the time it takes to write a correct, and
-            possible complex, Phing build files. </para>
+        <para>To help with this the Phing distribution contains a Relax NG Grammar (REgular LAnguage
+            for XML Next Generation, <link xlink:href="http://www.relaxng.org/"
+                >http://www.relaxng.org/</link>) file that describes the (formal) syntax of the
+            build files. This grammar can help validate and write Phing build files since there are
+            many XML editors which can make use of this type of grammar to validate, on the fly, as
+            well as do context-sensitive auto-completion. Especially the auto-complete feature can
+            significantly reduce the time it takes to write a correct, and possible complex, Phing
+            build files. </para>
         <para>Most XML editors can be told to what schema (or model) to use for validation and
             auto-completion by adding a specification in the beginning of the XML file. For example,
             the following two lines in the beginning of an XML file would do (of course the exact

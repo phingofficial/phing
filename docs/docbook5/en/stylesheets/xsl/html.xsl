@@ -26,7 +26,7 @@
   <xsl:param name="make.valid.html" select="0"/>
   <xsl:param name="html.stylesheet" select="'book.css'"/>
   <!--    <xsl:param name="appendix.autolabel" select="A" />-->
-  
+
   <!-- Only include top level Book components in the TOC
        This means no example, figures, programlisting etc.
   -->

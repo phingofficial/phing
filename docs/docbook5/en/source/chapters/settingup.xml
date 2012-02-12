@@ -184,7 +184,8 @@
 			<para>There are several ways to get a Phing distribution package. If you do not want to
 				participate in developing Phing itself it is recommended that you get the latest
 				snapshot or stable packaged distribution. If you are interested in helping with
-				Phing development, get a <acronym>git</acronym> revision of the files, as described below.</para>
+				Phing development, get a <acronym>git</acronym> revision of the files, as described
+				below.</para>
 
 			<para> The easiest way to obtain the distribution package is to visit the Phing website
 					<link xlink:href="Bibliography.html#phing">[phing] </link>and download the
