@@ -1555,6 +1555,12 @@
                     <attribute name="allowedhtml"/>
                 </optional>
                 <optional>
+                    <attribute name="groups"/>
+                </optional>
+                <optional>
+                    <attribute name="autocomplete"/>
+                </optional>
+                <optional>
                     <attribute name="accesslevels"/>
                 </optional>
                 <optional>
