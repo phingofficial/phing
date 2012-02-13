@@ -13,7 +13,7 @@
     <para>Filters have to be defined within a <literal>&lt;filterchain></literal> context to work.
         Example:</para>
 
-    <programlisting>&lt;filterchain>
+    <programlisting language="xml">&lt;filterchain>
   &lt;expandproperties />
 &lt;/filterchain></programlisting>
     <para>There are two ways to use a filter: System filters (the ones shipped with Phing) can be
@@ -26,7 +26,7 @@
         <title>PhingFilterReader</title>
         <para>The PhingFilterReader is used when you want to use filters that are not directly
             available through their own tag. Example:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;filterreader classname="phing.filter.ReplaceTokens">
     &lt;-- other way to set attributes -->
     &lt;param name="begintoken" value="@@" />
@@ -46,7 +46,7 @@
                 <literal>type</literal> attribute. This attribute specifies the name of the nested
             tag.</para>
         <para>The result of the example above is identical with the following code:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;replacetokens begintoken="@@" endtoken="@@">
     &lt;token key="bar" value="foo" />
   &lt;/replacetokens>
@@ -115,7 +115,7 @@
         <title>ExpandProperties</title>
         <para>The ExpandProperties simply replaces property names with their property values. For
             example, if you have the following in your build file:</para>
-        <programlisting>&lt;property name="description.txt" value="This is a text file" />
+        <programlisting language="xml">&lt;property name="description.txt" value="This is a text file" />
 
 &lt;copy todir="/tmp">
   &lt;filterchain>
@@ -166,7 +166,7 @@
         <title>HeadFilter</title>
         <para>This filter reads the first <literal>n</literal> lines of a file; the others are not
             further passed through the filter chain. Usage example:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;headfilter lines="20" />
 &lt;/filterchain></programlisting>
 
@@ -205,7 +205,7 @@
         <para>The IconvFilter encodes file from <code>in</code> encoding to <code>out</code>
             encoding. Usage example:</para>
 
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
     &lt;iconvfilter inputencoding="UTF-8" outputencoding="CP1251" />
 &lt;/filterchain></programlisting>
 
@@ -251,7 +251,7 @@
         <para>This filter is only "permeable" for lines that contain the expression given as
             parameter. For example, the following filterchain would only let all the lines pass that
             contain <literal>class</literal>:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;linecontains>
     &lt;contains value="class" />
   &lt;/linecontains>
@@ -270,7 +270,7 @@
         <title>LineContainsRegexp</title>
         <para>This filter is similar to <xref xlink:href="#LineContains"/> but you can specify
             regular expressions instead of simple strings.</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;linecontainsregexp>
     &lt;regexp pattern="foo(.*)bar" />
   &lt;/linecontainsregexp>
@@ -288,7 +288,7 @@
         <title>PrefixLines</title>
         <para>This filter adds a prefix to every line. The following example will add the string
                 <literal>foo: </literal> in front of every line.</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;prefixlines prefix="foo: " />
 &lt;/filterchain></programlisting>
 
@@ -327,7 +327,7 @@
             strings enclosed in special characters. If you want to replace
                 <literal>##BCHOME##</literal> by the path to the directory set in the environment
             variable <literal>BCHOME</literal>, you could do the following:</para>
-        <programlisting>&lt;property environment="env" />
+        <programlisting language="xml">&lt;property environment="env" />
 
 &lt;filterchain>
   &lt;replacetokens begintoken="##" endtoken="##">
@@ -387,7 +387,7 @@
             the example code are real executable files kept outside the documentation.</para>
         <para>If you for example want to replace <literal>#!example1##</literal> with the content of
             the file " <code>example1.php</code> " you could do the following</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
       &lt;replacetokenswithfile begintoken="#!" endtoken="##"
           dir="exampledir/" postfix=".php" />
       &lt;/filterchain></programlisting>
@@ -480,7 +480,7 @@
         <para>The <literal>ReplaceRegexp</literal> filter will perform a regexp find/replace on the
             input stream. For example, if you want to replace ANT with Phing (ignoring case) and you
             want to replace references to *.java with *.php:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;replaceregexp>
 	&lt;regexp pattern="ANT" replace="Phing" ignoreCase="true"/>
 	&lt;regexp pattern="(\w+)\.java" replace="\1.php"/>
@@ -559,7 +559,7 @@
 
             <para>The previous example (using <literal>modifiers</literal> attribute this
                 time):</para>
-            <programlisting>&lt;filterchain>
+            <programlisting language="xml">&lt;filterchain>
   &lt;replaceregexp>
 	&lt;regexp pattern="ANT" replace="Phing" modifiers="i"/>
 	&lt;regexp pattern="(\w+)\.java" replace="\1.php"/>
@@ -573,7 +573,7 @@
         <title>StripLineBreaks</title>
         <para>The <literal>StripLineBreaks</literal> filter removes all linebreaks from the stream
             passed through the filter chain.</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;striplinebreaks />
 &lt;/filterchain></programlisting>
 
@@ -582,7 +582,7 @@
         <title>StripLineComments</title>
         <para>The <literal>StripLineComments</literal> filter removes all line comments from the
             stream passed through the filter chain:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;striplinecomments>
     &lt;comment value="#" />
     &lt;comment value="--" />
@@ -601,7 +601,7 @@
         <title>StripPhpComments</title>
         <para>The <literal>StripPhpComments</literal> filter removes all PHP comments from the
             stream passed through the filter.</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;stripphpcomments />
 &lt;/filterchain></programlisting>
 
@@ -611,7 +611,7 @@
         <para>The <literal>StripWhitespace</literal> filter removes all PHP comments and whitespace
             from the stream passed through the filter. Internally, this filter uses the
             php_strip_whitespace() function.</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;stripwhitespace />
 &lt;/filterchain></programlisting>
 
@@ -620,7 +620,7 @@
         <title>TabToSpaces</title>
         <para>The TabToSpaces filter replaces all tab characters with a given count of space
             characters.</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;tabtospaces tablength="8" />
 &lt;/filterchain></programlisting>
 
@@ -658,7 +658,7 @@
         <para>Similar to <xref xlink:href="#HeadFilter"/>, this filter reads the last
                 <literal>n</literal> lines of a file; the others are not further passed through the
             filter chain. Usage example:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;tailfilter lines="20" />
 &lt;/filterchain></programlisting>
 
@@ -696,7 +696,7 @@
         <para>The <literal>TidyFilter</literal> allows you to use the <link
                 xlink:href="http://php.net/tidy">PHP tidy extension</link> to clean up and repair
             HTML documents. Usage example:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;tidyfilter encoding="utf8">
     &lt;config name="indent" value="true" />
     &lt;config name="output-xhtml" value="true" />
@@ -745,7 +745,7 @@
         <para>The <literal>XincludeFilter</literal> processes a stream for Xinclude tags, and
             processes the inclusions. This is useful for processing modular XML files. DocBook book
             files are one example of modular XML files. Usage example:</para>
-        <programlisting>&lt;!--
+        <programlisting language="xml">&lt;!--
   Render a DocBook book file called manual.xml, which
   contains Xinclude tags to include individual book sections.
   -->
@@ -806,7 +806,7 @@
         <para>The <literal>XsltFilter</literal> applies a XSL template to the stream. Though you can
             use this filter directly, you should use XslTask <xref xlink:href="#app.coretasks"/>
             which is shortcut to the following lines:</para>
-        <programlisting>&lt;filterchain>
+        <programlisting language="xml">&lt;filterchain>
   &lt;xsltfilter style="somexslt.xsl" />
 &lt;/filterchain></programlisting>
         <para>This filter relies on PHP5 XSL support via <literal>libxslt</literal> which must be

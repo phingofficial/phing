@@ -10,13 +10,13 @@
         deployment.</para>
     <para>This reference lists the tasks alphabetically by the name of the classes that implement
         the tasks. So if you are searching for the reference to the <code>&lt;phplint></code> tag,
-        for example, you will want to look at the reference of PhpLintTask. </para>
+        for example, you will want to look at the reference of PhpLintTask.</para>
 
     <sect1 role="taskdef" xml:id="ApiGenTask">
         <title>ApiGenTask</title>
         <para>This task runs <link xlink:href="http://apigen.org/" role="extern">ApiGen</link>, a
             tool for creating professional API documentation from PHP source code, similar to
-            discontinued phpDocumentor/phpDoc. </para>
+            discontinued phpDocumentor/phpDoc.</para>
 
         <table>
             <title>Attributes</title>
@@ -254,7 +254,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;apigen
+            <programlisting language="xml">&lt;apigen
   source="classes"
   destination="api"
   exclude="*/tests/*"
@@ -268,10 +268,10 @@
         <para>The CoverageMergerTask merges code coverage information from external sources with an
             existing code coverage database.</para>
         <para>The format of the code coverage files is expected to be identical to:</para>
-        <programlisting>file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code_coverage));</programlisting>
+        <programlisting language="xml">file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code_coverage));</programlisting>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;coverage-merger>
+            <programlisting language="xml">&lt;coverage-merger>
   &lt;fileset dir="/www/live/testcases">
     &lt;include name="**/*.data"/>
   &lt;/fileset>
@@ -347,7 +347,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;coverage-report outfile="reports/coverage.xml">
+            <programlisting language="xml">&lt;coverage-report outfile="reports/coverage.xml">
   &lt;report todir="reports/coverage" styledir="/home/phing/etc"/>
 &lt;/coverage-report></programlisting>
         </sect2>
@@ -449,7 +449,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;coverage-setup database="./reports/coverage.db">
+            <programlisting language="xml">&lt;coverage-setup database="./reports/coverage.db">
   &lt;fileset dir="classes">
     &lt;include name="**/*.php"/>
   &lt;/fileset>
@@ -543,7 +543,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;coverage-threshold database="./reports/coverage.db"/></programlisting>
+            <programlisting language="xml">&lt;coverage-threshold database="./reports/coverage.db"/></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -557,13 +557,13 @@
             </itemizedlist>
             <para>Validates an optional code coverage database against the default
                 thresholds.</para>
-            <programlisting>&lt;coverage-threshold
+            <programlisting language="xml">&lt;coverage-threshold
     perProject="50"
     perClass="60"
     perMethod="70"/></programlisting>
             <para>Validates the code coverage database (from CoverageSetupTask) against the
                 specified thresholds.</para>
-            <programlisting>&lt;coverage-threshold
+            <programlisting language="xml">&lt;coverage-threshold
     perProject="50"
     perClass="60"
     perMethod="70"/>
@@ -667,7 +667,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>CREATE TABLE changelog (
+            <programlisting language="xml">CREATE TABLE changelog (
   change_number BIGINT NOT NULL,
   delta_set VARCHAR(10) NOT NULL,
   start_dt TIMESTAMP NOT NULL,
@@ -675,7 +675,7 @@
   applied_by VARCHAR(100) NOT NULL,
   description VARCHAR(500) NOT NULL
 )</programlisting>
-            <programlisting>&lt;dbdeploy
+            <programlisting language="xml">&lt;dbdeploy
   url="sqlite:${project.basedir}/data/db.sqlite"
   userid="dbdeploy"
   password="dbdeploy"
@@ -689,7 +689,7 @@
     <sect1 role="taskdef" xml:id="DocBloxTask">
         <title>DocBloxTask</title>
         <para> This task runs <link xlink:href="http://www.docblox-project.org/" role="extern"
-                >DocBlox</link>, a PHP 5.3-compatible API documentation tool. </para>
+                >DocBlox</link>, a PHP 5.3-compatible API documentation tool.</para>
 
         <table>
             <title>Attributes</title>
@@ -735,7 +735,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;docblox title="API Documentation"
+            <programlisting language="xml">&lt;docblox title="API Documentation"
   destdir="apidocs">
    &lt;fileset dir="./classes">
       &lt;include name="**/*.php" />
@@ -795,7 +795,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;exportproperties targetfile="output.props" /></programlisting>
+            <programlisting language="xml">&lt;exportproperties targetfile="output.props" /></programlisting>
         </sect2>
 
     </sect1>
@@ -847,7 +847,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;filehash file="${builddir}/${tarball}.tar.${compression}" />
+            <programlisting language="xml">&lt;filehash file="${builddir}/${tarball}.tar.${compression}" />
 &lt;echo "Hashvalue is; ${filehashvalue}" /></programlisting>
         </sect2>
     </sect1>
@@ -892,7 +892,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;filesize file="${builddir}/${tarball}.tar.${compression}" />
+            <programlisting language="xml">&lt;filesize file="${builddir}/${tarball}.tar.${compression}" />
 &lt;php expression="floor(${filesize}/1024)" returnProperty="ksize" />
 &lt;php expression="floor(${filesize}/1024/1024)" returnProperty="msize" />
 &lt;echo msg="Filesize is: ${ksize} kB"/>
@@ -993,7 +993,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;ftpdeploy 
+            <programlisting language="xml">&lt;ftpdeploy 
   host="${ftp.host}" 
   port="${ftp.port}" 
   username="${ftp.username}" 
@@ -1071,7 +1071,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- Initialize normal repository -->
@@ -1139,7 +1139,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- Clone repository -->
@@ -1234,7 +1234,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- Clone repository -->
@@ -1254,7 +1254,7 @@
         <para> Create, move or delete repository branches. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html"
                 >documentation</link> (branch listing functionality is omitted in current
-            implementation). </para>
+            implementation).</para>
 
         <table>
             <title>Attributes</title>
@@ -1389,7 +1389,7 @@
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- Initialize normal repository -->
@@ -1434,7 +1434,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>GitFetchTask</title>
         <para> Download objects and refs from another repository. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-fetch.html"
-                >documentation</link>. </para>
+                >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -1570,7 +1570,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- Initialize normal repository -->
@@ -1592,7 +1592,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>GitCheckoutTask</title>
         <para> Checkout a branch or paths to the working tree. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html"
-                >documentation</link>. </para>
+                >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -1714,7 +1714,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
@@ -1743,7 +1743,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>GitMergeTask</title>
         <para> Join two or more development histories together. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html"
-                >documentation</link>. </para>
+                >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -1861,7 +1861,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
@@ -1888,7 +1888,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>GitPullTask</title>
         <para> Fetch from and merge with another repository or a local branch. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-pull.html"
-                >documentation</link>. </para>
+                >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -2045,7 +2045,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
@@ -2069,7 +2069,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>GitPushTask</title>
         <para> Update remote refs along with associated objects. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-push.html"
-                >documentation</link>. </para>
+                >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -2180,7 +2180,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
@@ -2209,7 +2209,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>GitTagTask</title>
         <para> Create, list, delete or verify a tag object signed with GPG. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html"
-                >documentation</link>. </para>
+                >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -2394,7 +2394,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
@@ -2427,7 +2427,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>GitLogTask</title>
         <para> Show commit logs. See official <link
                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html"
-                >documentation</link>. </para>
+                >documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -2545,7 +2545,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;property name="repo.dir" value="./relative/path/to/repo" />
+            <programlisting language="xml">&lt;property name="repo.dir" value="./relative/path/to/repo" />
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
@@ -2614,7 +2614,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;httpget url="http://buildserver.com/builds/latest.stable.tar.bz2" dir="/usr/local/lib"/></programlisting>
+            <programlisting language="xml">&lt;httpget url="http://buildserver.com/builds/latest.stable.tar.bz2" dir="/usr/local/lib"/></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="HttpRequestTask">
@@ -2698,10 +2698,10 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;http-request url="http://my-production.example.com/check-deployment.php"/></programlisting>
+            <programlisting language="xml">&lt;http-request url="http://my-production.example.com/check-deployment.php"/></programlisting>
 
             <para>Just perform a HTTP request to the given URL.</para>
-            <programlisting>&lt;http-request
+            <programlisting language="xml">&lt;http-request
    url="http://my-production.example.com/check-deployment.php"
    responseRegex="/Heartbeat/"
    verbose"true"
@@ -2709,7 +2709,7 @@ Note that you can omit both startpoint and track attributes in this case
             <para>Perform a HTTP request to the given URL and matching the response against the
                 given regex pattern. Enable detailed logging and log only the specified
                 events.</para>
-            <programlisting>&lt;http-request url="http://my-production.example.com/check-deployment.php">
+            <programlisting language="xml">&lt;http-request url="http://my-production.example.com/check-deployment.php">
    &lt;config name="adapter" value="HTTP_Request2_Adapter_Curl"/>
    &lt;header name="user-agent" value="Phing HttpRequestTask"/>
  &lt;/http-request></programlisting>
@@ -2763,7 +2763,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para>header </para>
                     <para> Holds additional header <literal>name</literal> and
-                            <literal>value</literal>. </para>
+                            <literal>value</literal>.</para>
                     <table>
                         <title>Attributes</title>
                         <tgroup cols="5">
@@ -2807,10 +2807,10 @@ Note that you can omit both startpoint and track attributes in this case
         <title>IoncubeEncoderTask</title>
         <para> The <literal>IoncubeEncoderTask</literal> executes the <link
                 xlink:href="http://www.ioncube.com" role="extern">ionCube</link> encoder (for either
-            PHP4 or PHP5 projects). </para>
+            PHP4 or PHP5 projects).</para>
         <para> For more information on the meaning of the various options please consult the ionCube
                 <link xlink:href="http://www.ioncube.com/USER-GUIDE.pdf" role="extern">user
-                guide</link>. </para>
+                guide</link>.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3068,7 +3068,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;ioncubeencoder
+            <programlisting language="xml">&lt;ioncubeencoder
    binary="true"
    copy="*.ini config/*"
    encode="*.inc licenses/license.key"
@@ -3105,10 +3105,10 @@ Note that you can omit both startpoint and track attributes in this case
         <title>IoncubeLicenseTask</title>
         <para> The <literal>IoncubeLicenseTask</literal> executes the <link
                 xlink:href="http://www.ioncube.com" role="extern">ionCube</link> make_license
-            program. </para>
+            program.</para>
         <para> For more information on the meaning of the various options please consult the ionCube
                 <link xlink:href="http://www.ioncube.com/USER-GUIDE.pdf" role="extern">user
-                guide</link>. </para>
+                guide</link>.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3177,7 +3177,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;ioncubelicense
+            <programlisting language="xml">&lt;ioncubelicense
    ioncubepath="/usr/local/ioncube"
    licensepath="mylicense.txt"
    passphrase="mypassphrase"
@@ -3201,7 +3201,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>JslLintTask</title>
         <para> The <literal>JslLintTask</literal> uses the <link
                 xlink:href="http://www.javascriptlint.com" role="extern">Javascript Lint</link>
-            program to check the sytax on one or more JavaScript source code files. </para>
+            program to check the sytax on one or more JavaScript source code files.</para>
         <para>
             <emphasis role="bold">NB:</emphasis> the Javascript lint program must be in the system
             path! </para>
@@ -3281,10 +3281,10 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;jsllint file="path/to/source.php"/></programlisting>
+            <programlisting language="xml">&lt;jsllint file="path/to/source.php"/></programlisting>
 
             <para>Checking syntax of one particular source file.</para>
-            <programlisting>&lt;jsllint>
+            <programlisting language="xml">&lt;jsllint>
   &lt;fileset dir="src">
     &lt;include name="**/*.php"/>
   &lt;/fileset>
@@ -3304,10 +3304,10 @@ Note that you can omit both startpoint and track attributes in this case
         <title>JsMinTask</title>
         <para> The <literal>JsMinTask</literal> minifies JavaScript files using <link
                 xlink:href="http://code.google.com/p/jsmin-php/">JsMin</link>. JsMin is bundled with
-            Phing and does not need to be installed separately. </para>
+            Phing and does not need to be installed separately.</para>
         <para> For more information on minifying JavaScript files see <link
                 xlink:href="http://www.crockford.com/javascript/jsmin.html" role="extern">Douglas
-                Crockford's introduction to minifying JavaScript files</link>. </para>
+                Crockford's introduction to minifying JavaScript files</link>.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3353,7 +3353,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;jsMin targetDir="docroot/script/minified" failOnError="false">
+            <programlisting language="xml">&lt;jsMin targetDir="docroot/script/minified" failOnError="false">
   &lt;fileset dir="docroot/script">
     &lt;include name="**/*.js"/>
   &lt;/fileset>
@@ -3423,7 +3423,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;mail tolist="user@example.org" subject="build complete"">The build process is a success...&lt;/mail></programlisting>
+            <programlisting language="xml">&lt;mail tolist="user@example.org" subject="build complete"">The build process is a success...&lt;/mail></programlisting>
         </sect2>
 
         <sect2 role="nestedtags">
@@ -3440,7 +3440,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PatchTask</title>
         <para> The <literal>PatchTask</literal> uses the <link
                 xlink:href="http://savannah.gnu.org/projects/patch" role="extern">patch</link>
-            program to apply diff file to originals. </para>
+            program to apply diff file to originals.</para>
         <para>
             <emphasis role="bold">NB:</emphasis> the patch program must be in the system path! </para>
 
@@ -3541,7 +3541,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;patch
+            <programlisting language="xml">&lt;patch
   patchfile="/path/to/patches/file.ext.patch"
   dir="/path/to/original"
 /></programlisting>
@@ -3551,7 +3551,7 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="PDOSQLExecTask">
         <title>PDOSQLExecTask</title>
-        <para> The <literal>PDOSQLExecTask</literal> executes SQL statements using PDO. </para>
+        <para> The <literal>PDOSQLExecTask</literal> executes SQL statements using PDO.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3649,21 +3649,21 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;pdosqlexec url="pgsql:host=localhost dbname=test">
+            <programlisting language="xml">&lt;pdosqlexec url="pgsql:host=localhost dbname=test">
   &lt;fileset dir="sqlfiles">
 	  &lt;include name="*.sql"/>
 	  &lt;/fileset>
 &lt;/pdosqlexec></programlisting>
 
-            <programlisting>&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password">
+            <programlisting language="xml">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password">
   &lt;transaction src="path/to/sqlfile.sql"/>
   &lt;formatter type="plain" outfile="path/to/output.txt"/>
   &lt;/pdosqlexec></programlisting>
             <note>
                 <para>Because of backwards compatiblity, the PDOSQLExecTask can also be called using
-                    the <literal>'pdo'</literal> statement. </para>
+                    the <literal>'pdo'</literal> statement.</para>
             </note>
-            <programlisting>&lt;pdo url="pgsql:host=localhost dbname=test">
+            <programlisting language="xml">&lt;pdo url="pgsql:host=localhost dbname=test">
   &lt;fileset dir="sqlfiles">
 	  &lt;include name="*.sql"/>
   &lt;/fileset>
@@ -3734,7 +3734,7 @@ Note that you can omit both startpoint and track attributes in this case
                             <literal>usefile</literal> attribute to <literal>false</literal>. The
                         path to the output file file can be specified by the
                             <literal>outfile</literal> attribute; there is a default filename that
-                        will be returned by the formatter if no output file is specified. </para>
+                        will be returned by the formatter if no output file is specified.</para>
                     <para>There are three predefined formatters - one prints the query results in
                         XML format, the other emits plain text. Custom formatters that extend
                         phing.tasks.pdo.PDOResultFormatter can be specified.</para>
@@ -3838,7 +3838,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PearPackageTask</title>
         <para> With the PearPackageTask, you can create a package.xml which can be installed using
             the PEAR installer. Use this in conjunction with the <xref xlink:href="#TarTask"/> to
-            completely script the building of a PEAR package. </para>
+            completely script the building of a PEAR package.</para>
         <note>
             <para>Note that this task creates a <literal>version 1</literal> package.xml
                 file.</para>
@@ -3848,7 +3848,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <literal>&lt;option></literal> tag) and are set using
                 <code>PEAR_PackageFileManager::setOptions()</code> . Use the
                 <literal>&lt;mapping></literal> tag to represent complex values (which are turned
-            into associative arrays and also set using <code>setOptions()</code> method). </para>
+            into associative arrays and also set using <code>setOptions()</code> method).</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -3893,7 +3893,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;pearpkg name="phing" dir="${build.src.dir}" destFile="${build.base.dir}/package.xml">
+            <programlisting language="xml">&lt;pearpkg name="phing" dir="${build.src.dir}" destFile="${build.base.dir}/package.xml">
 &lt;fileset dir=".">
   &lt;include name="**"/>
 &lt;/fileset>
@@ -3928,8 +3928,8 @@ Note that you can omit both startpoint and track attributes in this case
                         &lt;mapping> (and nested &lt;element> with &lt;element> tags) to represent
                         the full complexity of the structure. Bear in mind that what you are
                         creating will be mapped to an associative array that will be passed in via
-                            <code>PEAR_PackageFileMaintainer::setOptions()</code> . </para>
-                    <programlisting>&lt;mapping name="option_name">
+                            <code>PEAR_PackageFileMaintainer::setOptions()</code> .</para>
+                    <programlisting language="xml">&lt;mapping name="option_name">
     &lt;element key="key_name" value="key_val"/>
     &lt;element key="key_name" value="key_val"/>
 &lt;/mapping></programlisting>
@@ -3984,14 +3984,14 @@ Note that you can omit both startpoint and track attributes in this case
         <para> With the PearPackage2Task, you can create a <literal>version 2</literal> package.xml
             which can be installed using the PEAR installer. Use this in conjunction with the <link
                 xlink:href="#TarTask">TarTask</link> to completely script the building of a PEAR
-            package. </para>
+            package.</para>
         <para> This task uses the PEAR_PackageFileManager2 class. In order to be maximally flexible,
             the majority of options are set generically (using <literal>&lt;option></literal> tag)
             and are set using PEAR_PackageFileManager::setOptions(). Use the
-                <literal>&lt;mapping></literal> tag to represent complex values. </para>
+                <literal>&lt;mapping></literal> tag to represent complex values.</para>
         <para> Note that Travis Swicegood has created a more complete implementation of this
             functionality which can be found here: <link xlink:href="http://pear.domain51.com/"
-                role="extern">pear.domain51.com</link>. </para>
+                role="extern">pear.domain51.com</link>.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4029,7 +4029,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;pearpkg2 name="phing" dir="${build.src.dir}">
+            <programlisting language="xml">&lt;pearpkg2 name="phing" dir="${build.src.dir}">
    &lt;option name="outputdirectory" value="./build"/>
    &lt;option name="packagefile" value="package2.xml"/>
    &lt;option name="packagedirectory" value="./${build.dist.dir}"/>
@@ -4179,8 +4179,8 @@ Note that you can omit both startpoint and track attributes in this case
                         &lt;mapping> (and nested &lt;element> with &lt;element> tags) to represent
                         the full complexity of the structure. Bear in mind that what you are
                         creating will be mapped to an associative array that will be passed in via
-                            <code>PEAR_PackageFileMaintainer::setOptions()</code> . </para>
-                    <programlisting>&lt;mapping name="option_name">
+                            <code>PEAR_PackageFileMaintainer::setOptions()</code> .</para>
+                    <programlisting language="xml">&lt;mapping name="option_name">
     &lt;element key="key_name" value="key_val"/>
     &lt;element key="key_name" value="key_val"/>
 &lt;/mapping></programlisting>
@@ -4465,7 +4465,7 @@ Note that you can omit both startpoint and track attributes in this case
             <link xlink:href="http://www.php.net/manual/en/book.phar.php" role="extern">Phar</link>
             packages generating with Phing. This task require <link
                 xlink:href="http://pecl.php.net/package/phar" role="extern">PECL's Phar</link>
-            extension to be installed on your system. Phar is built-in in PHP from 5.3 version. </para>
+            extension to be installed on your system. Phar is built-in in PHP from 5.3 version.</para>
 
         <table>
             <title>Attributes</title>
@@ -4553,7 +4553,7 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <para>Sample build command:</para>
-            <programlisting>&lt;pharpackage
+            <programlisting language="xml">&lt;pharpackage
   destfile="./build/package.phar"
   basedir="./">
   &lt;fileset dir="./classes">
@@ -4589,7 +4589,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PhkPackageTask</title>
         <para> This task runs PHK_Creator.phk to build PHK-package. Learn more about build process
             in <link xlink:href="http://phk.tekwire.net/joomla/support/doc/builders_guide.htm"
-                role="extern">PHK Builder's Guide</link>. </para>
+                role="extern">PHK Builder's Guide</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -4675,7 +4675,7 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <para>Sample build command:</para>
-            <programlisting>&lt;phkpackage
+            <programlisting language="xml">&lt;phkpackage
     phkcreatorpath="/path/to/PHK_Creator.phk"
     inputdirectory="src"
     outputfile="build/sample-project.phk"
@@ -4694,7 +4694,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para>webaccess </para>
                     <para> Collection of <literal>path</literal> tags (see example below), that will
-                        be visible outside package in web mode. </para>
+                        be visible outside package in web mode.</para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -4703,7 +4703,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PhpCodeSnifferTask</title>
         <para> This task runs <link xlink:href="http://pear.php.net/package/PHP_CodeSniffer"
                 role="extern">PHP_CodeSniffer</link> to detect violations of a defined set of coding
-            standards. </para>
+            standards.</para>
 
         <table>
             <title>Attributes</title>
@@ -4881,7 +4881,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para>fileset </para>
                     <para> Either this nested tag or the attribute <literal>file</literal> is
-                        required. </para>
+                        required.</para>
                 </listitem>
                 <listitem>
                     <para>config </para>
@@ -4988,7 +4988,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PHPCPDTask</title>
         <para> This task runs <link xlink:href="http://github.com/sebastianbergmann/phpcpd/"
                 role="extern">phpcpd</link>, a Copy/Paste Detector (CPD) for PHP Code. You need an
-            installed version of this software to use this task. </para>
+            installed version of this software to use this task.</para>
 
         <table>
             <title>Attributes</title>
@@ -5043,8 +5043,8 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Examples</title>
             <para> Checks all files in the directory <literal>file</literal> matching the allowed
                 file extension with the <literal>PEAR</literal> standard and prints the
-                    <literal>summary</literal> report without warnings. </para>
-            <programlisting>&lt;phpcodesniffer
+                    <literal>summary</literal> report without warnings.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
   standard="PEAR"
   format="summary"
   file="/path/to/source-files"
@@ -5054,8 +5054,8 @@ Note that you can omit both startpoint and track attributes in this case
                 configuration which may be required by one of the sniffs, prints a list of used
                 sniffs and prints the <literal>default</literal> report with warnings and the
                     <literal>checkstyle</literal> report to
-                    <literal>/path/to/checkstyle.xml</literal>. </para>
-            <programlisting>&lt;phpcodesniffer
+                    <literal>/path/to/checkstyle.xml</literal>.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
   standard="Zend"
   showSniffs="true"
   showWarnings="true">
@@ -5069,23 +5069,23 @@ Note that you can omit both startpoint and track attributes in this case
             <para> Checks all files in the directory <literal>file</literal> with the
                     <literal>PEAR</literal> standard and prints the <literal>checkstyle</literal>
                 report without warnings. It also generates the documentation for the selected coding
-                standard and writes it to the given file. </para>
-            <programlisting>&lt;phpcodesniffer
+                standard and writes it to the given file.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
   standard="PEAR"
   file="/path/to/source-files"
   docGenerator="HTML"
   docFile="/path/to/doc.html">
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
 &lt;/phpcodesniffer></programlisting>
-            <programlisting>&lt;phpcpd file="path/to/source.php"/></programlisting>
+            <programlisting language="xml">&lt;phpcpd file="path/to/source.php"/></programlisting>
 
             <para>Checking for copy/paste code in one particular source file. Sending Default-Report
                 to STDOUT.</para>
-            <programlisting>&lt;phpcpd file="path/to/source">
+            <programlisting language="xml">&lt;phpcpd file="path/to/source">
    &lt;formatter type="pmd" outfile="reports/pmd-cpd.xml"/>
  &lt;/phpcpd></programlisting>
             <para>Checking for copy/paste code in files of the given path.</para>
-            <programlisting>&lt;phpcpd>
+            <programlisting language="xml">&lt;phpcpd>
    &lt;fileset dir="${builddir}" id="filestocpd">
      &lt;include name="apps/**/*.php" />
      &lt;include name="lib/de/**/*.php" />
@@ -5104,13 +5104,13 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para>fileset </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
-                        not set. </para>
+                        not set.</para>
                 </listitem>
                 <listitem>
                     <para>formatter </para>
                     <para> The results of the copy/paste scan can be printed in different formats.
                         Output will always be sent to a file, unless you set the
-                            <literal>usefile</literal> attribute to <literal>false</literal>. </para>
+                            <literal>usefile</literal> attribute to <literal>false</literal>.</para>
 
                     <table>
                         <title>Attributes</title>
@@ -5166,7 +5166,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PHPMDTask</title>
         <para> This task runs <link xlink:href="http://phpmd.org" role="extern">phpmd</link>, a
             Project Mess Detector (PMD) for PHP Code. You need an installed version of this software
-            to use this task. </para>
+            to use this task.</para>
 
         <table>
             <title>Attributes</title>
@@ -5197,7 +5197,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>rulesets</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Sets the rulesets used for analyzing the source code</entry>
-                        <entry>codesize,unusedcode</entry>
+                        <entry>codesize, unusedcode</entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -5219,7 +5219,8 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>ignorePatterns</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Comma-separated list of directory patterns to ignore.</entry>
-                        <entry>.git,.svn,CVS,.bzr,.hg</entry>
+                        <entry><literal>.git</literal>, <literal>.svn</literal>, <literal>CVS</literal>, 
+                            <literal>.bzr</literal>, <literal>.hg</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -5234,15 +5235,15 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;phpmd file="path/to/source.php"/></programlisting>
+            <programlisting language="xml">&lt;phpmd file="path/to/source.php"/></programlisting>
 
             <para>Checking syntax of one particular source file. Sending Text-Report to
                 STDOUT.</para>
-            <programlisting>&lt;phpmd file="path/to/source">
+            <programlisting language="xml">&lt;phpmd file="path/to/source">
    &lt;formatter type="html" outfile="reports/pmd.html"/>
  &lt;/phpmd></programlisting>
             <para>Checking syntax of source files in the given path.</para>
-            <programlisting>&lt;phpmd>
+            <programlisting language="xml">&lt;phpmd>
    &lt;fileset dir="${builddir}">
      &lt;include name="apps/**/*.php" />
      &lt;include name="lib/de/**/*.php" />
@@ -5257,14 +5258,14 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para>fileset </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
-                        not set. </para>
+                        not set.</para>
                 </listitem>
                 <listitem>
                     <para>formatter </para>
                     <para> The results of the analysis can be printed in different formats. Output
                         will always be sent to STDOUT, unless you set the <literal>usefile</literal>
                         attribute to <literal>true</literal> and set an filename in the
-                            <literal>outfile</literal> attribute. </para>
+                            <literal>outfile</literal> attribute.</para>
 
                     <table>
                         <title>Attributes</title>
@@ -5320,7 +5321,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>PhpDependTask</title>
         <para> This task runs <link xlink:href="http://pdepend.org" role="extern">PHP_Depend</link>,
             a software analyzer and metric tool for PHP Code. You need an installed version of this
-            software to use this task. </para>
+            software to use this task.</para>
 
         <table>
             <title>Attributes</title>
@@ -5366,7 +5367,8 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>excludeDirectories</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Comma-separated list of directory patterns to ignore.</entry>
-                        <entry>.git,.svn,CVS</entry>
+                        <entry><literal>.git</literal>,
+                            <literal>.svn</literal>, <literal>CVS</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -5410,12 +5412,12 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;phpdepend file="path/to/source">
+            <programlisting language="xml">&lt;phpdepend file="path/to/source">
    &lt;logger type="phpunit-xml" outfile="reports/metrics.xml"/>
  &lt;/phpdepend></programlisting>
 
             <para>Running code analysis for source files in the given path.</para>
-            <programlisting>&lt;phpdepend>
+            <programlisting language="xml">&lt;phpdepend>
    &lt;fileset dir="${builddir}">
      &lt;include name="apps/**/*.php" />
      &lt;include name="lib/de/**/*.php" />
@@ -5424,7 +5426,7 @@ Note that you can omit both startpoint and track attributes in this case
    &lt;analyzer type="coderank-mode" value="method"/>
  &lt;/phpdepend></programlisting>
             <para> Running code analysis for source files in the fileset pathes with CodeRank
-                strategy <literal>method</literal>. </para>
+                strategy <literal>method</literal>.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -5432,7 +5434,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para>fileset </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
-                        not set. </para>
+                        not set.</para>
                 </listitem>
                 <listitem>
                     <para>logger </para>
@@ -5527,7 +5529,7 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="PhpDocumentorTask">
         <title>PhpDocumentorTask</title>
         <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
-                >phpDocumentor</link>, an auto-documentation tool for PHP similar to Javadoc. </para>
+                >phpDocumentor</link>, an auto-documentation tool for PHP similar to Javadoc.</para>
 
         <table>
             <title>Attributes</title>
@@ -5688,7 +5690,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;phpdoc title="API Documentation"
+            <programlisting language="xml">&lt;phpdoc title="API Documentation"
   destdir="apidocs"
   sourcecode="false"
   output="HTML:Smarty:PHP">
@@ -5720,7 +5722,7 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This is the same as the <xref xlink:href="#PhpDocumentorTask"/> but uses the command
             line application. Use this as a fallback in case you're running into troubles when using
             the phpDocumentor-library with the PhpDocumentorTask directly, e.g. when you're using
-            Smarty and have Smarty in your library path too. </para>
+            Smarty and have Smarty in your library path too.</para>
         <para>This task supports everything the PhpDocumentorTask supports, differences are
             documented below.</para>
 
@@ -5784,7 +5786,7 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;phpdocext title="API Documentation"
+            <programlisting language="xml">&lt;phpdocext title="API Documentation"
   programpath="/usr/bin/phpdoc"
   destdir="apidocs"
   sourcecode="false"
@@ -5803,7 +5805,7 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="PhpLintTask">
         <title>PhpLintTask</title>
         <para> The <literal>PhpLintTask</literal> checks syntax (lint) on one or more PHP source
-            code files. </para>
+            code files.</para>
 
         <table>
             <title>Attributes</title>
@@ -5893,10 +5895,10 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;phplint file="path/to/source.php"/></programlisting>
+            <programlisting language="xml">&lt;phplint file="path/to/source.php"/></programlisting>
 
             <para>Checking syntax of one particular source file.</para>
-            <programlisting>&lt;phplint>
+            <programlisting language="xml">&lt;phplint>
   &lt;fileset dir="src">
     &lt;include name="**/*.php"/>
   &lt;/fileset>
@@ -5918,7 +5920,7 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This task runs testcases using the <link xlink:href="http://www.phpunit.de/"
                 role="extern">PHPUnit</link> framework. It is a functional port of the Ant <link
                 xlink:href="http://ant.apache.org/manual/OptionalTasks/junit.html" role="extern"
-                >JUnit</link> task. </para>
+                >JUnit</link> task.</para>
         <para>
             <emphasis role="bold">NB:</emphasis> the identifiers <literal>phpunit2</literal>
             (PHPUnit2Task) and <literal>phpunit3</literal> (PHPUnit3Task) have been deprecated! </para>
@@ -6050,14 +6052,14 @@ Note that you can omit both startpoint and track attributes in this case
                         always be sent to a file, unless you set the <literal>usefile</literal>
                         attribute to <literal>false</literal>. The name of the file is predetermined
                         by the formatter and can be changed by the <literal>outfile</literal>
-                        attribute. </para>
+                        attribute.</para>
                     <para> There are four predefined formatters - <literal>xml</literal> and
                             <literal>clover</literal> print the test results in the JUnit and Clover
                         XML formats, the other two emit plain text. The <literal>brief</literal>
                         formatter will only print detailed information for testcases that failed,
                         while <literal>plain</literal> emits a short statistics line for all test
                         cases. Custom formatters that implement
-                        phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be specified. </para>
+                        phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be specified.</para>
 
                     <table>
                         <title>Attributes</title>
@@ -6124,7 +6126,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <para> Define a number of tests based on pattern matching.
                             <literal>batchtest</literal> collects the included files from any number
                         of nested &lt;fileset>s. It then generates a lists of classes that are
-                        (in)directly defined by each PHP file. </para>
+                        (in)directly defined by each PHP file.</para>
 
                     <table>
                         <title>Attributes</title>
@@ -6182,7 +6184,7 @@ Note that you can omit both startpoint and track attributes in this case
         </sect2>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;phpunit>
+            <programlisting language="xml">&lt;phpunit>
   &lt;formatter todir="reports" type="xml"/>
   &lt;batchtest>
     &lt;fileset dir="tests">
@@ -6192,8 +6194,8 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/batchtest>
 &lt;/phpunit></programlisting>
             <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
-                XML results to the directory <literal>reports</literal>. </para>
-            <programlisting>&lt;phpunit codecoverage="true" haltonfailure="true" haltonerror="true">
+                XML results to the directory <literal>reports</literal>.</para>
+            <programlisting language="xml">&lt;phpunit codecoverage="true" haltonfailure="true" haltonerror="true">
   &lt;formatter type="plain" usefile="false"/>
   &lt;batchtest>
     &lt;fileset dir="tests">
@@ -6203,8 +6205,8 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/phpunit></programlisting>
             <para> Runs all matching testcases in the directory <literal>tests</literal>, gathers
                 code coverage information, writing plain text results to the console. The build
-                process is aborted if a test fails. </para>
-            <programlisting>&lt;phpunit bootstrap="src/autoload.php">
+                process is aborted if a test fails.</para>
+            <programlisting language="xml">&lt;phpunit bootstrap="src/autoload.php">
   &lt;formatter type="plain" usefile="false"/>
   &lt;batchtest>
     &lt;fileset dir="tests">
@@ -6214,12 +6216,12 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/phpunit></programlisting>
             <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
                 plain text results to the console. Additionally, before executing the tests, the
-                bootstrap file <literal>src/autoload.php</literal> is loaded. </para>
+                bootstrap file <literal>src/autoload.php</literal> is loaded.</para>
             <para>
                 <emphasis role="bold">Important note:</emphasis> using a mechanism such as an
                 "AllTests.php" file to execute testcases will bypass the Phing hooks used for
                 reporting and counting, and could possibly lead to strange results. Instead, use one
-                of more fileset's to provide a list of testcases to execute. </para>
+                of more fileset's to provide a list of testcases to execute.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -6306,25 +6308,25 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;phpunitreport infile="reports/testsuites.xml" 
+            <programlisting language="xml">&lt;phpunitreport infile="reports/testsuites.xml" 
     format="frames" 
     todir="reports/tests" 
     styledir="/home/phing/etc"/></programlisting>
             <para> Generates a framed report in the directory <literal>reports/tests</literal> using
-                the file <literal>reports/testsuites.xml</literal> as input. </para>
+                the file <literal>reports/testsuites.xml</literal> as input.</para>
             <para>
                 <emphasis role="bold">Important note:</emphasis> testclasses that are not explicitly
                 placed in a package (by using a '@package' tag in the class-level DocBlock) are
-                listed under the "default" package. </para>
+                listed under the "default" package.</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="rSTTask">
         <title>rSTTask</title>
-        <para> Renders rST (reStructuredText) files into different output formats. </para>
+        <para> Renders rST (reStructuredText) files into different output formats.</para>
         <para> This task requires the <literal>python docutils</literal> installed. They contain
                 <literal>rst2html</literal>, <literal>rst2latex</literal>,
                 <literal>rst2man</literal>, <literal>rst2odt</literal>, <literal>rst2s5</literal>,
-                <literal>rst2xml</literal>. </para>
+                <literal>rst2xml</literal>.</para>
         <para> Homepage: <link xlink:href="https://gitorious.org/phing/rsttask"
                 >https://gitorious.org/phing/rsttask</link>
         </para>
@@ -6455,7 +6457,7 @@ Note that you can omit both startpoint and track attributes in this case
             <para>By default, HTML is generated. If no target file is specified, the input file name
                 is taken, and its extension replaced with the correct one for the output
                 format.</para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file to HTML">
 
@@ -6465,7 +6467,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project></programlisting>
             <para> Render a single rST file to any supported format </para>
             <para> The <literal>format</literal> attribute determines the output format: </para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file to S5 HTML">
 
@@ -6474,7 +6476,7 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/target>
 &lt;/project></programlisting>
             <para> Specifying the output file name </para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file">
 
@@ -6483,8 +6485,8 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/target>
 &lt;/project></programlisting>
             <para> Rendering multiple files </para>
-            <para> A nested <literal>fileset</literal> tag may be used to specify multiple files. </para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <para> A nested <literal>fileset</literal> tag may be used to specify multiple files.</para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
   &lt;target name="multiple" description="renders several rST files">
 
@@ -6499,8 +6501,8 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project></programlisting>
             <para> Rendering multiple files to another directory </para>
             <para> A nested <literal>mapper</literal> may be used to determine the output file
-                names. </para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+                names.</para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
   &lt;target name="multiple" description="renders several rST files">
 
@@ -6517,7 +6519,7 @@ Note that you can omit both startpoint and track attributes in this case
             <para> Modifying files after rendering </para>
             <para>You may have variables in your rST code that can be replaced after rendering, i.e.
                 the version of your software.</para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="filterchain">
   &lt;target name="filterchain" description="renders several rST files">
 
@@ -6537,8 +6539,8 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project></programlisting>
             <para> Rendering changed files only </para>
             <para> The <literal>uptodate</literal> attribute determines if only those files should
-                be rendered that are newer than their output file. </para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+                be rendered that are newer than their output file.</para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
   &lt;target name="multiple" description="renders several rST files">
 
@@ -6552,8 +6554,8 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project></programlisting>
             <para> Specify a custom CSS file </para>
             <para> You may pass any additional parameters to the rst conversion tools with the
-                    <literal>toolparam</literal> attribute. </para>
-            <programlisting>&lt;?xml version="1.0" encoding="utf-8"?>
+                    <literal>toolparam</literal> attribute.</para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="single">
   &lt;target name="single" description="render a single rST file to S5 HTML">
 
@@ -6649,21 +6651,21 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <para>Uploading a file</para>
-            <programlisting>&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
+            <programlisting language="xml">&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
             <para>You can also define "bucket, key, secret" outside of the task call:</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
+            <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
 &lt;property name="amazon.secret" value="my_secret" />
 &lt;property name="amazon.bucket" value="mybucket" />
 
 &lt;s3put source="/path/to/file.txt" object="file.txt" /></programlisting>
             <para>You can also specify inline content instead of a file to upload:</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
+            <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
 &lt;property name="amazon.secret" value="my_secret" />
 &lt;property name="amazon.bucket" value="mybucket" />
 
 &lt;s3put content="Some content here" object="file.txt" /></programlisting>
             <para>It also works with filesets</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
+            <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
 &lt;property name="amazon.secret" value="my_secret" />
 &lt;property name="amazon.bucket" value="mybucket" />
 &lt;s3put>
@@ -6746,9 +6748,9 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <para>Downloading an object</para>
-            <programlisting>&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
+            <programlisting language="xml">&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
             <para>You can also define "bucket, key, secret" outside of the task call:</para>
-            <programlisting>&lt;property name="amazon.key" value="my_key" />
+            <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
 &lt;property name="amazon.secret" value="my_secret" />
 &lt;property name="amazon.bucket" value="mybucket" />
 
@@ -6760,7 +6762,7 @@ Note that you can omit both startpoint and track attributes in this case
         <title>ScpTask</title>
         <para> The <literal>ScpTask</literal> copies files to and from a remote host using scp. This
             task requires the <link xlink:href="http://pecl.php.net/package/ssh2" role="extern">PHP
-                SSH2 extension</link> to function. </para>
+                SSH2 extension</link> to function.</para>
 
         <table>
             <title>Attributes</title>
@@ -6872,18 +6874,18 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;scp username="john" password="smith"
+            <programlisting language="xml">&lt;scp username="john" password="smith"
 host="webserver" fetch="true"
 todir="/home/john/backup"
 file="/www/htdocs/test.html" /></programlisting>
 
             <para>Fetches a single file from the remote server.</para>
-            <programlisting>&lt;scp username="john" password="smith"
+            <programlisting language="xml">&lt;scp username="john" password="smith"
 host="webserver"
 todir="/www/htdocs/"
 file="/home/john/dev/test.html" /></programlisting>
             <para>Copies a single file to the remote server.</para>
-            <programlisting>&lt;scp username="john" password="smith"
+            <programlisting language="xml">&lt;scp username="john" password="smith"
 host="webserver" todir="/www/htdocs/project/">
     &lt;fileset dir="test">
         &lt;include name="*.html" />
@@ -6904,7 +6906,7 @@ host="webserver" todir="/www/htdocs/project/">
         <title>SshTask</title>
         <para> The <literal>ScpTask</literal> executes commands on a remote host using ssh.. This
             task requires the <link xlink:href="http://pecl.php.net/package/ssh2" role="extern">PHP
-                SSH2 extension</link> to function. </para>
+                SSH2 extension</link> to function.</para>
 
         <table>
             <title>Attributes</title>
@@ -7000,7 +7002,7 @@ host="webserver" todir="/www/htdocs/project/">
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;ssh username="john" password="smith"
+            <programlisting language="xml">&lt;ssh username="john" password="smith"
 host="webserver" command="ls" /></programlisting>
 
             <para>Executes a single command on the remote server.</para>
@@ -7010,7 +7012,7 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SimpleTestTask">
         <title>SimpleTestTask</title>
         <para> This task runs testcases using the <link xlink:href="http://www.simpletest.org/"
-                role="extern">SimpleTest</link> framework. </para>
+                role="extern">SimpleTest</link> framework.</para>
 
         <table>
             <title>Attributes</title>
@@ -7079,7 +7081,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;simpletest>
+            <programlisting language="xml">&lt;simpletest>
   &lt;formatter type="plain"/>
   &lt;fileset dir="tests">
     &lt;include name="**/*Test*.php"/>
@@ -7088,8 +7090,8 @@ host="webserver" command="ls" /></programlisting>
 &lt;/simpletest></programlisting>
 
             <para> Runs all matching testcases in the directory <literal>tests</literal>, writing
-                plain text results to the console. </para>
-            <programlisting>&lt;simpletest haltonfailure="true" haltonerror="true">
+                plain text results to the console.</para>
+            <programlisting language="xml">&lt;simpletest haltonfailure="true" haltonerror="true">
   &lt;formatter type="plain" usefile="false"/>
   &lt;fileset dir="tests">
     &lt;include name="**/*Test*.php"/>
@@ -7108,7 +7110,7 @@ host="webserver" command="ls" /></programlisting>
                         always be sent to a file, unless you set the <literal>usefile</literal>
                         attribute to <literal>false</literal>. The name of the file is predetermined
                         by the formatter and can be changed by the <literal>outfile</literal>
-                        attribute. </para>
+                        attribute.</para>
                     <para>There are three predefined formatters - one prints the test results in XML
                         format, the other emits plain text. The formatter named brief will only
                         print detailed information for testcases that failed, while plain gives a
@@ -7187,7 +7189,7 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnCheckoutTask">
         <title>SvnCheckoutTask</title>
         <para> The <literal>SvnCheckoutTask</literal> checks out a Subversion repository to a local
-            directory. </para>
+            directory.</para>
 
         <table>
             <title>Attributes</title>
@@ -7275,7 +7277,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svncheckout
+            <programlisting language="xml">&lt;svncheckout
    svnpath="/usr/bin/svn"
    username="anony"
    password="anony"
@@ -7283,7 +7285,7 @@ host="webserver" command="ls" /></programlisting>
    repositoryurl="svn://localhost/project/trunk/"
    todir="/home/user/svnwc"/></programlisting>
 
-            <programlisting>&lt;svncheckout
+            <programlisting language="xml">&lt;svncheckout
    svnpath="C:/Subversion/bin/svn.exe"
    repositoryurl="svn://localhost/project/trunk/"
    todir="C:/projects/svnwc"/></programlisting>
@@ -7293,7 +7295,7 @@ host="webserver" command="ls" /></programlisting>
         <title>SvnCommitTask</title>
         <para> The <literal>SvnCommitTask</literal> commits a local working copy to a SVN repository
             and sets the specified property ( default <literal>svn.committedrevision</literal>) to
-            the revision number of the committed revision. </para>
+            the revision number of the committed revision.</para>
 
         <table>
             <title>Attributes</title>
@@ -7388,7 +7390,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svncommit
+            <programlisting language="xml">&lt;svncommit
     svnpath="/usr/bin/svn"
     username="anony"
     password="anony"
@@ -7397,7 +7399,7 @@ host="webserver" command="ls" /></programlisting>
     message="Updated documentation, fixed typos" /></programlisting>
             <para>The most basic usage only needs the working copy and the commit message as
                 in</para>
-            <programlisting>&lt;svncommit
+            <programlisting language="xml">&lt;svncommit
     workingcopy="/home/joe/dev/project"
     message="Updated documentation, fixed typos" />
 &lt;echo message="Committed revision: ${svn.committedrevision}"/></programlisting>
@@ -7406,7 +7408,7 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnCopyTask">
         <title>SvnCopyTask</title>
         <para> The <literal>SvnCopyTask</literal> duplicates something in a working copy or
-            repository, remembering history. </para>
+            repository, remembering history.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7507,7 +7509,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svncopy
+            <programlisting language="xml">&lt;svncopy
    svnpath="/usr/bin/svn"
    username="anony"
    password="anony"
@@ -7521,7 +7523,7 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnExportTask">
         <title>SvnExportTask</title>
         <para> The <literal>SvnExportTask</literal> exports a Subversion repository to a local
-            directory. </para>
+            directory.</para>
 
         <table>
             <title>Attributes</title>
@@ -7623,7 +7625,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svnexport
+            <programlisting language="xml">&lt;svnexport
    svnpath="/usr/bin/svn"
    username="anony"
    password="anony"
@@ -7632,7 +7634,7 @@ host="webserver" command="ls" /></programlisting>
    repositoryurl="svn://localhost/project/trunk/"
    todir="/home/user/svnwc"/></programlisting>
 
-            <programlisting>&lt;svnexport
+            <programlisting language="xml">&lt;svnexport
    svnpath="C:/Subversion/bin/svn.exe"
    repositoryurl="svn://localhost/project/trunk/"
    todir="C:/projects/svnwc"/></programlisting>
@@ -7641,7 +7643,7 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnInfoTask">
         <title>SvnInfoTask</title>
         <para> The <literal>SvnInfoTask</literal> parses the output of the 'svn info --xml' command
-            and extracts one specified element (+ optional sub element) from that output. </para>
+            and extracts one specified element (+ optional sub element) from that output.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7709,12 +7711,12 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svninfo
+            <programlisting language="xml">&lt;svninfo
    svnpath="/usr/bin/svn"
    workingcopy="/home/user/svnwc"
    element="url"
    propertyname="svn.url"/></programlisting>
-            <programlisting>&lt;svninfo
+            <programlisting language="xml">&lt;svninfo
    repositoryurl="http://svn.phing.info/"
    element="commit"
    subelement="author"
@@ -7724,7 +7726,7 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnLastRevisionTask">
         <title>SvnLastRevisionTask</title>
         <para> The <literal>SvnLastRevisionTask</literal> stores the number of the last revision of
-            a Subversion workingcopy in a property. </para>
+            a Subversion workingcopy in a property.</para>
 
         <table>
             <title>Attributes</title>
@@ -7793,15 +7795,15 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svnlastrevision
+            <programlisting language="xml">&lt;svnlastrevision
    svnpath="/usr/bin/svn"
    workingcopy="/home/user/svnwc"
    propertyname="svn.lastrevision"/></programlisting>
-            <programlisting>&lt;svnlastrevision
+            <programlisting language="xml">&lt;svnlastrevision
    svnpath="C:/Subversion/bin/svn.exe"
    workingcopy="C:/projects/svnwc"
    propertyname="svn.lastrevision"/></programlisting>
-            <programlisting>&lt;svnlastrevision
+            <programlisting language="xml">&lt;svnlastrevision
    svnpath="C:/Subversion/bin/svn.exe"
    repositoryurl="http://svn.phing.info/"
    propertyname="svn.lastrevision"/></programlisting>
@@ -7810,11 +7812,11 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnListTask">
         <title>SvnListTask</title>
         <para> The <literal>SvnListTask</literal> stores the output of a svn list command on a
-            workingcopy or repositoryurl in a property. </para>
+            workingcopy or repositoryurl in a property.</para>
         <para> Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
             attribute is ignored. It uses svn's --verbose switch to get additional data about the
             listed items. The result will be stored in an array, one string that is seperated by ' |
-            ' (in words: space pipe space) for easy parsing. </para>
+            ' (in words: space pipe space) for easy parsing.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7887,10 +7889,10 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svnlist svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.list"/></programlisting>
-            <programlisting>&lt;svnlist svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/tags" orderDescending="true" limit="10" /></programlisting>
+            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.list"/></programlisting>
+            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/tags" orderDescending="true" limit="10" /></programlisting>
             <para>The latter example could produce a list of your tags like this:</para>
-            <programlisting>revision | author | date         | item
+            <programlisting language="xml">revision | author | date         | item
 4028     | tony   | May 19 18:31 | Release_2.9.1.7
 4026     | tony   | May 18 14:33 | Release_2.9.1.6
 4023     | tony   | May 16 15:53 | Release_2.9.1.5
@@ -7903,10 +7905,10 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnLogTask">
         <title>SvnLogTask</title>
         <para> The <literal>SvnLogTask</literal> stores the output of a svn log command on a
-            workingcopy or repositoryurl in a property. </para>
+            workingcopy or repositoryurl in a property.</para>
         <para> Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
             attribute is ignored. The result will be stored in an array, one string that is
-            seperated by ' | ' (in words: space pipe space) for easy parsing. </para>
+            seperated by ' | ' (in words: space pipe space) for easy parsing.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7972,11 +7974,11 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svnlog svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
-            <programlisting>&lt;svnlog svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
+            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
+            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
             <para>The latter example could produce a history of the latest revisions in the
                 trunk:</para>
-            <programlisting>4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
+            <programlisting language="xml">4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
 4032 | tony  | 2011-05-23T13:24:46.496265Z  | some svn commit comment
 4031 | tony  | 2011-05-23T09:23:28.093167Z  | some svn commit comment
 ...</programlisting>
@@ -7984,7 +7986,7 @@ host="webserver" command="ls" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnUpdateTask">
         <title>SvnUpdateTask</title>
-        <para> The <literal>SvnUpdateTask</literal> updates a local directory. </para>
+        <para> The <literal>SvnUpdateTask</literal> updates a local directory.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8064,14 +8066,14 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svnupdate
+            <programlisting language="xml">&lt;svnupdate
    svnpath="/usr/bin/svn"
    username="anony"
    password="anony"
    nocache="true"
    todir="/home/user/svnwc"/></programlisting>
 
-            <programlisting>&lt;svnupdate
+            <programlisting language="xml">&lt;svnupdate
    svnpath="C:/Subversion/bin/svn.exe"
    todir="C:/projects/svnwc"/></programlisting>
         </sect2>
@@ -8079,7 +8081,7 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnSwitchTask">
         <title>SvnSwitchTask</title>
         <para> The <literal>SvnSwitchTask</literal> changes a local directory from one repository to
-            another. </para>
+            another.</para>
 
         <table>
             <title>Attributes</title>
@@ -8167,7 +8169,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;svnswitch
+            <programlisting language="xml">&lt;svnswitch
    svnpath="/usr/bin/svn"
    username="anony"
    password="anony"
@@ -8175,7 +8177,7 @@ host="webserver" command="ls" /></programlisting>
    repositoryurl="http://svn.phing.info/tags/2.4.2"
    todir="/home/user/svnwc"/></programlisting>
 
-            <programlisting>&lt;svnswitch
+            <programlisting language="xml">&lt;svnswitch
    svnpath="C:/Subversion/bin/svn.exe"
    repositoryurl="http://svn.phing.info/tags/2.4.2"
    todir="C:/projects/svnwc"/></programlisting>
@@ -8231,9 +8233,9 @@ host="webserver" command="ls" /></programlisting>
         <sect2>
             <title>Example</title>
             <para>Single symlink</para>
-            <programlisting>&lt;symlink target="/path/to/original/file" link="/where/to/symlink" /></programlisting>
+            <programlisting language="xml">&lt;symlink target="/path/to/original/file" link="/where/to/symlink" /></programlisting>
             <para>Using filesets</para>
-            <programlisting>&lt;symlink link="/where/to/symlink">
+            <programlisting language="xml">&lt;symlink link="/where/to/symlink">
 	&lt;fileset dir="/some/directory">
 		&lt;include name="*" />
 	&lt;/fileset>
@@ -8270,7 +8272,7 @@ host="webserver" command="ls" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="TarTask">
         <title>TarTask</title>
-        <para> The <literal>TarTask</literal> creates a tarball from a fileset or directory. </para>
+        <para> The <literal>TarTask</literal> creates a tarball from a fileset or directory.</para>
 
         <table>
             <title>Attributes</title>
@@ -8348,11 +8350,11 @@ host="webserver" command="ls" /></programlisting>
         </note>
         <note>
             <para>using basedir and fileset simultaneously can result in strange contents in the
-                archive. </para>
+                archive.</para>
         </note>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;tar destfile="phing.tar" compression="gzip">
+            <programlisting language="xml">&lt;tar destfile="phing.tar" compression="gzip">
  &lt;fileset dir=".">
 	 &lt;include name="**/**" />
  &lt;/fileset>
@@ -8360,7 +8362,7 @@ host="webserver" command="ls" /></programlisting>
 
             <para>The above example uses a fileset to determine which files to include in the
                 archive.</para>
-            <programlisting>&lt;tar destfile="phing.tar" basedir="." compression="gzip"/></programlisting>
+            <programlisting language="xml">&lt;tar destfile="phing.tar" basedir="." compression="gzip"/></programlisting>
             <para>The second example uses the basedir attribute to include the contents of that
                 directory (including subdirectories) in the archive.</para>
         </sect2>
@@ -8375,7 +8377,7 @@ host="webserver" command="ls" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="UntarTask">
         <title>UntarTask</title>
-        <para> The <literal>UntarTask</literal> unpacks one or more tar archives. </para>
+        <para> The <literal>UntarTask</literal> unpacks one or more tar archives.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8429,7 +8431,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;untar file="testtar.tar.gz" todir="dest">
+            <programlisting language="xml">&lt;untar file="testtar.tar.gz" todir="dest">
   &lt;fileset dir=".">
     &lt;include name="*.tar.gz"/>
     &lt;include name="*.tar"/>
@@ -8448,7 +8450,7 @@ host="webserver" command="ls" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="UnzipTask">
         <title>UnzipTask</title>
-        <para> The <literal>UnzipTask</literal> unpacks one or more ZIP archives. </para>
+        <para> The <literal>UnzipTask</literal> unpacks one or more ZIP archives.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8495,7 +8497,7 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;unzip file="testzip.zip" todir="dest">
+            <programlisting language="xml">&lt;unzip file="testzip.zip" todir="dest">
   &lt;fileset dir=".">
     &lt;include name="*.zip"/>
   &lt;/fileset>
@@ -8514,7 +8516,7 @@ host="webserver" command="ls" /></programlisting>
         <title>VersionTask</title>
         <para> The <literal>VersionTask</literal> increments a three-part version number from a
             given file and writes it back to the file. The resulting version number is also
-            published under supplied property. </para>
+            published under supplied property.</para>
         <para>The version number in the text file is expected in the format of Major.Minor.Bugfix
             (e.g. 1.3.2).</para>
         <table>
@@ -8561,14 +8563,14 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;version releasetype="Major" file="version.txt" property="version.number"/></programlisting>
+            <programlisting language="xml">&lt;version releasetype="Major" file="version.txt" property="version.number"/></programlisting>
         </sect2>
 
     </sect1>
     <sect1 role="taskdef" xml:id="XmlLintTask">
         <title>XmlLintTask</title>
         <para>The <literal>XmlLintTask</literal> checks syntax (lint) one or more XML files against
-            an XML Schema Definition. </para>
+            an XML Schema Definition.</para>
         <para><literal>Note:</literal> This assumes that the DOM extension is loaded in PHP5 since
             this is used to drive the validation process.</para>
 
@@ -8623,16 +8625,16 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Examples</title>
-            <programlisting>&lt;xmllint schema="schema.xsd" file="config.xml"/></programlisting>
+            <programlisting language="xml">&lt;xmllint schema="schema.xsd" file="config.xml"/></programlisting>
             <para>Validate one XML file against one XSD file.</para>
-            <programlisting>&lt;xmllint schema="schema.xsd">
+            <programlisting language="xml">&lt;xmllint schema="schema.xsd">
   &lt;fileset dir=".">
     &lt;include name="**/config.xml"/>
   &lt;/fileset>
 &lt;/xmllint></programlisting>
             <para>Validate more XML files against one XSD file.</para>
 
-            <programlisting>&lt;fileset dir="./sources" id="sources">
+            <programlisting language="xml">&lt;fileset dir="./sources" id="sources">
   &lt;include name="main.xml"/>
   &lt;include name="chapter*.xml"/>
   &lt;include name="appendix*.xml"/>
@@ -8718,28 +8720,28 @@ host="webserver" command="ls" /></programlisting>
         <sect2>
             <title>Example</title>
             <para>Consider the following XML file:</para>
-            <programlisting>&lt;root-tag myattr="true">
+            <programlisting language="xml">&lt;root-tag myattr="true">
     &lt;inner-tag someattr="val">Text&lt;/inner-tag>
     &lt;a2>&lt;a3>&lt;a4>false&lt;/a4>&lt;/a3>&lt;/a2>
 &lt;/root-tag></programlisting>
             <para> Used with the the following entry (<emphasis role="bold">default</emphasis>): </para>
-            <programlisting>&lt;xmlproperty file="somefile.xml"/></programlisting>
+            <programlisting language="xml">&lt;xmlproperty file="somefile.xml"/></programlisting>
             <para>results in the following properties:</para>
-            <programlisting>root-tag(myattr)=true
+            <programlisting language="xml">root-tag(myattr)=true
 root-tag.inner-tag=Text
 root-tag.inner-tag(someattr)=val
 root-tag.a2.a3.a4=false</programlisting>
             <para> Used with the the following entry (<literal>collapseAttributes=true</literal>): </para>
-            <programlisting>&lt;xmlproperty file="somefile.xml" collapseAttributes="true"/></programlisting>
+            <programlisting language="xml">&lt;xmlproperty file="somefile.xml" collapseAttributes="true"/></programlisting>
             <para>results in the following properties:</para>
-            <programlisting>root-tag.myattr=true
+            <programlisting language="xml">root-tag.myattr=true
 root-tag.inner-tag=Text
 root-tag.inner-tag.someatt=val
 root-tag.a2.a3.a4=false</programlisting>
             <para> Used with the the following entry (<literal>keepRoot=false</literal>): </para>
-            <programlisting>&lt;xmlproperty file="somefile.xml" keepRoot="false"/></programlisting>
+            <programlisting language="xml">&lt;xmlproperty file="somefile.xml" keepRoot="false"/></programlisting>
             <para>results in the following properties:</para>
-            <programlisting>inner-tag=Text
+            <programlisting language="xml">inner-tag=Text
 inner-tag(someattr)=val
 a2.a3.a4=false</programlisting>
         </sect2>
@@ -8747,7 +8749,7 @@ a2.a3.a4=false</programlisting>
     <sect1 role="taskdef" xml:id="ZendCodeAnalyzerTask">
         <title>ZendCodeAnalyzerTask</title>
         <para> The <literal>ZendCodeAnalyzerTask</literal> analyze PHP source files using the Zend
-            Code Analyzer tool that ships with all versions of Zend Studio. </para>
+            Code Analyzer tool that ships with all versions of Zend Studio.</para>
 
         <table>
             <title>Attributes</title>
@@ -8807,10 +8809,10 @@ a2.a3.a4=false</programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" file="SomeClass.php"/></programlisting>
+            <programlisting language="xml">&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" file="SomeClass.php"/></programlisting>
 
             <para>Analyze one PHP source file with all default warnings enabled.</para>
-            <programlisting>&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" disable="var-ref-notmodified,if-if-else">
+            <programlisting language="xml">&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" disable="var-ref-notmodified,if-if-else">
   &lt;fileset dir=".">
     &lt;include name="**/*.php"/>
   &lt;/fileset>
@@ -8818,7 +8820,7 @@ a2.a3.a4=false</programlisting>
             <para>Analyze a set of PHP source files and disable a few warnings.</para>
             <para>
                 <emphasis role="bold">NOTE:</emphasis> the <literal>analyze</literal> tag has been
-                deprecated as of Phing 2.4. </para>
+                deprecated as of Phing 2.4.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -8834,10 +8836,10 @@ a2.a3.a4=false</programlisting>
         <para> The <literal>ZendGuardEncodeTask</literal> is a wrapper for ZendGuard zendenc
             executable. It pre-compiles the PHP code which improves speed and can prevent
             unauthorized code modification. Additionally it allows signing or licensing the code so
-            it can only be used with a valid license. </para>
+            it can only be used with a valid license.</para>
         <para> For more information about ZendGuard encode parameters see the <link
                 xlink:href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf">ZendGuard
-                documentation</link>. </para>
+                documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -8999,7 +9001,7 @@ a2.a3.a4=false</programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;zendguardencode
+            <programlisting language="xml">&lt;zendguardencode
  shortTags="false"
  productName="Phing"
  privateKeyPath="/var/data/phing.key"
@@ -9037,10 +9039,10 @@ a2.a3.a4=false</programlisting>
         <title>ZendGuardLicenseTask</title>
         <para> The <literal>ZendGuardLicenseTask</literal> is a wrapper for ZendGuard zendenc_sign
             executable. It generates ZendGuard license either from a license template file or from
-            the defined properties. </para>
+            the defined properties.</para>
         <para> For more information about ZendGuard sign parameters see the <link
                 xlink:href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf">ZendGuard
-                documentation</link>. </para>
+                documentation</link>.</para>
 
         <table>
             <title>Attributes</title>
@@ -9179,7 +9181,7 @@ a2.a3.a4=false</programlisting>
 
         <sect2>
             <title>Examples</title>
-            <programlisting>&lt;zendguardlicense
+            <programlisting language="xml">&lt;zendguardlicense
             privateKeyPath="/var/data/phing.key"
             zendsignPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc_sign"
             outputFile="./data/license/license.zl"
@@ -9193,7 +9195,7 @@ a2.a3.a4=false</programlisting>
             xUserDefinedValues="Drink=Tea;Material=Wood"
 /></programlisting>
             <para>Creates a license using the given properties.</para>
-            <programlisting>&lt;zendguardlicense
+            <programlisting language="xml">&lt;zendguardlicense
             privateKeyPath="/var/data/phing.key"
             zendsignPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc_sign"
             outputFile="./data/license/license.zl"
@@ -9204,7 +9206,7 @@ a2.a3.a4=false</programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="ZipTask">
         <title>ZipTask</title>
-        <para> The <literal>ZipTask</literal> creates a .zip archive from a fileset or directory. </para>
+        <para> The <literal>ZipTask</literal> creates a .zip archive from a fileset or directory.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -9257,10 +9259,10 @@ a2.a3.a4=false</programlisting>
         </table>
         <para>
             <emphasis role="bold">Important note:</emphasis> using basedir and fileset
-            simultaneously can result in strange contents in the archive. </para>
+            simultaneously can result in strange contents in the archive.</para>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;zip destfile="phing.zip">
+            <programlisting language="xml">&lt;zip destfile="phing.zip">
  &lt;fileset dir=".">
 	 &lt;include name="**/**" />
  &lt;/fileset>
@@ -9268,7 +9270,7 @@ a2.a3.a4=false</programlisting>
 
             <para>The above example uses a fileset to determine which files to include in the
                 archive.</para>
-            <programlisting>&lt;zip destfile="phing.zip" basedir="."/></programlisting>
+            <programlisting language="xml">&lt;zip destfile="phing.zip" basedir="."/></programlisting>
             <para>The second example uses the basedir attribute to include the contents of that
                 directory (including subdirectories) in the archive.</para>
         </sect2>

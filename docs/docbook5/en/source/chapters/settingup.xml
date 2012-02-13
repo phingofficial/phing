@@ -19,7 +19,7 @@
 
 		<para> For more information on PHP and the required modules see the PHP <link
 				xlink:href="Bibliography.html#php">[php]</link> website. For a brief list of
-			software dependencies see below. </para>
+			software dependencies see below.</para>
 
 		<sect2>
 			<title> Operating Systems </title>
@@ -189,7 +189,7 @@
 
 			<para> The easiest way to obtain the distribution package is to visit the Phing website
 					<link xlink:href="Bibliography.html#phing">[phing] </link>and download the
-				current distribution package in the format you desire. </para>
+				current distribution package in the format you desire.</para>
 			<para>As of version 2.0, you have the option of downloading a PEAR-installable package
 				or the full phing distribution. If you wish to modify phing we suggestion
 				downloading the full version so that you can (e.g.) create your own PEAR package. If
@@ -206,13 +206,13 @@
 			<para> The SVN revisions of Phing are not bullet-proof and may fail to execute properly
 				on your machine. Only obtain the development versions if you are absolutely aware of
 				limitations and constraints of such an action. Additionally you should sign up to
-				the development mailinglist to report and notice errors and incompatibilities. </para>
+				the development mailinglist to report and notice errors and incompatibilities.</para>
 
 			<para> We assume that you are running a Unix style operating system. So we expect the
 				Subversion software is installed and the <command>svn</command> executable is in
 				your system's search path. However, the steps for a Windows based system are very
 				similar. There is plenty additional information available on how to use Subversion
-					<link xlink:href="Bibliography.html#cvs-howto">[svn-howto]</link>. </para>
+					<link xlink:href="Bibliography.html#cvs-howto">[svn-howto]</link>.</para>
 
 			<para>To check out the project source repository type:</para>
 
@@ -220,7 +220,7 @@
 
 			<para> You can also browse the entire Phing source (including previous versions and
 				development branches) on <link xlink:href="http://www.phing.info/trac/browser"
-					role="external">http://www.phing.info/trac/browser</link>. </para>
+					role="external">http://www.phing.info/trac/browser</link>.</para>
 		</sect2>
 	</sect1>
 	<sect1>
@@ -244,14 +244,14 @@ $&gt; pear install phing/phing</screen>
 				<filename role="dir">classes</filename> and <filename role="dir">etc</filename>
 			directories are required to run Phing. To install Phing, choose a directory and
 			uncompress the distribution file in that directory (you may already have done this in a
-			prior step). This directory will be known as <literal>PHING_HOME</literal> . </para>
+			prior step). This directory will be known as <literal>PHING_HOME</literal> .</para>
 
 		<warning>
 			<para>On earlier Windows installations, the script used to launch Phing will have
 				problems if <literal>PHING_HOME</literal> is a long filepath. This is due to
 				limitations in the OS's handling of the "for" batch-file statement. It is
 				recommended, therefore, that Phing be installed in a short path, such as <filename
-					role="dir">C:\opt\phing</filename>. </para>
+					role="dir">C:\opt\phing</filename>.</para>
 		</warning>
 
 		<para>Before you can run Phing there is some additional set up you will need to do
@@ -340,7 +340,7 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
 			</itemizedlist>
 
 			<para> You are now ready to use the <command>phing</command> command at your command
-				prompt, from everywhere in your directory tree. </para>
+				prompt, from everywhere in your directory tree.</para>
 		</sect2>
 	</sect1>
 	<sect1>
@@ -360,11 +360,11 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
 			<para> at the command line (where [targetname] is the target you want to be executed).
 				Optionally, you may specify command line arguments as listed in <link
 					xlink:href="appendixes/AppendixA-FactSheet.html#CommandLineArguments">Appendix
-					A</link>. </para>
+					A</link>.</para>
 
 			<para> For example, the following command line calls the default buildscript
 					<filename>build.xml</filename> using the default target with the property
-					<literal>ftp.upload</literal> set to true. </para>
+					<literal>ftp.upload</literal> set to true.</para>
 			<screen>$ phing -Dftp.upload=true</screen>
 		</sect2>
 	</sect1>

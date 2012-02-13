@@ -20,7 +20,7 @@
         references in <xref xlink:href="#app.factsheet"/> and <xref xlink:href="#app.coretasks"/> for more
         detailed information on properties and tasks.</para>
     
-    <programlisting>
+    <programlisting language="xml">
 &lt;?xml version="1.0" encoding="UTF-8"?>
 
 &lt;!-- 
@@ -112,7 +112,7 @@
         files should be <literal>.properties</literal>, the default Property File for a
         Build File is <literal>build.properties</literal></para>
     
-<programlisting># Property files contain key/value pairs
+<programlisting language="xml"># Property files contain key/value pairs
 key=value
 
 # Property keys may contain alphanumeric chars and colons, but

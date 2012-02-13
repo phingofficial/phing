@@ -47,7 +47,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;target name="main"
+			<programlisting language="php">&lt;target name="main"
         description="==>test AdhocTask ">
 		
 		&lt;adhoc-task name="foo">&lt;![CDATA[
@@ -104,7 +104,7 @@
 		</table>
 		<sect2>
 			<title>Example</title>
-			<programlisting>&lt;target name="main"
+			<programlisting language="php">&lt;target name="main"
         description="==>test AdhocType">
 		
 		&lt;adhoc-type name="dsn">&lt;![CDATA[
@@ -182,7 +182,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;append destFile="${process.outputfile}">
+			<programlisting language="xml">&lt;append destFile="${process.outputfile}">
   &lt;filterchain>
     &lt;xsltfilter style="${process.stylesheet}">
 	     &lt;param name="mode" expression="${process.xslt.mode}"/>
@@ -300,7 +300,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;available file="/tmp/test.txt" property="test_txt_exists" value="Yes"/>
+			<programlisting language="xml">&lt;available file="/tmp/test.txt" property="test_txt_exists" value="Yes"/>
 
 &lt;available file="/home/foo" type="dir" property="properties.yetanother" />
 
@@ -375,7 +375,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;chmod file="test.txt" mode="0755" />
+			<programlisting language="xml">&lt;chmod file="test.txt" mode="0755" />
 &lt;chmod file="/home/test" mode="0775" />
 &lt;chmod file="/home/test/mine.txt" mode="0500" verbose="true" /></programlisting>
 		</sect2>
@@ -460,7 +460,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;chown file="my-file.txt" user="foo" />
+			<programlisting language="xml">&lt;chown file="my-file.txt" user="foo" />
 &lt;chown file="my-file.txt" user="username.groupname" />
 &lt;chown file="/home/test/my-directory" user="bar" />
 &lt;chown file="/home/test/my-file.txt" user="foo" verbose="true" failonerror="false" /></programlisting>
@@ -521,7 +521,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;condition property="isMacOrWindows">
+			<programlisting language="xml">&lt;condition property="isMacOrWindows">
     &lt;or>
       &lt;os family="mac"/>
       &lt;os family="windows"/>
@@ -644,7 +644,7 @@
 		<sect2>
 			<title>Examples</title>
 			<para>On the one hand, CopyTask can be used to copy file by file:</para>
-			<programlisting>&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/></programlisting>
+			<programlisting language="xml">&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/></programlisting>
 			<para>Additionally, <literal>CopyTask</literal> supports Filesets, i.e. you can easily
 				include/exclude one or more files. For more information, see <xref
 					xlink:href="#app.coretypes"/> -- pay particular attention to the
@@ -652,7 +652,7 @@
 					xlink:href="#app.coremappers"/> and <xref xlink:href="#app.corefilters"/> are
 				also supported by <literal>CopyTask</literal>, so you can do almost everything that
 				needs processing the content of the files or the filename.</para>
-			<programlisting>&lt;copy todir="/tmp/backup" >
+			<programlisting language="xml">&lt;copy todir="/tmp/backup" >
   &lt;fileset dir=".">
     &lt;include name="**/*.txt" />
     &lt;include name="**/*.doc" />
@@ -660,7 +660,7 @@
   &lt;/fileset>
   &lt;filelist dir="." files="test.html"/>
 &lt;/copy></programlisting>
-			<programlisting>&lt;copy todir="build" >
+			<programlisting language="xml">&lt;copy todir="build" >
   &lt;fileset defaultexcludes="false" expandsymboliclinks="true" dir=".">
     &lt;include name="**/*.php" />
   &lt;/fileset>
@@ -825,10 +825,10 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
+			<programlisting language="xml">&lt;cvs cvsRoot=":pserver:guest@cvs.tigris.org:/cvs"
        module="phing" dest="${ws.dir}"/></programlisting>
 			<para>or, using the optional command line arguments:</para>
-			<programlisting>&lt;cvs output="patch" command="-q diff -u -N" /></programlisting>
+			<programlisting language="xml">&lt;cvs output="patch" command="-q diff -u -N" /></programlisting>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="CvsPassTask">
@@ -881,7 +881,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;!-- create a password file -->
+			<programlisting language="xml">&lt;!-- create a password file -->
 &lt;cvspass cvsRoot=":pserver:guest@cvs.tigris.org:/cvs" passfile="cvspass" password="guest"/>
 
 &lt;!-- use the just-created password file -->
@@ -968,7 +968,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;-- Delete a specific file -->
+			<programlisting language="xml">&lt;-- Delete a specific file -->
 &lt;delete file="/tmp/foo.bar" />
 
 &lt;-- Delete a directory -->
@@ -1060,7 +1060,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;echo msg="Phing rocks!" />
+			<programlisting language="xml">&lt;echo msg="Phing rocks!" />
 
 &lt;echo message="Binarycloud, too." />
 
@@ -1211,7 +1211,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;-- List the contents of "/home". -->
+			<programlisting language="xml">&lt;-- List the contents of "/home". -->
 &lt;exec command="ls -l" dir="/home" />
 
 &lt;-- Start the make process in "/usr/src/php-4.0". -->
@@ -1339,7 +1339,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;-- Exit w/ message -->
+			<programlisting language="xml">&lt;-- Exit w/ message -->
 &lt;exit message="Failed for some reason!" />
 
 &lt;--  Exit if ${errorprop} is defined -->
@@ -1418,7 +1418,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;!-- loop through languages, and call buildlang task with setted param -->
+			<programlisting language="xml">&lt;!-- loop through languages, and call buildlang task with setted param -->
 &lt;property name="languages" value="en,fr,de" />
 &lt;foreach list="${languages}" param="lang" target="buildlang" />
 
@@ -1465,7 +1465,7 @@
 			false.</para>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;if>
+			<programlisting language="xml">&lt;if>
  &lt;equals arg1="${foo}" arg2="bar" />
  &lt;then>
    &lt;echo message="The value of property foo is bar" />
@@ -1474,7 +1474,7 @@
    &lt;echo message="The value of property foo is not bar" />
  &lt;/else>
 &lt;/if></programlisting>
-			<programlisting>&lt;if>
+			<programlisting language="xml">&lt;if>
  &lt;equals arg1="${foo}" arg2="bar" />
  &lt;then>
    &lt;echo message="The value of property foo is 'bar'" />
@@ -1571,7 +1571,7 @@
 				build file <filename>imported.xml</filename> , located anywhere on the file system,
 				and <literal>imported.xml</literal> reads a set of properties from
 					<literal>imported.properties</literal> :</para>
-			<programlisting>&lt;!-- importing.xml -->
+			<programlisting language="xml">&lt;!-- importing.xml -->
 &lt;project name="importing" basedir="." default="...">
   &lt;import file="${path_to_imported}/imported.xml"/>
 &lt;/project>
@@ -1584,7 +1584,7 @@
 				the basedir of <literal>importing.xml</literal> , because the basedir of
 					<literal>imported.xml</literal> is ignored by Phing. The right way to use
 					<literal>imported.properties</literal> is:</para>
-			<programlisting>&lt;!-- imported.xml -->
+			<programlisting language="xml">&lt;!-- imported.xml -->
 &lt;project name="imported" basedir="." default="...">
   &lt;php function="dirname" returnProperty="imported.basedir">
     &lt;param value="${phing.file.imported}"/>
@@ -1602,7 +1602,7 @@
 
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;import file="path/to/build.xml"/>
+			<programlisting language="xml">&lt;import file="path/to/build.xml"/>
 &lt;import file="path/to/build.xml" optional="true"/></programlisting>
 		</sect2>
 	</sect1>
@@ -1647,9 +1647,9 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;includepath classpath="new/path/here" />
+			<programlisting language="xml">&lt;includepath classpath="new/path/here" />
 &lt;includepath classpath="path1:path2" /></programlisting>
-			<programlisting>&lt;path id="project.class.path">
+			<programlisting language="xml">&lt;path id="project.class.path">
   &lt;pathelement dir="lib/"/>
   &lt;pathelement dir="ext/"/>
 &lt;/paentry>
@@ -1720,7 +1720,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;!-- Getting string input -->
+			<programlisting language="xml">&lt;!-- Getting string input -->
 &lt;echo>HTML pages installing to: ${documentRoot}&lt;/echo>
 &lt;echo>PHP classes installing to: ${servletDirectory}&lt;/echo>
 
@@ -1781,7 +1781,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;loadfile property="version" file="version.txt"/></programlisting>
+			<programlisting language="xml">&lt;loadfile property="version" file="version.txt"/></programlisting>
 		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags:</title>
@@ -1834,7 +1834,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;-- Create a temp directory -->
+			<programlisting language="xml">&lt;-- Create a temp directory -->
 &lt;mkdir dir="/tmp/foo" />
 
 &lt;-- Using mkdir with a property -->
@@ -1852,7 +1852,7 @@
 			to the destination successfully.</para>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;-- The following will move the file "somefile.txt" to "/tmp" and
+			<programlisting language="xml">&lt;-- The following will move the file "somefile.txt" to "/tmp" and
     change its filename to "anotherfile.bak". It will overwrite
     an existing file. -->
 &lt;move file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/>
@@ -1946,7 +1946,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
+			<programlisting language="xml">&lt;-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
  &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
 
 &lt;-- Do a more complex call -->
@@ -2075,7 +2075,7 @@
 		</note>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;target name="foo">
+			<programlisting language="xml">&lt;target name="foo">
     &lt;phingcall target="bar">
         &lt;property name="property1" value="aaaaa" />
         &lt;property name="foo" value="baz" />
@@ -2084,7 +2084,7 @@
 			<para>In the example above, the properties <literal>property1</literal> and
 					<literal>foo</literal> are defined and only accessible inside the called
 				target.</para>
-			<programlisting>&lt;target name="bar" depends="init">
+			<programlisting language="xml">&lt;target name="bar" depends="init">
     &lt;echo message="prop is ${property1} ${foo}" />
 &lt;/target></programlisting>
 		</sect2>
@@ -2168,11 +2168,11 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;php function="crypt" returnProperty="enc_passwd">
+			<programlisting language="xml">&lt;php function="crypt" returnProperty="enc_passwd">
   &lt;param value="${auth.root_passwd}"/>
 &lt;/php></programlisting>
-			<programlisting>&lt;php expression="3 + 4" returnProperty="sum"/></programlisting>
-			<programlisting>&lt;php expression="echo 'test';"></programlisting>
+			<programlisting language="xml">&lt;php expression="3 + 4" returnProperty="sum"/></programlisting>
+			<programlisting language="xml">&lt;php expression="echo 'test';"></programlisting>
 		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
@@ -2281,7 +2281,7 @@
 		</note>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;property name="strings.test" value="Harr harr, more power!" />
+			<programlisting language="xml">&lt;property name="strings.test" value="Harr harr, more power!" />
 &lt;echo message="${strings.test}" />
 
 &lt;property name="foo.bar" value="Yet another property..." />
@@ -2356,7 +2356,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;propertyprompt propertyName="someprop" defaultValue="/var/www"
+			<programlisting language="xml">&lt;propertyprompt propertyName="someprop" defaultValue="/var/www"
 		promptText="Enter your web root" />
 &lt;echo>${someprop}&lt;/echo></programlisting>
 		</sect2>
@@ -2396,7 +2396,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;reflexive>
+			<programlisting language="xml">&lt;reflexive>
   &lt;fileset dir=".">
     &lt;include pattern="*.html">
   &lt;/fileset>
@@ -2474,7 +2474,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;property name="relative_path" value="./dirname"/>
+			<programlisting language="xml">&lt;property name="relative_path" value="./dirname"/>
 
 &lt;resolvepath propertyName="absolute_path" file="${relative_path}"/>
 
@@ -2549,7 +2549,7 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;!-- Includes the Task named "ValidateHTMLTask" and makes it available by
+			<programlisting language="xml">&lt;!-- Includes the Task named "ValidateHTMLTask" and makes it available by
      &lt;validatehtml> -->
 &lt;taskdef classname="user.tasks.ValidateHTMLTask" name="validatehtml" />
 
@@ -2563,7 +2563,7 @@ file defines a task in the format: name=path.to.Task -->
 			<para>
 				<emphasis role="bold">NB:</emphasis> Taskdef now supports the PEAR-style naming
 				convention to define and load tasks:</para>
-			<programlisting>&lt;taskdef name="sampletask" classname="Dir_Subdir_SampleTask"/></programlisting>
+			<programlisting language="xml">&lt;taskdef name="sampletask" classname="Dir_Subdir_SampleTask"/></programlisting>
 			<para>will load class <literal>Dir_Subdir_SampleTask</literal> from file
 					<filename>Dir/Subdir/SampleTask.php</filename>.</para>
 		</sect2>
@@ -2629,7 +2629,7 @@ file defines a task in the format: name=path.to.Task -->
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;touch file="README.txt" millis="102134111" />
+			<programlisting language="xml">&lt;touch file="README.txt" millis="102134111" />
 
 &lt;touch file="COPYING.lib" datetime="10/10/1999 09:31 AM" /></programlisting>
 		</sect2>
@@ -2683,15 +2683,15 @@ file defines a task in the format: name=path.to.Task -->
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;tstamp/></programlisting>
+			<programlisting language="xml">&lt;tstamp/></programlisting>
 			<para>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default
 				formats.</para>
-			<programlisting>&lt;tstamp>
+			<programlisting language="xml">&lt;tstamp>
   &lt;format property="DATE" pattern="%c" locale="nl_NL"/>
 &lt;/tstamp></programlisting>
 			<para>sets the standard properties as well as the property DATE with the date/time
 				pattern "%c" using the Dutch locale.</para>
-			<programlisting>&lt;tstamp prefix="start"/></programlisting>
+			<programlisting language="xml">&lt;tstamp prefix="start"/></programlisting>
 			<para>sets three properties with the standard formats, prefixed with "start.":
 				start.DSTAMP, start.TSTAMP, and start.TODAY.</para>
 		</sect2>
@@ -2812,7 +2812,7 @@ file defines a task in the format: name=path.to.Task -->
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;!-- Includes the Type named "CustomProject" and makes it available by
+			<programlisting language="xml">&lt;!-- Includes the Type named "CustomProject" and makes it available by
      &lt;cproject> -->
 &lt;taskdef classname="user.types.CustomProject" name="cproject" /></programlisting>
 		</sect2>
@@ -2885,7 +2885,7 @@ file defines a task in the format: name=path.to.Task -->
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" >
+			<programlisting language="xml">&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" >
   &lt;fileset dir="${src}/propel">
     &lt;include="**/*.php"/>
   &lt;/fileset>
@@ -2965,7 +2965,7 @@ file defines a task in the format: name=path.to.Task -->
 				xlink:href="#CopyTask"/>.</para>
 		<sect2>
 			<title>Examples</title>
-			<programlisting>&lt;!-- Transform docbook with an imaginary XSLT file -->
+			<programlisting language="xml">&lt;!-- Transform docbook with an imaginary XSLT file -->
 &lt;xslt todir="/srv/docs/phing" style="dbk2html.xslt" >
   &lt;fileset dir=".">
     &lt;include name="**/*.xml" />

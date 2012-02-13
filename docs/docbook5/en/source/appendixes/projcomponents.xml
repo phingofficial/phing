@@ -18,7 +18,7 @@
         <para>Project may contain task calls and targets (see below).</para>
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;?xml version=&quot;1.0&quot; ?&gt;
+            <programlisting language="xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
 
 &lt;project name=&quot;TestProject&quot; basedir=&quot;.&quot; default=&quot;main&quot;
          description=&quot;This is a test project to show how to use projects ;-)&quot;&gt;
@@ -95,7 +95,7 @@
 
         <sect2>
             <title>Example</title>
-            <programlisting>&lt;target if=&quot;lang&quot; unless=&quot;lang.en&quot; depends=&quot;foo1,foo2&quot;
+            <programlisting language="xml">&lt;target if=&quot;lang&quot; unless=&quot;lang.en&quot; depends=&quot;foo1,foo2&quot;
        name=&quot;main&quot; description=&quot;This is an example target&quot; &gt;
 
   &lt;!-- everything else goes here --&gt;

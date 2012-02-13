@@ -185,7 +185,7 @@
     </sect1>
     <sect1>
         <title> Distribution File Layout </title>
-        <programlisting>$PHING_HOME
+        <programlisting language="xml">$PHING_HOME
   |-- bin
   |-- classes
   |    `-- phing
@@ -247,12 +247,12 @@
         <title>The LGPL License</title>
         <para>Source <link xlink:href="http://www.gnu.org/licenses/lgpl.txt"
                 >http://www.gnu.org/licenses/lgpl.txt</link></para>
-        <programlisting><xi:include href="glgpl.txt" parse="text"/></programlisting>
+        <programlisting language="xml"><xi:include href="glgpl.txt" parse="text"/></programlisting>
     </sect1>
     <sect1 xml:id="sec.gfdl">
         <title>The GFDL License</title>
         <para>Source <link xlink:href="http://www.gnu.org/licenses/fdl-1.3.txt"
                 >http://www.gnu.org/licenses/fdl-1.3.txt</link></para>
-        <programlisting><xi:include href="gfdl.txt" parse="text"/></programlisting>
+        <programlisting language="xml"><xi:include href="gfdl.txt" parse="text"/></programlisting>
     </sect1>
 </appendix>

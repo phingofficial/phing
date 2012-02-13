@@ -94,7 +94,7 @@
         <para>The <literal>&lt;contains></literal> tag selects files that contain the string
             specified by the <literal>text</literal> attribute.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
   &lt;contains text="PHP"/>
 &lt;/fileset></programlisting>
         <table>
@@ -136,7 +136,7 @@
         <para>The <literal>&lt;date></literal> tag selects files whose last modified date meet the
             date limits specified by the selector.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
   &lt;date datetime="01/01/2001 12:00 AM" when="before"/>
 &lt;/fileset></programlisting>
 
@@ -214,7 +214,7 @@
 
         <para>The <literal>&lt;depend></literal> tag is case-sensitive.</para>
 
-        <programlisting>&lt;fileset dir="phing-2.4.5/classes" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="phing-2.4.5/classes" includes="**/*.php">
   &lt;depend targetdir="phing-2.4.6/classes"/>
 &lt;/fileset></programlisting>
 
@@ -261,7 +261,7 @@
         <para>The <literal>&lt;depentry></literal> tag selects files based on how many directory
             levels deep they are in relation to the base directory of the fileset.</para>
 
-        <programlisting>&lt;fileset dir="phing/classes" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="phing/classes" includes="**/*.php">
   &lt;depth max="1"/>
 &lt;/fileset></programlisting>
 
@@ -307,7 +307,7 @@
             however, one can combine it with all the other selectors using whatever selector
             container is desired.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="**/*">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*">
   &lt;filename name="**/*.php">
 &lt;/fileset></programlisting>
 
@@ -365,7 +365,7 @@
 
         <para>The <literal>&lt;present></literal> tag is case-sensitive.</para>
 
-        <programlisting>&lt;fileset dir="phing-2.4.6/classes" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="phing-2.4.6/classes" includes="**/*.php">
   &lt;present present="srconly" targetdir="phing-2.4.5/classes">
 &lt;/fileset></programlisting>
 
@@ -415,7 +415,7 @@
         <para>The <literal>&lt;containsregexp></literal> tag selects the files whose contents
             contain a match to the regular expression specified by the expression attribute.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="*.txt">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="*.txt">
   &lt;containsregexp expression="[4-6]\.[0-9]"/>
 &lt;/fileset></programlisting>
 
@@ -459,7 +459,7 @@
         <para>The <literal>&lt;size></literal> tag selects files matching a specified size
             limit.</para>
 
-        <programlisting>&lt;fileset dir="${src}">
+        <programlisting language="xml">&lt;fileset dir="${src}">
   &lt;size value="4" when="more"/>
 &lt;/fileset></programlisting>
 
@@ -517,7 +517,7 @@
         <para>The <literal>&lt;type></literal> tag selects files of a certain type: directory or
             regular.</para>
 
-        <programlisting>&lt;fileset dir="${src}">
+        <programlisting language="xml">&lt;fileset dir="${src}">
   &lt;type type="dir"/>
 &lt;/fileset></programlisting>
 
@@ -556,7 +556,7 @@
             elements it contains. It returns as soon as it finds a selector that does not select the
             file, so it is not guaranteed to check every selector.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
   &lt;and>
     &lt;size value="1000" when="more"/>
     &lt;date datetime="01/01/2011 12:00 AM" when="before"/>
@@ -571,7 +571,7 @@
             contained elements also select it. Ties are dealt with as specified by the
                 <literal>allowtie</literal> attribute.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
   &lt;majority>
     &lt;contains text="project" casesensitive="false"/>
     &lt;contains text="taskdef" casesensitive="false"/>
@@ -613,7 +613,7 @@
             elements it contains. It returns as soon as it finds a selector that selects the file,
             so it is not guaranteed to check every selector.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
   &lt;none>
     &lt;size value="1000" when="more"/>
     &lt;date datetime="01/01/2011 12:00 AM" when="before"/>
@@ -627,7 +627,7 @@
         <para>The <literal>&lt;not></literal> tag reverses the meaning of the single selector it
             contains.</para>
 
-        <programlisting>&lt;fileset dir="${src}" includes="**/*.php">
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
   &lt;not>
     &lt;contains text="Phing"/>
   &lt;/not>
@@ -641,7 +641,7 @@
             elements it contains. It returns as soon as it finds a selector that selects the file,
             so it is not guaranteed to check every selector.</para>
 
-        <programlisting>&lt;fileset dir="${src}">
+        <programlisting language="xml">&lt;fileset dir="${src}">
   &lt;or>
     &lt;depth max="0"/>
     &lt;filename name="*.png"/>

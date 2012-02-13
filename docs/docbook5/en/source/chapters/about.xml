@@ -39,7 +39,7 @@
         <title>License</title>
         <para>This documentation is made available under 
             the GNU Free Document License (see <xref xlink:href="#sec.gfdl" xlink:title="[gnu-fdl]"/>)</para>
-        <programlisting>Copyright (c) 2002 - 2012, The Phing Group 
+        <programlisting language="xml">Copyright (c) 2002 - 2012, The Phing Group 
 
 Permission is granted to copy, distribute and/or modify this document 
 under the terms of the GNU Free Documentation License, Version 1.1 or 

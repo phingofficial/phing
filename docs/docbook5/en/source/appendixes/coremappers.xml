@@ -8,17 +8,17 @@
     <para>While filters are applied to the <literal>content</literal> of files, Mappers are applied
         to the <literal>filenames</literal>. All mappers have the same API, i.e. the way you use
         them is the same:</para>
-    <programlisting>&lt;mapper type=&quot;<literal>mappername</literal>&quot; from=&quot;<literal>frompattern</literal>&quot; to=&quot;<literal>topattern</literal>&quot; /&gt;</programlisting>
+    <programlisting language="xml">&lt;mapper type=&quot;<literal>mappername</literal>&quot; from=&quot;<literal>frompattern</literal>&quot; to=&quot;<literal>topattern</literal>&quot; /&gt;</programlisting>
     <sect1>
         <title>Common Attributes</title>
         <table>
             <title> Attributes for the <literal>&lt;mapper></literal> tag </title>
             <tgroup cols="5">
-                <colspec colname="c1" colnum="1" colwidth="1.5*"/>
-                <colspec colname="c2" colnum="2" colwidth="0.8*"/>
-                <colspec colname="c3" colnum="3" colwidth="3.5*"/>
-                <colspec colname="c4" colnum="4" colwidth="0.8*"/>
-                <colspec colname="c5" colnum="5" colwidth="1.2*"/>
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -69,7 +69,7 @@
         <title>FlattenMapper </title>
         <para>The <literal>FlattenMapper</literal> removes the directories from a filename and
             solely returns the filename.</para>
-        <programlisting>&lt;copy todir=&quot;/tmp&quot;&gt;
+        <programlisting language="xml">&lt;copy todir=&quot;/tmp&quot;&gt;
   &lt;mapper type=&quot;flatten&quot; /&gt;
 
   &lt;fileset refid=&quot;someid&quot; /&gt;
@@ -78,14 +78,14 @@
             directory.</para>
         <sect2>
             <title>Examples</title>
-            <programlisting>&lt;mapper type=&quot;flatten&quot; /&gt;</programlisting>
+            <programlisting language="xml">&lt;mapper type=&quot;flatten&quot; /&gt;</programlisting>
             <para>Applying the mapper, you will get the following results from the following
                 filenames:</para>
             <table>
                 <title>Result of mapping</title>
                 <tgroup cols="2">
-                    <colspec colname="c1" colnum="1" colwidth="1*"/>
-                    <colspec colname="c2" colnum="2" colwidth="1*"/>
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>From</entry>
@@ -112,7 +112,7 @@
         <title>GlobMapper </title>
         <para>The <literal>GlobMapper</literal> works like the <literal>copy</literal> command in
             DOS:</para>
-        <programlisting>&lt;copy todir=&quot;/tmp&quot;&gt;
+        <programlisting language="xml">&lt;copy todir=&quot;/tmp&quot;&gt;
   &lt;mapper type=&quot;glob&quot; from=&quot;*.php&quot; to=&quot;*.php.bak&quot;/&gt;
 
   &lt;fileset refid=&quot;someid&quot; /&gt;
@@ -121,14 +121,14 @@
                 <literal>*.php</literal> to <literal>.php.bak</literal>.</para>
         <sect2>
             <title>Examples</title>
-            <programlisting>&lt;mapper type=&quot;glob&quot; from=&quot;*txt&quot; to=&quot;*txt.bak&quot;/&gt;</programlisting>
+            <programlisting language="xml">&lt;mapper type=&quot;glob&quot; from=&quot;*txt&quot; to=&quot;*txt.bak&quot;/&gt;</programlisting>
             <para>Applying the mapper, you will get the following results from the following
                 filenames:</para>
             <table>
                 <title>Result of mapping</title>
                 <tgroup cols="2">
-                    <colspec colname="c1" colnum="1" colwidth="1*"/>
-                    <colspec colname="c2" colnum="2" colwidth="1*"/>
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>From</entry>
@@ -169,14 +169,14 @@
             filename.</para>
         <sect2>
             <title>Examples</title>
-            <programlisting>&lt;mapper type=&quot;merge&quot; to=&quot;test.tar&quot;/&gt;</programlisting>
+            <programlisting language="xml">&lt;mapper type=&quot;merge&quot; to=&quot;test.tar&quot;/&gt;</programlisting>
             <para>Applying the mapper, you will get the following results from the following
                 filenames:</para>
             <table>
                 <title>Result of mapping</title>
                 <tgroup cols="2">
-                    <colspec colname="c1" colnum="1" colwidth="1*"/>
-                    <colspec colname="c2" colnum="2" colwidth="1*"/>
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>From</entry>
@@ -212,13 +212,13 @@
             it for every possible application.</para>
         <sect2>
             <title>Examples</title>
-            <programlisting>&lt;mapper type=&quot;regexp&quot; from=&quot;^(.*)\.conf\.xml&quot; to=&quot;\1.php&quot;/&gt;</programlisting>
+            <programlisting language="xml">&lt;mapper type=&quot;regexp&quot; from=&quot;^(.*)\.conf\.xml&quot; to=&quot;\1.php&quot;/&gt;</programlisting>
             <para>The mapper as above will do the following mappings:</para>
             <table>
                 <title>Result of mapping</title>
                 <tgroup cols="2">
-                    <colspec colname="c1" colnum="1" colwidth="1*"/>
-                    <colspec colname="c2" colnum="2" colwidth="1*"/>
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
                     <thead>
                         <row>
                             <entry>From</entry>

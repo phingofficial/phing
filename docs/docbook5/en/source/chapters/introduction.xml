@@ -12,12 +12,12 @@
             make (See <xref xlink:href="#gnumake" xlink:title="[gmake]"/>), and 
             <acronym>Phing's</acronym> use of
             simple XML build files and extensible PHP task classes make it an easy-to-use and highly
-            flexible build framework. </para>
+            flexible build framework.</para>
         <para>Because <acronym>Phing</acronym> is based on Ant, parts of this manual are also
             adapted from the ant manual (see <xref xlink:href="#ant" xlink:title="[ant]"/>). We are
             extremely grateful to the folks in the Ant project for creating (and continuing to
             create) such an inspiring build system model, and for the open-source licensing that
-            makes it possible for us to learn from each other and build increasingly better tools. </para>
+            makes it possible for us to learn from each other and build increasingly better tools.</para>
     </sect1>
     <sect1>
         <title>Phing &amp; Binarycloud: History</title>
@@ -67,13 +67,13 @@
             to do. The buildfile is structured into targets that contain the actual commands to
             perform (e.g. commands to copy a file, delete a directory, perform a DB query, etc.).
             So, to use <acronym>Phing</acronym>, you would first write your buildfile and then you
-            would run phing, specifying the target in your buildfile that you want to execute. </para>
+            would run phing, specifying the target in your buildfile that you want to execute.</para>
         <screen>% phing -f mybuildfile.xml mytarget</screen>
         <para>By default <acronym>Phing</acronym> will look for a buildfile named
                 <filename>build.xml</filename> (so you don't have to specify the buildfile name
             unless it is not <filename>build.xml</filename>) and if no target is specified
                 <acronym>Phing</acronym> will try to execute the default target, as specified in the
-                <literal>&lt;project></literal> tag. </para>
+                <literal>&lt;project></literal> tag.</para>
     </sect1>
     <sect1>
         <title>Cool, so how can I help?</title>

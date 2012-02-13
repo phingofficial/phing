@@ -4,9 +4,6 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.extending">
     <title>Extending Phing</title>
-
-
-
     <para>Phing was designed to be flexible and easily extensible. Phing's existing core and
         optional tasks do provide a great deal of flexibility in processing files, performing
         database actions, and even getting user feedback during a build process. In some cases,
@@ -17,12 +14,12 @@
         Phing's design and inner workings.</para>
     <sect1>
         <title> Extension Possibilities </title>
+        <para>There are three main areas where Phing can be extended: <xref
+                xlink:href="#sect.ext.tasks"/>, <xref xlink:href="#sect.ext.types"/>, <xref
+                xlink:href="#sect.ext.mappers"/>. The following sections discuss these
+            options.</para>
 
-        <para>There are three main areas where Phing can be extended: <xref xlink:href="#sect.ext.tasks"/>,
-            <xref xlink:href="#sect.ext.types"/>, <xref xlink:href="#sect.ext.mappers"/>. The following sections
-            discuss these options. </para>
-
-        <sect2  xml:id="sect.ext.tasks">
+        <sect2 xml:id="sect.ext.tasks">
             <title> Tasks </title>
 
             <para>Tasks are pieces of codes that perform an atomic action like installing a file.
@@ -37,22 +34,22 @@
             <title> Types </title>
 
             <para>Extending types is a rare need; nevertheless, you can do it. A possible type you
-                might implement is <literal>urlset</literal>, for example. </para>
+                might implement is <literal>urlset</literal>, for example.</para>
             <para>You may end up needing a new type for a task you write; for example, if you were
                 writing the XSLTTask you might discover that you needed a special type for
                 XSLTParams (even though in that case you could probably use the generic name/value
                 Parameter type). In cases where the type is really only for a single task, you may
                 want to just define the type class in the same file as the Task class, rather than
-                creating an official stand-alone <literal>Type</literal>. </para>
+                creating an official stand-alone <literal>Type</literal>.</para>
 
         </sect2>
         <sect2 xml:id="sect.ext.mappers">
             <title> Mappers </title>
 
             <para>Creating new mappers is also a rare need, since most everything can be handled by
-                the <xref xlink:href="#app.coretypes"/>. The
-                Mapper framework does provide a simple way for defining your own mappers to use
-                instead, however, and mappers implement a very simple interface. </para>
+                the <xref xlink:href="#app.coretypes"/>. The Mapper framework does provide a simple
+                way for defining your own mappers to use instead, however, and mappers implement a
+                very simple interface.</para>
         </sect2>
     </sect1>
 
@@ -65,7 +62,8 @@
             <para>Before you are going to start to extend Phing let's have a look at the source
                 layout. You should be comfortable with the organization of files witch in the source
                 tree of Phing before start coding. After you extracted the source distribution or
-                checked it out from <acronym>git</acronym> you should see the following directory structure:</para>
+                checked it out from <acronym>git</acronym> you should see the following directory
+                structure:</para>
 
             <literallayout xml:id="phing.dirlayout">$PHING_HOME
   |-- bin
@@ -92,8 +90,8 @@
             <table>
                 <title>Phing source tree directories</title>
                 <tgroup cols="2">
-                    <colspec colname="c1" colnum="1" colwidth="1*"/>
-                    <colspec colname="c2" colnum="2" colwidth="2*"/>
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
                     <thead>
                         <row>
                             <entry>Directory</entry>
@@ -127,8 +125,8 @@
                             <entry><para><filename role="dir">test</filename></para></entry>
                             <entry>
                                 <para>A set of testcases for different tasks, mappers and types. If
-                                    you are developing in <acronym>git</acronym> you should add a testcase for each
-                                    implementation you check in.</para>
+                                    you are developing in <acronym>git</acronym> you should add a
+                                    testcase for each implementation you check in.</para>
                             </entry>
                         </row>
                     </tbody>
@@ -137,9 +135,9 @@
 
             <para>Currently there is no distinction between the <literal>source</literal> layout and
                 the <literal>build</literal> layout of Phing. The <link
-                    xlink:href="#phing.dirlayout">directory layout</link> shows the file tree that carries some
-                additional files like the Phing website. Later on there may be a buildfile to create
-                a clean distribution tree of Phing itself. </para>
+                    xlink:href="#phing.dirlayout">directory layout</link> shows the file tree that
+                carries some additional files like the Phing website. Later on there may be a
+                buildfile to create a clean distribution tree of Phing itself.</para>
 
         </sect2>
         <sect2>
@@ -275,7 +273,7 @@
                 unsuccessfully) it calls <literal>Phing::shutdown(EXIT_CODE)</literal> that takes
                 care of a proper destruction of all objects and a gracefully termination of the
                 program by returning an <literal>exit code</literal> for shell usage (see [See
-                Program Exit Codes] for a list of exit codes). </para>
+                Program Exit Codes] for a list of exit codes).</para>
         </sect2>
     </sect1>
 
@@ -360,7 +358,7 @@
                 [below] for the XML definition that is used for this task.</para>
 
 
-            <programlisting>&lt;?php
+            <programlisting language="php">&lt;?php
 
 require_once "phing/Task.php";
 
@@ -399,7 +397,7 @@ class MyEchoTask extends Task {
                 the file is named <literal>MyEchoTask.php</literal> and placed in
                     <literal>classes/phing/tasks/my</literal> directory. We'll explain the source
                 code in detail shortly. But first we'd like to discuss how we should register the
-                task to Phing so that it can be executed during the build process. </para>
+                task to Phing so that it can be executed during the build process.</para>
 
         </sect2>
         <sect2>
@@ -411,7 +409,7 @@ class MyEchoTask extends Task {
                 buildfile below] that does exactly this.</para>
 
 
-            <programlisting>&lt;?xml version="1.0" ?>
+            <programlisting language="xml">&lt;?xml version="1.0" ?>
 
 &lt;project name="test" basedir="." default="test.myecho">
     &lt;taskdef name="myecho" classname="phing.tasks.my.MyEchoTask" />
@@ -425,13 +423,13 @@ class MyEchoTask extends Task {
                 properly execute the task (project, target) you'll find the
                     <literal>&lt;taskdef></literal> element (line 4) that properly registers your
                 custom task to Phing. For a detailed synopsis of the taskdef element see the
-                [description of this task]. </para>
+                [description of this task].</para>
 
             <para> Now, as we have registered the task by assigning a name and the worker class
                 ([see source code above]) it is ready for usage within the
                     <literal>&lt;target></literal> context (line 8). You see that we pass the
                 message that our task should echo to the screen via an XML attribute called
-                "message". </para>
+                "message".</para>
 
         </sect2>
         <sect2>
@@ -482,7 +480,7 @@ class MyEchoTask extends Task {
             <para>Always include/require all the classes needed for this task in full written
                 notation. Furthermore you should always include <literal>phing/Task.php</literal> at
                 the very top of your include block. Then include all other required system or
-                proprietary classes. </para>
+                proprietary classes.</para>
 
         </sect2>
         <sect2>
@@ -492,7 +490,7 @@ class MyEchoTask extends Task {
                     <literal>class declaration</literal>. This will be familiar to you if you are
                 experienced with OOP in PHP (we assume here that you are). Furthermore there are
                 some fine-grained rules you must obey when creating the classes (see also,[naming
-                and coding standards]): </para>
+                and coding standards]):</para>
 
             <itemizedlist>
                 <listitem>
@@ -545,7 +543,7 @@ class MyEchoTask extends Task {
             <para> The next block that follows is the class's constructor. It must be present and
                 call at least the constructor or the parent class. Of course, you can add some
                 initialization data here. It is recommended that you <literal>define</literal> your
-                prior declared properties here. </para>
+                prior declared properties here.</para>
 
         </sect2>
         <sect2>
@@ -555,7 +553,7 @@ class MyEchoTask extends Task {
                 there is an attribute defined with the task itself, namely "message" with a value of
                 the the text string that our task should echo. The task must somehow become aware of
                 the attribute name and the value. Therefore the <literal>setter methods</literal>
-                exist. </para>
+                exist.</para>
 
             <para>For each attribute you want to import to the task's namespace you have to define a
                 method named exactly after the very attribute plus the string "set" prepended. This
@@ -567,13 +565,13 @@ class MyEchoTask extends Task {
                 if the attribute value is a valid value. If this is not the case, throw a
                     <literal>BuildException</literal>. In some cases, such as when you have three
                 attributes and at least one of them should be set, you may want to check the
-                attribute values inside the init() or main() method. </para>
+                attribute values inside the init() or main() method.</para>
 
             <para> In out example the setter is named <literal>setMessage</literal> , because the
                 XML attribute the echo task accepts is "message". setMessage now takes the string
                 "Hello World" provided by the parser and sets the value of the internal class
                 property <literal>$strMessage</literal> to "Hello World". It is now available to the
-                task for further disposal. </para>
+                task for further disposal.</para>
 
         </sect2>
         <sect2>
@@ -610,7 +608,7 @@ class MyEchoTask extends Task {
                 starts. In case of our example a message (imported by the proper setter method) is
                 Logged to the screen through the system's "Logger" service (the very action this
                 task is written for). The <literal>Log()</literal> method-call in this case accepts
-                two parameters: a event constant and the message to log. </para>
+                two parameters: a event constant and the message to log.</para>
 
         </sect2>
         <sect2>
@@ -622,7 +620,7 @@ class MyEchoTask extends Task {
                 code. The most common way to do this is separating logic into private class methods
                 - and in even more complex tasks in separate libraries.</para>
 
-            <programlisting>private function myPrivateMethod() {
+            <programlisting language="php">private function myPrivateMethod() {
     // definition
 }</programlisting>
         </sect2>
@@ -638,7 +636,7 @@ class MyEchoTask extends Task {
                 <filename>phing/filters/XSLTFilter.php</filename> also includes an
                 <literal>XSLTParam</literal> class that is not used anywhere else.) </para>
         <para>For cases where you do need a more generic Type defined, you can create your own Type
-            class -- similar to the way a Task is created. </para>
+            class -- similar to the way a Task is created.</para>
         <sect2>
             <title>Creating a DataType</title>
             <para>Type classes need to extend the abstract DataType class. Besides providing a means
@@ -649,7 +647,7 @@ class MyEchoTask extends Task {
                 DB-related Tasks, each of which need to know how to connect to the database; instead
                 of having database parameters for each task, we've created a DSN type so that we can
                 identify the connection parameters once and then use it in all our db Tasks.</para>
-            <programlisting>require_once "phing/types/DataType.php";
+            <programlisting language="php">require_once "phing/types/DataType.php";
 
 /**
  * This Type represents a DB Connection.
@@ -767,7 +765,7 @@ class DSN extends DataType {
                 DSN connection parameters each time, but the premise behind needing a DSN datatype
                 was to avoid specifying the connection parameters for each task.) </para>
 
-            <programlisting>&lt;?xml version="1.0" ?>
+            <programlisting language="xml">&lt;?xml version="1.0" ?>
 
 &lt;project name="test" basedir=".">
 
@@ -844,8 +842,8 @@ class DSN extends DataType {
                 mapper that creates DOS-style file names. For this example, the "to" and "from"
                 attributes are not needed because all files will be transformed. To see the "to" and
                 "from" attributes in action, look at <literal>phing.mappers.GlobMapper</literal> or
-                    <literal>phing.mappers.RegexpMapper</literal>. </para>
-            <programlisting>require_once "phing/mappers/FileNameMapper.php";
+                    <literal>phing.mappers.RegexpMapper</literal>.</para>
+            <programlisting language="php">require_once "phing/mappers/FileNameMapper.php";
 
 /**
  * A mapper that makes those ugly DOS filenames.
@@ -904,7 +902,7 @@ class DOSMapper implements FileNameMapper {
                 </literal>(relative to a path on PHP's <literal>include_path</literal> or in
                     <literal>PHP_CLASSPATH</literal> env variable), then you would refer to it like
                 this in your build file: </para>
-            <programlisting>&lt;mapper classname="myapp.mappers.DOSMapper"/></programlisting>
+            <programlisting language="xml">&lt;mapper classname="myapp.mappers.DOSMapper"/></programlisting>
         </sect2>
     </sect1>
 
