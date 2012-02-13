@@ -15,11 +15,11 @@
     <sect1>
         <title> Extension Possibilities </title>
         <para>There are three main areas where Phing can be extended: <xref
-                xlink:href="#sect.ext.tasks"/>, <xref xlink:href="#sect.ext.types"/>, <xref
-                xlink:href="#sect.ext.mappers"/>. The following sections discuss these
+                xlink:href="#sect.ext.tasks"/>, <xref xlink:href="#sect.ext.types" xlink:title="Types"/>, <xref
+                xlink:href="#sect.ext.mappers" xlink:title="Mappers"/>. The following sections discuss these
             options.</para>
-
-        <sect2 xml:id="sect.ext.tasks">
+ 
+        <sect2 xml:id="sect.ext.tasks" xreflabel="Tasks">
             <title> Tasks </title>
 
             <para>Tasks are pieces of codes that perform an atomic action like installing a file.
@@ -30,7 +30,7 @@
                 aid performing the operations needed.</para>
 
         </sect2>
-        <sect2 xml:id="sect.ext.types">
+        <sect2 xml:id="sect.ext.types" xreflabel="Types">
             <title> Types </title>
 
             <para>Extending types is a rare need; nevertheless, you can do it. A possible type you
@@ -43,7 +43,7 @@
                 creating an official stand-alone <literal>Type</literal>.</para>
 
         </sect2>
-        <sect2 xml:id="sect.ext.mappers">
+        <sect2 xml:id="sect.ext.mappers" xreflabel="Mappers">
             <title> Mappers </title>
 
             <para>Creating new mappers is also a rare need, since most everything can be handled by

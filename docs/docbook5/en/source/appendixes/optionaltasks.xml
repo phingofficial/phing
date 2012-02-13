@@ -8809,10 +8809,14 @@ a2.a3.a4=false</programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" file="SomeClass.php"/></programlisting>
+            <programlisting language="xml">&lt;zendcodeanalyzer 
+  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" 
+  file="SomeClass.php"/></programlisting>
 
             <para>Analyze one PHP source file with all default warnings enabled.</para>
-            <programlisting language="xml">&lt;zendcodeanalyzer analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" disable="var-ref-notmodified,if-if-else">
+            <programlisting language="xml">&lt;zendcodeanalyzer 
+  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" 
+  disable="var-ref-notmodified,if-if-else">
   &lt;fileset dir=".">
     &lt;include name="**/*.php"/>
   &lt;/fileset>
@@ -9010,21 +9014,21 @@ a2.a3.a4=false</programlisting>
  >
 
  &lt;fileset dir="src">
- &lt;include name="**/*.php" />
- &lt;exclude name="cache/**" />
- &lt;exclude name="plugins/**" />
+   &lt;include name="**/*.php" />
+   &lt;exclude name="cache/**" />
+   &lt;exclude name="plugins/**" />
  &lt;/fileset>
  
  &lt;fileset dir="src">
- &lt;include name="plugins/cs*/**/*.php" />
- &lt;include name="plugins/cs*/*.php" />
+   &lt;include name="plugins/cs*/**/*.php" />
+   &lt;include name="plugins/cs*/*.php" />
  &lt;/fileset>
 &lt;/zendguardencode></programlisting>
 
             <para>Encode all php files in the current directory and subdirectories. Exlude
-                everything in cache/ and plugins/ but include everything in plugins that starts with
-                cs.</para>
-            <para/>
+                everything in <filename role="dir">cache/</filename> and 
+                <filename role="dir">plugins/</filename> but include everything in
+                plugins that starts with cs.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -9037,9 +9041,9 @@ a2.a3.a4=false</programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="ZendGuardLicenseTask">
         <title>ZendGuardLicenseTask</title>
-        <para> The <literal>ZendGuardLicenseTask</literal> is a wrapper for ZendGuard zendenc_sign
-            executable. It generates ZendGuard license either from a license template file or from
-            the defined properties.</para>
+        <para> The <literal>ZendGuardLicenseTask</literal> is a wrapper for ZendGuard
+                <literal>zendenc_sign</literal> executable. It generates ZendGuard license either
+            from a license template file or from the defined properties.</para>
         <para> For more information about ZendGuard sign parameters see the <link
                 xlink:href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf">ZendGuard
                 documentation</link>.</para>

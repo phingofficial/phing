@@ -968,13 +968,13 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting language="xml">&lt;-- Delete a specific file -->
+			<programlisting language="xml">&lt;!-- Delete a specific file -->
 &lt;delete file="/tmp/foo.bar" />
 
-&lt;-- Delete a directory -->
+&lt;!-- Delete a directory -->
 &lt;delete dir="/tmp/darl" includeemptydirs="true" verbose="true" failonerror="true" />
 
-&lt;-- Delete using a fileset -->
+&lt;!-- Delete using a fileset -->
 &lt;delete>
   &lt;fileset dir="/tmp">
     &lt;include name="*.bar" />
@@ -1211,13 +1211,13 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting language="xml">&lt;-- List the contents of "/home". -->
+			<programlisting language="xml">&lt;!-- List the contents of "/home". -->
 &lt;exec command="ls -l" dir="/home" />
 
-&lt;-- Start the make process in "/usr/src/php-4.0". -->
+&lt;!-- Start the make process in "/usr/src/php-4.0". -->
 &lt;exec command="make" dir="/usr/src/php-4.0" />
 
-&lt;-- List the contents of "/tmp" out to a file. -->
+&lt;!-- List the contents of "/tmp" out to a file. -->
 &lt;exec command="ls -l /tmp > foo.out" escape="false" /></programlisting>
 		</sect2>
 		<sect2 role="nestedtags">
@@ -1339,13 +1339,13 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting language="xml">&lt;-- Exit w/ message -->
+			<programlisting language="xml">&lt;!-- Exit w/ message -->
 &lt;exit message="Failed for some reason!" />
 
-&lt;--  Exit if ${errorprop} is defined -->
+&lt;!--  Exit if ${errorprop} is defined -->
 &lt;exit if="errorprop" message="Detected error!" />
 
-&lt;-- Exit unless ${dontfail} prop is defined. -->
+&lt;!-- Exit unless ${dontfail} prop is defined. -->
 &lt;exit unless="dontfail" message="Detected error!" /></programlisting>
 		</sect2>
 	</sect1>
@@ -1834,10 +1834,10 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting language="xml">&lt;-- Create a temp directory -->
+			<programlisting language="xml">&lt;!-- Create a temp directory -->
 &lt;mkdir dir="/tmp/foo" />
 
-&lt;-- Using mkdir with a property -->
+&lt;!-- Using mkdir with a property -->
 &lt;mkdir dir="${dirs.install}/tmp" />
 </programlisting>
 		</sect2>
@@ -1852,12 +1852,12 @@
 			to the destination successfully.</para>
 		<sect2>
 			<title>Examples</title>
-			<programlisting language="xml">&lt;-- The following will move the file "somefile.txt" to "/tmp" and
+			<programlisting language="xml">&lt;!-- The following will move the file "somefile.txt" to "/tmp" and
     change its filename to "anotherfile.bak". It will overwrite
     an existing file. -->
 &lt;move file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/>
 
-&lt;-- This will move the "/tmp" directory to "/home/default/tmp",
+&lt;!-- This will move the "/tmp" directory to "/home/default/tmp",
     preserving the directory name. So the final name is
     "/home/default/tmp/tmp". Empty directories are also copied -->
 &lt;move file="/tmp" todir="/home/default/tmp" includeemptydirs="true" /></programlisting>
@@ -1946,10 +1946,10 @@
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting language="xml">&lt;-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
+			<programlisting language="xml">&lt;!-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
  &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
 
-&lt;-- Do a more complex call -->
+&lt;!-- Do a more complex call -->
 &lt;phing phingfile="somebuild.xml" target="sometarget">
   &lt;property name="foo" value="bar" />
   &lt;property name="anotherone" value="32" />

@@ -28,8 +28,8 @@
   The root tag of each build file must be a "project" tag.
   =========================================================================
 -->
-&lt;project name="(projectname)" [basedir="(projectbasedir)"]
-         [default="(targetname)"] [description="(projectdescription)"]>
+&lt;project name="(projectname)" basedir="(projectbasedir)"
+         default="(targetname)" description="(projectdescription)">
 
   &lt;!--
     =========================================================================  
@@ -69,11 +69,12 @@
     
   &lt;!--
     =========================================================================  
-    All target definitions ...
+    All target definitions
+    ("if" and "unless" attributes are optional)
     =========================================================================  
   -->
   &lt;target name="(targetname)" [depends="targetname1,targetname2"]
-          [if="(ifproperty)"] [unless="(unlessproperty)"]>
+          [if="(ifproperty)"] [unless="(unlessproperty)"] >
     &lt;!--
       ----------------------------------------------------------------------
       Type and task calls here, i.e. filesets, patternsets,
@@ -112,7 +113,7 @@
         files should be <literal>.properties</literal>, the default Property File for a
         Build File is <literal>build.properties</literal></para>
     
-<programlisting language="xml"># Property files contain key/value pairs
+<programlisting># Property files contain key/value pairs
 key=value
 
 # Property keys may contain alphanumeric chars and colons, but

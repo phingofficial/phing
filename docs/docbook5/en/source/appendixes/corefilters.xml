@@ -28,11 +28,11 @@
             available through their own tag. Example:</para>
         <programlisting language="xml">&lt;filterchain>
   &lt;filterreader classname="phing.filter.ReplaceTokens">
-    &lt;-- other way to set attributes -->
+    &lt;!-- other way to set attributes -->
     &lt;param name="begintoken" value="@@" />
     &lt;param name="endtoken" value="@@" />
 
-    &lt;-- other way to set nested tags -->
+    &lt;!-- other way to set nested tags -->
     &lt;param type="token" key="bar" value="foo" />
   &lt;/filterreader>
 &lt;/filterchain></programlisting>

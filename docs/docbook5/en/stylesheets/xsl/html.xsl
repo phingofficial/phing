@@ -31,7 +31,7 @@
        This means no example, figures, programlisting etc.
   -->
   <xsl:param name="generate.toc" select="'book toc'"/>
-
+  
   <!--  
    * ==============================================================================
    * Customize the titles for figures and tables. This will break the heading from

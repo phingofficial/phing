@@ -4,7 +4,7 @@
  * Version: $Id$
  *
  */
-
+@import url("highlight.css");
 /* This is reserved for the part header */
 h1{
     font-size:1.7em;

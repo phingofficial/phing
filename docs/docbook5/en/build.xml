@@ -47,7 +47,7 @@
         XSL sheets muts be studied. Running tidy makes it easier to read the resulting
         (x)HTML source.        
     -->
-    <property name="flag.tidy" value="0"/>    
+    <property name="flag.tidy" value="1"/>    
     
     <!-- 
         Possible CSS stylesheet for use with the HTML output.
@@ -262,6 +262,24 @@
         </phingcall>
     </target>
     
+    <!-- 
+        ================================================================================
+        Target: hlhtml Highlighted HTML
+        Note: This target will only work with the Saxon 6.5.5 xslt processor 
+        ================================================================================        
+    -->
+    <target name="hlhtml">
+        <phingcall target="prepare.output" >
+            <property name="dir" value="hlhtml" />
+        </phingcall> 
+        <!-- We first need to flatten the master file since Saxon doesn't handle XInclude -->
+        <exec command="/usr/bin/xmllint --xinclude source/master.xml > output/hlhtml/flatten.xml"/>
+        
+        <exec command="../../scripts/hlsaxon flatten.xml ../../stylesheets/xsl/hlhtml.xsl" dir="output/hlhtml/" checkreturn="true"/>
+        <copy file="stylesheets/css/book.css" todir="output/hlhtml"/>
+        <copy file="stylesheets/css/highlight.css" todir="output/hlhtml"/>
+        <delete file="output/hlhtml/flatten.xml"/>
+    </target>
 
     <!--
         ================================================================================
