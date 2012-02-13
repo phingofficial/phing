@@ -236,6 +236,12 @@ class PearPackage2Task extends PearPackageTask {
                     }
                     break;
 
+				case 'role':
+					foreach ($map->getValue() as $role) {
+						$this->pkg->addRole($role['extension'], $role['role']);
+					}
+					break;
+
                 default:
                     $newmaps[] = $map;
             }
