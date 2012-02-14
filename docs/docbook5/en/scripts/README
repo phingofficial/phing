@@ -20,6 +20,9 @@ Three more cautions:
  * Saxon 6.5.5 Java xslt processor must be installed (and available in the
    Java CLASSPATH)
 
+ * 'xmllint' must be available since that is used to pre-process the xinclude
+   to create a flattened XML version of the manual.
+
 
 Yes, all this is a PITA. But there is no other way to get easy Syntax highlight in DocBoook
 besides rolling a completely homegrown solution which is probably even worse. One option
