@@ -211,7 +211,7 @@ div.mediaobject{
     margin-top:30px;
     padding-left:60px;
     border-left:6px solid #e68a00;
-    background-image:url("admon-note.png");
+    background-image:url("img/admon-note.png");
     background-position:6px 0.5em;
     background-repeat:no-repeat;
     box-shadow:5px 5px 5px #888;
@@ -226,7 +226,7 @@ div.mediaobject{
     margin-top:30px;
     padding-left:60px;
     border-left:6px solid #D55C21;
-    background-image:url("admon-warning.png");
+    background-image:url("img/admon-warning.png");
     background-position:6px 0.5em;
     background-repeat:no-repeat;
     box-shadow:5px 5px 5px #888;
@@ -248,7 +248,7 @@ div.mediaobject{
 }
 
 .tip{
-    background-image:url("admon-tip.png");
+    background-image:url("img/admon-tip.png");
 }
 
 .note p,
@@ -375,7 +375,7 @@ a[class = xref]:hover{
 .uri .filename,
 uri.filename{
     font-size:1.25em;
-    background-image:url("text-document.png");
+    background-image:url("img/text-document.png");
     background-position:1px 0px;
     background-repeat:no-repeat;
     margin-left:1px;
@@ -472,7 +472,7 @@ div.table-contents td{
 }
 
 div.table-contents td p.checkmark:before{
-    content:url("checkmark.png");
+    content:url("img/checkmark.png");
 }
 
 /* table column for attribute tables */
