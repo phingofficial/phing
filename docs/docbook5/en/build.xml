@@ -4,26 +4,31 @@
     schematypens="http://relaxng.org/ns/structure/1.0"?>
 <!-- 
  * ==============================================================================
- * Main build file for DocBook5  version of the Phing manual
- * Public targets are:
- *  
+ * Main Phing build file for DocBook5 version of the Phing manual
+ *
+ * Public targets that uses xsltproc processing
+ * ____________________________________________
  * html (default)    Produce single page HTML output
  * htmlfancy         Alternative styling for single page HTML output
  * chunk             Produce chunked HTML output
  * pdf               Produce PDF output
  * epub              Experimental support for EPUB
+ * validate          Validate all DocBook5 sources (requires Jing to be installed)
  *
+ * 
+ * Public targets that needs Saxon 6.5.5 for transformation
+ * ________________________________________________________
  * The following two targets produces versions of the mnual that applies
  * syntax highlightning to all source listings (XML and PHP). However, this
  * requres that Saxon 6.5.5 xsl processor is installed as well as the extra
  * jar file xslthl-2.x.x.jar (in the CLASSPATH). 
  *
- * Please note that these to targets uses a utility script "hlsaxon" which
+ * PLEASE NOTE that these to targets uses a utility script "hlsaxon" which
  * needs a full path to the DocBook5 stylesheets in the script. This varies
  * between setups. Mutatis Mutandis.
  *
  * hlhtml	     Create HTML version using syntax highlighting
- * hlpdf             Create PDF version using syntax highlighting
+ * hlpdf         Create PDF version using syntax highlighting
  *   
  * Revision: $Id$
  * Created: 7 feb 2012
@@ -31,38 +36,37 @@
  * ==============================================================================    
 -->  
 
-<project name="PhingDocBookGuide" 
-         default="html" 
-         basedir="."
-         description="Build script to produce Phing documentation from DocBook source" >
+<project name="PhingDocBookGuide" default="hlhtml" basedir="."
+    description="Build script to produce Phing documentation from DocBook5 sources">
 
     <!-- Name of the master XML file -->
-    <property name="master.document" value="source/master.xml" />
-    
+    <property name="master.document" value="source/master.xml"/>
+
     <!-- Name of the master XML file without file suffix-->
-    <property name="master.document.strip" value="source/master" />
-    
+    <property name="master.document.strip" value="source/master"/>
+
     <!-- Path to DocBook script to help produce ePub output format -->
-    <property name="dbtoepub" value="/usr/share/xml/docbook/stylesheet/nwalsh5/current/epub/bin/dbtoepub" />
-    
+    <property name="dbtoepub"
+        value="/usr/share/xml/docbook/stylesheet/nwalsh5/current/epub/bin/dbtoepub"/>
+
     <!-- DocBook Grammar. Used when running validation script -->
     <property name="docbook.relaxngc" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rnc"/>
     <property name="docbook.relaxng" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/>
 
     <!-- Base directory for XSL stylesheets processed by xsltproc. No trailing '/' -->
-    <property name="dbxsl.dir" value="stylesheets/xsl" />
-    
+    <property name="dbxsl.dir" value="stylesheets/xsl"/>
+
     <!-- Base directory for css stylesheets. No trailing '/' -->
     <property name="dbcss.dir" value="stylesheets/css"/>
-        
+
     <!-- 
         Run the "tidy" program to clean up the produced html.
         This is mostly useful when tweaking the styling when the output produced by the
         XSL sheets muts be studied. Running tidy makes it easier to read the resulting
         (x)HTML source.        
     -->
-    <property name="flag.tidy" value="0"/>    
-    
+    <property name="flag.tidy" value="0"/>
+
     <!-- 
         Possible CSS stylesheet for use with the HTML output.
         The "book-fancyterm.css" variant uses a more grphic illustration of screen
@@ -72,39 +76,39 @@
         xsl stylesheet since this name is set as a parameter there to tell which
         css file to use
     -->
-    <property name="css.style" value="${dbcss.dir}/book.css" />
+    <property name="css.style" value="${dbcss.dir}/book.css"/>
     <property name="css.highlight" value="${dbcss.dir}/highlight.css"/>
-    
+
     <!--
         Alternate CSS file for some more "fancy" styling. As for now this only
         includes a more graphic illustration of the screen element to make it
         resemble a terminal window.
     -->
-    <property name="css.style.fancy" value="${dbcss.dir}/book-fancyterm.css" />
-    
+    <property name="css.style.fancy" value="${dbcss.dir}/book-fancyterm.css"/>
+
     <!-- Canonical name used to reference the chosen CSS stylesheet from the generated (X)HTML -->
-    <property name="css.name" value="book.css" />
-    
+    <property name="css.name" value="book.css"/>
+
     <!-- Should we generate HTML or XHTML as output -->
-    <property name="html.type" value="html" />
-    
+    <property name="html.type" value="html"/>
+
     <!-- The temporary build directory -->
-    <property name="tmp.dir" value="./tmp/" />    
-    
+    <property name="tmp.dir" value="./tmp/"/>
+
     <!-- Check if version was specified on the command line -->
     <php function="preg_match" returnProperty="version_match">
         <param value="/[\d]+\.[\d]+\.[\d]+/"/>
         <param value="${version}"/>
     </php>
-       
+
     <!-- 
         Runtime parameters for HTML output. We only need to tell xsltproc to use xinclude
         The rest of the parameters are stored in the customized XSL stylesheets
     -->
-    <property name="xsl.html.params" value = "--xinclude" />
+    <property name="xsl.html.params" value="--xinclude"/>
 
     <!-- Runtime parameters for PDF output -->
-    <property name="xsl.pdf.params" value = "--xinclude" />
+    <property name="xsl.pdf.params" value="--xinclude"/>
 
     <!-- 
         Fileset for admon graphics used in HTML output. These are the images that are used
@@ -113,7 +117,7 @@
     <fileset dir="stylesheets/css/img" id="htmlimg">
         <include name="*"/>
     </fileset>
-    
+
     <!-- All source files needed -->
     <fileset dir="source" id="sources">
         <include name="chapters/*.xml"/>
@@ -121,7 +125,7 @@
         <include name="*.xml"/>
     </fileset>
 
-   
+
     <!-- 
         ================================================================== 
         Create necessary output directories
@@ -130,72 +134,72 @@
         ================================================================== 
      -->
     <target name="prepare.output">
-        <mkdir dir="output/${dir}" />
-        <mkdir dir="output/${dir}/img" />
-              
+        <mkdir dir="output/${dir}"/>
+        <mkdir dir="output/${dir}/img"/>
+
         <!-- Copy all figures used in the documentation -->
         <available file="source/figures" property="figures.exist"/>
         <if>
             <equals arg1="figures.exist" arg2="true"/>
             <then>
-                <copy todir="output/${dir}/figures">            
+                <copy todir="output/${dir}/figures">
                     <fileset dir="source/figures">
                         <include name="*.png"/>
                         <include name="*.jpg"/>
                     </fileset>
-                </copy>                        
+                </copy>
             </then>
         </if>
-        
+
         <!-- 
             Copy all admonition graphics for <note>, <warning> etc to the correct 
             output place.
         -->
         <copy todir="output/${dir}/img">
-            <fileset refid="htmlimg" />            
+            <fileset refid="htmlimg"/>
         </copy>
-    </target>        
-    
+    </target>
+
     <!--
         ================================================================================
         TARGET: zhtml 
         Create zipped tar balls of the html manual 
         ================================================================================
-    -->        
+    -->
     <target name="zhtml" depends="html">
-        <delete file="output/book-html.tar.gz" />
+        <delete file="output/book-html.tar.gz"/>
         <tar destfile="output/book-html.tar.gz" compression="gzip">
             <fileset dir="output">
                 <include name="html"/>
             </fileset>
         </tar>
-    </target>    
-    
+    </target>
+
     <!--
         ================================================================================
         TARGET: zchunk
         Create zipped tar balls of the chunked html manual 
         ================================================================================
-    -->        
+    -->
     <target name="zchunk" depends="chunk">
-        <delete file="output/book-chunk.tar.gz" />
+        <delete file="output/book-chunk.tar.gz"/>
         <tar destfile="output/book-chunk.tar.gz" compression="gzip">
             <fileset dir="output">
                 <include name="chunkhtml"/>
-            </fileset>            
+            </fileset>
         </tar>
     </target>
-    
+
     <!--
         ================================================================================
         TARGET: Clean 
         ================================================================================
-    -->    
+    -->
     <target name="clean">
         <delete dir="output/html"/>
         <delete dir="output/hlhtml"/>
         <delete dir="output/chunkhtml"/>
-        <delete dir="output/pdf"/>        
+        <delete dir="output/pdf"/>
         <delete dir="output/hlpdf"/>
         <delete dir="output/"/>
     </target>
@@ -208,54 +212,55 @@
     -->
     <target name="validate">
         <xmllint schema="${docbook.relaxng}" useRNG="true">
-            <fileset refid="sources" />
+            <fileset refid="sources"/>
         </xmllint>
     </target>
-    
+
     <!--
         ================================================================================
         Target: _html 
-        Main entry point to create the html rendered output
+        Help target for the actual HTML and HTMLFANCY targets
         ================================================================================
-    -->    
-    <target name="_html">        
-        <phingcall target="prepare.output" >
-            <property name="dir" value="html" />
-        </phingcall>        
+    -->
+    <target name="_html">
+        <phingcall target="prepare.output">
+            <property name="dir" value="html"/>
+        </phingcall>
         <copy todir="output/html/img">
             <fileset dir="${dbcss.dir}/img">
                 <include name="*"/>
             </fileset>
-        </copy>        
-        <copy file="${cssfile}" tofile="output/html/${css.name}"/>        
-        
-        <exec command="xsltproc ${xsl.html.params} 
+        </copy>
+        <copy file="${cssfile}" tofile="output/html/${css.name}"/>
+
+        <exec
+            command="xsltproc ${xsl.html.params} 
             --output 'output/html/index.html' 
-            ${dbxsl.dir}/${xslformat}.xsl ${master.document}" 
-            checkreturn="true" passthru="true" dir="./" />     
+            ${dbxsl.dir}/${xslformat}.xsl ${master.document}"
+            checkreturn="true" passthru="true" dir="./"/>
         <if>
             <equals arg1="${flag.tidy}" arg2="1"/>
             <then>
-                <exec command="/usr/bin/tidy -m -utf8 output/html/index.html" />        
+                <exec command="/usr/bin/tidy -m -utf8 output/html/index.html"/>
             </then>
-        </if>                
-        <echo message="HTML version of manual ready." />        
+        </if>
+        <echo message="HTML version of manual ready."/>
     </target>
-    
+
     <target name="html">
         <phingcall target="_html">
             <property name="xslformat" value="html"/>
             <property name="cssfile" value="${css.style}"/>
         </phingcall>
     </target>
-    
+
     <target name="htmlfancy">
         <phingcall target="_html">
             <property name="xslformat" value="html.fancycmd"/>
             <property name="cssfile" value="${css.style.fancy}"/>
         </phingcall>
     </target>
-    
+
     <!-- 
         ================================================================================
         Target: hlhtml Highlighted HTML
@@ -263,15 +268,15 @@
         ================================================================================        
     -->
     <target name="hlhtml">
-        <phingcall target="prepare.output" >
-            <property name="dir" value="hlhtml" />
-        </phingcall> 
+        <phingcall target="prepare.output">
+            <property name="dir" value="hlhtml"/>
+        </phingcall>
         <!-- We first need to flatten the master file since Saxon doesn't handle XInclude -->
         <exec command="/usr/bin/xmllint --xinclude ${master.document} > output/hlhtml/_flatten.xml"/>
-        
+
         <exec dir="output/hlhtml/"
-              command="../../scripts/hlsaxon _flatten.xml ../../${dbxsl.dir}/hl-html.xsl" 
-              checkreturn="true"/>
+            command="../../scripts/hlsaxon _flatten.xml ../../${dbxsl.dir}/hl-html.xsl"
+            checkreturn="true"/>
         <copy file="${css.style}" todir="output/hlhtml"/>
         <copy file="${css.highlight}" todir="output/hlhtml"/>
         <delete file="output/hlhtml/_flatten.xml"/>
@@ -282,48 +287,66 @@
         Target: chunk
         ================================================================================
     -->
-    
-    <target name="chunk" >
-        <phingcall target="prepare.output" >
-            <property name="dir" value="chunkhtml" />
+
+    <target name="chunk">
+        <phingcall target="prepare.output">
+            <property name="dir" value="chunkhtml"/>
         </phingcall>
-               
-        <exec command="xsltproc ${xsl.html.params}  
-            --stringparam base.dir 'output/chunkhtml/' 
-            ${dbxsl.dir}/chunk.xsl ${master.document}" 
-            checkreturn="true" passthru="true" dir="./" />        
-        <echo message="Chunked HTML version of manual ready." />
-    </target>
-   
-    <!--
-        ================================================================================
-        Target: PDF  
-        Note: This format does not yet support syntax highlighting        
-        ================================================================================
-    -->
-    
-    <target name="pdf" >        
-        <mkdir dir="output/pdf" />    
-        <exec command="xsltproc ${xsl.pdf.params}
-            --output output/pdf/manual.fo                
-            ${dbxsl.dir}/fo.xsl ${master.document}" 
-            checkreturn="true" passthru="true" dir="./" />        
-        <exec command="fop manual.fo -pdf manual.pdf" dir="./output/pdf/"
-            checkreturn="true" passthru="true" /> 
-        <delete file="output/pdf/manual.fo"/>
-        <echo message="PDF version of manual ready." />                
+
+        <exec
+            command="xsltproc ${xsl.html.params} --stringparam base.dir 'output/chunkhtml/' ${dbxsl.dir}/chunk.xsl ${master.document}"
+            checkreturn="true" passthru="true" dir="./"/>
+        <echo message="Chunked HTML version of manual ready."/>
     </target>
 
-    <target name="hlpdf" >        
-        <mkdir dir="output/hlpdf" />        
-        <exec command="/usr/bin/xmllint --xinclude ${master.document} > output/hlpdf/_flatten.xml"/>        
-        <exec dir="output/hlpdf/"
-            command="../../scripts/hlsaxon -o manual.fo _flatten.xml ../../${dbxsl.dir}/hl-fo.xsl" 
-            checkreturn="true"/>
-        <exec dir="output/hlpdf/"
-            command="/usr/bin/fop manual.fo -pdf manual.pdf" 
-            checkreturn="true"/>        
-        <delete file="output/hlpdf/_flatten.xml"/>                
+    <!--
+        ================================================================================
+        Target: PDF  &&  HLPDF     
+        ================================================================================
+    -->
+    <target name="pdf">
+        <uptodate property="transformation.notreq" targetfile="output/pdf/manual.fo">
+            <fileset refid="sources"/>
+        </uptodate>
+        <if>
+            <isset property="transformation.notreq"/>
+            <then>
+                <echo msg="Transformation up to date. Skipping ..."/>
+            </then>
+            <else>
+                <mkdir dir="output/pdf"/>
+                <exec
+                    command="xsltproc ${xsl.pdf.params} --output output/pdf/manual.fo ${dbxsl.dir}/fo.xsl ${master.document}"
+                    checkreturn="true" passthru="true" dir="./"/>
+                <exec command="fop manual.fo -pdf manual.pdf" dir="./output/pdf/" checkreturn="true"
+                    passthru="true"/>
+                <delete file="output/pdf/manual.fo"/>
+                <echo message="PDF version of manual ready."/>
+            </else>
+        </if>
+    </target>
+
+    <target name="hlpdf">
+        <uptodate property="transformation.notreq" targetfile="output/hlpdf/manual.fo">
+            <fileset refid="sources"/>
+        </uptodate>
+        <if>
+            <isset property="transformation.notreq"/>
+            <then>
+                <echo msg="Transformation up to date. Skipping ..."/>
+            </then>
+            <else>
+                <mkdir dir="output/hlpdf"/>
+                <exec
+                    command="/usr/bin/xmllint --xinclude ${master.document} > output/hlpdf/_flatten.xml"/>
+                <exec dir="output/hlpdf/"
+                    command="../../scripts/hlsaxon -o manual.fo _flatten.xml ../../${dbxsl.dir}/hl-fo.xsl"
+                    checkreturn="true"/>
+                <exec dir="output/hlpdf/" command="/usr/bin/fop manual.fo -pdf manual.pdf"
+                    checkreturn="true"/>
+                <delete file="output/hlpdf/_flatten.xml"/>
+            </else>
+        </if>
     </target>
 
     <!--
@@ -334,25 +357,27 @@
         ================================================================================
     -->
     <target name="epub">
-        <mkdir dir="output/epub" />   
-        <exec command="${dbtoepub} -s ${dbxsl.dir}/epub.xsl -c ${css.style} ${master.document} -o output/epub/${master.document.strip}.epub" />               
+        <mkdir dir="output/epub"/>
+        <exec
+            command="${dbtoepub} -s ${dbxsl.dir}/epub.xsl -c ${css.style} ${master.document} -o output/epub/${master.document.strip}.epub"
+        />
     </target>
 
     <!--
-	================================================================================
+	    ================================================================================
         Target: ALL
         Build all possible versions of the manual (incl. highlighted versions)
         ================================================================================
 
-    --> 
+    -->
     <target name="all">
-	<phingcall target="htmlfancy" />   
-	<phingcall target="html"/>
-	<phingcall target="hlhtml"/>
-        <phingcall target="chunk" />
-        <phingcall target="pdf" />
-        <phingcall target="hlpdf" />
-        <phingcall target="epub" />
+        <phingcall target="htmlfancy"/>
+        <phingcall target="html"/>
+        <phingcall target="hlhtml"/>
+        <phingcall target="chunk"/>
+        <phingcall target="pdf"/>
+        <phingcall target="hlpdf"/>
+        <phingcall target="epub"/>
     </target>
-        
+
 </project>
