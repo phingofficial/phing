@@ -4,7 +4,7 @@
     schematypens="http://relaxng.org/ns/structure/1.0"?>
 <!-- 
  * ==============================================================================
- * Main build file for Phing manual
+ * Main build file for DocBook5  version of the Phing manual
  * Public targets are:
  *  
  * html (default)    Produce single page HTML output
@@ -12,8 +12,22 @@
  * chunk             Produce chunked HTML output
  * pdf               Produce PDF output
  * epub              Experimental support for EPUB
+ *
+ * The following two targets produces versions of the mnual that applies
+ * syntax highlightning to all source listings (XML and PHP). However, this
+ * requres that Saxon 6.5.5 xsl processor is installed as well as the extra
+ * jar file xslthl-2.x.x.jar (in the CLASSPATH). 
+ *
+ * Please note that these to targets uses a utility script "hlsaxon" which
+ * needs a full path to the DocBook5 stylesheets in the script. This varies
+ * between setups. Mutatis Mutandis.
+ *
+ * hlhtml	     Create HTML version using syntax highlighting
+ * hlpdf             Create PDF version using syntax highlighting
  *   
  * Revision: $Id$
+ * Created: 7 feb 2012
+ * Author: Johan Persson <johan162@gmail.com>
  * ==============================================================================    
 -->  
 
@@ -47,7 +61,7 @@
         XSL sheets muts be studied. Running tidy makes it easier to read the resulting
         (x)HTML source.        
     -->
-    <property name="flag.tidy" value="1"/>    
+    <property name="flag.tidy" value="0"/>    
     
     <!-- 
         Possible CSS stylesheet for use with the HTML output.
@@ -59,6 +73,7 @@
         css file to use
     -->
     <property name="css.style" value="${dbcss.dir}/book.css" />
+    <property name="css.highlight" value="${dbcss.dir}/highlight.css"/>
     
     <!--
         Alternate CSS file for some more "fancy" styling. As for now this only
@@ -69,12 +84,6 @@
     
     <!-- Canonical name used to reference the chosen CSS stylesheet from the generated (X)HTML -->
     <property name="css.name" value="book.css" />
-    
-    <!-- Which CSS checkmark image to use in the final HTML -->
-    <property name="css.checkmark" value="${dbcss.dir}/checkmark-green.png" />    
-
-    <!-- Which CSS checkmark image to use in the final HTML -->
-    <property name="css.checkmarkplain" value="${dbcss.dir}/checkmark-plain.gif" />
     
     <!-- Should we generate HTML or XHTML as output -->
     <property name="html.type" value="html" />
@@ -101,8 +110,8 @@
         Fileset for admon graphics used in HTML output. These are the images that are used
         with <note>, <warning>, <imnportant> etc. tags.
     -->
-    <fileset dir="stylesheets/css" id="admon">
-        <include name="admon*.png"/>
+    <fileset dir="stylesheets/css/img" id="htmlimg">
+        <include name="*"/>
     </fileset>
     
     <!-- All source files needed -->
@@ -122,13 +131,8 @@
      -->
     <target name="prepare.output">
         <mkdir dir="output/${dir}" />
-        <!-- 
-            The fancy checkmarks (if used) myst be in the same root directory 
-            as the html et.al output.         
-        -->
-        <copy file="${css.checkmark}" tofile="output/${dir}/checkmark.png"/>
-        <copy file="${css.checkmarkplain}" tofile="output/${dir}/checkmark-plain.gif"/>
-        
+        <mkdir dir="output/${dir}/img" />
+              
         <!-- Copy all figures used in the documentation -->
         <available file="source/figures" property="figures.exist"/>
         <if>
@@ -147,26 +151,11 @@
             Copy all admonition graphics for <note>, <warning> etc to the correct 
             output place.
         -->
-        <copy todir="output/${dir}/">
-            <fileset refid="admon" />            
+        <copy todir="output/${dir}/img">
+            <fileset refid="htmlimg" />            
         </copy>
     </target>        
     
-    <!-- 
-        ================================================================================
-        For html output we also need the custom images referenced from the
-        css stylesheets.
-        ================================================================================
-    -->
-    <target name="prepare.html.output">        
-        <copy todir="output/html/img">
-            <fileset dir="${dbcss.dir}/img">
-                <include name="*"/>
-            </fileset>
-        </copy>
-    </target>
-
-
     <!--
         ================================================================================
         TARGET: zhtml 
@@ -203,10 +192,11 @@
         ================================================================================
     -->    
     <target name="clean">
-        <delete dir="output/img"/>
         <delete dir="output/html"/>
+        <delete dir="output/hlhtml"/>
         <delete dir="output/chunkhtml"/>
         <delete dir="output/pdf"/>        
+        <delete dir="output/hlpdf"/>
         <delete dir="output/"/>
     </target>
 
@@ -232,7 +222,11 @@
         <phingcall target="prepare.output" >
             <property name="dir" value="html" />
         </phingcall>        
-        <phingcall target="prepare.html.output" />        
+        <copy todir="output/html/img">
+            <fileset dir="${dbcss.dir}/img">
+                <include name="*"/>
+            </fileset>
+        </copy>        
         <copy file="${cssfile}" tofile="output/html/${css.name}"/>        
         
         <exec command="xsltproc ${xsl.html.params} 
@@ -273,12 +267,14 @@
             <property name="dir" value="hlhtml" />
         </phingcall> 
         <!-- We first need to flatten the master file since Saxon doesn't handle XInclude -->
-        <exec command="/usr/bin/xmllint --xinclude source/master.xml > output/hlhtml/flatten.xml"/>
+        <exec command="/usr/bin/xmllint --xinclude ${master.document} > output/hlhtml/_flatten.xml"/>
         
-        <exec command="../../scripts/hlsaxon flatten.xml ../../stylesheets/xsl/hlhtml.xsl" dir="output/hlhtml/" checkreturn="true"/>
-        <copy file="stylesheets/css/book.css" todir="output/hlhtml"/>
-        <copy file="stylesheets/css/highlight.css" todir="output/hlhtml"/>
-        <delete file="output/hlhtml/flatten.xml"/>
+        <exec dir="output/hlhtml/"
+              command="../../scripts/hlsaxon _flatten.xml ../../${dbxsl.dir}/hl-html.xsl" 
+              checkreturn="true"/>
+        <copy file="${css.style}" todir="output/hlhtml"/>
+        <copy file="${css.highlight}" todir="output/hlhtml"/>
+        <delete file="output/hlhtml/_flatten.xml"/>
     </target>
 
     <!--
@@ -306,63 +302,30 @@
         ================================================================================
     -->
     
-    <!-- 
-        We use a helper target that does the internmediate XSL-FO work in a
-        temporary directoy
-    -->
-    <target name="prepare.pdf">
-                
-        <mkdir dir="output/${dir}" />      
-        <mkdir dir="${tmp.dir}" />
-        <mkdir dir="${tmp.dir}figures" />
-        <mkdir dir="${tmp.dir}source" />
-
-        <copy todir="${tmp.dir}">
-            <fileset dir=".">
-                <include name="*.xml"/>
-            </fileset>
-        </copy>
-        <copy todir="${tmp.dir}source">
-            <fileset dir="source">
-                <include name="**/*"/>
-            </fileset>
-        </copy>                
-        <available file="source/figures" property="figures.exist"/>
-        <if>
-            <equals arg1="figures.exist" arg2="true"/>
-            <then>
-                <copy todir="${tmp.dir}figures">            
-                    <fileset dir="source/figures">
-                        <include name="*.png"/>
-                        <include name="*.jpg"/>
-                    </fileset>
-                </copy>                        
-            </then>
-        </if>
-        <copy todir="${tmp.dir}">
-            <fileset refid="admon" />            
-        </copy>        
-
-        <copy file="${css.checkmark}" tofile="${tmp.dir}checkmark.png"/>        
-        <copy file="${css.checkmarkplain}" tofile="${tmp.dir}checkmark-plain.gif"/>
-
-    </target>
-    
     <target name="pdf" >        
-           
-        <phingcall target="prepare.pdf" >
-            <property name="dir" value="pdf" />
-        </phingcall>
+        <mkdir dir="output/pdf" />    
         <exec command="xsltproc ${xsl.pdf.params}
-            --output ${tmp.dir}manual.fo                
-            ${dbxsl.dir}/fo.xsl ${tmp.dir}${master.document}" 
+            --output output/pdf/manual.fo                
+            ${dbxsl.dir}/fo.xsl ${master.document}" 
             checkreturn="true" passthru="true" dir="./" />        
-        <exec command="fop manual.fo -pdf ../output/pdf/manual.pdf" dir="${tmp.dir}"
-            checkreturn="true" passthru="true" />           
-        <delete dir="${tmp.dir}" />        
+        <exec command="fop manual.fo -pdf manual.pdf" dir="./output/pdf/"
+            checkreturn="true" passthru="true" /> 
+        <delete file="output/pdf/manual.fo"/>
         <echo message="PDF version of manual ready." />                
     </target>
-    
+
+    <target name="hlpdf" >        
+        <mkdir dir="output/hlpdf" />        
+        <exec command="/usr/bin/xmllint --xinclude ${master.document} > output/hlpdf/_flatten.xml"/>        
+        <exec dir="output/hlpdf/"
+            command="../../scripts/hlsaxon -o manual.fo _flatten.xml ../../${dbxsl.dir}/hl-fo.xsl" 
+            checkreturn="true"/>
+        <exec dir="output/hlpdf/"
+            command="/usr/bin/fop manual.fo -pdf manual.pdf" 
+            checkreturn="true"/>        
+        <delete file="output/hlpdf/_flatten.xml"/>                
+    </target>
+
     <!--
         ================================================================================
         Target: EPUB  
@@ -374,11 +337,21 @@
         <mkdir dir="output/epub" />   
         <exec command="${dbtoepub} -s ${dbxsl.dir}/epub.xsl -c ${css.style} ${master.document} -o output/epub/${master.document.strip}.epub" />               
     </target>
-    
+
+    <!--
+	================================================================================
+        Target: ALL
+        Build all possible versions of the manual (incl. highlighted versions)
+        ================================================================================
+
+    --> 
     <target name="all">
-        <phingcall target="htmlfancy" />   
+	<phingcall target="htmlfancy" />   
+	<phingcall target="html"/>
+	<phingcall target="hlhtml"/>
         <phingcall target="chunk" />
         <phingcall target="pdf" />
+        <phingcall target="hlpdf" />
         <phingcall target="epub" />
     </target>
         

@@ -11,7 +11,7 @@
 -->
 <xsl:stylesheet xmlns:d="http://docbook.org/ns/docbook"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-  <xsl:import href="html.xsl"/>
-  <xsl:import href="highlight.xsl"/>
+  <xsl:import href="html.xsl"/> 
+  <xsl:import href="html-highlight.xsl"/>
   <xsl:param name="highlight.source" select="1"/>
 </xsl:stylesheet>
