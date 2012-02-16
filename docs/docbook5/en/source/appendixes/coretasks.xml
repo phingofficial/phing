@@ -2828,12 +2828,9 @@ file defines a task in the format: name=path.to.Task -->
 	</sect1>
 	<sect1 role="taskdef" xml:id="UpToDateTask">
 		<title>UpToDateTask </title>
-		<para>UpToDateTask tests if a resource/file is set and sets a certain property to a certain
-			value if it exists.</para>
-
-		<para>sets the property <literal>propelBuild.notRequired</literal> to true if the
-				<literal>${deploy}/propelClasses.tgz</literal> file is more up-to-date than any of
-			the PHP class files in the <literal>${src}/propel</literal> directory.</para>
+		<para>UpToDateTask tests if a file is newer than another file or files and sets a property if it
+			is. This is a common way to avoid, possibly time consuming, creation of a target if none
+			of the files/resources it depends on have changed.</para>
 		<table>
 			<title>Attributes</title>
 			<tgroup cols="5">
@@ -2855,28 +2852,28 @@ file defines a task in the format: name=path.to.Task -->
 					<row>
 						<entry><literal>property</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Name of the property that is to be set.</entry>
+						<entry>Name of the property that is to be set</entry>
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
 					<row>
 						<entry><literal>value</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The value the propert is to be set to.</entry>
+						<entry>The value the property is to be set to</entry>
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
 					</row>
 					<row>
 						<entry><literal>srcfile</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The file to check against target file(s).</entry>
+						<entry>The file to check against target file(s)</entry>
 						<entry>n/a</entry>
 						<entry>Yes (or nested <literal>fileset</literal>)</entry>
 					</row>
 					<row>
 						<entry><literal>targetfile</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>The file for which we want to determine the status.</entry>
+						<entry>The file for which we want to determine the status</entry>
 						<entry>n/a</entry>
 						<entry>Yes (or nested<literal> mapper</literal>)</entry>
 					</row>
@@ -2890,6 +2887,25 @@ file defines a task in the format: name=path.to.Task -->
     &lt;include="**/*.php"/>
   &lt;/fileset>
 &lt;/uptodate></programlisting>
+			<para>The above example sets the property <literal>propelBuild.notRequired</literal> to
+				true if the <literal>${deploy}/propelClasses.tgz</literal> file is more up-to-date
+				than any of the PHP class files in the <literal>${src}/propel</literal>
+				directory.</para>
+			<programlisting language="xml">&lt;target name="CompileTarget">
+  &lt;uptodate property="target.uptodate" targetfile="main">
+    &lt;fileset refid="sources"/>
+  &lt;/uptodate>
+  &lt;if>
+    &lt;not>&lt;isset property="target.uptodate"/>&lt;/not>
+   &lt;then>
+      &lt;!-- Some commands to update the target ... -->
+   &lt;/then>
+  &lt;/if>
+&lt;/target></programlisting>
+			<para>The above example shows a common use when doing a "compile" type target where a
+				single target depends on other source files. In this case the commands to update the
+				target (whatever they are)  are only run if any of the source files are more up to
+				date than the target.</para>
 		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>

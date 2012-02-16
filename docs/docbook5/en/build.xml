@@ -229,7 +229,7 @@
                 <isset property="target.uptodate"/>
             </not>
             <then>
-                <phingcall target="prepare.output">
+                <phingcall target="_prepare.output">
                     <property name="dir" value="hlhtml"/>
                 </phingcall>
                 <!-- We first need to flatten the master file since Saxon doesn't handle XInclude -->

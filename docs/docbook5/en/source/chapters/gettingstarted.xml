@@ -414,6 +414,15 @@
             override the <filename>builddir</filename> in the build file above one could call Phing
             as </para>
         <screen>$ phing -Dbuilddir=/tmp/system-test  </screen>
+        <sect2>
+            <title>Handling source dependencies</title>
+            <para>A common task required in many build files is to keep some target which has a
+                number of dependencies up to date. In traditional make files this could for example
+                be an executable that needs to be recompiled if any of the source files have been
+                updated. In Phing such a condition is handled by the <literal>UpToDateTask</literal>
+                , see <xref xlink:href="#UpToDateTask"/> for examples on how this task us
+                used.</para>
+        </sect2>
     </sect1>
 
     <sect1>
