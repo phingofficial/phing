@@ -160,7 +160,12 @@
     -->
     <target name="_html">
         <uptodate property="target.uptodate" targetfile="output/${outdir}/index.html">
-            <fileset refid="sources"/>
+		<fileset refid="sources"/>
+		<fileset dir="${dbxsl.dir}">
+			<include name="html.xsl"/>
+			<include name="chunk.xsl"/>
+			<include name="common.xsl"/>
+		</fileset>
         </uptodate>
         <if>
             <not>
@@ -175,10 +180,8 @@
                         <include name="*"/>
                     </fileset>
                 </copy>
-                <copy file="${cssfile}" tofile="output/${outdir}/${css.name}"/>
-
                 <exec
-                    command="xsltproc --xinclude -o 'output/${outdir}/' ${dbxsl.dir}/${xslformat}.xsl ${master.document}"
+			command="xsltproc --xinclude -o 'output/${outdir}/' ${dbxsl.dir}/${xslformat}.xsl ${master.document}"
                     checkreturn="true" passthru="true" dir="./"/>
                 <if>
                     <equals arg1="${flag.tidy}" arg2="1"/>
@@ -188,6 +191,7 @@
                 </if>
             </then>
         </if>
+        <copy file="${cssfile}" tofile="output/${outdir}/${css.name}"/>
     </target>
 
     <target name="html">
@@ -223,6 +227,11 @@
     <target name="hlhtml">
         <uptodate property="target.uptodate" targetfile="output/hlhtml/index.html">
             <fileset refid="sources"/>
+		<fileset dir="${dbxsl.dir}">
+			<include name="hl-html.xsl"/>
+			<include name="html-highlight.xsl"/>
+			<include name="common.xsl"/>
+		</fileset>
         </uptodate>
         <if>
             <not>
@@ -238,11 +247,11 @@
                 <exec dir="output/hlhtml/"
                     command="../../scripts/hlsaxon _flatten.xml ../../${dbxsl.dir}/hl-html.xsl"
                     checkreturn="true"/>
-                <copy file="${css.style}" todir="output/hlhtml"/>
-                <copy file="${css.highlight}" todir="output/hlhtml"/>
                 <delete file="output/hlhtml/_flatten.xml"/>
             </then>
         </if>
+        <copy file="${css.style}" todir="output/hlhtml"/>
+        <copy file="${css.highlight}" todir="output/hlhtml"/>
     </target>
 
 
@@ -254,6 +263,11 @@
     <target name="pdf">
         <uptodate property="target.uptodate" targetfile="output/pdf/manual.pdf">
             <fileset refid="sources"/>
+	    <fileset dir="${dbxsl.dir}">
+		<include name="fo.xsl"/>
+		<include name="fo-common.xsl"/>
+		<include name="common.xsl"/>
+	    </fileset>
         </uptodate>
         <if>
             <not>
@@ -267,7 +281,6 @@
                 <exec command="fop manual.fo -pdf manual.pdf" dir="./output/pdf/" checkreturn="true"
                     passthru="true"/>
                 <delete file="output/pdf/manual.fo"/>
-                <echo message="PDF version of manual ready."/>
             </then>
         </if>
     </target>
@@ -275,6 +288,12 @@
     <target name="hlpdf">
         <uptodate property="target.uptodate" targetfile="output/hlpdf/manual.pdf">
             <fileset refid="sources"/>
+	    <fileset dir="${dbxsl.dir}">
+		<include name="hl-fo.xsl"/>
+		<include name="fo-highlight.xsl"/>
+		<include name="fo-common.xsl"/>
+		<include name="common.xsl"/>
+	    </fileset>
         </uptodate>
         <if>
             <not>
