@@ -898,6 +898,7 @@
     <define name="if">
         <element name="if">
             <choice>
+                <ref name="not"/>
                 <ref name="equals"/>
                 <ref name="or"/>
                 <ref name="and"/>
@@ -917,6 +918,21 @@
         </element>
     </define>
 
+    <define name="not">
+        <element name="not">
+            <choice>
+                <ref name="equals"/>
+                <ref name="or"/>
+                <ref name="and"/>
+                <ref name="isfalse"/>
+                <ref name="istrue"/>
+                <ref name="isset"/>
+                <ref name="contains_cond"/>
+                <ref name="referenceexists"/>                
+            </choice>            
+        </element>
+    </define>
+    
     <define name="istrue">
         <element name="istrue">
             <attribute name="value"/>            
