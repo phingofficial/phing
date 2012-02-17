@@ -207,6 +207,10 @@ class Project {
         if (isset($this->properties[$name])) {
             $this->log("Overriding previous definition of property " . $name, Project::MSG_VERBOSE);
         }
+        
+        if( $value === "@@@@" ){
+            throw new BuildException("Property ".$name." is set to @@@@. Please remplace it.");
+        }
 
         $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
@@ -228,6 +232,11 @@ class Project {
             $this->log("Override ignored for property " . $name, Project::MSG_DEBUG);
             return;
         }
+        
+        if( $value === "@@@@" ){
+            throw new BuildException("Property ".$name." is set to @@@@. Please remplace it.");
+        }
+        
         $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
     }
