@@ -131,8 +131,9 @@ class JslLintTask extends Task
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
-        exec($this->executable, $output);
-        if (!preg_match('/JavaScript\sLint/', implode('', $output))) throw new BuildException('Javascript Lint not found');
+        if (!is_executable($this->executable)) {
+            throw new BuildException('Javascript Lint executable not found');
+        }
 
         if($this->file instanceof PhingFile) {
             $this->lint($this->file->getPath());
