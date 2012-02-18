@@ -17,16 +17,16 @@
 				<literal>--with-libxml2</literal>, as well as <literal>--with-xsl</literal> if you
 			want to make use of advanced functionality.</para>
 
-		<para> For more information on PHP and the required modules see the PHP <link
+		<para>For more information on PHP and the required modules see the PHP <link
 				xlink:href="Bibliography.html#php">[php]</link> website. For a brief list of
 			software dependencies see below.</para>
 
 		<sect2>
 			<title> Operating Systems </title>
 
-			<para>Designed for portability from the get go, Phing runs on all platforms that run
-				PHP. However some advanced functionality may not work properly or is simply ignored
-				on some platforms (i.e. chmod on the Windows platform).</para>
+			<para>Designed for portability from the get go, Phing runs on all platforms that run PHP. However
+				some advanced functionality may not work properly or is simply ignored on some
+				platforms (i.e. <literal>chmod</literal> on the Windows platform).</para>
 
 			<para>To get the most out of Phing, a Unix style platform is recommended. Namely: Linux,
 				FreeBSD, OpenBSD, etc.</para>
@@ -34,7 +34,7 @@
 		<sect2>
 			<title> Software Dependencies </title>
 
-			<para>For a detailed list of required / optional software and libraries, refer to the
+			<para>For a detailed list of required and/or optional software and libraries, refer to the
 				following table of Software Dependencies.</para>
 
 			<para>NB: This list is not exhaustive, please refer to individual Phing tasks to find
@@ -168,7 +168,7 @@
 			</table>
 
 			<warning>
-				<para>Phing does not work with safe mode enabled!</para>
+				<para>Phing does not work with safe mode enabled in PHP!</para>
 			</warning>
 		</sect2>
 	</sect1>
@@ -184,12 +184,11 @@
 			<para>There are several ways to get a Phing distribution package. If you do not want to
 				participate in developing Phing itself it is recommended that you get the latest
 				snapshot or stable packaged distribution. If you are interested in helping with
-				Phing development, get a <acronym>git</acronym> revision of the files, as described
-				below.</para>
+				Phing development, register an account at GitHub as described below.</para>
 
-			<para> The easiest way to obtain the distribution package is to visit the Phing website
-					<link xlink:href="Bibliography.html#phing">[phing] </link>and download the
-				current distribution package in the format you desire.</para>
+			<para>The easiest way to obtain the distribution package is to visit the Phing website <link
+					xlink:href="Bibliography.html#phing">[phing] </link>and download the current
+				distribution package in the format you desire.</para>
 			<para>As of version 2.0, you have the option of downloading a PEAR-installable package
 				or the full phing distribution. If you wish to modify phing we suggestion
 				downloading the full version so that you can (e.g.) create your own PEAR package. If
@@ -197,31 +196,20 @@
 				package, download &amp; install the PEAR package.</para>
 		</sect2>
 		<sect2>
-			<title> Getting A Development Copy From Subversion </title>
-
-			<para>You are encouraged to contibute to the development of Phing. If you want to
-				participate or if you are simply interested in the latest features and development,
-				obtain a Subversion copy as described in the following paragraphs.</para>
-
-			<para> The SVN revisions of Phing are not bullet-proof and may fail to execute properly
-				on your machine. Only obtain the development versions if you are absolutely aware of
-				limitations and constraints of such an action. Additionally you should sign up to
-				the development mailinglist to report and notice errors and incompatibilities.</para>
-
-			<para> We assume that you are running a Unix style operating system. So we expect the
-				Subversion software is installed and the <command>svn</command> executable is in
-				your system's search path. However, the steps for a Windows based system are very
-				similar. There is plenty additional information available on how to use Subversion
-					<link xlink:href="Bibliography.html#cvs-howto">[svn-howto]</link>.</para>
-
-			<para>To check out the project source repository type:</para>
-
-			<screen>$&gt; svn checkout http://svn.phing.info/trunk</screen>
-
-			<para> You can also browse the entire Phing source (including previous versions and
-				development branches) on <link xlink:href="http://www.phing.info/trac/browser"
-					role="external">http://www.phing.info/trac/browser</link>.</para>
+			<title>Getting the latest source from Phing Git repository</title>
+			<para>The latest snapshot can always be downloaded directly the official Phing Git
+				repository. However, be warned that there is not guarantee that the momentous state
+				of the repository represents a completely stable application without any
+				problems.</para>
+			<para>You can download a snapshot as a zip-tarball from:</para>
+			<itemizedlist>
+				<listitem>
+					<para><link xlink:href="https://github.com/phingofficial/phing"
+							>https://github.com/phingofficial/phing</link></para>
+				</listitem>
+			</itemizedlist>
 		</sect2>
+
 	</sect1>
 	<sect1>
 		<title> PEAR Install </title>
@@ -231,8 +219,7 @@
 		<screen>$&gt; pear channel-discover pear.phing.info
 $&gt; pear install phing/phing</screen>
 		<para>The pear installer will check any dependencies and place the phing script (phing or
-			phing.bat) into your PHP script directoy (i.e. where the &quot;pear&quot; script
-			resides).</para>
+			phing.bat) into your PHP script directoy (i.e. where the "pear" script resides).</para>
 	</sect1>
 	<sect1>
 		<title> Non-PEAR Install </title>
@@ -294,7 +281,7 @@ $&gt; pear install phing/phing</screen>
 		</itemizedlist>
 
 		<para>If you are using Phing in conjunction with another application, you may need to add
-			additional paths to PHP_CLASSPATH.</para>
+			additional paths to <literal>PHP_CLASSPATH</literal>.</para>
 
 		<sect2>
 			<title> Unix </title>
@@ -326,16 +313,16 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
 				least the following:</para>
 			<itemizedlist>
 				<listitem>
-					<para>If you want Phing to be able to use other packages / classes, you can
-						either add them to the PHP_CLASSPATH or to PHP's include_path.</para>
+					<para>If you want Phing to be able to use other packages / classes, you can either add them to
+						the <literal>PHP_CLASSPATH</literal> or to PHP's include_path.</para>
 				</listitem>
 				<listitem>
-					<para>Some Tasks in phing/tasks/ext may require 3rd party libraries to be
-						installed. Generally, tools with compatible license (and stable releases)
-						are included in phing/lib so that outside dependencies can be avoided. PEAR
-						libs will not, however, be bundled with Phing since they are generally
-						bundled with PHP. If you are using a 3rd party task, see the Task
-						documentation to be aware of any dependencies.</para>
+					<para>Some Tasks in <filename role="dir">phing/tasks/ext</filename> may require 3rd party
+						libraries to be installed. Generally, tools with compatible license (and
+						stable releases) are included in phing/lib so that outside dependencies can
+						be avoided. PEAR libs will not, however, be bundled with Phing since they
+						are generally bundled with PHP. If you are using a 3rd party task, see the
+						Task documentation to be aware of any dependencies.</para>
 				</listitem>
 			</itemizedlist>
 
@@ -366,6 +353,25 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
 					<filename>build.xml</filename> using the default target with the property
 					<literal>ftp.upload</literal> set to true.</para>
 			<screen>$ phing -Dftp.upload=true</screen>
+		</sect2>
+		<sect2>
+			<title>Supported command line arguments</title>
+			<para>As of version 2.4.9 the following command line arguments are supported</para>
+			<programlisting>  -h -help               print this message
+  -l -list               list available targets in this project
+  -v -version            print the version information and exit
+  -q -quiet              be extra quiet
+  -verbose               be extra verbose
+  -debug                 print debugging information
+  -longtargets           show target descriptions during build
+  -logfile &lt;file>        use given file for log
+  -logger &lt;classname>    the class which is to perform logging
+  -f -buildfile &lt;file>   use given buildfile
+  -D&lt;property>=&lt;value>   use value for given property
+  -propertyfile &lt;file>   load all properties from file
+  -find &lt;file>           search for buildfile towards the root of the
+                         filesystem and use it
+  -inputhandler &lt;file>   the class to use to handle user input</programlisting>
 		</sect2>
 	</sect1>
 

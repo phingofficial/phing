@@ -55,11 +55,10 @@
             Andreas Aderhold, who was responsible for <acronym>Phing</acronym>/r1, designed and
             wrote much of the Phing/r2 that followed. Phing/r2 became the Phing-1.0 that exists
             today for PHP4.</para>
-        <para>The current development of <acronym>Phing</acronym> is focused on <acronym>Phing
-                2</acronym>, which has involved a number of bugfixes, functionality enhancements,
-            and most significantly a conversion of the codebase to use new <acronym>PHP5</acronym>
-            features such as abstract classes, interfaces, and try/catch/throw exception
-            handling.</para>
+        <para>The current development version of <acronym>Phing 2.x</acronym>, requires
+                <acronym>PHP5</acronym> (at least 5.2.x) and makes use of many of the available
+            features in PHP5.2 to achieve a high degree of modularization, code efficiency as well
+            as stability and testability.</para>
     </sect1>
     <sect1>
         <title>How Phing Works</title>
@@ -88,7 +87,65 @@
                         >http://phing.tigris.org</link> and subscribe to the <literal>dev</literal>
                     mailing list</para>
             </listitem>
+            <listitem>
+                <para>Report bugs you find on the Phing Trac system available at <link
+                        xlink:href="http://www.phing.info/trac/"
+                    >http://www.phing.info/trac/</link></para>
+            </listitem>
+            <listitem>
+                <para>.. or start to actively participate in the development (see below) </para>
+            </listitem>
         </itemizedlist>
+        <sect2>
+            <title> Participating in the development </title>
+            
+            <para>As of 1 january 2012 all Phing evelopment is based on Git and the project is hosted at
+                GitHub (<link xlink:href="https://github.com/">https://github.com/</link>)</para>
+            <para>In order to participate in the development you will need to follow these basic
+                steps</para>
+            <orderedlist>
+                <listitem>
+                    <para>Register a free account at GitHub</para>
+                </listitem>
+                <listitem>
+                    <para>Clone the official Phing repository
+                        (<literal>phingofficial/phing</literal>)</para>
+                </listitem>
+                <listitem>
+                    <para>Read up on the documentation at GitHub on how to ask the official Phing
+                        maintainers to accept some of your changes by creating pull request.</para>
+                </listitem>
+            </orderedlist>
+            <para>To have a change set accepted it should have these components</para>
+            <itemizedlist>
+                <listitem>
+                    <para>Follow the naming and coding principle used by Phing</para>
+                </listitem>
+                <listitem>
+                    <para>Make sure you have added documentation for your addition(s) (including
+                        examples)</para>
+                </listitem>
+                <listitem>
+                    <para>Make sure you have added unitest code which exercises any new task you
+                        have added</para>
+                </listitem>
+                <listitem>
+                    <para>Be polite!</para>
+                </listitem>
+            </itemizedlist>
+            <para>
+                <note>
+                    <para>If you have not worked with Git before and are coming from subversion
+                        there is a bit of re-adjustment needed. Fortunately there are several
+                        <emphasis>SVN-To-Git</emphasis> re-learning guides available (for
+                        example <link xlink:href="http://git.or.cz/course/svn.html"
+                            >http://git.or.cz/course/svn.html</link>. </para>
+                    <para>However, it is probably best to forget about Subversion and realize that
+                        Git is a different animal so trying to think of everything in terms of
+                        Subversion is not really helpful in the long run.  </para>
+                </note>
+            </para>
+        </sect2>        
     </sect1>
 
 </chapter>

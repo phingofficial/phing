@@ -432,14 +432,17 @@
             become a bit tedious and the large (and growing) amount of built-in tasks and filters
             can sometimes make it difficult to remember the exact syntax of all the available
             features.</para>
-        <para>To help with this the Phing distribution contains a Relax NG Grammar (REgular LAnguage
-            for XML Next Generation, <link xlink:href="http://www.relaxng.org/"
+        <para>To help with this the Phing distribution contains a Relax NG Grammar (<emphasis
+                role="bold">RE</emphasis>gular <emphasis role="bold">LA</emphasis>nguage for
+                <emphasis role="bold">X</emphasis>ML <emphasis role="bold">N</emphasis>ext <emphasis
+                role="bold">G</emphasis>eneration, <link xlink:href="http://www.relaxng.org/"
                 >http://www.relaxng.org/</link>) file that describes the (formal) syntax of the
-            build files. This grammar can help validate and write Phing build files since there are
-            many XML editors which can make use of this type of grammar to validate, on the fly, as
-            well as do context-sensitive auto-completion. Especially the auto-complete feature can
-            significantly reduce the time it takes to write a correct, and possible complex, Phing
-            build files.</para>
+            build files. This grammar can be used to validate build files. However, the most
+            beneficial use of the grammar is together with a schema aware XML editor. Such an editor
+            can make auto-completion based on the grammar. This feature makes writing complex build
+            files significantly easier since it is usually enough to enter the first letter of an
+            element to have the rest of the element written automatically as well as any compulsory
+            attributes.</para>
         <para>Most XML editors can be told to what schema (or model) to use for validation and
             auto-completion by adding a specification in the beginning of the XML file. For example,
             the following two lines in the beginning of an XML file would do (of course the exact
@@ -452,8 +455,8 @@
             Please note that since the phing-grammar does not have an official designation we must
             use the absolute filename to specify the grammar (instead of a canonical URI that is
             resolved by the systems XML-catalogue).</para>
-        <para>This grammar is available (as a plain text file) in the distribution at: <filename>
-                /etc/phing-grammar.rng </filename>
+        <para>This grammar is available (as a plain text file) in the distribution at:
+                <filename>/etc/phing-grammar.rng</filename>
         </para>
         <para>Since we do not want to neither endorse nor forget any particular XML editor with this
             capability we do not make available such a list of editors. Instead, spending a few
