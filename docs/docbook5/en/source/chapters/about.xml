@@ -614,8 +614,14 @@ any later version published by the Free Software Foundation;</programlisting>
                                 wanted that warrents the text to be rendered in a bold style to be
                                 shown as emphasised. </para>
                             <para><emphasis role="bold">Example:</emphasis></para>
-                            <programlisting>&lt;emphasis role="bold">PH&lt;/emphasis>ing &lt;emphasis role="bold">I&lt;/emphasis>s &lt;emphasis
-role="bold">N&lt;/emphasis>ot &lt;emphasis role="bold">GN&lt;/emphasis>U make;</programlisting>                                                       
+                            <programlisting>&lt;emphasis role="bold">PH&lt;/emphasis>ing &lt;emphasis 
+role="bold">I&lt;/emphasis>s &lt;emphasis
+role="bold">N&lt;/emphasis>ot &lt;emphasis 
+role="bold">GN&lt;/emphasis>U make;</programlisting>  
+                            <para>The above example will then be rendered as: "<emphasis role="bold"
+                                    >PH</emphasis>ing <emphasis role="bold">I</emphasis>s <emphasis
+                                    role="bold">N</emphasis>ot <emphasis role="bold">GN</emphasis>U
+                                make;"</para>
                         </listitem>
                     </varlistentry>
                     <varlistentry>
