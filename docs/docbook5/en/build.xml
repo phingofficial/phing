@@ -14,7 +14,7 @@
  * pdf               Produce PDF output
  * epub              Experimental support for EPUB
  * validate          Validate all DocBook5 sources (requires Jing to be installed)
- *
+ * clean             Remove all generated files
  * 
  * Public targets that needs Saxon 6.5.5 for transformation
  * ________________________________________________________
@@ -39,19 +39,45 @@
 <project name="PhingDocBookGuide" default="all" basedir="."
     description="Build script to produce Phing documentation from DocBook5 sources">
 
+    <!--
+        ========================================================================================
+        START OF System paths setting. The follwing properties defines capabilities and paths 
+        for the system this build is running on.
+        ========================================================================================
+    -->
+    <!-- DocBook Grammar. Used when running validation script -->
+    <property name="docbook.relaxngc" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rnc"/>
+    <property name="docbook.relaxng" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/>
+
+
+    <!-- Paths to executables needded -->
+    <property name="xsltproc" value="/usr/bin/xsltproc"/>
+    <property name="xmllint" value="/usr/bin/xmllint"/>
+    <property name="fop" value="/usr/bin/fop"/>
+    <!-- DocBook script to help produce ePub output format -->
+    <property name="dbtoepub"
+        value="/usr/share/xml/docbook/stylesheet/nwalsh5/current/epub/bin/dbtoepub"/>
+
+    <!-- 
+        Run the "tidy" program to clean up the produced html.
+        This is mostly useful when tweaking the styling when the output produced by the
+        XSL sheets must be studied. Running tidy makes it easier to read the resulting (X)HTML.        
+    -->
+    <property name="flag.tidy" value="0"/>
+    <property name="tidy" value="/usr/bin/tidy"/>
+
+    <!--
+        ========================================================================================
+        END OF System paths settings.
+        Noramlly there should be no need for changes below this line.
+        ========================================================================================
+    -->
+
     <!-- Name of the master XML file -->
     <property name="master.document" value="source/master.xml"/>
 
     <!-- Name of the master XML file without file suffix-->
     <property name="master.document.strip" value="source/master"/>
-
-    <!-- Path to DocBook script to help produce ePub output format -->
-    <property name="dbtoepub"
-        value="/usr/share/xml/docbook/stylesheet/nwalsh5/current/epub/bin/dbtoepub"/>
-
-    <!-- DocBook Grammar. Used when running validation script -->
-    <property name="docbook.relaxngc" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rnc"/>
-    <property name="docbook.relaxng" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/>
 
     <!-- Base directory for XSL stylesheets processed by xsltproc. No trailing '/' -->
     <property name="dbxsl.dir" value="stylesheets/xsl"/>
@@ -59,13 +85,6 @@
     <!-- Base directory for css stylesheets. No trailing '/' -->
     <property name="dbcss.dir" value="stylesheets/css"/>
 
-    <!-- 
-        Run the "tidy" program to clean up the produced html.
-        This is mostly useful when tweaking the styling when the output produced by the
-        XSL sheets muts be studied. Running tidy makes it easier to read the resulting
-        (x)HTML source.        
-    -->
-    <property name="flag.tidy" value="0"/>
 
     <!-- 
         Possible CSS stylesheet for use with the HTML output.
@@ -160,12 +179,12 @@
     -->
     <target name="_html">
         <uptodate property="target.uptodate" targetfile="output/${outdir}/index.html">
-		<fileset refid="sources"/>
-		<fileset dir="${dbxsl.dir}">
-			<include name="html.xsl"/>
-			<include name="chunk.xsl"/>
-			<include name="common.xsl"/>
-		</fileset>
+            <fileset refid="sources"/>
+            <fileset dir="${dbxsl.dir}">
+                <include name="html.xsl"/>
+                <include name="chunk.xsl"/>
+                <include name="common.xsl"/>
+            </fileset>
         </uptodate>
         <if>
             <not>
@@ -181,12 +200,12 @@
                     </fileset>
                 </copy>
                 <exec
-			command="xsltproc --xinclude -o 'output/${outdir}/' ${dbxsl.dir}/${xslformat}.xsl ${master.document}"
+                    command="${xsltproc} --xinclude -o 'output/${outdir}/' ${dbxsl.dir}/${xslformat}.xsl ${master.document}"
                     checkreturn="true" passthru="true" dir="./"/>
                 <if>
                     <equals arg1="${flag.tidy}" arg2="1"/>
                     <then>
-                        <exec command="/usr/bin/tidy -m -utf8 output/${outdir}/index.html"/>
+                        <exec command="${tidy} -m -utf8 output/${outdir}/index.html"/>
                     </then>
                 </if>
             </then>
@@ -227,11 +246,11 @@
     <target name="hlhtml">
         <uptodate property="target.uptodate" targetfile="output/hlhtml/index.html">
             <fileset refid="sources"/>
-		<fileset dir="${dbxsl.dir}">
-			<include name="hl-html.xsl"/>
-			<include name="html-highlight.xsl"/>
-			<include name="common.xsl"/>
-		</fileset>
+            <fileset dir="${dbxsl.dir}">
+                <include name="hl-html.xsl"/>
+                <include name="html-highlight.xsl"/>
+                <include name="common.xsl"/>
+            </fileset>
         </uptodate>
         <if>
             <not>
@@ -243,7 +262,7 @@
                 </phingcall>
                 <!-- We first need to flatten the master file since Saxon doesn't handle XInclude -->
                 <exec
-                    command="/usr/bin/xmllint --xinclude ${master.document} > output/hlhtml/_flatten.xml"/>
+                    command="${xmllint} --xinclude ${master.document} > output/hlhtml/_flatten.xml"/>
                 <exec dir="output/hlhtml/"
                     command="../../scripts/hlsaxon _flatten.xml ../../${dbxsl.dir}/hl-html.xsl"
                     checkreturn="true"/>
@@ -263,11 +282,11 @@
     <target name="pdf">
         <uptodate property="target.uptodate" targetfile="output/pdf/manual.pdf">
             <fileset refid="sources"/>
-	    <fileset dir="${dbxsl.dir}">
-		<include name="fo.xsl"/>
-		<include name="fo-common.xsl"/>
-		<include name="common.xsl"/>
-	    </fileset>
+            <fileset dir="${dbxsl.dir}">
+                <include name="fo.xsl"/>
+                <include name="fo-common.xsl"/>
+                <include name="common.xsl"/>
+            </fileset>
         </uptodate>
         <if>
             <not>
@@ -276,10 +295,10 @@
             <then>
                 <mkdir dir="output/pdf"/>
                 <exec
-                    command="xsltproc --xinclude --output output/pdf/manual.fo ${dbxsl.dir}/fo.xsl ${master.document}"
+                    command="${xsltproc} --xinclude --output output/pdf/manual.fo ${dbxsl.dir}/fo.xsl ${master.document}"
                     checkreturn="true" passthru="true" dir="./"/>
-                <exec command="fop manual.fo -pdf manual.pdf" dir="./output/pdf/" checkreturn="true"
-                    passthru="true"/>
+                <exec command="${fop} manual.fo -pdf manual.pdf" dir="./output/pdf/"
+                    checkreturn="true" passthru="true"/>
                 <delete file="output/pdf/manual.fo"/>
             </then>
         </if>
@@ -288,12 +307,12 @@
     <target name="hlpdf">
         <uptodate property="target.uptodate" targetfile="output/hlpdf/manual.pdf">
             <fileset refid="sources"/>
-	    <fileset dir="${dbxsl.dir}">
-		<include name="hl-fo.xsl"/>
-		<include name="fo-highlight.xsl"/>
-		<include name="fo-common.xsl"/>
-		<include name="common.xsl"/>
-	    </fileset>
+            <fileset dir="${dbxsl.dir}">
+                <include name="hl-fo.xsl"/>
+                <include name="fo-highlight.xsl"/>
+                <include name="fo-common.xsl"/>
+                <include name="common.xsl"/>
+            </fileset>
         </uptodate>
         <if>
             <not>
@@ -301,15 +320,14 @@
             </not>
             <then>
                 <mkdir dir="output/hlpdf"/>
-                <exec
-                    command="/usr/bin/xmllint --xinclude ${master.document} > output/hlpdf/_flatten.xml"/>
+                <exec command="${xmllint} --xinclude ${master.document} > output/hlpdf/_flatten.xml"/>
                 <exec dir="output/hlpdf/"
                     command="../../scripts/hlsaxon -o manual.fo _flatten.xml ../../${dbxsl.dir}/hl-fo.xsl"
                     checkreturn="true"/>
-                <exec dir="output/hlpdf/" command="/usr/bin/fop manual.fo -pdf manual.pdf"
+                <exec dir="output/hlpdf/" command="${fop} manual.fo -pdf manual.pdf"
                     checkreturn="true"/>
                 <delete file="output/hlpdf/_flatten.xml"/>
-                <delete file="output/pdf/manual.fo"/>
+                <delete file="output/hlpdf/manual.fo"/>
             </then>
         </if>
     </target>
