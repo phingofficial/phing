@@ -1,298 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
             schematypens="http://relaxng.org/ns/structure/1.0"?>
-<appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+<bibliography xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.bibliography">
     <title>Bibliography</title>
-    <sect1 xml:id="InternationalStandards">
-        <title>International Standards</title>
-        <variablelist>
-            <varlistentry>
-                <term xml:id="osi-model"> [osi-model] </term>
-                <listitem>
-                    <para>OSI (Open System Interconnect) Model</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.iso.org" role="extern"
-                                    >http://www.iso.org</link></para>
-                        </listitem>
-                        <listitem>
-                            <para><link xlink:href="http://www.instantweb.com/foldoc/foldoc.cgi?OSI"
-                                    role="extern"
-                                    >http://www.instantweb.com/foldoc/foldoc.cgi?OSI</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term xml:id="xml10-spec">[xml10-spec] </term>
-                <listitem>
-                    <para>W3C XML 1.0 Specifications</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.w3.org/XML/" role="extern"
-                                    >http://www.w3.org/XML/</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="unicode">
-                <term>[unicode] </term>
-                <listitem>
-                    <para>Unicode</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.unicode.org"
-                                    >http://www.unicode.org</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-        </variablelist>
-    </sect1>
-    <sect1 xml:id="Licenses">
-        <title>Licenses</title>
-        <variablelist>
-            <varlistentry>
-                <term xml:id="gnu-lgpl">[gnu-lgpl] </term>
-                <listitem>
-                    <para>The GPL (Gnu Lesser Public License)</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.gnu.org/licenses/lgpl.html"
-                                    role="extern"
-                                >http://www.gnu.org/licenses/lgpl.html</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term xml:id="gnu-fdl">[gnu-fdl]</term>
-                <listitem>
-                    <para>The Gnu FDL (Free Documentation License), the license used for this
-                        documentation</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.gnu.org/licenses/fdl.html"
-                                    role="extern">http://www.gnu.org/licenses/fdl.html</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-        </variablelist>
-    </sect1>
-    <sect1 xml:id="os-projects">
-        <title>Open Source Projects</title>
-        <variablelist>
-            <varlistentry xml:id="bc">
-                <term>[bc] </term>
-                <listitem>
-                    <para>Binarycloud</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.binarycloud.com" role="extern"
-                                    >http://www.binarycloud.com</link></para>
-                        </listitem>
-                        <listitem>
-                            <para><link xlink:href="http://binarycloud.tigris.org" role="extern"
-                                    >http://binarycloud.tigris.org</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term xml:id="w3c-tidy">[w3c-tidy] </term>
-                <listitem>
-                    <para>HTMLTidy, a W3C (x)HTML and XML syntax checker and code beautifier</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.w3c.org/People/Raggett/tidy/"
-                                    >http://www.w3c.org/People/Ragget/tidy/</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="phpdoc">
-                <term>[phpdoc] </term>
-                <listitem>
-                    <para>The PHPDoc Project</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.phpdoc.de" role="extern"
-                                    >http://www.phpdoc.de</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="phpclasses">
-                <term>[phpclasses] </term>
-                <listitem>
-                    <para>Manuel Lemos' PHPClasses Repository</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.phpclasses.org" role="extern"
-                                    >http://www.phpclasses.org</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="pear">
-                <term>[pear] </term>
-                <listitem>
-                    <para>PEAR (Php Extension Archive Repository)</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://pear.php.net" role="extern"
-                                    >http://pear.php.net</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="ant">
-                <term>[ant] </term>
-                <listitem>
-                    <para>Ant, a Java Build Tool, the main inspiration for Phing</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://ant.apache.org" role="extern"
-                                    >http://ant.apache.org</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="gnumake">
-                <term>[gnumake] </term>
-                <listitem>
-                    <para>GNU make, an inspiration for Phing</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.gnu.org/software/make/make.html"
-                                    role="extern"
-                                >http://www.gnu.org/software/make/make.html</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="pollo">
-                <term>[pollo] </term>
-                <listitem>
-                    <para>Pollo, a visual editor for XML files. A schema to edit phing build files
-                        is shipped with Phing.</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://pollo.sourceforge.net" role="extern"
-                                    >http://pollo.sourceforge.net</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="gingerall">
-                <term>[gingerall] </term>
-                <listitem>
-                    <para>Ginger Alliance - Home Of Sablotorn</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.gingerall.com" role="extern"
-                                    >http://www.gingerall.com</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="php">
-                <term>[php] </term>
-                <listitem>
-                    <para>The PHP homepage - PHP Hypertext Preprocessor</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.php.net" role="extern"
-                                    >http://www.php.net</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="gnu">
-                <term>[gnu] </term>
-                <listitem>
-                    <para>The GNU (GNU's Not Unix) Organization</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.gnu.org" role="extern"
-                                    >http://www.gnu.org</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="phing">
-                <term>[phing] </term>
-                <listitem>
-                    <para>Phing (PHing Is Not Gnumake)</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.phing.info" role="extern"
-                                    >http://www.phing.info</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-        </variablelist>
-    </sect1>
-    <sect1 xml:id="Manuals">
-        <title>Manuals</title>
-        <variablelist>
-            <varlistentry>
-                <term xml:id="cvs-howto">[svn-howto] </term>
-                <listitem>
-                    <para>Version Control with Subversion (free book)</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://svnbook.red-bean.com/" role="extern"
-                                    >http://svnbook.red-bean.com/</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry>
-                <term xml:id="git-book">[git-book]</term>
-                <listitem>
-                    <para>Pro-git (free book)</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://progit.org/" role="extern"
-                                    >http://progit.org/</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-        </variablelist>
-    </sect1>
-    <sect1 xml:id="OtherResources">
-        <title>Other Resources</title>
-        <variablelist>
-            <varlistentry xml:id="javadoc">
-                <term>[javadoc] </term>
-                <listitem>
-                    <para>Sun Javadoc</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://java.sun.com/j2se/javadoc/" role="extern"
-                                    >http://java.sun.com/j2se/javadoc/</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-            <varlistentry xml:id="zend">
-                <term>[zend] </term>
-                <listitem>
-                    <para>Zend Technologies, Ltd.</para>
-                    <itemizedlist>
-                        <listitem>
-                            <para><link xlink:href="http://www.zend.com" role="extern"
-                                    >http://www.zend.com</link></para>
-                        </listitem>
-                    </itemizedlist>
-                </listitem>
-            </varlistentry>
-        </variablelist>
-    </sect1>
 
-</appendix>
+    <bibliodiv xml:id="InternationalStandards">
+        <title>International Standards</title>
+        <biblioentry xml:id="osi-model" xreflabel="osi-model">
+            <title>OSI (Open System Interconnect) Model</title>
+            <bibliomisc>
+                <link xlink:href="http://www.iso.org" role="extern">http://www.iso.org</link>
+            </bibliomisc>
+            <bibliomisc>
+                <link xlink:href="http://www.instantweb.com/foldoc/foldoc.cgi?OSI" role="extern"
+                    >http://www.instantweb.com/foldoc/foldoc.cgi?OSI</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="xml10-spec" xreflabel="xml10-spec">
+            <title>W3C XML 1.0 Specifications</title>
+            <bibliomisc>
+                <link xlink:href="http://www.w3.org/XML/" role="extern"
+                    >http://www.w3.org/XML/</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="unicode" xreflabel="unicode">
+            <title>Unicode</title>
+            <bibliomisc>
+                <link xlink:href="http://www.unicode.org">http://www.unicode.org</link>
+            </bibliomisc>
+        </biblioentry>
+    </bibliodiv>
+
+    <bibliodiv xml:id="Licenses">
+        <title>Licenses</title>
+        <biblioentry xml:id="gnu-lgpl" xreflabel="gnu-lgpl">
+            <title>The GPL (Gnu Lesser Public License)</title>
+            <bibliomisc>
+                <link xlink:href="http://www.gnu.org/licenses/lgpl.html" role="extern"
+                    >http://www.gnu.org/licenses/lgpl.html</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="gnu-fdl" xreflabel="gnu-fdl">
+            <title>The Gnu FDL (Free Documentation License), the license used for this
+                documentation</title>
+            <bibliomisc>
+                <link xlink:href="http://www.gnu.org/licenses/fdl.html" role="extern"
+                    >http://www.gnu.org/licenses/fdl.html</link>
+            </bibliomisc>
+        </biblioentry>
+
+    </bibliodiv>
+    <bibliodiv xml:id="os-projects">
+        <title>Open Source Projects</title>
+
+        <biblioentry xml:id="bc" xreflabel="bc ">
+            <title>Binarycloud</title>
+            <bibliomisc>
+                <link xlink:href="http://www.binarycloud.com" role="extern"
+                    >http://www.binarycloud.com</link>
+                <link xlink:href="http://binarycloud.tigris.org" role="extern"
+                    >http://binarycloud.tigris.org</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="w3c-tidy" xreflabel="w3c-tidy ">
+            <title>HTMLTidy, a W3C (x)HTML and XML syntax checker and code beautifier</title>
+            <bibliomisc>
+                <link xlink:href="http://www.w3c.org/People/Raggett/tidy/"
+                    >http://www.w3c.org/People/Ragget/tidy/</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="phpdoc" xreflabel="phpdoc ">
+            <title>The PHPDoc Project</title>
+            <bibliomisc>
+                <link xlink:href="http://www.phpdoc.de" role="extern">http://www.phpdoc.de</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="phpclasses" xreflabel="phpclasses">
+            <title>Manuel Lemos' PHPClasses Repository</title>
+            <bibliomisc>
+                <link xlink:href="http://www.phpclasses.org" role="extern"
+                    >http://www.phpclasses.org</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="pear" xreflabel="pear ">
+            <title>PEAR (Php Extension Archive Repository)</title>
+            <bibliomisc>
+                <link xlink:href="http://pear.php.net" role="extern">http://pear.php.net</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="ant" xreflabel="ant ">
+            <title>Ant, a Java Build Tool, the main inspiration for Phing</title>
+            <bibliomisc>
+                <link xlink:href="http://ant.apache.org" role="extern">http://ant.apache.org</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="gnumake" xreflabel="gnumake ">
+            <title>GNU make, an inspiration for Phing</title>
+            <bibliomisc>
+                <link xlink:href="http://www.gnu.org/software/make/make.html" role="extern"
+                    >http://www.gnu.org/software/make/make.html</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="pollo" xreflabel="pollo">
+            <title>Pollo, a visual editor for XML files. A schema to edit phing build files is
+                shipped with Phing.</title>
+            <bibliomisc>
+                <link xlink:href="http://pollo.sourceforge.net" role="extern"
+                    >http://pollo.sourceforge.net</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="gingerall" xreflabel="gingerall ">
+            <title>Ginger Alliance - Home Of Sablotorn</title>
+            <bibliomisc>
+                <link xlink:href="http://www.gingerall.com" role="extern"
+                    >http://www.gingerall.com</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="php" xreflabel="php ">
+            <title>The PHP homepage - PHP Hypertext Preprocessor</title>
+            <bibliomisc>
+                <link xlink:href="http://www.php.net" role="extern">http://www.php.net</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="gnu" xreflabel="gnu">
+            <title>The GNU (GNU's Not Unix) Organization</title>
+            <bibliomisc>
+                <link xlink:href="http://www.gnu.org" role="extern">http://www.gnu.org</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="phing" xreflabel="phing ">
+            <title>Phing (PHing Is Not Gnumake)</title>
+            <bibliomisc>
+                <link xlink:href="http://www.phing.info" role="extern">http://www.phing.info</link>
+            </bibliomisc>
+        </biblioentry>
+
+    </bibliodiv>
+    <bibliodiv xml:id="Manuals">
+        <title>Manuals</title>
+        <biblioentry xml:id="cvs-howto" xreflabel="svn-howto ">
+            <title>Version Control with Subversion (free book)</title>
+            <bibliomisc>
+                <link xlink:href="http://svnbook.red-bean.com/" role="extern"
+                    >http://svnbook.red-bean.com/</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="git-book" xreflabel="git-book">
+            <title>Pro-git (free book)</title>
+            <bibliomisc>
+                <link xlink:href="http://progit.org/" role="extern">http://progit.org/</link>
+            </bibliomisc>
+        </biblioentry>
+
+    </bibliodiv>
+    <bibliodiv xml:id="OtherResources">
+        <title>Other Resources</title>
+
+        <biblioentry xml:id="javadoc" xreflabel="javadoc ">
+            <title>Sun Javadoc</title>
+            <bibliomisc>
+                <link xlink:href="http://java.sun.com/j2se/javadoc/" role="extern"
+                    >http://java.sun.com/j2se/javadoc/</link>
+            </bibliomisc>
+        </biblioentry>
+        <biblioentry xml:id="zend" xreflabel="zend">
+            <title>Zend Technologies, Ltd.</title>
+            <bibliomisc>
+                <link xlink:href="http://www.zend.com" role="extern">http://www.zend.com</link>
+            </bibliomisc>
+        </biblioentry>
+
+    </bibliodiv>
+
+</bibliography>
