@@ -73,76 +73,99 @@
             unless it is not <filename>build.xml</filename>) and if no target is specified
                 <acronym>Phing</acronym> will try to execute the default target, as specified in the
                 <literal>&lt;project></literal> tag.</para>
+        <para>In the same way as traditional make files (but without most of the traditional
+            drawbacks) targets can have dependencies. They can depend on both other targets as well
+            as other files. </para>
     </sect1>
     <sect1>
         <title>Cool, so how can I help?</title>
         <para><acronym>Phing</acronym> is under active development and there are many things to be
-            done. To get involved, you can start by doing the following:</para>
+            done. The project will also welcome non-coders to help keep the documentation up to
+            date. If you don't already know about DocBook participåating in the documentation is a
+            great opportunity to get experience! </para>
+        <para>To get involved start by doing the following:</para>
         <itemizedlist>
             <listitem>
-                <para>Read this manual to understand <acronym>Phing</acronym> ;-)</para>
+                <para>Read this manual to get a high level understanding of <acronym>Phing</acronym>
+                    ;-)</para>
+            </listitem>
+            <listitem>
+                <para>Read the <link xlink:href="http://www.phing.info/trac/wiki">Phing Wiki</link>
+                    to catch up with the latest news</para>
             </listitem>
             <listitem>
                 <para>Go to <link xlink:href="http://phing.tigris.org"
-                        >http://phing.tigris.org</link> and subscribe to the <literal>dev</literal>
-                    mailing list</para>
+                        >http://phing.tigris.org</link> and subscribe to the <literal>Phing
+                        dev</literal> mailing list (this is usually a low volume, high quality
+                    mailing list)</para>
             </listitem>
             <listitem>
-                <para>Report bugs you find on the Phing Trac system available at <link
+                <para>Report bugs you find in  Phing on the <link xlink:href="http://trac.edgewall.org/"
+                        >Trac</link> wiki and defect reporting system available at <link
                         xlink:href="http://www.phing.info/trac/"
                     >http://www.phing.info/trac/</link></para>
             </listitem>
             <listitem>
-                <para>.. or start to actively participate in the development (see below) </para>
+                <para>... and of course, start to actively participate in the development by forking
+                    the repository (see below) </para>
             </listitem>
         </itemizedlist>
         <sect2>
             <title> Participating in the development </title>
             
-            <para>As of 1 january 2012 all Phing evelopment is based on Git and the project is hosted at
-                GitHub (<link xlink:href="https://github.com/">https://github.com/</link>)</para>
-            <para>In order to participate in the development you will need to follow these basic
-                steps</para>
+            <para>As of 1 January 2012 all Phing development is based on Git and the project is
+                hosted at GitHub (<link xlink:href="https://github.com/"
+                >https://github.com/</link>)</para>
+            <para>In order to participate in the development you will only need to follow three
+                basic steps</para>
             <orderedlist>
                 <listitem>
-                    <para>Register a free account at GitHub</para>
+                    <para>Register a free account at <link xlink:href="https://github.com/"
+                            >GitHub</link></para>
                 </listitem>
                 <listitem>
-                    <para>Clone the official Phing repository
-                        (<literal>phingofficial/phing</literal>)</para>
+                    <para>Clone the <link xlink:href="https://github.com/phingofficial/phing"
+                            >Official Git repository</link>
+                    </para>
                 </listitem>
                 <listitem>
-                    <para>Read up on the documentation at GitHub on how to ask the official Phing
-                        maintainers to accept some of your changes by creating pull request.</para>
+                    <para>Read up on the (very well written) documentation at GitHub on how to setup
+                        your own repository and do things like cloning an existing repository and
+                        creating pull requests asking the official Phing maintainers to take in your
+                        proposed additions/changes. </para>
                 </listitem>
             </orderedlist>
-            <para>To have a change set accepted it should have these components</para>
+            <para>The chances to have a change set accepted greatly increases if you adhere to the
+                following recommendations</para>
             <itemizedlist>
                 <listitem>
                     <para>Follow the naming and coding principle used by Phing</para>
                 </listitem>
                 <listitem>
-                    <para>Make sure you have added documentation for your addition(s) (including
-                        examples)</para>
+                    <para>Make sure you have added documentation for your addition(s), including
+                        examples.</para>
                 </listitem>
                 <listitem>
-                    <para>Make sure you have added unitest code which exercises any new task you
-                        have added</para>
+                    <para>Make sure you have added unit-test code as needed</para>
                 </listitem>
                 <listitem>
-                    <para>Be polite!</para>
+                    <para>Be polite in all communication!</para>
                 </listitem>
             </itemizedlist>
             <para>
                 <note>
                     <para>If you have not worked with Git before and are coming from subversion
                         there is a bit of re-adjustment needed. Fortunately there are several
-                        <emphasis>SVN-To-Git</emphasis> re-learning guides available (for
+                            <emphasis>SVN-To-Git</emphasis> re-learning guides available (for
                         example <link xlink:href="http://git.or.cz/course/svn.html"
-                            >http://git.or.cz/course/svn.html</link>. </para>
-                    <para>However, it is probably best to forget about Subversion and realize that
-                        Git is a different animal so trying to think of everything in terms of
-                        Subversion is not really helpful in the long run.  </para>
+                            >http://git.or.cz/course/svn.html</link> which might make the initial
+                        transition easier.</para>
+                    <para>However, it is probably best to forget about your mental picture on
+                        Subversion and realize that Git is a different animal. So trying to think of
+                        everything in terms of Subversion is not really helpful in the long run. You
+                        should therefore take the time to read the (free!) book "Pro Git", by Scott
+                        Chacon available from  <link xlink:href="http://progit.org/"
+                            >http://progit.org/</link>. </para>
                 </note>
             </para>
         </sect2>        
