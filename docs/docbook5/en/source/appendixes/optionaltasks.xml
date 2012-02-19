@@ -4465,7 +4465,8 @@ Note that you can omit both startpoint and track attributes in this case
             <link xlink:href="http://www.php.net/manual/en/book.phar.php" role="extern">Phar</link>
             packages generating with Phing. This task require <link
                 xlink:href="http://pecl.php.net/package/phar" role="extern">PECL's Phar</link>
-            extension to be installed on your system. Phar is built-in in PHP from 5.3 version.</para>
+            extension to be installed on your system. Phar is built-in in PHP from 5.3
+            version.</para>
 
         <table>
             <title>Attributes</title>
@@ -5219,8 +5220,9 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>ignorePatterns</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Comma-separated list of directory patterns to ignore.</entry>
-                        <entry><literal>.git</literal>, <literal>.svn</literal>, <literal>CVS</literal>, 
-                            <literal>.bzr</literal>, <literal>.hg</literal></entry>
+                        <entry><literal>.git</literal>, <literal>.svn</literal>,
+                                <literal>CVS</literal>, <literal>.bzr</literal>,
+                                <literal>.hg</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -5367,8 +5369,8 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>excludeDirectories</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Comma-separated list of directory patterns to ignore.</entry>
-                        <entry><literal>.git</literal>,
-                            <literal>.svn</literal>, <literal>CVS</literal></entry>
+                        <entry><literal>.git</literal>, <literal>.svn</literal>,
+                                <literal>CVS</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -6059,7 +6061,8 @@ Note that you can omit both startpoint and track attributes in this case
                         formatter will only print detailed information for testcases that failed,
                         while <literal>plain</literal> emits a short statistics line for all test
                         cases. Custom formatters that implement
-                        phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be specified.</para>
+                        phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be
+                        specified.</para>
 
                     <table>
                         <title>Attributes</title>
@@ -6485,7 +6488,8 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/target>
 &lt;/project></programlisting>
             <para> Rendering multiple files </para>
-            <para> A nested <literal>fileset</literal> tag may be used to specify multiple files.</para>
+            <para> A nested <literal>fileset</literal> tag may be used to specify multiple
+                files.</para>
             <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
   &lt;target name="multiple" description="renders several rST files">
@@ -8176,11 +8180,110 @@ host="webserver" command="ls" /></programlisting>
    nocache="true"
    repositoryurl="http://svn.phing.info/tags/2.4.2"
    todir="/home/user/svnwc"/></programlisting>
-
             <programlisting language="xml">&lt;svnswitch
    svnpath="C:/Subversion/bin/svn.exe"
    repositoryurl="http://svn.phing.info/tags/2.4.2"
    todir="C:/projects/svnwc"/></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="SymfonyConsoleTask">
+        <title>SymfonyConsoleTask</title>
+        <para>Executes Symfony2 console commands</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry>command</entry>
+                        <entry>String</entry>
+                        <entry>The Symfony Console command to execute</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry>console</entry>
+                        <entry>String</entry>
+                        <entry>The path to symfony console application</entry>
+                        <entry>app/console</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+            <para>Simple example</para>
+            <programlisting language="xml">&lt;SymfonyConsole command="cache:clear"/>
+            </programlisting>
+            <para>Complex example</para>
+            <programlisting language="xml">&lt;SymfonyConsole command=&quot;cache:warmup">
+  &lt;arg name="env" value="prod" />
+  &lt;arg value="some/path/or/single/value" quotes="true">
+&lt;/SymfonyConsole></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>Arg</para>
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry>name</entry>
+                                    <entry>String</entry>
+                                    <entry>the name for this argument, -- will be appended</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry>value</entry>
+                                    <entry>String</entry>
+                                    <entry>the value for the argument</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry>quotes</entry>
+                                    <entry>String</entry>
+                                    <entry>set to true if the value should be enclosed in double quotes</entry>
+                                    <entry>false</entry>
+                                    <entry>No</entry>
+                                </row>                                
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="SymlinkTask">
@@ -9026,9 +9129,9 @@ a2.a3.a4=false</programlisting>
 &lt;/zendguardencode></programlisting>
 
             <para>Encode all php files in the current directory and subdirectories. Exlude
-                everything in <filename role="dir">cache/</filename> and 
-                <filename role="dir">plugins/</filename> but include everything in
-                plugins that starts with cs.</para>
+                everything in <filename role="dir">cache/</filename> and <filename role="dir"
+                    >plugins/</filename> but include everything in plugins that starts with
+                cs.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -9210,7 +9313,8 @@ a2.a3.a4=false</programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="ZipTask">
         <title>ZipTask</title>
-        <para> The <literal>ZipTask</literal> creates a .zip archive from a fileset or directory.</para>
+        <para> The <literal>ZipTask</literal> creates a .zip archive from a fileset or
+            directory.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">

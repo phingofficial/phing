@@ -20,8 +20,8 @@
             <title>Example</title>
             <programlisting language="xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
 
-&lt;project name=&quot;TestProject&quot; basedir=&quot;.&quot; default=&quot;main&quot;
-         description=&quot;This is a test project to show how to use projects ;-)&quot;&gt;
+&lt;project name="TestProject" basedir="." default="main"
+         description=&quot;This is a test project to show how to use projects ;-)">
 
   &lt;!-- Everything else goes here --&gt;
 
@@ -75,7 +75,7 @@
                             <entry><literal role="type">String</literal></entry>
                             <entry>Name of the project</entry>
                             <entry>n/a</entry>
-                            <entry>Yes</entry>
+                            <entry>No</entry>
                         </row>
                         <row>
                             <entry><literal>phingVersion</literal></entry>
