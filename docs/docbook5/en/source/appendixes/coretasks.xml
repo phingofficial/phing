@@ -2828,9 +2828,9 @@ file defines a task in the format: name=path.to.Task -->
 	</sect1>
 	<sect1 role="taskdef" xml:id="UpToDateTask">
 		<title>UpToDateTask </title>
-		<para>UpToDateTask tests if a file is newer than another file or files and sets a property if it
-			is. This is a common way to avoid, possibly time consuming, creation of a target if none
-			of the files/resources it depends on have changed.</para>
+		<para>UpToDateTask tests if a file is newer than another file or files and sets a property
+			if it is. This is a common way to avoid, possibly time consuming, creation of a target
+			if none of the files/resources it depends on have changed.</para>
 		<table>
 			<title>Attributes</title>
 			<tgroup cols="5">
@@ -2904,7 +2904,7 @@ file defines a task in the format: name=path.to.Task -->
 &lt;/target></programlisting>
 			<para>The above example shows a common use when doing a "compile" type target where a
 				single target depends on other source files. In this case the commands to update the
-				target (whatever they are)  are only run if any of the source files are more up to
+				target (whatever they are) are only run if any of the source files are more up to
 				date than the target.</para>
 		</sect2>
 		<sect2 role="nestedtags">
@@ -2920,6 +2920,83 @@ file defines a task in the format: name=path.to.Task -->
 					<para>Mapper</para>
 				</listitem>
 			</itemizedlist>
+		</sect2>
+	</sect1>
+	<sect1 role="taskdef" xml:id="WaitForTask">
+		<title>WaitForTask</title>
+		<para>Wait for a condition to become true or a timeout, whichever comes first.</para>
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
+				<thead>
+					<row>
+						<entry>Name</entry>
+						<entry>Type</entry>
+						<entry>Description</entry>
+						<entry>Default</entry>
+						<entry>Required</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry><literal>MaxWait</literal></entry>
+						<entry><literal>Integer</literal></entry>
+						<entry>Set the maximum length of time to wait in units</entry>
+						<entry>3min</entry>
+						<entry>Yes</entry>
+					</row>
+					<row>
+						<entry><literal>WaitUnit</literal></entry>
+						<entry><literal>String</literal></entry>
+						<entry>Set the max wait time unit. Must be one of
+								"<literal>week</literal>","<literal>day</literal>", "<literal>hour</literal>",
+							"<literal>minute</literal>", "<literal>second</literal>", "<literal>millisecond</literal>"</entry>
+						<entry>millisecond</entry>
+						<entry>No</entry>
+					</row>
+					<row>
+						<entry><literal>CheckEvery</literal></entry>
+						<entry><literal>Integer</literal></entry>
+						<entry>Set the time between each check</entry>
+						<entry>500ms</entry>
+						<entry>Yes</entry>
+					</row>
+					<row>
+						<entry><literal>CheckEveryUnit</literal></entry>
+						<entry><literal>String</literal></entry>
+						<entry>Set the check every time unit. Must be one of
+							"<literal>week</literal>","<literal>day</literal>", "<literal>hour</literal>",
+							"<literal>minute</literal>", "<literal>second</literal>", "<literal>millisecond</literal>"</entry>
+						<entry>milliseconds</entry>
+						<entry>No</entry>
+					</row>
+					<row>
+						<entry><literal>TimeoutProperty</literal></entry>
+						<entry><literal>String</literal></entry>
+						<entry>Name of the property to set after a timeout. </entry>
+						<entry>null</entry>
+						<entry>No</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
+			<para>Wait for a maximum of ten seconds for the file "<filename>ready</filename>" to
+				appear.</para>
+			<programlisting language="xml">&lt;waitfor maxwaitunit="second" maxwait="10"> 
+  &lt;available file="ready"/>
+&lt;/waitfor>       </programlisting>
+		</sect2>
+		<sect2 role="nestedtags">
+			<title>Supported Nested Tags</title>
+			<para>All conditionals including <literal>and</literal>, <literal>or</literal>,
+					<literal>not</literal> etc. </para>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="XsltTask">
