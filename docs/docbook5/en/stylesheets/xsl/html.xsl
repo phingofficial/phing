@@ -25,8 +25,6 @@
   <xsl:param name="xref.with.number.and.title" select="1"/>
   <xsl:param name="make.valid.html" select="0"/>
   <xsl:param name="html.stylesheet" select="'book.css'"/>
-  <!--    <xsl:param name="appendix.autolabel" select="A" />-->
-
   <!-- Only include top level Book components in the TOC
        This means no example, figures, programlisting etc.
   -->
@@ -150,5 +148,56 @@
       </a>
     </span>
   </xsl:template>
+
+<!-- 
+   * ==============================================================================
+   * Customization of the bibliography page
+   * We add a <span> around the label to be able to have it in bold style
+   * ==============================================================================
+-->
+<xsl:template name="biblioentry.label">
+  <xsl:param name="node" select="."/>
+
+  <xsl:choose>
+    <xsl:when test="$bibliography.numbered != 0">
+      <span class="biblio-label">
+      <xsl:text>[</xsl:text>
+      <xsl:number from="d:bibliography" count="d:biblioentry|d:bibliomixed"
+                  level="any" format="1"/>
+      <xsl:text>] </xsl:text>
+      </span>
+    </xsl:when>
+    <xsl:when test="local-name($node/child::*[1]) = 'abbrev'">
+      <span class="biblio-label">
+      <xsl:text>[</xsl:text>
+      <xsl:apply-templates select="$node/d:abbrev[1]"/>
+      <xsl:text>] </xsl:text>
+      </span>
+    </xsl:when>
+    <xsl:when test="$node/@xreflabel">
+      <span class="biblio-label">
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="$node/@xreflabel"/>
+      <xsl:text>] </xsl:text>
+      </span>
+    </xsl:when>
+    <xsl:when test="$node/@id">
+      <span class="biblio-label">
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="$node/@id"/>
+      <xsl:text>] </xsl:text>
+      </span>
+    </xsl:when>
+    <xsl:when test="$node/@xml:id">
+      <span class="biblio-label">
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="$node/@xml:id"/>
+      <xsl:text>] </xsl:text>
+      </span>
+    </xsl:when>
+    <xsl:otherwise><!-- nop --></xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
 
 </xsl:stylesheet>

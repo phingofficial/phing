@@ -457,4 +457,40 @@
         <xsl:attribute name="text-align">center</xsl:attribute>
     </xsl:attribute-set>
 
+    <!--
+        Bibliography
+    -->
+
+    <xsl:template name="biblioentry.label">
+        <xsl:param name="node" select="."/>
+        <fo:inline font-weight="bold">
+            <xsl:choose>
+                <xsl:when test="$bibliography.numbered != 0">
+                    <xsl:text>[</xsl:text>
+                    <xsl:number from="d:bibliography" count="d:biblioentry|d:bibliomixed"
+                        level="any" format="1"/>
+                    <xsl:text>] </xsl:text>
+                </xsl:when>
+                <xsl:when test="local-name($node/child::*[1]) = 'abbrev'">
+                    <xsl:text>[</xsl:text>
+                    <xsl:apply-templates select="$node/d:abbrev[1]"/>
+                    <xsl:text>] </xsl:text>
+                </xsl:when>
+                <xsl:when test="$node/@xreflabel">
+                    <xsl:text>[</xsl:text>
+                    <xsl:value-of select="$node/@xreflabel"/>
+                    <xsl:text>] </xsl:text>
+                </xsl:when>
+                <xsl:when test="$node/@id or $node/@xml:id">
+                    <xsl:text>[</xsl:text>
+                    <xsl:value-of select="($node/@id|$node/@xml:id)[1]"/>
+                    <xsl:text>] </xsl:text>
+                </xsl:when>
+                <xsl:otherwise><!-- nop --></xsl:otherwise>
+            </xsl:choose>
+        </fo:inline>
+    </xsl:template>
+
+
+
 </xsl:stylesheet>
