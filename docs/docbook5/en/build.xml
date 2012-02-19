@@ -227,6 +227,7 @@
             <property name="xslformat" value="html.fancycmd"/>
             <property name="cssfile" value="${css.style.fancy}"/>
         </phingcall>
+        <copy file="${css.style}" tofile="output/htmlfancy/${css.name}"/>
     </target>
 
     <target name="chunk">
