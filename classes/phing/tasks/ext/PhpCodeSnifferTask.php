@@ -68,7 +68,7 @@ class PhpCodeSnifferTask extends Task {
 
     private $haltonerror = false;
     private $haltonwarning = false;
-    private $skipVersionCheck = false;
+    private $skipversioncheck = false;
 
     /**
      * Load the necessary environment for running PHP_CodeSniffer.
@@ -326,7 +326,7 @@ class PhpCodeSnifferTask extends Task {
         /**
          * Determine PHP_CodeSniffer version number
          */
-        if (!$this->skipVersionCheck) {
+        if (!$this->skipversioncheck) {
             preg_match('/\d\.\d\.\d/', shell_exec('phpcs --version'), $version);
 
             if (version_compare($version[0], '1.2.2') < 0) {
