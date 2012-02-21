@@ -8817,6 +8817,15 @@ host="webserver" command="ls" /></programlisting>
                         <entry>,</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>required</literal></entry>
+                        <entry><literal>Boolean</literal></entry>
+                        <entry>If this is set to <literal>true</literal> then a build exception will
+                            be raised if the file cannot be found otherwise only a warning will be
+                            logged.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
