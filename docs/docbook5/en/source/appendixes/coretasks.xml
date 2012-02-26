@@ -196,13 +196,13 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>FileList</para>
+					<para><literal>filelist</literal></para>
 				</listitem>
 				<listitem>
-					<para>FileSet</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 				<listitem>
-					<para>FilterChain</para>
+					<para><literal>filterchain</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -383,7 +383,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -469,7 +469,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -532,10 +532,10 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>or</para>
+					<para><literal>or</literal></para>
 				</listitem>
 				<listitem>
-					<para>and</para>
+					<para><literal>and</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -670,16 +670,16 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>Fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 				<listitem>
-					<para>Filelist</para>
+					<para><literal>filelist</literal></para>
 				</listitem>
 				<listitem>
-					<para>Filterchain</para>
+					<para><literal>filterchain</literal></para>
 				</listitem>
 				<listitem>
-					<para>Mapper</para>
+					<para><literal>mapper</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -985,7 +985,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>Fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1072,7 +1072,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>Fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1224,7 +1224,8 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>arg <table>
+					<para><literal>arg</literal>
+						<table>
 							<title>Attributes</title>
 							<tgroup cols="5">
 								<colspec colname="name" colnum="1" colwidth="1.5*"/>
@@ -1351,9 +1352,11 @@
 	</sect1>
 	<sect1 role="taskdef" xml:id="ForeachTask">
 		<title>ForeachTask </title>
-		<para>The foreach task iterates over a list, a list of filesets, or both. If both, list and
-			filesets, are specified, the list will be evaluated first. Nested filesets are evaluated
-			in the order they appear in the task.</para>
+		<para>The <literal>foreach</literal> task iterates over a list, a list of
+				<literal>filesets</literal>, or both. If both, <literal>list</literal> and
+				<literal>filesets</literal>, are specified, the list will be evaluated first. Nested
+				<literal>filesets</literal> are evaluated in the order they appear in the
+			task.</para>
 
 		<table>
 			<title>Attributes</title>
@@ -1433,10 +1436,10 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>Fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 				<listitem>
-					<para>Mapper</para>
+					<para><literal>mapper</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1562,8 +1565,8 @@
 					<literal>phing.file</literal> property of the main buildfile.</para>
 			<para>Note that "builddocs" is not the filename, but the name attribute present in the
 				imported project tag.</para>
-			<para>If import file does not have a name attribute, the phing.file.projectname property
-				will not be set.</para>
+			<para>If import file does not have a name attribute, the
+					<literal>phing.file.projectname</literal> property will not be set.</para>
 		</sect2>
 		<sect2>
 			<title>Resolving Files Against the Imported File</title>
@@ -1591,10 +1594,10 @@
   &lt;/php>
   &lt;property file="${imported.basedir}/imported.properties"/>
 &lt;/project></programlisting>
-			<para>As explained above <literal>${phing.file.imported}</literal> stores the path of
-				the build script, that defines the project called <emphasis>imported</emphasis>, (in
-				short it stores the path to <literal>imported.xml</literal>) and &lt;php
-				function="dirname"> takes its directory. This technique also allows
+			<para>As explained above <literal>${phing.file.imported}</literal> stores the path of the build
+				script, that defines the project called <emphasis>imported</emphasis>, (in short it
+				stores the path to <literal>imported.xml</literal>) and <literal>&lt;php
+					function="dirname"></literal> takes its directory. This technique also allows
 					<literal>imported.xml</literal> to be used as a standalone file (without being
 				imported in other project).</para>
 
@@ -1608,8 +1611,8 @@
 	</sect1>
 	<sect1 role="taskdef" xml:id="IncludePathTask">
 		<title>IncludePathTask </title>
-		<para>Sets the PHP include_path configuration option for the duration of this phing
-			run.</para>
+		<para>Sets the PHP <literal>include_path</literal> configuration option for the duration of this
+			phing run.</para>
 		<table>
 			<title>Attributes</title>
 			<tgroup cols="5">
@@ -1787,7 +1790,7 @@
 			<title>Supported Nested Tags:</title>
 			<itemizedlist>
 				<listitem>
-					<para>filterchain</para>
+					<para><literal>filterchain</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1959,16 +1962,16 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>Fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 		<sect2>
 			<title>Base directory of the new project</title>
-			<para>The base directory of the new project is set dependant on the
-					<literal>dir</literal> and the <literal>inheritAll</literal> attribute. This is
-				important to keep in mind or else you might run into bugs in your build.xml's. The
-				following table shows when which value is used:</para>
+			<para>The base directory of the new project is set dependant on the <literal>dir</literal> and
+				the <literal>inheritAll</literal> attribute. This is important to keep in mind or
+				else you might run into bugs in your<filename> build.xml</filename>'s. The following
+				table shows when which value is used:</para>
 			<table>
 				<title>How attributes are used</title>
 				<tgroup cols="3">
@@ -2092,18 +2095,18 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>property</para>
+					<para><literal>property</literal></para>
 				</listitem>
 				<listitem>
-					<para>param (alias for property)</para>
+					<para><literal>param</literal> (alias for property)</para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PhpEvalTask">
 		<title>PhpEvalTask </title>
-		<para>With the PhpEvalTask, you can set a property to the results of evaluating a PHP
-			expression or the result returned by a function/method call.</para>
+		<para>With the <literal>PhpEvalTask</literal>, you can set a property to the results of evaluating
+			a PHP expression or the result returned by a function/method call.</para>
 
 
 		<table>
@@ -2178,15 +2181,15 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>param</para>
+					<para><literal>param</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PropertyTask">
 		<title>PropertyTask </title>
-		<para>With PropertyTask, you can define <literal>user</literal> properties in your build
-			file.</para>
+		<para>With <literal>PropertyTask</literal>, you can define <literal>user</literal> properties in
+			your build file.</para>
 
 
 		<table>
@@ -2292,8 +2295,9 @@
 	</sect1>
 	<sect1 role="taskdef" xml:id="PropertyPromptTask">
 		<title>PropertyPromptTask </title>
-		<para>PropertyPromptTask is a simple task to read in user input into a property. If you need
-			something more advanced, see the <xref xlink:href="#InputTask"/>.</para>
+		<para><literal>PropertyPromptTask</literal> is a simple task to read in user input into a
+			property. If you need something more advanced, see the <xref xlink:href="#InputTask"
+			/>.</para>
 
 
 		<table>
@@ -2363,8 +2367,8 @@
 	</sect1>
 	<sect1 role="taskdef" xml:id="ReflexiveTask">
 		<title>ReflexiveTask </title>
-		<para>The ReflexiveTask performs operations on files. It is essentially a convenient way to
-			transform (using filter chains) files without copying them.</para>
+		<para>The <literal>ReflexiveTask</literal> performs operations on files. It is essentially a
+			convenient way to transform (using filter chains) files without copying them.</para>
 
 		<table>
 			<title>Attributes</title>
@@ -2411,18 +2415,19 @@
 			<title>Supported Nested Tags:</title>
 			<itemizedlist>
 				<listitem>
-					<para>fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 				<listitem>
-					<para>filterchain</para>
+					<para><literal>filterchain</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="ResolvePathTask">
 		<title>ResolvePathTask </title>
-		<para>The ResolvePathTask turns a relative path into an absolute path, with respect to
-			specified directory or the project basedir (if no dir attribute specified).</para>
+		<para>The <literal>ResolvePathTask</literal> turns a relative path into an absolute path, with
+			respect to specified directory or the project basedir (if no dir attribute
+			specified).</para>
 		<para>This task is useful for turning a user-defined relative path into an absolute path in
 			cases where buildfiles will be called in different directories. Without this task,
 			buildfiles lower in the directory tree would mis-interpret the user-defined relative
@@ -2483,7 +2488,8 @@
 	</sect1>
 	<sect1 role="taskdef" xml:id="TaskdefTask">
 		<title>TaskdefTask </title>
-		<para>With the TaskdefTask you can import a user task into your buildfile.</para>
+		<para>With the <literal>TaskdefTask</literal> you can import a user task into your
+			buildfile.</para>
 
 		<table>
 			<title>Attributes</title>
@@ -2572,15 +2578,16 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>classpath</para>
+					<para><literal>classpath</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="TouchTask">
 		<title>TouchTask </title>
-		<para>The TouchTask works like the Unix <literal>touch</literal> command: It sets the
-			modtime of a file to a specific time. Default is the current time.</para>
+		<para>The <literal>TouchTask</literal> works like the Unix <literal>touch</literal> command: It
+			sets the <literal>modtime</literal> of a file to a specific time. Default is the current
+			time.</para>
 
 
 		<table>
@@ -2637,17 +2644,19 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>fileset</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="TstampTask">
 		<title>TstampTask </title>
-		<para>Sets the DSTAMP, TSTAMP, and TODAY properties in the current project. By default, the
-			DSTAMP property is in the format "%Y%m%d", TSTAMP is in the format "%H%M", and TODAY is
-			in the format "%B %d %Y". Use the nested &lt;format> element to specify a different
-			format.</para>
+		<para>Sets the <literal>DSTAMP</literal>, <literal>TSTAMP</literal>, and <literal>TODAY</literal>
+			properties in the current project. By default, the <literal>DSTAMP</literal> property is
+			in the format <literal>"%Y%m%d"</literal>, <literal>TSTAMP</literal> is in the format
+				<literal>"%H%M"</literal>, and <literal>TODAY</literal> is in the format
+				<literal>"%B %d %Y"</literal>. Use the nested <literal>&lt;format></literal> element
+			to specify a different format.</para>
 		<para>These properties can be used in the build-file, for instance, to create time-stamped
 			filenames, or used to replace placeholder tags inside documents to indicate, for
 			example, the release date. The best place for this task is probably in an initialization
@@ -2699,10 +2708,11 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>format</para>
-					<para>The Tstamp task supports a &lt;format> nested element that allows a
-						property to be set to the current date and time in a given format. The
-						date/time patterns are as defined in the PHP strftime() function.</para>
+					<para><literal>format</literal></para>
+					<para>The <literal>Tstamp</literal> task supports a <literal>&lt;format></literal> nested
+						element that allows a property to be set to the current date and time in a
+						given format. The date/time patterns are as defined in the PHP
+							<literal>strftime()</literal> function.</para>
 				</listitem>
 			</itemizedlist>
 
@@ -2755,7 +2765,8 @@ file defines a task in the format: name=path.to.Task -->
 	</sect1>
 	<sect1 role="taskdef" xml:id="TypedefTask">
 		<title>TypedefTask </title>
-		<para>With the TypedefTask you can import a user type into your buildfile.</para>
+		<para>With the <literal>TypedefTask</literal> you can import a user type into your
+			buildfile.</para>
 
 		<table>
 			<title>Attributes</title>
@@ -2821,16 +2832,16 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>classpath</para>
+					<para><literal>classpath</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="UpToDateTask">
 		<title>UpToDateTask </title>
-		<para>UpToDateTask tests if a file is newer than another file or files and sets a property
-			if it is. This is a common way to avoid, possibly time consuming, creation of a target
-			if none of the files/resources it depends on have changed.</para>
+		<para><literal>UpToDateTask</literal> tests if a file is newer than another file or files and sets
+			a property if it is. This is a common way to avoid, possibly time consuming, creation of
+			a target if none of the files/resources it depends on have changed.</para>
 		<table>
 			<title>Attributes</title>
 			<tgroup cols="5">
@@ -2911,13 +2922,13 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>FileList</para>
+					<para><literal>filelist</literal></para>
 				</listitem>
 				<listitem>
-					<para>FileSet</para>
+					<para><literal>fileset</literal></para>
 				</listitem>
 				<listitem>
-					<para>Mapper</para>
+					<para><literal>mapper</literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -3069,13 +3080,13 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Elements</title>
 			<itemizedlist>
 				<listitem>
-					<para>mapper</para>
+					<para><literal>mapper</literal></para>
 				</listitem>
 				<listitem>
-					<para>filterchain</para>
+					<para><literal>filterchain</literal></para>
 				</listitem>
 				<listitem>
-					<para>param</para>
+					<para><literal>param</literal></para>
 				</listitem>
 			</itemizedlist>
 			<para><literal>Note:</literal> You can use all the elements also available for <xref

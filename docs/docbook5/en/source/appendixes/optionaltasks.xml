@@ -281,7 +281,7 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -467,13 +467,13 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>classpath</para>
+                    <para><literal>classpath</literal></para>
                 </listitem>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
                 <listitem>
-                    <para>filelist</para>
+                    <para><literal>filelist</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -549,7 +549,7 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>classpath</para>
+                    <para><literal>classpath</literal></para>
                 </listitem>
                 <listitem>
                     <para>excludes</para>
@@ -1015,7 +1015,7 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                     <para>The files to deploy</para>
                 </listitem>
             </itemizedlist>
@@ -3295,7 +3295,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -3363,7 +3363,8 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset </para>
+                    <para><literal>fileset</literal>
+                    </para>
                     <para>JavaScript files to be minified.</para>
                 </listitem>
             </itemizedlist>
@@ -3430,7 +3431,8 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset </para>
+                    <para><literal>fileset</literal>
+                    </para>
                     <para>Files to be attached (not implemented at this time).</para>
                 </listitem>
             </itemizedlist>
@@ -3685,7 +3687,8 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>transaction </para>
+                    <para><literal>transaction</literal>
+                    </para>
                     <para>Wrapper for a single transaction. Transactions allow several files or
                         blocks of statements to be executed using the same PDO connection and commit
                         operation in between.</para>
@@ -3720,16 +3723,19 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>fileset </para>
+                    <para><literal>fileset</literal>
+                    </para>
                     <para>Files containing SQL statements.</para>
                 </listitem>
                 <listitem>
-                    <para>filelist </para>
+                    <para><literal>filelist</literal>
+                    </para>
                     <para>Files containing SQL statements.</para>
                 </listitem>
                 <listitem>
-                    <para>formatter </para>
-                    <para> The results of any queries that are executed can be printed in different
+                    <para><literal>formatter</literal>
+                    </para>
+                    <para>The results of any queries that are executed can be printed in different
                         formats. Output will always be sent to a file, unless you set the
                             <literal>usefile</literal> attribute to <literal>false</literal>. The
                         path to the output file file can be specified by the
@@ -3917,13 +3923,13 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
                 <listitem>
-                    <para>option</para>
+                    <para><literal>option</literal></para>
                 </listitem>
                 <listitem>
-                    <para>mapping</para>
+                    <para><literal>mapping</literal></para>
                     <para> The &lt;mapping> tag represents a complex data type. You can use nested
                         &lt;mapping> (and nested &lt;element> with &lt;element> tags) to represent
                         the full complexity of the structure. Bear in mind that what you are
@@ -3936,7 +3942,7 @@ Note that you can omit both startpoint and track attributes in this case
                 </listitem>
                 <listitem>
                     <para> </para>
-                    <para>role See <link
+                    <para><literal>role</literal> See <link
                             xlink:href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addrole.php"
                             role="extern">PEAR_PackageFileManager::addRole</link> for more
                         information.</para>
@@ -4060,11 +4066,10 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
                 <listitem>
-                    <para> </para>
-                    <para>option</para>
+                    <para><literal>option</literal></para>
                     <table>
                         <title>Available options</title>
                         <tgroup cols="5">
@@ -4174,12 +4179,13 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>mapping</para>
-                    <para> The &lt;mapping> tag represents a complex data type. You can use nested
-                        &lt;mapping> (and nested &lt;element> with &lt;element> tags) to represent
-                        the full complexity of the structure. Bear in mind that what you are
-                        creating will be mapped to an associative array that will be passed in via
-                            <code>PEAR_PackageFileMaintainer::setOptions()</code> .</para>
+                    <para><literal>mapping</literal></para>
+                    <para>The <literal>&lt;mapping></literal> tag represents a complex data type.
+                        You can use nested <literal>&lt;mapping></literal> (and nested
+                            <literal>&lt;element></literal> with <literal>&lt;element></literal>
+                        tags) to represent the full complexity of the structure. Bear in mind that
+                        what you are creating will be mapped to an associative array that will be
+                        passed in via <code>PEAR_PackageFileMaintainer::setOptions()</code> .</para>
                     <programlisting language="xml">&lt;mapping name="option_name">
     &lt;element key="key_name" value="key_val"/>
     &lt;element key="key_name" value="key_val"/>
@@ -4187,7 +4193,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <para>Available mappings and they structures:</para>
                     <itemizedlist>
                         <listitem>
-                            <para>deps (optional) see <link
+                            <para><literal>deps</literal> (optional) see <link
                                     xlink:href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php"
                                     >PEAR_PackageFileManager::addDependency()</link> for more info <table>
                                     <title>Parameters</title>
@@ -4248,7 +4254,7 @@ Note that you can omit both startpoint and track attributes in this case
                             </para>
                         </listitem>
                         <listitem>
-                            <para>extdeps (optional) see <link
+                            <para><literal>extdeps</literal> (optional) see <link
                                     xlink:href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php"
                                     >PEAR_PackageFileManager::addDependency()</link> for more info <table>
                                     <title>Parameters</title>
@@ -4302,7 +4308,7 @@ Note that you can omit both startpoint and track attributes in this case
                             </para>
                         </listitem>
                         <listitem>
-                            <para>maintainers (required at least one) see <link
+                            <para><literal>maintainers</literal> (required at least one) see <link
                                     xlink:href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addmaintainer.php"
                                     >PEAR_PackageFileManager::addMaintainer()</link> for more info <table>
                                     <title>Parameters</title>
@@ -4357,7 +4363,7 @@ Note that you can omit both startpoint and track attributes in this case
                             </para>
                         </listitem>
                         <listitem>
-                            <para>replacements (optional) see <link
+                            <para><literal>replacements</literal> (optional) see <link
                                     xlink:href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addreplacement.php"
                                     >PEAR_PackageFileManager::addReplacement()</link> for more info <table>
                                     <title>Parameters</title>
@@ -4414,8 +4420,8 @@ Note that you can omit both startpoint and track attributes in this case
                     </itemizedlist>
                 </listitem>
                 <listitem>
-                    <para> </para>
-                    <para>role See <link
+                    <para>
+                        <literal>role</literal> See <link
                             xlink:href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addrole.php"
                             role="extern">PEAR_PackageFileManager::addRole</link> for more
                         information.</para>
@@ -4574,14 +4580,13 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
                 <!--
     TODO Describe metadata element.
   -->
                 <listitem>
                     <para>metadata </para>
-                    <para/>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -4693,7 +4698,8 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>webaccess </para>
+                    <para><literal>webaccess</literal>
+                    </para>
                     <para> Collection of <literal>path</literal> tags (see example below), that will
                         be visible outside package in web mode.</para>
                 </listitem>
@@ -4880,12 +4886,14 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset </para>
-                    <para> Either this nested tag or the attribute <literal>file</literal> is
+                    <para><literal>fileset</literal>
+                    </para>
+                    <para>Either this nested tag or the attribute <literal>file</literal> is
                         required.</para>
                 </listitem>
                 <listitem>
-                    <para>config </para>
+                    <para><literal>config</literal>
+                    </para>
                     <para>The configuration parameters which are usually loaded from the
                         CodeSniffer.conf can be set.</para>
 
@@ -4926,8 +4934,9 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>formatter </para>
-                    <para> The results of the tests can be printed in different formats. Output will
+                    <para><literal>formatter</literal>
+                    </para>
+                    <para>The results of the tests can be printed in different formats. Output will
                         always be sent to a file, unless you set the <literal>usefile</literal>
                         attribute to <literal>false.</literal>
                     </para>
@@ -5103,12 +5112,14 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset </para>
-                    <para> This nested tag is required when the <literal>file</literal> attribute is
+                    <para><literal>fileset</literal>
+                    </para>
+                    <para>This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
                 </listitem>
                 <listitem>
-                    <para>formatter </para>
+                    <para><literal>formatter</literal>
+                    </para>
                     <para> The results of the copy/paste scan can be printed in different formats.
                         Output will always be sent to a file, unless you set the
                             <literal>usefile</literal> attribute to <literal>false</literal>.</para>
@@ -5258,12 +5269,14 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset </para>
+                    <para><literal>fileset</literal>
+                    </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
                 </listitem>
                 <listitem>
-                    <para>formatter </para>
+                    <para><literal>formatter</literal>
+                    </para>
                     <para> The results of the analysis can be printed in different formats. Output
                         will always be sent to STDOUT, unless you set the <literal>usefile</literal>
                         attribute to <literal>true</literal> and set an filename in the
@@ -5434,12 +5447,14 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset </para>
+                    <para><literal>fileset</literal>
+                    </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
                 </listitem>
                 <listitem>
-                    <para>logger </para>
+                    <para><literal>logger</literal>
+                    </para>
                     <para>The results of the analysis can be parsed by differed loggers. At least
                         one logger is required. Output will always be sent to a file.</para>
 
@@ -5485,7 +5500,8 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>analyzer </para>
+                    <para><literal>analyzer</literal>
+                    </para>
                     <para>Some additional analyzers can be added to the runner.</para>
 
                     <table>
@@ -5710,11 +5726,12 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset - Files that should be included for parsing</para>
+                    <para><literal>fileset</literal> - Files that should be included for
+                        parsing</para>
                 </listitem>
                 <listitem>
-                    <para>projdocfileset - Files that should be treated as README/INSTALL/CHANGELOG
-                        files</para>
+                    <para><literal>projdocfileset</literal> - Files that should be treated as
+                        README/INSTALL/CHANGELOG files</para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -5911,7 +5928,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
 
@@ -6049,13 +6066,14 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>formatter </para>
-                    <para> The results of the tests can be printed in different formats. Output will
+                    <para><literal>formatter</literal>
+                    </para>
+                    <para>The results of the tests can be printed in different formats. Output will
                         always be sent to a file, unless you set the <literal>usefile</literal>
                         attribute to <literal>false</literal>. The name of the file is predetermined
                         by the formatter and can be changed by the <literal>outfile</literal>
                         attribute.</para>
-                    <para> There are four predefined formatters - <literal>xml</literal> and
+                    <para>There are four predefined formatters - <literal>xml</literal> and
                             <literal>clover</literal> print the test results in the JUnit and Clover
                         XML formats, the other two emit plain text. The <literal>brief</literal>
                         formatter will only print detailed information for testcases that failed,
@@ -6125,8 +6143,9 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>batchtest </para>
-                    <para> Define a number of tests based on pattern matching.
+                    <para><literal>batchtest</literal>
+                    </para>
+                    <para>Define a number of tests based on pattern matching.
                             <literal>batchtest</literal> collects the included files from any number
                         of nested &lt;fileset>s. It then generates a lists of classes that are
                         (in)directly defined by each PHP file.</para>
@@ -6230,7 +6249,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -6572,13 +6591,13 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
                 <listitem>
-                    <para>mapper</para>
+                    <para><literal>mapper</literal></para>
                 </listitem>
                 <listitem>
-                    <para>filterchain</para>
+                    <para><literal>filterchain</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -6682,7 +6701,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -6901,7 +6920,7 @@ host="webserver" todir="/www/htdocs/project/">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -7109,8 +7128,9 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>formatter </para>
-                    <para> The results of the tests can be printed in different formats. Output will
+                    <para><literal>formatter</literal>
+                    </para>
+                    <para>The results of the tests can be printed in different formats. Output will
                         always be sent to a file, unless you set the <literal>usefile</literal>
                         attribute to <literal>false</literal>. The name of the file is predetermined
                         by the formatter and can be changed by the <literal>outfile</literal>
@@ -7184,7 +7204,7 @@ host="webserver" command="ls" /></programlisting>
                     </table>
                 </listitem>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
 
@@ -7297,7 +7317,7 @@ host="webserver" command="ls" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnCommitTask">
         <title>SvnCommitTask</title>
-        <para> The <literal>SvnCommitTask</literal> commits a local working copy to a SVN repository
+        <para>The <literal>SvnCommitTask</literal> commits a local working copy to a SVN repository
             and sets the specified property ( default <literal>svn.committedrevision</literal>) to
             the revision number of the committed revision.</para>
 
@@ -7815,9 +7835,9 @@ host="webserver" command="ls" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnListTask">
         <title>SvnListTask</title>
-        <para> The <literal>SvnListTask</literal> stores the output of a svn list command on a
+        <para>The <literal>SvnListTask</literal> stores the output of a svn list command on a
             workingcopy or repositoryurl in a property.</para>
-        <para> Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
+        <para>Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
             attribute is ignored. It uses svn's --verbose switch to get additional data about the
             listed items. The result will be stored in an array, one string that is seperated by ' |
             ' (in words: space pipe space) for easy parsing.</para>
@@ -7908,9 +7928,9 @@ host="webserver" command="ls" /></programlisting>
     </sect1>
     <sect1 role="taskdef" xml:id="SvnLogTask">
         <title>SvnLogTask</title>
-        <para> The <literal>SvnLogTask</literal> stores the output of a svn log command on a
+        <para>The <literal>SvnLogTask</literal> stores the output of a svn log command on a
             workingcopy or repositoryurl in a property.</para>
-        <para> Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
+        <para>Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
             attribute is ignored. The result will be stored in an array, one string that is
             seperated by ' | ' (in words: space pipe space) for easy parsing.</para>
         <table>
@@ -8239,7 +8259,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>Arg</para>
+                    <para><literal>arg</literal></para>
                     <table>
                         <title>Attributes</title>
                         <tgroup cols="5">
@@ -8368,7 +8388,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8473,7 +8493,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8546,7 +8566,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8610,7 +8630,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8753,7 +8773,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8942,7 +8962,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -9146,7 +9166,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -9395,7 +9415,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset</para>
+                    <para><literal>fileset</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>

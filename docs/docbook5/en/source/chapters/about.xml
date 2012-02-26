@@ -168,8 +168,8 @@ any later version published by the Free Software Foundation;</programlisting>
                     DocBook website.</para>
             </note>
         </sect2>
-        <sect2>
-            <title xml:id="sec.docbookelements">DocBook v5 elements used in the manual and there
+        <sect2 xml:id="sec.docbookelements">
+            <title>DocBook v5 elements used in the manual and there
                 meaning</title>
             <para>To keep things simple the manual uses only a small subset of all available
                 elements in the DocBook schema. This makes it fairly easy to quickly get up to speed
