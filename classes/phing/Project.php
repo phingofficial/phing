@@ -92,6 +92,9 @@ class Project {
     /** the default target name */
     private $defaultTarget = 'all';
     
+    /** the pre_execute target name */
+    private $preExecuteTarget;
+    
     /** project name (required) */
     private $name;
     
@@ -416,6 +419,22 @@ class Project {
      */
     public function getDefaultTarget() {
         return (string) $this->defaultTarget;
+    }
+    
+    /**
+    * Sets pre_execute target
+    * @param string $targetName
+    */
+    function setPreExecuteTarget($targetName) {
+        $this->preExecuteTarget = (string) trim($targetName);
+    }
+
+    /**
+    * Returns pre_execute target
+    * @return string
+    */
+    function getPreExecuteTarget() {
+        return (string) $this->preExecuteTarget;
     }
 
     /**
@@ -747,6 +766,10 @@ class Project {
      * @throws  BuildException
      */
     public function executeTargets($targetNames) {
+        $preExecuteTarget = $this->getPreExecuteTarget();
+        if ( ! empty ( $preExecuteTarget ) ) {
+            $this->executeTarget($preExecuteTarget);
+        }
         foreach($targetNames as $tname) {
             $this->executeTarget($tname);
         }

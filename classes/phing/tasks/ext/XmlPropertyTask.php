@@ -36,6 +36,7 @@ class XmlPropertyTask extends PropertyTask {
     private $_keepRoot = true;
     private $_collapseAttr = false;
     private $_delimiter = ',';
+    private $_required = false;
 
     /** Set a file to use as the source for properties. */
     public function setFile($file) {
@@ -121,6 +122,22 @@ class XmlPropertyTask extends PropertyTask {
     }
 
     /**
+     * File required or not.
+     *
+     * @param string $d
+     */
+    public function setRequired($d) {
+        $this->_required = $d;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequired() {
+        return $this->_required;
+    }
+
+    /**
      * set the property in the project to the value.
      * if the task was give a file or env attribute
      * here is where it is loaded
@@ -147,7 +164,11 @@ class XmlPropertyTask extends PropertyTask {
                 $this->addProperties($this->_getProperties($file));
 
             } else {
-                $this->log("Unable to find property file: ". $file->getAbsolutePath() ."... skipped", Project::MSG_WARN);
+                if ($this->getRequired()){
+                    throw new BuildException("Could not load requied properties file.", $ioe);
+                } else {
+                    $this->log("Unable to find property file: ". $file->getAbsolutePath() ."... skipped", Project::MSG_WARN);
+                }
             }
         } catch (IOException $ioe) {
             throw new BuildException("Could not load properties from file.", $ioe);

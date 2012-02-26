@@ -88,6 +88,8 @@ class ProjectHandler extends AbstractHandler {
                 $desc = $value;
             } elseif ($key === "phingVersion") {
                 $ver = $value;
+            } elseif ($key === "pre_execute") {
+                $pre_execute = $value;
             } else {
                 throw new ExpatParseException("Unexpected attribute '$key'");
             }
@@ -123,6 +125,9 @@ class ProjectHandler extends AbstractHandler {
 
           if($ver !== null) {
               $project->setPhingVersion($ver);
+          }
+          if($pre_execute !== null) {
+              $project->setPreExecuteTarget($pre_execute);
           }
 
           if ($project->getProperty("project.basedir") !== null) {
