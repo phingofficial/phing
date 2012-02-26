@@ -80,7 +80,7 @@ class SvnLastRevisionTask extends SvnBaseTask
         
         if ($this->forceCompatible)
         {
-            $output = $this->run();
+            $output = $this->run(array('--no-auth-cache'), array('username' => $this->getUsername(), 'password' => $this->getPassword()));
             
             if ($this->lastChanged) {
                 $found = preg_match('/Rev:[\s]+([\d]+)/', $output, $matches);
@@ -99,7 +99,7 @@ class SvnLastRevisionTask extends SvnBaseTask
         }
         else
         {
-            $output = $this->run(array('--xml'));
+            $output = $this->run(array('--xml', '--no-auth-cache'), array('username' => $this->getUsername(), 'password' => $this->getPassword()));
             
             if ($xmlObj = @simplexml_load_string($output))
             {
