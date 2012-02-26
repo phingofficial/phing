@@ -36,7 +36,7 @@ include_once 'phing/types/RegularExpression.php';
  * </pre>
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.filters
  */
 class ReplaceRegexp extends BaseFilterReader implements ChainableReader {

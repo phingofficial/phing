@@ -24,7 +24,7 @@ require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
 /**
  * Prints short summary output of the test to Phing's logging system.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.simpletest
  * @since 2.2.0

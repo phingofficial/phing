@@ -26,7 +26,7 @@ require_once 'phing/mappers/FileNameMapper.php';
  * 
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.mappers
  */
 class IdentityMapper implements FileNameMapper {

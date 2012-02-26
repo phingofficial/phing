@@ -25,7 +25,7 @@
     /**
      * Extended file stream wrapper class which auto-creates directories
      *
-     * @author Michiel Rook <michiel.rook@gmail.com>
+     * @author Michiel Rook <mrook@php.net>
      * @version $Id$
      * @package phing.util
      */

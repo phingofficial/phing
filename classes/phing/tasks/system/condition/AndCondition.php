@@ -29,8 +29,8 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  * 
  *  @author    Hans Lellelid <hans@xmpl.org>
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision$
+ *  @copyright 2001,2002 THYRELL. All rights reserved
+ *  @version   $Id$
  *  @package   phing.tasks.system.condition
  */
 class AndCondition extends ConditionBase implements Condition {

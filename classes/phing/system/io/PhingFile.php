@@ -25,7 +25,7 @@ include_once 'phing/system/lang/NullPointerException.php';
 /**
  * An abstract representation of file and directory pathnames.
  *
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.system.io
  */
 class PhingFile {

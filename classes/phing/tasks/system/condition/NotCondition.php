@@ -28,8 +28,8 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *  and vice versa.
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision$ $Date$
+ *  @copyright 2001,2002 THYRELL. All rights reserved
+ *  @version   $Id$
  *  @access    public
  *  @package   phing.tasks.system.condition
  */

@@ -24,7 +24,7 @@ include_once 'phing/Task.php';
 /**
  * Base class for Subversion tasks
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @author Andrew Eddie <andrew.eddie@jamboworks.com> 
  * @version $Id$
  * @package phing.tasks.ext.svn

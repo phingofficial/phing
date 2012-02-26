@@ -28,7 +28,7 @@ include_once 'phing/system/util/Properties.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class PropertyTask extends Task {

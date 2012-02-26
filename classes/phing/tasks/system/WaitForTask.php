@@ -40,7 +40,7 @@ require_once 'phing/Task.php';
  *  limitations under the License.
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class WaitForTask extends ConditionBase

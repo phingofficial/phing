@@ -34,7 +34,7 @@ include_once 'phing/types/Path.php';
  * </code>
  * 
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class IncludePathTask extends Task {

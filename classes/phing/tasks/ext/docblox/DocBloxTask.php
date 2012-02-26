@@ -26,7 +26,7 @@ require_once 'phing/system/io/FileOutputStream.php';
  * DocBlox Task (http://www.docblox-project.org)
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Revision$
+ * @version   $Id$
  * @since     2.4.6
  * @package   phing.tasks.ext.docblox
  */

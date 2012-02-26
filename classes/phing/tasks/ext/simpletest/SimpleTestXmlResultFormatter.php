@@ -25,7 +25,7 @@ require_once 'simpletest/xml.php';
 /**
  * Prints plain text output of the test to a specified Writer.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.simpletest
  * @since 2.2.0

@@ -26,7 +26,7 @@ require_once 'phing/Task.php';
  * Task to run PhpDocumentor.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.phpdoc
  */ 

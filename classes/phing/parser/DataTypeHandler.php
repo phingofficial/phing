@@ -29,9 +29,9 @@ include_once 'phing/RuntimeConfigurable.php';
  * If PHP would support nested classes. All the phing/parser/*Filter
  * classes would be nested within this class
  *
- * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision$ $Date$
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
  * @access    public
  * @package   phing.parser
  */

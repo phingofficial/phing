@@ -27,7 +27,7 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.types.selectors
  */
 class DepthSelector extends BaseExtendSelector {

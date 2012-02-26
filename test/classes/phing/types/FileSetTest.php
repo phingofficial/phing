@@ -27,7 +27,7 @@ include_once 'phing/types/FileSet.php';
  * Unit tests for FileSet -- including Selectors.
  * 
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Revision$
+ * @version $Id$
  * @package phing.types
  */
 class FileSetTest extends AbstractFileSetTest {

@@ -24,7 +24,7 @@
  * 
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Yannick Lecaillez <yl@seasonfive.com>
- * @version $Revision$
+ * @version $Id$
  * @package phing.system.io
  */
 abstract class Reader {

@@ -37,7 +37,7 @@ include_once 'phing/util/StringHelper.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing
  */
 class IntrospectionHelper {

@@ -26,7 +26,7 @@
  *
  * @author  Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext.pdo
- * @version $Revision$
+ * @version $Id$
  */
 abstract class PDOQuerySplitter
 {
