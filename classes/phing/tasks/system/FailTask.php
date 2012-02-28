@@ -19,32 +19,100 @@
  * <http://phing.info>.
  */
  
-include_once 'phing/Task.php';
+require_once 'phing/Task.php';
 
 /**
- *  Fails the build
+ * Exits the active build, giving an additional message
+ * if available.
  *
- *  @author   Michiel Rook <mrook@php.net>
- *  @version  $Id$
- *  @package  phing.tasks.system
+ * @author    Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author    Nico Seessle <nico@seessle.de> (Ant)
+ * @version   $Id$
+ * @package   phing.tasks.system
  */
-class FailTask extends Task
-{
-    protected $msg = "Build failed";
-    
-    public function main()
-    {
-        throw new BuildException($this->msg);
+class FailTask extends Task { 
+
+    private $message;
+    private $ifCondition;
+    private $unlessCondition;
+
+    /**
+     * A message giving further information on why the build exited.
+     *
+     * @param string $value message to output
+     */
+    public function setMsg($value) {
+        $this->setMessage($value);
     }
 
-    public function setMessage($msg)
-    {
-        $this->msg = (string) $msg;
+    /**
+     * A message giving further information on why the build exited.
+     *
+     * @param value message to output
+     */
+    public function setMessage($value) {
+        $this->message = $value;
+    }
+
+    /**
+     * Only fail if a property of the given name exists in the current project.
+     * @param c property name
+     */
+    public function setIf($c) {
+        $this->ifCondition = $c;
+    }
+
+    /**
+     * Only fail if a property of the given name does not
+     * exist in the current project.
+     * @param c property name
+     */
+    public function setUnless($c) {
+        $this->unlessCondition = $c;
+    }
+
+    /**
+     * @throws BuildException
+     */
+    public function main()  {
+        if ($this->testIfCondition() && $this->testUnlessCondition()) {
+            if ($this->message !== null) { 
+                throw new BuildException($this->message);
+            } else {
+                throw new BuildException("No message");
+            }
+        }
+    }
+
+    /**
+     * Set a multiline message.
+     */
+    public function addText($msg) {
+        if ($this->message === null) {
+            $this->message = "";
+        }
+        $this->message .= $this->project->replaceProperties($msg);
+    }
+
+    /**
+     * @return boolean
+     */
+    private function testIfCondition() {
+        if ($this->ifCondition === null || $this->ifCondition === "") {
+            return true;
+        }
+        
+        return $this->project->getProperty($this->ifCondition) !== null;
     }
     
-    /** Supporting the <fail>Message</fail> syntax. */
-    public function addText($msg)
-    {
-        $this->msg = (string) $msg;
+    /**
+     * @return boolean
+     */
+    private function testUnlessCondition() {
+        if ($this->unlessCondition === null || $this->unlessCondition ===  "") {
+            return true;
+        }
+        return $this->project->getProperty($this->unlessCondition) === null;
     }
+
 }

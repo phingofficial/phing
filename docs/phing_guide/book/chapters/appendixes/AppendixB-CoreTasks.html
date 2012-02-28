@@ -1067,18 +1067,18 @@
 			</li>
 		</ul>
 		<h2>
-			<a name="ExitTask"></a>ExitTask </h2>
-		<p>Causes the current build script execution to fail and the script to exit with an
+			<a name="FailTask"></a>FailTask </h2>
+		<p>Causes the current build script execution to fail (throwing a BuildException) and the script to exit with an
 			(optional) error message.</p>
 		<h3>Example</h3>
-		<pre>&lt;-- Exit w/ message --&gt;
-&lt;exit message=&quot;Failed for some reason!&quot; /&gt;
+		<pre>&lt;-- Exit with message --&gt;
+&lt;fail message=&quot;Failed for some reason!&quot; /&gt;
 
 &lt;--  Exit if ${errorprop} is defined --&gt;
-&lt;exit if=&quot;errorprop&quot; message=&quot;Detected error!&quot; /&gt;
+&lt;fail if=&quot;errorprop&quot; message=&quot;Detected error!&quot; /&gt;
 
 &lt;-- Exit unless ${dontfail} prop is defined. --&gt;
-&lt;exit unless=&quot;dontfail&quot; message=&quot;Detected error!&quot; /&gt;
+&lt;fail unless=&quot;dontfail&quot; message=&quot;Detected error!&quot; /&gt;
 
 </pre>
 		<h3>Attributes</h3>
@@ -1097,14 +1097,14 @@
 					<td>message</td>
 					<td>String</td>
 					<td>The message to display (reason for script abort).</td>
-					<td>&quot;No Message&quot;</td>
+					<td>n/a</td>
 					<td>No</td>
 				</tr>
 				<tr>
 					<td>msg</td>
 					<td>String</td>
 					<td>Alias for message</td>
-					<td>&quot;No Message&quot;</td>
+					<td>n/a</td>
 					<td>No</td>
 				</tr>
 				<tr>
