@@ -51,7 +51,7 @@
 	<fileset dir="${phingpkg.home}" id="misc">
 		<include name="CHANGELOG"/>
 		<include name="CREDITS"/>
-		<include name="README"/>
+		<include name="README.md"/>
 		<include name="TODO"/>
 		<include name="UPGRADE"/>
 		<exclude name="INSTALL*"/>
@@ -149,6 +149,9 @@
 			<fileset refid="scripts"/>
 			<fileset refid="misc"/>
 		</copy>
+		
+		<!-- rename README.md to README -->
+		<move file="${build.src.dir}/README.md" tofile="${build.src.dir}/README"/>
 
 		<copy todir="${build.docs.dir}">
 			<fileset refid="docs"/>
