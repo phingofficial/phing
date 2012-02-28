@@ -22,13 +22,14 @@
 include_once 'phing/Task.php';
 
 /**
- *  Send an e-mail message
+ * Send an e-mail message
  *
- *  <mail tolist="user@example.org" subject="build complete">The build process is a success...</mail> 
+ * <mail tolist="user@example.org" subject="build complete">The build process is a success...</mail> 
  * 
- *  @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
- *  @version  $Id$
- *  @package  phing.tasks.ext
+ * @author   Michiel Rook <mrook@php.net>
+ * @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
+ * @version  $Id$
+ * @package  phing.tasks.ext
  */
 class MailTask extends Task
 {
@@ -46,7 +47,40 @@ class MailTask extends Task
         }
         
         $this->log('Sending mail to ' . $this->tolist);
-        mail($this->tolist, $this->subject, $this->msg);
+        
+        if (!empty($this->filesets)) {
+            @require_once 'Mail.php';
+            @require_once 'Mail/mime.php';
+            
+            if (!class_exists('Mail_mime')) {
+                throw new BuildException('Need the PEAR Mail_mime package to send attachments');
+            }
+            
+            $mime = new Mail_mime();
+            $hdrs = array(
+            	'From'    => $this->from,
+            	'Subject' => $this->subject
+            );
+            $mime->setTXTBody($this->msg);
+            
+            foreach ($this->filesets as $fs) {
+                $ds = $fs->getDirectoryScanner($this->project);
+                $fromDir  = $fs->getDir($this->project);
+                $srcFiles = $ds->getIncludedFiles();
+
+                foreach ($srcFiles as $file) {
+                    $mime->addAttachment($fromDir . DIRECTORY_SEPARATOR . $file, 'application/octet-stream');
+                }
+            }
+            
+            $body = $mime->get();
+            $hdrs = $mime->headers($hdrs);
+            
+            $mail = Mail::factory('mail');
+            $mail->send($this->tolist, $hdrs, $body);
+        } else {
+            mail($this->tolist, $this->subject, $this->msg, "From: {$this->from}\n");
+        }
     }
 
     /**
@@ -120,6 +154,6 @@ class MailTask extends Task
     {
         $fileset = new FileSet();
         $this->filesets[] = $fileset;
-        return $this->fileset;
+        return $fileset;
     }
 }

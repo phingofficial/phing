@@ -3036,8 +3036,10 @@ Note that you can omit both startpoint and track attributes in this case
 		<h2>
 			<a name="MailTask"></a>MailTask </h2>
 		<p>A task to send email.</p>
+		<p><b>NB:</b> this task requires the PEAR <a href="http://pear.php.net/package/Mail">Mail</a> and
+		<a href="http://pear.php.net/package/Mail_Mime">Mail_Mime</a> packages to send any attachments.</p>
 		<h3>Example</h3>
-		<pre>&lt;mail tolist=&quot;user@example.org&quot; subject=&quot;build complete&quot;"&gt;The build process is a success...&lt;/mail&gt;</pre>
+		<pre>&lt;mail tolist=&quot;user@example.org&quot; subject=&quot;build complete&quot;&gt;The build process is a success...&lt;/mail&gt;</pre>
 		<h3>Attributes</h3>
 		<table>
 			<thead>
@@ -3082,7 +3084,7 @@ Note that you can omit both startpoint and track attributes in this case
 		</table>
 		<h3>Supported Nested Tags</h3>
 		<ul>
-			<li>fileset <p>Files to be attached (not implemented at this time).</p></li>
+			<li>fileset <p>Files to be attached (requires the PEAR Mail and Mail_Mime packages).</p></li>
 		</ul>
 		<h2>
 			<a name="PatchTask"></a>PatchTask </h2>
