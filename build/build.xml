@@ -51,7 +51,6 @@
 	<fileset dir="${phingpkg.home}" id="misc">
 		<include name="CHANGELOG"/>
 		<include name="CREDITS"/>
-		<include name="README.md"/>
 		<include name="TODO"/>
 		<include name="UPGRADE"/>
 		<exclude name="INSTALL*"/>
@@ -150,8 +149,8 @@
 			<fileset refid="misc"/>
 		</copy>
 		
-		<!-- rename README.md to README -->
-		<move file="${build.src.dir}/README.md" tofile="${build.src.dir}/README"/>
+		<!-- copy README.md to README -->
+		<copy file="${phingpkg.home}/README.md" tofile="${build.src.dir}/README"/>
 
 		<copy todir="${build.docs.dir}">
 			<fileset refid="docs"/>
@@ -187,6 +186,10 @@
 			<fileset refid="etc"/>
 			<fileset refid="misc"/>
 			<fileset refid="scripts"/>
+			
+			<fileset dir="${build.src.dir}">
+				<include name="README"/>
+			</fileset>
 			
 		</pear-package>
 
