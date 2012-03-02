@@ -37,7 +37,11 @@ class rSTTaskTest extends BuildFileTest
         //$this->assertInLogs('Property ${version} => 1.0.1');
     }
 
-
+    public function tearDown()
+    {
+        // remove excess file if the test failed
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html');
+    }
 
     /**
      * Checks if a given file has been created and unlinks it afterwards.
