@@ -138,7 +138,7 @@ class HttpGetTask extends Task
      * @param string $url
      */
     public function setUrl($url) {
-        $this->url = $url;
+        $this->url = $this->project->replaceProperties($url);
     }
 
     /**
@@ -147,7 +147,7 @@ class HttpGetTask extends Task
      * @param string $filename
      */
     public function setFilename($filename) {
-        $this->filename = $filename;
+        $this->filename = $this->project->replaceProperties($filename);
     }
 
     /**
@@ -156,7 +156,7 @@ class HttpGetTask extends Task
      * @param string $dir
      */
     public function setDir($dir) {
-        $this->dir = $dir;
+        $this->dir = $this->project->replaceProperties($dir);
     }
 
     /**
@@ -165,6 +165,6 @@ class HttpGetTask extends Task
      * @param string $proxy
      */
     public function setProxy($proxy) {
-        $this->_proxy = $proxy;
+        $this->_proxy = $this->project->replaceProperties($proxy);
     }
 }
