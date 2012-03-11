@@ -88,6 +88,16 @@ class ApiGenTask extends Task
     }
 
     /**
+     * Sets list of allowed file extensions.
+     *
+     * @param string $extensions
+     */
+    public function setExtensions($extensions)
+    {
+        $this->options['extensions'] = explode(',', $extensions);
+    }
+
+    /**
      * Sets masks (case sensitive) to exclude files or directories from processing.
      *
      * @param string $exclude

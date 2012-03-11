@@ -1605,6 +1605,9 @@
                     <attribute name="destination"/>
                 </optional>
                 <optional>
+                    <attribute name="extensions"/>
+                </optional>
+                <optional>
                     <attribute name="exclude"/>
                 </optional>
                 <optional>
