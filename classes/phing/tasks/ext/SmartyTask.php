@@ -543,7 +543,7 @@ class SmartyTask extends Task {
                     // reset value, and then 
                     // read in teh contents of the file into that var
                     $value = "";
-                    $f = new PhingFile($project->resolveFile($value)->getCanonicalPath());                        
+                    $f = new PhingFile($this->project->resolveFile($value)->getCanonicalPath());
                     if ($f->exists()) {
                         try {
                             $fr = new FileReader($f);
