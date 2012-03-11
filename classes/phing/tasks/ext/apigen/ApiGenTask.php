@@ -399,7 +399,7 @@ class ApiGenTask extends Task
         // Execute ApiGen
         exec(escapeshellcmd($this->executable) . ' ' . $this->constructArguments(), $output, $return);
 
-        $logType = 0 === $return ? Project::MSG_VERBOSE : Project::MSG_ERR;
+        $logType = 0 === $return ? Project::MSG_INFO : Project::MSG_ERR;
         foreach ($output as $line) {
             $this->log($line, $logType);
         }
