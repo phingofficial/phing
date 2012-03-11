@@ -138,18 +138,6 @@ class PHPCPDTask extends Task
     }
 
     /**
-     * Sets the minimum rule priority.
-     *
-     * @param integer $minimumPriority Minimum rule priority.
-     *
-     * @return void
-     */
-    public function setMinimumPriority($minimumPriority)
-    {
-        $this->_minimumPriority = $minimumPriority;
-    }
-
-    /**
      * Sets the minimum number of identical lines (default: 5).
      *
      * @param integer $minLines Minimum number of identical lines
