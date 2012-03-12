@@ -382,6 +382,13 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 					<td>n/a</td>
 					<td>Yes</td>
 				</tr>
+                <tr>
+					<td>template</td>
+					<td>String</td>
+					<td>Name of the DocBlox template to use.</td>
+					<td>default</td>
+					<td>No</td>
+				</tr>
 				<tr>
 					<td>quiet</td>
 					<td>Boolean</td>
@@ -399,6 +406,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 		<pre>
 &lt;docblox title=&quot;API Documentation&quot;
   destdir=&quot;apidocs&quot;&gt;
+  template=&quot;new_black&quot;&gt;
    &lt;fileset dir=&quot;./classes&quot;&gt;
       &lt;include name=&quot;**/*.php&quot; /&gt;
    &lt;/fileset&gt;
