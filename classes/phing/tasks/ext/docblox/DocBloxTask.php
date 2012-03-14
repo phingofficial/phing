@@ -48,7 +48,7 @@ class DocBloxTask extends Task
      * name of the template to use
      * @var string
      */
-    private $template = "default";
+    private $template = "new_black";
     
     /**
      * Title of the project
