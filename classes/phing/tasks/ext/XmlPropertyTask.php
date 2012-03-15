@@ -165,7 +165,7 @@ class XmlPropertyTask extends PropertyTask {
 
             } else {
                 if ($this->getRequired()){
-                    throw new BuildException("Could not load requied properties file.", $ioe);
+                    throw new BuildException("Could not load required properties file.", $ioe);
                 } else {
                     $this->log("Unable to find property file: ". $file->getAbsolutePath() ."... skipped", Project::MSG_WARN);
                 }
