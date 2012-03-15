@@ -50,13 +50,6 @@ class GitCloneTaskTest extends BuildFileTest {
             'The remote end hung up unexpectedly');
     }
 
-    public function testWrongTargetPath()
-    {
-        $this->expectBuildExceptionContaining('wrongTargetPath', 
-            'Repository not readable', 
-            'You must specify readable directory as repository');
-    }
-
     public function testGitClone()
     {
         $repository = PHING_TEST_BASE . '/tmp/git';

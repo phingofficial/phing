@@ -27,12 +27,6 @@
             targetPath="${tmp.dir.resolved}" />
 	</target>
 
-    <target name="wrongTargetPath" description="Path to target path not found">
-        <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git" 
-            targetPath="this-is-plain-wrong" />
-	</target>
-
     <target name="noRepository" description="No repo dir argument provided">
         <gitclone targetPath="${tmp.dir.resolved}" />
     </target>
