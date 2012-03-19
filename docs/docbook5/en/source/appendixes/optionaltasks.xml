@@ -3370,6 +3370,552 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    
+
+<sect1 role="taskdef" xml:id="LiquibaseChangeLogTask">
+    <title>LiquibaseChangeLogTask</title>
+    <para>The <literal>LiquibaseChangeLogTask</literal> writes the Change Log XML to copy the current state of the 
+        database to the given changeLogFile.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>jar</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the Liquibase jar file.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>classpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Additional classpath entries.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>changeLogFile</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the changelog file in which the changes get written or read from.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The username needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The password needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>url</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;liquibase-changelog
+  jar="/usr/local/lib/liquibase/liquibase.jar"
+  classpathref="/usr/local/lib/liquibase/lib/mysql-connector-java-5.1.15-bin.jar"
+  changelogFile="./changelogTest.xml"
+  username="liquibase"
+  password="liquibase"
+  url="jdbc:mysql://localhost/mydatabase"
+/></programlisting>
+    </sect2>
+</sect1>
+
+
+<sect1 role="taskdef" xml:id="LiquibaseDbDocTask">
+    <title>LiquibaseDbDocTask</title>
+    <para>The <literal>LiquibaseDbDocTask</literal> generates a Javadoc-like documentation based on
+            current database and the given changelog file.</para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>jar</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the Liquibase jar file.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>classpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Additional classpath entries.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>changeLogFile</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the changelog file in which the changes get written or read from.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The username needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The password needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>url</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The JDBC URL representing the database data source, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>outputDir</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Absolute path where the documentation gets written to. 
+                        If the given directory does not exist, it get`s created automatically.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+                
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;liquibase-dbdoc
+  jar="/usr/local/lib/liquibase/liquibase.jar"
+  classpathref="/usr/local/lib/liquibase/lib/mysql-connector-java-5.1.15-bin.jar"
+  changelogFile="./changelogTest.xml"
+  username="liquibase"
+  password="liquibase"
+  url="jdbc:mysql://localhost/mydatabase"
+  outputDir="/tmp/generateddocs"
+/></programlisting>
+    </sect2>
+</sect1>
+
+
+
+<sect1 role="taskdef" xml:id="LiquibaseDiffTask">
+    <title>LiquibaseDiffTask</title>
+    <para>The <literal>LiquibaseDiffTask</literal> creates a diff between two databases. Will 
+        output the changes needed to convert the reference database to the state 
+        of the database.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>jar</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the Liquibase jar file.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>classpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Additional classpath entries.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>changeLogFile</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the changelog file in which the changes get written or read from.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The username needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The password needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>url</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+                <row>
+                    <entry><literal>referenceUsername</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The username needed to connect to the reference database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>referencePassword</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The password needed to connect to the reference database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>referenceUrl</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The JDBC Url representing the database reference datasource, e.g <literal>jdbc:mysql://localhost/refdatabase</literal></entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;liquibase-diff
+  jar="/usr/local/lib/liquibase/liquibase.jar"
+  classpathref="/usr/local/lib/liquibase/lib/mysql-connector-java-5.1.15-bin.jar"
+  changelogFile="./changelogTest.xml"
+  username="liquibase"
+  password="liquibase"
+  url="jdbc:mysql://localhost/mydatabase"
+  referenceUsername="liquibase"
+  referencePassword="liquibase"
+  referenceUrl="jdbc:mysql://localhost/refdatabase"
+/></programlisting>
+    </sect2>
+</sect1>
+
+
+<sect1 role="taskdef" xml:id="LiquibaseRollbackTask">
+    <title>LiquibaseRollbackTask</title>
+    <para>The <literal>LiquibaseRollbackTask</literal> rolls back the database to 
+        the the state is was when the tag was applied.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>jar</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the Liquibase jar file.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>classpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Additional classpath entries.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>changeLogFile</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the changelog file in which the changes get written or read from.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The username needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The password needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>url</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+                <row>
+                    <entry><literal>rollbackTag</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The name of the tag to roll the database back to.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;liquibase-rollback
+  jar="/usr/local/lib/liquibase/liquibase.jar"
+  classpathref="/usr/local/lib/liquibase/lib/mysql-connector-java-5.1.15-bin.jar"
+  changelogFile="./changelogTest.xml"
+  username="liquibase"
+  password="liquibase"
+  url="jdbc:mysql://localhost/mydatabase"
+  rollbackTag="tag_0_1"
+/></programlisting>
+    </sect2>
+</sect1>
+
+
+<sect1 role="taskdef" xml:id="LiquibaseTagTask">
+    <title>LiquibaseTagTask</title>
+    <para>The <literal>LiquibaseTagTask</literal> tags the current database 
+        state for future rollback.
+</para>
+<table>
+    <title>Attributes</title>
+    <tgroup cols="5">
+        <colspec colname="name" colnum="1" colwidth="1.5*"/>
+        <colspec colname="type" colnum="2" colwidth="0.8*"/>
+        <colspec colname="description" colnum="3" colwidth="3.5*"/>
+        <colspec colname="default" colnum="4" colwidth="0.8*"/>
+        <colspec colname="required" colnum="5" colwidth="1.2*"/>
+        <thead>
+            <row>
+                <entry>Name</entry>
+                <entry>Type</entry>
+                <entry>Description</entry>
+                <entry>Default</entry>
+                <entry>Required</entry>
+            </row>
+        </thead>
+        <tbody>
+            <row>
+                <entry><literal>jar</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>Location of the Liquibase jar file.</entry>
+                <entry>n/a</entry>
+                <entry>Yes</entry>
+            </row>
+            <row>
+                <entry><literal>classpath</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>Additional classpath entries.</entry>
+                <entry>n/a</entry>
+                <entry>Yes</entry>
+            </row>
+            <row>
+                <entry><literal>changeLogFile</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>Location of the changelog file in which the changes get written or read from.</entry>
+                <entry>n/a</entry>
+                <entry>Yes</entry>
+            </row>
+            <row>
+                <entry><literal>username</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>The username needed to connect to the database.</entry>
+                <entry>n/a</entry>
+                <entry>Yes</entry>
+            </row>
+            <row>
+                <entry><literal>password</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>The password needed to connect to the database.</entry>
+                <entry>n/a</entry>
+                <entry>Yes</entry>
+            </row>
+            <row>
+                <entry><literal>url</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
+                <entry>n/a</entry>
+                <entry>Yes</entry>
+            </row>                
+            <row>
+                <entry><literal>tag</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>The name of the tag to apply.</entry>
+                <entry>n/a</entry>
+                <entry>Yes</entry>
+            </row>
+        </tbody>
+    </tgroup>
+</table>
+<sect2>
+    <title>Example</title>
+    <programlisting language="xml">&lt;liquibase-tag
+  jar="/usr/local/lib/liquibase/liquibase.jar"
+  classpathref="/usr/local/lib/liquibase/lib/mysql-connector-java-5.1.15-bin.jar"
+  changelogFile="./changelogTest.xml"
+  username="liquibase"
+  password="liquibase"
+  url="jdbc:mysql://localhost/mydatabase"
+  tag="tag_0_1"
+/></programlisting>
+</sect2>
+</sect1>
+
+
+<sect1 role="taskdef" xml:id="LiquibaseUpdateTask">
+    <title>LiquibaseUpdateTask</title>
+    <para>The <literal>LiquibaseUpdateTask</literal> applies the latest changes from the changelog 
+        file to the definied database.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>jar</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the Liquibase jar file.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>classpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Additional classpath entries.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>changeLogFile</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the changelog file in which the changes get written or read from.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The username needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The password needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>url</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;liquibase-update
+  jar="/usr/local/lib/liquibase/liquibase.jar"
+  classpathref="/usr/local/lib/liquibase/lib/mysql-connector-java-5.1.15-bin.jar"
+  changelogFile="./changelogTest.xml"
+  username="liquibase"
+  password="liquibase"
+  url="jdbc:mysql://localhost/mydatabase"
+/></programlisting>
+    </sect2>
+</sect1>
+
+    
+    
     <sect1 role="taskdef" xml:id="MailTask">
         <title>MailTask</title>
         <para>A task to send email.</para>
@@ -3437,14 +3983,60 @@ Note that you can omit both startpoint and track attributes in this case
                 </listitem>
             </itemizedlist>
         </sect2>
+    </sect1>   
+    <sect1 role="taskdef" xml:id="ParallelTask">
+        <title>ParallelTask</title>
+        <para>Executes nested tasks in parallel.</para>
+        <warning><para>This task is highly experimental, and will only work on *nix machines 
+            that have the PHP <literal>pcntl</literal> extension installed.</para></warning>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>threadCount</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Maximum number of threads / processes to use.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;parallel threadCount="4">
+    &lt;echo>Job 1&lt;/echo>
+    &lt;echo>Job 2&lt;/echo>
+    &lt;echo>Job 3&lt;/echo>
+    &lt;echo>Job 4&lt;/echo>
+&lt;/trycatch>\u0000</programlisting>
+        </sect2>
     </sect1>
+    
+    
     <sect1 role="taskdef" xml:id="PatchTask">
         <title>PatchTask</title>
         <para> The <literal>PatchTask</literal> uses the <link
                 xlink:href="http://savannah.gnu.org/projects/patch" role="extern">patch</link>
             program to apply diff file to originals.</para>
         <para>
-            <emphasis role="bold">NB:</emphasis> the patch program must be in the system path! </para>
+            <emphasis role="bold">NB:</emphasis> the <literal>patch</literal> program must be in the
+            system path! </para>
 
         <table>
             <title>Attributes</title>
@@ -5361,7 +5953,8 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
-                        <entry>No</entry>
+                        <entry>Only when there are <emphasis>no</emphasis> nested
+                                <literal>fileset</literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>configFile</literal></entry>

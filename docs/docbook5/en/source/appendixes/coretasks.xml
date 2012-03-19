@@ -1283,8 +1283,8 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
-	<sect1 role="taskdef" xml:id="ExitTask">
-		<title>ExitTask </title>
+	<sect1 role="taskdef" xml:id="FailTask">
+		<title>FailTask </title>
 		<para>Causes the current build script execution to fail and the script to exit with an
 			(optional) error message.</para>
 
@@ -1341,15 +1341,16 @@
 		<sect2>
 			<title>Examples</title>
 			<programlisting language="xml">&lt;!-- Exit w/ message -->
-&lt;exit message="Failed for some reason!" />
+&lt;fail message="Failed for some reason!" />
 
 &lt;!--  Exit if ${errorprop} is defined -->
-&lt;exit if="errorprop" message="Detected error!" />
+&lt;fail if="errorprop" message="Detected error!" />
 
 &lt;!-- Exit unless ${dontfail} prop is defined. -->
-&lt;exit unless="dontfail" message="Detected error!" /></programlisting>
+&lt;fail unless="dontfail" message="Detected error!" /></programlisting>
 		</sect2>
 	</sect1>
+	
 	<sect1 role="taskdef" xml:id="ForeachTask">
 		<title>ForeachTask </title>
 		<para>The <literal>foreach</literal> task iterates over a list, a list of
@@ -2649,6 +2650,80 @@ file defines a task in the format: name=path.to.Task -->
 			</itemizedlist>
 		</sect2>
 	</sect1>
+	<sect1 role="trycatch" xml:id="TryCatchTask">
+		<title>TryCatchTask</title>
+		<para>This task is a wrapper task that lets you run tasks(s) when another set of tasks fails, 
+			mirroring PHP's <literal>try/catch</literal> functionality (with the addition of 
+			<literal>finally</literal> block)</para>
+		<para>The tasks inside of the <literal>try</literal> block will always be run. If one of 
+			them throws a BuildException, the following things can happen:</para>
+		<itemizedlist>
+			<listitem>
+				<para>If there is no <literal>catch</literal> block, the
+					exception will be passed to Phing.</para>
+			</listitem>
+			<listitem>
+				<para>If the <literal>property</literal> attribute has been set a property of that
+					name will contain the message of the exception.</para>
+			</listitem>
+			<listitem>
+				<para>If there is a <literal>catch</literal> block, the nested tasks will be
+					run.</para>
+			</listitem>
+		</itemizedlist>
+		<para>If a <literal>finally</literal> block is present, the nested tasks will be run
+			regardless of whether the tasks in the <literal>try</literal> block have thrown an
+			exception or not.</para>
+		<para>This task was inspired by <link xlink:href="http://ant-contrib.sourceforge.net/tasks/tasks/trycatch.html">http://ant-contrib.sourceforge.net/tasks/tasks/trycatch.html</link>.</para>
+		<table>
+			<title>Attributes</title>
+		<tgroup cols="5">
+			<colspec colname="name" colnum="1" colwidth="1.5*"/>
+			<colspec colname="type" colnum="2" colwidth="0.8*"/>
+			<colspec colname="description" colnum="3" colwidth="3.5*"/>
+			<colspec colname="default" colnum="4" colwidth="0.8*"/>
+			<colspec colname="required" colnum="5" colwidth="1.2*"/>
+			<thead>
+				<row>
+					<entry>Name</entry>
+					<entry>Type</entry>
+					<entry>Description</entry>
+					<entry>Default</entry>
+					<entry>Required</entry>
+				</row>
+			</thead>
+			<tbody>
+				<row>
+					<entry><literal>property</literal></entry>
+					<entry><literal role="type">String</literal></entry>
+					<entry>Name of a property that will receive the message of the exception that has been caught
+							(if any)</entry>
+					<entry>n/a</entry>
+					<entry>No</entry>
+				</row>
+			</tbody>
+		</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
+			<programlisting>&lt;trycatch property="foo">
+    &lt;try>
+        &lt;fail>Tada!&lt;/fail>
+    &lt;/try>
+
+    &lt;catch>
+        &lt;echo>In catch.&lt;/echo>
+    &lt;/catch>
+		                
+    &lt;finally>
+        &lt;echo>In finally.&lt;/echo>
+    &lt;/finally>
+&lt;/trycatch>
+
+&lt;echo>As property: ${foo}&lt;/echo></programlisting>
+		</sect2>
+		
+	</sect1>
 	<sect1 role="taskdef" xml:id="TstampTask">
 		<title>TstampTask </title>
 		<para>Sets the <literal>DSTAMP</literal>, <literal>TSTAMP</literal>, and <literal>TODAY</literal>
@@ -2823,8 +2898,10 @@ file defines a task in the format: name=path.to.Task -->
 		</table>
 		<sect2>
 			<title>Examples</title>
-			<programlisting language="xml">&lt;!-- Includes the Type named "CustomProject" and makes it available by
-     &lt;cproject> -->
+			<programlisting language="xml">&lt;!-- 
+Includes the Type named "CustomProject" and makes it available by
+&lt;cproject> 
+-->
 &lt;taskdef classname="user.types.CustomProject" name="cproject" /></programlisting>
 		</sect2>
 
