@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sect1 role="taskdef" xml:id="#NAME_OF_TASK#Task">
+    <title>#NAME_OF_TASK#Task</title>
+    <para> DESCRIPTION OF TASK. 
+        INCLUDE LINKS AS <link xlink:href="http://XXXX_URL">XXXX_NAME</link>.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>ATTRIBUTE1</literal></entry>
+                    <entry><literal role="type">TYPE ONE OF [String, Integer, Boolean]</literal></entry>
+                    <entry>DESCRIPTION OF ENTRY</entry>
+                    <entry>DEFAULT VALUE</entry>
+                    <entry>IS THIS ATTRIBUTE REQUIRED</entry>
+                </row>
+                <row>
+                    <entry><literal>ATTRIBUTE2</literal></entry>
+                    <entry><literal role="type">TYPE ONE OF [String, Integer, Boolean]</literal></entry>
+                    <entry>DESCRIPTION OF ENTRY</entry>
+                    <entry>DEFAULT VALUE</entry>
+                    <entry>IS THIS ATTRIBUTE REQUIRED</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;#NAME_OF_TASK#> CODE EXAMPLE</programlisting>
+    </sect2>
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>NESTED TAG1</literal>
+                </para>
+                <para>DESCRIPTION OF NESTED TAG1.</para>
+            </listitem>
+        </itemizedlist>
+    </sect2>
+</sect1>
+

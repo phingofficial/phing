@@ -1,0 +1,32 @@
+SCRIPT Notice
+=============
+
+This directory contain custom script(s) to make it easier to build the version of the
+manual with the syntax highlighting enabled. This uses the highlight functionality
+available in docbook5 together which in turn uses xslthl-2.x.x
+
+The xslthl-2.x.x must therefore be installed into the Java CLASSPATH. 
+
+Three more cautions:
+
+ * This script has only been tested on OpnSuSE
+
+ * This assumes that the path to the DocBook stylesheets are
+
+      /usr/share/xml/docbook/stylesheets/nwalsh5/current
+
+   Mutatis mutandis.
+
+ * Saxon 6.5.5 Java xslt processor must be installed (and available in the
+   Java CLASSPATH)
+
+ * 'xmllint' must be available since that is used to pre-process the xinclude
+   to create a flattened XML version of the manual.
+
+
+Yes, all this is a PITA. But there is no other way to get easy Syntax highlight in DocBoook
+besides rolling a completely homegrown solution which is probably even worse. One option
+might be to use dynamic highlitning with Javascipt (i.e. JQuery) for the HTML rendering but 
+that will not work for PDF output anyway.
+
+
