@@ -181,4 +181,16 @@ class TargetHandler extends AbstractHandler {
             $tmp->init($name, $attrs);
         }
     }
+    
+    /**
+     * Checks if this target has dependencies and/or nested tasks.
+     * If the target has neither, show a warning.
+     */
+    protected function finished()
+    {
+        if (!count($this->target->getDependencies()) && !count($this->target->getTasks())) {
+            $this->configurator->project->log("Warning: target '" . $this->target->getName() .
+                "' has no tasks or dependencies", Project::MSG_WARN);
+        }
+    }
 }
