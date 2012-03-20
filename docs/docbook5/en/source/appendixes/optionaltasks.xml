@@ -5615,7 +5615,8 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
-                        <entry>No</entry>
+                        <entry>Only when there are <emphasis>no</emphasis> nested
+                        <literal>fileset</literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>minTokens</literal></entry>
@@ -5795,7 +5796,8 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
-                        <entry>No</entry>
+                        <entry>Only when there are <emphasis>no</emphasis> nested
+                        <literal>fileset</literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>rulesets</literal></entry>
