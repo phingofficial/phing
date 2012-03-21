@@ -43,7 +43,7 @@ class PhpLintTaskTest extends BuildFileTest {
     public function testSyntaxError()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in");
+        $this->assertInLogs("Parse error: syntax error, unexpected");
     }
 
     /**
