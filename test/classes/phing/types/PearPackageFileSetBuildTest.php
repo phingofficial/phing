@@ -34,7 +34,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     public function setUp() 
     {
         //needed for PEAR's Config and Registry classes
-        error_reporting(error_reporting() & ~E_DEPRECATED);
+        error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
 
         $this->configureProject(
             PHING_TEST_BASE . '/etc/types/PearPackageFileSetBuildTest.xml'
