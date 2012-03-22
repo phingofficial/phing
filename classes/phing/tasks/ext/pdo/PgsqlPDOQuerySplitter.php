@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
  * Unlike DefaultPDOQuerySplitter this uses a lexer instead of regular
  * expressions. This allows handling complex constructs like C-style comments
  * (including nested ones) and dollar-quoted strings.
- * 
+ *
  * @author  Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext.pdo
  * @version $Id$
@@ -110,7 +110,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
     * Bactracks one symbol on the input
     *
     * NB: we don't need ungetc() at the start of the line, so this case is
-    * not handled. 
+    * not handled.
     */
     public function ungetc()
     {
@@ -152,11 +152,12 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
             }
         }
     }
-    
+
     public function nextQuery()
     {
-        $sql       = '';
-        $delimiter = $this->parent->getDelimiter();
+        $sql        = '';
+        $delimiter  = $this->parent->getDelimiter();
+        $openParens = 0;
 
         while (false !== ($ch = $this->getc())) {
             switch ($this->state) {
@@ -191,8 +192,19 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                         continue 3;
                     }
                     break;
+                case '(':
+                    $openParens++;
+                    break;
+                case ')':
+                    $openParens--;
+                    break;
                 // technically we can use e.g. psql's \g command as delimiter
                 case $delimiter[0]:
+                    // special case to allow "create rule" statements
+                    // http://www.postgresql.org/docs/current/interactive/sql-createrule.html
+                    if (';' == $delimiter && 0 < $openParens) {
+                        break;
+                    }
                     $hasQuery = true;
                     for ($i = 1; $i < strlen($delimiter); $i++) {
                         if ($delimiter[$i] != $this->getc()) {

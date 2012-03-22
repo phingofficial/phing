@@ -45,8 +45,16 @@ else
 $_X$
     LANGUAGE plperl;
 
-insert into foo (bar) -- I can be safely ignored as PostgreSQL does not have hints 
+insert into foo (bar) -- I can be safely ignored as PostgreSQL does not have hints
 values ('${bar.value}');
 insert into foo (bar) values ($$ a dollar-quoted string containing a few quotes ' ", a $placeholder$ and a semicolon;$$);
+
+-- "create rule" statement may contain semicolons inside parentheses
+create rule blah_insert
+as on insert to blah do instead (
+    insert into foo values (new.id, 'blah');
+    insert into bar values (new.id, 'blah-blah');
+);
+
 
 insert into dump (message) values ('I am a statement not ending with a delimiter')

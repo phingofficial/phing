@@ -33,7 +33,7 @@ class PDODelimitersTest extends BuildFileTest
     protected $queries = array();
 
     protected $mockTask;
-    
+
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdo/empty.xml");
@@ -89,7 +89,7 @@ SQL
         foreach ($expected as &$query) {
             $query = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
         }
-        
+
         $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-normal.sql"));
         $this->project->setProperty('bar.value', "some value");
         $this->project->executeTarget('test');
@@ -174,12 +174,16 @@ else
 \$_X$
     LANGUAGE plperl
 SQL
-, <<<SQL
-insert into foo (bar) 
-values ('some value')
-SQL
+, "insert into foo (bar) \nvalues ('some value')"
 , <<<SQL
 insert into foo (bar) values ($$ a dollar-quoted string containing a few quotes ' ", a \$placeholder$ and a semicolon;$$)
+SQL
+, <<<SQL
+create rule blah_insert
+as on insert to blah do instead (
+    insert into foo values (new.id, 'blah');
+    insert into bar values (new.id, 'blah-blah');
+)
 SQL
 , <<<SQL
 insert into dump (message) values ('I am a statement not ending with a delimiter')
@@ -193,7 +197,7 @@ SQL
         $this->mockTask->setUrl('pgsql:host=localhost;dbname=phing');
         $this->project->setProperty('bar.value', "some value");
         $this->project->executeTarget('test');
-        
+
         $this->assertEquals($expected, $this->queries);
     }
 }
