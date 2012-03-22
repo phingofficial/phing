@@ -638,6 +638,8 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 		</table>
 		<h2>
 			<a name="DocBloxTask"></a>DocBloxTask </h2>
+		<p><b>This task is now deprecated in favor of the <a
+			href="#PhpDocumentor2Task">PhpDocumentor2Task</a>.</b></p>
 		<p> This task runs <a href="http://www.docblox-project.org/" target="_blank">DocBlox</a>, a
 			PHP 5.3-compatible API documentation tool. </p>
 		<h3>Attributes</h3>
@@ -5365,6 +5367,8 @@ Note that you can omit both startpoint and track attributes in this case
 				<em>method</em>. </p>
 		<h2>
 			<a name="PhpDocumentorTask"></a>PhpDocumentorTask </h2>
+		<p><b>This task is now deprecated in favor of the <a
+			href="#PhpDocumentor2Task">PhpDocumentor2Task</a>.</b></p>
 		<p> This task runs <a href="http://www.phpdoc.org/" target="_blank">phpDocumentor</a>, an
 			auto-documentation tool for PHP similar to Javadoc. </p>
 		<h3>Attributes</h3>
@@ -5536,7 +5540,73 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/phpdoc&gt;
 </pre>
 		<h2>
+			<a name="PhpDocumentor2Task"></a>PhpDocumentor2Task</h2>
+		<p> This task runs <a href="http://www.phpdoc.org/"
+			target="_blank">phpDocumentor 2 </a>, PHP
+			5.3-compatible API documentation tool. This project
+			is the result of the merge of the phpDocumentor and
+			DocBlox projects. </p>
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+					<th>Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>title</td>
+					<td>String</td>
+					<td>Title of the project.</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>destdir</td>
+					<td>String</td>
+					<td>Destination directory for output files.</td>
+					<td>n/a</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>template</td>
+					<td>String</td>
+					<td>Name of the documentation template to use.</td>
+					<td>responsive</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>quiet</td>
+					<td>Boolean</td>
+					<td>Suppress chatter / warning
+					messages.</td>
+					<td>true</td>
+					<td>No</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Supported Nested Tags</h3>
+		<ul>
+			<li>fileset - Files that should be included for parsing</li>
+		</ul>
+		<h3>Examples</h3>
+		<pre>
+&lt;phpdoc2 title=&quot;API Documentation&quot;
+  destdir=&quot;apidocs&quot;&gt;
+  template=&quot;responsive&quot;&gt;
+   &lt;fileset dir=&quot;./classes&quot;&gt;
+      &lt;include name=&quot;**/*.php&quot; /&gt;
+   &lt;/fileset&gt;
+&lt;/phpdoc2&gt;
+</pre>
+		<h2>
 			<a name="PhpDocumentorExternalTask"></a>PhpDocumentorExternalTask </h2>
+		<p><b>This task is now deprecated in favor of the <a
+			href="#PhpDocumentor2Task">PhpDocumentor2Task</a>.</b></p>
 		<p> This is the same as the <a href="#PhpDocumentorTask">PhpDocumentorTask</a> but uses the
 			command line application. Use this as a fallback in case you're running into troubles
 			when using the phpDocumentor-library with the PhpDocumentorTask directly, e.g. when
