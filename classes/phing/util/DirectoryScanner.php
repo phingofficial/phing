@@ -132,7 +132,12 @@ class DirectoryScanner implements SelectorScanner {
         "**/._*",
         "**/.DS_Store",
     	"**/.darcs",
-    	"**/.darcs/**"
+    	"**/.darcs/**",
+    	"**/.git",
+    	"**/.git/**",
+    	"**/.gitattributes",
+    	"**/.gitignore",
+    	"**/.gitmodules",
     );
 
     /** The base directory which should be scanned. */
