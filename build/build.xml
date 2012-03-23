@@ -64,7 +64,7 @@
 		==============================================
 	-->				
 	<target name="main" if="version"
-	depends="versioncheck,setproperties,clean,copy-files,create-package-xml,tar"/>
+	depends="versioncheck,setproperties,clean,copy-files,create-package-xml,tar,phar"/>
 
 	<!--
 		===================================================================
@@ -244,6 +244,35 @@
 		<property name="zipfile-full" value="full/${pkgname}.zip"/>
 		<delete	file="${zipfile-full}"/>
 		<zip destFile="${zipfile-full}"	basedir="full/${pkgname}" />
+	</target>
+	
+	<!--
+		==============================================
+		Create a phar package of the files.
+		==============================================
+	-->
+	<target name="phar">
+		<pharpackage
+			compression="gzip"
+			destfile="full/phing-${version}.phar"
+			stub="phing-stub.php"
+			alias="phing.phar"
+			basedir="full/${pkgname}">
+			<fileset dir="full/${pkgname}">
+				<include name="bin/**" />
+				<include name="classes/**" />
+				<include name="etc/**" />
+			</fileset>
+			<metadata>
+				<element name="version" value="${version}" />
+				<element name="authors">
+					<element name="Michiel Rook">
+						<element name="e-mail"
+						value="mrook@php.net" />
+					</element>
+				</element>
+			</metadata>
+		</pharpackage>
 	</target>
 	
 	<!--
