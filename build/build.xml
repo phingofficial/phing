@@ -22,6 +22,8 @@
 		<exclude name=".project"/>
 		<exclude name="test/performance/**"/>
 		<exclude name="test/reports/**"/>
+		<exclude name="docs/docbook5/**"/>
+		<exclude name="docs/docsystem/**"/>
 	</fileset>
 
 	<fileset dir="${phingpkg.home}/classes/phing" id="classes">
