@@ -64,7 +64,7 @@
 		==============================================
 	-->				
 	<target name="main" if="version"
-	depends="versioncheck,setproperties,clean,copy-files,create-package-xml,tar,phar"/>
+	depends="versioncheck,setproperties,clean,clean-external,copy-files,create-package-xml,tar,phar"/>
 
 	<!--
 		===================================================================
@@ -296,7 +296,7 @@
 		Clean up build files.
 		==============================================
 	-->
-	 <target name="clean" depends="clean-external">
+	 <target name="clean">
 
 		<echo>-----------------------------</echo>
 		<echo>| Deleting build directory  |</echo>
