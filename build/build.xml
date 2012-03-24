@@ -252,6 +252,7 @@
 		==============================================
 	-->
 	<target name="phar">
+		<php expression="date('Ymd')" returnProperty="builddate" />
 		<pharpackage
 			compression="gzip"
 			destfile="full/phing-${version}.phar"
@@ -265,6 +266,8 @@
 			</fileset>
 			<metadata>
 				<element name="version" value="${version}" />
+				<element name="state" value="${state}" />
+				<element name="builddate" value="${builddate}" />
 				<element name="authors">
 					<element name="Michiel Rook">
 						<element name="e-mail"
