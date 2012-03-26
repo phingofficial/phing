@@ -169,7 +169,7 @@ class HtmlColorLogger extends DefaultLogger {
                     break;
             }
 
-            $stream->write($message . '<br>');
+            $stream->write($message . '<br/>');
         }
     }
 }
