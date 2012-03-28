@@ -2,6 +2,34 @@ P     H     I     N     G
 =========================
 
 
+Apr. ??, 2012 - Phing 2.4.10
+---------------------------
+
+  * [870] Can't find ParallelTask.php
+  * [868] Git Clone clones into wrong directory
+  * [865] static call to a non-static function PhingFile.php::getTempdir()
+  * [853] PHP Error with HttpGetTask
+  * [852] Several minor errors in documentation of core tasks
+  * [851] RNG grammar hasn't been updated to current version
+  * [850] Typo in documentation - required attributes for project
+  * [849] Symfony 2 Console Task
+  * [847] Add support for RNG grammar in task XmlLint
+  * [846] RNG grammar is wrong for task 'foreach'
+  * [844] symlink task - overwrite not working
+  * [843] "verbose" option should print fileset/filelist filenames before execution, not afterwards
+  * [840] Prevent weird bugs: raise warning when a target tag contains no ending tag
+  * [835] JSL-Check faulty
+  * [834] ExecTask documentation has incorrect escape attribute default value
+  * [833] Exec task args with special characters cannot be escaped
+  * [828] SelectorUtils::matchPath matches **/._* matches dir/file._name
+  * [820] Type selector should treat symlinks to directories as such
+  * [790] Make it easy to add new inherited types to phing: Use addFileset instead of createFileset
+  * [671] fix CvsTask documentation
+  * [587] More detailed backtrace in debug mode (patch)
+  * [519] Extend mail task to include attachments
+  * [419] schema file for editors and validation
+  * [334] Run a task on BuildException
+
 Dec. 29, 2011 - Phing 2.4.9
 ---------------------------
 
