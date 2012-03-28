@@ -5,67 +5,58 @@ P     H     I     N     G
 What is it?
 -----------
 
-  Phing is a PHP based build tool. In theory it is kind of like "make"
-  without makes drawbacks and with the full portability and performance
-  of PHP. (PH)pmake (I)s (N)ot (G)numake
+  (PH)ing (I)s (N)ot (G)NU make; it's a PHP project build system or build
+  tool based on Apache Ant. You can do anything with it that you could do
+  with a traditional build system like GNU make, and its use of simple XML
+  build files and extensible PHP "task" classes make it an easy-to-use and
+  highly flexible build framework.
 
-Why?
-----
+  Features include running PHPUnit and SimpleTest unit tests (including test
+  result and coverage reports), file transformations (e.g. token replacement,
+  XSLT transformation, Smarty template transformations),
+  file system operations, interactive build support, SQL execution,
+  CVS/SVN/GIT operations, tools for creating PEAR packages, documentation
+  generation (DocBlox, PhpDocumentor) and much, much more. 
 
-  Why another build tool when there is already make, gnumake, nmake, jam, ant,
-  and others? Because all those tools have limitations that the binarycloud
-  development team could not live with when developing software across
-  different platforms. Make-like tools are inherently shell-based: they
-  evaluate a set of dependencies, then execute commands not unlike what you
-  would issue on a shell.
+  If you find yourself writing custom scripts to handle the packaging,
+  deploying, or testing of your applications, then we suggest looking at Phing.
+  Phing comes packaged with numerous out-of-the-box operation modules (tasks),
+  and an easy-to-use OO model to extend or add your own custom tasks.
 
-  This means that you can easily extend these tools by using or writing any
-  program for the OS that you are working on; however, this also means that
-  you limit yourself to the OS, or at least the OS type, such as Unix, that
-  you are working on.
+  Phing provides the following features:
 
-  Makefiles are inherently evil as well. Anybody who has worked on them for
-  any time has run into the dreaded tab problem. "Is my command not executing
-  because I have a space in front of my tab?!!". Tools like Jam took care of
-  this to a great degree, but still have yet another format to use and
-  remember. Of course there is the Java based build tool ant, that is very
-  good approach to what now Phing is. But still based on Java you have to have
-  at least a running JRE installation on your plattfrom.
-  Great for Java projects but we thought this is very consistent way to build
-  a PHP based project. Additionally ant does not support a autoconf tool that
-  writes out proper buildfiles based on some simple rules prior defined in a
-  XML Configuration file.
-
-  Phing is different. Instead of a model where it is extended with shell-based
-  commands, Phing is extended using PHP classes. Instead of writing shell
-  commands, the configuration files are XML-based, calling a target tree where
-  various tasks get executed. Each task is run by an object that implements
-  a particular Task action.
-
-  Of course, this removes some of the expressive power that is inherent in
-  being able to construct a shell command such as
-
-    % `find . -name foo -exec rm {}`
-
-  but it gives you the ability to be cross-platform - to work anywhere and
-  everywhere. And if you really need to execute a shell command, Phing has an `<exec>`
-  task that allows different commands to be executed based on the operating
-  system it is executing on.
+    * Simple XML buildfiles
+    * Rich set of provided tasks
+    * Easily extendable via PHP classes
+    * Platform-independent: works on UNIX, Windows, Mac OSX
+    * No required external dependencies
+    * Built for PHP5 
 
 The Latest Version
 ------------------
 
   Details of the latest version can be found on the Phing homepage
-  <http://phing.info/>.
+  <http://www.phing.info/>.
+
+Installation
+------------
+
+  The preferred method to install Phing is through PEAR and the Phing PEAR
+  channel. You can install Phing by adding the pear.phing.info channel
+  to your PEAR environment and then installing Phing using the *phing*
+  channel alias and *phing* package name: 
+
+    $> pear channel-discover pear.phing.info
+    $> pear install [--alldeps] phing/phing
 
 Documentation
 -------------
 
-  Documentation is available in XHTML format in the docs/ directory. In particular,
-  open the docs/phing_guide/book/index.html in a frames-compatible browser to see the
-  phing user guide.
+  Documentation is available in HTML format in the *docs* directory. In particular,
+  open the *docs/phing_guide/book/index.html* in a browser to see the
+  Phing User Guide.
 
-  For online documentation, you can also visit the Phing website: http://phing.info/
+  For online documentation, you can also visit the Phing website: http://www.phing.info/
 
 Licensing
 ---------
@@ -73,4 +64,4 @@ Licensing
   This software is licensed under the terms you may find in the file
   named "LICENSE" in this directory.
 
-  Thanks for using PHING.
+  Thank you for using PHING!
