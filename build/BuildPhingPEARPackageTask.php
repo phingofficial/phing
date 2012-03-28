@@ -96,11 +96,9 @@ class BuildPhingPEARPackageTask extends MatchingTask {
 
             $options['exceptions'] = array( 'bin/pear-phing.bat' => 'script',
                                             'bin/pear-phing' => 'script',
-                                            'CREDITS' => 'doc',
-                                            'CHANGELOG' => 'doc',
-                                            'README' => 'doc',
-                                            'UPGRADE' => 'doc',
-                                            'TODO' => 'doc');
+                                            'CREDITS.md' => 'doc',
+                                            'CHANGELOG.md' => 'doc',
+                                            'README.md' => 'doc');
         }
 
         $pkg->setOptions($options);
