@@ -98,6 +98,7 @@ class BuildPhingPEARPackageTask extends MatchingTask {
                                             'bin/pear-phing' => 'script',
                                             'CREDITS.md' => 'doc',
                                             'CHANGELOG.md' => 'doc',
+                                            'LICENSE' => 'doc',
                                             'README.md' => 'doc');
         }
 

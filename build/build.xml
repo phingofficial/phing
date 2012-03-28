@@ -53,6 +53,7 @@
 	<fileset dir="${phingpkg.home}" id="misc">
 		<include name="CHANGELOG.md"/>
 		<include name="CREDITS.md"/>
+		<include name="LICENSE"/>
 		<include name="README.md"/>
 		<exclude name="INSTALL*"/>
 	</fileset>
