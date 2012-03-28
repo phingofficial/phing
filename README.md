@@ -2,9 +2,6 @@ P     H     I     N     G
 =========================
 
 
-What is it?
------------
-
   (PH)ing (I)s (N)ot (G)NU make; it's a PHP project build system or build
   tool based on Apache Ant. You can do anything with it that you could do
   with a traditional build system like GNU make, and its use of simple XML
@@ -25,12 +22,12 @@ What is it?
 
   Phing provides the following features:
 
-    * Simple XML buildfiles
-    * Rich set of provided tasks
-    * Easily extendable via PHP classes
-    * Platform-independent: works on UNIX, Windows, Mac OSX
-    * No required external dependencies
-    * Built for PHP5 
+  * Simple XML buildfiles
+  * Rich set of provided tasks
+  * Easily extendable via PHP classes
+  * Platform-independent: works on UNIX, Windows, Mac OSX
+  * No required external dependencies
+  * Built for PHP5 
 
 The Latest Version
 ------------------
