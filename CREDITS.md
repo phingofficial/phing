@@ -1,13 +1,14 @@
-                         _________________________
-                         P     H     I     N     G
+P     H     I     N     G
+=========================
 
-  Lead Developer
-  ---------------
+
+Lead Developer
+--------------
 
   Michiel Rook <mrook@php.net>
 
-  New PHP5 PHING/2 Development
-  ----------------------------
+New PHP5 PHING/2 Development
+----------------------------
 
   Hans Lellelid <hans@xmpl.org> (previous Lead Developer)
   Sebastian Bergmann <sb@sebastian-bergmann.de>
@@ -37,8 +38,8 @@
   If you've done work on Phing and you are not listed here, please feel free
   to add yourself.
 
-  Original PHING/1 Development
-  -----------------------------
+Original PHING/1 Development
+-----------------------------
 
   Andreas Aderhold <andi@binarycloud.com>
   Alex Black <enigma@turingstudio.com>
@@ -53,8 +54,8 @@
   Yannick Lecaillez <yl@seasonfive.com>
   Hans Lellelid <hans@xmpl.org>
 
-  Other libraries/contributions
-  ------------------------------
+Other libraries/contributions
+------------------------------
 
   Apache ANT Project
   License: Apache 1.1
