@@ -169,7 +169,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader {
         
         // filter buffer
         $buffer = preg_replace_callback(
-            "/".preg_quote($this->_beginToken)."([\w\.\-:]+?)".preg_quote($this->_endToken)."/",
+            "/".preg_quote($this->_beginToken, '/')."([\w\.\-:]+?)".preg_quote($this->_endToken, '/')."/",
             array($this, 'replaceTokenCallback'), $buffer);
 
         return $buffer;
