@@ -2,12 +2,14 @@ P     H     I     N     G
 =========================
 
 
-Apr. ??, 2012 - Phing 2.4.10
+Apr. 3, 2012 - Phing 2.4.10
 ---------------------------
 
+  * [872] ReplaceTokens can't work with '/' char
   * [870] Can't find ParallelTask.php
   * [868] Git Clone clones into wrong directory
   * [865] static call to a non-static function PhingFile.php::getTempdir()
+  * [854] PropertyTask with file. Can't use a comment delimiter in the value.
   * [853] PHP Error with HttpGetTask
   * [852] Several minor errors in documentation of core tasks
   * [851] RNG grammar hasn't been updated to current version
@@ -24,6 +26,7 @@ Apr. ??, 2012 - Phing 2.4.10
   * [828] SelectorUtils::matchPath matches **/._* matches dir/file._name
   * [820] Type selector should treat symlinks to directories as such
   * [790] Make it easy to add new inherited types to phing: Use addFileset instead of createFileset
+  * [772] Support for filelist in UpToDateTask
   * [671] fix CvsTask documentation
   * [587] More detailed backtrace in debug mode (patch)
   * [519] Extend mail task to include attachments
