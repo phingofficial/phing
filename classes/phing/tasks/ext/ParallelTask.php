@@ -22,10 +22,6 @@
  * @package phing.tasks.ext
  */
 
-require_once 'DocBlox/Parallel/Manager.php';
-require_once 'DocBlox/Parallel/Worker.php';
-require_once 'DocBlox/Parallel/WorkerPipe.php';
-
 /**
  * Uses the DocBlox_Parallel library to run nested Phing tasks concurrently.
  * 
@@ -61,6 +57,16 @@ class ParallelTask extends SequentialTask
     
     public function main()
     {
+        @include_once 'DocBlox/Parallel/Manager.php';
+        @include_once 'DocBlox/Parallel/Worker.php';
+        @include_once 'DocBlox/Parallel/WorkerPipe.php';
+        if (!class_exists('DocBlox_Parallel_Worker')) {
+            throw new BuildException(
+                'ParallelTask depends on DocBlox being installed and on include_path.',
+                $this->getLocation()
+            );
+        }
+
         foreach ($this->nestedTasks as $task) {
             $worker = new DocBlox_Parallel_Worker(
                 function($task) { $task->perform(); },
