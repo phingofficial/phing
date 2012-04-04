@@ -312,7 +312,7 @@ class ZendGuardLicenseTask extends Task
 
             // check hardwareLocked
             if (null === $this->hardwareLocked) {
-                throw new BuildException("Property must be defined: " . $requiredProperty);
+                throw new BuildException("Property must be defined: hardwareLocked");
             }
 
             // if hardwareLocked is set to true, check that Host-ID is set

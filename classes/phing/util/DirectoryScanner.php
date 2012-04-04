@@ -110,7 +110,7 @@ include_once 'phing/types/selectors/SelectorUtils.php';
  *  @author   Magesh Umasankar, umagesh@rediffmail.com
  *  @author   Andreas Aderhold, andi@binarycloud.com
  *
- *  @version   $Revision$
+ *  @version   $Id$
  *  @package   phing.util
  */
 class DirectoryScanner implements SelectorScanner {
@@ -132,7 +132,12 @@ class DirectoryScanner implements SelectorScanner {
         "**/._*",
         "**/.DS_Store",
     	"**/.darcs",
-    	"**/.darcs/**"
+    	"**/.darcs/**",
+    	"**/.git",
+    	"**/.git/**",
+    	"**/.gitattributes",
+    	"**/.gitignore",
+    	"**/.gitmodules",
     );
 
     /** The base directory which should be scanned. */

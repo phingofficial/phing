@@ -66,7 +66,7 @@ class GitCloneTask extends GitBaseTask
             );
         }
 
-        $client = $this->getGitClient(false, $this->getTargetPath());
+        $client = $this->getGitClient(false, getcwd());
 
         try {
             $client->createClone(

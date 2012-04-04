@@ -23,6 +23,52 @@
 		contained in Phing.
 	</p>
 	<h2>
+		<a name="Excludes"></a>Excludes
+	</h2>
+	<p>Specifies a set of files, classes or methods to be excluded from processing.</p>
+	<p>This element has no attributes, only nested tags</p>
+	<h3>Nested tags</h3>
+	<ul>
+		<li>File</li>
+		<li>Class</li>
+		<li>Method</li>
+	</ul>
+	<table>
+		<caption>
+			Common attributes for all <em>File, Class, Method</em> tags
+		</caption>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Required</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>name</td>
+				<td>String</td>
+				<td>The name of the class, method or file. This may also be specified as a pattern.</td>
+				<td>n/a</td>
+				<td>Yes</td>
+			</tr>
+		</tbody>
+	</table>
+	<h3>Usage Examples</h3>
+	<pre>
+ &lt;coverage-threshold
+    perProject="50"
+    perClass="60"
+    perMethod="70"/>
+    &lt;excludes>
+        &lt;file>**/*Processor.php&lt;/file>
+        &lt;class>Model_Filter_Windows&lt;/class>
+        &lt;method>Model_System::execute()&lt;/method>
+    &lt;/excludes>
+	</pre>
+	<h2>
 		<a name="FileList"></a>FileList
 	</h2>
 	<p>FileLists offer a way to represent a specific list of files.

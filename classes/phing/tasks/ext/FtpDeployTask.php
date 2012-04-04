@@ -231,4 +231,3 @@ class FtpDeployTask extends Task
         $this->log('Disconnected from FTP server', $this->logLevel);
     }
 }
-?>

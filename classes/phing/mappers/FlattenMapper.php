@@ -25,7 +25,7 @@ require_once 'phing/mappers/FileNameMapper.php';
  * Removes any directory information from the passed path.
  *
  * @author   Andreas Aderhold <andi@binarycloud.com>
- * @version  $Revision$
+ * @version  $Id$
  * @package  phing.mappers
  */
 class FlattenMapper implements FileNameMapper {

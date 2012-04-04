@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
 /**
  * Transforms information in a code coverage database to XML
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
@@ -238,7 +238,7 @@ class CoverageReportTask extends Task
 
             $html = $geshi->parse_code();
 
-            $lines = split("<li>|</li>", $html);
+            $lines = preg_split("#</?li>#", $html);
 
             // skip first and last line
             array_pop($lines);
@@ -318,7 +318,7 @@ class CoverageReportTask extends Task
      * @param string $filename            The filename
      * @param array  $coverageInformation Array with covergae information
      *
-     * @author Michiel Rook <michiel.rook@gmail.com>
+     * @author Michiel Rook <mrook@php.net>
      * @author Benjamin Schultz <bschultz@proqrent.de>
      * @return void
      */

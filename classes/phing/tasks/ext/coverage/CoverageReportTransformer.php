@@ -28,7 +28,7 @@ require_once 'phing/util/ExtendedFileStream.php';
  * Transform a Phing/Xdebug code coverage xml report.
  * The default transformation generates an html report in framed style.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.coverage
  * @since 2.1.0
@@ -37,7 +37,12 @@ class CoverageReportTransformer
 {
     private $task = NULL;
     private $styleDir = "";
+    
+    /**
+     * @var PhingFile
+     */
     private $toDir = "";
+    
     private $document = NULL;
 
     /** title of the project, used in the coverage report */
@@ -61,7 +66,7 @@ class CoverageReportTransformer
         $this->styleDir = $styleDir;
     }
 
-    function setToDir($toDir)
+    function setToDir(PhingFile $toDir)
     {
         $this->toDir = $toDir;
     }
@@ -91,9 +96,7 @@ class CoverageReportTransformer
     
     function transform()
     {
-        $dir = new PhingFile($this->toDir);
-
-        if (!$dir->exists())
+        if (!$this->toDir->exists())
         {
             throw new BuildException("Directory '" . $this->toDir . "' does not exist");
         }
@@ -104,22 +107,33 @@ class CoverageReportTransformer
         $xsl->load($xslfile->getAbsolutePath());
 
         $proc = new XSLTProcessor();
-        if (version_compare(PHP_VERSION,'5.4',"<"))
+        if (defined('XSL_SECPREF_WRITE_FILE'))
         {
-            ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-        }
-        else
-        {
-            $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            if (version_compare(PHP_VERSION,'5.4',"<"))
+            {
+                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            }
+            else
+            {
+                $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            }
         }
         
         $proc->importStyleSheet($xsl);
 
         ExtendedFileStream::registerStream();
 
+        $toDir = (string) $this->toDir;
+            
+        // urlencode() the path if we're on Windows
+        if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+            $toDir = urlencode($toDir);
+        }
+
         // no output for the framed report
         // it's all done by extension...
-        $proc->setParameter('', 'output.dir', urlencode((string) $dir));
+        $proc->setParameter('', 'output.dir', $toDir);
+
         $proc->setParameter('', 'output.sorttable', $this->useSortTable);
         $proc->setParameter('', 'document.title', $this->title);
         $proc->transformToXML($this->document);

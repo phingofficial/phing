@@ -33,6 +33,7 @@ class XmlLintTask extends Task {
   protected $file;  // the source file (from xml attribute)
   protected $schema; // the schema file (from xml attribute)
   protected $filesets = array(); // all fileset objects assigned to this task
+  protected $useRNG = false;
   
   protected $haltonfailure = true;
 
@@ -53,6 +54,17 @@ class XmlLintTask extends Task {
   public function setSchema(PhingFile $schema) {
     $this->schema = $schema;
   }
+  
+  
+  /**
+   * Use RNG instead of DTD schema validation
+   *
+   * @param bool $bool
+   */
+  public function setUseRNG($bool) {
+    $this->useRNG = (boolean)$bool;
+  }
+  
   
   /**
    * Nested creator, creates a FileSet for this task
@@ -117,24 +129,32 @@ class XmlLintTask extends Task {
    */
   protected function lint($file) {
     if(file_exists($file)) {
-      if(is_readable($file)) {
+      if(is_readable($file)) {      
         $dom = new DOMDocument();
         if ($dom->load($file) === false) {
           $error = libxml_get_last_error();
           $this->logError($file.' is not well-formed (See messages above)');
         } else {
-          if(isset($this->schema)) {
-            if($dom->schemaValidate($this->schema->getPath())) {
-              $this->log($file.' validated', Project::MSG_INFO);
-            } else {
-              $this->logError($file.' fails to validate (See messages above)');
-            }
-          } else {
-            $this->log($file.' is well-formed', Project::MSG_INFO);
-          }
+              if(isset($this->schema)) {
+                  if( $this->useRNG ) {
+                    if($dom->relaxNGValidate($this->schema->getPath())) {
+                      $this->log($file.' validated with RNG grammar', Project::MSG_INFO);
+                    } else {
+                      $this->logError($file.' fails to validate (See messages above)');
+                    }                  
+                  } else {              
+                    if($dom->schemaValidate($this->schema->getPath())) {
+                      $this->log($file.' validated with schema', Project::MSG_INFO);
+                    } else {
+                      $this->logError($file.' fails to validate (See messages above)');
+                    }
+                }
+              } else {
+                $this->log($file.' is well-formed (not validated due to missing schema specification)', Project::MSG_INFO);
+              }
         }
       } else {
-        $this->logError('Permission denied: '.$file);
+        $this->logError('Permission denied to read file: '.$file);
       }
     } else {
       $this->logError('File not found: '.$file);

@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/phpdoc/PhpDocumentorTask.php';
  * Use this task instead of the PhpDocumentorTask when you've a clash with the
  * Smarty libraries.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @author Markus Fischer <markus@fischer.name>
  * @version $Id$
  * @package phing.tasks.ext.phpdoc

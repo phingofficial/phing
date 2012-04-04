@@ -34,9 +34,9 @@ include_once 'phing/system/io/FileReader.php';
  * Those methods then invoke the represenatative methods in the registered
  * handler classes.
  *
- * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision$ $Date$
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
  * @access    public
  * @package   phing.parser
  */

@@ -30,7 +30,7 @@ include_once 'phing/UnknownElement.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.parser
  */
 class TaskHandler extends AbstractHandler {

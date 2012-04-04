@@ -29,9 +29,9 @@ include_once 'phing/TaskContainer.php';
  * datatypes (fileset, patternset, etc) and it's possible nested tags. It
  * introspects the implementation of the class and sets up the data structures.
  *
- * @author      Andreas Aderhold <andi@binarycloud.com>
- * @copyright © 2001,2002 THYRELL. All rights reserved
- * @version   $Revision$ $Date$
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
  * @access    public
  * @package   phing.parser
  */

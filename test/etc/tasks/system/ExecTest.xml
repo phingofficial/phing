@@ -150,5 +150,11 @@
         <exec>
         </exec>
     </target>
+    
+    <target name="testEscapedArg">
+        <exec executable="echo" escape="true" outputProperty="outval">
+            <arg value="abc$b3!SB"/>
+        </exec>
+    </target>
 
 </project>

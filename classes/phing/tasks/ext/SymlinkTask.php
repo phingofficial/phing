@@ -281,22 +281,26 @@ class SymlinkTask extends Task
      */
     protected function symlink($target, $link)
     {
-        if (file_exists($link)) {
-            if (!is_link($link)) {
-                $this->log('File exists: ' . $link, Project::MSG_ERR);
-                return false;
-            }
-
-            if (readlink($link) == $target || !$this->getOverwrite()) {
-                $this->log('Link exists: ' . $link, Project::MSG_ERR);
-                return false;
-            }
-
-            unlink($link);
-        }
-    
         $fs = FileSystem::getFileSystem();
         
+        if (is_link($link) && readlink($link) == $target) {
+            $this->log('Link exists: ' . $link, Project::MSG_INFO);
+            return true;
+        } elseif (file_exists($link)) {
+            if (!$this->getOverwrite()) {
+                $this->log('Not overwriting existing link ' . $link, Project::MSG_ERR);
+                return false;
+            }
+            
+            if (is_link($link) || is_file($link)) {
+                $fs->unlink($link);
+                $this->log('Link removed: ' . $link, Project::MSG_INFO);
+            } else {
+                $fs->rmdir($link, true);
+                $this->log('Directory removed: ' . $link, Project::MSG_INFO);
+            }
+        }
+    
         $this->log('Linking: ' . $target . ' to ' . $link, Project::MSG_INFO);
         
         return $fs->symlink($target, $link);

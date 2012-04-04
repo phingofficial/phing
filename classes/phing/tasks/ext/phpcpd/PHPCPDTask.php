@@ -128,24 +128,13 @@ class PHPCPDTask extends Task
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
      *
-     * @return FileSet The created fileset object
-     */
-    public function createFileSet()
-    {
-        $num = array_push($this->_filesets, new FileSet());
-        return $this->_filesets[$num-1];
-    }
-
-    /**
-     * Sets the minimum rule priority.
-     *
-     * @param integer $minimumPriority Minimum rule priority.
+     * @param FileSet $fs List of files to scan
      *
      * @return void
      */
-    public function setMinimumPriority($minimumPriority)
+    public function addFileSet(FileSet $fs)
     {
-        $this->_minimumPriority = $minimumPriority;
+        $this->_filesets[] = $fs;
     }
 
     /**

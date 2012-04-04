@@ -20,7 +20,7 @@
  */
 
 require_once 'phing/tasks/system/MatchingTask.php';
-require_once 'phing/tasks/ext/phar/IterableFileSet.php';
+require_once 'phing/types/IterableFileSet.php';
 require_once 'phing/tasks/ext/phar/PharMetadata.php';
 
 /**
@@ -59,6 +59,18 @@ class PharPackageTask
      * @var string
      */
     private $stubPath;
+    /**
+     * Private key the Phar will be signed with.
+     * 
+     * @var PhingFile 
+     */
+    private $key;
+    /**
+     * Password for the private key.
+     * 
+     * @var string 
+     */
+    private $keyPassword = '';
     /**
      * @var int
      */
@@ -111,6 +123,9 @@ class PharPackageTask
                 break;
             case 'sha512':
                 $this->signatureAlgorithm = Phar::SHA512;
+                break;
+            case 'openssl':
+                $this->signatureAlgorithm = Phar::OPENSSL;
                 break;
             default:
                 break;
@@ -178,6 +193,24 @@ class PharPackageTask
         $this->alias = $alias;
     }
     /**
+     * Sets the private key to use to sign the Phar with.
+     * 
+     * @param PhingFile $key Private key to sign the Phar with.
+     */
+    public function setKey(PhingFile $key)
+    {
+        $this->key = $key;
+    }
+    /**
+     * Password for the private key.
+     * 
+     * @param string $keyPassword 
+     */
+    public function setKeyPassword($keyPassword)
+    {
+        $this->keyPassword = $keyPassword;
+    }
+    /**
      * @throws BuildException
      */
     public function main()
@@ -206,25 +239,12 @@ class PharPackageTask
             $baseDirectory = realpath($this->baseDirectory->getPath());
 
             foreach ($this->filesets as $fileset) {
-                foreach ($fileset as $realFileName) {
-                    /*
-                     * Calculate local file name.
-                     */
-                    $localFileName = $realFileName;
-                    if (0 === strpos($realFileName, $baseDirectory)) {
-                        $localFileName = substr(
-                            $realFileName,
-                            strlen($baseDirectory)
-                        );
-                    }
-
-                    $this->log(
-                        'Adding '.$realFileName.' as '.$localFileName.' to package',
-                        Project::MSG_VERBOSE
-                    );
-
-                    $phar->addFile($realFileName, $localFileName);
-                }
+                $this->log(
+                    'Adding specified files in ' . $fileset->getDir($this->project) . ' to package',
+                    Project::MSG_VERBOSE
+                );
+                
+                $phar->buildFromIterator($fileset, $baseDirectory);
             }
 
             $phar->stopBuffering();
@@ -261,7 +281,25 @@ class PharPackageTask
         }
         if (!is_null($this->baseDirectory)) {
             if (!$this->baseDirectory->exists()) {
-                throw new BuildException("basedir does not exist!", $this->getLocation());
+                throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation());
+            }
+        }
+        if ($this->signatureAlgorithm == Phar::OPENSSL) {
+            
+            if (!extension_loaded('openssl')) {
+                throw new BuildException("PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation());
+            }
+            
+            if (is_null($this->key)) {
+                throw new BuildException("key attribute must be set for OpenSSL signing!", $this->getLocation());
+            }
+            
+            if (!$this->key->exists()) {
+                throw new BuildException("key '" . (string) $this->key . "' does not exist!", $this->getLocation());
+            }
+            
+            if (!$this->key->canRead()) {
+                throw new BuildException("key '" . (string) $this->key . "' cannot be read!", $this->getLocation());
             }
         }
     }
@@ -273,16 +311,42 @@ class PharPackageTask
     private function buildPhar()
     {
         $phar = new Phar($this->destinationFile);
-
-        $phar->setSignatureAlgorithm($this->signatureAlgorithm);
+        
+        if ($this->signatureAlgorithm == Phar::OPENSSL) {
+            
+            // Load up the contents of the key
+            $keyContents = file_get_contents($this->key);
+            
+            // Setup an OpenSSL resource using the private key and tell the Phar
+            // to sign it using that key.
+            $private = openssl_pkey_get_private($keyContents, $this->keyPassword);
+            $phar->setSignatureAlgorithm(Phar::OPENSSL, $private);
+            
+            // Get the details so we can get the public key and write that out
+            // alongside the phar.
+            $details = openssl_pkey_get_details($private);
+            file_put_contents($this->destinationFile . '.pubkey', $details['key']);
+            
+        } else {
+            $phar->setSignatureAlgorithm($this->signatureAlgorithm);
+        }
 
         if (isset($this->stubPath)) {
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
-            $phar->setDefaultStub(
-                $this->cliStubFile->getPathWithoutBase($this->baseDirectory),
-                $this->webStubFile->getPathWithoutBase($this->baseDirectory)
-            );
+            if (!empty($this->cliStubFile)) {
+                $cliStubFile = $this->cliStubFile->getPathWithoutBase($this->baseDirectory);
+            } else {
+                $cliStubFile = null;
+            }
+
+            if (!empty($this->webStubFile)) {
+                $webStubFile = $this->webStubFile->getPathWithoutBase($this->baseDirectory);
+            } else {
+                $webStubFile = null;
+            }
+            
+            $phar->setDefaultStub($cliStubFile, $webStubFile);
         }
 
         if ($metadata = $this->metadata->toArray()) {

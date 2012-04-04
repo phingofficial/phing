@@ -27,8 +27,8 @@ require_once 'phing/Task.php';
  *
  * Based on Ant's Tstamp task.
  * 
- * @author   Michiel Rook <michiel.rook@gmail.com>
- * @version  $Revision$
+ * @author   Michiel Rook <mrook@php.net>
+ * @version  $Id$
  * @package  phing.tasks.system
  * @since    2.2.0
  */

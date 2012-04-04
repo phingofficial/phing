@@ -157,8 +157,10 @@ class Commandline {
      * @exception BuildException if the argument contains both, single
      *                           and double quotes.
      */
-    public static function quoteArgument($argument) {
-        if (strpos($argument, "\"") !== false) {
+    public static function quoteArgument($argument, $escape = false) {
+        if ($escape) {
+            return escapeshellarg($argument);
+        } elseif (strpos($argument, "\"") !== false) {
             if (strpos($argument, "'") !== false) {
                 throw new BuildException("Can't handle single and double quotes in same argument");
             } else {
@@ -176,7 +178,7 @@ class Commandline {
      * Quotes the parts of the given array in way that makes them
      * usable as command line arguments.
      */
-    public static function toString($lines) {
+    public static function toString($lines, $escape = false) {
         // empty path return empty string
         if (!$lines) {
             return "";
@@ -188,7 +190,7 @@ class Commandline {
             if ($i > 0) {
                 $result .= ' ';
             }
-            $result .= self::quoteArgument($lines[$i]);
+            $result .= self::quoteArgument($lines[$i], $escape);
         }
         return $result;
     }

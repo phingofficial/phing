@@ -25,7 +25,7 @@ require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
 /**
  * Invokes the ionCube "make_license" program
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.ioncube
  * @since 2.2.0

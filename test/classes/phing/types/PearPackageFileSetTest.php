@@ -34,7 +34,8 @@ class PearPackageFileSetTest extends BuildFileTest
 { 
     public function setUp() 
     {
-        error_reporting(error_reporting() & ~E_DEPRECATED);
+        //needed for PEAR's Config and Registry classes
+        error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
     }
 
     public function testGetDirectoryScannerConsoleGetopt()

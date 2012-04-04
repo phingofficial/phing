@@ -33,7 +33,7 @@ include_once 'phing/system/io/PhingFile.php';
  * - filter stuff
  *
  * @package  phing.util
- * @version  $Revision$
+ * @version  $Id$
  */
 class FileUtils {
         

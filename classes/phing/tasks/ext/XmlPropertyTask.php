@@ -32,7 +32,7 @@ require_once('phing/util/properties/PropertySetImpl.php');
  * 
  * @author    Jonathan Bond-Caron <jbondc@openmv.com>
  * @author 	  Matthias Pigulla <mp@webfactory.de>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.ext
  * @since     2.4.0
  * @see       http://ant.apache.org/manual/CoreTasks/xmlproperty.html
@@ -42,6 +42,7 @@ class XmlPropertyTask extends PropertyTask {
     private $_keepRoot = true;
     private $_collapseAttr = false;
     private $_delimiter = ',';
+    private $_required = false;
 
     /**
      * Keep the xml root tag as the first value in the property name
@@ -89,6 +90,22 @@ class XmlPropertyTask extends PropertyTask {
      */
     public function getDelimiter() {
         return $this->_delimiter;
+    }
+
+    /**
+     * File required or not.
+     *
+     * @param string $d
+     */
+    public function setRequired($d) {
+        $this->_required = $d;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequired() {
+        return $this->_required;
     }
 
     /**

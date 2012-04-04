@@ -41,8 +41,9 @@ class TargetTest extends BuildFileTest {
         $cmd = $phingExecutable . ' -l -f ' . $buildFile;
         exec($cmd, $out);
         $out = implode("\n", $out);
-        $this->assertFalse(strpos($out, 'HideInListTarget'));
-        $this->assertTrue(strpos($out, 'ShowInListTarget') !== false);
+        $offset = strpos($out, 'Subtargets:');
+        $this->assertFalse(strpos($out, 'HideInListTarget', $offset));
+        $this->assertTrue(strpos($out, 'ShowInListTarget', $offset) !== false);
     }
     
     public function testIfConditionHolds() {

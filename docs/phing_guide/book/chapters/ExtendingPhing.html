@@ -131,36 +131,34 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><p>bin</p>
-				</td>
+				<td><p>bin</p></td>
 				<td>
 					<p>The basic applications (phing, configure) as well as the
 						wrapper scripts for different platforms (currently Unix and
-						Windows).</p></td>
+						Windows).</p>
+				</td>
 			</tr>
 			<tr>
-				<td><p>classes</p>
-				</td>
+				<td><p>classes</p></td>
 				<td><p>Repository of all the classes used by Phing. This is
 						the base directory that should be on the PHP include_path. In this
 						directory you will find the subdirectory phing/ with all the Phing
-						relevant classes.</p>
-				</td>
+						relevant classes.</p></td>
 			</tr>
 			<tr>
-				<td><p>docs</p>
-				</td>
+				<td><p>docs</p></td>
 				<td>
 					<p>Documentation files. Generated books, online manuals as well
-						as the PHPDoc generated API documentation.</p></td>
+						as the PHPDoc generated API documentation.</p>
+				</td>
 			</tr>
 			<tr>
-				<td><p>test</p>
-				</td>
+				<td><p>test</p></td>
 				<td>
 					<p>A set of testcases for different tasks, mappers and types.
 						If you are developing in CVS you should add a testcase for each
-						implementation you check in.</p></td>
+						implementation you check in.</p>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -483,8 +481,9 @@ class MyEchoTask extends Task {
 	<p>
 		Always include/require all the classes needed for this task in full
 		written notation. Furthermore you should always include <em>phing/Task.php</em>
-		at the very top of your include block. Then include all other
-		required system or proprietary classes.</p>
+		at the very top of your include block. Then include all other required
+		system or proprietary classes.
+	</p>
 
 	<h3>
 		<a name="ClassDeclaration"></a>Class Declaration
@@ -521,7 +520,7 @@ class MyEchoTask extends Task {
 	</p>
 
 	<ul>
-<!--		<li>Taskname. Always hard code the <em>taskname</em> property
+		<!--		<li>Taskname. Always hard code the <em>taskname</em> property
 			that equals the name of the XML element that your task claims.
 			Currently this information is not used - but it will be in the
 			future.</li> -->
@@ -565,9 +564,19 @@ class MyEchoTask extends Task {
 	<p>For each attribute you want to import to the task's namespace
 		you have to define a method named exactly after the very attribute
 		plus the string "set" prepended. This method accepts exactly one
-		parameter that holds the value of the attribute. Now you can set the
-		a class internal property to the value that is passed via the setter
+		parameter that holds the value of the attribute. Now you can set the a
+		class internal property to the value that is passed via the setter
 		method.</p>
+
+	<p>
+		In the setter method you should also perform any casting operations
+		and/or check if the attribute value is a valid value. If this is not
+		the case, throw a <em>BuildException</em>. In some cases, such as when
+		you have three attributes and at least one of them should be set, you
+		may want to check the attribute values inside the <a
+			href="#InitMethod">init()</a> or <a href="#MainMethod">main()</a>
+		method.
+	</p>
 
 	<p>
 		In out example the setter is named <em>setMessage</em> , because the

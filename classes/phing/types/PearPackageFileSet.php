@@ -9,7 +9,7 @@
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @version  SVN: $Id$
- * @link     https://gitorious.org/phing/pearPackageFileSet
+ * @link     http://www.phing.info/
  */
 require_once 'phing/types/FileSet.php';
 require_once 'PEAR/Config.php';
@@ -38,7 +38,7 @@ require_once 'phing/util/PearPackageScanner.php';
  * @package  phing.types
  * @author   Christian Weiske <cweiske@cweiske.de>
  * @license  LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link     https://gitorious.org/phing/pearPackageFileSet
+ * @link     http://www.phing.info/
  */
 class PearPackageFileSet extends FileSet
 {
@@ -177,5 +177,3 @@ class PearPackageFileSet extends FileSet
         $this->config = $config;
     }
 }
-
-?>

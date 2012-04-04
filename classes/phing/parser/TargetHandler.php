@@ -29,7 +29,7 @@ require_once 'phing/parser/AbstractHandler.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright  2001,2002 THYRELL. All rights reserved
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.parser
  */
 class TargetHandler extends AbstractHandler {
@@ -176,6 +176,18 @@ class TargetHandler extends AbstractHandler {
         } else {
             $tmp = new TaskHandler($this->parser, $this, $this->configurator, $this->target, null, $this->target);
             $tmp->init($name, $attrs);
+        }
+    }
+    
+    /**
+     * Checks if this target has dependencies and/or nested tasks.
+     * If the target has neither, show a warning.
+     */
+    protected function finished()
+    {
+        if (!count($this->target->getDependencies()) && !count($this->target->getTasks())) {
+            $this->configurator->project->log("Warning: target '" . $this->target->getName() .
+                "' has no tasks or dependencies", Project::MSG_WARN);
         }
     }
 }

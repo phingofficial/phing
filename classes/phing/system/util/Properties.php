@@ -39,9 +39,9 @@ require_once('phing/util/properties/PropertyExpansionWrapper.php');
  * stage.
  *
  * @package    phing.system.util
- * @version $Revision$
  * @author  many uncredited authors :-)
  * @author 	Matthias Pigulla <mp@webfactory.de>
+ * @version $Id$
  */
 class Properties implements IteratorAggregate {
 

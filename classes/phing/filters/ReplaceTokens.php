@@ -43,7 +43,7 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Revision$ $Date$
+ * @version   $Id$
  * @access    public
  * @see       BaseParamFilterReader
  * @package   phing.filters
@@ -169,7 +169,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader {
         
         // filter buffer
         $buffer = preg_replace_callback(
-            "/".preg_quote($this->_beginToken)."([\w\.\-:]+?)".preg_quote($this->_endToken)."/",
+            "/".preg_quote($this->_beginToken, '/')."([\w\.\-:]+?)".preg_quote($this->_endToken, '/')."/",
             array($this, 'replaceTokenCallback'), $buffer);
 
         return $buffer;

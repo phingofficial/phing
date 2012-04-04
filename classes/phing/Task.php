@@ -29,39 +29,45 @@ include_once 'phing/RuntimeConfigurable.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Revision$
+ * @version   $Id$
  * @see       Project#createTask()
  * @package   phing
  */
 abstract class Task extends ProjectComponent {
 
     /**
-     * @var Target owning Target object
+     * Owning Target object
+     * @var Target
      */
     protected $target;
     
     /**
-     * @var string description of the task
+     * Description of the task
+     * @var string
      */
     protected $description;
     
     /**
-     * @var string internal taskname (req)
+     * Internal taskname (req)
+     * @var string
      */
     protected $taskType;
     
     /**
-     * @var string Taskname for logger
+     * Taskname for logger
+     * @var string
      */
     protected $taskName;
     
     /**
-     * @var Location stored buildfile location
+     * Stored buildfile location
+     * @var Location
      */
     protected $location;
     
     /**
-     * @var RuntimeConfigurable wrapper of the task
+     * Wrapper of the task
+     * @var RuntimeConfigurable
      */
     protected $wrapper;
 
@@ -103,6 +109,7 @@ abstract class Task extends ProjectComponent {
     /**
      * Sets the name of this task for log messages
      *
+     * @param  string $name
      * @return string A string representing the name of this task for log
      */
     public function setTaskName($name) {
@@ -130,7 +137,7 @@ abstract class Task extends ProjectComponent {
     
     /**
      * Returns a name 
-     * 
+     * @param string $slotName
      */
     protected function getRegisterSlot($slotName) {
         return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);

@@ -24,7 +24,7 @@ include_once 'phing/Task.php';
 /**
  * Base class for Subversion tasks
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @author Andrew Eddie <andrew.eddie@jamboworks.com> 
  * @version $Id$
  * @package phing.tasks.ext.svn
@@ -48,6 +48,8 @@ abstract class SvnBaseTask extends Task
     private $svnSwitches = array();
 
     private $toDir = "";
+    
+    protected $fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
 
     /**
      * Initialize Task.
@@ -230,6 +232,22 @@ abstract class SvnBaseTask extends Task
         return isset( $this->svnSwitches['ignore-externals'] ) ? $this->svnSwitches['ignore-externals'] : '';
     }
     
+	/**
+     * Sets the trust-server-cert switch
+     */
+    public function setTrustServerCert($value)
+    {
+        $this->svnSwitches['trust-server-cert'] = $value;
+    }
+
+    /**
+     * Returns the trust-server-cert switch
+     */
+    public function getTrustServerCert()
+    {
+        return isset($this->svnSwitches['trust-server-cert']) ? $this->svnSwitches['trust-server-cert'] : '';
+    }
+    
     /**
      * Creates a VersionControl_SVN class based on $mode
      *
@@ -242,7 +260,7 @@ abstract class SvnBaseTask extends Task
         
         // Set up runtime options. Will be passed to all
         // subclasses.
-        $options = array('fetchmode' => VERSIONCONTROL_SVN_FETCHMODE_ASSOC, 'svn_path' => $this->getSvnPath());
+        $options = array('fetchmode' => $this->fetchMode, 'svn_path' => $this->getSvnPath());
         
         // Pass array of subcommands we need to factory
         $this->svn = VersionControl_SVN::factory($mode, $options);
@@ -315,7 +333,13 @@ abstract class SvnBaseTask extends Task
             {
                 $err = current($errs);
                 
-                throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $err['params']['errstr']);
+                $errorMessage = $err['message'];
+                
+                if (isset($err['params']['errstr'])) {
+                    $errorMessage = $err['params']['errstr'];
+                }
+                
+                throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $errorMessage);
             }
         }
     }

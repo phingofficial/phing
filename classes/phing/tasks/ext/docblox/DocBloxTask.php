@@ -26,7 +26,7 @@ require_once 'phing/system/io/FileOutputStream.php';
  * DocBlox Task (http://www.docblox-project.org)
  *
  * @author    Michiel Rook <mrook@php.net>
- * @version   $Revision$
+ * @version   $Id$
  * @since     2.4.6
  * @package   phing.tasks.ext.docblox
  */
@@ -43,6 +43,12 @@ class DocBloxTask extends Task
      * @var PhingFile
      */
     private $destDir = null;
+
+    /**
+     * name of the template to use
+     * @var string
+     */
+    private $template = "new_black";
     
     /**
      * Title of the project
@@ -83,6 +89,15 @@ class DocBloxTask extends Task
     public function setOutput(PhingFile $output)
     {
         $this->destDir = $output;
+    }
+
+    /**
+     * Sets the template to use
+     * @param strings $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = (string) $template;
     }
     
     /**
@@ -146,7 +161,11 @@ class DocBloxTask extends Task
     private function parseFiles()
     {
         $parser = new DocBlox_Parser();
-        DocBlox_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
+        
+        //Only initialize the dispatcher when not already done
+        if (is_null(DocBlox_Parser_Abstract::$event_dispatcher)) {
+        	DocBlox_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
+        }
         $parser->setTitle($this->title);
         
         $paths = array();
@@ -193,8 +212,8 @@ class DocBloxTask extends Task
         $this->log("Transforming...", Project::MSG_VERBOSE);
         
         $transformer = new DocBlox_Transformer();
-        $transformer->setThemesPath(DocBlox_Core_Abstract::config()->paths->themes);
-        $transformer->setTemplates(DocBlox_Core_Abstract::config()->transformations->template->name);
+        $transformer->setTemplatesPath(DocBlox_Core_Abstract::config()->paths->templates);
+        $transformer->setTemplates($this->template);
         $transformer->setSource($xml);
         $transformer->setTarget($this->destDir->getAbsolutePath());
         $transformer->execute();

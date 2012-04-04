@@ -26,8 +26,8 @@ require_once 'phing/Task.php';
  *  similar patterns).
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright © 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision$
+ *  @copyright 2001,2002 THYRELL. All rights reserved
+ *  @version   $Id$
  *  @package   phing
  */
 class TaskAdapter extends Task {
@@ -57,6 +57,7 @@ class TaskAdapter extends Task {
                 $this->proxy->main($this->project);
             } catch (Exception $ex) {
                 $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
+                $this->log($ex->getTraceAsString(), Project::MSG_DEBUG);
                 throw new BuildException($ex->getMessage());
             }
         } else {

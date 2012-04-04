@@ -26,7 +26,7 @@
     /**
      * Extends the Writer class to output messages to Phing's log
      *
-     * @author Michiel Rook <michiel.rook@gmail.com>
+     * @author Michiel Rook <mrook@php.net>
      * @version $Id$
      * @package phing.util
      */

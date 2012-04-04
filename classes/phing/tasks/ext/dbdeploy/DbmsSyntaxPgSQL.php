@@ -22,8 +22,8 @@
 /**
  *  Utility class for generating necessary server-specific SQL commands
  *
- *  @author   Rémy BREUILS
- *  @version  $Revision$
+ *  @author   Rï¿½my BREUILS
+ *  @version  $Id$
  *  @package  phing.tasks.ext.dbdeploy
  */
 class DbmsSyntaxPgSQL extends DbmsSyntax 

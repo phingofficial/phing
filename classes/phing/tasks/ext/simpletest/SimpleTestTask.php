@@ -27,7 +27,7 @@ require_once 'phing/util/LogWriter.php';
 /**
  * Runs SimpleTest tests.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.simpletest
  * @since 2.2.0

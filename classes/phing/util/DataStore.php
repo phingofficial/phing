@@ -28,7 +28,7 @@ require_once 'phing/system/io/FileWriter.php';
  *
  * @package phing.util
  * @author  Michiel Rook <mrook@php.net>
- * @version $Revision$
+ * @version $Id$
  */
 class DataStore
 {

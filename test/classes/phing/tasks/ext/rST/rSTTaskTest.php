@@ -9,7 +9,7 @@
  * @package    phing.tasks.ext
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       https://gitorious.org/phing/rsttask
+ * @link       http://www.phing.info/
  * @version    SVN: $Id$
  */
 
@@ -24,12 +24,15 @@ require_once 'phing/BuildFileTest.php';
  * @package    phing.tasks.ext
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       https://gitorious.org/phing/rsttask
+ * @link       http://www.phing.info/
  */
 class rSTTaskTest extends BuildFileTest 
 { 
     public function setUp() 
     { 
+        //needed for PEAR's System class
+        error_reporting(error_reporting() & ~E_STRICT);
+        
         chdir(PHING_TEST_BASE . '/etc/tasks/ext/rst');
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/build.xml'
@@ -37,7 +40,11 @@ class rSTTaskTest extends BuildFileTest
         //$this->assertInLogs('Property ${version} => 1.0.1');
     }
 
-
+    public function tearDown()
+    {
+        // remove excess file if the test failed
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html');
+    }
 
     /**
      * Checks if a given file has been created and unlinks it afterwards.
@@ -71,12 +78,12 @@ class rSTTaskTest extends BuildFileTest
     }
 
     /**
-     * Get the tool path previously set with setToolPath()
+     * Get the tool path previously set with setToolpath()
      */
     public function testGetToolPathCustom()
     {
         $rt = new rSTTask();
-        $rt->setToolPath('true');//mostly /bin/true on unix
+        $rt->setToolpath('true');//mostly /bin/true on unix
         $ref = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
         $method->setAccessible(true);
@@ -92,7 +99,7 @@ class rSTTaskTest extends BuildFileTest
     public function testSetToolpathNotExisting()
     {
         $rt = new rSTTask();
-        $rt->setToolPath('doesnotandwillneverexist');
+        $rt->setToolpath('doesnotandwillneverexist');
     }
 
     /**
@@ -102,7 +109,7 @@ class rSTTaskTest extends BuildFileTest
     public function testSetToolpathNonExecutable()
     {
         $rt = new rSTTask();
-        $rt->setToolPath(__FILE__);
+        $rt->setToolpath(__FILE__);
     }
 
 

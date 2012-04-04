@@ -1,0 +1,3 @@
+[submodule "classes/phing/contrib/DocBlox/Parallel"]
+	path = classes/phing/contrib/DocBlox/Parallel
+	url = git://github.com/phpDocumentor/Parallel.git

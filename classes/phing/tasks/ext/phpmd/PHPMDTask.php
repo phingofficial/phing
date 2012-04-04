@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/phpmd/PHPMDFormatterElement.php';
 
 /**
  * Runs PHP Mess Detector. Checking PHP files for several potential problems
@@ -58,7 +59,7 @@ class PHPMDTask extends Task
      *
      * @var integer
      */
-    protected $minimumPriority = 5;
+    protected $minimumPriority = 0;
 
     /**
      * List of valid file extensions for analyzed files.
@@ -87,43 +88,6 @@ class PHPMDTask extends Task
      * @var array<PHPMDFormatterElement>
      */
     protected $formatters = array();
-
-    /**
-     * Load the necessary environment for running PHPMD.
-     *
-     * @throws BuildException - if the phpmd classes can't be loaded.
-     */
-    public function init()
-    {
-        /**
-         * Determine PHPMD version number
-         */
-        @include_once 'PHP/PMD.php';
-
-        if (! class_exists('PHP_PMD')) {
-            throw new BuildException(
-                'PHPMDTask depends on PHPMD being installed and on include_path.',
-                $this->getLocation()
-            );
-        }
-
-        /*$version = PHP_PMD::VERSION;
-
-        if (version_compare($version, '0.2.1') < 0) {
-            throw new BuildException(
-                "PHPMDTask requires PHPMD version >= 0.2.1",
-                $this->getLocation()
-            );
-        }*/
-
-        /**
-         * Other dependencies that should only be loaded when class is actually used.
-         */
-        require_once 'phing/tasks/ext/phpmd/PHPMDFormatterElement.php';
-        require_once 'PHP/PMD/AbstractRule.php';
-
-        $this->minimumPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
-    }
 
     /**
      * Set the input source file or directory.
@@ -221,17 +185,36 @@ class PHPMDTask extends Task
      */
     public function createFormatter()
     {
-        $num = array_push($this->formatters, new PHPMDFormatterElement($this));
+        $num = array_push($this->formatters, new PHPMDFormatterElement());
         return $this->formatters[$num-1];
     }
 
     /**
      * Executes PHPMD against PhingFile or a FileSet
      *
+     * @throws BuildException - if the phpmd classes can't be loaded.
      * @return void
      */
     public function main()
     {
+        /**
+         * Find PHPMD
+         */
+        @include_once 'PHP/PMD.php';
+
+        if (! class_exists('PHP_PMD')) {
+            throw new BuildException(
+                'PHPMDTask depends on PHPMD being installed and on include_path.',
+                $this->getLocation()
+            );
+        }
+        
+        require_once 'PHP/PMD/AbstractRule.php';
+
+        if (!$this->minimumPriority) {
+            $this->minimumPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
+        }
+        
         if (!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }

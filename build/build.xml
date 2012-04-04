@@ -22,6 +22,8 @@
 		<exclude name=".project"/>
 		<exclude name="test/performance/**"/>
 		<exclude name="test/reports/**"/>
+		<exclude name="docs/docbook5/**"/>
+		<exclude name="docs/docsystem/**"/>
 	</fileset>
 
 	<fileset dir="${phingpkg.home}/classes/phing" id="classes">
@@ -49,11 +51,10 @@
 	</fileset>
 
 	<fileset dir="${phingpkg.home}" id="misc">
-		<include name="CHANGELOG"/>
-		<include name="CREDITS"/>
-		<include name="README"/>
-		<include name="TODO"/>
-		<include name="UPGRADE"/>
+		<include name="CHANGELOG.md"/>
+		<include name="CREDITS.md"/>
+		<include name="LICENSE"/>
+		<include name="README.md"/>
 		<exclude name="INSTALL*"/>
 	</fileset>
 
@@ -63,7 +64,7 @@
 		==============================================
 	-->				
 	<target name="main" if="version"
-	depends="versioncheck,setproperties,clean,copy-files,create-package-xml,tar"/>
+	depends="versioncheck,setproperties,clean,clean-external,copy-files,create-package-xml,tar,phar"/>
 
 	<!--
 		===================================================================
@@ -149,7 +150,7 @@
 			<fileset refid="scripts"/>
 			<fileset refid="misc"/>
 		</copy>
-
+		
 		<copy todir="${build.docs.dir}">
 			<fileset refid="docs"/>
 		</copy>
@@ -240,6 +241,38 @@
 	
 	<!--
 		==============================================
+		Create a phar package of the files.
+		==============================================
+	-->
+	<target name="phar">
+		<php expression="date('Ymd')" returnProperty="builddate" />
+		<pharpackage
+			compression="gzip"
+			destfile="full/phing-${version}.phar"
+			stub="phing-stub.php"
+			alias="phing.phar"
+			basedir="full/${pkgname}">
+			<fileset dir="full/${pkgname}">
+				<include name="bin/**" />
+				<include name="classes/**" />
+				<include name="etc/**" />
+			</fileset>
+			<metadata>
+				<element name="version" value="${version}" />
+				<element name="state" value="${state}" />
+				<element name="builddate" value="${builddate}" />
+				<element name="authors">
+					<element name="Michiel Rook">
+						<element name="e-mail"
+						value="mrook@php.net" />
+					</element>
+				</element>
+			</metadata>
+		</pharpackage>
+	</target>
+	
+	<!--
+		==============================================
 		Clean up build files.
 		==============================================
 	-->
@@ -259,7 +292,7 @@
 		Clean up build files.
 		==============================================
 	-->
-	 <target name="clean" depends="clean-external">
+	 <target name="clean">
 
 		<echo>-----------------------------</echo>
 		<echo>| Deleting build directory  |</echo>

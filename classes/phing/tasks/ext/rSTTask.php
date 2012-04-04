@@ -9,7 +9,7 @@
  * @package    phing.tasks.ext
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       https://gitorious.org/phing/rsttask
+ * @link       http://www.phing.info/
  * @version    SVN: $Id$
  */
 
@@ -25,7 +25,7 @@ require_once 'phing/util/FileUtils.php';
  * @package    phing.tasks.ext
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       https://gitorious.org/phing/rsttask
+ * @link       http://www.phing.info/
  */
 class rSTTask extends Task
 {
@@ -242,6 +242,7 @@ class rSTTask extends Task
         //work around a bug in php by replacing /./ with /
         $targetDir = str_replace('/./', '/', dirname($targetFile));
         if (!is_dir($targetDir)) {
+            $this->log("Creating directory '$targetDir'", Project::MSG_VERBOSE);
             mkdir($targetDir, $this->mode, true);
         }
 
@@ -429,14 +430,15 @@ class rSTTask extends Task
 
 
     /**
-     * Nested creator, creates a FileSet for this task
+     * Add a set of files to be rendered.
      *
-     * @return object The created fileset object
+     * @param FileSet $fileset Set of rst files to render
+     *
+     * @return void
      */
-    public function createFileSet()
+    public function addFileset(FileSet $fileset)
     {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+        $this->filesets[] = $fileset;
     }
 
 
@@ -472,4 +474,3 @@ class rSTTask extends Task
         return $this->filterChains[$num-1];
     }
 }
-?>

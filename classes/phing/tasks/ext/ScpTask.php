@@ -326,7 +326,9 @@ class ScpTask extends Task
                 $dir = $fs->getDir($this->project)->getPath();
                 foreach($files as $file) {
                     $path = $dir.DIRECTORY_SEPARATOR.$file;
-                    $this->copyFile($path, $file);
+                    
+                    // Translate any Windows paths
+                    $this->copyFile($path, strtr($file, '\\', '/'));
                 }
             }
         }
@@ -376,4 +378,3 @@ class ScpTask extends Task
         $this->counter++;
     }
 }
-?>

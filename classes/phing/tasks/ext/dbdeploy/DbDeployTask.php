@@ -31,7 +31,7 @@ require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
  *     userid="dbdeploy" password="dbdeploy" dir="db" outputfile="">
  *
  * @author   Luke Crouch at SourceForge (http://sourceforge.net)
- * @version  $Revision$
+ * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
 class DbDeployTask extends Task
@@ -252,7 +252,7 @@ class DbDeployTask extends Task
                     $split = strpos($contents, '--//@UNDO');
 
                 if ($undo) {
-                    $sql .= substr($contents, $split + 10);
+                    $sql .= substr($contents, $split + 10) . "\n";
                     $sql .= 'DELETE FROM ' . DbDeployTask::$TABLE_NAME . '
 	                         WHERE change_number = ' . $fileChangeNumber . '
 	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";

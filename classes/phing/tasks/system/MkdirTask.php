@@ -26,7 +26,7 @@ include_once 'phing/system/io/PhingFile.php';
  * Task to create a directory.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Revision$
+ * @version  $Id$
  * @package  phing.tasks.system
  */
 class MkdirTask extends Task {

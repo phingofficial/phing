@@ -31,7 +31,7 @@ require_once 'phing/util/ExtendedFileStream.php';
  * the framed report is much more convenient if you want to browse into 
  * different packages or testcases since it is a Javadoc like report.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0
@@ -149,13 +149,16 @@ class PHPUnitReportTask extends Task
         $xsl->load($xslfile->getAbsolutePath());
 
         $proc = new XSLTProcessor();
-        if (version_compare(PHP_VERSION,'5.4',"<"))
+        if (defined('XSL_SECPREF_WRITE_FILE'))
         {
-            ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
-        }
-        else
-        {
-            $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            if (version_compare(PHP_VERSION,'5.4',"<"))
+            {
+                ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            }
+            else
+            {
+                $proc->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
+            }
         }
         
         $proc->importStyleSheet($xsl);
@@ -170,10 +173,17 @@ class PHPUnitReportTask extends Task
         else
         {
             ExtendedFileStream::registerStream();
+            
+            $toDir = (string) $this->toDir;
+            
+            // urlencode() the path if we're on Windows
+            if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+                $toDir = urlencode($toDir);
+            }
 
             // no output for the framed report
             // it's all done by extension...
-            $proc->setParameter('', 'output.dir', urlencode((string) $this->toDir));
+            $proc->setParameter('', 'output.dir', $toDir);
             $proc->transformToXML($document);
             
             ExtendedFileStream::unregisterStream();

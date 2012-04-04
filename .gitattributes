@@ -1,0 +1,6 @@
+*.php ident
+*.html ident
+bin/* ident
+*.css ident
+*.xsl ident
+*.rng ident

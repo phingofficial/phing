@@ -29,7 +29,7 @@ require_once 'phing/system/util/Timer.php';
  * The default filename is "log.xml", but this can be overridden
  * with the property <code>XmlLogger.file</code>.
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.listener
  */ 

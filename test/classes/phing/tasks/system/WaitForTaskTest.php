@@ -1,6 +1,6 @@
 <?php
 /*
- * $Id$
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,38 +19,37 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/BuildFileTest.php';
+
 /**
- * FileSet adapter to SPL's Iterator.
+ * Tests the WaitFor Task
  *
- * @package phing.tasks.ext.phar
- * @author Alexey Shockov <alexey@shockov.com>
- * @since 2.4.0
- * @internal
+ * @author  Michiel Rook <mrook@php.net>
+ * @version $Id$
+ * @package phing.tasks.system
  */
-class IterableFileSet
-    extends FileSet
-    implements IteratorAggregate
+class WaitForTaskTest extends BuildFileTest
 {
-    /**
-     * @return Iterator
-     */
-    public function getIterator()
+
+    public function setUp()
     {
-        return new ArrayIterator($this->getFiles());
+        $this->configureProject(
+            PHING_TEST_BASE . '/etc/tasks/system/WaitForTest.xml'
+        );
     }
-    /**
-     * @return array
-     */
-    private function getFiles()
+
+    public function testConditionMet()
     {
-        $directoryScanner   = $this->getDirectoryScanner($this->getProject());
-        $files              = $directoryScanner->getIncludedFiles();
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('waitfor: condition was met');
+    }
 
-        $baseDirectory = $directoryScanner->getBasedir();
-        foreach ($files as $index => $file) {
-            $files[$index] = realpath($baseDirectory.'/'.$file);
-        }
-
-        return $files;
+    public function testTimeout()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('waitfor: timeout');
+        $this->assertEquals('true', $this->project->getProperty('waitfor.timeout'));
     }
 }
+
+?>

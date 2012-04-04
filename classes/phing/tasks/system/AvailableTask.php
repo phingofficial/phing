@@ -29,7 +29,7 @@ include_once 'phing/tasks/system/condition/ConditionBase.php';
  *
  *  @author    Andreas Aderhold <andi@binarycloud.com>
  *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Revision$
+ *  @version   $Id$
  *  @package   phing.tasks.system
  */
 class AvailableTask extends Task {
@@ -45,6 +45,8 @@ class AvailableTask extends Task {
 
     private $type = null;
     private $filepath = null;
+    
+    private $followSymlinks = false;
 
     function setProperty($property) {
         $this->property = (string) $property;
@@ -64,6 +66,11 @@ class AvailableTask extends Task {
 
     function setType($type) {
         $this->type = (string) strtolower($type);
+    }
+    
+    public function setFollowSymlinks($followSymlinks)
+    {
+        $this->followSymlinks = (bool) $followSymlinks;
     }
     
     /**
@@ -140,6 +147,11 @@ class AvailableTask extends Task {
     }
 
     private function _checkFile1(PhingFile $file) {
+        // Resolve symbolic links
+        if ($this->followSymlinks && $file->isLink()) {
+            $file = new PhingFile($file->getLinkTarget());
+        }
+        
         if ($this->type !== null) {
             if ($this->type === "dir") {
                 return $file->isDirectory();

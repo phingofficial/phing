@@ -27,7 +27,7 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Jeff Turner <jefft@apache.org> (Ant)
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.types.selectors
  */
 class TypeSelector extends BaseExtendSelector {

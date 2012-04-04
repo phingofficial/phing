@@ -1,0 +1,49 @@
+#!/bin/sh
+# 
+# saxon script
+# JPackage Project <http://www.jpackage.org/>
+#
+# Working cmd:
+# java -cp "/usr/share/java/saxon.jar:/usr/share/java/xslthl-2.0.2.jar" \
+# -Dxslthl.config="file:///usr/share/xml/docbook/stylesheet/nwalsh5/current/highlighting/xslthl-config.xml" \ 
+# com.icl.saxon.StyleSheet master.xml stylesheets/xsl/html.xsl 
+
+. /usr/share/java-utils/java-functions
+
+MAIN_CLASS=com.icl.saxon.StyleSheet
+
+BASE_JARS="saxon.jar xml-commons-apis.jar jaxp_parser_impl.jar xslthl-2.0.2.jar"
+
+# Optional jars
+CLASSPATH="$CLASSPATH:"$(build-classpath docbook-xsl-saxon saxon-fop \
+  avalon-logkit xml-commons-resolver 2>/dev/null) || :
+
+# If we have resolver, add the CatalogManager.properties dir to CLASSPATH, 
+
+# and tweak command line options so that it's used.
+args=
+if echo "$CLASSPATH" | grep xml-commons-resolver >/dev/null 2>&1 ; then
+  CLASSPATH="$CLASSPATH:/etc/java/resolver"
+  # Tune options to use resolver.
+  r=org.apache.xml.resolver.tools.ResolvingXMLReader
+  for opt in -x -y ; do
+    if ! echo $@ | grep "\\$opt " >/dev/null 2>&1 ; then
+      args="$args $opt $r"
+    fi
+  done
+  r=org.apache.xml.resolver.tools.CatalogResolver
+  if ! echo $@ | grep "\\-r " >/dev/null 2>&1 ; then
+    args="$args -r $r"
+  fi
+fi
+
+BASE_FLAGS="$BASE_FLAGS -Dxslthl.config=file:///usr/share/xml/docbook/stylesheet/nwalsh5/current/highlighting/xslthl-config.xml"
+
+# Set parameters
+set_jvm
+set_classpath $BASE_JARS
+set_flags $BASE_FLAGS
+set_options $BASE_OPTIONS
+
+# Let's start
+run $args "$@"

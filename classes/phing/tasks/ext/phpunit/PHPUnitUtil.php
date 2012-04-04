@@ -22,7 +22,7 @@
 /**
  * Various utility functions
  *
- * @author Michiel Rook <michiel.rook@gmail.com>
+ * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.phpunit
  * @since 2.1.0

@@ -499,48 +499,48 @@
 
 
 	<h2>
-		<a name="RelaxNGGrammar"></a>Relax NG Grammar
-	</h2>
-
-	<p>With a little bit of experience it is not that difficult to
-		write and understand Phing build files since the XML format in itself
-		tends to be quite verbose. However, it can become a bit tedious and
-		the large (and growing) amount of built-in tasks and filters can
-		sometimes make it difficult to remember the exact syntax of all the
-		available features.</p>
-	<p>
-		To help with this the Phing distribution contains a <i>Relax NG
-			Grammar</i> (<b>RE</b>gular <b>LA</b>nguage for <b>X</b>ML <b>N</b>ext <b>G</b>eneration,
-		<a href="http://www.relaxng.org/">http://www.relaxng.org/</a>) that
-		describes the (formal) syntax of the build files. This grammar can
-		help validate and write Phing build files since there are many XML
-		editors which can make use of this type of grammar to validate, on the
-		fly, as well as do context-sensitive auto-completion. Especially the
-		auto-complete feature can significantly reduce the time it takes to
-		write a correct, and possible complex, Phing build files.
+		<a name="RelaxNGGrammar"></a>Relax NG Grammar </h2>
+	<p>With a little bit of experience it is not that difficult to write and understand Phing
+		build files since the XML format in itself tends to be quite verbose. However, it can
+		become a bit tedious and the large (and growing) amount of built-in tasks and filters
+		can sometimes make it difficult to remember the exact syntax of all the available
+		features.</p>
+	<p> To help with this the Phing distribution contains a <i>Relax NG Grammar</i>
+		(<b>RE</b>gular <b>LA</b>nguage for <b>X</b>ML <b>N</b>ext <b>G</b>eneration, <a
+			href="http://www.relaxng.org/">http://www.relaxng.org/</a>) that describes the
+		(formal) syntax of the build files. This grammar can help validate and write Phing build
+		files since there are many XML editors which can make use of this type of grammar to
+		validate, on the fly, as well as do context-sensitive auto-completion. Especially the
+		auto-complete feature can significantly reduce the time it takes to write a correct, and
+		possible complex, Phing build files. </p>
+	<p> Most XML editors can be told to what schema (or model) to use for validation and
+		auto-completion by adding a specification in the beginning of the XML file. For example,
+		the following two lines in the beginning of an XML file would do (of course the exact
+		path to the grammar will depend on your system setup) </p>
+	<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?> 
+&lt;?xml-model href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
+            type="application/xml" 
+            schematypens="http://relaxng.org/ns/structure/1.0" ?>
+</pre>
+	<p> Using auto-completion will make it substantially easier to edit large build files.
+		Please note that since the phing-grammar does not have an official designation we must
+		use the absolute filename to specify the grammar (instead of a canonical URI that is
+		resolved by the systems XML-catalogue). </p>
+	<p> This grammar is available (as a plain text file) in the distribution at: <code>
+		/etc/phing-grammar.rng </code>
 	</p>
-	<p>
-		This grammar is available (as a plain text file) in the distribution
-		at:
-		<code> /etc/phing-grammar.rng </code>
-	</p>
-
-	<p>Since we do not want to neither endorse nor forget any
-		particular XML editor with this capability we do not make available
-		such a list of editors. Instead, spending a few minutes with Google
-		searching for XML-editors is bound to find a number of editors with
+	<p>Since we do not want to neither endorse nor forget any particular XML editor with this
+		capability we do not make available such a list of editors. Instead, spending a few
+		minutes with Google searching for XML-editors is bound to find a number of editors with
 		this capability.</p>
-	
-	<p>If you wish to validate your Phing build file, there are numerous
-		options. Links to various validation tools and XML editors
-		are available at the RELAX NG home page, <a
-		href="http://www.relaxng.org/">http://www.relaxng.org/</a>.
-		The command line tool <em>xmllint</em> that comes with
-		libxml2 is also able to validate a given XML file
-		against the supplied grammar.
-	</p>
-	<p>For example, to use xmllint to validate a Phing build file the
-		following command line could be used:</p>
+	<p>If you wish to validate your Phing build file, there are numerous options. Links to
+		various validation tools and XML editors are available at the RELAX NG home page, <a
+			href="http://www.relaxng.org/">http://www.relaxng.org/</a>. The command line tool
+		<em>xmllint</em> that comes with libxml2 is also able to validate a given XML file
+		against the supplied grammar. </p>
+	<p>For example, to use xmllint to validate a Phing build file the following command line
+		could be used:</p>
 	<pre>
 $ xmllint -noout -relaxng phing-grammar.rng build.xml
 build.xml validates

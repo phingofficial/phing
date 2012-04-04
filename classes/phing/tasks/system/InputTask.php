@@ -31,7 +31,7 @@ include_once 'phing/input/MultipleChoiceInputRequest.php';
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Ulrich Schmidt <usch@usch.net> (Ant)
  * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class InputTask extends Task {
@@ -102,6 +102,10 @@ class InputTask extends Task {
     
         if ($this->propertyName === null) {
             throw new BuildException("You must specify a value for propertyName attribute.");
+        }
+        
+        if ($this->message === "") {
+            throw new BuildException("You must specify a message for input task.");
         }
         
         if ($this->validargs !== null) {

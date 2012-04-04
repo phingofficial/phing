@@ -139,5 +139,3 @@ class ExportPropertiesTask extends Task
         return false;
     }
 }
-
-?>

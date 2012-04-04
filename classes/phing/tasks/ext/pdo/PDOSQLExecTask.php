@@ -50,7 +50,7 @@ include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
  * @author    Michael McCallum <gholam@xtra.co.nz> (Ant)
  * @author    Tim Stephenson <tim.stephenson@sybase.com> (Ant)
  * @package   phing.tasks.ext.pdo
- * @version   $Revision$
+ * @version   $Id$
  */
 class PDOSQLExecTask extends PDOTask {
 
@@ -281,7 +281,7 @@ class PDOSQLExecTask extends PDOTask {
         // Set a default fetchmode if none was specified
         // (We're doing that here to prevent errors loading the class is PDO is not available.)
         if ($this->fetchMode === null) {
-            $this->fetchMode = PDO::FETCH_BOTH;
+            $this->fetchMode = PDO::FETCH_ASSOC;
         }
 
         // Initialize the formatters here.  This ensures that any parameters passed to the formatter

@@ -26,7 +26,7 @@ include_once 'phing/types/FileSet.php';
  * Task that changes the permissions on a file/directory.
  *
  * @author    Mehmet Emre Yilmaz <mehmety@gmail.com>
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class ChownTask extends Task {
@@ -96,9 +96,8 @@ class ChownTask extends Task {
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
      */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**

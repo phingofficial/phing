@@ -32,7 +32,12 @@ require_once 'phing/util/PearPackageScanner.php';
  */
 class PearPackageScannerTest extends BuildFileTest 
 { 
-
+    public function setUp() 
+    {
+        //needed for PEAR's Config and Registry classes
+        error_reporting(error_reporting() & ~E_STRICT);
+    }
+    
     /**
      * @expectedException PHPUnit_Framework_Error_Deprecated
      */

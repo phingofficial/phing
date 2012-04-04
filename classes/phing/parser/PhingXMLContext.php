@@ -23,7 +23,7 @@
  * Track the current state of the Xml parse operation.
  *
  * @author    Bryan Davis <bpd@keynetics.com>
- * @version   $Revision$ $Date$
+ * @version   $Id$
  * @access    public
  * @package   phing.parser
  */

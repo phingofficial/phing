@@ -24,7 +24,7 @@ require_once 'phing/Task.php';
 /**
  * Deletes a file or directory, or set of files defined by a fileset.
  * 
- * @version   $Revision$
+ * @version   $Id$
  * @package   phing.tasks.system
  */
 class DeleteTask extends Task {
@@ -96,9 +96,8 @@ class DeleteTask extends Task {
     }
 
     /** Nested creator, adds a set of files (nested fileset attribute). */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
     
     /** Nested creator, adds a set of files (nested fileset attribute). */

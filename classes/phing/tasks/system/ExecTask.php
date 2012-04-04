@@ -28,7 +28,7 @@ require_once 'phing/Task.php';
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Christian Weiske <cweiske@cweiske.de>
- * @version $Revision$
+ * @version $Id$
  * @package phing.tasks.system
  */
 class ExecTask extends Task
@@ -210,7 +210,7 @@ class ExecTask extends Task
                 'ExecTask: Please provide "command" OR "executable"'
             );
         } else if ($this->command === null) {
-            $this->command = (string)$this->commandline;
+            $this->command = Commandline::toString($this->commandline->getCommandline(), $this->escape);
         } else if ($this->commandline->getExecutable() === null) {
             //we need to escape the command only if it's specified directly
             // commandline takes care of "executable" already

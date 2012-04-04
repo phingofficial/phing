@@ -4,7 +4,7 @@
  * This is the Phing command line launcher. It starts up the system evironment
  * tests for all important paths and properties and kicks of the main command-
  * line entry point of phing located in phing.Phing
- * @version $Revision$
+ * @version $Id$
  */
  
 // Set any INI options for PHP
