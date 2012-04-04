@@ -30,16 +30,16 @@
  * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext
- * @see https://github.com/docblox/Parallel
+ * @see https://github.com/phpdocumentor/Parallel
  * @since 2.4.10
  */
 class ParallelTask extends SequentialTask
 {
     /**
-     * The concurrency manager
-     * @var DocBlox_Parallel_Manager
+     * Maximum number of threads / processes
+     * @var int
      */
-    private $mgr = null;
+    private $threadCount = 2;
     
     /**
      * Sets the maximum number of threads / processes to use
@@ -47,18 +47,17 @@ class ParallelTask extends SequentialTask
      */
     public function setThreadCount($threadCount)
     {
-        $this->mgr->setProcessLimit($threadCount);
+        $this->threadCount = $threadCount;
     }
     
     public function init()
     {
-        $this->mgr = new DocBlox_Parallel_Manager();
     }
     
     public function main()
     {
         @include_once 'phing/contrib/DocBlox/Parallel/Manager.php';
-        @include_once 'phing.contrib/DocBlox/Parallel/Worker.php';
+        @include_once 'phing/contrib/DocBlox/Parallel/Worker.php';
         @include_once 'phing/contrib/DocBlox/Parallel/WorkerPipe.php';
         if (!class_exists('DocBlox_Parallel_Worker')) {
             throw new BuildException(
@@ -67,15 +66,18 @@ class ParallelTask extends SequentialTask
             );
         }
 
+        $mgr = new DocBlox_Parallel_Manager();
+        $mgr->setProcessLimit($this->threadCount);
+        
         foreach ($this->nestedTasks as $task) {
             $worker = new DocBlox_Parallel_Worker(
                 function($task) { $task->perform(); },
                 array($task)
             );
             
-            $this->mgr->addWorker($worker);
+            $mgr->addWorker($worker);
         }
         
-        $this->mgr->execute();
+        $mgr->execute();
     }
 }
