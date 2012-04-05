@@ -6486,7 +6486,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <literal>error</literal>, <literal>warning</literal>,
                                 <literal>info</literal>, <literal>verbose</literal>,
                                 <literal>debug</literal>.</entry>
-                        <entry><literal>info</literal></entry>
+                        <entry><literal>debug</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
