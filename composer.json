@@ -12,6 +12,7 @@
         {
             "name": "Phing Community",
             "homepage": "http://www.phing.info/trac/wiki/Development/Contributors"
+        }
     ],
     "require": {
         "php": ">=5.2.0"
