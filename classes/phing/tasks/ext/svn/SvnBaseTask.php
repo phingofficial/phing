@@ -205,7 +205,7 @@ abstract class SvnBaseTask extends Task
      */
     function setRecursive($value)
     {
-        $this->svnSwitches['non-recursive'] = is_bool($value) ? !$value : TRUE;
+        $this->svnSwitches['non-recursive'] = is_bool($value) ? !$value : true;
     }
     
     /**
@@ -213,7 +213,7 @@ abstract class SvnBaseTask extends Task
      */
     function getRecursive()
     {
-        return isset( $this->svnSwitches['non-recursive'] ) ? $this->svnSwitches['non-recursive'] : '';
+        return isset( $this->svnSwitches['non-recursive'] ) ? !$this->svnSwitches['non-recursive'] : true;
     }
 
     /**
