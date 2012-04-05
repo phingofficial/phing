@@ -203,7 +203,7 @@ class JslLintTask extends Task
                 $messages = array();
                 exec($command.'"'.$file.'"', $messages, $return);
                 
-                if ($return > 0) {
+                if ($return > 100) {
                     throw new BuildException("Could not execute Javascript Lint executable '{$this->executable}'");
                 }
 
