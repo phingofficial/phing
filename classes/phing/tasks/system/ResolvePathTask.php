@@ -54,6 +54,11 @@ class ResolvePathTask extends Task {
     private $dir;
     
     /**
+     * Log level
+     */
+    private $logLevel = Project::MSG_VERBOSE;
+    
+    /**
      * Set the name of the property to set.
      * @param string $v Property name
      * @return void
@@ -90,6 +95,38 @@ class ResolvePathTask extends Task {
     }
 
     /**
+     * Set level of log messages generated (default = verbose)
+     *
+     * @param string $level Log level
+     *
+     * @return void
+     */
+    public function setLevel($level)
+    {
+        switch ($level) {
+        case 'error':
+            $this->logLevel = Project::MSG_ERR;
+            break;
+        case 'warning':
+            $this->logLevel = Project::MSG_WARN;
+            break;
+        case 'info':
+            $this->logLevel = Project::MSG_INFO;
+            break;
+        case 'verbose':
+            $this->logLevel = Project::MSG_VERBOSE;
+            break;
+        case 'debug':
+            $this->logLevel = Project::MSG_DEBUG;
+            break;
+        default:
+            throw new BuildException(
+                sprintf('Unknown log level "%s"', $level)
+            );
+        }
+    }
+
+    /**
      * Perform the resolution & set property.
      */
     public function main() {        
@@ -115,7 +152,7 @@ class ResolvePathTask extends Task {
             $resolved = $this->project->resolveFile($this->file);
         }
         
-        $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), Project::MSG_INFO);
+        $this->log("Resolved " . $this->file . " to " . $resolved->getAbsolutePath(), $this->logLevel);
         $this->project->setProperty($this->propertyName, $resolved->getAbsolutePath());
     }
 

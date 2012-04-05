@@ -2475,6 +2475,16 @@
 						<entry>n/a</entry>
 						<entry>Yes</entry>
 					</row>
+					<row>
+						<entry><literal>level</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Control the level at which status messages are reported. One of
+								<literal>error</literal>, <literal>warning</literal>,
+								<literal>info</literal>, <literal>verbose</literal>,
+								<literal>debug</literal>.</entry>
+						<entry><literal>verbose</literal></entry>
+						<entry>No</entry>
+					</row>
 				</tbody>
 			</tgroup>
 		</table>
