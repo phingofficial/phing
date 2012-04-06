@@ -2,6 +2,16 @@ P     H     I     N     G
 =========================
 
 
+Apr. 6, 2012 - Phing 2.4.12
+---------------------------
+
+  * [877] Add 'level' attribute to resolvepath task
+  * [876] JslLint Task is_executable() broken
+  * [874] ParallelTask.php is not PHP 5.2 compatible
+  * [860] SvnBaseTask: getRecursive
+  * [539] Custom build log mailer
+  * [406] an ability to turn phpLint verbose ON and OFF
+
 Apr. 4, 2012 - Phing 2.4.11
 ---------------------------
 
