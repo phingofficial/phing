@@ -2362,7 +2362,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>sign</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Make GPG-signed tag. See -a of <link
+                        <entry>Make GPG-signed tag. See -s of <link
                                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html"
                                 >git-tag</link>
                         </entry>
