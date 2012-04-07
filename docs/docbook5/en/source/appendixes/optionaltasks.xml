@@ -5767,6 +5767,108 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    
+    <sect1 role="taskdef" xml:id="PHPLocTask">
+        <title>PHPLocTask</title>
+        <para>This task runs <link xlink:href="http://github.com/sebastianbergmann/phploc/" role="extern">phploc</link>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>reportType</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The type of the report. Available types are cli|csv|txt|xml.</entry>
+                        <entry>cli</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>reportName</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the report type without a file extension.</entry>
+                        <entry>phploc-report</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>reportDirectory</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory to write the report file to.</entry>
+                        <entry>false</entry>
+                        <entry>Yes, when report type csv, txt or xml is defined.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>countTests</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Flag to count the projects tests or not.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the file to check.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes, when no nested fileset is defined.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>suffixes</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A comma-separated list of file suffixes to check.</entry>
+                        <entry>php</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+                <programlisting language="xml">&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true">
+                  &lt;tstamp>
+                    &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
+                  &lt;/tstamp>
+                  &lt;phploc reportType="txt" reportName="${check.date.time}-report"
+                          reportDirectory="phploc-reports">
+                    &lt;fileset dir=".">
+                      &lt;include name="**/*.php" />
+                      &lt;include name="*.php" />
+                    &lt;/fileset>
+                  &lt;/phploc>
+                &lt;/target></programlisting>
+                <para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
+                <programlisting language="xml">&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests">
+                  &lt;phploc countTests="true">
+                    &lt;fileset dir=".">
+                      &lt;include name="**/*.php" />
+                      &lt;include name="*.php" />
+                    &lt;/fileset>
+                  &lt;/phploc>
+                &lt;/target></programlisting>
+                <para>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>fileset</literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+    
     <sect1 role="taskdef" xml:id="PHPMDTask">
         <title>PHPMDTask</title>
         <para> This task runs <link xlink:href="http://phpmd.org" role="extern">phpmd</link>, a
