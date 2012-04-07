@@ -21,10 +21,6 @@
 
 require_once 'phing/Task.php';
 require_once 'phing/BuildException.php';
-require_once 'PHPLOC/Analyser.php';
-require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
-require_once 'PHPLOC/TextUI/ResultPrinter/XML.php';
-require_once 'PHPLOC/TextUI/ResultPrinter/CSV.php';
 
 /**
  * Runs phploc a tool for quickly measuring the size of PHP projects.
@@ -53,6 +49,9 @@ class PHPLocTask extends Task
         $this->filesToCheck = array();
         $this->countTests = false;
     }
+    /**
+     * @param string $suffixListOrSingleSuffix
+     */
     public function setSuffixes($suffixListOrSingleSuffix) {
         if (stripos($suffixListOrSingleSuffix, ',')) {
             $suffixes = explode(',', $suffixListOrSingleSuffix);
@@ -61,28 +60,55 @@ class PHPLocTask extends Task
             array_push($this->suffixesToCheck, trim($suffixListOrSingleSuffix));
         }
     }
+    /**
+     * @param PhingFile $file
+     */
     public function setFile(PhingFile $file) {
         $this->fileToCheck = trim($file);
     }
-
+    
     public function setCountTests($countTests) {
         $this->countTests = (bool) $countTests;
     }
-
+    /**
+     * @return array
+     */
     public function createFileSet() {
         $num = array_push($this->fileSets, new FileSet());
         return $this->fileSets[$num - 1];
     }
+    /**
+     * @param string $type
+     */
     public function setReportType($type) {
         $this->reportType = trim($type);
     }
+    /**
+     * @param string $name
+     */
     public function setReportName($name) {
         $this->reportFileName = trim($name);
     }
+    /**
+     * @param string $directory
+     */
     public function setReportDirectory($directory) {
         $this->reportDirectory = trim($directory);
     }
+    
     public function main() {
+        /**
+         * Find PHPLoc
+         */
+        @include_once 'PHPLOC/Analyser.php';
+        
+        if (!class_exists('PHPLOC_Analyser')) {
+            throw new BuildException(
+                'PHPLocTask depends on PHPLoc being installed and on include_path.',
+                $this->getLocation()
+            );
+        }
+        
         $this->_validateProperties();
         if (!is_null($this->reportDirectory) && !is_dir($this->reportDirectory)) {
             $reportOutputDir = new PhingFile($this->reportDirectory);
@@ -111,6 +137,9 @@ class PHPLocTask extends Task
         }
         $this->runPhpLocCheck();
     }
+    /**
+     * @throws BuildException
+     */
     private function _validateProperties() {
         if (!isset($this->fileToCheck) && count($this->fileSets) === 0) {
             $exceptionMessage = "Missing either a nested fileset or the "
@@ -150,16 +179,22 @@ class PHPLocTask extends Task
             }
         }
     }
+    /**
+     * @param  string $filename
+     * @return boolean
+     */
     protected function isFileSuffixSet($filename) {
         $pathinfo = pathinfo($filename);
         $fileSuffix = $pathinfo['extension'];
         return in_array($fileSuffix, $this->suffixesToCheck);
     }
+    
     protected function runPhpLocCheck() {
         $files = $this->getFilesToCheck();
         $result = $this->getCountForFiles($files); 
 
         if ($this->reportType === 'cli' || $this->reportType === 'txt') {
+            require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
             $printer = new PHPLOC_TextUI_ResultPrinter_Text();
             ob_start();
             $printer->printResult($result, $this->countTests); 
@@ -178,6 +213,9 @@ class PHPLocTask extends Task
             }
         } elseif ($this->reportType === 'xml' || $this->reportType === 'csv') {
             $printerClass = sprintf('PHPLOC_TextUI_ResultPrinter_%s', strtoupper($this->reportType)) ;
+            $printerClassFile = str_replace('_', DIRECTORY_SEPARATOR, $printerClass) . '.php';
+            require_once $printerClassFile;
+            
             $printer = new $printerClass();
             $reportDir = new PhingFile($this->reportDirectory);
             $logMessage = "Writing report to: " . $reportDir->getAbsolutePath()
@@ -187,6 +225,9 @@ class PHPLocTask extends Task
                 . $this->reportFileName, $result);
         }
     }
+    /**
+     * @return array
+     */
     protected function getFilesToCheck() {
         if (count($this->filesToCheck) > 0) {
             $files = array();
@@ -198,7 +239,11 @@ class PHPLocTask extends Task
         }
         return $files;
     }
-    protected function getCountForFiles($files) {
+    /**
+     * @param  array $files
+     * @return array
+     */
+    protected function getCountForFiles(array $files) {
         $analyser = new PHPLoc_Analyser(); 
         return $analyser->countFiles($files, $this->countTests);
     }
