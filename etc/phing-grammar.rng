@@ -132,6 +132,7 @@
                 <ref name="linecontainsregexp"/>
                 <ref name="phpunit"/>
                 <ref name="phkpackage"/>
+                <ref name="phploc"/>
                 <ref name="phpmd"/>
                 <ref name="prefixlines"/>
                 <ref name="phpunitreport"/>
@@ -3226,6 +3227,38 @@
                     <ref name="projdocfileset"/>
                 </choice>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <!-- 
+        =========================================
+        PHPLocTask
+        =========================================
+    -->
+    <define name="phploc">
+        <element name="phploc">
+            <interleave>
+                <optional>
+                    <attribute name="reportType"/>
+                </optional>
+                <optional>
+                    <attribute name="reportName"/>
+                </optional>
+                <optional>
+                    <attribute name="reportDirectory"/>
+                </optional>
+                <optional>
+                    <attribute name="countTests">
+                      <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="suffixes"/>
+                </optional>
+            </interleave>
         </element>
     </define>
 
