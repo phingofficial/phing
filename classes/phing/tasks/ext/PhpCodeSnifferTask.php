@@ -197,7 +197,7 @@ class PhpCodeSnifferTask extends Task {
     {
         $this->tabWidth = (int)$width;
     }
-    
+
     /**
      * Sets file encoding
      * @param string $encoding
@@ -301,7 +301,7 @@ class PhpCodeSnifferTask extends Task {
     {
         $this->haltonwarning = $value;
     }
-    
+
     /**
      * Sets the skipversioncheck flag
      * @param boolean $value
@@ -317,7 +317,7 @@ class PhpCodeSnifferTask extends Task {
     public function main() {
         if (!class_exists('PHP_CodeSniffer')) {
             @include_once 'PHP/CodeSniffer.php';
-            
+
             if (!class_exists('PHP_CodeSniffer')) {
                 throw new BuildException("This task requires the PHP_CodeSniffer package installed and available on the include path", $this->getLocation());
             }
@@ -546,7 +546,7 @@ class PhpCodeSnifferTask extends Task {
 
         $totalErrors = $report['totals']['errors'];
         $totalWarnings = $report['totals']['warnings'];
-        $this->log(count($files) . ' files where checked', Project::MSG_INFO);
+        $this->log(count($files) . ' files were checked', Project::MSG_INFO);
         if ($totalErrors > 0) {
             $this->log($totalErrors . ' error' . ($totalErrors > 1 ? 's' : '') . ' detected', Project::MSG_ERR);
         } else {
