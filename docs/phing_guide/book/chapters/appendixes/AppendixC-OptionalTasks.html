@@ -4946,6 +4946,89 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;formatter type=&quot;checkstyle&quot; outfile=&quot;/path/to/checkstyle.xml&quot;/&gt;
 &lt;/phpcodesniffer&gt;
 </pre>
+<h2><a name="PHPLocTask"></a>PHPLocTask</h2>
+<p> This task runs <a href="http://github.com/sebastianbergmann/phploc/" target="_blank">phploc</a>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</p>
+<h3>Attributes</h3>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+			<th>Default</th>
+			<th>Required</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>reportType</td>
+			<td>String</td>
+			<td>The type of the report. Available types are cli|csv|txt|xml.</td>
+			<td>cli</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>reportName</td>
+			<td>String</td>
+			<td>The name of the report type without a file extension.</td>
+			<td>phploc-report</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>reportDirectory</td>
+			<td>String</td>
+			<td>The directory to write the report file to.</td>
+			<td>false</td>
+			<td>Yes, when report type csv, txt or xml is defined.</td>
+		</tr>
+		<tr>
+			<td>countTests</td>
+			<td>Boolean</td>
+			<td>Flag to count the projects tests or not.</td>
+			<td>false</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>file</td>
+			<td>String</td>
+			<td>The name of the file to check.</td>
+			<td>n/a</td>
+			<td>Yes, when no nested fileset is defined.</td>
+		</tr>
+		<tr>
+			<td>suffixes</td>
+			<td>String</td>
+			<td>A comma-separated list of file suffixes to check.</td>
+			<td>php</td>
+			<td>No</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+	<li>fileset</li>
+</ul>
+<h3>Examples</h3>
+<pre>&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true"&gt;
+  &lt;tstamp&gt;
+    &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/&gt;
+  &lt;/tstamp&gt;
+  &lt;phploc reportType="txt" reportName="${check.date.time}-report"
+          reportDirectory="phploc-reports"&gt;
+    &lt;fileset dir="."&gt;
+      &lt;include name="**/*.php" /&gt;
+      &lt;include name="*.php" /&gt;
+    &lt;/fileset&gt;
+  &lt;/phploc&gt;
+&lt;/target&gt;</pre><p>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</p>
+<pre>&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests"&gt;
+  &lt;phploc countTests="true"&gt;
+    &lt;fileset dir="."&gt;
+      &lt;include name="**/*.php" /&gt;
+      &lt;include name="*.php" /&gt;
+    &lt;/fileset&gt;
+  &lt;/phploc&gt;
+&lt;/target&gt;</pre><p>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</p>
 		<h2>
 			<a name="PHPCPDTask"></a>PHPCPDTask </h2>
 		<p> This task runs <a href="http://github.com/sebastianbergmann/phpcpd/" target="_blank"
