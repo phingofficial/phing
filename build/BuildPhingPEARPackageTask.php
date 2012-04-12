@@ -210,6 +210,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
             $package->addPackageDepWithChannel( 'optional', 'phploc', 'pear.phpunit.de', '1.6.4');
             $package->addPackageDepWithChannel( 'optional', 'DocBlox', 'pear.docblox-project.org', '0.17.2');
             $package->addPackageDepWithChannel( 'optional', 'PHP_CodeSniffer', 'pear.php.net', '1.3.0');
+            $package->addPackageDepWithChannel( 'optional', 'Net_Growl', 'pear.php.net', '2.6.0');
 
             // now add the replacements, chdir() to source directory
             // to allow addReplacement() to find the specified files
