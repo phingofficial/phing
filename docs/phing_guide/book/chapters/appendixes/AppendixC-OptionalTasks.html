@@ -2361,6 +2361,227 @@ Note that you can omit both startpoint and track attributes in this case
     repository="${repo.dir.resolved}" /&gt;
 </pre>
 		<h2>
+			<a name="GrowlNotifyTask"></a>GrowlNotifyTask </h2>
+		<p>When you have a long process and want to be notified when it is finished, without to stay 
+			focused on the console windows. Then use the GrowlNotify task.
+		</p>
+		<p>This task requires the PEAR <a href="http://pear.php.net/package/Net_Growl">Net_Growl</a> package installed (version  2.6.0).</p>
+		<h3>Features</h3>
+		<ul>
+			<li>Compatible Windows and Mac/OSX</li>
+			<li>Don't forget notification with sticky option</li>
+			<li>Define priority of messages</li>
+			<li>Send notification on private or public network.</li>
+		</ul>
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+					<th>Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>name</td>
+					<td>String</td>
+					<td>Name of application to be register</td>
+					<td>Growl for Phing</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>sticky</td>
+					<td>Boolean</td>
+					<td>Indicates if the notification should be sticky on desktop</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>message</td>
+					<td>String</td>
+					<td>Text of notification. Use \n to specify a line break</td>
+					<td>n/a</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>title</td>
+					<td>String</td>
+					<td>Title of notification</td>
+					<td>GrowlNotify</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>notification</td>
+					<td>String</td>
+					<td>The notification name/type</td>
+					<td>General Notification</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>appicon</td>
+					<td>String</td>
+					<td><p>The icon of the application being registered.</p>
+						<p>Must be a valid file type (png, jpg, gif, ico). Can be any of the following:</p>
+						<ul>
+							<li>absolute url (http://domain/image.png)</li>
+							<li>absolute file path (c:\temp\image.png)</li>
+							<li>relative file path (.\folder\image.png)</li>
+						</ul>
+					</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>host</td>
+					<td>String</td>
+					<td>The host address where to send the notification</td>
+					<td>127.0.0.1</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>password</td>
+					<td>String</td>
+					<td>The password required to send notifications over network</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>priority</td>
+					<td>String</td>
+					<td><p>The notification priority</p>
+						<p>Valid values are :</p>
+						<ul>
+							<li>low</li>
+							<li>moderate</li>
+							<li>normal</li>
+							<li>high</li>
+							<li>emergency</li>
+						</ul>
+					</td>
+					<td>normal</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>protocol</td>
+					<td>String</td>
+					<td><p>The protocol used to send the notification.</p>
+						<p>May be either gntp or udp.</p>
+					</td>
+					<td>gntp</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>icon</td>
+					<td>String</td>
+					<td><p>The icon to show for the notification.</p>
+						<p>Must be a valid file type (png, jpg, gif, ico). Can be any of the following:</p>
+						<ul>
+							<li>absolute url (http://domain/image.png)</li>
+							<li>absolute file path (c:\temp\image.png)</li>
+							<li>relative file path (.\folder\image.png)</li>
+						</ul>
+					</td>
+					<td>embeded growl icon v2</td>
+					<td>No</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Examples</h3>
+		<h4>Send a single notification on a remote host</h4>
+		<p>
+			Both sender and Growl client (Mac or Windows) should share the same password.
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl gntp over network"
+    &gt;
+        &lt;growlnotify message="Deployment of project LAMBDA is finished."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+		<h4>Send a single notification with UDP protocol</h4>
+		<p>
+			When you don't have a Macintosh, OS compatible with Growl GNTP, you 
+			should use the basic UDP protocol.
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl udp over network"
+    &gt;
+        &lt;growlnotify message="Notify my MAC that does not accept GNTP."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+            protocol="udp"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+		<h4>Send an important notification</h4>
+		<p>
+			If you want to send a notification that is so important that you don't want to missed it,
+			even if you are away from your computer. Use the sticky attribute.
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a sticky message on desktop"
+    &gt;
+        &lt;growlnotify message="Project LAMDBA, unit tests FAILED."
+            priority="high"
+            sticky="true"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+		<h4>Use your icons to identify an application</h4>
+		<p>
+			You may customize the Growl notification system, with different icons 
+			and more. 
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a custom icon message"
+    &gt;
+        &lt;growlnotify message="Have a look on my beautiful message!"
+            name="phing Notifier"
+            title="phing notification"
+            priority="low"
+            sticky="false"
+            appicon="../images/my_icon.png"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+		<h2>
 			<a name="HttpGetTask"></a>HttpGetTask </h2>
 		<p>This task will download a file through HTTP GET and save it to a specified directory. You
 			need an installed version of HTTP_Request2 to use this task.</p>
