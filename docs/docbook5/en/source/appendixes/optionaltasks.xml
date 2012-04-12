@@ -7624,7 +7624,7 @@ host="webserver" todir="/www/htdocs/project/">
     </sect1>
     <sect1 role="taskdef" xml:id="SshTask">
         <title>SshTask</title>
-        <para> The <literal>ScpTask</literal> executes commands on a remote host using ssh.. This
+        <para> The <literal>SshTask</literal> executes commands on a remote host using ssh.. This
             task requires the <link xlink:href="http://pecl.php.net/package/ssh2" role="extern">PHP
                 SSH2 extension</link> to function.</para>
 
