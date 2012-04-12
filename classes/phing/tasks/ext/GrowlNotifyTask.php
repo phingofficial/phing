@@ -451,11 +451,13 @@ class GrowlNotifyTask extends Task
             }
             $response = $growl->register();
 
-            if ($response->getStatus() != 'OK') {
-                throw new BuildException(
-                    'Growl Error ' . $response->getErrorCode() .
-                    ' - ' . $response->getErrorDescription()
-                );
+            if ($this->protocol == 'gntp') {
+                if ($response->getStatus() != 'OK') {
+                    throw new BuildException(
+                        'Growl Error ' . $response->getErrorCode() .
+                        ' - ' . $response->getErrorDescription()
+                    );
+                }
             }
             $this->log(
                 'Application ' . $this->name . ' registered',
@@ -486,11 +488,13 @@ class GrowlNotifyTask extends Task
                 $this->notification, $this->title, $this->message, $options
             );
 
-            if ($response->getStatus() != 'OK') {
-                throw new BuildException(
-                    'Growl Error ' . $response->getErrorCode() .
-                    ' - ' . $response->getErrorDescription()
-                );
+            if ($this->protocol == 'gntp') {
+                if ($response->getStatus() != 'OK') {
+                    throw new BuildException(
+                        'Growl Error ' . $response->getErrorCode() .
+                        ' - ' . $response->getErrorDescription()
+                    );
+                }
             }
             $this->log('Notification was sent to remote host ' . $this->host);
 
