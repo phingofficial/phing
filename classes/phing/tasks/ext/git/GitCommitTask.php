@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
@@ -31,16 +31,10 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  */
 class GitCommitTask extends GitBaseTask
 {
-    /**
-     * Path to target directory
-     * @var string
-     */
-    private $targetPath;
-    
     private $allFiles;
-    
+
     private $message;
-    
+
     private $files;
 
     /**
@@ -52,16 +46,12 @@ class GitCommitTask extends GitBaseTask
             throw new BuildException('"repository" is required parameter');
         }
 
-        if (null === $this->getTargetPath()) {
-            throw new BuildException('"targetPath" is required parameter');
-        }
-
         if ($this->allFiles !== true && empty($this->files))
         {
         	throw new BuildException('"allFiles" cannot be false if no files are specified.');
         }
 
-        $client = $this->getGitClient(false, $this->getTargetPath());
+        $client = $this->getGitClient(false, $this->getRepository());
 
         $options = Array();
 
@@ -81,13 +71,13 @@ class GitCommitTask extends GitBaseTask
 
         if (!empty($this->message))
         {
-        	$arguments[] = $this->message;
+            $options['message'] = $this->message;
         } else {
-        	$options['allow-empty-message'] = true;	
+        	$options['allow-empty-message'] = true;
         }
 
         try {
-        	$command = $git->Command('commit');
+        	$command = $client->getCommand('commit');
         	$command->setArguments($arguments);
         	$command->setOptions($options);
         	$command->execute();
@@ -98,8 +88,8 @@ class GitCommitTask extends GitBaseTask
         $msg = 'git-commit: Executed git commit ';
         foreach ($options as $option=>$value)
         {
-        	
-        	$msg .= ' --' . $options . '=' . $value;
+
+        	$msg .= ' --' . $option . '=' . $value;
         }
 
         foreach ($arguments as $argument)
@@ -107,28 +97,7 @@ class GitCommitTask extends GitBaseTask
         	$msg .= ' ' . $argument;
         }
 
-        $this->log($msg, Project::MSG_INFO); 
-    }
-
-    /**
-     * Get path to target direcotry repo
-     *
-     * @return string
-     */
-    public function getTargetPath()
-    {
-        return $this->targetPath;
-    }
-
-    /**
-     * Set path to source repo
-     *
-     * @param string $targetPath Path to repository used as source
-     * @return void
-     */
-    public function setTargetPath($targetPath)
-    {
-        $this->targetPath = $targetPath;
+        $this->log($msg, Project::MSG_INFO);
     }
 
     /**
@@ -155,17 +124,17 @@ class GitCommitTask extends GitBaseTask
     {
     	return $this->message;
     }
-    
+
     public function setMessage($message)
     {
     	$this->message = $message;
     }
-    
+
     public function getFiles()
     {
     	return $this->files;
     }
-    
+
     public function setFiles($files)
     {
     	if (!$empty($files) && is_array($files))
