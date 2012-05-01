@@ -49,7 +49,7 @@ abstract class SvnBaseTask extends Task
 
     private $toDir = "";
     
-    protected $fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
+    protected $fetchMode;
 
     /**
      * Initialize Task.
@@ -59,6 +59,7 @@ abstract class SvnBaseTask extends Task
      */
     function init() {
         include_once 'VersionControl/SVN.php';
+        $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
         if (!class_exists('VersionControl_SVN')) {
             throw new Exception("The SVN tasks depend on PEAR VersionControl_SVN package being installed.");
         }
