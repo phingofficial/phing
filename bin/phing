@@ -19,51 +19,10 @@ for arg in "$@" ; do
 done
 
 if [ -z "$PHING_HOME" ] ; then
-
   # echo "WARNING: PHING_HOME environment not set. Attempting to guess."
+  PRG=$(readlink -f $0)
 
-  # try to find PHING
-  if [ -d /opt/phing ] ; then 
-    PHING_HOME=/opt/phing
-  fi
-
-  if [ -d "${HOME}/opt/phing" ] ; then 
-    PHING_HOME="${HOME}/opt/phing"
-  fi
-
-  if [ -d "/usr/local/phing" ] ; then 
-    PHING_HOME="/usr/local/phing"
-  fi
-
-  if [ -d "${HOME}/usr/phing" ] ; then 
-    PHING_HOME="${HOME}/usr/phing"
-  fi
-  
-  ## resolve links - $0 may be a link to phing's home
-  PRG="$0"
-  progname=`basename "$0"`
-  saveddir=`pwd`
-
-  # need this for relative symlinks
-  dirname_prg=`dirname "$PRG"`
-  cd "$dirname_prg"
-  
-  while [ -h "$PRG" ] ; do
-    ls=`ls -ld "$PRG"`
-    link=`expr "$ls" : '.*-> \(.*\)$'`
-    if expr "$link" : '/.*' > /dev/null; then
-	PRG="$link"
-    else
-	PRG=`dirname "$PRG"`"/$link"
-    fi
-  done
-  
   PHING_HOME=`dirname "$PRG"`/..
-
-  cd "$saveddir"
-
-  # make it fully qualified
-  PHING_HOME=`cd "$PHING_HOME" && pwd`
   
   # make it available in PHP via getenv("PHING_HOME")
   export PHING_HOME
