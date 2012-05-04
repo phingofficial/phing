@@ -6,7 +6,12 @@
  * line entry point of phing located in phing.Phing
  * @version $Id$
  */
- 
+
+if (file_exists(__DIR__ . '/../../../autoload.php')) {
+    // doctrine is part of a composer installation
+    require_once __DIR__ . '/../../../autoload.php';
+}
+
 // Set any INI options for PHP
 // ---------------------------
 
