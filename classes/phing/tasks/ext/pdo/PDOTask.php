@@ -162,7 +162,7 @@ abstract class PDOTask extends Task {
             
             return $conn;
             
-        } catch (SQLException $e) {
+        } catch (PDOException $e) {
             throw new BuildException($e->getMessage(), $this->location);
         }
 
