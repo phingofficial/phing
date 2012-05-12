@@ -1074,7 +1074,7 @@ class Phing {
 
         if (self::$importPaths === null) {
             $paths = get_include_path();
-            self::$importPaths = explode(PATH_SEPARATOR, ini_get("include_path"));
+            self::$importPaths = explode(PATH_SEPARATOR, $paths);
         }
 
         $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
