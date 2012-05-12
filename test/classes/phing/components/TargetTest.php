@@ -37,8 +37,8 @@ class TargetTest extends BuildFileTest {
 
     public function testHiddenTargets()
     {
-        $phingExecutable = '"' . PHING_TEST_BASE . '/../bin/phing"';
-        $buildFile = '"' . PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml"';
+        $phingExecutable = PHING_TEST_BASE . '/../bin/phing';
+        $buildFile = PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml';
         $cmd = $phingExecutable . ' -l -f ' . $buildFile;
         exec($cmd, $out);
         $out = implode("\n", $out);
