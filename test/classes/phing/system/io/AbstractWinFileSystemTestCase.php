@@ -149,16 +149,26 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase 
     public function resolveFileDataProvider()
     {
         $cwd = getcwd();
-        $colonPos = strpos($cwd, ':');
-        $driveLetter = substr($cwd, 0, $colonPos);
-        
+        $driveLetter = '';
+        // This is a bit wierd, but it lets us run the win tests on unix machines. Might be better
+        // to find an abstraction for drive letter within file system
+        if (substr(PHP_OS, 0, 3) === 'WIN')
+        {
+            $colonPos = strpos($cwd, ':');
+            $driveLetter = substr($cwd, 0, $colonPos) . ':';
+        }
+        else
+        {
+            $cwd = str_replace('/', '\\', $cwd);
+        }
+
         return array(
             'absoluteLocal' => array('C:\\My Files\\file.txt', 'C:\\My Files\\file.txt', 3),
             // Error shown in version of phpunit using (3.6.10) when serialising this argument set.
             // Not sure if an issue in phpunit
             //'unc' => array('\\\\files\\file.txt', '\\\\files\\file.txt', 2)
             'relative' => array($cwd . '\\files\file.txt', 'files\\file.txt', 0),
-            'driveRelative' => array($driveLetter . ':\\files\\file.txt', '\\files\\file.txt', 1)
+            'driveRelative' => array($driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1)
         );
     }
     
