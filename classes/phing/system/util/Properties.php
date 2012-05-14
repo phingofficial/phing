@@ -91,7 +91,16 @@ class Properties {
         if (($lines = @file($filePath)) === false) {
             throw new IOException("Unable to parse contents of $filePath");
         }
-        
+
+        // concatenate lines ending with backslash
+        $linesCount = count($lines);
+        for($i = 0; $i < $linesCount; $i++) {
+            if (substr($lines[$i], -2, 1) === '\\') {
+                $lines[$i + 1] = substr($lines[$i], 0, -2) . ltrim($lines[$i + 1]);
+                $lines[$i] = '';
+            }
+        }
+
         $this->properties = array();
         $sec_name = "";
         
