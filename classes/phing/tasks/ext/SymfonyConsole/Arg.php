@@ -90,7 +90,7 @@ class Arg extends DataType
         if (strlen($name) > 0 && strlen($value) > 0) {
             $value = '=' . $value;
         }
-        return $name . ' ' . $value;
+        return $name . $value;
     }
 
 }
