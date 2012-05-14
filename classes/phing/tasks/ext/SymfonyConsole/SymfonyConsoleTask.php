@@ -26,7 +26,7 @@ class SymfonyConsoleTask extends Task
      *
      * @var string path to symfony console application
      */
-    private $console = 'app/console';
+    private $console = 'php app/console';
 
 
     /**
