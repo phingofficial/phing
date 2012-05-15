@@ -1,46 +1,6 @@
-#!/bin/sh
-# Shell wrapper for Phing
-# $Id$
-#
-# This script will do the following:
-# - check for PHP_COMMAND env, if found, use it.
-#   - if not found assume php is on the path
-# - check for PHING_HOME evn, if found use it
-#   - if not look for it
-# - check for PHP_CLASSPATH, if found use it
-#   - if not found set it using PHING_HOME/classes
-
-
-# Put all args in quotes
-phing_exec_debug=false
-phing_exec_args=
-for arg in "$@" ; do
-  phing_exec_args="$phing_exec_args \"$arg\""
-done
-
-if [ -z "$PHING_HOME" ] ; then
-  # echo "WARNING: PHING_HOME environment not set. Attempting to guess."
-  PRG=`test -L "$0" && readlink "$0" || echo "$0"`
-
-  PHING_HOME=`dirname "$PRG"`/..
-  
-  # make it available in PHP via getenv("PHING_HOME")
-  export PHING_HOME
-fi
-
-if (test -z "$PHP_COMMAND") ; then
-	# echo "WARNING: PHP_COMMAND environment not set. (Assuming php on PATH)"
-	PHP_COMMAND=php
-	export PHP_COMMAND
-fi
-
-if (test -z "$PHP_CLASSPATH") ; then
-	PHP_CLASSPATH=$PHING_HOME/classes
-	export PHP_CLASSPATH
-fi
-
-phing_exec_cmd="exec $PHP_COMMAND -d html_errors=off -qC \"$PHING_HOME/bin/phing.php\" -logger phing.listener.AnsiColorLogger $phing_exec_args"
-if $phing_exec_debug ; then
-  echo $phing_exec_cmd
-fi
-eval $phing_exec_cmd
+#!/usr/bin/env php
+<?php
+//temprorary arguments
+$argv[] = '-logger';
+$argv[] = 'phing.listener.AnsiColorLogger';
+require_once __DIR__ . '/phing.php';
