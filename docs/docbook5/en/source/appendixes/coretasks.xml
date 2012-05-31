@@ -620,7 +620,7 @@
 						<entry><literal>mode</literal></entry>
 						<entry><literal role="type">Integer</literal></entry>
 						<entry>Mode (octal) to create directories with.</entry>
-						<entry>0755</entry>
+						<entry>From umask</entry>
 						<entry>No</entry>
 					</row>
 					<row>
@@ -1830,7 +1830,7 @@
 						<entry><literal>mode</literal></entry>
 						<entry><literal role="type">Integer</literal></entry>
 						<entry>The mode to create the directory with.</entry>
-						<entry>0755</entry>
+						<entry>From umask</entry>
 						<entry>No</entry>
 					</row>
 				</tbody>
