@@ -95,15 +95,15 @@ class IncludePathTask extends Task {
     
         // Apparently casting to (string) no longer invokes __toString() automatically.
         if (is_object($this->classpath)) {
-            $this->classpath = $this->classpath->__toString();
+            $classpath = $this->classpath->__toString();
         }
         
-        if (empty($this->classpath)) {
+        if (empty($classpath)) {
             throw new BuildException("Provided classpath was empty.");
         }
         
         $curr_parts = explode(PATH_SEPARATOR, get_include_path());
-        $add_parts = explode(PATH_SEPARATOR, $this->classpath);
+        $add_parts = explode(PATH_SEPARATOR, $classpath);
         $new_parts = array_diff($add_parts, $curr_parts);
         
         if ($new_parts) {
