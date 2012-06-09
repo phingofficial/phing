@@ -342,9 +342,13 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
 			<para>Phing execution on the command line is simple. Just change to the directory where
 				your buildfile resides and type</para>
 
-			<screen>$ phing [targetname]</screen>
+			<screen>$ phing [target [target2 [target3] ...]]</screen>
 
-			<para> at the command line (where [targetname] is the target you want to be executed).
+			<para> at the command line (where [target...] are the target(s)
+				you want to be executed). If no target is specified Phing
+				will try to execute the default target, as specified in the
+				<literal>project</literal> tag. When calling multipe targets, Phing
+				will invoke each target independently of the other targets.
 				Optionally, you may specify command line arguments as listed in <link
 					xlink:href="appendixes/AppendixA-FactSheet.html#CommandLineArguments">Appendix
 					A</link>.</para>
