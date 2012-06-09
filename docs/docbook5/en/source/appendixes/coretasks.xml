@@ -778,7 +778,7 @@
 						<entry>No</entry>
 					</row>
 					<row>
-						<entry><literal>setfailonerror</literal></entry>
+						<entry><literal>failonerror</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
 						<entry>Stop the build process if the command returns any errors</entry>
 						<entry><literal>false</literal></entry>
