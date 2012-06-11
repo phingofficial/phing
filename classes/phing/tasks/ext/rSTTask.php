@@ -112,7 +112,7 @@ class rSTTask extends Task
      *
      * @var integer
      */
-    protected $mode = 0755;
+    protected $mode = 0;
 
     /**
      * Only render files whole source files are newer than the
@@ -122,6 +122,15 @@ class rSTTask extends Task
      */
     protected $uptodate = false;
 
+    /**
+     * Sets up this object internal stuff. i.e. the default mode
+     *
+     * @return object   The rSTTask instance
+     * @access public
+     */
+    function __construct() {
+        $this->mode = 0777 - umask();
+    }
 
     /**
      * Init method: requires the PEAR System class

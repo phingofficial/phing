@@ -7388,6 +7388,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>mode</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>The mode to create directories with.</entry>
+                        <entry>From umask</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
