@@ -84,6 +84,35 @@ class S3PutTask extends Service_Amazon_S3
 	 * @access protected
 	 */
 	protected $_acl = 'private';
+	
+	/**
+	 * File content type
+	 * Use this to set the content type of your static files
+	 * Set contentType to "auto" if you want to autodetect the content type based on the source file extension
+	 *
+	 * (default value: 'binary/octet-stream')
+	 *
+	 * @var string
+	 * @access protected
+	 */
+	protected $_contentType = 'binary/octet-stream';
+	
+	/**
+	 * Extension content type mapper
+	 *
+	 * @var array
+	 * @access protected
+	 */
+	protected $_extensionContentTypeMapper = array(
+		'js'	=> 'application/x-javascript',
+		'css'	=> 'text/css',
+		'html'	=> 'text/html',
+		'gif'	=> 'image/gif',
+		'png'	=> 'image/png',
+		'jpg'	=> 'image/jpeg',
+		'jpeg'	=> 'image/jpeg',
+		'txt'	=> 'text/plain'
+	);
     
     public function setSource($source)
     {
@@ -151,6 +180,25 @@ class S3PutTask extends Service_Amazon_S3
 	public function getAcl()
 	{
 		return $this->_acl;
+	}
+	
+	public function setContentType($contentType) 
+	{
+		$this->_contentType = $contentType;
+	}
+
+	public function getContentType()
+	{
+		if($this->_contentType === 'auto') {
+			$ext = strtolower(substr(strrchr($this->getSource(), '.'), 1));
+			if(isset($this->_extensionContentTypeMapper[$ext])) {
+				return $this->_extensionContentTypeMapper[$ext];
+			} else {
+				return 'binary/octet-stream';
+			}
+		} else {
+			return $this->_contentType;
+		}
 	}
 
 	public function setCreateBuckets($createBuckets)
@@ -260,6 +308,7 @@ class S3PutTask extends Service_Amazon_S3
 		$object = $this->getObjectInstance($object);
 		$object->data = $data;
 		$object->acl = $this->getAcl();
+		$object->contentType = $this->getContentType();
 		$object->save();
 		
 		if(!$this->isObjectAvailable($object->key)) {
