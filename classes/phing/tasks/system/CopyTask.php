@@ -57,18 +57,19 @@ class CopyTask extends Task {
 
     protected $verbosity     = Project::MSG_VERBOSE;
     
-    protected $mode           = 0755;   // mode to create directories with
+    protected $mode          = 0;       // mode to create directories with
     
     protected $haltonerror   = true;    // stop build on errors
 
     /**
-     * Sets up this object internal stuff. i.e. the Fileutils instance
+     * Sets up this object internal stuff. i.e. the Fileutils instance and default mode
      *
      * @return object   The CopyTask instnace
      * @access public
      */
     function __construct() {
         $this->fileUtils = new FileUtils();
+        $this->mode = 0777 - umask();
     }
 
     /**
@@ -159,7 +160,7 @@ class CopyTask extends Task {
 
     /**
      * Sets the mode to create destination directories with (ignored on Windows).
-     * Default mode is 0755.
+     * Default mode is taken from umask()
      *
      * @param  integer  Octal mode
      * @return void
