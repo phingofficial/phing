@@ -4,8 +4,6 @@
 # Purpose: Run phing in a travis environment
 #
 # Target system: travis-ci
-# wget -q -O - https://raw.github.com/chluehr/roundsman/master/travis-phing.sh | bash
-# (do not execute this line blindly)
 #-----------------------------------------------------------
 
 installPearTask ()
