@@ -29,7 +29,9 @@ installPearTask ()
 
     sudo apt-get install python-docutils
     pear install VersionControl_Git-alpha
-    pear install PEAR_PackageFileManager
+    pear install pear/XML_Serializer-beta
+    pear install --alldeps PEAR_PackageFileManager
+    pear install --alldeps PEAR_PackageFileManager2
     pear install Net_Growl
 
     # update paths
@@ -42,6 +44,9 @@ installPearTask ()
     installPearTask &&
         echo -e "\nSUCCESS - PHP ENVIRONMENT READY." ||
         ( echo "=== FAILED."; exit 1 )
+
+    curl -s http://getcomposer.org/installer | php
+    php composer.phar install
 
     echo "=== BUILDING PHING ==="
     cd build
