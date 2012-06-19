@@ -1,5 +1,5 @@
 language: php
 php:
   - 5.3
-script: cd build; ../.travis-phing.sh -Dversion=2.0.0b1
+script: ./.travis.sh 
 
