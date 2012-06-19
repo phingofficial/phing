@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-//temprorary arguments
 $argv[] = '-logger';
 $argv[] = 'phing.listener.AnsiColorLogger';
 require_once __DIR__ . '/phing.php';
