@@ -20,7 +20,6 @@
  */
 
 require_once 'phing/Task.php';
-require_once 'phing/system/io/FileOutputStream.php';
 
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)
@@ -120,81 +119,6 @@ class PhpDocumentor2Task extends Task
     }
     
     /**
-     * Finds and initializes the phpDocumentor installation
-     */
-    private function initializePhpDocumentor()
-    {
-        $phpDocumentorPath = null;
-        
-        foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
-            $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . 'phpDocumentor' . DIRECTORY_SEPARATOR . 'src';
-
-            if (file_exists($testPhpDocumentorPath)) {
-                $phpDocumentorPath = $testPhpDocumentorPath;
-            }
-        }
-
-        if (empty($phpDocumentorPath)) {
-            throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.", $this->getLocation());
-        }
-        
-        set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
-        
-        require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
-            
-        $bootstrap = phpDocumentor_Bootstrap::createInstance();
-            
-        $autoloader = $bootstrap->registerAutoloader();
-            
-        if ($this->quiet) {
-            phpDocumentor_Core_Abstract::config()->logging->level = 'quiet';
-        } else {
-            phpDocumentor_Core_Abstract::config()->logging->level = 'debug';
-        }
-            
-        $bootstrap->registerPlugins($autoloader);
-    }
-    
-    /**
-     * Build a list of files (from the fileset elements)
-     * and call the phpDocumentor parser
-     *
-     * @return string
-     */
-    private function parseFiles()
-    {
-        $parser = new phpDocumentor_Parser();
-        
-        //Only initialize the dispatcher when not already done
-        if (is_null(phpDocumentor_Parser_Abstract::$event_dispatcher)) {
-            phpDocumentor_Parser_Abstract::$event_dispatcher = new sfEventDispatcher();
-        }
-        $parser->setTitle($this->title);
-        
-        $paths = array();
-        
-        // filesets
-        foreach ($this->filesets as $fs) {
-            $ds    = $fs->getDirectoryScanner($this->project);
-            $dir   = $fs->getDir($this->project);
-            $srcFiles = $ds->getIncludedFiles();
-            
-            foreach ($srcFiles as $file) {
-                $paths[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
-            }
-        }
-        
-        $this->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
-        
-        $files = new phpDocumentor_Parser_Files();
-        $files->addFiles($paths);
-        
-        $parser->setPath($files->getProjectRoot());
-        
-        return $parser->parseFiles($files);
-    }
-
-    /**
      * Task entry point
      * @see Task::main()
      */
@@ -208,17 +132,18 @@ class PhpDocumentor2Task extends Task
             throw new BuildException("You have not specified any files to include (<fileset>)", $this->getLocation());
         }
         
-        $this->initializePhpDocumentor();
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            throw new BuildException("The phpdocumentor2 task requires PHP 5.3+");
+        }
         
-        $xml = $this->parseFiles();
+        require_once 'phing/tasks/ext/phpdoc/PhpDocumentor2Wrapper.php';
         
-        $this->log("Transforming...", Project::MSG_VERBOSE);
-        
-        $transformer = new phpDocumentor_Transformer();
-        $transformer->setTemplatesPath(phpDocumentor_Core_Abstract::config()->paths->templates);
-        $transformer->setTemplates($this->template);
-        $transformer->setSource($xml);
-        $transformer->setTarget($this->destDir->getAbsolutePath());
-        $transformer->execute();
+        $wrapper = new PhpDocumentor2Wrapper();
+        $wrapper->setProject($this->project);
+        $wrapper->setFilesets($this->filesets);
+        $wrapper->setDestDir($this->destDir);
+        $wrapper->setTemplate($this->template);
+        $wrapper->setTitle($this->title);
+        $wrapper->run();
     }
 }
