@@ -18,12 +18,30 @@ installPearTask ()
     which phing >/dev/null                      &&
         pear upgrade pear.phing.info/phing ||
         pear install --alldeps pear.phing.info/phing
-
     # update paths
     phpenv rehash
-
     # re-test for phing:
     phing -v 2>&1 >/dev/null    &&
+        echo "... OK"           ||
+        return 1
+
+    echo -e "\nInstalling / upgrading phpcpd ... "
+    which phpcpd >/dev/null                      &&
+        sudo pear upgrade pear.phpunit.de/phpcpd ||
+        sudo pear install pear.phpunit.de/phpcpd
+    phpenv rehash
+    # re-test for phpcpd:
+    phpcpd -v 2>&1 >/dev/null   &&
+        echo "... OK"           ||
+        return 1
+
+    echo -e "\nInstalling / upgrading phpcs ... "
+    which phpcs >/dev/null                             &&
+        sudo pear upgrade pear.php.net/PHP_CodeSniffer ||
+        sudo pear install pear.php.net/PHP_CodeSniffer
+    phpenv rehash
+    # re-test for phpcs:
+    phpcs --version 2>&1 >/dev/null   &&
         echo "... OK"           ||
         return 1
 
