@@ -31,25 +31,60 @@ include_once 'phing/system/io/FileSystem.php';
  */
 class FileSystemTest extends PHPUnit_Framework_TestCase {
 
-    /**
-     * @dataProvider fileSystemMappingsDataProvider
-     */
-    public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
+    private $oldFsType = "";
+
+    public function setUp()
     {
-        Phing::setProperty('host.fstype', $fsTypeKey);
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped(
+                'Need at least PHP version 5.3.2 to run this unit test'
+            );
+        }
         
-        $system = FileSystem::getFileSystem();
+        $this->oldFsType = Phing::getProperty('host.fstype');
+    } 
+    
+    public function tearDown()
+    {
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            return;
+        }
         
-        $this->assertInstanceOf($expectedFileSystemClass, $system);
+        Phing::setProperty('host.fstype', $this->oldFsType);
+        $this->_resetFileSystem();
+    }
+
+    protected function _resetFileSystem()
+    {
+        $refClass    = new ReflectionClass('FileSystem');
+        $refProperty = $refClass->getProperty('fs');
+        $refProperty->setAccessible(true);
+        $refProperty->setValue(null);
     }
     
-    public function getFileSystemWithUnknownTypeKeyThrowsException()
+    public function testGetFileSystemWithUnknownTypeKeyThrowsException()
     {
+        $this->_resetFileSystem();
+        
         $this->setExpectedException('IOException');
         
         Phing::setProperty('host.fstype', 'UNRECOGNISED');
         
         FileSystem::getFileSystem();
+    }
+    
+    /**
+     * @dataProvider fileSystemMappingsDataProvider
+     */
+    public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
+    {
+        $this->_resetFileSystem();
+        
+        Phing::setProperty('host.fstype', $fsTypeKey);
+        
+        $system = FileSystem::getFileSystem();
+        
+        $this->assertInstanceOf($expectedFileSystemClass, $system);
     }
     
     public function fileSystemMappingsDataProvider()
