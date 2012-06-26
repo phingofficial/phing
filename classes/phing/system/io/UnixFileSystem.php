@@ -137,7 +137,7 @@ class UnixFileSystem extends FileSystem {
      * string must be in normal form.
      */
     function prefixLength($pathname) {
-        if (strlen($pathname === 0)) {
+        if (strlen($pathname) === 0) {
             return 0;
         }
         return (($pathname{0} === '/') ? 1 : 0);
