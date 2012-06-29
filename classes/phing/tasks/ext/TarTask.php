@@ -244,8 +244,9 @@ class TarTask extends MatchingTask {
             
             $tar = new Archive_Tar($this->tarFile->getAbsolutePath(), $this->compression);
             
-            // print errors
-            $tar->setErrorHandling(PEAR_ERROR_PRINT);
+            if (PEAR::isError($tar->error_object)) {
+                throw new BuildException($tar->error_object->getMessage());
+            }
             
             foreach($this->filesets as $fs) {                                
                     $files = $fs->getFiles($this->project, $this->includeEmpty);
@@ -261,8 +262,12 @@ class TarTask extends MatchingTask {
                         $f = new PhingFile($fsBasedir, $files[$i]);
                         $filesToTar[] = $f->getAbsolutePath();
                         $this->log("Adding file " . $f->getPath() . " to archive.", Project::MSG_VERBOSE);                
-                    }                    
-                    $tar->addModify($filesToTar, $this->prefix, $fsBasedir->getAbsolutePath());            
+                    }
+                    $tar->addModify($filesToTar, $this->prefix, $fsBasedir->getAbsolutePath());
+                    
+                    if (PEAR::isError($tar->error_object)) {
+                        throw new BuildException($tar->error_object->getMessage());
+                    }
             }
                          
                 
