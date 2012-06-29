@@ -688,6 +688,8 @@
     </sect1>
     <sect1 role="taskdef" xml:id="DocBloxTask">
         <title>DocBloxTask</title>
+        <para> <emphasis role="bold">This task is now deprecated in favor of the
+            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
         <para> This task runs <link xlink:href="http://www.docblox-project.org/" role="extern"
                 >DocBlox</link>, a PHP 5.3-compatible API documentation tool.</para>
 
@@ -6499,6 +6501,8 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentorTask">
         <title>PhpDocumentorTask</title>
+        <para> <emphasis role="bold">This task is now deprecated in favor of the
+            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
         <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
                 >phpDocumentor</link>, an auto-documentation tool for PHP similar to Javadoc.</para>
 
@@ -6689,8 +6693,85 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="PhpDocumentor2Task">
+        <title>DocBloxTask</title>
+        <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
+                >phpDocumentor 2</link>, a PHP 5.3-compatible API documentation tool.
+                This project is the result of the merge of the phpDocumentor
+                and DocBlox projects.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>title</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Title of the project.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>destdir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Destination directory for output files.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Suppress DocBlox chatter.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>template</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Name of the documentation template to use.</entry>
+                        <entry><literal>responsive</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;phpdoc2 title="API Documentation"
+  destdir="apidocs"
+  template="responsive">
+   &lt;fileset dir="./classes">
+      &lt;include name="**/*.php" />
+   &lt;/fileset>
+&lt;/phpdoc2></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset - Files that should be included for parsing</para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentorExternalTask">
         <title>PhpDocumentorExternalTask</title>
+        <para> <emphasis role="bold">This task is now deprecated in favor of the
+            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
         <para> This is the same as the <xref xlink:href="#PhpDocumentorTask"/> but uses the command
             line application. Use this as a fallback in case you're running into troubles when using
             the phpDocumentor-library with the PhpDocumentorTask directly, e.g. when you're using
