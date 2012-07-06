@@ -780,6 +780,125 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 			</tbody>
 		</table>
 		<h2>
+			<a name="FileSyncTask"></a>FileSyncTask </h2>
+		<p>Syncs files or directories using the rsync command. Syncing can be done on the 
+		   same server or from/to a remote server.</p>
+		<h3>Example</h3>
+		<pre>
+&lt;sync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" /&gt;
+
+&lt;sync
+sourcedir="/var/www/development/project1"
+destinationdir="user@server:/var/www/project1"
+dryrun="true"
+itemizechanges="true"
+verbose="true"
+checksum="true" /&gt;
+</pre>
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+					<th>Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>rsyncPath</td>
+					<td>String</td>
+					<td>Path to rsync command</td>
+					<td>/usr/bin/rsync</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>sourceDir</td>
+					<td>String</td>
+					<td>Source directory (with user@host for remote sources)</td>
+					<td>n/a</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>destinationDir</td>
+					<td>String</td>
+					<td>Destination directory (with user@host for remote destinations)</td>
+					<td>n/a</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>excludeFile</td>
+					<td>String</td>
+					<td>Excluded patterns file</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>backupDir</td>
+					<td>String</td>
+					<td>Creates a backup so users can rollback to an existing restore point</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>options</td>
+					<td>String</td>
+					<td>Any options that rsync supports, removes the default options</td>
+					<td>-rpKz</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>verbose</td>
+					<td>Boolean</td>
+					<td>This option increases the amount of information you are given during the transfer</td>
+					<td>True</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>dryRun</td>
+					<td>Boolean</td>
+					<td>This option makes rsync perform a trial run that doesn't make any changes</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>itemizeChanges</td>
+					<td>Boolean</td>
+					<td>This option requests a simple itemized list of the changes that are being made to each file, including attribute changes</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>checksum</td>
+					<td>Boolean</td>
+					<td>This option will cause rsync to skip files based on checksum, not mod-time & size</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>delete</td>
+					<td>Boolean</td>
+					<td>This option deletes files that don't exist on sender</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>identityFile</td>
+					<td>String</td>
+					<td>Identity file for ssh authentication of a remote transfer</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		
+		
+		
+		<h2>
 			<a name="FileSizeTask"></a>FileSizeTask </h2>
 		<p>Stores the size of a specified file in a property. The file size is returned in
 			bytes.</p>
