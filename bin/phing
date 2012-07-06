@@ -1,5 +1,18 @@
 #!/usr/bin/env php
 <?php
-$argv[] = '-logger';
-$argv[] = 'phing.listener.AnsiColorLogger';
+
+/**
+ * Shell wrapper for Phing
+ * $Id$
+ */
+
+// turn off html errors
+ini_set('html_errors', 'off');
+
+// default logger
+if (!in_array('-logger', $argv)) {
+    $argv[] = '-logger';
+    $argv[] = 'phing.listener.AnsiColorLogger';
+}
+
 require_once __DIR__ . '/phing.php';
