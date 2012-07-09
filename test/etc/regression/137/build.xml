@@ -2,7 +2,7 @@
 
 <target name="main">
 
-<delete file="test.zip"/>
+<delete file="test.zip" failonerror="false"/>
 
 <zip destfile="test.zip">
     <fileset dir="." defaultexcludes="false">
