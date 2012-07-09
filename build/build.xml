@@ -177,7 +177,8 @@
 		<echo></echo>
 		<echo>... (This step may take some time) ...</echo>
 		
-		<delete	file="${tarfile}"/>
+		<delete	file="${build.pear.dir}/phing/package.xml"
+		failonerror="false"/>
 		<pear-package mode="source" dir="${build.src.dir}"
 		destFile="${build.pear.dir}/phing/package.xml" version="${version}" state="${state}" notes="${notes}">
 			
@@ -210,32 +211,32 @@
 		<echo>-----------------------------</echo>	
 		
 		<property name="tgzfile" value="${build.pear.dir}/${pkgname}.tgz"/>
-		<delete	file="${tgzfile}"/>
+		<delete	file="${tgzfile}" failonerror="false"/>
 		<tar compression="gzip" destFile="${tgzfile}"
 		basedir="${build.pear.dir}/phing" />
 		
 		<property name="tarfile" value="${build.pear.dir}/${pkgname}.tar"/>
-		<delete	file="${tarfile}"/>
+		<delete	file="${tarfile}" failonerror="false"/>
 		<tar compression="none" destFile="${tarfile}"
 		basedir="${build.pear.dir}/phing" />
 		
 		<property name="tgzfile-docs" value="${build.pear.dir}/${pkgname-docs}.tgz"/>
-		<delete	file="${tgzfile-docs}"/>
+		<delete	file="${tgzfile-docs}" failonerror="false"/>
 		<tar compression="gzip" destFile="${tgzfile-docs}"
 		basedir="${build.pear.dir}/phingdocs" />
 		
 		<property name="tarfile-docs" value="${build.pear.dir}/${pkgname-docs}.tar"/>
-		<delete	file="${tarfile-docs}"/>
+		<delete	file="${tarfile-docs}" failonerror="false"/>
 		<tar compression="none" destFile="${tarfile-docs}"
 		basedir="${build.pear.dir}/phingdocs" />
 
 		<property name="tgzfile-full" value="full/${pkgname}.tgz"/>
-		<delete	file="${tgzfile-full}"/>
+		<delete	file="${tgzfile-full}" failonerror="false"/>
 		<tar compression="gzip" destFile="${tgzfile-full}"
 		basedir="full/${pkgname}" />
 
 		<property name="zipfile-full" value="full/${pkgname}.zip"/>
-		<delete	file="${zipfile-full}"/>
+		<delete	file="${zipfile-full}" failonerror="false"/>
 		<zip destFile="${zipfile-full}"	basedir="full/${pkgname}" />
 	</target>
 	
@@ -298,8 +299,8 @@
 		<echo>| Deleting build directory  |</echo>
 		<echo>-----------------------------</echo>
     
-		<delete dir="${build.pear.dir}"/>
-		<delete dir="full"/>
+		<delete dir="${build.pear.dir}" failonerror="false"/>
+		<delete dir="full" failonerror="false"/>
     
 	</target>
 	
