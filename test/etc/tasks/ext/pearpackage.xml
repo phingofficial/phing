@@ -10,7 +10,7 @@
 	<echo></echo>
 	<echo>This could take some time ...</echo>
 	
-	<delete file="package.xml"/>
+	<delete file="package.xml" failonerror="false"/>
 	
 	<pearpkg name="phing" dir=".">
 		
