@@ -277,14 +277,7 @@ abstract class SvnBaseTask extends Task
         {
             if (is_dir($this->workingCopy))
             {
-                if (in_array(".svn", scandir($this->workingCopy)))
-                {
-                    $this->svnArgs = array($this->workingCopy);
-                }
-                else
-                {
-                    throw new BuildException("'".$this->workingCopy."' doesn't seem to be a working copy");
-                }
+                $this->svnArgs = array($this->workingCopy);
             }
             else
             if ($mode=='info' )
