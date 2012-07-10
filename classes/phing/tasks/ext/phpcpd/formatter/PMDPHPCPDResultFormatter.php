@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPCPD/Log/XML/PMD.php';
 require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
 
 /**
@@ -41,6 +40,8 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
      */
     public function processClones(PHPCPD_CloneMap $clones, Project $project, $useFile = false, $outFile = null)
     {
+        @require_once 'PHPCPD/Log/XML/PMD.php';
+
         if (!$useFile || empty($outFile)) {
             throw new BuildException("Output filename required for this formatter");
         }

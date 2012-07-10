@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPCPD/TextUI/ResultPrinter.php';
 require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
 
 /**
@@ -42,6 +41,8 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      */
     public function processClones(PHPCPD_CloneMap $clones, Project $project, $useFile = false, $outFile = null)
     {
+        @require_once 'PHPCPD/TextUI/ResultPrinter.php';
+
         $logger = new PHPCPD_TextUI_ResultPrinter();
         // default format goes to logs, no buffering
         ob_start();
