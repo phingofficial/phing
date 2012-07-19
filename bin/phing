@@ -15,4 +15,4 @@ if (!in_array('-logger', $argv)) {
     $argv[] = 'phing.listener.AnsiColorLogger';
 }
 
-require_once __DIR__ . '/phing.php';
+require_once dirname(__FILE__) . '/phing.php';
