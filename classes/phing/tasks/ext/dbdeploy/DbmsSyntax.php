@@ -29,6 +29,10 @@
 
 abstract class DbmsSyntax
 {
+    public function applyAttributes($db)
+    {
+    }
+    
     public abstract function generateTimestamp();
 }
 
