@@ -292,7 +292,8 @@ class CopyTask extends Task {
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs  = $ds->getIncludedDirectories();
             
-            if (!$this->flatten && $this->mapperElement === null)
+            if (!$this->flatten && $this->mapperElement === null &&
+                $ds->isEverythingIncluded())
             {
                 $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
             }
