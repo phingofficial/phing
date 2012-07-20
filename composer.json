@@ -20,5 +20,6 @@
     "autoload": {
         "classmap": ["classes/phing/"]
     },
+    "include-path": ["classes"],
     "bin": ["bin/phing"]
 }
