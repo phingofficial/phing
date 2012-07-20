@@ -251,6 +251,8 @@ class DbDeployTask extends Task
                 $split = strpos($contents, '-- //@UNDO');
                 if ($split === false)
                     $split = strpos($contents, '--//@UNDO');
+                if ($split === false)
+                    $split = strlen($contents);
 
                 if ($undo) {
                     $sql .= substr($contents, $split + 10) . "\n";
