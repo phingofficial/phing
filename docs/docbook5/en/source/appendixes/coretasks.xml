@@ -597,7 +597,7 @@
 					<row>
 						<entry><literal>overwrite</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>If set to true, the target file will be overwritten.</entry>
+						<entry>Overwrite existing files even if the destination files are newer.</entry>
 						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
