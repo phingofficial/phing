@@ -77,6 +77,12 @@ class Target implements TaskContainer {
     private $hidden = false;
     
     /**
+     * Whether to log message as INFO or VERBOSE if target skipped
+     * @var boolean
+     */
+    private $logSkipped = false;
+
+    /**
      * Rreference to project 
      * @var Project
      */
@@ -275,6 +281,17 @@ class Target implements TaskContainer {
         return $this->description;
     }
 
+    public function setLogSkipped($log) {
+        $this->logSkipped = (bool) $log;
+    }
+
+    public function getLogSkipped() {
+        if ($this->logSkipped === null) {
+            $this->setLogSkipped(FALSE);
+        }
+        return $this->logSkipped;
+    }
+
     /**
      * Returns a string representation of this target. In our case it
      * simply returns the target name field
@@ -301,9 +318,9 @@ class Target implements TaskContainer {
                 }
             }
         } elseif (!$this->testIfCondition()) {
-            $this->project->log("Skipped target '".$this->name."' because property '".$this->ifCondition."' not set.", Project::MSG_VERBOSE);
+            $this->project->log("Skipped target '".$this->name."' because property '".$this->ifCondition."' not set.", $this->getLogSkipped() ? Project::MSG_INFO : Project::MSG_VERBOSE);
         } else {
-            $this->project->log("Skipped target '".$this->name."' because property '".$this->unlessCondition."' set.", Project::MSG_VERBOSE);
+            $this->project->log("Skipped target '".$this->name."' because property '".$this->unlessCondition."' set.", $this->getLogSkipped() ? Project::MSG_INFO : Project::MSG_VERBOSE);
         }
     }
 
