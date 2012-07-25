@@ -85,6 +85,7 @@ class TargetHandler extends AbstractHandler {
         $id = null;
         $description = null;
         $isHidden = false;
+        $logskipped = false;
 
         foreach($attrs as $key => $value) {
             if ($key==="name") {
