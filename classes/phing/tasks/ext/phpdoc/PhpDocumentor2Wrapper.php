@@ -166,11 +166,6 @@ class PhpDocumentor2Wrapper
     private function parseFiles()
     {
         $parser = new \phpDocumentor\Parser\Parser();
-        
-        //Only initialize the dispatcher when not already done
-        if (is_null(phpDocumentor\Parser\ParserAbstract::$event_dispatcher)) {
-            phpDocumentor\Parser\ParserAbstract::$event_dispatcher = new sfEventDispatcher();
-        }
         $parser->setTitle($this->title);
         
         $paths = array();
