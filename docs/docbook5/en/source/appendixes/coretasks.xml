@@ -953,7 +953,7 @@
 						<entry><literal role="type">Boolean</literal></entry>
 						<entry>If this attribute is set to <literal>true</literal>, DeleteTask will
 							verbose on errors but the build process will not be stopped.</entry>
-						<entry><literal>true</literal></entry>
+						<entry><literal>false</literal></entry>
 						<entry>No</entry>
 					</row>
 					<row>

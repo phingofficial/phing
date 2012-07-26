@@ -35,7 +35,7 @@ class DeleteTask extends Task {
     protected $includeEmpty = false;
 
     protected $quiet = false;
-    protected $failonerror = true;
+    protected $failonerror = false;
     protected $verbosity = Project::MSG_VERBOSE;
     
     /** Any filelists of files that should be deleted. */
