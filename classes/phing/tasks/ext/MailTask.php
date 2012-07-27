@@ -56,7 +56,7 @@ class MailTask extends Task
                 throw new BuildException('Need the PEAR Mail_mime package to send attachments');
             }
             
-            $mime = new Mail_mime();
+            $mime = new Mail_mime(array('text_charset' => 'UTF-8'));
             $hdrs = array(
             	'From'    => $this->from,
             	'Subject' => $this->subject
