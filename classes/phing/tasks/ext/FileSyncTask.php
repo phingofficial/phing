@@ -35,11 +35,8 @@ require_once "phing/Task.php";
  *   3. For copying from a remote machine to the local machine using a remote
  *      shell program.
  *   4. For listing files on a remote machine.
- * 
- * This is extended from Federico's original code, all his docs are kept in here below.
  *
  * @author    Federico Cargnelutti <fede.carg@gmail.com>
- * @author    Anton Stöckl <anton@stoeckl.de>
  * @version   $Revision$
  * @package   phing.tasks.ext
  * @see       http://svn.fedecarg.com/repo/Phing/tasks/ext/FileSyncTask.php
@@ -47,25 +44,41 @@ require_once "phing/Task.php";
  */
 class FileSyncTask extends Task
 {
-	/**
-     * Path to rsync command.
-     * @var string
-     */
-	protected $rsyncPath = '/usr/bin/rsync';
-	
     /**
      * Source directory.
-     * For remote sources this must contain user and host, e.g.: user@host:/my/source/dir
      * @var string
      */
     protected $sourceDir;
 
     /**
      * Destination directory.
-     * For remote targets this must contain user and host, e.g.: user@host:/my/target/dir
      * @var string
      */
     protected $destinationDir;
+
+    /**
+     * Remote host.
+     * @var string
+     */
+    protected $remoteHost;
+
+    /**
+     * Rsync auth username.
+     * @var string
+     */
+    protected $remoteUser;
+
+    /**
+     * Rsync auth password.
+     * @var string
+     */
+    protected $remotePass;
+
+    /**
+     * Remote shell.
+     * @var string
+     */
+    protected $remoteShell;
 
     /**
      * Excluded patterns file.
@@ -84,16 +97,6 @@ class FileSyncTask extends Task
 
     /**
      * Command options.
-     * 
-     * The default options are: '-rpKz' ->
-     * - recorsive
-     * - preserve permissions
-     * - treat symlinked dir on receiver as dir
-     * - compress file data during the transfer
-     * 
-     * If this is supplied it overwrites the default options!
-     * Any option that rsync supports can be supplied this way.
-     * 
      * @var string
      */
     protected $options;
@@ -114,14 +117,14 @@ class FileSyncTask extends Task
     protected $verbose = true;
 
     /**
-     * This option makes rsync perform a trial run that doesn't make any changes
+     * This option makes rsync perform a trial run that doesn’t make any changes
      * (and produces mostly the same output as a real run).
      * @var boolean
      */
     protected $dryRun = false;
 
     /**
-     * This option requests a simple itemized list of the changes that are
+     * This option makes requests a simple itemized list of the changes that are
      * being made to each file, including attribute changes.
      * @var boolean
      */
@@ -166,10 +169,6 @@ class FileSyncTask extends Task
      */
     public function executeCommand()
     {
-		if ($this->rsyncPath === null) {
-			throw new BuildException('The "rsyncPath" attribute is missing or undefined.');
-		}
-		
         if ($this->sourceDir === null) {
             throw new BuildException('The "sourcedir" attribute is missing or undefined.');
         } else if ($this->destinationDir === null) {
@@ -214,6 +213,7 @@ class FileSyncTask extends Task
 
         $this->log($command);
         if ($return != 0) {
+            throw new BuildException($return . ': ' . $this->getErrorMessage($return));
             $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
             $this->log('Task exited with message: (' . $return . ') ' . $this->getErrorMessage($return), Project::MSG_ERR);
         } else {
@@ -223,6 +223,7 @@ class FileSyncTask extends Task
         return $return;
     }
 
+
     /**
      * Returns the rsync command line options.
      *
@@ -230,7 +231,14 @@ class FileSyncTask extends Task
      */
     public function getCommand()
     {
-        $options = '-rpKz';
+        /**
+         * r - recursive
+         * p - preserve permissions
+         * K - treat symlinked dir on receiver as dir
+         * z - compress
+         * l - copy symlinks as symlinks
+         */
+        $options = '-rpKzl'; 
         if ($this->options !== null) {
             $options = $this->options;
         }
@@ -244,15 +252,14 @@ class FileSyncTask extends Task
             $options .= ' -e "ssh -i '. $this->identityFile . '"';
         } else {
             if ($this->remoteShell !== null) {
-                $options .= ' -e ' . $this->remoteShell;
+                $options .= ' -e "' . $this->remoteShell . '"';
             }
         }
         if ($this->dryRun === true) {
             $options .= ' --dry-run';
-        } else {
-            if ($this->delete === true) {
-                $options .= ' --delete-after --ignore-errors --force';
-            }
+        }
+        if ($this->delete === true) {
+            $options .= ' --delete-after --ignore-errors --force';
         }
         if ($this->itemizeChanges === true) {
             $options .= ' --itemize-changes';
@@ -271,7 +278,7 @@ class FileSyncTask extends Task
         escapeshellcmd($options);
         $options .= ' 2>&1';
 
-        return $this->rsyncPath . ' ' . $options;
+        return '/usr/bin/rsync ' . $options;
     }
 
     /**
@@ -310,13 +317,14 @@ class FileSyncTask extends Task
     }
 
     /**
-     * Sets the path to the rsync command.
+     * Sets the self::$isRemoteConnection property.
      *
-     * @param string $dir
+     * @param boolean $isRemote
+     * @return void
      */
-    public function setRsyncPath($path)
+    protected function setIsRemoteConnection($isRemote)
     {
-        $this->rsyncPath = $path;
+        $this->isRemoteConnection = $isRemote;
     }
 
     /**
@@ -348,6 +356,52 @@ class FileSyncTask extends Task
     public function setDestinationDir($dir)
     {
         $this->destinationDir = $dir;
+    }
+
+    /**
+     * Sets the remote host.
+     *
+     * @param string $host
+     */
+    public function setRemoteHost($host)
+    {
+        $this->remoteHost = $host;
+    }
+
+    /**
+     * Specifies the user to log in as on the remote machine. This also may be
+     * specified in the properties file.
+     *
+     * @param string $user
+     */
+    public function setRemoteUser($user)
+    {
+        $this->remoteUser = $user;
+    }
+
+    /**
+     * This option allows you to provide a password for accessing a remote rsync
+     * daemon. Note that this option is only useful when accessing an rsync daemon
+     * using the built in transport, not when using a remote shell as the transport.
+     *
+     * @param string $pass
+     */
+    public function setRemotePass($pass)
+    {
+        $this->remotePass = $pass;
+    }
+
+    /**
+     * Allows the user to choose an alternative remote shell program to use for
+     * communication between the local and remote copies of rsync. Typically,
+     * rsync is configured to use ssh by default, but you may prefer to use rsh
+     * on a local network.
+     *
+     * @param string $shell
+     */
+    public function setRemoteShell($shell)
+    {
+        $this->remoteShell = $shell;
     }
 
     /**
