@@ -218,10 +218,12 @@ class ExecTask extends Task
         } else if ($this->command === null) {
             $this->realCommand = Commandline::toString($this->commandline->getCommandline(), $this->escape);
         } else if ($this->commandline->getExecutable() === null) {
+            $this->realCommand = $this->command;
+            
             //we need to escape the command only if it's specified directly
             // commandline takes care of "executable" already
             if ($this->escape == true) {
-                $this->realCommand = escapeshellcmd($this->command);
+                $this->realCommand = escapeshellcmd($this->realCommand);
             }
         } else {
             throw new BuildException(
