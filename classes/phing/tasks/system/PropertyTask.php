@@ -51,6 +51,11 @@ class PropertyTask extends Task {
     
     /** Whether property should be treated as "user" property. */
     protected $userProperty = false;
+    
+    /**
+     * All filterchain objects assigned to this task
+     */
+    protected $filterChains  = array();
 
     /**
      * Sets a the name of current property component
@@ -192,6 +197,18 @@ class PropertyTask extends Task {
     function getFallback() {
         return $this->fallback;
     }
+
+    /**
+     * Creates a filterchain
+     *
+     * @access public
+     * @return  object  The created filterchain object
+     */
+    public function createFilterChain() {
+        $num = array_push($this->filterChains, new FilterChain($this->project));
+        return $this->filterChains[$num-1];
+    }  
+
     /**
      * set the property in the project to the value.
      * if the task was give a file or env attribute
@@ -277,6 +294,11 @@ class PropertyTask extends Task {
      * @param string $value value to set
      */
     protected function addProperty($name, $value) {
+        if (count($this->filterChains) > 0) {
+            $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);        
+            $value = $in->read();
+        }
+        
         if ($this->userProperty) {
             if ($this->project->getUserProperty($name) === null || $this->override) {
                 $this->project->setInheritedProperty($name, $value);

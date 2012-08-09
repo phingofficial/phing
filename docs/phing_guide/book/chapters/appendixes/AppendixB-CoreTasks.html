@@ -1835,6 +1835,14 @@
 &lt;echo message=&quot;${foo.bar}&quot; /&gt;
 
 &lt;property file=&quot;build.properties&quot;  /&gt;
+
+&lt;property name=&quot;newproperty&quot; value=&quot;Hello&quot;&gt;
+  &lt;filterchain&gt;
+    &lt;replaceregexp&gt;
+      &lt;regexp pattern=&quot;Hello&quot; replace=&quot;World&quot; ignoreCase=&quot;true&quot;/&gt;
+    &lt;/replaceregexp&gt;
+  &lt;filterchain&gt;
+&lt;/property&gt;
 </pre>
 		<h3>Attributes</h3>
 		<table>
@@ -1911,6 +1919,10 @@
 				</tr>
 			</tbody>
 		</table>
+		<h3>Supported Nested Tags:</h3>
+		<ul>
+			<li>filterchain</li>
+		</ul>
 		<h2>
 			<a name="PropertyPromptTask"></a>PropertyPromptTask </h2>
 		<p> PropertyPromptTask is a simple task to read in user input into a property. If you need

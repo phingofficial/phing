@@ -2291,7 +2291,23 @@
 &lt;property name="foo.bar" value="Yet another property..." />
 &lt;echo message="${foo.bar}" />
 
-&lt;property file="build.properties"  /></programlisting>
+&lt;property file="build.properties"  />
+
+&lt;property name="newproperty" value="Hello"&gt;
+  &lt;filterchain&gt;
+    &lt;replaceregexp&gt;
+      &lt;regexp pattern="Hello" replace="World" ignoreCase="true"/&gt;
+    &lt;/replaceregexp&gt;
+  &lt;filterchain&gt;
+&lt;/property&gt;</programlisting>
+		</sect2>
+		<sect2 role="nestedtags">
+			<title>Supported Nested Tags:</title>
+			<itemizedlist>
+				<listitem>
+					<para><literal>filterchain</literal></para>
+				</listitem>
+			</itemizedlist>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PropertyPromptTask">
