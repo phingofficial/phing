@@ -65,24 +65,13 @@ class UnixFileSystem extends FileSystem {
      * Check that the given pathname is normal.  If not, invoke the real
      * normalizer on the part of the pathname that requires normalization.
      * This way we iterate through the whole pathname string only once.
+     *
+     * NOTE: this method no longer expands the tilde (~) character!
      */
     function normalize($strPathname) {
         
         if (!strlen($strPathname)) {
             return;
-        }
-        
-        // Resolve home directories. We assume /home is where all home
-        // directories reside, b/c there is no other way to do this with
-        // PHP AFAIK.
-        if ($strPathname{0} === "~") {
-            if ($strPathname{1} === "/") { // like ~/foo => /home/user/foo
-                $strPathname = "/home/" . get_current_user() . substr($strPathname, 1);
-            } else { // like ~foo => /home/foo
-                $pos = strpos($strPathname, "/");
-                $name = substr($strPathname, 1, $pos - 2);
-                $strPathname = "/home/" . $name . substr($strPathname, $pos);
-            }
         }
 
         $n = strlen($strPathname);

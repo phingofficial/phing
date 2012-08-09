@@ -50,4 +50,16 @@ class UnixFileSystemTest extends PHPUnit_Framework_TestCase {
         
         $this->assertEquals($this->fs->compare($f1, $f2), 0);
     }
+    
+    public function testHomeDirectory1() {
+        $this->assertEquals($this->fs->normalize('~/test'), '~/test');
+    }
+
+    public function testHomeDirectory2() {
+        $this->assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
+    }
+
+    public function testHomeDirectory3() {
+        $this->assertEquals($this->fs->normalize('~test'), '~test');
+    }
 }
