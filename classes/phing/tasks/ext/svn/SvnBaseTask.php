@@ -49,7 +49,7 @@ abstract class SvnBaseTask extends Task
 
     private $toDir = "";
     
-    protected $fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
+    protected $fetchMode;
 
     /**
      * Initialize Task.
@@ -59,6 +59,7 @@ abstract class SvnBaseTask extends Task
      */
     function init() {
         include_once 'VersionControl/SVN.php';
+        $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_ASSOC;
         if (!class_exists('VersionControl_SVN')) {
             throw new Exception("The SVN tasks depend on PEAR VersionControl_SVN package being installed.");
         }
@@ -205,7 +206,7 @@ abstract class SvnBaseTask extends Task
      */
     function setRecursive($value)
     {
-        $this->svnSwitches['non-recursive'] = is_bool($value) ? !$value : TRUE;
+        $this->svnSwitches['non-recursive'] = is_bool($value) ? !$value : true;
     }
     
     /**
@@ -213,7 +214,7 @@ abstract class SvnBaseTask extends Task
      */
     function getRecursive()
     {
-        return isset( $this->svnSwitches['non-recursive'] ) ? $this->svnSwitches['non-recursive'] : '';
+        return isset( $this->svnSwitches['non-recursive'] ) ? !$this->svnSwitches['non-recursive'] : true;
     }
 
     /**
@@ -276,14 +277,7 @@ abstract class SvnBaseTask extends Task
         {
             if (is_dir($this->workingCopy))
             {
-                if (in_array(".svn", scandir($this->workingCopy)))
-                {
-                    $this->svnArgs = array($this->workingCopy);
-                }
-                else
-                {
-                    throw new BuildException("'".$this->workingCopy."' doesn't seem to be a working copy");
-                }
+                $this->svnArgs = array($this->workingCopy);
             }
             else
             if ($mode=='info' )

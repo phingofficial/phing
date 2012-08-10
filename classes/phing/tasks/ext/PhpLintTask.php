@@ -42,7 +42,7 @@ class PhpLintTask extends Task {
     protected $badFiles = array();
     protected $interpreter = ''; // php interpreter to use for linting
     
-    protected $logLevel = Project::MSG_INFO;
+    protected $logLevel = Project::MSG_VERBOSE;
     
     protected $cache = null;
     

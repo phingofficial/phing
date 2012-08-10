@@ -37,7 +37,7 @@ class GitBranchTaskTest extends BuildFileTest {
             GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_TMP . '/git');
+        mkdir(PHING_TEST_BASE . '/tmp/git', 0777, true);
 
         $this->configureProject(__DIR__ . '/GitBranchTaskTest.xml');
     }

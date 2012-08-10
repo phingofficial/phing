@@ -688,6 +688,8 @@
     </sect1>
     <sect1 role="taskdef" xml:id="DocBloxTask">
         <title>DocBloxTask</title>
+        <para> <emphasis role="bold">This task is now deprecated in favor of the
+            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
         <para> This task runs <link xlink:href="http://www.docblox-project.org/" role="extern"
                 >DocBlox</link>, a PHP 5.3-compatible API documentation tool.</para>
 
@@ -2362,7 +2364,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>sign</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Make GPG-signed tag. See -a of <link
+                        <entry>Make GPG-signed tag. See -s of <link
                                 xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html"
                                 >git-tag</link>
                         </entry>
@@ -2563,6 +2565,262 @@ Note that you can omit both startpoint and track attributes in this case
     until="Mon Jan 24 09:59:33 2011 +0300"
     outputProperty="logs" 
     repository="${repo.dir.resolved}" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="GrowlNotifyTask">
+        <title>GrowlNotifyTask</title>
+        <para>When you have a long process and want to be notified when it is finished, without to stay 
+            focused on the console windows. Then use the GrowlNotify task.
+        </para>
+        <para>This task requires the PEAR 
+            <link xlink:href="http://pear.php.net/package/Net_Growl" role="extern">Net_Growl</link>
+            package installed (version  2.6.0).
+        </para>
+        <sect2>
+            <title>Features</title>
+            <itemizedlist>
+                <listitem>
+                    <para>Compatible Windows and Mac/OSX</para>
+                </listitem>
+                <listitem>
+                    <para>Do not forget notification with sticky option</para>
+                </listitem>
+                <listitem>
+                    <para>Define priority of messages</para>
+                </listitem>
+                <listitem>
+                    <para>Send notification on private or public network</para>
+                </listitem>
+            </itemizedlist>
+        </sect2>        
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>name</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Name of application to be register</entry>
+                        <entry>Growl for Phing</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>sticky</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Indicates if the notification should be sticky on desktop</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>message</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Text of notification. Use \n to specify a line break</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>title</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Title of notification</entry>
+                        <entry>GrowlNotify</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>notification</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The notification name/type</entry>
+                        <entry>General Notification</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>appicon</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>
+                            <itemizedlist>
+                                <listitem>
+                                    <para>absolute url (http://domain/image.png)</para>
+                                </listitem>
+                                <listitem>
+                                    <para>absolute file path (c:\temp\image.png)</para>
+                                </listitem>
+                                <listitem>
+                                    <para>relative file path (.\folder\image.png)</para>
+                                </listitem>
+                            </itemizedlist>
+                        </entry>
+                        <entry>n/a</entry>
+                        <entry>No</td>
+                    </row>
+                    <row>
+                        <entry><literal>host</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The host address where to send the notification</entry>
+                        <entry>127.0.0.1</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The password required to send notifications over network</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>priority</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>
+                            <para>The notification priority. Valid values are :</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para>low</para>
+                                </listitem>
+                                <listitem>
+                                    <para>moderate</para>
+                                </listitem>
+                                <listitem>
+                                    <para>normal</para>
+                                </listitem>
+                                <listitem>
+                                    <para>high</para>
+                                </listitem>
+                                <listitem>
+                                    <para>emergency</para>
+                                </listitem>
+                            </itemizedlist>
+                        </entry>
+                        <entry>normal</entry>
+                        <entry>No</td>
+                    </row>
+                    <row>
+                        <entry><literal>protocol</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The protocol used to send the notification. May be either gntp or udp.<entry>
+                        <entry>gntp</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>icon</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>
+                            <para>The icon to show for the notification.</para>
+                            <para>Must be a valid file type (png, jpg, gif, ico). Can be any of the following:</para>
+                            <itemizedlist>
+                                <listitem>
+                                    <para>absolute url (http://domain/image.png)</para>
+                                </listitem>
+                                <listitem>
+                                    <para>absolute file path (c:\temp\image.png)</para>
+                                </listitem>
+                                <listitem>
+                                    <para>relative file path (.\folder\image.png)</para>
+                                </listitem>
+                            </itemizedlist>
+                        </entry>
+                        <entry>embeded growl icon v2</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+            <para>Send a single notification on a remote host</para>
+            <para>
+                Both sender and Growl client (Mac or Windows) should share the same password.
+            </para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl gntp over network"
+    &gt;
+        &lt;growlnotify message="Deployment of project LAMBDA is finished."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</programlisting>
+            <para>Send a single notification with UDP protocol</para>
+            <para>
+                When you don't have a Macintosh, OS compatible with Growl GNTP, you 
+                should use the basic UDP protocol.
+            </para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl udp over network"
+    &gt;
+        &lt;growlnotify message="Notify my MAC that does not accept GNTP."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+            protocol="udp"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</programlisting>
+            <para>Send an important notification</para>
+            <para>
+                If you want to send a notification that is so important that you don't want to missed it,
+                even if you are away from your computer. Use the sticky attribute.
+            </para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a sticky message on desktop"
+    &gt;
+        &lt;growlnotify message="Project LAMDBA, unit tests FAILED."
+            priority="high"
+            sticky="true"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</programlisting>
+            <para>Use your icons to identify an application</para>
+            <para>
+                You may customize the Growl notification system, with different icons 
+                and more. 
+            </para>
+            <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a custom icon message"
+    &gt;
+        &lt;growlnotify message="Have a look on my beautiful message!"
+            name="phing Notifier"
+            title="phing notification"
+            priority="low"
+            sticky="false"
+            appicon="../images/my_icon.png"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="HttpGetTask">
@@ -5767,6 +6025,108 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    
+    <sect1 role="taskdef" xml:id="PHPLocTask">
+        <title>PHPLocTask</title>
+        <para>This task runs <link xlink:href="http://github.com/sebastianbergmann/phploc/" role="extern">phploc</link>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>reportType</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The type of the report. Available types are cli|csv|txt|xml.</entry>
+                        <entry>cli</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>reportName</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the report type without a file extension.</entry>
+                        <entry>phploc-report</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>reportDirectory</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory to write the report file to.</entry>
+                        <entry>false</entry>
+                        <entry>Yes, when report type csv, txt or xml is defined.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>countTests</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Flag to count the projects tests or not.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the file to check.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes, when no nested fileset is defined.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>suffixes</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A comma-separated list of file suffixes to check.</entry>
+                        <entry>php</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Examples</title>
+                <programlisting language="xml">&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true">
+                  &lt;tstamp>
+                    &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
+                  &lt;/tstamp>
+                  &lt;phploc reportType="txt" reportName="${check.date.time}-report"
+                          reportDirectory="phploc-reports">
+                    &lt;fileset dir=".">
+                      &lt;include name="**/*.php" />
+                      &lt;include name="*.php" />
+                    &lt;/fileset>
+                  &lt;/phploc>
+                &lt;/target></programlisting>
+                <para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
+                <programlisting language="xml">&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests">
+                  &lt;phploc countTests="true">
+                    &lt;fileset dir=".">
+                      &lt;include name="**/*.php" />
+                      &lt;include name="*.php" />
+                    &lt;/fileset>
+                  &lt;/phploc>
+                &lt;/target></programlisting>
+                <para>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>fileset</literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+    
     <sect1 role="taskdef" xml:id="PHPMDTask">
         <title>PHPMDTask</title>
         <para> This task runs <link xlink:href="http://phpmd.org" role="extern">phpmd</link>, a
@@ -6141,6 +6501,8 @@ Note that you can omit both startpoint and track attributes in this case
     </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentorTask">
         <title>PhpDocumentorTask</title>
+        <para> <emphasis role="bold">This task is now deprecated in favor of the
+            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
         <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
                 >phpDocumentor</link>, an auto-documentation tool for PHP similar to Javadoc.</para>
 
@@ -6331,8 +6693,85 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="PhpDocumentor2Task">
+        <title>DocBloxTask</title>
+        <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
+                >phpDocumentor 2</link>, a PHP 5.3-compatible API documentation tool.
+                This project is the result of the merge of the phpDocumentor
+                and DocBlox projects.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>title</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Title of the project.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>destdir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Destination directory for output files.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>quiet</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Suppress DocBlox chatter.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>template</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Name of the documentation template to use.</entry>
+                        <entry><literal>responsive</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;phpdoc2 title="API Documentation"
+  destdir="apidocs"
+  template="responsive">
+   &lt;fileset dir="./classes">
+      &lt;include name="**/*.php" />
+   &lt;/fileset>
+&lt;/phpdoc2></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>fileset - Files that should be included for parsing</para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentorExternalTask">
         <title>PhpDocumentorExternalTask</title>
+        <para> <emphasis role="bold">This task is now deprecated in favor of the
+            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
         <para> This is the same as the <xref xlink:href="#PhpDocumentorTask"/> but uses the command
             line application. Use this as a fallback in case you're running into troubles when using
             the phpDocumentor-library with the PhpDocumentorTask directly, e.g. when you're using
@@ -6486,7 +6925,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <literal>error</literal>, <literal>warning</literal>,
                                 <literal>info</literal>, <literal>verbose</literal>,
                                 <literal>debug</literal>.</entry>
-                        <entry><literal>info</literal></entry>
+                        <entry><literal>debug</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -7030,6 +7469,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>mode</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>The mode to create directories with.</entry>
+                        <entry>From umask</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -7522,7 +7968,7 @@ host="webserver" todir="/www/htdocs/project/">
     </sect1>
     <sect1 role="taskdef" xml:id="SshTask">
         <title>SshTask</title>
-        <para> The <literal>ScpTask</literal> executes commands on a remote host using ssh.. This
+        <para> The <literal>SshTask</literal> executes commands on a remote host using ssh.. This
             task requires the <link xlink:href="http://pecl.php.net/package/ssh2" role="extern">PHP
                 SSH2 extension</link> to function.</para>
 

@@ -49,6 +49,9 @@ class PropertyTask extends Task {
 	/** Whether to force overwrite of existing property. */
 	protected $override = false;
 
+    /** All filterchain objects assigned to this task */
+    protected $filterChains  = array();
+
 	/** Whether property should be treated as "user" property. */
 	protected $userProperty = false;
 
@@ -210,6 +213,17 @@ class PropertyTask extends Task {
 		return $this->fallback;
 	}
 
+    /**
+     * Creates a filterchain
+     *
+     * @access public
+     * @return  object  The created filterchain object
+     */
+    public function createFilterChain() {
+        $num = array_push($this->filterChains, new FilterChain($this->project));
+        return $this->filterChains[$num-1];
+    }  
+
 	public function createFileList() {
 		$fl = new FileList();
 		$this->filelists[] = $fl;
@@ -324,6 +338,11 @@ class PropertyTask extends Task {
 	 * @param string $value value to set
 	 */
 	protected function addProperty($name, $value) {
+	    if (count($this->filterChains) > 0) {
+	        $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);        
+            $value = $in->read();
+        }
+	
         if ($this->userProperty) {
             if ($this->project->getUserProperty($name) === null || $this->override) {
                 $this->project->setInheritedProperty($name, $value);

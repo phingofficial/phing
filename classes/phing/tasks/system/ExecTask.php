@@ -35,7 +35,13 @@ class ExecTask extends Task
 {
 
     /**
-     * Command to execute.
+     * Command to be executed
+     * @var string
+     */
+    protected $realCommand;
+
+    /**
+     * Given command
      * @var string
      */
     protected $command;
@@ -82,7 +88,7 @@ class ExecTask extends Task
      * @var boolean
      */
     protected $logOutput = false;
-    
+
     /**
      * Logging level for status messages
      * @var integer
@@ -210,12 +216,14 @@ class ExecTask extends Task
                 'ExecTask: Please provide "command" OR "executable"'
             );
         } else if ($this->command === null) {
-            $this->command = Commandline::toString($this->commandline->getCommandline(), $this->escape);
+            $this->realCommand = Commandline::toString($this->commandline->getCommandline(), $this->escape);
         } else if ($this->commandline->getExecutable() === null) {
+            $this->realCommand = $this->command;
+            
             //we need to escape the command only if it's specified directly
             // commandline takes care of "executable" already
             if ($this->escape == true) {
-                $this->command = escapeshellcmd($this->command);
+                $this->realCommand = escapeshellcmd($this->realCommand);
             }
         } else {
             throw new BuildException(
@@ -224,7 +232,7 @@ class ExecTask extends Task
         }
 
         if ($this->error !== null) {
-            $this->command .= ' 2> ' . $this->error->getPath();
+            $this->realCommand .= ' 2> ' . $this->error->getPath();
             $this->log(
                 "Writing error output to: " . $this->error->getPath(),
                 $this->logLevel
@@ -232,13 +240,13 @@ class ExecTask extends Task
         }
 
         if ($this->output !== null) {
-            $this->command .= ' 1> ' . $this->output->getPath();
+            $this->realCommand .= ' 1> ' . $this->output->getPath();
             $this->log(
                 "Writing standard output to: " . $this->output->getPath(),
                 $this->logLevel
             );
         } elseif ($this->spawn) {
-            $this->command .= ' 1>/dev/null';
+            $this->realCommand .= ' 1>/dev/null';
             $this->log("Sending output to /dev/null", $this->logLevel);
         }
 
@@ -247,12 +255,12 @@ class ExecTask extends Task
         // it to screen below.
 
         if ($this->output === null && $this->error === null) {
-            $this->command .= ' 2>&1';
+            $this->realCommand .= ' 2>&1';
         }
 
         // we ignore the spawn boolean for windows
         if ($this->spawn) {
-            $this->command .= ' &';
+            $this->realCommand .= ' &';
         }
     }
 
@@ -263,15 +271,15 @@ class ExecTask extends Task
      */
     protected function executeCommand()
     {
-        $this->log("Executing command: " . $this->command, $this->logLevel);
+        $this->log("Executing command: " . $this->realCommand, $this->logLevel);
 
         $output = array();
         $return = null;
-        
+
         if ($this->passthru) {
-            passthru($this->command, $return);
+            passthru($this->realCommand, $return);
         } else {
-            exec($this->command, $output, $return);
+            exec($this->realCommand, $output, $return);
         }
 
         return array($return, $output);
@@ -446,7 +454,7 @@ class ExecTask extends Task
     {
         $this->checkreturn = Boolean::cast($checkreturn);
     }
-    
+
     /**
      * The name of property to set to return value from exec() call.
      *
@@ -470,7 +478,7 @@ class ExecTask extends Task
     {
         $this->outputProperty = $prop;
     }
-    
+
     /**
      * Set level of log messages generated (default = verbose)
      *

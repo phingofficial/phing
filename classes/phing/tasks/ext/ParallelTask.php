@@ -71,7 +71,7 @@ class ParallelTask extends SequentialTask
         
         foreach ($this->nestedTasks as $task) {
             $worker = new DocBlox_Parallel_Worker(
-                function($task) { $task->perform(); },
+                array($task, 'perform'),
                 array($task)
             );
             

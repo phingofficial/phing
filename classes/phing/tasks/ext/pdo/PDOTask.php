@@ -63,9 +63,9 @@ abstract class PDOTask extends Task {
      **/
     private $rdbms;
    
-      /**
-     * Initialize CreoleTask.
-     * This method includes any necessary Creole libraries and triggers
+    /**
+     * Initialize the PDOTask
+     * This method checks if the PDO classes are available and triggers
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
      */
@@ -162,7 +162,7 @@ abstract class PDOTask extends Task {
             
             return $conn;
             
-        } catch (SQLException $e) {
+        } catch (PDOException $e) {
             throw new BuildException($e->getMessage(), $this->location);
         }
 

@@ -395,7 +395,7 @@ class Win32FileSystem extends FileSystem {
             return (string) $drive.':'.$this->slashify(substr($path,2)); //fake it
         }
         
-        throw new Exception("Unresolvable path: " . $path);
+        throw new InvalidArgumentException("Unresolvable path: " . $path);
     }
 
     /* -- most of the following is mapped to the functions mapped th php natives in FileSystem */

@@ -51,5 +51,15 @@ class DeleteTaskTest extends BuildFileTest
         $this->executeTarget("testDeleteDanglingSymlink");
         $this->assertInLogs("Deleting 1 files from");
     }
+    
+    public function testDeleteNonExistingDirectory()
+    {
+        $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'does not exist or is not a directory');
+    }
+
+    public function testDeleteNonExistingFile()
+    {
+        $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Could not find file');
+    }
 }
 

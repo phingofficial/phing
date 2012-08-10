@@ -313,7 +313,7 @@
                     <row>
                         <entry><literal>prefix</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Strint to prepend to every line.</entry>
+                        <entry>String to prepend to every line.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>

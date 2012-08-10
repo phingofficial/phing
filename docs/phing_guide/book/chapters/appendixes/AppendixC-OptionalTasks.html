@@ -691,7 +691,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 		<h3>Examples</h3>
 		<pre>
 &lt;docblox title=&quot;API Documentation&quot;
-  destdir=&quot;apidocs&quot;&gt;
+  destdir=&quot;apidocs&quot;
   template=&quot;new_black&quot;&gt;
    &lt;fileset dir=&quot;./classes&quot;&gt;
       &lt;include name=&quot;**/*.php&quot; /&gt;
@@ -779,6 +779,121 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 				</tr>
 			</tbody>
 		</table>
+		<h2>
+			<a name="FileSyncTask"></a>FileSyncTask </h2>
+		<p>Syncs files or directories using the rsync command. Syncing can be done on the 
+		   same server or from/to a remote server.</p>
+		<h3>Example</h3>
+		<pre>
+&lt;sync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" /&gt;
+
+&lt;sync
+sourcedir="/var/www/development/project1"
+destinationdir="user@server:/var/www/project1"
+dryrun="true"
+itemizechanges="true"
+verbose="true"
+checksum="true" /&gt;
+</pre>
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+					<th>Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>rsyncPath</td>
+					<td>String</td>
+					<td>Path to rsync command</td>
+					<td>/usr/bin/rsync</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>sourceDir</td>
+					<td>String</td>
+					<td>Source directory (with user&amp;host for remote sources)</td>
+					<td>n/a</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>destinationDir</td>
+					<td>String</td>
+					<td>Destination directory (with user&amp;host for remote destinations)</td>
+					<td>n/a</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>excludeFile</td>
+					<td>String</td>
+					<td>Excluded patterns file</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>backupDir</td>
+					<td>String</td>
+					<td>Creates a backup so users can rollback to an existing restore point</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>options</td>
+					<td>String</td>
+					<td>Any options that rsync supports, removes the default options</td>
+					<td>-rpKz</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>verbose</td>
+					<td>Boolean</td>
+					<td>This option increases the amount of information you are given during the transfer</td>
+					<td>True</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>dryRun</td>
+					<td>Boolean</td>
+					<td>This option makes rsync perform a trial run that doesn't make any changes</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>itemizeChanges</td>
+					<td>Boolean</td>
+					<td>This option requests a simple itemized list of the changes that are being made to each file, including attribute changes</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>checksum</td>
+					<td>Boolean</td>
+					<td>This option will cause rsync to skip files based on checksum, not mod-time &amp; size</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>delete</td>
+					<td>Boolean</td>
+					<td>This option deletes files that don't exist on sender after transfer including 'force' and 'ignore-errors'</td>
+					<td>False</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>identityFile</td>
+					<td>String</td>
+					<td>Identity file for ssh authentication of a remote transfer</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+			</tbody>
+		</table>
+
 		<h2>
 			<a name="FileSizeTask"></a>FileSizeTask </h2>
 		<p>Stores the size of a specified file in a property. The file size is returned in
@@ -2173,7 +2288,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<tr>
 					<td>sign</td>
 					<td>Boolean</td>
-					<td>Make GPG-signed tag. See -a of <a
+					<td>Make GPG-signed tag. See -s of <a
 							href="http://www.kernel.org/pub/software/scm/git/docs/git-tag.html"
 							>git-tag</a>
 					</td>
@@ -2359,6 +2474,227 @@ Note that you can omit both startpoint and track attributes in this case
     until="Mon Jan 24 09:59:33 2011 +0300"
     outputProperty="logs" 
     repository="${repo.dir.resolved}" /&gt;
+</pre>
+		<h2>
+			<a name="GrowlNotifyTask"></a>GrowlNotifyTask </h2>
+		<p>When you have a long process and want to be notified when it is finished, without to stay 
+			focused on the console windows. Then use the GrowlNotify task.
+		</p>
+		<p>This task requires the PEAR <a href="http://pear.php.net/package/Net_Growl">Net_Growl</a> package installed (version  2.6.0).</p>
+		<h3>Features</h3>
+		<ul>
+			<li>Compatible Windows and Mac/OSX</li>
+			<li>Don't forget notification with sticky option</li>
+			<li>Define priority of messages</li>
+			<li>Send notification on private or public network.</li>
+		</ul>
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+					<th>Default</th>
+					<th>Required</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>name</td>
+					<td>String</td>
+					<td>Name of application to be register</td>
+					<td>Growl for Phing</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>sticky</td>
+					<td>Boolean</td>
+					<td>Indicates if the notification should be sticky on desktop</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>message</td>
+					<td>String</td>
+					<td>Text of notification. Use \n to specify a line break</td>
+					<td>n/a</td>
+					<td>Yes</td>
+				</tr>
+				<tr>
+					<td>title</td>
+					<td>String</td>
+					<td>Title of notification</td>
+					<td>GrowlNotify</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>notification</td>
+					<td>String</td>
+					<td>The notification name/type</td>
+					<td>General Notification</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>appicon</td>
+					<td>String</td>
+					<td><p>The icon of the application being registered.</p>
+						<p>Must be a valid file type (png, jpg, gif, ico). Can be any of the following:</p>
+						<ul>
+							<li>absolute url (http://domain/image.png)</li>
+							<li>absolute file path (c:\temp\image.png)</li>
+							<li>relative file path (.\folder\image.png)</li>
+						</ul>
+					</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>host</td>
+					<td>String</td>
+					<td>The host address where to send the notification</td>
+					<td>127.0.0.1</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>password</td>
+					<td>String</td>
+					<td>The password required to send notifications over network</td>
+					<td>n/a</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>priority</td>
+					<td>String</td>
+					<td><p>The notification priority</p>
+						<p>Valid values are :</p>
+						<ul>
+							<li>low</li>
+							<li>moderate</li>
+							<li>normal</li>
+							<li>high</li>
+							<li>emergency</li>
+						</ul>
+					</td>
+					<td>normal</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>protocol</td>
+					<td>String</td>
+					<td><p>The protocol used to send the notification.</p>
+						<p>May be either gntp or udp.</p>
+					</td>
+					<td>gntp</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>icon</td>
+					<td>String</td>
+					<td><p>The icon to show for the notification.</p>
+						<p>Must be a valid file type (png, jpg, gif, ico). Can be any of the following:</p>
+						<ul>
+							<li>absolute url (http://domain/image.png)</li>
+							<li>absolute file path (c:\temp\image.png)</li>
+							<li>relative file path (.\folder\image.png)</li>
+						</ul>
+					</td>
+					<td>embeded growl icon v2</td>
+					<td>No</td>
+				</tr>
+			</tbody>
+		</table>
+		<h3>Examples</h3>
+		<h4>Send a single notification on a remote host</h4>
+		<p>
+			Both sender and Growl client (Mac or Windows) should share the same password.
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl gntp over network"
+    &gt;
+        &lt;growlnotify message="Deployment of project LAMBDA is finished."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+		<h4>Send a single notification with UDP protocol</h4>
+		<p>
+			When you don't have a Macintosh, OS compatible with Growl GNTP, you 
+			should use the basic UDP protocol.
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl udp over network"
+    &gt;
+        &lt;growlnotify message="Notify my MAC that does not accept GNTP."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+            protocol="udp"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+		<h4>Send an important notification</h4>
+		<p>
+			If you want to send a notification that is so important that you don't want to missed it,
+			even if you are away from your computer. Use the sticky attribute.
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a sticky message on desktop"
+    &gt;
+        &lt;growlnotify message="Project LAMDBA, unit tests FAILED."
+            priority="high"
+            sticky="true"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
+</pre>
+		<h4>Use your icons to identify an application</h4>
+		<p>
+			You may customize the Growl notification system, with different icons 
+			and more. 
+		</p>
+		<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a custom icon message"
+    &gt;
+        &lt;growlnotify message="Have a look on my beautiful message!"
+            name="phing Notifier"
+            title="phing notification"
+            priority="low"
+            sticky="false"
+            appicon="../images/my_icon.png"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;
 </pre>
 		<h2>
 			<a name="HttpGetTask"></a>HttpGetTask </h2>
@@ -4946,6 +5282,89 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;formatter type=&quot;checkstyle&quot; outfile=&quot;/path/to/checkstyle.xml&quot;/&gt;
 &lt;/phpcodesniffer&gt;
 </pre>
+<h2><a name="PHPLocTask"></a>PHPLocTask</h2>
+<p> This task runs <a href="http://github.com/sebastianbergmann/phploc/" target="_blank">phploc</a>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</p>
+<h3>Attributes</h3>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Description</th>
+			<th>Default</th>
+			<th>Required</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>reportType</td>
+			<td>String</td>
+			<td>The type of the report. Available types are cli|csv|txt|xml.</td>
+			<td>cli</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>reportName</td>
+			<td>String</td>
+			<td>The name of the report type without a file extension.</td>
+			<td>phploc-report</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>reportDirectory</td>
+			<td>String</td>
+			<td>The directory to write the report file to.</td>
+			<td>false</td>
+			<td>Yes, when report type csv, txt or xml is defined.</td>
+		</tr>
+		<tr>
+			<td>countTests</td>
+			<td>Boolean</td>
+			<td>Flag to count the projects tests or not.</td>
+			<td>false</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>file</td>
+			<td>String</td>
+			<td>The name of the file to check.</td>
+			<td>n/a</td>
+			<td>Yes, when no nested fileset is defined.</td>
+		</tr>
+		<tr>
+			<td>suffixes</td>
+			<td>String</td>
+			<td>A comma-separated list of file suffixes to check.</td>
+			<td>php</td>
+			<td>No</td>
+		</tr>
+	</tbody>
+</table>
+<h3>Supported Nested Tags</h3>
+<ul>
+	<li>fileset</li>
+</ul>
+<h3>Examples</h3>
+<pre>&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true"&gt;
+  &lt;tstamp&gt;
+    &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/&gt;
+  &lt;/tstamp&gt;
+  &lt;phploc reportType="txt" reportName="${check.date.time}-report"
+          reportDirectory="phploc-reports"&gt;
+    &lt;fileset dir="."&gt;
+      &lt;include name="**/*.php" /&gt;
+      &lt;include name="*.php" /&gt;
+    &lt;/fileset&gt;
+  &lt;/phploc&gt;
+&lt;/target&gt;</pre><p>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</p>
+<pre>&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests"&gt;
+  &lt;phploc countTests="true"&gt;
+    &lt;fileset dir="."&gt;
+      &lt;include name="**/*.php" /&gt;
+      &lt;include name="*.php" /&gt;
+    &lt;/fileset&gt;
+  &lt;/phploc&gt;
+&lt;/target&gt;</pre><p>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</p>
 		<h2>
 			<a name="PHPCPDTask"></a>PHPCPDTask </h2>
 		<p> This task runs <a href="http://github.com/sebastianbergmann/phpcpd/" target="_blank"
@@ -5596,7 +6015,7 @@ Note that you can omit both startpoint and track attributes in this case
 		<h3>Examples</h3>
 		<pre>
 &lt;phpdoc2 title=&quot;API Documentation&quot;
-  destdir=&quot;apidocs&quot;&gt;
+  destdir=&quot;apidocs&quot;
   template=&quot;responsive&quot;&gt;
    &lt;fileset dir=&quot;./classes&quot;&gt;
       &lt;include name=&quot;**/*.php&quot; /&gt;
@@ -5735,7 +6154,7 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>Control the level at which phplint reports status messages. One of
 							<em>error</em>, <em>warning</em>, <em>info</em>, <em>verbose</em>,
 							<em>debug</em>.</td>
-					<td><em>info</em></td>
+					<td><em>debug</em></td>
 					<td>No</td>
 				</tr>
 				<tr>
@@ -6204,6 +6623,13 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>n/a</td>
 					<td>No</td>
 				</tr>
+				<tr>
+					<td>mode</td>
+					<td>Integer</td>
+					<td>The mode to create directories with.</td>
+					<td>From umask</td>
+					<td>No</td>
+				</tr>
 			</tbody>
 		</table>
 		<h3>Supported Nested Tags</h3>
@@ -6630,7 +7056,7 @@ host=&quot;webserver&quot; todir=&quot;/www/htdocs/project/&quot;&gt;
 		</ul>
 		<h2>
 			<a name="SshTask"></a>SshTask </h2>
-		<p> The <em>ScpTask</em> executes commands on a remote host using ssh.. This task requires
+		<p> The <em>SshTask</em> executes commands on a remote host using ssh.. This task requires
 			the <a href="http://pecl.php.net/package/ssh2" target="_blank">PHP SSH2 extension</a> to
 			function. </p>
 		<h3>Examples</h3>

@@ -112,7 +112,7 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
         $o->setCommand('command');
         $o->setConsole('console');
 
-        $ret = "console command --name =value";
+        $ret = "console command --name=value";
 
         $this->assertEquals($ret, $o->getCmdString());
     }

@@ -22,7 +22,7 @@
 /**
  *  Utility class for generating necessary server-specific SQL commands
  *
- *  @author   R�my BREUILS
+ *  @author   Remy BREUILS
  *  @version  $Id$
  *  @package  phing.tasks.ext.dbdeploy
  */

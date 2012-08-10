@@ -74,7 +74,7 @@ class ArgTest extends PHPUnit_Framework_TestCase
         $o->setValue('value');
         $o->setQuotes(true);
 
-        $this->assertEquals('--name ="value"', ''.$o);
+        $this->assertEquals('--name="value"', ''.$o);
     }
 
     /**
@@ -87,7 +87,7 @@ class ArgTest extends PHPUnit_Framework_TestCase
         $o->setValue('value');
         $o->setQuotes(false);
 
-        $this->assertEquals('--name =value', ''.$o);
+        $this->assertEquals('--name=value', ''.$o);
     }
 
     /**
@@ -99,7 +99,7 @@ class ArgTest extends PHPUnit_Framework_TestCase
         $o->setName('name');
         $o->setQuotes(false);
 
-        $this->assertEquals('--name ', ''.$o);
+        $this->assertEquals('--name', ''.$o);
     }
 
     /**
@@ -111,7 +111,7 @@ class ArgTest extends PHPUnit_Framework_TestCase
         $o->setValue('value');
         $o->setQuotes(false);
 
-        $this->assertEquals(' value', ''.$o);
+        $this->assertEquals('value', ''.$o);
     }
 
     /**
@@ -123,7 +123,7 @@ class ArgTest extends PHPUnit_Framework_TestCase
         $o->setValue('value');
         $o->setQuotes(true);
 
-        $this->assertEquals(' "value"', ''.$o);
+        $this->assertEquals('"value"', ''.$o);
     }
 }
 ?>

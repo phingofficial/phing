@@ -166,6 +166,7 @@ class DbDeployTask extends Task
             $appliedChangeNumbers = array();
             $dbh = new PDO($this->url, $this->userid, $this->password);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->dbmsSyntax->applyAttributes($dbh);
             $sql = "SELECT *
                     FROM " . DbDeployTask::$TABLE_NAME . "
                     WHERE delta_set = '$this->deltaSet'
@@ -250,6 +251,8 @@ class DbDeployTask extends Task
                 $split = strpos($contents, '-- //@UNDO');
                 if ($split === false)
                     $split = strpos($contents, '--//@UNDO');
+                if ($split === false)
+                    $split = strlen($contents);
 
                 if ($undo) {
                     $sql .= substr($contents, $split + 10) . "\n";

@@ -37,7 +37,7 @@ require_once 'phing/filters/BaseParamFilterReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @copyright � 2003 seasonfive. All rights reserved
+ * @copyright 2003 seasonfive. All rights reserved
  * @version   $Id$
  * @see       BaseParamFilterReader
  * @package   phing.filters

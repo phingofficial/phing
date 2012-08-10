@@ -101,12 +101,14 @@ class SvnListTask extends SvnBaseTask
             }
 
             $count = 0;
+            $dotSkipped = false;
             foreach ($lines as $line) {
                 if ($this->limit > 0 && $count >= $this->limit) {
                     break;
                 }
                 if (preg_match('@\s+(\d+)\s+(\S+)\s+(\S+ \S+ \S+)\s+(\S+)@', $line, $matches)) {
                     if ($matches[4] == '.') {
+                        $dotSkipped = true;
                         continue;
                     }
                     $result .= (!empty($result)) ? "\n" : '';
@@ -117,6 +119,8 @@ class SvnListTask extends SvnBaseTask
 
             if (!empty($result)) {
                 $this->project->setProperty($this->getPropertyName(), $result);
+            } elseif ($dotSkipped) {
+                $this->project->setProperty($this->getPropertyName(), "The list is empty.");
             } else {
                 throw new BuildException("Failed to parse the output of 'svn list --verbose'.");
             }

@@ -97,6 +97,10 @@ class JslLintTask extends Task
 
     public function setExecutable($path){
         $this->executable = $path;
+        
+        if (!@file_exists($path)) {
+            throw new BuildException("JavaScript Lint executable '{$path}' not found");
+        }
     }
      
     public function getExecutable(){
@@ -131,8 +135,8 @@ class JslLintTask extends Task
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
-        if (!is_executable($this->executable)) {
-            throw new BuildException('Javascript Lint executable not found');
+        if (empty($this->executable)) {
+            throw new BuildException("Missing the 'executable' attribute");
         }
 
         if($this->file instanceof PhingFile) {
@@ -197,7 +201,11 @@ class JslLintTask extends Task
                 }
 
                 $messages = array();
-                exec($command.'"'.$file.'"', $messages);
+                exec($command.'"'.$file.'"', $messages, $return);
+                
+                if ($return > 100) {
+                    throw new BuildException("Could not execute Javascript Lint executable '{$this->executable}'");
+                }
 
                 $summary = $messages[sizeof($messages) - 1];
 
@@ -257,7 +265,7 @@ class JslLintTask extends Task
                     }
                     $this->hasErrors = true;
                 } else if (!$this->showWarnings || $warningCount == 0) {
-                    $this->log($file . ': No syntax errors detected', Project::MSG_INFO);
+                    $this->log($file . ': No syntax errors detected', Project::MSG_VERBOSE);
 
                     if ($this->cache)
                     {

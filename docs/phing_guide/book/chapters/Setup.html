@@ -367,12 +367,17 @@ $&gt; pear install phing/phing</pre>
 		the directory where your buildfile resides and type</p>
 
 	<pre>
-$ phing [targetname]
+
+$ phing [target [target2 [target3] ...]]
 </pre>
 
 	<p>
-		at the command line (where [targetname] is the target you want to be
-		executed). Optionally, you may specify command line arguments as
+		at the command line (where [target...] are the target(s)
+		you want to be executed). If no target is specified Phing will
+		try to execute the default target, as specified in the
+		&lt;project&gt; tag. When calling multipe targets, Phing
+		will invoke each target independently of the other targets.
+		Optionally, you may specify other command line arguments as
 		listed in <a
 			href="appendixes/AppendixA-FactSheet.html#CommandLineArguments">Appendix
 			A</a>.

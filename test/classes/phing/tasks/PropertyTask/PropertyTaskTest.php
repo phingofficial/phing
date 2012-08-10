@@ -97,4 +97,9 @@ class PropertyTaskTest extends BuildFileTest {
         $this->fail("Did not throw exception on invalid use of prefix");
     }
     
+    public function testFilterChain()
+    {
+        $this->scanAssertionsInLogs(__FUNCTION__);
+    }
+    
 }

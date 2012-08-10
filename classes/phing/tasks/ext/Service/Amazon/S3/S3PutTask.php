@@ -73,6 +73,17 @@ class S3PutTask extends Service_Amazon_S3
 	 * @access protected
 	 */
 	protected $_createBuckets = false;
+	
+	/**
+	 * File ACL
+	 * Use to set the permission to the uploaded files
+	 *
+	 * (default value: 'private')
+	 *
+	 * @var string
+	 * @access protected
+	 */
+	protected $_acl = 'private';
     
     public function setSource($source)
     {
@@ -126,6 +137,20 @@ class S3PutTask extends Service_Amazon_S3
 		}
 		
 		return $this->_object;
+	}
+	
+	public function setAcl($permission)
+	{
+		$valid_acl = array('private', 'public-read', 'public-read-write', 'authenticated-read');
+		if(empty($permission) || !is_string($permission) || !in_array($permission, $valid_acl)) {
+			throw new BuildException('Object must be one of the following values: ' . implode('|', $valid_acl));
+		}
+		$this->_acl = $permission;
+	}
+
+	public function getAcl()
+	{
+		return $this->_acl;
 	}
 
 	public function setCreateBuckets($createBuckets)
@@ -234,6 +259,7 @@ class S3PutTask extends Service_Amazon_S3
 	{
 		$object = $this->getObjectInstance($object);
 		$object->data = $data;
+		$object->acl = $this->getAcl();
 		$object->save();
 		
 		if(!$this->isObjectAvailable($object->key)) {

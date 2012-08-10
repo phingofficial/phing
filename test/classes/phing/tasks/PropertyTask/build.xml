@@ -98,5 +98,15 @@
   	<echo>assert s2 == ${section}</echo>
   </target>
 
+  <target name="testFilterChain">
+    <property name="filterchain.test" value="Hello">
+      <filterchain>
+        <replaceregexp>
+           <regexp pattern="Hello" replace="World" ignoreCase="true"/>
+         </replaceregexp>
+      </filterchain>
+    </property>
+    <echo>assert World == ${filterchain.test}</echo>
+  </target>
 
 </project>
