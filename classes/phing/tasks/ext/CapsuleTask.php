@@ -24,6 +24,7 @@ include_once 'phing/Task.php';
 include_once 'phing/BuildException.php';
 include_once 'phing/lib/Capsule.php';
 include_once 'phing/util/StringHelper.php';
+require_once 'phing/util/Boolean.php';
 
 /**
  * A phing task for generating output by using Capsule.
@@ -401,8 +402,8 @@ class CapsuleTask extends Task {
                                                                 
             } // if ends with file.contents
             
-            if (StringHelper::isBoolean($value)) {
-                $value = StringHelper::booleanValue($value);
+            if (Boolean::isBoolean($value)) {
+                $value = Boolean::booleanValue($value);
             }
                                                             
             $c->put($property, $value); 

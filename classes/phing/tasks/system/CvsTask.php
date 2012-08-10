@@ -436,7 +436,7 @@ class CvsTask extends Task {
      * @param boolean $ne
      */
     public function setNoexec($ne) {
-        $this->noexec = (boolean) $ne;
+        $this->noexec = Boolean::cast($ne);
     }
 
     /**
@@ -446,7 +446,7 @@ class CvsTask extends Task {
      * @param boolean $failOnError
      */
     public function setFailOnError($failOnError) {
-        $this->failOnError = (boolean) $failOnError;
+        $this->failOnError = Boolean::cast($failOnError);
     }
 
     /**

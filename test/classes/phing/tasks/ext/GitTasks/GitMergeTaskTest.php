@@ -31,26 +31,25 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 class GitMergeTaskTest extends BuildFileTest { 
 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+        if (is_readable(PHING_TEST_TMP . '/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitMergeTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitMergeTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-merge: replaying "merge-test-1 merge-test-2" commits');
         $this->assertInLogs('git-merge output: Already up-to-date.');
@@ -58,7 +57,7 @@ class GitMergeTaskTest extends BuildFileTest {
 
     public function testNoCommitSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('noCommitSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up-to-date.');
@@ -66,7 +65,7 @@ class GitMergeTaskTest extends BuildFileTest {
 
     public function testRemoteSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('remoteSet');
         $this->assertInLogs('git-merge: replaying "6dbaf4508e75dcd426b5b974a67c462c70d46e1f" commits');
         $this->assertInLogs('git-merge output: Already up-to-date.');
@@ -74,7 +73,7 @@ class GitMergeTaskTest extends BuildFileTest {
 
     public function testFastForwardCommitSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('fastForwardCommitSet');
         $this->assertInLogs('git-merge command: /usr/bin/git merge --no-ff \'origin/master\'');
         $this->assertInLogs('git-merge: replaying "origin/master" commits');

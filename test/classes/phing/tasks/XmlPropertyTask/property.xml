@@ -1,0 +1,17 @@
+<xml>
+	<simpleArray>
+		<!--
+			Having several values that end up as xml.simpleArray.array
+			turns that property into an array.
+		 -->
+		<array>first</array>
+		<array>second</array>
+	</simpleArray>
+	<keyedArray>
+		<!-- _index is a special attribute that will define the key
+			for a property that is an array.
+		-->
+		<array _index="first">1st</array>
+		<array _index="second">2nd</array>
+	</keyedArray>
+</xml>

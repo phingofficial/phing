@@ -164,7 +164,7 @@ class SshTask extends Task {
      */
     public function setDisplay($display)
     {
-        $this->display = (boolean) $display;
+        $this->display = Boolean::cast($display);
     }
 
     public function init() 

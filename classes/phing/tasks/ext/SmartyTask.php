@@ -23,6 +23,7 @@
 require_once 'phing/Task.php';
 include_once 'phing/BuildException.php';
 include_once 'phing/util/StringHelper.php';
+require_once 'phing/util/Boolean.php';
 
 /**
  * A phing task for generating output by using Smarty.
@@ -292,7 +293,7 @@ class SmartyTask extends Task {
      * @return void
      */
     public function setForceCompile($force) {
-        $this->forceCompile = (boolean) $force;
+        $this->forceCompile = Boolean::cast($force);
     }
     
     /**
@@ -555,8 +556,8 @@ class SmartyTask extends Task {
                                                                     
                  } // if ends with file.contents
                 
-                    if (StringHelper::isBoolean($value)) {
-                        $value = StringHelper::booleanValue($value);
+                    if (Boolean::isBoolean($value)) {
+                        $value = Boolean::booleanValue($value);
                     }
                                                         
                  $c->assign($property, $value); 

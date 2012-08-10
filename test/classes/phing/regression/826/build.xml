@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<project name="826" default="test" >
+	<target name="test" depends="direct-setter, file-setter, append" />
+	
+	<target name="direct-setter">
+		<!-- Should be intuitive - different keys need no override -->
+		<property name="test[one]" value="one" />
+		<property name="test[two]" value="two" />
+		<echo>assert ${test} == one,two</echo>
+		
+		<!-- Key present and no override - no change -->
+		<property name="test[two]" value="TWO" />
+		<echo>assert ${test} == one,two</echo>
+		
+		<!-- Now we override the key -->
+		<property name="test[two]" value="TWO" override="true"/>
+		<echo>assert ${test} == one,TWO</echo>
+	</target>
+	
+	<target name="file-setter">
+		<property file="prop1" />
+		<echo>assert ${test2} == one,two</echo>
+
+		<!-- prop2 should not override test2[two], but add *new* test2[three] -->
+		<property file="prop2" />
+		<echo>assert ${test2} == one,two,three</echo>
+		
+
+		<property file="prop2"  override="true"/>
+		<echo>assert ${test2} == one,TWO,three</echo>		
+	</target>
+	
+	<target name="append">
+		<!-- When appending to property arrays, override does not
+			matter. -->
+		<property file="prop3"/>
+		<echo>assert ${append} == X,X</echo>
+		
+		<property file="prop3"/>
+		<echo>assert ${append} == X,X,X,X</echo>
+		
+		<property file="prop3" override="true" />
+		<echo>assert ${append} == X,X,X,X,X,X</echo>
+	</target>
+		
+</project>

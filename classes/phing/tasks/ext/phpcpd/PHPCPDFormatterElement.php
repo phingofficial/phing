@@ -129,7 +129,7 @@ class PHPCPDFormatterElement
      */
     public function setUseFile($useFile)
     {
-        $this->_useFile = StringHelper::booleanValue($useFile);
+        $this->_useFile = Boolean::cast($useFile);
     }
 
     /**

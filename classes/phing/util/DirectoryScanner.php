@@ -249,15 +249,12 @@ class DirectoryScanner implements SelectorScanner {
 
     /**
      * Sets the basedir for scanning. This is the directory that is scanned
-     * recursively. All '/' and '\' characters are replaced by
-     * DIRECTORY_SEPARATOR
+     * recursively.
      *
      * @param basedir the (non-null) basedir for scanning
      */
     function setBasedir($_basedir) {
-        $_basedir = str_replace('\\', DIRECTORY_SEPARATOR, $_basedir);
-        $_basedir = str_replace('/', DIRECTORY_SEPARATOR, $_basedir);
-        $this->basedir = $_basedir;
+    	$this->basedir = $this->normalizePath($_basedir);
     }
 
     /**
@@ -278,56 +275,57 @@ class DirectoryScanner implements SelectorScanner {
     function setCaseSensitive($_isCaseSensitive) {
         $this->isCaseSensitive = ($_isCaseSensitive) ? true : false;
     }
-
+    
     /**
-     * Sets the set of include patterns to use. All '/' and '\' characters are
-     * replaced by DIRECTORY_SEPARATOR. So the separator used need
-     * not match DIRECTORY_SEPARATOR.
-     *
-     * When a pattern ends with a '/' or '\', "**" is appended.
-     *
-     * @param includes list of include patterns
+     * Normalizes a path by allowing '/' and '\' as the directory separator
+     * and mapping them to DIRECTORY_SEPARATOR.
+     * @param string $p the path to normalize
      */
-    function setIncludes($_includes = array()) {
-        if (empty($_includes) || is_null($_includes)) {
-            $this->includes = null;
-        } else {
-            for ($i = 0; $i < count($_includes); $i++) {
-                $pattern = null;
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_includes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-                if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-                    $pattern .= "**";
-                }
-                $this->includes[] = $pattern;
-            }
-        }
+    protected function normalizePath($p) {
+    	return str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $p);
+    }
+    
+     /**
+      * Normalizes a set of given patterns.
+      * Patterns ending with a DIRECTORY_SEPARATOR
+      * qualify all files and subdirectories within the given path.
+      */
+    protected function normalizePatterns(array $patterns) {
+    	$r = array();
+    	
+    	foreach ($patterns as $p) {
+    		$p = $this->normalizePath($p);
+			if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $p))
+				$p .= '**';
+			$r[] = $p;    		
+    	}
+    
+    	return $r;
+    }
+
+    protected function appendPatterns(&$where, $what) {
+    	if ($what) {
+    		if (!$where) $where = array();
+    		$where = array_merge($where, $this->normalizePatterns($what));
+    	}
+    }
+    
+    /**
+     * Sets the set of include patterns to use.
+     * @param patterns list of include patterns
+     */
+    public function setIncludes($patterns = array()) {
+    	$this->includes = null;
+    	$this->appendPatterns($this->includes, $patterns);
     }
 
     /**
-     * Sets the set of exclude patterns to use. All '/' and '\' characters are
-     * replaced by <code>File.separatorChar</code>. So the separator used need
-     * not match <code>File.separatorChar</code>.
-     *
-     * When a pattern ends with a '/' or '\', "**" is appended.
-     *
-     * @param excludes list of exclude patterns
+     * Sets the set of exclude patterns to use.
+     * @param patterns list of exclude patterns
      */
-
-    function setExcludes($_excludes = array()) {
-        if (empty($_excludes) || is_null($_excludes)) {
-            $this->excludes = null;
-        } else {
-            for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = null;
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_excludes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-                if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-                    $pattern .= "**";
-                }
-                $this->excludes[] = $pattern;
-            }
-        }
+    public function setExcludes($patterns = array()) {
+    	$this->excludes = null;
+    	$this->appendPatterns($this->excludes, $patterns);
     }
     
     /**
@@ -543,7 +541,7 @@ class DirectoryScanner implements SelectorScanner {
             }
         }
     }
-
+    
     /**
      * Tests whether a name matches against at least one include pattern.
      *
@@ -552,12 +550,11 @@ class DirectoryScanner implements SelectorScanner {
      *         include pattern, <code>false</code> otherwise.
      */
     protected function isIncluded($_name) {
-        for ($i=0, $_i=count($this->includes); $i < $_i; $i++) {
-            if (DirectoryScanner::matchPath($this->includes[$i], $_name, $this->isCaseSensitive)) {
+    	foreach ($this->includes as $p)
+            if (DirectoryScanner::matchPath($p, $_name, $this->isCaseSensitive)) 
                 return true;
-            }
-        }
-        return false;
+
+		return false;
     }
 
     /**
@@ -568,12 +565,11 @@ class DirectoryScanner implements SelectorScanner {
      *         include pattern, <code>false</code> otherwise.
      */
     protected function couldHoldIncluded($_name) {
-        for ($i = 0; $i < count($this->includes); $i++) {
-            if (DirectoryScanner::matchPatternStart($this->includes[$i], $_name, $this->isCaseSensitive)) {
+    	foreach ($this->includes as $p)
+            if (DirectoryScanner::matchPatternStart($p, $_name, $this->isCaseSensitive)) 
                 return true;
-            }
-        }
-        return false;
+
+		return false;
     }
 
     /**
@@ -584,12 +580,11 @@ class DirectoryScanner implements SelectorScanner {
      *         exclude pattern, <code>false</code> otherwise.
      */
     protected function isExcluded($_name) {
-        for ($i = 0; $i < count($this->excludes); $i++) {
-            if (DirectoryScanner::matchPath($this->excludes[$i], $_name, $this->isCaseSensitive)) {
+		foreach ($this->excludes as $p)
+            if (DirectoryScanner::matchPath($p, $_name, $this->isCaseSensitive)) 
                 return true;
-            }
-        }
-        return false;
+
+		return false;
     }
 
     /**
@@ -700,12 +695,7 @@ class DirectoryScanner implements SelectorScanner {
      *
      */
     function addDefaultExcludes() {
-        //$excludesLength = ($this->excludes == null) ? 0 : count($this->excludes);
-        foreach($this->DEFAULTEXCLUDES as $pattern) {
-            $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-            $this->excludes[] = $pattern;
-        }
+    	$this->appendPatterns($this->excludes, $this->DEFAULTEXCLUDES);
     }
     
     /**

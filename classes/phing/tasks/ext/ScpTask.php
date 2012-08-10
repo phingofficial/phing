@@ -190,7 +190,7 @@ class ScpTask extends Task
      */
     public function setAutocreate($autocreate)
     {
-        $this->autocreate = (bool) $autocreate;
+        $this->autocreate = Boolean::cast($autocreate);
     }
     
     /**
@@ -238,7 +238,7 @@ class ScpTask extends Task
      */
     public function setFetch($fetch)
     {
-        $this->fetch = (bool) $fetch;
+        $this->fetch = Boolean::cast($fetch);
     }
     
     /**

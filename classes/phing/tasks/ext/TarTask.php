@@ -122,7 +122,7 @@ class TarTask extends MatchingTask {
      * @access public
      */
     public function setIncludeEmptyDirs($bool) {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = Boolean::cast($bool);
     }
 
     /**
@@ -441,7 +441,7 @@ class TarFileSet extends FileSet {
      * @return void
      */
     public function setPreserveLeadingSlashes($b) {
-        $this->preserveLeadingSlashes = (boolean) $b;
+        $this->preserveLeadingSlashes = Boolean::cast($b);
     }
 
     public function getPreserveLeadingSlashes() {

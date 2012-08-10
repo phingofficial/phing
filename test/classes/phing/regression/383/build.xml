@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<project name="383" default="test">
+	
+	<target name="test">
+
+		<property name="p" value="false" override="true" />
+		<phpunit failureproperty="p" printsummary="true">
+			<batchtest>
+				<fileset dir="." includes="fail.test" />
+			</batchtest>
+		</phpunit>
+		<echo>assert ${p} == true</echo>
+
+		<property name="p" value="false" override="true" />
+		<phpunit skippedproperty="p" printsummary="true">
+			<batchtest>
+				<fileset dir="." includes="skip.test" />
+			</batchtest>
+		</phpunit>
+		<echo>assert ${p} == true</echo>
+
+		<property name="p" value="false" override="true" />
+		<phpunit errorproperty="p" printsummary="true">
+			<batchtest>
+				<fileset dir="." includes="error.test" />
+			</batchtest>
+		</phpunit>
+		<echo>assert ${p} == true</echo>
+
+		<property name="p" value="false" override="true" />
+		<phpunit incompleteproperty="p" printsummary="true">
+			<batchtest>
+				<fileset dir="." includes="incomplete.test" />
+			</batchtest>
+		</phpunit>
+		<echo>assert ${p} == true</echo>
+
+		<!-- This way of checking works as of revision 1181. -->
+		<if><equals arg1="${p}" arg2="true"/>
+			<then>
+				<echo>assert failure detected == failure detected</echo>
+			</then>
+			<else><fail/></else>
+		</if>
+		
+		<!-- But this way is even better (more robust): -->
+		<if><istrue value="${p}"  />
+			<then>
+				<echo>assert failure detected == failure detected</echo>
+			</then>
+			<else><fail/></else>
+		</if>
+
+	</target>
+</project>

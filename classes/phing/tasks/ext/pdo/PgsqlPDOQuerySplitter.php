@@ -98,9 +98,7 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
                 return false;
             }
             $project    = $this->parent->getOwningTarget()->getProject();
-            $this->line = ProjectConfigurator::replaceProperties(
-                             $project, $line, $project->getProperties()
-                          ) . "\n";
+            $this->line = $project->replaceProperties($line) . "\n";
             $this->inputIndex = 0;
         }
         return $this->line[$this->inputIndex++];

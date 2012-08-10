@@ -105,7 +105,7 @@ class PHPMDFormatterElement
      */
     public function setUseFile($useFile)
     {
-        $this->useFile = (boolean) $useFile;
+        $this->useFile = Boolean::cast($useFile);
     }
 
     /**

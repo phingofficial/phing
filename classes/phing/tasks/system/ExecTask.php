@@ -356,7 +356,7 @@ class ExecTask extends Task
      */
     public function setEscape($escape)
     {
-        $this->escape = (bool) $escape;
+        $this->escape = Boolean::cast($escape);
     }
 
     /**
@@ -416,7 +416,7 @@ class ExecTask extends Task
      */
     public function setPassthru($passthru)
     {
-        $this->passthru = (bool) $passthru;
+        $this->passthru = Boolean::cast($passthru);
     }
 
     /**
@@ -428,7 +428,7 @@ class ExecTask extends Task
      */
     public function setLogoutput($logOutput)
     {
-        $this->logOutput = (bool) $logOutput;
+        $this->logOutput = Boolean::cast($logOutput);
     }
 
     /**
@@ -440,7 +440,7 @@ class ExecTask extends Task
      */
     public function setSpawn($spawn)
     {
-        $this->spawn  = (bool) $spawn;
+        $this->spawn  = Boolean::cast($spawn);
     }
 
     /**
@@ -452,7 +452,7 @@ class ExecTask extends Task
      */
     public function setCheckreturn($checkreturn)
     {
-        $this->checkreturn = (bool) $checkreturn;
+        $this->checkreturn = Boolean::cast($checkreturn);
     }
 
     /**

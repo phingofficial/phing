@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<project name="test" default="main">
+
+<target name="subtask">
+	<echo>Found file ${filename}.</echo>
+</target>
+
+<target name="main">
+	<foreach param="filename" target="subtask">
+		<fileset dir=".">
+			<include name="a"/>
+			<include name="b"/>
+		</fileset>
+	</foreach>
+</target>
+
+</project>

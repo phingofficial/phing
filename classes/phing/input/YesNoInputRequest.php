@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/util/Boolean.php';
 require_once 'phing/input/MultipleChoiceInputRequest.php';
 
 /**
@@ -34,7 +35,7 @@ class YesNoInputRequest extends MultipleChoiceInputRequest {
      * @return true if the input is one of the allowed values.
      */
     public function isInputValid() {
-        return StringHelper::isBoolean($this->input);        
+        return Boolean::isBoolean($this->input);        
     }
     
     /**
@@ -42,6 +43,6 @@ class YesNoInputRequest extends MultipleChoiceInputRequest {
      * @return boolean
      */
     public function getInput() {
-        return StringHelper::booleanValue($this->input);
+        return Boolean::booleanValue($this->input);
     }
 }

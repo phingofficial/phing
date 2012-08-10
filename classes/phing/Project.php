@@ -25,6 +25,10 @@ include_once 'phing/TaskAdapter.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/BuildEvent.php';
 include_once 'phing/input/DefaultInputHandler.php';
+require_once('phing/system/util/Properties.php');
+require_once('phing/util/properties/PropertySetImpl.php');
+require_once('phing/util/properties/PropertyExpansionWrapper.php');
+require_once('phing/util/properties/PropertyExpansionHelper.php');
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -54,7 +58,7 @@ class Project {
     private $globalFilters   = array();
     
     /** Project properties map (usually String to String). */
-    private $properties = array();
+    private $properties;
     
     /**
      * Map of "user" properties (as created in the Ant task, for example).
@@ -62,7 +66,7 @@ class Project {
      * project properties, so only the project properties need to be queried.
      * Mapping is String to String.
      */
-    private $userProperties = array();
+    private $userProperties;
     
     /**
      * Map of inherited "user" properties - that are those "user"
@@ -70,7 +74,7 @@ class Project {
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties = array();
+    private $inheritedProperties;
     
     /** task definitions for this project*/
     private $taskdefs = array();
@@ -113,6 +117,12 @@ class Project {
     public function __construct() {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
+         
+        $this->inheritedProperties = new PropertySetImpl();
+        $this->userProperties = new PropertySetImpl();
+        
+        $this->properties = new PropertySetImpl();
+        $this->propertyExpansionHelper = new PropertyExpansionHelper($this->properties);
     }
 
     /**
@@ -148,11 +158,9 @@ class Project {
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach($enum as $key) {
-                $value = $props->getProperty($key);
+            foreach ($props as $key => $value) 
                 $this->addTaskDefinition($key, $value);
-            }
+
         } catch (IOException $ioe) {
             throw new BuildException("Can't load default task list");
         }
@@ -168,11 +176,9 @@ class Project {
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach($enum as $key) {
-                $value = $props->getProperty($key);
-                $this->addDataTypeDefinition($key, $value);
-            }
+            foreach ($props as $key => $value) 
+				$this->addDataTypeDefinition($key, $value);
+
         } catch(IOException $ioe) {
             throw new BuildException("Can't load default datatype list");
         }
@@ -197,7 +203,6 @@ class Project {
      * @return void
      */
     public function setProperty($name, $value) {
-    
         // command line properties take precedence
         if (isset($this->userProperties[$name])) {
             $this->log("Override ignored for user property " . $name, Project::MSG_VERBOSE);
@@ -293,33 +298,18 @@ class Project {
         if (!isset($this->properties[$name])) {
             return null;
         }
-        $found = $this->properties[$name];
-        // check to see if there are unresolved property references
-        if (false !== strpos($found, '${')) {
-          // attempt to resolve properties
-          $found = $this->replaceProperties($found);
-          // save resolved value
-          $this->properties[$name] = $found;
-        }
-        return $found;
+        return $this->propertyExpansionHelper->expand($this->properties[$name]);
     }
-
+    
     /**
-     * Replaces ${} style constructions in the given value with the
-     * string value of the corresponding data types.
-     *
-     * @param value The string to be scanned for property references.
-     *              May be <code>null</code>.
-     *
-     * @return the given string with embedded property names replaced
-     *         by values, or <code>null</code> if the given string is
-     *         <code>null</code>.
-     *
-     * @exception BuildException if the given value has an unclosed
-     *                           property name, e.g. <code>${xxx</code>
+     * Returns a copy of the properties table in which all property
+     * references are being expanded.
+     * 
+     * @return array A hashtable containing all properties
+     *         (including user properties).
      */
-    public function replaceProperties($value) {
-        return ProjectConfigurator::replaceProperties($this, $value, $this->properties);
+    public function getProperties() {
+        return new PropertyExpansionWrapper($this->properties);
     }
 
     /**
@@ -335,24 +325,7 @@ class Project {
         if (!isset($this->userProperties[$name])) {
             return null;
         }
-        return $this->userProperties[$name];
-    }
-
-    /**
-     * Returns a copy of the properties table.
-     * @return array A hashtable containing all properties
-     *         (including user properties).
-     */
-    public function getProperties() {
-        return $this->properties;
-    }
-
-    /**
-     * Returns a copy of the user property hashtable
-     * @return a hashtable containing just the user properties
-     */
-    public function getUserProperties() {
-        return $this->userProperties;
+        return $this->getProperty($name);
     }
 
     /**
@@ -396,7 +369,10 @@ class Project {
             $other->setInheritedProperty($arg, $value);
         }        
     }
-    
+
+	public function replaceProperties($buffer) {
+		return $this->propertyExpansionHelper->expand($buffer);
+	}
     // ---------------------------------------------------------
     //  END Properties methods
     // ---------------------------------------------------------
@@ -531,10 +507,11 @@ class Project {
     public function setSystemProperties() {
         
         // first get system properties
-        $systemP = array_merge( self::getProperties(), Phing::getProperties() );
-        foreach($systemP as $name => $value) {
+        foreach( self::getProperties() as $name => $value)
             $this->setPropertyInternal($name, $value);
-        }
+
+		foreach(Phing::getProperties() as $name => $value)
+            $this->setPropertyInternal($name, $value);
         
         // and now the env vars
         foreach($_SERVER as $name => $value) {
@@ -621,10 +598,6 @@ class Project {
         $this->log("  +Target: $targetName", Project::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
-
-        $ctx = $this->getReference("phing.parsing.context");
-        $current = $ctx->getConfigurator()->getCurrentTargets();
-        $current[$targetName] = $target;
     }
 
     /**
@@ -768,19 +741,18 @@ class Project {
 
         // invoke topological sort of the target tree and run all targets
         // until targetName occurs.
-        $sortedTargets = $this->_topoSort($targetName, $this->targets);        
+        foreach ($this->_topoSort($targetName) as $t) {
 
-        $curIndex = (int) 0;
-        $curTarget = null;
-        do {
             try {
-                $curTarget = $sortedTargets[$curIndex++];
-                $curTarget->performTasks();
+                $t->performTasks();
             } catch (BuildException $exc) {
-                $this->log("Execution of target \"".$curTarget->getName()."\" failed for the following reason: ".$exc->getMessage(), Project::MSG_ERR);
+                $this->log("Execution of target \"".$t->getName()."\" failed for the following reason: ".$exc->getMessage(), Project::MSG_ERR);
                 throw $exc;
             }
-        } while ($curTarget->getName() !== $targetName);
+
+            if ($t === $this->targets[$targetName])
+               return;
+        }        
     }
 
     /**
@@ -794,6 +766,12 @@ class Project {
         }
     }    
 
+    protected function _targetSequenceToString($seq) {
+       $r = "";
+       foreach ($seq as $t) $r .= $t->toString() . " ";
+       return $r;
+    }
+    
     /**
      * Topologically sort a set of Targets.
      * @param  string $root is the (String) name of the root Target. The sort is
@@ -803,7 +781,7 @@ class Project {
      * @return An array of Strings with the names of the targets in
      *         sorted order.
      */
-    public function _topoSort($root, &$targets) {
+    public function _topoSort($root) {
 
         $root     = (string) $root;
         $ret      = array();
@@ -818,35 +796,20 @@ class Project {
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
-        $this->_tsort($root, $targets, $state, $visiting, $ret);
+        $this->_tsort($root, $state, $visiting, $ret);
 
-        $retHuman = "";
-        for ($i=0, $_i=count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString()." ";
-        }
-        $this->log("Build sequence for target '$root' is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Build sequence for target '$root' is: " . $this->_targetSequenceToString($ret), Project::MSG_VERBOSE);
 
-        $keys = array_keys($targets);
-        while($keys) {
-            $curTargetName = (string) array_shift($keys);
-            if (!isset($state[$curTargetName])) {
-                $st = null;
-            } else {
-                $st = (string) $state[$curTargetName];
-            }
-
-            if ($st === null) {
-                $this->_tsort($curTargetName, $targets, $state, $visiting, $ret);
-            } elseif ($st === "VISITING") {
-                throw new Exception("Unexpected node in visiting state: $curTargetName");
+        foreach ($this->targets as $t) {
+               $name = $t->getName(); // "canonical" name
+                       if (!isset($state[$name])) {
+                               $this->_tsort($name, $state, $visiting, $ret);
+                       } else if ($state[$name] == 'VISITING') {
+                               throw new Exception("Unexpected node in visiting state: $name");
             }
         }
 
-        $retHuman = "";
-        for ($i=0,$_i=count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString()." ";
-        }
-        $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Complete build sequence is: " . $this->_targetSequenceToString($ret), Project::MSG_VERBOSE);
 
         return $ret;
     }
@@ -868,51 +831,45 @@ class Project {
     //    "ret" now contains the sorted sequence of Targets upto the current
     //    Target.
 
-    public function _tsort($root, &$targets, &$state, &$visiting, &$ret) {
-        $state[$root] = "VISITING";
-        $visiting[]  = $root;
+    public function _tsort($root, &$state, &$visiting, &$ret) {
 
-        if (!isset($targets[$root]) || !($targets[$root] instanceof Target)) {
-            $target = null;
-        } else {
-            $target = $targets[$root];
-        }
-
-        // make sure we exist
-        if ($target === null) {
+       // Make sure target named $root exists.
+        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
             $sb = "Target '$root' does not exist in this project.";
-            array_pop($visiting);
             if (!empty($visiting)) {
-                $parent = (string) $visiting[count($visiting)-1];
-                $sb .= " It is a dependency of target '$parent'.";
+                $parent = end($visiting);
+                $sb .= "It is used from target '$parent'.";
             }
             throw new BuildException($sb);
         }
 
-        $deps = $target->getDependencies();
+        // Fetch $root's "canonical" name
+        $target = $this->targets[$root];
+        $name = $target->getName();
+        
+        // Put $root on DFS stack
+        $state[$name] = 'VISITING';
+        $visiting[] = $name;
 
-        while($deps) {
-            $cur = (string) array_shift($deps);
-            if (!isset($state[$cur])) {
-                $m = null;
-            } else {
-                $m = (string) $state[$cur];
-            }
-            if ($m === null) {
-                // not been visited
-                $this->_tsort($cur, $targets, $state, $visiting, $ret);
-            } elseif ($m == "VISITING") {
-                // currently visiting this node, so have a cycle
-                throw $this->_makeCircularException($cur, $visiting);
-            }
+        // Recursively visit $root's dependencies
+        foreach ($target->getDependencies() as $dep) {
+
+               // Map names to "canonical" form.
+               $t = $this->targets[$dep];
+               if (!$t) throw new BuildException("Unknown depencency $dep in target $root.");
+               
+               $depname = $t->getName();
+        
+               if (!isset($state[$depname]))
+                       $this->_tsort($depname, $state, $visiting, $ret);
+               else if ($state[$depname] == 'VISITING')
+                       throw $this->_makeCircularException($depname, $visiting);
         }
 
-        $p = (string) array_pop($visiting);
-        if ($root !== $p) {
-            throw new Exception("Unexpected internal error: expected to pop $root but got $p");
-        }
-
-        $state[$root] = "VISITED";
+        // Finishing/leaving $root.
+        if ($name !== array_pop($visiting)) 
+            throw new Exception("Unexpected internal error: expected to pop $name but got $p");
+        $state[$name] = "VISITED";
         $ret[] = $target;
     }
 

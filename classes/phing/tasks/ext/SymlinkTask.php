@@ -115,6 +115,17 @@ class SymlinkTask extends Task
     {        
         $this->_link = $link;
     }
+
+    /**
+     * Set the overwrite flag. 
+     *
+     * @param  boolean  Overwrite the destination file(s) if it/they already exist
+     * @return void
+     * @access public
+     */
+    public function setOverwrite($bool) {
+        $this->_overwrite = Boolean::cast($bool);
+    }
     
     /**
      * creator for _filesets
@@ -126,18 +137,6 @@ class SymlinkTask extends Task
     {
         $num = array_push($this->_filesets, new FileSet());
         return $this->_filesets[$num-1];
-    }
-
-    /**
-     * setter for _overwrite
-     *
-     * @access public
-     * @param boolean $overwrite
-     * @return void
-     */
-    public function setOverwrite($overwrite)
-    {
-        $this->_overwrite = $overwrite;
     }
 
     /**

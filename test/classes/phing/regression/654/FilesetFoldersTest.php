@@ -31,13 +31,13 @@ require_once 'phing/BuildFileTest.php';
 class FilesetFoldersTest extends BuildFileTest { 
         
     public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/654/build.xml");
+        $this->configureProject(__DIR__."/build.xml");
     }
 
     public function testFilesetNotSelectingFolders() {
-      $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/654/build.xml");
+      $f = new PhingFile(__DIR__."/build.xml");
       $this->executeTarget("main");
-      $this->assertInLogs("Property \${test.msg} => data");
-      $this->assertInLogs("Property \${test.msg} => files");
+      $this->assertInLogs("dir data");
+      $this->assertInLogs("dir files");
     }
 }

@@ -91,7 +91,7 @@ class CoverageReportTransformer
      */
     public function setUseSortTable($useSortTable)
     {
-        $this->useSortTable = (boolean) $useSortTable;
+        $this->useSortTable = Boolean::cast($useSortTable);
     }
     
     function transform()

@@ -31,26 +31,25 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 class GitFetchTaskTest extends BuildFileTest { 
 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+        if (is_readable(PHING_TEST_TMP . '/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitFetchTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitFetchTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
         $this->assertInLogs('git-fetch output: '); // no output actually
@@ -58,7 +57,7 @@ class GitFetchTaskTest extends BuildFileTest {
 
     public function testFetchAllRemotes()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('fetchAllRemotes');
         $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
         $this->assertInLogs('git-fetch output: Fetching origin');
@@ -80,7 +79,7 @@ class GitFetchTaskTest extends BuildFileTest {
 
     public function testRefspecSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('refspecSet');
         $this->assertInLogs('git-fetch: branch "' . $repository . '" repository');
         $this->assertInLogs('git-fetch output: ');

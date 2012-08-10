@@ -94,7 +94,7 @@ class PHPUnitReportTask extends Task
      */
     public function setUseSortTable($useSortTable)
     {
-        $this->useSortTable = (boolean) $useSortTable;
+        $this->useSortTable = Boolean::cast($useSortTable);
     }
     
     /**

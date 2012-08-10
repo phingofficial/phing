@@ -98,11 +98,11 @@ class FtpDeployTask extends Task
     
     public function setPassive($passive)
     {
-        $this->passive = (bool) $passive;
+        $this->passive = Boolean::cast($passive);
     }
     
     public function setClearFirst($clearFirst) {
-        $this->clearFirst = (bool) $clearFirst;
+        $this->clearFirst = Boolean::cast($clearFirst);
     }
     
     public function createFileSet() {

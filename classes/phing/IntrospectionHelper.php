@@ -315,24 +315,15 @@ class IntrospectionHelper {
             if ($as == "setrefid") {            
                 $value = new Reference($value);
             } else {
-                // value is a string representation of a boolean type,
-                // convert it to primitive
-                if (StringHelper::isBoolean($value)) {
-
-                    $value = StringHelper::booleanValue($value);
-                }
-                
-                // does method expect a PhingFile object? if so, then 
-                // pass a project-relative file.
+            	// Support some special classes as task parameters 
+            	// by looking at the setter's type hints.
                 $params = $method->getParameters();
-
                 $classname = null;
                 
-                if (($hint = $params[0]->getClass()) !== null) { 
+                if (($hint = $params[0]->getClass()) !== null) {
                     $classname = $hint->getName();    
                 }
                 
-                // there should only be one param; we'll just assume ....
                 if ($classname !== null) {
                     switch(strtolower($classname)) {
                         case "phingfile":
@@ -343,7 +334,9 @@ class IntrospectionHelper {
                             break;
                         case "reference":
                             $value = new Reference($value);
-                            break;            
+                            break;
+                        default:
+                        	throw new BuildException("Method {$method->name} in {$this->getElementName($project, $element)} expects its parameter to be of type $classname, but that is not supported.");
                         // any other object params we want to support should go here ...
                     }
                     

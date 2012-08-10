@@ -183,7 +183,7 @@ class CoverageThresholdTask extends Task
      */
     public function setVerbose($verbose)
     {
-        $this->_verbose = StringHelper::booleanValue($verbose);
+        $this->_verbose = Boolean::cast($verbose);
     }
 
     /**

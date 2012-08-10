@@ -215,7 +215,7 @@ class GitTagTask extends GitBaseTask
     
     public function setAnnotate($flag)
     {
-        $this->annotate = (bool)$flag;
+        $this->annotate = Boolean::cast($flag);
     }
     
     public function getAnnotate()
@@ -230,7 +230,7 @@ class GitTagTask extends GitBaseTask
 
     public function setSign($flag)
     {
-        $this->sign = (bool)$flag;
+        $this->sign = Boolean::cast($flag);
     }
     
     public function getSign()
@@ -255,7 +255,7 @@ class GitTagTask extends GitBaseTask
 
     public function setReplace($flag)
     {
-        $this->replace = (bool)$flag;
+        $this->replace = Boolean::cast($flag);
     }
     
     public function getReplace()
@@ -275,7 +275,7 @@ class GitTagTask extends GitBaseTask
     
     public function setDelete($flag)
     {
-        $this->delete = (bool)$flag;
+        $this->delete = Boolean::cast($flag);
     }
     
     public function getDelete()
@@ -290,7 +290,7 @@ class GitTagTask extends GitBaseTask
 
     public function setVerify($flag)
     {
-        $this->verify = (bool)$flag;
+        $this->verify = Boolean::cast($flag);
     }
     
     public function getVerify()
@@ -305,7 +305,7 @@ class GitTagTask extends GitBaseTask
 
     public function setList($flag)
     {
-        $this->list = (bool)$flag;
+        $this->list = Boolean::cast($flag);
     }
     
     public function getList()

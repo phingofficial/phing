@@ -82,7 +82,7 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
      */
     public function setGenerateSourcecode($b) {
         global $_phpDocumentor_setting;
-        $_phpDocumentor_setting['sourcecode'] = (boolean) $b;
+        $_phpDocumentor_setting['sourcecode'] = Boolean::cast($b);
     }
     
     /**
@@ -131,7 +131,7 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup {
      */
     public function setPear($b) {
         global $_phpDocumentor_setting;
-        $_phpDocumentor_setting['pear'] = (boolean) $b;
+        $_phpDocumentor_setting['pear'] = Boolean::cast($b);
     }
     
     /**

@@ -92,14 +92,29 @@ class ProjectHandler extends AbstractHandler {
                 throw new ExpatParseException("Unexpected attribute '$key'");
             }
         }
+        
         // these things get done no matter what
+        $resolvedBasedir = null;
+               if ($baseDir === null) {
+                       $resolvedBasedir = $buildFileParent->getAbsolutePath();
+               } else {
+                       // check whether the user has specified an absolute path
+                       $f = new PhingFile($baseDir);
+                       if ($f->isAbsolute()) {
+                               $resolvedBasedir = $baseDir;
+                       } else {
+                               $resolvedBasedir = $project->resolveFile($baseDir, $buildFileParent);
+                       }
+               }
+        
         if (null != $name) {
           $canonicalName = self::canonicalName($name);
           $this->configurator->setCurrentProjectName($canonicalName);
-          $project->setUserProperty("phing.file.{$canonicalName}",
-              (string) $this->configurator->getBuildFile());
+          $project->setUserProperty("phing.file.{$canonicalName}", (string) $this->configurator->getBuildFile());
+          $project->setUserProperty("project.basedir.{$canonicalName}", $resolvedBasedir);
         }
 
+               // this only happens for toplevel build files
         if (!$this->configurator->isIgnoringProjectTag()) {
           if ($def === null) {
             throw new ExpatParseException(
@@ -125,21 +140,12 @@ class ProjectHandler extends AbstractHandler {
               $project->setPhingVersion($ver);
           }
 
-          if ($project->getProperty("project.basedir") !== null) {
-            $project->setBasedir($project->getProperty("project.basedir"));
+          if (($bd = $project->getProperty("project.basedir")) !== null) {
+              $project->setBasedir($bd);
           } else {
-            if ($baseDir === null) {
-              $project->setBasedir($buildFileParent->getAbsolutePath());
-            } else {
-              // check whether the user has specified an absolute path
-              $f = new PhingFile($baseDir);
-              if ($f->isAbsolute()) {
-                $project->setBasedir($baseDir);
-              } else {
-                $project->setBaseDir($project->resolveFile($baseDir, new PhingFile(getcwd())));
-              }
-            }
+              $project->setBasedir($resolvedBasedir);
           }
+                          
         }
     }
 

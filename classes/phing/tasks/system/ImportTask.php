@@ -55,6 +55,11 @@ class ImportTask extends Task {
   protected $file = null;
 
   /**
+   * @var FileSet
+   */
+  protected $filesets = array();
+  
+  /**
    * @var bool
    */
   protected $optional = false;
@@ -78,6 +83,16 @@ class ImportTask extends Task {
   }
 
   /**
+   * Create a FileSet to import files from.
+   * @return FileSet The FileSet
+   */
+  public function createFileset() {
+  	$fs = new FileSet();
+  	$this->filesets[] = $fs;
+  	return $fs;
+  }
+  
+  /**
    * Is this include optional?
    * @param bool $opt If true, do not stop the build if the file does not 
    * exist
@@ -94,25 +109,10 @@ class ImportTask extends Task {
    * @return void
    */
   public function main () {
-    if (!isset($this->file)) {
-      throw new BuildException("Missing attribute 'file'");
-    }
+    if (! $this->file && ! $this->filesets) 
+    	throw new BuildfileException("You must provide a fileset or set the 'file' attribute.");
 
-    $file = new PhingFile($this->file);
-    if (!$file->isAbsolute()) {
-      $file = new PhingFile($this->project->getBasedir(), $this->file);
-    }
-    if (!$file->exists()) {
-      $msg = "Unable to find build file: {$file->getPath()}";
-      if ($this->optional) {
-        $this->log($msg . '... skipped');
-        return;
-      } else {
-        throw new BuildException($msg);
-      }
-    }
-
-    $ctx = $this->project->getReference("phing.parsing.context");
+	$ctx = $this->project->getReference("phing.parsing.context");
     $cfg = $ctx->getConfigurator();
     if (null !== $cfg && $cfg->isParsing()) {
       // because there isn't a top level implicit target in phing like there is 
@@ -121,16 +121,44 @@ class ImportTask extends Task {
       // with the parse context to be called at the end of the current file's 
       // parse phase.
       $cfg->delayTaskUntilParseEnd($this);
-
-    } else {
-      // Import xml file into current project scope
-      // Since this is delayed until after the importing file has been 
-      // processed, the properties and targets of this new file may not take 
-      // effect if they have alreday been defined in the outer scope.
-      $this->log("Importing configuration from {$file->getName()}", Project::MSG_VERBOSE);
-      ProjectConfigurator::configureProject($this->project, $file);
-      $this->log("Configuration imported.", Project::MSG_VERBOSE);
+      return;
     }
-  } //end main
+    
+	if ($this->file) {
+		$this->importFile(new PhingFile($this->file));
+	}
+	
+   	foreach($this->filesets as $fs) {
+		$fromDir = $fs->getDir($this->project);
+		$ds = $fs->getDirectoryScanner($this->project);
+		foreach ($ds->getIncludedFiles() as $srcFile) {
+			$this->importFile(new PhingFile("$fromDir/$srcFile"));
+		}
+   	}
+  }
+  
+  protected function importFile(PhingFile $file) {
+	
+	  	if (!$file->isAbsolute()) 
+	      $file = new PhingFile($this->project->getBasedir(), $this->file);
+	    
+	    if (!$file->exists()) {
+	      $msg = "Unable to find build file: {$file->getPath()}";
+	      if ($this->optional) {
+	        $this->log($msg . '... skipped');
+	        return;
+	      } else {
+	        throw new BuildException($msg);
+	      }
+	    }
+	
+		// Import xml file into current project scope
+	    // Since this is delayed until after the importing file has been 
+	    // processed, the properties and targets of this new file may not take 
+	    // effect if they have alreday been defined in the outer scope.
+	    $this->log("Importing configuration from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
+	    ProjectConfigurator::configureProject($this->project, $file);
+	    $this->log("Configuration imported.", Project::MSG_VERBOSE);
+  }
 
 } //end ImportTask

@@ -191,4 +191,23 @@ class TargetTest extends BuildFileTest
         
         $this->target->main();
     }
+
+    public function testIfConditionHolds() {
+        $this->expectLogContaining('run-if-condition', 'if-condition!');
+    }
+    
+    public function testIfConditionHolds2() {
+        $this->executeTarget('if-condition');
+        $this->assertNotInLogs('if-condition!');
+    }
+    
+    public function testUnlessConditionHolds() {
+        $this->expectLogContaining('unless-condition', 'unless-condition!');
+    }
+    
+    public function testUnlessConditionHolds2() {
+        $this->executeTarget('fail-unless-condition');
+        $this->assertNotInLogs('unless-condition!');
+    }
+
 }

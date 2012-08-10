@@ -221,7 +221,7 @@ class CreoleSQLExecTask extends CreoleTask {
      */
     public function setPrint($print)
     {
-        $this->print = (boolean) $print;
+        $this->print = Boolean::cast($print);
     }
         
     /**
@@ -230,7 +230,7 @@ class CreoleSQLExecTask extends CreoleTask {
      * @param boolean $showheaders
      */
     public function setShowheaders($showheaders) {
-        $this->showheaders = (boolean) $showheaders;
+        $this->showheaders = Boolean::cast($showheaders);
     }
 
     /**
@@ -248,7 +248,7 @@ class CreoleSQLExecTask extends CreoleTask {
      * @param $append
      */
     public function setAppend($append) {
-        $this->append = (boolean) $append;
+        $this->append = Boolean::cast($append);
     }
 
     
@@ -392,9 +392,7 @@ class CreoleSQLExecTask extends CreoleTask {
 
         try {
             foreach ($lines as $line) {
-                $line = trim($line);
-                $line = ProjectConfigurator::replaceProperties($this->project, $line,
-                        $this->project->getProperties());
+                $line = $this->project->replaceProperties(trim($line));
                 
                 if (StringHelper::startsWith("//", $line) || 
                     StringHelper::startsWith("--", $line) ||

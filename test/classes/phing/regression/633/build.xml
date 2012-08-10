@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<project name="633" default="main">
+	<target name="main">
+		<property name="wp_config.wp_debug" value="true" />
+		<copy file="testfile" tofile="${PHING_TEST_TMP}/newfile" overwrite="true">
+			<filterchain>
+				<replaceregexp>
+					<regexp pattern="(define\('WP_DEBUG', )\w+(\);)" replace="\1${wp_config.wp_debug}\2"/>
+				</replaceregexp>
+			</filterchain>
+		</copy>
+	</target>
+</project>

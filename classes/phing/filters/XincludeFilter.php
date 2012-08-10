@@ -58,9 +58,9 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader {
      * 
      * @since 2.4
      */
-    public function setResolveExternals($resolveExternals)
+    public function setResolveExternals($flag)
     {
-        $this->resolveExternals = (bool)$resolveExternals;
+        $this->resolveExternals = Boolean::cast($flag);
     }
     
     /**

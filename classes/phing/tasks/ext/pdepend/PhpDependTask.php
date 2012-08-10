@@ -247,7 +247,7 @@ class PhpDependTask extends Task
      */
     public function setWithoutAnnotations($withoutAnnotations)
     {
-        $this->_withoutAnnotations = StringHelper::booleanValue(
+        $this->_withoutAnnotations = Boolean::cast(
             $withoutAnnotations
         );
     }
@@ -263,7 +263,7 @@ class PhpDependTask extends Task
      */
     public function setSupportBadDocumentation($supportBadDocumentation)
     {
-        $this->_supportBadDocumentation = StringHelper::booleanValue(
+        $this->_supportBadDocumentation = Boolean::cast(
             $supportBadDocumentation
         );
     }
@@ -277,7 +277,7 @@ class PhpDependTask extends Task
      */
     public function setDebug($debug)
     {
-        $this->_debug = StringHelper::booleanValue($debug);
+        $this->_debug = Boolean::cast($debug);
     }
 
     /**
@@ -289,7 +289,7 @@ class PhpDependTask extends Task
      */
     public function setHaltonerror($haltonerror)
     {
-        $this->_haltonerror = StringHelper::booleanValue($haltonerror);
+        $this->_haltonerror = Boolean::cast($haltonerror);
     }
 
     /**

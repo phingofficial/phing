@@ -1,0 +1,7 @@
+<?php
+
+class DummyTestSkip extends PHPUnit_Framework_TestCase { 
+	public function testSkip() {
+		$this->markTestSkipped();
+	}
+}

@@ -58,7 +58,7 @@ class SvnLastRevisionTask extends SvnBaseTask
      */
     public function setForceCompatible($force)
     {
-        $this->forceCompatible = (bool) $force;
+        $this->forceCompatible = Boolean::cast($force);
     }
     
     /**
@@ -66,7 +66,7 @@ class SvnLastRevisionTask extends SvnBaseTask
      */
     public function setLastChanged($lastChanged)
     {
-        $this->lastChanged = (bool) $lastChanged;
+        $this->lastChanged = Boolean::cast($lastChanged);
     }
 
     /**

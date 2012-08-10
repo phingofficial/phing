@@ -164,7 +164,7 @@ class GitLogTask extends GitBaseTask
     
     public function setNameStatus($flag)
     {
-        $this->nameStatus = (boolean)$flag;
+        $this->nameStatus = Boolean::cast($flag);
     }
     
     public function getNameStatus()
@@ -189,7 +189,7 @@ class GitLogTask extends GitBaseTask
     
     public function setNoMerges($flag)
     {
-        $this->noMerges = (bool)$flag;
+        $this->noMerges = Boolean::cast($flag);
     }
     
     public function getNoMerges()

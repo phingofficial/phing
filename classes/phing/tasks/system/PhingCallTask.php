@@ -81,7 +81,7 @@ class PhingCallTask extends Task {
      *  @param boolean new value
      */
     function setInheritAll($inherit) {
-        $this->inheritAll = (boolean) $inherit;
+        $this->inheritAll = Boolean::cast($inherit);
     }
 
     /**
@@ -91,7 +91,7 @@ class PhingCallTask extends Task {
      *  @param boolean new value
      */
     function setInheritRefs($inheritRefs) {
-        $this->inheritRefs = (boolean) $inheritRefs;
+        $this->inheritRefs = Boolean::cast($inheritRefs);
     }
 
     /**

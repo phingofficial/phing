@@ -156,7 +156,7 @@ class GitPushTask extends GitBaseTask
 
     public function setMirror($flag)
     {
-        $this->mirror = (boolean)$flag;
+        $this->mirror = Boolean::cast($flag);
     }
 
     public function getMirror()
@@ -171,7 +171,7 @@ class GitPushTask extends GitBaseTask
 
     public function setDelete($flag)
     {
-        $this->delete = (boolean)$flag;
+        $this->delete = Boolean::cast($flag);
     }
 
     public function getDelete()

@@ -31,26 +31,25 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 class GitPushTaskTest extends BuildFileTest { 
 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+        if (is_readable(PHING_TEST_TMP . '/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitPushTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitPushTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testAllParamsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allParamsSet');
         $this->assertInLogs('git-push: pushing to origin master:foobranch');
         $this->assertInLogs('git-push: complete');
@@ -58,7 +57,7 @@ class GitPushTaskTest extends BuildFileTest {
 
     public function testAllReposSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('allReposSet');
         $this->assertInLogs('git-push: push to all refs');
         $this->assertInLogs('git-push: complete');
@@ -66,7 +65,7 @@ class GitPushTaskTest extends BuildFileTest {
 
     public function testTagsSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('tagsSet');
         $this->assertInLogs('git-push: pushing to origin master:foobranch');
         $this->assertInLogs('git-push: complete');
@@ -74,7 +73,7 @@ class GitPushTaskTest extends BuildFileTest {
 
     public function testDeleteSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('deleteSet');
         $this->assertInLogs('git-push: pushing to origin master:newbranch');
         $this->assertInLogs('git-push: branch delete requested');
@@ -83,7 +82,7 @@ class GitPushTaskTest extends BuildFileTest {
 
     public function testMirrorSet()
     {
-        $repository = PHING_TEST_BASE . '/tmp/git';
+        $repository = PHING_TEST_TMP . '/git';
         $this->executeTarget('mirrorSet');
         $this->assertInLogs('git-push: mirror all refs');
         $this->assertInLogs('git-push: complete');

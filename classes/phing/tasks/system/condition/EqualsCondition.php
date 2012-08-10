@@ -51,7 +51,7 @@ class EqualsCondition implements Condition {
      * @param boolean $b
      */
     public function setTrim($b) {
-        $this->trim = (boolean) $b;
+        $this->trim = Boolean::cast($b);
     }
 
     /**
@@ -59,7 +59,7 @@ class EqualsCondition implements Condition {
      * @param boolean $b
      */
     public function setCaseSensitive($b) {
-        $this->caseSensitive = (boolean) $b;
+        $this->caseSensitive = Boolean::cast($b);
     } 
     
     public function evaluate() {

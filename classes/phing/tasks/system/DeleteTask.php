@@ -78,7 +78,7 @@ class DeleteTask extends Task {
     * meaning things are verbose
      */
     function setQuiet($bool) {
-        $this->quiet = $bool;
+        $this->quiet = Boolean::cast($bool);
         if ($this->quiet) {
             $this->failonerror = false;
         }
@@ -86,13 +86,13 @@ class DeleteTask extends Task {
 
     /** this flag means 'note errors to the output, but keep going' */
     function setFailOnError($bool) {
-        $this->failonerror = $bool;
+        $this->failonerror = Boolean::cast($bool);
     }
 
 
     /** Used to delete empty directories.*/
     function setIncludeEmptyDirs($includeEmpty) {
-        $this->includeEmpty = (boolean) $includeEmpty;
+        $this->includeEmpty = Boolean::cast($includeEmpty);
     }
 
     /** Nested creator, adds a set of files (nested fileset attribute). */
@@ -136,7 +136,7 @@ class DeleteTask extends Task {
                 }
             } else {
                 $message = "Could not find file " . $this->file->getAbsolutePath() . " to delete.";
-                
+
                 if ($this->failonerror) {
                     throw new BuildException($message);
                 } else {

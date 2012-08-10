@@ -61,7 +61,7 @@ class SvnListTask extends SvnBaseTask
      */
     public function setForceCompatible($force)
     {
-        //$this->forceCompatible = (bool) $force;
+        //$this->forceCompatible = Boolean::cast($force);
         // see below, we need this to be true as xml mode does not work
     }
 
@@ -78,7 +78,7 @@ class SvnListTask extends SvnBaseTask
      */
     function setOrderDescending($orderDescending)
     {
-        $this->orderDescending = (bool) $orderDescending;
+        $this->orderDescending = Boolean::cast($orderDescending);
     }
 
     /**

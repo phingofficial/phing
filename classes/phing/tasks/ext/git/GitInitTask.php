@@ -76,6 +76,6 @@ class GitInitTask extends GitBaseTask
 
     public function setBare($flag)
     {
-        $this->isBare = (bool)$flag;
+        $this->isBare = Boolean::cast($flag);
     }
 }

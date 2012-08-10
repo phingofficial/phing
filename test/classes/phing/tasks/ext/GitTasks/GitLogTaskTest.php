@@ -101,21 +101,20 @@ class GitLogTaskTest extends BuildFileTest {
     );
 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
+        if (is_readable(PHING_TEST_TMP . '/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+            GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
         }
         // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/git');
+        mkdir(PHING_TEST_TMP . '/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitLogTaskTest.xml');
+        $this->configureProject(__DIR__ . '/GitLogTaskTest.xml');
     }
 
     public function tearDown()
     {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_TMP . '/git');
     }
 
     public function testGitLogWithoutParams()

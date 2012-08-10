@@ -73,16 +73,14 @@ class CopyTask extends Task {
     }
 
     /**
-     * Set the overwrite flag. IntrospectionHelper takes care of
-     * booleans in set* methods so we can assume that the right
-     * value (boolean primitive) is coming in here.
+     * Set the overwrite flag. 
      *
      * @param  boolean  Overwrite the destination file(s) if it/they already exist
      * @return void
      * @access public
      */
     function setOverwrite($bool) {
-        $this->overwrite = (boolean) $bool;
+        $this->overwrite = Boolean::cast($bool);
     }
 
     /**
@@ -114,7 +112,7 @@ class CopyTask extends Task {
      * @access public
      */
     function setPreserveLastModified($bool) {
-        $this->preserveLMT = (boolean) $bool;
+        $this->preserveLMT = Boolean::cast($bool);
     }
 
     /**
@@ -127,7 +125,7 @@ class CopyTask extends Task {
      * @access public
      */
     function setIncludeEmptyDirs($bool) {
-        $this->includeEmpty = (boolean) $bool;
+        $this->includeEmpty = Boolean::cast($bool);
     }
 
 
@@ -192,7 +190,7 @@ class CopyTask extends Task {
      * @access public
      */
     function setHaltonerror($haltonerror) {        
-        $this->haltonerror = (boolean) $haltonerror;
+        $this->haltonerror = Boolean::cast($haltonerror);
     }
 
     /**
