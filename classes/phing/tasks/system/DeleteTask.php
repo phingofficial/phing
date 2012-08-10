@@ -78,7 +78,7 @@ class DeleteTask extends Task {
     * meaning things are verbose
      */
     function setQuiet($bool) {
-        $this->quiet = $bool;
+        $this->quiet = Boolean::cast($bool);
         if ($this->quiet) {
             $this->failonerror = false;
         }
@@ -86,7 +86,7 @@ class DeleteTask extends Task {
 
     /** this flag means 'note errors to the output, but keep going' */
     function setFailOnError($bool) {
-        $this->failonerror = $bool;
+        $this->failonerror = Boolean::cast($bool);
     }
 
 
@@ -136,7 +136,7 @@ class DeleteTask extends Task {
                 }
             } else {
                 $message = "Could not find file " . $this->file->getAbsolutePath() . " to delete.";
-                
+
                 if ($this->failonerror) {
                     throw new BuildException($message);
                 } else {
