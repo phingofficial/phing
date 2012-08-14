@@ -54,6 +54,11 @@ class PHPUnitTask extends Task
     private $excludeGroups = array();
     private $processIsolation = false;
     private $usecustomerrorhandler = true;
+    
+    /**
+     * @var PhingFile
+     */
+    private $configuration = null;
 
     /**
      * Initialize Task.
@@ -212,6 +217,62 @@ class PHPUnitTask extends Task
         $fe->setParent($this);
         $this->formatters[] = $fe;
     }
+    
+    /**
+     * @param PhingFile $configuration
+     */
+    public function setConfiguration(PhingFile $configuration)
+    {
+        $this->configuration = $configuration;
+    }
+    
+    /**
+     * Load and processes the PHPUnit configuration
+     */
+    protected function handlePHPUnitConfiguration($configuration)
+    {
+        if (!$configuration->exists()) {
+            throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
+        }
+        
+        $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
+        
+        if (empty($configuration)) {
+            return;
+        }
+        
+        $phpunit = $config->getPHPUnitConfiguration();
+        
+        if (empty($phpunit)) {
+            return;
+        }
+        
+        $config->handlePHPConfiguration();
+        
+        if (isset($phpunit['bootstrap'])) {
+            $this->setBootstrap($phpunit['bootstrap']);
+        }
+        
+        if (isset($phpunit['stopOnFailure'])) {
+            $this->setHaltonfailure($phpunit['stopOnFailure']);
+        }
+
+        if (isset($phpunit['stopOnError'])) {
+            $this->setHaltonerror($phpunit['stopOnError']);
+        }
+
+        if (isset($phpunit['stopOnFailure'])) {
+            $this->setHaltonskipped($phpunit['stopOnSkipped']);
+        }
+
+        if (isset($phpunit['stopOnIncomplete'])) {
+            $this->setHaltonincomplete($phpunit['stopOnIncomplete']);
+        }
+
+        if (isset($phpunit['processIsolation'])) {
+            $this->setProcessIsolation($phpunit['processIsolation']);
+        }
+    }
 
     /**
      * The main entry point
@@ -224,7 +285,11 @@ class PHPUnitTask extends Task
         {
             throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
         }
-
+        
+        if ($this->configuration) {
+            $this->handlePHPUnitConfiguration($this->configuration);
+        }
+        
         if ($this->printsummary)
         {
             $fe = new FormatterElement();

@@ -7093,6 +7093,21 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>configuration</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to a PHPUnit configuration file (such as
+                        <literal>phpunit.xml</literal>). Supported elements are:
+                        <literal>bootstrap</literal>,
+                        <literal>processIsolation</literal>,
+                        <literal>stopOnFailure</literal>,
+                        <literal>stopOnError</literal>,
+                        <literal>stopOnIncomplete</literal> and
+                        <literal>stopOnSkipped</literal>. Values provided
+                        <emphasis role="bold">overwrite</emphasis> other attributes!</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
