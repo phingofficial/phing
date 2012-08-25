@@ -2663,7 +2663,7 @@ Note that you can omit both startpoint and track attributes in this case
                             </itemizedlist>
                         </entry>
                         <entry>n/a</entry>
-                        <entry>No</td>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>host</literal></entry>
