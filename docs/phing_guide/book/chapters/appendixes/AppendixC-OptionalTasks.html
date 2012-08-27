@@ -8358,16 +8358,17 @@ revision | author | date         | item
 			<a name="TarTask"></a>TarTask </h2>
 		<p> The <em>TarTask</em> creates a tarball from a fileset or directory. </p>
 		<h3>Examples</h3>
-		<pre>&lt;tar destfile=&quot;phing.tar&quot; compression=&quot;gzip&quot;&gt;
+		<pre>&lt;tar destfile=&quot;phing.tar&quot;&gt;
  &lt;fileset dir=&quot;.&quot;&gt;
 	 &lt;include name=&quot;**/**&quot; /&gt;
  &lt;/fileset&gt;
 &lt;/tar&gt;
 </pre>
 		<p>The above example uses a fileset to determine which files to include in the archive.</p>
-		<pre>&lt;tar destfile=&quot;phing.tar&quot; basedir=&quot;.&quot; compression=&quot;gzip&quot;/&gt;</pre>
+		<pre>&lt;tar destfile=&quot;phing.tar.gz&quot; basedir=&quot;.&quot; compression=&quot;gzip&quot;/&gt;</pre>
 		<p>The second example uses the basedir attribute to include the contents of that directory
-			(including subdirectories) in the archive.</p>
+			(including subdirectories) in the archive,
+			compressing the archive using gzip.</p>
 		<h3>Attributes</h3>
 		<table>
 			<thead>

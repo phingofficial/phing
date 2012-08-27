@@ -9533,7 +9533,7 @@ host="webserver" command="ls" /></programlisting>
         </note>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;tar destfile="phing.tar" compression="gzip">
+            <programlisting language="xml">&lt;tar destfile="phing.tar">
  &lt;fileset dir=".">
 	 &lt;include name="**/**" />
  &lt;/fileset>
@@ -9541,9 +9541,10 @@ host="webserver" command="ls" /></programlisting>
 
             <para>The above example uses a fileset to determine which files to include in the
                 archive.</para>
-            <programlisting language="xml">&lt;tar destfile="phing.tar" basedir="." compression="gzip"/></programlisting>
+            <programlisting language="xml">&lt;tar destfile="phing.tar.gz" basedir="." compression="gzip"/></programlisting>
             <para>The second example uses the basedir attribute to include the contents of that
-                directory (including subdirectories) in the archive.</para>
+                directory (including subdirectories) in the archive,
+                compressing the archive using gzip.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
