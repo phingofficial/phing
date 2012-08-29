@@ -40,12 +40,15 @@ class AvailableTask extends Task {
     /** Value property should be set to. */
     private $value = "true";
 
+    /** File to check for */
+    private $file;
+
     /** Resource to check for */
     private $resource;
 
     private $type = null;
     private $filepath = null;
-    
+
     private $followSymlinks = false;
 
     function setProperty($property) {
@@ -67,15 +70,15 @@ class AvailableTask extends Task {
     function setType($type) {
         $this->type = (string) strtolower($type);
     }
-    
+
     public function setFollowSymlinks($followSymlinks)
     {
         $this->followSymlinks = (bool) $followSymlinks;
     }
-    
+
     /**
      * Set the path to use when looking for a file.
-     * 
+     *
      * @param Path $filepath a Path instance containing the search path for files.
      */
     public function setFilepath(Path $filepath) {
@@ -88,9 +91,9 @@ class AvailableTask extends Task {
 
     /**
      * Creates a path to be configured
-     * 
+     *
      * @return Path
-     */ 
+     */
     public function createFilepath() {
         if ($this->filepath === null) {
             $this->filepath = new Path($this->project);
@@ -151,7 +154,7 @@ class AvailableTask extends Task {
         if ($this->followSymlinks && $file->isLink()) {
             $file = new PhingFile($file->getLinkTarget());
         }
-        
+
         if ($this->type !== null) {
             if ($this->type === "dir") {
                 return $file->isDirectory();
@@ -161,7 +164,7 @@ class AvailableTask extends Task {
         }
         return $file->exists();
     }
-    
+
     private function _checkResource($resource) {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
             return $this->_checkFile1(new PhingFile($resourcePath));
