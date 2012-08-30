@@ -138,21 +138,15 @@ class PhpDependTask extends Task
          */
         @include_once 'PHP/Depend/TextUI/Runner.php';
 
-        if (! class_exists('PHP_Depend_TextUI_Runner')) {
-            throw new BuildException(
-                'PhpDependTask depends on PHP_Depend being installed '
-                . 'and on include_path',
-                $this->getLocation()
-            );
-        }
-
-        /**
-         * Other dependencies that should only be loaded
-         * when class is actually used
-         */
-        require_once 'phing/tasks/ext/pdepend/PhpDependLoggerElement.php';
-        require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
-        require_once 'PHP/Depend/Autoload.php';
+        if (class_exists('PHP_Depend_TextUI_Runner')) {
+            /**
+             * Other dependencies that should only be loaded
+             * when class is actually used
+             */
+            require_once 'phing/tasks/ext/pdepend/PhpDependLoggerElement.php';
+            require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
+            require_once 'PHP/Depend/Autoload.php';
+	    }
     }
 
     /**
