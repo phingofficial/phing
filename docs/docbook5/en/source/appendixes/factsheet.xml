@@ -229,15 +229,17 @@
                     </row>
                     <row>
                         <entry><literal>-1</literal></entry>
-                        <entry>Parameter error occured, printed help screen</entry>
+                        <entry>Parameter or configuration error occurred</entry>
                     </row>
                     <row>
                         <entry><literal>0</literal></entry>
-                        <entry>Successful execution, no warnings, no errors</entry>
+                        <entry>Successful execution (build succeeded), no
+                        errors (there may be warnings)</entry>
                     </row>
                     <row>
                         <entry><literal>1</literal></entry>
-                        <entry>Successful execution, but warnings occured</entry>
+                        <entry>Unsuccessful execution (build failed), errors
+                        occurred</entry>
                     </row>
                 </tbody>
             </tgroup>
