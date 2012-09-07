@@ -56,6 +56,11 @@
         
         function stream_open($path, $mode, $options, &$opened_path)
         {
+            // if we're on Windows, urldecode() the path again
+            if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+                $path = urldecode($path);
+            }
+            
             $filepath = substr($path, 8);
             
             $this->createDirectories(dirname($filepath));
