@@ -486,10 +486,17 @@
 	&lt;regexp pattern="(\w+)\.java" replace="\1.php"/>
   &lt;/replaceregexp>
 &lt;/filterchain></programlisting>
+        <para>Or, replace all Windows line-endings with Unix
+            line-endings:</para>
+        <programlisting language="xml">&lt;filterchain>
+  &lt;replaceregexp>
+	&lt;regexp pattern="\r(\n)" replace="\1"/>
+  &lt;/replaceregexp>
+&lt;/filterchain></programlisting>
 
         <sect2>
             <title>Nested tags</title>
-            <para>The <literal>ReplaceTokens</literal> filter must contain one or more
+            <para>The <literal>ReplaceRegExp</literal> filter must contain one or more
                     <literal>regexp</literal> tags. These must have <literal>pattern</literal> and
                     <literal>replace</literal> attributes. The full list of supported attributes is
                 as following:</para>

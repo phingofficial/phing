@@ -2423,7 +2423,7 @@
   &lt;/fileset>
   &lt;filterchain>
     &lt;replaceregexp>
-      &lt;regexp pattern="\r\n" replace="\n"/>
+      &lt;regexp pattern="\r(\n)" replace="\1"/>
     &lt;/replaceregexp>
   &lt;/filterchain>
 &lt;/reflexive></programlisting>
