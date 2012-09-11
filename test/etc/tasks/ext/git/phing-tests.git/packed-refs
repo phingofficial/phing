@@ -1,0 +1,5 @@
+# pack-refs with: peeled 
+1b767b75bb5329f4e53345c516c0a9f4ed32d330 refs/heads/master
+1b767b75bb5329f4e53345c516c0a9f4ed32d330 refs/remotes/origin/HEAD
+1b767b75bb5329f4e53345c516c0a9f4ed32d330 refs/remotes/origin/foobranch
+1b767b75bb5329f4e53345c516c0a9f4ed32d330 refs/remotes/origin/master

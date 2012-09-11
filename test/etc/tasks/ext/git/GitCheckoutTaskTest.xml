@@ -2,7 +2,10 @@
 <project name="gitCheckoutTest" default="invalid">
 
     <property name="tmp.dir" value="./../../../../tmp/git" />
+    <property name="repo.dir" value="phing-tests.git"/>
+
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -10,7 +13,7 @@
 
     <target name="checkoutExistingBranch" description="Checkout from existing branch">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch
             repository="${tmp.dir.resolved}" 
@@ -23,7 +26,7 @@
 
     <target name="checkoutNonExistingBranch" description="Checkout from non-existing branch">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
             repository="${tmp.dir.resolved}" 
@@ -40,7 +43,7 @@
 
     <target name="checkoutMerge" description="Checkout with -m">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitbranch
             repository="${tmp.dir.resolved}" 
@@ -57,7 +60,7 @@
 
     <target name="checkoutCreateBranch" description="Checkout with -b">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
             repository="${tmp.dir.resolved}" 
@@ -75,7 +78,7 @@
 
     <target name="checkoutForceCreateBranch" description="Checkout with -B">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
             repository="${tmp.dir.resolved}" 
@@ -101,7 +104,7 @@
 
     <target name="checkoutForceCreateBranchFailed" description="Checkout with -B">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
             repository="${tmp.dir.resolved}" 

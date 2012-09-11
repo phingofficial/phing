@@ -2,7 +2,10 @@
 <project name="gitGcTest" default="invalid">
 
     <property name="tmp.dir" value="./../../../../tmp/git" />
+    <property name="repo.dir" value="phing-tests.git"/>
+
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -10,7 +13,7 @@
 
     <target name="allParamsSet" description="Gc with all parameters present">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" 
@@ -25,7 +28,7 @@
 
     <target name="autoParamSet" description="Gc --auto">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" auto="true" />
@@ -33,7 +36,7 @@
 
     <target name="nopruneParamSet" description="Gc --noprune">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" noprune="true" />
@@ -41,7 +44,7 @@
 
     <target name="aggressiveParamSet" description="Gc --aggressive">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" aggressive="true" />
@@ -49,7 +52,7 @@
 
     <target name="pruneParamSet" description="Gc --prune=date">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitgc 
             repository="${tmp.dir.resolved}" prune="1.week.ago" />

@@ -2,7 +2,10 @@
 <project name="gitFetchTest" default="invalid">
 
     <property name="tmp.dir" value="./../../../../tmp/git" />
+    <property name="repo.dir" value="phing-tests.git"/>
+
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -10,7 +13,7 @@
 
     <target name="fetchAllRemotes" description="Fetch from all remotes">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch
             repository="${tmp.dir.resolved}" all="true" />
@@ -18,7 +21,7 @@
 
     <target name="allParamsSet" description="all parameters present">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch
             repository="${tmp.dir.resolved}" 
@@ -35,7 +38,7 @@
 
     <target name="refspecSet" description="git-fetch --track">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitfetch 
             repository="${tmp.dir.resolved}" 
