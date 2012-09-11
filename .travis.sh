@@ -66,9 +66,9 @@ installPearTask ()
     curl -s http://getcomposer.org/installer | php
     php composer.phar install
 
-    echo "=== BUILDING PHING ==="
-    cd build
-    phing -Dversion=2.0.0b1
+#    echo "=== BUILDING PHING ==="
+#    cd build
+#    phing -Dversion=2.0.0b1
 
     echo "=== TESTING PHING ==="
     cd ../test
