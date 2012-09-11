@@ -63,15 +63,18 @@ installPearTask ()
         echo -e "\nSUCCESS - PHP ENVIRONMENT READY." ||
         ( echo "=== FAILED."; exit 1 )
 
-    curl -s http://getcomposer.org/installer | php
-    php composer.phar install
+    if [ `php -r "echo (version_compare(PHP_VERSION, '5.3.0', '<') ? 1:0);"` = 1 ]
+    then
+        curl -s http://getcomposer.org/installer | php
+        php composer.phar install
+    fi
 
 #    echo "=== BUILDING PHING ==="
 #    cd build
 #    phing -Dversion=2.0.0b1
 
     echo "=== TESTING PHING ==="
-    cd ../test
+    cd test
     ../bin/phing
 
 
