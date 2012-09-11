@@ -43,9 +43,8 @@ class PearPackageScannerTest extends BuildFileTest
      */
     public function testLoadPackageInfo()
     {
-        if (!version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            $this->markTestSkipped("Need ReflectionMethod::setAccessible() for this test");
-            return;
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
         
         $ppfs = new PearPackageScanner();
@@ -66,9 +65,8 @@ class PearPackageScannerTest extends BuildFileTest
      */
     public function testLoadPackageInfoNonexistingPackage()
     {
-        if (!version_compare(PHP_VERSION, '5.3.0', '>=')) {
-            $this->markTestSkipped("Need ReflectionMethod::setAccessible() for this test");
-            return;
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
         
         $ppfs = new PearPackageScanner();

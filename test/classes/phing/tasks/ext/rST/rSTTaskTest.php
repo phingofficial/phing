@@ -70,6 +70,10 @@ class rSTTaskTest extends BuildFileTest
      */
     public function testGetToolPathFail()
     {
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
+        }
+
         $rt = new rSTTask();
         $ref = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
@@ -82,6 +86,10 @@ class rSTTaskTest extends BuildFileTest
      */
     public function testGetToolPathCustom()
     {
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
+        }
+
         $rt = new rSTTask();
         $rt->setToolpath('true');//mostly /bin/true on unix
         $ref = new ReflectionClass($rt);
