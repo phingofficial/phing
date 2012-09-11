@@ -2,6 +2,33 @@ P     H     I     N     G
 =========================
 
 
+Sep. 12, 2012 - Phing 2.4.13
+---------------------------
+
+  * [915] path with special characters does not delete
+  * [909] Replace __DIR__
+  * [905] Add filterchain support to the property task
+  * [904] TarTask should raise error if zlib extension not installed
+  * [903] Cannot redeclare class phpDocumentor\Bootstrap
+  * [902] SvnBaseTask and subversion 1.7
+  * [901] phpunitreport create html's classes files in wrong folder
+  * [900] phpdoc2 example has error
+  * [895] error in includepath when calling more than once
+  * [892] Concatenate property lines ending with backslash
+  * [891] Symfony console task: space within the arguments, not working on windows
+  * [888] Documentation error for CvsTask setfailonerror
+  * [886] Error throwing in PDOSQLExecTask breaking trycatch
+  * [884] svnlist fails on empty directories
+  * [882] Dbdeploy does not retrieve changelog number with oracle
+  * [881] Silent fail on delete tasks
+  * [880] Add phploc task
+  * [867] phpcpd task should check external dep in main()
+  * [866] Code coverage not showing "not executed" lines
+  * [863] MoveTask ignores fileset
+  * [845] GrowlNotifyTask to be notified on long-task when they are finished
+  * [751] Allow loading of phpunit.xml in phpunit task
+  * [208] ReplaceRegexp problem with newline as replace string
+
 Apr. 6, 2012 - Phing 2.4.12
 ---------------------------
 
