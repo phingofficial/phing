@@ -2,7 +2,10 @@
 <project name="gitCloneTest" default="invalid">
 
     <property name="tmp.dir" value="./../../../../tmp/git" />
+    <property name="repo.dir" value="phing-tests.git"/>
+
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
@@ -10,13 +13,13 @@
     
     <target name="gitClone" description="Clone read-only github repo">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
 	</target>
 
     <target name="gitCloneBare" description="Clone bare github repo">
         <gitclone 
-            repository="git://github.com/farazdagi/phing-tests.git"
+            repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}"
             bare="true" />
 	</target>
@@ -32,6 +35,6 @@
     </target>
 
     <target name="noTargetPath" description="No target path argument provided">
-        <gitclone repository="git://github.com/farazdagi/phing-tests.git" />
+        <gitclone repository="${repo.dir.resolved}" />
     </target>
 </project>

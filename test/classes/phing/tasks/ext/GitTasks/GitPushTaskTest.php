@@ -46,6 +46,7 @@ class GitPushTaskTest extends BuildFileTest {
     public function tearDown()
     {
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/git');
+        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/repo');
     }
 
     public function testAllParamsSet()

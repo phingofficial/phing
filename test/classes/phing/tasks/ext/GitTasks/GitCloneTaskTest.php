@@ -52,11 +52,12 @@ class GitCloneTaskTest extends BuildFileTest {
 
     public function testGitClone()
     {
+        $bundle = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
         $repository = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitClone');
 
-        $this->assertInLogs('git-clone: cloning "git://github.com/farazdagi/phing-tests.git" repository to "' . $repository . '" directory');
+        $this->assertInLogs('git-clone: cloning "' . $bundle . '" repository to "' . $repository . '" directory');
         $this->assertTrue(is_dir($repository));
         $this->assertTrue(is_dir($gitFilesDir));
         // test that file is actully cloned
@@ -65,10 +66,11 @@ class GitCloneTaskTest extends BuildFileTest {
 
     public function testGitCloneBare()
     {
+        $bundle = PHING_TEST_BASE . '/etc/tasks/ext/git/phing-tests.git';
         $repository = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitCloneBare');
-        $this->assertInLogs('git-clone: cloning (bare) "git://github.com/farazdagi/phing-tests.git" repository to "' . $repository . '" directory');
+        $this->assertInLogs('git-clone: cloning (bare) "' . $bundle . '" repository to "' . $repository . '" directory');
         $this->assertTrue(is_dir($repository));
         $this->assertTrue(is_dir($repository . '/branches'));
         $this->assertTrue(is_dir($repository . '/info'));

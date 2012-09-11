@@ -2,10 +2,17 @@
 <project name="gitPushTest" default="invalid">
 
     <property name="tmp.dir" value="./../../../../tmp/git" />
-    <property name="repo.dir" value="phing-tests.git"/>
+    <property name="bundle.dir" value="phing-tests.git"/>
+    <property name="repo.dir" value="./../../../../tmp/repo" />
     
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}" />
+    <resolvepath propertyName="bundle.dir.resolved" file="${bundle.dir}" />
     <resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
+    
+    <delete dir="${repo.dir.resolved}" />
+    <gitclone
+    	repository="${bundle.dir.resolved}"
+    	targetPath="${repo.dir.resolved}" />
 
     <target name="invalid">
         <fail>This file should only be run via a testcase</fail>
