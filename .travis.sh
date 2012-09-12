@@ -63,10 +63,8 @@ installPearTask ()
         echo -e "\nSUCCESS - PHP ENVIRONMENT READY." ||
         ( echo "=== FAILED."; exit 1 )
 
-    if [ `php -r "echo (version_compare(PHP_VERSION, '5.3.0', '<') ? 1:0);"` = 1 ]
-    then
-        curl -s http://getcomposer.org/installer | php
-        php composer.phar install
+    if [ '$TRAVIS_PHP_VERSION' != '5.2' ]; then
+        composer install
     fi
 
 #    echo "=== BUILDING PHING ==="
