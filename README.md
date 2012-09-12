@@ -1,7 +1,7 @@
 P     H     I     N     G
 =========================
 
-  [![Build Status](https://secure.travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME].png)](http://travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME])
+  [![Build Status](https://secure.travis-ci.org/phingofficial/phing.png)](http://travis-ci.org/phingofficial/phing)
 
   (PH)ing (I)s (N)ot (G)NU make; it's a PHP project build system or build
   tool based on Apache Ant. You can do anything with it that you could do
