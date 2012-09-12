@@ -52,7 +52,7 @@ class PhpLintTaskTest extends BuildFileTest {
     public function testDeprecated()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("Deprecated: Assigning the return value of new by reference is deprecated in");
+        $this->assertInLogs("Assigning the return value of new by reference is deprecated in");
     }
 
     public function testHaltOnFailure()
