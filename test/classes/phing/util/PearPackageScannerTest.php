@@ -35,12 +35,9 @@ class PearPackageScannerTest extends BuildFileTest
     public function setUp() 
     {
         //needed for PEAR's Config and Registry classes
-        error_reporting(error_reporting() | E_DEPRECATED & ~E_STRICT);
+        error_reporting(error_reporting() & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT);
     }
     
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testLoadPackageInfo()
     {
         if (version_compare(PHP_VERSION, '5.3.2') < 0) {
@@ -87,9 +84,6 @@ class PearPackageScannerTest extends BuildFileTest
         $ppfs->setRole(null);
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Deprecated
-     */
     public function testScanRoleDocCorrectDirectory()
     {
         $pps = new PearPackageScanner();
