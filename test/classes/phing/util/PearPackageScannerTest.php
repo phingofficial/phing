@@ -31,7 +31,9 @@ require_once 'phing/util/PearPackageScanner.php';
  * @package phing.util
  */
 class PearPackageScannerTest extends BuildFileTest 
-{ 
+{
+    protected $backupGlobals = false;
+    
     public function setUp() 
     {
         //needed for PEAR's Config and Registry classes
