@@ -35,7 +35,7 @@ class PearPackageScannerTest extends BuildFileTest
     public function setUp() 
     {
         //needed for PEAR's Config and Registry classes
-        error_reporting(error_reporting() & ~E_STRICT);
+        error_reporting(error_reporting() | E_DEPRECATED & ~E_STRICT);
     }
     
     /**
