@@ -59,6 +59,13 @@ class HttpGetTask extends Task
      * @var null|bool
      */
     protected $sslVerifyPeer = null;
+    
+    /**
+     * Holds value for "follow_redirects" option
+     *
+     * @var null|bool
+     */
+    protected $followRedirects = null;
 
     /**
      * Holds the proxy
@@ -111,6 +118,10 @@ class HttpGetTask extends Task
 
         if (null !== $this->sslVerifyPeer) {
             $config['ssl_verify_peer'] = $this->sslVerifyPeer;
+        }
+        
+        if (null !== $this->followRedirects) {
+            $config['follow_redirects'] = $this->followRedirects;
         }
 
         $this->log("Fetching " . $this->url);
@@ -178,6 +189,16 @@ class HttpGetTask extends Task
     public function setSslVerifyPeer($value)
     {
         $this->sslVerifyPeer = $value;
+    }
+    
+    /**
+     * Sets the follow_redirects option
+     *
+     * @param bool $value
+     */
+    public function setFollowRedirects($value)
+    {
+        $this->followRedirects = $value;
     }
 
     /**
