@@ -7738,6 +7738,16 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>n/a</entry>
                         <entry>Yes (unless fileset)</entry>
                     </row>
+                    <row>
+                    	<entry><literal>contentType</literal></entry>
+                    	<entry><literal role="type">String</literal></entry>
+                    	<entry>Content type of the object, set to
+                    	<literal>auto</literal> if you want to autodetect
+                    	the content type based on the source file
+                    	extension</entry>
+                    	<entry>binary/octet-stream</entry>
+                    	<entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
