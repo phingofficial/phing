@@ -56,9 +56,9 @@ class HttpGetTask extends Task
     /**
      * Holds value for "ssl_verify_peer" option
      *
-     * @var null|bool
+     * @var boolean
      */
-    protected $sslVerifyPeer = null;
+    protected $sslVerifyPeer = true;
     
     /**
      * Holds value for "follow_redirects" option
@@ -116,9 +116,7 @@ class HttpGetTask extends Task
             $config['proxy_port'] = $url['port'];
         }
 
-        if (null !== $this->sslVerifyPeer) {
-            $config['ssl_verify_peer'] = $this->sslVerifyPeer;
-        }
+        $config['ssl_verify_peer'] = $this->sslVerifyPeer;
         
         if (null !== $this->followRedirects) {
             $config['follow_redirects'] = $this->followRedirects;
