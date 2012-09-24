@@ -52,7 +52,14 @@ class HttpGetTask extends Task
      * @var string
      */
     protected $dir = null;
-    
+
+    /**
+     * Holds value for "ssl_verify_peer" option
+     *
+     * @var null|bool
+     */
+    protected $sslVerifyPeer = null;
+
     /**
      * Holds the proxy
      *
@@ -100,6 +107,10 @@ class HttpGetTask extends Task
             $config['proxy_password'] = $url['pass'];
             $config['proxy_host'] = $url['host'];
             $config['proxy_port'] = $url['port'];
+        }
+
+        if (null !== $this->sslVerifyPeer) {
+            $config['ssl_verify_peer'] = $this->sslVerifyPeer;
         }
 
         $this->log("Fetching " . $this->url);
@@ -157,6 +168,16 @@ class HttpGetTask extends Task
      */
     public function setDir($dir) {
         $this->dir = $dir;
+    }
+
+    /**
+     * Sets the ssl_verify_peer option
+     *
+     * @param bool $value
+     */
+    public function setSslVerifyPeer($value)
+    {
+        $this->sslVerifyPeer = $value;
     }
 
     /**
