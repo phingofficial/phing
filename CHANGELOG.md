@@ -5,6 +5,11 @@ P     H     I     N     G
 Sep. 12, 2012 - Phing 2.4.13
 ---------------------------
 
+This releases updates the composer package, adds a phploc task and improved
+support for phpDocumentor 2 and IonCube 7, improves the unit tests,
+clarifies the documentation in a number of places, and addresses
+the following issues:
+
   * [915] path with special characters does not delete
   * [909] Replace __DIR__
   * [905] Add filterchain support to the property task
