@@ -2867,6 +2867,20 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>The filename part of the URL</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                    	<entry><literal>followRedirects</literal></entry>
+                    	<entry><literal role="type">Boolean</literal></entry>
+                    	<entry>Whether to follow HTTP redirects</entry>
+                    	<entry>false</entry>
+                    	<entry>No</entry>
+                    </row>
+                    <row>
+                    	<entry><literal>sslVerifyPeer</literal></entry>
+                    	<entry><literal role="type">Boolean</literal></entry>
+                    	<entry>Whether to verify SSL certificates</entry>
+                    	<entry>true</entry>
+                    	<entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
