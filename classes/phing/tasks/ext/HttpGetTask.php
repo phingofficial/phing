@@ -52,7 +52,14 @@ class HttpGetTask extends Task
      * @var string
      */
     protected $dir = null;
-    
+
+    /**
+     * Holds value for "follow_redirects" option
+     *
+     * @var null|bool
+     */
+    protected $followRedirects = null;
+
     /**
      * Holds the proxy
      *
@@ -100,6 +107,10 @@ class HttpGetTask extends Task
             $config['proxy_password'] = $url['pass'];
             $config['proxy_host'] = $url['host'];
             $config['proxy_port'] = $url['port'];
+        }
+
+        if (null !== $this->followRedirects) {
+            $config['follow_redirects'] = $this->followRedirects;
         }
 
         $this->log("Fetching " . $this->url);
@@ -157,6 +168,16 @@ class HttpGetTask extends Task
      */
     public function setDir($dir) {
         $this->dir = $dir;
+    }
+
+    /**
+     * Sets the follow_redirects option
+     *
+     * @param bool $value
+     */
+    public function setFollowRedirects($value)
+    {
+        $this->followRedirects = $value;
     }
 
     /**
