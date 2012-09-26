@@ -1,7 +1,6 @@
 <?php
 
-//    require_once "PHPUnit/Framework/TestCase.php";
-    require_once "HelloWorld.php";
+    require_once "src/HelloWorld.php";
 
     /**
     * Test class for HelloWorld

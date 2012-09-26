@@ -5,20 +5,20 @@
 			<formatter type="plain" usefile="false"/>
 			<formatter type="summary" usefile="false"/>
 			<batchtest>
-				<fileset dir=".">
+				<fileset dir="tests">
 					<include name="provider_failTest.php"/>
 				</fileset>
 			</batchtest>
 		</phpunit>
 	</target>
 
-        <target name="testHelloWorld">
+        <target name="testXmlFormatter">
                 <phpunit haltonerror="true" haltonfailure="true"
 	                printsummary="true">
                         <formatter type="xml" usefile="false"/>
                         <formatter type="plain" usefile="false"/>
                         <batchtest>
-                                <fileset dir=".">
+                                <fileset dir="tests">
                                         <include name="HelloWorldTest.php"/>
                                 </fileset>
                         </batchtest>
