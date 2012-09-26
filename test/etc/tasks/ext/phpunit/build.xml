@@ -24,4 +24,26 @@
                         </batchtest>
                 </phpunit>
         </target>
+        
+        <target name="testDoubleAutoloader" depends="testAutoloader1,testAutoloader2"/>
+	
+	<target name="testAutoloader1">
+		<phpunit bootstrap="${project.basedir}/bootstrap.php">
+			<batchtest>
+				<fileset dir="tests">
+					<include name="**/*Test.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+
+	<target name="testAutoloader2">
+		<phpunit bootstrap="${project.basedir}/bootstrap.php">
+			<batchtest>
+				<fileset dir="tests">
+					<include name="**/*Test.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
 </project>

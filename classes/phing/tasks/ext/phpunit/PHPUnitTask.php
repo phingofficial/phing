@@ -301,9 +301,8 @@ class PHPUnitTask extends Task
         
         $autoloadSave = spl_autoload_functions();
         
-        if ($this->bootstrap)
-        {
-            require_once $this->bootstrap;
+        if ($this->bootstrap) {
+            require $this->bootstrap;
         }
         
         $suite = new PHPUnit_Framework_TestSuite('AllTests');

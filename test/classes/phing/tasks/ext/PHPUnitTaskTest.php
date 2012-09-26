@@ -54,4 +54,11 @@ class PHPUnitTaskTest extends BuildFileTest {
       $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
     }
     
+    /**
+     * Regression test for ticket http://www.phing.info/trac/ticket/893
+     */
+    public function testDoubleAutoloader()
+    {
+      $this->executeTarget(__FUNCTION__);
+    }
 }
