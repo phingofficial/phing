@@ -49,7 +49,7 @@ class PHPUnitTaskTest extends BuildFileTest {
      * Regression test for ticket http://www.phing.info/trac/ticket/363
      * "PHPUnit task fails with formatter type 'xml'"
      */
-    public function testHelloWorld() {
+    public function testXmlFormatter() {
       $this->executeTarget(__FUNCTION__);
       $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
     }
