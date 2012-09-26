@@ -29,7 +29,7 @@ require_once 'phing/BuildListener.php';
 require_once 'phing/system/io/PhingFile.php';
 
 /**
- * A BuildFileTest is a TestCase which executes targets from an Ant buildfile 
+ * A BuildFileTest is a TestCase which executes targets from a Phing buildfile 
  * for testing.
  * 
  * This class provides a number of utility methods for particular build file 
