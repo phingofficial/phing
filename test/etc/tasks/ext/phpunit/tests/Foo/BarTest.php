@@ -1,12 +1,10 @@
 <?php
 
-namespace Foo;
-
-class BarTest extends \PHPUnit_Framework_TestCase
+class Foo_BarTest extends PHPUnit_Framework_TestCase
 {
     public function testGetString()
     {
-        $bar = new Bar();
+        $bar = new Foo_Bar();
         
         $this->assertEquals('baz', $bar->getString());
     }

@@ -1,8 +1,6 @@
 <?php
 
-namespace Foo;
-
-class Bar
+class Foo_Bar
 {
     public function getString()
     {
