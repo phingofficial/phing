@@ -77,6 +77,10 @@
                         <entry>Full path to current buildfile.</entry>
                     </row>
                     <row>
+                        <entry><literal>phing.file.dir</literal></entry>
+                        <entry>Path that contains the current buildfile.</entry>
+                    </row>
+                    <row>
                         <entry><literal>phing.home</literal></entry>
                         <entry>Phing installation directory, not set in PEAR installations.</entry>
                     </row>
