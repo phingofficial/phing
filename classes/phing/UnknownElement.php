@@ -109,10 +109,10 @@ class UnknownElement extends Task {
     /**
      *  Handle child elemets of the unknown element, if any.
      *
-     *  @param ProjectComponent The parent object the unkown element belongs to
-     *  @param object The parent wrapper object
+     *  @param object $parent The parent object the unkown element belongs to
+     *  @param object $parentWrapper The parent wrapper object
      */
-    function handleChildren(ProjectComponent $parent, $parentWrapper) {
+    function handleChildren($parent, $parentWrapper) {
 
         if ($parent instanceof TaskAdapter) {
             $parent = $parent->getProxy();
@@ -139,9 +139,7 @@ class UnknownElement extends Task {
                 $realChild->setRuntimeConfigurableWrapper($childWrapper);
             }
             
-            if ($realChild instanceof ProjectComponent) {
-                $child->handleChildren($realChild, $childWrapper);
-            }
+            $child->handleChildren($realChild, $childWrapper);
             
             if ($realChild instanceof Task) {
                 $realChild->maybeConfigure();
@@ -197,8 +195,9 @@ class UnknownElement extends Task {
             $this->project->addReference($attrs['id'], $task);
         }
 
-        // UnknownElement always has an associated target
-        $task->setOwningTarget($this->target);
+        if ($this->target !== null) {
+            $task->setOwningTarget($this->target);
+        }
 
         $task->init();
         return $task;
