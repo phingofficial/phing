@@ -695,6 +695,46 @@ class Project {
         // everything fine return reference
         return $task;
     }
+    
+    /**
+     * Creates a new condition and returns the reference to it
+     *
+     * @param string $conditionType
+     * @return Condition
+     * @throws BuildException
+     */
+    public function createCondition($conditionType)
+    {
+        try {
+            $classname = "";
+            $tasklwr = strtolower($conditionType);
+            foreach ($this->taskdefs as $name => $class) {
+                if (strtolower($name) === $tasklwr) {
+                    $classname = $class;
+                    break;
+                }
+            }
+
+            if ($classname === "") {
+                return null;
+            }
+
+            $cls = Phing::import($classname);
+
+            if (!class_exists($cls)) {
+                throw new BuildException("Could not instantiate class $cls, even though a class was specified. (Make sure that the specified class file contains a class with the correct name.)");
+            }
+
+            $o = new $cls();
+            if ($o instanceof Condition) {
+                return $o;
+            } else {
+                throw new BuildException("Not actually a condition");
+            }
+        } catch (Exception $e) {
+            throw new BuildException("Could not create condition of type: " . $conditionType, $e);
+        }
+    }
 
     /**
      * Create a datatype instance and return reference to it

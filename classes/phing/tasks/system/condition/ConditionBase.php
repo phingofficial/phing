@@ -23,6 +23,7 @@ require_once 'phing/ProjectComponent.php';
 include_once 'phing/Project.php';
 include_once 'phing/tasks/system/AvailableTask.php';
 include_once 'phing/tasks/system/condition/Condition.php';
+include_once 'phing/parser/CustomChildCreator.php';
 
 /**
  *  Abstract baseclass for the <condition> task as well as several
@@ -35,7 +36,8 @@ include_once 'phing/tasks/system/condition/Condition.php';
  *  @version   $Id$
  *  @package   phing.tasks.system.condition
  */
-abstract class ConditionBase extends ProjectComponent implements IteratorAggregate {
+abstract class ConditionBase extends ProjectComponent
+    implements IteratorAggregate, CustomChildCreator {
         
     public $conditions = array(); // needs to be public for "inner" class access
 
@@ -149,6 +151,19 @@ abstract class ConditionBase extends ProjectComponent implements IteratorAggrega
         include_once 'phing/tasks/system/condition/ReferenceExistsCondition.php';
         $num = array_push($this->conditions, new ReferenceExistsCondition());
         return $this->conditions[$num-1];
+    }
+    
+    /**
+     * @param string $elementName
+     * @param Project $project
+     * @throws BuildException
+     * @return Condition
+     */
+    public function customChildCreator($elementName, Project $project)
+    {
+        $condition = $project->createCondition($elementName);
+        $num = array_push($this->conditions, $condition);
+        return $this->conditions[$num - 1];
     }
 
 }
