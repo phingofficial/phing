@@ -15,7 +15,7 @@
     <target name="testCustomCondition">
     	<typedef name="testcondition" classname="TestCondition"/>
    	<condition property="isCustom">
-	    <testcondition/>
+	    <testcondition foo="bar"/>
     	</condition>
     </target>
 </project>

@@ -138,8 +138,11 @@ class TaskHandler extends AbstractHandler {
             print("Swallowing exception: ".$be->getMessage() . "\n");
         }
 
-        // the task is not known of bat, try to load it on thy fly
-        if ($this->task === null) {
+        // if the task is not known beforehand, wrap it
+        // in an UnknownElement object to enable runtime configuration
+        // NB: this is also done for ConditionBase objects to allow
+        // dynamic conditions without breaking BC for all tasks
+        if ($this->task === null || ($this->task instanceof TaskAdapter && $this->task->getProxy() instanceof ConditionBase)) {
             $this->task = new UnknownElement($tag);
             $this->task->setProject($project);
             $this->task->setTaskType($tag);
