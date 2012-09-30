@@ -120,6 +120,11 @@ class NestedElementHandler extends AbstractHandler {
         try {
             if ($this->parent instanceof UnknownElement) {
                 $this->child = new UnknownElement(strtolower($propType));
+                $this->child->setProject($project);
+                $this->child->setLocation($this->parser->getLocation());
+                if ($this->target !== null) {
+                    $this->child->setOwningTarget($this->target);
+                }
                 $this->parent->addChild($this->child);
             } else {                
                 $this->child = $ih->createElement($project, $this->parent, strtolower($propType));
