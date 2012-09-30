@@ -708,7 +708,7 @@ class Project {
         try {
             $classname = "";
             $tasklwr = strtolower($conditionType);
-            foreach ($this->taskdefs as $name => $class) {
+            foreach ($this->typedefs as $name => $class) {
                 if (strtolower($name) === $tasklwr) {
                     $classname = $class;
                     break;
