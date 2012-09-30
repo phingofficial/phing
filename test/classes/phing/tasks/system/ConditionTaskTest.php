@@ -34,7 +34,7 @@ class ConditionTaskTest extends BuildFileTest
     public function testCustomCondition()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('This is a nested inline text message');
+        $this->assertPropertySet('isCustom');
     }
 }
 
