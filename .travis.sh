@@ -47,6 +47,7 @@ installPearTask ()
 
     sudo apt-get install python-docutils
     pear install VersionControl_Git-alpha
+    pear install VersionControl_SVN-alpha
     pear install pear/XML_Serializer-beta
     pear install --alldeps PEAR_PackageFileManager
     pear install --alldeps PEAR_PackageFileManager2
