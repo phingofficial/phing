@@ -10,7 +10,7 @@
          stopOnFailure="false"
          syntaxCheck="false"
          verbose="true"
-         strict="true">
+         strict="false">
     <testsuites>
         <testsuite name="AllTests">
             <directory>classes/phing/</directory>
