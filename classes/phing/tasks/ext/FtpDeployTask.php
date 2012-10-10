@@ -28,7 +28,7 @@ require_once 'phing/Task.php';
  * 
  * 
  * Example usage:
- * <ftpdeploy host="host" port="21" username="user" password="password" dir="public_html" mode="ascii" clearfirst="true">
+ * <ftpdeploy host="host" port="21" username="user" password="password" dir="public_html" mode="ascii" clearfirst="true" depends="false" filemode="" dirmode="">
  *   <fileset dir=".">
  *     <include name="**"/>
  *     <exclude name="phing"/>
@@ -40,6 +40,7 @@ require_once 'phing/Task.php';
  * </ftpdeploy>
  *
  * @author Jorrit Schippers <jorrit at ncode dot nl>
+ * @contributor Steffen Sørensen <steffen@sublife.dk>
  * @version $Id$
  * @since 2.3.1
  * @package  phing.tasks.ext
@@ -56,6 +57,9 @@ class FtpDeployTask extends Task
     private $mode = FTP_BINARY;
     private $clearFirst = false;
     private $passive = false;
+    private $depends = false;
+    private $dirmode = false;
+    private $filemode = false;
 
     protected $logLevel = Project::MSG_VERBOSE;
     
@@ -103,6 +107,18 @@ class FtpDeployTask extends Task
     
     public function setClearFirst($clearFirst) {
         $this->clearFirst = (bool) $clearFirst;
+    }
+
+    public function setDepends($depends){
+		$this->depends = (bool) $depends;
+	}
+    
+    public function setFilemode($filemode){
+        $this->filemode = octdec(str_pad($filemode,4,'0',STR_PAD_LEFT));
+    }
+    
+    public function setDirmode($dirmode){
+        $this->dirmode = octdec(str_pad($dirmode,4,'0',STR_PAD_LEFT));
     }
     
     public function createFileSet() {
@@ -155,14 +171,14 @@ class FtpDeployTask extends Task
         } else {
             $this->log('Connected to FTP server ' . $this->host . ' on port ' . $this->port, $this->logLevel);
         }
-        
+
         $ret = $ftp->login($this->username, $this->password);
         if(@PEAR::isError($ret)) {
             throw new BuildException('Could not login to FTP server '.$this->host.' on port '.$this->port.' with username '.$this->username.': '.$ret->getMessage());
         } else {
             $this->log('Logged in to FTP server with username ' . $this->username, $this->logLevel);
         }
-        
+
         if ($this->passive) {
             $this->log('Setting passive mode', $this->logLevel);
             $ret = $ftp->setPassive();
@@ -198,36 +214,92 @@ class FtpDeployTask extends Task
         
         $fs = FileSystem::getFileSystem();
         $convert = $fs->getSeparator() == '\\';
-        
+
         foreach($this->filesets as $fs) {
+            // Array for holding directory content informations
+            $remoteFileInformations = array();
+
             $ds = $fs->getDirectoryScanner($project);
             $fromDir  = $fs->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs  = $ds->getIncludedDirectories();
+
             foreach($srcDirs as $dirname) {
                 if($convert)
                     $dirname = str_replace('\\', '/', $dirname);
-                $this->log('Will create directory '.$dirname, $this->logLevel);
-                $ret = $ftp->mkdir($dirname, true);
-                if(@PEAR::isError($ret)) {
-                    $ftp->disconnect();
-                    throw new BuildException('Could not create directory '.$dirname.': '.$ret->getMessage());
+				
+                // Read directory informations, if file exists, else create the directory
+                if(!$this->_directoryInformations($ftp, $remoteFileInformations, $dirname)){
+                    $this->log('Will create directory '.$dirname, $this->logLevel);
+                    $ret = $ftp->mkdir($dirname, true);
+                    if(@PEAR::isError($ret)) {
+                        $ftp->disconnect();
+                        throw new BuildException('Could not create directory '.$dirname.': '.$ret->getMessage());
+                    }
                 }
+                if($this->dirmode){
+                    if($this->dirmode == 'inherit'){
+                        $mode = fileperms($dirname);
+                    } else {
+                        $mode = $this->dirmode;
+                    }
+                    // Because Net_FTP does not support a chmod call we call ftp_chmod directly
+                    ftp_chmod($ftp->_handle, $mode, $dirname);
+				}
             }
+
             foreach($srcFiles as $filename) {
                 $file = new PhingFile($fromDir->getAbsolutePath(), $filename);
                 if($convert)
                     $filename = str_replace('\\', '/', $filename);
-                $this->log('Will copy '.$file->getCanonicalPath().' to '.$filename, $this->logLevel);
-                $ret = $ftp->put($file->getCanonicalPath(), $filename, true, $this->mode);
-                if(@PEAR::isError($ret)) {
-                    $ftp->disconnect();
-                    throw new BuildException('Could not deploy file '.$filename.': '.$ret->getMessage());
+				
+                $local_filemtime = filemtime($file->getCanonicalPath());
+                if(isset($remoteFileInformations[$filename]['stamp'])){
+                    $remoteFileModificationTime = $remoteFileInformations[$filename]['stamp'];
+                } else {
+                    $remoteFileModificationTime = 0;
+                }
+
+                if(!$this->depends || ($local_filemtime > $remoteFileModificationTime) ){
+                    $this->log('Will copy '.$file->getCanonicalPath().' to '.$filename, $this->logLevel);
+                    $ret = $ftp->put($file->getCanonicalPath(), $filename, true, $this->mode);
+                    if(@PEAR::isError($ret)) {
+                        $ftp->disconnect();
+                        throw new BuildException('Could not deploy file '.$filename.': '.$ret->getMessage());
+                    }
+                }
+                if($this->filemode){
+                    if($this->filemode == 'inherit'){
+                        $mode = fileperms($filename);
+                    } else {
+                        $mode = $this->filemode;
+                    }
+                // Because Net_FTP does not support a chmod call we call ftp_chmod directly
+                    ftp_chmod($ftp->_handle, $mode, $filename);
                 }
             }
         }
         
         $ftp->disconnect();
         $this->log('Disconnected from FTP server', $this->logLevel);
+    }
+
+    private function
+
+    private function _directoryInformations(Net_FTP $ftp, &$remoteFileInformations, $directory) {
+        $content = $ftp->ls($directory);
+        if (@PEAR::isError($content) || sizeof($content) == 0) {
+            return false;
+        } else {
+            if (!empty($directory)) {
+                $directory .= '/';
+            }
+            while (list(, $val) = each($content)) {
+                if ($val['name'] != '.' && $val['name'] != '..') {
+                    $remoteFileInformations[$directory . $val['name']] = $val;
+                }
+            }
+            return true;
+        }
     }
 }
