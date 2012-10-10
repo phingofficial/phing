@@ -261,7 +261,7 @@ abstract class SvnBaseTask extends Task
         
         // Set up runtime options. Will be passed to all
         // subclasses.
-        $options = array('fetchmode' => $this->fetchMode, 'svn_path' => $this->getSvnPath());
+        $options = array('fetchmode' => $this->fetchMode, 'binaryPath' => $this->getSvnPath());
         
         // Pass array of subcommands we need to factory
         $this->svn = VersionControl_SVN::factory($mode, $options);
@@ -307,34 +307,13 @@ abstract class SvnBaseTask extends Task
      */
     protected function run($args = array(), $switches = array())
     {
-        $svnstack = PEAR_ErrorStack::singleton('VersionControl_SVN');
+        $tempArgs     = array_merge($this->svnArgs, $args);
+        $tempSwitches = array_merge($this->svnSwitches, $switches);
         
-        $tempArgs = $this->svnArgs;
-        
-        $tempArgs = array_merge($tempArgs, $args);
-
-        $tempSwitches = $this->svnSwitches;
-        
-        $tempSwitches = array_merge($tempSwitches, $switches);
-
-        if ($output = $this->svn->run($tempArgs, $tempSwitches))
-        {
-            return $output;
-        }
-        else
-        {
-            if (count($errs = $svnstack->getErrors()))
-            {
-                $err = current($errs);
-                
-                $errorMessage = $err['message'];
-                
-                if (isset($err['params']['errstr'])) {
-                    $errorMessage = $err['params']['errstr'];
-                }
-                
-                throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $errorMessage);
-            }
+        try {
+            return $this->svn->run($tempArgs, $tempSwitches);
+        } catch (Exception $e) {
+            throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $e->getMessage());
         }
     }
 }
