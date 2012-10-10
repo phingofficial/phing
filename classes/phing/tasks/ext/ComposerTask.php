@@ -1,9 +1,7 @@
 <?php
 
 require_once "phing/Task.php";
-require_once dirname(__FILE__) . "/Arg.php";
 
-use Phing\Tasks\Ext\Composer\Arg;
 /**
  * Composer Task
  * Run composer straight from phing
@@ -32,9 +30,19 @@ class ComposerTask extends \Task
 
     /**
      *
+     * @var Commandline
+     */
+    private $commandLine =null;
+    /**
+     *
      * @var string path to Composer application
      */
     private $composer = 'composer.phar';
+
+    public function __construct()
+    {
+        $this->commandLine = new Commandline();
+    }
 
     /**
      * Sets the path to php executable.
@@ -92,40 +100,30 @@ class ComposerTask extends \Task
     }
 
     /**
-     * appends an arg tag to the arguments stack
+     * creates a nested arg task
      *
      * @return Arg Argument object
      */
 
     public function createArg()
     {
-        $num = array_push($this->args, new Arg());
-        return $this->args[$num - 1];
-    }
-
-    /**
-     * return the argumments passed to this task
-     * @return array of Arg()
-     */
-    public function getArgs()
-    {
-        return $this->args;
+        return $this->commandLine->createArgument();
     }
 
     /**
      * Gets the command string to be executed
      * @return string
      */
-    public function getCmdString()
+    public function prepareCommand()
     {
-        $cmd = array(
-                $this->php,
-                $this->composer,
-                $this->command,
-                implode(' ', $this->args)
-        );
-        $cmd = implode(' ', $cmd);
-        return $cmd;
+        $this->commandLine->setExecutable($this->getPhp());
+
+        $composerCommand = $this->commandLine->createArgument(true);
+        $composerCommand->setValue($this->getCommand());
+
+        $composerPath = $this->commandLine->createArgument(true);
+        $composerPath->setValue($this->getCOmposer());
+
     }
     /**
      * executes the synfony consile application
@@ -133,9 +131,8 @@ class ComposerTask extends \Task
     public function main()
     {
 
-        $cmd = $this->getCmdString();
-        $this->log("executing $cmd");
-
+        $this->prepareCommand();
+        $this->log("executing $this->commandLine");
 
         $composerFile = new SplFileInfo($this->getComposer());
         if (false === $composerFile->isExecutable()
@@ -144,7 +141,7 @@ class ComposerTask extends \Task
         }
 
         $return = 0;
-        passthru($cmd, $return);
+        passthru($this->commandLine, $return);
 
         if ($return > 0) {
             throw new BuildException("Composer execution failed");

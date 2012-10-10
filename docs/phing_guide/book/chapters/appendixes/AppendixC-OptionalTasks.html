@@ -316,9 +316,8 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
         <p>Complex example</p>
 <pre>
             &lt;composer command=&quot;install&quot;&gt;
-                &lt;arg name=&quot;dev&quot; /&gt;
-                &lt;arg value=&quot;some/path/or/single/value&quot; quotes=&quot;true&quot;/&gt;
-            &lt;/SymfonyConsole&gt;
+                &lt;arg value=&quot;--dev&quot; /&gt;
+            &lt;/composer&gt;
 </pre>
         <h3>Attributes</h3>
         <table>
@@ -372,24 +371,10 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
             </thead>
             <tbody>
                 <tr>
-                    <td>name</td>
-                    <td>string</td>
-                    <td>the name for this argument, -- will be appended</td>
-                    <td>n/a</td>
-                    <td>No</td>
-                </tr>
-                <tr>
                     <td>value</td>
                     <td>string</td>
                     <td>the value for the argument</td>
                     <td>n/a</td>
-                    <td>no</td>
-                </tr>
-                <tr>
-                    <td>quotes</td>
-                    <td>string</td>
-                    <td>set to true if the value should be enclosed in double quotes</td>
-                    <td>false</td>
                     <td>no</td>
                 </tr>
             </tbody>
