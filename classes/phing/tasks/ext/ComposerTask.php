@@ -114,7 +114,7 @@ class ComposerTask extends \Task
      * Gets the command string to be executed
      * @return string
      */
-    public function prepareCommand()
+    private function prepareCommand()
     {
         $this->commandLine->setExecutable($this->getPhp());
 
