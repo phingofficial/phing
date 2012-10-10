@@ -5,9 +5,9 @@
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="false"
-         convertWarningsToExceptions="false"
-         processIsolation="true"
-         stopOnFailure="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
          syntaxCheck="false"
          verbose="true"
          strict="true">

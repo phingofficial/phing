@@ -10,3 +10,5 @@ require_once(dirname(__FILE__) . '/classes/phing/BuildFileTest.php');
 require_once('phing/Phing.php');
 
 Phing::startup();
+
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT);
