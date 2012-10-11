@@ -211,14 +211,24 @@ class PHPCPDTask extends Task
         /**
          * Determine PHPCPD installation
          */
-        @include_once 'PHPCPD/Autoload.php';
-
-        if (! class_exists('PHPCPD_TextUI_Command')) {
-            throw new BuildException(
-                'PHPCPDTask depends on PHPCPD being installed '
-                . 'and on include_path.',
-                $this->getLocation()
-            );
+        $oldVersion = false;
+        
+        if (!@include_once('SebastianBergmann/PHPCPD/autoload.php')) {
+            if (!@include_once('PHPCPD/Autoload.php')) {
+                throw new BuildException(
+                    'PHPCPDTask depends on PHPCPD being installed '
+                    . 'and on include_path.',
+                    $this->getLocation()
+                );
+            }
+            
+            $oldVersion = true;
+        } else {
+            if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+                throw new BuildException("The PHPCPD task now requires PHP 5.3+");
+            }
+            
+            $oldVersion = false;
         }
         
         if (!isset($this->_file) and count($this->_filesets) == 0) {
@@ -255,8 +265,13 @@ class PHPCPDTask extends Task
         }
 
         $this->log('Processing files...');
+        
+        if ($oldVersion) {
+            $detector = new PHPCPD_Detector(new PHPCPD_Detector_Strategy_Default());
+        } else {
+            $detector = new \SebastianBergmann\PHPCPD\Detector\Detector(new \SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy());
+        }
 
-        $detector = new PHPCPD_Detector(new PHPCPD_Detector_Strategy_Default());
         $clones   = $detector->copyPasteDetection(
             $filesToParse,
             $this->_minLines,

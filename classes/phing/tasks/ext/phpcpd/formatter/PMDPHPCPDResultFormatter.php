@@ -33,20 +33,23 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
     /**
      * Processes a list of clones.
      *
-     * @param PHPCPD_CloneMap $clones
+     * @param object $clones
      * @param Project $project
      * @param boolean $useFile
      * @param PhingFile|null $outfile
      */
-    public function processClones(PHPCPD_CloneMap $clones, Project $project, $useFile = false, $outFile = null)
+    public function processClones($clones, Project $project, $useFile = false, $outFile = null)
     {
-        @require_once 'PHPCPD/Log/XML/PMD.php';
-
         if (!$useFile || empty($outFile)) {
             throw new BuildException("Output filename required for this formatter");
         }
         
-    	$logger = new PHPCPD_Log_XML_PMD($outFile);
+        if (get_class($clones) == 'PHPCPD_CloneMap') {
+            $logger = new PHPCPD_Log_XML_PMD($outFile);
+        } else {
+            $logger = new \SebastianBergmann\PHPCPD\Log\PMD($outFile);
+        }
+
     	$logger->processClones($clones);
     }
 }
