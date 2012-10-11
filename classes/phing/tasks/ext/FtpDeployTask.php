@@ -284,8 +284,6 @@ class FtpDeployTask extends Task
         $this->log('Disconnected from FTP server', $this->logLevel);
     }
 
-    private function
-
     private function _directoryInformations(Net_FTP $ftp, &$remoteFileInformations, $directory) {
         $content = $ftp->ls($directory);
         if (@PEAR::isError($content) || sizeof($content) == 0) {
