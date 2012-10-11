@@ -64,7 +64,9 @@ installPearTask ()
         echo -e "\nSUCCESS - PHP ENVIRONMENT READY." ||
         ( echo "=== FAILED."; exit 1 )
 
-    if [ '$TRAVIS_PHP_VERSION' != '5.2' ]; then
+    if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
+    	pear install -f phpunit/File_Iterator-1.3.2
+    else
         composer install
     fi
 
