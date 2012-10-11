@@ -31,9 +31,9 @@ installPearTask ()
         sudo pear install pear.phpunit.de/phpcpd
     phpenv rehash
     # re-test for phpcpd:
-    phpcpd -v 2>&1 >/dev/null   &&
-        echo "... OK"           ||
-        return 1
+    #phpcpd -v 2>&1 >/dev/null   &&
+    #    echo "... OK"           ||
+    #    return 1
 
     echo -e "\nInstalling / upgrading phpcs ... "
     which phpcs >/dev/null                             &&
