@@ -267,11 +267,14 @@ class PHPCPDTask extends Task
         $this->log('Processing files...');
         
         if ($oldVersion) {
-            $detector = new PHPCPD_Detector(new PHPCPD_Detector_Strategy_Default());
+            $detectorClass = 'PHPCPD_Detector';
+            $strategyClass = 'PHPCPD_Detector_Strategy_Default';
         } else {
-            $detector = new \SebastianBergmann\PHPCPD\Detector\Detector(new \SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy());
+            $detectorClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Detector';
+            $strategyClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy';
         }
-
+        
+        $detector = new $detectorClass(new $strategyClass);
         $clones   = $detector->copyPasteDetection(
             $filesToParse,
             $this->_minLines,
