@@ -68,6 +68,7 @@ installPearTask ()
     	pear install -f phpunit/File_Iterator-1.3.2
     	pear install -f phpunit/PHP_TokenStream-1.1.4
     	pear install -f phpunit/PHP_Timer-1.0.3
+    	pear install -f phpunit/Text_Template-1.1.1
     else
         composer install
     fi
