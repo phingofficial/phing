@@ -110,8 +110,12 @@ class ZipTask extends MatchingTask {
      * do the work
      * @throws BuildException
      */
-    public function main() {
-    
+    public function main()
+    {
+        if (!extension_loaded('zip')) {
+            throw new BuildException("Zip extension is required");
+        }
+        
         if ($this->zipFile === null) {
             throw new BuildException("zipfile attribute must be set!", $this->getLocation());
         }
