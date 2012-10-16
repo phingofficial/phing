@@ -232,7 +232,7 @@ class ExecTask extends Task
         }
 
         if ($this->error !== null) {
-            $this->realCommand .= ' 2> ' . $this->error->getPath();
+            $this->realCommand .= ' 2> ' . escapeshellarg($this->error->getPath());
             $this->log(
                 "Writing error output to: " . $this->error->getPath(),
                 $this->logLevel
