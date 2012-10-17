@@ -460,7 +460,7 @@ class PhpCodeSnifferTask extends Task {
             $sniffs = $phpcs->getSniffs();
             $sniffStr = '';
             foreach ($sniffs as $sniff) {
-                $sniffStr .= '- ' . $sniff.PHP_EOL;
+                $sniffStr .= '- ' . get_class($sniff).PHP_EOL;
             }
             $this->log('The list of used sniffs (#' . count($sniffs) . '): ' . PHP_EOL . $sniffStr, Project::MSG_INFO);
         }
