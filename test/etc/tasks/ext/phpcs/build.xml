@@ -3,6 +3,7 @@
 		<phpcodesniffer
 			standard="Zend"
 			file="test.php"
+			showSniffs="true"
 			allowedFileExtensions="php">
 			<formatter type="summary" usefile="false"  />
 			<formatter type="full" outfile="report.txt" />
