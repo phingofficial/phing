@@ -178,7 +178,7 @@ class SshTask extends Task {
         }
         
         $this->connection = ssh2_connect($this->host, $this->port);
-        if (is_null($this->connection)) {
+        if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
 
