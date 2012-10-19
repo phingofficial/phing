@@ -984,9 +984,9 @@
                         <entry><literal>dirmode</literal></entry>
                         <entry><literal role="type">mixed</literal></entry>
                         <entry>
-                            Permissions of the uplaoded files, this can either be 'inherit' or it can be a octal value
-                            without leading zero. Settings the dirmode to 'inherit' will cause the uploaded files to
-                            have the same permissions as they have on the filesystem.
+                            Permissions of the uploaded files, can either be 'inherit' or it can be a octal value
+                            without the leading zero. Settings the dirmode to 'inherit' will cause the uploaded files to
+                            have the same permissions as on the filesystem.
                         </entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
@@ -1002,8 +1002,9 @@
                         <entry><literal>depends</literal></entry>
                         <entry><literal role="type">boolean</literal></entry>
                         <entry>
-                            If depends is set to true, only update files, where the local modification
-                            timestamp is never then the file on the server.
+                            If depends is set to true, the task will only update files
+                            with a local modification timestamp that is newer
+                            than the corresponding timestamp on the server.
                         </entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
