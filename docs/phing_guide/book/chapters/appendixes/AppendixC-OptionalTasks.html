@@ -1104,6 +1104,33 @@ checksum="true" /&gt;
 					<td>No</td>
 				</tr>
 				<tr>
+					<td>dirmode</td>
+					<td>Boolean</td>
+					<td>Permissions of the uploaded files, can either be 'inherit'
+					or it can be a octal value without the leading zero.
+					Setting the dirmode to 'inherit' will cause the uploaded files
+					to have the same permissions as on the filesystem.</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>filemode</td>
+					<td>Boolean</td>
+					<td>This option does the same as dirmode, except it only affects
+					regular files.</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>depends</td>
+					<td>Boolean</td>
+					<td>If depends is set to true, the task will only update files
+					with a local modification timestamp that is newer than the
+					corresponding timestamp on the server.</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
+				<tr>
 					<td>level</td>
 					<td>String</td>
 					<td>Control the level at which the task reports status messages. One of
