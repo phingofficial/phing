@@ -303,6 +303,85 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 &nbsp;&nbsp;&lt;/fileset&gt;
 &lt;/coverage-merger&gt;
 </pre>
+
+<h2>
+            <a name="ComposerTask"></a>ComposerTask
+        </h2>
+        <p>Executes Composer commands</p>
+        <h3>Examples</h3>
+        <p>Simple example</p>
+<pre>
+            &lt;composer command=&quot;install&quot;/&gt;
+</pre>
+        <p>Complex example</p>
+<pre>
+            &lt;composer command=&quot;install&quot;&gt;
+                &lt;arg value=&quot;--dev&quot; /&gt;
+            &lt;/composer&gt;
+</pre>
+        <h3>Attributes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                    <th>Required</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>command</td>
+                    <td>string</td>
+                    <td>The Composer command to execute</td>
+                    <td>n/a</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>composer</td>
+                    <td>string</td>
+                    <td>The path to composer application</td>
+                    <td>composer.phar</td>
+                    <td>no</td>
+                </tr>
+                <tr>
+                    <td>php</td>
+                    <td>string</td>
+                    <td>The path to the php executable</td>
+                    <td>php</td>
+                    <td>no</td>
+                </tr>
+            </tbody>
+            
+        </table>
+        <h3>Supported Nested Tags</h3>
+        <ul>
+            <li>Arg
+            <h3>Attributes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                    <th>Required</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>value</td>
+                    <td>string</td>
+                    <td>the value for the argument</td>
+                    <td>n/a</td>
+                    <td>no</td>
+                </tr>
+            </tbody>
+            
+        </table>
+            </li>
+        </ul>
 		<h2>
 			<a name="CoverageReportTask"></a>CoverageReportTask </h2>
 		<p>The CoverageReportTask formats a coverage database into a framed HTML report using XSLT.
