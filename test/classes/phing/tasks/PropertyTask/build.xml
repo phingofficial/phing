@@ -96,6 +96,27 @@
   	<property file="sections.properties" section="s2" />
   	<echo>assert global == ${global}</echo>
   	<echo>assert s2 == ${section}</echo>
+  </target> 
+  
+  <target name="inheritance-solo">
+	<property file="stage.properties"/>
+	<echo>assert stage == ${setting_env}</echo>
+	<echo>assert 1 == ${setting_changed}</echo>
+	<echo>assert TRUE == ${setting_inherit}</echo>
+  </target>
+  
+  <target name="inheritance-double">
+	<property file="trunk.properties"/>
+	<echo>assert trunk == ${setting_env}</echo>
+	<echo>assert 1 == ${setting_changed}</echo>
+	<echo>assert TRUE == ${setting_inherit}</echo>
+  </target>
+  
+  <target name="inheritance-triple">
+	<property file="dev.properties"/>
+	<echo>assert dev == ${setting_env}</echo>
+	<echo>assert 2 == ${setting_changed}</echo>
+	<echo>assert TRUE == ${setting_inherit}</echo>
   </target>
 
 

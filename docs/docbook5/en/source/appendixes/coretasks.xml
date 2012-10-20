@@ -2235,7 +2235,7 @@
 					<row>
 						<entry><literal>file</literal></entry>
 						<entry><literal role="type">String</literal></entry>
-						<entry>Path to properties file.</entry>
+						<entry>Path to properties file. Also supports file inheritance by using { extends PropertiesFileName }.</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
@@ -2291,7 +2291,23 @@
 &lt;property name="foo.bar" value="Yet another property..." />
 &lt;echo message="${foo.bar}" />
 
-&lt;property file="build.properties"  /></programlisting>
+&lt;property file="build.properties"  />
+
+&lt;property file="dev.properties"  />
+dev.properties: 
+{ extends stage }
+enviornmentName = dev
+host = localhost  
+
+stage.properties: 
+{ extends prod }
+enviornmentName = stage  
+
+prod.properties:
+enviornmentName = prod
+host= 192.168.1.15
+ 
+</programlisting>
 		</sect2>
 	</sect1>
 	<sect1 role="taskdef" xml:id="PropertyPromptTask">

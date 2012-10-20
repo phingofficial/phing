@@ -1903,6 +1903,7 @@ food.likes[steak] = false
 	or appending to former ones (for property arrays).
 	The resulting set of properties is then applied according to the <em>override</em> and <em>userProperty</em>
 	attributes.</p>
+
 	<h3>Example</h3>
 	<pre>&lt;property name=&quot;strings.test&quot; value=&quot;Harr harr, more power!&quot; /&gt;
 &lt;echo message=&quot;${strings.test}&quot; /&gt;
@@ -1920,6 +1921,42 @@ food.likes[steak] = false
 
 
 </pre>
+	<h3>Exteding property files</h3>
+	<p>When working with more than one environment and different configurations
+	it might require to use more than one property file. 
+	Working with more than one proerty file means that some configurations 
+	will have to be overrided or removed and the rest will remain the same.
+	This might create an issue of duplicate data. Exteding the property files should solve this issue.
+	<br/><br/>
+		Extending the property file requires adding <em>{ extends PROPERTY_FILE_NAME }</em> <b>without .properties</b>
+		in the <b>first</b> line.<br/> 
+		Supports also relative paths:<br/>
+		<em>{ extends /path/to/my/files/PROPERTY_FILE_NAME }</em><br/>
+		<em>{ extends ../my/files/PROPERTY_FILE_NAME }</em>
+	</p>
+	<h3>Example</h3>
+	<p>
+	In the following example we assume that "prod" environment contains the full configuration values 
+	to make sure that it won't get messed up by mistake. 
+	</p>
+	<pre>
+&lt;property file="dev.properties"  />
+
+dev.properties: 
+{ extends stage }
+enviornmentName = dev
+host = localhost  
+		
+stage.properties: 
+{ extends prod }
+enviornmentName = stage  
+
+prod.properties:
+enviornmentName = prod
+host= 192.168.1.15
+</pre>
+
+
 	<h3>Attributes</h3>
 	<table>
 		<thead>
@@ -1963,7 +2000,7 @@ food.likes[steak] = false
 			<tr>
 				<td>file</td>
 				<td>String</td>
-				<td>Path to a properties file.</td>
+				<td>Path to a properties file. Supports property file extends by using <em>{ extends ENV }</em></td>
 				<td>n/a</td>
 				<td>No</td>
 			</tr>
