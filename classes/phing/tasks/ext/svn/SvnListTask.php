@@ -90,43 +90,33 @@ class SvnListTask extends SvnBaseTask
     {
         $this->setup('list');
 
-        if ($this->forceCompatible) {
-            $output = $this->run(array('--verbose'));
-            $result = null;
+        $output = $this->run(array());
+        $result = null;
+        
+        $entries = $output['list'][0]['entry'];
 
-            $lines = $output['.']['name'];
+        if ($this->orderDescending) {
+            $entries = array_reverse($entries);
+        }
 
-            if ($this->orderDescending) {
-                $lines = array_reverse($lines);
+        $count = 0;
+        $dotSkipped = false;
+        foreach ($entries as $entry) {
+            if ($this->limit > 0 && $count >= $this->limit) {
+                break;
             }
+            
+            $result .= (!empty($result)) ? "\n" : '';
+            $result .= $entry['commit']['revision'] . ' | ' . $entry['commit']['author'] . ' | ' . $entry['commit']['date'] . ' | ' . $entry['name'];
+            $count++;
+        }
 
-            $count = 0;
-            $dotSkipped = false;
-            foreach ($lines as $line) {
-                if ($this->limit > 0 && $count >= $this->limit) {
-                    break;
-                }
-                if (preg_match('@\s+(\d+)\s+(\S+)\s+(\S+ \S+ \S+)\s+(\S+)@', $line, $matches)) {
-                    if ($matches[4] == '.') {
-                        $dotSkipped = true;
-                        continue;
-                    }
-                    $result .= (!empty($result)) ? "\n" : '';
-                    $result .= $matches[1] . ' | ' . $matches[2] . ' | ' . $matches[3] . ' | ' . $matches[4];
-                    $count++;
-                }
-            }
-
-            if (!empty($result)) {
-                $this->project->setProperty($this->getPropertyName(), $result);
-            } elseif ($dotSkipped) {
-                $this->project->setProperty($this->getPropertyName(), "The list is empty.");
-            } else {
-                throw new BuildException("Failed to parse the output of 'svn list --verbose'.");
-            }
+        if (!empty($result)) {
+            $this->project->setProperty($this->getPropertyName(), $result);
+        } elseif ($dotSkipped) {
+            $this->project->setProperty($this->getPropertyName(), "The list is empty.");
         } else {
-            // this is not possible at the moment as SvnBaseTask always uses fetchmode ASSOC
-            // which transfers everything into nasty assoc array instead of xml
+            throw new BuildException("Failed to parse the output of 'svn list'.");
         }
     }
 }

@@ -86,23 +86,18 @@ class SvnLogTask extends SvnBaseTask
             $switches['limit'] = $this->limit;
         }
 
-        if ($this->forceCompatible) {
-            $output = $this->run(array(), $switches);
-            $result = null;
+        $output = $this->run(array(), $switches);
+        $result = null;
 
-            foreach ($output as $line) {
-                $result .= (!empty($result)) ? "\n" : '';
-                $result .= "{$line['REVISION']} | {$line['AUTHOR']}  | {$line['DATE']}  | {$line['MSG']}";
-            }
+        foreach ($output['logentry'] as $line) {
+            $result .= (!empty($result)) ? "\n" : '';
+            $result .= "{$line['revision']} | {$line['author']}  | {$line['date']}  | {$line['msg']}";
+        }
 
-            if (!empty($result)) {
-                $this->project->setProperty($this->getPropertyName(), $result);
-            } else {
-                throw new BuildException("Failed to parse the output of 'svn log'.");
-            }
+        if (!empty($result)) {
+            $this->project->setProperty($this->getPropertyName(), $result);
         } else {
-            // this is not possible at the moment as SvnBaseTask always uses fetchmode ASSOC
-            // which transfers everything into nasty assoc array instead of xml
+            throw new BuildException("Failed to parse the output of 'svn log'.");
         }
     }
 }
