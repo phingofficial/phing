@@ -32,13 +32,14 @@ class SshTask extends Task {
 
     private $host = "";
     private $port = 22;
+    private $methods = null;
     private $username = "";
     private $password = "";
     private $command = "";
     private $pubkeyfile = '';
     private $privkeyfile = '';
     private $privkeyfilepassphrase = '';
-    
+
     /**
      * The name of the property to capture (any) output of the command
      * @var string
@@ -167,6 +168,18 @@ class SshTask extends Task {
         $this->display = (boolean) $display;
     }
 
+
+    /**
+     * Creates an Ssh2Methods object. Handles the <methods /> nested tag
+     * @return Ssh2Methods
+     */
+    public function createMethods()
+    {
+        $this->methods = new Ssh2Methods();
+        return $this->methods;
+    }
+
+
     public function init() 
     {
     }
@@ -176,8 +189,10 @@ class SshTask extends Task {
         if (!function_exists('ssh2_connect')) { 
             throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
         }
-        
-        $this->connection = ssh2_connect($this->host, $this->port);
+
+
+        $methods = !empty($this->methods) ? $this->methods->toArray() : array();
+        $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
@@ -220,5 +235,202 @@ class SshTask extends Task {
         if (isset($stderr_stream)) {
             fclose($stderr_stream);
         }
+    }
+}
+
+
+/**
+ * Class that holds parameters for an ssh2_connect $methods parameter
+ * This corresponds to the optional $methods parameter
+ * for the ssh2_connect function
+ * @see http://php.net/ssh2_connect
+ *
+ * @package   phing.tasks.ext
+ */
+class Ssh2Methods
+{
+    /**
+     * @var string
+     */
+    private $kex;
+
+    /**
+     * @var string
+     */
+    private $hostkey;
+
+    /**
+     * @var Ssh2MethodConnectionParam
+     */
+    private $client_to_server;
+
+    /**
+     * @var Ssh2MethodConnectionParam
+     */
+    private $server_to_client;
+
+    /**
+     * @param string $hostkey
+     */
+    public function setHostkey($hostkey)
+    {
+        $this->hostkey = $hostkey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHostkey()
+    {
+        return $this->hostkey;
+    }
+
+    /**
+     * @param string $kex
+     */
+    public function setKex($kex)
+    {
+        $this->kex = $kex;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKex()
+    {
+        return $this->kex;
+    }
+
+
+    /**
+     * Handles the <client /> nested element
+     * @return Ssh2MethodConnectionParam
+     */
+    public function createClient()
+    {
+        $this->client_to_server = new Ssh2MethodConnectionParam();
+        return $this->client_to_server;
+    }
+
+    /**
+     * Handles the <server /> nested element
+     * @return Ssh2MethodConnectionParam
+     */
+    public function createServer()
+    {
+        $this->server_to_client = new Ssh2MethodConnectionParam();
+        return $this->server_to_client;
+    }
+
+    /**
+     * Convert the params to an array that is suitable to be passed in the ssh2_connect $methods parameter
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = array(
+            'kex' => $this->getKex(),
+            'hostkey' => $this->getHostkey(),
+            'client_to_server' => !empty($this->client_to_server) ? $this->client_to_server->toArray() : null,
+            'server_to_client' => !empty($this->server_to_client) ? $this->server_to_client->toArray() : null
+        );
+
+        return array_filter($array,function($var){
+            if(is_array($var))
+            {
+                return !empty($var);
+            }
+
+            return !is_null($var);
+        });
+    }
+}
+
+/**
+ * Class that holds parameters for an ssh2_connect $methods parameter
+ * This corresponds to the client_to_server and server_to_client keys of the optional $methods parameter
+ * for the ssh2_connect function
+ * @see http://php.net/ssh2_connect
+ *
+ * @package   phing.tasks.ext
+ */
+class Ssh2MethodConnectionParam
+{
+    /**
+     * @var string
+     */
+    private $crypt = null;
+
+    /**
+     * @var string
+     */
+    private $comp = null;
+
+    /**
+     * @var string
+     */
+    private $mac = null;
+
+    /**
+     * @param string $comp
+     */
+    public function setComp($comp)
+    {
+        $this->comp = $comp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComp()
+    {
+        return $this->comp;
+    }
+
+    /**
+     * @param string $crypt
+     */
+    public function setCrypt($crypt)
+    {
+        $this->crypt = $crypt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCrypt()
+    {
+        return $this->crypt;
+    }
+
+    /**
+     * @param string $mac
+     */
+    public function setMac($mac)
+    {
+        $this->mac = $mac;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMac()
+    {
+        return $this->mac;
+    }
+
+    /**
+     * Get the params as an array
+     * unset/null params are excluded from the array
+     * @return array
+     */
+    public function toArray()
+    {
+        return array_filter(
+            get_object_vars($this),
+            function($var){
+                return !is_null($var);
+            }
+        );
     }
 }
