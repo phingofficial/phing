@@ -1281,11 +1281,12 @@
 		<p> So if I import for example a <em>docs/build.xml</em> file named
 				<strong>builddocs</strong>, I can get its path as
 				<strong>phing.file.builddocs</strong>, similarly to the <strong>phing.file</strong>
-			property of the main buildfile. </p>
+			property of the main buildfile. Additionally, the directory will be stored in 
+			<strong>phing.dir.builddocs</strong>.</p>
 		<p>Note that "builddocs" is not the filename, but the name attribute present in the imported
 			project tag.</p>
-		<p>If import file does not have a name attribute, the phing.file.projectname property will
-			not be set.</p>
+		<p>If import file does not have a name attribute, the <strong>phing.file.projectname</strong>
+		    and <strong>phing.dir.projectname</strong> properties will not be set.</p>
 		<h3>Resolving Files Against the Imported File</h3>
 		<p> Suppose your main build file called <code>importing.xml</code> imports a build file
 				<code>imported.xml</code> , located anywhere on the file system, and
@@ -1308,15 +1309,12 @@
 		<pre>
 &lt;!-- imported.xml --&gt;
 &lt;project name=&quot;imported&quot; basedir=&quot;.&quot; default=&quot;...&quot;&gt;
-  &lt;php function=&quot;dirname&quot; returnProperty=&quot;imported.basedir&quot;&gt;
-    &lt;param value=&quot;${phing.file.imported}&quot;/&gt;
-  &lt;/php&gt;
-  &lt;property file=&quot;${imported.basedir}/imported.properties&quot;/&gt;
+  &lt;property file=&quot;${phing.dir.imported}/imported.properties&quot;/&gt;
 &lt;/project&gt;
 </pre>
-		<p> As explained above <code>${phing.file.imported}</code> stores the path of the build
+		<p> As explained above <code>${phing.file.imported}</code> stores the full path of the build
 			script, that defines the project called <strong>imported</strong>, (in short it stores
-			the path to <em>imported.xml</em>) and &lt;php function="dirname"&gt; takes its
+			the path to <em>imported.xml</em>) and <code>${phing.dir.imported}</code> stores its
 			directory. This technique also allows <em>imported.xml</em> to be used as a standalone
 			file (without being imported in other project). </p>
 		<h3>Example</h3>

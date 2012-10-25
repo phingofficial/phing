@@ -1563,11 +1563,13 @@
 			<para>So if I import for example a <literal>docs/build.xml</literal> file named
 					<filename>builddocs</filename>, I can get its path as
 					<literal>phing.file.builddocs</literal>, similarly to the
-					<literal>phing.file</literal> property of the main buildfile.</para>
+					<literal>phing.file</literal> property of the main buildfile. Additionally,
+					the directory will be stored in <literal>phing.dir.builddocs</literal>.</para>
 			<para>Note that "builddocs" is not the filename, but the name attribute present in the
 				imported project tag.</para>
 			<para>If import file does not have a name attribute, the
-					<literal>phing.file.projectname</literal> property will not be set.</para>
+					<literal>phing.file.projectname</literal> and <literal>phing.dir.projectname</literal>
+					properties will not be set.</para>
 		</sect2>
 		<sect2>
 			<title>Resolving Files Against the Imported File</title>
@@ -1590,15 +1592,12 @@
 					<literal>imported.properties</literal> is:</para>
 			<programlisting language="xml">&lt;!-- imported.xml -->
 &lt;project name="imported" basedir="." default="...">
-  &lt;php function="dirname" returnProperty="imported.basedir">
-    &lt;param value="${phing.file.imported}"/>
-  &lt;/php>
-  &lt;property file="${imported.basedir}/imported.properties"/>
+  &lt;property file="${phing.file.imported}/imported.properties"/>
 &lt;/project></programlisting>
-			<para>As explained above <literal>${phing.file.imported}</literal> stores the path of the build
+			<para>As explained above <literal>${phing.file.imported}</literal> stores the full path of the build
 				script, that defines the project called <emphasis>imported</emphasis>, (in short it
-				stores the path to <literal>imported.xml</literal>) and <literal>&lt;php
-					function="dirname"></literal> takes its directory. This technique also allows
+				stores the path to <literal>imported.xml</literal>) and <literal>${phing.dir.imported}</literal>
+				stores its directory. This technique also allows
 					<literal>imported.xml</literal> to be used as a standalone file (without being
 				imported in other project).</para>
 
