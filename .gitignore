@@ -6,3 +6,5 @@ build/pear
 test/reports
 docs/api/docs
 vendor
+/Phing/
+/.idea/
