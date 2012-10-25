@@ -77,7 +77,7 @@
                         <entry>Full path to current buildfile.</entry>
                     </row>
                     <row>
-                        <entry><literal>phing.file.dir</literal></entry>
+                        <entry><literal>phing.dir</literal></entry>
                         <entry>Path that contains the current buildfile.</entry>
                     </row>
                     <row>
