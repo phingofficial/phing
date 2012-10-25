@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <project name="imported" default="">
 
-  <php function="dirname" returnProperty="imported.basedir">
-    <param value="${phing.file.imported}"/>
-  </php>
+  <property name="imported.basedir" value="${phing.dir.imported}"/>
   <property file="${imported.basedir}/imported.properties"/>
 
   <target name="main">
