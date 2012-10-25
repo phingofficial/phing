@@ -2,10 +2,16 @@
 /**
  * Reads property files into a PropertySet.
  * @author Matthias Pigulla <mp@webfactory.de>
+ * @author Shaked Klein Orbach (phing@shakedos.com)
  */
 class PropertyFileReader {
-
+	
 	protected $properties;
+	
+	/**
+	 * @var const - decides how to retreive the extended environment string 
+	 */
+	const EXTENDS_REGEX = '\{\sextends(.*)\}';
 	
 	public function __construct(PropertySet $s) {
 		$this->properties = $s;
@@ -39,6 +45,19 @@ class PropertyFileReader {
             throw new IOException("Unable to parse contents of $filePath");
         }
         
+        // check extends 
+        $extendedFilename = $this->getExtendedFilename($lines[0]);   
+        if ($extendedFilename){
+        	//get path create file and load again
+        	$path = substr($filePath,0,strrpos($filePath,'/')); 
+        	$path = $path? $path . '/': '';  
+        	$newFileName =   $path . $extendedFilename . '.properties';
+        	$file = new PhingFile($newFileName); 
+        	//load before so we can override later 
+        	
+        	$this->load($file);
+        }   
+        
         $currentSection = '';
         $sect = array($currentSection => array(), $section => array());
         $depends = array();
@@ -50,6 +69,10 @@ class PropertyFileReader {
 
         	if (($p = strpos($l, ';')) !== false)
         		$l = substr($l, 0, $p);
+        
+       		if (($p = strpos($l, '{')) !== false){
+       			$l = substr($l, 0, $p); 
+       		}
 
         	if (!($l = trim($l))) 
         		continue;
@@ -71,6 +94,7 @@ class PropertyFileReader {
 			 * a[] = second
 			 */
 			$sect[$currentSection][] = array($name, $value);
+			 
         }
 
         $dependencyOrder = array();
@@ -102,5 +126,16 @@ class PropertyFileReader {
         return $val;
     }
 	
+     /** 
+     * Get the the name of the extended file 
+     * @param string $line
+     * @return string|false 
+     */
+    protected function getExtendedFilename($line){
+    	if (preg_match('#'.self::EXTENDS_REGEX.'#', $line,$matches)){
+    		return trim($matches[1]); 
+    	}
+    	return false; 
+    } 
 	
 }

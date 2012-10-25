@@ -25,6 +25,7 @@ require_once 'phing/BuildFileTest.php';
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
+ * @author Shaked Klein Orbach (phing@shakedos.com)
  * @package phing.tasks.system
  */
 class PropertyTaskTest extends BuildFileTest { 
@@ -85,6 +86,25 @@ class PropertyTaskTest extends BuildFileTest {
 	
 	public function testPropertyFileSections3() {
         $this->scanAssertionsInLogs("property-file-sections-3");
+    }
+    
+    /**
+     * @group FileInhertince
+     */
+    public function testPropertyFileSoloInheritace() {
+      $this->scanAssertionsInLogs('inheritance-solo');
+    }
+    /**
+     * @group FileInhertince
+     */
+    public function testPropertyFileDoubleInheritace() {
+      $this->scanAssertionsInLogs('inheritance-double');
+    }
+    /** 
+     * @group FileInhertince
+     */
+    public function testPropertyFileTripleInheritace() {
+      $this->scanAssertionsInLogs('inheritance-triple');
     }
     
     public function testPrefixFailure() {
