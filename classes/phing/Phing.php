@@ -509,7 +509,7 @@ class Phing {
 
         // set this right away, so that it can be used in logging.
         $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
-        $project->setUserProperty("phing.file.dir", dirname($this->buildFile->getAbsolutePath()));
+        $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
 
         try {
             $project->fireBuildStarted();
