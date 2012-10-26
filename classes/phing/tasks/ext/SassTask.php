@@ -22,7 +22,7 @@
 require_once 'phing/Task.php';
 
 /**
- * Executes Sass for a particular file or directory.
+ * Executes Sass for a particular fileset.
  *
  * @author    Paul Stuart <pstuart2@gmail.com>
  * @version   $Id$
@@ -31,61 +31,135 @@ require_once 'phing/Task.php';
 class SassTask extends Task {
 
 	/**
+	 * Contains the path info of our file to allow us to parse.
+	 * @var array
+	 */
+	protected $pathInfo = null;
+
+	/**
+	 * This flag means 'note errors to the output, but keep going'
+	 * @var bool
+	 */
+	protected $failonerror = true;
+
+	/**
+	 * Sets the failonerror flag. Default: true
+	 *
+	 * @param bool $failonerror
+	 *
+	 * @access public
+	 */
+	public function setFailonerror($failonerror) {
+		$this->failonerror = $failonerror;
+	}
+
+	/**
 	 * The Sass executable.
 	 * @var string
 	 */
 	protected $executable = "sass";
 
+	/**
+	 * Sets the executable to use for sass. Default: sass
+	 *
+	 * The default assumes sass is in your path. If not you can provide the full
+	 * path to sass.
+	 *
+	 * @param string $executable
+	 *
+	 * @access public
+	 */
 	public function setExecutable($executable)
 	{
 		$this->executable = $executable;
 	}
 
 	/**
-	 * Set to true if we want to only process files with the set extfilter.
-	 * @var bool
-	 */
-	protected $verifyext = false;
-
-	public function setVerifyext($verifyext)
-	{
-		$this->verifyext = $verifyext;
-	}
-
-	/**
 	 * The ext type we are looking for when Verifyext is set to true.
 	 *
-	 * More than likely should be ".scss" or ".sass".
+	 * More than likely should be "scss" or "sass".
 	 *
 	 * @var string
 	 */
 	protected $extfilter = "";
 
+	/**
+	 * Sets the extfilter. Default: <none>
+	 *
+	 * This will filter the fileset to only process files that match
+	 * this extension. This could also be done with the fileset.
+	 *
+	 * @param string $extfilter
+	 *
+	 * @access public
+	 */
 	public function setExtfilter($extfilter)
 	{
-		$this->extfilter = $extfilter;
+		$this->extfilter = trim($extfilter, " .");
 	}
 
 	/**
-	 * When true we will remove the current file ext and replace with newext.
+	 * Additional flags to pass to sass.
+	 *
+	 * @var string
+	 */
+	protected $sassflags = "";
+
+	/**
+	 * Additional flags to pass to sass.
+	 *
+	 * Command will be:
+	 * sass {$sassflags} {$inputfile} {$outputfile}
+	 *
+	 * @param string $sassflags
+	 *
+	 * @access public
+	 */
+	public function setSassoptions($sassflags)
+	{
+		$this->sassflags = trim($sassflags);
+	}
+
+	/**
+	 * When true we will remove the current file ext.
 	 * @var bool
 	 */
-	protected $replaceext = true;
+	protected $removeoldext = true;
 
-	public function setReplacext($replaceext)
+	/**
+	 * Sets the removeoldext flag. Default: true
+	 *
+	 * This will cause us to strip the existing extension off the output
+	 * file.
+	 *
+	 * @param bool $removeoldext
+	 *
+	 * @access public
+	 */
+	public function setRemoveoldext($removeoldext)
 	{
-		$this->replaceext = $replaceext;
+		$this->removeoldext = $removeoldext;
 	}
 
 	/**
 	 * The new ext our files will have.
 	 * @var string
 	 */
-	protected $newext = ".css";
+	protected $newext = "css";
 
+	/**
+	 * Sets the newext value. Default: css
+	 *
+	 * This is the extension we will add on to the output file regardless
+	 * of if we remove the old one or not.
+	 *
+	 * @param string $newext
+	 *
+	 * @access public
+	 */
 	public function setNewext($newext)
 	{
-		$this->newext = $newext;
+		$this->newext = trim($newext, " .");
 	}
 
 	/**
@@ -98,23 +172,40 @@ class SassTask extends Task {
 	 */
 	protected $outputpath = "";
 
+	/**
+	 * Sets the outputpath value. Default: <none>
+	 *
+	 * This can force the output path to be something other than
+	 * the path of the fileset used.
+	 *
+	 * @param string $outputpath
+	 *
+	 * @access public
+	 */
 	public function setOutputpath($outputpath)
 	{
-		$this->outputpath = $outputpath;
+		$this->outputpath = rtrim(trim($outputpath), DIRECTORY_SEPARATOR);
 	}
 
 	/**
 	 * Indicates if we want to keep the directory structure of the files.
+	 *
+	 * @var bool
+	 */
+	protected $keepsubdirectories = true;
+
+	/**
+	 * Sets the keepsubdirectories value. Default: true
 	 *
 	 * When set to true we will keep the directory structure. So any input
 	 * files in subdirectories will have their output file in that same
 	 * sub-directory. If false, all output files will be put in the path
 	 * defined by outputpath or in the directory top directory of the fileset.
 	 *
-	 * @var bool
+	 * @param bool $keepsubdirectories
+	 *
+	 * @access public
 	 */
-	protected $keepsubdirectories = true;
-
 	public function setKeepsubdirectories($keepsubdirectories)
 	{
 		$this->keepsubdirectories = $keepsubdirectories;
@@ -138,23 +229,34 @@ class SassTask extends Task {
 		return $this->filesets[$num-1];
 	}
 
+	/**
+	 * Init
+	 *
+	 * @access public
+	 */
 	public function init()
 	{
 	}
 
+	/**
+	 * Our main execution of the task.
+	 *
+	 * @throws BuildException
+	 * @throws Exception
+	 *
+	 * @access public
+	 */
 	public function main()
 	{
 		if (strlen($this->executable) < 0) {
 			throw new BuildException("'executable' must be defined.");
 		}
 
-		if ($this->replaceext && strlen($this->newext) < 0) {
-			throw new BuildException("'newext' must be defined if 'replaceext' is true.");
-		}
-
 		if (empty($this->filesets)) {
 			throw new BuildException("Missing either a nested fileset or attribute 'file'");
 		}
+
+		$specifiedOutputPath = (strlen($this->outputpath) > 0);
 
 		foreach($this->filesets as $fs) {
 			$ds = $fs->getDirectoryScanner($this->project);
@@ -162,29 +264,63 @@ class SassTask extends Task {
 			$dir = $fs->getDir($this->project)->getPath();
 
 			// If our output path is not defined then set it to the path of our fileset.
-			if (strlen($this->outputpath) < 0) {
+			if ($specifiedOutputPath === false) {
 				$this->outputpath = $dir;
 			}
 
 			foreach($files as $file) {
-				$path = $dir;
-				$fullFilePath = $dir.DIRECTORY_SEPARATOR.$file;
 
-				$this->log("Sassing path: {$path} file: {$file}");
+				$fullFilePath = $dir.DIRECTORY_SEPARATOR.$file;
+				$this->pathInfo = pathinfo($file);
+
+				if (strlen($this->extfilter) == 0 || $this->extfilter == $this->pathInfo['extension']) {
+					$outputFile = $this->buildOutputFilePath($file);
+					$output = null;
+
+					try {
+						$output = $this->executeCommand($fullFilePath, $outputFile);
+						if ($output[0] !== 0 && $this->failonerror) {
+							throw new BuildException("Result returned as not 0. Result: {$output[0]}");
+						}
+					} catch (Exception $e) {
+						if ($this->failonerror) {
+							throw $e;
+						} else {
+							$this->log("Result: {$output[0]}");
+						}
+					}
+				}
 			}
 		}
 	}
 
+	/**
+	 * Builds the full path to the output file based on our settings.
+	 *
+	 * @param string $inputFile
+	 *
+	 * @return string
+	 *
+	 * @access protected
+	 */
 	protected function buildOutputFilePath($inputFile)
 	{
 		$outputFile = $this->outputpath.DIRECTORY_SEPARATOR;
 
-		if ($this->keepsubdirectories === true) {
-			$outputFile .= $inputFile;
-		} else {
-			// Explode the inputFile to strip any pathing off.
-			$parts = explode(DIRECTORY_SEPARATOR, $inputFile);
-			$numParts = sizeof($parts);
+		$subpath = trim($this->pathInfo['dirname'], " .");
+
+		if ($this->keepsubdirectories === true && strlen($subpath) > 0) {
+			$outputFile .= $subpath.DIRECTORY_SEPARATOR;
+		}
+
+		$outputFile .= $this->pathInfo['filename'];
+
+		if (!$this->removeoldext) {
+			$outputFile .= "." . $this->pathInfo['extension'];
+		}
+
+		if (strlen($this->newext) > 0) {
+			$outputFile .= "." . $this->newext;
 		}
 
 		return $outputFile;
@@ -197,13 +333,21 @@ class SassTask extends Task {
 	 * @param $outputFile
 	 *
 	 * @return array array(return code, array with output)
+	 *
+	 * @access protected
 	 */
 	protected function executeCommand($inputFile, $outputFile)
 	{
 		$output = array();
 		$return = null;
 
-		$fullCommand = $this->executable . " --force {$inputFile} {$outputFile}";
+		$fullCommand = $this->executable;
+
+		if (strlen($this->sassflags) > 0) {
+			$fullCommand .= " {$this->sassflags}";
+		}
+
+		$fullCommand .= " {$inputFile} {$outputFile}";
 
 		$this->log("Executing: {$fullCommand}");
 		exec($fullCommand, $output, $return);
