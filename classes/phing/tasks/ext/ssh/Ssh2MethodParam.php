@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+require_once 'phing/types/DataType.php';
 require_once 'Ssh2MethodConnectionParam.php';
 
 
@@ -34,7 +34,7 @@ require_once 'Ssh2MethodConnectionParam.php';
  *
  * @package   phing.tasks.ext
  */
-class Ssh2Methods
+class Ssh2MethodParam extends DataType
 {
     /**
      * @var string
@@ -67,8 +67,12 @@ class Ssh2Methods
     /**
      * @return string
      */
-    public function getHostkey()
+    public function getHostkey(Project $p)
     {
+        if($this->isReference())
+        {
+            return $this->getRef($p)->getHostkey($p);
+        }
         return $this->hostkey;
     }
 
@@ -83,10 +87,41 @@ class Ssh2Methods
     /**
      * @return string
      */
-    public function getKex()
+    public function getKex(Project $p)
     {
+        if($this->isReference())
+        {
+            return $this->getRef($p)->getKex($p);
+        }
         return $this->kex;
     }
+
+    /**
+     * @return \Ssh2MethodConnectionParam
+     */
+    public function getClientToServer(Project $p)
+    {
+        if($this->isReference())
+        {
+            return $this->getRef($p)->getClientToServer($p);
+        }
+
+        return $this->client_to_server;
+    }
+
+    /**
+     * @return \Ssh2MethodConnectionParam
+     */
+    public function getServerToClient(Project $p)
+    {
+        if($this->isReference())
+        {
+            return $this->getRef($p)->getServerToClient($p);
+        }
+        return $this->server_to_client;
+    }
+
+
 
 
     /**
@@ -113,13 +148,16 @@ class Ssh2Methods
      * Convert the params to an array that is suitable to be passed in the ssh2_connect $methods parameter
      * @return array
      */
-    public function toArray()
+    public function toArray(Project $p)
     {
+        $client_to_server = $this->getClientToServer($p);
+        $server_to_client = $this->getServerToClient($p);
+
         $array = array(
-            'kex' => $this->getKex(),
-            'hostkey' => $this->getHostkey(),
-            'client_to_server' => !empty($this->client_to_server) ? $this->client_to_server->toArray() : null,
-            'server_to_client' => !empty($this->server_to_client) ? $this->server_to_client->toArray() : null
+            'kex' => $this->getKex($p),
+            'hostkey' => $this->getHostkey($p),
+            'client_to_server' => !is_null($client_to_server) ? $client_to_server->toArray() : null,
+            'server_to_client' => !is_null($server_to_client) ? $server_to_client->toArray() : null
         );
 
         return array_filter($array,function($var){
@@ -131,5 +169,24 @@ class Ssh2Methods
             return !is_null($var);
         });
     }
+
+    /**
+     *
+     * @return Ssh2MethodParam
+     */
+    public function getRef(Project $p) {
+        if ( !$this->checked ) {
+            $stk = array();
+            array_push($stk, $this);
+            $this->dieOnCircularReference($stk, $p);
+        }
+        $o = $this->ref->getReferencedObject($p);
+        if ( !($o instanceof Ssh2MethodParam) ) {
+            throw new BuildException($this->ref->getRefId()." doesn't denote a Ssh2MethodParam");
+        } else {
+            return $o;
+        }
+    }
+
 }
 

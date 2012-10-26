@@ -171,12 +171,12 @@ class SshTask extends Task {
 
 
     /**
-     * Creates an Ssh2Methods object. Handles the <methods /> nested tag
-     * @return Ssh2Methods
+     * Creates an Ssh2MethodParam object. Handles the <sshconfig /> nested tag
+     * @return Ssh2MethodParam
      */
-    public function createMethods()
+    public function createSshconfig()
     {
-        $this->methods = new Ssh2Methods();
+        $this->methods = new Ssh2MethodParam();
         return $this->methods;
     }
 
@@ -187,12 +187,14 @@ class SshTask extends Task {
 
     public function main() 
     {
+        $p = $this->getProject();
+
         if (!function_exists('ssh2_connect')) { 
             throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
         }
 
 
-        $methods = !empty($this->methods) ? $this->methods->toArray() : array();
+        $methods = !empty($this->methods) ? $this->methods->toArray($p) : array();
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
