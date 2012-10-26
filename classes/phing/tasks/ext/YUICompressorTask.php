@@ -22,13 +22,13 @@
 require_once 'phing/Task.php';
 
 /**
- * Executes Sass for a particular fileset.
+ * Executes YUICompressor for a particular fileset.
  *
  * @author    Paul Stuart <pstuart2@gmail.com>
  * @version   $Id$
  * @package   phing.tasks.ext
  */
-class SassTask extends Task {
+class YUICompressorTask extends Task {
 
 	/**
 	 * Contains the path info of our file to allow us to parse.
@@ -54,30 +54,29 @@ class SassTask extends Task {
 	}
 
 	/**
-	 * The Sass executable.
+	 * The YUICompressor jar.
 	 * @var string
 	 */
-	protected $executable = "sass";
+	protected $jar = "yuicompressor";
 
 	/**
-	 * Sets the executable to use for sass. Default: sass
+	 * Sets the jar to use for yuicompressor. Default: <none>
 	 *
-	 * The default assumes sass is in your path. If not you can provide the full
-	 * path to sass.
+	 * Must pass the full path to the jar file.
 	 *
-	 * @param string $executable
+	 * @param string $jar
 	 *
 	 * @access public
 	 */
-	public function setExecutable($executable)
+	public function setJar($jar)
 	{
-		$this->executable = $executable;
+		$this->jar = $jar;
 	}
 
 	/**
 	 * The ext type we are looking for when Verifyext is set to true.
 	 *
-	 * More than likely should be "scss" or "sass".
+	 * More than likely should be "js" or "css".
 	 *
 	 * @var string
 	 */
@@ -99,67 +98,47 @@ class SassTask extends Task {
 	}
 
 	/**
-	 * Additional flags to pass to sass.
+	 * Additional flags to pass to yuicompressor.
 	 *
 	 * @var string
 	 */
-	protected $sassflags = "";
+	protected $yuicompressorflags = "";
 
 	/**
-	 * Additional flags to pass to sass.
+	 * Additional flags to pass to yuicompressor.
 	 *
 	 * Command will be:
-	 * sass {$sassflags} {$inputfile} {$outputfile}
+	 * java -jar {$yuicompressor} o {$outputfile} {$yuicompressorflags} {$inputfile}
 	 *
-	 * @param string $sassflags
-	 *
-	 * @access public
-	 */
-	public function setFlags($sassflags)
-	{
-		$this->sassflags = trim($sassflags);
-	}
-
-	/**
-	 * When true we will remove the current file ext.
-	 * @var bool
-	 */
-	protected $removeoldext = true;
-
-	/**
-	 * Sets the removeoldext flag. Default: true
-	 *
-	 * This will cause us to strip the existing extension off the output
-	 * file.
-	 *
-	 * @param bool $removeoldext
+	 * @param string $yuicompressorflags
 	 *
 	 * @access public
 	 */
-	public function setRemoveoldext($removeoldext)
+	public function setFlags($yuicompressorflags)
 	{
-		$this->removeoldext = $removeoldext;
+		$this->yuicompressorflags = trim($yuicompressorflags);
 	}
 
 	/**
-	 * The new ext our files will have.
+	 * The text to append before the extension.
 	 * @var string
 	 */
-	protected $newext = "css";
+	protected $extprefix = ".min";
 
 	/**
-	 * Sets the newext value. Default: css
+	 * Sets the extprefix value. Default: .min
 	 *
-	 * This is the extension we will add on to the output file regardless
-	 * of if we remove the old one or not.
+	 * This will be text that we will insert into the output file just before
+	 * the extension.
 	 *
-	 * @param string $newext
+	 * @param $extprefix
+	 * @return void
 	 *
 	 * @access public
 	 */
-	public function setNewext($newext)
+	public function setExtprefix($extprefix)
 	{
-		$this->newext = trim($newext, " .");
+		$this->extprefix = trim($extprefix);
 	}
 
 	/**
@@ -213,7 +192,7 @@ class SassTask extends Task {
 
 
 	/**
-	 * The fileset we will be running Sass on.
+	 * The fileset we will be running YUICompressor on.
 	 * @var array
 	 */
 	protected $filesets = array();
@@ -248,12 +227,12 @@ class SassTask extends Task {
 	 */
 	public function main()
 	{
-		if (strlen($this->executable) < 0) {
-			throw new BuildException("'executable' must be defined.");
+		if (strlen($this->jar) < 0) {
+			throw new BuildException("'jar' must be defined.");
 		}
 
 		if (empty($this->filesets)) {
-			throw new BuildException("Missing a nested fileset");
+			throw new BuildException("Missing either a nested fileset or attribute 'file'");
 		}
 
 		$specifiedOutputPath = (strlen($this->outputpath) > 0);
@@ -315,13 +294,11 @@ class SassTask extends Task {
 
 		$outputFile .= $this->pathInfo['filename'];
 
-		if (!$this->removeoldext) {
-			$outputFile .= "." . $this->pathInfo['extension'];
+		if (strlen($this->extprefix) > 0) {
+			$outputFile .= $this->extprefix;
 		}
 
-		if (strlen($this->newext) > 0) {
-			$outputFile .= "." . $this->newext;
-		}
+		$outputFile .= "." . $this->pathInfo['extension'];
 
 		return $outputFile;
 	}
@@ -345,15 +322,15 @@ class SassTask extends Task {
 		}
 
 		$output = array();
-		$return = null;
+		$return = 0;
 
-		$fullCommand = $this->executable;
+		$fullCommand = "java -jar {$this->jar} -o {$outputFile}";
 
-		if (strlen($this->sassflags) > 0) {
-			$fullCommand .= " {$this->sassflags}";
+		if (strlen($this->yuicompressorflags) > 0) {
+			$fullCommand .= " {$this->yuicompressorflags}";
 		}
 
-		$fullCommand .= " {$inputFile} {$outputFile}";
+		$fullCommand .= " {$inputFile}";
 
 		$this->log("Executing: {$fullCommand}");
 		exec($fullCommand, $output, $return);
