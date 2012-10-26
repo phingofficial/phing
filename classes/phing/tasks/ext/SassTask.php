@@ -338,6 +338,11 @@ class SassTask extends Task {
 	 */
 	protected function executeCommand($inputFile, $outputFile)
 	{
+		// Prevent over-writing existing file.
+		if ($inputFile == $outputFile) {
+			throw new BuildException("Input file and output file are the same!");
+		}
+
 		$output = array();
 		$return = null;
 
