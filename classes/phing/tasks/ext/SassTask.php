@@ -115,7 +115,7 @@ class SassTask extends Task {
 	 *
 	 * @access public
 	 */
-	public function setSassoptions($sassflags)
+	public function setSassflags($sassflags)
 	{
 		$this->sassflags = trim($sassflags);
 	}
