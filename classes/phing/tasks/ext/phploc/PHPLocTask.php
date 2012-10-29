@@ -39,6 +39,7 @@ class PHPLocTask extends Task
     protected $filesToCheck = null;
     protected $reportFileName = null;
     protected $fileSets = null;
+    protected $oldVersion = false;
     
     public function init() {
         $this->suffixesToCheck = array('php');
@@ -100,13 +101,15 @@ class PHPLocTask extends Task
         /**
          * Find PHPLoc
          */
-        @include_once 'PHPLOC/Analyser.php';
-        
-        if (!class_exists('PHPLOC_Analyser')) {
-            throw new BuildException(
-                'PHPLocTask depends on PHPLoc being installed and on include_path.',
-                $this->getLocation()
-            );
+        if (!@include_once('SebastianBergmann/PHPLOC/autoload.php')) {
+            if (!@include_once('PHPLOC/Analyser.php')) {
+                throw new BuildException(
+                    'PHPLocTask depends on PHPLoc being installed and on include_path.',
+                    $this->getLocation()
+                );
+            } else {
+                $this->oldVersion = true;
+            }
         }
         
         $this->_validateProperties();
@@ -194,8 +197,13 @@ class PHPLocTask extends Task
         $result = $this->getCountForFiles($files); 
 
         if ($this->reportType === 'cli' || $this->reportType === 'txt') {
-            require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
-            $printer = new PHPLOC_TextUI_ResultPrinter_Text();
+            if ($this->oldVersion) {
+                require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
+                $reportClass = 'PHPLOC_TextUI_ResultPrinter_Text';
+            } else {
+                $reportClass = '\\SebastianBergmann\\PHPLOC\\TextUI\\ResultPrinter';
+            }
+            $printer = new $reportClass();
             ob_start();
             $printer->printResult($result, $this->countTests); 
             $result = ob_get_contents(); 
@@ -212,9 +220,13 @@ class PHPLocTask extends Task
                 $this->log("\n" . $result);
             }
         } elseif ($this->reportType === 'xml' || $this->reportType === 'csv') {
-            $printerClass = sprintf('PHPLOC_TextUI_ResultPrinter_%s', strtoupper($this->reportType)) ;
-            $printerClassFile = str_replace('_', DIRECTORY_SEPARATOR, $printerClass) . '.php';
-            require_once $printerClassFile;
+            if ($this->oldVersion) {
+                $printerClass = sprintf('PHPLOC_TextUI_ResultPrinter_%s', strtoupper($this->reportType)) ;
+                $printerClassFile = str_replace('_', DIRECTORY_SEPARATOR, $printerClass) . '.php';
+                require_once $printerClassFile;
+            } else {
+                $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\' . strtoupper($this->reportType);
+            }
             
             $printer = new $printerClass();
             $reportDir = new PhingFile($this->reportDirectory);
@@ -244,7 +256,9 @@ class PHPLocTask extends Task
      * @return array
      */
     protected function getCountForFiles(array $files) {
-        $analyser = new PHPLoc_Analyser(); 
+        $analyserClass = ($this->oldVersion ? 'PHPLOC_Analyser' : '\\SebastianBergmann\\PHPLOC\\Analyser');
+        $analyser = new $analyserClass();
+        
         return $analyser->countFiles($files, $this->countTests);
     }
 }
