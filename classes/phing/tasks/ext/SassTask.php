@@ -115,7 +115,7 @@ class SassTask extends Task {
 	 *
 	 * @access public
 	 */
-	public function setFlags($sassflags)
+	public function setSassflags($sassflags)
 	{
 		$this->sassflags = trim($sassflags);
 	}
@@ -253,7 +253,7 @@ class SassTask extends Task {
 		}
 
 		if (empty($this->filesets)) {
-			throw new BuildException("Missing a nested fileset");
+			throw new BuildException("Missing either a nested fileset or attribute 'file'");
 		}
 
 		$specifiedOutputPath = (strlen($this->outputpath) > 0);
@@ -332,7 +332,6 @@ class SassTask extends Task {
 	 * @param $inputFile
 	 * @param $outputFile
 	 *
-	 * @throws BuildException
 	 * @return array array(return code, array with output)
 	 *
 	 * @access protected
