@@ -103,21 +103,21 @@ class SassTask extends Task {
 	 *
 	 * @var string
 	 */
-	protected $sassflags = "";
+	protected $flags = "";
 
 	/**
 	 * Additional flags to pass to sass.
 	 *
 	 * Command will be:
-	 * sass {$sassflags} {$inputfile} {$outputfile}
+	 * sass {$flags} {$inputfile} {$outputfile}
 	 *
-	 * @param string $sassflags
+	 * @param string $flags
 	 *
 	 * @access public
 	 */
-	public function setFlags($sassflags)
+	public function setFlags($flags)
 	{
-		$this->sassflags = trim($sassflags);
+		$this->flags = trim($flags);
 	}
 
 	/**
@@ -175,7 +175,7 @@ class SassTask extends Task {
 	/**
 	 * Sets the outputpath value. Default: <none>
 	 *
-	 * This can force the output path to be something other than
+	 * This will force the output path to be something other than
 	 * the path of the fileset used.
 	 *
 	 * @param string $outputpath
@@ -348,8 +348,8 @@ class SassTask extends Task {
 
 		$fullCommand = $this->executable;
 
-		if (strlen($this->sassflags) > 0) {
-			$fullCommand .= " {$this->sassflags}";
+		if (strlen($this->flags) > 0) {
+			$fullCommand .= " {$this->flags}";
 		}
 
 		$fullCommand .= " {$inputFile} {$outputFile}";
