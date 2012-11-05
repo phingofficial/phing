@@ -7946,14 +7946,14 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>pubkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Public key file (PEM format) to use for the connection</entry>
+                        <entry>Public key file (OpenSSH format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>privkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Private key file (PEM format) to use for the connection</entry>
+                        <entry>Private key file (OpenSSH format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
@@ -8037,7 +8037,7 @@ host="webserver" todir="/www/htdocs/project/">
     </sect1>
     <sect1 role="taskdef" xml:id="SshTask">
         <title>SshTask</title>
-        <para> The <literal>SshTask</literal> executes commands on a remote host using ssh.. This
+        <para> The <literal>SshTask</literal> executes commands on a remote host using ssh. This
             task requires the <link xlink:href="http://pecl.php.net/package/ssh2" role="extern">PHP
                 SSH2 extension</link> to function.</para>
 
@@ -8090,14 +8090,14 @@ host="webserver" todir="/www/htdocs/project/">
                     <row>
                         <entry><literal>pubkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Public key file (PEM format) to use for the connection</entry>
+                        <entry>Public key file (OpenSSH format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>privkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Private key file (PEM format) to use for the connection</entry>
+                        <entry>Private key file (OpenSSH format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
