@@ -7946,14 +7946,14 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>pubkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Public key file to use for the connection</entry>
+                        <entry>Public key file (PEM format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>privkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Private key file to use for the connection</entry>
+                        <entry>Private key file (PEM format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
@@ -8090,14 +8090,14 @@ host="webserver" todir="/www/htdocs/project/">
                     <row>
                         <entry><literal>pubkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Public key file to use for the connection</entry>
+                        <entry>Public key file (PEM format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>privkeyfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Private key file to use for the connection</entry>
+                        <entry>Private key file (PEM format) to use for the connection</entry>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
