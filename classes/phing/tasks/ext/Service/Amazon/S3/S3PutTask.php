@@ -294,7 +294,7 @@ class S3PutTask extends Service_Amazon_S3
 			$fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
 			
 			foreach($objects as $object) {
-				$this->saveObject($object, file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
+				$this->saveObject(basename($object), file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
 			}
 			
 			return true;
