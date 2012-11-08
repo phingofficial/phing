@@ -7778,6 +7778,13 @@ Note that you can omit both startpoint and track attributes in this case
                     	<entry>binary/octet-stream</entry>
                     	<entry>No</entry>
                     </row>
+                     <row>
+                        <entry><literal>fileNameOnly</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether filenames should contain paths when uploaded to a bucket</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
