@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+require_once 'Ssh2MethodParam.php';
 
 /**
  * Execute commands on a remote host using ssh.
@@ -32,13 +33,14 @@ class SshTask extends Task {
 
     private $host = "";
     private $port = 22;
+    private $methods = null;
     private $username = "";
     private $password = "";
     private $command = "";
     private $pubkeyfile = '';
     private $privkeyfile = '';
     private $privkeyfilepassphrase = '';
-    
+
     /**
      * The name of the property to capture (any) output of the command
      * @var string
@@ -167,17 +169,33 @@ class SshTask extends Task {
         $this->display = (boolean) $display;
     }
 
+
+    /**
+     * Creates an Ssh2MethodParam object. Handles the <sshconfig /> nested tag
+     * @return Ssh2MethodParam
+     */
+    public function createSshconfig()
+    {
+        $this->methods = new Ssh2MethodParam();
+        return $this->methods;
+    }
+
+
     public function init() 
     {
     }
 
     public function main() 
     {
+        $p = $this->getProject();
+
         if (!function_exists('ssh2_connect')) { 
             throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
         }
-        
-        $this->connection = ssh2_connect($this->host, $this->port);
+
+
+        $methods = !empty($this->methods) ? $this->methods->toArray($p) : array();
+        $this->connection = ssh2_connect($this->host, $this->port, $methods);
         if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
@@ -222,3 +240,4 @@ class SshTask extends Task {
         }
     }
 }
+

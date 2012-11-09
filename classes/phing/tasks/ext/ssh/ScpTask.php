@@ -39,6 +39,7 @@ class ScpTask extends Task
 
     protected $host = "";
     protected $port = 22;
+    protected $methods = null;
     protected $username = "";
     protected $password = "";
     protected $autocreate = true;
@@ -258,6 +259,16 @@ class ScpTask extends Task
         $num = array_push($this->filesets, new FileSet());
         return $this->filesets[$num-1];
     }
+
+    /**
+     * Creates an Ssh2MethodParam object. Handles the <sshconfig /> nested tag
+     * @return Ssh2MethodParam
+     */
+    public function createSshconfig()
+    {
+        $this->methods = new Ssh2MethodParam();
+        return $this->methods;
+    }
     
     /**
      * Set level of log messages generated (default = verbose)
@@ -281,6 +292,8 @@ class ScpTask extends Task
 
     public function main()
     {
+        $p = $this->getProject();
+
         if (!function_exists('ssh2_connect')) { 
             throw new BuildException("To use ScpTask, you need to install the PHP SSH2 extension.");
         }
@@ -293,8 +306,9 @@ class ScpTask extends Task
             throw new BuildException("Attribute 'host' and 'username' must be set");
         }
 
-        $this->connection = ssh2_connect($this->host, $this->port);
-        if (is_null($this->connection)) {
+        $methods = !empty($this->methods) ? $this->methods->toArray($p) : array();
+        $this->connection = ssh2_connect($this->host, $this->port, $methods);
+        if (!$this->connection) {
             throw new BuildException("Could not establish connection to " . $this->host . ":" . $this->port . "!");
         }
 
