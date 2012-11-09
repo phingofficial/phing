@@ -113,6 +113,16 @@ class S3PutTask extends Service_Amazon_S3
 		'jpeg'	=> 'image/jpeg',
 		'txt'	=> 'text/plain'
 	);
+
+	/**
+	* Whether filenames contain paths
+	* 
+	* (default value: false)
+	* 
+	* @var bool
+	* @access protected
+	*/
+	protected $_fileNameOnly = false;
     
     public function setSource($source)
     {
@@ -211,6 +221,11 @@ class S3PutTask extends Service_Amazon_S3
         return (bool) $this->_createBuckets;
     }
 
+	public function setFileNameOnly($fileNameOnly)
+	{
+		$this->_fileNameOnly = (bool) $fileNameOnly;
+	}
+
 	/**
      * creator for _filesets
      * 
@@ -293,9 +308,15 @@ class S3PutTask extends Service_Amazon_S3
 			
 			$fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
 			
-			foreach($objects as $object) {
-				$this->saveObject($object, file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
-			}
+		            if ($this->_fileNameOnly) {
+		                foreach ($objects as $object) {
+		                    $this->saveObject(basename($object), file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
+		                }
+		            } else {
+		                foreach ($objects as $object) {
+		                    $this->saveObject($object, file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
+		                }
+		            }
 			
 			return true;
 		}
