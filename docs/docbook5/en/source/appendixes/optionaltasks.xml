@@ -8032,6 +8032,67 @@ host="webserver" todir="/www/htdocs/project/">
                 <listitem>
                     <para><literal>fileset</literal></para>
                 </listitem>
+                <listitem>
+                    <para><literal>sshconfig</literal>
+                    </para>
+                    <para>Sometimes it is necessary to set specific configuration parameters on the ssh connection
+                        when connecting to a remote server.  You can set them with the sshconfig nested tag.  Set the parameters
+                        to specify connection and encryption options.  These are the parameters as specified by the $methods
+                        parameter of the ssh2_connect function.  See <a href="http://us3.php.net/ssh2_connect" target="_blank">ssh2_connect</a>
+                        for more information</para>
+                    <para>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
+                        across a project easily.</para>
+
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>kex</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>List of key exchange methods to advertise, comma separated in order of preference.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>hostkey</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>List of hostkey methods to advertise, come separated in order of preference.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>client</literal></entry>
+                                    <entry><literal role="type">Nested Tag</literal></entry>
+                                    <entry>Element containing attributes crypt, comp, and mac method preferences for messages sent from client to server.  All attributes are optional.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>server</literal></entry>
+                                    <entry><literal role="type">Nested Tag</literal></entry>
+                                    <entry>Element containing attributes crypt, comp, and mac method preferences for messages sent from server to client.  All attributes are optional.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
             </itemizedlist>
         </sect2>
     </sect1>
@@ -8139,6 +8200,73 @@ host="webserver" todir="/www/htdocs/project/">
 host="webserver" command="ls" /></programlisting>
 
             <para>Executes a single command on the remote server.</para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>sshconfig</literal>
+                    </para>
+                    <para>Sometimes it is necessary to set specific configuration parameters on the ssh connection
+                        when connecting to a remote server.  You can set them with the sshconfig nested tag.  Set the parameters
+                        to specify connection and encryption options.  These are the parameters as specified by the $methods
+                        parameter of the ssh2_connect function.  See <a href="http://us3.php.net/ssh2_connect" target="_blank">ssh2_connect</a>
+                        for more information</para>
+                    <para>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
+                        across a project easily.</para>
+
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>kex</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>List of key exchange methods to advertise, comma separated in order of preference.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>hostkey</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>List of hostkey methods to advertise, come separated in order of preference.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>client</literal></entry>
+                                    <entry><literal role="type">Nested Tag</literal></entry>
+                                    <entry>Element containing attributes crypt, comp, and mac method preferences for messages sent from client to server.  All attributes are optional.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>server</literal></entry>
+                                    <entry><literal role="type">Nested Tag</literal></entry>
+                                    <entry>Element containing attributes crypt, comp, and mac method preferences for messages sent from server to client.  All attributes are optional.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>No</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
+            </itemizedlist>
+
         </sect2>
 
     </sect1>

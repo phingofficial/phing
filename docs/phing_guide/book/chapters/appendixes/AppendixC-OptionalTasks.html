@@ -7196,6 +7196,65 @@ host=&quot;webserver&quot; todir=&quot;/www/htdocs/project/&quot;&gt;
 		<h3>Supported Nested Tags</h3>
 		<ul>
 			<li>fileset</li>
+            <li>sshconfig <p>Sometimes it is necessary to set specific configuration parameters on the ssh connection
+                when connecting to a remote server.  You can set them with the sshconfig nested tag.  Set the parameters
+                to specify connection and encryption options.  These are the parameters as specified by the $methods
+                parameter of the ssh2_connect function.  See <a href="http://us3.php.net/ssh2_connect" target="_blank">ssh2_connect</a>
+                for more information</p>
+                <p>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
+                    across a project easily.</p>
+                <h3>Examples</h3>
+		        <pre>&lt;scp username=&quot;john&quot; password=&quot;smith&quot;
+host=&quot;webserver&quot; fetch=&quot;true&quot;
+todir=&quot;/home/john/backup&quot;
+file=&quot;/www/htdocs/test.html&quot; &gt;
+    &lt;sshconfig  kex=&quot;diffie-hellman-group1-sha1&quot; hostkey=&quot;ssh-rsa&quot;&gt;
+        &lt;client crypt=&quot;3des-cbc&quot; /&gt;
+        &lt;server crypt=&quot;aes256-cbc,aes192-cbc,aes128-cbc&quot; /&gt;
+    &lt;/sshconfig&gt;
+&lt;/scp&gt;</pre>
+                <h3>Attributes</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>kex</td>
+                        <td>String</td>
+                        <td>List of key exchange methods to advertise, comma separated in order of preference.</td>
+                        <td>n/a</td>
+                        <td >No</td>
+                    </tr>
+                    <tr>
+                        <td>hostkey</td>
+                        <td>String</td>
+                        <td>List of hostkey methods to advertise, come separated in order of preference.</td>
+                        <td>n/a</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>client</td>
+                        <td>Nested Tag</td>
+                        <td>Element containing attributes crypt, comp, and mac method preferences for messages sent from client to server.  All attributes are optional.</td>
+                        <td>n/a</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>server</td>
+                        <td>Nested Tag</td>
+                        <td>Element containing attributes crypt, comp, and mac method preferences for messages sent from server to client.  All attributes are optional.</td>
+                        <td>n/a</td>
+                        <td>No</td>
+                    </tr>
+                    </tbody>
+                </table></li>
 		</ul>
 		<h2>
 			<a name="SshTask"></a>SshTask </h2>
@@ -7290,6 +7349,71 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 				</tr>
 			</tbody>
 		</table>
+        <h3>Supported Nested Tags</h3>
+        <ul>
+            <li>sshconfig <p>Sometimes it is necessary to set specific configuration parameters on the ssh connection
+                when connecting to a remote server.  You can set them with the sshconfig nested tag.  Set the parameters
+                to specify connection and encryption options.  These are the parameters as specified by the $methods
+                parameter of the ssh2_connect function.  See <a href="http://us3.php.net/ssh2_connect" target="_blank">ssh2_connect</a>
+                for more information</p>
+                <p>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
+                across a project easily.</p>
+                <h3>Examples</h3>
+		        <pre>&lt;project name=&quot;Test&quot; default=&quot;test&quot;&gt;
+
+    &lt;sshconfig id=&quot;ssh_config&quot; kex=&quot;diffie-hellman-group1-sha1&quot; hostkey=&quot;ssh-rsa&quot;&gt;
+        &lt;client crypt=&quot;3des-cbc&quot; /&gt;
+        &lt;server crypt=&quot;aes256-cbc,aes192-cbc,aes128-cbc&quot; /&gt;
+    &lt;/sshconfig&gt;
+
+    &lt;target name=&quot;test&quot;&gt;
+        &lt;ssh port=&quot;22&quot; host=&quot;33.33.33.10&quot; command=&quot;echo 'Success!'&quot; username=&quot;user&quot; password=&quot;password&quot;&gt;
+            &lt;sshconfig refid=&quot;ssh_connect_methods&quot; /&gt;
+        &lt;/ssh&gt;
+    &lt;/target&gt;</pre>
+                <h3>Attributes</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                        <th>Required</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>kex</td>
+                        <td>String</td>
+                        <td>List of key exchange methods to advertise, comma separated in order of preference.</td>
+                        <td>n/a</td>
+                        <td >No</td>
+                    </tr>
+                    <tr>
+                        <td>hostkey</td>
+                        <td>String</td>
+                        <td>List of hostkey methods to advertise, come separated in order of preference.</td>
+                        <td>n/a</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>client</td>
+                        <td>Nested Tag</td>
+                        <td>Element containing attributes crypt, comp, and mac method preferences for messages sent from client to server.  All attributes are optional.</td>
+                        <td>n/a</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>server</td>
+                        <td>Nested Tag</td>
+                        <td>Element containing attributes crypt, comp, and mac method preferences for messages sent from server to client.  All attributes are optional.</td>
+                        <td>n/a</td>
+                        <td>No</td>
+                    </tr>
+                    </tbody>
+                </table></li>
+        </ul>
 		<h2>
 			<a name="SimpleTestTask"></a>SimpleTestTask </h2>
 		<p> This task runs testcases using the <a href="http://www.simpletest.org/" target="_blank"
