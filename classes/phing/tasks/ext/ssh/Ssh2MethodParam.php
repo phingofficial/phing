@@ -160,14 +160,18 @@ class Ssh2MethodParam extends DataType
             'server_to_client' => !is_null($server_to_client) ? $server_to_client->toArray() : null
         );
 
-        return array_filter($array,function($var){
-            if(is_array($var))
-            {
-                return !empty($var);
-            }
+        return array_filter($array, array($this, '_filterParam'));
+    }
+    
+    /**
+     * @return boolean
+     */
+    protected function _filterParam($var) {
+        if (is_array($var)) {
+            return !empty($var);
+        }
 
-            return !is_null($var);
-        });
+        return !is_null($var);
     }
 
     /**
