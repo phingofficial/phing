@@ -55,7 +55,7 @@
     <pearPackageFileSet package="Console_Getopt" role="php" id="co"/>
     <property name="tmpdir" value="/tmp/phing-pearPackageFileSetBuildTest-test"/>
     <delete dir="${tmpdir}" quiet="true"/>
-    <copy todir="${tmpdir}">
+    <copy todir="${tmpdir}" preservePermissions="false">
       <fileset refid="co"/>
     </copy>
 
@@ -74,7 +74,7 @@
     <pearPackageFileSet package="Console_Getopt" role="php" id="co"/>
     <property name="tmpdir" value="/tmp/phing-pearPackageFileSetBuildTest-test"/>
     <delete dir="${tmpdir}" quiet="true"/>
-    <copy todir="${tmpdir}">
+    <copy todir="${tmpdir}" preservePermissions="false">
       <fileset refid="co"/>
       <mapper type="glob" from="*.php" to="pre/fix/*.php"/>
     </copy>
