@@ -37,6 +37,25 @@ include_once 'phing/system/io/PhingFile.php';
  */
 class FileUtils {
         
+  /**
+   * Returns the default file/dir creation mask value
+   * (The mask value is prepared w.r.t the current user's file-creation mask value)
+   * 
+   * @param boolean $dirmode Directory creation mask to select
+   * @param boolean $returnoctal Whether the return value is in octal representation
+   * @return String Creation Mask
+   */
+  public static function getDefaultFileCreationMask($dirmode = false, $returnoctal = false) {
+
+    // Preparing the creation mask base permission
+    $permission = ($dirmode === true) ? 0777 : 0666;
+    
+    // Default mask information
+    $defaultmask = sprintf('%03o', ($permission & ($permission - (int) sprintf('%04o', umask()))));
+    
+    return ($returnoctal ? octdec($defaultmask) : $defaultmask);
+  }
+
     /**
      * Returns a new Reader with filterchains applied.  If filterchains are empty,
      * simply returns passed reader.
@@ -72,7 +91,7 @@ class FileUtils {
      * @param integer $mode
      * @return void
      */
-    function copyFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false, $preserveLastModified = true, &$filterChains = null, Project $project, $mode = 0755) {
+    function copyFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false, $preserveLastModified = true, &$filterChains = null, Project $project, $mode = 0755, $preservePermissions = true) {
        
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
             if ($destFile->exists() && $destFile->isFile()) {
@@ -82,7 +101,14 @@ class FileUtils {
             // ensure that parent dir of dest file exists!
             $parent = $destFile->getParentFile();
             if ($parent !== null && !$parent->exists()) {
-                $parent->mkdirs($mode);
+
+                // Setting source directory permissions to target                                                                                                  
+                // (On permissions preservation, the target directory permissions                                                                                  
+                // will be inherited from the source directory, otherwise the 'mode'                                                                               
+                // will be used)                                                                                                                                   
+                $dirMode = ($preservePermissions ? $ssourceFile->getMode() : $mode);
+
+                $parent->mkdirs($dirMode);
             }
 
             if ((is_array($filterChains)) && (!empty($filterChains))) {
@@ -100,13 +126,22 @@ class FileUtils {
                 if ( $out !== null )
                     $out->close();
 
-                $destFile->setMode($sourceFile->getMode());
+                // Set/Copy the permissions on the target
+                if ($preservePermissions === true) {
+                  $destFile->setMode($sourceFile->getMode());
+                }
 
             } else {
                 // simple copy (no filtering)
                 $sourceFile->copyTo($destFile);
+                
+                // By default, PHP::Copy also copies the file permissions. Therefore, 
+                // re-setting the mode with the "user file-creation mask" information.
+                if ($preservePermissions === false) {
+                  $destFile->setMode( FileUtils::getDefaultFileCreationMask(false, true) );
+                }
             }
-
+            
             if ($preserveLastModified) {
                 $destFile->setLastModified($sourceFile->lastModified());
             }
