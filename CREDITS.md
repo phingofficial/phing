@@ -30,6 +30,7 @@ Phing 2.x Development
   - Christian Weiske
   - Matthias Pigulla
   - Lineke Kerckhoffs-Willems <lineke@phpassionate.com>
+  - Utsav Handa <handautsav@hotmail.com>
 
   If you've done work on Phing and you are not listed here, please feel free
   to add yourself.

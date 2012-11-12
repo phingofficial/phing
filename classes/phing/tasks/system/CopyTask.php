@@ -38,33 +38,34 @@ include_once 'phing/mappers/FlattenMapper.php';
  */
 class CopyTask extends Task {
     
-    protected $file          = null;   // the source file (from xml attribute)
-    protected $destFile      = null;   // the destiantion file (from xml attribute)
-    protected $destDir       = null;   // the destination dir (from xml attribute)
-    protected $overwrite     = false;  // overwrite destination (from xml attribute)
-    protected $preserveLMT   = false;   // sync timestamps (from xml attribute)
-    protected $includeEmpty  = true;   // include empty dirs? (from XML)
-    protected $flatten       = false;  // apply the FlattenMapper right way (from XML)
-    protected $mapperElement = null;
+    protected $file                  = null;   // the source file (from xml attribute)
+    protected $destFile              = null;   // the destiantion file (from xml attribute)
+    protected $destDir               = null;   // the destination dir (from xml attribute)
+    protected $overwrite             = false;  // overwrite destination (from xml attribute)
+    protected $preserveLMT           = false;  // sync timestamps (from xml attribute)
+    protected $preservePermissions   = true;   // sync permissions (from xml attribute)
+    protected $includeEmpty          = true;   // include empty dirs? (from XML)
+    protected $flatten               = false;  // apply the FlattenMapper right way (from XML)
+    protected $mapperElement         = null;
 
-    protected $fileCopyMap   = array(); // asoc array containing mapped file names
-    protected $dirCopyMap    = array(); // asoc array containing mapped file names
-    protected $completeDirMap= array(); // asoc array containing complete dir names
-    protected $fileUtils     = null;    // a instance of fileutils
-    protected $filesets      = array(); // all fileset objects assigned to this task
-    protected $filelists     = array(); // all filelist objects assigned to this task
-    protected $filterChains  = array(); // all filterchains objects assigned to this task
+    protected $fileCopyMap           = array(); // asoc array containing mapped file names
+    protected $dirCopyMap            = array(); // asoc array containing mapped file names
+    protected $completeDirMap        = array(); // asoc array containing complete dir names
+    protected $fileUtils             = null;    // a instance of fileutils
+    protected $filesets              = array(); // all fileset objects assigned to this task
+    protected $filelists             = array(); // all filelist objects assigned to this task
+    protected $filterChains          = array(); // all filterchains objects assigned to this task
 
-    protected $verbosity     = Project::MSG_VERBOSE;
+    protected $verbosity             = Project::MSG_VERBOSE;
     
-    protected $mode          = 0;       // mode to create directories with
+    protected $mode                  = 0;       // mode to create directories with
     
-    protected $haltonerror   = true;    // stop build on errors
+    protected $haltonerror           = true;    // stop build on errors
 
     /**
      * Sets up this object internal stuff. i.e. the Fileutils instance and default mode
      *
-     * @return object   The CopyTask instnace
+     * @return object   The CopyTask instance
      * @access public
      */
     function __construct() {
@@ -115,6 +116,22 @@ class CopyTask extends Task {
      */
     function setPreserveLastModified($bool) {
         $this->preserveLMT = (boolean) $bool;
+    }
+
+    /**
+     * Set the preserve permissions flag. IntrospectionHelper takes care of
+     * booleans in set* methods so we can assume that the right
+     * value (boolean primitive) is coming in here.
+     *
+     * @param  boolean  Preserve the timestamp on the destination file
+     * @return void
+     * @access public
+     */
+    function setPreservepermissions($bool) {
+        $this->preservePermissions = (boolean) $bool;
+    }
+    function setPreservemode($bool) {
+      $this->setPreservepermissions($bool);
     }
 
     /**
@@ -422,7 +439,15 @@ class CopyTask extends Task {
                 $s = new PhingFile((string) $srcdir);
                 $d = new PhingFile((string) $destdir);
                 if (!$d->exists()) {
-                    if (!$d->mkdirs()) {
+                  
+                    // Setting source directory permissions to target
+                    // (On permissions preservation, the target directory permissions
+                    // will be inherited from the source directory, otherwise the 'mode'
+                    // will be used)
+                    $dirMode = ($this->preservePermissions ? $s->getMode() : $this->mode);
+  
+                    // Directory creation with specific permission mode
+                    if (!$d->mkdirs($dirMode)) {
                         $this->logError("Unable to create directory " . $d->__toString());
                     } else {
                         if ($this->preserveLMT) {
@@ -460,7 +485,7 @@ class CopyTask extends Task {
                     $toSlot->setValue($toFile->getPath());
                     $toBasenameSlot->setValue($toFile->getName());
                     
-                    $this->fileUtils->copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject(), $this->mode);
+                    $this->fileUtils->copyFile($fromFile, $toFile, $this->overwrite, $this->preserveLMT, $this->filterChains, $this->getProject(), $this->mode, $this->preservePermissions);
             
                     $count++;
                 } catch (IOException $ioe) {
