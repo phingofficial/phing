@@ -40,6 +40,9 @@ class AvailableTask extends Task {
     /** Value property should be set to. */
     private $value = "true";
 
+    /** File/directory to check existence */
+    private $file;
+
     /** Resource to check for */
     private $resource;
 
