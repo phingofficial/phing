@@ -1257,7 +1257,8 @@
 										<entry><literal>value</literal></entry>
 										<entry><literal role="type">String</literal></entry>
 										<entry>A single command-line argument; can contain space
-											characters.</entry>
+											characters. To pass an empty argument, enclose
+											two double quotes in single quotes ('""').</entry>
 										<entry>n/a</entry>
 										<entry morerows="3">One of these</entry>
 									</row>
