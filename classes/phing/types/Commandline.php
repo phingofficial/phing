@@ -160,7 +160,7 @@ class Commandline {
     public static function quoteArgument($argument, $escape = false) {
         if ($escape) {
             return escapeshellarg($argument);
-        } elseif (strpos($argument, "\"") !== false) {
+        } elseif (strpos($argument, "\"") !== false && $argument != '""') {
             if (strpos($argument, "'") !== false) {
                 throw new BuildException("Can't handle single and double quotes in same argument");
             } else {
