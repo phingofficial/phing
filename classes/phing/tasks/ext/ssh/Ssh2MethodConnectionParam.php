@@ -104,9 +104,12 @@ class Ssh2MethodConnectionParam
     {
         return array_filter(
             get_object_vars($this),
-            function($var){
-                return !is_null($var);
-            }
+            array($this, '_filterParam')
         );
+    }
+    
+    protected function _filterParam($var)
+    {
+        return !is_null($var);
     }
 }
