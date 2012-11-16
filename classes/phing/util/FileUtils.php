@@ -106,7 +106,7 @@ class FileUtils {
                 // (On permissions preservation, the target directory permissions                                                                                  
                 // will be inherited from the source directory, otherwise the 'mode'                                                                               
                 // will be used)                                                                                                                                   
-                $dirMode = ($preservePermissions ? $sourceFile->getMode() : $mode);
+                $dirMode = ($preservePermissions ? $sourceFile->getParentFile()->getMode() : $mode);
 
                 $parent->mkdirs($dirMode);
             }
