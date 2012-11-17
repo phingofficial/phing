@@ -10024,7 +10024,7 @@ a2.a3.a4=false</programlisting>
                     <row>
                         <entry><literal>disable</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Disable warnings seperated by comma</entry>
+                        <entry>Disable warnings separated by comma</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
