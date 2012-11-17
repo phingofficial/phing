@@ -27,7 +27,7 @@ require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnListTest extends BuildFileTest { 
+class SvnLogTaskTest extends BuildFileTest { 
     public function setUp() { 
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
@@ -38,7 +38,7 @@ class SvnListTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/svn');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/svn/SvnListTest.xml');
+                              . '/etc/tasks/ext/svn/SvnLogTest.xml');
     }
 
     public function tearDown()
@@ -46,16 +46,10 @@ class SvnListTest extends BuildFileTest {
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    public function testGetList()
+    public function testGetLog()
     {
         $repository = PHING_TEST_BASE . '/tmp/svn';
-        $this->executeTarget('getList');
-        $this->assertPropertyEquals('svn.list', "1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | VERSION.TXT
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | coverage-frames.xsl
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | log.xsl
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phing-grammar.rng
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phpunit-frames.xsl
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phpunit-noframes.xsl
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | str.replace.function.xsl");
+        $this->executeTarget('getLog');
+        $this->assertPropertyEquals('svn.log', "1560 | michiel.rook  | 2012-04-06T18:33:25.000000Z  | Update changelog for maintenance release\n");
     }
 }

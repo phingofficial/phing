@@ -268,31 +268,18 @@ abstract class SvnBaseTask extends Task
                 
         $this->svn->use_escapeshellcmd = false;
 
-        if (!empty($this->repositoryUrl))
-        {
+        if (!empty($this->repositoryUrl)) {
             $this->svnArgs = array($this->repositoryUrl);
-        }
-        else
-        if (!empty($this->workingCopy))
-        {
-            if (is_dir($this->workingCopy))
-            {
+        } else if (!empty($this->workingCopy)) {
+            if (is_dir($this->workingCopy)) {
                 $this->svnArgs = array($this->workingCopy);
-            }
-            else
-            if ($mode=='info' )
-            {
-                if (is_file($this->workingCopy))
-                {
+            } else if ($mode=='info' ) {
+                if (is_file($this->workingCopy)) {
                     $this->svnArgs = array($this->workingCopy);
-                }
-                else
-                {
+                } else {
                     throw new BuildException("'".$this->workingCopy."' is not a directory nor a file");
                 }
-            }
-            else
-            {
+            } else {
                 throw new BuildException("'".$this->workingCopy."' is not a directory");
             }
         }
