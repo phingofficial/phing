@@ -27,7 +27,7 @@ require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnCheckoutTaskTest extends BuildFileTest { 
+class SvnSwitchTaskTest extends BuildFileTest { 
     public function setUp() { 
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
@@ -38,7 +38,7 @@ class SvnCheckoutTaskTest extends BuildFileTest {
         mkdir(PHING_TEST_BASE . '/tmp/svn');
 
         $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/svn/SvnCheckoutTest.xml');
+                              . '/etc/tasks/ext/svn/SvnSwitchTest.xml');
     }
 
     public function tearDown()
@@ -46,17 +46,11 @@ class SvnCheckoutTaskTest extends BuildFileTest {
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 
-    public function testCheckoutSimple()
+    public function testSwitchSimple()
     {
         $repository = PHING_TEST_BASE . '/tmp/svn';
-        $this->executeTarget('checkoutSimple');
+        $this->executeTarget('switchSimple');
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
-    }
-
-    public function testNoRepositorySpecified()
-    {
-        $this->expectBuildExceptionContaining('noRepository', 
-            'Repository is required',
-            'svn: Error parsing arguments');
+        $this->assertInLogs("Switching SVN repository at '$repository' to 'https://github.com/phingofficial/phing/tags/2.4.12/etc'");
     }
 }

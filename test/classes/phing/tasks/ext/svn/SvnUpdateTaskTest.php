@@ -28,8 +28,6 @@ require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
  * @package phing.tasks.ext
  */
 class SvnUpdateTaskTest extends BuildFileTest { 
-    protected $backupGlobals = FALSE;
-     
     public function setUp() { 
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
