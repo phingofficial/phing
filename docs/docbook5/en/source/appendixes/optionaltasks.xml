@@ -8919,7 +8919,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>forceCompatible</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Sets whether to force compatibility with older SVN versions (&lt;
+                        <entry><strong>Deprecated:</strong> Sets whether to force compatibility with older SVN versions (&lt;
                             1.2)</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
@@ -8946,11 +8946,8 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnListTask">
         <title>SvnListTask</title>
         <para>The <literal>SvnListTask</literal> stores the output of a svn list command on a
-            workingcopy or repositoryurl in a property.</para>
-        <para>Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
-            attribute is ignored. It uses svn's --verbose switch to get additional data about the
-            listed items. The result will be stored in an array, one string that is seperated by ' |
-            ' (in words: space pipe space) for easy parsing.</para>
+            workingcopy or repositoryurl in a property. The result will be stored in an array,
+            one string that is separated by ' | ' (in words: space pipe space) for easy parsing.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -8999,7 +8996,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>forceCompatible</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Sets whether to force compatibility with older SVN versions (&lt;
+                        <entry><strong>Deprecated:</strong> Sets whether to force compatibility with older SVN versions (&lt;
                             1.2)</entry>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
@@ -9039,10 +9036,8 @@ host="webserver" command="ls" /></programlisting>
     <sect1 role="taskdef" xml:id="SvnLogTask">
         <title>SvnLogTask</title>
         <para>The <literal>SvnLogTask</literal> stores the output of a svn log command on a
-            workingcopy or repositoryurl in a property.</para>
-        <para>Currently it always uses the <literal>forceCompatiple</literal> mode so the supplied
-            attribute is ignored. The result will be stored in an array, one string that is
-            seperated by ' | ' (in words: space pipe space) for easy parsing.</para>
+            workingcopy or repositoryurl in a property. The result will be stored in an array,
+            one string that is separated by ' | ' (in words: space pipe space) for easy parsing.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -9091,7 +9086,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>forceCompatible</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Sets whether to force compatibility with older SVN versions (&lt;
+                        <entry><strong>Deprecated:</strong> Sets whether to force compatibility with older SVN versions (&lt;
                             1.2)</entry>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>

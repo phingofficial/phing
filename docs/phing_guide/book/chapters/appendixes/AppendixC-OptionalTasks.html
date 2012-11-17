@@ -7994,7 +7994,7 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 				<tr>
 					<td>forceCompatible</td>
 					<td>Boolean</td>
-					<td>Sets whether to force compatibility with older SVN versions (&lt; 1.2)</td>
+					<td><b>Deprecated:</b> Sets whether to force compatibility with older SVN versions (&lt; 1.2)</td>
 					<td>false</td>
 					<td>No</td>
 				</tr>
@@ -8003,11 +8003,8 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 		<h2>
 			<a name="SvnListTask"></a> SvnListTask </h2>
 		<p> The <em>SvnListTask</em> stores the output of a svn list command on a workingcopy or
-			repositoryurl in a property. </p>
-		<p> Currently it always uses the <em>forceCompatiple</em> mode so the supplied attribute is
-			ignored. It uses svn's --verbose switch to get additional data about the listed items.
-			The result will be stored in an array, one string that is seperated by ' | ' (in words:
-			space pipe space) for easy parsing. </p>
+			repositoryurl in a property. The result will be stored in an array, one string
+			that is separated by ' | ' (in words: space pipe space) for easy parsing. </p>
 		<h3>Examples</h3>
 		<pre>&lt;svnlist svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.list"/&gt; </pre>
 		<pre>&lt;svnlist svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/tags" orderDescending="true" limit="10" /&gt; </pre>
@@ -8063,7 +8060,7 @@ revision | author | date         | item
 				<tr>
 					<td>forceCompatible</td>
 					<td>Boolean</td>
-					<td>Sets whether to force compatibility with older SVN versions (&lt; 1.2)</td>
+					<td><b>Deprecated:</b> Sets whether to force compatibility with older SVN versions (&lt; 1.2)</td>
 					<td>true</td>
 					<td>No</td>
 				</tr>
@@ -8086,10 +8083,8 @@ revision | author | date         | item
 		<h2>
 			<a name="SvnLogTask"></a> SvnLogTask </h2>
 		<p> The <em>SvnLogTask</em> stores the output of a svn log command on a workingcopy or
-			repositoryurl in a property. </p>
-		<p> Currently it always uses the <em>forceCompatiple</em> mode so the supplied attribute is
-			ignored. The result will be stored in an array, one string that is seperated by ' | '
-			(in words: space pipe space) for easy parsing. </p>
+			repositoryurl in a property. The result will be stored in an array, one string
+			that is separated by ' | ' (in words: space pipe space) for easy parsing. </p>
 		<h3>Examples</h3>
 		<pre>&lt;svnlog svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.log"/&gt; </pre>
 		<pre>&lt;svnlog svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /&gt; </pre>
@@ -8142,7 +8137,7 @@ revision | author | date         | item
 				<tr>
 					<td>forceCompatible</td>
 					<td>Boolean</td>
-					<td>Sets whether to force compatibility with older SVN versions (&lt; 1.2)</td>
+					<td><b>Deprecated:</b> Sets whether to force compatibility with older SVN versions (&lt; 1.2)</td>
 					<td>true</td>
 					<td>No</td>
 				</tr>

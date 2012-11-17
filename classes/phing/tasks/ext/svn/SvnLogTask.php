@@ -36,7 +36,6 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 class SvnLogTask extends SvnBaseTask
 {
     private $propertyName = "svn.log";
-    private $forceCompatible = true;
     private $limit = null;
 
     /**
@@ -57,11 +56,10 @@ class SvnLogTask extends SvnBaseTask
 
     /**
      * Sets whether to force compatibility with older SVN versions (< 1.2)
+     * @deprecated
      */
     public function setForceCompatible($force)
     {
-        //$this->forceCompatible = (bool) $force;
-        // see below, we need this to be true as xml mode does not work
     }
 
     /**
