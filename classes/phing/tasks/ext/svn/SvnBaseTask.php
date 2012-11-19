@@ -268,7 +268,7 @@ abstract class SvnBaseTask extends Task
         // Pass array of subcommands we need to factory
         $this->svn = VersionControl_SVN::factory($mode, $options);
         
-        if (version_compare($this->svn->apiVersion(), '0.5.0') < 0) {
+        if (get_parent_class($this->svn) !== 'VersionControl_SVN_Command') {
             $this->oldVersion = true;
             $this->svn->use_escapeshellcmd = false;
         }
