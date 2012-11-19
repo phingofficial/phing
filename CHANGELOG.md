@@ -1,8 +1,8 @@
-P     H     I     N     G
+	P     H     I     N     G
 =========================
 
 
-Sep. 12, 2012 - Phing 2.4.13
+Nov. 19, 2012 - Phing 2.4.13
 ---------------------------
 
 This releases updates the composer package, adds a phploc task and improved
@@ -10,6 +10,15 @@ support for phpDocumentor 2 and IonCube 7, improves the unit tests,
 clarifies the documentation in a number of places, and addresses
 the following issues:
 
+  * [933] PHPLoc 1.7 broken
+  * [931] PHP_CodeSniffer throws errors with CodeSniffer 1.4.0
+  * [929] Can not pass empty string (enclosed in double quotes) as exec task argument
+  * [928] Fatal error with ZipTask when zip extension is not loaded
+  * [927] PHPCPD upgrade breaks PHPCPD task
+  * [926] FtpDeployTask: Missing features and patch for them (chmod and only change if different)
+  * [925] Problem with spaces in error redirection path.
+  * [924] Update to PEAR::VersionControl_SVN 0.5.0
+  * [922] Introduce build file property that contains the build file's directory
   * [915] path with special characters does not delete
   * [909] Replace __DIR__
   * [905] Add filterchain support to the property task
@@ -19,8 +28,10 @@ the following issues:
   * [901] phpunitreport create html's classes files in wrong folder
   * [900] phpdoc2 example has error
   * [895] error in includepath when calling more than once
+  * [893] Phing will run bootstrap before first task but clean up autoloader before second task
   * [892] Concatenate property lines ending with backslash
   * [891] Symfony console task: space within the arguments, not working on windows
+  * [890] Allow custom child elements
   * [888] Documentation error for CvsTask setfailonerror
   * [886] Error throwing in PDOSQLExecTask breaking trycatch
   * [884] svnlist fails on empty directories
@@ -31,6 +42,7 @@ the following issues:
   * [866] Code coverage not showing "not executed" lines
   * [863] MoveTask ignores fileset
   * [845] GrowlNotifyTask to be notified on long-task when they are finished
+  * [813] Allow custom conditions
   * [751] Allow loading of phpunit.xml in phpunit task
   * [208] ReplaceRegexp problem with newline as replace string
 
