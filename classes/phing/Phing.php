@@ -107,6 +107,9 @@ class Phing
      */
     private $silent = false;
 
+    /** Indicates whether phing should run in strict mode */
+    private $strictMode = false;
+
     /** Indicates if this phing should be run */
     private $readyToRun = false;
 
@@ -497,6 +500,10 @@ class Phing
                 } else {
                     $this->loggerClassname = $args[++$i];
                 }
+            } elseif ($arg == "-no-strict") {
+              $this->strictMode = false;
+            } elseif ($arg == "-strict") {
+              $this->strictMode = true;
             } elseif ($arg == "-inputhandler") {
                 if ($this->inputHandlerClassname !== null) {
                     throw new ConfigurationException("Only one input handler class may be specified.");
@@ -662,7 +669,7 @@ class Phing
 
         $this->addBuildListeners($project);
         $this->addInputHandler($project);
-
+        
         // set this right away, so that it can be used in logging.
         $project->setUserProperty("phing.file", $this->buildFile->getAbsolutePath());
         $project->setUserProperty("phing.dir", dirname($this->buildFile->getAbsolutePath()));
@@ -701,6 +708,9 @@ class Phing
             throw $exc;
         }
 
+        // Set the project mode
+        $project->setStrictMode(StringHelper::booleanValue($this->strictMode));
+	
         // make sure that we have a target to execute
         if (count($this->targets) === 0) {
             $this->targets[] = $project->getDefaultTarget();
@@ -1012,8 +1022,13 @@ class Phing
         $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
         $msg .= "  -verbose               be extra verbose" . PHP_EOL;
         $msg .= "  -debug                 print debugging information" . PHP_EOL;
+<<<<<<< 3bb3a05724d2f45e9019aa8b2513298b11db4840
         $msg .= "  -emacs, -e             produce logging information without adornments" . PHP_EOL;
         $msg .= "  -diagnostics           print diagnostics information" . PHP_EOL;
+=======
+        $msg .= "  -strict                runs build in strict mode, considering a warning as error" . PHP_EOL;
+        $msg .= "  -no-strict             runs build normally. (overrides buildfile attribute)" . PHP_EOL;
+>>>>>>> - Added the functionality for 'Strict' mode within the system.
         $msg .= "  -longtargets           show target descriptions during build" . PHP_EOL;
         $msg .= "  -logfile <file>        use given file for log" . PHP_EOL;
         $msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
