@@ -20,30 +20,16 @@
  */
  
 require_once 'phing/BuildFileTest.php';
-require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
+require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext.svn
  */
-class SvnExportTaskTest extends BuildFileTest { 
-    protected $backupGlobals = FALSE;
-     
-    public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
-        }
-
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/svn/SvnExportTest.xml');
-    }
-
-    public function tearDown()
-    {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+class SvnExportTaskTest extends AbstractSvnTaskTest { 
+    public function setUp() {
+        parent::setUp('SvnExportTest.xml');
     }
 
     public function testExportSimple()

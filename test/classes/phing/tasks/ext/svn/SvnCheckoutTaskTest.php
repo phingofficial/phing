@@ -20,32 +20,16 @@
  */
  
 require_once 'phing/BuildFileTest.php';
-require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
+require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnCheckoutTaskTest extends BuildFileTest { 
-    protected $backupGlobals = FALSE;
-     
+class SvnCheckoutTaskTest extends AbstractSvnTaskTest { 
     public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
-        }
-        // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/svn');
-
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/svn/SvnCheckoutTest.xml');
-    }
-
-    public function tearDown()
-    {
-        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        parent::setUp('SvnCheckoutTest.xml');
     }
 
     public function testCheckoutSimple()
