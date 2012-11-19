@@ -39,7 +39,7 @@ abstract class SvnBaseTask extends Task
     
     private $svnPath = "/usr/bin/svn";
     
-    private $svn = NULL;
+    protected $svn = NULL;
     
     private $mode = "";
     
@@ -310,7 +310,6 @@ abstract class SvnBaseTask extends Task
             }
             
             if (count($errs = $svnstack->getErrors())) {
-                var_dump($errs);
                 $err = current($errs);
                 $errorMessage = $err['message'];
                 
