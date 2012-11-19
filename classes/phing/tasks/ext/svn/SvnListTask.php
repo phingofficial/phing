@@ -86,11 +86,9 @@ class SvnListTask extends SvnBaseTask
      */
     function main()
     {
-        $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_XML;
-        
-        $this->setup('list');
-        
         if ($this->oldVersion) {
+            $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_XML;
+            $this->setup('list');
             $output = $this->run(array('--xml'));
             
             if (!($xmlObj = @simplexml_load_string($output))) {
@@ -111,6 +109,7 @@ class SvnListTask extends SvnBaseTask
                 );
             }
         } else {
+            $this->setup('list');
             $output = $this->run(array());
             $entries = $output['list'][0]['entry'];
         }
