@@ -391,11 +391,15 @@ class PhpCodeSnifferTask extends Task {
         }
 
         $cwd = getcwd();
+        
         // Save command line arguments because it confuses PHPCS (version 1.3.0)
         $oldArgs = $_SERVER['argv'];
         $_SERVER['argv'] = array();
         $_SERVER['argc'] = 0;
-        $codeSniffer = new PHP_CodeSniffer($this->verbosity, $this->tabWidth, $this->encoding);
+        
+        include_once 'phing/tasks/ext/phpcs/PhpCodeSnifferTask_Wrapper.php';
+        
+        $codeSniffer = new PhpCodeSnifferTask_Wrapper($this->verbosity, $this->tabWidth, $this->encoding);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
         if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
         foreach ($this->configData as $configData) {
@@ -408,11 +412,6 @@ class PhpCodeSnifferTask extends Task {
         } else {
             $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
         }
-        // Restore command line arguments
-        $_SERVER['argv'] = $oldArgs;
-        $_SERVER['argc'] = count($oldArgs);
-        chdir($cwd);
-
         $report = $this->printErrorReport($codeSniffer);
 
         // generate the documentation
@@ -444,6 +443,10 @@ class PhpCodeSnifferTask extends Task {
         {
             throw new BuildException('phpcodesniffer detected ' . $report['totals']['warnings'] . ' warning' . ($report['totals']['warnings'] > 1 ? 's' : ''));
         }
+        
+        $_SERVER['argv'] = $oldArgs;
+        $_SERVER['argc'] = count($oldArgs);
+        chdir($cwd);
     }
 
     /**
