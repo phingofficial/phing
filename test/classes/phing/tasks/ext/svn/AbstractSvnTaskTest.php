@@ -32,14 +32,17 @@ abstract class AbstractSvnTaskTest extends BuildFileTest {
     
     protected $savedErrorLevel = 0;
      
-    public function setUp($buildFilename) { 
+    public function setUp($buildFilename, $createDirectory = true) { 
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
             GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
         }
-        // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/svn');
+        
+        if ($createDirectory) {
+            // set temp directory used by test cases
+            mkdir(PHING_TEST_BASE . '/tmp/svn');
+        }
 
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);

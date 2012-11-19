@@ -50,6 +50,8 @@ abstract class SvnBaseTask extends Task
     private $toDir = "";
     
     protected $fetchMode;
+    
+    protected $oldVersion = false;
 
     /**
      * Initialize Task.
@@ -261,13 +263,16 @@ abstract class SvnBaseTask extends Task
         
         // Set up runtime options. Will be passed to all
         // subclasses.
-        $options = array('fetchmode' => $this->fetchMode, 'binaryPath' => $this->getSvnPath());
+        $options = array('fetchmode' => $this->fetchMode, 'svn_path' => $this->getSvnPath());
         
         // Pass array of subcommands we need to factory
         $this->svn = VersionControl_SVN::factory($mode, $options);
-                
-        $this->svn->use_escapeshellcmd = false;
-
+        
+        if (version_compare($this->svn->apiVersion(), '0.5.0') < 0) {
+            $this->oldVersion = true;
+            $this->svn->use_escapeshellcmd = false;
+        }
+        
         if (!empty($this->repositoryUrl)) {
             $this->svnArgs = array($this->repositoryUrl);
         } else if (!empty($this->workingCopy)) {
@@ -297,10 +302,30 @@ abstract class SvnBaseTask extends Task
         $tempArgs     = array_merge($this->svnArgs, $args);
         $tempSwitches = array_merge($this->svnSwitches, $switches);
         
-        try {
-            return $this->svn->run($tempArgs, $tempSwitches);
-        } catch (Exception $e) {
-            throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $e->getMessage());
+        if ($this->oldVersion) {
+            $svnstack = PEAR_ErrorStack::singleton('VersionControl_SVN');
+            
+            if ($output = $this->svn->run($tempArgs, $tempSwitches)) {
+                return $output;
+            }
+            
+            if (count($errs = $svnstack->getErrors())) {
+                var_dump($errs);
+                $err = current($errs);
+                $errorMessage = $err['message'];
+                
+                if (isset($err['params']['errstr'])) {
+                    $errorMessage = $err['params']['errstr'];
+                }
+                
+                throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $errorMessage);
+            }
+        } else {
+            try {
+                return $this->svn->run($tempArgs, $tempSwitches);
+            } catch (Exception $e) {
+                throw new BuildException("Failed to run the 'svn " . $this->mode . "' command: " . $e->getMessage());
+            }
         }
     }
 }

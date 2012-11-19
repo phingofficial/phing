@@ -86,19 +86,41 @@ class SvnListTask extends SvnBaseTask
      */
     function main()
     {
-        $this->setup('list');
-
-        $output = $this->run(array());
-        $result = null;
+        $this->fetchMode = VERSIONCONTROL_SVN_FETCHMODE_XML;
         
-        $entries = $output['list'][0]['entry'];
-
+        $this->setup('list');
+        
+        if ($this->oldVersion) {
+            $output = $this->run(array('--xml'));
+            
+            if (!($xmlObj = @simplexml_load_string($output))) {
+                throw new BuildException("Failed to parse the output of 'svn list --xml'.");
+            }
+            
+            $objects = $xmlObj->list->entry;
+            $entries = array();
+            
+            foreach ($objects as $object) {
+                $entries[] = array(
+                    'commit' => array(
+                        'revision' => (string) $object->commit['revision'],
+                        'author'   => (string) $object->commit->author,
+                        'date'     => (string) $object->commit->date
+                    ),
+                    'name' => (string) $object->name
+                );
+            }
+        } else {
+            $output = $this->run(array());
+            $entries = $output['list'][0]['entry'];
+        }
+        
         if ($this->orderDescending) {
             $entries = array_reverse($entries);
         }
-
-        $count = 0;
-        $dotSkipped = false;
+        
+        $result = null;
+        
         foreach ($entries as $entry) {
             if ($this->limit > 0 && $count >= $this->limit) {
                 break;
@@ -106,13 +128,10 @@ class SvnListTask extends SvnBaseTask
             
             $result .= (!empty($result)) ? "\n" : '';
             $result .= $entry['commit']['revision'] . ' | ' . $entry['commit']['author'] . ' | ' . $entry['commit']['date'] . ' | ' . $entry['name'];
-            $count++;
         }
 
         if (!empty($result)) {
             $this->project->setProperty($this->getPropertyName(), $result);
-        } elseif ($dotSkipped) {
-            $this->project->setProperty($this->getPropertyName(), "The list is empty.");
         } else {
             throw new BuildException("Failed to parse the output of 'svn list'.");
         }

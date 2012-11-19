@@ -29,7 +29,7 @@ require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
  */
 class SvnExportTaskTest extends AbstractSvnTaskTest { 
     public function setUp() {
-        parent::setUp('SvnExportTest.xml');
+        parent::setUp('SvnExportTest.xml', false);
     }
 
     public function testExportSimple()

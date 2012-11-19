@@ -43,6 +43,6 @@ class SvnCheckoutTaskTest extends AbstractSvnTaskTest {
     {
         $this->expectBuildExceptionContaining('noRepository', 
             'Repository is required',
-            'svn: Error parsing arguments');
+            'Error parsing arguments');
     }
 }
