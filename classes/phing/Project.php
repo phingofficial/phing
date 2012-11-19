@@ -101,6 +101,9 @@ class Project {
     /** require phing version */
     private $phingVersion;
 
+    /** project strict mode */
+    private $strictMode = false;
+
     /** a FileUtils object */
     private $fileUtils;
     
@@ -476,6 +479,29 @@ class Project {
             $this->setPhingVersion(Phing::getPhingVersion());
         }
         return $this->phingVersion;
+    }
+
+    /**
+     * Sets the strict-mode (status) for the current project
+     * (If strict mode is On, all the warnings would be converted to an error
+     * (and the build will be stopped/aborted)
+     *
+     * @param    string $mode Strict-mode information
+     * @return   void
+     * @access   public
+     * @author   Utsav Handa, handautsav@hotmail.com
+     */
+    public function setStrictMode($strictmode) {
+        $this->strictMode = (bool) $strictmode;
+        $this->setProperty("phing.project.strictmode", $this->strictMode);
+    }
+
+    /**
+     * Get the strict-mode status for the project
+     * @return boolean
+     */
+    public function getStrictmode() {
+        return $this->strictMode;
     }
 
     /**
@@ -1012,6 +1038,13 @@ class Project {
 
     function logObject($obj, $msg, $level) {
         $this->fireMessageLogged($obj, $msg, $level);
+
+        // Checking whether the strict-mode is On, then consider all the warnings
+        // as errors.
+        if ( ($this->strictMode) && (Project::MSG_WARN == $level) ) {
+          throw new BuildException('Build contains warnings, considered as errors in strict mode', null);
+        }
+
     }
 
     function addBuildListener(BuildListener $listener) {
