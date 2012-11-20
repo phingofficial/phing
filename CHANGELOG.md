@@ -1,9 +1,9 @@
-	P     H     I     N     G
+P     H     I     N     G
 =========================
 
 
-Nov. 19, 2012 - Phing 2.4.13
----------------------------
+Nov. 20, 2012 - Phing 2.4.13
+----------------------------
 
 This releases updates the composer package, adds a phploc task and improved
 support for phpDocumentor 2 and IonCube 7, improves the unit tests,
