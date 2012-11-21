@@ -31,7 +31,7 @@ class DbmsSyntaxOracle extends DbmsSyntax
 {
     public function applyAttributes($db)
     {
-        $db->setAttribute(PDO::ATTR_ATTR_CASE, PDO::CASE_LOWER);
+        $db->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
     }
     
     public function generateTimestamp()
