@@ -8953,6 +8953,20 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes, or <literal>workingcopy</literal></entry>
                     </row>
                     <row>
+                        <entry><literal>username</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A username used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A password used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>propertyname</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of property to use</entry>
@@ -9035,6 +9049,20 @@ host="webserver" command="ls" /></programlisting>
                         <entry>URL of remote repository</entry>
                         <entry>none</entry>
                         <entry>Yes, or <literal>workingcopy</literal></entry>
+                    </row>
+                    <row>
+                        <entry><literal>username</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A username used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A password used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>propertyname</literal></entry>
@@ -9120,6 +9148,20 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>URL of remote repository</entry>
                         <entry>none</entry>
+                    </row>
+                    <row>
+                        <entry><literal>username</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A username used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A password used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>propertyname</literal></entry>
@@ -9210,6 +9252,20 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>URL of remote repository</entry>
                         <entry>none</entry>
+                    </row>
+                    <row>
+                        <entry><literal>username</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A username used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>password</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A password used to connect to the SVN server</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>propertyname</literal></entry>
