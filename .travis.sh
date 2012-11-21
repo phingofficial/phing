@@ -30,10 +30,12 @@ installPearTask ()
         sudo pear upgrade pear.phpunit.de/phpcpd ||
         sudo pear install pear.phpunit.de/phpcpd
     phpenv rehash
-    # re-test for phpcpd:
-    #phpcpd -v 2>&1 >/dev/null   &&
-    #    echo "... OK"           ||
-    #    return 1
+
+    echo -e "\nInstalling / upgrading phploc ... "
+    which phploc >/dev/null                      &&
+        sudo pear upgrade pear.phpunit.de/phploc ||
+        sudo pear install pear.phpunit.de/phploc
+    phpenv rehash
 
     echo -e "\nInstalling / upgrading phpcs ... "
     which phpcs >/dev/null                             &&

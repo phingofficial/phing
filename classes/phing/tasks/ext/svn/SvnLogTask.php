@@ -86,10 +86,17 @@ class SvnLogTask extends SvnBaseTask
 
         $output = $this->run(array(), $switches);
         $result = null;
-
-        foreach ($output['logentry'] as $line) {
-            $result .= (!empty($result)) ? "\n" : '';
-            $result .= "{$line['revision']} | {$line['author']}  | {$line['date']}  | {$line['msg']}";
+        
+        if ($this->oldVersion) {
+            foreach ($output as $line) {
+                $result .= (!empty($result)) ? "\n" : '';
+                $result .= "{$line['REVISION']} | {$line['AUTHOR']}  | {$line['DATE']}  | {$line['MSG']}";
+            }
+        } else {
+            foreach ($output['logentry'] as $line) {
+                $result .= (!empty($result)) ? "\n" : '';
+                $result .= "{$line['revision']} | {$line['author']}  | {$line['date']}  | {$line['msg']}";
+            }
         }
 
         if (!empty($result)) {

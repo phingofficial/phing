@@ -20,29 +20,40 @@
  */
  
 require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
+require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @version $Id$
- * @package phing.tasks.ext.svn
+ * @package phing.tasks.ext
  */
-class SvnExportTaskTest extends AbstractSvnTaskTest { 
-    public function setUp() {
-        parent::setUp('SvnExportTest.xml', false);
+abstract class AbstractSvnTaskTest extends BuildFileTest { 
+    protected $backupGlobals = FALSE;
+    
+    protected $savedErrorLevel = 0;
+     
+    public function setUp($buildFilename, $createDirectory = true) { 
+        if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
+            // make sure we purge previously created directory
+            // if left-overs from previous run are found
+            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
+        }
+        
+        if ($createDirectory) {
+            // set temp directory used by test cases
+            mkdir(PHING_TEST_BASE . '/tmp/svn');
+        }
+
+        $this->savedErrorLevel = error_reporting();
+        error_reporting(E_ERROR);
+        
+        $this->configureProject(PHING_TEST_BASE 
+                              . '/etc/tasks/ext/svn/' . $buildFilename);
     }
 
-    public function testExportSimple()
+    public function tearDown()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
-        $this->executeTarget('exportSimple');
-        $this->assertInLogs("Exporting SVN repository to '" . $repository . "'");
-    }
-
-    public function testNoRepositorySpecified()
-    {
-        $this->expectBuildExceptionContaining('noRepository', 
-            'Repository is required',
-            'is not a working copy');
+        error_reporting($this->savedErrorLevel);
+        GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
 }

@@ -18,31 +18,19 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
+
+require_once 'phing/Task.php';
 
 /**
- * @author Michiel Rook <mrook@php.net>
+ * Wrapper to disable PHPCS's destructor
+ *
+ * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
- * @package phing.tasks.ext.svn
+ * @package phing.tasks.ext
  */
-class SvnExportTaskTest extends AbstractSvnTaskTest { 
-    public function setUp() {
-        parent::setUp('SvnExportTest.xml', false);
-    }
-
-    public function testExportSimple()
+class PhpCodeSnifferTask_Wrapper extends PHP_CodeSniffer {
+    public function __destruct()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
-        $this->executeTarget('exportSimple');
-        $this->assertInLogs("Exporting SVN repository to '" . $repository . "'");
-    }
-
-    public function testNoRepositorySpecified()
-    {
-        $this->expectBuildExceptionContaining('noRepository', 
-            'Repository is required',
-            'is not a working copy');
+        // override destructor
     }
 }
