@@ -613,9 +613,8 @@
 						<entry>preservemode or preservepermissions</entry>
 						<entry><literal role="type">Boolean</literal></entry>
 						<entry>If set to <literal>true</literal>, the new file (and directory) will have the same
-							permissions as the old one. The <literal>mode</literal> specified for directory creation
-                            will be ignored, if this is set to <literal>true</literal>.
-                        </entry>
+							permissions as the old one. The <literal>mode</literal> specified for directory
+							creation will be ignored.</entry>
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
 					</row>
