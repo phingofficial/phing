@@ -38,7 +38,9 @@ class JslLintTask extends Task
 
     protected $showWarnings = true;
     protected $haltOnFailure = false;
-    protected $hasErrors = false;
+    protected $haltOnWarning = false;
+    protected $hasErrors   = false;
+    protected $hasWarnings = false;
     private $badFiles = array();
 
     private $cache = null;
@@ -65,6 +67,14 @@ class JslLintTask extends Task
      */
     public function setHaltOnFailure($aValue) {
         $this->haltOnFailure = $aValue;
+    }
+
+    /**
+     * The haltonwarning property
+     * @param boolean $aValue
+     */
+    public function setHaltOnWarning($aValue) {
+        $this->haltOnWarning = $aValue;
     }
 
     /**
@@ -167,6 +177,7 @@ class JslLintTask extends Task
         }
 
         if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in JS files:' .implode(', ', array_keys($this->badFiles)));
+        if ($this->haltOnWarning && $this->hasWarnings) throw new BuildException('Syntax warning(s) in JS files:' .implode(', ', array_keys($this->badFiles)));
     }
 
     /**
@@ -249,6 +260,7 @@ class JslLintTask extends Task
                     foreach ($warnings as $warning) {
                         $this->log('- line ' . $warning['line'] . (isset($warning['column']) ? ' column ' . $warning['column'] : '') . ': ' . $warning['message'], Project::MSG_WARN);
                     }
+                    $this->hasWarnings = true;
                 }
 
                 if($errorCount > 0)

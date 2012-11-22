@@ -3549,6 +3549,14 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>haltonwarning</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Stop the build process if the linting process encounters a
+                            warning.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>showwarnings</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Sets the flag if warnings should be shown.</entry>
