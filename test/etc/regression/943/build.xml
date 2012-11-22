@@ -1,0 +1,15 @@
+ <project name="Regression test for ticket 943" default="test">
+     <if>
+         <equals arg1="${test1}" arg2="true" />
+         <then>
+             <property name="test2" value="a" />
+         </then>
+         <else>
+             <property name="test2" value="b" />
+         </else>
+     </if>
+     
+     <target name="test">
+     	<echo>Message</echo>
+     </target>
+ </project>

@@ -142,7 +142,7 @@ class TaskHandler extends AbstractHandler {
         // in an UnknownElement object to enable runtime configuration
         // NB: this is also done for ConditionBase objects to allow
         // dynamic conditions without breaking BC for all tasks
-        if ($this->task === null || ($this->task instanceof TaskAdapter && $this->task->getProxy() instanceof ConditionBase)) {
+        if ($this->task === null || ($this->task instanceof TaskAdapter && $this->task->getProxy() instanceof ConditionBase && $this->target !== null)) {
             $this->task = new UnknownElement($tag);
             $this->task->setProject($project);
             $this->task->setTaskType($tag);
@@ -177,6 +177,9 @@ class TaskHandler extends AbstractHandler {
             }
             */
         } else {
+            /*$this->wrapper = $this->task->getRuntimeConfigurableWrapper();
+            $this->wrapper->setAttributes($attrs);
+            $this->task->maybeConfigure();*/
             $this->task->init();
             $configurator->configure($this->task, $attrs, $project);
         }
