@@ -207,6 +207,280 @@
 			</itemizedlist>
 		</sect2>
 	</sect1>
+	<sect1 role="taskdef" xml:id="ApplyTask"> 
+		<title>ApplyTask </title>
+		<para>Applies a system command on each resource of the specified resource collection.</para>
+        <para>When the os attribute is specified, then the command is only executed when run on one of the specified operating systems.</para>
+        <para>The files of a number of Resource Collections – including but not restricted to FileSets or FileLists  – are passed as arguments to the system command.</para>
+
+		<table>
+			<title>Attributes</title>
+			<tgroup cols="5">
+				<colspec colname="name" colnum="1" colwidth="1.5*"/>
+				<colspec colname="type" colnum="2" colwidth="0.8*"/>
+				<colspec colname="description" colnum="3" colwidth="3.5*"/>
+				<colspec colname="default" colnum="4" colwidth="0.8*"/>
+				<colspec colname="required" colnum="5" colwidth="1.2*"/>
+				<thead>
+					<row>
+						<entry>Name</entry>
+						<entry>Type</entry>
+						<entry>Description</entry>
+						<entry>Default</entry>
+						<entry>Required</entry>
+						<entry>Alias</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry><literal>executable</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>The command to execute without any command line arguments.</entry>
+						<entry>n/a</entry>
+						<entry>Yes</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>dir</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>The directory the command is to be executed in.</entry>
+						<entry>n/a</entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>output</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Where to direct stdout.</entry>
+						<entry>n/a</entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>error</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Where to direct stderr.</entry>
+						<entry>n/a</entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>os</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Only execute if the <xref xlink:href="#app.factsheet"/> property
+							contains specified text.</entry>
+						<entry>n/a</entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>escape</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Escape shell metacharacters before execution. Setting this to true will enable the escape precaution.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>passthru</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether to use PHP's passthru() function instead of exec().</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>spawn</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether to spawn unix programs to the background, redirecting stdout.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>returnProperty</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Property name to set return value to from the execution.</entry>
+						<entry>n/a</entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>outputProperty</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Property name to set output value to from the execution.</entry>
+						<entry>n/a</entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>checkreturn</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether to check the return code of the execution, throws a
+							BuildException when returncode != 0.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry>failonerror</entry>
+					</row>
+					<row>
+						<entry><literal>append</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether output (and error) should be appended to or overwrite an existing file. 
+                            If you set parallel to false, you will probably want to set this one to true.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>parallel</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Run the command only once, appending all files as arguments. If false, 
+                            command will be executed once for every file.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>addsourcefile</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether source file name(s) should be added to the end of command-line automatically.
+                            If you need to place it somewhere different, use a nested &lt;srcfile&gt; element between 
+                            your &lt;arg&gt; elements to mark the insertion point.</entry>
+						<entry><literal>true</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>spawn</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether the command(s) to be executed are spawned as background process.
+                            If a command is spawned, its output will not be logged by Phing.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>relative</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether the filenames should be passed on the command line as relative pathnames
+                            (relative to the base directory of the corresponding fileset/list for source files).</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>forwardslash</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether the file names should be passed with forward slashes even if the operating
+                            system requires other file separator.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+					<row>
+						<entry><literal>maxparallel</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Limit the amount of parallelism by passing at most this many sourcefiles at once.
+                            Set it to &lt;= 0 for unlimited.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+						<entry></entry>
+					</row>
+	
+
+			</tbody>
+			</tgroup>
+		</table>
+		<sect2>
+			<title>Examples</title>
+			<programlisting language="xml">
+&lt;!-- Invokes somecommand arg1 SOURCEFILENAME arg2 for each file in /tmp --&gt;
+&lt;apply executable="somecommand" parallel="false"&gt;
+  &lt;arg value="arg1"/&gt;
+  &lt;srcfile/&gt;
+  &lt;arg value="arg2"/&gt;
+  &lt;fileset dir="/tmp"/&gt;
+&lt;/apply&gt;
+
+
+&lt;!-- List all the .conf files of "/etc" to the "out.log" file. --&gt;
+&lt;apply executable="ls" output="/tmp/out.log" append="true" &gt;
+  &lt;arg value="-alh" /&gt;
+  &lt;fileset dir="/etc" &gt;
+    &lt;include name="*.conf" /&gt;
+  &lt;/fileset&gt;
+&lt;/apply&gt;
+
+
+
+            </programlisting>
+		</sect2>
+		<sect2 role="nestedtags">
+			<title>Supported Nested Tags</title>
+			<itemizedlist>
+				<listitem>
+					<para><literal>arg</literal>
+						<table>
+							<title>Attributes</title>
+							<tgroup cols="5">
+								<colspec colname="name" colnum="1" colwidth="1.5*"/>
+								<colspec colname="type" colnum="2" colwidth="0.8*"/>
+								<colspec colname="description" colnum="3" colwidth="3.5*"/>
+								<colspec colname="default" colnum="4" colwidth="0.8*"/>
+								<colspec colname="required" colnum="5" colwidth="1.2*"/>
+								<thead>
+									<row>
+										<entry>Name</entry>
+										<entry>Type</entry>
+										<entry>Description</entry>
+										<entry>Default</entry>
+										<entry>Required</entry>
+									</row>
+								</thead>
+								<tbody>
+									<row>
+										<entry><literal>value</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>A single command-line argument; can contain space
+											characters.</entry>
+										<entry>n/a</entry>
+										<entry morerows="3">One of these</entry>
+									</row>
+									<row>
+										<entry><literal>file</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>The name of a file as a single command-line argument;
+											will be replaced with the absolute filename of the
+											file.</entry>
+										<entry>n/a</entry>
+									</row>
+									<row>
+										<entry><literal>path</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>A string that will be treated as a path-like string
+											as a single command-line argument; you can use ; or : as
+											path separators and Ant will convert it to the
+											platform's local conventions.</entry>
+										<entry>n/a</entry>
+									</row>
+									<row>
+										<entry><literal>line</literal></entry>
+										<entry><literal role="type">String</literal></entry>
+										<entry>A space-delimited list of command-line
+											arguments.</entry>
+										<entry>n/a</entry>
+									</row>
+								</tbody>
+							</tgroup>
+						</table>
+					</para>
+				</listitem>
+                <listitem><para><literal>fileset</literal></para></listitem>
+                <listitem><para><literal>filelist</literal></para></listitem>
+                <listitem><para><literal>srcfile</literal></para></listitem>
+			</itemizedlist>
+		</sect2>
+	</sect1>
 	<sect1 role="taskdef" xml:id="AvailableTask">
 		<title>AvailableTask </title>
 		<para>Available Task tests if a resource/file is set and sets a certain property to a
