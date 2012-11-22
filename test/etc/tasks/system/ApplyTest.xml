@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ApplyTaskTest" default="test">
+
+  <target name="testPropertySetOs">
+    <apply executable="echo" os="linux" />
+  </target>
+
+  <target name="testPropertySetDir">
+    <apply executable="echo" dir="/tmp/" />
+  </target>
+  
+  <target name="testPropertySetEscape">
+    <apply executable="echo" escape="true" />
+  </target>
+  
+  <target name="testPropertySetPassthru">
+    <apply executable="echo" passthru="true" />
+  </target>
+  
+  <target name="testPropertySetSpawn">
+    <apply executable="echo" spawn="true" />
+  </target>
+  
+  <target name="testPropertySetReturnProperty">
+    <apply executable="echo" returnProperty="retval" />
+  </target>
+  
+  <target name="testPropertySetOutputProperty">
+    <apply executable="echo" outputProperty="outval" />
+  </target>
+  
+  <target name="testPropertySetCheckreturn">
+    <apply executable="echo" checkreturn="true" />
+  </target>
+  
+  <target name="testPropertySetOutput">
+    <apply executable="echo" output="/tmp/outputfilename" />
+  </target>
+  
+  <target name="testPropertySetError">
+    <apply executable="echo" error="/tmp/errorfilename" />
+  </target>
+
+  <target name="testPropertySetAppend">
+    <apply executable="echo" append="true" />
+  </target>
+
+  <target name="testPropertySetParallel">
+    <apply executable="echo" parallel="false" />
+  </target>
+
+  <target name="testPropertySetAddsourcefile">
+    <apply executable="echo" addsourcefile="false" />
+  </target>
+
+  <target name="testPropertySetRelative">
+    <apply executable="echo" relative="false" />
+  </target>
+
+  <target name="testPropertySetForwardslash">
+    <apply executable="echo" forwardslash="true" />
+  </target>
+
+  <target name="testPropertySetMaxparallel">
+    <apply executable="echo" parallel="true" maxparallel="10" />
+  </target>
+
+  
+  <target name="testDoNotExecuteOnWrongOs">
+    <apply executable="echo" os="unknownos" addsourcefile="false" >
+      <arg value="'this should not be executed'" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+  
+  <target name="testExecuteOnCorrectOs">
+    <apply executable="echo" os="WINNT WIN32 Linux Darwin BSD" addsourcefile="false" >
+      <arg value="this should be executed" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+  
+  <target name="testFailOnNonExistingDir">
+    <apply executable="echo" dir="/tmp/non/existent/dir" >
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testChangeToDir">
+    <apply executable="ls" dir="/tmp/" addsourcefile="false" >
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testCheckreturnTrue">
+    <apply executable="/bin/true" checkreturn="true" addsourcefile="false" >
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+  
+    <target name="testCheckreturnFalse">
+    <apply executable="/bin/false" checkreturn="true" addsourcefile="false" >
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+  
+  <target name="testOutputProperty">
+    <apply executable="echo" outputProperty="execOutputProp"  addsourcefile="false" parallel="true" >
+      <arg value="foo" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+    <echo>The output property's value is: "${execOutputProp}"</echo>
+  </target>
+
+  <target name="testReturnProperty">
+    <apply executable="/bin/false" returnProperty="execReturnProp"  addsourcefile="false" parallel="true">
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+    <echo>The return property's value is: "${execReturnProp}"</echo>
+  </target>
+  
+  <target name="testEscape">
+    <!-- 'Echo' combines multiple spaces, but not on MS Windows -->
+    <apply executable="echo" escape="true" addsourcefile="false" parallel="true">
+      <arg line="foo  |  cat" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testPassThru">
+    <apply executable="/bin/true" passthru="true" addsourcefile="false" parallel="true">
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+  
+  <target name="testOutput">
+    <apply executable="echo" output="${execTmpFile}" addsourcefile="false" parallel="true">
+      <arg value="outfoo" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testError">
+    <apply executable="php" error="${execTmpFile}" addsourcefile="false" parallel="true"  >
+      <arg line=" -r &quot;error_log('errfoo');&quot; " />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+  
+  <target name="testSpawn">
+    <apply executable="sleep" spawn="true" addsourcefile="false" parallel="true" >
+      <arg value="5" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testNestedArgs">
+    <apply executable="echo" addsourcefile="false" parallel="true" >
+      <arg value="Hello" />
+      <arg line="World" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+  
+  <target name="testMissingExecutable">
+    <apply></apply>
+  </target>
+
+  <target name="testEscapedArg">
+    <apply executable="echo" escape="true" outputProperty="outval" addsourcefile="false" parallel="true">
+      <arg value="abc$b3!SB" />
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testRelativeSourceFilenames">
+    <apply executable="ls" dir="/etc" parallel="true" relative="true" >
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testSourceFilename">
+    <apply executable="ls" dir="/etc" parallel="true" relative="true" addsourcefile="false">
+      <fileset dir="/etc" >
+        <include name="*.ini" />
+      </fileset>
+    </apply>
+  </target>
+
+  <target name="testOutputAppend">
+    <apply executable="echo" parallel="true" output="${execTmpFile}" append="true" addsourcefile="false" >
+      <arg value="Append OK" />
+      <fileset dir="/etc" ><include name="*.ini" /></fileset>
+      <fileset dir="/etc" ><include name="*.conf" /></fileset>
+    </apply>
+  </target>
+
+  <target name="testParallel">
+    <apply executable="echo" parallel="true" addsourcefile="false" >
+      <arg value="Hello" />
+      <fileset dir="/etc" ><include name="*.conf" /></fileset>
+    </apply>
+  </target>
+  
+
+</project>
