@@ -662,6 +662,14 @@
                         <entry>999</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>deltaset</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Value of the 'applied_by' column for each
+                        entry in the changelog table</entry>
+                        <entry>dbdeploy</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>

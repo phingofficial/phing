@@ -126,6 +126,14 @@ class DbDeployTask extends Task
      * @var int
      */
     protected $checkall = false;
+    
+    /**
+     * The value of the 'applied_by' column for
+     * each changelog entry
+     *
+     * @var string
+     */
+    protected $appliedBy = 'dbdeploy';
 
     /**
      * The main function for the task
@@ -240,7 +248,7 @@ class DbDeployTask extends Task
                                 (change_number, delta_set, start_dt, applied_by, description)' .
                             ' VALUES (' . $fileChangeNumber . ', \'' . $this->deltaSet . '\', ' .
                                 $this->dbmsSyntax->generateTimestamp() .
-                                ', \'dbdeploy\', \'' . $fileName . '\');' . "\n";
+                                ', \'' . $this->appliedBy . '\', \'' . $fileName . '\');' . "\n";
                 }
 
                 // read the file
@@ -423,6 +431,17 @@ class DbDeployTask extends Task
     public function setCheckAll($checkall)
     {
         $this->checkall = (int)$checkall;
+    }
+    
+    /**
+     * Set the appliedBy property
+     *
+     * @param string $appliedBy
+     * @return void
+     */
+    public function setAppliedBy($appliedBy)
+    {
+        $this->appliedBy = $appliedBy;
     }
 
     /**
