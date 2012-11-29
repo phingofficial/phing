@@ -20,13 +20,12 @@
  */
  
 /**
- *  Utility class for generating necessary server-specific SQL commands
+ * Utility class for generating necessary server-specific SQL commands
  *
- *  @author   Luke Crouch at SourceForge (http://sourceforge.net)
- *  @version  $Id$
- *  @package  phing.tasks.ext.dbdeploy
+ * @author   Luke Crouch at SourceForge (http://sourceforge.net)
+ * @version  $Id$
+ * @package  phing.tasks.ext.dbdeploy
  */
-
 class DbmsSyntaxMsSql extends DbmsSyntax 
 {
     public function generateTimestamp()

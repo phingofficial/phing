@@ -22,12 +22,12 @@
 require_once 'phing/listener/DefaultLogger.php';
 
 /**
- *  Extends DefaultLogger to strip out empty targets.
+ * Extends DefaultLogger to strip out empty targets.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @package   phing.listener
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @package   phing.listener
  */
 class NoBannerLogger extends DefaultLogger {
 

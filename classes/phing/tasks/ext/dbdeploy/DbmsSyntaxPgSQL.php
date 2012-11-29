@@ -20,11 +20,11 @@
  */
  
 /**
- *  Utility class for generating necessary server-specific SQL commands
+ * Utility class for generating necessary server-specific SQL commands
  *
- *  @author   Remy BREUILS
- *  @version  $Id$
- *  @package  phing.tasks.ext.dbdeploy
+ * @author   Remy BREUILS
+ * @version  $Id$
+ * @package  phing.tasks.ext.dbdeploy
  */
 class DbmsSyntaxPgSQL extends DbmsSyntax 
 {

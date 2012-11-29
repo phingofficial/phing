@@ -22,13 +22,13 @@
 require_once 'phing/Task.php';
 
 /**
- *  Use introspection to "adapt" an arbitrary ( not extending Task, but with
- *  similar patterns).
+ * Use introspection to "adapt" an arbitrary ( not extending Task, but with
+ * similar patterns).
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @package   phing
  */
 class TaskAdapter extends Task {
     
