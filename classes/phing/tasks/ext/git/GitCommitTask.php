@@ -24,7 +24,7 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
  * Wrapper around git-commit
  *
- * @package Phing.tasks.ext.git
+ * @package phing.tasks.ext.git
  * @author Jonathan Creasy <jonathan.creasy@gmail.com>
  * @see VersionControl_Git
  * @since 2.4.3
