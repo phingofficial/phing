@@ -177,9 +177,6 @@ class TaskHandler extends AbstractHandler {
             }
             */
         } else {
-            /*$this->wrapper = $this->task->getRuntimeConfigurableWrapper();
-            $this->wrapper->setAttributes($attrs);
-            $this->task->maybeConfigure();*/
             $this->task->init();
             $configurator->configure($this->task, $attrs, $project);
         }
