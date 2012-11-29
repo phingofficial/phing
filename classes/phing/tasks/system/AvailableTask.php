@@ -23,14 +23,14 @@ require_once 'phing/Task.php';
 include_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
- *  <available> task.
+ * <available> task.
  *
- *  Note: implements condition interface (see condition/Condition.php)
+ * Note: implements condition interface (see condition/Condition.php)
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @package   phing.tasks.system
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @package   phing.tasks.system
  */
 class AvailableTask extends Task {
 

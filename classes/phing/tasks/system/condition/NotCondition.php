@@ -22,16 +22,16 @@
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
- *  <not> condition.
+ * <not> condition.
  *
- *  Evaluates to true if the single condition nested into it is false
- *  and vice versa.
+ * Evaluates to true if the single condition nested into it is false
+ * and vice versa.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @access    public
- *  @package   phing.tasks.system.condition
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @access    public
+ * @package   phing.tasks.system.condition
  */
 class NotCondition extends ConditionBase implements Condition {
 

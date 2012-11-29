@@ -22,16 +22,16 @@
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
- *  <or> condition container.
+ * <or> condition container.
  *
- *  Iterates over all conditions and returns true as soon as one
- *  evaluates to true.
+ * Iterates over all conditions and returns true as soon as one
+ * evaluates to true.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright  2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @access    public
- *  @package   phing.tasks.system.condition
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright  2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @access    public
+ * @package   phing.tasks.system.condition
  */
 class OrCondition extends ConditionBase implements Condition {
 

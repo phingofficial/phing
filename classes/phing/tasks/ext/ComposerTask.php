@@ -29,6 +29,7 @@ require_once "phing/Task.php";
  * @author nuno costa <nuno@francodacosta.com>
  * @license MIT
  * @version $Id$
+ * @package phing.tasks.ext
  */
 class ComposerTask extends Task
 {

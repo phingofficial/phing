@@ -26,15 +26,15 @@ include_once 'phing/tasks/system/condition/Condition.php';
 include_once 'phing/parser/CustomChildCreator.php';
 
 /**
- *  Abstract baseclass for the <condition> task as well as several
- *  conditions - ensures that the types of conditions inside the task
- *  and the "container" conditions are in sync.
+ * Abstract baseclass for the <condition> task as well as several
+ * conditions - ensures that the types of conditions inside the task
+ * and the "container" conditions are in sync.
  * 
- *  @author  Hans Lellelid <hans@xmpl.org>
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @package   phing.tasks.system.condition
+ * @author  Hans Lellelid <hans@xmpl.org>
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent
     implements IteratorAggregate, CustomChildCreator {

@@ -23,16 +23,16 @@ require_once 'phing/listener/StreamRequiredBuildLogger.php';
 include_once 'phing/BuildEvent.php';
 
 /**
- *  Writes a build event to the console.
+ * Writes a build event to the console.
  *
- *  Currently, it only writes which targets are being executed, and
- *  any messages that get logged.
+ * Currently, it only writes which targets are being executed, and
+ * any messages that get logged.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @see       BuildEvent
- *  @package   phing.listener
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @see       BuildEvent
+ * @package   phing.listener
  */
 class DefaultLogger implements StreamRequiredBuildLogger {
 

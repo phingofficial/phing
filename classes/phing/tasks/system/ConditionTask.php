@@ -22,19 +22,19 @@
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
- *  <condition> task as a generalization of <available>
+ * <condition> task as a generalization of <available>
  *
- *  <p>This task supports boolean logic as well as pluggable conditions
- *  to decide, whether a property should be set.</p>
+ * <p>This task supports boolean logic as well as pluggable conditions
+ * to decide, whether a property should be set.</p>
  *
- *  <p>This task does not extend Task to take advantage of
- *  ConditionBase.</p>
+ * <p>This task does not extend Task to take advantage of
+ * ConditionBase.</p>
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @access    public
- *  @package   phing.tasks.system
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @access    public
+ * @package   phing.tasks.system
  */
 class ConditionTask extends ConditionBase {
 

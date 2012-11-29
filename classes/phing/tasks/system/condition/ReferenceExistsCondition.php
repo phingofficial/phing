@@ -26,7 +26,8 @@ require_once 'phing/ProjectComponent.php'; require_once 'phing/tasks/system/cond
  *
  * @author Matthias Pigulla <mp@webfactory.de> (Phing)
  * @version $Id$
- * @package phing.tasks.system.condition  */
+ * @package phing.tasks.system.condition
+ */
 class ReferenceExistsCondition extends ProjectComponent implements Condition {
     
     private $refid;

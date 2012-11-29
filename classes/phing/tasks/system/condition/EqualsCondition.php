@@ -22,14 +22,14 @@
 require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
- *  A simple string comparator.  Compares two strings for eqiality in a
- *  binary safe manner. Implements the condition interface specification.
+ * A simple string comparator.  Compares two strings for eqiality in a
+ * binary safe manner. Implements the condition interface specification.
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @access    public
- *  @package   phing.tasks.system.condition
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @access    public
+ * @package   phing.tasks.system.condition
  */
 class EqualsCondition implements Condition {
 

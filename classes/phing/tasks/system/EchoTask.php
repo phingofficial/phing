@@ -22,14 +22,13 @@
 include_once 'phing/Task.php';
 
 /**
- *  Echos a message to the logging system or to a file
+ * Echos a message to the logging system or to a file
  *
- *  @author   Michiel Rook <mrook@php.net>
- *  @author   Andreas Aderhold, andi@binarycloud.com
- *  @version  $Id$
- *  @package  phing.tasks.system
+ * @author   Michiel Rook <mrook@php.net>
+ * @author   Andreas Aderhold, andi@binarycloud.com
+ * @version  $Id$
+ * @package  phing.tasks.system
  */
-
 class EchoTask extends Task {
     
     protected $msg = "";

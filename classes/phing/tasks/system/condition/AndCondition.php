@@ -22,16 +22,16 @@
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
- *  <and> condition container.
+ * <and> condition container.
  *
- *  Iterates over all conditions and returns false as soon as one
- *  evaluates to false.
+ * Iterates over all conditions and returns false as soon as one
+ * evaluates to false.
  * 
- *  @author    Hans Lellelid <hans@xmpl.org>
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @package   phing.tasks.system.condition
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @package   phing.tasks.system.condition
  */
 class AndCondition extends ConditionBase implements Condition {
 
