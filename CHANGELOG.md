@@ -7,6 +7,7 @@ Nov. 29, 2012 - Phing 2.4.14
 
 This release addresses the following issues:
 
+  * [944] phing/phingdocs bad md5sum
   * [943] If task with "equals" directly in "project" tag does not work
   * [942] Typo in tasks/ext/dbdeploy/DbmsSyntaxOracle.php
   * [939] Add username/password to svn info/lastrevision/list/log task docs
