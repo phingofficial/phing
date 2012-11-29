@@ -2,10 +2,23 @@ P     H     I     N     G
 =========================
 
 
+Nov. 29, 2012 - Phing 2.4.14
+----------------------------
+
+This release addresses the following issues:
+
+  * [943] If task with "equals" directly in "project" tag does not work
+  * [942] Typo in tasks/ext/dbdeploy/DbmsSyntaxOracle.php
+  * [939] Add username/password to svn info/lastrevision/list/log task docs
+  * [938] XSLT filter fails when libxslt security present in php
+
+Starting from this version, Phing releases and release numbers will follow
+the Semantic Versioning (www.semver.org) principle.
+
 Nov. 20, 2012 - Phing 2.4.13
 ----------------------------
 
-This releases updates the composer package, adds a phploc task and improved
+This release updates the composer package, adds a phploc task and improved
 support for phpDocumentor 2 and IonCube 7, improves the unit tests,
 clarifies the documentation in a number of places, and addresses
 the following issues:
