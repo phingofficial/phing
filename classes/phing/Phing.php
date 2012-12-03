@@ -1097,6 +1097,14 @@ class Phing {
             }
         }
 
+        // Check for the phing home of phar archive
+        if (strpos(self::$importPaths[0], 'phar://') === 0) {
+            $testPath = self::$importPaths[0] . '/../' . $path;
+            if (file_exists($testPath)) {
+                return $testPath;
+            }
+        }
+
         // If we are using this via PEAR then check for the file in the data dir
         // This is a bit of a hack, but works better than previous solution of assuming
         // data_dir is on the include_path.
