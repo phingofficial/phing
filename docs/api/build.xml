@@ -1,24 +1,45 @@
 <?xml version="1.0"?>
 
 <project name="Phing API Docs" default="build" basedir="."
-	description="This buildfile constructs the Phing API Documentation">
-	<target name="prepare">
-		<mkdir dir="docs"/>
-	</target>
-	
-	<target name="docs">
-		<phpdoc2 title="Phing API Documentation" output="docs"
-			quiet="true">
-			<fileset dir="../../classes">
-				<include name="**/*.php"/>
-			</fileset>
-		</phpdoc2>		
- 	</target>
-	
-	<target name="build" depends="prepare,docs">
-	</target>
+    description="This buildfile constructs the Phing API Documentation">
 
-	<target name="clean">
-		<delete dir="docs"/>
-	</target>
+    <php function="dirname" returnProperty="buildfile.dir">
+        <param value="${phing.file}"/>
+    </php>
+
+    <php function="realpath" returnProperty="phingpkg.home">
+        <param value="${buildfile.dir}/../.."/>
+    </php>
+
+    <condition property="phpdoc2.task.available">
+        <and>
+            <available file="${phingpkg.home}/classes/phing/tasks/ext/phpdoc/PhpDocumentor2Task.php" />
+            <available resource="phpDocumentor/src/phpDocumentor/Bootstrap.php" />
+        </and>
+    </condition>
+
+    <target name="prepare">
+        <mkdir dir="${buildfile.dir}/docs"/>
+    </target>
+
+    <target name="docs">
+        <phpdoc2 title="Phing API Documentation" output="${buildfile.dir}/docs"
+            quiet="true">
+            <fileset dir="${phingpkg.home}/classes">
+                <include name="**/*.php"/>
+            </fileset>
+        </phpdoc2>
+     </target>
+
+    <target name="build">
+        <fail unless="phpdoc2.task.available"
+            message="PhpDocumentor 2 is not installed" />
+
+        <phingcall target="prepare" />
+        <phingcall target="docs" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${buildfile.dir}/docs"/>
+    </target>
 </project>
