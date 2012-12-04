@@ -131,6 +131,11 @@ class SymfonyConsoleTask extends Task
         $cmd = $this->getCmdString();
 
         $this->log("executing $cmd");
-        passthru ($cmd);
+        $return = 0;
+        passthru ($cmd, $return);
+
+        if ($return != 0) {
+            throw new BuildException("SymfonyConsole execution failed");
+        }
     }
 }
