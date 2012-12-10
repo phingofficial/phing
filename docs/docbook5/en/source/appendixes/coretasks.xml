@@ -220,8 +220,10 @@
 				<literal>/home/foo</literal> is found and a directory,
 				<literal>properties.yetanother</literal> is set to <literal>"true"</literal>
 			(default). If <literal>/home/foo/bar</literal> exists, <literal>AvailableTask</literal>
-			will set <literal>foo.bar</literal> to <literal>"Well, yes"</literal>. <emphasis
-				role="bold">k</emphasis></para>
+			will set <literal>foo.bar</literal> to <literal>"Well, yes"</literal>.
+			And last it checks if extension <literal>foo</literal> is loaded,
+				so the property <literal>foo.ext.loaded</literal> is set to <literal>"true"</literal> (default).
+			<emphasis role="bold">k</emphasis></para>
 		<para><emphasis role="bold">NB:</emphasis> the Available task can also be used as a <xref
 				xlink:href="#ch.projcomponents"/>.</para>
 
@@ -262,14 +264,21 @@
 						<entry><literal role="type">String</literal></entry>
 						<entry>File/directory to check existence.</entry>
 						<entry>n/a</entry>
-						<entry>Yes (or <literal>resource</literal>)</entry>
+						<entry>Yes (or <literal>resource</literal> or <literal>extension</literal>)</entry>
 					</row>
 					<row>
 						<entry><literal>resource</literal></entry>
 						<entry><literal role="type">String</literal></entry>
 						<entry>Path of the resource to look for.</entry>
 						<entry>n/a</entry>
-						<entry>Yes (or <literal>file</literal>)</entry>
+						<entry>Yes (or <literal>file</literal> or <literal>extension</literal>)</entry>
+					</row>
+					<row>
+						<entry><literal>extension</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Name of the extension to look for.</entry>
+						<entry>n/a</entry>
+						<entry>Yes (or <literal>file</literal> or <literal>resource</literal>)</entry>
 					</row>
 					<row>
 						<entry><literal>type</literal></entry>
