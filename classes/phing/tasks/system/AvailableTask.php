@@ -46,9 +46,12 @@ class AvailableTask extends Task {
     /** Resource to check for */
     private $resource;
 
+    /** Extension to check if is loaded */
+    private $extension;
+
     private $type = null;
     private $filepath = null;
-    
+
     private $followSymlinks = false;
 
     function setProperty($property) {
@@ -67,18 +70,22 @@ class AvailableTask extends Task {
         $this->resource = (string) $resource;
     }
 
+    function setExtension($extension) {
+        $this->extension = (string) $extension;
+    }
+
     function setType($type) {
         $this->type = (string) strtolower($type);
     }
-    
+
     public function setFollowSymlinks($followSymlinks)
     {
         $this->followSymlinks = (bool) $followSymlinks;
     }
-    
+
     /**
      * Set the path to use when looking for a file.
-     * 
+     *
      * @param Path $filepath a Path instance containing the search path for files.
      */
     public function setFilepath(Path $filepath) {
@@ -91,9 +98,9 @@ class AvailableTask extends Task {
 
     /**
      * Creates a path to be configured
-     * 
+     *
      * @return Path
-     */ 
+     */
     public function createFilepath() {
         if ($this->filepath === null) {
             $this->filepath = new Path($this->project);
@@ -111,8 +118,8 @@ class AvailableTask extends Task {
     }
 
     function evaluate() {
-        if ($this->file === null && $this->resource === null) {
-            throw new BuildException("At least one of (file|resource) is required", $this->location);
+        if ($this->file === null && $this->resource === null && $this->extension === null) {
+            throw new BuildException("At least one of (file|resource|extension) is required", $this->location);
         }
 
         if ($this->type !== null && ($this->type !== "file" && $this->type !== "dir")) {
@@ -126,6 +133,11 @@ class AvailableTask extends Task {
 
         if (($this->resource !== null) && !$this->_checkResource($this->resource)) {
             $this->log("Unable to load resource " . $this->resource . " to set property " . $this->property, Project::MSG_VERBOSE);
+            return false;
+        }
+
+        if ($this->extension !== null && !extension_loaded($this->extension)) {
+            $this->log("Unable to load extension " . $this->extension . " to set property " . $this->property, Project::MSG_VERBOSE);
             return false;
         }
 
@@ -154,7 +166,7 @@ class AvailableTask extends Task {
         if ($this->followSymlinks && $file->isLink()) {
             $file = new PhingFile($file->getLinkTarget());
         }
-        
+
         if ($this->type !== null) {
             if ($this->type === "dir") {
                 return $file->isDirectory();
@@ -164,7 +176,7 @@ class AvailableTask extends Task {
         }
         return $file->exists();
     }
-    
+
     private function _checkResource($resource) {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
             return $this->_checkFile1(new PhingFile($resourcePath));

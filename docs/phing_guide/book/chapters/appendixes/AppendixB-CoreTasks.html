@@ -142,7 +142,7 @@
 		</ul>
 		<h2>
 			<a name="AvailableTask"></a>AvailableTask </h2>
-		<p>Available Task tests if a resource/file is set and sets a certain property to a certain
+		<p>Available Task tests if a resource/file/extension is set and sets a certain property to a certain
 			value if it exists.</p>
 		<pre title="Example of how to use AvailableTask">
 &lt;available file=&quot;/tmp/test.txt&quot; property=&quot;test_txt_exists&quot; value=&quot;Yes&quot;/&gt;
@@ -150,6 +150,8 @@
 &lt;available file=&quot;/home/foo&quot; type=&quot;dir&quot; property=&quot;properties.yetanother&quot; /&gt;
 
 &lt;available file=&quot;/home/foo/bar&quot; property=&quot;foo.bar&quot; value=&quot;Well, yes&quot; /&gt;
+
+&lt;available extension=&quot;foo&quot; property=&quot;foo.ext.loaded&quot; /&gt;
 </pre>
 		<p> Here, <em>AvailableTask</em> first checks for the existance of either file or directory
 			named <em>test.txt</em> in <em>/tmp</em>. Then, it checks for the directory <em>foo</em>
@@ -158,7 +160,9 @@
 				<em>&quot;Yes&quot;</em>, if <em>/home/foo</em> is found and a directory,
 				<em>properties.yetanother</em> is set to <em>&quot;true&quot;</em> (default). If
 				<em>/home/foo/bar</em> exists, <em>AvailableTask</em> will set <em>foo.bar</em> to
-				<em>&quot;Well, yes&quot;</em>. </p>
+				<em>&quot;Well, yes&quot;</em>. And last it checks if extension <em>foo</em> is loaded,
+				so the property <em>foo.ext.loaded</em> is set to <em>&quot;true&quot;</em> (default).
+		</p>
 		<p><b>NB:</b> the Available task can also be used as a <a
 				href="../ProjectComponents.html#Conditions">condition</a>.</p>
 		<h3>Parameters</h3>
@@ -192,14 +196,21 @@
 					<td>String</td>
 					<td>File/directory to check existence.</td>
 					<td>n/a</td>
-					<td>Yes (or <em>resource</em>)</td>
+					<td>Yes (or <em>resource</em> or <em>extension</em>)</td>
 				</tr>
 				<tr>
 					<td>resource</td>
 					<td>String</td>
 					<td>Path of the resource to look for.</td>
 					<td>n/a</td>
-					<td>Yes (or <em>file</em>)</td>
+					<td>Yes (or <em>file</em> or <em>extension</em>)</td>
+				</tr>
+				<tr>
+					<td>extension</td>
+					<td>String</td>
+					<td>Name of the extension to look for.</td>
+					<td>n/a</td>
+					<td>Yes (or <em>file</em> or <em>resource</em>)</td>
 				</tr>
 				<tr>
 					<td>type</td>
