@@ -352,7 +352,7 @@ class CopyTask extends Task {
         }
 
         if ($this->destFile !== null && count($this->filesets) > 0) {
-            throw new BuildException("Cannot concatenate multple files into a single file.");
+            throw new BuildException("Cannot concatenate multiple files into a single file.");
         }
 
         if ($this->destFile !== null) {
