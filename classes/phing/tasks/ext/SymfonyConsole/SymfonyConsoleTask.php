@@ -58,6 +58,12 @@ class SymfonyConsoleTask extends Task
     private $propertyName = null;
 
     /**
+     * Whether to check the return code.
+     * @var boolean
+     */
+    private $checkreturn = false;
+
+    /**
      * sets the symfony console command to execute
      * @param string $command
      */
@@ -101,6 +107,18 @@ class SymfonyConsoleTask extends Task
     public function setPropertyName($property)
     {
         $this->propertyName = $property;
+    }
+
+    /**
+     * Whether to check the return code.
+     *
+     * @param boolean $checkreturn If the return code shall be checked
+     *
+     * @return void
+     */
+    public function setCheckreturn($checkreturn)
+    {
+        $this->checkreturn = (bool) $checkreturn;
     }
 
     /**
@@ -157,10 +175,9 @@ class SymfonyConsoleTask extends Task
         if ($this->propertyName != null) {
             $this->project->setProperty($this->propertyName, $lines);
         }
-
-        if ($return != 0) {
+        
+        if ($return != 0 && $this->checkreturn) {
             $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
-            $this->log('Task exited with message: (' . $return . ') ' . $this->getErrorMessage($return), Project::MSG_ERR);
             throw new BuildException("SymfonyConsole execution failed");
         }
     }
