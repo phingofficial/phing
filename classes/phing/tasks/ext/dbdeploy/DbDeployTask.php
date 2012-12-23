@@ -290,8 +290,14 @@ class DbDeployTask extends Task
     protected function getDeltasFilesArray()
     {
         $files = array();
+        
         $baseDir = realpath($this->dir);
         $dh = opendir($baseDir);
+        
+        if ($dh === false) {
+            return $files;
+        }
+        
         $fileChangeNumberPrefix = '';
         while (($file = readdir($dh)) !== false) {
             if (preg_match('[\d+]', $file, $fileChangeNumberPrefix)) {
