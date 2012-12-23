@@ -152,7 +152,7 @@ class DbDeployTask extends Task
             // figure out which revisions are in the db already
             $this->appliedChangeNumbers = $this->getAppliedChangeNumbers();
             $this->log('Current db revision: '.$this->getLastChangeAppliedInDb());
-            $this->log('Checkall: ' . $this->checkall);
+            $this->log('Checkall: ' . ($this->checkall ? 'On' : 'Off'));
 
             $this->deploy();
 
