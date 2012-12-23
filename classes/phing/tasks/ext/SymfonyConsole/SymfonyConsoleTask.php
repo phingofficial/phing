@@ -51,6 +51,17 @@ class SymfonyConsoleTask extends Task
      */
     private $console = 'php app/console';
 
+    /**
+     *
+     * @var string property to be set
+     */
+    private $propertyName = null;
+
+    /**
+     * Whether to check the return code.
+     * @var boolean
+     */
+    private $checkreturn = false;
 
     /**
      * sets the symfony console command to execute
@@ -86,6 +97,28 @@ class SymfonyConsoleTask extends Task
     public function getConsole()
     {
         return $this->console;
+    }
+
+    /**
+     * Set the name of the property to store the hash value in
+     * @param $property
+     * @return void
+     */
+    public function setPropertyName($property)
+    {
+        $this->propertyName = $property;
+    }
+
+    /**
+     * Whether to check the return code.
+     *
+     * @param boolean $checkreturn If the return code shall be checked
+     *
+     * @return void
+     */
+    public function setCheckreturn($checkreturn)
+    {
+        $this->checkreturn = (bool) $checkreturn;
     }
 
     /**
@@ -131,6 +164,21 @@ class SymfonyConsoleTask extends Task
         $cmd = $this->getCmdString();
 
         $this->log("executing $cmd");
-        passthru ($cmd);
+        $return = null;
+        $output = array();
+        exec($cmd, $output, $return);
+
+        $lines = implode("\r\n", $output);
+        
+        $this->log($lines, Project::MSG_INFO);
+        
+        if ($this->propertyName != null) {
+            $this->project->setProperty($this->propertyName, $lines);
+        }
+        
+        if ($return != 0 && $this->checkreturn) {
+            $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
+            throw new BuildException("SymfonyConsole execution failed");
+        }
     }
 }
