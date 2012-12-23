@@ -141,7 +141,10 @@
                     </row>
                     <row>
                         <entry><literal>-l -list</literal></entry>
-                        <entry>List all available targets in buildfile</entry>
+                        <entry>List all available targets in buildfile
+                        (excluding targets that have their
+                        <literal>hidden</literal> attribute set to
+                        <literal>true</literal>)</entry>
                     </row>
                     <row>
                         <entry><literal>-q -quiet</literal></entry>
