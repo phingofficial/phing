@@ -119,6 +119,7 @@ class SvnListTask extends SvnBaseTask
         }
         
         $result = null;
+        $count = 0;
         
         foreach ($entries as $entry) {
             if ($this->limit > 0 && $count >= $this->limit) {
@@ -127,6 +128,7 @@ class SvnListTask extends SvnBaseTask
             
             $result .= (!empty($result)) ? "\n" : '';
             $result .= $entry['commit']['revision'] . ' | ' . $entry['commit']['author'] . ' | ' . $entry['commit']['date'] . ' | ' . $entry['name'];
+            $count++;
         }
 
         if (!empty($result)) {
