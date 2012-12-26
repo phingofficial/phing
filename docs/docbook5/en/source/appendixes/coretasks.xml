@@ -2946,7 +2946,7 @@ file defines a task in the format: name=path.to.Task -->
 Includes the Type named "CustomProject" and makes it available by
 &lt;cproject> 
 -->
-&lt;taskdef classname="user.types.CustomProject" name="cproject" /></programlisting>
+&lt;typedef classname="user.types.CustomProject" name="cproject" /></programlisting>
 		</sect2>
 
 		<sect2 role="nestedtags">
