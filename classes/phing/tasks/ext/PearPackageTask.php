@@ -140,7 +140,7 @@ class PearPackageTask extends MatchingTask {
             // Some PHING-specific options needed by our Fileset reader
             $this->preparedOptions['phing_project'] = $this->project;
             $this->preparedOptions['phing_filesets'] = $this->filesets;
-        } elseif ($this->preparedOptions['filelistgeneragor'] != 'Fileset' && !empty($this->filesets)) {
+        } elseif ($this->preparedOptions['filelistgenerator'] != 'Fileset' && !empty($this->filesets)) {
             throw new BuildException("You cannot use <fileset> element if you have specified the \"filelistgenerator\" option.");
         }                
         
