@@ -4,6 +4,15 @@
 
   <typedef name="pearPackageFileSet" classname="phing.types.PearPackageFileSet" />
 
+  <if>
+    <not>
+      <isset property="env.TMP}" />
+    </not>
+    <then>
+        <php function="sys_get_temp_dir" returnProperty="env.TMP" />
+    </then>
+  </if>
+
   <target name="testConsoleGetopt"
           description=""
   >
@@ -53,7 +62,7 @@
           description="uses the type with a real CopyTask"
   >
     <pearPackageFileSet package="Console_Getopt" role="php" id="co"/>
-    <property name="tmpdir" value="/tmp/phing-pearPackageFileSetBuildTest-test"/>
+    <property name="tmpdir" value="${env.TMP}/phing-pearPackageFileSetBuildTest-test"/>
     <delete dir="${tmpdir}" quiet="true"/>
     <copy todir="${tmpdir}" preservePermissions="false">
       <fileset refid="co"/>
@@ -72,7 +81,7 @@
           description="copy package files with a mapper"
   >
     <pearPackageFileSet package="Console_Getopt" role="php" id="co"/>
-    <property name="tmpdir" value="/tmp/phing-pearPackageFileSetBuildTest-test"/>
+    <property name="tmpdir" value="${env.TMP}/phing-pearPackageFileSetBuildTest-test"/>
     <delete dir="${tmpdir}" quiet="true"/>
     <copy todir="${tmpdir}" preservePermissions="false">
       <fileset refid="co"/>
