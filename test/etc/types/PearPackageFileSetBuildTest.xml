@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test" basedir="." default="testConsoleGetopt">
-  <includepath classpath="../src/" />
+  <includepath classpath="../../classes/phing/types" />
 
   <typedef name="pearPackageFileSet" classname="phing.types.PearPackageFileSet" />
 
