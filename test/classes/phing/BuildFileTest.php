@@ -200,6 +200,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
         $this->project->init();
         $f = new PhingFile($filename);
         $this->project->setUserProperty( "phing.file" , $f->getAbsolutePath() );
+        $this->project->setUserProperty( "phing.dir"  , dirname($f->getAbsolutePath()) );
         $this->project->addBuildListener(new PhingTestListener($this));
         ProjectConfigurator::configureProject($this->project, new PhingFile($filename));
     }
