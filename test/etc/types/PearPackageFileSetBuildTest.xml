@@ -13,6 +13,17 @@
     </then>
   </if>
 
+  <if>
+    <not>
+      <isset property="phing.dir}" />
+    </not>
+    <then>
+        <php function="dirname" returnProperty="phing.dir">
+            <param value="${phing.file}" />
+        </php>
+    </then>
+  </if>
+
   <target name="testConsoleGetopt"
           description=""
   >
@@ -94,6 +105,33 @@
                property="fileExists" value="true"/>
     <fail unless="fileExists" message="File has not been copied: ${file}" />
     <delete dir="${tmpdir}" quiet="true"/>
+  </target>
+
+  <target name="testPackageXmlFilelist"
+          description="returns a package.xml filelist"
+  >
+    <pearPackageFileSet
+        descFile="${phing.dir}/package_PHPUnit-3.7.10.xml"
+        role="doc"
+        id="co"
+    />
+    <foreach param="filename" absparam="absfilename" target="echoFilesetFile">
+      <fileset refid="co"/>
+    </foreach>
+  </target>
+
+  <target name="testPackageXmlIncludeCondition"
+          description="returns a package.xml filelist restricted to include condition"
+  >
+    <pearPackageFileSet
+        descFile="${phing.dir}/package_PHPUnit-3.7.10.xml"
+        id="co">
+
+        <include name="PHPUnit/TextUI/**" />
+    </pearPackageFileSet>
+    <foreach param="filename" absparam="absfilename" target="echoFilesetFile">
+      <fileset refid="co"/>
+    </foreach>
   </target>
 
 </project>

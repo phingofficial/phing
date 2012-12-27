@@ -62,4 +62,17 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
     }
+
+    public function testPackageXmlFilelist()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('CONTRIBUTING.md');
+    }
+
+    public function testPackageXmlIncludeCondition()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('ResultPrinter.php');
+        $this->assertNotInLogs('BaseTestRunner.php');
+    }
 }

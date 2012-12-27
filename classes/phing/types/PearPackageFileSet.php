@@ -12,7 +12,6 @@
  * @link     http://www.phing.info/
  */
 require_once 'phing/types/FileSet.php';
-require_once 'PEAR/Config.php';
 require_once 'phing/util/PearPackageScanner.php';
 
 /**
@@ -57,6 +56,13 @@ class PearPackageFileSet extends FileSet
     protected $package;
 
     /**
+     * File to use for generated package.xml
+     *
+     * @var string
+     */
+    protected $packageFile = '';
+
+    /**
      * Use files of that role only.
      * Multiple roles are not supported, and you always have to specify one.
      *
@@ -85,30 +91,32 @@ class PearPackageFileSet extends FileSet
      * Creates and returns the pear package scanner.
      * Scanner already has scan() called.
      *
-     * @param Project $project Current phing project
+     * @param Project $p Current phing project
      *
      * @return PearPackageScanner
      */
-    public function getDirectoryScanner(Project $project)
+    public function getDirectoryScanner(Project $p)
     {
         if ($this->isReference()) {
-            $obj = $this->getRef($project);
-            return $obj->getDirectoryScanner($project);
+            $obj = $this->getRef($p);
+            return $obj->getDirectoryScanner($p);
         }
 
-        $this->loadPearPackageScanner();
+        $this->loadPearPackageScanner($p);
         return $this->pps;
     }
 
     /**
      * Returns the base directory all package files are relative to
      *
+     * @param Project $p Current phing project
+     *
      * @return PhingFile Base directory
      */
-    public function getDir()
+    public function getDir(Project $p)
     {
         if ($this->pps === null) {
-            $this->loadPearPackageScanner();
+            $this->loadPearPackageScanner($p);
         }
         return new PhingFile((string) $this->pps->getBaseDir());
     }
@@ -116,16 +124,31 @@ class PearPackageFileSet extends FileSet
     /**
      * Loads the package scanner instance into $this->pps
      *
+     * @param Project $p Current phing project
+     *
      * @return void
      */
-    protected function loadPearPackageScanner()
+    protected function loadPearPackageScanner(Project $p)
     {
         $this->pps = new PearPackageScanner();
+        $this->pps->setDescFile($this->packageFile);
         $this->pps->setPackage($this->package);
         $this->pps->setChannel($this->channel);
         $this->pps->setRole($this->role);
         $this->pps->setConfig($this->config);
+        $this->pps->setIncludes($this->defaultPatterns->getIncludePatterns($p));
+        $this->pps->setExcludes($this->defaultPatterns->getExcludePatterns($p));
         $this->pps->scan();
+    }
+
+    /**
+     * Sets the package.xml filename.
+     *
+     * @return void
+     */
+    public function setDescFile($descFile)
+    {
+        $this->packageFile = $descFile;
     }
 
     /**
