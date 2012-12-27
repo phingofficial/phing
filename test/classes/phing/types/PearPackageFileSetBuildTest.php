@@ -18,20 +18,20 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- * 
+ *
  * @package phing.util
  */
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Testcases for phing.types.PearPackageFileSet
- * 
+ *
  * @author  Christian Weiske <cweiske@cweiske.de>
  * @package phing.types
  */
-class PearPackageFileSetBuildTest extends BuildFileTest 
-{ 
-    public function setUp() 
+class PearPackageFileSetBuildTest extends BuildFileTest
+{
+    public function setUp()
     {
         //needed for PEAR's Config and Registry classes
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
@@ -44,7 +44,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     public function testConsoleGetopt()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs('Console/Getopt.php');
+        $this->assertInLogs('Console' . DIRECTORY_SEPARATOR . 'Getopt.php');
     }
 
     public function testRoleDoc()
