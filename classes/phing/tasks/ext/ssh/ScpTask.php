@@ -383,6 +383,16 @@ class ScpTask extends Task
             } else {
                 $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint);
             }
+            
+            // some times remote server allow only create files via sftp
+            if (false === $ret && $this->sftp) {
+                // try create file via ssh2.sftp://file wrapper
+                $fh = @fopen("ssh2.sftp://$this->sftp/$remoteEndpoint", 'w');
+                if (is_resource($fh)) {
+                    $ret = fwrite($fh, file_get_contents($localEndpoint));
+                    fclose($fh);
+                }
+            }
 
             if ($ret === false) {
                 throw new BuildException("Could not create remote file '" . $remoteEndpoint . "'");
