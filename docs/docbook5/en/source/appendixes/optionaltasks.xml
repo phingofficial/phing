@@ -663,11 +663,21 @@
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>deltaset</literal></entry>
+                        <entry><literal>appliedBy</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Value of the 'applied_by' column for each
                         entry in the changelog table</entry>
                         <entry>dbdeploy</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checkall</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>False means dbdeploy will only apply patches that have a higher number
+                        than the last patchnumber that was applied
+                        True means dbdeploy will apply all changes that aren't applied
+                        already (in ascending order)</entry>
+                        <entry>false</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -2741,12 +2751,12 @@ Note that you can omit both startpoint and track attributes in this case
                             </itemizedlist>
                         </entry>
                         <entry>normal</entry>
-                        <entry>No</td>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>protocol</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The protocol used to send the notification. May be either gntp or udp.<entry>
+                        <entry>The protocol used to send the notification. May be either gntp or udp.</entry>
                         <entry>gntp</entry>
                         <entry>No</entry>
                     </row>

@@ -721,6 +721,16 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 					<td>dbdeploy</td>
 					<td>No</td>
 				</tr>
+				<tr>
+					<td>checkall</td>
+					<td>Boolean</td>
+					<td>False means dbdeploy will only apply patches that have a higher number
+						than the last patchnumber that was applied
+						True means dbdeploy will apply all changes that aren't applied
+						already (in ascending order)</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
 			</tbody>
 		</table>
 		<h2>
@@ -8575,7 +8585,7 @@ revision | author | date         | item
                     <td>no</td>
                 </tr>
             </tbody>
-            
+
         </table>
         <h3>Supported Nested Tags</h3>
         <ul>
