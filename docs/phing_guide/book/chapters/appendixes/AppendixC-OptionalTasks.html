@@ -23,7 +23,7 @@
 		<p> This reference lists the tasks alphabetically by the name of the classes that implement
 			the tasks. So if you are searching for the reference to the <code>&lt;phplint&gt;</code>
 			tag, for example, you will want to look at the reference of PhpLintTask. </p>
-			
+
 		<h2>
 			<a name="ApiGenTask"></a>ApiGenTask
 		</h2>
@@ -353,7 +353,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
                     <td>no</td>
                 </tr>
             </tbody>
-            
+
         </table>
         <h3>Supported Nested Tags</h3>
         <ul>
@@ -378,7 +378,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
                     <td>no</td>
                 </tr>
             </tbody>
-            
+
         </table>
             </li>
         </ul>
@@ -721,6 +721,16 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 					<td>dbdeploy</td>
 					<td>No</td>
 				</tr>
+                <tr>
+                    <td>checkall</td>
+                    <td>Boolean</td>
+                    <td>False means dbdeploy will only apply patches that have a higher number
+                        than the last patchnumber that was applied
+                        True means dbdeploy will apply all changes that aren't applied
+                        already (in ascending order)</td>
+                    <td>false</td>
+                    <td>No</td>
+                </tr>
 			</tbody>
 		</table>
 		<h2>
@@ -868,7 +878,7 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 		</table>
 		<h2>
 			<a name="FileSyncTask"></a>FileSyncTask </h2>
-		<p>Syncs files or directories using the rsync command. Syncing can be done on the 
+		<p>Syncs files or directories using the rsync command. Syncing can be done on the
 		   same server or from/to a remote server.</p>
 		<h3>Example</h3>
 		<pre>
@@ -1025,12 +1035,12 @@ checksum="true" /&gt;
 			<a name="FtpDeployTask"></a>FtpDeployTask </h2>
 		<p>Deploys a set of files to a remote FTP server.</p>
 		<h3>Example</h3>
-		<pre>&lt;ftpdeploy 
-  host="${ftp.host}" 
-  port="${ftp.port}" 
-  username="${ftp.username}" 
+		<pre>&lt;ftpdeploy
+  host="${ftp.host}"
+  port="${ftp.port}"
+  username="${ftp.username}"
   password="${ftp.password}"
-  dir="${ftp.dir}" 
+  dir="${ftp.dir}"
   passive=&quot;false&quot;
   mode="${ftp.mode}"&gt;
   &lt;fileset dir=&quot;.&quot;&gt;
@@ -1258,12 +1268,12 @@ checksum="true" /&gt;
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- Clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 
 &lt;!-- Clone bare repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}"
     bare="true" /&gt;
@@ -1343,13 +1353,13 @@ checksum="true" /&gt;
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- Clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 
 &lt;!-- Cleanup repository--&gt;
-&lt;gitgc 
-    repository="${repo.dir.resolved}" 
+&lt;gitgc
+    repository="${repo.dir.resolved}"
     aggressive="true"
     prune="1.week.ago" /&gt;
 </pre>
@@ -1489,35 +1499,35 @@ checksum="true" /&gt;
 
 &lt;!-- Create branch "sample-branch" tracking current HEAD --&gt;
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="sample-branch" /&gt;
 
-&lt;!-- 
-Create branch "sample-branch" tracking origin/master 
+&lt;!--
+Create branch "sample-branch" tracking origin/master
 Note that you can omit both startpoint and track attributes in this case
 --&gt;
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="sample-branch"
     startpoint="origin/master"
     track="true" /&gt;
 
 &lt;!-- Delete fully merged branch "sample-branch" --&gt;
-&lt;gitbranch 
-    repository="${repo.dir.resolved}" 
-    branchname="sample-branch" 
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch"
     delete="true" /&gt;
 
 &lt;!-- Force delete even unmerged branch "sample-branch" --&gt;
-&lt;gitbranch 
-    repository="${repo.dir.resolved}" 
-    branchname="sample-branch" 
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch"
     forcedelete="true" /&gt;
 
 &lt;!-- Renabe "branch1" to "branch2" --&gt;
-&lt;gitbranch 
-    repository="${repo.dir.resolved}" 
-    branchname="branch1" 
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="branch1"
     newbranch="branch2"
     move="true" /&gt;
 
@@ -1665,10 +1675,10 @@ Note that you can omit both startpoint and track attributes in this case
     repository="${repo.dir.resolved}" all="true" /&gt;
 
 &lt;!-- Fetch from origin/master to "refspec-branch" local branch --&gt;
-&lt;gitfetch 
-    repository="${repo.dir.resolved}" 
+&lt;gitfetch
+    repository="${repo.dir.resolved}"
     source="origin"
-    refspec="master:refspec-branch" 
+    refspec="master:refspec-branch"
     quiet="true" /&gt;
 </pre>
 		<h2>
@@ -1793,24 +1803,24 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 
 &lt;!-- create and switch to "mybranch" branch --&gt;
 &lt;gitcheckout
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="mybranch" quiet="true" create="true" /&gt;
 
 &lt;!-- get back to "master" branch --&gt;
 &lt;gitcheckout
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="master" quiet="true" /&gt;
 
 &lt;!-- create (force) already created branch --&gt;
 &lt;gitcheckout
-    repository="${repo.dir.resolved}" 
-    branchname="mybranch" quiet="true" 
+    repository="${repo.dir.resolved}"
+    branchname="mybranch" quiet="true"
     forceCreate="true" /&gt;
 </pre>
 		<h2>
@@ -1931,22 +1941,22 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 
 &lt;!-- create couple of test branches --&gt;
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="merge-test-1" startpoint="origin/master" /&gt;
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="merge-test-2" startpoint="origin/master" /&gt;
 
 &lt;!-- Merge those branches back into master --&gt;
 &lt;gitmerge
-    repository="${repo.dir.resolved}" 
-    remote="merge-test-1 merge-test-2" 
+    repository="${repo.dir.resolved}"
+    remote="merge-test-1 merge-test-2"
     message="merging repos" commit="true" /&gt;
 </pre>
 		<h2>
@@ -2106,7 +2116,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 
@@ -2116,8 +2126,8 @@ Note that you can omit both startpoint and track attributes in this case
 
 &lt;!-- pull remote origin/foobranch and rebase when merging --&gt;
 &lt;gitpull
-    repository="${repo.dir.resolved}" 
-    source="origin" refspec="foobranch" 
+    repository="${repo.dir.resolved}"
+    source="origin" refspec="foobranch"
     strategy="recursive" keep="true"
     force="true" quiet="true" rebase="true" /&gt;
 </pre>
@@ -2232,23 +2242,23 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 
 &lt;!-- push branch "master" into "foobranch" on "origin" remote --&gt;
 &lt;gitpush
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     refspec="master:foobranch" tags="true" /&gt;
 
 &lt;!-- create new branch "newbranch" on "origin" remote --&gt;
 &lt;gitpush
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     refspec="master:newbranch" quiet="true" /&gt;
 
 &lt;!-- delete "newbranch" branch from "origin" remote --&gt;
 &lt;gitpush
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     delete="true"
     refspec="newbranch" quiet="true" /&gt;
 </pre>
@@ -2437,28 +2447,28 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 
 &lt;gittag repository="${repo.dir.resolved}" name="ver1.0" /&gt;
 &lt;!-- Force duplicate tag creation --&gt;
-&lt;gittag 
-    repository="${repo.dir.resolved}" 
+&lt;gittag
+    repository="${repo.dir.resolved}"
     name="ver1.0" force="true"/&gt;
 &lt;!-- Create tag with annotation and message --&gt;
-&lt;gittag 
-    repository="${repo.dir.resolved}" 
+&lt;gittag
+    repository="${repo.dir.resolved}"
     name="ver1.0"
     annotate="true" message="Version 1.0 tag"/&gt;
 &lt;!-- Delete tag --&gt;
-&lt;gittag 
+&lt;gittag
     repository="${repo.dir.resolved}"
         name="ver2.0" delete="true" /&gt;
 &lt;!-- List tags matching to pattern "marked" into "tags" variable --&gt;
-&lt;gittag repository="${repo.dir.resolved}" 
+&lt;gittag repository="${repo.dir.resolved}"
     list="true"
-    outputProperty="tags" 
+    outputProperty="tags"
     pattern="marked" /&gt;
 </pre>
 		<h2>
@@ -2574,11 +2584,11 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
 
 &lt;!-- clone repository --&gt;
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" /&gt;
 <!-- write git-log output to "logs" variable -->
-&lt;gitlog 
+&lt;gitlog
     paths="${repo.dir.resolved}"
     format="oneline"
     maxCount="2"
@@ -2586,12 +2596,12 @@ Note that you can omit both startpoint and track attributes in this case
     noMerges="false"
     since="Sun Jan 23 23:55:42 2011 +0300"
     until="Mon Jan 24 09:59:33 2011 +0300"
-    outputProperty="logs" 
+    outputProperty="logs"
     repository="${repo.dir.resolved}" /&gt;
 </pre>
 		<h2>
 			<a name="GrowlNotifyTask"></a>GrowlNotifyTask </h2>
-		<p>When you have a long process and want to be notified when it is finished, without to stay 
+		<p>When you have a long process and want to be notified when it is finished, without to stay
 			focused on the console windows. Then use the GrowlNotify task.
 		</p>
 		<p>This task requires the PEAR <a href="http://pear.php.net/package/Net_Growl">Net_Growl</a> package installed (version  2.6.0).</p>
@@ -2742,7 +2752,7 @@ Note that you can omit both startpoint and track attributes in this case
 </pre>
 		<h4>Send a single notification with UDP protocol</h4>
 		<p>
-			When you don't have a Macintosh, OS compatible with Growl GNTP, you 
+			When you don't have a Macintosh, OS compatible with Growl GNTP, you
 			should use the basic UDP protocol.
 		</p>
 		<pre>
@@ -2787,8 +2797,8 @@ Note that you can omit both startpoint and track attributes in this case
 </pre>
 		<h4>Use your icons to identify an application</h4>
 		<p>
-			You may customize the Growl notification system, with different icons 
-			and more. 
+			You may customize the Growl notification system, with different icons
+			and more.
 		</p>
 		<pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -3525,7 +3535,7 @@ Note that you can omit both startpoint and track attributes in this case
 		</ul>
 
 		<h2><a name="LiquibaseChangeLogTask"></a>LiquibaseChangeLogTask </h2>
-		<p> The <em>LiquibaseChangeLogTask</em> writes the Change Log XML to copy the 
+		<p> The <em>LiquibaseChangeLogTask</em> writes the Change Log XML to copy the
 		 current state of the database to the given changeLogFile.</p>
 		<h3>Example</h3>
 		<pre>
@@ -5000,7 +5010,7 @@ Note that you can omit both startpoint and track attributes in this case
 				<tr>
 					<td>signature</td>
 					<td>String</td>
-					<td>Signature algorithm (md5, sha1, sha256, sha512, openssl), used for this 
+					<td>Signature algorithm (md5, sha1, sha256, sha512, openssl), used for this
 						package.</td>
 					<td>sha1</td>
 					<td>No</td>
@@ -6674,9 +6684,9 @@ Note that you can omit both startpoint and track attributes in this case
 			</tbody>
 		</table>
 		<h3>Examples</h3>
-		<pre>&lt;phpunitreport infile=&quot;reports/testsuites.xml&quot; 
-    format=&quot;frames&quot; 
-    todir=&quot;reports/tests&quot; 
+		<pre>&lt;phpunitreport infile=&quot;reports/testsuites.xml&quot;
+    format=&quot;frames&quot;
+    todir=&quot;reports/tests&quot;
     styledir=&quot;/home/phing/etc&quot;/&gt;
 </pre>
 		<p> Generates a framed report in the directory <em>reports/tests</em> using the file
@@ -6945,7 +6955,7 @@ Note that you can omit both startpoint and track attributes in this case
 	&lt;fileset dir=&quot;${project.basedir}&quot;&gt;
 		&lt;include name=&quot;**/*.jpg&quot; /&gt;
 	&lt;/fileset&gt;
-&lt;/s3put&gt;	
+&lt;/s3put&gt;
 	</pre>
 		<h3>Attributes</h3>
 		<table>
@@ -7017,7 +7027,7 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>Whether filenames should contain paths when uploaded to an S3 bucket</td>
 					<td>false</td>
 					<td>No</td>
-				</tr>  				
+				</tr>
 			</tbody>
 		</table>
 		<h3>Supported Nested Tags</h3>
@@ -7688,14 +7698,14 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
     username="anony"
     password="anony"
     nocache="true"
-    workingcopy="/home/joe/dev/project"    
+    workingcopy="/home/joe/dev/project"
     message="Updated documentation, fixed typos" /&gt;
 </pre>
 		<p>The most basic usage only needs the working copy and the commit message as in</p>
 		<pre>&lt;svncommit
     workingcopy="/home/joe/dev/project"
     message="Updated documentation, fixed typos" /&gt;
-&lt;echo message="Committed revision: ${svn.committedrevision}"/&gt;    
+&lt;echo message="Committed revision: ${svn.committedrevision}"/&gt;
 </pre>
 		<h3>Attributes</h3>
 		<table>
@@ -8575,7 +8585,7 @@ revision | author | date         | item
                     <td>no</td>
                 </tr>
             </tbody>
-            
+
         </table>
         <h3>Supported Nested Tags</h3>
         <ul>
@@ -8614,7 +8624,7 @@ revision | author | date         | item
                     <td>no</td>
                 </tr>
             </tbody>
-            
+
         </table>
             </li>
         </ul>
