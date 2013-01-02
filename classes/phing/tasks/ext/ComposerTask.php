@@ -147,7 +147,7 @@ class ComposerTask extends Task
 
     }
     /**
-     * executes the synfony consile application
+     * executes the synfony console application
      */
     public function main()
     {
