@@ -356,7 +356,14 @@ class Phing {
                     $this->listeners[] = $args[++$i];
                 }
             } elseif (StringHelper::startsWith("-D", $arg)) {
-                $name = substr($arg, 2);
+                // Evaluating the property information //
+                // Checking whether arg. is not just a switch, and next arg. does not starts with switch identifier
+                if ( ('-D' == $arg) && (! StringHelper::startsWith('-', $args[$i+1])) ) {
+                  $name = $args[++$i];
+                } else {
+                  $name = substr($arg, 2);
+                }
+                
                 $value = null;
                 $posEq = strpos($name, "=");
                 if ($posEq !== false) {
