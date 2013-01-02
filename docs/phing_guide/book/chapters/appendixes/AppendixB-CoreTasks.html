@@ -1854,7 +1854,9 @@
 &lt;property name=&quot;foo.bar&quot; value=&quot;Yet another property...&quot; /&gt;
 &lt;echo message=&quot;${foo.bar}&quot; /&gt;
 
-&lt;property file=&quot;build.properties&quot;  /&gt;
+&lt;property file=&quot;build.properties&quot; /&gt;
+
+&lt;property environment=&quot;env&quot; /&gt;
 
 &lt;property name=&quot;newproperty&quot; value=&quot;Hello&quot;&gt;
   &lt;filterchain&gt;
@@ -1881,21 +1883,16 @@
 					<td>String</td>
 					<td>The name of the Property.</td>
 					<td>n/a</td>
-					<td>Yes (unless using file)</td>
+					<td>Yes (unless using <em>file</em>
+					or <em>environment</em>)</td>
 				</tr>
 				<tr>
 					<td>value</td>
 					<td>String</td>
 					<td>The value of the Property.</td>
 					<td>n/a</td>
-					<td>Yes (unless using file)</td>
-				</tr>
-				<tr>
-					<td>override</td>
-					<td>Boolean</td>
-					<td>Whether to force override of existing value.</td>
-					<td>false</td>
-					<td>No</td>
+					<td>Yes (unless using <em>file</em>
+					or <em>environment</em>)</td>
 				</tr>
 				<tr>
 					<td>file</td>
@@ -1905,20 +1902,27 @@
 					<td>No</td>
 				</tr>
 				<tr>
-					<td>prefix</td>
+					<td>environment</td>
 					<td>String</td>
-					<td>Used when properites are loaded from file. Prefix is applied to properties
-						loaded from specified file. A "." is appended to the prefix if not
-						specified.</td>
+					<td>Loads properties from environment with the specified value
+						as prefix. Thus if you specify environment="myenv" you will be able to access OS-specific
+						environment variables via property names "myenv.PATH" or "myenv.TERM".</td>
 					<td>n/a</td>
 					<td>No</td>
 				</tr>
 				<tr>
-					<td>environment</td>
+					<td>override</td>
+					<td>Boolean</td>
+					<td>Whether to force override of existing value.</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>prefix</td>
 					<td>String</td>
-					<td>The prefix to use when retrieving environment variables. * Thus if you
-						specify environment="myenv" you will be able to access OS-specific *
-						environment variables via property names "myenv.PATH" or "myenv.TERM".</td>
+					<td>Used when properties are loaded from file. Prefix is applied to properties
+						loaded from specified file. A "." is appended to the prefix if not
+						specified.</td>
 					<td>n/a</td>
 					<td>No</td>
 				</tr>

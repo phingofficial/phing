@@ -131,7 +131,7 @@
 	<p>
 		It is also possible to specify a number of additional command line
 		arguments as described in <a
-			href="appendixes/AppendixA-FactSheet.html#BuildInProperties">Appendix
+			href="appendixes/AppendixA-FactSheet.html#BuiltInProperties">Appendix
 			A</a>
 	</p>
 
@@ -363,17 +363,6 @@
 		<em>build/en</em>.
 	</p>
 
-	<p>
-		It should be noted that if you use a property that is not defined via
-		the property task, the system environment table is searched for this
-		name. For example, if you would use the property
-		<tt>${BCHOME}</tt>
-		and you did not define this prior in the buildfile or at the command
-		line, Phing uses the environment variable
-		<tt>BCHOME</tt>
-		if it exists.
-	</p>
-
 	<h4>
 		<a name="BuiltInProperties"></a>Built-in Properties
 	</h4>
@@ -382,7 +371,7 @@
 		Phing provides access to system properties as if they had been defined
 		using a <em>&lt;property&gt;</em> task. For example, <em>${os.name}</em>
 		expands to the name of the operating system. See <a
-			href="appendixes/AppendixA-FactSheet.html#BuildInProperties">Appendix
+			href="appendixes/AppendixA-FactSheet.html#BuiltInProperties">Appendix
 			A</a> for a complete list
 	</p>
 

@@ -310,12 +310,6 @@
                     <literal>${BC_BUILD_DIR}/en</literal> . This is resolved to
                     <literal>build/en</literal>.</para>
 
-            <para>It should be noted that if you use a property that is not defined via the property
-                task, the system environment table is searched for this name. For example, if you
-                would use the property <literal>${BCHOME}</literal> and you did not define this
-                prior in the buildfile or at the command line, Phing uses the environment variable
-                    <literal>BCHOME</literal> if it exists.</para>
-
             <sect3>
                 <title>Built-in Properties</title>
 

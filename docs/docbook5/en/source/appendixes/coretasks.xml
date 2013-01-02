@@ -2234,20 +2234,27 @@
 						<entry><literal role="type">String</literal></entry>
 						<entry>The name of the Property.</entry>
 						<entry>n/a</entry>
-						<entry>Yes (unless using file)</entry>
+						<entry>Yes (unless using
+						<literal>file</literal> or
+						<literal>environment</literal>)</entry>
 					</row>
 					<row>
 						<entry><literal>value</literal></entry>
 						<entry><literal role="type">String</literal></entry>
 						<entry>The value of the Property.</entry>
 						<entry>n/a</entry>
-						<entry>Yes (unless using file)</entry>
+						<entry>Yes (unless using 
+						<literal>file</literal> or
+						<literal>environment</literal>)</entry>
 					</row>
 					<row>
-						<entry><literal>override</literal></entry>
-						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Whether to force override of existing value.</entry>
-						<entry><literal>false</literal></entry>
+						<entry><literal>environment</literal></entry>
+						<entry><literal role="type">String</literal></entry>
+						<entry>Loads properties from the environment with the specified value
+							as prefix. Thus if you specify environment="myenv" you will be
+							able to access OS-specific environment variables via property
+							names "myenv.PATH" or "myenv.TERM".</entry>
+						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
 					<row>
@@ -2258,21 +2265,18 @@
 						<entry>No</entry>
 					</row>
 					<row>
+						<entry><literal>override</literal></entry>
+						<entry><literal role="type">Boolean</literal></entry>
+						<entry>Whether to force override of existing value.</entry>
+						<entry><literal>false</literal></entry>
+						<entry>No</entry>
+					</row>
+					<row>
 						<entry><literal>prefix</literal></entry>
 						<entry><literal role="type">String</literal></entry>
 						<entry>Used when properites are loaded from file. Prefix is applied to
 							properties loaded from specified file. A "." is appended to the prefix
 							if not specified.</entry>
-						<entry>n/a</entry>
-						<entry>No</entry>
-					</row>
-					<row>
-						<entry><literal>environment</literal></entry>
-						<entry><literal role="type">String</literal></entry>
-						<entry>The prefix to use when retrieving environment variables. * Thus if
-							you specify environment="myenv" you will be able to access OS-specific *
-							environment variables via property names "myenv.PATH" or
-							"myenv.TERM".</entry>
 						<entry>n/a</entry>
 						<entry>No</entry>
 					</row>
@@ -2309,7 +2313,9 @@
 &lt;property name="foo.bar" value="Yet another property..." />
 &lt;echo message="${foo.bar}" />
 
-&lt;property file="build.properties"  />
+&lt;property file="build.properties" />
+
+&lt;property environment="env" />
 
 &lt;property name="newproperty" value="Hello"&gt;
   &lt;filterchain&gt;
