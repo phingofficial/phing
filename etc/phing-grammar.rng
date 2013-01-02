@@ -1860,6 +1860,14 @@
                         <data type="int"/>
                     </attribute>
                 </optional>
+
+                <optional>
+                    <attribute name="appliedBy"/>
+                </optional>
+
+                <optional>
+                    <attribute name="checkall"/>
+                </optional>
             </interleave>
         </element>
     </define>
