@@ -5802,6 +5802,45 @@ Note that you can omit both startpoint and track attributes in this case
                 </tbody>
             </tgroup>
         </table>
+        <sect2>
+            <title>Examples</title>
+            <para> Checks all files in the directory <literal>file</literal> matching the allowed
+                file extension with the <literal>PEAR</literal> standard and prints the
+                    <literal>summary</literal> report without warnings.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
+  standard="PEAR"
+  format="summary"
+  file="/path/to/source-files"
+  allowedFileExtensions="php php5 inc"/></programlisting>
+            <para> Checks all matching files in the <literal>fileset</literal> with the
+                    <literal>Zend</literal> standard, sets the <literal>zend_ca_path</literal>
+                configuration which may be required by one of the sniffs, prints a list of used
+                sniffs and prints the <literal>default</literal> report with warnings and the
+                    <literal>checkstyle</literal> report to
+                    <literal>/path/to/checkstyle.xml</literal>.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
+  standard="Zend"
+  showSniffs="true"
+  showWarnings="true">
+  &lt;fileset dir="/path/to/source-files">
+    &lt;include name="**/*.php"/>
+  &lt;/fileset>
+  &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/>
+  &lt;formatter type="default" usefile="false"/>
+  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
+&lt;/phpcodesniffer></programlisting>
+            <para> Checks all files in the directory <literal>file</literal> with the
+                    <literal>PEAR</literal> standard and prints the <literal>checkstyle</literal>
+                report without warnings. It also generates the documentation for the selected coding
+                standard and writes it to the given file.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
+  standard="PEAR"
+  file="/path/to/source-files"
+  docGenerator="HTML"
+  docFile="/path/to/doc.html">
+  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
+&lt;/phpcodesniffer></programlisting>
+        </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
@@ -5972,42 +6011,6 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Examples</title>
-            <para> Checks all files in the directory <literal>file</literal> matching the allowed
-                file extension with the <literal>PEAR</literal> standard and prints the
-                    <literal>summary</literal> report without warnings.</para>
-            <programlisting language="xml">&lt;phpcodesniffer
-  standard="PEAR"
-  format="summary"
-  file="/path/to/source-files"
-  allowedFileExtensions="php php5 inc"/></programlisting>
-            <para> Checks all matching files in the <literal>fileset</literal> with the
-                    <literal>Zend</literal> standard, sets the <literal>zend_ca_path</literal>
-                configuration which may be required by one of the sniffs, prints a list of used
-                sniffs and prints the <literal>default</literal> report with warnings and the
-                    <literal>checkstyle</literal> report to
-                    <literal>/path/to/checkstyle.xml</literal>.</para>
-            <programlisting language="xml">&lt;phpcodesniffer
-  standard="Zend"
-  showSniffs="true"
-  showWarnings="true">
-  &lt;fileset dir="/path/to/source-files">
-    &lt;include name="**/*.php"/>
-  &lt;/fileset>
-  &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/>
-  &lt;formatter type="default" usefile="false"/>
-  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
-&lt;/phpcodesniffer></programlisting>
-            <para> Checks all files in the directory <literal>file</literal> with the
-                    <literal>PEAR</literal> standard and prints the <literal>checkstyle</literal>
-                report without warnings. It also generates the documentation for the selected coding
-                standard and writes it to the given file.</para>
-            <programlisting language="xml">&lt;phpcodesniffer
-  standard="PEAR"
-  file="/path/to/source-files"
-  docGenerator="HTML"
-  docFile="/path/to/doc.html">
-  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
-&lt;/phpcodesniffer></programlisting>
             <programlisting language="xml">&lt;phpcpd file="path/to/source.php"/></programlisting>
 
             <para>Checking for copy/paste code in one particular source file. Sending Default-Report
