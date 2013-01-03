@@ -197,10 +197,10 @@ class Phing {
      */
     private static function initializeOutputStreams() {
         if (self::$out === null) {
-            self::$out = new OutputStream(fopen("php://stdout", "w"));
+            self::$out = new OutputStream(STDOUT);
         }
         if (self::$err === null) {
-            self::$err = new OutputStream(fopen("php://stderr", "w"));
+            self::$err = new OutputStream(STDERR);
         }
     }
 
