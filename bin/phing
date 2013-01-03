@@ -15,4 +15,6 @@ if (!in_array('-logger', $argv)) {
     $argv[] = 'phing.listener.AnsiColorLogger';
 }
 
+putenv("PHING_HOME=" . realpath(dirname(__FILE__) . '/../'));
+
 require_once dirname(__FILE__) . '/phing.php';
