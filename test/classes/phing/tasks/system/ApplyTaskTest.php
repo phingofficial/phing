@@ -40,13 +40,17 @@ class ApplyTaskTest extends BuildFileTest
      * Setup the test 
      */
     public function setUp() {
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped(
+                'Need at least PHP version 5.3.2 to run this unit test'
+            );
+        }
 
-      // Tests definitions
-      $this->configureProject( PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml' );
+        // Tests definitions
+        $this->configureProject( PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml' );
 
-      // Identifying the running environment
-      $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
-
+        // Identifying the running environment
+        $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
     }
 
 
