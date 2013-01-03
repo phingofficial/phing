@@ -5754,10 +5754,9 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>allowedFileExtensions</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The allowed file extensions (separated by space, comma or semicolon)
-                            when a directory is specified in the <literal>file</literal>
-                            attribute.</entry>
-                        <entry>php</entry>
+                        <entry>The allowed file extensions / file types to process.
+	                        Separated by space, comma or semicolon.</entry>
+                        <entry>php, inc, js, css</entry>
                         <entry>No</entry>
                     </row>
                     <row>

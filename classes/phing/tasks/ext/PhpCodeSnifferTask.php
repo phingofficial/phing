@@ -41,7 +41,7 @@ class PhpCodeSnifferTask extends Task {
     protected $reportWidth = 80;
     protected $verbosity = 0;
     protected $tabWidth = 0;
-    protected $allowedFileExtensions = array('php');
+    protected $allowedFileExtensions = array('php', 'inc', 'js', 'css');
     protected $ignorePatterns = false;
     protected $noSubdirectories = false;
     protected $configData = array();
