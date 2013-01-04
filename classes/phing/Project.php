@@ -242,7 +242,7 @@ class Project {
      * @see #setProperty()
      */
     public function setUserProperty($name, $value) {
-        $this->log("Setting ro project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->log("Setting user project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->userProperties[$name] = $value;
         $this->properties[$name] = $value;
     }
@@ -562,9 +562,9 @@ class Project {
         }  elseif (!isset($this->taskdefs[$name])) {
             Phing::import($class, $classpath);
             $this->taskdefs[$name] = $class;
-            $this->log("  +Task definiton: $name ($class)", Project::MSG_DEBUG);
+            $this->log("  +Task definition: $name ($class)", Project::MSG_DEBUG);
         } else {
-            $this->log("Task $name ($class) already registerd, skipping", Project::MSG_VERBOSE);
+            $this->log("Task $name ($class) already registered, skipping", Project::MSG_VERBOSE);
         }
     }
 
@@ -588,7 +588,7 @@ class Project {
             $this->typedefs[$typeName] = $typeClass;
             $this->log("  +User datatype: $typeName ($typeClass)", Project::MSG_DEBUG);
         } else {
-            $this->log("Type $typeName ($typeClass) already registerd, skipping", Project::MSG_VERBOSE);
+            $this->log("Type $typeName ($typeClass) already registered, skipping", Project::MSG_VERBOSE);
         }
     }
 
