@@ -868,7 +868,7 @@
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;filehash file="${builddir}/${tarball}.tar.${compression}" />
-&lt;echo "Hashvalue is; ${filehashvalue}" /></programlisting>
+&lt;echo msg="Hashvalue is; ${filehashvalue}" /></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="FileSizeTask">
