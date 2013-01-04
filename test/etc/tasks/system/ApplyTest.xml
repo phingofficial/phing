@@ -163,7 +163,7 @@
   </target>
 
   <target name="testError">
-    <apply executable="/usr/bin/php" error="${execTmpFile}" addsourcefile="false" parallel="true"  >
+    <apply executable="php" error="${execTmpFile}" addsourcefile="false" parallel="true"  >
       <arg line=" -r &quot;error_log('errfoo');&quot; " />
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
