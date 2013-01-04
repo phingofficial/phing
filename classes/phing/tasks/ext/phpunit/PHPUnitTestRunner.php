@@ -178,7 +178,13 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     
     protected function composeMessage($message, PHPUnit_Framework_Test $test, Exception $e)
     {
-        return "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();
+        $message = "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();
+        
+        if ($e instanceof PHPUnit_Framework_ExpectationFailedException && $e->getComparisonFailure()) {
+            $message .= "\n" . $e->getComparisonFailure()->getDiff();
+        }
+        
+        return $message;
     }
 
     /**
