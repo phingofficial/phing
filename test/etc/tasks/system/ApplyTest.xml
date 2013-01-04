@@ -204,7 +204,7 @@
   </target>
 
   <target name="testRelativeSourceFilenames">
-    <apply executable="ls" dir="${phing.home}" parallel="true" relative="true" >
+    <apply executable="ls" dir="${phing.home}/etc" parallel="true" relative="true" >
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
@@ -212,7 +212,7 @@
   </target>
 
   <target name="testSourceFilename">
-    <apply executable="ls" dir="${phing.home}" parallel="true" relative="true" addsourcefile="false">
+    <apply executable="ls" dir="${phing.home}/etc" parallel="true" relative="true" addsourcefile="false">
       <fileset dir="${phing.home}/etc" >
         <include name="*.xsl" />
       </fileset>
