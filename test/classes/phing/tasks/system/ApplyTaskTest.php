@@ -287,7 +287,7 @@ class ApplyTaskTest extends BuildFileTest
       // Validating the output
       $output = @file_get_contents($tempfile);
       @unlink($tempfile);
-      return $this->assertSame('outfoo', rtrim($output));
+      return $this->assertEquals('outfoo', rtrim($output));
     }
 
     /**
@@ -310,7 +310,7 @@ class ApplyTaskTest extends BuildFileTest
       // Validating the output
       $output = @file_get_contents($tempfile);
       @unlink($tempfile);
-      return $this->assertSame("errfoo", rtrim($output));
+      return $this->assertEquals("errfoo", rtrim($output));
     }
 
     /**
@@ -386,7 +386,7 @@ class ApplyTaskTest extends BuildFileTest
       // Validating the output
       $output = @file_get_contents($tempfile);
       @unlink($tempfile);
-      return $this->assertSame("Append OK\nAppend OK", rtrim($output));
+      return $this->assertEquals("Append OK\nAppend OK", rtrim($output));
     }
 
     /**
@@ -394,7 +394,7 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testParallel() {
       $this->executeTarget(__FUNCTION__);
-      return $this->assertSame(1, substr_count(implode("\n", $this->logBuffer), 'Command execution :'));
+      return $this->assertEquals(1, substr_count(implode("\n", $this->logBuffer), 'Command execution :'));
     }
 
 
