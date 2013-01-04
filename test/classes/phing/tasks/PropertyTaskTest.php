@@ -80,4 +80,16 @@ class PropertyTaskTest extends BuildFileTest {
         $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
     }
     
+    /**
+     * Test for direct and indirect boolean usage
+     * 
+     * @return void
+     */
+    public function testBooleanValue()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Param type is boolean', Project::MSG_VERBOSE);
+        $this->assertNotInLogs('Param type is string', Project::MSG_VERBOSE);
+    }
+
 }
