@@ -83,7 +83,7 @@ class GitGcTask extends GitBaseTask
         try {
             $command->execute();
         } catch (Exception $e) {
-            throw new BuildException('Task execution failed');
+            throw new BuildException('Task execution failed', $e);
         }
 
         $this->log(
