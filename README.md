@@ -1,1 +1,1 @@
-Netimage fork - made so I copuld send a pull request for a few fixes. /thing.
+Netimage fork - made so I could send a pull request for a few fixes. /thing.
