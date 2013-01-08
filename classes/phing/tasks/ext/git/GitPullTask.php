@@ -187,7 +187,7 @@ class GitPullTask extends GitBaseTask
         try {
             $output = $command->execute();
         } catch (Exception $e) {
-            throw new BuildException('Task execution failed.');
+            throw new BuildException('Task execution failed.', $e);
         }
 
         $this->log('git-pull: complete', Project::MSG_INFO); 
