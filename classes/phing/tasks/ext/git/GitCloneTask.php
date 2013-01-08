@@ -74,7 +74,7 @@ class GitCloneTask extends GitBaseTask
                 $this->isBare(), 
                 $this->getTargetPath());
         } catch (Exception $e) {
-            throw new BuildException('The remote end hung up unexpectedly');
+            throw new BuildException('The remote end hung up unexpectedly', $e);
         }
 
         $msg = 'git-clone: cloning ' 
