@@ -24,7 +24,7 @@ require_once 'phing/types/IterableFileSet.php';
 require_once 'phing/tasks/ext/phar/PharMetadata.php';
 
 /**
- * Package task for {@link http://ru.php.net/manual/en/book.phar.php Phar technology}.
+ * Package task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
  *
  * @package phing.tasks.ext
  * @author Alexey Shockov <alexey@shockov.com>
@@ -37,56 +37,68 @@ class PharPackageTask
      * @var PhingFile
      */
     private $destinationFile;
+
     /**
      * @var int
      */
     private $compression = Phar::NONE;
+
     /**
      * Base directory, from where local package paths will be calculated.
      *
      * @var PhingFile
      */
     private $baseDirectory;
+
     /**
      * @var PhingFile
      */
     private $cliStubFile;
+
     /**
      * @var PhingFile
      */
     private $webStubFile;
+
     /**
      * @var string
      */
     private $stubPath;
+
     /**
      * Private key the Phar will be signed with.
-     * 
-     * @var PhingFile 
+     *
+     * @var PhingFile
      */
     private $key;
+
     /**
      * Password for the private key.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     private $keyPassword = '';
+
     /**
      * @var int
      */
     private $signatureAlgorithm = Phar::SHA1;
+
     /**
      * @var array
      */
     private $filesets = array();
+
     /**
      * @var PharMetadata
      */
     private $metadata = null;
+
     /**
      * @var string
      */
     private $alias;
+
     /**
      * @return PharMetadata
      */
@@ -94,6 +106,7 @@ class PharPackageTask
     {
         return ($this->metadata = new PharMetadata());
     }
+
     /**
      * @return FileSet
      */
@@ -103,7 +116,11 @@ class PharPackageTask
         $this->filesets[]   = $this->fileset;
         return $this->fileset;
     }
+
     /**
+     * Signature algorithm (md5, sha1, sha256, sha512, openssl),
+     * used for this package.
+     *
      * @param string $algorithm
      */
     public function setSignature($algorithm)
@@ -131,12 +148,15 @@ class PharPackageTask
                 break;
         }
     }
+
     /**
+     * Compression type (gzip, bzip2, none) to apply to the packed files.
+     *
      * @param string $compression
      */
     public function setCompression($compression)
     {
-        /*
+        /**
          * If we don't support passed compression, leave old one.
          */
         switch ($compression) {
@@ -150,66 +170,90 @@ class PharPackageTask
                 break;
         }
     }
+
     /**
+     * Destination (output) file.
+     *
      * @param PhingFile $destinationFile
      */
     public function setDestFile(PhingFile $destinationFile)
     {
         $this->destinationFile = $destinationFile;
     }
+
     /**
+     * Base directory, which will be deleted from each included file (from path).
+     * Paths with deleted basedir part are local paths in package.
+     *
      * @param PhingFile $baseDirectory
      */
     public function setBaseDir(PhingFile $baseDirectory)
     {
         $this->baseDirectory = $baseDirectory;
     }
+
     /**
+     * Relative path within the phar package to run,
+     * if accessed on the command line.
+     *
      * @param PhingFile $stubFile
      */
     public function setCliStub(PhingFile $stubFile)
     {
         $this->cliStubFile = $stubFile;
     }
+
     /**
+     * Relative path within the phar package to run,
+     * if accessed through a web browser.
+     *
      * @param PhingFile $stubFile
      */
     public function setWebStub(PhingFile $stubFile)
     {
         $this->webStubFile = $stubFile;
     }
+
     /**
+     * A path to a php file that contains a custom stub.
+     *
      * @param string $stubPath
      */
     public function setStub($stubPath)
     {
         $this->stubPath = $stubPath;
     }
+
     /**
-     * @param $alias
+     * An alias to assign to the phar package.
+     *
+     * @param string $alias
      */
     public function setAlias($alias)
     {
         $this->alias = $alias;
     }
+
     /**
      * Sets the private key to use to sign the Phar with.
-     * 
+     *
      * @param PhingFile $key Private key to sign the Phar with.
      */
     public function setKey(PhingFile $key)
     {
         $this->key = $key;
     }
+
     /**
      * Password for the private key.
-     * 
-     * @param string $keyPassword 
+     *
+     * @param string $keyPassword
      */
     public function setKeyPassword($keyPassword)
     {
         $this->keyPassword = $keyPassword;
     }
+
     /**
      * @throws BuildException
      */
@@ -223,11 +267,11 @@ class PharPackageTask
                 Project::MSG_INFO
             );
 
-            /*
+            /**
              * Delete old package, if exists.
              */
             if ($this->destinationFile->exists()) {
-                /*
+                /**
                  * TODO Check operation for errors...
                  */
                 $this->destinationFile->delete();
@@ -243,13 +287,13 @@ class PharPackageTask
                     'Adding specified files in ' . $fileset->getDir($this->project) . ' to package',
                     Project::MSG_VERBOSE
                 );
-                
+
                 $phar->buildFromIterator($fileset, $baseDirectory);
             }
 
             $phar->stopBuffering();
 
-            /*
+            /**
              * File compression, if needed.
              */
             if (Phar::NONE != $this->compression) {
@@ -263,11 +307,18 @@ class PharPackageTask
             );
         }
     }
+
     /**
      * @throws BuildException
      */
     private function checkPreconditions()
     {
+        if (!extension_loaded('phar')) {
+            throw new BuildException(
+                "PharPackageTask require either PHP 5.3 or better or the PECL's Phar extension"
+            );
+        }
+
         if (is_null($this->destinationFile)) {
             throw new BuildException("destfile attribute must be set!", $this->getLocation());
         }
@@ -285,24 +336,25 @@ class PharPackageTask
             }
         }
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
-            
+
             if (!extension_loaded('openssl')) {
                 throw new BuildException("PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation());
             }
-            
+
             if (is_null($this->key)) {
                 throw new BuildException("key attribute must be set for OpenSSL signing!", $this->getLocation());
             }
-            
+
             if (!$this->key->exists()) {
                 throw new BuildException("key '" . (string) $this->key . "' does not exist!", $this->getLocation());
             }
-            
+
             if (!$this->key->canRead()) {
                 throw new BuildException("key '" . (string) $this->key . "' cannot be read!", $this->getLocation());
             }
         }
     }
+
     /**
      * Build and configure Phar object.
      *
@@ -311,22 +363,22 @@ class PharPackageTask
     private function buildPhar()
     {
         $phar = new Phar($this->destinationFile);
-        
+
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
-            
+
             // Load up the contents of the key
             $keyContents = file_get_contents($this->key);
-            
+
             // Setup an OpenSSL resource using the private key and tell the Phar
             // to sign it using that key.
             $private = openssl_pkey_get_private($keyContents, $this->keyPassword);
             $phar->setSignatureAlgorithm(Phar::OPENSSL, $private);
-            
+
             // Get the details so we can get the public key and write that out
             // alongside the phar.
             $details = openssl_pkey_get_details($private);
             file_put_contents($this->destinationFile . '.pubkey', $details['key']);
-            
+
         } else {
             $phar->setSignatureAlgorithm($this->signatureAlgorithm);
         }
@@ -345,8 +397,12 @@ class PharPackageTask
             } else {
                 $webStubFile = null;
             }
-            
+
             $phar->setDefaultStub($cliStubFile, $webStubFile);
+        }
+
+        if ($this->metadata === null) {
+            $this->createMetaData();
         }
 
         if ($metadata = $this->metadata->toArray()) {
