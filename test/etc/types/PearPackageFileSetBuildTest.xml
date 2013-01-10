@@ -6,7 +6,7 @@
 
   <if>
     <not>
-      <isset property="env.TMP}" />
+      <isset property="env.TMP" />
     </not>
     <then>
         <php function="sys_get_temp_dir" returnProperty="env.TMP" />
@@ -15,7 +15,7 @@
 
   <if>
     <not>
-      <isset property="phing.dir}" />
+      <isset property="phing.dir" />
     </not>
     <then>
         <php function="dirname" returnProperty="phing.dir">
