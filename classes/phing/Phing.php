@@ -62,6 +62,8 @@ include_once 'phing/system/util/Register.php';
  * @package   phing
  */
 class Phing {
+    /** Alias for phar file */
+    const PHAR_ALIAS = 'phing.phar';
 
     /** The default build file name */
     const DEFAULT_BUILD_FILENAME = "build.xml";
