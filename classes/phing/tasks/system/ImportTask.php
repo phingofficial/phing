@@ -127,7 +127,7 @@ class ImportTask extends Task {
       // Since this is delayed until after the importing file has been 
       // processed, the properties and targets of this new file may not take 
       // effect if they have alreday been defined in the outer scope.
-      $this->log("Importing configuration from {$file->getName()}", Project::MSG_VERBOSE);
+      $this->log("Importing configuration from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
       ProjectConfigurator::configureProject($this->project, $file);
       $this->log("Configuration imported.", Project::MSG_VERBOSE);
     }
