@@ -74,9 +74,17 @@ class UnixFileSystem extends FileSystem {
             return;
         }
 
+        // Start normalising after any scheme that is present.
+        // This prevents phar:///foo being normalised into phar:/foo
+        if ($scheme = parse_url($strPathname, PHP_URL_SCHEME)) {
+            $i = strlen($scheme . '://');
+        } else {
+            $i = 0;
+        }
+
         $n = strlen($strPathname);
         $prevChar = 0;
-        for ($i=0; $i < $n; $i++) {
+        for (; $i < $n; $i++) {
             $c = $strPathname{$i};
             if (($prevChar === '/') && ($c === '/')) {
                 return self::normalizer($strPathname, $n, $i - 1);
