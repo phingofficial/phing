@@ -8810,7 +8810,6 @@ host="webserver" command="ls" /></programlisting>
    svnpath="/usr/bin/svn"
    username="anony"
    password="anony"
-   force="true"
    nocache="true"
    repositoryurl="svn://localhost/project/trunk/"
    todir="svn://localhost/project/tags/0.1"/></programlisting>
@@ -8873,13 +8872,6 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal role="type">String</literal></entry>
                         <entry>A password used to connect to the SVN server</entry>
                         <entry>none</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>force</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Force overwrite files if they already exist</entry>
-                        <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
