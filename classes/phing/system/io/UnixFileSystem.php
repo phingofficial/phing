@@ -76,8 +76,9 @@ class UnixFileSystem extends FileSystem {
 
         // Start normalising after any scheme that is present.
         // This prevents phar:///foo being normalised into phar:/foo
-        if ($scheme = parse_url($strPathname, PHP_URL_SCHEME)) {
-            $i = strlen($scheme . '://');
+        // Use a regex as some paths may not by parsed by parse_url().
+        if (preg_match('{^[a-z][a-z0-9+\-\.]+://}', $strPathname)) {
+            $i = strpos($strPathname, '://') + 3;
         } else {
             $i = 0;
         }
