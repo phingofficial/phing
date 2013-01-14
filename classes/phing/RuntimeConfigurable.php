@@ -97,7 +97,6 @@ class RuntimeConfigurable {
 
             if ($this->characters) {
                 ProjectConfigurator::addText($project, $this->wrappedObject, (string) $this->characters);
-                $this->characters="";
             }
             if ($id !== null) {
                 $project->addReference($id, $this->wrappedObject);
