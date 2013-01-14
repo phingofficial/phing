@@ -326,7 +326,7 @@ class PhpDocumentorTask extends Task
     protected function findPhpDocumentorInstall()
     {
         $found = null;
-        foreach(explode(PATH_SEPARATOR, get_include_path()) as $path) {
+        foreach(Phing::explodeIncludePath() as $path) {
             $testpath = $path . DIRECTORY_SEPARATOR . 'PhpDocumentor';
             if (file_exists($testpath)) {
                 $found = $testpath;

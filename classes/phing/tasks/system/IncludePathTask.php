@@ -102,8 +102,8 @@ class IncludePathTask extends Task {
             throw new BuildException("Provided classpath was empty.");
         }
         
-        $curr_parts = explode(PATH_SEPARATOR, get_include_path());
-        $add_parts = explode(PATH_SEPARATOR, $classpath);
+        $curr_parts = Phing::explodeIncludePath();
+        $add_parts = Phing::explodeIncludePath($classpath);
         $new_parts = array_diff($add_parts, $curr_parts);
         
         if ($new_parts) {
