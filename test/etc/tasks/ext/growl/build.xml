@@ -7,6 +7,54 @@
     <!-- A mock task will be added here -->
     <target name="test" />
 
+    <target name="testEmptyName"
+        description="empty name will used default value"
+    >
+        <growlnotify message="test empty name"
+            name=""
+        />
+    </target>
+
+    <target name="testEmptyTitle"
+        description="empty title will used default value"
+    >
+        <growlnotify message="test empty title"
+            title=""
+        />
+    </target>
+
+    <target name="testEmptyNotification"
+        description="empty notification will used default value"
+    >
+        <growlnotify message="test empty notification"
+            notification=""
+        />
+    </target>
+
+    <target name="testEmptyAppIcon"
+        description="empty application icon will used default value"
+    >
+        <growlnotify message="test empty application icon"
+            appicon=""
+        />
+    </target>
+
+    <target name="testEmptyPriority"
+        description="empty priority will used default value"
+    >
+        <growlnotify message="test empty priority"
+            priority=""
+        />
+    </target>
+
+    <target name="testEmptyProtocol"
+        description="empty protocol will used default value"
+    >
+        <growlnotify message="test empty protocol"
+            protocol=""
+        />
+    </target>
+
     <target name="testEmptyMessage"
         description="cannot display empty message"
     >
