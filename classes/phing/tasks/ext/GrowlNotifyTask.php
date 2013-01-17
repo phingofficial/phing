@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2012, Laurent Laville <pear@laurent-laville.org>
+ * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
  *
  * All rights reserved.
  *
@@ -72,7 +72,7 @@ class GrowlNotifyTask extends Task
     /**
      * Initializes task with default options
      *
-     * @param Net_Growl $growl (optional) mock instance 
+     * @param Net_Growl $growl (optional) mock instance
      */
     public function __construct(Net_Growl $growl = null)
     {
@@ -102,15 +102,15 @@ class GrowlNotifyTask extends Task
         $this->setTaskName('GrowlNotify');
         $this->setName();
         $this->setSticky(false);
-        $this->setMessage('');
+        $this->setMessage();
         $this->setTitle();
         $this->setNotification();
-        $this->setAppicon('');
-        $this->setHost('127.0.0.1');
-        $this->setPassword('');
-        $this->setPriority('normal');
-        $this->setProtocol('gntp');
-        $this->setIcon('');
+        $this->setAppicon();
+        $this->setHost();
+        $this->setPassword();
+        $this->setPriority();
+        $this->setProtocol();
+        $this->setIcon();
     }
 
     /**
@@ -123,16 +123,16 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setName($name = null)
+    public function setName($name = '')
     {
-        if (is_null($name)) {
+        if ('' == $name) {
             $name = 'Growl for Phing';
         }
 
         if (!is_string($name)) {
             throw new BuildException(
                 '"name" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($name)
+                ' Expect to be a string, actual is ' . gettype($name)
             );
         }
 
@@ -152,7 +152,7 @@ class GrowlNotifyTask extends Task
         if (!is_bool($sticky)) {
             throw new BuildException(
                 '"sticky" attribute is invalid.' .
-                ' Expect to be a boolean, actual is type of ' . gettype($sticky)
+                ' Expect to be a boolean, actual is ' . gettype($sticky)
             );
         }
 
@@ -168,12 +168,12 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setMessage($message)
+    public function setMessage($message = '')
     {
         if (!is_string($message)) {
             throw new BuildException(
                 '"message" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($message)
+                ' Expect to be a string, actual is ' . gettype($message)
             );
         }
 
@@ -190,16 +190,16 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setTitle($title = null)
+    public function setTitle($title = '')
     {
-        if (is_null($title)) {
+        if ('' == $title) {
             $title = 'GrowlNotify';
         }
 
         if (!is_string($title)) {
             throw new BuildException(
                 '"title" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($title)
+                ' Expect to be a string, actual is ' . gettype($title)
             );
         }
 
@@ -215,16 +215,16 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setNotification($notification = null)
+    public function setNotification($notification = '')
     {
-        if (is_null($notification)) {
+        if ('' == $notification) {
             $notification = 'General Notification';
         }
 
         if (!is_string($notification)) {
             throw new BuildException(
                 '"notification" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($notification)
+                ' Expect to be a string, actual is ' . gettype($notification)
             );
         }
 
@@ -246,12 +246,12 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setAppicon($icon)
+    public function setAppicon($icon = '')
     {
         if (!is_string($icon)) {
             throw new BuildException(
                 '"appicon" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($icon)
+                ' Expect to be a string, actual is ' . gettype($icon)
             );
         }
 
@@ -274,16 +274,21 @@ class GrowlNotifyTask extends Task
      * Default: 127.0.0.1
      *
      * @param string $host Remote host name/ip
+     *                     Default: 127.0.0.1
      *
      * @return void
      * @throws BuildException
      */
-    public function setHost($host)
+    public function setHost($host = '')
     {
+        if ('' == $host) {
+            $host = '127.0.0.1';
+        }
+
         if (!is_string($host)) {
             throw new BuildException(
                 '"host" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($host)
+                ' Expect to be a string, actual is ' . gettype($host)
             );
         }
 
@@ -303,12 +308,12 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setPassword($password)
+    public function setPassword($password = '')
     {
         if (!is_string($password)) {
             throw new BuildException(
                 '"password" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($password)
+                ' Expect to be a string, actual is ' . gettype($password)
             );
         }
 
@@ -322,12 +327,17 @@ class GrowlNotifyTask extends Task
      * Default: normal
      *
      * @param string $priority Notification priority
+     *                         Default: normal
      *
      * @return void
      * @throws BuildException
      */
-    public function setPriority($priority)
+    public function setPriority($priority = '')
     {
+        if ('' == $priority) {
+            $priority = 'normal';
+        }
+
         switch ($priority) {
         case 'low' :
             $priority = Net_Growl::PRIORITY_LOW;
@@ -361,12 +371,17 @@ class GrowlNotifyTask extends Task
      * Default: 23053
      *
      * @param string $protocol Protocol to use to send request to remote host
+     *                         Default: gntp
      *
      * @return void
      * @throws BuildException
      */
-    public function setProtocol($protocol)
+    public function setProtocol($protocol = '')
     {
+        if ('' == $protocol) {
+            $protocol = 'gntp';
+        }
+
         switch ($protocol) {
         case 'udp' :
         case 'gntp' :
@@ -396,12 +411,12 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setIcon($icon)
+    public function setIcon($icon = '')
     {
         if (!is_string($icon)) {
             throw new BuildException(
                 '"icon" attribute is invalid.' .
-                ' Expect to be a string, actual is type of ' . gettype($icon)
+                ' Expect to be a string, actual is ' . gettype($icon)
             );
         }
 
@@ -426,7 +441,7 @@ class GrowlNotifyTask extends Task
     {
         if (empty($this->message)) {
             throw new BuildException(
-                '"message" attribute is required'
+                '"message" attribute cannot be empty'
             );
         }
 

@@ -40,7 +40,7 @@
  */
 
 /**
- * Tests for GrowlNotifyTask
+ * Tests for GrowlNotifyTask that raised error
  *
  * @category   Tasks
  * @package    phing.tasks.ext
@@ -49,7 +49,7 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
  */
-class GrowlNotifyTaskTest extends BuildFileTest
+class GrowlNotifyTaskErrorTest extends BuildFileTest
 {
     /**
      * Mock task's instance.
@@ -63,15 +63,26 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function setUp() 
+    public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/growl/build.xml');
 
         $name = '';
-        
+
         $gntpMock = Net_Growl::singleton(
             $name, array(), '', array('protocol' => 'gntpMock')
         );
+
+        /*
+            Should be the right response in real condition (without mock)
+
+        $gntpMock->addResponse(
+            "GNTP/1.0 -ERROR NONE\r\n" .
+            "Error-Code: 303\r\n" .
+            "Error-Description: Required header missing"
+        );
+        */
+
         $gntpMock->addResponse(
             "GNTP/1.0 -OK NONE\r\n" .
             "Response-Action: REGISTER\r\n" .
@@ -82,6 +93,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
             "Response-Action: NOTIFY\r\n" .
             ""
         );
+
         $this->mockTask = new GrowlNotifyTask($gntpMock);
         $this->mockTask->setProject($this->project);
         $targets = $this->project->getTargets();
@@ -90,130 +102,99 @@ class GrowlNotifyTaskTest extends BuildFileTest
     }
 
     /**
-     * Test for required message attribute
-     * 
-     * @expectedException        BuildException
-     * @expectedExceptionMessage "message" attribute cannot be empty
+     * Test for empty name attribute. So use the default value
+     *
      * @return void
      */
-    public function testEmptyMessage()
+    public function testEmptyName()
     {
         $this->executeTarget(__FUNCTION__);
+
+        $this->assertInLogs('Application-Name: Growl for Phing');
     }
 
     /**
-     * Test a single message notification
+     * Test for empty title attribute. So use the default value
      *
      * @return void
      */
-    public function testSingleNotification()
+    public function testEmptyTitle()
     {
-        $this->mockTask->setMessage('Single test message.');
-
-        $this->executeTarget('test');
-        $this->assertInLogs('Notification-Text: Single test message.');
+        try {
+            $this->executeTarget(__FUNCTION__);
+        } catch (BuildException $e) {
+            $this->fail(
+                $e->getMessage() . ' exception has been raised while not expected.'
+            );
+        }
+        $this->assertInLogs('Notification-Title: GrowlNotify');
     }
 
     /**
-     * Test a single message notification that sould be sticky
+     * Test for empty notification attribute. So use the default value
      *
      * @return void
      */
-    public function testSingleStickyNotification()
+    public function testEmptyNotification()
     {
-        $this->mockTask->setMessage('Sticky message !!!');
-        $this->mockTask->setSticky(true);
-        
-        $this->executeTarget('test');
-        $this->assertInLogs('Notification-Sticky: 1', Project::MSG_DEBUG);
+        try {
+            $this->executeTarget(__FUNCTION__);
+        } catch (BuildException $e) {
+            $this->fail(
+                $e->getMessage() . ' exception has been raised while not expected.'
+            );
+        }
+        $this->assertInLogs('Notification-Name: General Notification');
     }
 
     /**
-     * Test a single notification with custom application icon
+     * Test for empty appicon attribute. So use the default value
      *
      * @return void
      */
-    public function testSingleCustomAppIconNotification()
+    public function testEmptyAppIcon()
     {
-        $this->mockTask->setMessage('Test with custom Application Icon.');
-        $this->mockTask->setAppicon('..\..\..\..\data\Help.ico');
-
-        $this->executeTarget('test');
-        $this->assertInLogs('Application-Icon:', Project::MSG_DEBUG);
+        try {
+            $this->executeTarget(__FUNCTION__);
+        } catch (BuildException $e) {
+            $this->fail(
+                $e->getMessage() . ' exception has been raised while not expected.'
+            );
+        }
+        $this->assertInLogs('Application-Icon:');
     }
 
     /**
-     * Test a single notification with custom notification type
+     * Test for empty priority attribute. So use the default value
      *
      * @return void
      */
-    public function testSingleNotificationType() 
+    public function testEmptyPriority()
     {
-        $this->mockTask->setMessage('Build FINISHED.');
-        $this->mockTask->setNotification('Status');
-
-        $this->executeTarget('test');
-        $this->assertInLogs('Notification-Name: Status', Project::MSG_DEBUG);
+        try {
+            $this->executeTarget(__FUNCTION__);
+        } catch (BuildException $e) {
+            $this->fail(
+                $e->getMessage() . ' exception has been raised while not expected.'
+            );
+        }
+        $this->assertInLogs('Notification-Priority: ' . Net_Growl::PRIORITY_NORMAL);
     }
 
     /**
-     * Test a single notification with custom title
+     * Test for empty protocol attribute. So use the default value
      *
      * @return void
      */
-    public function testSingleNotificationTitled()
+    public function testEmptyProtocol()
     {
-        $this->mockTask->setMessage('Build FAILED.');
-        $this->mockTask->setTitle('PhingNotify');
-
-        $this->executeTarget('test');
-        $this->assertInLogs('Notification-Title: PhingNotify', Project::MSG_DEBUG);
+        try {
+            $this->executeTarget(__FUNCTION__);
+        } catch (BuildException $e) {
+            $this->fail(
+                $e->getMessage() . ' exception has been raised while not expected.'
+            );
+        }
     }
 
-    /**
-     * Test broadcasting message
-     *
-     * @return void
-     */
-    public function testBroadcastNotification()
-    {
-        $this->mockTask->setMessage('Broadcast message : Build FAILED.');
-        $this->mockTask->setHost('192.168.1.2');
-
-        $this->executeTarget('test');
-        $this->assertInLogs('Notification was sent to remote host 192.168.1.2');
-    }
-
-    /**
-     * Test a single notification with priority defined
-     *
-     * @return void
-     */
-    public function testSingleNotificationWithPriority()
-    {
-        $this->mockTask->setMessage('Build DEPLOYED.');
-        $this->mockTask->setPriority('high');
-
-        $this->executeTarget('test');
-        $this->assertInLogs(
-            'Notification-Priority: ' . Net_Growl::PRIORITY_HIGH,
-            Project::MSG_DEBUG
-        );
-    }
-
-    /**
-     * Test a single notification with custom application and message icons
-     *
-     * @return void
-     */
-    public function testSingleCustomIconNotification()
-    {
-        $this->mockTask->setMessage('Custom Application and Icon message.');
-        $this->mockTask->setAppicon('..\..\..\..\data\Help.ico');
-        $this->mockTask->setIcon('..\..\..\..\data\warning.png');
-
-        $this->executeTarget('test');
-        $this->assertInLogs('Application-Icon:', Project::MSG_DEBUG);
-        $this->assertInLogs('Notification-Icon:', Project::MSG_DEBUG);
-    }
 }
