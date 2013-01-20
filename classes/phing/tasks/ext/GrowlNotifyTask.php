@@ -279,12 +279,8 @@ class GrowlNotifyTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function setHost($host = '')
+    public function setHost($host = '127.0.0.1')
     {
-        if ('' == $host) {
-            $host = '127.0.0.1';
-        }
-
         if (!is_string($host)) {
             throw new BuildException(
                 '"host" attribute is invalid.' .
