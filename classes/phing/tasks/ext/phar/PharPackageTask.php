@@ -383,7 +383,7 @@ class PharPackageTask
             $phar->setSignatureAlgorithm($this->signatureAlgorithm);
         }
 
-        if (isset($this->stubPath)) {
+        if (!empty($this->stubPath)) {
             $phar->setStub(file_get_contents($this->stubPath));
         } else {
             if (!empty($this->cliStubFile)) {
