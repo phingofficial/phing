@@ -121,17 +121,18 @@ class CoverageMerger
 
             if ($props->getProperty($filename) != null) {
                 foreach ($data as $_line => $_data) {
+                    if(isset($ignoreLines[$_line])) {
+                        // line is marked as ignored
+                	continue;
+                    }
+                    
                     if ($_data === null) {
                         continue;
                     }
                     
                     if (is_array($_data)) {
                         $count = count($_data);
-                        
                         if ($count == 0) $count = -1;
-                    } else if(isset($ignoreLines[$_line])) {
-                    	// line is marked as ignored
-                    	$count = 1;
                     } else if ($_data == -1) {
                         // not executed
                         $count = -1;
