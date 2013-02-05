@@ -232,7 +232,7 @@ class PhpCodeSnifferTask extends Task {
         $token = ' ,;';
         $pattern = strtok($patterns, $token);
         while ($pattern !== false) {
-            $this->ignorePatterns[] = $pattern;
+            $this->ignorePatterns[$pattern] = 'relative';
             $pattern = strtok($token);
         }
     }
