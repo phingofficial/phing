@@ -27,20 +27,20 @@ installPearTask ()
 
     echo -e "\nInstalling / upgrading phpcpd ... "
     which phpcpd >/dev/null                      &&
-        sudo pear upgrade pear.phpunit.de/phpcpd ||
-        sudo pear install pear.phpunit.de/phpcpd
+        pear upgrade pear.phpunit.de/phpcpd ||
+        pear install pear.phpunit.de/phpcpd
     phpenv rehash
 
     echo -e "\nInstalling / upgrading phploc ... "
     which phploc >/dev/null                      &&
-        sudo pear upgrade pear.phpunit.de/phploc ||
-        sudo pear install pear.phpunit.de/phploc
+        pear upgrade pear.phpunit.de/phploc ||
+        pear install pear.phpunit.de/phploc
     phpenv rehash
 
     echo -e "\nInstalling / upgrading phpcs ... "
     which phpcs >/dev/null                             &&
-        sudo pear upgrade pear.php.net/PHP_CodeSniffer ||
-        sudo pear install pear.php.net/PHP_CodeSniffer
+        pear upgrade pear.php.net/PHP_CodeSniffer ||
+        pear install pear.php.net/PHP_CodeSniffer
     phpenv rehash
     # re-test for phpcs:
     phpcs --version 2>&1 >/dev/null   &&
