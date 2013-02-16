@@ -134,6 +134,7 @@ class ForeachTask extends Task {
         
         if (trim($this->list)) {
             $arr = explode($this->delimiter, $this->list);
+            $total_entries = 0;
         
             foreach ($arr as $value) {
                 $value = trim($value);
@@ -152,6 +153,7 @@ class ForeachTask extends Task {
                 $prop->setName($this->param);
                 $prop->setValue($value);
                 $callee->main();
+                $total_entries++;
             }
         }
 
@@ -171,7 +173,11 @@ class ForeachTask extends Task {
             $this->process($callee, $fs->getDir($this->project), $srcFiles, $srcDirs);
         }
 
-        $this->log("Processed {$this->total_dirs} directories and {$this->total_files} files", Project::MSG_VERBOSE);
+        if ($this->list === null) {
+            $this->log("Processed {$this->total_dirs} directories and {$this->total_files} files", Project::MSG_VERBOSE);
+        } else {
+            $this->log("Processed $total_entries entr" . ($total_entries > 1 ? 'ies' : 'y') . " in list", Project::MSG_VERBOSE);
+        }
     }
 
     /**

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ForeachTaskTest" default="main">
+
+    <property name="languages" value="en,fr,de" />
+
+    <target name="main" />
+
+    <target name="testRequiredParameters">
+        <foreach />
+    </target>
+
+    <target name="testListWithoutParam">
+        <foreach list="${languages}" target="main" />
+    </target>
+
+    <target name="testListWithoutCalleeTarget">
+        <foreach list="${languages}" />
+    </target>
+
+    <target name="testLogMessageWithFileset">
+        <foreach param="filename" absparam="absfilename" target="main">
+            <fileset dir=".">
+                <exclude name="**" />
+            </fileset>
+        </foreach>
+    </target>
+
+    <target name="testLogMessageWithList">
+        <foreach list="${languages}" param="lang" target="main" />
+    </target>
+
+    <target name="testLogMessageWithListUniqueEntry">
+        <foreach list="fr" param="lang" target="main" />
+    </target>
+
+</project>
