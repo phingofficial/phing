@@ -4,7 +4,7 @@
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="phing-guide">
     <info>
-        <title>Phing Guide</title>
+        <title>Phing User Guide</title>
         <authorgroup>
             <author>
                 <personname>
@@ -51,8 +51,8 @@
         </authorgroup>
         <pubdate><?dbtimestamp format="Y-m-d"?></pubdate>
         <copyright>
-            <year>2007-2012</year>
-            <holder>Phing Group</holder>
+            <year>2007-2013</year>
+            <holder>The Phing Project</holder>
         </copyright>
     </info>
     <preface>
