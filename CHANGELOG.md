@@ -2,6 +2,40 @@ P     H     I     N     G
 =========================
 
 
+Feb. 16, 2013 - Phing 2.5.0
+---------------------------
+
+This release addresses the following issues:
+
+ * [979] svncommit: invalid switch ignoreexternals
+ * [977] phpunit Task doesn't support @codeCoverageIgnore[...] comments
+ * [972] SvnCopyTask: remove "force" from documentation
+ * [971] TokenSource does not work
+ * [969] PHPUnit task does not report diffs for failed assertions
+ * [968] Proper handling of STDOUT and STDERR
+ * [963] XSLT task fails with fatal error on PHP 5.4
+ * [962] DbDeploy: infinite loop in case if directory not found
+ * [961] DbDeploy: checkall output isn't informative
+ * [960] Documentation of Dbdeploy task
+ * [959] Bug in SvnListTask Version 2.4.14
+ * [958] Property wrapped in if/then structure is not substituted by it's value
+ * [954] Paths becoming part of S3 file names on Windows
+ * [953] Add PHP extension check to Available Task
+ * [952] Properly document how to load environment variables as properties
+ * [951] S3Put throws "Source is not set" exception
+ * [949] SymfonyConsoleTask improvements: checkreturn and output of command
+ * [947] AvailableTask does not work on unix domain sockets
+ * [946] <target hidden="true> is undocumented
+ * [941] ZendGuardEncode under Windows 7
+ * [937] DbDeployTask applied_by username is hardcoded and cannot be changed
+ * [935] phpcodesniffertask does not work on CSS and JS files
+ * [932] SshTask Methods Options
+ * [921] JSL Lint Task - Halt on warning
+ * [910] Add preservepermissions flag to copy task
+ * [898] Add ApplyTask
+ * [838] -D option doesn't work with a space after it
+ * [599] Phar package does not work on Windows platforms
+
 Nov. 29, 2012 - Phing 2.4.14
 ----------------------------
 
