@@ -420,7 +420,7 @@ class PhingFile {
         $fs = FileSystem::getFileSystem();
 
         if ($fs->checkAccess($this)) {
-            return (boolean) @is_link($this->getAbsolutePath()) || @is_readable($this->getAbsolutePath());
+            return (boolean) @is_readable($this->getAbsolutePath());
         }
         return false;
     }
@@ -471,7 +471,7 @@ class PhingFile {
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to ".$this->path);
         }
-        return @is_dir($this->path) && !@is_link($this->path);
+        return @is_dir($this->path);
     }
 
     /**
