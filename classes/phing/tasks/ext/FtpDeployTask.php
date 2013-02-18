@@ -148,7 +148,7 @@ class FtpDeployTask extends Task
     public function init() {
         require_once 'PEAR.php';
 
-        $paths = explode(PATH_SEPARATOR, get_include_path());
+        $paths = Phing::explodeIncludePath();
         foreach($paths as $path) {
             if(file_exists($path.DIRECTORY_SEPARATOR.'Net'.DIRECTORY_SEPARATOR.'FTP.php')) {
                 return true;
