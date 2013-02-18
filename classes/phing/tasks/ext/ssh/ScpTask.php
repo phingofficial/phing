@@ -268,7 +268,27 @@ class ScpTask extends Task
     {
         return $this->fetch;
     }
-    
+
+    /**
+     * Declare number of successful operations above which "sftp" will be chosen over "scp".
+     *
+     * @param int $heuristicDecision    Number
+     */
+    public function setHeuristicDecision($heuristicDecision)
+    {
+        $this->heuristicDecision = (int) $heuristicDecision;
+    }
+
+    /**
+     * Get declared number of successful operations above which "sftp" will be chosen over "scp".
+     *
+     * @return int
+     */
+    public function getHeuristicDecision()
+    {
+        return $this->heuristicDecision;
+    }
+
     /**
      * Nested creator, creates a FileSet for this task
      *
