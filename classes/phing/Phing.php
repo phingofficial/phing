@@ -62,6 +62,8 @@ include_once 'phing/system/util/Register.php';
  * @package   phing
  */
 class Phing {
+    /** Alias for phar file */
+    const PHAR_ALIAS = 'phing.phar';
 
     /** The default build file name */
     const DEFAULT_BUILD_FILENAME = "build.xml";
@@ -1054,8 +1056,8 @@ class Phing {
             // possible to write far less expensive run-time applications (e.g. using Propel), which is
             // really where speed matters more.
 
-            $curr_parts = explode(PATH_SEPARATOR, get_include_path());
-            $add_parts = explode(PATH_SEPARATOR, $classpath);
+            $curr_parts = Phing::explodeIncludePath();
+            $add_parts = Phing::explodeIncludePath($classpath);
             $new_parts = array_diff($add_parts, $curr_parts);
             if ($new_parts) {
                 set_include_path(implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
@@ -1081,8 +1083,7 @@ class Phing {
     public static function getResourcePath($path) {
 
         if (self::$importPaths === null) {
-            $paths = get_include_path();
-            self::$importPaths = explode(PATH_SEPARATOR, $paths);
+            self::$importPaths = self::explodeIncludePath();
         }
 
         $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
@@ -1138,6 +1139,36 @@ class Phing {
         }
 
         return null;
+    }
+
+    /**
+     * Explode an include path into an array
+     *
+     * If no path provided, uses current include_path. Works around issues that
+     * occur when the path includes stream schemas.
+     *
+     * Pulled from Zend_Loader::explodeIncludePath() in ZF1.
+     *
+     * @copyright Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+     * @license http://framework.zend.com/license/new-bsd New BSD License
+     * @param  string|null $path
+     * @return array
+     */
+    public static function explodeIncludePath($path = null)
+    {
+        if (null === $path) {
+            $path = get_include_path();
+        }
+
+        if (PATH_SEPARATOR == ':') {
+            // On *nix systems, include_paths which include paths with a stream
+            // schema cannot be safely explode'd, so we have to be a bit more
+            // intelligent in the approach.
+            $paths = preg_split('#:(?!//)#', $path);
+        } else {
+            $paths = explode(PATH_SEPARATOR, $path);
+        }
+        return $paths;
     }
 
     // -------------------------------------------------------------------------------------------

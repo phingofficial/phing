@@ -136,7 +136,7 @@ class PhpDocumentor2Wrapper
     {
         $phpDocumentorPath = null;
         
-        foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
+        foreach (Phing::explodeIncludePath() as $path) {
             $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . 'phpDocumentor' . DIRECTORY_SEPARATOR . 'src';
 
             if (file_exists($testPhpDocumentorPath)) {

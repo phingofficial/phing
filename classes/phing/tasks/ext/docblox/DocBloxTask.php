@@ -125,7 +125,7 @@ class DocBloxTask extends Task
     {
         $docbloxPath = null;
         
-        foreach (explode(PATH_SEPARATOR, get_include_path()) as $path) {
+        foreach (Phing::explodeIncludePath() as $path) {
             $testDocBloxPath = $path . DIRECTORY_SEPARATOR . 'DocBlox' . DIRECTORY_SEPARATOR . 'src';
 
             if (file_exists($testDocBloxPath)) {

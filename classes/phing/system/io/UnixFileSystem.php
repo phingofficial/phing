@@ -74,9 +74,18 @@ class UnixFileSystem extends FileSystem {
             return;
         }
 
+        // Start normalising after any scheme that is present.
+        // This prevents phar:///foo being normalised into phar:/foo
+        // Use a regex as some paths may not by parsed by parse_url().
+        if (preg_match('{^[a-z][a-z0-9+\-\.]+://}', $strPathname)) {
+            $i = strpos($strPathname, '://') + 3;
+        } else {
+            $i = 0;
+        }
+
         $n = strlen($strPathname);
         $prevChar = 0;
-        for ($i=0; $i < $n; $i++) {
+        for (; $i < $n; $i++) {
             $c = $strPathname{$i};
             if (($prevChar === '/') && ($c === '/')) {
                 return self::normalizer($strPathname, $n, $i - 1);
@@ -129,6 +138,20 @@ class UnixFileSystem extends FileSystem {
         if (strlen($pathname) === 0) {
             return 0;
         }
+
+        if (class_exists('Phar', false)) {
+            $phar = Phar::running();
+            $pharAlias = 'phar://'.Phing::PHAR_ALIAS;
+
+            if ($phar && strpos($pathname, $phar) === 0) {
+                return strlen($phar);
+            }
+
+            if ($phar && strpos($pathname, $pharAlias) === 0) {
+                return strlen($pharAlias);
+            }
+        }
+
         return (($pathname{0} === '/') ? 1 : 0);
     }
 
