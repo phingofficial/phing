@@ -57,6 +57,25 @@ class ScpTask extends Task
     protected $count = 0;
     
     protected $logLevel = Project::MSG_VERBOSE;
+    
+    /**
+     * If number of success of "sftp" is grater than declared number
+     * decide to skip "scp" operation.
+     *
+     * @var int
+     */
+    protected $heuristicDecision = 5;
+    
+    /**
+     * Indicate number of failures in sending files via "scp" over "sftp"
+     *
+     * - If number is negative - scp & sftp failed
+     * - If number is positive - scp failed & sftp succeed
+     * - If number is 0 - scp succeed
+     *
+     * @var integer
+     */
+    protected $heuristicScpSftp = 0;
 
     /**
      * Sets the remote host
@@ -249,7 +268,27 @@ class ScpTask extends Task
     {
         return $this->fetch;
     }
-    
+
+    /**
+     * Declare number of successful operations above which "sftp" will be chosen over "scp".
+     *
+     * @param int $heuristicDecision    Number
+     */
+    public function setHeuristicDecision($heuristicDecision)
+    {
+        $this->heuristicDecision = (int) $heuristicDecision;
+    }
+
+    /**
+     * Get declared number of successful operations above which "sftp" will be chosen over "scp".
+     *
+     * @return int
+     */
+    public function getHeuristicDecision()
+    {
+        return $this->heuristicDecision;
+    }
+
     /**
      * Nested creator, creates a FileSet for this task
      *
@@ -378,10 +417,31 @@ class ScpTask extends Task
             
             $this->log('Will copy ' . $localEndpoint . ' to ' . $remoteEndpoint, $this->logLevel);
             
-            if (!is_null($this->mode)) {
-                $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint, $this->mode);
-            } else {
-                $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint);
+            $ret = false;
+            // If more than "$this->heuristicDecision" successfully send files by "ssh2.sftp" over "ssh2_scp_send"
+            // then ship this step (task finish ~40% faster)
+            if ($this->heuristicScpSftp < $this->heuristicDecision) {
+                if (null !== $this->mode) {
+                    $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint, $this->mode);
+                } else {
+                    $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint);
+                }
+            }
+            
+            // sometimes remote server allow only create files via sftp (eg. phpcloud.com)
+            if (false === $ret && $this->sftp) {
+                // mark failure of "scp"
+                --$this->heuristicScpSftp;
+
+                // try create file via ssh2.sftp://file wrapper
+                $fh = @fopen("ssh2.sftp://$this->sftp/$remoteEndpoint", 'wb');
+                if (is_resource($fh)) {
+                    $ret = fwrite($fh, file_get_contents($localEndpoint));
+                    fclose($fh);
+            
+                    // mark success of "sftp"
+                    $this->heuristicScpSftp += 2;
+                }
             }
 
             if ($ret === false) {
@@ -389,6 +449,6 @@ class ScpTask extends Task
             }
         }
 
-        $this->counter++;
+        $this->count++;
     }
 }
