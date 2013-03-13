@@ -882,9 +882,9 @@ file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code
 		   same server or from/to a remote server.</p>
 		<h3>Example</h3>
 		<pre>
-&lt;sync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" /&gt;
+&lt;filesync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" /&gt;
 
-&lt;sync
+&lt;filesync
 sourcedir="/var/www/development/project1"
 destinationdir="user@server:/var/www/project1"
 dryrun="true"
