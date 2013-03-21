@@ -101,16 +101,15 @@ class PHPLocTask extends Task
         /**
          * Find PHPLoc
          */
-        if (!@include_once('SebastianBergmann/PHPLOC/autoload.php')) {
-            if (!@include_once('PHPLOC/Analyser.php')) {
-                throw new BuildException(
-                    'PHPLocTask depends on PHPLoc being installed and on include_path.',
-                    $this->getLocation()
-                );
-            } else {
-                $this->oldVersion = true;
-            }
-        }
+        @include_once('SebastianBergmann/PHPLOC/autoload.php');
+        @include_once('PHPLOC/Analyser.php');
+        
+        if (!class_exists('SebastianBergmann\PHPLOC\Version')) {
+            throw new BuildException('PHPLocTask depends on PHPLoc being installed and on include_path.', $this->getLocation());
+        };
+        
+        $version = SebastianBergmann\PHPLOC\Version::id();
+        $oldVersion = (version_compare($version, '1.7.0') < 0);
         
         $this->_validateProperties();
         if (!is_null($this->reportDirectory) && !is_dir($this->reportDirectory)) {
