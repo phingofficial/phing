@@ -40,7 +40,7 @@ class PHPLocTask extends Task
     protected $reportFileName = null;
     protected $fileSets = null;
     protected $oldVersion = false;
-    
+
     public function init() {
         $this->suffixesToCheck = array('php');
         $this->acceptedReportTypes = array('cli', 'txt', 'xml', 'csv');
@@ -67,7 +67,7 @@ class PHPLocTask extends Task
     public function setFile(PhingFile $file) {
         $this->fileToCheck = trim($file);
     }
-    
+
     public function setCountTests($countTests) {
         $this->countTests = (bool) $countTests;
     }
@@ -96,25 +96,29 @@ class PHPLocTask extends Task
     public function setReportDirectory($directory) {
         $this->reportDirectory = trim($directory);
     }
-    
+
     public function main() {
         /**
          * Find PHPLoc
          */
         @include_once('SebastianBergmann/PHPLOC/autoload.php');
         @include_once('PHPLOC/Analyser.php');
-        
+
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            throw new BuildException("The PHPLOC task now requires PHP 5.3+");
+        }
+
         if (!class_exists('SebastianBergmann\PHPLOC\Version')) {
             throw new BuildException('PHPLocTask depends on PHPLoc being installed and on include_path.', $this->getLocation());
         };
-        
-        $version = SebastianBergmann\PHPLOC\Version::id();
+
+        $version = call_user_func(array('SebastianBergmann\\PHPLOC\\Version', 'id'));
         $oldVersion = (version_compare($version, '1.7.0') < 0);
-        
+
         $this->_validateProperties();
         if (!is_null($this->reportDirectory) && !is_dir($this->reportDirectory)) {
             $reportOutputDir = new PhingFile($this->reportDirectory);
-            $logMessage = "Report output directory doesn't exist, creating: " 
+            $logMessage = "Report output directory doesn't exist, creating: "
                 . $reportOutputDir->getAbsolutePath() . '.';
             $this->log($logMessage);
             $reportOutputDir->mkdirs();
@@ -130,7 +134,7 @@ class PHPLocTask extends Task
                 $directory = $fileSet->getDir($this->project)->getPath();
                 foreach ($files as $file) {
                     if ($this->isFileSuffixSet($file)) {
-                        $this->filesToCheck[] = $directory . DIRECTORY_SEPARATOR 
+                        $this->filesToCheck[] = $directory . DIRECTORY_SEPARATOR
                             . $file;
                     }
                 }
@@ -154,7 +158,7 @@ class PHPLocTask extends Task
         if (is_null($this->reportType)) {
             throw new BuildException("No report type defined.");
         }
-        if (!is_null($this->reportType) && 
+        if (!is_null($this->reportType) &&
             !in_array($this->reportType, $this->acceptedReportTypes)) {
             throw new BuildException("Unaccepted report type defined.");
         }
@@ -165,7 +169,7 @@ class PHPLocTask extends Task
             throw new BuildException("No report output directory defined.");
         }
         if (count($this->fileSets) > 0 && !is_null($this->fileToCheck)) {
-            $exceptionMessage = "Either use a nested fileset or 'file' " 
+            $exceptionMessage = "Either use a nested fileset or 'file' "
                 . "attribute; not both.";
             throw new BuildException($exceptionMessage);
         }
@@ -190,10 +194,10 @@ class PHPLocTask extends Task
         $fileSuffix = $pathinfo['extension'];
         return in_array($fileSuffix, $this->suffixesToCheck);
     }
-    
+
     protected function runPhpLocCheck() {
         $files = $this->getFilesToCheck();
-        $result = $this->getCountForFiles($files); 
+        $result = $this->getCountForFiles($files);
 
         if ($this->reportType === 'cli' || $this->reportType === 'txt') {
             if ($this->oldVersion) {
@@ -204,15 +208,15 @@ class PHPLocTask extends Task
             }
             $printer = new $reportClass();
             ob_start();
-            $printer->printResult($result, $this->countTests); 
-            $result = ob_get_contents(); 
+            $printer->printResult($result, $this->countTests);
+            $result = ob_get_contents();
             ob_end_clean();
             if ($this->reportType === 'txt') {
-                file_put_contents($this->reportDirectory 
+                file_put_contents($this->reportDirectory
                     . DIRECTORY_SEPARATOR . $this->reportFileName, $result);
                 $reportDir = new PhingFile($this->reportDirectory);
-                $logMessage = "Writing report to: " 
-                    . $reportDir->getAbsolutePath() . DIRECTORY_SEPARATOR 
+                $logMessage = "Writing report to: "
+                    . $reportDir->getAbsolutePath() . DIRECTORY_SEPARATOR
                         . $this->reportFileName;
                 $this->log($logMessage);
             } else {
@@ -226,7 +230,7 @@ class PHPLocTask extends Task
             } else {
                 $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\' . strtoupper($this->reportType);
             }
-            
+
             $printer = new $printerClass();
             $reportDir = new PhingFile($this->reportDirectory);
             $logMessage = "Writing report to: " . $reportDir->getAbsolutePath()
@@ -257,7 +261,7 @@ class PHPLocTask extends Task
     protected function getCountForFiles(array $files) {
         $analyserClass = ($this->oldVersion ? 'PHPLOC_Analyser' : '\\SebastianBergmann\\PHPLOC\\Analyser');
         $analyser = new $analyserClass();
-        
+
         return $analyser->countFiles($files, $this->countTests);
     }
 }
