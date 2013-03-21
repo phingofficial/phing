@@ -280,16 +280,16 @@ class FileSyncTask extends Task
             $options .= ' --itemize-changes';
         }
         if ($this->backupDir !== null) {
-            $options .= ' -b --backup-dir=' . $this->backupDir;
+            $options .= ' -b --backup-dir="' . $this->backupDir . '"';
         }
         
         if ($this->excludeFile !== null) {
-            $options .= ' --exclude-from=' . $this->excludeFile;
+            $options .= ' --exclude-from="' . $this->excludeFile . '"';
         }
 
         $this->setOptions($options);
 
-        $options .= ' ' . $this->sourceDir . ' ' . $this->destinationDir;
+        $options .= ' "' . $this->sourceDir . '" "' . $this->destinationDir . '"';
 
         escapeshellcmd($options);
         $options .= ' 2>&1';
