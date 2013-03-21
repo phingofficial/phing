@@ -15,6 +15,7 @@ installPearTask ()
     pear config-set auto_discover 1
     pear -qq channel-update pear.php.net
     pear -qq upgrade
+    pear -qq channel-discover pear.phing.info
     echo "... OK"
 
     echo -e "\nInstalling / upgrading phpcpd ... "
