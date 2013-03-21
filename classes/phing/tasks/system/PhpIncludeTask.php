@@ -19,36 +19,36 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 
 /**
- * Requires a PHP file.
- * 
+ * Includes a PHP file.
+ *
  * <code>
- *   <require file="require/file/here"/>
+ *   <phpinclude file="include/file/here"/>
  * </code>
- * 
+ *
  * @author    Joshua Spence <josh@joshuaspence.com>
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class RequireTask extends Task {
-   
+class PhpIncludeTask extends Task {
     /** File of the path to be included. */
     private $file;
-    
+
     public function setFile($file) {
         $this->file = (string) $file;
     }
-    
+
     /** Main entry point */
     public function main() {
+        // Apparently casting to (string) no longer invokes __toString() automatically.
         if ($this->file === null) {
             throw new BuildException("File is required.");
         }
-        
-        $this->log("Requiring file: " . $file, Project::MSG_VERBOSE);
-        require_once($this->file);
+
+        $this->log("Including file: " . $this->file, Project::MSG_VERBOSE);
+        @include_once($this->file);
     }
 }
