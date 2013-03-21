@@ -8,22 +8,14 @@
 
 installPearTask ()
 {
+    sudo apt-get update -qq
+    sudo apt-get install -qq php5-xdebug
+    
     echo -e "\nAuto-discover pear channels and upgrade ..."
     pear config-set auto_discover 1
     pear -qq channel-update pear.php.net
     pear -qq upgrade
     echo "... OK"
-
-    echo -e "\nInstalling / upgrading phing ... "
-    which phing >/dev/null                      &&
-        pear upgrade pear.phing.info/phing ||
-        pear install --alldeps pear.phing.info/phing
-    # update paths
-    phpenv rehash
-    # re-test for phing:
-    phing -v 2>&1 >/dev/null    &&
-        echo "... OK"           ||
-        return 1
 
     echo -e "\nInstalling / upgrading phpcpd ... "
     which phpcpd >/dev/null                      &&
