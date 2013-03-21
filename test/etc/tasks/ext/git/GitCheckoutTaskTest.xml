@@ -64,7 +64,7 @@
             targetPath="${tmp.dir.resolved}" />
         <gitcheckout
             repository="${tmp.dir.resolved}" 
-            branchname="co-create-branch" quiet="true" 
+            branchname="co-create-branch" quiet="false" 
             create="true"
             startpoint="origin/master" />
         <!-- get back to master branch -->

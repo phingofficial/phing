@@ -147,9 +147,6 @@ class GitLogTaskTest extends BuildFileTest {
             $this->assertNotInLogs($commit['commit']);
             $this->assertNotInLogs($commit['msg']);
         }
-
-        $this->assertInLogs('0 files changed');
-
     }
 
     public function testGitOutputPropertySet()
