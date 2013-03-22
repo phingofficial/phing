@@ -21,5 +21,10 @@
         "classmap": ["classes/phing/"]
     },
     "include-path": ["classes"],
-    "bin": ["bin/phing"]
+    "bin": [
+        "composer/bin/phing"
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
 }
