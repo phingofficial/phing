@@ -10000,6 +10000,95 @@ host="webserver" command="ls" /></programlisting>
         </sect2>
 
     </sect1>
+
+    <sect1 role="taskdef" xml:id="WikiPublishTask">
+        <title>WikiPublishTask</title>
+        <para>This task can publish Wiki document via Wiki WebAPI.
+            It supports only <link xlink:href="http://www.mediawiki.org/" role="extern">MediaWiki</link> engine for now.</para>
+        <para><link xlink:href="http://www.php.net/manual/en/book.curl.php" role="extern">cURL</link> extension is required.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>apiUrl</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Wiki API URL (eg. http://localhost/wiki/api.php)</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>apiUser</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Wiki API user name</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>apiPassword</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Wiki API user password</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>id</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>ID of page that will be changed</entry>
+                        <entry>n/a</entry>
+                        <entry morerows="1">One of these attributes is required.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>title</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Title of page that will be changes. Can also be used as page identifier</entry>
+                        <entry>n/a</entry>
+                    </row>
+                    <row>
+                        <entry><literal>content</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Content of published page</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>mode</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Edit mode (overwrite, prepend, append)</entry>
+                        <entry>append</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;wikipublish
+                apiUrl="http://localhost/wiki/api.php"
+                apiUser="testUser"
+                apiPassword="testPassword"
+                title="Some Page"
+                content="Some content"
+                mode="prepend"/&gt;
+            </programlisting>
+        </sect2>
+
+    </sect1>
+
     <sect1 role="taskdef" xml:id="XmlLintTask">
         <title>XmlLintTask</title>
         <para>The <literal>XmlLintTask</literal> checks syntax (lint) one or more XML files against
