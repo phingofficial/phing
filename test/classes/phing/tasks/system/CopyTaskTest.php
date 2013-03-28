@@ -51,5 +51,21 @@ class CopyTaskTest extends BuildFileTest
         $this->executeTarget("testCopyDanglingSymlink");
         $this->assertInLogs("Copying 1 file to");
     }
+    
+    /**
+     * Test for {@link http://www.phing.info/trac/ticket/981}
+     * FileUtil::copyFile(): preserveLastModified causes
+     * empty symlink target file
+     */
+    public function testCopySymlinkPreserveLastModifiedShouldCopyTarget()
+    {
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped("Bug not applicable on Window");
+        }
+
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Copying 2 files to");
+        $this->assertGreaterThan(0, $this->project->getProperty('test.filesize'));
+    }
 }
 

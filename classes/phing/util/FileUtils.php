@@ -142,7 +142,7 @@ class FileUtils {
                 }
             }
             
-            if ($preserveLastModified) {
+            if ($preserveLastModified && !$destFile->isLink()) {
                 $destFile->setLastModified($sourceFile->lastModified());
             }
 
