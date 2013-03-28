@@ -140,9 +140,9 @@ class GitCommitTask extends GitBaseTask
     	if (!$empty($files) && is_array($files))
     	{
     		$this->setallfiles(false);
-    		$this->Files = $files;
+    		$this->files = $files;
     	} else {
-    		$this->Files = null;
+    		$this->files = null;
     	}
     }
 }
