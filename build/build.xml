@@ -21,6 +21,7 @@
     </condition>
 
     <property name="build.pear.dir" value="${buildfile.dir}/pear"/>
+    <property name="build.full.dir" value="${buildfile.dir}/full"/>
 
     <fileset dir="${phingpkg.home}" id="all">
         <include name="**/**"/>
@@ -108,7 +109,7 @@
         <property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
         <property name="build.src.dir" value="${build.pear.dir}/phing/${pkgname}"/>
         <property name="build.docs.dir" value="${build.pear.dir}/phingdocs/${pkgname-docs}" override="true"/>
-        <property name="build.full.dir" value="${buildfile.dir}/full/${pkgname}"/>
+        <property name="build.full.dir" value="${buildfile.dir}/full/${pkgname}" override="true"/>
 
         <if>
             <contains string="${version}" substring="RC"/>
@@ -354,7 +355,6 @@
         ==============================================
     -->
      <target name="clean"
-        if="version"
         depends="setproperties">
 
         <echo>-----------------------------</echo>
