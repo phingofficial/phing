@@ -65,7 +65,17 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      */
     public function setUp()
     {
-        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/growl/build.xml');
+        $object = $this;
+        $this->markTestSkippedException(
+            function() use($object) {
+                $object->delegate(
+                    'configureProject',
+                    array(PHING_TEST_BASE . '/etc/tasks/ext/growl/build.xml'));
+            },
+            'BuildException',
+            'Net_Growl not present',
+            'Net_Growl'
+        );
 
         $name = '';
 

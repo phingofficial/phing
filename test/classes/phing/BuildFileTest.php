@@ -23,35 +23,35 @@
 if (version_compare(PHP_VERSION, '5.3.2') < 0) {
     define('E_DEPRECATED', 8192);
 }
-                             
+
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'phing/BuildListener.php';
 require_once 'phing/system/io/PhingFile.php';
 
 /**
- * A BuildFileTest is a TestCase which executes targets from a Phing buildfile 
+ * A BuildFileTest is a TestCase which executes targets from a Phing buildfile
  * for testing.
- * 
- * This class provides a number of utility methods for particular build file 
- * tests which extend this class. 
- * 
+ *
+ * This class provides a number of utility methods for particular build file
+ * tests which extend this class.
+ *
  * @author Nico Seessle <nico@seessle.de>
  * @author Conor MacNeill
  * @author Victor Farazdagi <simple.square@gmail.com>
  */
-abstract class BuildFileTest extends PHPUnit_Framework_TestCase { 
-    
+abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
+
     protected $project;
-    
+
     /**
      * @var array Array of log BuildEvent objects.
      */
     public $logBuffer = array();
-    
+
     private $outBuffer;
     private $errBuffer;
     private $buildException;
-    
+
     /**
      * Asserts that the log buffer contains specified message at specified priority.
      * @param string $expected Message subsctring
@@ -85,14 +85,91 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals(1, 1); // increase number of positive assertions
     }
-    
+
     /**
-     *  run a target, expect for any build exception 
+     * @see https://github.com/sebastianbergmann/phpunit/issues/875
+     *
+     * @param calleable $called
+     * @param string    $classException
+     * @param string    $messageSkipped
+     * @param string    $messageExceptionExpected
+     */
+    public function markTestSkippedException(
+        $called,
+        $classException,
+        $messageSkipped,
+        $messageExceptionExpected = '',
+        $throw = FALSE
+    )
+    {
+        if (!is_callable($called)) {
+            $this->fail('Argument one should callback');
+        }
+
+        try {
+            $called();
+        } catch (Exception $exception) {
+            if (!$exception instanceof $classException) {
+                if ($throw) {
+                    throw $exception;
+                }
+                $this->fail("Exception unexpected '" . get_class($exception) . "'");
+            }
+
+            if (!$messageExceptionExpected) {
+                $this->markTestSkipped($messageSkipped);
+                return;
+            }
+
+            $condition = false !== strpos(
+                $exception->getMessage(),
+                $messageExceptionExpected
+            );
+
+            if (!$condition && $throw) {
+                throw $exception;
+            }
+
+            $this->markTestSkippedCondition(
+                $condition,
+                $messageSkipped,
+                "Message exception unexpected '" . $exception->getMessage() . "'"
+            );
+        }
+    }
+
+    /**
+     * @see https://github.com/sebastianbergmann/phpunit/issues/874
+     *
+     * @param boolean $condition
+     * @param string  $messageSkipped
+     * @param string  $messageFail
+     */
+    public function markTestSkippedCondition($condition, $messageSkipped, $messageFail = 'Condition Invalid')
+    {
+        if (!$condition) {
+            $this->fail($messageFail);
+        }
+
+        $this->markTestSkipped($messageSkipped);
+    }
+
+    public function delegate($method, $args)
+    {
+        if (!method_exists($this, $method)) {
+            throw new BadMethodCallException('Method not exists');
+        }
+
+        return call_user_func_array(array($this, $method), $args);
+    }
+
+    /**
+     *  run a target, expect for any build exception
      *
      *@param  target target to run
      *@param  cause  information string to reader of report
-     */    
-    protected function expectBuildException($target, $cause) { 
+     */
+    protected function expectBuildException($target, $cause) {
         $this->expectSpecificBuildException($target, $cause, null);
     }
 
@@ -100,7 +177,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      * Assert that only the given message has been logged with a
      * priority &gt;= INFO when running the given target.
      */
-    protected function expectLog($target, $log) { 
+    protected function expectLog($target, $log) {
         $this->executeTarget($target);
         $this->assertInLogs($log);
     }
@@ -109,7 +186,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      * Assert that the given message has been logged with a priority
      * &gt;= INFO when running the given target.
      */
-    protected function expectLogContaining($target, $log) { 
+    protected function expectLogContaining($target, $log) {
         $this->executeTarget($target);
         $this->assertInLogs($log);
     }
@@ -118,7 +195,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      * Assert that the given message has been logged with a priority
      * &gt;= DEBUG when running the given target.
      */
-    protected function expectDebuglog($target, $log) { 
+    protected function expectDebuglog($target, $log) {
         $this->executeTarget($target);
         $this->assertInLogs($log, Project::MSG_DEBUG);
     }
@@ -129,8 +206,8 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      *@param  target  target to execute
      *@param  output  output to look for
      */
-    
-    protected function expectOutput($target, $output) { 
+
+    protected function expectOutput($target, $output) {
         $this->executeTarget($target);
         $realOutput = $this->getOutput();
         $this->assertEquals($output, $realOutput);
@@ -143,8 +220,8 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      *@param  output  output to look for
      *@param  error   Description of Parameter
      */
-     
-    protected function expectOutputAndError($target, $output, $error) { 
+
+    protected function expectOutputAndError($target, $output, $error) {
         $this->executeTarget($target);
         $realOutput = $this->getOutput();
         $this->assertEquals($output, $realOutput);
@@ -155,11 +232,11 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
     protected function getOutput() {
         return $this->cleanBuffer($this->outBuffer);
     }
-     
+
     protected function getError() {
         return $this->cleanBuffer($this->errBuffer);
     }
-        
+
     protected function getBuildException() {
         return $this->buildException;
     }
@@ -167,16 +244,16 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
     private function cleanBuffer($buffer) {
         $cleanedBuffer = "";
         $cr = false;
-        for ($i = 0, $bufflen=strlen($buffer); $i < $bufflen; $i++) { 
+        for ($i = 0, $bufflen=strlen($buffer); $i < $bufflen; $i++) {
             $ch = $buffer{$i};
             if ($ch == "\r") {
                 $cr = true;
                 continue;
             }
 
-            if (!$cr) { 
+            if (!$cr) {
                 $cleanedBuffer.= $ch;
-            } else { 
+            } else {
                 if ($ch == "\n") {
                     $cleanedBuffer .= $ch;
                 } else {
@@ -186,14 +263,14 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
         }
         return $cleanedBuffer;
     }
-    
+
     /**
      *  set up to run the named project
      *
      * @param  filename name of project file to run
      * @throws BuildException
-     */    
-    protected function configureProject($filename) { 
+     */
+    protected function configureProject($filename) {
         $this->logBuffer = "";
         $this->fullLogBuffer = "";
         $this->project = new Project();
@@ -204,23 +281,23 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
         $this->project->addBuildListener(new PhingTestListener($this));
         ProjectConfigurator::configureProject($this->project, new PhingFile($filename));
     }
-    
+
     /**
      *  execute a target we have set up
      * @pre configureProject has been called
      * @param string $targetName  target to run
-     */    
-    protected function executeTarget($targetName) { 
-        
+     */
+    protected function executeTarget($targetName) {
+
             $this->outBuffer = "";
             $this->errBuffer = "";
             $this->logBuffer = "";
             $this->fullLogBuffer = "";
             $this->buildException = null;
             $this->project->executeTarget($targetName);
-               
+
     }
-    
+
     /**
      * Get the project which has been configured for a test.
      *
@@ -239,14 +316,14 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     *  run a target, wait for a build exception 
+     *  run a target, wait for a build exception
      *
      *@param  target target to run
      *@param  cause  information string to reader of report
      *@param  msg    the message value of the build exception we are waiting for
               set to null for any build exception to be valid
-     */    
-    protected function expectSpecificBuildException($target, $cause, $msg) { 
+     */
+    protected function expectSpecificBuildException($target, $cause, $msg) {
         try {
             $this->executeTarget($target);
         } catch (BuildException $ex) {
@@ -261,7 +338,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
         }
         $this->fail("Should throw BuildException because: " . $cause);
     }
-    
+
     /**
      *  run a target, expect an exception string
      *  containing the substring we look for (case sensitive match)
@@ -271,7 +348,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
      *@param  msg    the message value of the build exception we are waiting for
      *@param  contains  substring of the build exception to look for
      */
-    protected function expectBuildExceptionContaining($target, $cause, $contains) { 
+    protected function expectBuildExceptionContaining($target, $cause, $contains) {
         try {
             $this->executeTarget($target);
         } catch (BuildException $ex) {
@@ -284,7 +361,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
         }
         $this->fail("Should throw BuildException because: " . $cause);
     }
-    
+
 
     /**
      * call a target, verify property is as expected
@@ -347,7 +424,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase {
         //$url = ggetClass().getResource(resource);
         //assertNotNull("Could not find resource :" + resource, url);
         //return url;
-    }    
+    }
 
 
 
@@ -423,7 +500,7 @@ class PhingTestListener implements BuildListener {
      *  @see BuildEvent#getMessage()
      *  @see BuildEvent#getPriority()
      */
-    public function messageLogged(BuildEvent $event) {        
+    public function messageLogged(BuildEvent $event) {
         $this->parent->logBuffer[] = $event->getMessage();
     }
 }

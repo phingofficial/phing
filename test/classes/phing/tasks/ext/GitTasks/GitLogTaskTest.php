@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitLogTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,7 +28,7 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitLogTaskTest extends BuildFileTest { 
+class GitLogTaskTest extends BuildFileTest {
 
     private $testCommits = array(
         array(
@@ -90,17 +90,17 @@ class GitLogTaskTest extends BuildFileTest {
             'commit' => '1b767b75bb5329f4e53345c516c0a9f4ed32d330',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
             'date'   => 'Mon Jan 24 09:58:33 2011 +0300',
-            'msg'   => 'Added file5', 
+            'msg'   => 'Added file5',
             'msg-full'  => 'This file was added one day after file1, file2, file3 and file4 were added',
             'From'      => '1b767b75bb5329f4e53345c516c0a9f4ed32d330 Mon Sep 17 00:00:00 2001',
             'From:'     => 'Victor Farazdagi <simple.square@gmail.com>',
             'Date'      => 'Mon, 24 Jan 2011 09:58:33 +0300',
             'Subject'   => '[PATCH] Added file5',
         ),
-    
+
     );
 
-    public function setUp() { 
+    public function setUp() {
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -109,8 +109,16 @@ class GitLogTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitLogTaskTest.xml');
+        $object = $this;
+        $this->markTestSkippedException(
+            function() use($object) {
+                $object->delegate('configureProject', array(PHING_TEST_BASE
+                              . '/etc/tasks/ext/git/GitLogTaskTest.xml'));
+            },
+            'BuildException',
+            'VersionControl_Git not present',
+            'VersionControl_Git'
+        );
     }
 
     public function tearDown()
@@ -137,7 +145,7 @@ class GitLogTaskTest extends BuildFileTest {
         $this->executeTarget('gitLogWithMostParams');
         $lastTwoCommits = array_slice($this->testCommits, -2);
         $allOtherCommits = array_slice($this->testCommits, 0, -2);
-        
+
         // test max-count
         foreach($lastTwoCommits as $commit) {
             $this->assertInLogs($commit['commit']);
@@ -188,7 +196,7 @@ class GitLogTaskTest extends BuildFileTest {
         $this->assertInLogs('c573116f395d36497a1ac1dba565ecd3d3944277 Added file3');
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888 Added file1 + file2');
     }
-    
+
     public function testGitBeforeAfterSet()
     {
         $this->executeTarget('gitLogBeforeAfterSet');
@@ -294,7 +302,7 @@ class GitLogTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining('noRepository',
             'Repo dir is required',
             '"repository" is required parameter');
     }
