@@ -128,7 +128,7 @@ class AnsiColorLogger extends DefaultLogger {
     const PREFIX = "\x1b[";
     const SUFFIX = "m";
     const SEPARATOR = ';';
-    const END_COLOR = "\x1b[m"; // self::PREFIX . self::SUFFIX;
+    const END_COLOR = "\x1b[0m"; // self::PREFIX . self::SUFFIX;
 
     private $errColor;
     private $warnColor;
