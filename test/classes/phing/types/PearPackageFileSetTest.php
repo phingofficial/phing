@@ -50,7 +50,7 @@ class PearPackageFileSetTest extends BuildFileTest
             'array', $arFiles, 'getIncludedFiles returned no array'
         );
         $this->assertEquals(1, count($arFiles));
-        $this->assertContains('Console/Getopt.php', $arFiles);
+        $this->assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
 
         $fullPath = $ds->getBaseDir() . reset($arFiles);
         $this->assertTrue(
@@ -76,12 +76,13 @@ class PearPackageFileSetTest extends BuildFileTest
 
     public function testGetDir()
     {
+        $proj = new Project(); 
         $ppfs = new PearPackageFileSet();
         $ppfs->setPackage('console_getopt');
         $ppfs->setRole('php');
-        $ppfs->getDirectoryScanner(new Project());
+        $ppfs->getDirectoryScanner($proj);
 
-        $dir = $ppfs->getDir();
+        $dir = $ppfs->getDir($proj);
         $this->assertTrue(
             file_exists($dir), 'Directory does not exist: ' . $dir
         );
@@ -96,7 +97,7 @@ class PearPackageFileSetTest extends BuildFileTest
         $ppfs->setPackage('console_getopt');
         $ppfs->setRole('php');
 
-        $dir = $ppfs->getDir();
+        $dir = $ppfs->getDir(new Project());
         $this->assertTrue(
             file_exists($dir), 'Directory does not exist: ' . $dir
         );

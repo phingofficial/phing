@@ -13,6 +13,7 @@
  */
 require_once 'phing/util/DirectoryScanner.php';
 require_once 'PEAR/Config.php';
+require_once 'PEAR/PackageFile.php';
 
 /**
  * Scans for files in a PEAR package.
@@ -30,6 +31,25 @@ class PearPackageScanner extends DirectoryScanner
     protected $config;
     protected $package;
     protected $channel = 'pear.php.net';
+    protected $packageFile;
+
+    /**
+     * Sets the file to use for generated package.xml
+     *
+     * @param string $descfile Name of package xml file
+
+     * @return void
+     */
+    public function setDescFile($descfile)
+    {
+        if ($descfile != '' && !file_exists($descfile)) {
+            throw new BuildException(
+                'PEAR package xml file "' . $descfile . '" does not exist'
+            );
+        }
+
+        $this->packageFile = $descfile;
+    }
 
     /**
      * Sets the name of the PEAR package to get the files from
@@ -64,10 +84,24 @@ class PearPackageScanner extends DirectoryScanner
      */
     public function setConfig($config)
     {
-        if ($config != '' && !file_exists($config)) {
-            throw new BuildException(
-                'PEAR configuration file "' . $config . '" does not exist'
-            );
+        if ($config != '') {
+            if (!file_exists($config)) {
+                throw new BuildException(
+                    'PEAR configuration file "' . $config . '" does not exist'
+                );
+            }
+        } else {
+            // try to auto-detect a pear local installation
+            if (DIRECTORY_SEPARATOR == '/') {
+                $config = '.pearrc';
+            } else {
+                $config = 'pear.ini';
+            }
+            $config = PEAR_CONFIG_DEFAULT_BIN_DIR . DIRECTORY_SEPARATOR . $config;
+            if (!file_exists($config)) {
+                // cannot find a pear local installation
+                $config = '';
+            }
         }
 
         $this->config = $config;
@@ -87,7 +121,7 @@ class PearPackageScanner extends DirectoryScanner
      */
     public function setRole($role)
     {
-        if ($role == '') {
+        if ($role == '' && $this->packageFile == '') {
             throw new BuildException('A non-empty role is required');
         }
 
@@ -117,18 +151,30 @@ class PearPackageScanner extends DirectoryScanner
      */
     protected function loadPackageInfo()
     {
-        $cfg = PEAR_Config::singleton($this->config);
-        $reg = $cfg->getRegistry();
-        if (!$reg->packageExists($this->package, $this->channel)) {
-            throw new BuildException(
-                sprintf(
-                    'PEAR package %s/%s does not exist',
-                    $this->channel, $this->package
-                )
-            );
-        }
+        $config = PEAR_Config::singleton($this->config);
 
-        $packageInfo = $reg->getPackage($this->package, $this->channel);
+        if (empty($this->packageFile)) {
+            // loads informations from PEAR package installed
+            $reg = $config->getRegistry();
+            if (!$reg->packageExists($this->package, $this->channel)) {
+                throw new BuildException(
+                    sprintf(
+                        'PEAR package %s/%s does not exist',
+                        $this->channel, $this->package
+                    )
+                );
+            }
+            $packageInfo = $reg->getPackage($this->package, $this->channel);
+        } else {
+            // loads informations from PEAR package XML description file
+            PEAR::staticPushErrorHandling(PEAR_ERROR_RETURN);
+            $pkg = new PEAR_PackageFile($config);
+            $packageInfo = $pkg->fromPackageFile($this->packageFile, PEAR_VALIDATE_NORMAL);
+            PEAR::staticPopErrorHandling();
+            if (PEAR::isError($packageInfo)) {
+                throw new BuildException("Errors in package file");
+            }
+        }
         return $packageInfo;
     }
 
@@ -151,17 +197,68 @@ class PearPackageScanner extends DirectoryScanner
     {
         $this->init();
         $list = $this->packageInfo->getFilelist();
-        $found = null;
+
+        if ($this->includes === null) {
+            // No includes supplied, so set it to 'matches all'
+            $this->includes = array("**");
+        }
+        if ($this->excludes === null) {
+            $this->excludes = array();
+        }
+
+        $this->filesIncluded    = array();
+        $this->filesNotIncluded = array();
+        $this->filesExcluded    = array();
+        $this->filesDeselected  = array();
+
+        $this->dirsIncluded     = array();
+        $this->dirsNotIncluded  = array();
+        $this->dirsExcluded     = array();
+        $this->dirsDeselected   = array();
+
         foreach ($list as $file => $att) {
-            if ($att['role'] != $this->role) {
+            if ($att['role'] != $this->role && $this->role != '') {
                 continue;
             }
-            $this->filesIncluded[] = $file;
-            $found = array($file, $att);
+            $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
+
+            if ($this->isIncluded($file)) {
+
+                if ($this->isExcluded($file)) {
+                    $this->everythingIncluded = false;
+                    if (@is_dir($file)) {
+                        $this->dirsExcluded[] = $file;
+                    } else {
+                        $this->filesExcluded[] = $file;
+                    }
+                } else {
+                    if (@is_dir($file)) {
+                        $this->dirsIncluded[] = $file;
+                    } else {
+                        $this->filesIncluded[] = $file;
+                    }
+                }
+            } else {
+                $this->everythingIncluded = false;
+                if (@is_dir($file)) {
+                    $this->dirsNotIncluded[] = $file;
+                } else {
+                    $this->filesNotIncluded[] = $file;
+                }
+            }
         }
-        if ($found !== null) {
-            list($file, $att) = $found;
-            $this->setBaseDir(substr($att['installed_as'], 0, -strlen($file)));
+
+        if (count($this->filesIncluded) > 0) {
+            if (empty($this->packageFile)) {
+                $file = $this->filesIncluded[0];
+                $file = str_replace(DIRECTORY_SEPARATOR, '/', $file);
+                $att  = $list[$file];
+
+                $base_dir = substr($att['installed_as'], 0, -strlen($file));
+            } else {
+                $base_dir = dirname($this->packageFile);
+            }
+            $this->setBaseDir($base_dir);
         }
 
         return true;

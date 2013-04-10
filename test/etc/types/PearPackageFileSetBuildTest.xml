@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="test" basedir="." default="testConsoleGetopt">
-  <includepath classpath="../src/" />
+  <includepath classpath="../../classes/phing/types" />
 
   <typedef name="pearPackageFileSet" classname="phing.types.PearPackageFileSet" />
+
+  <if>
+    <not>
+      <isset property="env.TMP" />
+    </not>
+    <then>
+        <php function="sys_get_temp_dir" returnProperty="env.TMP" />
+    </then>
+  </if>
+
+  <if>
+    <not>
+      <isset property="phing.dir" />
+    </not>
+    <then>
+        <php function="dirname" returnProperty="phing.dir">
+            <param value="${phing.file}" />
+        </php>
+    </then>
+  </if>
 
   <target name="testConsoleGetopt"
           description=""
@@ -53,7 +73,7 @@
           description="uses the type with a real CopyTask"
   >
     <pearPackageFileSet package="Console_Getopt" role="php" id="co"/>
-    <property name="tmpdir" value="/tmp/phing-pearPackageFileSetBuildTest-test"/>
+    <property name="tmpdir" value="${env.TMP}/phing-pearPackageFileSetBuildTest-test"/>
     <delete dir="${tmpdir}" quiet="true"/>
     <copy todir="${tmpdir}" preservePermissions="false">
       <fileset refid="co"/>
@@ -72,7 +92,7 @@
           description="copy package files with a mapper"
   >
     <pearPackageFileSet package="Console_Getopt" role="php" id="co"/>
-    <property name="tmpdir" value="/tmp/phing-pearPackageFileSetBuildTest-test"/>
+    <property name="tmpdir" value="${env.TMP}/phing-pearPackageFileSetBuildTest-test"/>
     <delete dir="${tmpdir}" quiet="true"/>
     <copy todir="${tmpdir}" preservePermissions="false">
       <fileset refid="co"/>
@@ -85,6 +105,33 @@
                property="fileExists" value="true"/>
     <fail unless="fileExists" message="File has not been copied: ${file}" />
     <delete dir="${tmpdir}" quiet="true"/>
+  </target>
+
+  <target name="testPackageXmlFilelist"
+          description="returns a package.xml filelist"
+  >
+    <pearPackageFileSet
+        descFile="${phing.dir}/package_PHPUnit-3.7.10.xml"
+        role="doc"
+        id="co"
+    />
+    <foreach param="filename" absparam="absfilename" target="echoFilesetFile">
+      <fileset refid="co"/>
+    </foreach>
+  </target>
+
+  <target name="testPackageXmlIncludeCondition"
+          description="returns a package.xml filelist restricted to include condition"
+  >
+    <pearPackageFileSet
+        descFile="${phing.dir}/package_PHPUnit-3.7.10.xml"
+        id="co">
+
+        <include name="PHPUnit/TextUI/**" />
+    </pearPackageFileSet>
+    <foreach param="filename" absparam="absfilename" target="echoFilesetFile">
+      <fileset refid="co"/>
+    </foreach>
   </target>
 
 </project>
