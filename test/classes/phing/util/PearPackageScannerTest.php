@@ -18,7 +18,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- * 
+ *
  * @package phing.util
  */
 require_once 'phing/BuildFileTest.php';
@@ -26,26 +26,26 @@ require_once 'phing/util/PearPackageScanner.php';
 
 /**
  * Testcases for phing.util.PearPackageScanner
- * 
+ *
  * @author  Christian Weiske <cweiske@cweiske.de>
  * @package phing.util
  */
-class PearPackageScannerTest extends BuildFileTest 
+class PearPackageScannerTest extends BuildFileTest
 {
     protected $backupGlobals = false;
-    
-    public function setUp() 
+
+    public function setUp()
     {
         //needed for PEAR's Config and Registry classes
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT);
     }
-    
+
     public function testLoadPackageInfo()
     {
         if (version_compare(PHP_VERSION, '5.3.2') < 0) {
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
-        
+
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('console_getopt');
 
@@ -67,7 +67,7 @@ class PearPackageScannerTest extends BuildFileTest
         if (version_compare(PHP_VERSION, '5.3.2') < 0) {
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
-        
+
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('this_package_does_not_exist');
 
@@ -134,6 +134,35 @@ class PearPackageScannerTest extends BuildFileTest
     public function testScan()
     {
         $this->markTestIncomplete();
+    }
+
+    /**
+     * @expectedException BuildException
+     */
+    public function testSetDescFileNonexistingFile()
+    {
+        $ppfs = new PearPackageScanner();
+        $ppfs->setDescFile('/this/file/does/not/exist');
+    }
+
+    public function testScanRoleDocPackageXml()
+    {
+        $pps = new PearPackageScanner();
+        $pps->setDescFile(PHING_TEST_BASE . '/etc/types/package_PHPUnit-3.7.10.xml');
+        $pps->setRole('doc');
+        $pps->scan();
+
+        $arFiles = $pps->getIncludedFiles();
+
+        $this->assertEquals(
+            $arFiles,
+            array(
+                'ChangeLog.md',
+                'CONTRIBUTING.md',
+                'LICENSE',
+                'README.md'
+            )
+        );
     }
 
 }

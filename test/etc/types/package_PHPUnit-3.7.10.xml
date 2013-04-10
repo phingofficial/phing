@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.4" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0                       http://pear.php.net/dtd/tasks-1.0.xsd                       http://pear.php.net/dtd/package-2.0                       http://pear.php.net/dtd/package-2.0.xsd">
+ <name>PHPUnit</name>
+ <channel>pear.phpunit.de</channel>
+ <summary>The PHP Unit Testing framework.</summary>
+ <description>The PHP Unit Testing framework.</description>
+ <lead>
+  <name>Sebastian Bergmann</name>
+  <user>sb</user>
+  <email>sebastian@phpunit.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-12-02</date>
+ <time>14:57:05</time>
+ <version>
+  <release>3.7.10</release>
+  <api>3.7.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license>The BSD 3-Clause License</license>
+ <notes>
+http://github.com/sebastianbergmann/phpunit/blob/master/README.md
+ </notes>
+ <contents>
+  <dir name="/">
+   <file baseinstalldir="/" md5sum="6f6ba1c975e3cc19c730af58f6fe336d" name="PHPUnit/Extensions/PhptTestCase/Logger.php" role="php" />
+   <file baseinstalldir="/" md5sum="6580f8314aaee4d12e69f463ba48ea46" name="PHPUnit/Extensions/GroupTestSuite.php" role="php" />
+   <file baseinstalldir="/" md5sum="3b49abdde7574edf08b50c7e11dbd7c1" name="PHPUnit/Extensions/PhptTestCase.php" role="php" />
+   <file baseinstalldir="/" md5sum="f924b27102bf6ab639919871f330340f" name="PHPUnit/Extensions/PhptTestSuite.php" role="php" />
+   <file baseinstalldir="/" md5sum="d9386292dc15ea2742bdcba1464dd21e" name="PHPUnit/Extensions/RepeatedTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="958996989bb7cb11229f679b5e4921b1" name="PHPUnit/Extensions/TestDecorator.php" role="php" />
+   <file baseinstalldir="/" md5sum="c792537f4cfccb39882b34ef2f8a15b8" name="PHPUnit/Extensions/TicketListener.php" role="php" />
+   <file baseinstalldir="/" md5sum="0d5d65bc698a57d99215c111a8f6c285" name="PHPUnit/Framework/Assert/Functions.php" role="php" />
+   <file baseinstalldir="/" md5sum="462171f283fbddfd4956b96e8f67e970" name="PHPUnit/Framework/Comparator/Array.php" role="php" />
+   <file baseinstalldir="/" md5sum="1bb8300e00c69bed08ccfd83eb2cef73" name="PHPUnit/Framework/Comparator/DOMDocument.php" role="php" />
+   <file baseinstalldir="/" md5sum="04b5eeb6882ab22f52156ffc409cc6ef" name="PHPUnit/Framework/Comparator/Double.php" role="php" />
+   <file baseinstalldir="/" md5sum="bf349e87713bc394f2e409804bec3191" name="PHPUnit/Framework/Comparator/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="9c1f48da14dd65513f559560fb6a5fba" name="PHPUnit/Framework/Comparator/MockObject.php" role="php" />
+   <file baseinstalldir="/" md5sum="9512d09e3be989fbfb63c9e86eccca16" name="PHPUnit/Framework/Comparator/Numeric.php" role="php" />
+   <file baseinstalldir="/" md5sum="96f0762f230f902e0ca005069cdbb207" name="PHPUnit/Framework/Comparator/Object.php" role="php" />
+   <file baseinstalldir="/" md5sum="f1be869184947c1ccd12753307e40b89" name="PHPUnit/Framework/Comparator/Resource.php" role="php" />
+   <file baseinstalldir="/" md5sum="39da9bc7e9bb89dc326572cf76ca4f41" name="PHPUnit/Framework/Comparator/Scalar.php" role="php" />
+   <file baseinstalldir="/" md5sum="9fe81aa8da133547fbae9c19d3572829" name="PHPUnit/Framework/Comparator/SplObjectStorage.php" role="php" />
+   <file baseinstalldir="/" md5sum="bc4afb106b849cb2a35534930f34108f" name="PHPUnit/Framework/Comparator/Type.php" role="php" />
+   <file baseinstalldir="/" md5sum="ba1096b73a2c000b4a6551b97803d695" name="PHPUnit/Framework/Constraint/JsonMatches/ErrorMessageProvider.php" role="php" />
+   <file baseinstalldir="/" md5sum="2ee407c02a889ce5cf0a6a0c6184f903" name="PHPUnit/Framework/Constraint/And.php" role="php" />
+   <file baseinstalldir="/" md5sum="203356ace6d53929f13d1cbef3b4ff0f" name="PHPUnit/Framework/Constraint/ArrayHasKey.php" role="php" />
+   <file baseinstalldir="/" md5sum="ff0042bd99159ebb3883ce2a7fba4755" name="PHPUnit/Framework/Constraint/Attribute.php" role="php" />
+   <file baseinstalldir="/" md5sum="7d5c779e560481015f5bb47c23316e6d" name="PHPUnit/Framework/Constraint/Callback.php" role="php" />
+   <file baseinstalldir="/" md5sum="bab80925bc7d9fb44b3b6a39024a2d2c" name="PHPUnit/Framework/Constraint/ClassHasAttribute.php" role="php" />
+   <file baseinstalldir="/" md5sum="97c02a02de19268cfad93782b1d29da2" name="PHPUnit/Framework/Constraint/ClassHasStaticAttribute.php" role="php" />
+   <file baseinstalldir="/" md5sum="bc5ac7a553818498d61e574eb972c285" name="PHPUnit/Framework/Constraint/Composite.php" role="php" />
+   <file baseinstalldir="/" md5sum="27191e04e8fe2358ffe0cafbcf8ad814" name="PHPUnit/Framework/Constraint/Count.php" role="php" />
+   <file baseinstalldir="/" md5sum="8e14effbf3f4ada5379f34dd218f00c0" name="PHPUnit/Framework/Constraint/ExceptionCode.php" role="php" />
+   <file baseinstalldir="/" md5sum="d372754948559e067544e7030268fd3f" name="PHPUnit/Framework/Constraint/ExceptionMessage.php" role="php" />
+   <file baseinstalldir="/" md5sum="5bbb3a15082b5a7e1c99251ed3760269" name="PHPUnit/Framework/Constraint/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="0fac91b8406e4100deb7118cfcc10235" name="PHPUnit/Framework/Constraint/FileExists.php" role="php" />
+   <file baseinstalldir="/" md5sum="c25c0f0fc4c65b4c8f82f46a14e47ef0" name="PHPUnit/Framework/Constraint/GreaterThan.php" role="php" />
+   <file baseinstalldir="/" md5sum="1d7f75f7395f1e56e3741779feec217b" name="PHPUnit/Framework/Constraint/IsAnything.php" role="php" />
+   <file baseinstalldir="/" md5sum="8259c0d107f81d82208529c409b2e09f" name="PHPUnit/Framework/Constraint/IsEmpty.php" role="php" />
+   <file baseinstalldir="/" md5sum="ad1519d09b6409955e203e1b5c356d78" name="PHPUnit/Framework/Constraint/IsEqual.php" role="php" />
+   <file baseinstalldir="/" md5sum="17fe73c735e3f0a6789f5790234461c8" name="PHPUnit/Framework/Constraint/IsFalse.php" role="php" />
+   <file baseinstalldir="/" md5sum="0d63fbb61855beffd7c1866ddfb9de55" name="PHPUnit/Framework/Constraint/IsIdentical.php" role="php" />
+   <file baseinstalldir="/" md5sum="dc10425d569e38ae209f75ebe24677d5" name="PHPUnit/Framework/Constraint/IsInstanceOf.php" role="php" />
+   <file baseinstalldir="/" md5sum="0a2d9aff71f5a8cd4e45999835da153f" name="PHPUnit/Framework/Constraint/IsNull.php" role="php" />
+   <file baseinstalldir="/" md5sum="ac530b18bc7af960b7331f511a6a8474" name="PHPUnit/Framework/Constraint/IsTrue.php" role="php" />
+   <file baseinstalldir="/" md5sum="000c5aa845201b052d4f8541ed8637e7" name="PHPUnit/Framework/Constraint/IsType.php" role="php" />
+   <file baseinstalldir="/" md5sum="5b26cb3443a444d2eeeaaa7f68b8c792" name="PHPUnit/Framework/Constraint/JsonMatches.php" role="php" />
+   <file baseinstalldir="/" md5sum="a9a00dcba166ce7efff030885a5df486" name="PHPUnit/Framework/Constraint/LessThan.php" role="php" />
+   <file baseinstalldir="/" md5sum="febddd4fb04157ffc33ec4ed5c2244b9" name="PHPUnit/Framework/Constraint/Not.php" role="php" />
+   <file baseinstalldir="/" md5sum="fb385db4bbfe1be4549d3afd728333a7" name="PHPUnit/Framework/Constraint/ObjectHasAttribute.php" role="php" />
+   <file baseinstalldir="/" md5sum="8dabc3fbe74059fa2d76fcb4a3e538f2" name="PHPUnit/Framework/Constraint/Or.php" role="php" />
+   <file baseinstalldir="/" md5sum="28b769295b557457e87981135365527b" name="PHPUnit/Framework/Constraint/PCREMatch.php" role="php" />
+   <file baseinstalldir="/" md5sum="395db172804d089de05010deed010e64" name="PHPUnit/Framework/Constraint/SameSize.php" role="php" />
+   <file baseinstalldir="/" md5sum="38f628640924d5dae6868b6a22e7f1ab" name="PHPUnit/Framework/Constraint/StringContains.php" role="php" />
+   <file baseinstalldir="/" md5sum="7436141461ebe1a82370c03dea76d639" name="PHPUnit/Framework/Constraint/StringEndsWith.php" role="php" />
+   <file baseinstalldir="/" md5sum="53c92e9d64999ec12760ba2812a5b8cf" name="PHPUnit/Framework/Constraint/StringMatches.php" role="php" />
+   <file baseinstalldir="/" md5sum="561fcd69a760e8993c2b5c2fd871a15b" name="PHPUnit/Framework/Constraint/StringStartsWith.php" role="php" />
+   <file baseinstalldir="/" md5sum="7ab8a22495c955de6f3262a38a643189" name="PHPUnit/Framework/Constraint/TraversableContainsOnly.php" role="php" />
+   <file baseinstalldir="/" md5sum="d1b4742d50b3582180950e172976cdf3" name="PHPUnit/Framework/Constraint/TraversableContains.php" role="php" />
+   <file baseinstalldir="/" md5sum="b59b9dd5ed0cf8418872d0826f62bb41" name="PHPUnit/Framework/Constraint/Xor.php" role="php" />
+   <file baseinstalldir="/" md5sum="c67623bf14aa497af1494cfbfe3e621f" name="PHPUnit/Framework/Error/Deprecated.php" role="php" />
+   <file baseinstalldir="/" md5sum="01a04fd9fbaf58ce1dfb09a357fd61db" name="PHPUnit/Framework/Error/Notice.php" role="php" />
+   <file baseinstalldir="/" md5sum="a65eef064ecf53962d4c8d399cfb6e95" name="PHPUnit/Framework/Error/Warning.php" role="php" />
+   <file baseinstalldir="/" md5sum="3495fe0fb1b1a7077eb5e6bc8a6fefd4" name="PHPUnit/Framework/Process/TestCaseMethod.tpl.dist" role="php" />
+   <file baseinstalldir="/" md5sum="464928dbc8690cc001bc3e3fda510e86" name="PHPUnit/Framework/TestSuite/DataProvider.php" role="php" />
+   <file baseinstalldir="/" md5sum="91a5301dd6623e67762e0506ac95c589" name="PHPUnit/Framework/AssertionFailedError.php" role="php" />
+   <file baseinstalldir="/" md5sum="5e2fc336bd5924de10da3f94ed46916d" name="PHPUnit/Framework/Assert.php" role="php" />
+   <file baseinstalldir="/" md5sum="3350d11b01c4835aabbce2097ab092a1" name="PHPUnit/Framework/ComparatorFactory.php" role="php" />
+   <file baseinstalldir="/" md5sum="a49e5784e84459fc4adee0b3d3c00415" name="PHPUnit/Framework/Comparator.php" role="php" />
+   <file baseinstalldir="/" md5sum="34e498e2cafeb851aa0090533669780e" name="PHPUnit/Framework/ComparisonFailure.php" role="php" />
+   <file baseinstalldir="/" md5sum="a6a881fc87bad33a8077593c5ff592e0" name="PHPUnit/Framework/Constraint.php" role="php" />
+   <file baseinstalldir="/" md5sum="9216d7ce9f2115781544bb474e6731ab" name="PHPUnit/Framework/Error.php" role="php" />
+   <file baseinstalldir="/" md5sum="363cbf0996b29cc4bd1a170826001dde" name="PHPUnit/Framework/Exception.php" role="php" />
+   <file baseinstalldir="/" md5sum="fc8e85d501e502e75e201c9d65ea2516" name="PHPUnit/Framework/ExpectationFailedException.php" role="php" />
+   <file baseinstalldir="/" md5sum="26757f880cd80e42abfd66b86e69045f" name="PHPUnit/Framework/IncompleteTestError.php" role="php" />
+   <file baseinstalldir="/" md5sum="4e62bc16265e520318d27208bee99cac" name="PHPUnit/Framework/IncompleteTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="9fa3d2e61a5fc2cf99cae924226d210c" name="PHPUnit/Framework/OutputError.php" role="php" />
+   <file baseinstalldir="/" md5sum="ddc66f72d10de5724bb37e04afa63db8" name="PHPUnit/Framework/SelfDescribing.php" role="php" />
+   <file baseinstalldir="/" md5sum="cd33c7cffe0052cf69991b3ac92e30d1" name="PHPUnit/Framework/SkippedTestError.php" role="php" />
+   <file baseinstalldir="/" md5sum="41aaacca2ee72aaa83a47e7e35ba5a51" name="PHPUnit/Framework/SkippedTest.php" role="php" />
+   <file baseinstalldir="/" md5sum="567f82fcb04bb04dbd2776145af25c53" name="PHPUnit/Framework/SkippedTestSuiteError.php" role="php" />
+   <file baseinstalldir="/" md5sum="36918a1c755de3f66eda2ab93f3790d8" name="PHPUnit/Framework/SyntheticError.php" role="php" />
+   <file baseinstalldir="/" md5sum="518bb897c82ca34d9dcd5d62c61f448b" name="PHPUnit/Framework/TestCase.php" role="php" />
+   <file baseinstalldir="/" md5sum="cdaabbf669e96b111d7f2a0a73d1e62f" name="PHPUnit/Framework/TestFailure.php" role="php" />
+   <file baseinstalldir="/" md5sum="c6e69e2a0653b7505421a2f431553c18" name="PHPUnit/Framework/TestListener.php" role="php" />
+   <file baseinstalldir="/" md5sum="5e740cbdbbed0281eed73142e51db2d3" name="PHPUnit/Framework/Test.php" role="php" />
+   <file baseinstalldir="/" md5sum="c5ddcb3872c40d44e3f8c8067c90c62f" name="PHPUnit/Framework/TestResult.php" role="php" />
+   <file baseinstalldir="/" md5sum="4db399b2ecd150e5cf309ea9886a724e" name="PHPUnit/Framework/TestSuite.php" role="php" />
+   <file baseinstalldir="/" md5sum="f33e5d01a2661c9551ea10069a678182" name="PHPUnit/Framework/Warning.php" role="php" />
+   <file baseinstalldir="/" md5sum="d14a3d5411637ed87578cda304eaf0bb" name="PHPUnit/Runner/BaseTestRunner.php" role="php" />
+   <file baseinstalldir="/" md5sum="149c02fd03a150e5ef2437d2eb5d4d69" name="PHPUnit/Runner/StandardTestSuiteLoader.php" role="php" />
+   <file baseinstalldir="/" md5sum="1fac94266416342e012b447146089eb7" name="PHPUnit/Runner/TestSuiteLoader.php" role="php" />
+   <file baseinstalldir="/" md5sum="f471cd4df80e58477dae051c2584e27e" name="PHPUnit/Runner/Version.php" role="php" />
+   <file baseinstalldir="/" md5sum="9aec0949e2aa6a08d49f2de4b5fe576e" name="PHPUnit/TextUI/Command.php" role="php" />
+   <file baseinstalldir="/" md5sum="2e1885d12059f37d1ac6c6af8f1d46d5" name="PHPUnit/TextUI/ResultPrinter.php" role="php" />
+   <file baseinstalldir="/" md5sum="4bd8a8872ffcb9b03d11f3fe1493cdbc" name="PHPUnit/TextUI/TestRunner.php" role="php" />
+   <file baseinstalldir="/" md5sum="d66246abb9a1f7e6ff439f32e326b613" name="PHPUnit/Util/DeprecatedFeature/Logger.php" role="php" />
+   <file baseinstalldir="/" md5sum="243c5b9c39754c2b0007e5a02311ecf5" name="PHPUnit/Util/Log/JSON.php" role="php" />
+   <file baseinstalldir="/" md5sum="d79b8e52a75d5edaea1c10359afdb26f" name="PHPUnit/Util/Log/JUnit.php" role="php" />
+   <file baseinstalldir="/" md5sum="236e82a86b02121e1e82ba47216cf2b5" name="PHPUnit/Util/Log/TAP.php" role="php" />
+   <file baseinstalldir="/" md5sum="e3ebdd28e547b2a50572276d879add3b" name="PHPUnit/Util/PHP/Default.php" role="php" />
+   <file baseinstalldir="/" md5sum="b4c9e6216c3cbc63cbf3ebfb1e08cb60" name="PHPUnit/Util/PHP/Windows.php" role="php" />
+   <file baseinstalldir="/" md5sum="ad8830287b0ca79852962895f97f18a9" name="PHPUnit/Util/TestDox/ResultPrinter/HTML.php" role="php" />
+   <file baseinstalldir="/" md5sum="ab74e464650b80247ee8e39ce167b126" name="PHPUnit/Util/TestDox/ResultPrinter/Text.php" role="php" />
+   <file baseinstalldir="/" md5sum="d04ce96eb6f863a37bf2805f278dc773" name="PHPUnit/Util/TestDox/NamePrettifier.php" role="php" />
+   <file baseinstalldir="/" md5sum="5d49772de9163a8a7f9f4209eea7203f" name="PHPUnit/Util/TestDox/ResultPrinter.php" role="php" />
+   <file baseinstalldir="/" md5sum="53a0007ccbfebf83661497d5aed6fb45" name="PHPUnit/Util/Class.php" role="php" />
+   <file baseinstalldir="/" md5sum="20b32a410ebb54ba3e3f7dc5ffa16a1f" name="PHPUnit/Util/Configuration.php" role="php" />
+   <file baseinstalldir="/" md5sum="8b6a1b196151578fdfce633851687d00" name="PHPUnit/Util/DeprecatedFeature.php" role="php" />
+   <file baseinstalldir="/" md5sum="14d2d6af4deeb7ef32653d62e1453acb" name="PHPUnit/Util/Diff.php" role="php" />
+   <file baseinstalldir="/" md5sum="4dbe78f47ddc122f477ec4822fac9350" name="PHPUnit/Util/ErrorHandler.php" role="php" />
+   <file baseinstalldir="/" md5sum="eacc9627586105db892d342bf4255332" name="PHPUnit/Util/Fileloader.php" role="php" />
+   <file baseinstalldir="/" md5sum="3ae8e2f193356e9a7ee93b496fcbf8a4" name="PHPUnit/Util/Filesystem.php" role="php" />
+   <file baseinstalldir="/" md5sum="0d36e9d02433a9447d09beaa91b056c7" name="PHPUnit/Util/Filter.php" role="php" />
+   <file baseinstalldir="/" md5sum="11d72e4985ec50104d6ada481da82d9e" name="PHPUnit/Util/Getopt.php" role="php" />
+   <file baseinstalldir="/" md5sum="022a1190860058c80eb47059a4285c82" name="PHPUnit/Util/GlobalState.php" role="php" />
+   <file baseinstalldir="/" md5sum="f2871875cda43b757b74766316f022e8" name="PHPUnit/Util/InvalidArgumentHelper.php" role="php" />
+   <file baseinstalldir="/" md5sum="8a77382cb4c1f41d5767a168e3b9e731" name="PHPUnit/Util/PHP.php" role="php">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="a64e00ac80c3577f7693e10c7b05c3b5" name="PHPUnit/Util/Printer.php" role="php" />
+   <file baseinstalldir="/" md5sum="26c274d696490da57e348c7809a16ffe" name="PHPUnit/Util/String.php" role="php" />
+   <file baseinstalldir="/" md5sum="d1bf0f4a90ccbad88544c2de08b2fad9" name="PHPUnit/Util/Test.php" role="php" />
+   <file baseinstalldir="/" md5sum="ee721044175e46b0900a8e1c6f76e512" name="PHPUnit/Util/TestSuiteIterator.php" role="php" />
+   <file baseinstalldir="/" md5sum="e59e117f6d939460c7c62abf7c00b9ec" name="PHPUnit/Util/Type.php" role="php" />
+   <file baseinstalldir="/" md5sum="e806feaf0d596a0b0a1c3bf8616651e8" name="PHPUnit/Util/XML.php" role="php" />
+   <file baseinstalldir="/" md5sum="382d6cb08661f364c017b89d60b38f84" name="PHPUnit/Autoload.php" role="php" />
+   <file baseinstalldir="/" md5sum="0e7c21050d6538b6a2a85dc1116b9bc7" name="ChangeLog.md" role="doc" />
+   <file baseinstalldir="/" md5sum="0c58c2bebfcd4328ee49c40f01cfddc6" name="CONTRIBUTING.md" role="doc" />
+   <file baseinstalldir="/" md5sum="3336f023f97a66bb46f63e42e4d95984" name="LICENSE" role="doc" />
+   <file baseinstalldir="/" md5sum="bd1faec9da5e43168577cbc27b7581b0" name="README.md" role="doc" />
+   <file baseinstalldir="/" md5sum="79176c2851ea7ade0909f8060a92f285" name="phpunit.php" role="script">
+    <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@php_dir@" to="php_dir" type="pear-config" />
+   </file>
+   <file baseinstalldir="/" md5sum="6bbdea893ee015cdfa1e6b00aba9ed3b" name="phpunit.bat" role="script">
+    <tasks:replace from="@php_bin@" to="php_bin" type="pear-config" />
+    <tasks:replace from="@bin_dir@" to="bin_dir" type="pear-config" />
+   </file>
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.3</min>
+   </php>
+   <pearinstaller>
+    <min>1.9.4</min>
+   </pearinstaller>
+   <package>
+    <name>File_Iterator</name>
+    <channel>pear.phpunit.de</channel>
+    <min>1.3.1</min>
+   </package>
+   <package>
+    <name>Text_Template</name>
+    <channel>pear.phpunit.de</channel>
+    <min>1.1.1</min>
+   </package>
+   <package>
+    <name>PHP_CodeCoverage</name>
+    <channel>pear.phpunit.de</channel>
+    <min>1.2.1</min>
+    <max>1.2.99</max>
+   </package>
+   <package>
+    <name>PHP_Timer</name>
+    <channel>pear.phpunit.de</channel>
+    <min>1.0.2</min>
+   </package>
+   <package>
+    <name>PHPUnit_MockObject</name>
+    <channel>pear.phpunit.de</channel>
+    <min>1.2.0</min>
+    <max>1.2.99</max>
+   </package>
+   <package>
+    <name>Yaml</name>
+    <channel>pear.symfony.com</channel>
+    <min>2.1.0</min>
+   </package>
+   <extension>
+    <name>dom</name>
+   </extension>
+   <extension>
+    <name>pcre</name>
+   </extension>
+   <extension>
+    <name>reflection</name>
+   </extension>
+   <extension>
+    <name>spl</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>PHP_Invoker</name>
+    <channel>pear.phpunit.de</channel>
+    <min>1.1.0</min>
+   </package>
+   <extension>
+    <name>json</name>
+   </extension>
+   <extension>
+    <name>simplexml</name>
+   </extension>
+   <extension>
+    <name>tokenizer</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <installconditions>
+   <os>
+    <name>windows</name>
+   </os>
+  </installconditions>
+  <filelist>
+   <install as="phpunit" name="phpunit.php" />
+   <install as="phpunit.bat" name="phpunit.bat" />
+  </filelist>
+ </phprelease>
+ <phprelease>
+  <filelist>
+   <install as="phpunit" name="phpunit.php" />
+   <ignore name="phpunit.bat" />
+  </filelist>
+ </phprelease>
+</package>
