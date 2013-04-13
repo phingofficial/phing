@@ -1,0 +1,7 @@
+<project>
+  <property name="input-xml" value="source/master.xml"/>
+  <property name="input-images-dirs" value="images/** figures/** graphics/**"/>
+  <property name="output-dir" value="output/webhelp"/>
+  <import file="/usr/share/xml/docbook/stylesheet/nwalsh5/current/webhelp/build.xml"/>
+</project>
+
