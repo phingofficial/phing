@@ -14,28 +14,28 @@
 
     <itemizedlist>
         <listitem>
-            <para><xref xlink:href="#Contains"/>&lt;Contains> - Select files that contain a specific
+            <para><xref xlink:href="#Contains"/> - Select files that contain a specific
                 string</para>
         </listitem>
         <listitem>
-            <para><xref xlink:href="#Date"/>&lt;date> - Select files/directories that have been
+            <para><xref xlink:href="#Date"/> - Select files/directories that have been
                 modified either before or after a specific date/time</para>
         </listitem>
         <listitem>
-            <para><xref xlink:href="#Depend"/>&lt;depend> - Select files/directories that have been
+            <para><xref xlink:href="#Depend"/> - Select files/directories that have been
                 modified more recently than equivalent items elsewhere</para>
         </listitem>
         <listitem>
-            <para><xref xlink:href="#Depth"/>&lt;depentry> - Select files/directories that appear at
+            <para><xref xlink:href="#Depth"/> - Select files/directories that appear at
                 a specific depth in a directory tree</para>
         </listitem>
         <listitem>
-            <para><xref xlink:href="#Filename"/>&lt;filename> - Select files/directories whose name
+            <para><xref xlink:href="#Filename"/> - Select files/directories whose name
                 matches a particular pattern. Equivalent to the include and exclude elements of a
                 patternset.</para>
         </listitem>
         <listitem>
-            <para><xref xlink:href="#Present"/>&lt;present> - Select files/directories that either
+            <para><xref xlink:href="#Present"/> - Select files/directories that either
                 do or do not exist in some other location</para>
         </listitem>
         <listitem>
@@ -88,7 +88,7 @@
     </itemizedlist>
 
 
-    <sect1 role="typedef" xml:id="Contains">
+    <sect1 role="typedef" xml:id="Contains" xreflabel="&lt;Contains>">
         <title>Contains </title>
 
         <para>The <literal>&lt;contains></literal> tag selects files that contain the string
@@ -130,7 +130,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Date">
+    <sect1 role="typedef" xml:id="Date" xreflabel="&lt;date>">
         <title>Date</title>
 
         <para>The <literal>&lt;date></literal> tag selects files whose last modified date meet the
@@ -201,7 +201,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Depend">
+    <sect1 role="typedef" xml:id="Depend" xreflabel="&lt;Depend>">
         <title>Depend</title>
 
         <para>The <literal>&lt;depend></literal> tag selects files whose last modified date is later
@@ -255,7 +255,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Depth">
+    <sect1 role="typedef" xml:id="Depth" xreflabel="&lt;Depth>">
         <title>Depth</title>
 
         <para>The <literal>&lt;depentry></literal> tag selects files based on how many directory
@@ -299,7 +299,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Filename">
+    <sect1 role="typedef" xml:id="Filename" xreflabel="&lt;Filename>">
         <title>Filename </title>
 
         <para>The <literal>&lt;filename></literal> tag acts like the <literal>&lt;include></literal>
@@ -352,7 +352,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Present">
+    <sect1 role="typedef" xml:id="Present" xreflabel="&lt;Present>">
         <title>Present</title>
 
         <para>The <literal>&lt;present></literal> tag selects files that have an equivalent file in
@@ -409,7 +409,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Containsregexp">
+    <sect1 role="typedef" xml:id="Containsregexp" xreflabel="&lt;Containsregexp>">
         <title>Containsregexp</title>
 
         <para>The <literal>&lt;containsregexp></literal> tag selects the files whose contents
@@ -453,7 +453,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Size">
+    <sect1 role="typedef" xml:id="Size" xreflabel="&lt;Size>">
         <title>Size</title>
 
         <para>The <literal>&lt;size></literal> tag selects files matching a specified size
@@ -511,7 +511,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="Type">
+    <sect1 role="typedef" xml:id="Type" xreflabel="&lt;Type>">
         <title>Type </title>
 
         <para>The <literal>&lt;type></literal> tag selects files of a certain type: directory or
@@ -549,7 +549,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="And">
+    <sect1 role="typedef" xml:id="And" xreflabel="&lt;And>">
         <title>And </title>
 
         <para>The <literal>&lt;and></literal> tag selects files that are selected by all of the
@@ -564,7 +564,7 @@
 &lt;/fileset></programlisting>
 
     </sect1>
-    <sect1 role="typedef" xml:id="Majority">
+    <sect1 role="typedef" xml:id="Majority" xreflabel="&lt;Majority>">
         <title>Majority</title>
 
         <para>The <literal>&lt;majority></literal> tag selects files provided that a majority of the
@@ -606,7 +606,7 @@
             </tgroup>
         </table>
     </sect1>
-    <sect1 role="typedef" xml:id="None">
+    <sect1 role="typedef" xml:id="None" xreflabel="&lt;None>">
         <title>None </title>
 
         <para>The <literal>&lt;none></literal> tag selects files that are not selected by any of the
@@ -621,7 +621,7 @@
 &lt;/fileset></programlisting>
 
     </sect1>
-    <sect1 role="typedef" xml:id="Not">
+    <sect1 role="typedef" xml:id="Not" xreflabel="&lt;Not>">
         <title>Not</title>
 
         <para>The <literal>&lt;not></literal> tag reverses the meaning of the single selector it
@@ -634,7 +634,7 @@
 &lt;/fileset></programlisting>
 
     </sect1>
-    <sect1 role="typedef" xml:id="Or">
+    <sect1 role="typedef" xml:id="Or" xreflabel="&lt;Or>">
         <title>Or</title>
 
         <para>The <literal>&lt;or></literal> tag selects files that are selected by any one of the
@@ -651,7 +651,7 @@
 &lt;/fileset></programlisting>
 
     </sect1>
-    <sect1 role="typedef" xml:id="Selector">
+    <sect1 role="typedef" xml:id="Selector" xreflabel="&lt;Selector>">
         <title>Selector </title>
 
         <para>The <literal>&lt;selector></literal> tag is used to create selectors that can be

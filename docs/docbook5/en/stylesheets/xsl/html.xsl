@@ -94,16 +94,15 @@
   =============================================================================
   -->
 
+
   <xsl:template name="toc.line">
     <xsl:param name="toc-context" select="."/>
     <xsl:param name="depth" select="1"/>
     <xsl:param name="depth.from.context" select="8"/>
-
+    
     <span>
-      <xsl:attribute name="class">
-        <xsl:value-of select="local-name(.)"/>
-      </xsl:attribute>
-
+      <xsl:attribute name="class"><xsl:value-of select="local-name(.)"/></xsl:attribute>
+      
       <!-- * if $autotoc.label.in.hyperlink is zero, then output the label -->
       <!-- * before the hyperlinked title (as the DSSSL stylesheet does) -->
       <xsl:if test="$autotoc.label.in.hyperlink = 0">
@@ -115,7 +114,7 @@
           <xsl:value-of select="$autotoc.label.separator"/>
         </xsl:if>
       </xsl:if>
-
+      
       <a>
         <xsl:attribute name="href">
           <xsl:call-template name="href.target">
@@ -123,7 +122,7 @@
             <xsl:with-param name="toc-context" select="$toc-context"/>
           </xsl:call-template>
         </xsl:attribute>
-
+        
         <!-- * if $autotoc.label.in.hyperlink is non-zero, then output the label -->
         <!-- * as part of the hyperlinked title -->
         <xsl:if test="not($autotoc.label.in.hyperlink = 0)">
@@ -143,12 +142,12 @@
             <xsl:value-of select="$autotoc.label.separator"/>
           </xsl:if>
         </xsl:if>
-
+        
         <xsl:apply-templates select="." mode="titleabbrev.markup"/>
       </a>
     </span>
   </xsl:template>
-
+  
 <!-- 
    * ==============================================================================
    * Customization of the bibliography page

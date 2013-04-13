@@ -6,10 +6,11 @@ manual with the syntax highlighting enabled. This uses the highlight functionali
 available in docbook5 together which in turn uses xslthl-2.x.x
 
 The xslthl-2.x.x must therefore be installed into the Java CLASSPATH. 
+(Download from: http://sourceforge.net/projects/xslthl/files/xslthl )
 
 Three more cautions:
 
- * This script has only been tested on OpnSuSE
+ * This script has only been tested on OpenSuSE
 
  * This assumes that the path to the DocBook stylesheets are
 
