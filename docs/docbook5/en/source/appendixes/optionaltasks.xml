@@ -8073,7 +8073,7 @@ host="webserver" todir="/www/htdocs/project/">
                     <para>Sometimes it is necessary to set specific configuration parameters on the ssh connection
                         when connecting to a remote server.  You can set them with the sshconfig nested tag.  Set the parameters
                         to specify connection and encryption options.  These are the parameters as specified by the $methods
-                        parameter of the ssh2_connect function.  See <a href="http://us3.php.net/ssh2_connect" target="_blank">ssh2_connect</a>
+                        parameter of the ssh2_connect function. See <link xlink:href="http://us3.php.net/ssh2_connect">ssh2_connect</link>
                         for more information</para>
                     <para>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
                         across a project easily.</para>
@@ -8245,7 +8245,7 @@ host="webserver" command="ls" /></programlisting>
                     <para>Sometimes it is necessary to set specific configuration parameters on the ssh connection
                         when connecting to a remote server.  You can set them with the sshconfig nested tag.  Set the parameters
                         to specify connection and encryption options.  These are the parameters as specified by the $methods
-                        parameter of the ssh2_connect function.  See <a href="http://us3.php.net/ssh2_connect" target="_blank">ssh2_connect</a>
+                        parameter of the ssh2_connect function.  See <link xlink:href="http://us3.php.net/ssh2_connect">ssh2_connect</link>
                         for more information</para>
                     <para>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
                         across a project easily.</para>
@@ -9095,7 +9095,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>forceCompatible</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry><strong>Deprecated:</strong> Sets whether to force compatibility with older SVN versions (&lt;
+                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
                             1.2)</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
@@ -9186,7 +9186,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>forceCompatible</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry><strong>Deprecated:</strong> Sets whether to force compatibility with older SVN versions (&lt;
+                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
                             1.2)</entry>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
@@ -9290,7 +9290,7 @@ host="webserver" command="ls" /></programlisting>
                     <row>
                         <entry><literal>forceCompatible</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry><strong>Deprecated:</strong> Sets whether to force compatibility with older SVN versions (&lt;
+                        <entry><emphasis>Deprecated:</emphasis> Sets whether to force compatibility with older SVN versions (&lt;
                             1.2)</entry>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>

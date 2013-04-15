@@ -13,19 +13,20 @@
  * chunk             Produce chunked HTML output
  * pdf               Produce PDF output
  * epub              Experimental support for EPUB
+ * webhelp           Produce webhelp output (with searchable index)
  * validate          Validate all DocBook5 sources (requires Jing to be installed)
  * clean             Remove all generated files
  * 
  * Public targets that needs Saxon 6.5.5 for transformation
  * ________________________________________________________
- * The following two targets produces versions of the mnual that applies
+ * The following two targets produces versions of the manual that applies
  * syntax highlightning to all source listings (XML and PHP). However, this
  * requres that Saxon 6.5.5 xsl processor is installed as well as the extra
  * jar file xslthl-2.x.x.jar (in the CLASSPATH). 
  *
  * PLEASE NOTE that these to targets uses a utility script "hlsaxon" which
  * needs a full path to the DocBook5 stylesheets in the script. This varies
- * between setups. Mutatis Mutandis.
+ * between setups. Mutatis mutandis.
  *
  * hlhtml	     Create HTML version using syntax highlighting
  * hlpdf         Create PDF version using syntax highlighting
@@ -352,9 +353,32 @@
                 <mkdir dir="output/epub"/>
                 <exec
                     command="${dbtoepub} -o 'output/epub/manual.epub' -s ${dbxsl.dir}/epub.xsl -c ${css.style} ${master.document} "
+                    checkreturn="true"
                 />
             </then>
         </if>
+    </target>
+       
+    <!--
+        ================================================================================
+        Target: WEBHELP  
+        Note: !! This requires 'ant' to be installed !!
+        ================================================================================
+    -->
+    <target name="webhelp">
+        <echo>Running webhelp, please wait ...</echo>
+        <uptodate property="target.uptodate" targetfile="output/webhelp/index.html">
+            <fileset refid="sources"/>
+        </uptodate>
+        <if>
+            <not>
+                <isset property="target.uptodate"/>
+            </not>
+            <then>
+                <exec command="ant -f ant-build-webhelp.xml webhelp" dir="." checkreturn="true" />            
+            </then>
+        </if>        
+
     </target>
 
     <!--
