@@ -21,7 +21,6 @@
  */
 
 require_once 'phing/tasks/ext/ComposerTask.php';
-require_once 'phing/Project.php';
 /**
  * Test class for the ComposerTask.
  *
