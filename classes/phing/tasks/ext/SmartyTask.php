@@ -163,11 +163,9 @@ class SmartyTask extends Task {
         // This check returns true for smarty 3 and false otherwise.
         if (stream_resolve_include_path ('SmartyBC.class.php')) {
             include_once 'SmartyBC.class.php';
-            echo "Smarty 3";
         }
         else {
             include_once 'Smarty.class.php';
-            echo "Smarty 2";
         }
 
         if (!class_exists('Smarty')) {
