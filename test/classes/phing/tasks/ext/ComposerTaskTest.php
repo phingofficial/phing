@@ -21,6 +21,7 @@
  */
 
 require_once 'phing/tasks/ext/ComposerTask.php';
+require_once 'phing/Project.php';
 /**
  * Test class for the ComposerTask.
  *
@@ -94,5 +95,14 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(get_class($arg) == 'CommandlineArgument');
     }
 
+    public function testMultipleCalls()
+    {
+        $o = $this->object;
+        $o->setCommand('install');
+        $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
+        $method->setAccessible(true);
+        $this->assertEquals('php composer.phar install', strval($method->invoke($o)));
+        $this->assertEquals('php composer.phar install', strval($method->invoke($o)));
+    }
 
 }
