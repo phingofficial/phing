@@ -159,8 +159,17 @@ class SmartyTask extends Task {
     // specified in the XML for the smarty task.
     // -----------------------------------------------------------------------
     
-    public function init() {
-        include_once 'Smarty.class.php';
+    public function init() {		
+        // This check returns true for smarty 3 and false otherwise.
+        if (stream_resolve_include_path ('SmartyBC.class.php')) {
+            include_once 'SmartyBC.class.php';
+            echo "Smarty 3";
+        }
+        else {
+            include_once 'Smarty.class.php';
+            echo "Smarty 2";
+        }
+
         if (!class_exists('Smarty')) {
             throw new BuildException("To use SmartyTask, you must have the path to Smarty.class.php on your include_path or your \$PHP_CLASSPATH environment variable.");
         }
@@ -463,7 +472,14 @@ class SmartyTask extends Task {
         // the context for the template (unlike Velocity).  We setup this object, calling it
         // $this->context, and then initControlContext simply zeros out
         // any assigned variables.
-        $this->context = new Smarty();
+        //
+        // Use the smarty backwards compatibility layer if existent.
+        if (class_exists('SmartyBC')) {
+            $this->context = new SmartyBC();
+        }
+        else {
+            $this->context = new Smarty();
+        }
         
         if ($this->compilePath !== null) {
             $this->log("Using compilePath: " . $this->compilePath);
