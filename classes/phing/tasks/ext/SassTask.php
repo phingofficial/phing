@@ -35,10 +35,37 @@
  * @author Jost Baron <j.baron@netzkoenig.de>
  */
 
-require_once 'phing/tasks/system/CopyTask.php';
+include_once 'renderers/SassRenderer.php';
+
+include_once 'phing/tasks/system/CopyTask.php';
 include_once 'phing/filters/SassFilter.php';
 
 class SassTask extends CopyTask {
+
+	/**
+	 * [Optional] The base directory for resolving @import rules.
+	 * @param mixed $baseDirectory Set the base directory. Might either be a
+	 * string or a PhingFile.
+	 * @throws BuildException if the parameter is neither a string nor a
+	 * PhingFile.
+	 */
+	public function setBaseDirectory($baseDirectory) {
+		$this->sassFilter->setBasedirectory($baseDirectory);
+	}
+
+	/**
+	 * Sets the output style for the CSS. Valid values are:
+	 * * nested
+	 * * expanded
+	 * * compact
+	 * * compressed
+	 * Defaults to 'nested'
+	 *
+	 * @param string $style
+	 */
+	public function setStyle($style) {
+		$this->sassFilter->setStyle($style);
+	}
 
 	/**
 	 * SassFilter used for the transformation.

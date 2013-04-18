@@ -29,16 +29,59 @@ include_once 'phing/filters/ChainableReader.php';
 class SassFilter extends BaseParamFilterReader implements ChainableReader {
 
 	/**
-	 * The base directory is used for resolving imported files.
-	 * @var string
-	 */
-	protected $baseDirectory;
-
-	/**
 	 * Indicates if the filter is already initialized.
 	 * @var boolean
 	 */
 	protected $initialized = false;
+
+	/**
+	 * The base directory is used for resolving imported files.
+	 * @var mixed
+	 */
+	protected $baseDirectory;
+
+	/**
+	 * The output style of the Sass parser.
+	 * @var string
+	 */
+	protected $style = 'nested';
+
+	/**
+	 * Returns if the filter is initialized.
+	 * @return boolean
+	 */
+	public function getInitialized() {
+		return $this->initialized && parent::getInitialized();
+	}
+
+	/**
+	 * Initialization of the filter.
+	 *
+	 * @throws BuildException if 'SassParser.php' can not be found.
+	 */
+	public function initialize() {
+		if (!class_exists('SassParser')) {
+			if (stream_resolve_include_path ('SassParser.php')) {
+				require_once 'SassParser.php';
+				require_once 'renderers/SassRenderer.php';
+			}
+			else {
+				throw new BuildException(
+						'To use SassTask, you need to have a version of PHPSass ' .
+						'(http://www.phpsass.com) in your include path.'
+				);
+			}
+
+			if (!class_exists('SassParser')) {
+				throw new BuildException(
+						'A file \'SassParser.php\' was found and loaded, but the ' .
+						'class \'SassParser\' can not be found.'
+				);
+			}
+		}
+
+		$this->initialized = true;
+	}
 
 	/**
 	 * Returns the base directory.
@@ -56,8 +99,14 @@ class SassFilter extends BaseParamFilterReader implements ChainableReader {
 	 * PhingFile.
 	 */
 	public function setBaseDirectory($baseDirectory) {
+
+		// If no baseDirectory is given, thats fine.
+		if (is_null($baseDirectory)) {
+			return;
+		}
+
 		if (!($baseDirectory instanceof PhingFile)
-		    || !is_string($baseDirectory)) {
+		    && !is_string($baseDirectory)) {
 			throw new BuildException("Given baseDirectory is of wrong type.");
 		}
 
@@ -65,16 +114,47 @@ class SassFilter extends BaseParamFilterReader implements ChainableReader {
 	}
 
 	/**
-	 * Returns if the filter is initialized.
-	 * @return boolean
+	 * Returns the output style for the CSS.
+	 * @return string
 	 */
-	public function getInitialized() {
-		return $this->initialized && parent::getInitialized();
+	public function getStyle() {
+		return $this->style;
+	}
+
+	/**
+	 * Sets the output style for the CSS. Valid values are:
+	 * * nested
+	 * * expanded
+	 * * compact
+	 * * compressed
+	 * Defaults to 'nested'
+	 *
+	 * @param string $style
+	 */
+	public function setStyle($style) {
+
+		switch ($style) {
+			case SassRenderer::STYLE_COMPRESSED:
+			case SassRenderer::STYLE_COMPACT:
+			case SassRenderer::STYLE_EXPANDED:
+			case SassRenderer::STYLE_NESTED:
+				$this->style = $style;
+				break;
+			default:
+				$this->log("Invalid style given. Using default value 'nested'.");
+				$this->style = SassRenderer::STYLE_NESTED;
+				break;
+		}
 	}
 
 	/**
 	 * Constructor
 	 */
+	public function __construct($in = null) {
+		parent::__construct($in);
+
+		$this->initialize();
+	}
 
 	/**
 	 * Reads the input stream and applies the filter on it.
@@ -82,9 +162,6 @@ class SassFilter extends BaseParamFilterReader implements ChainableReader {
 	 * is read until EOF is found.
 	 */
 	public function read($len = null) {
-		if (!$this->getInitialized()) {
-			$this->initialize();
-		}
 
 		// Completely read the input stream.
 		$input = null;
@@ -100,12 +177,13 @@ class SassFilter extends BaseParamFilterReader implements ChainableReader {
 			return -1;
 		}
 
-		// Now build a SassParser
+		// Now build a SassParser with the options given
 		$sassParser = new SassParser(
 			array(
 				'load_paths' => array(
 					$this->baseDirectory
-				)
+				),
+				'style' => $this->getStyle(),
 			)
 		);
 
@@ -128,38 +206,12 @@ class SassFilter extends BaseParamFilterReader implements ChainableReader {
     function chain(Reader $reader) {
         $newFilter = new SassFilter($reader);
         $newFilter->setProject($this->getProject());
-		$newFilter->initialize();
+
+		$newFilter->setBaseDirectory($this->baseDirectory);
+		$newFilter->setStyle($this->style);
 
         return $newFilter;
     }
-
-	/**
-	 * Initialization of the filter.
-	 *
-	 * @throws BuildException if 'SassParser.php' can not be found.
-	 */
-	public function initialize() {
-		if (!class_exists('SassParser')) {
-			if (stream_resolve_include_path ('SassParser.php')) {
-				require_once 'SassParser.php';
-			}
-			else {
-				throw new BuildException(
-						'To use SassTask, you need to have a version of PHPSass ' .
-						'(http://www.phpsass.com) in your include path.'
-				);
-			}
-
-			if (!class_exists('SassParser')) {
-				throw new BuildException(
-						'A file \'SassParser.php\' was found and loaded, but the ' .
-						'class \'SassParser\' can not be found.'
-				);
-			}
-		}
-
-		$this->initialized = true;
-	}
 }
 
 ?>
