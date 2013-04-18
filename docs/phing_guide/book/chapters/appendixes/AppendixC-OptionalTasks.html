@@ -7102,6 +7102,124 @@ Note that you can omit both startpoint and track attributes in this case
 				</tr>
 			</tbody>
 		</table>
+
+		<h2>
+			<a name="SassTask"></a>SassTask </h2>
+		<p> The <em>SassTask</em> executes Sass on each file in a fileset or filesets. This task
+			requires <a href="http://sass-lang.com/" target="_blank">Sass</a> to function. </p>
+		<h3>Examples</h3>
+		<pre>&lt;target name=&quot;css.sass&quot;&gt;
+	&lt;sass flags=&quot;--force&quot;&gt;
+		&lt;fileset dir=&quot;${project.basedir}/css&quot; includes=&quot;**/*.scss&quot; /&gt;
+	&lt;/sass&gt;
+&lt;/target&gt;</pre>
+		<p>Will run all the files in the fileset through sass with the --force parameter.</p>
+
+		<pre>&lt;target name=&quot;css.sass&quot;&gt;
+	&lt;sass flags=&quot;--force&quot; extfilter=&quot;scss&quot;&gt;
+		&lt;fileset dir=&quot;${project.basedir}/css&quot; /&gt;
+	&lt;/sass&gt;
+&lt;/target&gt;</pre>
+		<p>Will run all the files in the fileset through sass with the --force parameter. It will only
+			run on files with the .scss extension.</p>
+
+		<pre>&lt;target name=&quot;css.sass&quot;&gt;
+	&lt;sass flags=&quot;--force&quot; removeoldext=&quot;false&quot; newext=&quot;nnn&quot;&gt;
+		&lt;fileset dir=&quot;${project.basedir}/css&quot; includes=&quot;**/*.scss&quot; /&gt;
+	&lt;/sass&gt;
+&lt;/target&gt;</pre>
+		<p>Will run all the files in the fileset through sass with the --force parameter. The output files
+			will keep the .scss extension and a .nnn extension as well. ('css/app.scss' will become 'css/app.scss.nnn').</p>
+
+		<pre>&lt;target name=&quot;css.sass&quot;&gt;
+	&lt;sass flags=&quot;--force&quot; outputpath=&quot;/new/path&quot;&gt;
+		&lt;fileset dir=&quot;${project.basedir}/css&quot; includes=&quot;**/*.scss&quot; /&gt;
+	&lt;/sass&gt;
+&lt;/target&gt;</pre>
+		<p>Our input file of '/css/subdir1/index.scss' will output to '/new/path/subdir1/index.css'.</p>
+
+		<pre>&lt;target name=&quot;css.sass&quot;&gt;
+	&lt;sass flags=&quot;--force&quot; outputpath=&quot;/new/path&quot; keepsubdirectories=&quot;false&quot;&gt;
+		&lt;fileset dir=&quot;${project.basedir}/css&quot; includes=&quot;**/*.scss&quot; /&gt;
+	&lt;/sass&gt;
+&lt;/target&gt;</pre>
+		<p>Our file input file of '/css/subdir1/index.scss' will output to '/new/path/index.css'.</p>
+
+
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Required</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>failonerror</td>
+				<td>Boolean</td>
+				<td>Whether an error should stop the build or not</td>
+				<td>false</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>executable</td>
+				<td>String</td>
+				<td>The path to your Sass executable</td>
+				<td>sass</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>extfilter</td>
+				<td>String</td>
+				<td>This will filter the fileset to only process files that match this extension. This could also be done with the fileset.</td>
+				<td>none</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>flags</td>
+				<td>String</td>
+				<td>Additional flags to pass to sass</td>
+				<td>none</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>removeoldext</td>
+				<td>Boolean</td>
+				<td>When true we will remove the current file ext.</td>
+				<td>true</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>newext</td>
+				<td>String</td>
+				<td>The new ext our files will have.</td>
+				<td>css</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>outputpath</td>
+				<td>String</td>
+				<td>This will force the output path to be something other than the path of the fileset used.</td>
+				<td>none</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>keepsubdirectories</td>
+				<td>Boolean</td>
+				<td>Indicates if we want to keep the directory structure of the files</td>
+				<td>true</td>
+				<td>No</td>
+			</tr>
+			</tbody>
+		</table>
+		<h3>Supported Nested Tags</h3>
+		<ul>
+			<li>fileset</li>
+		</ul>
 		<h2>
 			<a name="ScpTask"></a>ScpTask </h2>
 		<p> The <em>ScpTask</em> copies files to and from a remote host using scp. This task

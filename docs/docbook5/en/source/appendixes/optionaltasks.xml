@@ -7926,6 +7926,138 @@ Note that you can omit both startpoint and track attributes in this case
         </sect2>
 
     </sect1>
+
+		<sect1 role="taskdef" xml:id="SassTask">
+			<title>SassTask</title>
+			<para> The <literal>SassTask</literal> executes Sass on each file in a fileset or filesets. This
+				task requires the <link xlink:href="sass-lang.com" role="extern">Sass</link> to function.</para>
+
+			<table>
+				<title>Attributes</title>
+				<tgroup cols="5">
+					<colspec colname="name" colnum="1" colwidth="1.5*"/>
+					<colspec colname="type" colnum="2" colwidth="0.8*"/>
+					<colspec colname="description" colnum="3" colwidth="3.5*"/>
+					<colspec colname="default" colnum="4" colwidth="0.8*"/>
+					<colspec colname="required" colnum="5" colwidth="1.2*"/>
+					<thead>
+						<row>
+							<entry>Name</entry>
+							<entry>Type</entry>
+							<entry>Description</entry>
+							<entry>Default</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>failonerror</literal></entry>
+							<entry><literal role="type">Boolean</literal></entry>
+							<entry>Whether an error should stop the build or not</entry>
+							<entry><literal>false</literal></entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>executable</literal></entry>
+							<entry><literal role="type">String</literal></entry>
+							<entry>The path to your Sass executable</entry>
+							<entry><literal>sass</literal></entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>extfilter</literal></entry>
+							<entry><literal role="type">String</literal></entry>
+							<entry>This will filter the fileset to only process files that match this extension. This could also be done with the fileset.</entry>
+							<entry>none</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>flags</literal></entry>
+							<entry><literal role="type">String</literal></entry>
+							<entry>Additional flags to pass to sass</entry>
+							<entry>none</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>removeoldext</literal></entry>
+							<entry><literal role="type">Boolean</literal></entry>
+							<entry>When true we will remove the current file ext.</entry>
+							<entry><literal>true</literal></entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>newext</literal></entry>
+							<entry><literal role="type">String</literal></entry>
+							<entry>The new ext our files will have.</entry>
+							<entry><literal>css</literal></entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>outputpath</literal></entry>
+							<entry><literal role="type">String</literal></entry>
+							<entry>This will force the output path to be something other than the path of the fileset used.</entry>
+							<entry>none</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>keepsubdirectories</literal></entry>
+							<entry><literal role="type">Boolean</literal></entry>
+							<entry>Indicates if we want to keep the directory structure of the files</entry>
+							<entry><literal>true</literal></entry>
+							<entry>No</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<sect2>
+				<title>Example</title>
+				<programlisting language="xml">&lt;target name="css.sass">
+	&lt;sass flags="--force">
+		&lt;fileset dir="${project.basedir}/css" includes="**/*.scss" />
+	&lt;/sass>
+&lt;/target></programlisting>
+				<para>Will run all the files in the fileset through sass with the --force parameter.</para>
+
+				<programlisting language="xml">&lt;target name="css.sass">
+	&lt;sass flags="--force" extfilter="scss">
+		&lt;fileset dir="${project.basedir}/css" />
+	&lt;/sass>
+&lt;/target></programlisting>
+				<para>Will run all the files in the fileset through sass with the --force parameter. It will only
+					run onfiles with the .scss extension.</para>
+
+				<programlisting language="xml">&lt;target name="css.sass">
+	&lt;sass flags="--force" removeoldext="false" newext="nnn">
+		&lt;fileset dir="${project.basedir}/css" includes="**/*.scss" />
+	&lt;/sass>
+&lt;/target></programlisting>
+				<para>Will run all the files in the fileset through sass with the --force parameter. The output files
+				will keep the .scss extension and a .nnn extension as well. ('css/app.scss' will become 'css/app.scss.nnn')</para>
+
+				<programlisting language="xml">&lt;target name="css.sass">
+	&lt;sass flags="--force" outputpath="/new/path">
+		&lt;fileset dir="${project.basedir}/css" includes="**/*.scss" />
+	&lt;/sass>
+&lt;/target></programlisting>
+				<para>Our input file of '/css/subdir1/index.scss' will output to '/new/path/subdir1/index.css'</para>
+
+				<programlisting language="xml">&lt;target name="css.sass">
+	&lt;sass flags="--force" outputpath="/new/path" keepsubdirectories="false">
+		&lt;fileset dir="${project.basedir}/css" includes="**/*.scss" />
+	&lt;/sass>
+&lt;/target></programlisting>
+				<para>Our file input file of '/css/subdir1/index.scss' will output to '/new/path/index.css'</para>
+			</sect2>
+			<sect2 role="nestedtags">
+				<title>Supported Nested Tags</title>
+				<itemizedlist>
+					<listitem>
+						<para><literal>fileset</literal></para>
+					</listitem>
+				</itemizedlist>
+			</sect2>
+		</sect1>
+
     <sect1 role="taskdef" xml:id="ScpTask">
         <title>ScpTask</title>
         <para> The <literal>ScpTask</literal> copies files to and from a remote host using scp. This
