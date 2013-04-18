@@ -94,5 +94,17 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(get_class($arg) == 'CommandlineArgument');
     }
 
+    public function testMultipleCalls()
+    {
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped('At least PHP 5.3.2 is required');
+        }
+        $o = $this->object;
+        $o->setCommand('install');
+        $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
+        $method->setAccessible(true);
+        $this->assertEquals('php composer.phar install', strval($method->invoke($o)));
+        $this->assertEquals('php composer.phar install', strval($method->invoke($o)));
+    }
 
 }
