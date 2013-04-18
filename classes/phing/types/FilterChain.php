@@ -30,6 +30,7 @@ include_once 'phing/filters/PrefixLines.php';
 include_once 'phing/filters/ReplaceRegexp.php';
 include_once 'phing/filters/ReplaceTokens.php';
 include_once 'phing/filters/ReplaceTokensWithFile.php';
+include_once 'phing/filters/SassFilter.php';
 include_once 'phing/filters/StripPhpComments.php';
 include_once 'phing/filters/StripLineBreaks.php';
 include_once 'phing/filters/StripLineComments.php';
@@ -113,6 +114,11 @@ class FilterChain extends DataType {
     } 
 
     function addReplaceRegexp(ReplaceRegexp $o) {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
+    function addSassFilter(SassFilter $o) {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
