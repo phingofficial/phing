@@ -21,6 +21,7 @@
  */
 
 require_once "phing/Task.php";
+require_once "phing/types/Commandline.php";
 
 /**
  * Composer Task
@@ -37,11 +38,6 @@ class ComposerTask extends Task
      * @var string the path to php interperter
      */
     private $php = 'php';
-    /**
-     *
-     * @var Array of Arg a collection of Arg objects
-     */
-    private $args = array();
 
     /**
      *
@@ -132,37 +128,34 @@ class ComposerTask extends Task
     }
 
     /**
-     * Gets the command string to be executed
+     * Prepares the command string to be executed
      * @return string
      */
-    private function prepareCommand()
+    private function prepareCommandLine()
     {
         $this->commandLine->setExecutable($this->getPhp());
-
-        $composerCommand = $this->commandLine->createArgument(true);
-        $composerCommand->setValue($this->getCommand());
-
-        $composerPath = $this->commandLine->createArgument(true);
-        $composerPath->setValue($this->getComposer());
-
+        $this->commandLine->createArgument()->setValue($this->getComposer());
+        $this->commandLine->createArgument()->setValue($this->getCommand());
+        $commandLine = strval($this->commandLine);
+        //Creating new Commandline instance. It allows to handle subsequent calls correctly
+        $this->commandLine = new Commandline();
+        return $commandLine;
     }
     /**
-     * executes the synfony console application
+     * executes the Composer task
      */
     public function main()
     {
-
-        $this->prepareCommand();
-        $this->log("executing $this->commandLine");
+        $commandLine = $this->prepareCommandLine();
+        $this->log("executing " . $commandLine);
 
         $composerFile = new SplFileInfo($this->getComposer());
-        if (false === $composerFile->isExecutable()
-                || false === $composerFile->isFile()) {
+        if (false === $composerFile->isFile()) {
             throw new BuildException(sprintf('Composer binary not found, path is "%s"', $composerFile));
         }
 
         $return = 0;
-        passthru($this->commandLine, $return);
+        passthru($commandLine, $return);
 
         if ($return > 0) {
             throw new BuildException("Composer execution failed");
