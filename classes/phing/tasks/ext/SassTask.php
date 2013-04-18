@@ -53,6 +53,11 @@ class SassTask extends CopyTask {
 
         $chain = $this->createFilterChain($this->getProject());
         $chain->addSassFilter($this->sassFilter);
+
+		// Force rerun of Sass every time. This is necessary if the Sass-File
+		// includes other files, since the CopyTask does not consider them when
+		// checking file modification times.
+		$this->setOverwrite(true);
 	}
 }
 
