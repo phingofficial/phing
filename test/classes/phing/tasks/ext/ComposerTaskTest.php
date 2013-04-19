@@ -101,10 +101,12 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
         }
         $o = $this->object;
         $o->setCommand('install');
+        $o->createArg()->setValue('--dry-run');
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
         $method->setAccessible(true);
-        $this->assertEquals('php composer.phar install', strval($method->invoke($o)));
-        $this->assertEquals('php composer.phar install', strval($method->invoke($o)));
+        $this->assertEquals('php composer.phar install --dry-run', strval($method->invoke($o)));
+        $o->setCommand('update');
+        $o->createArg()->setValue('--dev');
+        $this->assertEquals('php composer.phar update --dev', strval($method->invoke($o)));
     }
-
 }
