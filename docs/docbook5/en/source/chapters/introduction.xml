@@ -42,8 +42,8 @@
         </itemizedlist>
         <para>It the beginning, Binarycloud used the GNU make system; however, this approach had
             some drawbacks: The space-before-tab-problem in makefiles, the fact that it is only
-            natively available for Unix systems etc. So, the need for a better build system arose.
-            Apache Ant was a logical choice -- do to its use of XML build files and modular design.
+            natively available for Unix systems etc. So, the need for a better build system arose. 
+            Due to it's XML build files and modular design, Apache Ant was a logical choice.
             The problem was that Ant is written in Java, so you need to install a JVM on your
             computer to use it. Besides the need for yet another interpreter (i.e. besides PHP),
             there was also legal/ideological conflict in requiring a commercial JVM (there were
@@ -86,24 +86,18 @@
         <para>To get involved start by doing the following:</para>
         <itemizedlist>
             <listitem>
-                <para>Read this manual to get a high level understanding of <acronym>Phing</acronym>
+                <para>Read this manual to understand<acronym>Phing</acronym>
                     ;-)</para>
             </listitem>
-            <listitem>
-                <para>Read the <link xlink:href="http://www.phing.info/trac/wiki">Phing Wiki</link>
-                    to catch up with the latest news</para>
-            </listitem>
-            <listitem>
+              <listitem>
                 <para>Go to <link xlink:href="http://phing.tigris.org"
                         >http://phing.tigris.org</link> and subscribe to the <literal>Phing
                         dev</literal> mailing list (this is usually a low volume, high quality
                     mailing list)</para>
             </listitem>
             <listitem>
-                <para>Report bugs you find in  Phing on the <link xlink:href="http://trac.edgewall.org/"
-                        >Trac</link> wiki and defect reporting system available at <link
-                        xlink:href="http://www.phing.info/trac/"
-                    >http://www.phing.info/trac/</link></para>
+                <para>Visit the Phing <link xlink:href="http://www.phing.info/"
+                    >website (http://www.phing.info/)</link> and look for open bugs / tickets</para>
             </listitem>
             <listitem>
                 <para>... and of course, start to actively participate in the development by forking
@@ -142,8 +136,8 @@
                     <para>Follow the naming and coding principle used by Phing</para>
                 </listitem>
                 <listitem>
-                    <para>Make sure you have added documentation for your addition(s), including
-                        examples.</para>
+                    <para>Make sure you have added documentation for <emphasis role="italic"
+                            >all</emphasis> your additions, including examples.</para>
                 </listitem>
                 <listitem>
                     <para>Make sure you have added unit-test code as needed</para>
