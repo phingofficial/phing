@@ -8226,6 +8226,22 @@ host="webserver" todir="/www/htdocs/project/">
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>pty</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The terminal type to open</entry>
+                        <entry><literal>none</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Decides if a command chain will fail if one of the executed commands
+                            failed. Added for backward compatibility. Set to true if you execute
+                            more than one command and want the task to fail on any error.</entry>
+                        <entry><literal>False</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
