@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 if (DIRECTORY_SEPARATOR != '\\' && function_exists('posix_isatty') && @posix_isatty(STDOUT)) {
