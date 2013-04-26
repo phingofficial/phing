@@ -1823,6 +1823,63 @@ Note that you can omit both startpoint and track attributes in this case
     branchname="mybranch" quiet="true" 
     forceCreate="true" /&gt;
 </pre>
+        <h2>
+            <a name="GitCommitTask"></a>GitCommitTask </h2>
+        <p> Record changes to the repository. See official <a
+                href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
+                >documentation</a>. </p>
+        <h3>Attributes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Default</th>
+                    <th>Required</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>gitPath</td>
+                    <td>String</td>
+                    <td>Path to Git binary</td>
+                    <td>/usr/bin/git</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>repository</td>
+                    <td>String</td>
+                    <td>Path to Git repository</td>
+                    <td>n/a</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>message</td>
+                    <td>String</td>
+                    <td>Commit message</td>
+                    <td>n/a</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>allFiles</td>
+                    <td>Boolean</td>
+                    <td>Whether to automatically stage files that have been modified and deleted
+                    (see --all in <a
+                            href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
+                            >git-commit</a>)</td>
+                    <td>false</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Examples</h3>
+        <pre>
+&lt;!-- commit all modified / deleted files --&gt;
+&lt;gitcommit
+    repository="/path/to/repo" 
+    message="Commit message" allFiles="true" /&gt;
+</pre>
 		<h2>
 			<a name="GitMergeTask"></a>GitMergeTask </h2>
 		<p> Join two or more development histories together. See official <a
