@@ -8980,6 +8980,81 @@ revision | author | date         | item
 			</tbody>
 		</table>
 		<h2>
+			<a name="WikiPublishTask"></a>WikiPublishTask</h2>
+		<p>This task can publish Wiki document via Wiki WebAPI.
+			It supports only <a href="http://www.mediawiki.org/" target="_blank">MediaWiki</a> engine for now.
+			<a href="http://www.php.net/manual/en/book.curl.php" target="_blank">cURL</a> extension is required.</p>
+		<h3>Examples</h3>
+		<pre>&lt;wikipublish
+	apiUrl="http://localhost/wiki/api.php"
+	apiUser="testUser"
+	apiPassword="testPassword"
+	title="Some Page"
+	content="Some content"
+	mode="prepend"/&gt;</pre>
+		<h3>Attributes</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Description</th>
+				<th>Default</th>
+				<th>Required</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>apiUrl</td>
+				<td>String</td>
+				<td>Wiki API URL (e.g. http://localhost/wiki/api.php)</td>
+				<td>n/a</td>
+				<td>Yes</td>
+			</tr>
+			<tr>
+				<td>apiUser</td>
+				<td>String</td>
+				<td>Wiki API user name</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>apiPassword</td>
+				<td>String</td>
+				<td>Wiki API user password</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>id</td>
+				<td>Integer</td>
+				<td>ID of page that will be changed</td>
+				<td>n/a</td>
+				<td rowspan="2">One of these attributes is required.</td>
+			</tr>
+			<tr>
+				<td>title</td>
+				<td>String</td>
+				<td>Title of page that will be changes. Can also be used as page identifier</td>
+				<td>n/a</td>
+			</tr>
+			<tr>
+				<td>content</td>
+				<td>String</td>
+				<td>Content of published page</td>
+				<td>n/a</td>
+				<td>No</td>
+			</tr>
+			<tr>
+				<td>mode</td>
+				<td>String</td>
+				<td>Edit mode (overwrite, prepend, append)</td>
+				<td>append</td>
+				<td>No</td>
+			</tr>
+			</tbody>
+		</table>
+		<h2>
 			<a name="XmlLintTask"></a>XmlLintTask </h2>
 		<p>The <em>XmlLintTask</em> checks syntax (lint) one or more XML files against an XML Schema
 			Definition. </p><p><em>Note:</em> This assumes that the DOM extension is loaded in PHP5
