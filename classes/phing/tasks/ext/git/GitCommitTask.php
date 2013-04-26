@@ -48,39 +48,38 @@ class GitCommitTask extends GitBaseTask
 
         if ($this->allFiles !== true && empty($this->files))
         {
-        	throw new BuildException('"allFiles" cannot be false if no files are specified.');
+            throw new BuildException('"allFiles" cannot be false if no files are specified.');
         }
 
         $client = $this->getGitClient(false, $this->getRepository());
 
-        $options = Array();
-
+        $options = array();
         if ($this->allFiles === true)
         {
-        	$options['all'] = true;
+            $options['all'] = true;
         }
 
-        $arguments = Array();
+        $arguments = array();
         if ($this->allFiles !== true && is_array($this->files))
         {
-        	foreach($files as $file)
-        	{
-	        	$arguments[] = $file;
-        	}
+            foreach($this->files as $file)
+            {
+        	$arguments[] = $file;
+            }
         }
 
         if (!empty($this->message))
         {
             $options['message'] = $this->message;
         } else {
-        	$options['allow-empty-message'] = true;
+            $options['allow-empty-message'] = true;
         }
 
         try {
-        	$command = $client->getCommand('commit');
-        	$command->setArguments($arguments);
-        	$command->setOptions($options);
-        	$command->execute();
+            $command = $client->getCommand('commit');
+            $command->setArguments($arguments);
+            $command->setOptions($options);
+            $command->execute();
         } catch (Exception $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
@@ -88,13 +87,12 @@ class GitCommitTask extends GitBaseTask
         $msg = 'git-commit: Executed git commit ';
         foreach ($options as $option=>$value)
         {
-
-        	$msg .= ' --' . $option . '=' . $value;
+            $msg .= ' --' . $option . '=' . $value;
         }
 
         foreach ($arguments as $argument)
         {
-        	$msg .= ' ' . $argument;
+            $msg .= ' ' . $argument;
         }
 
         $this->log($msg, Project::MSG_INFO);
@@ -137,12 +135,12 @@ class GitCommitTask extends GitBaseTask
 
     public function setFiles($files)
     {
-    	if (!$empty($files) && is_array($files))
+    	if (!empty($files) && is_array($files))
     	{
-    		$this->setallfiles(false);
-    		$this->files = $files;
+            $this->setallfiles(false);
+            $this->files = $files;
     	} else {
-    		$this->files = null;
+            $this->files = null;
     	}
     }
 }
