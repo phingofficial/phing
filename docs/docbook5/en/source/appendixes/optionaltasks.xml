@@ -920,6 +920,128 @@
         </sect2>
 
     </sect1>
+    <sect1 role="taskdef" xml:id="FileSyncTask">
+        <title>FileSyncTask</title>
+        <para>Syncs files or directories using the rsync command. Syncing can be done on the 
+           same server or from/to a remote server.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>rsyncPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to rsync command</entry>
+                        <entry>/usr/bin/rsync</entry>
+                        <entry>Yes</entry>
+                    </row>
+	                <row>
+	                    <entry><literal>sourceDir</literal></entry>
+	                    <entry><literal role="type">String</literal></entry>
+	                    <entry>Source directory (with user&amp;host for remote sources)</entry>
+	                    <entry>n/a</entry>
+	                    <entry>Yes</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>destinationDir</literal></entry>
+	                    <entry><literal role="type">String</literal></entry>
+	                    <entry>Destination directory (with user&amp;host for remote destinations)</entry>
+	                    <entry>n/a</entry>
+	                    <entry>Yes</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>excludeFile</literal></entry>
+	                    <entry><literal role="type">String</literal></entry>
+	                    <entry>Excluded patterns file</entry>
+	                    <entry>n/a</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>backupDir</literal></entry>
+	                    <entry><literal role="type">String</literal></entry>
+	                    <entry>Creates a backup so users can rollback to an existing restore point</entry>
+	                    <entry>n/a</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>options</literal></entry>
+	                    <entry><literal role="type">String</literal></entry>
+	                    <entry>Any options that rsync supports, removes the default options</entry>
+	                    <entry>-rpKz</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>verbose</literal></entry>
+	                    <entry><literal role="type">Boolean</literal></entry>
+	                    <entry>This option increases the amount of information you are given during the transfer</entry>
+	                    <entry>True</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>dryRun</literal></entry>
+	                    <entry><literal role="type">Boolean</literal></entry>
+	                    <entry>This option makes rsync perform a trial run that doesn't make any changes</entry>
+	                    <entry>False</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>itemizeChanges</literal></entry>
+	                    <entry><literal role="type">Boolean</literal></entry>
+	                    <entry>This option requests a simple itemized list of the changes that are being made to each file, including attribute changes</entry>
+	                    <entry>False</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>checksum</literal></entry>
+	                    <entry><literal role="type">Boolean</literal></entry>
+	                    <entry>This option will cause rsync to skip files based on checksum, not mod-time &amp; size</entry>
+	                    <entry>False</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>delete</literal></entry>
+	                    <entry><literal role="type">Boolean</literal></entry>
+	                    <entry>This option deletes files that don't exist on sender after transfer including <literal>force</literal> and <literal>ignore-errors</literal></entry>
+	                    <entry>False</entry>
+	                    <entry>No</entry>
+	                </row>
+	                <row>
+	                    <entry><literal>identityFile</literal></entry>
+	                    <entry><literal role="type">String</literal></entry>
+	                    <entry>Identity file for ssh authentication of a remote transfer</entry>
+	                    <entry>n/a</entry>
+	                    <entry>No</entry>
+	                </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" />;
+
+&lt;filesync
+sourcedir="/var/www/development/project1"
+destinationdir="user@server:/var/www/project1"
+dryrun="true"
+itemizechanges="true"
+verbose="true"
+checksum="true" />;</programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="FtpDeployTask">
         <title>FtpDeployTask</title>
         <para>Deploys a set of files to a remote FTP server.</para>
@@ -1787,6 +1909,72 @@ Note that you can omit both startpoint and track attributes in this case
     repository="${repo.dir.resolved}" 
     branchname="mybranch" quiet="true" 
     forceCreate="true" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="GitCommitTask">
+        <title>GitCommitTask</title>
+        <para> Record changes to the repository. See official <link
+                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
+                >documentation</link>.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>gitPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git binary</entry>
+                        <entry>/usr/bin/git</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>repository</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to Git repository</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>message</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Commit message</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>allFiles</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to automatically stage files that have been modified and deleted
+                    (see --all in <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html"
+                            >git-commit</link>)</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;!-- commit all modified / deleted files -->;
+&lt;gitcommit
+    repository="/path/to/repo" 
+    message="Commit message" allFiles="true" />;</programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitMergeTask">
@@ -8226,6 +8414,22 @@ host="webserver" todir="/www/htdocs/project/">
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>pty</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The terminal type to open</entry>
+                        <entry><literal>none</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Decides if a command chain will fail if one of the executed commands
+                            failed. Added for backward compatibility. Set to true if you execute
+                            more than one command and want the task to fail on any error.</entry>
+                        <entry><literal>False</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -10000,6 +10204,95 @@ host="webserver" command="ls" /></programlisting>
         </sect2>
 
     </sect1>
+
+    <sect1 role="taskdef" xml:id="WikiPublishTask">
+        <title>WikiPublishTask</title>
+        <para>This task can publish Wiki document via Wiki WebAPI.
+            It supports only <link xlink:href="http://www.mediawiki.org/" role="extern">MediaWiki</link> engine for now.</para>
+        <para><link xlink:href="http://www.php.net/manual/en/book.curl.php" role="extern">cURL</link> extension is required.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>apiUrl</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Wiki API URL (eg. http://localhost/wiki/api.php)</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>apiUser</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Wiki API user name</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>apiPassword</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Wiki API user password</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>id</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>ID of page that will be changed</entry>
+                        <entry>n/a</entry>
+                        <entry morerows="1">One of these attributes is required.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>title</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Title of page that will be changes. Can also be used as page identifier</entry>
+                        <entry>n/a</entry>
+                    </row>
+                    <row>
+                        <entry><literal>content</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Content of published page</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>mode</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Edit mode (overwrite, prepend, append)</entry>
+                        <entry>append</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;wikipublish
+                apiUrl="http://localhost/wiki/api.php"
+                apiUser="testUser"
+                apiPassword="testPassword"
+                title="Some Page"
+                content="Some content"
+                mode="prepend"/&gt;
+            </programlisting>
+        </sect2>
+
+    </sect1>
+
     <sect1 role="taskdef" xml:id="XmlLintTask">
         <title>XmlLintTask</title>
         <para>The <literal>XmlLintTask</literal> checks syntax (lint) one or more XML files against
