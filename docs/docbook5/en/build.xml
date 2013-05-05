@@ -117,6 +117,7 @@
         <include name="chapters/*.xml"/>
         <include name="appendixes/*.xml"/>
         <include name="*.xml"/>
+        <exclude name="template_for_tasks.xml"/>
     </fileset>
 
     <!--
