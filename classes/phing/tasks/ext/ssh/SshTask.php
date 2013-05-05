@@ -40,6 +40,8 @@ class SshTask extends Task {
     private $pubkeyfile = '';
     private $privkeyfile = '';
     private $privkeyfilepassphrase = '';
+    private $pty = '';
+    private $failonerror = false;
 
     /**
      * The name of the property to capture (any) output of the command
@@ -150,7 +152,17 @@ class SshTask extends Task {
     {
         return $this->command;
     }
-    
+
+    public function setPty($pty)
+    {
+        $this->pty = $pty;
+    }
+
+    public function getPty()
+    {
+        return $this->pty;
+    }
+
     /**
      * Sets the name of the property to capture (any) output of the command
      * @param string $property
@@ -169,6 +181,14 @@ class SshTask extends Task {
         $this->display = (boolean) $display;
     }
 
+    /**
+     * Sets whether to fail the task on any error
+     * @param boolean $failOnError
+     */
+    public function setFailonerror($failonerror)
+    {
+        $this->failonerror = (boolean) $failonerror;
+    }
 
     /**
      * Creates an Ssh2MethodParam object. Handles the <sshconfig /> nested tag
@@ -210,7 +230,12 @@ class SshTask extends Task {
             throw new BuildException("Could not authenticate connection!");
         }
 
-        $stream = ssh2_exec($this->connection, $this->command);
+        if ($this->pty != '') {
+            $stream = ssh2_exec($this->connection, $this->command, $this->pty);
+        } else {
+            $stream = ssh2_exec($this->connection, $this->command);
+        }
+
         if (!$stream) {
             throw new BuildException("Could not execute command!");
         }
@@ -219,12 +244,11 @@ class SshTask extends Task {
         
         stream_set_blocking($stream, true);
         $result = stream_get_contents($stream);
-        
-        if (!strlen($result)) {
-            $stderr_stream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
-            stream_set_blocking($stderr_stream, true);
-            $result = stream_get_contents($stderr_stream);
-        }
+
+        // always load contents of error stream, to make sure not one command failed
+        $stderr_stream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
+        stream_set_blocking($stderr_stream, true);
+        $result_error = stream_get_contents($stderr_stream);
         
         if ($this->display) {
             print($result);
@@ -237,6 +261,10 @@ class SshTask extends Task {
         fclose($stream);
         if (isset($stderr_stream)) {
             fclose($stderr_stream);
+        }
+
+        if ($this->failonerror && !empty($result_error)) {
+            throw new BuildException("SSH Task failed: " . $result_error);
         }
     }
 }
