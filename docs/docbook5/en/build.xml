@@ -268,7 +268,7 @@
                 <exec dir="output/hlhtml/"
                     command="../../scripts/hlsaxon _flatten.xml ../../${dbxsl.dir}/hl-html.xsl"
                     checkreturn="true"/>
-                <delete file="output/hlhtml/_flatten.xml"/>
+                <delete file="output/hlhtml/_flatten.xml"/> 
             </then>
         </if>
         <copy file="${css.style}" todir="output/hlhtml"/>
@@ -396,6 +396,7 @@
         <phingcall target="hlhtml"/>
         <phingcall target="chunk"/>
         <phingcall target="epub"/>
+	<phingcall target="webhelp"/>
     </target>
 
 </project>

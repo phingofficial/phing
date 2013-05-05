@@ -4,7 +4,7 @@
 # JPackage Project <http://www.jpackage.org/>
 #
 # Working cmd:
-# java -cp "/usr/share/java/saxon.jar:/usr/share/java/xslthl-2.0.2.jar" \
+# java -cp "/usr/share/java/saxon.jar:/usr/share/java/xslthl-2.1.0.jar" \
 # -Dxslthl.config="file:///usr/share/xml/docbook/stylesheet/nwalsh5/current/highlighting/xslthl-config.xml" \ 
 # com.icl.saxon.StyleSheet master.xml stylesheets/xsl/html.xsl 
 
@@ -12,7 +12,7 @@
 
 MAIN_CLASS=com.icl.saxon.StyleSheet
 
-BASE_JARS="saxon.jar xml-commons-apis.jar jaxp_parser_impl.jar xslthl-2.0.2.jar"
+BASE_JARS="saxon6.jar xml-commons-apis.jar jaxp_parser_impl.jar xslthl-2.1.0.jar"
 
 # Optional jars
 CLASSPATH="$CLASSPATH:"$(build-classpath docbook-xsl-saxon saxon-fop \
