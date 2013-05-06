@@ -7438,6 +7438,24 @@ host=&quot;webserver&quot; command=&quot;ls&quot; /&gt;</pre>
 					<td>true</td>
 					<td>No</td>
 				</tr>
+				<tr>
+					<td>pty</td>
+					<td>String</td>
+					<td>The terminal type to open</td>
+					<td>none</td>
+					<td>No</td>
+				</tr>
+				<tr>
+					<td>failonerror</td>
+					<td>Boolean</td>
+					<td>Decides if a command chain will
+					fail if one of the executed commands failed.
+					Added for backward compatibility. Set to true
+					if you execute more than one command and want
+					the task to fail on any error.</td>
+					<td>false</td>
+					<td>No</td>
+				</tr>
 			</tbody>
 		</table>
         <h3>Supported Nested Tags</h3>
