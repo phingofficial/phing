@@ -24,14 +24,13 @@
  * requres that Saxon 6.5.5 xsl processor is installed as well as the extra
  * jar file xslthl-2.x.x.jar (in the CLASSPATH). 
  *
- * PLEASE NOTE that these to targets uses a utility script "hlsaxon" which
+ * PLEASE NOTE that these two targets uses a utility script "hlsaxon" which
  * needs a full path to the DocBook5 stylesheets in the script. This varies
- * between setups. Mutatis mutandis.
+ * between setups and needs to be adjusted. Mutatis mutandis.
  *
  * hlhtml	     Create HTML version using syntax highlighting
  * hlpdf         Create PDF version using syntax highlighting
  *   
- * Revision: $Id$
  * Created: 7 feb 2012
  * Author: Johan Persson <johan162@gmail.com>
  * ==============================================================================    
@@ -397,7 +396,7 @@
         <phingcall target="hlhtml"/>
         <phingcall target="chunk"/>
         <phingcall target="epub"/>
-	<phingcall target="webhelp"/>
+	    <phingcall target="webhelp"/>
     </target>
 
 </project>
