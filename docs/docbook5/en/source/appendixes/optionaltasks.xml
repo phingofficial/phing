@@ -2812,8 +2812,8 @@ Note that you can omit both startpoint and track attributes in this case
             <link xlink:href="http://pear.php.net/package/Net_Growl" role="extern">Net_Growl</link>
             package installed (version  2.6.0).
         </para>
-        <sect2>
-            <title>Features</title>
+            <para><emphasis role="bold">Features</emphasis></para>
+            <para>
             <itemizedlist>
                 <listitem>
                     <para>Compatible Windows and Mac/OSX</para>
@@ -2828,7 +2828,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <para>Send notification on private or public network</para>
                 </listitem>
             </itemizedlist>
-        </sect2>        
+            </para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
