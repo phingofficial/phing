@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+<appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.projcomponents">
+    <title>Project Components</title>
+
+    <para>This file will give you a quick introduction and a reference of the things that you may
+        see in a build files besides <xref xlink:href="#app.coretasks"/>tasks and <xref
+            xlink:href="#app.coretypes"/>types.</para>
+
+    <sect1 xml:id="Project">
+        <title>Phing Projects</title>
+
+        <para>Projects are the outermost container for everything in build files. The
+                <literal>&lt;project&gt;</literal> tag also is the root tag in build files. It
+            contains the name, the directory, a short description and a default target.</para>
+        <para>Project may contain task calls and targets (see below).</para>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;?xml version=&quot;1.0&quot; ?&gt;
+
+&lt;project name="TestProject" basedir="." default="main"
+         description=&quot;This is a test project to show how to use projects ;-)">
+
+  &lt;!-- Everything else goes here --&gt;
+
+&lt;/project&gt;</programlisting>
+            
+        </sect2>
+        <sect2>
+            <title>Attributes</title>
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>                    
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>basedir</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The base directory of the project, i.e. the directory all paths
+                                are relative to.</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>default</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the target that is executed if none is explicitely
+                                specified when calling Phing</entry>
+                            <entry>all</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>description</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>A free text description of the project</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>name</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>Name of the project</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>phingVersion</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The minimum Phing version required to execute the build file, in
+                                order to prevent compatibility issues.</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </sect2>
+    </sect1>
+    <sect1 xml:id="Target">
+        <title>Targets</title>
+
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;target if=&quot;lang&quot; unless=&quot;lang.en&quot; depends=&quot;foo1,foo2&quot;
+       name=&quot;main&quot; description=&quot;This is an example target&quot; &gt;
+
+  &lt;!-- everything else goes here --&gt;
+
+&lt;/target&gt;</programlisting>
+            <para>The target defined in the example above is only executed, if the property
+                    <literal>${lang}</literal> is set and the property <literal>${lang.en}</literal>
+                is not set. Additionally, it depends on the targets <literal>foo1</literal> and
+                    <literal>foo2</literal>. That means, the targets <literal>foo1</literal> and
+                    <literal>foo2</literal> are executed before the target <literal>main</literal>
+                is executed. The name of the target is <literal>main</literal> and it also has a
+                description.</para>
+        </sect2>
+        <sect2>
+            <title>Attributes</title>
+            <table>
+                <title>Parameters</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>                    
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>depends</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>One or more names of targets that have to be executed before this
+                                target can be executed.</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>description</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>A free text description of the target.</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>if</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the property that is to be set if the target is to be
+                                executed.</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>name</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the target</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>unless</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The name of the property that is to be set if the target is not
+                                to be executed.</entry>
+                            <entry>n/a</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>hidden</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>Whether or not to include this target in
+                                the list of targets generated by <literal>phing -l</literal></entry>
+                            <entry>False</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <caution>
+                <para>The if and unless attributes only enable or disable the target to which they
+                    are attached. They do not control whether or not targets that a conditional
+                    target depends upon get executed. In fact, they do not even get evaluated until
+                    the target is about to be executed, and all its predecessors have already
+                    run.</para>
+            </caution>
+        </sect2>
+    </sect1>
+</appendix>
