@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.gettingstarted">
+    <title>Getting started</title>
+
+    <para>Phing buildfiles are written in XML, and so you will need to know at least some basic
+        things about XML to understand the following chapter. There is a lot of information
+        available on the web:</para>
+
+    <itemizedlist>
+        <listitem>
+            <para>The Standard Recommendation of XML by the W3C <link
+                    xlink:href="http://www.w3.org/TR/2000/REC-xml"
+                    >http://www.w3.org/TR/2000/REC-xml</link>: very technical but exhaustive.</para>
+        </listitem>
+        <listitem>
+            <para>XML In 10 Points <link xlink:href="http://www.w3.org/XML/1999/XML-in-10-points"
+                    >http://www.w3.org/XML/1999/XML-in-10-points</link>: Quick introduction into
+                XML.</para>
+        </listitem>
+        <listitem>
+            <para>A technical introduction to XML <link
+                    xlink:href="http://www.xml.com/pub/a/98/10/guide0.html"
+                    >http://www.xml.com/pub/a/98/10/guide0.html</link>: Interesting article by the
+                creator of DocBook.</para>
+        </listitem>
+    </itemizedlist>
+
+    <sect1>
+        <title> XML And Phing </title>
+
+        <para>A valid Phing buildfile has the following basic structure:</para>
+
+
+        <itemizedlist>
+            <listitem>
+                <para>The document prolog</para>
+            </listitem>
+            <listitem>
+                <para>Exactly one root element called <literal>&lt;project></literal> .</para>
+            </listitem>
+            <listitem>
+                <para>Several Phing <literal>type</literal> elements (i.e.
+                        <literal>&lt;property></literal> , <literal>&lt;fileset></literal> ,
+                        <literal>&lt;patternset></literal> etc.)</para>
+            </listitem>
+            <listitem>
+                <para>One or more <literal>&lt;target></literal> elements containing built-in or
+                    user defined Phing <literal>task</literal> elements (i.e.
+                        <literal>&lt;install></literal> , <literal>&lt;bcc></literal> , etc).</para>
+            </listitem>
+        </itemizedlist>
+
+    </sect1>
+    <sect1>
+        <title> Writing A Simple Buildfile </title>
+
+        <para>The <literal>Foobar</literal> project installs some PHP files from a source location
+            to a target location, creates an archive of this files and provides an optional clean-up
+            of the build tree:</para>
+
+        <programlisting language="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;project name=&quot;FooBar&quot; default=&quot;dist&quot;&gt;
+
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- Target: prepare                               --&gt;
+    &lt;!-- ============================================  --&gt;
+    &lt;target name=&quot;prepare&quot;&gt;
+        &lt;echo msg=&quot;Making directory ./build&quot; /&gt;
+        &lt;mkdir dir=&quot;./build&quot; /&gt;
+    &lt;/target&gt;
+
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- Target: build                                 --&gt;
+    &lt;!-- ============================================  --&gt;
+    &lt;target name=&quot;build&quot; depends=&quot;prepare&quot;&gt;
+        &lt;echo msg=&quot;Copying files to build directory...&quot; /&gt;
+
+        &lt;echo msg=&quot;Copying ./about.php to ./build directory...&quot; /&gt;
+        &lt;copy file=&quot;./about.php&quot; tofile=&quot;./build/about.php&quot; /&gt;
+
+        &lt;echo msg=&quot;Copying ./browsers.php to ./build directory...&quot; /&gt;
+        &lt;copy file=&quot;./browsers.php&quot; tofile=&quot;./build/browsers.php&quot; /&gt;
+
+        &lt;echo msg=&quot;Copying ./contact.php to ./build directory...&quot; /&gt;
+        &lt;copy file=&quot;./contact.php&quot; tofile=&quot;./build/contact.php&quot; /&gt;
+    &lt;/target&gt;
+
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- (DEFAULT)  Target: dist                       --&gt; 
+    &lt;!-- ============================================  --&gt;
+    &lt;target name=&quot;dist&quot; depends=&quot;build&quot;&gt;
+        &lt;echo msg=&quot;Creating archive...&quot; /&gt;
+
+        &lt;tar destfile=&quot;./build/build.tar.gz&quot; compression=&quot;gzip&quot;&gt;
+            &lt;fileset dir=&quot;./build&quot;&gt;
+                &lt;include name=&quot;*&quot; /&gt;
+            &lt;/fileset&gt;
+        &lt;/tar&gt;
+
+        &lt;echo msg=&quot;Files copied and compressed in build directory OK!&quot; /&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</programlisting>
+        <para>A phing build file is normally given the name <filename>build.xml</filename> which is
+            the default file name that the Phing executable will look for if no other file name is
+            specified.</para>
+        <para>To run the above build file and execute the default target (assuming it is stored in
+            the current directory with the default name) is only a matter of calling: <code>$
+                phing</code>
+        </para>
+
+        <para>This will then execute the <filename>dist</filename> target. While executing the build
+            file each task performed will print some information on what actions and what files have
+            been affected.</para>
+        <para>To run any of the other target is only a matter of providing the name of the target on
+            the command line. So for example to run the <filename>build</filename> target one would
+            have to execute <code> $ phing build </code>
+        </para>
+
+        <para>It is also possible to specify a number of additional command line arguments as
+            described in <xref xlink:href="#app.factsheet"/>
+        </para>
+
+        <sect2>
+            <title> Project Element </title>
+
+            <para>The first element after the document prolog is the root element named
+                    <literal>&lt;project></literal> on line 3. This element is a container for all
+                other elements and can/must have the following attributes: </para>
+
+            <table>
+                <title>&lt;project> Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+
+                    <tbody>
+                        <row>
+                            <entry><literal>name</literal></entry>
+                            <entry>The name of the project</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>basedir</literal></entry>
+                            <entry>The base directory of the project, use &quot;.&quot; do denote
+                                the current directory. <emphasis role="bold">Note:</emphasis> if
+                                none is specified, the parent directory of the build file is
+                                used!</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry><literal>default</literal></entry>
+                            <entry>The default target that is to be executed if no target(s) are
+                                specified when calling this build file.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>description</literal></entry>
+                            <entry>The description of the project.</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </sect2>
+        <sect2>
+            <title> Target Element </title>
+
+            <para>A target can <literal>depend</literal> on other targets. You might have a target
+                for installing the files in the build tree, for example, and a target for creating a
+                distributable tar.gz archive. You can only build a distributable when you have
+                installed the files first, so the distribute target depends on the install target.
+                Phing resolves these dependencies.</para>
+
+            <para>It should be noted, however, that Phing's depends attribute only specifies the
+                order in which targets should be executed - it does not affect whether the target
+                that specifies the dependency(s) gets executed if the dependent target(s) did not
+                (need to) run.</para>
+
+            <para>Phing tries to execute the targets in the depends attribute in the order they
+                appear (from left to right). Keep in mind that it is possible that a target can get
+                executed earlier when an earlier target depends on it, in this case the dependant is
+                only executed once:</para>
+
+            <screen>&lt;target name="A" /&gt;
+&lt;target name="B" depends="A" /&gt;
+&lt;target name="C" depends="B" /&gt;
+&lt;target name="D" depends="C,B,A" /&gt;</screen>
+
+            <para>Suppose we want to execute target <literal>D</literal> . From its depends
+                aliteralribute, you might think that first target <literal>C</literal> , then
+                    <literal>B</literal> and then <literal>A</literal> is executed. Wrong!
+                    <literal>C</literal> depends on <literal>B</literal> , and <literal>B</literal>
+                depends on <literal>A</literal> , so first <literal>A</literal> is executed, then
+                    <literal>B</literal> , then <literal>C</literal> , and finally
+                    <literal>D</literal> .</para>
+
+            <para>A target gets executed only once, even when more than one target depends on it
+                (see the previous example).</para>
+
+            <para>The optional description attribute can be used to provide a one-line description
+                of this target, which is printed by the <literal>-projecthelp</literal> command-line
+                option.</para>
+
+            <sect3>
+                <title>Target attributes</title>
+
+                <para>You can specify one or more of the following attributes within the target
+                    element.</para>
+
+                <table>
+                    <title>&lt;target> Attributes</title>
+                    <tgroup cols="3">
+                        <colspec colname="name" colnum="1" colwidth="1*"/>
+                        <colspec colname="description" colnum="2" colwidth="2*"/>
+                        <colspec colname="required" colnum="3" colwidth="1*"/>
+
+                        <thead>
+                            <row>
+                                <entry>Attribute</entry>
+                                <entry>Description</entry>
+                                <entry>Required</entry>
+                            </row>
+                        </thead>
+                        <tbody>
+                            <row>
+                                <entry>name</entry>
+                                <entry>The name of the target</entry>
+                                <entry>Yes</entry>
+                            </row>
+                            <row>
+                                <entry>depends</entry>
+                                <entry>A comma-seperated list of targets this target depends
+                                    on.</entry>
+                                <entry>No</entry>
+                            </row>
+                            <row>
+                                <entry>if</entry>
+                                <entry>The name of the <literal>Property</literal> that has to be
+                                    set in order for this target to be executed</entry>
+                                <entry>No</entry>
+                            </row>
+                            <row>
+                                <entry>unless</entry>
+                                <entry>The name of the <literal>Property</literal> that must
+                                        <literal>not</literal> be set in order for this target to be
+                                    executed.</entry>
+                                <entry/>
+                            </row>
+                        </tbody>
+                    </tgroup>
+                </table>
+            </sect3>
+        </sect2>
+
+        <sect2>
+            <title> Task Elements </title>
+
+            <para> A <literal>task</literal> is a piece of PHP code that can be executed. This code
+                implements a particular action to perform (i.e. install a file). Therefore it must
+                be defined in the buildfile so that it is actually invoked by Phing.</para>
+
+            <para>These references will be resolved before the task is executed.</para>
+
+            <para>Tasks have a common structure:</para>
+
+            <screen>&lt;name attribute1="value1" attribute2="value2" ... /></screen>
+
+            <para>where <literal>name</literal> is the name of the task,
+                    <literal>attributeN</literal> is the attribute name, and
+                    <literal>valueN</literal> is the value for this attribute.</para>
+
+            <para>There is a set of core tasks (see <xref xlink:href="#app.coretasks"/>) along with
+                a number of optional tasks. It is also very easy to write your own tasks (see <xref
+                    xlink:href="#ch.extending"/>).</para>
+
+            <para>Tasks can be assigned an <literal>id</literal> attribute: </para>
+
+            <screen>&lt;taskname id="taskID" ... /></screen>
+
+            <para>By doing this you can refer to specific tasks later on in the code of other
+                tasks.</para>
+
+
+        </sect2>
+        <sect2>
+            <title> Property Element </title>
+
+            <para><literal>Properties</literal> are essentially variables that can be used in the
+                buildfile. These might be set in the buildfile by calling the <xref
+                    xlink:href="#app.coretasks"/>, or might be set outside Phing on the command line
+                (properties set on the command line always override the ones in the buildfile). A
+                property has a name and a value only. Properties may be used in the value of task
+                attributes. This is done by placing the property name between &quot;
+                    <literal>${</literal> &quot; and &quot; <literal>}</literal> &quot; in the
+                attribute value. For example, if there is a <literal>BC_BUILD_DIR</literal> property
+                with the value 'build', then this could be used in an attribute like this:
+                    <literal>${BC_BUILD_DIR}/en</literal> . This is resolved to
+                    <literal>build/en</literal>.</para>
+
+            <sect3>
+                <title>Built-in Properties</title>
+
+                <para>Phing provides access to system properties as if they had been defined using a
+                        <literal>&lt;property&gt;</literal> task. For example,
+                        <literal>${os.name}</literal> expands to the name of the operating system.
+                    See <xref xlink:href="#app.factsheet"/> for a complete list </para>
+            </sect3>
+        </sect2>
+    </sect1>
+
+    <sect1>
+        <title> More Complex Buildfile </title>
+
+        <programlisting language="xml">&lt;?xml version=&quot;1.0&quot;  encoding=&quot;UTF-8&quot; ?&gt;
+
+&lt;project name=&quot;testsite&quot; basedir=&quot;.&quot; default=&quot;main&quot;&gt;
+    &lt;property file=&quot;./build.properties&quot; /&gt;
+
+    &lt;property name=&quot;package&quot;  value=&quot;${phing.project.name}&quot; override=&quot;true&quot; /&gt;
+    &lt;property name=&quot;builddir&quot; value=&quot;./build/testsite&quot; override=&quot;true&quot; /&gt;
+    &lt;property name=&quot;srcdir&quot;   value=&quot;${project.basedir}&quot; override=&quot;true&quot; /&gt;
+
+    &lt;!-- Fileset for all files --&gt;
+    &lt;fileset dir=&quot;.&quot; id=&quot;allfiles&quot;&gt;
+        &lt;include name=&quot;**&quot; /&gt;
+    &lt;/fileset&gt;
+
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- (DEFAULT) Target: main                        --&gt;
+    &lt;!-- ============================================  --&gt;
+    &lt;target name=&quot;main&quot; description=&quot;main target&quot;&gt;
+        &lt;copy todir=&quot;${builddir}&quot;&gt;
+            &lt;fileset refid=&quot;allfiles&quot; /&gt;
+        &lt;/copy&gt;
+    &lt;/target&gt;
+
+    &lt;!-- ============================================  --&gt;
+    &lt;!-- Target: Rebuild                               --&gt;
+    &lt;!-- ============================================  --&gt;
+    &lt;target name=&quot;rebuild&quot; description=&quot;rebuilds this package&quot;&gt;
+        &lt;delete dir=&quot;${builddir}&quot; /&gt;
+        &lt;phingcall target=&quot;main&quot; /&gt;
+    &lt;/target&gt;
+&lt;/project&gt;</programlisting>
+
+        <para>This build file first defines some properties with the
+                <literal>&lt;property></literal> task call to <literal>PropertyTask</literal>. Then,
+            it defines a fileset and two targets. Let us have a quick rundown of this build file.</para>
+
+        <para> The first five four within the <literal>project</literal> tag define properties. They
+            appear in the two ways this tag can occur: </para>
+        <itemizedlist>
+            <listitem>
+                <para>The second <literal>property</literal> tag contains only the
+                        <literal>file</literal> attribute. The value has to be a relative or
+                    absolute path to a property file (for the format, see <xref
+                        xlink:href="#app.fileformats"/>).</para>
+            </listitem>
+            <listitem>
+                <para>The other times, the tag has a <literal>name</literal> and a
+                        <literal>value</literal> attribute. After the call, the value defined in the
+                    attribute <literal>value</literal> is available through the key enclosed in
+                    &quot;${&quot; and &quot;}&quot;.</para>
+            </listitem>
+        </itemizedlist>
+        <para>The next noticeable thing in the build file is the <literal>&lt;fileset></literal>
+            tag. It defines a <literal>fileset</literal>, i.e. a set of multiple files. You can
+            include and exclude files with the <literal>include</literal> and
+                <literal>exclude</literal> tags within the <literal>fileset</literal> tag. For more
+            information concerning Filesets (i.e. Patterns) see <xref xlink:href="#app.coretypes"/>.
+            The <literal>fileset</literal> is given an <literal>id</literal> attribute, so it can be
+            referenced later on.</para>
+        <para>One thing is worth noting here though and that is the use of double star expression,
+            i.e. <literal>"**"</literal>. This special regexp refers to all files in all
+            subdirectories as well. Compare this with a single <literal>"*"</literal> which would
+            only refer to all files in the <filename>current</filename> subdirectory. So for example
+            the expression <literal>"**/*.phps"</literal> would refer to all files with suffix
+                <literal>"'.phps"</literal> in all subdirectories below the current directory.</para>
+
+        <para>The first task only contains a call to <literal>CopyTask</literal> via
+                <literal>&lt;copy></literal>. The interesting thing is within the
+                <literal>copy</literal> tag. Here, a fileset task is not written out with nested
+                <literal>include</literal> or <literal>exclude</literal> elements, but via the
+                <literal>refid</literal>, the Fileset created earlier is referenced. This way, you
+            can use a once defined fileset multiple times in your build files.</para>
+
+        <para>The only noticeable thing in the second target is the call to
+                <literal>PhingTask</literal> with the <literal>&lt;phingcall&gt;</literal> tag (see
+                <xref xlink:href="#app.coretasks"/> for more information). The task executes a
+            specified target within the same build file. So, the second target removes the build
+            directory and calls <literal>main</literal> again, thus rebuilding the project.</para>
+
+        <para>A variant is to override properties defined in the build file with properties
+            specified on the command line using the <filename>-D</filename> switch. For example to
+            override the <filename>builddir</filename> in the build file above one could call Phing
+            as </para>
+        <screen>$ phing -Dbuilddir=/tmp/system-test  </screen>
+        <sect2>
+            <title>Handling source dependencies</title>
+            <para>A common task required in many build files is to keep some target which has a
+                number of dependencies up to date. In traditional make files this could for example
+                be an executable that needs to be recompiled if any of the source files have been
+                updated. In Phing such a condition is handled by the <literal>UpToDateTask</literal>
+                , see <xref xlink:href="#UpToDateTask"/> for examples on how this task us
+                used.</para>
+        </sect2>
+    </sect1>
+
+    <sect1>
+        <title> Relax NG Grammar </title>
+        <para>With a little bit of experience it is not that difficult to write and understand Phing
+            build files since the XML format in itself tends to be quite verbose. However, it can
+            become a bit tedious and the large (and growing) amount of built-in tasks and filters
+            can sometimes make it difficult to remember the exact syntax of all the available
+            features.</para>
+        <para>To help with this the Phing distribution contains a Relax NG Grammar (<emphasis
+                role="bold">RE</emphasis>gular <emphasis role="bold">LA</emphasis>nguage for
+                <emphasis role="bold">X</emphasis>ML <emphasis role="bold">N</emphasis>ext <emphasis
+                role="bold">G</emphasis>eneration, <link xlink:href="http://www.relaxng.org/"
+                >http://www.relaxng.org/</link>) file that describes the (formal) syntax of the
+            build files. This grammar can be used to validate build files. However, the most
+            beneficial use of the grammar is together with a schema aware XML editor. Such an editor
+            can make auto-completion based on the grammar. This feature makes writing complex build
+            files significantly easier since it is usually enough to enter the first letter of an
+            element to have the rest of the element written automatically as well as any compulsory
+            attributes.</para>
+        <para>Most XML editors can be told to what schema (or model) to use for validation and
+            auto-completion by adding a specification in the beginning of the XML file. For example,
+            the following two lines in the beginning of an XML file would do (of course the exact
+            path to the grammar will depend on your system setup) </para>
+        <screen>&lt;?xml version="1.0" encoding="UTF-8"?> 
+&lt;?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
+            type="application/xml" 
+            schematypens="http://relaxng.org/ns/structure/1.0" ?></screen>
+        <para>Using auto-completion will make it substantially easier to edit large build files.
+            Please note that since the phing-grammar does not have an official designation we must
+            use the absolute filename to specify the grammar (instead of a canonical URI that is
+            resolved by the systems XML-catalogue).</para>
+        <para>This grammar is available (as a plain text file) in the distribution at:
+                <filename>/etc/phing-grammar.rng</filename>
+        </para>
+        <para>Since we do not want to neither endorse nor forget any particular XML editor with this
+            capability we do not make available such a list of editors. Instead, spending a few
+            minutes with Google searching for XML-editors is bound to find a number of editors with
+            this capability.</para>
+        <para>If you wish to validate your Phing build file, there are numerous options. Links to
+            various validation tools and XML editors are available at the RELAX NG home page, <link
+                xlink:href="http://www.relaxng.org/">http://www.relaxng.org/</link>. The command
+            line tool <literal>xmllint</literal> that comes with libxml2 is also able to validate a
+            given XML file against the supplied grammar.</para>
+        <para>For example, to use <command>xmllint</command> to validate a Phing build file the
+            following command line could be used:</para>
+        <screen>$ xmllint -noout -relaxng phing-grammar.rng build.xml
+build.xml validates</screen>
+    </sect1>
+</chapter>

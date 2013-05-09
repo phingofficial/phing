@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+<appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.coremappers">
+    <title>Core mappers</title>
+
+    <para>While filters are applied to the <literal>content</literal> of files, Mappers are applied
+        to the <literal>filenames</literal>. All mappers have the same API, i.e. the way you use
+        them is the same:</para>
+    <programlisting language="xml">&lt;mapper type=&quot;<literal>mappername</literal>&quot; from=&quot;<literal>frompattern</literal>&quot; to=&quot;<literal>topattern</literal>&quot; /&gt;</programlisting>
+    <sect1>
+        <title>Common Attributes</title>
+        <table>
+            <title> Attributes for the <literal>&lt;mapper></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>type</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Type of the mapper.</entry>
+                        <entry>n/a</entry>
+                        <entry morerows="1">One of these is required.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>classname</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Dot-path to a custom mapper class to use.</entry>
+                        <entry>n/a</entry>
+
+                    </row>
+                    <row>
+                        <entry><literal>from</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The pattern the filename is to be matched to. The exact meaning is
+                            dependent on the implementation of the mapper.</entry>
+                        <entry>n/a</entry>
+                        <entry>depends on the implementation of the mapper</entry>
+                    </row>
+                    <row>
+                        <entry><literal>to</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The pattern according to which the filename is to be changed to.
+                            Here, the usage is dependent on the implementation of the mapper,
+                            too.</entry>
+                        <entry>n/a</entry>
+                        <entry>depends on the implementation of the mapper</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+
+    </sect1>
+    <sect1 xml:id="FlattenMapper">
+        <title>FlattenMapper </title>
+        <para>The <literal>FlattenMapper</literal> removes the directories from a filename and
+            solely returns the filename.</para>
+        <programlisting language="xml">&lt;copy todir=&quot;/tmp&quot;&gt;
+  &lt;mapper type=&quot;flatten&quot; /&gt;
+
+  &lt;fileset refid=&quot;someid&quot; /&gt;
+&lt;/copy&gt;</programlisting>
+        <para>This code will copy all files in the fileset to /tmp. All files will be in the target
+            directory.</para>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;mapper type=&quot;flatten&quot; /&gt;</programlisting>
+            <para>Applying the mapper, you will get the following results from the following
+                filenames:</para>
+            <table>
+                <title>Result of mapping</title>
+                <tgroup cols="2">
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>From</entry>
+                            <entry>To</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+
+
+                        <row>
+                            <entry><filename>test.txt</filename></entry>
+                            <entry><filename>test.txt</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>./foo/bar/test.bak</filename></entry>
+                            <entry><filename>test.bak</filename></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </sect2>
+    </sect1>
+    <sect1 xml:id="GlobMapper">
+        <title>GlobMapper </title>
+        <para>The <literal>GlobMapper</literal> works like the <literal>copy</literal> command in
+            DOS:</para>
+        <programlisting language="xml">&lt;copy todir=&quot;/tmp&quot;&gt;
+  &lt;mapper type=&quot;glob&quot; from=&quot;*.php&quot; to=&quot;*.php.bak&quot;/&gt;
+
+  &lt;fileset refid=&quot;someid&quot; /&gt;
+&lt;/copy&gt;</programlisting>
+        <para>This will change the extension of all files matching the pattern
+                <literal>*.php</literal> to <literal>.php.bak</literal>.</para>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;mapper type=&quot;glob&quot; from=&quot;*txt&quot; to=&quot;*txt.bak&quot;/&gt;</programlisting>
+            <para>Applying the mapper, you will get the following results from the following
+                filenames:</para>
+            <table>
+                <title>Result of mapping</title>
+                <tgroup cols="2">
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>From</entry>
+                            <entry>To</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><filename>test.txt</filename></entry>
+                            <entry><filename>test.txt.bak</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>./foo/bar/test.txt</filename></entry>
+                            <entry><filename>./foo/bar/test.txt.bak</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>mytxt</filename></entry>
+                            <entry><filename>mytxt.bak</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>SomeClass.php</filename></entry>
+                            <entry><literal>ignored</literal>, SomeClass.php</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </sect2>
+    </sect1>
+    <sect1 xml:id="IdentityMapper">
+        <title>IdentityMapper </title>
+        <para>The <literal>IdentityMapper</literal> will not change anything on the source
+            filenames.</para>
+
+    </sect1>
+    <sect1 xml:id="MergeMapper">
+        <title>MergeMapper </title>
+        <para>The <literal>MergeMapper</literal> changes all source filenames to the same
+            filename.</para>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;mapper type=&quot;merge&quot; to=&quot;test.tar&quot;/&gt;</programlisting>
+            <para>Applying the mapper, you will get the following results from the following
+                filenames:</para>
+            <table>
+                <title>Result of mapping</title>
+                <tgroup cols="2">
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>From</entry>
+                            <entry>To</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><filename>test.txt</filename></entry>
+                            <entry><filename>test.tar</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>./foo/bar/test.txt</filename></entry>
+                            <entry><filename>test.tar</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>mytxt</filename></entry>
+                            <entry><filename>test.tar</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>SomeClass.php</filename></entry>
+                            <entry><filename>test.tar</filename></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </sect2>
+    </sect1>
+    <sect1 xml:id="RegexpMapper">
+        <title>RegexpMapper </title>
+        <para>The <literal>RegexpMapper</literal> changes filenames according to a pattern defined
+            by a regular expression. This is the most powerful mapper and you should be able to use
+            it for every possible application.</para>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;mapper type=&quot;regexp&quot; from=&quot;^(.*)\.conf\.xml&quot; to=&quot;\1.php&quot;/&gt;</programlisting>
+            <para>The mapper as above will do the following mappings:</para>
+            <table>
+                <title>Result of mapping</title>
+                <tgroup cols="2">
+                    <colspec colname="name" colnum="1" colwidth="1*"/>
+                    <colspec colname="name" colnum="2" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>From</entry>
+                            <entry>To</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><filename>test.txt</filename></entry>
+                            <entry>ignore, <filename>test.txt</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>./foo/bar/test.conf.xml</filename></entry>
+                            <entry><filename>./foo/bar/test.php</filename></entry>
+                        </row>
+                        <row>
+                            <entry><filename>someconf.conf.xml</filename></entry>
+                            <entry><filename>someconf.php</filename></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+        </sect2>
+    </sect1>
+
+</appendix>
