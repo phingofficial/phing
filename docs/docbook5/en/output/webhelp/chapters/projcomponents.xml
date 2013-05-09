@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
+	xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.projcomponents">
+	<title>Project components</title>
+
+	<para>This goal of this chapter is to make you familiar with the basic components of a
+		buildfile. After reading this chapter, you should be able to read and understand the basic
+		structure of any buildfile even if you don't know exactly what the individual pieces
+		do.</para>
+	<para> For supplemental reference information, you should see <xref xlink:href="#app.coretasks"
+		/>, <xref xlink:href="#app.coretypes"/> and <xref xlink:href="#app.projcomponents"/>.</para>
+
+	<sect1>
+		<title> Projects </title>
+
+		<para> In the structure of a Phing buildfile, there must be exactly one
+				<literal>Project</literal> defined; the <literal>&lt;project&gt; </literal>tag is
+			the root element of the buildfile, meaning that everything else in the buildfile is
+			contained within the <literal>&lt;project</literal> &gt; element.</para>
+
+		<programlisting language="xml">&lt;?xml version="1.0"?>
+
+&lt;project name="test" description="Simple test build file" default="main" >
+  &lt;!-- Everything else here -->
+&lt;project></programlisting>
+
+		<para> The listing above shows a sample <literal>&lt;project&gt;</literal> tag that has all
+			attributes available for Projects. The <literal>name</literal> and
+				<literal>description</literal> attributes are fairly self-explanatory; the
+				<literal>default</literal> attribute specifies the default <literal>Target</literal>
+			to execute if no target is specified (<xref xlink:href="#Target"/> are described below).
+			For a complete reference, see <xref xlink:href="#app.projcomponents"/>.</para>
+
+	</sect1>
+	<sect1>
+		<title> Version </title>
+
+		<para> Since Phing 2.4.2 it is possible to include a <literal>phingVersion</literal>
+			attribute in the <literal>&lt;project&gt;</literal> tag. This attribute allows you to
+			define the minimum Phing version required to execute a build file, in order to prevent
+			compatibility issues.</para>
+
+		<programlisting language="xml">&lt;?xml version="1.0"?>
+
+&lt;project name="test" phingVersion="2.4.2" >
+  &lt;!-- Everything else here -->
+&lt;project></programlisting>
+
+	</sect1>
+	<sect1>
+		<title> Project Components in General </title>
+
+		<para> Project Components are all the elements found inside a project, i.e. targets, tasks,
+			types, etc. Project components may have attributes and nested tags. Attributes only
+			contain simple values, i.e. strings, integers etc. Nested elements may be complex Phing
+			types (like FileSets) or simple wrapper classes for values with custom keys (see <xref
+				xlink:href="#app.coretypes"/> for example).</para>
+
+		<para> Any nested elements must be supported by the class that implements the project
+			component, and because the nested tags are handled by the project component class the
+			same nested tag may have different meanings (and different attributes) depending on the
+			context. So, for example, the nested tag <literal>&lt;param</literal>.../> within the
+				<literal>&lt;phingcall></literal> tag is handled very differently from
+				the<literal>&lt;param.../></literal> tag within the
+				<literal>&lt;xsltfilter></literal> tag -- in the first case setting project
+			properties, in the second case setting XSLT parameters.</para>
+
+	</sect1>
+	<sect1>
+		<title> Targets </title>
+
+		<para> Targets are collections of project components (but not other targets) that are
+			assigned a unique name within their project. A target generally performs a specific task
+			-- or calls other targets that perform specific tasks -- and therefore a target is a bit
+			like a <literal> function</literal> (but a target has no return value).</para>
+		<para> Targets may <literal>depend</literal> on other targets. For example, if target A
+			depends on a target B, then when target A is called to be executed, target B will be
+			executed first. Phing automatically resolves these dependencies. You cannot have
+			circular references like: "target A depends on target B that depends on target A".</para>
+
+		<para>The following code snippet shows an example of the use of targets.</para>
+
+		<programlisting language="xml">&lt;target name="othertask" depends="buildpage" description="Whatever">
+  &lt;!-- Task calls here -->
+&lt;target>
+
+&lt;target name="buildpage" description="Some description">
+  &lt;!-- Task calls here -->
+&lt;target></programlisting>
+
+		<para> When Phing is asked to execute the <literal>othertask</literal> target, it will see
+			the dependency and execute <literal>buildpage</literal> first. Notice that the
+			dependency task can be defined after the dependent task.</para>
+
+	</sect1>
+	<sect1>
+		<title> Tasks </title>
+
+		<para> Tasks are responsible for doing the work in Phing. Basically, tasks are the
+			individual actions that your buildfile can perform. For example, tasks exist to copy a
+			file, create a directory, TAR files in a directory. Tasks may also be more complex such
+			as XsltTask which copies a file and transforms the file using XSLT, SmartyTask which
+			does something similar using Smarty templates, or CreoleTask which executes SQL
+			statements against a specified DB. See <xref xlink:href="#app.coretasks"/> for
+			descriptions of Phing tasks.</para>
+
+		<para>Tasks support parameters in the form of:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>Simple parameters (i.e. strings) passed as XML attributes, or</para>
+			</listitem>
+			<listitem>
+				<para>More complex parameters that are passed by nested tags</para>
+			</listitem>
+		</itemizedlist>
+
+		<para> Simple parameters are basically strings. For example, if you pass a value <literal>"A
+				simple string."</literal> as a parameter, it is evaluated as a string and accessible
+			as one. You can also reference properties as described in <xref
+				xlink:href="#ch.gettingstarted"/>.</para>
+
+		<para>
+			<literal>Note:</literal> There are special values that are not mapped to strings, but to
+			boolean values instead. The values <literal>true</literal>, <literal>false</literal>,
+				<literal>yes</literal>, <literal>no</literal>, <literal>on</literal> and
+				<literal>off</literal> are translated to
+				<literal>true</literal>/<literal>false</literal> boolean values.</para>
+
+		<programlisting language="xml">&lt;property name=&quot;myprop&quot; value=&quot;value&quot; override=&quot;true&quot;/&gt;</programlisting>
+		<para>However, some tasks support more complex data types as parameters. These are passed to
+			the task with <literal>nested tags</literal>. Consider the following example: </para>
+
+		<programlisting language="xml">&lt;copy>
+  &lt;fileset dir=".">
+    &lt;include name="**" />
+  &lt;/fileset>
+&lt;/copy></programlisting>
+
+		<para>Here, <literal>CopyTask</literal> is passed a complex parameter, a Fileset. Tasks may
+			support multiple complex types in addition to simple parameters. Note that the names of
+			the nested tags used to create the complex types depend on the task implementation.
+			Tasks may support default Phing types (see <xref xlink:href="#sec.types"/>) or may
+			introduce other types, for example to wrap key/value pairs.</para>
+
+		<para> Refer to <xref xlink:href="#app.coretasks"/> for a list of system tasks and their
+			parameters.</para>
+
+	</sect1>
+	<sect1 xml:id="sec.types">
+		<title> Types </title>
+
+		<sect2>
+			<title> Basics </title>
+
+			<para>Besides the simple types (strings, integer, booleans) you can use in the
+				parameters of tasks, there are more complex Phing <literal>Types</literal>. As
+				mentioned above, they are passed to a task by using nesting tags: </para>
+
+			<programlisting language="xml">&lt;task>
+  &lt;type />
+&lt;/task>
+
+&lt;!-- or: -->
+
+&lt;task>
+  &lt;type1>
+    &lt;subtype1>
+      &lt;!-- etc. -->
+    &lt;/subtype1>
+  &lt;/type1>
+&lt;/task></programlisting>
+
+			<para>Note that types may consist of multiple nested tags -- and multiple levels of
+				nested tags, as you can see in the second task call above.</para>
+
+		</sect2>
+		<sect2>
+			<title> Referencing Types </title>
+
+			<para>An additional fact about types you should notice is the possibility of
+					<literal>referencing</literal> type instances, i.e. you define your type
+				somewhere in your build file and assign an id to it. Later, you can refer to that
+				type by the id you assigned. Example: </para>
+
+			<programlisting language="xml">&lt;project>
+  &lt;fileset id="foo">
+    &lt;include name="*.php" />
+  &lt;/fileset>
+
+  &lt;!-- Target that uses the type -->
+  &lt;target name="foo" >
+    &lt;copy todir="/tmp">
+      &lt;fileset refid="foo" />
+    &lt;/copy>
+  &lt;/target>
+&lt;/project></programlisting>
+
+			<para>As you can see, the type instance is assigned an id with the <literal>id</literal>
+				attribute and later on called by passing a plain <literal>fileset</literal> tag to
+					<literal>CopyTask</literal> that only contains the <literal>refid</literal>
+				attribute.</para>
+		</sect2>
+	</sect1>
+	<sect1>
+		<title> Basic Types </title>
+
+		<para> The following section gives you a quick introduction into the basic Phing types. For
+			a complete reference see <xref xlink:href="#app.coretypes"/>.</para>
+
+		<sect2>
+			<title>
+				<literal>FileSet</literal>
+			</title>
+
+			<para>FileSets are groups of files. You can include or exclude specific files and
+				patterns to/from a FileSet. The use of patterns is explained below. For a start,
+				look at the following example:</para>
+
+			<programlisting language="xml">&lt;fileset dir="/tmp" id="fileset1">
+  &lt;include name="sometemp/file.txt" />
+  &lt;include name="othertemp/**" />
+  &lt;exclude name="othertemp/file.txt" />
+&lt;/fileset>
+
+&lt;fileset dir="/home" id="fileset2">
+  &lt;include name="foo/**" />
+  &lt;include name="bar/**/*.php" />
+  &lt;exclude name="foo/tmp/**" />
+&lt;/fileset&gt;</programlisting>
+
+			<para> The use of patterns is quite straightforward: If you simply want to match a part
+				of a filename or dirname, you use <emphasis>*</emphasis>. If you want to include
+				multiple directories and/or files, you use <emphasis>**</emphasis>. This way,
+				filesets provide an easy but powerful way to include files.</para>
+
+		</sect2>
+		<sect2>
+			<title>
+				<literal>FileList</literal>
+			</title>
+			<para>FileLists, like FileSets, are collections of files; however, a FileList is an
+				explicitly defined list of files -- and the files don't necessarily have to exist on
+				the filesystem.</para>
+			<para>Besides being able to refer to nonexistent files, another thing that
+					<literal>FileLists</literal> allow you to do is specify files <literal>in a
+					certain order</literal>. Files in <literal>FileSets</literal> are ordered based
+				on the OS-level directory listing functions, in some cases you may want to specify a
+				list of files to be processed in a certain order -- e.g. when concatenating files
+				using the <literal>&lt;append></literal> task.</para>
+			<programlisting language="xml">&lt;filelist dir="base/" files="file1.txt,file2.txt,file3.txt"/>
+
+&lt;!-- OR: --&gt;
+&lt;filelist dir="basedir/" listfile="files_to_process.txt"/></programlisting>
+		</sect2>
+		<sect2>
+			<title>
+				<literal>FilterChains</literal> and Filters </title>
+
+			<para><literal>FilterChains</literal> can be compared to Unix pipes. Unix pipes add a
+				great deal of flexibility to command line operations; for example, if you wanted to
+				copy just those lines that contained the string <literal>blee</literal> from the
+				first 10 lines of a file called <literal>foo</literal> to a file called
+					<literal>bar</literal>, you could do: </para>
+
+			<screen>cat foo | head -n10 | grep blee &gt; bar</screen>
+
+			<para>Something like this is not possible with the tasks and types that we have learned
+				about thus far, and this is where the incredible usefulness of
+					<literal>FilterChains</literal> becomes apparent. They emulate Unix pipes and
+				provide a powerful dimension of file/stream manipulation for the tasks that support
+				them.</para>
+
+			<para><literal>FilterChain</literal> usage is quite straightforward: you pass the
+				complex Phing type <literal>filterchain</literal> to a task that supports
+				FilterChains and add individual filters to the FilterChain. In the course of
+				executing the task, the filters are applied (in the order in which they appear in
+				the XML) to the contents of the files that are being manipulated by your task.</para>
+
+			<programlisting language="xml">&lt;filterchain>
+  &lt;replacetokens>
+    &lt;token key="BC_PATH" value="${top.builddir}/"/>
+    &lt;token key="BC_PATH_USER" value="${top.builddir}/testsite/user/${lang}/"/>
+  &lt;/replacetokens>
+
+  &lt;filterreader classname="phing.filters.TailFilter">
+    &lt;param name="lines" value="10"/>
+  &lt;/filterreader>
+&lt;/filterchain></programlisting>
+			<para>The code listing above shows you some example of how to use filter chains. For a
+				complete reference see <xref xlink:href="#app.coretypes"/>. This filter chain would
+				replace all occurrences of <literal>BC_PATH</literal> and
+					<literal>BC_PATH_USER</literal> with the values assigned to them in lines 4 and
+				5. Additionally, it will only return the last 10 lines of the files.</para>
+			<para>Notice above that <literal>FilterChain</literal> filters have a "shorthand"
+				notation and a long, generic notation. Most filters can be described using both of
+				these forms:</para>
+			<programlisting language="xml">&lt;replacetokens>
+  &lt;token key="BC_PATH" value="${top.builddir}/"/>
+  &lt;token key="BC_PATH_USER" value="${top.builddir}/testsite/user/${lang}/"/>
+&lt;/replacetokens>
+
+&lt;!-- OR: -->
+
+&lt;filterreader classname="phing.filters.ReplaceTokens">
+  &lt;param type="token" name="BC_PATH" value="${top.builddir}/"/>
+  &lt;param type="token" name="BC_PATH" value="${top.builddir}/testsite/user/${lang}/"/>
+&lt;/filterreader></programlisting>
+			<para> As the pipe concept in Unix, the filter concept is quite complex but powerful. To
+				get a better understanding of different filters and how they can be used, take a
+				look at any of the many uses of FilterChains in the build files for the binarycloud
+					<xref xlink:href="#app.bibliography"/> project.</para>
+		</sect2>
+		<sect2>
+			<title> File Mappers </title>
+
+			<para>With <literal>FilterChains</literal> and filters provide a powerful tool for
+				changing contents of files, Mappers provide a powerful tool for changing the names
+				of files.</para>
+
+			<para>To use a Mapper, you must specify a pattern to match on and a replacement pattern
+				that describes how the matched pattern should be transformed. The simplest form is
+				basically no different from the DOS <literal>copy</literal> command: </para>
+
+			<screen>copy *.bat *.txt</screen>
+
+			<para> In Phing this is the <literal>glob</literal> Mapper: </para>
+			<programlisting language="xml">&lt;mapper type=&quot;glob&quot; from=&quot;*.bat&quot; to=&quot;*.txt&quot;/&gt;</programlisting>
+			<para>Phing also provides support for more complex mapping using regular
+				expressions:</para>
+
+			<programlisting language="xml">&lt;mapper type=&quot;regexp&quot; from=&quot;^(.*)\.conf\.xml$$&quot; to=&quot;\1.php&quot;/&gt;</programlisting>
+
+			<para>Consider the example below to see how Mappers can be used in a build file. This
+				example includes some of the other concepts introduced in this chapter, such as
+					<literal>FilterChains</literal> and <literal>FileSets</literal>. If you don't
+				understand everything, don't worry. The important point is that Mappers are types
+				too, which can be used in tasks that support them.</para>
+			<programlisting language="xml">&lt;copy>
+  &lt;fileset dir=".">
+    &lt;include name="*.ent.xml"/>
+  &lt;/fileset>
+
+  &lt;mapper type="regexp" from="^(.*)\.ent\.xml$" to="\1.php"/>
+
+  &lt;filterchain>
+    &lt;filterreader classname="phing.filters.XsltFilter">
+      &lt;param name="style" value="ent2php.xsl"/>
+    &lt;/filterreader>
+  &lt;/filterchain>
+&lt;/copy></programlisting>
+
+			<para> For a complete reference, see <xref xlink:href="#app.coretypes"/>
+			</para>
+		</sect2>
+	</sect1>
+	<sect1>
+		<title> Conditions </title>
+
+		<para> Conditions are nested elements of the <xref xlink:href="#app.coretasks"/> and <xref
+				xlink:href="#app.coretasks"/> tasks.</para>
+
+		<sect2>
+			<title><literal>not</literal></title>
+			<para> The <code>&lt;not></code> element expects exactly one other condition to be
+				nested into this element, negating the result of the condition. It doesn't have any
+				attributes and accepts all nested elements of the condition task as nested elements
+				as well.</para>
+
+		</sect2>
+		<sect2>
+			<title><literal>and</literal></title>
+			<para> The <code>&lt;and></code> element doesn't have any attributes and accepts an
+				arbitrary number of conditions as nested elements. This condition is true if all of
+				its contained conditions are, conditions will be evaluated in the order they have
+				been specified in the build file.</para>
+
+			<para> The <code>&lt;and></code> condition has the same shortcut semantics as the
+					<literal>&amp;&amp;</literal> operator in some programming languages, as soon as
+				one of the nested conditions is false, no other condition will be evaluated.</para>
+
+		</sect2>
+		<sect2>
+			<title><literal>or</literal></title>
+			<para> The <code>&lt;or></code> element doesn't have any attributes and accepts an
+				arbitrary number of conditions as nested elements. This condition is true if at
+				least one of its contained conditions is, conditions will be evaluated in the order
+				they have been specified in the build file.</para>
+
+			<para> The <code>&lt;or></code> condition has the same shortcut semantics as the
+					<literal>||</literal> operator in some programming languages, as soon as one of
+				the nested conditions is true, no other condition will be evaluated.</para>
+
+		</sect2>
+		<sect2>
+			<title><literal>os</literal></title>
+			<para>Test whether the current operating system is of a given type.</para>
+
+			<table>
+				<title>OS Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>family</literal></entry>
+							<entry>The name of the operating system family to expect.</entry>
+							<entry>Yes</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<para>Supported values for the family attribute are:</para>
+			<itemizedlist>
+				<listitem>
+					<para>windows (for all versions of Microsoft Windows)</para>
+				</listitem>
+				<listitem>
+					<para>mac (for all Apple Macintosh systems)</para>
+				</listitem>
+				<listitem>
+					<para>unix (for all Unix and Unix-like operating systems)</para>
+				</listitem>
+			</itemizedlist>
+
+		</sect2>
+		<sect2>
+			<title><literal>equals</literal></title>
+			<para>Tests whether the two given Strings are identical</para>
+			<table>
+				<title>equals Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>arg1</literal></entry>
+							<entry>First string to test.</entry>
+							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry><literal>arg2</literal></entry>
+							<entry>Second string to test.</entry>
+							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry><literal>casesensitive</literal></entry>
+							<entry>Perform a case sensitive comparision. Default is true.</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry><literal>trim</literal></entry>
+							<entry>Trim whitespace from arguments before comparing them. Default is
+								false.</entry>
+							<entry>No</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+
+		</sect2>
+		<sect2>
+			<title><literal>isset</literal></title>
+			<para>Test whether a given property has been set in this project.</para>
+			<table>
+				<title>isset Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>property</literal></entry>
+							<entry>The name of the property to test.</entry>
+							<entry>Yes</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+
+		</sect2>
+		<sect2>
+			<title><literal>contains</literal></title>
+			<para>Tests whether a string contains another one.</para>
+			<table>
+				<title>contains Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>string</literal></entry>
+							<entry>The string to search in.</entry>
+							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry><literal>substring</literal></entry>
+							<entry>The string to search for.</entry>
+							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry><literal>casesensitive</literal></entry>
+							<entry>Perform a case sensitive comparision. Default is true.</entry>
+							<entry>No</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+
+		</sect2>
+		<sect2>
+			<title><literal>istrue</literal></title>
+			<para>Tests whether a string evaluates to true.</para>
+
+			<table>
+				<title>istrue Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>value</literal></entry>
+							<entry>value to test</entry>
+							<entry>Yes</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<programlisting language="xml">&lt;istrue value=&quot;${someproperty}&quot;/&gt;
+&lt;istrue value=&quot;false&quot;/&gt;</programlisting>
+
+		</sect2>
+		<sect2>
+			<title><literal>isfalse</literal></title>
+			<para>Tests whether a string evaluates to not true, the negation of
+					<literal>&lt;istrue></literal></para>
+			<table>
+				<title>isfalse Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>value</literal></entry>
+							<entry>value to test</entry>
+							<entry>Yes</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<programlisting language="xml">&lt;isfalse value="${someproperty}"/>
+&lt;isfalse value="false"/></programlisting>
+
+		</sect2>
+		<sect2>
+			<title><literal>referenceexists</literal></title>
+			<para>Tests whether a specified reference exists.</para>
+			<table>
+				<title>referenceexists Attributes</title>
+				<tgroup cols="3">
+					<colspec colname="attribute" colnum="1" colwidth="1*"/>
+					<colspec colname="description" colnum="2" colwidth="2*"/>
+					<colspec colname="required" colnum="3" colwidth="1*"/>
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry><literal>ref</literal></entry>
+							<entry>reference to test for</entry>
+							<entry>Yes</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+			<programlisting language="xml">&lt;referenceexists ref="${someid}"/></programlisting>
+
+		</sect2>
+		<sect2>
+			<title><literal>available</literal></title>
+			<para>This condition is identical to the <link xlink:href="#AvailableTask"
+					>Available</link> task, all attributes and nested elements of that task are
+				supported, the property and value attributes are redundant and will be
+				ignored.</para>
+		</sect2>
+	</sect1>
+
+</chapter>
