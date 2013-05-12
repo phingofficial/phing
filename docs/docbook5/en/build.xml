@@ -111,6 +111,12 @@
     <!-- The temporary build directory -->
     <property name="tmp.dir" value="./tmp/"/>
 
+    <!-- 
+	 Temporary locations for admonition figures used in FO build. MUST be absolute path! 
+	 Also note that this path must match the path given in stylesheets/xsl/fo-common.xsl 
+    -->
+    <property name="tmp.xslimg.dir" value="/tmp/_tmpxslimg" />
+
     <!-- All source files needed -->
     <fileset dir="source" id="sources">
         <include name="chapters/*.xml"/>
@@ -126,6 +132,7 @@
     -->
     <target name="clean">
         <delete dir="output/"/>
+	<phingcall target="_clean_fo_images"/>
     </target>
 
     <!--
@@ -170,6 +177,28 @@
                 <include name="*"/>
             </fileset>
         </copy>
+    </target>
+
+    <!--
+        ================================================================================
+	For PDF creation FO needs the included admonition images to be available at an
+	absolute path while the PDF is created. For this we use a temporary dir that
+	we clean after usage.
+        ================================================================================
+    -->
+    <target name="_copy_fo_images">
+      <mkdir dir="${tmp.xslimg.dir}" />
+      <mkdir dir="${tmp.xslimg.dir}/images" />
+        <!-- Copy all admonitions used in FO output -->
+	<copy todir="${tmp.xslimg.dir}/images">
+	  <fileset dir="stylesheets/xsl/images">
+	    <include name="*.png"/>
+	  </fileset>
+	</copy>
+    </target>
+
+    <target name="_clean_fo_images">
+      <delete dir="${tmp.xslimg.dir}" />
     </target>
 
     <!--
@@ -295,6 +324,7 @@
                 <isset property="target.uptodate"/>
             </not>
             <then>
+	       <phingcall target="_copy_fo_images"/>
                 <mkdir dir="output/pdf"/>
                 <exec
                     command="${xsltproc} --xinclude --output output/pdf/manual.fo ${dbxsl.dir}/fo.xsl ${master.document}"
@@ -302,6 +332,7 @@
                 <exec command="${fop} manual.fo -pdf manual.pdf" dir="./output/pdf/"
                     checkreturn="true" passthru="true"/>
                 <delete file="output/pdf/manual.fo"/>
+	       <phingcall target="_clean_fo_images"/>
             </then>
         </if>
     </target>
@@ -321,6 +352,7 @@
                 <isset property="target.uptodate"/>
             </not>
             <then>
+	       <phingcall target="_copy_fo_images"/>
                 <mkdir dir="output/hlpdf"/>
                 <exec command="${xmllint} --xinclude ${master.document} > output/hlpdf/_flatten.xml"/>
                 <exec dir="output/hlpdf/"
@@ -330,6 +362,7 @@
                     checkreturn="true"/>
                 <delete file="output/hlpdf/_flatten.xml"/>
                 <delete file="output/hlpdf/manual.fo"/>
+		<phingcall target="_clean_fo_images"/>
             </then>
         </if>
     </target>
