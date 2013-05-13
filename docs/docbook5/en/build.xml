@@ -131,7 +131,7 @@
         ================================================================================
     -->
     <target name="clean">
-        <delete dir="output/"/>
+        <delete quiet="yes" dir="output/"/>
 	<phingcall target="_clean_fo_images"/>
     </target>
 
@@ -198,7 +198,7 @@
     </target>
 
     <target name="_clean_fo_images">
-      <delete dir="${tmp.xslimg.dir}" />
+      <delete quiet="yes" dir="${tmp.xslimg.dir}" />
     </target>
 
     <!--
@@ -292,8 +292,8 @@
                     <property name="dir" value="hlhtml"/>
                 </phingcall>
                 <!-- We first need to flatten the master file since Saxon doesn't handle XInclude -->
-                <exec
-                    command="${xmllint} --xinclude ${master.document} > output/hlhtml/_flatten.xml"/>
+                <exec command="${xmllint} --xinclude ${master.document} > output/hlhtml/_flatten.xml"/>
+
                 <exec dir="output/hlhtml/"
                     command="../../scripts/hlsaxon _flatten.xml ../../${dbxsl.dir}/hl-html.xsl"
                     checkreturn="true"/>
