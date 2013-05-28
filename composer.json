@@ -22,7 +22,7 @@
     },
     "include-path": ["classes"],
     "bin": [
-        "composer/bin/phing"
+        "bin/phing"
     ],
     "config": {
         "bin-dir": "bin"
