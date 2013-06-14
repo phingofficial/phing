@@ -216,7 +216,7 @@ class PropertyTask extends Task {
      */
     function main() {
         if ($this->name !== null) {
-            if ($this->value === null && $this->ref === null) {
+            if ($this->value === null && $this->reference === null) {
                 throw new BuildException("You must specify value or refid with the name attribute", $this->getLocation());
             }
         } else {
@@ -241,7 +241,7 @@ class PropertyTask extends Task {
             $this->loadEnvironment($this->env);
         }
 
-        if (($this->name !== null) && ($this->ref !== null)) {
+        if (($this->name !== null) && ($this->reference !== null)) {
             // get the refereced property
             try {
             $this->addProperty($this->name, $this->reference->getReferencedObject($this->project)->toString());
