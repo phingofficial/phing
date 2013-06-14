@@ -25,6 +25,7 @@ include_once 'phing/TaskAdapter.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/BuildEvent.php';
 include_once 'phing/input/DefaultInputHandler.php';
+include_once 'phing/types/PropertyValue.php';
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.
@@ -210,6 +211,7 @@ class Project {
 
         $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
+        $this->addReference($name, new PropertyValue($value));
     }
 
     /**
@@ -230,6 +232,7 @@ class Project {
         }
         $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->properties[$name] = $value;
+        $this->addReference($name, new PropertyValue($value));
     }
 
     /**
@@ -245,6 +248,7 @@ class Project {
         $this->log("Setting user project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
         $this->userProperties[$name] = $value;
         $this->properties[$name] = $value;
+        $this->addReference($name, new PropertyValue($value));
     }
 
     /**
@@ -278,6 +282,7 @@ class Project {
             return;
         }
         $this->properties[$name] = $value;
+        $this->addReference($name, new PropertyValue($value));
     }
 
     /**
