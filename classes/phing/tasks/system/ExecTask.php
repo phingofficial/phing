@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  $Id: 8faa5d49d6737e1ec886a398fa9b8fa4f2746d6a $
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@ require_once 'phing/Task.php';
  * @author  Andreas Aderhold <andi@binarycloud.com>
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Christian Weiske <cweiske@cweiske.de>
- * @version $Id: 8faa5d49d6737e1ec886a398fa9b8fa4f2746d6a $
+ * @version $Id$
  * @package phing.tasks.system
  */
 class ExecTask extends Task
@@ -254,7 +254,7 @@ class ExecTask extends Task
         // then we'll redirect error to stdout so that we can dump
         // it to screen below.
 
-        if ($this->output === null && $this->error === null) {
+        if ($this->output === null && $this->error === null && $this->passthru === false) {
             $this->realCommand .= ' 2>&1';
         }
 
