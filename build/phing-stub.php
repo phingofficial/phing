@@ -8,6 +8,6 @@ if (DIRECTORY_SEPARATOR != '\\' && function_exists('posix_isatty') && @posix_isa
 }
 $argc++;
 
-include 'phar://phing.phar/bin/phing.php';
+include 'phar://' . __FILE__ . '/bin/phing.php';
 
 __HALT_COMPILER();
