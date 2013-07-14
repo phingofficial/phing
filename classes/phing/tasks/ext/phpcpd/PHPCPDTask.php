@@ -213,7 +213,8 @@ class PHPCPDTask extends Task
          */
         $oldVersion = false;
         
-        if (!@include_once('SebastianBergmann/PHPCPD/autoload.php')) {
+        if (!class_exists('\\SebastianBergmann\\PHPCPD\\TextUI\\Command') &&
+            !@include_once('SebastianBergmann/PHPCPD/autoload.php')) {
             if (!@include_once('PHPCPD/Autoload.php')) {
                 throw new BuildException(
                     'PHPCPDTask depends on PHPCPD being installed '
