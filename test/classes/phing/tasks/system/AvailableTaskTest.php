@@ -58,7 +58,19 @@ class AvailableTaskTest extends BuildFileTest
         $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
     }
 
+    public function testFileAbsoluteSymlink()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+    }
+
     public function testDirectorySymlink()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));
+    }
+
+    public function testDirectoryAbsoluteSymlink()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals('true', $this->project->getProperty("prop." . __FUNCTION__));

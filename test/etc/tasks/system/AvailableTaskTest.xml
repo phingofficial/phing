@@ -19,18 +19,32 @@
 	
 	<target name="testFileSymlink">
 		<touch file="${tmp.dir}/a"/>
-		<symlink target="${tmp.dir}/a" link="${tmp.dir}/b"/>
+		<symlink target="a" link="${tmp.dir}/b"/>
 		<available file="${tmp.dir}/b" type="file"
 		followSymlinks="true"
 		property="prop.testFileSymlink" />
 	</target>
 	
+	<target name="testFileAbsoluteSymlink">
+		<symlink target="${phing.file}" link="${tmp.dir}/a"/>
+		<available file="${tmp.dir}/a" type="file"
+		followSymlinks="true"
+		property="prop.testFileAbsoluteSymlink" />
+	</target>
+	
 	<target name="testDirectorySymlink">
 		<mkdir dir="${tmp.dir}/c"/>
-		<symlink target="${tmp.dir}/c" link="${tmp.dir}/d"/>
+		<symlink target="c" link="${tmp.dir}/d"/>
 		<available file="${tmp.dir}/d" type="dir"
 		followSymlinks="true"
 		property="prop.testDirectorySymlink" />
+	</target>
+	
+	<target name="testDirectoryAbsoluteSymlink">
+		<symlink target="${phing.dir}" link="${tmp.dir}/d"/>
+		<available file="${tmp.dir}/d" type="dir"
+		followSymlinks="true"
+		property="prop.testDirectoryAbsoluteSymlink" />
 	</target>
 	
     <target name="testDirectorySymlinkBC">

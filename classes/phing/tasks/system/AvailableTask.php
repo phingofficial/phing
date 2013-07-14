@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+include_once 'phing/system/io/FileSystem.php';
 include_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
@@ -164,7 +165,19 @@ class AvailableTask extends Task {
     private function _checkFile1(PhingFile $file) {
         // Resolve symbolic links
         if ($this->followSymlinks && $file->isLink()) {
-            $file = new PhingFile($file->getLinkTarget());
+            $linkTarget = new PhingFile($file->getLinkTarget());
+            if ($linkTarget->isAbsolute()) {
+                $file = $linkTarget;
+            }
+            else {
+                $fs = FileSystem::getFileSystem();
+                $file = new PhingFile(
+                    $fs->resolve(
+                        $fs->normalize($file->getParent()),
+                        $fs->normalize($file->getLinkTarget())
+                    )
+                );
+            }
         }
 
         if ($this->type !== null) {
