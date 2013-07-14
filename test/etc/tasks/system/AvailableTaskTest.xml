@@ -19,7 +19,7 @@
 	
 	<target name="testFileSymlink">
 		<touch file="${tmp.dir}/a"/>
-		<symlink target="${tmp.dir}/a" link="${tmp.dir}/b"/>
+		<symlink target="a" link="${tmp.dir}/b"/>
 		<available file="${tmp.dir}/b" type="file"
 		followSymlinks="true"
 		property="prop.testFileSymlink" />
@@ -27,7 +27,7 @@
 	
 	<target name="testDirectorySymlink">
 		<mkdir dir="${tmp.dir}/c"/>
-		<symlink target="${tmp.dir}/c" link="${tmp.dir}/d"/>
+		<symlink target="c" link="${tmp.dir}/d"/>
 		<available file="${tmp.dir}/d" type="dir"
 		followSymlinks="true"
 		property="prop.testDirectorySymlink" />
