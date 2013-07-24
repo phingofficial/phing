@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,26 +28,37 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class PearPackageTest extends BuildFileTest { 
+class PearPackageTest extends BuildFileTest {
     protected $backupGlobals = FALSE;
-    
+
     private $savedErrorLevel;
-        
-    public function setUp() { 
+
+    public function setUp() {
         $GLOBALS['_PEAR_Common_file_roles'] = array('php','ext','test','doc','data','src','script');
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/tasks/ext/pearpackage.xml";
-        $this->configureProject($buildFile);
+
+        $object = $this;
+        $this->markTestSkippedException(
+            function() use($object, $buildFile) {
+                $object->delegate(
+                    'configureProject',
+                    array($buildFile));
+            },
+            'BuildException',
+            'PEAR_PackageFileManager not present',
+            'PEAR_PackageFileManager'
+        );
     }
-    
+
     public function tearDown()
     {
         error_reporting($this->savedErrorLevel);
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
     }
 
-    public function testRoleSet () {      
+    public function testRoleSet () {
         $this->executeTarget("main");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/tasks/ext/package.xml');
         $this->assertTrue(strpos($content, '<file role="script" baseinstalldir="phing" name="pear-phing.bat"/>') !== false);

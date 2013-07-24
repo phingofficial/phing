@@ -18,27 +18,18 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
-require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
+require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnSwitchTaskTest extends BuildFileTest { 
-    public function setUp() { 
-        if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
-            // make sure we purge previously created directory
-            // if left-overs from previous run are found
-            GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
-        }
-        // set temp directory used by test cases
-        mkdir(PHING_TEST_BASE . '/tmp/svn');
-
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/svn/SvnSwitchTest.xml');
+class SvnSwitchTaskTest extends AbstractSvnTaskTest {
+    public function setUp() {
+        parent::setUp('SvnSwitchTest.xml', TRUE);
     }
 
     public function tearDown()

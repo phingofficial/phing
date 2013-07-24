@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitPushTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,9 +28,9 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitPushTaskTest extends BuildFileTest { 
+class GitPushTaskTest extends BuildFileTest {
 
-    public function setUp() { 
+    public function setUp() {
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -39,8 +39,16 @@ class GitPushTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitPushTaskTest.xml');
+        $object = $this;
+        $this->markTestSkippedException(
+            function() use($object) {
+                $object->delegate('configureProject', array(PHING_TEST_BASE
+                              . '/etc/tasks/ext/git/GitPushTaskTest.xml'));
+            },
+            'BuildException',
+            'VersionControl_Git not present',
+            'VersionControl_Git'
+        );
     }
 
     public function tearDown()
@@ -92,21 +100,21 @@ class GitPushTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining('noRepository',
             'Repo dir is required',
             '"repository" is required parameter');
     }
 
     public function testWrongRepo()
     {
-        $this->expectBuildExceptionContaining('wrongRepo', 
+        $this->expectBuildExceptionContaining('wrongRepo',
             'Repo dir is wrong',
             'You must specify readable directory as repository.');
     }
 
     public function testNoDestinationSpecified()
     {
-        $this->expectBuildExceptionContaining('noDestination', 
+        $this->expectBuildExceptionContaining('noDestination',
             'No source set',
             'At least one destination must be provided');
     }

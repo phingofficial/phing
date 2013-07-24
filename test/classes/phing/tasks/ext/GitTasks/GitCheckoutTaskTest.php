@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitCheckoutTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,9 +28,9 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitCheckoutTaskTest extends BuildFileTest { 
+class GitCheckoutTaskTest extends BuildFileTest {
 
-    public function setUp() { 
+    public function setUp() {
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -39,8 +39,16 @@ class GitCheckoutTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitCheckoutTaskTest.xml');
+        $object = $this;
+        $this->markTestSkippedException(
+            function() use($object) {
+                $object->delegate('configureProject', array(PHING_TEST_BASE
+                              . '/etc/tasks/ext/git/GitCheckoutTaskTest.xml'));
+            },
+            'BuildException',
+            'VersionControl_Git not present',
+            'VersionControl_Git'
+        );
     }
 
     public function tearDown()
@@ -56,27 +64,27 @@ class GitCheckoutTaskTest extends BuildFileTest {
         $this->assertInLogs('git-branch output: Branch co-branch set up to track remote branch master from origin.');
         // @todo - actually make sure that Ebihara updates code to return (not
         // echo output from $command->execute()
-        //$this->assertInLogs("Switched to branch 'test'"); 
+        //$this->assertInLogs("Switched to branch 'test'");
         $this->assertInLogs('git-checkout output: '); // no output actually
     }
 
     public function testCheckoutNonExistingBranch()
     {
-        $this->expectBuildExceptionContaining('checkoutNonExistingBranch', 
+        $this->expectBuildExceptionContaining('checkoutNonExistingBranch',
             'Checkout of non-existent repo is impossible',
             'Task execution failed');
     }
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining('noRepository',
             'Repo dir is required',
             '"repository" is required parameter');
     }
 
     public function testNoBranchnameSpecified()
     {
-        $this->expectBuildExceptionContaining('noBranchname', 
+        $this->expectBuildExceptionContaining('noBranchname',
             'Branchname is required',
             '"branchname" is required parameter');
     }
@@ -109,7 +117,7 @@ class GitCheckoutTaskTest extends BuildFileTest {
 
     public function testForceCheckoutCreateBranchFailed()
     {
-        $this->expectBuildExceptionContaining('checkoutForceCreateBranchFailed', 
+        $this->expectBuildExceptionContaining('checkoutForceCreateBranchFailed',
             'Branch already exists',
             'Task execution failed.');
     }

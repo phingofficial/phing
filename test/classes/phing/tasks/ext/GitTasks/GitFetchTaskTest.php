@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitFetchTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,9 +28,9 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitFetchTaskTest extends BuildFileTest { 
+class GitFetchTaskTest extends BuildFileTest {
 
-    public function setUp() { 
+    public function setUp() {
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -39,8 +39,16 @@ class GitFetchTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitFetchTaskTest.xml');
+        $object = $this;
+        $this->markTestSkippedException(
+            function() use($object) {
+                $object->delegate('configureProject', array(PHING_TEST_BASE
+                              . '/etc/tasks/ext/git/GitFetchTaskTest.xml'));
+            },
+            'BuildException',
+            'VersionControl_Git not present',
+            'VersionControl_Git'
+        );
     }
 
     public function tearDown()
@@ -66,14 +74,14 @@ class GitFetchTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining('noRepository',
             'Repo dir is required',
             '"repository" is required parameter');
     }
 
     public function testNoTargetSpecified()
     {
-        $this->expectBuildExceptionContaining('noTarget', 
+        $this->expectBuildExceptionContaining('noTarget',
             'Target is required',
             'No remote repository specified');
     }
