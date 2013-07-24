@@ -131,7 +131,7 @@ class PhpDependTask extends Task
      * @return void
      * @throws BuildException
      */
-    public function init()
+    protected function requireDependencies()
     {
         /**
          * Determine PHP_Depend installation
@@ -334,6 +334,7 @@ class PhpDependTask extends Task
      */
     public function main()
     {
+        $this->requireDependencies();
         $autoload = new PHP_Depend_Autoload();
         $autoload->register();
 
