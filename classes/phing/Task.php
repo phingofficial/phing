@@ -261,7 +261,7 @@ abstract class Task extends ProjectComponent {
             $this->project->fireTaskFinished($this, $null=null);
         } catch (Exception $exc) {
             if ($exc instanceof BuildException) {
-                if ($exc->getLocation() === null) {
+                if ($exc->getLocation() !== null) {
                     $exc->setLocation($this->getLocation());
                 }
             }
