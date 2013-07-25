@@ -449,6 +449,6 @@ class ScpTask extends Task
             }
         }
 
-        $this->count++;
+        $this->counter++;
     }
 }
