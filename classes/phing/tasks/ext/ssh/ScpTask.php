@@ -54,7 +54,7 @@ class ScpTask extends Task
     protected $connection = null;
     protected $sftp = null;
     
-    protected $count = 0;
+    protected $counter = 0;
     
     protected $logLevel = Project::MSG_VERBOSE;
     
