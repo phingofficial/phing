@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ZipUnzipTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+    
+    <target name="setup">
+    	<mkdir dir="${tmp.dir}"/>
+    </target>
+    
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+    
+    <target name="testSimpleZipContainsOneFile">
+    	<echo file="${tmp.dir}/test.txt" message="TEST"/>
+    	<zip destfile="${tmp.dir}/simple-test.zip">
+    	    <fileset dir="${tmp.dir}">
+    	        <include name="test.txt"/>
+    	    </fileset>
+    	</zip>
+    </target>
+    
+    <target name="testUnzipSimpleZip" depends="testSimpleZipContainsOneFile">
+    	<delete file="${tmp.dir}/test.txt"/>
+    	<unzip file="${tmp.dir}/simple-test.zip" todir="${tmp.dir}"/>
+    </target>
+    
+    <target name="main"/>
+</project>
