@@ -44,6 +44,11 @@ class IniFileTokenReader extends TokenReader {
      *              if omitted, all sections are loaded.
      */
     private $section = null;
+    
+    /**
+     * @var array
+     */
+    private $tokens = null;
 
     /**
      * Reads the next token from the INI file
@@ -55,38 +60,74 @@ class IniFileTokenReader extends TokenReader {
         if ($this->file === null) {
             throw new BuildException("No File set for IniFileTokenReader");
         }
-
-        static $tokens = null;
-        if ($tokens === null) {
-            $tokens = array();
-            $arr = parse_ini_file($this->file->getAbsolutePath(), true);
-            if ($this->section === null) {
-                foreach ($arr as $sec_name => $values) {
-                    foreach($arr[$sec_name] as $key => $value) {
-                        $tok = new Token;
-                        $tok->setKey($key);
-                        $tok->setValue($value);
-                        $tokens[] = $tok;
-                    }
-                }
-            } else if (isset($arr[$this->section])) {
-                foreach ($arr[$this->section] as $key => $value) {
-                    $tok = new Token;
-                    $tok->setKey($key);
-                    $tok->setValue($value);
-                    $tokens[] = $tok;
-                }
-            }
+        
+        if ($this->tokens === null) {
+            $this->processFile();
         }
-
-        if (count($tokens) > 0) {
-            return array_pop($tokens);
+        
+        if (count($this->tokens) > 0) {
+            return array_pop($this->tokens);
         } else
             return null;
     }
     
-    function setFile(PhingFile $file) {
-        $this->file = $file;
+    /**
+     * Parse & process the ini file
+     */
+    protected function processFile()
+    {
+        $arr = parse_ini_file($this->file->getAbsolutePath(), true);
+        
+        if ($this->section !== null) {
+            if (isset($arr[$this->section])) {
+                $this->processSection($arr[$this->section]);
+            }
+            
+            return;
+        }
+        
+        $values = array_values($arr);
+        
+        if (!is_array($values[0])) {
+            $this->processSection($arr);
+            return;
+        }
+        
+        foreach ($values as $subArr) {
+            $this->processSection($subArr);
+        }
+    }
+    
+    /**
+     * Process an individual section
+     *
+     * @param array $section
+     */
+    protected function processSection(array $section)
+    {
+        foreach ($section as $key => $value) {
+            $tok = new Token;
+            $tok->setKey($key);
+            $tok->setValue($value);
+            $this->tokens[] = $tok;
+        }
+    }
+    
+    /**
+     * @param string|PhingFile $file
+     */
+    public function setFile($file) {
+        if (is_string($file)) {
+            $this->file = new PhingFile($file);
+            return;
+        }
+        
+        if (is_object($file) && $file instanceof PhingFile) {
+            $this->file = $file;
+            return;
+        }
+        
+        throw new BuildException("Unsupported value " . (string) $file);
     }
 
     function setSection($str) {
