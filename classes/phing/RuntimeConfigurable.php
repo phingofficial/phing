@@ -38,6 +38,7 @@ class RuntimeConfigurable {
     private $wrappedObject = null;
     private $attributes = array();
     private $characters = "";
+    private $proxyConfigured = false;
 
 
     /** @param proxy The element to wrap. */
@@ -48,6 +49,7 @@ class RuntimeConfigurable {
 
     function setProxy($proxy) {
         $this->wrappedObject = $proxy;
+        $this->proxyConfigured = false;
     }
 
     /** Set's the attributes for the wrapped element. */
@@ -82,6 +84,10 @@ class RuntimeConfigurable {
 
     /** Configure the wrapped element and all children. */
     function maybeConfigure(Project $project) {
+        if ($this->proxyConfigured) {
+            return;
+        }
+        
         $id = null;
 
         // DataType configured in ProjectConfigurator
@@ -110,6 +116,8 @@ class RuntimeConfigurable {
                 ProjectConfigurator::storeChild($project, $this->wrappedObject, $child->wrappedObject, strtolower($child->getElementTag()));
             }
         }
+        
+        $this->proxyConfigured = true;
     }
 }
 
