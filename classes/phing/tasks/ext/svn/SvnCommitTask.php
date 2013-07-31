@@ -102,7 +102,7 @@ class SvnCommitTask extends SvnBaseTask
                         /**
                          * If no new revision was committed set revision to "empty". Remember that
                          * this is not necessarily an error. It could be that the specified working
-                         * copy is identical to to the copy in the repository and in that case
+                         * copy is identical to the copy in the repository and in that case
                          * there will be no update and no new revision number.
                          */
                         $this->project->setProperty($this->getPropertyName(), '' );

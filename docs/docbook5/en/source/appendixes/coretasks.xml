@@ -734,7 +734,7 @@
 					<row>
 						<entry><literal>verbose</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Give more information in in error message in case of a
+						<entry>Give more information in error message in case of a
 							failure</entry>
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>

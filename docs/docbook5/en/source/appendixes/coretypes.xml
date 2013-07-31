@@ -285,7 +285,7 @@
 				</listitem>
 			</itemizedlist>
 			<para>The <literal>&lt;include></literal> and the <literal>&lt;exclude></literal> tags
-				tags must have a <literal>name</literal> attribute that contains the pattern to
+				must have a <literal>name</literal> attribute that contains the pattern to
 				include/exclude.</para>
 		</sect2>
 	</sect1>
@@ -360,7 +360,7 @@
 			<para> The <literal>&lt;patternset></literal> tag only supports
 					<literal>&lt;include></literal> and <literal>&lt;exclude></literal>. The
 					<literal>&lt;include></literal> and the <literal>&lt;exclude></literal> tags
-				tags must have a <literal>name</literal> attribute that contains the pattern to
+				must have a <literal>name</literal> attribute that contains the pattern to
 				include/exclude.</para>
 		</sect2>
 	</sect1>

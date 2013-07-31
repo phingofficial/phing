@@ -518,7 +518,7 @@ class IntrospectionHelper {
     }
     
     /**
-     * Get the the name for an element.
+     * Get the name for an element.
      * When possible the full classnam (phing.tasks.system.PropertyTask) will
      * be returned.  If not available (loaded in taskdefs or typedefs) then the
      * XML element name will be returned.
