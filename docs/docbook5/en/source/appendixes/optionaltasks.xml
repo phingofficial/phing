@@ -4172,7 +4172,7 @@ Note that you can omit both startpoint and track attributes in this case
 <sect1 role="taskdef" xml:id="LiquibaseRollbackTask">
     <title>LiquibaseRollbackTask</title>
     <para>The <literal>LiquibaseRollbackTask</literal> rolls back the database to 
-        the the state is was when the tag was applied.
+        the state is was when the tag was applied.
     </para>
     <table>
         <title>Attributes</title>
@@ -4846,7 +4846,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <para>The results of any queries that are executed can be printed in different
                         formats. Output will always be sent to a file, unless you set the
                             <literal>usefile</literal> attribute to <literal>false</literal>. The
-                        path to the output file file can be specified by the
+                        path to the output file can be specified by the
                             <literal>outfile</literal> attribute; there is a default filename that
                         will be returned by the formatter if no output file is specified.</para>
                     <para>There are three predefined formatters - one prints the query results in
@@ -5967,7 +5967,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>haltonerror</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Stop the build process if errors occurred during during the
+                        <entry>Stop the build process if errors occurred during the
                             run.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
@@ -6108,7 +6108,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <row>
                                     <entry><literal>type</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
-                                    <entry>The output format. Accepts the the same values as the
+                                    <entry>The output format. Accepts the same values as the
                                             <literal>format</literal> attribute
                                             (<literal>default</literal>, <literal>xml</literal>,
                                             <literal>checkstyle</literal>, <literal>csv</literal>,
@@ -6256,7 +6256,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <row>
                                     <entry><literal>type</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
-                                    <entry>The output format. Accepts the the same values as the
+                                    <entry>The output format. Accepts the same values as the
                                             <literal>format</literal> attribute
                                             (<literal>default</literal>,
                                         <literal>pmd</literal>).</entry>
@@ -6517,7 +6517,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <row>
                                     <entry><literal>type</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
-                                    <entry>The output format. Accepts the the same values as the
+                                    <entry>The output format. Accepts the same values as the
                                             <literal>format</literal> attribute
                                             (<literal>xml</literal>, <literal>html</literal>,
                                             <literal>text</literal>).</entry>
@@ -10459,21 +10459,21 @@ host="webserver" command="ls" /></programlisting>
     &lt;inner-tag someattr="val">Text&lt;/inner-tag>
     &lt;a2>&lt;a3>&lt;a4>false&lt;/a4>&lt;/a3>&lt;/a2>
 &lt;/root-tag></programlisting>
-            <para> Used with the the following entry (<emphasis role="bold">default</emphasis>): </para>
+            <para> Used with the following entry (<emphasis role="bold">default</emphasis>): </para>
             <programlisting language="xml">&lt;xmlproperty file="somefile.xml"/></programlisting>
             <para>results in the following properties:</para>
             <programlisting language="xml">root-tag(myattr)=true
 root-tag.inner-tag=Text
 root-tag.inner-tag(someattr)=val
 root-tag.a2.a3.a4=false</programlisting>
-            <para> Used with the the following entry (<literal>collapseAttributes=true</literal>): </para>
+            <para> Used with the following entry (<literal>collapseAttributes=true</literal>): </para>
             <programlisting language="xml">&lt;xmlproperty file="somefile.xml" collapseAttributes="true"/></programlisting>
             <para>results in the following properties:</para>
             <programlisting language="xml">root-tag.myattr=true
 root-tag.inner-tag=Text
 root-tag.inner-tag.someatt=val
 root-tag.a2.a3.a4=false</programlisting>
-            <para> Used with the the following entry (<literal>keepRoot=false</literal>): </para>
+            <para> Used with the following entry (<literal>keepRoot=false</literal>): </para>
             <programlisting language="xml">&lt;xmlproperty file="somefile.xml" keepRoot="false"/></programlisting>
             <para>results in the following properties:</para>
             <programlisting language="xml">inner-tag=Text

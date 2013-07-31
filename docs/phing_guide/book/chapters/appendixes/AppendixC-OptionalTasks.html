@@ -3834,7 +3834,7 @@ Note that you can omit both startpoint and track attributes in this case
 			</tbody>
 		</table>
 		<h2><a name="LiquibaseRollbackTask"></a>LiquibaseRollbackTask </h2>
-		<p> The <em>LiquibaseRollbackTask</em> rolls back the database to the the state is was when the tag was applied.</p>
+		<p> The <em>LiquibaseRollbackTask</em> rolls back the database to the state is was when the tag was applied.</p>
 		<h3>Example</h3>
 		<pre>
 &lt;liquibase-rollback
@@ -5427,7 +5427,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<tr>
 							<td>type</td>
 							<td>String</td>
-							<td>The output format. Accepts the the same values as the
+							<td>The output format. Accepts the same values as the
 									<em>format</em> attribute (<em>default</em>, <em>xml</em>,
 									<em>checkstyle</em>, <em>csv</em>, <em>report</em>,
 									<em>summary</em> &amp; <em>doc</em>).</td>
@@ -5641,7 +5641,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<tr>
 							<td>type</td>
 							<td>String</td>
-							<td>The output format. Accepts the the same values as the
+							<td>The output format. Accepts the same values as the
 									<em>format</em> attribute (<em>default</em>, <em>pmd</em>).</td>
 							<td>n/a</td>
 							<td>Yes</td>
@@ -5775,7 +5775,7 @@ Note that you can omit both startpoint and track attributes in this case
 						<tr>
 							<td>type</td>
 							<td>String</td>
-							<td>The output format. Accepts the the same values as the
+							<td>The output format. Accepts the same values as the
 									<em>format</em> attribute (<em>xml</em>, <em>html</em>,
 									<em>text</em>).</td>
 							<td>n/a</td>
@@ -9219,7 +9219,7 @@ revision | author | date         | item
     &lt;inner-tag someattr="val"&gt;Text&lt;/inner-tag&gt;
     &lt;a2&gt;&lt;a3&gt;&lt;a4&gt;false&lt;/a4&gt;&lt;/a3&gt;&lt;/a2&gt;
 &lt;/root-tag&gt;</pre>
-		<p> Used with the the following entry (<b>default</b>): </p>
+		<p> Used with the following entry (<b>default</b>): </p>
 		<pre>
 &lt;xmlproperty file=&quot;somefile.xml&quot;/&gt;
 </pre>
@@ -9229,7 +9229,7 @@ root-tag(myattr)=true
 root-tag.inner-tag=Text
 root-tag.inner-tag(someattr)=val
 root-tag.a2.a3.a4=false</pre>
-		<p> Used with the the following entry (<b>collapseAttributes=true</b>): </p>
+		<p> Used with the following entry (<b>collapseAttributes=true</b>): </p>
 		<pre>
 &lt;xmlproperty file=&quot;somefile.xml&quot; collapseAttributes=&quot;true&quot;/&gt;
 </pre>
@@ -9239,7 +9239,7 @@ root-tag.myattr=true
 root-tag.inner-tag=Text
 root-tag.inner-tag.someatt=val
 root-tag.a2.a3.a4=false</pre>
-		<p> Used with the the following entry (<b>keepRoot=false</b>): </p>
+		<p> Used with the following entry (<b>keepRoot=false</b>): </p>
 		<pre>
 &lt;xmlproperty file=&quot;somefile.xml&quot; keepRoot=&quot;false&quot;/&gt;
 </pre>
