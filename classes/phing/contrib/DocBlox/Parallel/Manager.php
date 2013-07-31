@@ -53,7 +53,7 @@ class DocBlox_Parallel_Manager extends ArrayObject
     }
 
     /**
-     * Adds a worker to to the queue.
+     * Adds a worker to the queue.
      *
      * This method will prepare a worker to be executed in parallel once the
      * execute method is invoked.
