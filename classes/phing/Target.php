@@ -22,17 +22,16 @@
 include_once 'phing/TaskContainer.php';
 
 /**
- *  The Target component. Carries all required target data. Implements the
- *  abstract class {@link TaskContainer}
+ * The Target component. Carries all required target data. Implements the
+ * abstract class {@link TaskContainer}
  *
- *  @author    Andreas Aderhold <andi@binarycloud.com>
- *  @copyright 2001,2002 THYRELL. All rights reserved
- *  @version   $Id$
- *  @access    public
- *  @see       TaskContainer
- *  @package   phing
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @copyright 2001,2002 THYRELL. All rights reserved
+ * @version   $Id$
+ * @access    public
+ * @see       TaskContainer
+ * @package   phing
  */
-
 class Target implements TaskContainer {
     
     /**
