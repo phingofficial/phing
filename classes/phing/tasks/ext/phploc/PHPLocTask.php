@@ -101,7 +101,7 @@ class PHPLocTask extends Task
         /**
          * Find PHPLoc
          */
-        if (!class_exists('\\SebastianBergmann\\PHPLOC\\TextUI\\Command') &&
+        if (!class_exists('\\SebastianBergmann\\PHPLOC\\Analyse') &&
             !@include_once('SebastianBergmann/PHPLOC/autoload.php')) {
             if (!@include_once('PHPLOC/Analyser.php')) {
                 throw new BuildException(
