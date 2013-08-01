@@ -48,19 +48,13 @@ class PhpDocumentor2Task extends Task
      * name of the template to use
      * @var string
      */
-    private $template = "responsive";
+    private $template = "responsive-twig";
     
     /**
      * Title of the project
      * @var string
      */
-    private $title = "";
-    
-    /**
-     * Force phpDocumentor to be quiet
-     * @var boolean
-     */
-    private $quiet = true;
+    private $title = "API Documentation";
     
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
@@ -111,11 +105,12 @@ class PhpDocumentor2Task extends Task
     
     /**
      * Forces phpDocumentor to be quiet
+     * @deprecated
      * @param boolean $quiet
      */
     public function setQuiet($quiet)
     {
-        $this->quiet = (boolean) $quiet;
+        $this->project->log(__CLASS__ . ": the 'quiet' option has been deprecated", Project::MSG_WARN);
     }
     
     /**

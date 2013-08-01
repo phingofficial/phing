@@ -6201,15 +6201,14 @@ Note that you can omit both startpoint and track attributes in this case
 					<td>template</td>
 					<td>String</td>
 					<td>Name of the documentation template to use.</td>
-					<td>responsive</td>
+					<td>responsive-twig</td>
 					<td>No</td>
 				</tr>
 				<tr>
 					<td>quiet</td>
 					<td>Boolean</td>
-					<td>Suppress chatter / warning
-					messages.</td>
-					<td>true</td>
+					<td>DEPRECATED</td>
+					<td>n/a</td>
 					<td>No</td>
 				</tr>
 			</tbody>
@@ -6222,7 +6221,7 @@ Note that you can omit both startpoint and track attributes in this case
 		<pre>
 &lt;phpdoc2 title=&quot;API Documentation&quot;
   destdir=&quot;apidocs&quot;
-  template=&quot;responsive&quot;&gt;
+  template=&quot;responsive-twig&quot;&gt;
    &lt;fileset dir=&quot;./classes&quot;&gt;
       &lt;include name=&quot;**/*.php&quot; /&gt;
    &lt;/fileset&gt;

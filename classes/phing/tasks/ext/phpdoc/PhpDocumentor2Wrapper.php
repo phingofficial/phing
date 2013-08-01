@@ -52,26 +52,24 @@ class PhpDocumentor2Wrapper
      * name of the template to use
      * @var string
      */
-    private $template = "responsive";
+    private $template = "responsive-twig";
     
     /**
      * Title of the project
      * @var string
      */
-    private $title = "";
-    
-    /**
-     * Force phpDocumentor to be quiet
-     * @todo Make this work again
-     * @var boolean
-     */
-    private $quiet = true;
+    private $title = "API Documentation";
     
     /**
      * Path to the phpDocumentor 2 source
      * @var string
      */
     private $phpDocumentorPath = "";
+    
+    /**
+     * @var \phpDocumentor\Application
+     */
+    private $app = null;
     
     /**
      * Sets project instance
@@ -121,15 +119,6 @@ class PhpDocumentor2Wrapper
     }
     
     /**
-     * Forces phpDocumentor to be quiet
-     * @param boolean $quiet
-     */
-    public function setQuiet($quiet)
-    {
-        $this->quiet = (boolean) $quiet;
-    }
-    
-    /**
      * Finds and initializes the phpDocumentor installation
      */
     private function initializePhpDocumentor()
@@ -152,7 +141,7 @@ class PhpDocumentor2Wrapper
         
         require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
             
-        \phpDocumentor\Bootstrap::createInstance()->initialize();
+        $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
         
         $this->phpDocumentorPath = $phpDocumentorPath;
     }
@@ -165,8 +154,12 @@ class PhpDocumentor2Wrapper
      */
     private function parseFiles()
     {
-        $parser = new \phpDocumentor\Parser\Parser();
-        $parser->setTitle($this->title);
+        $parser = $this->app['parser'];
+        $builder = $this->app['descriptor.builder'];
+        
+        $builder->createProjectDescriptor(); 
+        $projectDescriptor = $builder->getProjectDescriptor();
+        $projectDescriptor->setName($this->title);
         
         $paths = array();
         
@@ -183,12 +176,39 @@ class PhpDocumentor2Wrapper
         
         $this->project->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
         
-        $files = new phpDocumentor\Fileset\Collection();
+        $files = new \phpDocumentor\Fileset\Collection();
         $files->addFiles($paths);
         
-        $parser->setPath($files->getProjectRoot());
+        $mapper = new \phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper($this->app['descriptor.cache']);
+        $mapper->garbageCollect($files);
+        $mapper->populate($projectDescriptor);
         
-        return $parser->parseFiles($files);
+        $parser->setPath($files->getProjectRoot());
+        $parser->setDefaultPackageName("Default");
+        
+        $parser->parse($builder, $files);
+        
+        $mapper->save($projectDescriptor);
+        
+        return $mapper;
+    }
+    
+    /**
+     * Transforms the parsed files
+     */
+    private function transformFiles()
+    {
+        $transformer = $this->app['transformer'];
+        $compiler = $this->app['compiler'];
+        $builder = $this->app['descriptor.builder'];
+        $projectDescriptor = $builder->getProjectDescriptor();
+        
+        $transformer->getTemplates()->load($this->template, $transformer);
+        $transformer->setTarget($this->destDir->getAbsolutePath());
+        
+        foreach ($compiler as $pass) {
+            $pass->execute($projectDescriptor);
+        }
     }
 
     /**
@@ -198,15 +218,13 @@ class PhpDocumentor2Wrapper
     {
         $this->initializePhpDocumentor();
         
-        $xml = $this->parseFiles();
+        $cache = $this->app['descriptor.cache'];
+        $cache->getOptions()->setCacheDir($this->destDir->getAbsolutePath());
+        
+        $this->parseFiles();
         
         $this->project->log("Transforming...", Project::MSG_VERBOSE);
         
-        $transformer = new phpDocumentor\Transformer\Transformer();
-        $transformer->setTemplatesPath($this->phpDocumentorPath . '/../data/templates');
-        $transformer->setTemplates($this->template);
-        $transformer->setSource($xml);
-        $transformer->setTarget($this->destDir->getAbsolutePath());
-        $transformer->execute();
+        $this->transformFiles();
     }
 }

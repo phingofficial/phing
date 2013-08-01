@@ -6995,15 +6995,15 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>quiet</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Suppress DocBlox chatter.</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry>DEPRECATED</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>template</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of the documentation template to use.</entry>
-                        <entry><literal>responsive</literal></entry>
+                        <entry><literal>responsive-twig</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -7013,7 +7013,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Example</title>
             <programlisting language="xml">&lt;phpdoc2 title="API Documentation"
   destdir="apidocs"
-  template="responsive">
+  template="responsive-twig">
    &lt;fileset dir="./classes">
       &lt;include name="**/*.php" />
    &lt;/fileset>
