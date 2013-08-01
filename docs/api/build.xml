@@ -23,8 +23,8 @@
     </target>
 
     <target name="docs">
-        <phpdoc2 title="Phing API Documentation" output="${buildfile.dir}/docs"
-            quiet="true">
+        <phpdoc2 title="Phing API Documentation"
+	    output="${buildfile.dir}/docs">
             <fileset dir="${phingpkg.home}/classes">
                 <include name="**/*.php"/>
             </fileset>
