@@ -20,6 +20,8 @@
  */
 
 require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/pdepend/PhpDependLoggerElement.php';
+require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
 
 /**
  * Runs the PHP_Depend software analyzer and metric tool.
@@ -150,8 +152,6 @@ class PhpDependTask extends Task
          * Other dependencies that should only be loaded
          * when class is actually used
          */
-        require_once 'phing/tasks/ext/pdepend/PhpDependLoggerElement.php';
-        require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
         require_once 'PHP/Depend/Autoload.php';
     }
 
