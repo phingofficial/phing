@@ -35,6 +35,7 @@
         <fail unless="phpdoc2.task.available"
             message="PhpDocumentor 2 is not installed" />
 
+        <phingcall target="clean" />
         <phingcall target="prepare" />
         <phingcall target="docs" />
     </target>
