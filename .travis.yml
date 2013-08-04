@@ -5,7 +5,10 @@ php:
   - 5.4
   - 5.5
 
-script: ./.travis.sh 
+script: ./.travis.sh
+
+before_script:
+  - composer selfupdate --quiet
 
 notifications:
   irc: "chat.freenode.net#phing"
