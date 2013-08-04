@@ -30,6 +30,12 @@ installPearTask ()
         pear install pear.phpunit.de/phploc
     phpenv rehash
 
+    echo -e "\nInstalling / upgrading phpdepend ... "
+    which pdepend >/dev/null                      &&
+        pear upgrade pear.pdepend.org/PHP_Depend-beta ||
+        pear install pear.pdepend.org/PHP_Depend-beta
+    phpenv rehash
+
     echo -e "\nInstalling / upgrading phpcs ... "
     which phpcs >/dev/null                             &&
         pear upgrade pear.php.net/PHP_CodeSniffer ||
