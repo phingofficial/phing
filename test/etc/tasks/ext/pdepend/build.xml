@@ -1,0 +1,20 @@
+<project name="PHPCPD" default="test">
+	<target name="testLoggerSummary">
+		<phpdepend>
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+			<logger type="summary-xml" outfile="tempoutput" />
+		</phpdepend>
+	</target>
+
+	<target name="testAnalyzer">
+		<phpdepend>
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+			<logger type="summary-xml" outfile="tempoutput" />
+			<analyzer type="coderank-mode" value="method" />
+		</phpdepend>
+	</target>
+</project>
