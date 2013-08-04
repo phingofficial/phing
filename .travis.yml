@@ -7,8 +7,5 @@ php:
 
 script: ./.travis.sh
 
-before_script:
-  - composer selfupdate --quiet
-
 notifications:
   irc: "chat.freenode.net#phing"

@@ -71,6 +71,7 @@ installPearTask ()
     	pear install -f phpunit/PHP_Timer-1.0.3
     	pear install -f phpunit/Text_Template-1.1.1
     else
+    	composer selfupdate --quiet
         composer install
     fi
 
