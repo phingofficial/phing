@@ -3201,6 +3201,13 @@ Note that you can omit both startpoint and track attributes in this case
                             disconnect</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                      <entry><literal>method</literal></entry>
+                      <entry><literal role="type">String</literal></entry>
+                      <entry>The HTTP method of the request, currently only GET or POST supported</entry>
+                      <entry><literal>GET</literal></entry>
+                      <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -3223,6 +3230,15 @@ Note that you can omit both startpoint and track attributes in this case
  &lt;/http-request></programlisting>
             <para>Perform a HTTP request to the given URL. Setting request adapter to curl instead
                 of socket. Setting an additional header.</para>
+            <programlisting language="xml">&lt;http-request
+            url="http://my-production.example.com/check-deployment.php"
+            verbose"true"
+            method="POST">
+              &lt;postparameter name="param1" value="value1" />
+              &lt;postparameter name="param2" value="value2" />
+            &lt;/http-request>
+          </programlisting>
+          <para>Perform an HTTP POST request to the given URL. Setting POST request parameters to emulate form submission.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>

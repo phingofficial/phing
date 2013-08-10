@@ -104,6 +104,20 @@ class HttpRequestTask extends Task
     );
 
     /**
+     * Holds the request method
+     *
+     * @var string
+     */
+    protected $_method = null;
+
+    /**
+     * Holds additional post parameters for the request
+     *
+     * @var array<Parameter>
+     */
+    protected $_postParameters = array();
+
+    /**
      * Sets the request URL
      *
      * @param string $url
@@ -185,6 +199,13 @@ class HttpRequestTask extends Task
     }
 
     /**
+     * The setter for the method
+     */
+    public function setMethod($method) {
+      $this->_method = $method;
+    }
+
+    /**
      * Creates an additional header for this task
      *
      * @return Parameter The created header
@@ -204,6 +225,17 @@ class HttpRequestTask extends Task
     {
         $num = array_push($this->_configData, new Parameter());
         return $this->_configData[$num-1];
+    }
+
+    /**
+     * Creates post body parameters for this request
+     *
+     * @return Parameter The created parameter
+     */
+    public function createPostParameter()
+    {
+      $num = array_push($this->_postParameters, new Parameter());
+      return $this->_postParameters[$num-1];
     }
 
     /**
@@ -256,6 +288,14 @@ class HttpRequestTask extends Task
 
         foreach ($this->_headers as $header) {
             $request->setHeader($header->getName(), $header->getValue());
+        }
+
+        if ($this->_method == HTTP_Request2::METHOD_POST) {
+          $request->setMethod(HTTP_Request2::METHOD_POST);
+
+          foreach ($this->_postParameters as $post_data) {
+            $request->addPostParameter($post_data->getName(), $post_data->getValue());
+          }
         }
 
         if ($this->_verbose) {
