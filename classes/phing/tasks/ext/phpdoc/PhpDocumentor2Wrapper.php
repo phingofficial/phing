@@ -134,7 +134,7 @@ class PhpDocumentor2Wrapper
         }
 
         if (empty($phpDocumentorPath)) {
-            throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.", $this->getLocation());
+            throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.");
         }
         
         set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
