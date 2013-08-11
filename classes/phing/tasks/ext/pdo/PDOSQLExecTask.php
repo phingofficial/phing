@@ -549,6 +549,7 @@ class PDOSQLExecTask extends PDOTask {
     {
         if ($this->conn) {
             unset($this->conn);
+            $this->conn = null;
         }
     }
 }
