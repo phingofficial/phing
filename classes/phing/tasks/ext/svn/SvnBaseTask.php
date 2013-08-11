@@ -263,7 +263,7 @@ abstract class SvnBaseTask extends Task
         
         // Set up runtime options. Will be passed to all
         // subclasses.
-        $options = array('fetchmode' => $this->fetchMode, 'svn_path' => $this->getSvnPath());
+        $options = array('fetchmode' => $this->fetchMode, 'binaryPath' => $this->getSvnPath());
         
         // Pass array of subcommands we need to factory
         $this->svn = VersionControl_SVN::factory($mode, $options);
