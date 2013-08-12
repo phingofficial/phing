@@ -79,6 +79,8 @@ installPearTask ()
 #    cd build
 #    phing -Dversion=2.0.0b1
 
+    phpenv config-add .travis.php.ini
+
     echo "=== SETTING GIT IDENTITY ==="
     git config --global user.email "travis-ci-build@phing.info"
     git config --global user.name "Phing Travis Builder"
