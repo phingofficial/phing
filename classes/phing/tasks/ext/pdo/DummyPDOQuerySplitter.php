@@ -17,30 +17,24 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  *
- * @version SVN: $Id$
+ * @version $Id$
  * @package phing.tasks.ext.pdo
  */
 
 require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
 
 /**
- * Splits SQL source into queries using simple regular expressions
- *
- * Extracted from PDOSQLExecTask::runStatements()
+ * Dummy query splitter: converts entire input into single
+ * SQL string
  * 
- * @author  Hans Lellelid <hans@xmpl.org>
- * @author  Alexey Borzov <avb@php.net>
+ * @author  Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.pdo
  * @version $Id$
  */
-class DefaultPDOQuerySplitter extends PDOQuerySplitter
+class DummyPDOQuerySplitter extends PDOQuerySplitter
 {
     /**
-     * Returns next query from SQL source, null if no more queries left
-     *
-     * In case of "row" delimiter type this searches for strings containing only
-     * delimiters. In case of "normal" delimiter type, this uses simple regular
-     * expression logic to search for delimiters.
+     * Returns entire SQL source
      *
      * @return string|null
      */
