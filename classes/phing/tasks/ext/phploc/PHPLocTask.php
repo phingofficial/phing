@@ -101,17 +101,19 @@ class PHPLocTask extends Task
         /**
          * Find PHPLoc
          */
-        if (!@include_once('SebastianBergmann/PHPLOC/autoload.php')) {
-            if (!@include_once('PHPLOC/Analyser.php')) {
-                throw new BuildException(
-                    'PHPLocTask depends on PHPLoc being installed and on include_path.',
-                    $this->getLocation()
-                );
-            } else {
-                $this->oldVersion = true;
+        if (!class_exists('\SebastianBergmann\PHPLOC\Analyser')) {
+            if (!@include_once('SebastianBergmann/PHPLOC/autoload.php')) {
+                if (!@include_once('PHPLOC/Analyser.php')) {
+                    throw new BuildException(
+                        'PHPLocTask depends on PHPLoc being installed and on include_path.',
+                        $this->getLocation()
+                    );
+                } else {
+                    $this->oldVersion = true;
+                }
             }
         }
-        
+
         $this->_validateProperties();
         if (!is_null($this->reportDirectory) && !is_dir($this->reportDirectory)) {
             $reportOutputDir = new PhingFile($this->reportDirectory);
