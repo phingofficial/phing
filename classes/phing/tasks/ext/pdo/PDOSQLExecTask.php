@@ -68,6 +68,7 @@ class PDOSQLExecTask extends PDOTask {
 
     const DELIM_ROW = "row";
     const DELIM_NORMAL = "normal";
+    const DELIM_NONE = "none";
 
     /**
      * Database connection
@@ -409,7 +410,10 @@ class PDOSQLExecTask extends PDOTask {
      */
     public function runStatements(Reader $reader) {
 
-        if (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
+        if (self::DELIM_NONE == $this->delimiterType) {
+            require_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
+            $splitter = new DummyPDOQuerySplitter($this, $reader);
+        } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
             require_once 'phing/tasks/ext/pdo/PgsqlPDOQuerySplitter.php';
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {

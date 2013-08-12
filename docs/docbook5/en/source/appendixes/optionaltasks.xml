@@ -4678,6 +4678,11 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="PDOSQLExecTask">
         <title>PDOSQLExecTask</title>
         <para> The <literal>PDOSQLExecTask</literal> executes SQL statements using PDO.</para>
+        <note>
+            <para>The combination of large SQL files and
+            <literal>delimitertype</literal> set to <literal>normal</literal>
+            can trigger segmentation faults.</para>
+        </note>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4749,10 +4754,10 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>delimitertype</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The delimiter type ("normal" or "row"). Normal means that any
+                        <entry>The delimiter type ("normal", "row" or "none"). Normal means that any
                             occurence of the delimiter terminate the SQL command whereas with row,
                             only a line containing just the delimiter is recognized as the end of
-                            the command.</entry>
+                            the command. None disables all delimiter detection.</entry>
                         <entry>normal</entry>
                         <entry>No</entry>
                     </row>

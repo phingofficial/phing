@@ -4259,6 +4259,10 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/pdosqlexec&gt;
 </pre>
 		<p>
+			<strong>Note:</strong> the combination of large SQL files
+			and <em>delimitertype</em> set to <em>normal</em> can trigger
+			segmentation faults.</p>
+		<p>
 			<strong>Note:</strong> because of backwards compatiblity, the PDOSQLExecTask can also be
 			called using the <em>'pdo'</em> statement. </p>
 		<h3>Attributes</h3>
@@ -4326,10 +4330,10 @@ Note that you can omit both startpoint and track attributes in this case
 				<tr>
 					<td>delimitertype</td>
 					<td>String</td>
-					<td>The delimiter type (&quot;normal&quot; or &quot;row&quot;). Normal means
+					<td>The delimiter type (&quot;normal&quot;, &quot;row&quot; or &quot;none&quot;). Normal means
 						that any occurence of the delimiter terminate the SQL command whereas with
 						row, only a line containing just the delimiter is recognized as the end of
-						the command.</td>
+						the command. None disables all delimiter detection.</td>
 					<td>normal</td>
 					<td>No</td>
 				</tr>
