@@ -424,7 +424,7 @@
 
     -->
     <target name="all">
-<!_-        <phingcall target="pdf"/> -->
+<!--        <phingcall target="pdf"/> -->
         <phingcall target="hlpdf"/>
 <!--        <phingcall target="htmlfancy"/>
         <phingcall target="html"/> -->
