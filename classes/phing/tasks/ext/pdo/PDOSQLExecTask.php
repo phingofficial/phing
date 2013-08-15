@@ -127,7 +127,7 @@ class PDOSQLExecTask extends PDOTask {
      * The delimiter type indicating whether the delimiter will
      * only be recognized on a line by itself
      */
-    private $delimiterType = "normal"; // can't use constant just defined
+    private $delimiterType = "none"; // can't use constant just defined
 
     /**
      * Action to perform if an error is found
