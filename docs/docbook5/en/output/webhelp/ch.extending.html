@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s01.html" title="Extension Possibilities" />
       <meta name="Section-title" content="Extending Phing" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -182,16 +182,112 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <div class="toc">
+               <p><strong>Table of Contents</strong></p>
+               <dl class="toc">
+                  <dt><span class="sect1"><a href="ch06s01.html"> Extension Possibilities </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="sect.ext.tasks.html"> Tasks </a></span></dt>
+                        <dt><span class="sect2"><a href="sect.ext.types.html"> Types </a></span></dt>
+                        <dt><span class="sect2"><a href="sect.ext.mappers.html"> Mappers </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch06s02.html"> Source Layout </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch06s02s01.html"> Files And Directories </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s02s02.html"> File Naming Conventions </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s02s03.html"> Coding Standards </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch06s03.html"> System Initialization </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch06s03s01.html"> Wrapper Scripts </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s03s02.html"> The Main Application (phing.php) </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s03s03.html"> The Phing Class </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch06s04.html"> System Services </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch06s04s01.html"> The Exception system </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch06s05.html"> Build Lifecycle </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch06s05s01.html"> How Phing Parses Buildfiles </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch06s06.html"> Writing Tasks </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch06s06s01.html"> Creating A Task </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s02.html"> Using the Task </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s03.html">Source Discussion </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s04.html">Task Structure </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s05.html">Includes </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s06.html"> Class Declaration </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s07.html"> Class Properties </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s08.html"> The Constructor </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s09.html"> Setter Methods </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s10.html"> Creator Methods </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s11.html">
+                                                 <code class="literal">init()</code> Method </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s12.html">
+                                                 <code class="literal">main()</code> Method </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s06s13.html"> Arbitrary Methods </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch06s07.html"> Writing Types </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch06s07s01.html">Creating a DataType</a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s07s02.html"> Using the DataType </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s07s03.html"> Source Discussion </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch06s08.html"> Writing Mappers </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch06s08s01.html"> Creating a Mapper </a></span></dt>
+                        <dt><span class="sect2"><a href="ch06s08s02.html"> Using the Mapper </a></span></dt>
+                     </dl>
+                  </dd>
+               </dl>
+            </div>
+                
+                
             <p>Phing was designed to be flexible and easily extensible. Phing's existing core and
                        optional tasks do provide a great deal of flexibility in processing files, performing
                        database actions, and even getting user feedback during a build process. In some cases,
                        however, the existing tasks just won't suffice and because of Phing's open, modular
                        architecture adding exactly the functionality you need is often quite trivial.
             </p>
+                
             <p>In this chapter we'll look primarily at how to create your own tasks, since that is
                        probably the most useful way to extend Phing. We'll also give some more information about
                        Phing's design and inner workings.
             </p>
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+            
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -223,12 +319,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

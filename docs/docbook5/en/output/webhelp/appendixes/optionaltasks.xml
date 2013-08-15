@@ -3201,6 +3201,13 @@ Note that you can omit both startpoint and track attributes in this case
                             disconnect</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                      <entry><literal>method</literal></entry>
+                      <entry><literal role="type">String</literal></entry>
+                      <entry>The HTTP method of the request, currently only GET or POST supported</entry>
+                      <entry><literal>GET</literal></entry>
+                      <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -3223,6 +3230,15 @@ Note that you can omit both startpoint and track attributes in this case
  &lt;/http-request></programlisting>
             <para>Perform a HTTP request to the given URL. Setting request adapter to curl instead
                 of socket. Setting an additional header.</para>
+            <programlisting language="xml">&lt;http-request
+            url="http://my-production.example.com/check-deployment.php"
+            verbose"true"
+            method="POST">
+              &lt;postparameter name="param1" value="value1" />
+              &lt;postparameter name="param2" value="value2" />
+            &lt;/http-request>
+          </programlisting>
+          <para>Perform an HTTP POST request to the given URL. Setting POST request parameters to emulate form submission.</para>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -4172,7 +4188,7 @@ Note that you can omit both startpoint and track attributes in this case
 <sect1 role="taskdef" xml:id="LiquibaseRollbackTask">
     <title>LiquibaseRollbackTask</title>
     <para>The <literal>LiquibaseRollbackTask</literal> rolls back the database to 
-        the the state is was when the tag was applied.
+        the state is was when the tag was applied.
     </para>
     <table>
         <title>Attributes</title>
@@ -4662,6 +4678,11 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="PDOSQLExecTask">
         <title>PDOSQLExecTask</title>
         <para> The <literal>PDOSQLExecTask</literal> executes SQL statements using PDO.</para>
+        <note>
+            <para>The combination of large SQL files and
+            <literal>delimitertype</literal> set to <literal>normal</literal>
+            can trigger segmentation faults.</para>
+        </note>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4733,10 +4754,10 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>delimitertype</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The delimiter type ("normal" or "row"). Normal means that any
+                        <entry>The delimiter type ("normal", "row" or "none"). Normal means that any
                             occurence of the delimiter terminate the SQL command whereas with row,
                             only a line containing just the delimiter is recognized as the end of
-                            the command.</entry>
+                            the command. None disables all delimiter detection.</entry>
                         <entry>normal</entry>
                         <entry>No</entry>
                     </row>
@@ -4846,7 +4867,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <para>The results of any queries that are executed can be printed in different
                         formats. Output will always be sent to a file, unless you set the
                             <literal>usefile</literal> attribute to <literal>false</literal>. The
-                        path to the output file file can be specified by the
+                        path to the output file can be specified by the
                             <literal>outfile</literal> attribute; there is a default filename that
                         will be returned by the formatter if no output file is specified.</para>
                     <para>There are three predefined formatters - one prints the query results in
@@ -5967,7 +5988,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>haltonerror</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Stop the build process if errors occurred during during the
+                        <entry>Stop the build process if errors occurred during the
                             run.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
@@ -6108,7 +6129,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <row>
                                     <entry><literal>type</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
-                                    <entry>The output format. Accepts the the same values as the
+                                    <entry>The output format. Accepts the same values as the
                                             <literal>format</literal> attribute
                                             (<literal>default</literal>, <literal>xml</literal>,
                                             <literal>checkstyle</literal>, <literal>csv</literal>,
@@ -6256,7 +6277,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <row>
                                     <entry><literal>type</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
-                                    <entry>The output format. Accepts the the same values as the
+                                    <entry>The output format. Accepts the same values as the
                                             <literal>format</literal> attribute
                                             (<literal>default</literal>,
                                         <literal>pmd</literal>).</entry>
@@ -6517,7 +6538,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 <row>
                                     <entry><literal>type</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
-                                    <entry>The output format. Accepts the the same values as the
+                                    <entry>The output format. Accepts the same values as the
                                             <literal>format</literal> attribute
                                             (<literal>xml</literal>, <literal>html</literal>,
                                             <literal>text</literal>).</entry>
@@ -6995,15 +7016,15 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>quiet</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Suppress DocBlox chatter.</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry>DEPRECATED</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>template</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Name of the documentation template to use.</entry>
-                        <entry><literal>responsive</literal></entry>
+                        <entry><literal>responsive-twig</literal></entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -7013,7 +7034,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Example</title>
             <programlisting language="xml">&lt;phpdoc2 title="API Documentation"
   destdir="apidocs"
-  template="responsive">
+  template="responsive-twig">
    &lt;fileset dir="./classes">
       &lt;include name="**/*.php" />
    &lt;/fileset>
@@ -10459,21 +10480,21 @@ host="webserver" command="ls" /></programlisting>
     &lt;inner-tag someattr="val">Text&lt;/inner-tag>
     &lt;a2>&lt;a3>&lt;a4>false&lt;/a4>&lt;/a3>&lt;/a2>
 &lt;/root-tag></programlisting>
-            <para> Used with the the following entry (<emphasis role="bold">default</emphasis>): </para>
+            <para> Used with the following entry (<emphasis role="bold">default</emphasis>): </para>
             <programlisting language="xml">&lt;xmlproperty file="somefile.xml"/></programlisting>
             <para>results in the following properties:</para>
             <programlisting language="xml">root-tag(myattr)=true
 root-tag.inner-tag=Text
 root-tag.inner-tag(someattr)=val
 root-tag.a2.a3.a4=false</programlisting>
-            <para> Used with the the following entry (<literal>collapseAttributes=true</literal>): </para>
+            <para> Used with the following entry (<literal>collapseAttributes=true</literal>): </para>
             <programlisting language="xml">&lt;xmlproperty file="somefile.xml" collapseAttributes="true"/></programlisting>
             <para>results in the following properties:</para>
             <programlisting language="xml">root-tag.myattr=true
 root-tag.inner-tag=Text
 root-tag.inner-tag.someatt=val
 root-tag.a2.a3.a4=false</programlisting>
-            <para> Used with the the following entry (<literal>keepRoot=false</literal>): </para>
+            <para> Used with the following entry (<literal>keepRoot=false</literal>): </para>
             <programlisting language="xml">&lt;xmlproperty file="somefile.xml" keepRoot="false"/></programlisting>
             <para>results in the following properties:</para>
             <programlisting language="xml">inner-tag=Text

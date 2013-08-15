@@ -16,7 +16,7 @@
       <link rel="next" href="apcs41s02.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Example" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,23 +179,31 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e15259"></a>Example
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e9042"></a>Example
                      </h3>
                   </div>
                </div>
-            </div><pre class="programlisting">&lt;pdosqlexec url="pgsql:host=localhost dbname=test"&gt;
+            </div>
+                        
+                        <pre class="programlisting">&lt;pdosqlexec url="pgsql:host=localhost dbname=test"&gt;
   &lt;fileset dir="sqlfiles"&gt;
 	  &lt;include name="*.sql"/&gt;
 	  &lt;/fileset&gt;
-&lt;/pdosqlexec&gt;</pre><pre class="programlisting">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password"&gt;
+&lt;/pdosqlexec&gt;</pre>
+            
+                        <pre class="programlisting">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password"&gt;
   &lt;transaction src="path/to/sqlfile.sql"/&gt;
   &lt;formatter type="plain" outfile="path/to/output.txt"/&gt;
-  &lt;/pdosqlexec&gt;</pre><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+  &lt;/pdosqlexec&gt;</pre>
+                        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
                <h3 class="title">Note</h3>
+                               
                <p>Because of backwards compatiblity, the PDOSQLExecTask can also be called using
                                       the <code class="literal">'pdo'</code> statement.
                </p>
-            </div><pre class="programlisting">&lt;pdo url="pgsql:host=localhost dbname=test"&gt;
+                           
+            </div>
+                        <pre class="programlisting">&lt;pdo url="pgsql:host=localhost dbname=test"&gt;
   &lt;fileset dir="sqlfiles"&gt;
 	  &lt;include name="*.sql"/&gt;
   &lt;/fileset&gt;
@@ -210,7 +218,8 @@ border: none; background: none; font-weight: none; color: none; }
 
   &lt;!-- No output file + usefile=false means it goes to phing log --&gt;
   &lt;formatter type="plain" usefile="false" /&gt;
-&lt;/pdo&gt;</pre></div><script type="text/javascript" src="common/main.js">
+&lt;/pdo&gt;</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -241,12 +250,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

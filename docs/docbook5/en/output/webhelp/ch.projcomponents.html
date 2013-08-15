@@ -16,7 +16,7 @@
       <link rel="next" href="ch05s01.html" title="Projects" />
       <meta name="Section-title" content="Project components" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -182,13 +182,75 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <div class="toc">
+               <p><strong>Table of Contents</strong></p>
+               <dl class="toc">
+                  <dt><span class="sect1"><a href="ch05s01.html"> Projects </a></span></dt>
+                  <dt><span class="sect1"><a href="ch05s02.html"> Version </a></span></dt>
+                  <dt><span class="sect1"><a href="ch05s03.html"> Project Components in General </a></span></dt>
+                  <dt><span class="sect1"><a href="ch05s04.html"> Targets </a></span></dt>
+                  <dt><span class="sect1"><a href="ch05s05.html"> Tasks </a></span></dt>
+                  <dt><span class="sect1"><a href="sec.types.html"> Types </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch05s06s01.html"> Basics </a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s06s02.html"> Referencing Types </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch05s07.html"> Basic Types </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch05s07s01.html">
+                                 				<code class="literal">FileSet</code>
+                                 			</a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s07s02.html">
+                                 				<code class="literal">FileList</code>
+                                 			</a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s07s03.html">
+                                 				<code class="literal">FilterChains</code> and Filters </a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s07s04.html"> File Mappers </a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ch05s08.html"> Conditions </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="ch05s08s01.html"><code class="literal">not</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s02.html"><code class="literal">and</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s03.html"><code class="literal">or</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s04.html"><code class="literal">os</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s05.html"><code class="literal">equals</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s06.html"><code class="literal">isset</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s07.html"><code class="literal">contains</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s08.html"><code class="literal">istrue</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s09.html"><code class="literal">isfalse</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s10.html"><code class="literal">referenceexists</code></a></span></dt>
+                        <dt><span class="sect2"><a href="ch05s08s11.html"><code class="literal">available</code></a></span></dt>
+                     </dl>
+                  </dd>
+               </dl>
+            </div>
+            	
+            
+            	
             <p>This goal of this chapter is to make you familiar with the basic components of a
                		buildfile. After reading this chapter, you should be able to read and understand the basic
                		structure of any buildfile even if you don't know exactly what the individual pieces
                		do.
             </p>
+            	
             <p> For supplemental reference information, you should see <a class="xref" href="app.coretasks.html" title="Core tasks"><em>Core tasks</em></a>, <a class="xref" href="app.coretypes.html" title="Core Types"><em>Core Types</em></a> and <a class="xref" href="app.projcomponents.html" title="Project Components"><em>Project Components</em></a>.
             </p>
+            
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            
+            
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -220,12 +282,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

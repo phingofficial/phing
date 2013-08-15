@@ -16,7 +16,7 @@
       <link rel="next" href="ch05s07s04.html" title="File Mappers" />
       <meta name="Section-title" content="FilterChains and Filters" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,29 +179,40 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2204"></a>
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1138"></a>
                         				<code class="literal">FilterChains</code> and Filters 
                      </h3>
                   </div>
                </div>
             </div>
+            			
+            
+            			
             <p><code class="literal">FilterChains</code> can be compared to Unix pipes. Unix pipes add a
                				great deal of flexibility to command line operations; for example, if you wanted to
                				copy just those lines that contained the string <code class="literal">blee</code> from the
                				first 10 lines of a file called <code class="literal">foo</code> to a file called
                					<code class="literal">bar</code>, you could do: 
-            </p><pre class="screen">cat foo | head -n10 | grep blee &gt; bar</pre><p>Something like this is not possible with the tasks and types that we have learned
+            </p>
+            
+            			<pre class="screen">cat foo | head -n10 | grep blee &gt; bar</pre>
+            
+            			<p>Something like this is not possible with the tasks and types that we have learned
                				about thus far, and this is where the incredible usefulness of
                					<code class="literal">FilterChains</code> becomes apparent. They emulate Unix pipes and
                				provide a powerful dimension of file/stream manipulation for the tasks that support
                				them.
             </p>
+            
+            			
             <p><code class="literal">FilterChain</code> usage is quite straightforward: you pass the
                				complex Phing type <code class="literal">filterchain</code> to a task that supports
                				FilterChains and add individual filters to the FilterChain. In the course of
                				executing the task, the filters are applied (in the order in which they appear in
                				the XML) to the contents of the files that are being manipulated by your task.
-            </p><pre class="programlisting">&lt;filterchain&gt;
+            </p>
+            
+            			<pre class="programlisting">&lt;filterchain&gt;
   &lt;replacetokens&gt;
     &lt;token key="BC_PATH" value="${top.builddir}/"/&gt;
     &lt;token key="BC_PATH_USER" value="${top.builddir}/testsite/user/${lang}/"/&gt;
@@ -210,16 +221,19 @@ border: none; background: none; font-weight: none; color: none; }
   &lt;filterreader classname="phing.filters.TailFilter"&gt;
     &lt;param name="lines" value="10"/&gt;
   &lt;/filterreader&gt;
-&lt;/filterchain&gt;</pre><p>The code listing above shows you some example of how to use filter chains. For a
+&lt;/filterchain&gt;</pre>
+            			<p>The code listing above shows you some example of how to use filter chains. For a
                				complete reference see <a class="xref" href="app.coretypes.html" title="Core Types"><em>Core Types</em></a>. This filter chain would
                				replace all occurrences of <code class="literal">BC_PATH</code> and
                					<code class="literal">BC_PATH_USER</code> with the values assigned to them in lines 4 and
                				5. Additionally, it will only return the last 10 lines of the files.
             </p>
+            			
             <p>Notice above that <code class="literal">FilterChain</code> filters have a "shorthand"
                				notation and a long, generic notation. Most filters can be described using both of
                				these forms:
-            </p><pre class="programlisting">&lt;replacetokens&gt;
+            </p>
+            			<pre class="programlisting">&lt;replacetokens&gt;
   &lt;token key="BC_PATH" value="${top.builddir}/"/&gt;
   &lt;token key="BC_PATH_USER" value="${top.builddir}/testsite/user/${lang}/"/&gt;
 &lt;/replacetokens&gt;
@@ -229,11 +243,13 @@ border: none; background: none; font-weight: none; color: none; }
 &lt;filterreader classname="phing.filters.ReplaceTokens"&gt;
   &lt;param type="token" name="BC_PATH" value="${top.builddir}/"/&gt;
   &lt;param type="token" name="BC_PATH" value="${top.builddir}/testsite/user/${lang}/"/&gt;
-&lt;/filterreader&gt;</pre><p> As the pipe concept in Unix, the filter concept is quite complex but powerful. To
+&lt;/filterreader&gt;</pre>
+            			<p> As the pipe concept in Unix, the filter concept is quite complex but powerful. To
                				get a better understanding of different filters and how they can be used, take a
                				look at any of the many uses of FilterChains in the build files for the binarycloud
                					<a class="xref" href="app.bibliography.html" title="Bibliography">Bibliography</a> project.
             </p>
+            		
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -265,12 +281,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

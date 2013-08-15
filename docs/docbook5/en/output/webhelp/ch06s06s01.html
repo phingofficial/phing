@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s06s02.html" title="Using the Task" />
       <meta name="Section-title" content="Creating A Task" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,15 +179,21 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2969"></a> Creating A Task 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1576"></a> Creating A Task 
                      </h3>
                   </div>
                </div>
             </div>
+                        
+            
+                        
             <p>We will start creating a rather simple task which basically does nothing more than
                                echo a message to the screen. See [below] for the source code and the following
                                [below] for the XML definition that is used for this task.
-            </p><pre class="programlisting">&lt;?php
+            </p>
+            
+            
+                        <pre class="programlisting">&lt;?php
 
 require_once "phing/Task.php";
 
@@ -220,12 +226,16 @@ class MyEchoTask extends Task {
     }
 }
 
-?&gt;</pre><p>This code contains a rather simple, but complete Phing task. It is assumed that
+?&gt;</pre>
+            
+                        <p>This code contains a rather simple, but complete Phing task. It is assumed that
                                the file is named <code class="literal">MyEchoTask.php</code> and placed in
                                    <code class="literal">classes/phing/tasks/my</code> directory. We'll explain the source
                                code in detail shortly. But first we'd like to discuss how we should register the
                                task to Phing so that it can be executed during the build process.
             </p>
+            
+                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -257,12 +267,11 @@ class MyEchoTask extends Task {
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

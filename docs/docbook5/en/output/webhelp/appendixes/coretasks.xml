@@ -734,7 +734,7 @@
 					<row>
 						<entry><literal>verbose</literal></entry>
 						<entry><literal role="type">Boolean</literal></entry>
-						<entry>Give more information in in error message in case of a
+						<entry>Give more information in error message in case of a
 							failure</entry>
 						<entry><literal>true</literal></entry>
 						<entry>No</entry>
@@ -1425,7 +1425,8 @@
 						<entry><literal>error</literal></entry>
 						<entry><literal role="type">String</literal></entry>
 						<entry>Where to direct stderr.</entry>
-						<entry>n/a</entry>
+						<entry>Redirected to stdout, unless
+						<literal>passthru</literal> is set to true.</entry>
 						<entry>No</entry>
 					</row>
 					<row>

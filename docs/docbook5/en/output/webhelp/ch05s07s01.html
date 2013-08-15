@@ -16,7 +16,7 @@
       <link rel="next" href="ch05s07s02.html" title="FileList" />
       <meta name="Section-title" content="FileSet" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,17 +179,22 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2162"></a>
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1120"></a>
                         				<code class="literal">FileSet</code>
                         			
                      </h3>
                   </div>
                </div>
             </div>
+            			
+            
+            			
             <p>FileSets are groups of files. You can include or exclude specific files and
                				patterns to/from a FileSet. The use of patterns is explained below. For a start,
                				look at the following example:
-            </p><pre class="programlisting">&lt;fileset dir="/tmp" id="fileset1"&gt;
+            </p>
+            
+            			<pre class="programlisting">&lt;fileset dir="/tmp" id="fileset1"&gt;
   &lt;include name="sometemp/file.txt" /&gt;
   &lt;include name="othertemp/**" /&gt;
   &lt;exclude name="othertemp/file.txt" /&gt;
@@ -199,11 +204,15 @@ border: none; background: none; font-weight: none; color: none; }
   &lt;include name="foo/**" /&gt;
   &lt;include name="bar/**/*.php" /&gt;
   &lt;exclude name="foo/tmp/**" /&gt;
-&lt;/fileset&gt;</pre><p> The use of patterns is quite straightforward: If you simply want to match a part
+&lt;/fileset&gt;</pre>
+            
+            			<p> The use of patterns is quite straightforward: If you simply want to match a part
                				of a filename or dirname, you use <span class="emphasis"><em>*</em></span>. If you want to include
                				multiple directories and/or files, you use <span class="emphasis"><em>**</em></span>. This way,
                				filesets provide an easy but powerful way to include files.
             </p>
+            
+            		
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -235,12 +244,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

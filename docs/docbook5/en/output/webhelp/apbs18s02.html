@@ -16,7 +16,7 @@
       <link rel="next" href="apbs18s03.html" title="Resolving Files Against the Imported File" />
       <meta name="Section-title" content="Special Properties" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,11 +179,13 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e6334"></a>Special Properties
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e3585"></a>Special Properties
                      </h3>
                   </div>
                </div>
             </div>
+            			
+            			
             <p>Imported files are treated as they are present in the main buildfile. This makes
                				it easy to understand, but it makes it impossible for them to reference files and
                				resources relative to their path. Because of this, for every imported file, Phing
@@ -191,19 +193,23 @@ border: none; background: none; font-weight: none; color: none; }
                				the imported buildfile can keep resources and be able to reference them relative to
                				its position.
             </p>
+            			
             <p>So if I import for example a <code class="literal">docs/build.xml</code> file named
                					<code class="filename">builddocs</code>, I can get its path as
                					<code class="literal">phing.file.builddocs</code>, similarly to the
                					<code class="literal">phing.file</code> property of the main buildfile. Additionally,
                					the directory will be stored in <code class="literal">phing.dir.builddocs</code>.
             </p>
+            			
             <p>Note that "builddocs" is not the filename, but the name attribute present in the
                				imported project tag.
             </p>
+            			
             <p>If import file does not have a name attribute, the
                					<code class="literal">phing.file.projectname</code> and <code class="literal">phing.dir.projectname</code>
                					properties will not be set.
             </p>
+            		
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -235,12 +241,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

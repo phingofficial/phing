@@ -16,7 +16,7 @@
       <link rel="next" href="apes09s01.html" title="Nested tags" />
       <meta name="Section-title" content="ReplaceTokensWithFile" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -184,20 +184,31 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <div class="toc">
+               <dl class="toc">
+                  <dt><span class="sect2"><a href="apes09s01.html">Nested tags</a></span></dt>
+               </dl>
+            </div>
+                    
+                    
             <p>The <code class="literal">ReplaceTokensWithFile</code> filter will replace certain tokens with
                            the contents of a file. The name of the file to use as replacement is derived from the
                            token name itself. Tokens are strings enclosed in special characters which are user
                            selectable.
             </p>
+                    
             <p>This filter could for example be used to insert code examples in documentation where
                            the example code are real executable files kept outside the documentation.
             </p>
+                    
             <p>If you for example want to replace <code class="literal">#!example1##</code> with the content of
                            the file " <code class="code">example1.php</code> " you could do the following
-            </p><pre class="programlisting">&lt;filterchain&gt;
+            </p>
+                    <pre class="programlisting">&lt;filterchain&gt;
       &lt;replacetokenswithfile begintoken="#!" endtoken="##"
           dir="exampledir/" postfix=".php" /&gt;
-      &lt;/filterchain&gt;</pre><p>The filer above will replace all tokens within the begin and end token specified with
+      &lt;/filterchain&gt;</pre>
+                    <p>The filer above will replace all tokens within the begin and end token specified with
                            the contents of the file whose base name is that of the token with the added postfix
                            ".php". Only the directory specified in the <code class="literal">dir</code> attribute is
                            searched. If the file is not found the token is left untouched and an error message is
@@ -206,8 +217,13 @@ border: none; background: none; font-weight: none; color: none; }
                                <code class="literal">#!example2##</code> will be replaced with the content of the file "
                                <code class="code">example2.php</code> "
             </p>
-            <div class="table"><a id="d0e25352"></a><p class="title"><strong>Table 184.  Attributes for the <code class="literal">&lt;replacetokenswithfile&gt;</code> tag </strong></p>
+            
+            
+                    
+            <div class="table"><a id="d5e15153"></a><p class="title"><strong>Table 184.  Attributes for the <code class="literal">&lt;replacetokenswithfile&gt;</code> tag </strong></p>
                <div class="table-contents">
+                              
+                              
                   <table summary=" Attributes for the &lt;replacetokenswithfile&gt; tag " border="1">
                      <colgroup>
                         <col class="name" />
@@ -279,8 +295,13 @@ border: none; background: none; font-weight: none; color: none; }
                         </tr>
                      </tbody>
                   </table>
+                          
                </div>
-            </div><br class="table-break" /></div><script type="text/javascript" src="common/main.js">
+            </div><br class="table-break" />
+            
+                    
+                
+         </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -311,12 +332,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

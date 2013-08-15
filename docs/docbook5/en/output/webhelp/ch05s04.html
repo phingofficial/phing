@@ -16,7 +16,7 @@
       <link rel="next" href="ch05s05.html" title="Tasks" />
       <meta name="Section-title" content="Targets" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,31 +179,43 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d0e2019"></a> Targets 
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e1055"></a> Targets 
                      </h2>
                   </div>
                </div>
             </div>
+            		
+            
+            		
             <p> Targets are collections of project components (but not other targets) that are
                			assigned a unique name within their project. A target generally performs a specific task
                			-- or calls other targets that perform specific tasks -- and therefore a target is a bit
                			like a <code class="literal"> function</code> (but a target has no return value).
             </p>
+            		
             <p> Targets may <code class="literal">depend</code> on other targets. For example, if target A
                			depends on a target B, then when target A is called to be executed, target B will be
                			executed first. Phing automatically resolves these dependencies. You cannot have
                			circular references like: "target A depends on target B that depends on target A".
             </p>
-            <p>The following code snippet shows an example of the use of targets.</p><pre class="programlisting">&lt;target name="othertask" depends="buildpage" description="Whatever"&gt;
+            
+            		
+            <p>The following code snippet shows an example of the use of targets.</p>
+            
+            		<pre class="programlisting">&lt;target name="othertask" depends="buildpage" description="Whatever"&gt;
   &lt;!-- Task calls here --&gt;
 &lt;target&gt;
 
 &lt;target name="buildpage" description="Some description"&gt;
   &lt;!-- Task calls here --&gt;
-&lt;target&gt;</pre><p> When Phing is asked to execute the <code class="literal">othertask</code> target, it will see
+&lt;target&gt;</pre>
+            
+            		<p> When Phing is asked to execute the <code class="literal">othertask</code> target, it will see
                			the dependency and execute <code class="literal">buildpage</code> first. Notice that the
                			dependency task can be defined after the dependent task.
             </p>
+            
+            	
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -235,12 +247,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s06s10.html" title="Creator Methods" />
       <meta name="Section-title" content="Setter Methods" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,35 +179,46 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e3122"></a> Setter Methods 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1654"></a> Setter Methods 
                      </h3>
                   </div>
                </div>
             </div>
+                        
+            
+                        
             <p> As you can see in the XML definition of our task ([see buildfile above] , line 9)
                                there is an attribute defined with the task itself, namely "message" with a value of
-                               the the text string that our task should echo. The task must somehow become aware of
+                               the text string that our task should echo. The task must somehow become aware of
                                the attribute name and the value. Therefore the <code class="literal">setter methods</code>
                                exist.
             </p>
+            
+                        
             <p>For each attribute you want to import to the task's namespace you have to define a
                                method named exactly after the very attribute plus the string "set" prepended. This
                                method accepts exactly one parameter that holds the value of the attribute. Now you
                                can set the a class internal property to the value that is passed via the setter
                                method.
             </p>
+            
+                        
             <p> In the setter method you should also perform any casting operations and/or check
                                if the attribute value is a valid value. If this is not the case, throw a
                                    <code class="literal">BuildException</code>. In some cases, such as when you have three
                                attributes and at least one of them should be set, you may want to check the
                                attribute values inside the init() or main() method.
             </p>
+            
+                        
             <p> In out example the setter is named <code class="literal">setMessage</code> , because the
                                XML attribute the echo task accepts is "message". setMessage now takes the string
                                "Hello World" provided by the parser and sets the value of the internal class
                                property <code class="literal">$strMessage</code> to "Hello World". It is now available to the
                                task for further disposal.
             </p>
+            
+                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -239,12 +250,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

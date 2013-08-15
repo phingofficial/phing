@@ -16,7 +16,7 @@
       <link rel="next" href="PhingFilterReader.html" title="PhingFilterReader" />
       <meta name="Section-title" content="Core filters" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -182,20 +182,121 @@ border: none; background: none; font-weight: none; color: none; }
                   </div>
                </div>
             </div>
+            <div class="toc">
+               <p><strong>Table of Contents</strong></p>
+               <dl class="toc">
+                  <dt><span class="sect1"><a href="PhingFilterReader.html">PhingFilterReader</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes01s01.html">Nested tags</a></span></dt>
+                        <dt><span class="sect2"><a href="apes01s02.html">Advanced</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ExpandProperties.html">ExpandProperties</a></span></dt>
+                  <dt><span class="sect1"><a href="HeadFilter.html">HeadFilter</a></span></dt>
+                  <dt><span class="sect1"><a href="IconvFilter.html">IconvFilter</a></span></dt>
+                  <dt><span class="sect1"><a href="LineContains.html">Line Contains </a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes05s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="LineContainsRegexp.html">LineContainsRegexp</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes06s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="PrefixLines.html">PrefixLines</a></span></dt>
+                  <dt><span class="sect1"><a href="ReplaceTokens.html">ReplaceTokens</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes08s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ReplaceTokensWithFile.html">ReplaceTokensWithFile</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes09s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="ReplaceRegexp.html">ReplaceRegexp</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes10s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="StripLineBreaks.html">StripLineBreaks</a></span></dt>
+                  <dt><span class="sect1"><a href="StripLineComments.html">StripLineComments</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes12s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="StripPhpComments.html">StripPhpComments</a></span></dt>
+                  <dt><span class="sect1"><a href="StripWhitespace.html">StripWhitespace</a></span></dt>
+                  <dt><span class="sect1"><a href="TabToSpaces.html">TabToSpaces</a></span></dt>
+                  <dt><span class="sect1"><a href="TailFilter.html">TailFilter</a></span></dt>
+                  <dt><span class="sect1"><a href="TidyFilter.html">TidyFilter</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes17s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+                  <dt><span class="sect1"><a href="XincludeFilter.html">XincludeFilter</a></span></dt>
+                  <dt><span class="sect1"><a href="XsltFilter.html">XsltFilter</a></span></dt>
+                  <dd>
+                     <dl>
+                        <dt><span class="sect2"><a href="apes19s01.html">Nested tags</a></span></dt>
+                     </dl>
+                  </dd>
+               </dl>
+            </div>
+                
+            
+            
+                
             <p>Filters are a subset of Phing <code class="literal">data types</code> which provide for the
                        transformation of file contents during the operation of another task. For example, a filter
                        might replace tokens in a file as part of a copy task.
             </p>
+            
+                
             <p>Filters have to be defined within a <code class="literal">&lt;filterchain&gt;</code> context to work.
                        Example:
-            </p><pre class="programlisting">&lt;filterchain&gt;
+            </p>
+            
+                <pre class="programlisting">&lt;filterchain&gt;
   &lt;expandproperties /&gt;
-&lt;/filterchain&gt;</pre><p>There are two ways to use a filter: System filters (the ones shipped with Phing) can be
+&lt;/filterchain&gt;</pre>
+                <p>There are two ways to use a filter: System filters (the ones shipped with Phing) can be
                        used with their own tag name, such as <code class="literal">&lt;xsltfilter</code>&gt;,
                            &lt;<code class="literal">expandpropertyfilter</code>&gt; or <code class="literal">&lt;tabtospaces</code>&gt;.
                        User-defined filters can use the way is to use the <code class="literal">&lt;filterreader&gt;</code>
                        tag.
             </p>
+            
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            
+            
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -227,12 +328,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

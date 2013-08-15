@@ -16,7 +16,7 @@
       <link rel="next" href="apbs36s02.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Examples" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,19 +179,23 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e8273"></a>Examples
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e4745"></a>Examples
                      </h3>
                   </div>
                </div>
-            </div><pre class="programlisting">&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" &gt;
+            </div>
+            			
+            			<pre class="programlisting">&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" &gt;
   &lt;fileset dir="${src}/propel"&gt;
     &lt;include="**/*.php"/&gt;
   &lt;/fileset&gt;
-&lt;/uptodate&gt;</pre><p>The above example sets the property <code class="literal">propelBuild.notRequired</code> to
+&lt;/uptodate&gt;</pre>
+            			<p>The above example sets the property <code class="literal">propelBuild.notRequired</code> to
                				true if the <code class="literal">${deploy}/propelClasses.tgz</code> file is more up-to-date
                				than any of the PHP class files in the <code class="literal">${src}/propel</code>
                				directory.
-            </p><pre class="programlisting">&lt;target name="CompileTarget"&gt;
+            </p>
+            			<pre class="programlisting">&lt;target name="CompileTarget"&gt;
   &lt;uptodate property="target.uptodate" targetfile="main"&gt;
     &lt;fileset refid="sources"/&gt;
   &lt;/uptodate&gt;
@@ -201,11 +205,13 @@ border: none; background: none; font-weight: none; color: none; }
       &lt;!-- Some commands to update the target ... --&gt;
    &lt;/then&gt;
   &lt;/if&gt;
-&lt;/target&gt;</pre><p>The above example shows a common use when doing a "compile" type target where a
+&lt;/target&gt;</pre>
+            			<p>The above example shows a common use when doing a "compile" type target where a
                				single target depends on other source files. In this case the commands to update the
                				target (whatever they are) are only run if any of the source files are more up to
                				date than the target.
             </p>
+            		
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -237,12 +243,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

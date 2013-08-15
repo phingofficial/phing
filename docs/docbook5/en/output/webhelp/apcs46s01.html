@@ -16,7 +16,7 @@
       <link rel="next" href="apcs46s02.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Examples" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,25 +179,30 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e16995"></a>Examples
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e10114"></a>Examples
                      </h3>
                   </div>
                </div>
             </div>
+                        
+                        
             <p> Checks all files in the directory <code class="literal">file</code> matching the allowed
                                file extension with the <code class="literal">PEAR</code> standard and prints the
                                    <code class="literal">summary</code> report without warnings.
-            </p><pre class="programlisting">&lt;phpcodesniffer
+            </p>
+                        <pre class="programlisting">&lt;phpcodesniffer
   standard="PEAR"
   format="summary"
   file="/path/to/source-files"
-  allowedFileExtensions="php php5 inc"/&gt;</pre><p> Checks all matching files in the <code class="literal">fileset</code> with the
+  allowedFileExtensions="php php5 inc"/&gt;</pre>
+                        <p> Checks all matching files in the <code class="literal">fileset</code> with the
                                    <code class="literal">Zend</code> standard, sets the <code class="literal">zend_ca_path</code>
                                configuration which may be required by one of the sniffs, prints a list of used
                                sniffs and prints the <code class="literal">default</code> report with warnings and the
                                    <code class="literal">checkstyle</code> report to
                                    <code class="literal">/path/to/checkstyle.xml</code>.
-            </p><pre class="programlisting">&lt;phpcodesniffer
+            </p>
+                        <pre class="programlisting">&lt;phpcodesniffer
   standard="Zend"
   showSniffs="true"
   showWarnings="true"&gt;
@@ -207,17 +212,20 @@ border: none; background: none; font-weight: none; color: none; }
   &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/&gt;
   &lt;formatter type="default" usefile="false"/&gt;
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/&gt;
-&lt;/phpcodesniffer&gt;</pre><p> Checks all files in the directory <code class="literal">file</code> with the
+&lt;/phpcodesniffer&gt;</pre>
+                        <p> Checks all files in the directory <code class="literal">file</code> with the
                                    <code class="literal">PEAR</code> standard and prints the <code class="literal">checkstyle</code>
                                report without warnings. It also generates the documentation for the selected coding
                                standard and writes it to the given file.
-            </p><pre class="programlisting">&lt;phpcodesniffer
+            </p>
+                        <pre class="programlisting">&lt;phpcodesniffer
   standard="PEAR"
   file="/path/to/source-files"
   docGenerator="HTML"
   docFile="/path/to/doc.html"&gt;
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/&gt;
-&lt;/phpcodesniffer&gt;</pre></div><script type="text/javascript" src="common/main.js">
+&lt;/phpcodesniffer&gt;</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -248,12 +256,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

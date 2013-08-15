@@ -16,7 +16,7 @@
       <link rel="next" href="ch04s02s01.html" title="Project Element" />
       <meta name="Section-title" content="Writing A Simple Buildfile" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,15 +179,28 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d0e1455"></a> Writing A Simple Buildfile 
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e797"></a> Writing A Simple Buildfile 
                      </h2>
                   </div>
                </div>
             </div>
+            <div class="toc">
+               <dl class="toc">
+                  <dt><span class="sect2"><a href="ch04s02s01.html"> Project Element </a></span></dt>
+                  <dt><span class="sect2"><a href="ch04s02s02.html"> Target Element </a></span></dt>
+                  <dt><span class="sect2"><a href="ch04s02s03.html"> Task Elements </a></span></dt>
+                  <dt><span class="sect2"><a href="ch04s02s04.html"> Property Element </a></span></dt>
+               </dl>
+            </div>
+                    
+            
+                    
             <p>The <code class="literal">Foobar</code> project installs some PHP files from a source location
                            to a target location, creates an archive of this files and provides an optional clean-up
                            of the build tree:
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+            </p>
+            
+                    <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
 &lt;project name="FooBar" default="dist"&gt;
 
@@ -229,28 +242,42 @@ border: none; background: none; font-weight: none; color: none; }
 
         &lt;echo msg="Files copied and compressed in build directory OK!" /&gt;
     &lt;/target&gt;
-&lt;/project&gt;</pre><p>A phing build file is normally given the name <code class="filename">build.xml</code> which is
+&lt;/project&gt;</pre>
+                    <p>A phing build file is normally given the name <code class="filename">build.xml</code> which is
                            the default file name that the Phing executable will look for if no other file name is
                            specified.
             </p>
+                    
             <p>To run the above build file and execute the default target (assuming it is stored in
                            the current directory with the default name) is only a matter of calling: <code class="code">$
                                   phing</code>
                        
             </p>
+            
+                    
             <p>This will then execute the <code class="filename">dist</code> target. While executing the build
                            file each task performed will print some information on what actions and what files have
                            been affected.
             </p>
+                    
             <p>To run any of the other target is only a matter of providing the name of the target on
                            the command line. So for example to run the <code class="filename">build</code> target one would
                            have to execute <code class="code"> $ phing build </code>
                        
             </p>
+            
+                    
             <p>It is also possible to specify a number of additional command line arguments as
                            described in <a class="xref" href="app.factsheet.html" title="Fact Sheet"><em>Fact Sheet</em></a>
                        
             </p>
+            
+                    
+                    
+            
+                    
+                    
+                
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -282,12 +309,11 @@ border: none; background: none; font-weight: none; color: none; }
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

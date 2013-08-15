@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>License -  - Phing User Guide</title>
+      <title>DocBook -  - Phing User Guide</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="Phing User Guide" />
       <link rel="up" href="ch.about.html" title="About this book" />
-      <link rel="prev" href="ch01s03.html" title="Copyright" />
-      <link rel="next" href="ch01s05.html" title="DocBook" />
-      <meta name="Section-title" content="License" /><script type="text/javascript">
+      <link rel="prev" href="ch01s03.html" title="License" />
+      <link rel="next" href="ch01s04s01.html" title="Building the documentation" />
+      <meta name="Section-title" content="DocBook" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27600";
+            var treeCookieId = "treeview-43239";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="ch.about.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="ch01s05.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="ch01s04s01.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,17 +179,79 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d0e155"></a>License
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e86"></a>DocBook
                      </h2>
                   </div>
                </div>
             </div>
-            <p>This documentation is made available under the GNU Free Document License (see <a class="xref" href="sec.gfdl.html" title="[gnu-fdl]">the section called “The GFDL License”</a>)
-            </p><pre class="programlisting">Copyright (c) 2002 - 2013, The Phing Group 
-
-Permission is granted to copy, distribute and/or modify this document 
-under the terms of the GNU Free Documentation License, Version 1.1 or 
-any later version published by the Free Software Foundation;</pre></div><script type="text/javascript" src="common/main.js">
+            <div class="toc">
+               <dl class="toc">
+                  <dt><span class="sect2"><a href="ch01s04s01.html">Building the documentation</a></span></dt>
+                  <dt><span class="sect2"><a href="sec.docbookelements.html">DocBook v5 elements used in the manual and their
+                                           meaning</a></span></dt>
+               </dl>
+            </div>
+                    
+                    
+            <p>This book is written using the DocBook 5 XML markup (see <a class="ulink" href="http://docbook.sourceforge.net/" target="_top">DocBook Project</a>). The main
+                           advantage with DocBook is that it is a single source but multiple outputs. These
+                           document sources can be rendered into many possible output formats such as (X)HTML, PDF,
+                           EPub, Webhelp, RTF, Text and many more. Another advantage, inherit with the text based
+                           XML format,  is that the document sources are all completely text based written using
+                           UTF-8 encoding. Only a plain text editor is requires to extend or edit this
+                           documentation. However, XML tends to be quite verbose and even if a plain text editor
+                           technically is all you need the actual entering of text will be made much easier with
+                           custom XML editor. These editors can be used to hide the XML tags and do auto-completion
+                           and on-the-fly validation to make sure that what you write is a valid DocBook
+                           document.
+            </p>
+                    
+            <p>To work with the documentation we recommend to use one of the free XML/DocBook aware
+                           editors available. For example
+            </p>
+                    
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                                     
+                     <p><span class="application">Emacs</span> with the nXML mode (see <a class="ulink" href="http://www.thaiopensource.com/nxml-mode/" target="_top">nXML
+                                               mode</a>)
+                     </p>
+                                 
+                  </li>
+                  <li class="listitem">
+                                     
+                     <p><span class="application">Serna Free</span>, (Free of charge) A Java based XML
+                                            editor with extended support for DocBook5 (see <a class="ulink" href="http://www.syntext.com/products/serna-free/" target="_top">Serna Free - Open
+                                                   Source XML Editor</a>)
+                     </p>
+                                 
+                  </li>
+                  <li class="listitem">
+                                     
+                     <p><span class="application">XMLMind XML Editor</span>, Personal Edition (Free of
+                                            charge), A java based XML editor with extended support for DocBook5 (see <a class="ulink" href="http://www.xmlmind.com/xmleditor/persoedition.html" target="_top">XMLMind
+                                                   Personal Edition</a>)
+                     </p>
+                                 
+                  </li>
+               </ul>
+            </div>
+                    
+            <p>The sources for the documentation are included under the
+                               <code class="literal">docs/docbook5</code> directory. The DocBook sources are split into
+                           several files in order to make it more maintainable using the XML standard XInclude (see
+                               <a class="ulink" href="http://www.w3.org/TR/xinclude/" target="_top">XML Inclusions (XInclude) Version
+                                  1.0</a>).
+            </p>
+                    
+            <p>For the writing of the book only a subset of all available DocBook elements are used
+                           as shown in <a class="xref" href="sec.docbookelements.html" title="DocBook v5 elements used in the manual and their meaning">the section called “DocBook v5 elements used in the manual and their
+                                  meaning”</a></p>
+                    
+                    
+                
+         </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -198,7 +260,7 @@ any later version published by the Free Software Foundation;</pre></div><script 
                   <td width="40%" align="left"><a accesskey="p" href="ch01s03.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="ch.about.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="ch01s05.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="ch01s04s01.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -220,12 +282,11 @@ any later version published by the Free Software Foundation;</pre></div><script 
                         <li><span class="file"><a href="pr01.html" tabindex="1">Preface</a></span></li>
                         <li><span class="file"><a href="ch.about.html" tabindex="1">About this book</a></span><ul>
                               <li><span class="file"><a href="ch01s01.html" tabindex="1">Authors</a></span></li>
-                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Version</a></span></li>
-                              <li><span class="file"><a href="ch01s03.html" tabindex="1">Copyright</a></span></li>
-                              <li id="webhelp-currentid"><span class="file"><a href="ch01s04.html" tabindex="1">License</a></span></li>
-                              <li><span class="file"><a href="ch01s05.html" tabindex="1">DocBook</a></span><ul>
-                                    <li><span class="file"><a href="ch01s05s01.html" tabindex="1">Building the documentation</a></span></li>
-                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and there
+                              <li><span class="file"><a href="ch01s02.html" tabindex="1">Copyright</a></span></li>
+                              <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
+                              <li id="webhelp-currentid"><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
+                                    <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
                               </li>

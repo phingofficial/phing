@@ -28,10 +28,6 @@
         </itemizedlist>
     </sect1>
     <sect1>
-        <title>Version</title>
-        <para>$Id$</para>
-    </sect1>
-    <sect1>
         <title>Copyright</title>
         <para>Copyright 2002-2013, The Phing Project.</para>
     </sect1>
@@ -155,21 +151,9 @@ any later version published by the Free Software Foundation;</programlisting>
             <para>All generated output is stored under the directory "<filename role="dir"
                     >output</filename>" (which is created if it doesn't exist) with a subdirectory
                 corresponding to the name of the chosen output format.</para>
-            <note>
-                <para>The astute reader will notice the lack of target for Webhelp and as why the
-                    most useful target for a manual is omitted. The reason is that to get a good
-                    working Webhelp version a snapshot of the official XSL has been used. The latest
-                    official release of the DocBook XSL (as of this writing 1.76.1) is rather old
-                    and the Webhelp stylesheets have a few issues. Until 1.77.0 is out this target
-                    is not officially supported (but there is nothing that stops you from trying to
-                    generate that yourself by downloading the latest snapshot from DocBook
-                    sourceforge.</para>
-                <para>A version of the Phing docs in Webhelp format is however available from the
-                    DocBook website.</para>
-            </note>
         </sect2>
         <sect2 xml:id="sec.docbookelements">
-            <title>DocBook v5 elements used in the manual and there
+            <title>DocBook v5 elements used in the manual and their
                 meaning</title>
             <para>To keep things simple the manual uses only a small subset of all available
                 elements in the DocBook schema. This makes it fairly easy to quickly get up to speed
