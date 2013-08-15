@@ -4,7 +4,8 @@
     <target name="prepare">
         <mkdir dir="scripts"/>
     
-        <pdosqlexec src="changelog.sql" url="sqlite:test.db"/>
+        <pdosqlexec src="changelog.sql" url="sqlite:test.db"
+        delimitertype="normal"/>
         <dbdeploy
             url="sqlite:test.db"
             dir="deltas"
@@ -14,7 +15,8 @@
     </target>
     
     <target name="testDeploy">            
-        <pdosqlexec src="scripts/deploy-1.sql" url="sqlite:test.db"/>
+        <pdosqlexec src="scripts/deploy-1.sql" url="sqlite:test.db"
+        delimitertype="normal"/>
 
         <dbdeploy
             url="sqlite:test.db"
@@ -25,7 +27,8 @@
     </target>
 
     <target name="testUndo">
-        <pdosqlexec src="scripts/undo-1.sql" url="sqlite:test.db"/>
+        <pdosqlexec src="scripts/undo-1.sql" url="sqlite:test.db"
+        delimitertype="normal"/>
 
         <dbdeploy
             url="sqlite:test.db"
