@@ -40,7 +40,7 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
      */
     public function nextQuery()
     {
-        $sql      = "";
+        $sql      = null;
 
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
