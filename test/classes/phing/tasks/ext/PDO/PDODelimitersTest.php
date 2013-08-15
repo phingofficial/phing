@@ -91,6 +91,7 @@ SQL
         }
 
         $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-normal.sql"));
+        $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_NORMAL);
         $this->project->setProperty('bar.value', "some value");
         $this->project->executeTarget('test');
 
@@ -195,6 +196,7 @@ SQL
 
         $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-pgsql.sql"));
         $this->mockTask->setUrl('pgsql:host=localhost;dbname=phing');
+        $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_NORMAL);
         $this->project->setProperty('bar.value', "some value");
         $this->project->executeTarget('test');
 
