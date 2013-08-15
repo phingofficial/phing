@@ -268,7 +268,7 @@
         <xsl:attribute name="font-size">90%</xsl:attribute>
         <xsl:attribute name="font-weight">bold</xsl:attribute>
         <xsl:attribute name="font-family">sans-serif</xsl:attribute>
-        <xsl:attribute name="color">#CF7C00</xsl:attribute>
+        <xsl:attribute name="color">#317c9c</xsl:attribute>
         <!-- Dark orange -->
     </xsl:attribute-set>
 
@@ -315,15 +315,15 @@
                     </fo:list-item-label>
                     <fo:list-item-body start-indent="body-start()">
                         <xsl:if test="$admon.textlabel != 0 or d:title or d:info/d:title">
-                            <fo:block border-top="2pt solid #cf7c00"
-                                border-bottom="0.5pt solid #cf7c00" padding-top="4pt"
+                            <fo:block border-top="2pt solid #317c9c"
+                                border-bottom="0.5pt solid #317c9c" padding-top="4pt"
                                 xsl:use-attribute-sets="admonition.title.properties">
                                 <xsl:apply-templates select="." mode="object.title.markup">
                                     <xsl:with-param name="allow-anchors" select="1"/>
                                 </xsl:apply-templates>
                             </fo:block>
                         </xsl:if>
-                        <fo:block border-bottom="2pt solid #cf7c00" padding-top="1pt"
+                        <fo:block border-bottom="2pt solid #317c9c" padding-top="1pt"
                             padding-bottom="4pt" xsl:use-attribute-sets="admonition.properties">
                             <xsl:apply-templates/>
                         </fo:block>
