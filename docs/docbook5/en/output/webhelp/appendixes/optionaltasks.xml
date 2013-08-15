@@ -4681,7 +4681,7 @@ Note that you can omit both startpoint and track attributes in this case
         <note>
             <para>The combination of large SQL files and
             <literal>delimitertype</literal> set to <literal>normal</literal>
-            can trigger segmentation faults.</para>
+            can trigger segmentation faults with large files.</para>
         </note>
         <table>
             <title>Attributes</title>
@@ -4758,7 +4758,7 @@ Note that you can omit both startpoint and track attributes in this case
                             occurence of the delimiter terminate the SQL command whereas with row,
                             only a line containing just the delimiter is recognized as the end of
                             the command. None disables all delimiter detection.</entry>
-                        <entry>normal</entry>
+                        <entry>none</entry>
                         <entry>No</entry>
                     </row>
                     <row>

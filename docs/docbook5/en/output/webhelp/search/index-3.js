@@ -1,4 +1,5 @@
 //Auto generated index for searching by xsl-webhelpindexer for DocBook Webhelp.# Kasun Gajasinghe, University of Moratuwa
+w["promin"]="39*3,390*3";
 w["promot"]="39*1";
 w["prompt"]="75*3,110*1,404*3";
 w["prompt."]="404*2";

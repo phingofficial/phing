@@ -1,0 +1,30 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>I.2 Property File Format</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="api.html" title="Appendix I. File Formats"><link rel="prev" href="api.html" title="Appendix I. File Formats"><link rel="next" href="bi01.html" title="Bibliography"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">I.2 Property File Format</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="api.html">Prev</a> </td><th width="60%" align="center">Appendix I. File Formats</th><td width="20%" align="right"> <a accesskey="n" href="bi01.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PropertyFileFormat"></a>I.2 Property File Format</h2></div></div></div>
+        
+   
+    
+    <p><span class="emphasis"><em>Property Files</em></span> define properties. Properties are stored in
+        key/value pairs and may only contain plain text. The suffix of these
+        files should be <code class="literal">.properties</code>, the default Property File for a
+        Build File is <code class="literal">build.properties</code></p>
+    
+<pre class="programlisting"># Property files contain key/value pairs
+key=value
+
+# Property keys may contain alphanumeric chars and colons, but
+# not special chars. This way you can create pseudo-namespaces
+myapp.window.hsize=300
+myapp.window.vsize=200
+myapp.window.xpos=10
+myapp.window.ypos=100
+
+# You can refer to values of other properties by enclosing their
+# keys in "${}".
+text.width=${myapp.window.hsize}
+
+# <span class="bold"><strong>Everything</strong></span> behind the equal sign is the value, you do
+# not have to enclose strings:
+text=This is some text, Your OS is ${php.os}
+
+# I guess that is all there is to property files</pre>
+    
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="api.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="api.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="bi01.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Appendix I. File Formats </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Bibliography</td></tr></table></div></body></html>

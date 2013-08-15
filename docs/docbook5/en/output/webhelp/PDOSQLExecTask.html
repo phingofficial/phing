@@ -200,7 +200,7 @@ border: none; background: none; font-weight: none; color: none; }
                            
                <p>The combination of large SQL files and
                               <code class="literal">delimitertype</code> set to <code class="literal">normal</code>
-                              can trigger segmentation faults.
+                              can trigger segmentation faults with large files.
                </p>
                        
             </div>
@@ -279,7 +279,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                           only a line containing just the delimiter is recognized as the end of
                                                           the command. None disables all delimiter detection.
                            </td>
-                           <td>normal</td>
+                           <td>none</td>
                            <td>No</td>
                         </tr>
                         <tr>
