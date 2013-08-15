@@ -193,6 +193,7 @@
 	<copy todir="${tmp.xslimg.dir}/images">
 	  <fileset dir="stylesheets/xsl/images">
 	    <include name="*.png"/>
+	    <include name="*.svg"/>
 	  </fileset>
 	</copy>
     </target>
@@ -241,6 +242,7 @@
             </then>
         </if>
         <copy file="${cssfile}" tofile="output/${outdir}/${css.name}"/>
+        <touch file="output/${outdir}/highlight.css"/>
     </target>
 
     <target name="html">
