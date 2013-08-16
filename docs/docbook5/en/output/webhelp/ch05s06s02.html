@@ -16,7 +16,7 @@
       <link rel="next" href="ch05s07.html" title="Basic Types" />
       <meta name="Section-title" content="Referencing Types" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,21 +179,16 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1106"></a> Referencing Types 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2205"></a> Referencing Types 
                      </h3>
                   </div>
                </div>
             </div>
-            			
-            
-            			
             <p>An additional fact about types you should notice is the possibility of
                					<code class="literal">referencing</code> type instances, i.e. you define your type
                				somewhere in your build file and assign an id to it. Later, you can refer to that
                				type by the id you assigned. Example: 
-            </p>
-            
-            			<pre class="programlisting">&lt;project&gt;
+            </p><pre class="programlisting">&lt;project&gt;
   &lt;fileset id="foo"&gt;
     &lt;include name="*.php" /&gt;
   &lt;/fileset&gt;
@@ -204,14 +199,11 @@ border: none; background: none; font-weight: none; color: none; }
       &lt;fileset refid="foo" /&gt;
     &lt;/copy&gt;
   &lt;/target&gt;
-&lt;/project&gt;</pre>
-            
-            			<p>As you can see, the type instance is assigned an id with the <code class="literal">id</code>
+&lt;/project&gt;</pre><p>As you can see, the type instance is assigned an id with the <code class="literal">id</code>
                				attribute and later on called by passing a plain <code class="literal">fileset</code> tag to
                					<code class="literal">CopyTask</code> that only contains the <code class="literal">refid</code>
                				attribute.
             </p>
-            		
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -247,6 +239,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s06s03.html" title="Source Discussion" />
       <meta name="Section-title" content="Using the Task" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,22 +179,16 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1583"></a> Using the Task 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e3058"></a> Using the Task 
                      </h3>
                   </div>
                </div>
             </div>
-                        
-            
-                        
             <p>The task shown [above] must somehow get called by Phing. Therefore it must be made
                                available to Phing so that the buildfile parser is aware a correlating XML element
                                and it's parameters. Have a look at the minimalistic buildfile example given in [the
                                buildfile below] that does exactly this.
-            </p>
-            
-            
-                        <pre class="programlisting">&lt;?xml version="1.0" ?&gt;
+            </p><pre class="programlisting">&lt;?xml version="1.0" ?&gt;
 
 &lt;project name="test" basedir="." default="test.myecho"&gt;
     &lt;taskdef name="myecho" classname="phing.tasks.my.MyEchoTask" /&gt;
@@ -202,24 +196,18 @@ border: none; background: none; font-weight: none; color: none; }
     &lt;target name="test.myecho"&gt;
       &lt;myecho message="Hello World" /&gt;
     &lt;/target&gt;
-&lt;/project&gt;</pre>
-            
-                        <p> Besides the XML document prolog and the shell elements that are required to
+&lt;/project&gt;</pre><p> Besides the XML document prolog and the shell elements that are required to
                                properly execute the task (project, target) you'll find the
                                    <code class="literal">&lt;taskdef&gt;</code> element (line 4) that properly registers your
                                custom task to Phing. For a detailed synopsis of the taskdef element see the
                                [description of this task].
             </p>
-            
-                        
             <p> Now, as we have registered the task by assigning a name and the worker class
                                ([see source code above]) it is ready for usage within the
                                    <code class="literal">&lt;target&gt;</code> context (line 8). You see that we pass the
                                message that our task should echo to the screen via an XML attribute called
                                "message".
             </p>
-            
-                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -255,6 +243,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

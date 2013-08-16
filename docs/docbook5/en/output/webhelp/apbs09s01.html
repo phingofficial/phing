@@ -16,7 +16,7 @@
       <link rel="next" href="apbs09s02.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Examples" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,35 +179,28 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e2784"></a>Examples
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e5083"></a>Examples
                      </h3>
                   </div>
                </div>
             </div>
-            			
-            			
-            <p>On the one hand, CopyTask can be used to copy file by file:</p>
-            			<pre class="programlisting">&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/&gt;</pre>
-            			<p>Additionally, <code class="literal">CopyTask</code> supports Filesets, i.e. you can easily
+            <p>On the one hand, CopyTask can be used to copy file by file:</p><pre class="programlisting">&lt;copy file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/&gt;</pre><p>Additionally, <code class="literal">CopyTask</code> supports Filesets, i.e. you can easily
                				include/exclude one or more files. For more information, see <a class="xref" href="app.coretypes.html" title="Core Types"><em>Core Types</em></a> -- pay particular attention to the
                					<code class="literal">defaultexcludes</code> attribute. <a class="xref" href="app.coremappers.html" title="Core mappers"><em>Core mappers</em></a> and <a class="xref" href="app.corefilters.html" title="Core filters"><em>Core filters</em></a> are
                				also supported by <code class="literal">CopyTask</code>, so you can do almost everything that
                				needs processing the content of the files or the filename.
-            </p>
-            			<pre class="programlisting">&lt;copy todir="/tmp/backup" &gt;
+            </p><pre class="programlisting">&lt;copy todir="/tmp/backup" &gt;
   &lt;fileset dir="."&gt;
     &lt;include name="**/*.txt" /&gt;
     &lt;include name="**/*.doc" /&gt;
     &lt;include name="**/*.swx" /&gt;
   &lt;/fileset&gt;
   &lt;filelist dir="." files="test.html"/&gt;
-&lt;/copy&gt;</pre>
-            			<pre class="programlisting">&lt;copy todir="build" &gt;
+&lt;/copy&gt;</pre><pre class="programlisting">&lt;copy todir="build" &gt;
   &lt;fileset defaultexcludes="false" expandsymboliclinks="true" dir="."&gt;
     &lt;include name="**/*.php" /&gt;
   &lt;/fileset&gt;
-&lt;/copy&gt;</pre>
-            		</div><script type="text/javascript" src="common/main.js">
+&lt;/copy&gt;</pre></div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -242,6 +235,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

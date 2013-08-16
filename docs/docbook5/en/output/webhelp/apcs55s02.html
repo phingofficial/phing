@@ -16,7 +16,7 @@
       <link rel="next" href="apcs55s03.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Example" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,13 +179,11 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e11460"></a>Example
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e19351"></a>Example
                      </h3>
                   </div>
                </div>
-            </div>
-                        
-                        <pre class="programlisting">&lt;phpunit&gt;
+            </div><pre class="programlisting">&lt;phpunit&gt;
   &lt;formatter todir="reports" type="xml"/&gt;
   &lt;batchtest&gt;
     &lt;fileset dir="tests"&gt;
@@ -193,42 +191,35 @@ border: none; background: none; font-weight: none; color: none; }
       &lt;exclude name="**/Abstract*.php"/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit&gt;</pre>
-                        <p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
+&lt;/phpunit&gt;</pre><p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
                                XML results to the directory <code class="literal">reports</code>.
-            </p>
-                        <pre class="programlisting">&lt;phpunit codecoverage="true" haltonfailure="true" haltonerror="true"&gt;
+            </p><pre class="programlisting">&lt;phpunit codecoverage="true" haltonfailure="true" haltonerror="true"&gt;
   &lt;formatter type="plain" usefile="false"/&gt;
   &lt;batchtest&gt;
     &lt;fileset dir="tests"&gt;
       &lt;include name="**/*Test*.php"/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit&gt;</pre>
-                        <p> Runs all matching testcases in the directory <code class="literal">tests</code>, gathers
+&lt;/phpunit&gt;</pre><p> Runs all matching testcases in the directory <code class="literal">tests</code>, gathers
                                code coverage information, writing plain text results to the console. The build
                                process is aborted if a test fails.
-            </p>
-                        <pre class="programlisting">&lt;phpunit bootstrap="src/autoload.php"&gt;
+            </p><pre class="programlisting">&lt;phpunit bootstrap="src/autoload.php"&gt;
   &lt;formatter type="plain" usefile="false"/&gt;
   &lt;batchtest&gt;
     &lt;fileset dir="tests"&gt;
       &lt;include name="**/*Test*.php"/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit&gt;</pre>
-                        <p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
+&lt;/phpunit&gt;</pre><p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
                                plain text results to the console. Additionally, before executing the tests, the
                                bootstrap file <code class="literal">src/autoload.php</code> is loaded.
             </p>
-                        
             <p>
                                <span class="bold"><strong>Important note:</strong></span> using a mechanism such as an
                                "AllTests.php" file to execute testcases will bypass the Phing hooks used for
                                reporting and counting, and could possibly lead to strange results. Instead, use one
                                of more fileset's to provide a list of testcases to execute.
             </p>
-                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -264,6 +255,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
