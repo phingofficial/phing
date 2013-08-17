@@ -16,7 +16,7 @@
       <link rel="next" href="ch.projcomponents.html" title="Project components" />
       <meta name="Section-title" content="Relax NG Grammar" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,22 +179,19 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e996"></a> Relax NG Grammar 
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d0e1955"></a> Relax NG Grammar 
                      </h2>
                   </div>
                </div>
             </div>
-                    
-                    
             <p>With a little bit of experience it is not that difficult to write and understand Phing
                            build files since the XML format in itself tends to be quite verbose. However, it can
                            become a bit tedious and the large (and growing) amount of built-in tasks and filters
                            can sometimes make it difficult to remember the exact syntax of all the available
                            features.
             </p>
-                    
             <p>To help with this the Phing distribution contains a Relax NG Grammar (<span class="bold"><strong>RE</strong></span>gular <span class="bold"><strong>LA</strong></span>nguage for
-                               <span class="bold"><strong>X</strong></span>ML <span class="bold"><strong>N</strong></span>ext <span class="bold"><strong>G</strong></span>eneration, <a class="ulink" href="http://www.relaxng.org/" target="_top">http://www.relaxng.org/</a>) file that describes the (formal) syntax of the
+                               <span class="bold"><strong>X</strong></span>ML <span class="bold"><strong>N</strong></span>ext <span class="bold"><strong>G</strong></span>eneration, <a class="link" href="http://www.relaxng.org/" target="_top">http://www.relaxng.org/</a>) file that describes the (formal) syntax of the
                            build files. This grammar can be used to validate build files. However, the most
                            beneficial use of the grammar is together with a schema aware XML editor. Such an editor
                            can make auto-completion based on the grammar. This feature makes writing complex build
@@ -202,45 +199,36 @@ border: none; background: none; font-weight: none; color: none; }
                            element to have the rest of the element written automatically as well as any compulsory
                            attributes.
             </p>
-                    
             <p>Most XML editors can be told to what schema (or model) to use for validation and
                            auto-completion by adding a specification in the beginning of the XML file. For example,
                            the following two lines in the beginning of an XML file would do (of course the exact
                            path to the grammar will depend on your system setup) 
-            </p>
-                    <pre class="screen">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
+            </p><pre class="screen">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
 &lt;?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
             type="application/xml" 
-            schematypens="http://relaxng.org/ns/structure/1.0" ?&gt;</pre>
-                    <p>Using auto-completion will make it substantially easier to edit large build files.
+            schematypens="http://relaxng.org/ns/structure/1.0" ?&gt;</pre><p>Using auto-completion will make it substantially easier to edit large build files.
                            Please note that since the phing-grammar does not have an official designation we must
                            use the absolute filename to specify the grammar (instead of a canonical URI that is
                            resolved by the systems XML-catalogue).
             </p>
-                    
             <p>This grammar is available (as a plain text file) in the distribution at:
                                <code class="filename">/etc/phing-grammar.rng</code>
                        
             </p>
-                    
             <p>Since we do not want to neither endorse nor forget any particular XML editor with this
                            capability we do not make available such a list of editors. Instead, spending a few
                            minutes with Google searching for XML-editors is bound to find a number of editors with
                            this capability.
             </p>
-                    
             <p>If you wish to validate your Phing build file, there are numerous options. Links to
-                           various validation tools and XML editors are available at the RELAX NG home page, <a class="ulink" href="http://www.relaxng.org/" target="_top">http://www.relaxng.org/</a>. The command
+                           various validation tools and XML editors are available at the RELAX NG home page, <a class="link" href="http://www.relaxng.org/" target="_top">http://www.relaxng.org/</a>. The command
                            line tool <code class="literal">xmllint</code> that comes with libxml2 is also able to validate a
                            given XML file against the supplied grammar.
             </p>
-                    
             <p>For example, to use <span class="command"><strong>xmllint</strong></span> to validate a Phing build file the
                            following command line could be used:
-            </p>
-                    <pre class="screen">$ xmllint -noout -relaxng phing-grammar.rng build.xml
-build.xml validates</pre>
-                </div><script type="text/javascript" src="common/main.js">
+            </p><pre class="screen">$ xmllint -noout -relaxng phing-grammar.rng build.xml
+build.xml validates</pre></div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -275,6 +263,8 @@ build.xml validates</pre>
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

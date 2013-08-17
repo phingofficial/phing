@@ -13,10 +13,10 @@
       <link rel="home" href="index.html" title="Phing User Guide" />
       <link rel="up" href="ch01s04.html" title="DocBook" />
       <link rel="prev" href="ch01s04.html" title="DocBook" />
-      <link rel="next" href="sec.docbookelements.html" title="DocBook v5 elements used in the manual and their meaning" />
+      <link rel="next" href="ch01s04s02.html" title="Template for new tasks" />
       <meta name="Section-title" content="Building the documentation" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="ch01s04.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="sec.docbookelements.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="ch01s04s02.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,29 +179,42 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e109"></a>Building the documentation
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e218"></a>Building the documentation
                      </h3>
                   </div>
                </div>
             </div>
-                        
-                        
             <p>In order to build the documentation it is necessary to have the DocBook5 XSL
                                stylesheets installed together with "<code class="literal">xsltproc</code>" which is used to
                                transform the source into various output formats. In addition, to build the versions
                                (either HTML or PDF) that supports highlighting of included source (within the
-                                   <code class="literal">&lt;programlisting&gt;</code> element)  the Saxon 6.5.5 XSL processor
-                               must be used. This is necessary since the syntax highlighting in DocBook is based on
-                               a Java extension (<code class="literal">xslthl-2.x.x</code>) which requires a Java based
-                               processor (such as Saxon).
+                                   <code class="literal">&lt;programlisting&gt;</code> element) the <code class="literal">Saxon
+                                      6.5.5</code> XSL processor must be used. This is necessary since the syntax
+                               highlighting in DocBook is based on a Java extension
+                                   (<code class="literal">xslthl-2.x.x</code>) which requires a Java based processor (such as
+                               Saxon).
             </p>
-                        
+            <p>
+                               
+            </p>
+            <div class="tip" style="margin-left: 0.5in; margin-right: 0.5in;">
+               <h3 class="title">Tip</h3>
+               <p>The easiest way to setup a complete build environment for DocBook5 for
+                                          people new to DocBook is to install a clean version of Debian 7.x and then
+                                          run the "<code class="filename">deb-setup.sh</code>" shell script. This will create a
+                                          fully tested and working build environment for DocBook5 as it is used with
+                                          Phing. This could easily be done using a virtual setup  (for example using
+                                          VirtualBox).
+               </p>
+            </div>
+            <p>
+                           
+            </p>
             <p>All DocBook sources are structured in a tree under <code class="filename">docs/docbook5</code>. The top level is the language of the manual. As of
                                this writing only an English manual is available and hence the only top level
                                directory available is "<code class="literal">en</code>". Under this directory the following
                                structure applies (also for any new language translation that is added):
-            </p>
-                        <pre class="programlisting">├── scripts
+            </p><pre class="programlisting">├── scripts
 ├── source
 │   ├── appendixes
 │   └── chapters
@@ -209,45 +222,48 @@ border: none; background: none; font-weight: none; color: none; }
     ├── css
     │   └── img
     └── xsl
-        └── images</pre>
-                        <p>All document sources are stored under the subdirectory "<code class="filename">source</code>" and the master document is aptly named
+        └── images</pre><p>All document sources are stored under the subdirectory "<code class="filename">source</code>" and the master document is aptly named
                                    "<code class="filename">master.xml</code>". This document pulls in all chapters and
                                appendixes in the right order. For example, new tasks added should normally be
                                documented in the "<code class="filename">appendix/optionaltasks.xml</code>" file. Look at
                                the existing tasks and follow the same structure.
             </p>
-                        
             <div class="important" style="margin-left: 0.5in; margin-right: 0.5in;">
                <h3 class="title">Important</h3>
-                               
                <p>In order to get highlighting to work both the
                                           "<code class="filename">xslthl-2.x.x.jar</code>" package must be installed as well as
                                       Saxon 6.5.x. The jar file must be installed somewhere in the
                                           <code class="literal">CLASSPATH</code> , for example "<code class="filename">/usr/share/java</code>" if you run this on Linux. The xslthl package is
-                                      available on SourceForge, please see <a class="ulink" href="http://sourceforge.net/projects/xslthl/" target="_top">XSLT syntax
-                                             highlighting</a></p>
-                           
+                                      available on SourceForge, please see <a class="link" href="http://sourceforge.net/projects/xslthl/" target="_top">XSLT syntax
+                                             highlighting</a>. By using the automated setup for Debian 7.x all these
+                                      dependencies will be taken care of!
+               </p>
             </div>
-                        
             <p>The customized stylesheets used are stored under "<code class="filename">stylesheets</code>" which uses one sub-folder for the customized XSL
                                stylesheets (responsible for the transformation from DocBook to the chosen output
                                format) and one sub-folder for the CSS stylesheets used to give the generated HTML
-                               documents there "<span class="emphasis"><em>look&amp;feel</em></span>".
+                               documents there "<span class="emphasis"><em>look &amp; feel</em></span>".
             </p>
-                        
             <p>Finally the "<code class="filename">scripts</code>" directory stores utility
-                               scripts. As of this writing it only contains one utility script
-                                   "<code class="literal">hlsaxon</code>" which sets up a suitable environment to call the
-                               Saxon translator (a Java based XSL procesor) with highlighting enabled. In this
-                               script the path to the DocBook installed stylesheets must be correct and depending
-                               on your system they  might need updating. Mutatis mutandis.
+                               scripts. This currently contains two scripts, <code class="literal">deb-setup.sh</code> and
+                                   "<code class="literal">hlsaxon</code>". The first scripts helps to create a full build
+                               environment for DocBook5 starting with a clean Debian 7 installation. This is meant
+                               to help people new to DocBook5 to get a working build environment as easy as
+                               possible.  This script takes care of all detailed setup and will make a fulloy
+                               working DocBook5 build environment out-of-the-box. 
             </p>
-                        
+            <p>The second script (<code class="literal">hlsaxon</code>) is wrapper file used from the
+                               buildfiles to call the Saxon translator (a Java based XSL procesor) with
+                               highlighting enabled and suitable paths to supporting libraries  In this script the
+                               path to the DocBook installed stylesheets must be adjusted depending on your system
+                               (unless the automated setup have been used - with the
+                                   <code class="filename">deb-setup.sh</code> file which takes care of that setup
+                               automatically). Mutatis mutandis.
+            </p>
             <p>In order to drive the transformation a Phing build script is available in the
                                docbook root, <code class="filename">build.xml</code>. The build script supports the
                                following public targets
-            </p>
-                        <pre class="programlisting"> all*         Builds all available targets (default)
+            </p><pre class="programlisting"> all*         Builds all available targets (default)
  chunk        Builds the chunked HTML
  clean        Removes all output files
  epub         Builds the EPUB version
@@ -256,12 +272,11 @@ border: none; background: none; font-weight: none; color: none; }
  html         Builds the HTML version  
  htmlfancy    Builds the HTML version with an alternative styling for screen output
  pdf          Builds the PDF version
- validate     Validates all sources against the DocBook5 grammaar
-</pre>
-                        <p>All generated output is stored under the directory "<code class="filename">output</code>" (which is created if it doesn't exist) with a subdirectory
+ webhelp      Builds the webhelp version (Note: This requires Java and Ant to be installed!)
+ validate     Validates all sources against the DocBook5 grammar
+</pre><p>All generated output is stored under the directory "<code class="filename">output</code>" (which is created if it doesn't exist) with a subdirectory
                                corresponding to the name of the chosen output format.
             </p>
-                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -271,7 +286,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <td width="40%" align="left"><a accesskey="p" href="ch01s04.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="ch01s04.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="sec.docbookelements.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="ch01s04s02.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -297,6 +312,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li id="webhelp-currentid"><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

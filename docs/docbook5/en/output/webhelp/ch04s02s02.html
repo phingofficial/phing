@@ -16,7 +16,7 @@
       <link rel="next" href="ch04s02s02s01.html" title="Target attributes" />
       <meta name="Section-title" content="Target Element" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,7 +179,7 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e850"></a> Target Element 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e1625"></a> Target Element 
                      </h3>
                   </div>
                </div>
@@ -189,36 +189,25 @@ border: none; background: none; font-weight: none; color: none; }
                   <dt><span class="sect3"><a href="ch04s02s02s01.html">Target attributes</a></span></dt>
                </dl>
             </div>
-                        
-            
-                        
             <p>A target can <code class="literal">depend</code> on other targets. You might have a target
                                for installing the files in the build tree, for example, and a target for creating a
                                distributable tar.gz archive. You can only build a distributable when you have
                                installed the files first, so the distribute target depends on the install target.
                                Phing resolves these dependencies.
             </p>
-            
-                        
             <p>It should be noted, however, that Phing's depends attribute only specifies the
                                order in which targets should be executed - it does not affect whether the target
                                that specifies the dependency(s) gets executed if the dependent target(s) did not
                                (need to) run.
             </p>
-            
-                        
             <p>Phing tries to execute the targets in the depends attribute in the order they
                                appear (from left to right). Keep in mind that it is possible that a target can get
                                executed earlier when an earlier target depends on it, in this case the dependant is
                                only executed once:
-            </p>
-            
-                        <pre class="screen">&lt;target name="A" /&gt;
+            </p><pre class="screen">&lt;target name="A" /&gt;
 &lt;target name="B" depends="A" /&gt;
 &lt;target name="C" depends="B" /&gt;
-&lt;target name="D" depends="C,B,A" /&gt;</pre>
-            
-                        <p>Suppose we want to execute target <code class="literal">D</code> . From its depends
+&lt;target name="D" depends="C,B,A" /&gt;</pre><p>Suppose we want to execute target <code class="literal">D</code> . From its depends
                                aliteralribute, you might think that first target <code class="literal">C</code> , then
                                    <code class="literal">B</code> and then <code class="literal">A</code> is executed. Wrong!
                                    <code class="literal">C</code> depends on <code class="literal">B</code> , and <code class="literal">B</code>
@@ -226,20 +215,13 @@ border: none; background: none; font-weight: none; color: none; }
                                    <code class="literal">B</code> , then <code class="literal">C</code> , and finally
                                    <code class="literal">D</code> .
             </p>
-            
-                        
             <p>A target gets executed only once, even when more than one target depends on it
                                (see the previous example).
             </p>
-            
-                        
             <p>The optional description attribute can be used to provide a one-line description
                                of this target, which is printed by the <code class="literal">-projecthelp</code> command-line
                                option.
             </p>
-            
-                        
-                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -275,6 +257,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

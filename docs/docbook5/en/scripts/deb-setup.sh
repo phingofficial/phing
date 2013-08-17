@@ -22,6 +22,9 @@
 # supported output formats of the documentation.
 # =========================================================================
 
+# Make sure the indexes are up to date
+apt-get update
+
 # First get all basic dependencies after a fresh Deb 7 install 
 apt-get -y -qq install git 
 apt-get -y -qq install docbook5-xml

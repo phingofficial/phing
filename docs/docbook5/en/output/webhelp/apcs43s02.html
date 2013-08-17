@@ -16,7 +16,7 @@
       <link rel="next" href="PharPackageTask.html" title="PharPackageTask" />
       <meta name="Section-title" content="Supported Nested Tags" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,28 +179,20 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e9341"></a>Supported Nested Tags
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e15855"></a>Supported Nested Tags
                      </h3>
                   </div>
                </div>
             </div>
-                        
-                        
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
                   <li class="listitem">
-                                         
                      <p><code class="literal">fileset</code></p>
-                                     
                   </li>
                   <li class="listitem">
-                                         
                      <p><code class="literal">option</code></p>
-                                         
-                     <div class="table"><a id="d5e9350"></a><p class="title"><strong>Table 112. Available options</strong></p>
+                     <div class="table"><a id="d0e15867"></a><p class="title"><strong>Table 112. Available options</strong></p>
                         <div class="table-contents">
-                                                   
-                                                   
                            <table summary="Available options" border="1">
                               <colgroup>
                                  <col class="name" />
@@ -308,38 +300,27 @@ border: none; background: none; font-weight: none; color: none; }
                                  </tr>
                               </tbody>
                            </table>
-                                               
                         </div>
-                     </div><br class="table-break" />
-                                     
-                  </li>
+                     </div><br class="table-break" /></li>
                   <li class="listitem">
-                                         
                      <p><code class="literal">mapping</code></p>
-                                         
                      <p>The <code class="literal">&lt;mapping&gt;</code> tag represents a complex data type.
                                                 You can use nested <code class="literal">&lt;mapping&gt;</code> (and nested
                                                     <code class="literal">&lt;element&gt;</code> with <code class="literal">&lt;element&gt;</code>
                                                 tags) to represent the full complexity of the structure. Bear in mind that
                                                 what you are creating will be mapped to an associative array that will be
                                                 passed in via <code class="code">PEAR_PackageFileMaintainer::setOptions()</code> .
-                     </p>
-                                         <pre class="programlisting">&lt;mapping name="option_name"&gt;
+                     </p><pre class="programlisting">&lt;mapping name="option_name"&gt;
     &lt;element key="key_name" value="key_val"/&gt;
     &lt;element key="key_name" value="key_val"/&gt;
-&lt;/mapping&gt;</pre>
-                                         <p>Available mappings and they structures:</p>
-                                         
+&lt;/mapping&gt;</pre><p>Available mappings and they structures:</p>
                      <div class="itemizedlist">
                         <ul class="itemizedlist" style="list-style-type: circle; ">
                            <li class="listitem">
-                                                          
-                              <p><code class="literal">deps</code> (optional) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php" target="_top">PEAR_PackageFileManager::addDependency()</a> for more info 
+                              <p><code class="literal">deps</code> (optional) see <a class="link" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php" target="_top">PEAR_PackageFileManager::addDependency()</a> for more info 
                               </p>
-                              <div class="table"><a id="d5e9479"></a><p class="title"><strong>Table 113. Parameters</strong></p>
+                              <div class="table"><a id="d0e16073"></a><p class="title"><strong>Table 113. Parameters</strong></p>
                                  <div class="table-contents">
-                                                                        
-                                                                        
                                     <table summary="Parameters" border="1">
                                        <colgroup>
                                           <col class="name" />
@@ -395,22 +376,17 @@ border: none; background: none; font-weight: none; color: none; }
                                           </tr>
                                        </tbody>
                                     </table>
-                                                                    
                                  </div>
                               </div>
                               <p><br class="table-break" />
                                                              
                               </p>
-                                                      
                            </li>
                            <li class="listitem">
-                                                          
-                              <p><code class="literal">extdeps</code> (optional) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php" target="_top">PEAR_PackageFileManager::addDependency()</a> for more info 
+                              <p><code class="literal">extdeps</code> (optional) see <a class="link" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php" target="_top">PEAR_PackageFileManager::addDependency()</a> for more info 
                               </p>
-                              <div class="table"><a id="d5e9539"></a><p class="title"><strong>Table 114. Parameters</strong></p>
+                              <div class="table"><a id="d0e16169"></a><p class="title"><strong>Table 114. Parameters</strong></p>
                                  <div class="table-contents">
-                                                                        
-                                                                        
                                     <table summary="Parameters" border="1">
                                        <colgroup>
                                           <col class="name" />
@@ -459,22 +435,17 @@ border: none; background: none; font-weight: none; color: none; }
                                           </tr>
                                        </tbody>
                                     </table>
-                                                                    
                                  </div>
                               </div>
                               <p><br class="table-break" />
                                                              
                               </p>
-                                                      
                            </li>
                            <li class="listitem">
-                                                          
-                              <p><code class="literal">maintainers</code> (required at least one) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addmaintainer.php" target="_top">PEAR_PackageFileManager::addMaintainer()</a> for more info 
+                              <p><code class="literal">maintainers</code> (required at least one) see <a class="link" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addmaintainer.php" target="_top">PEAR_PackageFileManager::addMaintainer()</a> for more info 
                               </p>
-                              <div class="table"><a id="d5e9591"></a><p class="title"><strong>Table 115. Parameters</strong></p>
+                              <div class="table"><a id="d0e16252"></a><p class="title"><strong>Table 115. Parameters</strong></p>
                                  <div class="table-contents">
-                                                                        
-                                                                        
                                     <table summary="Parameters" border="1">
                                        <colgroup>
                                           <col class="name" />
@@ -525,22 +496,17 @@ border: none; background: none; font-weight: none; color: none; }
                                           </tr>
                                        </tbody>
                                     </table>
-                                                                    
                                  </div>
                               </div>
                               <p><br class="table-break" />
                                                              
                               </p>
-                                                      
                            </li>
                            <li class="listitem">
-                                                          
-                              <p><code class="literal">replacements</code> (optional) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addreplacement.php" target="_top">PEAR_PackageFileManager::addReplacement()</a> for more info 
+                              <p><code class="literal">replacements</code> (optional) see <a class="link" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addreplacement.php" target="_top">PEAR_PackageFileManager::addReplacement()</a> for more info 
                               </p>
-                              <div class="table"><a id="d5e9643"></a><p class="title"><strong>Table 116. Parameters</strong></p>
+                              <div class="table"><a id="d0e16334"></a><p class="title"><strong>Table 116. Parameters</strong></p>
                                  <div class="table-contents">
-                                                                        
-                                                                        
                                     <table summary="Parameters" border="1">
                                        <colgroup>
                                           <col class="name" />
@@ -591,31 +557,23 @@ border: none; background: none; font-weight: none; color: none; }
                                           </tr>
                                        </tbody>
                                     </table>
-                                                                    
                                  </div>
                               </div>
                               <p><br class="table-break" />
                                                              
                               </p>
-                                                      
                            </li>
                         </ul>
                      </div>
-                                     
                   </li>
                   <li class="listitem">
-                                         
                      <p>
-                                                <code class="literal">role</code> See <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addrole.php" target="_top">PEAR_PackageFileManager::addRole</a> for more
+                                                <code class="literal">role</code> See <a class="link" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addrole.php" target="_top">PEAR_PackageFileManager::addRole</a> for more
                                                 information.
                      </p>
-                                         
                      <p>Available options:</p>
-                                         
-                     <div class="table"><a id="d5e9696"></a><p class="title"><strong>Table 117. Parameters</strong></p>
+                     <div class="table"><a id="d0e16420"></a><p class="title"><strong>Table 117. Parameters</strong></p>
                         <div class="table-contents">
-                                                   
-                                                   
                            <table summary="Parameters" border="1">
                               <colgroup>
                                  <col class="name" />
@@ -650,14 +608,10 @@ border: none; background: none; font-weight: none; color: none; }
                                  </tr>
                               </tbody>
                            </table>
-                                               
                         </div>
-                     </div><br class="table-break" />
-                                     
-                  </li>
+                     </div><br class="table-break" /></li>
                </ul>
             </div>
-                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -693,6 +647,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

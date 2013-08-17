@@ -16,7 +16,7 @@
       <link rel="next" href="apes01s01.html" title="Nested tags" />
       <meta name="Section-title" content="PhingFilterReader" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -190,12 +190,9 @@ border: none; background: none; font-weight: none; color: none; }
                   <dt><span class="sect2"><a href="apes01s02.html">Advanced</a></span></dt>
                </dl>
             </div>
-                    
-                    
             <p>The PhingFilterReader is used when you want to use filters that are not directly
                            available through their own tag. Example:
-            </p>
-                    <pre class="programlisting">&lt;filterchain&gt;
+            </p><pre class="programlisting">&lt;filterchain&gt;
   &lt;filterreader classname="phing.filter.ReplaceTokens"&gt;
     &lt;!-- other way to set attributes --&gt;
     &lt;param name="begintoken" value="@@" /&gt;
@@ -204,8 +201,7 @@ border: none; background: none; font-weight: none; color: none; }
     &lt;!-- other way to set nested tags --&gt;
     &lt;param type="token" key="bar" value="foo" /&gt;
   &lt;/filterreader&gt;
-&lt;/filterchain&gt;</pre>
-                    <p>In the <code class="literal">filterreader</code> tag you have to specify the path the class is
+&lt;/filterchain&gt;</pre><p>In the <code class="literal">filterreader</code> tag you have to specify the path the class is
                            in. The <code class="literal">FilterReader</code> will then load this class and pass the
                            parameters to the loaded filter. There are two types of parameters: First, you can pass
                            "normal" parameters to the loaded filter. That means, you can pass parameters as if they
@@ -215,19 +211,13 @@ border: none; background: none; font-weight: none; color: none; }
                                <code class="literal">type</code> attribute. This attribute specifies the name of the nested
                            tag.
             </p>
-                    
-            <p>The result of the example above is identical with the following code:</p>
-                    <pre class="programlisting">&lt;filterchain&gt;
+            <p>The result of the example above is identical with the following code:</p><pre class="programlisting">&lt;filterchain&gt;
   &lt;replacetokens begintoken="@@" endtoken="@@"&gt;
     &lt;token key="bar" value="foo" /&gt;
   &lt;/replacetokens&gt;
-&lt;/filterchain&gt;</pre>
-            
-                    <div class="table"><a id="d5e14884"></a><p class="title"><strong>Table 178. Attributes for <code class="literal">&lt;filterreader&gt;</code>
+&lt;/filterchain&gt;</pre><div class="table"><a id="d0e24979"></a><p class="title"><strong>Table 178. Attributes for <code class="literal">&lt;filterreader&gt;</code>
                                  </strong></p>
                <div class="table-contents">
-                              
-                              
                   <table summary="Attributes for &lt;filterreader&gt;&#xA;            " border="1">
                      <colgroup>
                         <col class="name" />
@@ -273,13 +263,8 @@ border: none; background: none; font-weight: none; color: none; }
                         </tr>
                      </tbody>
                   </table>
-                          
                </div>
-            </div><br class="table-break" />
-                    
-                    
-                
-         </div><script type="text/javascript" src="common/main.js">
+            </div><br class="table-break" /></div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
@@ -314,6 +299,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
