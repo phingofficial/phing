@@ -9,7 +9,7 @@
 installPearTask ()
 {
     sudo apt-get update -qq
-    sudo apt-get install -qq php5-xdebug
+#    sudo apt-get install -qq php5-xdebug
     
     echo -e "\nAuto-discover pear channels and upgrade ..."
     pear config-set auto_discover 1
