@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<phpunit backupGlobals="false"
+         backupStaticAttributes="true"
+         colors="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="true"
+         syntaxCheck="false"
+         verbose="false"
+         strict="false">
+</phpunit>

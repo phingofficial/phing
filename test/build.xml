@@ -68,7 +68,7 @@
         		</coverage-setup>
 	    	</then>
 		</if>
-		<phpunit codecoverage="${tests.codecoverage}" haltonerror="true" haltonfailure="true" printsummary="true">
+		<phpunit codecoverage="${tests.codecoverage}" haltonerror="true" haltonfailure="true" printsummary="true" configuration="phpunit-sparse.xml">
 			<formatter type="xml" usefile="true" todir="${tests.reports.dir.resolved}" outfile="test-results.xml" />
             <formatter type="clover" todir="${tests.reports.dir.resolved}"/>
 			<formatter type="plain" usefile="false"/>
