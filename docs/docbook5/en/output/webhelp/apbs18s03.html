@@ -16,7 +16,7 @@
       <link rel="next" href="apbs18s04.html" title="Examples" />
       <meta name="Section-title" content="Resolving Files Against the Imported File" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,16 +179,19 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e6443"></a>Resolving Files Against the Imported File
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e3638"></a>Resolving Files Against the Imported File
                      </h3>
                   </div>
                </div>
             </div>
+            			
+            			
             <p>Suppose your main build file called <code class="literal">importing.xml</code> imports a
                				build file <code class="filename">imported.xml</code> , located anywhere on the file system,
                				and <code class="literal">imported.xml</code> reads a set of properties from
                					<code class="literal">imported.properties</code> :
-            </p><pre class="programlisting">&lt;!-- importing.xml --&gt;
+            </p>
+            			<pre class="programlisting">&lt;!-- importing.xml --&gt;
 &lt;project name="importing" basedir="." default="..."&gt;
   &lt;import file="${path_to_imported}/imported.xml"/&gt;
 &lt;/project&gt;
@@ -196,20 +199,25 @@ border: none; background: none; font-weight: none; color: none; }
 &lt;!-- imported.xml --&gt;
 &lt;project name="imported" basedir="." default="..."&gt;
   &lt;property file="imported.properties"/&gt;
-&lt;/project&gt;</pre><p>This snippet however will resolve <code class="literal">imported.properties</code> against
+&lt;/project&gt;</pre>
+            			<p>This snippet however will resolve <code class="literal">imported.properties</code> against
                				the basedir of <code class="literal">importing.xml</code> , because the basedir of
                					<code class="literal">imported.xml</code> is ignored by Phing. The right way to use
                					<code class="literal">imported.properties</code> is:
-            </p><pre class="programlisting">&lt;!-- imported.xml --&gt;
+            </p>
+            			<pre class="programlisting">&lt;!-- imported.xml --&gt;
 &lt;project name="imported" basedir="." default="..."&gt;
   &lt;property file="${phing.file.imported}/imported.properties"/&gt;
-&lt;/project&gt;</pre><p>As explained above <code class="literal">${phing.file.imported}</code> stores the full path of the build
+&lt;/project&gt;</pre>
+            			<p>As explained above <code class="literal">${phing.file.imported}</code> stores the full path of the build
                				script, that defines the project called <span class="emphasis"><em>imported</em></span>, (in short it
                				stores the path to <code class="literal">imported.xml</code>) and <code class="literal">${phing.dir.imported}</code>
                				stores its directory. This technique also allows
                					<code class="literal">imported.xml</code> to be used as a standalone file (without being
                				imported in other project).
             </p>
+            
+            		
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

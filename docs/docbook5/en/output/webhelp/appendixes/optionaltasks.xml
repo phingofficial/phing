@@ -5683,6 +5683,20 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>sha1</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>key</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The private key to sign the phar package with (PEM or PKCS#12 encoded)</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>keyPassword</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The password to use for the private key</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>

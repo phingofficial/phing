@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s07s02.html" title="Using the DataType" />
       <meta name="Section-title" content="Creating a DataType" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,21 +179,25 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e3274"></a>Creating a DataType
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1730"></a>Creating a DataType
                      </h3>
                   </div>
                </div>
             </div>
+                        
+                        
             <p>Type classes need to extend the abstract DataType class. Besides providing a means
                                of categorizing types, the DataType class provides the methods necessary to support
                                the "<code class="literal">refid</code>" attribute. (All types can be given an id, and can be
                                referred to later using that id.)
             </p>
+                        
             <p>In this example we are creating a DSN type because we have written a number of
                                DB-related Tasks, each of which need to know how to connect to the database; instead
                                of having database parameters for each task, we've created a DSN type so that we can
                                identify the connection parameters once and then use it in all our db Tasks.
-            </p><pre class="programlisting">require_once "phing/types/DataType.php";
+            </p>
+                        <pre class="programlisting">require_once "phing/types/DataType.php";
 
 /**
  * This Type represents a DB Connection.
@@ -301,7 +305,8 @@ class DSN extends DataType {
     }
   }
 
-}</pre></div><script type="text/javascript" src="common/main.js">
+}</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />

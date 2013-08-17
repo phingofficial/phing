@@ -16,7 +16,7 @@
       <link rel="next" href="apcs48s02.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Examples" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,11 +179,13 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e17631"></a>Examples
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e10478"></a>Examples
                      </h3>
                   </div>
                </div>
-            </div><pre class="programlisting">&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true"&gt;
+            </div>
+                        
+                            <pre class="programlisting">&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true"&gt;
                   &lt;tstamp&gt;
                     &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/&gt;
                   &lt;/tstamp&gt;
@@ -194,14 +196,18 @@ border: none; background: none; font-weight: none; color: none; }
                       &lt;include name="*.php" /&gt;
                     &lt;/fileset&gt;
                   &lt;/phploc&gt;
-                &lt;/target&gt;</pre><p>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</p><pre class="programlisting">&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests"&gt;
+                &lt;/target&gt;</pre>
+                            <p>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</p>
+                            <pre class="programlisting">&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests"&gt;
                   &lt;phploc countTests="true"&gt;
                     &lt;fileset dir="."&gt;
                       &lt;include name="**/*.php" /&gt;
                       &lt;include name="*.php" /&gt;
                     &lt;/fileset&gt;
                   &lt;/phploc&gt;
-                &lt;/target&gt;</pre><p>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</p>
+                &lt;/target&gt;</pre>
+                            <p>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</p>
+                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

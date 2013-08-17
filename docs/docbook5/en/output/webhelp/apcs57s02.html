@@ -16,7 +16,7 @@
       <link rel="next" href="apcs57s03.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Examples" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,42 +179,54 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e19739"></a>Examples
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e11739"></a>Examples
                      </h3>
                   </div>
                </div>
             </div>
+                        
+                        
             <p>Render a single rST file to HTML </p>
+                        
             <p>By default, HTML is generated. If no target file is specified, the input file name
                                is taken, and its extension replaced with the correct one for the output
                                format.
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+            </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="single"&gt;
   &lt;target name="single" description="render a single rST file to HTML"&gt;
 
     &lt;rST file="path/to/file.rst" /&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre><p> Render a single rST file to any supported format </p>
+&lt;/project&gt;</pre>
+                        <p> Render a single rST file to any supported format </p>
+                        
             <p> The <code class="literal">format</code> attribute determines the output format: 
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+            </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="single"&gt;
   &lt;target name="single" description="render a single rST file to S5 HTML"&gt;
 
     &lt;rST file="path/to/file.rst" format="s5" /&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre><p> Specifying the output file name </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;/project&gt;</pre>
+                        <p> Specifying the output file name </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="single"&gt;
   &lt;target name="single" description="render a single rST file"&gt;
 
     &lt;rST file="path/to/file.rst" destination="path/to/output/file.html" /&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre><p> Rendering multiple files </p>
+&lt;/project&gt;</pre>
+                        <p> Rendering multiple files </p>
+                        
             <p> A nested <code class="literal">fileset</code> tag may be used to specify multiple
                                files.
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+            </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="multiple"&gt;
   &lt;target name="multiple" description="renders several rST files"&gt;
 
@@ -226,10 +238,13 @@ border: none; background: none; font-weight: none; color: none; }
     &lt;/rST&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre><p> Rendering multiple files to another directory </p>
+&lt;/project&gt;</pre>
+                        <p> Rendering multiple files to another directory </p>
+                        
             <p> A nested <code class="literal">mapper</code> may be used to determine the output file
                                names.
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+            </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="multiple"&gt;
   &lt;target name="multiple" description="renders several rST files"&gt;
 
@@ -242,10 +257,13 @@ border: none; background: none; font-weight: none; color: none; }
     &lt;/rST&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre><p> Modifying files after rendering </p>
+&lt;/project&gt;</pre>
+                        <p> Modifying files after rendering </p>
+                        
             <p>You may have variables in your rST code that can be replaced after rendering, i.e.
                                the version of your software.
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+            </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="filterchain"&gt;
   &lt;target name="filterchain" description="renders several rST files"&gt;
 
@@ -262,10 +280,13 @@ border: none; background: none; font-weight: none; color: none; }
     &lt;/rST&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre><p> Rendering changed files only </p>
+&lt;/project&gt;</pre>
+                        <p> Rendering changed files only </p>
+                        
             <p> The <code class="literal">uptodate</code> attribute determines if only those files should
                                be rendered that are newer than their output file.
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+            </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="multiple"&gt;
   &lt;target name="multiple" description="renders several rST files"&gt;
 
@@ -276,17 +297,21 @@ border: none; background: none; font-weight: none; color: none; }
     &lt;/rST&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre><p> Specify a custom CSS file </p>
+&lt;/project&gt;</pre>
+                        <p> Specify a custom CSS file </p>
+                        
             <p> You may pass any additional parameters to the rst conversion tools with the
                                    <code class="literal">toolparam</code> attribute.
-            </p><pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+            </p>
+                        <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;project name="example" basedir="." default="single"&gt;
   &lt;target name="single" description="render a single rST file to S5 HTML"&gt;
 
     &lt;rST file="path/to/file.rst" toolparam="--stylesheet-path=custom.css" /&gt;
 
   &lt;/target&gt;
-&lt;/project&gt;</pre></div><script type="text/javascript" src="common/main.js">
+&lt;/project&gt;</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />

@@ -16,7 +16,7 @@
       <link rel="next" href="apcs27s02.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Example" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,30 +179,41 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e13093"></a>Example
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e7680"></a>Example
                      </h3>
                   </div>
                </div>
-            </div><pre class="programlisting">&lt;http-request url="http://my-production.example.com/check-deployment.php"/&gt;</pre><p>Just perform a HTTP request to the given URL.</p><pre class="programlisting">&lt;http-request
+            </div>
+                        
+                        <pre class="programlisting">&lt;http-request url="http://my-production.example.com/check-deployment.php"/&gt;</pre>
+            
+                        <p>Just perform a HTTP request to the given URL.</p>
+                        <pre class="programlisting">&lt;http-request
    url="http://my-production.example.com/check-deployment.php"
    responseRegex="/Heartbeat/"
    verbose"true"
-   observerEvents="connect, disconnect"/&gt;</pre><p>Perform a HTTP request to the given URL and matching the response against the
+   observerEvents="connect, disconnect"/&gt;</pre>
+                        <p>Perform a HTTP request to the given URL and matching the response against the
                                given regex pattern. Enable detailed logging and log only the specified
                                events.
-            </p><pre class="programlisting">&lt;http-request url="http://my-production.example.com/check-deployment.php"&gt;
+            </p>
+                        <pre class="programlisting">&lt;http-request url="http://my-production.example.com/check-deployment.php"&gt;
    &lt;config name="adapter" value="HTTP_Request2_Adapter_Curl"/&gt;
    &lt;header name="user-agent" value="Phing HttpRequestTask"/&gt;
- &lt;/http-request&gt;</pre><p>Perform a HTTP request to the given URL. Setting request adapter to curl instead
+ &lt;/http-request&gt;</pre>
+                        <p>Perform a HTTP request to the given URL. Setting request adapter to curl instead
                                of socket. Setting an additional header.
-            </p><pre class="programlisting">&lt;http-request
+            </p>
+                        <pre class="programlisting">&lt;http-request
             url="http://my-production.example.com/check-deployment.php"
             verbose"true"
             method="POST"&gt;
               &lt;postparameter name="param1" value="value1" /&gt;
               &lt;postparameter name="param2" value="value2" /&gt;
             &lt;/http-request&gt;
-          </pre><p>Perform an HTTP POST request to the given URL. Setting POST request parameters to emulate form submission.</p>
+          </pre>
+                      <p>Perform an HTTP POST request to the given URL. Setting POST request parameters to emulate form submission.</p>
+                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

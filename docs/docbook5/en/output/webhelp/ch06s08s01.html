@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s08s02.html" title="Using the Mapper" />
       <meta name="Section-title" content="Creating a Mapper" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,11 +179,13 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e3351"></a> Creating a Mapper 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1765"></a> Creating a Mapper 
                      </h3>
                   </div>
                </div>
             </div>
+                        
+                        
             <p>Writing filename mappers is simplified by interface support in PHP5. Essentially,
                                your custom filename mapper must implement
                                    <code class="literal">phing.mappers.FileNameMapper</code>. Here's an example of a filename
@@ -191,7 +193,8 @@ border: none; background: none; font-weight: none; color: none; }
                                attributes are not needed because all files will be transformed. To see the "to" and
                                "from" attributes in action, look at <code class="literal">phing.mappers.GlobMapper</code> or
                                    <code class="literal">phing.mappers.RegexpMapper</code>.
-            </p><pre class="programlisting">require_once "phing/mappers/FileNameMapper.php";
+            </p>
+                        <pre class="programlisting">require_once "phing/mappers/FileNameMapper.php";
 
 /**
  * A mapper that makes those ugly DOS filenames.
@@ -242,7 +245,8 @@ class DOSMapper implements FileNameMapper {
    */
   public function setTo($to) {}
 
-}</pre></div><script type="text/javascript" src="common/main.js">
+}</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />

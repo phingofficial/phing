@@ -16,7 +16,7 @@
       <link rel="next" href="ch03s05s02.html" title="Supported command line arguments" />
       <meta name="Section-title" content="Command Line" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,25 +179,36 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e1427"></a> Command Line 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e788"></a> Command Line 
                      </h3>
                   </div>
                </div>
             </div>
+            			
+            
+            			
             <p>Phing execution on the command line is simple. Just change to the directory where
                				your buildfile resides and type
-            </p><pre class="screen">$ phing [target [target2 [target3] ...]]</pre><p> at the command line (where [target...] are the target(s)
+            </p>
+            
+            			<pre class="screen">$ phing [target [target2 [target3] ...]]</pre>
+            
+            			<p> at the command line (where [target...] are the target(s)
                				you want to be executed). If no target is specified Phing
                				will try to execute the default target, as specified in the
                				<code class="literal">project</code> tag. When calling multipe targets, Phing
                				will invoke each target independently of the other targets.
-               				Optionally, you may specify command line arguments as listed in <a class="link" href="appendixes/AppendixA-FactSheet.html#CommandLineArguments" target="_top">Appendix
+               				Optionally, you may specify command line arguments as listed in <a class="ulink" href="appendixes/AppendixA-FactSheet.html#CommandLineArguments" target="_top">Appendix
                   					A</a>.
             </p>
+            
+            			
             <p> For example, the following command line calls the default buildscript
                					<code class="filename">build.xml</code> using the default target with the property
                					<code class="literal">ftp.upload</code> set to true.
-            </p><pre class="screen">$ phing -Dftp.upload=true</pre></div><script type="text/javascript" src="common/main.js">
+            </p>
+            			<pre class="screen">$ phing -Dftp.upload=true</pre>
+            		</div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />

@@ -16,7 +16,7 @@
       <link rel="next" href="ZendCodeAnalyzerTask.html" title="ZendCodeAnalyzerTask" />
       <meta name="Section-title" content="Example" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,26 +179,42 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e23508"></a>Example
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e14088"></a>Example
                      </h3>
                   </div>
                </div>
             </div>
-            <p>Consider the following XML file:</p><pre class="programlisting">&lt;root-tag myattr="true"&gt;
+                        
+                        
+            <p>Consider the following XML file:</p>
+                        <pre class="programlisting">&lt;root-tag myattr="true"&gt;
     &lt;inner-tag someattr="val"&gt;Text&lt;/inner-tag&gt;
     &lt;a2&gt;&lt;a3&gt;&lt;a4&gt;false&lt;/a4&gt;&lt;/a3&gt;&lt;/a2&gt;
-&lt;/root-tag&gt;</pre><p> Used with the following entry (<span class="bold"><strong>default</strong></span>): 
-            </p><pre class="programlisting">&lt;xmlproperty file="somefile.xml"/&gt;</pre><p>results in the following properties:</p><pre class="programlisting">root-tag(myattr)=true
+&lt;/root-tag&gt;</pre>
+                        <p> Used with the following entry (<span class="bold"><strong>default</strong></span>): 
+            </p>
+                        <pre class="programlisting">&lt;xmlproperty file="somefile.xml"/&gt;</pre>
+                        <p>results in the following properties:</p>
+                        <pre class="programlisting">root-tag(myattr)=true
 root-tag.inner-tag=Text
 root-tag.inner-tag(someattr)=val
-root-tag.a2.a3.a4=false</pre><p> Used with the following entry (<code class="literal">collapseAttributes=true</code>): 
-            </p><pre class="programlisting">&lt;xmlproperty file="somefile.xml" collapseAttributes="true"/&gt;</pre><p>results in the following properties:</p><pre class="programlisting">root-tag.myattr=true
+root-tag.a2.a3.a4=false</pre>
+                        <p> Used with the following entry (<code class="literal">collapseAttributes=true</code>): 
+            </p>
+                        <pre class="programlisting">&lt;xmlproperty file="somefile.xml" collapseAttributes="true"/&gt;</pre>
+                        <p>results in the following properties:</p>
+                        <pre class="programlisting">root-tag.myattr=true
 root-tag.inner-tag=Text
 root-tag.inner-tag.someatt=val
-root-tag.a2.a3.a4=false</pre><p> Used with the following entry (<code class="literal">keepRoot=false</code>): 
-            </p><pre class="programlisting">&lt;xmlproperty file="somefile.xml" keepRoot="false"/&gt;</pre><p>results in the following properties:</p><pre class="programlisting">inner-tag=Text
+root-tag.a2.a3.a4=false</pre>
+                        <p> Used with the following entry (<code class="literal">keepRoot=false</code>): 
+            </p>
+                        <pre class="programlisting">&lt;xmlproperty file="somefile.xml" keepRoot="false"/&gt;</pre>
+                        <p>results in the following properties:</p>
+                        <pre class="programlisting">inner-tag=Text
 inner-tag(someattr)=val
-a2.a3.a4=false</pre></div><script type="text/javascript" src="common/main.js">
+a2.a3.a4=false</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />

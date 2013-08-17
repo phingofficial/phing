@@ -16,7 +16,7 @@
       <link rel="next" href="apcs58s02.html" title="Supported Nested Tags" />
       <meta name="Section-title" content="Example" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,27 +179,37 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e19956"></a>Example
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e11866"></a>Example
                      </h3>
                   </div>
                </div>
             </div>
-            <p>Uploading a file</p><pre class="programlisting">&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /&gt;</pre><p>You can also define "bucket, key, secret" outside of the task call:</p><pre class="programlisting">&lt;property name="amazon.key" value="my_key" /&gt;
+                        
+                        
+            <p>Uploading a file</p>
+                        <pre class="programlisting">&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /&gt;</pre>
+                        <p>You can also define "bucket, key, secret" outside of the task call:</p>
+                        <pre class="programlisting">&lt;property name="amazon.key" value="my_key" /&gt;
 &lt;property name="amazon.secret" value="my_secret" /&gt;
 &lt;property name="amazon.bucket" value="mybucket" /&gt;
 
-&lt;s3put source="/path/to/file.txt" object="file.txt" /&gt;</pre><p>You can also specify inline content instead of a file to upload:</p><pre class="programlisting">&lt;property name="amazon.key" value="my_key" /&gt;
+&lt;s3put source="/path/to/file.txt" object="file.txt" /&gt;</pre>
+                        <p>You can also specify inline content instead of a file to upload:</p>
+                        <pre class="programlisting">&lt;property name="amazon.key" value="my_key" /&gt;
 &lt;property name="amazon.secret" value="my_secret" /&gt;
 &lt;property name="amazon.bucket" value="mybucket" /&gt;
 
-&lt;s3put content="Some content here" object="file.txt" /&gt;</pre><p>It also works with filesets</p><pre class="programlisting">&lt;property name="amazon.key" value="my_key" /&gt;
+&lt;s3put content="Some content here" object="file.txt" /&gt;</pre>
+                        <p>It also works with filesets</p>
+                        <pre class="programlisting">&lt;property name="amazon.key" value="my_key" /&gt;
 &lt;property name="amazon.secret" value="my_secret" /&gt;
 &lt;property name="amazon.bucket" value="mybucket" /&gt;
 &lt;s3put&gt;
 	&lt;fileset dir="${project.basedir}"&gt;
 		&lt;include name="**/*.jpg" /&gt;
 	&lt;/fileset&gt;
-&lt;/s3put&gt;</pre></div><script type="text/javascript" src="common/main.js">
+&lt;/s3put&gt;</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />

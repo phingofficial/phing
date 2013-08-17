@@ -16,7 +16,7 @@
       <link rel="next" href="sec.types.html" title="Types" />
       <meta name="Section-title" content="Tasks" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,11 +179,14 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d0e2118"></a> Tasks 
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e1106"></a> Tasks 
                      </h2>
                   </div>
                </div>
             </div>
+            		
+            
+            		
             <p> Tasks are responsible for doing the work in Phing. Basically, tasks are the
                			individual actions that your buildfile can perform. For example, tasks exist to copy a
                			file, create a directory, TAR files in a directory. Tasks may also be more complex such
@@ -192,42 +195,65 @@ border: none; background: none; font-weight: none; color: none; }
                			statements against a specified DB. See <a class="xref" href="app.coretasks.html" title="Core tasks"><em>Core tasks</em></a> for
                			descriptions of Phing tasks.
             </p>
+            
+            		
             <p>Tasks support parameters in the form of:</p>
+            
+            		
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
                   <li class="listitem">
+                     				
                      <p>Simple parameters (i.e. strings) passed as XML attributes, or</p>
+                     			
                   </li>
                   <li class="listitem">
+                     				
                      <p>More complex parameters that are passed by nested tags</p>
+                     			
                   </li>
                </ul>
             </div>
+            
+            		
             <p> Simple parameters are basically strings. For example, if you pass a value <code class="literal">"A
                   				simple string."</code> as a parameter, it is evaluated as a string and accessible
                			as one. You can also reference properties as described in <a class="xref" href="ch.gettingstarted.html" title="Getting started"><em>Getting started</em></a>.
             </p>
+            
+            		
             <p>
                			<code class="literal">Note:</code> There are special values that are not mapped to strings, but to
                			boolean values instead. The values <code class="literal">true</code>, <code class="literal">false</code>,
                				<code class="literal">yes</code>, <code class="literal">no</code>, <code class="literal">on</code> and
                				<code class="literal">off</code> are translated to
                				<code class="literal">true</code>/<code class="literal">false</code> boolean values.
-            </p><pre class="programlisting">&lt;property name="myprop" value="value" override="true"/&gt;</pre><p>However, some tasks support more complex data types as parameters. These are passed to
+            </p>
+            
+            		<pre class="programlisting">&lt;property name="myprop" value="value" override="true"/&gt;</pre>
+            		<p>However, some tasks support more complex data types as parameters. These are passed to
                			the task with <code class="literal">nested tags</code>. Consider the following example: 
-            </p><pre class="programlisting">&lt;copy&gt;
+            </p>
+            
+            		<pre class="programlisting">&lt;copy&gt;
   &lt;fileset dir="."&gt;
     &lt;include name="**" /&gt;
   &lt;/fileset&gt;
-&lt;/copy&gt;</pre><p>Here, <code class="literal">CopyTask</code> is passed a complex parameter, a Fileset. Tasks may
+&lt;/copy&gt;</pre>
+            
+            		<p>Here, <code class="literal">CopyTask</code> is passed a complex parameter, a Fileset. Tasks may
                			support multiple complex types in addition to simple parameters. Note that the names of
                			the nested tags used to create the complex types depend on the task implementation.
                			Tasks may support default Phing types (see <a class="xref" href="sec.types.html" title="Types">the section called “ Types ”</a>) or may
                			introduce other types, for example to wrap key/value pairs.
             </p>
+            
+            		
             <p> Refer to <a class="xref" href="app.coretasks.html" title="Core tasks"><em>Core tasks</em></a> for a list of system tasks and their
                			parameters.
             </p>
+            
+            	
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

@@ -16,7 +16,7 @@
       <link rel="next" href="ch03s04s01.html" title="Unix" />
       <meta name="Section-title" content="Non-PEAR Install" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,7 +179,7 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d0e1300"></a> Non-PEAR Install 
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e724"></a> Non-PEAR Install 
                      </h2>
                   </div>
                </div>
@@ -191,6 +191,9 @@ border: none; background: none; font-weight: none; color: none; }
                   <dt><span class="sect2"><a href="ch03s04s03.html">Advanced</a></span></dt>
                </dl>
             </div>
+            		
+            
+            		
             <p> If you are not using the PEAR installer, you will need to setup your environment in
                			order to run Phing. The distribution of Phing consists of three directories: <code class="filename">bin</code> , <code class="filename">docs</code> and <code class="filename">classes</code>. Only the <code class="filename">bin</code>,
                				<code class="filename">classes</code> and <code class="filename">etc</code>
@@ -198,64 +201,94 @@ border: none; background: none; font-weight: none; color: none; }
                			uncompress the distribution file in that directory (you may already have done this in a
                			prior step). This directory will be known as <code class="literal">PHING_HOME</code> .
             </p>
+            
+            		
             <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
                <h3 class="title">Warning</h3>
+               			
                <p>On earlier Windows installations, the script used to launch Phing will have
                   				problems if <code class="literal">PHING_HOME</code> is a long filepath. This is due to
                   				limitations in the OS's handling of the "for" batch-file statement. It is
                   				recommended, therefore, that Phing be installed in a short path, such as <code class="filename">C:\opt\phing</code>.
                </p>
+               		
             </div>
+            
+            		
             <p>Before you can run Phing there is some additional set up you will need to do
                			perform:
             </p>
+            
+            		
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
                   <li class="listitem">
+                     				
                      <p>Add the full path to the <code class="filename">bin/</code> directory to
                         					your path.
                      </p>
+                     			
                   </li>
                   <li class="listitem">
+                     				
                      <p>Set the <code class="literal">PHING_HOME</code> environment variable to the directory
                         					where you installed Phing. On some operating systems the Phing wrapper scripts
                         					can guess PHING_HOME (Unix dialects and Windows). However, it is better to not
                         					rely on this behavior.
                      </p>
+                     			
                   </li>
                   <li class="listitem">
+                     				
                      <p>Set the <code class="literal">PHP_COMMAND</code> environment variable to where your Php
                         					binary is located (including the binary i.e. PHP_COMMAND=/usr/bin/php).
                      </p>
+                     			
                   </li>
                   <li class="listitem">
+                     				
                      <p>Set the <code class="literal">PHP_CLASSPATH</code> environment variable (see the section
                         					below). This should be set at least point to PHING_HOME/classes. Alternatively,
                         					you can also just add the phing/classes directory to your PHP include_path ini
                         					setting.
                      </p>
+                     			
                   </li>
                   <li class="listitem">
+                     				
                      <p>Check your php.ini file to make sure that you have the following
                         					settings:
                      </p>
+                     				
                      <div class="itemizedlist">
                         <ul class="itemizedlist" style="list-style-type: circle; ">
                            <li class="listitem">
+                              						
                               <p><code class="code">max_execution_time = 0 // unlimited execution time</code></p>
+                              					
                            </li>
                            <li class="listitem">
+                              						
                               <p><code class="code">memory_limit = 32M // you may need more memory depending on size
                                     								of your build files</code></p>
+                              					
                            </li>
                         </ul>
                      </div>
+                     			
                   </li>
                </ul>
             </div>
+            
+            		
             <p>If you are using Phing in conjunction with another application, you may need to add
                			additional paths to <code class="literal">PHP_CLASSPATH</code>.
             </p>
+            
+            		
+            		
+            		
+            	
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s04.html" title="System Services" />
       <meta name="Section-title" content="The Phing Class" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,38 +179,54 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2917"></a> The Phing Class 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1554"></a> The Phing Class 
                      </h3>
                   </div>
                </div>
             </div>
+                        
+            
+                        
             <p>Given that all the prior initialization steps passed successfully the Phing is
                                included and <code class="literal">Phing::startup()</code> is invoked by the main application
                                script. It sets-up the system components, system constants ini-settings, PEAR and
                                some other stuff. The detailed start-up process is as follows: 
             </p>
+            
+                        
             <div class="itemizedlist">
                <ul class="itemizedlist" style="list-style-type: disc; ">
                   <li class="listitem">
+                                         
                      <p>Start Timer</p>
+                                     
                   </li>
                   <li class="listitem">
+                                         
                      <p>Set System Constants</p>
+                                     
                   </li>
                   <li class="listitem">
+                                         
                      <p>Set Ini-Settings</p>
+                                     
                   </li>
                   <li class="listitem">
+                                         
                      <p>Set Include Paths</p>
+                                     
                   </li>
                </ul>
             </div>
+            
+                        
             <p>After the main application completed all operations (successfully or
                                unsuccessfully) it calls <code class="literal">Phing::shutdown(EXIT_CODE)</code> that takes
                                care of a proper destruction of all objects and a gracefully termination of the
                                program by returning an <code class="literal">exit code</code> for shell usage (see [See
                                Program Exit Codes] for a list of exit codes).
             </p>
+                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">

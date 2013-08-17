@@ -1,5 +1,14 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.4 CoverageSetupTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="apc.html" title="Appendix C. Optional tasks"><link rel="prev" href="apcs03.html" title="C.3 CoverageReportTask"><link rel="next" href="apcs05.html" title="C.5 CoverageThresholdTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.4 CoverageSetupTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apcs03.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="apcs05.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="CoverageSetupTask"></a>C.4 CoverageSetupTask</h2></div></div></div><p>The CoverageSetupTask prepares a database which can be used to gather code coverage
-            information for unit tests.</p><div class="table"><a name="idm140139759060816"></a><p class="formal-object-title"><span class="label">Table C.4: </span><span class="title">Attributes</span></p><div class="table-contents"><table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">database</code></td><td><code class="literal">String</code></td><td>The location for the coverage database.</td><td>coverage.db</td><td>Yes</td></tr></tbody></table></div></div><br class="table-break"><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm140139759046704"></a>C.4.1 Example</h3></div></div></div><pre class="programlisting">&lt;coverage-setup database="./reports/coverage.db"&gt;
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.4 CoverageSetupTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="apc.html" title="Appendix C. Optional tasks"><link rel="prev" href="apcs03.html" title="C.3 CoverageReportTask"><link rel="next" href="apcs05.html" title="C.5 CoverageThresholdTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.4 CoverageSetupTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apcs03.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="apcs05.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="CoverageSetupTask"></a>C.4 CoverageSetupTask</h2></div></div></div>
+        
+        <p>The CoverageSetupTask prepares a database which can be used to gather code coverage
+            information for unit tests.</p>
+        <div class="table"><a name="idp8217600"></a><p class="formal-object-title"><span class="label">Table C.4: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">database</code></td><td><code class="literal">String</code></td><td>The location for the coverage database.</td><td>coverage.db</td><td>Yes</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8232800"></a>C.4.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;coverage-setup database="./reports/coverage.db"&gt;
   &lt;fileset dir="classes"&gt;
     &lt;include name="**/*.php"/&gt;
   &lt;/fileset&gt;
@@ -10,4 +19,17 @@
       &lt;include name="*Test.php"/&gt;
     &lt;/fileset&gt;
   &lt;/batchtest&gt;
-&lt;/phpunit&gt;</pre></div><div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm140139759044816"></a>C.4.2 Supported Nested Tags</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="literal">classpath</code></p></li><li class="listitem"><p><code class="literal">fileset</code></p></li><li class="listitem"><p><code class="literal">filelist</code></p></li></ul></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apcs03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="apc.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apcs05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.3 CoverageReportTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.5 CoverageThresholdTask</td></tr></table></div></body></html>
+&lt;/phpunit&gt;</pre>
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp8234848"></a>C.4.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">classpath</code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">fileset</code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">filelist</code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apcs03.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="apc.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apcs05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.3 CoverageReportTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.5 CoverageThresholdTask</td></tr></table></div></body></html>

@@ -16,7 +16,7 @@
       <link rel="next" href="StripLineBreaks.html" title="StripLineBreaks" />
       <meta name="Section-title" content="Nested tags" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,18 +179,23 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e25578"></a>Nested tags
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e15285"></a>Nested tags
                      </h3>
                   </div>
                </div>
             </div>
+                        
+                        
             <p>The <code class="literal">ReplaceRegExp</code> filter must contain one or more
                                    <code class="literal">regexp</code> tags. These must have <code class="literal">pattern</code> and
                                    <code class="literal">replace</code> attributes. The full list of supported attributes is
                                as following:
             </p>
-            <div class="table"><a id="d0e25595"></a><p class="title"><strong>Table 185.  Attributes for the <code class="literal">&lt;regexp&gt;</code> tag </strong></p>
+                        
+            <div class="table"><a id="d5e15292"></a><p class="title"><strong>Table 185.  Attributes for the <code class="literal">&lt;regexp&gt;</code> tag </strong></p>
                <div class="table-contents">
+                                  
+                                  
                   <table summary=" Attributes for the &lt;regexp&gt; tag " border="1">
                      <colgroup>
                         <col class="name" />
@@ -212,7 +217,7 @@ border: none; background: none; font-weight: none; color: none; }
                         <tr>
                            <td><code class="literal">pattern</code></td>
                            <td><code class="literal">String</code></td>
-                           <td>Regular expression used as needle. Phing relies on <a class="link" href="http://php.net/pcre" target="_top">Perl-compatible</a> regular
+                           <td>Regular expression used as needle. Phing relies on <a class="ulink" href="http://php.net/pcre" target="_top">Perl-compatible</a> regular
                                                               expressions. 
                            </td>
                            <td>n/a</td>
@@ -242,7 +247,7 @@ border: none; background: none; font-weight: none; color: none; }
                         <tr>
                            <td><code class="literal">modifiers</code></td>
                            <td><code class="literal">String</code></td>
-                           <td>Raw regular expression <a class="link" href="http://php.net/manual/en/reference.pcre.pattern.modifiers.php" target="_top">modifiers</a>. You can pass several modifiers as single
+                           <td>Raw regular expression <a class="ulink" href="http://php.net/manual/en/reference.pcre.pattern.modifiers.php" target="_top">modifiers</a>. You can pass several modifiers as single
                                                               string, and use raw modifiers with <code class="literal">ignoreCase</code> and
                                                                   <code class="literal">multiline</code> attributes. In case of conflict,
                                                               value specified by dedicated attribute takes precedence.
@@ -252,15 +257,21 @@ border: none; background: none; font-weight: none; color: none; }
                         </tr>
                      </tbody>
                   </table>
+                              
                </div>
-            </div><br class="table-break" /><p>The previous example (using <code class="literal">modifiers</code> attribute this
+            </div><br class="table-break" />
+            
+                        
+            <p>The previous example (using <code class="literal">modifiers</code> attribute this
                                time):
-            </p><pre class="programlisting">&lt;filterchain&gt;
+            </p>
+                        <pre class="programlisting">&lt;filterchain&gt;
   &lt;replaceregexp&gt;
 	&lt;regexp pattern="ANT" replace="Phing" modifiers="i"/&gt;
 	&lt;regexp pattern="(\w+)\.java" replace="\1.php"/&gt;
   &lt;/replaceregexp&gt;
-&lt;/filterchain&gt;</pre></div><script type="text/javascript" src="common/main.js">
+&lt;/filterchain&gt;</pre>
+                    </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />

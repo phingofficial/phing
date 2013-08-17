@@ -16,7 +16,7 @@
       <link rel="next" href="ch05s07s03.html" title="FilterChains and Filters" />
       <meta name="Section-title" content="FileList" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-27703";
+            var treeCookieId = "treeview-43393";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,27 +179,32 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2254"></a>
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1168"></a>
                         				<code class="literal">FileList</code>
                         			
                      </h3>
                   </div>
                </div>
             </div>
+            			
+            			
             <p>FileLists, like FileSets, are collections of files; however, a FileList is an
                				explicitly defined list of files -- and the files don't necessarily have to exist on
                				the filesystem.
             </p>
+            			
             <p>Besides being able to refer to nonexistent files, another thing that
                					<code class="literal">FileLists</code> allow you to do is specify files <code class="literal">in a
                   					certain order</code>. Files in <code class="literal">FileSets</code> are ordered based
                				on the OS-level directory listing functions, in some cases you may want to specify a
                				list of files to be processed in a certain order -- e.g. when concatenating files
                				using the <code class="literal">&lt;append&gt;</code> task.
-            </p><pre class="programlisting">&lt;filelist dir="base/" files="file1.txt,file2.txt,file3.txt"/&gt;
+            </p>
+            			<pre class="programlisting">&lt;filelist dir="base/" files="file1.txt,file2.txt,file3.txt"/&gt;
 
 &lt;!-- OR: --&gt;
-&lt;filelist dir="basedir/" listfile="files_to_process.txt"/&gt;</pre></div><script type="text/javascript" src="common/main.js">
+&lt;filelist dir="basedir/" listfile="files_to_process.txt"/&gt;</pre>
+            		</div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
