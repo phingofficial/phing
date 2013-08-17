@@ -369,9 +369,16 @@ class PharPackageTask
             // Load up the contents of the key
             $keyContents = file_get_contents($this->key);
 
-            // Setup an OpenSSL resource using the private key and tell the Phar
-            // to sign it using that key.
-            $private = openssl_pkey_get_private($keyContents, $this->keyPassword);
+            // Attempt to load the given key as a PKCS#12 Cert Store first.
+            if (openssl_pkcs12_read($keyContents, $certs, $this->keyPassword)) {
+                $private = openssl_pkey_get_private($certs['pkey']);
+            } else {
+                // Fall back to a regular PEM-encoded private key.
+                // Setup an OpenSSL resource using the private key
+                // and tell the Phar to sign it using that key.
+                $private = openssl_pkey_get_private($keyContents, $this->keyPassword);
+            }
+
             $phar->setSignatureAlgorithm(Phar::OPENSSL, $private);
 
             // Get the details so we can get the public key and write that out
