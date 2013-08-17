@@ -16,7 +16,7 @@
       <link rel="next" href="ch02s04.html" title="Cool, so how can I help?" />
       <meta name="Section-title" content="How Phing Works" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,32 +179,26 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e491"></a>How Phing Works
+                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d0e944"></a>How Phing Works
                      </h2>
                   </div>
                </div>
             </div>
-                    
-                    
             <p><acronym class="acronym">Phing</acronym> uses XML buildfiles that contain a description of the things
                            to do. The buildfile is structured into targets that contain the actual commands to
                            perform (e.g. commands to copy a file, delete a directory, perform a DB query, etc.).
                            So, to use <acronym class="acronym">Phing</acronym>, you would first write your buildfile and then you
                            would run phing, specifying the target in your buildfile that you want to execute.
-            </p>
-                    <pre class="screen">% phing -f mybuildfile.xml mytarget</pre>
-                    <p>By default <acronym class="acronym">Phing</acronym> will look for a buildfile named
+            </p><pre class="screen">% phing -f mybuildfile.xml mytarget</pre><p>By default <acronym class="acronym">Phing</acronym> will look for a buildfile named
                                <code class="filename">build.xml</code> (so you don't have to specify the buildfile name
                            unless it is not <code class="filename">build.xml</code>) and if no target is specified
                                <acronym class="acronym">Phing</acronym> will try to execute the default target, as specified in the
                                <code class="literal">&lt;project&gt;</code> tag.
             </p>
-                    
             <p>In the same way as traditional make files (but without most of the traditional
                            drawbacks) targets can have dependencies. They can depend on both other targets as well
                            as other files. 
             </p>
-                
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -240,6 +234,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

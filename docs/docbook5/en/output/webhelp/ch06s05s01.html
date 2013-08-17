@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s06.html" title="Writing Tasks" />
       <meta name="Section-title" content="How Phing Parses Buildfiles" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,46 +179,36 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1539"></a> How Phing Parses Buildfiles 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2962"></a> How Phing Parses Buildfiles 
                      </h3>
                   </div>
                </div>
             </div>
-                        
-                        
             <p>Phing uses an ExpatParser class and PHP's native expat XML functions to handle the
                                parsing of build files. The handler classes all extend the
                                phing.parser.AbstractHandler class. These handler classes "handle" the tags that are
                                found in the buildfile.
             </p>
-                        
             <p>Core tasks and datatypes are mapped to XML tag names in the defaults.properties
                                files -- specifically phing/tasks/defaults.properties and
                                phing/types/defaults.properties.
             </p>
-                        
             <p>It works roughly like this:</p>
-                        
             <div class="orderedlist">
                <ol class="orderedlist" type="1">
                   <li class="listitem">
-                                         
                      <p><code class="literal">phing.parser.RootHandler</code> is registered to handle the
                                                 buildfile XML document
                      </p>
-                                     
                   </li>
                   <li class="listitem">
-                                         
                      <p>RootHanlder expects to find exactly one element:
                                                     <code class="literal">&lt;project&gt;</code>. RootHandler invokes the ProjectHandler
                                                 with the attributes from the &lt;project&gt; tag or throws an exception if no
                                                 &lt;project&gt; is found, or if something else is found instead.
                      </p>
-                                     
                   </li>
                   <li class="listitem">
-                                         
                      <p><code class="literal">ProjectHandler</code> expects to find
                                                     <code class="literal">&lt;target&gt;</code> tags; for these
                                                     <code class="literal">ProjectHandler</code> invokes the
@@ -231,33 +221,26 @@ border: none; background: none; font-weight: none; color: none; }
                                                     <code class="literal">ProjectHandler</code> assumes it is a datatype and invokes
                                                 the <code class="literal">DataTypeHandler</code>.
                      </p>
-                                     
                   </li>
                   <li class="listitem">
-                                         
                      <p><code class="literal">TargetHandler</code> expects all tags to be either tasks or
                                                 datatypes and invokes the appropriate handler (based on the mappings
                                                 provided in the <code class="filename">defaults.properties</code> files).
                      </p>
-                                     
                   </li>
                   <li class="listitem">
-                                         
                      <p>Tasks and datatypes can have nested elements, but only if they correspond
                                                 to a create*() method in the task or datatype class. E.g. a nested
                                                     <code class="literal">&lt;param&gt;</code> tag must correspond to a
                                                     <code class="literal">createParam()</code> method of the task or datatype.
                      </p>
-                                     
                   </li>
                </ol>
             </div>
-                        
             <p>
                                <code class="literal">... More to come ...</code>
                            
             </p>
-                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -293,6 +276,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

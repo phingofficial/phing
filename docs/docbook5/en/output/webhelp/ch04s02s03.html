@@ -16,7 +16,7 @@
       <link rel="next" href="ch04s02s04.html" title="Property Element" />
       <meta name="Section-title" content="Task Elements" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,49 +179,27 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e907"></a> Task Elements 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e1741"></a> Task Elements 
                      </h3>
                   </div>
                </div>
             </div>
-                        
-            
-                        
             <p> A <code class="literal">task</code> is a piece of PHP code that can be executed. This code
                                implements a particular action to perform (i.e. install a file). Therefore it must
                                be defined in the buildfile so that it is actually invoked by Phing.
             </p>
-            
-                        
             <p>These references will be resolved before the task is executed.</p>
-            
-                        
-            <p>Tasks have a common structure:</p>
-            
-                        <pre class="screen">&lt;name attribute1="value1" attribute2="value2" ... /&gt;</pre>
-            
-                        <p>where <code class="literal">name</code> is the name of the task,
+            <p>Tasks have a common structure:</p><pre class="screen">&lt;name attribute1="value1" attribute2="value2" ... /&gt;</pre><p>where <code class="literal">name</code> is the name of the task,
                                    <code class="literal">attributeN</code> is the attribute name, and
                                    <code class="literal">valueN</code> is the value for this attribute.
             </p>
-            
-                        
             <p>There is a set of core tasks (see <a class="xref" href="app.coretasks.html" title="Core tasks"><em>Core tasks</em></a>) along with
                                a number of optional tasks. It is also very easy to write your own tasks (see <a class="xref" href="ch.extending.html" title="Extending Phing"><em>Extending Phing</em></a>).
             </p>
-            
-                        
             <p>Tasks can be assigned an <code class="literal">id</code> attribute: 
-            </p>
-            
-                        <pre class="screen">&lt;taskname id="taskID" ... /&gt;</pre>
-            
-                        <p>By doing this you can refer to specific tasks later on in the code of other
+            </p><pre class="screen">&lt;taskname id="taskID" ... /&gt;</pre><p>By doing this you can refer to specific tasks later on in the code of other
                                tasks.
             </p>
-            
-            
-                    
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -257,6 +235,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>

@@ -16,7 +16,7 @@
       <link rel="next" href="ch05s08.html" title="Conditions" />
       <meta name="Section-title" content="File Mappers" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43239";
+            var treeCookieId = "treeview-27703";
             var language = "en";
             var w = new Object();
             //Localization
@@ -179,43 +179,27 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e1162"></a> File Mappers 
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d0e2334"></a> File Mappers 
                      </h3>
                   </div>
                </div>
             </div>
-            			
-            
-            			
             <p>With <code class="literal">FilterChains</code> and filters provide a powerful tool for
                				changing contents of files, Mappers provide a powerful tool for changing the names
                				of files.
             </p>
-            
-            			
             <p>To use a Mapper, you must specify a pattern to match on and a replacement pattern
                				that describes how the matched pattern should be transformed. The simplest form is
                				basically no different from the DOS <code class="literal">copy</code> command: 
-            </p>
-            
-            			<pre class="screen">copy *.bat *.txt</pre>
-            
-            			<p> In Phing this is the <code class="literal">glob</code> Mapper: 
-            </p>
-            			<pre class="programlisting">&lt;mapper type="glob" from="*.bat" to="*.txt"/&gt;</pre>
-            			<p>Phing also provides support for more complex mapping using regular
+            </p><pre class="screen">copy *.bat *.txt</pre><p> In Phing this is the <code class="literal">glob</code> Mapper: 
+            </p><pre class="programlisting">&lt;mapper type="glob" from="*.bat" to="*.txt"/&gt;</pre><p>Phing also provides support for more complex mapping using regular
                				expressions:
-            </p>
-            
-            			<pre class="programlisting">&lt;mapper type="regexp" from="^(.*)\.conf\.xml$$" to="\1.php"/&gt;</pre>
-            
-            			<p>Consider the example below to see how Mappers can be used in a build file. This
+            </p><pre class="programlisting">&lt;mapper type="regexp" from="^(.*)\.conf\.xml$$" to="\1.php"/&gt;</pre><p>Consider the example below to see how Mappers can be used in a build file. This
                				example includes some of the other concepts introduced in this chapter, such as
                					<code class="literal">FilterChains</code> and <code class="literal">FileSets</code>. If you don't
                				understand everything, don't worry. The important point is that Mappers are types
                				too, which can be used in tasks that support them.
-            </p>
-            			<pre class="programlisting">&lt;copy&gt;
+            </p><pre class="programlisting">&lt;copy&gt;
   &lt;fileset dir="."&gt;
     &lt;include name="*.ent.xml"/&gt;
   &lt;/fileset&gt;
@@ -227,12 +211,9 @@ border: none; background: none; font-weight: none; color: none; }
       &lt;param name="style" value="ent2php.xsl"/&gt;
     &lt;/filterreader&gt;
   &lt;/filterchain&gt;
-&lt;/copy&gt;</pre>
-            
-            			<p> For a complete reference, see <a class="xref" href="app.coretypes.html" title="Core Types"><em>Core Types</em></a>
+&lt;/copy&gt;</pre><p> For a complete reference, see <a class="xref" href="app.coretypes.html" title="Core Types"><em>Core Types</em></a>
                			
             </p>
-            		
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
@@ -268,6 +249,8 @@ border: none; background: none; font-weight: none; color: none; }
                               <li><span class="file"><a href="ch01s03.html" tabindex="1">License</a></span></li>
                               <li><span class="file"><a href="ch01s04.html" tabindex="1">DocBook</a></span><ul>
                                     <li><span class="file"><a href="ch01s04s01.html" tabindex="1">Building the documentation</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s02.html" tabindex="1">Template for new tasks</a></span></li>
+                                    <li><span class="file"><a href="ch01s04s03.html" tabindex="1">Customization of the look &amp; feel of the rendered outputs</a></span></li>
                                     <li><span class="file"><a href="sec.docbookelements.html" tabindex="1">DocBook v5 elements used in the manual and their
                                                              meaning</a></span></li>
                                  </ul>
