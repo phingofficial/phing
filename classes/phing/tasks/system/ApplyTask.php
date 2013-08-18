@@ -815,7 +815,7 @@ class ApplyTask extends Task {
     $return = null;
 
     // Validating the command executor container
-    ($this->passthru ? passthru($this->realCommand, $return) : exec($command, $output, $return));
+    ($this->passthru ? passthru($command, $return) : exec($command, $output, $return));
 
     // Log
     $this->log('Command execution : (' . ($this->passthru ? 'passthru' : 'exec') . ') : ' . $command . " : completed with return code ($return) ", $this->loglevel);
