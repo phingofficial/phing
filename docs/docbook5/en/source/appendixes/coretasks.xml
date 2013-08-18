@@ -2598,7 +2598,7 @@
     &lt;replaceregexp&gt;
       &lt;regexp pattern="Hello" replace="World" ignoreCase="true"/&gt;
     &lt;/replaceregexp&gt;
-  &lt;filterchain&gt;
+  &lt;/filterchain&gt;
 &lt;/property&gt;</programlisting>
 		</sect2>
 		<sect2 role="nestedtags">
