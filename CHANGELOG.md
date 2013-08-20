@@ -2,6 +2,47 @@ P     H     I     N     G
 =========================
 
 
+Aug. 21, 2013 - Phing 2.6.0
+---------------------------
+
+New or improved functionality:
+
+ * Docbook5 documentation is now the main documentation; output targets
+   are 'hlhtml', 'chunkhtml', 'hlpdf', 'epub' and 'webhelp'
+ * HttpRequest task supports POST request
+ * PharPackage task supports PKCS#12 certificate stores
+ * WikiPublish task was added
+ * Smarty task is now compatible with Smarty 3
+ * A new logger 'TargetLogger' was added, displaying the execution time for each target
+ * Composer task and package were updated
+ * More unit / regression tests added
+ * Various bugs and documentation errors fixed
+
+Additionally, the following Trac tickets (see www.phing.info) were fixed in this release:
+
+ * [1037] PropertyTask docs is wrong
+ * [1036] Error in ApplyTask->executeCommand()
+ * [1029] PhpDocumentor2 task broken with latest phpdoc version
+ * [1027] RegexpMapper uses deprecated PREG_REPLACE_EVAL
+ * [1025] PHPLocTask fails when installed via composer
+ * [1023] Argument 1 passed to IniFileTokenReader::setFile() must be an instance of PhingFile
+ * [1020] [PHP Error] Illegal string offset 'filename' [line 149 of /usr/share/pear/phing/tasks/ext/ExtractBaseTask.php]
+ * [1015] phing does not allow phpunit to echo
+ * [1011] Problem with spaces in output redirection path
+ * [1004] <gitcommit .../> does not work because task definition is missing in defaults.properties + another bug
+ * [1003] 2 php syntax bugs in GitCommitTask
+ * [1000] Make phing.phar work out of the box
+ * [999]  phing-2.5.0.phar Can't load default task list
+ * [993]  passthru will redirect stderr
+ * [990]  Prompting for a property value when it is not set results in a repeated input message
+ * [985]  Git Commit Task missing from docs
+ * [981]  FileUtil::copyFile(): $preserveLastModified causes empty symlink target file
+ * [970]  FileSyncTask missing from docbook5 documentation
+ * [966]  phing unit tests nice on all platforms
+ * [920]  Load phpdepend dependency only when they are used
+ * [906]  Move to docbook5 documentation
+ * [438]  pdosqlexec: add delimiterType=none (default), clarify delimiter documentation (was: pdosqlexec triggers segmentation fault)
+
 Feb. 16, 2013 - Phing 2.5.0
 ---------------------------
 
