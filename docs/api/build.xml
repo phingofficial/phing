@@ -34,6 +34,11 @@
                 <include name="phpdoc-cache*/**"/>
             </fileset>
         </delete>
+        <delete>
+            <fileset dir=".">
+                <include name="*.log"/>
+            </fileset>
+        </delete>
      </target>
 
     <target name="build">
