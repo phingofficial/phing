@@ -14,7 +14,7 @@ P     H     I     N     G
   XSLT transformation, Smarty template transformations),
   file system operations, interactive build support, SQL execution,
   CVS/SVN/GIT operations, tools for creating PEAR packages, documentation
-  generation (DocBlox, PhpDocumentor) and much, much more. 
+  generation (DocBlox, PhpDocumentor) and much, much more.
 
   If you find yourself writing custom scripts to handle the packaging,
   deploying, or testing of your applications, then we suggest looking at Phing.
@@ -28,7 +28,7 @@ P     H     I     N     G
   * Easily extendable via PHP classes
   * Platform-independent: works on UNIX, Windows, Mac OSX
   * No required external dependencies
-  * Built for PHP5 
+  * Built for PHP5
 
 The Latest Version
 ------------------
@@ -42,7 +42,7 @@ Installation
   The preferred method to install Phing is through PEAR and the Phing PEAR
   channel. You can install Phing by adding the pear.phing.info channel
   to your PEAR environment and then installing Phing using the *phing*
-  channel alias and *phing* package name: 
+  channel alias and *phing* package name:
 
     $> pear channel-discover pear.phing.info
     $> pear install [--alldeps] phing/phing
@@ -63,3 +63,15 @@ Licensing
   named "LICENSE" in this directory.
 
   Thank you for using PHING!
+
+PhpStorm License
+----------------
+
+  If you are contributing code to the Phing project and want to use PhpStorm for
+  development feel free to ask me (Ben [bschultz.bb@gmail.com]) for our Open Source License.
+
+  Proud to use:
+
+  ![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")
+
+  Intelligent PHP IDE for coding, testing and debugging with pleasure
