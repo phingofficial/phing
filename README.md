@@ -50,10 +50,11 @@ Installation
 Documentation
 -------------
 
-  Documentation is available in HTML format in the *docs* directory. In particular,
-  open the *docs/phing_guide/book/index.html* in a browser to see the
-  Phing User Guide.
+  Documentation is available in various formats in the *docs/docbook5/en/output*
+  directory (generated from DocBook sources located in *docs/docbook5/en/source*).
 
+  Additionally, the legacy user guide can be found in *docs/phing_guide*.
+  
   For online documentation, you can also visit the Phing website: http://www.phing.info/
 
 Licensing
@@ -64,11 +65,20 @@ Licensing
 
   Thank you for using PHING!
 
+Contact
+-------
+
+  * Twitter: [@phingofficial](http://twitter.com/phingofficial)
+  * Website: [http://www.phing.info](http://www.phing.info)
+  * IRC:     Freenode, #phing
+  * GitHub:  [https://www.github.com/phingofficial/phing](https://www.github.com/phingofficial/phing)
+  * E-mail:  [dev-subscribe@phing.tigris.org](mailto:dev-subscribe@phing.tigris.org) (mailing list)
+
 PhpStorm License
 ----------------
 
   If you are contributing code to the Phing project and want to use PhpStorm for
-  development feel free to ask Ben (bschultz.bb@gmail.com] for our Open Source License.
+  development feel free to ask Ben (bschultz.bb@gmail.com) for our Open Source License.
 
   Proud to use:
 
