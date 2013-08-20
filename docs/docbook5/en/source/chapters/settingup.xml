@@ -62,14 +62,14 @@
 							</entry>
 						</row>
 						<row>
-							<entry>PHPUnit 3.4.0+</entry>
+							<entry>PHPUnit 3.6.0+</entry>
 							<entry>Optional; enables additional task(s)</entry>
 							<entry><link xlink:href="http://www.phpunit.de" role="external"
 									>http://www.phpunit.de</link>
 							</entry>
 						</row>
 						<row>
-							<entry>Xdebug 2.0.0+</entry>
+							<entry>Xdebug 2.0.5+</entry>
 							<entry>Optional; enables additional task(s)</entry>
 							<entry><link xlink:href="http://www.xdebug.org" role="external"
 									>http://www.xdebug.org</link>
@@ -83,10 +83,10 @@
 							</entry>
 						</row>
 						<row>
-							<entry>PhpDocumentor 1.4.0+ (PEAR package)</entry>
+							<entry>phpDocumentor 2.0.0b7+ (PEAR package)</entry>
 							<entry>Optional; enables additional task(s)</entry>
-							<entry><link xlink:href="http://pear.php.net/package/PhpDocumentor"
-									role="external">http://pear.php.net/package/PhpDocumentor</link>
+							<entry><link xlink:href="http://pear.phpdoc.org"
+									role="external">http://pear.phpdoc.org</link>
 							</entry>
 						</row>
 						<row>
@@ -154,13 +154,6 @@
 							<entry>Optional; enables additional task(s)</entry>
 							<entry><link xlink:href="http://pear.phpunit.de" role="external"
 									>http://pear.phpunit.de</link>
-							</entry>
-						</row>
-						<row>
-							<entry>DocBlox 0.17.0+</entry>
-							<entry>Optional; enables additional task(s)</entry>
-							<entry><link xlink:href="http://www.docblox-project.org" role="external"
-									>http://www.docblox-project.org</link>
 							</entry>
 						</row>
 					</tbody>
