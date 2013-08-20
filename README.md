@@ -68,7 +68,7 @@ PhpStorm License
 ----------------
 
   If you are contributing code to the Phing project and want to use PhpStorm for
-  development feel free to ask me (Ben [bschultz.bb@gmail.com]) for our Open Source License.
+  development feel free to ask Ben (bschultz.bb@gmail.com] for our Open Source License.
 
   Proud to use:
 
