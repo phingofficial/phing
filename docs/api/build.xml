@@ -29,6 +29,11 @@
                 <include name="**/*.php"/>
             </fileset>
         </phpdoc2>
+        <delete includeemptydirs="true">
+            <fileset dir="${buildfile.dir}/docs">
+                <include name="phpdoc-cache*/**"/>
+            </fileset>
+        </delete>
      </target>
 
     <target name="build">
