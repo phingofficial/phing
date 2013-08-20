@@ -33,7 +33,14 @@
         <exclude name=".project"/>
         <exclude name="test/performance/**"/>
         <exclude name="test/reports/**"/>
-        <exclude name="docs/docbook5/**"/>
+        <exclude name="docs/docbook5/en/scripts/**"/>
+        <exclude name="docs/docbook5/en/source/**"/>
+        <exclude name="docs/docbook5/en/stylesheets/**"/>
+        <exclude name="docs/docbook5/en/output/chunkhtml/**"/>
+        <exclude name="docs/docbook5/en/output/hlpdf/**"/>
+        <exclude name="docs/docbook5/en/output/epub/**"/>
+        <exclude name="docs/docbook5/en/output/webhelp/**"/>
+        <exclude name="docs/docbook5/en/*"/>
         <exclude name="docs/docsystem/**"/>
     </fileset>
 
@@ -45,6 +52,7 @@
         <include name="api/docs/**"/>
         <include name="example/**"/>
         <include name="phing_guide/book/**"/>
+        <include name="docbook5/en/output/hlhtml/**"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}" id="etc">
@@ -361,8 +369,8 @@
         <echo>| Deleting build directory  |</echo>
         <echo>-----------------------------</echo>
 
-        <delete dir="${build.pear.dir}" failonerror="false"/>
-        <delete dir="${build.full.dir}" failonerror="false"/>
+        <delete dir="${buildfile.dir}/pear" failonerror="false"/>
+        <delete dir="${buildfile.dir}/full" failonerror="false"/>
 
     </target>
 
