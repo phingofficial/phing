@@ -54,7 +54,7 @@ Documentation
   directory (generated from DocBook sources located in *docs/docbook5/en/source*).
 
   Additionally, the legacy user guide can be found in *docs/phing_guide*.
-  
+
   For online documentation, you can also visit the Phing website: http://www.phing.info/
 
 Licensing
@@ -82,6 +82,6 @@ PhpStorm License
 
   Proud to use:
 
-  ![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")
+  [![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")](http://www.jetbrains.com/phpstorm)
 
   Intelligent PHP IDE for coding, testing and debugging with pleasure
