@@ -204,7 +204,7 @@
             <fileset dir=".">
                 <include name="*.log"/>
             </fileset>
-        <delete>
+        </delete>
 
     </target>
 
