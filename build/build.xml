@@ -199,6 +199,12 @@
         <phing phingfile="build.xml" dir="${phingpkg.home}/docs/api"
             target="build"
         />
+        
+        <delete>
+            <fileset dir=".">
+                <include name="*.log"/>
+            </fileset>
+        <delete>
 
     </target>
 
