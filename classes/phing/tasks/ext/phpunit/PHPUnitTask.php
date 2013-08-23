@@ -261,7 +261,7 @@ class PHPUnitTask extends Task
             $this->setHaltonerror($phpunit['stopOnError']);
         }
 
-        if (isset($phpunit['stopOnFailure'])) {
+        if (isset($phpunit['stopOnSkipped'])) {
             $this->setHaltonskipped($phpunit['stopOnSkipped']);
         }
 
