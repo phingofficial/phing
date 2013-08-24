@@ -109,13 +109,13 @@ class RuntimeConfigurable {
             }
         }
 
-        if ( is_array($this->children) && !empty($this->children) ) {
+        /*if ( is_array($this->children) && !empty($this->children) ) {
             // Configure all child of this object ...
             foreach($this->children as $child) {
                 $child->maybeConfigure($project);
                 ProjectConfigurator::storeChild($project, $this->wrappedObject, $child->wrappedObject, strtolower($child->getElementTag()));
             }
-        }
+        }*/
         
         $this->proxyConfigured = true;
     }

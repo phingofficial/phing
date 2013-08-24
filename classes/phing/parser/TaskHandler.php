@@ -137,17 +137,18 @@ class TaskHandler extends AbstractHandler {
             // UnknownElement->maybeConfigure if the problem persists.
             print("Swallowing exception: ".$be->getMessage() . "\n");
         }
-
+        
         // if the task is not known beforehand, wrap it
         // in an UnknownElement object to enable runtime configuration
         // NB: this is also done for ConditionBase objects to allow
         // dynamic conditions without breaking BC for all tasks
-        if ($this->task === null || ($this->task instanceof TaskAdapter && $this->task->getProxy() instanceof ConditionBase && $this->target !== null)) {
+//        if ($this->task === null) {
+         //|| ($this->task instanceof TaskAdapter && $this->task->getProxy() instanceof ConditionBase && $this->target !== null)) {
             $this->task = new UnknownElement($tag);
             $this->task->setProject($project);
             $this->task->setTaskType($tag);
             $this->task->setTaskName($tag);
-        }
+//        }
 
         // add file position information to the task (from parser)
         // should be used in task exceptions to provide details
@@ -157,6 +158,8 @@ class TaskHandler extends AbstractHandler {
         if ($this->container) {
             $this->container->addTask($this->task);
         }
+            $this->wrapper = $this->task->getRuntimeConfigurableWrapper();
+            $this->wrapper->setAttributes($attrs);
         
         // Top level tasks don't have associated targets
         // FIXME: if we do like Ant 1.6 and create an implicitTarget in the projectconfigurator object
@@ -165,8 +168,6 @@ class TaskHandler extends AbstractHandler {
         if ($this->target !== null) {
             $this->task->setOwningTarget($this->target);
             $this->task->init();
-            $this->wrapper = $this->task->getRuntimeConfigurableWrapper();
-            $this->wrapper->setAttributes($attrs);
             /*
             Commenting this out as per thread on Premature configurate of ReuntimeConfigurables 
             with Matthias Pigulla: http://phing.tigris.org/servlets/ReadMsg?list=dev&msgNo=251
