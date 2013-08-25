@@ -28,7 +28,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class RecursivePropertyTest extends BuildFileTest { 
+class PropertiesInIfTaskTest extends BuildFileTest { 
         
     public function setUp() { 
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/1041/build.xml");
