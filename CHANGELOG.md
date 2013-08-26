@@ -8,6 +8,9 @@ Aug. 27, 2013 - Phing 2.6.1
 This patch release fixes a regression when setting properties
 in then/else blocks.
 
+Note: the fix currently disables support for custom conditions,
+full support will be restored in Phing 2.7.0.
+
  * [1041] Properties within then/else blocks are not expanded
 
 Aug. 21, 2013 - Phing 2.6.0
