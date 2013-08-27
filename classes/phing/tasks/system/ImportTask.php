@@ -114,23 +114,13 @@ class ImportTask extends Task {
 
     $ctx = $this->project->getReference("phing.parsing.context");
     $cfg = $ctx->getConfigurator();
-    if (null !== $cfg && $cfg->isParsing()) {
-      // because there isn't a top level implicit target in phing like there is 
-      // in Ant 1.6, we will be called as soon as our xml is parsed. This isn't 
-      // really what we want to have happen. Instead we will register ourself 
-      // with the parse context to be called at the end of the current file's 
-      // parse phase.
-      $cfg->delayTaskUntilParseEnd($this);
-
-    } else {
-      // Import xml file into current project scope
-      // Since this is delayed until after the importing file has been 
-      // processed, the properties and targets of this new file may not take 
-      // effect if they have alreday been defined in the outer scope.
-      $this->log("Importing configuration from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
-      ProjectConfigurator::configureProject($this->project, $file);
-      $this->log("Configuration imported.", Project::MSG_VERBOSE);
-    }
+    // Import xml file into current project scope
+    // Since this is delayed until after the importing file has been 
+    // processed, the properties and targets of this new file may not take 
+    // effect if they have alreday been defined in the outer scope.
+    $this->log("Importing configuration from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
+    ProjectConfigurator::configureProject($this->project, $file);
+    $this->log("Configuration imported.", Project::MSG_VERBOSE);
   } //end main
 
 } //end ImportTask

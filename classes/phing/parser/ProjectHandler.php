@@ -42,12 +42,10 @@ class ProjectHandler extends AbstractHandler {
     private $configurator;
     
     /**
-     * Target that will hold all tasks/types placed outside of targets
-     *
-     * @var Target
+     * @var PhingXMLContext
      */
-    private $implicitTarget;
-
+    private $context;
+    
     /**
      * Constructs a new ProjectHandler
      *
@@ -56,12 +54,11 @@ class ProjectHandler extends AbstractHandler {
      * @param  object  the ProjectConfigurator object
      * @access public
      */
-    function __construct($parser, $parentHandler, $configurator) {
+    function __construct($parser, $parentHandler, $configurator, PhingXMLContext $context) {
         parent::__construct($parser, $parentHandler);
         
         $this->configurator = $configurator;
-        $this->implicitTarget = new Target();
-        $this->implicitTarget->setHidden(true);
+        $this->context = $context;
     }
 
     /**
@@ -154,7 +151,7 @@ class ProjectHandler extends AbstractHandler {
           }
         }
         
-        $project->addTarget("", $this->implicitTarget);
+        $project->addTarget("", $this->context->getImplicitTarget());
     }
 
     /**
@@ -175,7 +172,7 @@ class ProjectHandler extends AbstractHandler {
             $tf = new TargetHandler($this->parser, $this, $this->configurator);
             $tf->init($name, $attrs);
         } else {
-            $tf = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->implicitTarget);
+            $tf = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->context->getImplicitTarget());
             $tf->init($name, $attrs);
         }
     }

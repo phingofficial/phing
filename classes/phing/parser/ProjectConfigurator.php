@@ -158,44 +158,53 @@ class ProjectConfigurator {
      *         the parsing process
      * @access private
      */
-    protected function parse() {
-      try {
-        // get parse context
-        $ctx = $this->project->getReference("phing.parsing.context");
-        if (null == $ctx) {
-          // make a new context and register it with project
-          $ctx = new PhingXMLContext($this->project);
-          $this->project->addReference("phing.parsing.context", $ctx);
-        }
+    protected function parse() 
+    {
+        try {
+            // get parse context
+            $ctx = $this->project->getReference("phing.parsing.context");
+            if (null == $ctx) {
+              // make a new context and register it with project
+              $ctx = new PhingXMLContext($this->project);
+              $this->project->addReference("phing.parsing.context", $ctx);
+            }
 
-        //record this parse with context
-        $ctx->addImport($this->buildFile);
+            //record this parse with context
+            $ctx->addImport($this->buildFile);
 
-        if (count($ctx->getImportStack()) > 1) {
-          // this is an imported file
-          // modify project tag parse behavior
-          $this->setIgnoreProjectTag(true);
-        }
-        // push action onto global stack
-        $ctx->startConfigure($this);
-
-            $reader = new BufferedReader(new FileReader($this->buildFile));
-            $parser = new ExpatParser($reader);
-            $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
-            $parser->setHandler(new RootHandler($parser, $this));
-            $this->project->log("parsing buildfile ".$this->buildFile->getName(), Project::MSG_VERBOSE);
-            $parser->parse();
-            $reader->close();
-
-            // mark parse phase as completed
-            $this->isParsing = false;
-            // execute delayed tasks
-            $this->parseEndTarget->main();
-            // pop this action from the global stack
-            $ctx->endConfigure();
+            if (count($ctx->getImportStack()) > 1) {
+                // this is an imported file
+                // modify project tag parse behavior
+                $this->setIgnoreProjectTag(true);
+            } else {
+                $this->_parse($ctx);
+                $ctx->getImplicitTarget()->performTasks();
+            }
+        
         } catch (Exception $exc) {
             throw new BuildException("Error reading project file", $exc);
         }
+    }
+    
+    protected function _parse(PhingXMLContext $ctx)
+    {
+        // push action onto global stack
+        $ctx->startConfigure($this);
+
+        $reader = new BufferedReader(new FileReader($this->buildFile));
+        $parser = new ExpatParser($reader);
+        $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
+        $parser->setHandler(new RootHandler($parser, $this, $ctx));
+        $this->project->log("parsing buildfile ".$this->buildFile->getName(), Project::MSG_VERBOSE);
+        $parser->parse();
+        $reader->close();
+
+        // mark parse phase as completed
+        $this->isParsing = false;
+        // execute delayed tasks
+        $this->parseEndTarget->main();
+        // pop this action from the global stack
+        $ctx->endConfigure();
     }
 
     /**

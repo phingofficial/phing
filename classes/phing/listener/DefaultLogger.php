@@ -182,7 +182,8 @@ class DefaultLogger implements StreamRequiredBuildLogger {
      *  @see    BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event) {
-        if (Project::MSG_INFO <= $this->msgOutputLevel) {
+        if (Project::MSG_INFO <= $this->msgOutputLevel
+            && $event->getTarget()->getName() != '') {
             $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
             $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());

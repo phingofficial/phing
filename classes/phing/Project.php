@@ -611,7 +611,7 @@ class Project {
      * @param string $targetName
      * @param Target $target
      */
-    public function addTarget($targetName, &$target) {
+    public function addTarget($targetName, $target) {
         if (isset($this->targets[$targetName])) {
             throw new BuildException("Duplicate target: $targetName");
         }
