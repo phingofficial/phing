@@ -21,6 +21,7 @@
 
 require_once 'phing/parser/AbstractHandler.php';
 require_once 'phing/system/io/PhingFile.php';
+require_once 'phing/parser/ElementHandler.php';
 
 /**
  * Handler class for the <project> XML element This class handles all elements
@@ -39,6 +40,13 @@ class ProjectHandler extends AbstractHandler {
      * @var ProjectConfigurator
      */
     private $configurator;
+    
+    /**
+     * Target that will hold all tasks/types placed outside of targets
+     *
+     * @var Target
+     */
+    private $implicitTarget;
 
     /**
      * Constructs a new ProjectHandler
@@ -49,8 +57,11 @@ class ProjectHandler extends AbstractHandler {
      * @access public
      */
     function __construct($parser, $parentHandler, $configurator) {
-        $this->configurator = $configurator;
         parent::__construct($parser, $parentHandler);
+        
+        $this->configurator = $configurator;
+        $this->implicitTarget = new Target();
+        $this->implicitTarget->setHidden(true);
     }
 
     /**
@@ -142,6 +153,8 @@ class ProjectHandler extends AbstractHandler {
             }
           }
         }
+        
+        $project->addTarget("", $this->implicitTarget);
     }
 
     /**
@@ -161,11 +174,8 @@ class ProjectHandler extends AbstractHandler {
         if ($name == "target") {
             $tf = new TargetHandler($this->parser, $this, $this->configurator);
             $tf->init($name, $attrs);
-        } elseif (isset($types[$name])) {
-           $tyf = new DataTypeHandler($this->parser, $this, $this->configurator);
-           $tyf->init($name, $attrs);
         } else {
-            $tf = new TaskHandler($this->parser, $this, $this->configurator);
+            $tf = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->implicitTarget);
             $tf->init($name, $attrs);
         }
     }

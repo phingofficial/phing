@@ -118,6 +118,7 @@ class TargetHandler extends AbstractHandler {
         }
 
         $this->target = new Target();
+        $this->target->addDependency("");
         $this->target->setName($name);
         $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
@@ -172,14 +173,9 @@ class TargetHandler extends AbstractHandler {
         // shorthands
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
-
-        if (isset($types[$name])) {
-            $th = new DataTypeHandler($this->parser, $this, $this->configurator, $this->target);
-            $th->init($name, $attrs);
-        } else {
-            $tmp = new TaskHandler($this->parser, $this, $this->configurator, $this->target, null, $this->target);
-            $tmp->init($name, $attrs);
-        }
+        
+        $tmp = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->target);
+        $tmp->init($name, $attrs);
     }
     
     /**

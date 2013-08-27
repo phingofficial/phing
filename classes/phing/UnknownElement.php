@@ -71,10 +71,11 @@ class UnknownElement extends Task {
         $this->wrapper->setProxy($this->realThing);
         if ($this->realThing instanceof Task) {
             $this->realThing->setRuntimeConfigurableWrapper($this->wrapper);
+            $this->realThing->maybeConfigure();
+        } else {
+            $this->wrapper->maybeConfigure($this->getProject());
         }
-    
         $this->handleChildren($this->realThing, $this->wrapper);
-        $this->wrapper->maybeConfigure($this->getProject());
                                     
     }
 
@@ -117,7 +118,7 @@ class UnknownElement extends Task {
         if ($parent instanceof TaskAdapter) {
             $parent = $parent->getProxy();
         }
-
+        
         $parentClass = get_class($parent);
         $ih = IntrospectionHelper::getHelper($parentClass);
         
