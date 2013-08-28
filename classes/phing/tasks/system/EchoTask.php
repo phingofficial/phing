@@ -91,9 +91,14 @@ class EchoTask extends Task {
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($project);
             $fromDir  = $fs->getDir($project);
+            $srcDirs  = $ds->getIncludedDirectories();
             $srcFiles = $ds->getIncludedFiles();
             $msg .= 'Directory: ' . $fromDir . ' => '
                 . realpath($fromDir) . "\n";
+            foreach ($srcDirs as $dir) {
+                $relPath = $fromDir . DIRECTORY_SEPARATOR . $dir;
+                $msg .= $relPath . "\n";
+            }
             foreach ($srcFiles as $file) {
                 $relPath = $fromDir . DIRECTORY_SEPARATOR . $file;
                 $msg .= $relPath . "\n";
