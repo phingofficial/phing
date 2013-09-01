@@ -138,7 +138,7 @@ class TargetHandler extends AbstractHandler {
           $project->log("Already defined in main or a previous import, " .
             "ignore {$name}", Project::MSG_VERBOSE);
         } else {
-          $project->addTarget($name, $this->target);
+          $project->addOrReplaceTarget($name, $this->target);
           if ($id !== null && $id !== "") {
             $project->addReference($id, $this->target);
           }
@@ -158,9 +158,9 @@ class TargetHandler extends AbstractHandler {
             $newTarget = $this->target;
           }
           $newTarget->setName($newName);
-          $ct = $this->context->getCurrentTargets();
+          $ct = &$this->context->getCurrentTargets();
           $ct[$newName] = $newTarget;
-          $project->addTarget($newName, $newTarget);
+          $project->addOrReplaceTarget($newName, $newTarget);
         }
     }
 

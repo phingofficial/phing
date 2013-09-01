@@ -132,7 +132,7 @@ class PhingXMLContext {
     /**
      * @return Target[]
      */
-    public function getCurrentTargets()
+    public function &getCurrentTargets()
     {
         return $this->currentTargets;
     }
