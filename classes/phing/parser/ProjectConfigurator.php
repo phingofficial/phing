@@ -47,9 +47,6 @@ class ProjectConfigurator {
     public $buildFile;
     public $buildFileParent;
 
-    /** Targets in current file */
-    private $currentTargets;
-
     /** Synthetic target that will be called at the end to the parse phase */
     private $parseEndTarget;
 
@@ -90,7 +87,6 @@ class ProjectConfigurator {
         $this->project = $project;
         $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
         $this->buildFileParent = new PhingFile($this->buildFile->getParent());
-        $this->currentTargets = array();
         $this->parseEndTarget = new Target();
     }
 
@@ -142,10 +138,6 @@ class ProjectConfigurator {
         $this->ignoreProjectTag = $flag;
     }
 
-    public function &getCurrentTargets () {
-      return $this->currentTargets;
-    }
-
     public function isParsing () {
       return $this->isParsing;
     }
@@ -171,18 +163,34 @@ class ProjectConfigurator {
 
             //record this parse with context
             $ctx->addImport($this->buildFile);
-
+            
             if (count($ctx->getImportStack()) > 1) {
+                $currentImplicit = $ctx->getImplicitTarget();
+                $currentTargets = $ctx->getCurrentTargets();
+                
+                $newCurrent = new Target();
+                $newCurrent->setProject($this->project);
+                $newCurrent->setName('');
+                $ctx->setCurrentTargets(array());
+                $ctx->setImplicitTarget($newCurrent);
+                
                 // this is an imported file
                 // modify project tag parse behavior
                 $this->setIgnoreProjectTag(true);
-            } else {
                 $this->_parse($ctx);
-                $ctx->getImplicitTarget()->performTasks();
+                $newCurrent->main();
+                
+                $ctx->setImplicitTarget($currentImplicit);
+                $ctx->setCurrentTargets($currentTargets);
+            } else {
+                $ctx->setCurrentTargets(array());
+                $this->_parse($ctx);
+                $ctx->getImplicitTarget()->main();
             }
         
         } catch (Exception $exc) {
-            throw new BuildException("Error reading project file", $exc);
+            //throw new BuildException("Error reading project file", $exc);
+            throw $exc;
         }
     }
     

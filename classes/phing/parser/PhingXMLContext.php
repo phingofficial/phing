@@ -44,6 +44,13 @@ class PhingXMLContext {
     private $currentTarget = null;
     
     /**
+     * List of current targets
+     *
+     * @var Target[]
+     */
+    private $currentTargets = null;
+    
+    /**
      * Constructor
      * @param $project the project to which this antxml context belongs to
      */
@@ -51,6 +58,7 @@ class PhingXMLContext {
     {
         $this->project = $project;
         $this->implicitTarget = new Target();
+        $this->implicitTarget->setName("");
         $this->implicitTarget->setHidden(true);
     }
 
@@ -105,14 +113,36 @@ class PhingXMLContext {
         $this->implicitTarget = $target;
     }
     
+    /**
+     * @return Target
+     */
     public function getCurrentTarget()
     {
         return $this->currentTarget;
     }
     
+    /**
+     * @param Target $target
+     */
     public function setCurrentTarget(Target $target)
     {
         $this->currentTarget = $target;
+    }
+    
+    /**
+     * @return Target[]
+     */
+    public function getCurrentTargets()
+    {
+        return $this->currentTargets;
+    }
+    
+    /**
+     * @param Target[] $currentTargets
+     */
+    public function setCurrentTargets(array $currentTargets)
+    {
+        $this->currentTargets = $currentTargets;
     }
 
 } //end PhingXMLContext

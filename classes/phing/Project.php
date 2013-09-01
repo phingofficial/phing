@@ -629,7 +629,7 @@ class Project {
         $this->targets[$targetName] = $target;
 
         $ctx = $this->getReference("phing.parsing.context");
-        $current = $ctx->getConfigurator()->getCurrentTargets();
+        $current = $ctx->getCurrentTargets();
         $current[$targetName] = $target;
     }
 

@@ -69,9 +69,8 @@ class ProjectHandler extends AbstractHandler {
      * @param  array   attributes the tag carries
      * @param  object  the ProjectConfigurator object
      * @throws ExpatParseException if attributes are incomplete or invalid
-     * @access public
      */
-    function init($tag, $attrs) {
+    public function init($tag, $attrs) {
         $def = null;
         $name = null;
         $id    = null;
@@ -109,46 +108,48 @@ class ProjectHandler extends AbstractHandler {
             $project->setUserProperty("phing.dir.{$canonicalName}",  dirname($path));
         }
 
-        if (!$this->configurator->isIgnoringProjectTag()) {
-          if ($def === null) {
+        if ($this->configurator->isIgnoringProjectTag()) {
+            return;
+        }
+        
+        if ($def === null) {
             throw new ExpatParseException(
                 "The default attribute of project is required");
-          }
-          $project->setDefaultTarget($def);
+        }
+        
+        $project->setDefaultTarget($def);
 
-          if ($name !== null) {
+        if ($name !== null) {
             $project->setName($name);
             $project->addReference($name, $project);
+        }
 
-          }
-
-          if ($id !== null) {
+        if ($id !== null) {
             $project->addReference($id, $project);
-          }
+        }
 
-          if ($desc !== null) {
+        if ($desc !== null) {
             $project->setDescription($desc);
-          }        
+        }        
 
-          if($ver !== null) {
-              $project->setPhingVersion($ver);
-          }
+        if ($ver !== null) {
+            $project->setPhingVersion($ver);
+        }
 
-          if ($project->getProperty("project.basedir") !== null) {
+        if ($project->getProperty("project.basedir") !== null) {
             $project->setBasedir($project->getProperty("project.basedir"));
-          } else {
+        } else {
             if ($baseDir === null) {
-              $project->setBasedir($buildFileParent->getAbsolutePath());
+                $project->setBasedir($buildFileParent->getAbsolutePath());
             } else {
-              // check whether the user has specified an absolute path
-              $f = new PhingFile($baseDir);
-              if ($f->isAbsolute()) {
-                $project->setBasedir($baseDir);
-              } else {
-                $project->setBaseDir($project->resolveFile($baseDir, new PhingFile(getcwd())));
-              }
+                // check whether the user has specified an absolute path
+                $f = new PhingFile($baseDir);
+                if ($f->isAbsolute()) {
+                  $project->setBasedir($baseDir);
+                } else {
+                  $project->setBaseDir($project->resolveFile($baseDir, new PhingFile(getcwd())));
+                }
             }
-          }
         }
         
         $project->addTarget("", $this->context->getImplicitTarget());
@@ -169,7 +170,7 @@ class ProjectHandler extends AbstractHandler {
         $types = $project->getDataTypeDefinitions();
         
         if ($name == "target") {
-            $tf = new TargetHandler($this->parser, $this, $this->configurator);
+            $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);
             $tf->init($name, $attrs);
         } else {
             $tf = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->context->getImplicitTarget());

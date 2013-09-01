@@ -54,9 +54,11 @@ class TargetHandler extends AbstractHandler {
      * @param  object  the parent handler that invoked this handler
      * @param  object  the ProjectConfigurator object
      */
-    function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler, ProjectConfigurator $configurator) {
+    public function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler, ProjectConfigurator $configurator, PhingXMLContext $context)
+    {
         parent::__construct($parser, $parentHandler);
-        $this->configurator = $configurator;      
+        $this->configurator = $configurator;
+        $this->context = $context;
     }
 
     /**
@@ -112,7 +114,7 @@ class TargetHandler extends AbstractHandler {
         $project = $this->configurator->project;
 
         // check to see if this target is a dup within the same file
-        if (isset($this->configurator->getCurrentTargets[$name])) {
+        if (isset($this->context->getCurrentTargets[$name])) {
           throw new BuildException("Duplicate target: $targetName",  
               $this->parser->getLocation());
         }
@@ -156,7 +158,7 @@ class TargetHandler extends AbstractHandler {
             $newTarget = $this->target;
           }
           $newTarget->setName($newName);
-          $ct = $this->configurator->getCurrentTargets();
+          $ct = $this->context->getCurrentTargets();
           $ct[$newName] = $newTarget;
           $project->addTarget($newName, $newTarget);
         }
