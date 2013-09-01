@@ -63,112 +63,112 @@ class ApplyTaskTest extends BuildFileTest
      * Tests the OS configuration setting 
      */
     public function testPropertySetOs() {
-      return $this->assertPropertyIsSetTo('os', 'linux');
+      return $this->assertAttributeIsSetTo('os', 'linux');
     }
 
     /**
      * Tests the dir configuration setting 
      */
     public function testPropertySetDir() {
-      return $this->assertPropertyIsSetTo('dir', new PhingFile('/tmp/'));
+      return $this->assertAttributeIsSetTo('dir', new PhingFile('/tmp/'));
     }
 
     /**
      * Tests the escape configuration setting 
      */
     public function testPropertySetEscape() {
-      return $this->assertPropertyIsSetTo('escape', true);
+      return $this->assertAttributeIsSetTo('escape', true);
     }
 
     /**
      * Tests the pass-thru configuration setting 
      */
     public function testPropertySetPassthru() {
-      return $this->assertPropertyIsSetTo('passthru', true);
+      return $this->assertAttributeIsSetTo('passthru', true);
     }
 
     /**
      * Tests the spawn configuration setting 
      */
     public function testPropertySetSpawn() {
-      return $this->assertPropertyIsSetTo('spawn', true);
+      return $this->assertAttributeIsSetTo('spawn', true);
     }
 
     /**
      * Tests the returnProperty configuration setting 
      */
     public function testPropertySetReturnProperty() {
-      return $this->assertPropertyIsSetTo('returnProperty', 'retval');
+      return $this->assertAttributeIsSetTo('returnProperty', 'retval');
     }
 
     /**
      * Tests the outputProperty configuration setting 
      */
     public function testPropertySetOutputProperty() {
-      return $this->assertPropertyIsSetTo('outputProperty', 'outval');
+      return $this->assertAttributeIsSetTo('outputProperty', 'outval');
     }
 
     /**
      * Tests the checkReturn/failonerror configuration setting 
      */
     public function testPropertySetCheckReturn() {
-      return $this->assertPropertyIsSetTo('checkreturn', true, 'failonerror');
+      return $this->assertAttributeIsSetTo('checkreturn', true, 'failonerror');
     }
 
     /**
      * Tests the output configuration setting 
      */
     public function testPropertySetOutput() {
-      return $this->assertPropertyIsSetTo('output', new PhingFile('/tmp/outputfilename'));
+      return $this->assertAttributeIsSetTo('output', new PhingFile('/tmp/outputfilename'));
     }
 
     /**
      * Tests the error configuration setting 
      */
     public function testPropertySetError() {
-      return $this->assertPropertyIsSetTo('error', new PhingFile('/tmp/errorfilename'));
+      return $this->assertAttributeIsSetTo('error', new PhingFile('/tmp/errorfilename'));
     }
 
     /**
      * Tests the append configuration setting 
      */
     public function testPropertySetAppend() {
-      return $this->assertPropertyIsSetTo('append', true, 'appendoutput');
+      return $this->assertAttributeIsSetTo('append', true, 'appendoutput');
     }
 
     /**
      * Tests the parallel configuration setting 
      */
     public function testPropertySetParallel() {
-      return $this->assertPropertyIsSetTo('parallel', false);
+      return $this->assertAttributeIsSetTo('parallel', false);
     }
 
     /**
      * Tests the addsourcefile configuration setting 
      */
     public function testPropertySetAddsourcefile() {
-      return $this->assertPropertyIsSetTo('addsourcefile', false);
+      return $this->assertAttributeIsSetTo('addsourcefile', false);
     }
 
     /**
      * Tests the relative configuration setting 
      */
     public function testPropertySetRelative() {
-      return $this->assertPropertyIsSetTo('relative', false);
+      return $this->assertAttributeIsSetTo('relative', false);
     }
 
     /**
      * Tests the forwardslash configuration setting 
      */
     public function testPropertySetForwardslash() {
-      return $this->assertPropertyIsSetTo('forwardslash', true);
+      return $this->assertAttributeIsSetTo('forwardslash', true);
     }
 
     /**
      * Tests the maxparallel configuration setting 
      */
     public function testPropertySetMaxparallel() {
-      return $this->assertPropertyIsSetTo('maxparallel', 10);
+      return $this->assertAttributeIsSetTo('maxparallel', 10);
     }
 
     /**
@@ -435,10 +435,15 @@ class ApplyTaskTest extends BuildFileTest
       $target = $this->getTargetByName($target);
       $task = $this->getTaskFromTarget($target, $task);
       $task->maybeConfigure();
+      
+      if ($task instanceof UnknownElement) {
+          return $task->getRuntimeConfigurableWrapper()->getProxy();
+      }
+      
       return $task;
     }
     
-    protected function assertPropertyIsSetTo($property, $value, $propertyName = null) {
+    protected function assertAttributeIsSetTo($property, $value, $propertyName = null) {
       
       $task = $this->getConfiguredTask( 'testPropertySet' . ucfirst($property), 'ApplyTask' );
       
