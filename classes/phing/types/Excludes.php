@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -38,38 +38,36 @@ class Excludes extends DataType
      *
      * @var DirectoryScanner
      */
-    private $_directoryScanner = null;
+    private $directoryScanner = null;
 
     /**
      * Holds the excluded file patterns
      *
-     * @var array
+     * @var ExcludesNameEntry[]
      */
-    private $_files = array();
+    private $files = array();
 
     /**
      * Holds the excluded classes
      *
-     * @var array
+     * @var ExcludesNameEntry[]
      */
-    private $_classes = array();
+    private $classes = array();
 
     /**
      * Holds the excluded methods
      *
-     * @var array
+     * @var ExcludesNameEntry[]
      */
-    private $_methods = array();
+    private $methods = array();
 
     /**
-     * ctor
-     *
      * @param Project $project
      */
     public function __construct(Project $project)
     {
-        $this->_directoryScanner = new DirectoryScanner();
-        $this->_directoryScanner->setBasedir($project->getBasedir());
+        $this->directoryScanner = new DirectoryScanner();
+        $this->directoryScanner->setBasedir($project->getBasedir());
     }
 
     /**
@@ -79,7 +77,7 @@ class Excludes extends DataType
      */
     public function createFile()
     {
-        return $this->_addFile($this->_files);
+        return $this->addExcludesNameEntry($this->files);
     }
 
     /**
@@ -89,7 +87,7 @@ class Excludes extends DataType
      */
     public function createClass()
     {
-        return $this->_addClass($this->_classes);
+        return $this->addExcludesNameEntry($this->classes);
     }
 
     /**
@@ -99,48 +97,22 @@ class Excludes extends DataType
      */
     public function createMethod()
     {
-        return $this->_addMethod($this->_methods);
+        return $this->addExcludesNameEntry($this->methods);
     }
 
     /**
-     * Adds a file to the exclusion list
-     *
-     * @param FileSet $fileSet The FileSet into which the nameentry should be added
-     *
-     * @return ExcludesNameEntry Reference to the created ExcludesNameEntry instance
-     */
-    private function _addFile(&$fileList)
-    {
-        $file       = new ExcludesNameEntry();
-        $fileList[] = $file;
+     * Adds a new ExcludesNameEntry to the given exclusion list.
 
-        return $file;
-    }
-
-    /**
-     * Adds a class to the exclusion list
+     * @param ExcludesNameEntry[] $excludesNameEntryList
      *
      * @return ExcludesNameEntry Reference to the created ExcludesNameEntry instance
      */
-    private function _addClass(&$classList)
+    private function addExcludesNameEntry(&$excludesNameEntryList)
     {
-        $excludedClass = new ExcludesNameEntry();
-        $classList[]   = $excludedClass;
+        $excludesNameEntry       = new ExcludesNameEntry();
+        $excludesNameEntryList[] = $excludesNameEntry;
 
-        return $excludedClass;
-    }
-
-    /**
-     * Adds a method to the exclusion list
-     *
-     * @return ExcludesNameEntry Reference to the created ExcludesNameEntry instance
-     */
-    private function _addMethod(&$methodList)
-    {
-        $excludedMethod = new ExcludesNameEntry();
-        $methodList[]   = $excludedMethod;
-
-        return $excludedMethod;
+        return $excludesNameEntry;
     }
 
     /**
@@ -152,15 +124,15 @@ class Excludes extends DataType
     {
         $includes = array();
 
-        foreach ($this->_files as $file) {
+        foreach ($this->files as $file) {
             $includes[] = $file->getName();
         }
 
-        $this->_directoryScanner->setIncludes($includes);
-        $this->_directoryScanner->scan();
+        $this->directoryScanner->setIncludes($includes);
+        $this->directoryScanner->scan();
 
-        $files    = $this->_directoryScanner->getIncludedFiles();
-        $dir      = $this->_directoryScanner->getBasedir();
+        $files    = $this->directoryScanner->getIncludedFiles();
+        $dir      = $this->directoryScanner->getBasedir();
         $fileList = array();
 
         foreach ($files as $file) {
@@ -179,7 +151,7 @@ class Excludes extends DataType
     {
         $excludedClasses = array();
 
-        foreach ($this->_classes as $excludedClass) {
+        foreach ($this->classes as $excludedClass) {
             $excludedClasses[] = $excludedClass->getName();
         }
 
@@ -195,7 +167,7 @@ class Excludes extends DataType
     {
         $excludedMethods = array();
 
-        foreach ($this->_methods as $excludedMethod) {
+        foreach ($this->methods as $excludedMethod) {
             $classAndMethod = explode('::', $excludedMethod->getName());
             $className      = $classAndMethod[0];
             $methodName     = $classAndMethod[1];
