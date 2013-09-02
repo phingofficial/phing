@@ -208,11 +208,6 @@ class PHPCPDTask extends Task
      */
     public function main()
     {
-        /**
-         * Determine PHPCPD installation
-         */
-        $oldVersion = false;
-        
         if (!@include_once('SebastianBergmann/PHPCPD/autoload.php')) {
             if (!@include_once('PHPCPD/Autoload.php')) {
                 throw new BuildException(
@@ -221,16 +216,16 @@ class PHPCPDTask extends Task
                     $this->getLocation()
                 );
             }
-            
+
             $oldVersion = true;
         } else {
             if (version_compare(PHP_VERSION, '5.3.0') < 0) {
                 throw new BuildException("The PHPCPD task now requires PHP 5.3+");
             }
-            
+
             $oldVersion = false;
         }
-        
+
         if (!isset($this->_file) and count($this->_filesets) == 0) {
             throw new BuildException(
                 "Missing either a nested fileset or attribute 'file' set"
@@ -265,7 +260,7 @@ class PHPCPDTask extends Task
         }
 
         $this->log('Processing files...');
-        
+
         if ($oldVersion) {
             $detectorClass = 'PHPCPD_Detector';
             $strategyClass = 'PHPCPD_Detector_Strategy_Default';
@@ -273,7 +268,7 @@ class PHPCPDTask extends Task
             $detectorClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Detector';
             $strategyClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy';
         }
-        
+
         $detector = new $detectorClass(new $strategyClass);
         $clones   = $detector->copyPasteDetection(
             $filesToParse,
