@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -26,31 +25,26 @@ require_once 'phing/types/AbstractFileSet.php';
  * Moved out of MatchingTask to make it a standalone object that could
  * be referenced (by scripts for example).
  *
- * @author Hans Lellelid <hans@xmpl.org> (Phing)
- * @author Arnout J. Kuiper <ajkuiper@wxs.nl> (Ant)
- * @author Stefano Mazzocchi <stefano@apache.org> (Ant)
- * @author Sam Ruby <rubys@us.ibm.com> (Ant)
- * @author Jon S. Stevens <jon@clearink.com> (Ant)
- * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @author Magesh Umasankar (Ant)
  * @package phing.types
+ * @author  Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author  Arnout J. Kuiper <ajkuiper@wxs.nl> (Ant)
+ * @author  Stefano Mazzocchi <stefano@apache.org> (Ant)
+ * @author  Sam Ruby <rubys@us.ibm.com> (Ant)
+ * @author  Jon S. Stevens <jon@clearink.com> (Ant)
+ * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
+ * @author  Magesh Umasankar (Ant)
  */
-class FileSet extends AbstractFileSet {
-    
-    function __construct($fileset = null) {
-        parent::__construct($fileset);
-    }
-
+class FileSet extends AbstractFileSet
+{
     /**
-     * Return a FileSet that has the same basedir and same patternsets
-     * as this one.
+     * Return a FileSet that has the same basedir and same patternsets as this one.
      */
-    public function __clone() {
+    public function __clone()
+    {
         if ($this->isReference()) {
             return new FileSet($this->getRef($this->getProject()));
         } else {
             return new FileSet($this);
         }
     }
-
 }

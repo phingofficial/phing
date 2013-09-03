@@ -62,27 +62,27 @@ class PHPMDFormatterElement
      *
      * @param string $type Type of the formatter
      *
-     * @return void
+     * @throws BuildException
      */
     public function setType($type)
     {
         $this->type = $type;
 
         switch ($this->type) {
-        case 'xml':
-            include_once 'PHP/PMD/Renderer/XMLRenderer.php';
-            break;
+            case 'xml':
+                include_once 'PHP/PMD/Renderer/XMLRenderer.php';
+                break;
 
-        case 'html':
-            include_once 'PHP/PMD/Renderer/HTMLRenderer.php';
-            break;
+            case 'html':
+                include_once 'PHP/PMD/Renderer/HTMLRenderer.php';
+                break;
 
-        case 'text':
-            include_once 'PHP/PMD/Renderer/TextRenderer.php';
-            break;
+            case 'text':
+                include_once 'PHP/PMD/Renderer/TextRenderer.php';
+                break;
 
-        default:
-            throw new BuildException("Formatter '" . $this->type . "' not implemented");
+            default:
+                throw new BuildException('Formatter "' . $this->type . '" not implemented');
         }
     }
 
@@ -100,12 +100,10 @@ class PHPMDFormatterElement
      * Set whether to write formatter results to file or not.
      *
      * @param boolean $useFile True or false.
-     *
-     * @return void
      */
     public function setUseFile($useFile)
     {
-        $this->useFile = (boolean) $useFile;
+        $this->useFile = StringHelper::booleanValue($useFile);
     }
 
     /**
@@ -122,8 +120,6 @@ class PHPMDFormatterElement
      * Sets the output file for the formatter results.
      *
      * @param PhingFile $outfile The output file
-     *
-     * @return void
      */
     public function setOutfile(PhingFile $outfile)
     {
@@ -149,20 +145,20 @@ class PHPMDFormatterElement
     public function getRenderer()
     {
         switch ($this->type) {
-        case 'xml':
-            $renderer = new PHP_PMD_Renderer_XMLRenderer();
-            break;
+            case 'xml':
+                $renderer = new PHP_PMD_Renderer_XMLRenderer();
+                break;
 
-        case 'html':
-            $renderer = new PHP_PMD_Renderer_HTMLRenderer();
-            break;
+            case 'html':
+                $renderer = new PHP_PMD_Renderer_HTMLRenderer();
+                break;
 
-        case 'text':
-            $renderer = new PHP_PMD_Renderer_TextRenderer();
-            break;
+            case 'text':
+                $renderer = new PHP_PMD_Renderer_TextRenderer();
+                break;
 
-        default:
-            throw new BuildException("PHP_MD renderer '" . $this->type . "' not implemented");
+            default:
+                throw new BuildException('PHP_MD renderer "' . $this->type . '" not implemented');
         }
 
         // Create a report stream
@@ -173,7 +169,7 @@ class PHPMDFormatterElement
         }
 
         require_once 'PHP/PMD/Writer/Stream.php';
-        
+
         $renderer->setWriter(new PHP_PMD_Writer_Stream($stream));
 
         return $renderer;

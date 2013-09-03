@@ -36,34 +36,32 @@ class PhpDependAnalyzerElement
      *
      * @var string
      */
-    protected $_type = '';
+    protected $type = '';
 
     /**
      * The value(s) for the analyzer option
      *
      * @var array
      */
-    protected $_value = array();
+    protected $value = array();
 
     /**
      * Sets the analyzer type
      *
      * @param string $type Type of the analyzer
      *
-     * @return void
+     * @throws BuildException
      */
     public function setType($type)
     {
-        $this->_type = $type;
+        $this->type = $type;
 
-        switch ($this->_type) {
+        switch ($this->type) {
             case 'coderank-mode':
                 break;
 
             default:
-                throw new BuildException(
-                    "Analyzer '" . $this->_type . "' not implemented"
-                );
+                throw new BuildException('Analyzer "' . $this->type . '" not implemented');
         }
     }
 
@@ -74,25 +72,23 @@ class PhpDependAnalyzerElement
      */
     public function getType()
     {
-        return $this->_type;
+        return $this->type;
     }
 
     /**
      * Sets the value for the analyzer
      *
      * @param string $value Value for the analyzer
-     *
-     * @return void
      */
     public function setValue($value)
     {
-        $this->_value = array();
+        $this->value = array();
 
         $token  = ' ,;';
         $values = strtok($value, $token);
 
         while ($values !== false) {
-            $this->_value[] = $values;
+            $this->value[] = $values;
             $values = strtok($token);
         }
     }
@@ -104,6 +100,6 @@ class PhpDependAnalyzerElement
      */
     public function getValue()
     {
-        return $this->_value;
+        return $this->value;
     }
 }
