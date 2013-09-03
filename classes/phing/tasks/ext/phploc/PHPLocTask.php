@@ -167,9 +167,11 @@ class PHPLocTask extends Task
             }
         }
 
-        if (class_exists('\SebastianBergmann\PHPLOC\Version')
-            && version_compare(\SebastianBergmann\PHPLOC\Version::VERSION, '1.7.0') >= 0
-            && version_compare(\SebastianBergmann\PHPLOC\Version::VERSION, '2.0.0beta1') == -1
+        $versionClass = '\\SebastianBergmann\\PHPLOC\\Version';
+
+        if (class_exists($versionClass)
+            && version_compare($versionClass::VERSION, '1.7.0') >= 0
+            && version_compare($versionClass::VERSION, '2.0.0beta1') == -1
         ) {
             $this->isOneSevenVersion = true;
         }
@@ -277,15 +279,19 @@ class PHPLocTask extends Task
                     if ($this->oldVersion) {
                         require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
 
-                        $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+                        $printerClass = 'PHPLOC_TextUI_ResultPrinter_Text';
                     } else {
-                        $printer = new \SebastianBergmann\PHPLOC\TextUI\ResultPrinter;
+                        $printerClass = '\\SebastianBergmann\\PHPLOC\\TextUI\\ResultPrinter';
                     }
 
+                    $printer = new $printerClass;
                     $printer->printResult($count, $this->countTests);
                 } else {
-                    $output  = new \Symfony\Component\Console\Output\ConsoleOutput;
-                    $printer = new \SebastianBergmann\PHPLOC\Log\Text;
+                    $outputClass  = '\\Symfony\\Component\\Console\\Output\\ConsoleOutput';
+                    $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Text';
+
+                    $output  = new $outputClass;
+                    $printer = new $printerClass;
                     $printer->printResult($output, $count, $this->countTests);
                 }
                 break;
@@ -295,10 +301,12 @@ class PHPLocTask extends Task
                     if ($this->oldVersion) {
                         require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
 
-                        $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+                        $printerClass = 'PHPLOC_TextUI_ResultPrinter_Text';
                     } else {
-                        $printer = new \SebastianBergmann\PHPLOC\TextUI\ResultPrinter;
+                        $printerClass = '\\SebastianBergmann\\PHPLOC\\TextUI\\ResultPrinter';
                     }
+
+                    $printer = new $printerClass;
 
                     ob_start();
                     $printer->printResult($count, $this->countTests);
@@ -307,9 +315,12 @@ class PHPLocTask extends Task
 
                     file_put_contents($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $result);
                 } else {
+                    $outputClass  = '\\Symfony\\Component\\Console\\Output\\StreamOutput';
+                    $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Text';
+
                     $stream  = fopen($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, 'a+');
-                    $output  = new \Symfony\Component\Console\Output\StreamOutput($stream);
-                    $printer = new \SebastianBergmann\PHPLOC\Log\Text;
+                    $output  = new $outputClass($stream);
+                    $printer = new $printerClass;
                     $printer->printResult($output, $count, $this->countTests);
                 }
                 break;
