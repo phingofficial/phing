@@ -170,8 +170,8 @@ class PHPLocTask extends Task
         $versionClass = '\\SebastianBergmann\\PHPLOC\\Version';
 
         if (class_exists($versionClass)
-            && version_compare($versionClass::VERSION, '1.7.0') >= 0
-            && version_compare($versionClass::VERSION, '2.0.0beta1') == -1
+            && version_compare(constant($versionClass . '::VERSION'), '1.7.0') >= 0
+            && version_compare(constant($versionClass . '::VERSION'), '2.0.0beta1') == -1
         ) {
             $this->isOneSevenVersion = true;
         }
