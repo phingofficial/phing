@@ -247,53 +247,75 @@ class PHPLocTask extends Task
 
     protected function runPhpLocCheck()
     {
-        $files  = $this->getFilesToCheck();
-        $result = $this->getCountForFiles($files);
+        $files = $this->getFilesToCheck();
+        $count = $this->getCountForFiles($files);
 
-        if ($this->reportType === 'cli' || $this->reportType === 'txt') {
-            if ($this->oldVersion) {
-                require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
-
-                $reportClass = 'PHPLOC_TextUI_ResultPrinter_Text';
-            } else {
-                $reportClass = '\\SebastianBergmann\\PHPLOC\\TextUI\\ResultPrinter';
-            }
-
-            $printer = new $reportClass();
-            ob_start();
-            $printer->printResult($result, $this->countTests);
-            $result = ob_get_contents();
-            ob_end_clean();
-
-            if ($this->reportType === 'txt') {
-                file_put_contents($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $result);
-
-                $reportDir  = new PhingFile($this->reportDirectory);
-                $logMessage = 'Writing report to: '
-                            . $reportDir->getAbsolutePath() . DIRECTORY_SEPARATOR . $this->reportFileName;
-
-                $this->log($logMessage);
-            } else {
-                $this->log("\n" . $result);
-            }
-        } elseif ($this->reportType === 'xml' || $this->reportType === 'csv') {
-            if ($this->oldVersion) {
-                $printerClass     = sprintf('PHPLOC_TextUI_ResultPrinter_%s', strtoupper($this->reportType)) ;
-                $printerClassFile = str_replace('_', DIRECTORY_SEPARATOR, $printerClass) . '.php';
-
-                require_once $printerClassFile;
-            } else {
-                $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\' . strtoupper($this->reportType);
-            }
-
-            $printer    = new $printerClass();
-            $reportDir  = new PhingFile($this->reportDirectory);
+        if ($this->reportType != 'cli') {
             $logMessage = 'Writing report to: '
-                        . $reportDir->getAbsolutePath() . DIRECTORY_SEPARATOR . $this->reportFileName;
+                        . $this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName;
 
             $this->log($logMessage);
+        }
 
-            $printer->printResult($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $result);
+        switch ($this->reportType) {
+            case 'cli':
+                if ($this->oldVersion) {
+                    require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
+
+                    $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+                    $printer->printResult($count, $this->countTests);
+                } else {
+                    $output  = new \Symfony\Component\Console\Output\ConsoleOutput;
+                    $printer = new \SebastianBergmann\PHPLOC\Log\Text;
+                    $printer->printResult($output, $count, $this->countTests);
+                }
+                break;
+
+            case 'txt':
+                if ($this->oldVersion) {
+                    require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
+
+                    $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+
+                    ob_start();
+                    $printer->printResult($count, $this->countTests);
+                    $result = ob_get_contents();
+                    ob_end_clean();
+
+                    file_put_contents($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $result);
+                } else {
+                    $stream  = fopen($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, 'a+');
+                    $output  = new \Symfony\Component\Console\Output\StreamOutput($stream);
+                    $printer = new \SebastianBergmann\PHPLOC\Log\Text;
+                    $printer->printResult($output, $count, $this->countTests);
+                }
+                break;
+
+            case 'xml':
+                if ($this->oldVersion) {
+                    require_once 'PHPLOC/TextUI/ResultPrinter/XML.php';
+
+                    $printerClass = 'PHPLOC_TextUI_ResultPrinter_XML';
+                } else {
+                    $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\XML';
+                }
+
+                $printer = new $printerClass;
+                $printer->printResult($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $count);
+                break;
+
+            case 'csv':
+                if ($this->oldVersion) {
+                    require_once 'PHPLOC/TextUI/ResultPrinter/CSV.php';
+
+                    $printerClass = 'PHPLOC_TextUI_ResultPrinter_CSV';
+                } else {
+                    $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\CSV\\Single';
+                }
+
+                $printer = new $printerClass;
+                $printer->printResult($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $count);
+                break;
         }
     }
 
