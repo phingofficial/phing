@@ -80,6 +80,13 @@ class PHPLocTask extends Task
     protected $oldVersion = false;
 
     /**
+     * Flag for identifying if phploc library is between version 1.7.0 and 1.7.4
+     *
+     * @var bool
+     */
+    private $isOneSevenVersion = false;
+
+    /**
      * @param string $suffixListOrSingleSuffix
      */
     public function setSuffixes($suffixListOrSingleSuffix)
@@ -158,6 +165,13 @@ class PHPLocTask extends Task
                     $this->oldVersion = true;
                 }
             }
+        }
+
+        if (class_exists('\SebastianBergmann\PHPLOC\Version')
+            && version_compare(\SebastianBergmann\PHPLOC\Version::VERSION, '1.7.0') >= 0
+            && version_compare(\SebastianBergmann\PHPLOC\Version::VERSION, '2.0.0beta1') == -1
+        ) {
+            $this->isOneSevenVersion = true;
         }
 
         $this->validateProperties();
@@ -259,10 +273,15 @@ class PHPLocTask extends Task
 
         switch ($this->reportType) {
             case 'cli':
-                if ($this->oldVersion) {
-                    require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
+                if ($this->oldVersion || $this->isOneSevenVersion) {
+                    if ($this->oldVersion) {
+                        require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
 
-                    $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+                        $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+                    } else {
+                        $printer = new \SebastianBergmann\PHPLOC\TextUI\ResultPrinter;
+                    }
+
                     $printer->printResult($count, $this->countTests);
                 } else {
                     $output  = new \Symfony\Component\Console\Output\ConsoleOutput;
@@ -272,10 +291,14 @@ class PHPLocTask extends Task
                 break;
 
             case 'txt':
-                if ($this->oldVersion) {
-                    require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
+                if ($this->oldVersion || $this->isOneSevenVersion) {
+                    if ($this->oldVersion) {
+                        require_once 'PHPLOC/TextUI/ResultPrinter/Text.php';
 
-                    $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+                        $printer = new PHPLOC_TextUI_ResultPrinter_Text;
+                    } else {
+                        $printer = new \SebastianBergmann\PHPLOC\TextUI\ResultPrinter;
+                    }
 
                     ob_start();
                     $printer->printResult($count, $this->countTests);
@@ -310,7 +333,11 @@ class PHPLocTask extends Task
 
                     $printerClass = 'PHPLOC_TextUI_ResultPrinter_CSV';
                 } else {
-                    $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\CSV\\Single';
+                    if ($this->isOneSevenVersion) {
+                        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\CSV';
+                    } else {
+                        $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\CSV\\Single';
+                    }
                 }
 
                 $printer = new $printerClass;
