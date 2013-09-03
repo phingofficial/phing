@@ -1,6 +1,7 @@
 <?php
-/**
- * $Id$
+
+/*
+ *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,33 +19,25 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/types/AbstractFileSet.php';
+ 
+require_once 'phing/BuildFileTest.php';
 
 /**
- * Moved out of MatchingTask to make it a standalone object that could
- * be referenced (by scripts for example).
+ * Regression test for ticket http://www.phing.info/trac/ticket/1041
+ * - Properties within then/else blocks are not expanded
  *
- * @package phing.types
- * @author  Hans Lellelid <hans@xmpl.org> (Phing)
- * @author  Arnout J. Kuiper <ajkuiper@wxs.nl> (Ant)
- * @author  Stefano Mazzocchi <stefano@apache.org> (Ant)
- * @author  Sam Ruby <rubys@us.ibm.com> (Ant)
- * @author  Jon S. Stevens <jon@clearink.com> (Ant)
- * @author  Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @author  Magesh Umasankar (Ant)
+ * @package phing.regression
  */
-class FileSet extends AbstractFileSet
-{
-    /**
-     * Return a FileSet that has the same basedir and same patternsets as this one.
-     */
-    public function __clone()
-    {
-        if ($this->isReference()) {
-            return new FileSet($this->getRef($this->getProject()));
-        } else {
-            return new FileSet($this);
-        }
+class PropertiesInIfTaskTest extends BuildFileTest { 
+        
+    public function setUp() { 
+        $this->configureProject(PHING_TEST_BASE . "/etc/regression/1041/build.xml");
+    }
+
+    public function testCopyTask () {
+        $this->executeTarget("test");
+
+        $this->assertNotInLogs('Property ${outp} has not been set.');
+        $this->assertInLogs('Property ${outp} => test');
     }
 }

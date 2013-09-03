@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -34,7 +34,7 @@ class ExcludesNameEntry
      *
      * @var string
      */
-    private $_name;
+    private $name;
 
     /**
      * An alias for the setName() method.
@@ -56,7 +56,7 @@ class ExcludesNameEntry
      */
     public function setName($name)
     {
-        $this->_name = (string) $name;
+        $this->name = (string) $name;
     }
 
     /**
@@ -66,7 +66,7 @@ class ExcludesNameEntry
      */
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     /**
@@ -76,6 +76,6 @@ class ExcludesNameEntry
      */
     public function toString()
     {
-        return $this->_name;
+        return $this->name;
     }
 }

@@ -43,7 +43,7 @@ class PHPMDTask extends Task
     /**
      * All fileset objects assigned to this task
      *
-     * @var array<FileSet>
+     * @var FileSet[]
      */
     protected $filesets = array();
 
@@ -85,7 +85,7 @@ class PHPMDTask extends Task
     /**
      * Formatter elements.
      *
-     * @var array<PHPMDFormatterElement>
+     * @var PHPMDFormatterElement[]
      */
     protected $formatters = array();
 
@@ -93,8 +93,6 @@ class PHPMDTask extends Task
      * Set the input source file or directory.
      *
      * @param PhingFile $file The input source file or directory.
-     *
-     * @return void
      */
     public function setFile(PhingFile $file)
     {
@@ -109,6 +107,7 @@ class PHPMDTask extends Task
     public function createFileSet()
     {
         $num = array_push($this->filesets, new FileSet());
+
         return $this->filesets[$num-1];
     }
 
@@ -116,8 +115,6 @@ class PHPMDTask extends Task
      * Sets the minimum rule priority.
      *
      * @param integer $minimumPriority Minimum rule priority.
-     *
-     * @return void
      */
     public function setMinimumPriority($minimumPriority)
     {
@@ -127,10 +124,7 @@ class PHPMDTask extends Task
     /**
      * Sets the rule-sets.
      *
-     * @param string $ruleSetFileNames Comma-separated string of rule-set filenames
-     *                                 or identifier.
-     *
-     * @return void
+     * @param string $ruleSetFileNames Comma-separated string of rule-set filenames or identifier.
      */
     public function setRulesets($ruleSetFileNames)
     {
@@ -141,8 +135,6 @@ class PHPMDTask extends Task
      * Sets a list of filename extensions for valid php source code files.
      *
      * @param string $fileExtensions List of valid file extensions without leading dot.
-     *
-     * @return void
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
@@ -158,12 +150,9 @@ class PHPMDTask extends Task
     }
 
     /**
-     * Sets a list of ignore patterns that is used to exclude directories from
-     * the source analysis.
+     * Sets a list of ignore patterns that is used to exclude directories from the source analysis.
      *
      * @param string $ignorePatterns List of ignore patterns.
-     *
-     * @return void
      */
     public function setIgnorePatterns($ignorePatterns)
     {
@@ -186,6 +175,7 @@ class PHPMDTask extends Task
     public function createFormatter()
     {
         $num = array_push($this->formatters, new PHPMDFormatterElement());
+
         return $this->formatters[$num-1];
     }
 
@@ -193,7 +183,6 @@ class PHPMDTask extends Task
      * Executes PHPMD against PhingFile or a FileSet
      *
      * @throws BuildException - if the phpmd classes can't be loaded.
-     * @return void
      */
     public function main()
     {
@@ -208,15 +197,15 @@ class PHPMDTask extends Task
                 $this->getLocation()
             );
         }
-        
+
         require_once 'PHP/PMD/AbstractRule.php';
 
         if (!$this->minimumPriority) {
             $this->minimumPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
         }
-        
+
         if (!isset($this->file) and count($this->filesets) == 0) {
-            throw new BuildException("Missing either a nested fileset or attribute 'file' set");
+            throw new BuildException('Missing either a nested fileset or attribute "file" set');
         }
 
         if (count($this->formatters) == 0) {
@@ -224,6 +213,7 @@ class PHPMDTask extends Task
             $fmt = new PHPMDFormatterElement();
             $fmt->setType($this->format);
             $fmt->setUseFile(false);
+
             $this->formatters[] = $fmt;
         }
 
@@ -231,10 +221,11 @@ class PHPMDTask extends Task
 
         foreach ($this->formatters as $fe) {
             if ($fe->getType() == '') {
-                throw new BuildException("Formatter missing required 'type' attribute.");
+                throw new BuildException('Formatter missing required "type" attribute.');
             }
+
             if ($fe->getUsefile() && $fe->getOutfile() === null) {
-                throw new BuildException("Formatter requires 'outfile' attribute when 'useFile' is true.");
+                throw new BuildException('Formatter requires "outfile" attribute when "useFile" is true.');
             }
 
             $reportRenderers[] = $fe->getRenderer();
@@ -245,7 +236,6 @@ class PHPMDTask extends Task
         $ruleSetFactory->setMinimumPriority($this->minimumPriority);
 
         $phpmd = new PHP_PMD();
-
         $phpmd->setFileExtensions($this->allowedFileExtensions);
         $phpmd->setIgnorePattern($this->ignorePatterns);
 
@@ -256,26 +246,20 @@ class PHPMDTask extends Task
         } else {
             // append any files in filesets
             foreach ($this->filesets as $fs) {
-                $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
-                foreach ($files as $filename) {
+                foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
                      $f = new PhingFile($fs->getDir($this->project), $filename);
                      $filesToParse[] = $f->getAbsolutePath();
                 }
             }
         }
-        
+
         if (count($filesToParse) > 0) {
             $inputPath = implode(',', $filesToParse);
-    
+
             $this->log('Processing files...');
-    
-            $phpmd->processFiles(
-                $inputPath,
-                $this->rulesets,
-                $reportRenderers,
-                $ruleSetFactory
-            );
-    
+
+            $phpmd->processFiles($inputPath, $this->rulesets, $reportRenderers, $ruleSetFactory);
+
             $this->log('Finished processing files');
         } else {
             $this->log('No files to process');

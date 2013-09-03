@@ -39,14 +39,14 @@ class PhpDependTask extends Task
      *
      * @var PhingFile
      */
-    protected $_file = null;
+    protected $file = null;
 
     /**
      * All fileset objects assigned to this task
      *
-     * @var array<FileSet>
+     * @var FileSet[]
      */
-    protected $_filesets = array();
+    protected $filesets = array();
 
     /**
      * List of allowed file extensions. Default file extensions are <b>php</b>
@@ -54,7 +54,7 @@ class PhpDependTask extends Task
      *
      * @var array<string>
      */
-    protected $_allowedFileExtensions = array('php', 'php5');
+    protected $allowedFileExtensions = array('php', 'php5');
 
     /**
      * List of exclude directories. Default exclude dirs are <b>.git</b>,
@@ -62,75 +62,74 @@ class PhpDependTask extends Task
      *
      * @var array<string>
      */
-    protected $_excludeDirectories = array('.git', '.svn', 'CVS');
+    protected $excludeDirectories = array('.git', '.svn', 'CVS');
 
     /**
      * List of exclude packages
      *
      * @var array<string>
      */
-    protected $_excludePackages = array();
+    protected $excludePackages = array();
 
     /**
      * Should the parse ignore doc comment annotations?
      *
      * @var boolean
      */
-    protected $_withoutAnnotations = false;
+    protected $withoutAnnotations = false;
 
     /**
      * Should PHP_Depend treat <b>+global</b> as a regular project package?
      *
      * @var boolean
      */
-    protected $_supportBadDocumentation = false;
+    protected $supportBadDocumentation = false;
 
     /**
      * Flag for enable/disable debugging
      *
      * @var boolean
      */
-    protected $_debug = false;
+    protected $debug = false;
 
     /**
      * PHP_Depend configuration file
      *
      * @var PhingFile
      */
-    protected $_configFile = null;
+    protected $configFile = null;
 
     /**
      * Logger elements
      *
-     * @var array<PhpDependLoggerElement>
+     * @var PhpDependLoggerElement[]
      */
-    protected $_loggers = array();
+    protected $loggers = array();
 
     /**
      * Analyzer elements
      *
-     * @var array<PhpDependAnalyzerElement>
+     * @var PhpDependAnalyzerElement[]
      */
-    protected $_analyzers = array();
+    protected $analyzers = array();
 
     /**
      * Holds the PHP_Depend runner instance
      *
      * @var PHP_Depend_TextUI_Runner
      */
-    protected $_runner = null;
+    protected $runner = null;
 
     /**
      * Flag that determines whether to halt on error
      *
      * @var boolean
      */
-    protected $_haltonerror = false;
+    protected $haltonerror = false;
 
     /**
      * Load the necessary environment for running PHP_Depend
      *
-     * @return void
      * @throws BuildException
      */
     protected function requireDependencies()
@@ -142,15 +141,13 @@ class PhpDependTask extends Task
 
         if (! class_exists('PHP_Depend_TextUI_Runner')) {
             throw new BuildException(
-                'PhpDependTask depends on PHP_Depend being installed '
-                . 'and on include_path',
+                'PhpDependTask depends on PHP_Depend being installed and on include_path',
                 $this->getLocation()
             );
         }
 
         /**
-         * Other dependencies that should only be loaded
-         * when class is actually used
+         * Other dependencies that should only be loaded when class is actually used
          */
         require_once 'PHP/Depend/Autoload.php';
     }
@@ -159,12 +156,10 @@ class PhpDependTask extends Task
      * Set the input source file or directory
      *
      * @param PhingFile $file The input source file or directory
-     *
-     * @return void
      */
     public function setFile(PhingFile $file)
     {
-        $this->_file = $file;
+        $this->file = $file;
     }
 
     /**
@@ -174,26 +169,25 @@ class PhpDependTask extends Task
      */
     public function createFileSet()
     {
-        $num = array_push($this->_filesets, new FileSet());
-        return $this->_filesets[$num-1];
+        $num = array_push($this->filesets, new FileSet());
+
+        return $this->filesets[$num-1];
     }
 
     /**
      * Sets a list of filename extensions for valid php source code files
      *
      * @param string $fileExtensions List of valid file extensions
-     *
-     * @return void
      */
     public function setAllowedFileExtensions($fileExtensions)
     {
-        $this->_allowedFileExtensions = array();
+        $this->allowedFileExtensions = array();
 
         $token = ' ,;';
         $ext   = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
-            $this->_allowedFileExtensions[] = $ext;
+            $this->allowedFileExtensions[] = $ext;
             $ext = strtok($token);
         }
     }
@@ -202,18 +196,16 @@ class PhpDependTask extends Task
      * Sets a list of exclude directories
      *
      * @param string $excludeDirectories List of exclude directories
-     *
-     * @return void
      */
     public function setExcludeDirectories($excludeDirectories)
     {
-        $this->_excludeDirectories = array();
+        $this->excludeDirectories = array();
 
         $token   = ' ,;';
         $pattern = strtok($excludeDirectories, $token);
 
         while ($pattern !== false) {
-            $this->_excludeDirectories[] = $pattern;
+            $this->excludeDirectories[] = $pattern;
             $pattern = strtok($token);
         }
     }
@@ -222,18 +214,16 @@ class PhpDependTask extends Task
      * Sets a list of exclude packages
      *
      * @param string $excludePackages Exclude packages
-     *
-     * @return void
      */
     public function setExcludePackages($excludePackages)
     {
-        $this->_excludePackages = array();
+        $this->excludePackages = array();
 
         $token   = ' ,;';
         $pattern = strtok($excludePackages, $token);
 
         while ($pattern !== false) {
-            $this->_excludePackages[] = $pattern;
+            $this->excludePackages[] = $pattern;
             $pattern = strtok($token);
         }
     }
@@ -242,14 +232,10 @@ class PhpDependTask extends Task
      * Should the parser ignore doc comment annotations?
      *
      * @param boolean $withoutAnnotations
-     *
-     * @return void
      */
     public function setWithoutAnnotations($withoutAnnotations)
     {
-        $this->_withoutAnnotations = StringHelper::booleanValue(
-            $withoutAnnotations
-        );
+        $this->withoutAnnotations = StringHelper::booleanValue($withoutAnnotations);
     }
 
     /**
@@ -258,50 +244,40 @@ class PhpDependTask extends Task
      * <b>+global</b> as a regular project package.
      *
      * @param boolean $supportBadDocumentation
-     *
-     * @return void
      */
     public function setSupportBadDocumentation($supportBadDocumentation)
     {
-        $this->_supportBadDocumentation = StringHelper::booleanValue(
-            $supportBadDocumentation
-        );
+        $this->supportBadDocumentation = StringHelper::booleanValue($supportBadDocumentation);
     }
 
     /**
      * Set debugging On/Off
      *
      * @param boolean $debug
-     *
-     * @return void
      */
     public function setDebug($debug)
     {
-        $this->_debug = StringHelper::booleanValue($debug);
+        $this->debug = StringHelper::booleanValue($debug);
     }
 
     /**
      * Set halt on error
      *
      * @param boolean $haltonerror
-     *
-     * @return void
      */
     public function setHaltonerror($haltonerror)
     {
-        $this->_haltonerror = StringHelper::booleanValue($haltonerror);
+        $this->haltonerror = StringHelper::booleanValue($haltonerror);
     }
 
     /**
      * Set the configuration file
      *
      * @param PhingFile $configFile The configuration file
-     *
-     * @return void
      */
     public function setConfigFile(PhingFile $configFile)
     {
-        $this->_configFile = $configFile;
+        $this->configFile = $configFile;
     }
 
     /**
@@ -311,8 +287,9 @@ class PhpDependTask extends Task
      */
     public function createLogger()
     {
-        $num = array_push($this->_loggers, new PhpDependLoggerElement());
-        return $this->_loggers[$num-1];
+        $num = array_push($this->loggers, new PhpDependLoggerElement());
+
+        return $this->loggers[$num-1];
     }
 
     /**
@@ -322,30 +299,29 @@ class PhpDependTask extends Task
      */
     public function createAnalyzer()
     {
-        $num = array_push($this->_analyzers, new PhpDependAnalyzerElement());
-        return $this->_analyzers[$num-1];
+        $num = array_push($this->analyzers, new PhpDependAnalyzerElement());
+
+        return $this->analyzers[$num-1];
     }
 
     /**
      * Executes PHP_Depend_TextUI_Runner against PhingFile or a FileSet
      *
-     * @return void
      * @throws BuildException
      */
     public function main()
     {
         $this->requireDependencies();
+
         $autoload = new PHP_Depend_Autoload();
         $autoload->register();
 
-        if (!isset($this->_file) and count($this->_filesets) == 0) {
-            throw new BuildException(
-                "Missing either a nested fileset or attribute 'file' set"
-            );
+        if (!isset($this->file) and count($this->filesets) == 0) {
+            throw new BuildException('Missing either a nested fileset or attribute "file" set');
         }
 
-        if (count($this->_loggers) == 0) {
-            throw new BuildException("Missing nested 'logger' element");
+        if (count($this->loggers) == 0) {
+            throw new BuildException('Missing nested "logger" element');
         }
 
         $this->validateLoggers();
@@ -353,13 +329,12 @@ class PhpDependTask extends Task
 
         $filesToParse = array();
 
-        if ($this->_file instanceof PhingFile) {
-            $filesToParse[] = $this->_file->__toString();
+        if ($this->file instanceof PhingFile) {
+            $filesToParse[] = $this->file->__toString();
         } else {
             // append any files in filesets
-            foreach ($this->_filesets as $fs) {
-                $files = $fs->getDirectoryScanner($this->project)
-                            ->getIncludedFiles();
+            foreach ($this->filesets as $fs) {
+                $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
                      $f = new PhingFile($fs->getDir($this->project), $filename);
@@ -368,68 +343,67 @@ class PhpDependTask extends Task
             }
         }
 
-        $this->_runner = new PHP_Depend_TextUI_Runner();
-        $this->_runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
+        $this->runner = new PHP_Depend_TextUI_Runner();
+        $this->runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
 
         $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
-        $configuration = $configurationFactory->createDefault();
-        $this->_runner->setConfiguration($configuration);
+        $configuration        = $configurationFactory->createDefault();
 
-        $this->_runner->setSourceArguments($filesToParse);
+        $this->runner->setConfiguration($configuration);
+        $this->runner->setSourceArguments($filesToParse);
 
-        foreach ($this->_loggers as $logger) {
+        foreach ($this->loggers as $logger) {
             // Register logger
-            $this->_runner->addLogger(
+            $this->runner->addLogger(
                 $logger->getType(),
                 $logger->getOutfile()->__toString()
             );
         }
 
-        foreach ($this->_analyzers as $analyzer) {
+        foreach ($this->analyzers as $analyzer) {
             // Register additional analyzer
-            $this->_runner->addOption(
+            $this->runner->addOption(
                 $analyzer->getType(),
                 $analyzer->getValue()
             );
         }
 
         // Disable annotation parsing
-        if ($this->_withoutAnnotations) {
-            $this->_runner->setWithoutAnnotations();
+        if ($this->withoutAnnotations) {
+            $this->runner->setWithoutAnnotations();
         }
 
         // Enable bad documentation support
-        if ($this->_supportBadDocumentation) {
-            $this->_runner->setSupportBadDocumentation();
+        if ($this->supportBadDocumentation) {
+            $this->runner->setSupportBadDocumentation();
         }
 
         // Check for suffix
-        if (count($this->_allowedFileExtensions) > 0) {
-            $this->_runner->setFileExtensions($this->_allowedFileExtensions);
+        if (count($this->allowedFileExtensions) > 0) {
+            $this->runner->setFileExtensions($this->allowedFileExtensions);
         }
 
         // Check for ignore directories
-        if (count($this->_excludeDirectories) > 0) {
-            $this->_runner->setExcludeDirectories($this->_excludeDirectories);
+        if (count($this->excludeDirectories) > 0) {
+            $this->runner->setExcludeDirectories($this->excludeDirectories);
         }
 
         // Check for exclude packages
-        if (count($this->_excludePackages) > 0) {
-            $this->_runner->setExcludePackages($this->_excludePackages);
+        if (count($this->excludePackages) > 0) {
+            $this->runner->setExcludePackages($this->excludePackages);
         }
 
         // Check for configuration option
-        if ($this->_configFile instanceof PhingFile) {
-            if (file_exists($this->_configFile->__toString()) === false) {
+        if ($this->configFile instanceof PhingFile) {
+            if (file_exists($this->configFile->__toString()) === false) {
                 throw new BuildException(
-                    'The configuration file "'
-                    . $this->_configFile->__toString() . '" doesn\'t exist.'
+                    'The configuration file "' . $this->configFile->__toString() . '" doesn\'t exist.'
                 );
             }
 
             // Load configuration file
             $config = new PHP_Depend_Util_Configuration(
-                $this->_configFile->__toString(),
+                $this->configFile->__toString(),
                 null,
                 true
             );
@@ -438,22 +412,22 @@ class PhpDependTask extends Task
             PHP_Depend_Util_ConfigurationInstance::set($config);
         }
 
-        if ($this->_debug) {
+        if ($this->debug) {
             require_once 'PHP/Depend/Util/Log.php';
             // Enable debug logging
             PHP_Depend_Util_Log::setSeverity(PHP_Depend_Util_Log::DEBUG);
         }
 
-        $this->_runner->run();
+        $this->runner->run();
 
-        if ($this->_runner->hasParseErrors() === true) {
+        if ($this->runner->hasParseErrors() === true) {
             $this->log('Following errors occurred:');
 
-            foreach ($this->_runner->getParseErrors() as $error) {
+            foreach ($this->runner->getParseErrors() as $error) {
                 $this->log($error);
             }
 
-            if ($this->_haltonerror === true) {
+            if ($this->haltonerror === true) {
                 throw new BuildException('Errors occurred during parse process');
             }
         }
@@ -462,22 +436,17 @@ class PhpDependTask extends Task
     /**
      * Validates the available loggers
      *
-     * @return void
      * @throws BuildException
      */
     protected function validateLoggers()
     {
-        foreach ($this->_loggers as $logger) {
+        foreach ($this->loggers as $logger) {
             if ($logger->getType() === '') {
-                throw new BuildException(
-                    "Logger missing required 'type' attribute"
-                );
+                throw new BuildException('Logger missing required "type" attribute');
             }
 
             if ($logger->getOutfile() === null) {
-                throw new BuildException(
-                    "Logger requires 'outfile' attribute"
-                );
+                throw new BuildException('Logger requires "outfile" attribute');
             }
         }
     }
@@ -485,22 +454,17 @@ class PhpDependTask extends Task
     /**
      * Validates the available analyzers
      *
-     * @return void
      * @throws BuildException
      */
     protected function validateAnalyzers()
     {
-        foreach ($this->_analyzers as $analyzer) {
+        foreach ($this->analyzers as $analyzer) {
             if ($analyzer->getType() === '') {
-                throw new BuildException(
-                    "Analyzer missing required 'type' attribute"
-                );
+                throw new BuildException('Analyzer missing required "type" attribute');
             }
 
             if (count($analyzer->getValue()) === 0) {
-                throw new BuildException(
-                    "Analyzer missing required 'value' attribute"
-                );
+                throw new BuildException('Analyzer missing required "value" attribute');
             }
         }
     }
