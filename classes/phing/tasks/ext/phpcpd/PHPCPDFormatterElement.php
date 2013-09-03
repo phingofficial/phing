@@ -35,43 +35,44 @@ class PHPCPDFormatterElement
      *
      * @var PHPCPDResultFormatter
      */
-    protected $_formatter = null;
+    protected $formatter = null;
 
     /**
      * The type of the formatter.
      *
      * @var string
      */
-    protected $_type = '';
+    protected $type = '';
 
     /**
      * Whether to use file (or write output to phing log).
      *
      * @var boolean
      */
-    protected $_useFile = true;
+    protected $useFile = true;
 
     /**
      * Output file for formatter.
      *
      * @var PhingFile
      */
-    protected $_outfile = null;
+    protected $outfile = null;
 
     /**
      * The parent task
      *
      * @var PHPCPDTask
      */
-    private $_parentTask;
+    private $parentTask;
 
     /**
      * Construct a new PHPCPDFormatterElement with parent task.
+     *
      * @param PHPCPDTask $parentTask
      */
     public function __construct(PHPCPDTask $parentTask)
     {
-        $this->_parentTask = $parentTask;
+        $this->parentTask = $parentTask;
     }
 
     /**
@@ -79,34 +80,31 @@ class PHPCPDFormatterElement
      *
      * @param string $type Type of the formatter
      *
-     * @return void
+     * @throws BuildException
      */
     public function setType($type)
     {
-        $this->_type = $type;
+        $this->type = $type;
 
-        switch ($this->_type) {
+        switch ($this->type) {
             case 'pmd':
-                if ($this->_useFile === false) {
-                    throw new BuildException(
-                        "Formatter '" . $this->_type
-                        . "' can only print the result to an file"
-                    );
+                if ($this->useFile === false) {
+                    throw new BuildException('Formatter "' . $this->type . '" can only print the result to an file');
                 }
 
                 include_once 'phing/tasks/ext/phpcpd/formatter/PMDPHPCPDResultFormatter.php';
-                $this->_formatter = new PMDPHPCPDResultFormatter();
+
+                $this->formatter = new PMDPHPCPDResultFormatter();
                 break;
 
             case 'default':
                 include_once 'phing/tasks/ext/phpcpd/formatter/DefaultPHPCPDResultFormatter.php';
-                $this->_formatter = new DefaultPHPCPDResultFormatter();
+
+                $this->formatter = new DefaultPHPCPDResultFormatter();
                 break;
 
             default:
-                throw new BuildException(
-                    "Formatter '" . $this->_type . "' not implemented"
-                );
+                throw new BuildException('Formatter "' . $this->type . '" not implemented');
         }
     }
 
@@ -117,19 +115,17 @@ class PHPCPDFormatterElement
      */
     public function getType()
     {
-        return $this->_type;
+        return $this->type;
     }
 
     /**
      * Set whether to write formatter results to file or not.
      *
      * @param boolean $useFile True or false.
-     *
-     * @return void
      */
     public function setUseFile($useFile)
     {
-        $this->_useFile = StringHelper::booleanValue($useFile);
+        $this->useFile = StringHelper::booleanValue($useFile);
     }
 
     /**
@@ -139,19 +135,17 @@ class PHPCPDFormatterElement
      */
     public function getUseFile()
     {
-        return $this->_useFile;
+        return $this->useFile;
     }
 
     /**
      * Sets the output file for the formatter results.
      *
      * @param PhingFile $outfile The output file
-     *
-     * @return void
      */
     public function setOutfile(PhingFile $outfile)
     {
-        $this->_outfile = $outfile;
+        $this->outfile = $outfile;
     }
 
     /**
@@ -161,17 +155,16 @@ class PHPCPDFormatterElement
      */
     public function getOutfile()
     {
-        return $this->_outfile;
+        return $this->outfile;
     }
 
     /**
      * Returns the report formatter.
      *
-     * @throws BuildException When the specified renderer does not exist.
      * @return PHPCPDResultFormatter
      */
     public function getFormatter()
     {
-        return $this->_formatter;
+        return $this->formatter;
     }
 }
