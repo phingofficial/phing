@@ -123,15 +123,7 @@ class PhpDocumentor2Wrapper
      */
     private function initializePhpDocumentor()
     {
-        $phpDocumentorPath = null;
-        
-        foreach (Phing::explodeIncludePath() as $path) {
-            $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . 'phpDocumentor' . DIRECTORY_SEPARATOR . 'src';
-
-            if (file_exists($testPhpDocumentorPath)) {
-                $phpDocumentorPath = $testPhpDocumentorPath;
-            }
-        }
+        $phpDocumentorPath = $this->findPhpDocumentorPath();
 
         if (empty($phpDocumentorPath)) {
             throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.");
@@ -226,5 +218,26 @@ class PhpDocumentor2Wrapper
         $this->project->log("Transforming...", Project::MSG_VERBOSE);
         
         $this->transformFiles();
+    }
+
+    /**
+     * Find the correct php documentor path
+     *
+     * @return null|string
+     */
+    private function findPhpDocumentorPath()
+    {
+        $phpDocumentorPath = null;
+        $directories = array('phpDocumentor', 'phpdocumentor');
+        foreach ($directories as $directory) {
+            foreach (Phing::explodeIncludePath() as $path) {
+                $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . 'src';
+                if (file_exists($testPhpDocumentorPath)) {
+                    $phpDocumentorPath = $testPhpDocumentorPath;
+                }
+            }
+        }
+
+        return $phpDocumentorPath;
     }
 }
