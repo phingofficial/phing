@@ -70,6 +70,9 @@ installPearTask ()
     	pear install -f phpunit/PHP_TokenStream-1.1.4
     	pear install -f phpunit/PHP_Timer-1.0.3
     	pear install -f phpunit/Text_Template-1.1.1
+        pear upgrade pecl.php.net/Phar ||
+            pear install pecl.php.net/Phar
+        phpenv rehash
     else
     	composer selfupdate --quiet
         composer install
