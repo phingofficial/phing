@@ -299,6 +299,33 @@ class PharPackageTask
             if (Phar::NONE != $this->compression) {
                 $phar->compressFiles($this->compression);
             }
+
+            if ($this->signatureAlgorithm == Phar::OPENSSL) {
+
+                // Load up the contents of the key
+                $keyContents = file_get_contents($this->key);
+
+                // Attempt to load the given key as a PKCS#12 Cert Store first.
+                if (openssl_pkcs12_read($keyContents, $certs, $this->keyPassword)) {
+                    $private = openssl_pkey_get_private($certs['pkey']);
+                } else {
+                    // Fall back to a regular PEM-encoded private key.
+                    // Setup an OpenSSL resource using the private key
+                    // and tell the Phar to sign it using that key.
+                    $private = openssl_pkey_get_private($keyContents, $this->keyPassword);
+                }
+
+                openssl_pkey_export($private, $pkey);
+                $phar->setSignatureAlgorithm(Phar::OPENSSL, $pkey);
+
+                // Get the details so we can get the public key and write that out
+                // alongside the phar.
+                $details = openssl_pkey_get_details($private);
+                file_put_contents($this->destinationFile . '.pubkey', $details['key']);
+
+            } else {
+                $phar->setSignatureAlgorithm($this->signatureAlgorithm);
+            }
         } catch (Exception $e) {
             throw new BuildException(
                 'Problem creating package: '.$e->getMessage(),
@@ -363,32 +390,6 @@ class PharPackageTask
     private function buildPhar()
     {
         $phar = new Phar($this->destinationFile);
-
-        if ($this->signatureAlgorithm == Phar::OPENSSL) {
-
-            // Load up the contents of the key
-            $keyContents = file_get_contents($this->key);
-
-            // Attempt to load the given key as a PKCS#12 Cert Store first.
-            if (openssl_pkcs12_read($keyContents, $certs, $this->keyPassword)) {
-                $private = openssl_pkey_get_private($certs['pkey']);
-            } else {
-                // Fall back to a regular PEM-encoded private key.
-                // Setup an OpenSSL resource using the private key
-                // and tell the Phar to sign it using that key.
-                $private = openssl_pkey_get_private($keyContents, $this->keyPassword);
-            }
-
-            $phar->setSignatureAlgorithm(Phar::OPENSSL, $private);
-
-            // Get the details so we can get the public key and write that out
-            // alongside the phar.
-            $details = openssl_pkey_get_details($private);
-            file_put_contents($this->destinationFile . '.pubkey', $details['key']);
-
-        } else {
-            $phar->setSignatureAlgorithm($this->signatureAlgorithm);
-        }
 
         if (!empty($this->stubPath)) {
             $phar->setStub(file_get_contents($this->stubPath));
