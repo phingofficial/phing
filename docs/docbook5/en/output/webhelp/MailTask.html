@@ -16,7 +16,7 @@
       <link rel="next" href="apcs38s01.html" title="Example" />
       <meta name="Section-title" content="MailTask" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43379";
+            var treeCookieId = "treeview-43428";
             var language = "en";
             var w = new Object();
             //Localization
@@ -192,9 +192,12 @@ border: none; background: none; font-weight: none; color: none; }
             </div>
                     
                     
-            <p>A task to send email.</p>
+            <p>A task to send email. Attachments are supported
+                       if the <a class="ulink" href="http://pear.php.net/package/Mail" target="_top">PEAR Mail
+                          package</a> is installed.
+            </p>
                     
-            <div class="table"><a id="d5e8777"></a><p class="title"><strong>Table 103. Attributes</strong></p>
+            <div class="table"><a id="d5e8778"></a><p class="title"><strong>Table 103. Attributes</strong></p>
                <div class="table-contents">
                               
                               
@@ -241,6 +244,23 @@ border: none; background: none; font-weight: none; color: none; }
                            <td><code class="literal">subject</code></td>
                            <td><code class="literal">String</code></td>
                            <td>Email subject line.</td>
+                           <td>none</td>
+                           <td>No</td>
+                        </tr>
+                        <tr>
+                           <td><code class="literal">backend</code></td>
+                           <td><code class="literal">String</code></td>
+                           <td>PEAR Mail backend (see <a class="ulink" href="http://pear.php.net/manual/en/package.mail.mail.factory.php" target="_top">here</a> for possible values).
+                           </td>
+                           <td>mail</td>
+                           <td>No</td>
+                        </tr>
+                        <tr>
+                           <td><code class="literal">backendParams</code></td>
+                           <td><code class="literal">String</code></td>
+                           <td>Comma-separated key-value pairs
+                                                      with backend specific parameters (see <a class="ulink" href="http://pear.php.net/manual/en/package.mail.mail.factory.php" target="_top">here</a> for possible values).
+                           </td>
                            <td>none</td>
                            <td>No</td>
                         </tr>
