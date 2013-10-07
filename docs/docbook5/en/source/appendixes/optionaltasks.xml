@@ -4558,7 +4558,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;echo>Job 2&lt;/echo>
     &lt;echo>Job 3&lt;/echo>
     &lt;echo>Job 4&lt;/echo>
-&lt;/trycatch>\u0000</programlisting>
+&lt;/parallel></programlisting>
         </sect2>
     </sect1>
     
