@@ -124,7 +124,7 @@ class JsMinTask extends Task
                     try {
                         $target = $this->targetDir . '/' . str_replace($fullPath, '', str_replace('.js', $this->suffix . '.js', $file));
                         if (file_exists(dirname($target)) === false) {
-                            mkdir(dirname($target), 0700, true);
+                            mkdir(dirname($target), 0777 - umask(), true);
                         }
                         
                         file_put_contents($target, JSMin::minify(file_get_contents($fullPath . '/' . $file)));
