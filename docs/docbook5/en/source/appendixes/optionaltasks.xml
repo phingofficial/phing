@@ -4511,7 +4511,9 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para><literal>fileset</literal>
                     </para>
-                    <para>Files to be attached (not implemented at this time).</para>
+                    <para>Files to be attached. This requires
+                    the <link xlink:href="http://pear.php.net/package/Mail" role="extern">PEAR Mail
+                    package</link> to be installed.</para>
                 </listitem>
             </itemizedlist>
         </sect2>
