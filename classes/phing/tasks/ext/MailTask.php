@@ -40,6 +40,9 @@ class MailTask extends Task
     
     protected $filesets = array();
     
+    protected $backend = 'mail';
+    protected $backendParams = array();
+    
     public function main()
     {
         if (empty($this->from)) {
@@ -85,7 +88,7 @@ class MailTask extends Task
         $body = $mime->get();
         $hdrs = $mime->headers($hdrs);
         
-        $mail = Mail::factory('mail');
+        $mail = Mail::factory($this->backend, $this->backendParams);
         $mail->send($this->tolist, $hdrs, $body);
     }
 
@@ -151,6 +154,38 @@ class MailTask extends Task
     public function setFrom($from)
     {
         $this->from = $from;
+    }
+    
+    /**
+     * Sets PEAR Mail backend to use
+     */
+    public function setBackend($backend)
+    {
+        $this->backend = $backend;
+    }
+    
+    /**
+     * Sets PEAR Mail backend params to use
+     */
+    public function setBackendParams($backendParams)
+    {
+        $params = explode(',', $backendParams);
+        
+        foreach ($params as $param) {
+            $values = explode('=', $param);
+            
+            if (count($values) < 1) {
+                continue;
+            }
+            
+            if (count($values) == 1) {
+                $this->backendParams[] = $values[0];
+            } else{
+                $key = $values[0];
+                $value = $values[1];
+                $this->backendParams[$key] = $value;
+            }
+        }
     }
     
     /**

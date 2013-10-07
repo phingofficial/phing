@@ -4450,7 +4450,9 @@ Note that you can omit both startpoint and track attributes in this case
     
     <sect1 role="taskdef" xml:id="MailTask">
         <title>MailTask</title>
-        <para>A task to send email.</para>
+        <para>A task to send email. Attaches are supported
+        if the <link xlink:href="http://pear.php.net/package/Mail" role="extern">PEAR Mail
+        package</link> is installed.</para></para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4497,6 +4499,25 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>backend</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>PEAR Mail backend (see <link
+                        xlink:href="http://pear.php.net/manual/en/package.mail.mail.factory.php"
+                        role="extern">here</link> for possible values).</entry>
+                        <entry>mail</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>backendParams</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Comma-separated key-value pairs
+                        with backend specific parameters (see <link
+                        xlink:href="http://pear.php.net/manual/en/package.mail.mail.factory.php"
+                        role="extern">here</link> for possible values).</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -4511,7 +4532,8 @@ Note that you can omit both startpoint and track attributes in this case
                 <listitem>
                     <para><literal>fileset</literal>
                     </para>
-                    <para>Files to be attached. This requires
+                    <para>Files to be attached.</para>
+                    This requires
                     the <link xlink:href="http://pear.php.net/package/Mail" role="extern">PEAR Mail
                     package</link> to be installed.</para>
                 </listitem>
