@@ -4450,9 +4450,9 @@ Note that you can omit both startpoint and track attributes in this case
     
     <sect1 role="taskdef" xml:id="MailTask">
         <title>MailTask</title>
-        <para>A task to send email. Attaches are supported
+        <para>A task to send email. Attachments are supported
         if the <link xlink:href="http://pear.php.net/package/Mail" role="extern">PEAR Mail
-        package</link> is installed.</para></para>
+        package</link> is installed.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4533,9 +4533,6 @@ Note that you can omit both startpoint and track attributes in this case
                     <para><literal>fileset</literal>
                     </para>
                     <para>Files to be attached.</para>
-                    This requires
-                    the <link xlink:href="http://pear.php.net/package/Mail" role="extern">PEAR Mail
-                    package</link> to be installed.</para>
                 </listitem>
             </itemizedlist>
         </sect2>
