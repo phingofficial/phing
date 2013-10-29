@@ -327,7 +327,7 @@ class PhpCodeSnifferTask extends Task {
          * Determine PHP_CodeSniffer version number
          */
         if (!$this->skipversioncheck) {
-            preg_match('/\d\.\d\.\d/', shell_exec('phpcs --version'), $version);
+            preg_match('/\d\.\d\.\d/', PHP_CodeSniffer::VERSION, $version);
 
             if (version_compare($version[0], '1.2.2') < 0) {
                 throw new BuildException(
