@@ -36,6 +36,12 @@ abstract class AbstractLiquibaseTask extends Task
     protected $url;
     protected $classpathref;
 
+    /**
+     * Whether to display the output of the command.
+     * True by default to preserve old behaviour
+     * @var boolean
+     */
+    private $display = true;
 
     /**
      * Sets the absolute path to liquibase jar.
@@ -108,6 +114,16 @@ abstract class AbstractLiquibaseTask extends Task
 
 
     /**
+     * Sets whether to display the output of the command
+     * @param boolean $display
+     */
+    public function setDisplay($display)
+    {
+        $this->display = StringHelper::booleanValue($display);
+    }
+
+
+    /**
      * Ensure that correct parameters were passed in.
      *
      * @return void
@@ -166,7 +182,7 @@ abstract class AbstractLiquibaseTask extends Task
     protected function execute($lbcommand, $lbparams = '')
     {
         $command = sprintf(
-			'java -jar %s --changeLogFile=%s --url=%s --username=%s --password=%s --classpath=%s %s %s',
+			'java -jar %s --changeLogFile=%s --url=%s --username=%s --password=%s --classpath=%s %s %s 2>&1',
         escapeshellarg($this->jar),
         escapeshellarg($this->changeLogFile),
         escapeshellarg($this->url),
@@ -176,8 +192,15 @@ abstract class AbstractLiquibaseTask extends Task
         escapeshellarg($lbcommand),
         $lbparams
         );
+        
+        $output = array();
+        $return = null;
+        exec($command, $output, $return);
 
-        passthru($command);
+        if( $this->display ) {
+            print implode(PHP_EOL,$output);
+        }
+
 
         return;
     }
