@@ -50,6 +50,12 @@ abstract class AbstractLiquibaseTask extends Task
     private $checkreturn = false;
 
     /**
+      * Set true if we should run liquibase with PHP passthru 
+      * instead of exec.
+      */
+    private $passthru = true;
+
+    /**
      * Sets the absolute path to liquibase jar.
      *
      * @param string the absolute path to the liquibase jar.
@@ -141,6 +147,16 @@ abstract class AbstractLiquibaseTask extends Task
 
 
     /**
+     * Whether to check the liquibase return code.
+     *
+     * @param boolean $checkreturn
+     */
+    public function setPassthru($passthru)
+    {
+        $this->passthru = StringHelper::booleanValue($passthru);
+    }
+
+    /**
      * Ensure that correct parameters were passed in.
      *
      * @return void
@@ -210,16 +226,22 @@ abstract class AbstractLiquibaseTask extends Task
         $lbparams
         );
         
-        $output = array();
-        $return = null;
-        exec($command, $output, $return);
-
-        if( $this->display ) {
-            print implode(PHP_EOL,$output);
+        if( $this->passthru ) 
+        {
+            passthru($command);
         }
+        else {
+            $output = array();
+            $return = null;
+            exec($command, $output, $return);
 
-        if( $this->checkreturn && $return != 0 ) {
-            throw new BuildException("Liquibase exited with code $return");
+            if( $this->display ) {
+                print implode(PHP_EOL,$output);
+            }
+
+            if( $this->checkreturn && $return != 0 ) {
+                throw new BuildException("Liquibase exited with code $return");
+            }
         }
 
         return;
