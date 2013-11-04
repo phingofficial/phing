@@ -41,26 +41,26 @@ abstract class AbstractLiquibaseTask extends Task
      * True by default to preserve old behaviour
      * @var boolean
      */
-    private $display = true;
+    protected $display = true;
 
     /**
      * Whether liquibase return code can cause a Phing failure.
      * @var boolean
      */
-    private $checkreturn = false;
+    protected $checkreturn = false;
 
     /**
       * Set true if we should run liquibase with PHP passthru 
       * instead of exec.
       */
-    private $passthru = true;
+    protected $passthru = true;
 
     /**
      * Property name to set with output value from exec call.
      *
      * @var string
      */
-    private $outputProperty;
+    protected $outputProperty;
 
     /**
      * Sets the absolute path to liquibase jar.
