@@ -253,11 +253,11 @@ class FileSyncTask extends Task
         }
         
         if ($this->verbose === true) {
-            $options .= 'v';
+            $options .= ' --verbose';
         }
         
         if ($this->checksum === true) {
-            $options .= 'c';
+            $options .= ' --checksum';
         }
         
         if ($this->identityFile !== null) {
