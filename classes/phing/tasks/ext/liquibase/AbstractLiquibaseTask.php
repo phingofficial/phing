@@ -56,6 +56,13 @@ abstract class AbstractLiquibaseTask extends Task
     private $passthru = true;
 
     /**
+     * Property name to set with output value from exec call.
+     *
+     * @var string
+     */
+    private $outputProperty;
+
+    /**
      * Sets the absolute path to liquibase jar.
      *
      * @param string the absolute path to the liquibase jar.
@@ -156,6 +163,21 @@ abstract class AbstractLiquibaseTask extends Task
         $this->passthru = StringHelper::booleanValue($passthru);
     }
 
+
+    /**
+     * the name of property to set to output value from exec() call.
+     *
+     * @param string $prop property name
+     *
+     * @return void
+     */
+    public function setOutputProperty($prop)
+    {
+        $this->outputProperty = $prop;
+    }
+
+
+
     /**
      * Ensure that correct parameters were passed in.
      *
@@ -226,17 +248,21 @@ abstract class AbstractLiquibaseTask extends Task
         $lbparams
         );
         
-        if( $this->passthru ) 
-        {
+        if( $this->passthru ) {
             passthru($command);
         }
         else {
             $output = array();
             $return = null;
             exec($command, $output, $return);
+            $output = implode(PHP_EOL,$output);
 
             if( $this->display ) {
-                print implode(PHP_EOL,$output);
+                print $output;
+            }
+
+            if( !empty($this->outputProperty) ) {
+                $this->project->setProperty($this->outputProperty,$output);
             }
 
             if( $this->checkreturn && $return != 0 ) {
