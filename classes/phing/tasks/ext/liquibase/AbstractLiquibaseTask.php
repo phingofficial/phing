@@ -270,7 +270,7 @@ abstract class AbstractLiquibaseTask extends Task
      * @param string additional parameters
      * @return string the output of the executed command
      */
-    protected function execute($lbcommand, $lbparams = '', $lbprops = '')
+    protected function execute($lbcommand, $lbparams = '')
     {
         $nestedparams = "";
         foreach($this->parameters as $p) {
