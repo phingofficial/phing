@@ -44,6 +44,12 @@ abstract class AbstractLiquibaseTask extends Task
     private $display = true;
 
     /**
+     * Whether liquibase return code can cause a Phing failure.
+     * @var boolean
+     */
+    private $checkreturn = false;
+
+    /**
      * Sets the absolute path to liquibase jar.
      *
      * @param string the absolute path to the liquibase jar.
@@ -120,6 +126,17 @@ abstract class AbstractLiquibaseTask extends Task
     public function setDisplay($display)
     {
         $this->display = StringHelper::booleanValue($display);
+    }
+
+
+    /**
+     * Whether to check the liquibase return code.
+     *
+     * @param boolean $checkreturn
+     */
+    public function setCheckreturn($checkreturn)
+    {
+        $this->checkreturn = StringHelper::booleanValue($checkreturn);
     }
 
 
@@ -201,6 +218,9 @@ abstract class AbstractLiquibaseTask extends Task
             print implode(PHP_EOL,$output);
         }
 
+        if( $this->checkreturn && $return != 0 ) {
+            throw new BuildException("Liquibase exited with code $return");
+        }
 
         return;
     }
