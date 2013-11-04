@@ -1071,7 +1071,10 @@
         <element name="input">
             <interleave>
                 <attribute name="propertyName"/>
-                <attribute name="message"/>
+                <choice>
+                    <attribute name="message"/>
+                    <text/>
+                </choice>
                 <optional>
                     <attribute name="defaultValue"/>
                 </optional>
@@ -1577,6 +1580,28 @@
         </element>
     </define>
 
+    <!--
+        ===========================================================================================================
+        Optional Type
+        ===========================================================================================================        
+    -->
+    <define name="analyzer">
+        <element name="analyzer">
+            <interleave>
+                <attribute name="type"/>
+                <attribute name="value"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="logger">
+        <element name="logger">
+            <interleave>
+                <attribute name="type"/>
+                <attribute name="outfile"/>
+            </interleave>
+        </element>
+    </define>
 
     <!--
         ===========================================================================================================
@@ -2650,9 +2675,9 @@
     <define name="jsllint">
         <element name="jsllint">
             <interleave>
-                <choice>
+                <optional>
                     <attribute name="executable"/>
-                </choice>
+                </optional>
                 <choice>
                     <attribute name="file"/>
                     <ref name="fileset"/>
@@ -2677,8 +2702,7 @@
                     <attribute name="tofile"/>
                 </optional>
             </interleave>
-            <ref name="fileset"/>
-        </element>
+       </element>
     </define>
 
     <!-- 
@@ -3278,9 +3302,12 @@
     <define name="phpmd">
         <element name="phpmd">
             <interleave>
-                <optional>
+                <choice>
                     <attribute name="file"/>
-                </optional>
+                    <oneOrMore>
+                         <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
                 <optional>
                     <attribute name="ruleset"/>
                 </optional>
@@ -3309,9 +3336,12 @@
     -->
     <define name="phpdepend">
         <element name="phpdepend">
-            <optional>
+            <choice>
                 <attribute name="file"/>
-            </optional>
+                <oneOrMore>
+                    <ref name="fileset"/>
+                </oneOrMore>
+            </choice>
             <optional>
                 <attribute name="configfile"/>
             </optional>
@@ -3344,6 +3374,12 @@
                     <data type="boolean"/>
                 </attribute>
             </optional>
+            <oneOrMore>
+                <ref name="logger"/>
+            </oneOrMore>
+            <zeroOrMore>
+                <ref name="analyzer"/>
+            </zeroOrMore>
         </element>
     </define>
 
