@@ -289,9 +289,9 @@ abstract class AbstractLiquibaseTask extends Task
         escapeshellarg($this->username),
         escapeshellarg($this->password),
         escapeshellarg($this->classpathref),
-        $lbparams,
         $nestedparams,
         escapeshellarg($lbcommand),
+        $lbparams,
         $nestedprops
         );
         
