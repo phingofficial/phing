@@ -63,6 +63,7 @@ class PharPackageTaskTest extends BuildFileTest {
         $this->assertEquals('OpenSSL', $signature['hash_type']);
 
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key');
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar.pubkey');
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt');
         unlink($dest);
     }
