@@ -994,20 +994,30 @@ class Phing {
     }
 
     /**
-     * Import a dot-path notation class path.
-     * @param string $dotPath
+     * Import a path, supporting the following conventions:
+     * - PEAR style (@link http://pear.php.net/manual/en/standards.naming.php)
+     * - PSR-0 (@link https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
+     * - dot-path
+     *
+     * @param string $dotPath Path
      * @param mixed $classpath String or object supporting __toString()
      * @return string The unqualified classname (which can be instantiated).
      * @throws BuildException - if cannot find the specified file
      */
     public static function import($dotPath, $classpath = null) {
 
-        /// check if this is a PEAR-style path (@link http://pear.php.net/manual/en/standards.naming.php)
-        if (strpos($dotPath, '.') === false && strpos($dotPath, '_') !== false) {
-            $classname = $dotPath;
-            $dotPath = str_replace('_', '.', $dotPath);
-        } else {
+        if (strpos($dotPath, '.') !== false) {
             $classname = StringHelper::unqualify($dotPath);
+        } else {
+            $classname = $dotPath;
+            $dotPath = ''; 
+            $shortClassName = $classname; 
+            if (($lastNsPos = strripos($shortClassName, '\\'))) { 
+                $namespace = substr($shortClassName, 0, $lastNsPos); 
+                $shortClassName = substr($shortClassName, $lastNsPos + 1); 
+                $dotPath  = str_replace('\\', '.', $namespace) . '.'; 
+            } 
+            $dotPath .= str_replace('_', '.', $shortClassName); 
         }
         
         // first check to see that the class specified hasn't already been included.
