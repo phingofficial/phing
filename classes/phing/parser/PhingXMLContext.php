@@ -30,11 +30,36 @@
 class PhingXMLContext {
 
     /**
+     * Target that will hold all tasks/types placed outside of targets
+     *
+     * @var Target
+     */
+    private $implicitTarget;
+    
+    /**
+     * Current target
+     *
+     * @var Target
+     */
+    private $currentTarget = null;
+    
+    /**
+     * List of current targets
+     *
+     * @var Target[]
+     */
+    private $currentTargets = null;
+    
+    /**
      * Constructor
      * @param $project the project to which this antxml context belongs to
      */
-    public function __construct ($project) {
-      $this->project = $project;
+    public function __construct ($project)
+    {
+        $this->project = $project;
+        $this->implicitTarget = new Target();
+        $this->implicitTarget->setName("");
+        $this->implicitTarget->setHidden(true);
     }
 
     /** The project to configure. */
@@ -76,6 +101,48 @@ class PhingXMLContext {
      */
     public function getProject() {
         return $this->project;
+    }
+    
+    public function getImplicitTarget()
+    {
+        return $this->implicitTarget;
+    }
+    
+    public function setImplicitTarget(Target $target)
+    {
+        $this->implicitTarget = $target;
+    }
+    
+    /**
+     * @return Target
+     */
+    public function getCurrentTarget()
+    {
+        return $this->currentTarget;
+    }
+    
+    /**
+     * @param Target $target
+     */
+    public function setCurrentTarget(Target $target)
+    {
+        $this->currentTarget = $target;
+    }
+    
+    /**
+     * @return Target[]
+     */
+    public function &getCurrentTargets()
+    {
+        return $this->currentTargets;
+    }
+    
+    /**
+     * @param Target[] $currentTargets
+     */
+    public function setCurrentTargets(array $currentTargets)
+    {
+        $this->currentTargets = $currentTargets;
     }
 
 } //end PhingXMLContext

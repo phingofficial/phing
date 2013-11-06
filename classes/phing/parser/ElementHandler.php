@@ -19,24 +19,21 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/IntrospectionHelper.php';
-include_once 'phing/TaskContainer.php';
+require_once 'phing/parser/AbstractHandler.php';
 
 /**
- * The nested element handler class.
+ * The generic element handler class.
  *
  * This class handles the occurance of runtime registered tags like
  * datatypes (fileset, patternset, etc) and it's possible nested tags. It
  * introspects the implementation of the class and sets up the data structures.
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author    Michiel Rook <mrook@php.net>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
-
-class NestedElementHandler extends AbstractHandler {
+class ElementHandler extends AbstractHandler {
 
     /**
      * Reference to the parent object that represents the parent tag
@@ -79,13 +76,13 @@ class NestedElementHandler extends AbstractHandler {
      *  @param  object  the parent object this element is contained in
      *  @param  object  the parent wrapper object
      *  @param  object  the target object this task is contained in
-     *  @access public
      */
-    function __construct($parser, $parentHandler, $configurator, $parent, $parentWrapper, $target) {
+    public function __construct($parser, $parentHandler, $configurator, $parent = null, $parentWrapper = null, $target = null)
+    {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
-        if ($parent instanceof TaskAdapter) {
-            $this->parent = $parent->getProxy();
+        if ($parentWrapper != null) {
+            $this->parent = $parentWrapper->getProxy();
         } else {
             $this->parent = $parent;
         }
@@ -108,37 +105,36 @@ class NestedElementHandler extends AbstractHandler {
      * @param  string  the tag that comes in
      * @param  array   attributes the tag carries
      * @throws ExpatParseException if the setup process fails
-     * @access public
      */
-    function init($propType, $attrs) {
+    public function init($propType, $attrs)
+    {
         $configurator = $this->configurator;
         $project = $this->configurator->project;
-
-        // introspect the parent class that is custom
-        $parentClass = get_class($this->parent);
-        $ih = IntrospectionHelper::getHelper($parentClass);
+        
         try {
-            if ($this->parent instanceof UnknownElement) {
-                $this->child = new UnknownElement(strtolower($propType));
-                $this->child->setProject($project);
-                $this->child->setLocation($this->parser->getLocation());
-                if ($this->target !== null) {
-                    $this->child->setOwningTarget($this->target);
-                }
+            $this->child = new UnknownElement(strtolower($propType));
+            $this->child->setTaskName($propType);
+            $this->child->setTaskType($propType);
+            $this->child->setProject($project);
+            $this->child->setLocation($this->parser->getLocation());
+            
+            if ($this->target !== null) {
+                $this->child->setOwningTarget($this->target);
+            }
+            
+            if ($this->parent !== null) {
                 $this->parent->addChild($this->child);
-            } else {                
-                $this->child = $ih->createElement($project, $this->parent, strtolower($propType));
+            } elseif ($this->target !== null) {
+                $this->target->addTask($this->child);
             }
             
             $configurator->configureId($this->child, $attrs);
             
+            $this->childWrapper = new RuntimeConfigurable($this->child, $propType);
+            $this->childWrapper->setAttributes($attrs);
+            
             if ($this->parentWrapper !== null) {
-                $this->childWrapper = new RuntimeConfigurable($this->child, $propType);
-                $this->childWrapper->setAttributes($attrs);
                 $this->parentWrapper->addChild($this->childWrapper);
-            } else {
-                $configurator->configure($this->child, $attrs, $project);
-                $ih->storeElement($project, $this->parent, $this->child, strtolower($propType));
             }
         } catch (BuildException $exc) {
             throw new ExpatParseException("Error initializing nested element <$propType>", $exc, $this->parser->getLocation());
@@ -150,22 +146,13 @@ class NestedElementHandler extends AbstractHandler {
      *
      * @param  string  the CDATA that comes in
      * @throws ExpatParseException if the CDATA could not be set-up properly
-     * @access public
      */
-    function characters($data) {
-
+    public function characters($data)
+    {
         $configurator = $this->configurator;        
         $project = $this->configurator->project;
-
-        if ($this->parentWrapper === null) {
-            try {                
-                $configurator->addText($project, $this->child, $data);
-            } catch (BuildException $exc) {
-                throw new ExpatParseException($exc->getMessage(), $this->parser->getLocation());
-            }
-        } else {                    
-            $this->childWrapper->addText($data);
-        }
+        
+        $this->childWrapper->addText($data);
     }
 
     /**
@@ -174,18 +161,10 @@ class NestedElementHandler extends AbstractHandler {
      *
      * @param  string  the tag that comes in
      * @param  array   attributes the tag carries
-     * @access public
      */
-    function startElement($name, $attrs) {
-        //print(get_class($this) . " name = $name, attrs = " . implode(",",$attrs) . "\n");
-        if ($this->child instanceof TaskContainer) {
-                // taskcontainer nested element can contain other tasks - no other
-                // nested elements possible
-            $tc = new TaskHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
-            $tc->init($name, $attrs);
-        } else {
-            $neh = new NestedElementHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
-            $neh->init($name, $attrs);
-        }
+    public function startElement($name, $attrs)
+    {
+        $eh = new ElementHandler($this->parser, $this, $this->configurator, $this->child, $this->childWrapper, $this->target);
+        $eh->init($name, $attrs);
     }
 }

@@ -65,10 +65,15 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
      */
     public function setUp()
     {
+        if (!class_exists('Net_Growl')) {
+            $this->markTestSkipped("Need Net_Growl installed to test");
+            return;
+        }
+
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/growl/build.xml');
 
         $name = '';
-
+        
         $gntpMock = Net_Growl::singleton(
             $name, array(), '', array('protocol' => 'gntpMock')
         );

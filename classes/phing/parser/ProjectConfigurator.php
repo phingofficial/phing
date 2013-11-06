@@ -47,9 +47,6 @@ class ProjectConfigurator {
     public $buildFile;
     public $buildFileParent;
 
-    /** Targets in current file */
-    private $currentTargets;
-
     /** Synthetic target that will be called at the end to the parse phase */
     private $parseEndTarget;
 
@@ -90,7 +87,6 @@ class ProjectConfigurator {
         $this->project = $project;
         $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
         $this->buildFileParent = new PhingFile($this->buildFile->getParent());
-        $this->currentTargets = array();
         $this->parseEndTarget = new Target();
     }
 
@@ -142,10 +138,6 @@ class ProjectConfigurator {
         $this->ignoreProjectTag = $flag;
     }
 
-    public function &getCurrentTargets () {
-      return $this->currentTargets;
-    }
-
     public function isParsing () {
       return $this->isParsing;
     }
@@ -158,44 +150,69 @@ class ProjectConfigurator {
      *         the parsing process
      * @access private
      */
-    protected function parse() {
-      try {
-        // get parse context
-        $ctx = $this->project->getReference("phing.parsing.context");
-        if (null == $ctx) {
-          // make a new context and register it with project
-          $ctx = new PhingXMLContext($this->project);
-          $this->project->addReference("phing.parsing.context", $ctx);
-        }
+    protected function parse() 
+    {
+        try {
+            // get parse context
+            $ctx = $this->project->getReference("phing.parsing.context");
+            if (null == $ctx) {
+              // make a new context and register it with project
+              $ctx = new PhingXMLContext($this->project);
+              $this->project->addReference("phing.parsing.context", $ctx);
+            }
 
-        //record this parse with context
-        $ctx->addImport($this->buildFile);
-
-        if (count($ctx->getImportStack()) > 1) {
-          // this is an imported file
-          // modify project tag parse behavior
-          $this->setIgnoreProjectTag(true);
+            //record this parse with context
+            $ctx->addImport($this->buildFile);
+            
+            if (count($ctx->getImportStack()) > 1) {
+                $currentImplicit = $ctx->getImplicitTarget();
+                $currentTargets = $ctx->getCurrentTargets();
+                
+                $newCurrent = new Target();
+                $newCurrent->setProject($this->project);
+                $newCurrent->setName('');
+                $ctx->setCurrentTargets(array());
+                $ctx->setImplicitTarget($newCurrent);
+                
+                // this is an imported file
+                // modify project tag parse behavior
+                $this->setIgnoreProjectTag(true);
+                $this->_parse($ctx);
+                $newCurrent->main();
+                
+                $ctx->setImplicitTarget($currentImplicit);
+                $ctx->setCurrentTargets($currentTargets);
+            } else {
+                $ctx->setCurrentTargets(array());
+                $this->_parse($ctx);
+                $ctx->getImplicitTarget()->main();
+            }
+        
+        } catch (Exception $exc) {
+            //throw new BuildException("Error reading project file", $exc);
+            throw $exc;
         }
+    }
+    
+    protected function _parse(PhingXMLContext $ctx)
+    {
         // push action onto global stack
         $ctx->startConfigure($this);
 
-            $reader = new BufferedReader(new FileReader($this->buildFile));
-            $parser = new ExpatParser($reader);
-            $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
-            $parser->setHandler(new RootHandler($parser, $this));
-            $this->project->log("parsing buildfile ".$this->buildFile->getName(), Project::MSG_VERBOSE);
-            $parser->parse();
-            $reader->close();
+        $reader = new BufferedReader(new FileReader($this->buildFile));
+        $parser = new ExpatParser($reader);
+        $parser->parserSetOption(XML_OPTION_CASE_FOLDING,0);
+        $parser->setHandler(new RootHandler($parser, $this, $ctx));
+        $this->project->log("parsing buildfile ".$this->buildFile->getName(), Project::MSG_VERBOSE);
+        $parser->parse();
+        $reader->close();
 
-            // mark parse phase as completed
-            $this->isParsing = false;
-            // execute delayed tasks
-            $this->parseEndTarget->main();
-            // pop this action from the global stack
-            $ctx->endConfigure();
-        } catch (Exception $exc) {
-            throw new BuildException("Error reading project file", $exc);
-        }
+        // mark parse phase as completed
+        $this->isParsing = false;
+        // execute delayed tasks
+        $this->parseEndTarget->main();
+        // pop this action from the global stack
+        $ctx->endConfigure();
     }
 
     /**

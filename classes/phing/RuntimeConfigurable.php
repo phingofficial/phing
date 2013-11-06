@@ -45,6 +45,15 @@ class RuntimeConfigurable {
     function __construct($proxy, $elementTag) {
         $this->wrappedObject = $proxy;
         $this->elementTag = $elementTag;
+        
+        if ($proxy instanceof Task) {
+            $proxy->setRuntimeConfigurableWrapper($this);
+        }
+    }
+    
+    public function getProxy()
+    {
+        return $this->wrappedObject;
     }
 
     function setProxy($proxy) {
@@ -93,7 +102,7 @@ class RuntimeConfigurable {
         // DataType configured in ProjectConfigurator
         //        if ( is_a($this->wrappedObject, "DataType") )
         //            return;
-
+        
         if ($this->attributes || $this->characters) {
             ProjectConfigurator::configure($this->wrappedObject, $this->attributes, $project);
 
@@ -109,13 +118,13 @@ class RuntimeConfigurable {
             }
         }
 
-        if ( is_array($this->children) && !empty($this->children) ) {
+        /*if ( is_array($this->children) && !empty($this->children) ) {
             // Configure all child of this object ...
             foreach($this->children as $child) {
                 $child->maybeConfigure($project);
                 ProjectConfigurator::storeChild($project, $this->wrappedObject, $child->wrappedObject, strtolower($child->getElementTag()));
             }
-        }
+        }*/
         
         $this->proxyConfigured = true;
     }

@@ -71,10 +71,11 @@ class UnknownElement extends Task {
         $this->wrapper->setProxy($this->realThing);
         if ($this->realThing instanceof Task) {
             $this->realThing->setRuntimeConfigurableWrapper($this->wrapper);
+            $this->realThing->maybeConfigure();
+        } else {
+            $this->wrapper->maybeConfigure($this->getProject());
         }
-    
         $this->handleChildren($this->realThing, $this->wrapper);
-        $this->wrapper->maybeConfigure($this->getProject());
                                     
     }
 
@@ -112,19 +113,20 @@ class UnknownElement extends Task {
      *  @param object $parent The parent object the unkown element belongs to
      *  @param object $parentWrapper The parent wrapper object
      */
-    function handleChildren($parent, $parentWrapper) {
+    public function handleChildren($parent, $parentWrapper) {
 
         if ($parent instanceof TaskAdapter) {
             $parent = $parent->getProxy();
         }
-
+        
         $parentClass = get_class($parent);
         $ih = IntrospectionHelper::getHelper($parentClass);
-
+        
         for ($i=0, $childrenCount=count($this->children); $i < $childrenCount; $i++) {
 
             $childWrapper = $parentWrapper->getChild($i);
             $child = $this->children[$i];
+            
             $realChild = null;
             if ($parent instanceof TaskContainer) {
                 $realChild = $this->makeTask($child, $childWrapper, false);
@@ -139,12 +141,21 @@ class UnknownElement extends Task {
                 $realChild->setRuntimeConfigurableWrapper($childWrapper);
             }
             
+            $childWrapper->maybeConfigure($this->project);
             $child->handleChildren($realChild, $childWrapper);
-            
-            if ($realChild instanceof Task) {
-                $realChild->maybeConfigure();
-            }
         }
+    }
+    
+    public function handleChild(IntrospectionHelper $ih, $parent, UnknownElement $child, RuntimeConfigurable $childWrapper)
+    {
+        $childWrapper->setProxy($realChild);
+        if ($realChild instanceof Task) {
+            $realChild->setRuntimeConfigurableWrapper($childWrapper);
+        }
+        
+        $childWrapper->maybeConfigure($this->project);
+        $child->handleChildren($realChild, $childWrapper);
+        return true;
     }
 
     /**

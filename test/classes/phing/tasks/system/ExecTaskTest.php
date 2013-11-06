@@ -77,7 +77,7 @@ class ExecTaskTest extends BuildFileTest
         return $task;
     }
 
-    protected function assertPropertyIsSetTo($property, $value, $propertyName = null)
+    protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
     {
         $task = $this->getConfiguredTask(
             'testPropertySet' . ucfirst($property), 'ExecTask'
@@ -86,6 +86,11 @@ class ExecTaskTest extends BuildFileTest
         if ($propertyName === null) {
             $propertyName = $property;
         }
+        
+        if ($task instanceof UnknownElement) {
+            $task = $task->getRuntimeConfigurableWrapper()->getProxy();
+        }
+        
         $rprop = new ReflectionProperty('ExecTask', $propertyName);
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
@@ -97,7 +102,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('command', "echo 'foo'");
+        $this->assertAttributeIsSetTo('command', "echo 'foo'");
     }
 
     public function testPropertySetDir()
@@ -106,7 +111,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo(
+        $this->assertAttributeIsSetTo(
             'dir',
             new PhingFile(
                 realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
@@ -120,7 +125,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('os', "linux");
+        $this->assertAttributeIsSetTo('os', "linux");
     }
 
     public function testPropertySetEscape()
@@ -129,7 +134,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('escape', true);
+        $this->assertAttributeIsSetTo('escape', true);
     }
 
     public function testPropertySetLogoutput()
@@ -138,7 +143,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('logoutput', true, 'logOutput');
+        $this->assertAttributeIsSetTo('logoutput', true, 'logOutput');
     }
 
     public function testPropertySetPassthru()
@@ -147,7 +152,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('passthru', true);
+        $this->assertAttributeIsSetTo('passthru', true);
     }
 
     public function testPropertySetSpawn()
@@ -156,7 +161,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('spawn', true);
+        $this->assertAttributeIsSetTo('spawn', true);
     }
 
     public function testPropertySetReturnProperty()
@@ -165,7 +170,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('returnProperty', 'retval');
+        $this->assertAttributeIsSetTo('returnProperty', 'retval');
     }
 
     public function testPropertySetOutputProperty()
@@ -174,7 +179,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('outputProperty', 'outval');
+        $this->assertAttributeIsSetTo('outputProperty', 'outval');
     }
 
     public function testPropertySetCheckReturn()
@@ -183,7 +188,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('checkreturn', true);
+        $this->assertAttributeIsSetTo('checkreturn', true);
     }
 
     public function testPropertySetOutput()
@@ -192,7 +197,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo(
+        $this->assertAttributeIsSetTo(
             'output',
             new PhingFile(
                 realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
@@ -207,7 +212,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo(
+        $this->assertAttributeIsSetTo(
             'error',
             new PhingFile(
                 realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
@@ -222,7 +227,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('levelError', Project::MSG_ERR, 'logLevel');
+        $this->assertAttributeIsSetTo('levelError', Project::MSG_ERR, 'logLevel');
     }
 
     public function testPropertySetLevelWarning()
@@ -231,7 +236,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('levelWarning', Project::MSG_WARN, 'logLevel');
+        $this->assertAttributeIsSetTo('levelWarning', Project::MSG_WARN, 'logLevel');
     }
 
     public function testPropertySetLevelInfo()
@@ -240,7 +245,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('levelInfo', Project::MSG_INFO, 'logLevel');
+        $this->assertAttributeIsSetTo('levelInfo', Project::MSG_INFO, 'logLevel');
     }
 
     public function testPropertySetLevelVerbose()
@@ -249,7 +254,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('levelVerbose', Project::MSG_VERBOSE, 'logLevel');
+        $this->assertAttributeIsSetTo('levelVerbose', Project::MSG_VERBOSE, 'logLevel');
     }
 
     public function testPropertySetLevelDebug()
@@ -258,7 +263,7 @@ class ExecTaskTest extends BuildFileTest
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
 
-        $this->assertPropertyIsSetTo('levelDebug', Project::MSG_DEBUG, 'logLevel');
+        $this->assertAttributeIsSetTo('levelDebug', Project::MSG_DEBUG, 'logLevel');
     }
 
     /**

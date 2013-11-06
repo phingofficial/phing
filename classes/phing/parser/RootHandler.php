@@ -40,6 +40,11 @@ class RootHandler extends AbstractHandler {
      * The phing project configurator object
      */
     private $configurator;
+    
+    /**
+     * @var PhingXMLContext
+     */
+    private $context;
 
     /**
      * Constructs a new RootHandler
@@ -53,8 +58,11 @@ class RootHandler extends AbstractHandler {
      * @param AbstractSAXParser $parser The ExpatParser object.
      * @param ProjectConfigurator $configurator The ProjectConfigurator object.
      */
-    function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator) {
+    public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, PhingXMLContext $context)
+    {
         $this->configurator = $configurator;
+        $this->context = $context;
+        
         parent::__construct($parser, $this);
     }
 
@@ -73,7 +81,7 @@ class RootHandler extends AbstractHandler {
      */
     function startElement($tag, $attrs) {
         if ($tag === "project") {
-            $ph = new ProjectHandler($this->parser, $this, $this->configurator);
+            $ph = new ProjectHandler($this->parser, $this, $this->configurator, $this->context);
             $ph->init($tag, $attrs);
         } else {
             throw new ExpatParseException("Unexpected tag <$tag> in top-level of build file.", $this->parser->getLocation());

@@ -54,9 +54,11 @@ class TargetHandler extends AbstractHandler {
      * @param  object  the parent handler that invoked this handler
      * @param  object  the ProjectConfigurator object
      */
-    function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler, ProjectConfigurator $configurator) {
+    public function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler, ProjectConfigurator $configurator, PhingXMLContext $context)
+    {
         parent::__construct($parser, $parentHandler);
-        $this->configurator = $configurator;      
+        $this->configurator = $configurator;
+        $this->context = $context;
     }
 
     /**
@@ -112,12 +114,13 @@ class TargetHandler extends AbstractHandler {
         $project = $this->configurator->project;
 
         // check to see if this target is a dup within the same file
-        if (isset($this->configurator->getCurrentTargets[$name])) {
+        if (isset($this->context->getCurrentTargets[$name])) {
           throw new BuildException("Duplicate target: $targetName",  
               $this->parser->getLocation());
         }
 
         $this->target = new Target();
+        $this->target->addDependency("");
         $this->target->setName($name);
         $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
@@ -135,7 +138,7 @@ class TargetHandler extends AbstractHandler {
           $project->log("Already defined in main or a previous import, " .
             "ignore {$name}", Project::MSG_VERBOSE);
         } else {
-          $project->addTarget($name, $this->target);
+          $project->addOrReplaceTarget($name, $this->target);
           if ($id !== null && $id !== "") {
             $project->addReference($id, $this->target);
           }
@@ -155,9 +158,9 @@ class TargetHandler extends AbstractHandler {
             $newTarget = $this->target;
           }
           $newTarget->setName($newName);
-          $ct = $this->configurator->getCurrentTargets();
+          $ct = &$this->context->getCurrentTargets();
           $ct[$newName] = $newTarget;
-          $project->addTarget($newName, $newTarget);
+          $project->addOrReplaceTarget($newName, $newTarget);
         }
     }
 
@@ -172,14 +175,9 @@ class TargetHandler extends AbstractHandler {
         // shorthands
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
-
-        if (isset($types[$name])) {
-            $th = new DataTypeHandler($this->parser, $this, $this->configurator, $this->target);
-            $th->init($name, $attrs);
-        } else {
-            $tmp = new TaskHandler($this->parser, $this, $this->configurator, $this->target, null, $this->target);
-            $tmp->init($name, $attrs);
-        }
+        
+        $tmp = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->target);
+        $tmp->init($name, $attrs);
     }
     
     /**
