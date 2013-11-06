@@ -57,8 +57,7 @@ class TaskAdapter extends Task {
                 $this->proxy->main($this->project);
             } catch (Exception $ex) {
                 $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
-                $this->log($ex->getTraceAsString(), Project::MSG_DEBUG);
-                throw new BuildException($ex->getMessage());
+                throw new BuildException("Error in " . get_class($this->proxy), $ex);
             }
         } else {
             throw new BuildException("Your task-like class '" . get_class($this->proxy) ."' does not have a main() method");

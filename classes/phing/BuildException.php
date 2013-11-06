@@ -85,7 +85,8 @@ class BuildException extends Exception {
         
         if ($cause !== null) {
             $this->cause = $cause;
-            $this->message .= " [wrapped: " . $cause->getMessage() ."]";
+            $this->message .= "\n" . $this->getTraceAsString();
+            $this->message .= "\n\nPrevious " . (string) $cause;
         }
         
         if ($loc !== null) {
