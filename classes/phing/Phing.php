@@ -34,10 +34,8 @@ include_once 'phing/parser/AbstractHandler.php';
 include_once 'phing/parser/ProjectConfigurator.php';
 include_once 'phing/parser/RootHandler.php';
 include_once 'phing/parser/ProjectHandler.php';
-include_once 'phing/parser/TaskHandler.php';
 include_once 'phing/parser/TargetHandler.php';
 include_once 'phing/parser/DataTypeHandler.php';
-include_once 'phing/parser/NestedElementHandler.php';
 
 include_once 'phing/system/util/Properties.php';
 include_once 'phing/util/StringHelper.php';

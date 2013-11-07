@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/parser/AbstractHandler.php';
+require_once 'phing/UnknownElement.php';
 
 /**
  * The generic element handler class.
