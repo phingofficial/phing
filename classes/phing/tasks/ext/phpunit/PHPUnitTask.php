@@ -237,7 +237,7 @@ class PHPUnitTask extends Task
         
         $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
         
-        if (empty($configuration)) {
+        if (empty($config)) {
             return;
         }
         
@@ -271,6 +271,13 @@ class PHPUnitTask extends Task
 
         if (isset($phpunit['processIsolation'])) {
             $this->setProcessIsolation($phpunit['processIsolation']);
+        }
+        
+        $browsers = $config->getSeleniumBrowserConfiguration();
+        
+        if (!empty($browsers) &&
+            class_exists('PHPUnit_Extensions_SeleniumTestCase')) {  
+            PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
         }
     }
 
