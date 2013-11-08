@@ -423,9 +423,9 @@ class Phing {
                 }
             } elseif (substr($arg,0,1) == "-") {
                 // we don't have any more args
-                self::$err->write("Unknown argument: $arg" . PHP_EOL);
                 self::printUsage();
-                return;
+                self::$err->write(PHP_EOL);
+                throw new ConfigurationException("Unknown argument: " . $arg);
             } else {
                 // if it's no other arg, it may be the target
                 array_push($this->targets, $arg);
