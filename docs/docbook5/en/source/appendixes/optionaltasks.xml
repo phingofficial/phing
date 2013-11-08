@@ -3813,12 +3813,13 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;jsllint file="path/to/source.php"/></programlisting>
+            <programlisting language="xml">&lt;jsllint
+            file="path/to/source.js"/></programlisting>
 
             <para>Checking syntax of one particular source file.</para>
             <programlisting language="xml">&lt;jsllint>
   &lt;fileset dir="src">
-    &lt;include name="**/*.php"/>
+    &lt;include name="**/*.js"/>
   &lt;/fileset>
 &lt;/jsllint></programlisting>
             <para>Check syntax of a fileset of source files.</para>
