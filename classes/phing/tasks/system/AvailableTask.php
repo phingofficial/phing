@@ -151,9 +151,9 @@ class AvailableTask extends Task {
             return $this->_checkFile1($this->file);
         } else {
             $paths = $this->filepath->listPaths();
-            for($i=0,$pcnt=count($paths); $i < $pcnt; $i++) {
-                $this->log("Searching " . $paths[$i], Project::MSG_VERBOSE);
-                $tmp = new PhingFile($paths[$i], $this->file->getName());
+            foreach($paths as $path) {
+                $this->log("Searching " . $path, Project::MSG_VERBOSE);
+                $tmp = new PhingFile($path, $this->file->getName());
                 if($tmp->isFile()) {
                     return true;
                 }
