@@ -29,6 +29,18 @@ require_once 'phing/tasks/system/ExecTask.php';
  */
 abstract class AbstractLiquibaseTask extends Task
 {
+
+    /**
+      * Used for liquibase -Dname=value properties.
+      */
+    private $properties = array(); 
+    
+    /**
+      * Used to set liquibase --name=value parameters
+      */
+    private $parameters = array(); 
+
+
     protected $jar;
     protected $changeLogFile;
     protected $username;
@@ -36,6 +48,31 @@ abstract class AbstractLiquibaseTask extends Task
     protected $url;
     protected $classpathref;
 
+    /**
+     * Whether to display the output of the command.
+     * True by default to preserve old behaviour
+     * @var boolean
+     */
+    protected $display = true;
+
+    /**
+     * Whether liquibase return code can cause a Phing failure.
+     * @var boolean
+     */
+    protected $checkreturn = false;
+
+    /**
+      * Set true if we should run liquibase with PHP passthru 
+      * instead of exec.
+      */
+    protected $passthru = true;
+
+    /**
+     * Property name to set with output value from exec call.
+     *
+     * @var string
+     */
+    protected $outputProperty;
 
     /**
      * Sets the absolute path to liquibase jar.
@@ -108,6 +145,76 @@ abstract class AbstractLiquibaseTask extends Task
 
 
     /**
+     * Sets whether to display the output of the command
+     * @param boolean $display
+     */
+    public function setDisplay($display)
+    {
+        $this->display = StringHelper::booleanValue($display);
+    }
+
+
+    /**
+     * Whether to check the liquibase return code.
+     *
+     * @param boolean $checkreturn
+     */
+    public function setCheckreturn($checkreturn)
+    {
+        $this->checkreturn = StringHelper::booleanValue($checkreturn);
+    }
+
+
+    /**
+     * Whether to check the liquibase return code.
+     *
+     * @param boolean $checkreturn
+     */
+    public function setPassthru($passthru)
+    {
+        $this->passthru = StringHelper::booleanValue($passthru);
+    }
+
+
+    /**
+     * the name of property to set to output value from exec() call.
+     *
+     * @param string $prop property name
+     *
+     * @return void
+     */
+    public function setOutputProperty($prop)
+    {
+        $this->outputProperty = $prop;
+    }
+
+
+    /**
+     * Creates a nested <property> tag.
+     *
+     * @return LiquibaseProperty Argument object
+     */
+    public function createProperty()
+    {
+        $prop = new LiquibaseProperty();
+        $this->properties[] = $prop;
+        return $prop;
+    }
+
+
+    /**
+     * Creates a nested <parameter> tag.
+     *
+     * @return LiquibaseParameter Argument object
+     */
+    public function createParameter()
+    {
+        $param = new LiquibaseParameter();
+        $this->parameters[] = $param;
+        return $param;
+    }
+
+    /**
      * Ensure that correct parameters were passed in.
      *
      * @return void
@@ -165,20 +272,129 @@ abstract class AbstractLiquibaseTask extends Task
      */
     protected function execute($lbcommand, $lbparams = '')
     {
+        $nestedparams = "";
+        foreach($this->parameters as $p) {
+            $nestedparams .= $p->getCommandline($this->project) . ' ';
+        }
+        $nestedprops = "";
+        foreach($this->properties as $p) {
+            $nestedprops .= $p->getCommandline($this->project) . ' ';
+        }
+
         $command = sprintf(
-			'java -jar %s --changeLogFile=%s --url=%s --username=%s --password=%s --classpath=%s %s %s',
+			'java -jar %s --changeLogFile=%s --url=%s --username=%s --password=%s --classpath=%s %s %s %s %s 2>&1',
         escapeshellarg($this->jar),
         escapeshellarg($this->changeLogFile),
         escapeshellarg($this->url),
         escapeshellarg($this->username),
         escapeshellarg($this->password),
         escapeshellarg($this->classpathref),
+        $nestedparams,
         escapeshellarg($lbcommand),
-        $lbparams
+        $lbparams,
+        $nestedprops
         );
+        
+        if( $this->passthru ) {
+            passthru($command);
+        }
+        else {
+            $output = array();
+            $return = null;
+            exec($command, $output, $return);
+            $output = implode(PHP_EOL,$output);
 
-        passthru($command);
+            if( $this->display ) {
+                print $output;
+            }
+
+            if( !empty($this->outputProperty) ) {
+                $this->project->setProperty($this->outputProperty,$output);
+            }
+
+            if( $this->checkreturn && $return != 0 ) {
+                throw new BuildException("Liquibase exited with code $return");
+            }
+        }
 
         return;
     }
 }
+
+
+
+class LiquibaseParameter extends DataType
+{
+    private $name;
+    private $value;
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function setValue($value) {
+        $this->value = $value;
+    }
+
+    public function getCommandline(Project $p) {
+        if ($this->isReference()) {
+            return $this->getRef($p)->getCommandline($p);
+        }
+        return sprintf("--%s=%s", $this->name, escapeshellarg($this->value));
+    }
+
+    public function getRef(Project $p) {
+        if ( !$this->checked ) {
+            $stk = array();
+            array_push($stk, $this);
+            $this->dieOnCircularReference($stk, $p);
+        }
+
+        $o = $this->ref->getReferencedObject($p);
+        if ( !($o instanceof LiquibaseParameter) ) {
+            throw new BuildException($this->ref->getRefId()." doesn't denote a LiquibaseParameter");
+        } else {
+            return $o;
+        }
+    }
+
+
+}
+
+
+class LiquibaseProperty extends DataType
+{
+    private $name;
+    private $value;
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function setValue($value) {
+        $this->value = $value;
+    }
+
+    public function getCommandline(Project $p) {
+        if ($this->isReference()) {
+            return $this->getRef($p)->getCommandline($p);
+        }
+        return sprintf("-D%s=%s", $this->name, escapeshellarg($this->value));
+    }
+
+    public function getRef(Project $p) {
+        if ( !$this->checked ) {
+            $stk = array();
+            array_push($stk, $this);
+            $this->dieOnCircularReference($stk, $p);
+        }
+        $o = $this->ref->getReferencedObject($p);
+        if ( !($o instanceof LiquibaseProperty) ) {
+            throw new BuildException($this->ref->getRefId()." doesn't denote a LiquibaseProperty");
+        } else {
+            return $o;
+        }
+    }
+}
+
+?>
