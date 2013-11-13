@@ -133,8 +133,8 @@
 		<title>FileSet</title>
 
 		<para> FileSets offer an easy and straightforward way to include files. The tag supports
-				<link xlink:href="#app.selectors">Selectors</link> and <link
-				xlink:href="#PatternSet">PatternSets</link>. Additionally, you can include/exclude
+			Selectors (see <xref xlink:href="#app.selectors" />) and
+			PatternSets (see <xref xlink:href="#PatternSet" />). Additionally, you can include/exclude
 			files in/from a fileset using the
 				<literal>&lt;include></literal>/<literal>&lt;exclude></literal> tags. In patterns,
 			one asterisk (<literal>*</literal>) maps to a part of a file/directory name within a

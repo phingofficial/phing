@@ -1,9 +1,9 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.8 Conditions</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch05.html" title="Chapter 5 Project components"><link rel="prev" href="ch05s07.html" title="5.7 Basic Types"><link rel="next" href="ch06.html" title="Chapter 6 Extending Phing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.8  Conditions </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s07.html">Prev</a> </td><th width="60%" align="center">Chapter 5 Project components</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp4239312"></a>5.8  Conditions </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.8 Conditions</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch05.html" title="Chapter 5 Project components"><link rel="prev" href="ch05s07.html" title="5.7 Basic Types"><link rel="next" href="ch06.html" title="Chapter 6 Extending Phing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.8  Conditions </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s07.html">Prev</a> </td><th width="60%" align="center">Chapter 5 Project components</th><td width="20%" align="right"> <a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp41621536"></a>5.8  Conditions </h2></div></div></div>
 		
 
 		<p> Conditions are nested elements of the <a class="xref" href="apb.html" title="Appendix B. Core tasks">Appendix B, <i>Core tasks</i></a> and <a class="xref" href="apb.html" title="Appendix B. Core tasks">Appendix B, <i>Core tasks</i></a> tasks.</p>
 
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4241840"></a>5.8.1 <code class="literal">not</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41634528"></a>5.8.1 <code class="literal">not</code></h3></div></div></div>
 			
 			<p> The <code class="code">&lt;not&gt;</code> element expects exactly one other condition to be
 				nested into this element, negating the result of the condition. It doesn't have any
@@ -11,7 +11,7 @@
 				as well.</p>
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4244272"></a>5.8.2 <code class="literal">and</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41636992"></a>5.8.2 <code class="literal">and</code></h3></div></div></div>
 			
 			<p> The <code class="code">&lt;and&gt;</code> element doesn't have any attributes and accepts an
 				arbitrary number of conditions as nested elements. This condition is true if all of
@@ -23,7 +23,7 @@
 				one of the nested conditions is false, no other condition will be evaluated.</p>
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4248064"></a>5.8.3 <code class="literal">or</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41640816"></a>5.8.3 <code class="literal">or</code></h3></div></div></div>
 			
 			<p> The <code class="code">&lt;or&gt;</code> element doesn't have any attributes and accepts an
 				arbitrary number of conditions as nested elements. This condition is true if at
@@ -35,11 +35,11 @@
 				the nested conditions is true, no other condition will be evaluated.</p>
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4251872"></a>5.8.4 <code class="literal">os</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41644624"></a>5.8.4 <code class="literal">os</code></h3></div></div></div>
 			
 			<p>Test whether the current operating system is of a given type.</p>
 
-			<div class="table"><a name="idp4253376"></a><p class="formal-object-title"><span class="label">Table 5.1: </span><span class="title">OS Attributes</span></p><div class="table-contents">
+			<div class="table"><a name="idp41646128"></a><p class="formal-object-title"><span class="label">Table 5.1: </span><span class="title">OS Attributes</span></p><div class="table-contents">
 				
 				<table summary="OS Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">family</code></td><td>The name of the operating system family to expect.</td><td>Yes</td></tr></tbody></table>
 			</div></div><br class="table-break">
@@ -53,39 +53,39 @@
 				</li></ul></div>
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp4266832"></a>5.8.5 <code class="literal">equals</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41660096"></a>5.8.5 <code class="literal">equals</code></h3></div></div></div>
 			
 			<p>Tests whether the two given Strings are identical</p>
-			<div class="table"><a name="idp3007152"></a><p class="formal-object-title"><span class="label">Table 5.2: </span><span class="title">equals Attributes</span></p><div class="table-contents">
+			<div class="table"><a name="idp41661472"></a><p class="formal-object-title"><span class="label">Table 5.2: </span><span class="title">equals Attributes</span></p><div class="table-contents">
 				
 				<table summary="equals Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">arg1</code></td><td>First string to test.</td><td>Yes</td></tr><tr><td><code class="literal">arg2</code></td><td>Second string to test.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparision. Default is true.</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td>Trim whitespace from arguments before comparing them. Default is
 								false.</td><td>No</td></tr></tbody></table>
 			</div></div><br class="table-break">
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3023712"></a>5.8.6 <code class="literal">isset</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41678016"></a>5.8.6 <code class="literal">isset</code></h3></div></div></div>
 			
 			<p>Test whether a given property has been set in this project.</p>
-			<div class="table"><a name="idp3025120"></a><p class="formal-object-title"><span class="label">Table 5.3: </span><span class="title">isset Attributes</span></p><div class="table-contents">
+			<div class="table"><a name="idp41679424"></a><p class="formal-object-title"><span class="label">Table 5.3: </span><span class="title">isset Attributes</span></p><div class="table-contents">
 				
 				<table summary="isset Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td>The name of the property to test.</td><td>Yes</td></tr></tbody></table>
 			</div></div><br class="table-break">
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3035616"></a>5.8.7 <code class="literal">contains</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41689920"></a>5.8.7 <code class="literal">contains</code></h3></div></div></div>
 			
 			<p>Tests whether a string contains another one.</p>
-			<div class="table"><a name="idp3037024"></a><p class="formal-object-title"><span class="label">Table 5.4: </span><span class="title">contains Attributes</span></p><div class="table-contents">
+			<div class="table"><a name="idp41691328"></a><p class="formal-object-title"><span class="label">Table 5.4: </span><span class="title">contains Attributes</span></p><div class="table-contents">
 				
 				<table summary="contains Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">string</code></td><td>The string to search in.</td><td>Yes</td></tr><tr><td><code class="literal">substring</code></td><td>The string to search for.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparision. Default is true.</td><td>No</td></tr></tbody></table>
 			</div></div><br class="table-break">
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3051392"></a>5.8.8 <code class="literal">istrue</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41705760"></a>5.8.8 <code class="literal">istrue</code></h3></div></div></div>
 			
 			<p>Tests whether a string evaluates to true.</p>
 
-			<div class="table"><a name="idp3052800"></a><p class="formal-object-title"><span class="label">Table 5.5: </span><span class="title">istrue Attributes</span></p><div class="table-contents">
+			<div class="table"><a name="idp41707168"></a><p class="formal-object-title"><span class="label">Table 5.5: </span><span class="title">istrue Attributes</span></p><div class="table-contents">
 				
 				<table summary="istrue Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td>value to test</td><td>Yes</td></tr></tbody></table>
 			</div></div><br class="table-break">
@@ -93,11 +93,11 @@
 &lt;istrue value="false"/&gt;</pre>
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3063936"></a>5.8.9 <code class="literal">isfalse</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41718464"></a>5.8.9 <code class="literal">isfalse</code></h3></div></div></div>
 			
 			<p>Tests whether a string evaluates to not true, the negation of
 					<code class="literal">&lt;istrue&gt;</code></p>
-			<div class="table"><a name="idp3065600"></a><p class="formal-object-title"><span class="label">Table 5.6: </span><span class="title">isfalse Attributes</span></p><div class="table-contents">
+			<div class="table"><a name="idp41720128"></a><p class="formal-object-title"><span class="label">Table 5.6: </span><span class="title">isfalse Attributes</span></p><div class="table-contents">
 				
 				<table summary="isfalse Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td>value to test</td><td>Yes</td></tr></tbody></table>
 			</div></div><br class="table-break">
@@ -105,17 +105,17 @@
 &lt;isfalse value="false"/&gt;</pre>
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3076688"></a>5.8.10 <code class="literal">referenceexists</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41731312"></a>5.8.10 <code class="literal">referenceexists</code></h3></div></div></div>
 			
 			<p>Tests whether a specified reference exists.</p>
-			<div class="table"><a name="idp3078096"></a><p class="formal-object-title"><span class="label">Table 5.7: </span><span class="title">referenceexists Attributes</span></p><div class="table-contents">
+			<div class="table"><a name="idp41732720"></a><p class="formal-object-title"><span class="label">Table 5.7: </span><span class="title">referenceexists Attributes</span></p><div class="table-contents">
 				
 				<table summary="referenceexists Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">ref</code></td><td>reference to test for</td><td>Yes</td></tr></tbody></table>
 			</div></div><br class="table-break">
 			<pre class="programlisting">&lt;referenceexists ref="${someid}"/&gt;</pre>
 
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp3089200"></a>5.8.11 <code class="literal">available</code></h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp41743984"></a>5.8.11 <code class="literal">available</code></h3></div></div></div>
 			
 			<p>This condition is identical to the <a class="ulink" href="#AvailableTask" target="_top">Available</a> task, all attributes and nested elements of that task are
 				supported, the property and value attributes are redundant and will be

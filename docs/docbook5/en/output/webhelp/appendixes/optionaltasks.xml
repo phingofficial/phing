@@ -3813,12 +3813,13 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;jsllint file="path/to/source.php"/></programlisting>
+            <programlisting language="xml">&lt;jsllint
+            file="path/to/source.js"/></programlisting>
 
             <para>Checking syntax of one particular source file.</para>
             <programlisting language="xml">&lt;jsllint>
   &lt;fileset dir="src">
-    &lt;include name="**/*.php"/>
+    &lt;include name="**/*.js"/>
   &lt;/fileset>
 &lt;/jsllint></programlisting>
             <para>Check syntax of a fileset of source files.</para>
@@ -3903,7 +3904,219 @@ Note that you can omit both startpoint and track attributes in this case
         </sect2>
     </sect1>
     
-
+<sect1 role="taskdef" xml:id="LiquibaseTask">
+    <title>LiquibaseTask</title>
+    <para>The <literal>LiquibaseTask</literal> is a generic task for liquibase commands that don't require extra command parameters. You can run commands like <literal>updateSQL</literal>, <literal>validate</literal> or <literal>updateTestingRollback</literal> with this task but not <literal>rollbackToDateSQL</literal> since it requires a date parameter after the command.
+    </para> 
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>jar</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the Liquibase jar file.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>classpath</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Additional classpath entries.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>changeLogFile</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Location of the changelog file in which the changes get written or read from.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>username</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The username needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>password</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The password needed to connect to the database.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>url</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+                <row>
+                    <entry><literal>command</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>What liquibase command to run. Currently only supports commands that doesn't require command parameters, such as validate and updateSQL.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>                
+                <row>
+                    <entry><literal>display</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>passthru</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
+                    <entry>true</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>checkreturn</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>                
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">
+            &lt;liquibase
+                jar="./vendor/alcaeus/liquibase/liquibase.jar"
+                classpathref="./libs/mysql-connector-java.jar"
+                changelogFile="./DB/master.xml"
+                username="${deploy.user}"
+                password="${deploy.password}"
+                url="jdbc:mysql://${database.host}/${database.name}"
+                display='true'
+                checkreturn="true"
+                passthru='false'
+                outputProperty="liquibase.updateSQL.output"
+                command="updateSQL"
+            >
+                &lt;parameter name="logLevel" value="info" />        
+                &lt;property name="tablename" value="Person" />
+            &lt;/liquibase>
+        </programlisting>
+        <para>The nested parameters in the example above will result in the command:</para>
+        <programlisting>
+    --logLevel='info' updateSQL -Dtablename='Person'
+        </programlisting>
+    </sect2>
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>parameter</literal>
+                </para>
+                <para>Use these nested parameter tags to set optional liquibase commands like --logLevel or --defaultsFile.</para>
+                <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>name</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Name of the liquibase parameter. Do not include the '--'.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>value</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Value of the liquibase parameter.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+            </listitem>
+            <listitem>
+                <para><literal>property</literal>
+                </para>
+                <para>These tags are used to set what Liquibase calls "Change Log Properties" which are used for substitution in the change log(s). Note that they are not the same thing as regular Phing properties.</para>
+                <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>name</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Name of the property. Do not include the '-D'.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>value</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Value of the property.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+            </listitem>           
+        </itemizedlist>
+    </sect2>
+</sect1>
 <sect1 role="taskdef" xml:id="LiquibaseChangeLogTask">
     <title>LiquibaseChangeLogTask</title>
     <para>The <literal>LiquibaseChangeLogTask</literal> writes the Change Log XML to copy the current state of the 
@@ -3968,7 +4181,35 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
+                </row>   
+                <row>
+                    <entry><literal>display</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
                 </row>                
+                <row>
+                    <entry><literal>passthru</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
+                    <entry>true</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>checkreturn</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
             </tbody>
         </tgroup>
     </table>
@@ -3982,6 +4223,21 @@ Note that you can omit both startpoint and track attributes in this case
   password="liquibase"
   url="jdbc:mysql://localhost/mydatabase"
 /></programlisting>
+    </sect2>
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>parameter</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>
+            <listitem>
+                <para><literal>property</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>           
+        </itemizedlist>
     </sect2>
 </sect1>
 
@@ -4058,7 +4314,34 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>n/a</entry>
                     <entry>Yes</entry>
                 </row>                
-                
+                 <row>
+                    <entry><literal>display</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>passthru</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
+                    <entry>true</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>checkreturn</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>               
             </tbody>
         </tgroup>
     </table>
@@ -4074,6 +4357,22 @@ Note that you can omit both startpoint and track attributes in this case
   outputDir="/tmp/generateddocs"
 /></programlisting>
     </sect2>
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>parameter</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>
+            <listitem>
+                <para><literal>property</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>           
+        </itemizedlist>
+    </sect2>
+
 </sect1>
 
 
@@ -4165,6 +4464,34 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>n/a</entry>
                     <entry>Yes</entry>
                 </row>                
+                <row>
+                    <entry><literal>display</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>passthru</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
+                    <entry>true</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>checkreturn</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>               
             </tbody>
         </tgroup>
     </table>
@@ -4182,6 +4509,22 @@ Note that you can omit both startpoint and track attributes in this case
   referenceUrl="jdbc:mysql://localhost/refdatabase"
 /></programlisting>
     </sect2>
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>parameter</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>
+            <listitem>
+                <para><literal>property</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>           
+        </itemizedlist>
+    </sect2>
+
 </sect1>
 
 
@@ -4257,6 +4600,34 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>n/a</entry>
                     <entry>Yes</entry>
                 </row>
+                <row>
+                    <entry><literal>display</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>passthru</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
+                    <entry>true</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>checkreturn</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>                
             </tbody>
         </tgroup>
     </table>
@@ -4272,6 +4643,22 @@ Note that you can omit both startpoint and track attributes in this case
   rollbackTag="tag_0_1"
 /></programlisting>
     </sect2>
+     <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>parameter</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>
+            <listitem>
+                <para><literal>property</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>           
+        </itemizedlist>
+    </sect2>
+   
 </sect1>
 
 
@@ -4347,6 +4734,34 @@ Note that you can omit both startpoint and track attributes in this case
                 <entry>n/a</entry>
                 <entry>Yes</entry>
             </row>
+            <row>
+                <entry><literal>display</literal></entry>
+                <entry><literal role="type">Boolean</literal></entry>
+                <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
+                <entry>false</entry>
+                <entry>No</entry>
+            </row>                
+            <row>
+                <entry><literal>passthru</literal></entry>
+                <entry><literal role="type">Boolean</literal></entry>
+                <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
+                <entry>true</entry>
+                <entry>No</entry>
+            </row>                
+            <row>
+                <entry><literal>checkreturn</literal></entry>
+                <entry><literal role="type">Boolean</literal></entry>
+                <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
+                <entry>false</entry>
+                <entry>No</entry>
+            </row>                
+            <row>
+                <entry><literal>outputProperty</literal></entry>
+                <entry><literal role="type">String</literal></entry>
+                <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
+                <entry>n/a</entry>
+                <entry>No</entry>
+            </row>           
         </tbody>
     </tgroup>
 </table>
@@ -4362,6 +4777,22 @@ Note that you can omit both startpoint and track attributes in this case
   tag="tag_0_1"
 /></programlisting>
 </sect2>
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>parameter</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>
+            <listitem>
+                <para><literal>property</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>           
+        </itemizedlist>
+    </sect2>
+
 </sect1>
 
 
@@ -4430,6 +4861,34 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>n/a</entry>
                     <entry>Yes</entry>
                 </row>                
+                <row>
+                    <entry><literal>display</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>passthru</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
+                    <entry>true</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>checkreturn</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>                
+                <row>
+                    <entry><literal>outputProperty</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
             </tbody>
         </tgroup>
     </table>
@@ -4444,6 +4903,22 @@ Note that you can omit both startpoint and track attributes in this case
   url="jdbc:mysql://localhost/mydatabase"
 /></programlisting>
     </sect2>
+     <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal>parameter</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>
+            <listitem>
+                <para><literal>property</literal>
+                </para>
+                <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
+            </listitem>           
+        </itemizedlist>
+    </sect2>
+   
 </sect1>
 
     

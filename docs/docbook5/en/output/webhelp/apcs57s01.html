@@ -8,15 +8,15 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Features -  - Phing User Guide</title>
+      <title>Example -  - Phing User Guide</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="Phing User Guide" />
-      <link rel="up" href="rSTTask.html" title="rSTTask" />
-      <link rel="prev" href="rSTTask.html" title="rSTTask" />
-      <link rel="next" href="apcs57s02.html" title="Examples" />
-      <meta name="Section-title" content="Features" /><script type="text/javascript">
+      <link rel="up" href="PHPUnitReport.html" title="PHPUnitReport" />
+      <link rel="prev" href="PHPUnitReport.html" title="PHPUnitReport" />
+      <link rel="next" href="rSTTask.html" title="rSTTask" />
+      <meta name="Section-title" content="Example" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-43428";
+            var treeCookieId = "treeview-44764";
             var language = "en";
             var w = new Object();
             //Localization
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Phing User Guide<br />rSTTask
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Phing User Guide<br />PHPUnitReport
          </h1>
          <div id="navheader">
             <!---->
@@ -164,11 +164,11 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="rSTTask.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="PHPUnitReport.html">Prev</a>
                                                              |
-                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="rSTTask.html">Up</a>
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="PHPUnitReport.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="apcs57s02.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="rSTTask.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,67 +179,25 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e11730"></a>Features
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e12132"></a>Example
                      </h3>
                   </div>
                </div>
             </div>
                         
+                        <pre class="programlisting">&lt;phpunitreport infile="reports/testsuites.xml" 
+    format="frames" 
+    todir="reports/tests" 
+    styledir="/home/phing/etc"/&gt;</pre>
+                        <p> Generates a framed report in the directory <code class="literal">reports/tests</code> using
+                               the file <code class="literal">reports/testsuites.xml</code> as input.
+            </p>
                         
-            <div class="itemizedlist">
-               <ul class="itemizedlist" style="list-style-type: disc; ">
-                  <li class="listitem">
-                                         
-                     <p>renders single files</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>render nested filesets</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>mappers to generate output file names based on the rst ones</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>multiple output formats</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>filter chains to e.g. replace variables after rendering</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>custom parameters to the rst2* tool</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>configurable rst tool path</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>uptodate check</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>automatically overwrites old files</p>
-                                     
-                  </li>
-                  <li class="listitem">
-                                         
-                     <p>automatically creates target directories</p>
-                                     
-                  </li>
-               </ul>
-            </div>
+            <p>
+                               <span class="bold"><strong>Important note:</strong></span> testclasses that are not explicitly
+                               placed in a package (by using a '@package' tag in the class-level DocBlock) are
+                               listed under the "default" package.
+            </p>
                     
          </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
@@ -247,10 +205,10 @@ border: none; background: none; font-weight: none; color: none; }
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="rSTTask.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="PHPUnitReport.html">Prev</a> 
                   </td>
-                  <td width="20%" align="center"><a accesskey="u" href="rSTTask.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="apcs57s02.html">Next</a></td>
+                  <td width="20%" align="center"><a accesskey="u" href="PHPUnitReport.html">Up</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="rSTTask.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -770,251 +728,262 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="apcs31s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="LiquibaseChangeLogTask.html" tabindex="1">LiquibaseChangeLogTask</a></span><ul>
+                              <li><span class="file"><a href="LiquibaseTask.html" tabindex="1">LiquibaseTask</a></span><ul>
                                     <li><span class="file"><a href="apcs32s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs32s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="LiquibaseChangeLogTask.html" tabindex="1">LiquibaseChangeLogTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs33s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs33s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="LiquibaseDbDocTask.html" tabindex="1">LiquibaseDbDocTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs33s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs34s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs34s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="LiquibaseDiffTask.html" tabindex="1">LiquibaseDiffTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs34s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs35s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs35s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="LiquibaseRollbackTask.html" tabindex="1">LiquibaseRollbackTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs35s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs36s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs36s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="LiquibaseTagTask.html" tabindex="1">LiquibaseTagTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs36s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs37s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs37s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="LiquibaseUpdateTask.html" tabindex="1">LiquibaseUpdateTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs37s01.html" tabindex="1">Example</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="MailTask.html" tabindex="1">MailTask</a></span><ul>
                                     <li><span class="file"><a href="apcs38s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs38s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="ParallelTask.html" tabindex="1">ParallelTask</a></span><ul>
+                              <li><span class="file"><a href="MailTask.html" tabindex="1">MailTask</a></span><ul>
                                     <li><span class="file"><a href="apcs39s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs39s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PatchTask.html" tabindex="1">PatchTask</a></span><ul>
+                              <li><span class="file"><a href="ParallelTask.html" tabindex="1">ParallelTask</a></span><ul>
                                     <li><span class="file"><a href="apcs40s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PDOSQLExecTask.html" tabindex="1">PDOSQLExecTask</a></span><ul>
+                              <li><span class="file"><a href="PatchTask.html" tabindex="1">PatchTask</a></span><ul>
                                     <li><span class="file"><a href="apcs41s01.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs41s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PearPackageTask.html" tabindex="1">PearPackageTask</a></span><ul>
+                              <li><span class="file"><a href="PDOSQLExecTask.html" tabindex="1">PDOSQLExecTask</a></span><ul>
                                     <li><span class="file"><a href="apcs42s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs42s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PearPackage2Task.html" tabindex="1">PearPackage2Task</a></span><ul>
+                              <li><span class="file"><a href="PearPackageTask.html" tabindex="1">PearPackageTask</a></span><ul>
                                     <li><span class="file"><a href="apcs43s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs43s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PharPackageTask.html" tabindex="1">PharPackageTask</a></span><ul>
+                              <li><span class="file"><a href="PearPackage2Task.html" tabindex="1">PearPackage2Task</a></span><ul>
                                     <li><span class="file"><a href="apcs44s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs44s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PhkPackageTask.html" tabindex="1">PhkPackageTask</a></span><ul>
+                              <li><span class="file"><a href="PharPackageTask.html" tabindex="1">PharPackageTask</a></span><ul>
                                     <li><span class="file"><a href="apcs45s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs45s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PhpCodeSnifferTask.html" tabindex="1">PhpCodeSnifferTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs46s01.html" tabindex="1">Examples</a></span></li>
+                              <li><span class="file"><a href="PhkPackageTask.html" tabindex="1">PhkPackageTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs46s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs46s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PHPCPDTask.html" tabindex="1">PHPCPDTask</a></span><ul>
+                              <li><span class="file"><a href="PhpCodeSnifferTask.html" tabindex="1">PhpCodeSnifferTask</a></span><ul>
                                     <li><span class="file"><a href="apcs47s01.html" tabindex="1">Examples</a></span></li>
                                     <li><span class="file"><a href="apcs47s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PHPLocTask.html" tabindex="1">PHPLocTask</a></span><ul>
+                              <li><span class="file"><a href="PHPCPDTask.html" tabindex="1">PHPCPDTask</a></span><ul>
                                     <li><span class="file"><a href="apcs48s01.html" tabindex="1">Examples</a></span></li>
                                     <li><span class="file"><a href="apcs48s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PHPMDTask.html" tabindex="1">PHPMDTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs49s01.html" tabindex="1">Example</a></span></li>
+                              <li><span class="file"><a href="PHPLocTask.html" tabindex="1">PHPLocTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs49s01.html" tabindex="1">Examples</a></span></li>
                                     <li><span class="file"><a href="apcs49s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PhpDependTask.html" tabindex="1">PhpDependTask</a></span><ul>
+                              <li><span class="file"><a href="PHPMDTask.html" tabindex="1">PHPMDTask</a></span><ul>
                                     <li><span class="file"><a href="apcs50s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs50s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PhpDocumentorTask.html" tabindex="1">PhpDocumentorTask</a></span><ul>
+                              <li><span class="file"><a href="PhpDependTask.html" tabindex="1">PhpDependTask</a></span><ul>
                                     <li><span class="file"><a href="apcs51s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs51s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PhpDocumentor2Task.html" tabindex="1">DocBloxTask</a></span><ul>
+                              <li><span class="file"><a href="PhpDocumentorTask.html" tabindex="1">PhpDocumentorTask</a></span><ul>
                                     <li><span class="file"><a href="apcs52s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs52s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PhpDocumentorExternalTask.html" tabindex="1">PhpDocumentorExternalTask</a></span><ul>
+                              <li><span class="file"><a href="PhpDocumentor2Task.html" tabindex="1">DocBloxTask</a></span><ul>
                                     <li><span class="file"><a href="apcs53s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs53s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                 </ul>
+                              </li>
+                              <li><span class="file"><a href="PhpDocumentorExternalTask.html" tabindex="1">PhpDocumentorExternalTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs54s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="PhpLintTask.html" tabindex="1">PhpLintTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs54s01.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs54s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs55s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs55s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="PHPUnitTask.html" tabindex="1">PHPUnitTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs55s01.html" tabindex="1">Supported Nested Tags</a></span></li>
-                                    <li><span class="file"><a href="apcs55s02.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs55s03.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs56s01.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs56s02.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs56s03.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="PHPUnitReport.html" tabindex="1">PHPUnitReport</a></span><ul>
-                                    <li><span class="file"><a href="apcs56s01.html" tabindex="1">Example</a></span></li>
+                                    <li id="webhelp-currentid"><span class="file"><a href="apcs57s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="rSTTask.html" tabindex="1">rSTTask</a></span><ul>
-                                    <li id="webhelp-currentid"><span class="file"><a href="apcs57s01.html" tabindex="1">Features</a></span></li>
-                                    <li><span class="file"><a href="apcs57s02.html" tabindex="1">Examples</a></span></li>
-                                    <li><span class="file"><a href="apcs57s03.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs58s01.html" tabindex="1">Features</a></span></li>
+                                    <li><span class="file"><a href="apcs58s02.html" tabindex="1">Examples</a></span></li>
+                                    <li><span class="file"><a href="apcs58s03.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="S3PutTask.html" tabindex="1">S3PutTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs58s01.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs58s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs59s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs59s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="S3GetTask.html" tabindex="1">S3GetTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs59s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs60s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="ScpTask.html" tabindex="1">ScpTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs60s01.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs60s02.html" tabindex="1">Supported Nested Tags</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="SshTask.html" tabindex="1">SshTask</a></span><ul>
                                     <li><span class="file"><a href="apcs61s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs61s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SimpleTestTask.html" tabindex="1">SimpleTestTask</a></span><ul>
+                              <li><span class="file"><a href="SshTask.html" tabindex="1">SshTask</a></span><ul>
                                     <li><span class="file"><a href="apcs62s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs62s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnCheckoutTask.html" tabindex="1">SvnCheckoutTask</a></span><ul>
+                              <li><span class="file"><a href="SimpleTestTask.html" tabindex="1">SimpleTestTask</a></span><ul>
                                     <li><span class="file"><a href="apcs63s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs63s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnCommitTask.html" tabindex="1">SvnCommitTask</a></span><ul>
+                              <li><span class="file"><a href="SvnCheckoutTask.html" tabindex="1">SvnCheckoutTask</a></span><ul>
                                     <li><span class="file"><a href="apcs64s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnCopyTask.html" tabindex="1">SvnCopyTask</a></span><ul>
+                              <li><span class="file"><a href="SvnCommitTask.html" tabindex="1">SvnCommitTask</a></span><ul>
                                     <li><span class="file"><a href="apcs65s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnExportTask.html" tabindex="1">SvnExportTask</a></span><ul>
+                              <li><span class="file"><a href="SvnCopyTask.html" tabindex="1">SvnCopyTask</a></span><ul>
                                     <li><span class="file"><a href="apcs66s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnInfoTask.html" tabindex="1">SvnInfoTask</a></span><ul>
+                              <li><span class="file"><a href="SvnExportTask.html" tabindex="1">SvnExportTask</a></span><ul>
                                     <li><span class="file"><a href="apcs67s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnLastRevisionTask.html" tabindex="1">SvnLastRevisionTask</a></span><ul>
+                              <li><span class="file"><a href="SvnInfoTask.html" tabindex="1">SvnInfoTask</a></span><ul>
                                     <li><span class="file"><a href="apcs68s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnListTask.html" tabindex="1">SvnListTask</a></span><ul>
+                              <li><span class="file"><a href="SvnLastRevisionTask.html" tabindex="1">SvnLastRevisionTask</a></span><ul>
                                     <li><span class="file"><a href="apcs69s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnLogTask.html" tabindex="1">SvnLogTask</a></span><ul>
+                              <li><span class="file"><a href="SvnListTask.html" tabindex="1">SvnListTask</a></span><ul>
                                     <li><span class="file"><a href="apcs70s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnUpdateTask.html" tabindex="1">SvnUpdateTask</a></span><ul>
+                              <li><span class="file"><a href="SvnLogTask.html" tabindex="1">SvnLogTask</a></span><ul>
                                     <li><span class="file"><a href="apcs71s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SvnSwitchTask.html" tabindex="1">SvnSwitchTask</a></span><ul>
+                              <li><span class="file"><a href="SvnUpdateTask.html" tabindex="1">SvnUpdateTask</a></span><ul>
                                     <li><span class="file"><a href="apcs72s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SymfonyConsoleTask.html" tabindex="1">SymfonyConsoleTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs73s01.html" tabindex="1">Examples</a></span></li>
-                                    <li><span class="file"><a href="apcs73s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                              <li><span class="file"><a href="SvnSwitchTask.html" tabindex="1">SvnSwitchTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs73s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="SymlinkTask.html" tabindex="1">SymlinkTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs74s01.html" tabindex="1">Example</a></span></li>
+                              <li><span class="file"><a href="SymfonyConsoleTask.html" tabindex="1">SymfonyConsoleTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs74s01.html" tabindex="1">Examples</a></span></li>
                                     <li><span class="file"><a href="apcs74s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="TarTask.html" tabindex="1">TarTask</a></span><ul>
+                              <li><span class="file"><a href="SymlinkTask.html" tabindex="1">SymlinkTask</a></span><ul>
                                     <li><span class="file"><a href="apcs75s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs75s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="UntarTask.html" tabindex="1">UntarTask</a></span><ul>
+                              <li><span class="file"><a href="TarTask.html" tabindex="1">TarTask</a></span><ul>
                                     <li><span class="file"><a href="apcs76s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs76s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="UnzipTask.html" tabindex="1">UnzipTask</a></span><ul>
+                              <li><span class="file"><a href="UntarTask.html" tabindex="1">UntarTask</a></span><ul>
                                     <li><span class="file"><a href="apcs77s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs77s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="VersionTask.html" tabindex="1">VersionTask</a></span><ul>
+                              <li><span class="file"><a href="UnzipTask.html" tabindex="1">UnzipTask</a></span><ul>
                                     <li><span class="file"><a href="apcs78s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs78s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="WikiPublishTask.html" tabindex="1">WikiPublishTask</a></span><ul>
+                              <li><span class="file"><a href="VersionTask.html" tabindex="1">VersionTask</a></span><ul>
                                     <li><span class="file"><a href="apcs79s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
+                              <li><span class="file"><a href="WikiPublishTask.html" tabindex="1">WikiPublishTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs80s01.html" tabindex="1">Example</a></span></li>
+                                 </ul>
+                              </li>
                               <li><span class="file"><a href="XmlLintTask.html" tabindex="1">XmlLintTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs80s01.html" tabindex="1">Examples</a></span></li>
-                                    <li><span class="file"><a href="apcs80s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs81s01.html" tabindex="1">Examples</a></span></li>
+                                    <li><span class="file"><a href="apcs81s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="XmlPropertyTask.html" tabindex="1">XmlPropertyTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs81s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs82s01.html" tabindex="1">Example</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="ZendCodeAnalyzerTask.html" tabindex="1">ZendCodeAnalyzerTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs82s01.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs82s02.html" tabindex="1">Supported Nested Tags</a></span></li>
-                                 </ul>
-                              </li>
-                              <li><span class="file"><a href="ZendGuardEncodeTask.html" tabindex="1">ZendGuardEncodeTask</a></span><ul>
                                     <li><span class="file"><a href="apcs83s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs83s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
+                              <li><span class="file"><a href="ZendGuardEncodeTask.html" tabindex="1">ZendGuardEncodeTask</a></span><ul>
+                                    <li><span class="file"><a href="apcs84s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs84s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                 </ul>
+                              </li>
                               <li><span class="file"><a href="ZendGuardLicenseTask.html" tabindex="1">ZendGuardLicenseTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs84s01.html" tabindex="1">Examples</a></span></li>
+                                    <li><span class="file"><a href="apcs85s01.html" tabindex="1">Examples</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="ZipTask.html" tabindex="1">ZipTask</a></span><ul>
-                                    <li><span class="file"><a href="apcs85s01.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs85s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs86s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs86s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                            </ul>
