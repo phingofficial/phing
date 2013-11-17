@@ -37,6 +37,8 @@ class rSTTaskMultipleMappersTest extends BuildFileTest
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/build-error-multiple-mappers.xml'
         );
+        
+        $this->executeTarget(__FUNCTION__);
     }
 
 }
