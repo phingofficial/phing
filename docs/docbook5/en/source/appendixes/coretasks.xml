@@ -1735,6 +1735,9 @@
 					<para><literal>fileset</literal></para>
 				</listitem>
 				<listitem>
+					<para><literal>filelist</literal></para>
+				</listitem>
+				<listitem>
 					<para><literal>mapper</literal></para>
 				</listitem>
 			</itemizedlist>
