@@ -9289,10 +9289,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -9381,10 +9384,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recurse into all subdirectories</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -9521,10 +9527,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -9622,10 +9631,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -10217,10 +10229,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
