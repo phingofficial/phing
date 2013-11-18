@@ -41,7 +41,10 @@ class GitCommitTask extends GitBaseTask
      */
     private $message;
     
-    private $files;
+    /**
+     * @var FileSet[]
+     */
+    private $filesets = array();
 
     /**
      * The main entry point for the task
@@ -52,8 +55,8 @@ class GitCommitTask extends GitBaseTask
             throw new BuildException('"repository" is required parameter');
         }
 
-        if ($this->allFiles !== true && empty($this->files)) {
-            throw new BuildException('"allFiles" cannot be false if no files are specified.');
+        if ($this->allFiles !== true && empty($this->filesets)) {
+            throw new BuildException('"allFiles" cannot be false if no filesets are specified.');
         }
 
         $options = array();
@@ -62,11 +65,14 @@ class GitCommitTask extends GitBaseTask
         }
 
         $arguments = array();
-        if ($this->allFiles !== true && is_array($this->files))
-        {
-            foreach($this->files as $file)
-            {
-        	$arguments[] = $file;
+        if ($this->allFiles !== true) {
+            foreach ($this->filesets as $fs) {
+                $ds       = $fs->getDirectoryScanner($this->project);
+                $srcFiles = $ds->getIncludedFiles();
+                
+                foreach ($srcFiles as $file) {
+                	$arguments[] = $file;
+                }
             }
         }
 
@@ -126,4 +132,11 @@ class GitCommitTask extends GitBaseTask
     	$this->message = $message;
     }
 
+    /**
+     * Nested creator, adds a set of files (nested fileset attribute).
+     */
+    public function createFileSet() {
+        $num = array_push($this->filesets, new FileSet());
+        return $this->filesets[$num-1];
+    }
 }

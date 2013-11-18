@@ -1976,6 +1976,14 @@ Note that you can omit both startpoint and track attributes in this case
     repository="/path/to/repo" 
     message="Commit message" allFiles="true" />;</programlisting>
         </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>fileset</literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitMergeTask">
         <title>GitMergeTask</title>
