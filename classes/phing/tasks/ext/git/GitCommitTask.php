@@ -31,10 +31,16 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
  */
 class GitCommitTask extends GitBaseTask
 {
-    private $allFiles;
-
+    /**
+     * @var boolean
+     */
+    private $allFiles = false;
+    
+    /**
+     * @var string
+     */
     private $message;
-
+    
     private $files;
 
     /**
@@ -46,16 +52,12 @@ class GitCommitTask extends GitBaseTask
             throw new BuildException('"repository" is required parameter');
         }
 
-        if ($this->allFiles !== true && empty($this->files))
-        {
+        if ($this->allFiles !== true && empty($this->files)) {
             throw new BuildException('"allFiles" cannot be false if no files are specified.');
         }
 
-        $client = $this->getGitClient(false, $this->getRepository());
-
         $options = array();
-        if ($this->allFiles === true)
-        {
+        if ($this->allFiles === true) {
             $options['all'] = true;
         }
 
@@ -68,14 +70,15 @@ class GitCommitTask extends GitBaseTask
             }
         }
 
-        if (!empty($this->message))
-        {
+        if (!empty($this->message)) {
             $options['message'] = $this->message;
         } else {
             $options['allow-empty-message'] = true;
         }
 
         try {
+            $client = $this->getGitClient(false, $this->getRepository());
+            
             $command = $client->getCommand('commit');
             $command->setArguments($arguments);
             $command->setOptions($options);
@@ -83,7 +86,12 @@ class GitCommitTask extends GitBaseTask
         } catch (Exception $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
-
+        
+        $this->logCommand($options, $arguments);
+    }
+    
+    protected function logCommand(array $options, array $arguments)
+    {
         $msg = 'git-commit: Executed git commit ';
         foreach ($options as $option=>$value)
         {
@@ -98,22 +106,12 @@ class GitCommitTask extends GitBaseTask
         $this->log($msg, Project::MSG_INFO);
     }
 
-    /**
-     * Alias @see getAllFiles()
-     *
-     * @return string
-     */
-    public function isallFiles()
-    {
-        return $this->getallFiles();
-    }
-
-    public function getallFiles()
+    public function getAllFiles()
     {
         return $this->allFiles;
     }
 
-    public function setallFiles($flag)
+    public function setAllFiles($flag)
     {
         $this->allFiles = (bool)$flag;
     }
@@ -128,19 +126,4 @@ class GitCommitTask extends GitBaseTask
     	$this->message = $message;
     }
 
-    public function getFiles()
-    {
-    	return $this->files;
-    }
-
-    public function setFiles($files)
-    {
-    	if (!empty($files) && is_array($files))
-    	{
-            $this->setallfiles(false);
-            $this->files = $files;
-    	} else {
-            $this->files = null;
-    	}
-    }
 }
