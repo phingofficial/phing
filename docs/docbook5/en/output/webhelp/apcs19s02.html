@@ -8,13 +8,13 @@
       
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       
-      <title>Relax NG Grammar -  - Phing User Guide</title>
+      <title>Supported Nested Tags -  - Phing User Guide</title>
       <meta name="generator" content="DocBook XSL Stylesheets V1.78.1" />
       <link rel="home" href="index.html" title="Phing User Guide" />
-      <link rel="up" href="ch.gettingstarted.html" title="Getting started" />
-      <link rel="prev" href="ch04s03s01.html" title="Handling source dependencies" />
-      <link rel="next" href="ch.projcomponents.html" title="Project components" />
-      <meta name="Section-title" content="Relax NG Grammar" /><script type="text/javascript">
+      <link rel="up" href="GitCommitTask.html" title="GitCommitTask" />
+      <link rel="prev" href="apcs19s01.html" title="Example" />
+      <link rel="next" href="GitMergeTask.html" title="GitMergeTask" />
+      <meta name="Section-title" content="Supported Nested Tags" /><script type="text/javascript">
             //The id for tree cookie
             var treeCookieId = "treeview-44829";
             var language = "en";
@@ -156,7 +156,7 @@ border: none; background: none; font-weight: none; color: none; }
       <noscript>
          <div id="noscript">JavaScript is disabled on your browser. Please enable JavaScript to enjoy all the features of this site.</div>
       </noscript>
-      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Phing User Guide<br />Getting started
+      <div id="header"><a href="index.html"><img style="margin-right: 2px; height: 59px; padding-right: 25px; padding-top: 8px" align="right" src="common/images/logo.png" alt="DocBook Documentation" /></a><h1>Phing User Guide<br />GitCommitTask
          </h1>
          <div id="navheader">
             <!---->
@@ -164,92 +164,48 @@ border: none; background: none; font-weight: none; color: none; }
                <tr>
                   <td><a id="showHideButton" href="#" onclick="myLayout.toggle('west')" class="pointLeft" tabindex="5" title="Hide TOC tree">Sidebar
                                                     </a></td>
-                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="ch04s03s01.html">Prev</a>
+                  <td><a accesskey="p" class="navLinkPrevious" tabindex="5" href="apcs19s01.html">Prev</a>
                                                              |
-                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="ch.gettingstarted.html">Up</a>
+                                                             <a accesskey="u" class="navLinkUp" tabindex="5" href="GitCommitTask.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="ch.projcomponents.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="GitMergeTask.html">Next</a></td>
                </tr>
             </table>
          </div>
       </div>
       <div id="content">
          <!---->
-         <div class="sect1">
+         <div class="sect2">
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h2 xmlns="http://www.w3.org/1999/xhtml" class="title" style="clear: both"><a id="d5e1031"></a> Relax NG Grammar 
-                     </h2>
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e6658"></a>Supported Nested Tags
+                     </h3>
                   </div>
                </div>
             </div>
+                        
+                        
+            <div class="itemizedlist">
+               <ul class="itemizedlist" style="list-style-type: disc; ">
+                  <li class="listitem">
+                                         
+                     <p><code class="literal">fileset</code></p>
+                                     
+                  </li>
+               </ul>
+            </div>
                     
-                    
-            <p>With a little bit of experience it is not that difficult to write and understand Phing
-                           build files since the XML format in itself tends to be quite verbose. However, it can
-                           become a bit tedious and the large (and growing) amount of built-in tasks and filters
-                           can sometimes make it difficult to remember the exact syntax of all the available
-                           features.
-            </p>
-                    
-            <p>To help with this the Phing distribution contains a Relax NG Grammar (<span class="bold"><strong>RE</strong></span>gular <span class="bold"><strong>LA</strong></span>nguage for
-                               <span class="bold"><strong>X</strong></span>ML <span class="bold"><strong>N</strong></span>ext <span class="bold"><strong>G</strong></span>eneration, <a class="ulink" href="http://www.relaxng.org/" target="_top">http://www.relaxng.org/</a>) file that describes the (formal) syntax of the
-                           build files. This grammar can be used to validate build files. However, the most
-                           beneficial use of the grammar is together with a schema aware XML editor. Such an editor
-                           can make auto-completion based on the grammar. This feature makes writing complex build
-                           files significantly easier since it is usually enough to enter the first letter of an
-                           element to have the rest of the element written automatically as well as any compulsory
-                           attributes.
-            </p>
-                    
-            <p>Most XML editors can be told to what schema (or model) to use for validation and
-                           auto-completion by adding a specification in the beginning of the XML file. For example,
-                           the following two lines in the beginning of an XML file would do (of course the exact
-                           path to the grammar will depend on your system setup) 
-            </p>
-                    <pre class="screen">&lt;?xml version="1.0" encoding="UTF-8"?&gt; 
-&lt;?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
-            type="application/xml" 
-            schematypens="http://relaxng.org/ns/structure/1.0" ?&gt;</pre>
-                    <p>Using auto-completion will make it substantially easier to edit large build files.
-                           Please note that since the phing-grammar does not have an official designation we must
-                           use the absolute filename to specify the grammar (instead of a canonical URI that is
-                           resolved by the systems XML-catalogue).
-            </p>
-                    
-            <p>This grammar is available (as a plain text file) in the distribution at:
-                               <code class="filename">/etc/phing-grammar.rng</code>
-                       
-            </p>
-                    
-            <p>Since we do not want to neither endorse nor forget any particular XML editor with this
-                           capability we do not make available such a list of editors. Instead, spending a few
-                           minutes with Google searching for XML-editors is bound to find a number of editors with
-                           this capability.
-            </p>
-                    
-            <p>If you wish to validate your Phing build file, there are numerous options. Links to
-                           various validation tools and XML editors are available at the RELAX NG home page, <a class="ulink" href="http://www.relaxng.org/" target="_top">http://www.relaxng.org/</a>. The command
-                           line tool <code class="literal">xmllint</code> that comes with libxml2 is also able to validate a
-                           given XML file against the supplied grammar.
-            </p>
-                    
-            <p>For example, to use <span class="command"><strong>xmllint</strong></span> to validate a Phing build file the
-                           following command line could be used:
-            </p>
-                    <pre class="screen">$ xmllint -noout -relaxng phing-grammar.rng build.xml
-build.xml validates</pre>
-                </div><script type="text/javascript" src="common/main.js">
+         </div><script type="text/javascript" src="common/main.js">
             <!----></script><script type="text/javascript" src="common/splitterInit.js">
             <!----></script><div class="navfooter">
             <hr />
             <table width="100%" summary="Navigation footer">
                <tr>
-                  <td width="40%" align="left"><a accesskey="p" href="ch04s03s01.html">Prev</a> 
+                  <td width="40%" align="left"><a accesskey="p" href="apcs19s01.html">Prev</a> 
                   </td>
-                  <td width="20%" align="center"><a accesskey="u" href="ch.gettingstarted.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="ch.projcomponents.html">Next</a></td>
+                  <td width="20%" align="center"><a accesskey="u" href="GitCommitTask.html">Up</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="GitMergeTask.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -337,7 +293,7 @@ build.xml validates</pre>
                                     <li><span class="file"><a href="ch04s03s01.html" tabindex="1">Handling source dependencies</a></span></li>
                                  </ul>
                               </li>
-                              <li id="webhelp-currentid"><span class="file"><a href="ch04s04.html" tabindex="1"> Relax NG Grammar </a></span></li>
+                              <li><span class="file"><a href="ch04s04.html" tabindex="1"> Relax NG Grammar </a></span></li>
                            </ul>
                         </li>
                         <li><span class="file"><a href="ch.projcomponents.html" tabindex="1">Project components</a></span><ul>
@@ -714,7 +670,7 @@ build.xml validates</pre>
                               </li>
                               <li><span class="file"><a href="GitCommitTask.html" tabindex="1">GitCommitTask</a></span><ul>
                                     <li><span class="file"><a href="apcs19s01.html" tabindex="1">Example</a></span></li>
-                                    <li><span class="file"><a href="apcs19s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li id="webhelp-currentid"><span class="file"><a href="apcs19s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="GitMergeTask.html" tabindex="1">GitMergeTask</a></span><ul>

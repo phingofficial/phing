@@ -1976,6 +1976,14 @@ Note that you can omit both startpoint and track attributes in this case
     repository="/path/to/repo" 
     message="Commit message" allFiles="true" />;</programlisting>
         </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal>fileset</literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GitMergeTask">
         <title>GitMergeTask</title>
@@ -5260,7 +5268,8 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>autocommit</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Whether to autocommit every single statement.</entry>
+                        <entry>Whether to auto (implicitly) commit every single
+                        statement, disabling transactions.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
@@ -7913,12 +7922,10 @@ Note that you can omit both startpoint and track attributes in this case
                         attribute to <literal>false</literal>. The name of the file is predetermined
                         by the formatter and can be changed by the <literal>outfile</literal>
                         attribute.</para>
-                    <para>There are four predefined formatters - <literal>xml</literal> and
+                    <para>There are three predefined formatters - <literal>xml</literal> and
                             <literal>clover</literal> print the test results in the JUnit and Clover
-                        XML formats, the other two emit plain text. The <literal>brief</literal>
-                        formatter will only print detailed information for testcases that failed,
-                        while <literal>plain</literal> emits a short statistics line for all test
-                        cases. Custom formatters that implement
+                        XML formats, the <literal>plain</literal> formatter emits a short
+                        statistics line for all test cases. Custom formatters that implement
                         phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be
                         specified.</para>
 
@@ -7946,7 +7953,7 @@ Note that you can omit both startpoint and track attributes in this case
                                     <entry>Use a predefined formatter (either
                                         <literal>xml</literal>, <literal>plain</literal>,
                                             <literal>clover</literal>, or
-                                        <literal>brief</literal>).</entry>
+                                        <literal>summary</literal>).</entry>
                                     <entry>n/a</entry>
                                     <entry morerows="1">One of these is required.</entry>
                                 </row>
@@ -9143,10 +9150,8 @@ host="webserver" command="ls" /></programlisting>
                         attribute to <literal>false</literal>. The name of the file is predetermined
                         by the formatter and can be changed by the <literal>outfile</literal>
                         attribute.</para>
-                    <para>There are three predefined formatters - one prints the test results in XML
-                        format, the other emits plain text. The formatter named brief will only
-                        print detailed information for testcases that failed, while plain gives a
-                        little statistics line for all test cases. Custom formatters that implement
+                    <para>There are three predefined formatters - two print the test results in XML
+                        format, the other one prints plain text. Custom formatters that implement
                         phing.tasks.ext.PHPUnitResultFormatter can be specified.</para>
                     <para>If you use the XML formatter, it may not include the same output that your
                         tests have written as some characters are illegal in XML documents and will
@@ -9284,10 +9289,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -9376,10 +9384,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recurse into all subdirectories</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -9516,10 +9527,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -9617,10 +9631,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -10212,10 +10229,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>recursive</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Recursive behavior</entry>
-                        <entry><literal>true</literal></entry>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Limit operation by depth</entry>
+                        <entry><literal>empty</literal>,
+                        <literal>files</literal>,
+                        <literal>immediates</literal> or
+                        <literal>infinity</literal></entry>
                         <entry>No</entry>
                     </row>
                     <row>
