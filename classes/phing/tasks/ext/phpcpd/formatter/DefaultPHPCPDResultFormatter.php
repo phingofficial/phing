@@ -40,12 +40,17 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      */
     public function processClones($clones, Project $project, $useFile = false, $outFile = null)
     {
-        if (get_class($clones) == 'PHPCPD_CloneMap') {
-            $logger = new PHPCPD_TextUI_ResultPrinter();
-        } else {
+        if (get_class($clones) == 'SebastianBergmann\PHPCPD\CodeCloneMap') {
+            if (class_exists('SebastianBergmann\PHPCPD\Log\Text')) {
+                $this->processClonesNew($clones, $useFile, $outFile);
+                return;
+            }
+            
             $logger = new \SebastianBergmann\PHPCPD\TextUI\ResultPrinter();
+        } else {
+            $logger = new PHPCPD_TextUI_ResultPrinter();
         }
-
+        
         // default format goes to logs, no buffering
         ob_start();
         $logger->printResult($clones, $project->getBaseDir(), true);
@@ -57,5 +62,25 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
         } else {
             file_put_contents($outFile->getPath(), $output);
         }
+    }
+    
+    /**
+     * Wrapper for PHPCPD 2.0
+     *
+     * @param object         $clones
+     * @param boolean        $useFile
+     * @param PhingFile|null $outFile
+     */
+    private function processClonesNew($clones, $useFile = false, $outFile = null)
+    {
+        if ($useFile) {
+            $resource = fopen($outFile->getPath(), "w");
+        } else {
+            $resource = fopen("php://output", "w");
+        }
+        
+        $output = new \Symfony\Component\Console\Output\StreamOutput($resource);
+        $logger = new \SebastianBergmann\PHPCPD\Log\Text();
+        $logger->printResult($output, $clones);
     }
 }
