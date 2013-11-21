@@ -31,15 +31,27 @@ installPearTask ()
     phpenv rehash
 
     echo -e "\nInstalling / upgrading phpdepend ... "
-    which pdepend >/dev/null                      &&
-        pear upgrade pear.pdepend.org/PHP_Depend-beta ||
-        pear install pear.pdepend.org/PHP_Depend-beta
+    if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
+        which pdepend >/dev/null                      &&
+            pear upgrade pear.pdepend.org/PHP_Depend-1.1.0 ||
+            pear install pear.pdepend.org/PHP_Depend-1.1.0
+    else
+        which pdepend >/dev/null                      &&
+            pear upgrade pear.pdepend.org/PHP_Depend-beta ||
+            pear install pear.pdepend.org/PHP_Depend-beta
+    fi
     phpenv rehash
 
     echo -e "\nInstalling / upgrading phpcs ... "
-    which phpcs >/dev/null                             &&
-        pear upgrade pear.php.net/PHP_CodeSniffer ||
-        pear install pear.php.net/PHP_CodeSniffer
+    if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
+        which phpcs >/dev/null                             &&
+            pear upgrade pear.php.net/PHP_CodeSniffer-1.4.6 ||
+            pear install pear.php.net/PHP_CodeSniffer-1.4.6
+    else
+        which phpcs >/dev/null                             &&
+            pear upgrade pear.php.net/PHP_CodeSniffer ||
+            pear install pear.php.net/PHP_CodeSniffer
+    fi
     phpenv rehash
     # re-test for phpcs:
     phpcs --version 2>&1 >/dev/null   &&
