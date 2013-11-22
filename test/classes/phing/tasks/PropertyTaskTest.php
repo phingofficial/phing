@@ -21,6 +21,7 @@
  */
  
 require_once 'phing/BuildFileTest.php';
+require_once 'phing/tasks/system/PropertyTask.php';
 
 /**
  * @author Hans Lellelid (Phing)
@@ -80,4 +81,24 @@ class PropertyTaskTest extends BuildFileTest {
         $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
     }
     
+
+class HangDetectorPropertyTask extends PropertyTask {
+
+    protected function loadFile(PhingFile $file) {
+        $props = new HangDetectorProperties();
+        $props->load($file);
+        $this->addProperties($props);
+    }
+}
+
+class HangDetectorProperties extends Properties {
+    private $accesses = 0;
+    public function getProperty($prop) 
+    {
+        $this->accesses++;
+        if( $this->accesses > 100 ) {
+            throw new Exception('Cirular reference Hanged!');
+        }
+        return parent::getProperty($prop);
+    }
 }
