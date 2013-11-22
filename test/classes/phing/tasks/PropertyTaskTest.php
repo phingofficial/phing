@@ -70,19 +70,19 @@ class PropertyTaskTest extends BuildFileTest {
         $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
     }
 
-    public function circularReferenceTargets() 
+    public function circularDefinitionTargets() 
     {
         return array(
             array('test3'),
-            array('testCircularReference1'),
-            array('testCircularReference2')
+            array('testCircularDefinition1'),
+            array('testCircularDefinition2')
         );
     }
 
     /**
-     * @dataProvider circularReferenceTargets 
+     * @dataProvider circularDefinitionTargets 
      */
-    public function testCircularReferenceDetection($target)
+    public function testCircularDefinitionDetection($target)
     {
         try {
             $this->executeTarget($target);
@@ -109,7 +109,7 @@ class HangDetectorProperties extends Properties {
     {
         $this->accesses++;
         if( $this->accesses > 100 ) {
-            throw new Exception('Cirular reference Hanged!');
+            throw new Exception('Cirular definition Hanged!');
         }
         return parent::getProperty($prop);
     }
