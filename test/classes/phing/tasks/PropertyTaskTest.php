@@ -73,10 +73,12 @@ class PropertyTaskTest extends BuildFileTest {
     public function circularReferenceTargets() 
     {
         return array(
-            array('test3')
+            array('test3'),
+            array('testCircularReference1'),
+            array('testCircularReference2')
         );
     }
-    
+
     /**
      * @dataProvider circularReferenceTargets 
      */
