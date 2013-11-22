@@ -44,17 +44,6 @@ class PropertyTaskTest extends BuildFileTest {
         $this->expectLog("test2", "testprop1=aa, testprop3=xxyy, testprop4=aazz");
     }
     
-    public function test3() {        
-        try {
-            $this->executeTarget("test3");
-        } catch (BuildException $e) {
-            $this->assertTrue(strpos($e->getMessage(), "was circularly defined") !== false, "Circular definition not detected - ");
-            return;                     
-        }
-        $this->fail("Did not throw exception on circular exception");          
-    }
-    
-    
     public function test4() { 
         $this->expectLog("test4", "http.url is http://localhost:999");
     }
@@ -80,7 +69,28 @@ class PropertyTaskTest extends BuildFileTest {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
     }
+
+    public function circularReferenceTargets() 
+    {
+        return array(
+            array('test3')
+        );
+    }
     
+    /**
+     * @dataProvider circularReferenceTargets 
+     */
+    public function testCircularReferenceDetection($target)
+    {
+        try {
+            $this->executeTarget($target);
+        } catch (BuildException $e) {
+            $this->assertTrue(strpos($e->getMessage(), "was circularly defined") !== false, "Circular definition not detected - ");
+            return;                     
+        }
+        $this->fail("Did not throw exception on circular exception");      
+    }
+}
 
 class HangDetectorPropertyTask extends PropertyTask {
 
