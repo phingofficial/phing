@@ -355,7 +355,7 @@ class PropertyTask extends Task {
             $name     = array_shift($keys);
             $value    = $props->getProperty($name);
             $resolved = false;
-            
+            $resolveStack = array();
             while(!$resolved) {
             
                 $fragments = array();
@@ -376,16 +376,17 @@ class PropertyTask extends Task {
                         if ($fragment === null) {
                             $propertyName = array_shift($j);
 
-                            if ($propertyName === $name) {
+                            if( in_array($propertyName, $resolveStack) ) {
                                 // Should we maybe just log this as an error & move on?
                                 // $this->log("Property ".$name." was circularly defined.", Project::MSG_ERR);
-                                throw new BuildException("Property ".$name." was circularly defined.");
+                                throw new BuildException("Property ".$propertyName." was circularly defined.");
                             }
 
                             $fragment = $this->getProject()->getProperty($propertyName);
                             if ($fragment === null) {
                                 if ($props->containsKey($propertyName)) {
                                     $fragment = $props->getProperty($propertyName);
+                                    $resolveStack[] = $propertyName;
                                     $resolved = false; // parse again (could have been replaced w/ another var)
                                 } else {
                                     $fragment = "\${".$propertyName."}";
