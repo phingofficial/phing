@@ -638,7 +638,7 @@ class Phing {
         foreach($this->listeners as $listenerClassname) {
             try {
                 $clz = Phing::import($listenerClassname);
-            } catch (Exception $x) {
+            } catch (Exception $e) {
                 $msg = "Unable to instantiate specified listener "
                 . "class " . $listenerClassname . " : "
                 . $e->getMessage();
