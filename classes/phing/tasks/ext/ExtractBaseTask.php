@@ -97,7 +97,7 @@ abstract class ExtractBaseTask extends MatchingTask {
         
         $filesToExtract = array();
         if ($this->file !== null) {
-            if(!$this->isDestinationUpToDate($this->file)) {
+            if($this->forceExtract || !$this->isDestinationUpToDate($this->file)) {
                 $filesToExtract[] = $this->file;
             } else {
                 $this->log('Nothing to do: ' . $this->todir->getAbsolutePath() . ' is up to date for ' .  $this->file->getCanonicalPath(), Project::MSG_INFO);
