@@ -379,10 +379,10 @@ class PhpCodeSnifferTask extends Task {
           $fmt->setUseFile(false);
           $this->formatters[] = $fmt;
         }
-
-        if (!isset($this->file))
-        {
-            $fileList = array();
+        
+        $fileList = array();
+        
+        if (!isset($this->file)) {
             $project = $this->getProject();
             foreach ($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($project);
@@ -392,6 +392,8 @@ class PhpCodeSnifferTask extends Task {
                     $fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
                 }
             }
+        } else {
+            $fileList[] = $this->file->getPath();
         }
 
         $cwd = getcwd();
@@ -409,14 +411,21 @@ class PhpCodeSnifferTask extends Task {
         foreach ($this->configData as $configData) {
             $codeSniffer->setConfigData($configData->getName(), $configData->getValue(), true);
         }
-
-        if ($this->file instanceof PhingFile) {
-            $codeSniffer->process($this->file->getPath(), $this->standard, $this->sniffs, $this->noSubdirectories);
-
-        } else {
-            $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
+        
+        // nasty integration hack
+        $values = $codeSniffer->cli->getDefaults();
+        foreach ($this->formatters as $fe) {
+            $output = ($fe->getUseFile() ? $fe->getOutFile() : null);
+            $values['reports'][$fe->getType()] = $output;
         }
-        $report = $this->printErrorReport($codeSniffer);
+        $ref = new ReflectionObject($codeSniffer->cli);
+        $prop = $ref->getProperty('values');
+        $prop->setAccessible(true);
+        $prop->setValue($codeSniffer->cli, $values);
+        
+        $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
+        
+        $this->printErrorReport($codeSniffer);
 
         // generate the documentation
         if ($this->docGenerator !== '' && $this->docFile !== null) {
@@ -438,14 +447,12 @@ class PhpCodeSnifferTask extends Task {
             $codeSniffer->generateDocs($this->standard, $this->sniffs, $this->docGenerator);
         }
 
-        if ($this->haltonerror && $report['totals']['errors'] > 0)
-        {
-            throw new BuildException('phpcodesniffer detected ' . $report['totals']['errors']. ' error' . ($report['totals']['errors'] > 1 ? 's' : ''));
+        if ($this->haltonerror && $codeSniffer->reporting->totalErrors > 0) {
+            throw new BuildException('phpcodesniffer detected ' . $codeSniffer->reporting->totalErrors . ' error' . ($codeSniffer->reporting->totalErrors > 1 ? 's' : ''));
         }
 
-        if ($this->haltonwarning && $report['totals']['warnings'] > 0)
-        {
-            throw new BuildException('phpcodesniffer detected ' . $report['totals']['warnings'] . ' warning' . ($report['totals']['warnings'] > 1 ? 's' : ''));
+        if ($this->haltonwarning && $codesniffer->reporting->totalWarnings > 0) {
+            throw new BuildException('phpcodesniffer detected ' . $codesniffer->reporting->totalWarnings . ' warning' . ($codeSniffer->reporting->totalWarnings > 1 ? 's' : ''));
         }
         
         $_SERVER['argv'] = $oldArgs;
@@ -458,8 +465,6 @@ class PhpCodeSnifferTask extends Task {
      *
      * @param PHP_CodeSniffer $phpcs The PHP_CodeSniffer object containing
      *                               the errors.
-     *
-     * @return int The number of error and warning messages shown.
      */
     protected function printErrorReport($phpcs)
     {
@@ -476,60 +481,29 @@ class PhpCodeSnifferTask extends Task {
             $this->log('The list of used sniffs (#' . count($sniffs) . '): ' . PHP_EOL . $sniffStr, Project::MSG_INFO);
         }
 
-        $filesViolations = $phpcs->getFilesErrors();
-        $reporting       = new PHP_CodeSniffer_Reporting();
-        $report          = $reporting->prepare($filesViolations, $this->showWarnings);
-
         // process output
+        $reporting       = $phpcs->reporting;
         foreach ($this->formatters as $fe) {
-            switch ($fe->getType()) {
-                case 'default':
-                    // default format goes to logs, no buffering
-                    $this->outputCustomFormat($report);
-                    $fe->setUseFile(false);
-                    break;
+            $reportFile = null;
 
-                default:
-                    $reportFile = null;
+            if ($fe->getUseFile()) {
+                $reportFile = $fe->getOutfile();
+                //ob_start();
+            }
 
-                    if ($fe->getUseFile()) {
-                        $reportFile = $fe->getOutfile();
-                        ob_start();
-                    }
+            $reporting->printReport(
+                $fe->getType(),
+                $this->showSources,
+                $reportFile,
+                $this->reportWidth
+            );
 
-                    // Determine number of parameters required to
-                    // ensure backwards compatibility
-                    $rm = new ReflectionMethod('PHP_CodeSniffer_Reporting', 'printReport');
-
-                    if ($rm->getNumberOfParameters() == 5) {
-                        $reporting->printReport(
-                            $fe->getType(),
-                            $filesViolations,
-                            $this->showSources,
-                            $reportFile,
-                            $this->reportWidth
-                        );
-                    } else {
-                        $reporting->printReport(
-                            $fe->getType(),
-                            $filesViolations,
-                            $this->showWarnings,
-                            $this->showSources,
-                            $reportFile,
-                            $this->reportWidth
-                        );
-                    }
-
-                    // reporting class uses ob_end_flush(), but we don't want
-                    // an output if we use a file
-                    if ($fe->getUseFile()) {
-                        ob_end_clean();
-                    }
-                    break;
+            // reporting class uses ob_end_flush(), but we don't want
+            // an output if we use a file
+            if ($fe->getUseFile()) {
+                //ob_end_clean();
             }
         }
-
-        return $report;
     }
 
     /**

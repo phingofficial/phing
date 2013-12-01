@@ -43,15 +43,9 @@ installPearTask ()
     phpenv rehash
 
     echo -e "\nInstalling / upgrading phpcs ... "
-    if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
-        which phpcs >/dev/null                             &&
-            pear upgrade pear.php.net/PHP_CodeSniffer-1.4.6 ||
-            pear install pear.php.net/PHP_CodeSniffer-1.4.6
-    else
-        which phpcs >/dev/null                             &&
-            pear upgrade pear.php.net/PHP_CodeSniffer ||
-            pear install pear.php.net/PHP_CodeSniffer
-    fi
+    which phpcs >/dev/null                             &&
+        pear upgrade pear.php.net/PHP_CodeSniffer ||
+        pear install pear.php.net/PHP_CodeSniffer
     phpenv rehash
     # re-test for phpcs:
     phpcs --version 2>&1 >/dev/null   &&
