@@ -208,7 +208,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
             $package->addPackageDepWithChannel( 'optional', 'phpcpd', 'pear.phpunit.de', '1.3.3');
             $package->addPackageDepWithChannel( 'optional', 'phploc', 'pear.phpunit.de', '1.6.4');
             $package->addPackageDepWithChannel( 'optional', 'phpDocumentor', 'pear.phpdoc.org', '2.0.0b7');
-            $package->addPackageDepWithChannel( 'optional', 'PHP_CodeSniffer', 'pear.php.net', '1.3.0');
+            $package->addPackageDepWithChannel( 'optional', 'PHP_CodeSniffer', 'pear.php.net', '1.5.0');
             $package->addPackageDepWithChannel( 'optional', 'Net_Growl', 'pear.php.net', '2.6.0');
 
             // now add the replacements, chdir() to source directory
