@@ -414,16 +414,17 @@ class PhpCodeSnifferTask extends Task {
         
         // nasty integration hack
         $values = $codeSniffer->cli->getDefaults();
+        $_SERVER['argv'] = array('t');
+        $_SERVER['argc'] = 1;
         foreach ($this->formatters as $fe) {
             $output = ($fe->getUseFile() ? $fe->getOutFile() : null);
-            $values['reports'][$fe->getType()] = $output;
+            $_SERVER['argv'][]= '--report-' . $fe->getType() . '=' . $output;
+            $_SERVER['argc']++;
         }
-        $ref = new ReflectionObject($codeSniffer->cli);
-        $prop = $ref->getProperty('values');
-        $prop->setAccessible(true);
-        $prop->setValue($codeSniffer->cli, $values);
-        
+
         $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
+        $_SERVER['argv'] = array();
+        $_SERVER['argc'] = 0;
         
         $this->printErrorReport($codeSniffer);
 
