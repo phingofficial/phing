@@ -499,7 +499,7 @@ class IoncubeEncoderTask extends Task
     }
 
     /**
-     * Returns he option to use when encoding target directory already exists (defaults to none)
+     * Returns the option to use when encoding target directory already exists (defaults to none)
      */
     function getTargetOption()
     {

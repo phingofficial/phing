@@ -53,7 +53,7 @@ class DocBlox_Parallel_Worker
     }
 
     /**
-     * Returns the list of arguments as provided int he constructor.
+     * Returns the list of arguments as provided in the constructor.
      *
      * @see DocBlox_Parallel_Worker::__construct()
      *
