@@ -3,10 +3,10 @@
 		<phpcodesniffer
 			standard="Zend"
 			file="test.php"
-			showSniffs="true"
+			showSniffs="false"
 			allowedFileExtensions="php">
 			<formatter type="summary" usefile="false"  />
-			<formatter type="full" outfile="report.txt" />
+			<formatter type="full" usefile="true" outfile="report.txt" />
 		</phpcodesniffer>
 	</target>
 </project>
