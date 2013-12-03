@@ -194,21 +194,30 @@ class PHPCPDTask extends Task
      */
     public function main()
     {
-        if (!@include_once('SebastianBergmann/PHPCPD/autoload.php')) {
-            if (!@include_once('PHPCPD/Autoload.php')) {
-                throw new BuildException(
-                    'PHPCPDTask depends on PHPCPD being installed and on include_path.',
-                    $this->getLocation()
-                );
+        if (class_exists('Composer\\Autoloader\\ClassLoader', false)) {
+            if (!class_exists('\\SebastianBergmann\\PHPCPD\\Detector\\Detector')) {
+                throw new BuildException('You need to install PHPCPD or add your include path to your composer installation.');
             }
+            $oldVersion = false;
+        } elseif ($handler = @fopen('SebastianBergmann/PHPCPD/autoload.php', 'r', true)) {
+            fclose($handler);
+            @include_once('SebastianBergmann/PHPCPD/autoload.php');
 
-            $oldVersion = true;
-        } else {
             if (version_compare(PHP_VERSION, '5.3.0') < 0) {
                 throw new BuildException('The PHPCPD task now requires PHP 5.3+');
             }
 
             $oldVersion = false;
+        } elseif ($handler = @fopen('PHPCPD/Autoload.php', 'r', true)) {
+            fclose($handler);
+            @include_once('PHPCPD/Autoload.php');
+
+            $oldVersion = true;
+        } else {
+            throw new BuildException(
+                'PHPCPDTask depends on PHPCPD being installed and on include_path.',
+                $this->getLocation()
+            );
         }
 
         if (!isset($this->file) && count($this->filesets) == 0) {
