@@ -188,17 +188,25 @@ class PHPCPDTask extends Task
     }
 
     /**
-     * Executes PHPCPD against PhingFile or a FileSet
+     * Load the necessary environment for running PHP_Depend
      *
-     * @throws BuildException - if the phpcpd classes can't be loaded.
+     * @return string Which version was found composer or pear.
+     * @throws BuildException
      */
-    public function main()
+    protected function requireDependencies()
     {
-        if (class_exists('Composer\\Autoloader\\ClassLoader', false)) {
+        /**
+         * Determine PHPCPD installation
+         */
+        if (class_exists('\\Composer\\Autoload\\ClassLoader', false)) {
             if (!class_exists('\\SebastianBergmann\\PHPCPD\\Detector\\Detector')) {
-                throw new BuildException('You need to install PHPCPD or add your include path to your composer installation.');
+                throw new BuildException(
+                    'PHPCPDTask: You need to install PHPCPD or add the include path to your composer installation.' . "\n"
+                    . 'See: https://packagist.org/packages/sebastian/phpcpd',
+                    $this->getLocation()
+                );
             }
-            $oldVersion = false;
+            $version = 'composer-direct';
         } elseif ($handler = @fopen('SebastianBergmann/PHPCPD/autoload.php', 'r', true)) {
             fclose($handler);
             @include_once('SebastianBergmann/PHPCPD/autoload.php');
@@ -207,18 +215,31 @@ class PHPCPDTask extends Task
                 throw new BuildException('The PHPCPD task now requires PHP 5.3+');
             }
 
-            $oldVersion = false;
+            $version = 'composer-indirect';
         } elseif ($handler = @fopen('PHPCPD/Autoload.php', 'r', true)) {
             fclose($handler);
             @include_once('PHPCPD/Autoload.php');
 
-            $oldVersion = true;
+            $version = 'pear';
         } else {
             throw new BuildException(
-                'PHPCPDTask depends on PHPCPD being installed and on include_path.',
+                'PHPCPDTask depends on PEAR::PHPCPD being installed and on include_path.' . "\n"
+                . 'See: http://pear.phpunit.de/',
                 $this->getLocation()
             );
         }
+
+        return $version;
+    }
+
+    /**
+     * Executes PHPCPD against PhingFile or a FileSet
+     *
+     * @throws BuildException - if the phpcpd classes can't be loaded.
+     */
+    public function main()
+    {
+        $version = $this->requireDependencies();
 
         if (!isset($this->file) && count($this->filesets) == 0) {
             throw new BuildException('Missing either a nested fileset or attribute "file" set');
@@ -253,7 +274,7 @@ class PHPCPDTask extends Task
 
         $this->log('Processing files...');
 
-        if ($oldVersion) {
+        if ($version === 'pear') {
             $detectorClass = 'PHPCPD_Detector';
             $strategyClass = 'PHPCPD_Detector_Strategy_Default';
         } else {
