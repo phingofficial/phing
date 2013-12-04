@@ -137,19 +137,45 @@ class PhpDependTask extends Task
         /**
          * Determine PHP_Depend installation
          */
-        @include_once 'PHP/Depend/TextUI/Runner.php';
+        if (class_exists('\\Composer\\Autoload\\ClassLoader', false)) {
+            // Is loadable?
+            if (!class_exists('PHP_Depend')) {
+                // As pdepends composer entry isn't correct, we need to set ClassMap and include path
+                // Check if pdepend exists on his path in composer
+                $vendorDir = realpath(dirname(__FILE__) . '/../../../../../../../pdepend/pdepend/src/main/php');
+                if ($vendorDir === false) {
+                    throw new BuildException(
+                        'PhpDependTask: You need to install PHP_Depend or add the include path to your composer installation.' . "\n"
+                        . 'See: https://packagist.org/packages/pdepend/pdepend',
+                        $this->getLocation()
+                    );
+                }
+                // We need to detect the Composers ClassLoader from registered autoloaders, to add ClassMapping
+                $autoloaders = spl_autoload_functions();
+                foreach ($autoloaders as $loader) {
+                    $composerClass = '\\Composer\\Autoload\\ClassLoader';
+                    if (is_array($loader) && ($loader[0] instanceof $composerClass)) {
+                        $loader[0]->set('PHP_Depend', $vendorDir);
+                        $loader[0]->addClassMap(array('PHP_Depend' => null));
+                        set_include_path($vendorDir . PATH_SEPARATOR . get_include_path());
+                        // Found the classloader so we can stop here.
+                        break;
+                    }
+                }
+            }
+        } elseif ($handler = @fopen('PHP/Depend/Autoload.php', 'r', true)) {
+            fclose($handler);
+            require_once 'PHP/Depend/Autoload.php';
 
-        if (! class_exists('PHP_Depend_TextUI_Runner')) {
+            $autoload = new PHP_Depend_Autoload();
+            $autoload->register();
+        } else {
             throw new BuildException(
-                'PhpDependTask depends on PHP_Depend being installed and on include_path',
+                'PhpDependTask depends on PEAR::PHP_Depend being installed and on include_path' . "\n"
+                . 'See: http://pear.pdepend.org/',
                 $this->getLocation()
             );
         }
-
-        /**
-         * Other dependencies that should only be loaded when class is actually used
-         */
-        require_once 'PHP/Depend/Autoload.php';
     }
 
     /**
@@ -312,9 +338,6 @@ class PhpDependTask extends Task
     public function main()
     {
         $this->requireDependencies();
-
-        $autoload = new PHP_Depend_Autoload();
-        $autoload->register();
 
         if (!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException('Missing either a nested fileset or attribute "file" set');
