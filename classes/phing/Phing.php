@@ -441,14 +441,20 @@ class Phing {
                 $this->buildFile = new PhingFile(self::DEFAULT_BUILD_FILENAME);
             }
         }
-        // make sure buildfile exists
-        if (!$this->buildFile->exists()) {
-            throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
-        }
-
-        // make sure it's not a directory
-        if ($this->buildFile->isDirectory()) {
-            throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
+        
+        try {
+            // make sure buildfile exists
+            if (!$this->buildFile->exists()) {
+                throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
+            }
+        
+            // make sure it's not a directory
+            if ($this->buildFile->isDirectory()) {
+                throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
+            }
+        } catch (IOException $e) {
+            // something else happened, buildfile probably not readable
+            throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is not readable!");
         }
 
         $this->readyToRun = true;
