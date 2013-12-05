@@ -37,18 +37,23 @@ class PHPUnitUtil
      * @param string the name of the class
      * @return string the name of the package
      */
-    static function getPackageName($classname)
+    public static function getPackageName($classname)
     {
         $reflect = new ReflectionClass($classname);
+        
+        if (method_exists($reflect, 'getNamespaceName')) {
+            $namespace = $reflect->getNamespaceName();
+            
+            if ($namespace != '') {
+                return $namespace;
+            }
+        }
 
-        if (preg_match('/@package[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches))
-        {
+        if (preg_match('/@package[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
             return $matches[1];
         }
-        else
-        {
-            return "default";
-        }
+        
+        return "default";
     }
     
     /**

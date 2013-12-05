@@ -115,14 +115,11 @@ class CoverageReportTask extends Task
         return NULL;
     }
 
-    protected function addClassToPackage($classname, $element)
+    protected function addClassToPackage($packageName, $element)
     {
-        $packageName = PHPUnitUtil::getPackageName($classname);
-
         $package = $this->getPackageElement($packageName);
 
-        if ($package === NULL)
-        {
+        if ($package === NULL) {
             $package = $this->doc->createElement('package');
             $package->setAttribute('name', $packageName);
             $this->doc->documentElement->appendChild($package);
@@ -331,20 +328,25 @@ class CoverageReportTask extends Task
             foreach ($classes as $classname)
             {
                 $reflection = new ReflectionClass($classname);
-                
                 $methods = $reflection->getMethods();
                 
+                if (method_exists($reflection, 'getShortName')) {
+                    $className = $reflection->getShortName();
+                } else {
+                    $className = $reflection->getName();
+                }
+                
                 $classElement = $this->doc->createElement('class');
-                $classElement->setAttribute('name', $reflection->getName());
+                $classElement->setAttribute('name', $className);
                 
                 $packageName    = PHPUnitUtil::getPackageName($reflection->getName());
                 $subpackageName = PHPUnitUtil::getSubpackageName($reflection->getName());
 
                 if ($subpackageName !== null) {
                     $this->addSubpackageToPackage($packageName, $subpackageName);
-                    $this->addClassToSubpackage($reflection->getName(), $classElement);
+                    $this->addClassToSubpackage($className, $classElement);
                 } else {
-                $this->addClassToPackage($reflection->getName(), $classElement);
+                    $this->addClassToPackage($packageName, $classElement);
                 }
 
                 $classStartLine = $reflection->getStartLine();

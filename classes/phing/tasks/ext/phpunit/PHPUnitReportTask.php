@@ -209,11 +209,19 @@ class PHPUnitReportTask extends Task
             
             if ($children->length) {
                 foreach ($children as $child) {
-                    if (!$child->hasAttribute('package'))
-                    {
-                        $child->setAttribute('package', 'default');
-                    }
                     $rootElement->appendChild($child);
+                    
+                    if ($child->hasAttribute('package')) {
+                        continue;
+                    }
+                    
+                    $namespace = $child->getAttribute('namespace');
+                    
+                    if ($namespace == '') {
+                        $namespace = 'default';
+                    }
+                    
+                    $child->setAttribute('package', $namespace);
                 }
                 
                 $rootElement->removeChild($node);
