@@ -100,16 +100,19 @@
     <!-- for each class, creates a @name.html -->
     <!-- @bug there will be a problem with inner classes having the same name, it will be overwritten -->
     <xsl:for-each select="/testsuites/testsuite[@package = $name]">
-        <exsl:document href="efile://{$output.dir}/{$package.dir}/{@name}.html">
+        <xsl:variable name="class.dir">
+            <xsl:value-of select="translate(@name,'/','_')"/>
+        </xsl:variable>
+        <exsl:document href="efile://{$output.dir}/{$package.dir}/{$class.dir}.html">
             <xsl:apply-templates select="." mode="class.details"/>
         </exsl:document>
         <xsl:if test="string-length(./system-out)!=0">
-            <exsl:document href="efile://{$output.dir}/{$package.dir}/{@name}-out.txt">
+            <exsl:document href="efile://{$output.dir}/{$package.dir}/{$class.dir}-out.txt">
                 <xsl:value-of select="./system-out" />
             </exsl:document>
         </xsl:if>
         <xsl:if test="string-length(./system-err)!=0">
-            <exsl:document href="efile://{$output.dir}/{$package.dir}/{@name}-err.txt">
+            <exsl:document href="efile://{$output.dir}/{$package.dir}/{$class.dir}-err.txt">
                 <xsl:value-of select="./system-err" />
             </exsl:document>
         </xsl:if>
@@ -287,9 +290,12 @@ a:hover {
             <table width="100%">
                 <xsl:for-each select="/testsuites/testsuite[./@package = $name]">
                     <xsl:sort select="@name"/>
+                    <xsl:variable name="class.dir">
+                        <xsl:value-of select="translate(@name,'/','_')"/>
+                    </xsl:variable>
                     <tr>
                         <td nowrap="nowrap">
-                            <a href="{@name}.html" target="classFrame"><xsl:value-of select="@name"/></a>
+                            <a href="{$class.dir}.html" target="classFrame"><xsl:value-of select="@name"/></a>
                         </td>
                     </tr>
                 </xsl:for-each>
@@ -330,7 +336,7 @@ a:hover {
                 <xsl:attribute name="href">
                     <xsl:if test="not($package.name='')">
                         <xsl:value-of select="translate($package.name,'.','/')"/><xsl:text>/</xsl:text>
-                    </xsl:if><xsl:value-of select="@name"/><xsl:text>.html</xsl:text>
+                    </xsl:if><xsl:value-of select="translate(@name,'/','_')"/><xsl:text>.html</xsl:text>
                 </xsl:attribute>
                 <xsl:value-of select="@name"/>
             </a>
@@ -525,7 +531,13 @@ a:hover {
             <xsl:with-param name="path"><xsl:value-of select="substring-after($path,'.')"/></xsl:with-param>
         </xsl:call-template>
     </xsl:if>
-    <xsl:if test="not(contains($path,'.')) and not($path = '')">
+    <xsl:if test="contains($path,'/')">
+        <xsl:text>../</xsl:text>
+        <xsl:call-template name="path">
+            <xsl:with-param name="path"><xsl:value-of select="substring-after($path,'/')"/></xsl:with-param>
+        </xsl:call-template>
+    </xsl:if>
+    <xsl:if test="not(contains($path,'.')) and not(contains($path,'/')) and not($path = '')">
         <xsl:text>../</xsl:text>
     </xsl:if>
 </xsl:template>
@@ -590,7 +602,10 @@ a:hover {
                 <xsl:otherwise>Pass</xsl:otherwise>
             </xsl:choose>
         </xsl:attribute>
-        <td><a href="{@name}.html"><xsl:value-of select="@name"/></a></td>
+        <xsl:variable name="class.dir">
+            <xsl:value-of select="translate(@name,'/','_')"/>
+        </xsl:variable>
+        <td><a href="{$class.dir}.html"><xsl:value-of select="@name"/></a></td>
         <td><xsl:apply-templates select="@tests"/></td>
         <td><xsl:apply-templates select="@errors"/></td>
         <td><xsl:apply-templates select="@failures"/></td>
