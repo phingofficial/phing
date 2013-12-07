@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s06s02.html" title="Using the Task" />
       <meta name="Section-title" content="Creating A Task" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-44829";
+            var treeCookieId = "treeview-44839";
             var language = "en";
             var w = new Object();
             //Localization
@@ -215,23 +215,24 @@ class MyEchoTask extends Task {
      * The init method: Do init steps.
      */
     public function init() {
-      // nothing to do here
+        // nothing to do here
     }
 
     /**
      * The main entry point method.
      */
     public function main() {
-      print($this-&gt;message);
+        print($this-&gt;message);
     }
 }
 
 ?&gt;</pre>
             
                         <p>This code contains a rather simple, but complete Phing task. It is assumed that
-                               the file is named <code class="literal">MyEchoTask.php</code> and placed in
-                                   <code class="literal">classes/phing/tasks/my</code> directory. We'll explain the source
-                               code in detail shortly. But first we'd like to discuss how we should register the
+                               the file is named <code class="literal">MyEchoTask.php</code>. For
+                               this example, we're assuming that the file is placed in
+                               <code class="literal">/home/example/classes</code>. We'll explain the source code
+                               in detail shortly. But first we'd like to discuss how we should register the
                                task to Phing so that it can be executed during the build process.
             </p>
             

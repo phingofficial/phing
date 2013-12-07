@@ -5,7 +5,7 @@
             <span class="bold"><strong>NB:</strong></span> the identifiers <code class="literal">phpunit2</code>
             (PHPUnit2Task) and <code class="literal">phpunit3</code> (PHPUnit3Task) have been deprecated! </p>
 
-        <div class="table"><a name="idp80007648"></a><p class="formal-object-title"><span class="label">Table C.76: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp56326048"></a><p class="formal-object-title"><span class="label">Table C.76: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">printsummary</code></td><td><code class="literal">Boolean</code></td><td>Print one-line statistics for each testcase.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">bootstrap</code></td><td><code class="literal">String</code></td><td>The name of a bootstrap file that is run before executing the
                             tests.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">codecoverage</code></td><td><code class="literal">Boolean</code></td><td>Gather code coverage information while running tests (requires
@@ -23,7 +23,7 @@
                         <code class="literal">stopOnSkipped</code>. Values provided
                         <span class="bold"><strong>overwrite</strong></span> other attributes!</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp80068592"></a>C.56.1 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56388544"></a>C.56.1 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">formatter</code>
@@ -40,7 +40,7 @@
                         phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be
                         specified.</p>
 
-                    <div class="table"><a name="idp80076896"></a><p class="formal-object-title"><span class="label">Table C.77: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp56395200"></a><p class="formal-object-title"><span class="label">Table C.77: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either
                                         <code class="literal">xml</code>, <code class="literal">plain</code>,
@@ -56,7 +56,7 @@
                         of nested &lt;fileset&gt;s. It then generates a lists of classes that are
                         (in)directly defined by each PHP file.</p>
 
-                    <div class="table"><a name="idp80109168"></a><p class="formal-object-title"><span class="label">Table C.78: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp56427360"></a><p class="formal-object-title"><span class="label">Table C.78: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">exclude</code></td><td><code class="literal">String</code></td><td>A list of classes to exclude from the pattern matching.
                                         For example, when you have two baseclasses
@@ -71,7 +71,7 @@
                     </div></div><br class="table-break">
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp80132864"></a>C.56.2 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56451280"></a>C.56.2 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;phpunit&gt;
   &lt;formatter todir="reports" type="xml"/&gt;
@@ -112,7 +112,7 @@
                 reporting and counting, and could possibly lead to strange results. Instead, use one
                 of more fileset's to provide a list of testcases to execute.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp80141984"></a>C.56.3 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56460400"></a>C.56.3 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">fileset</code></p>

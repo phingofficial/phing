@@ -16,7 +16,7 @@
       <link rel="next" href="ch06s06s03.html" title="Source Discussion" />
       <meta name="Section-title" content="Using the Task" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-44829";
+            var treeCookieId = "treeview-44839";
             var language = "en";
             var w = new Object();
             //Localization
@@ -187,7 +187,7 @@ border: none; background: none; font-weight: none; color: none; }
                         
             
                         
-            <p>The task shown [above] must somehow get called by Phing. Therefore it must be made
+            <p>The task shown [above] must somehow get loaded and called by Phing. Therefore it must be made
                                available to Phing so that the buildfile parser is aware a correlating XML element
                                and it's parameters. Have a look at the minimalistic buildfile example given in [the
                                buildfile below] that does exactly this.
@@ -197,20 +197,24 @@ border: none; background: none; font-weight: none; color: none; }
                         <pre class="programlisting">&lt;?xml version="1.0" ?&gt;
 
 &lt;project name="test" basedir="." default="test.myecho"&gt;
-    &lt;taskdef name="myecho" classname="phing.tasks.my.MyEchoTask" /&gt;
+    &lt;includepath classpath="/home/example/classes" /&gt;
+    &lt;taskdef name="myecho" classname="MyEchoTask" /&gt;
 
     &lt;target name="test.myecho"&gt;
       &lt;myecho message="Hello World" /&gt;
     &lt;/target&gt;
 &lt;/project&gt;</pre>
             
-                        <p> Besides the XML document prolog and the shell elements that are required to
-                               properly execute the task (project, target) you'll find the
-                                   <code class="literal">&lt;taskdef&gt;</code> element (line 4) that properly registers your
-                               custom task to Phing. For a detailed synopsis of the taskdef element see the
-                               [description of this task].
+                        <p>To register the custom task with Phing, the
+                           <code class="literal">taskdef</code> element (line 5) is used. See <a class="xref" href="TaskdefTask.html" title="TaskdefTask">the section called “TaskdefTask ”</a> for
+                           a more detailed explanation.
+                           Optionally, before the <code class="literal">taskdef</code> element,
+                           the <code class="literal">includepath</code> element adds a path
+                           to PHP's include path. This is of course only required if the mentioned
+                           path isn't already on the include path. See <a class="xref" href="IncludePathTask.html" title="IncludePathTask">the section called “IncludePathTask ”</a> for
+                           a more detailed explanation.
             </p>
-            
+                        
                         
             <p> Now, as we have registered the task by assigning a name and the worker class
                                ([see source code above]) it is ready for usage within the
