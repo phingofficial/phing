@@ -205,7 +205,11 @@ class SshTask extends Task {
     {
     }
 
-    public function main() 
+    /**
+      * Initiates a ssh connection and stores
+      * it in $this->connection
+      */
+    protected function setupConnection()
     {
         $p = $this->getProject();
 
@@ -229,6 +233,11 @@ class SshTask extends Task {
         if (!$could_auth) {
             throw new BuildException("Could not authenticate connection!");
         }
+    }
+
+    public function main()
+    {
+        $this->setupConnection();
 
         if ($this->pty != '') {
             $stream = ssh2_exec($this->connection, $this->command, $this->pty);
@@ -236,6 +245,16 @@ class SshTask extends Task {
             $stream = ssh2_exec($this->connection, $this->command);
         }
 
+        $this->handleStream($stream);
+     }
+
+    /**
+      This function reads the streams from the ssh2_exec
+      command, stores output data, checks for errors and
+      closes the streams properly.
+    */
+    protected function handleStream($stream)
+    {
         if (!$stream) {
             throw new BuildException("Could not execute command!");
         }
@@ -267,5 +286,7 @@ class SshTask extends Task {
             throw new BuildException("SSH Task failed: " . $result_error);
         }
     }
+
+
 }
 
