@@ -88,7 +88,7 @@ class GitMergeTask extends GitBaseTask
      * @var array
      */
     private $validStrategies = array(
-        'octopus', 'ours', 'recursive', 'resolve', 'subtree');
+        'octopus', 'ours', 'theirs', 'recursive', 'resolve', 'subtree');
 
     /**
      * The main entry point for the task
