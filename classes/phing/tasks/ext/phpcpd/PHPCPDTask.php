@@ -240,6 +240,18 @@ class PHPCPDTask extends Task
     {
         $version = $this->requireDependencies();
 
+        return $version;
+    }
+
+    /**
+     * Executes PHPCPD against PhingFile or a FileSet
+     *
+     * @throws BuildException - if the phpcpd classes can't be loaded.
+     */
+    public function main()
+    {
+        $version = $this->requireDependencies();
+
         if (!isset($this->file) && count($this->filesets) == 0) {
             throw new BuildException('Missing either a nested fileset or attribute "file" set');
         }
