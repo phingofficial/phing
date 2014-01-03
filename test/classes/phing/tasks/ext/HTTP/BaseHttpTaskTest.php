@@ -20,7 +20,7 @@
  */
 
 require_once 'phing/BuildFileTest.php';
-require_once 'HTTP/Request2/Adapter/Mock.php';
+require_once dirname(__FILE__) . '/TraceHttpAdapter.php';
 
 /**
  * @author Alexey Borzov <avb@php.net>
@@ -30,6 +30,7 @@ abstract class BaseHttpTaskTest extends BuildFileTest
 {
     protected function copyTasksAddingCustomRequest($fromTarget, $toTarget, HTTP_Request2 $request)
     {
+        /* @var Target[] $targets */
         $targets = $this->project->getTargets();
         foreach ($targets[$fromTarget]->getTasks() as $task) {
             if ($task instanceof UnknownElement) {
@@ -41,5 +42,30 @@ abstract class BaseHttpTaskTest extends BuildFileTest
             }
             $targets[$toTarget]->addTask($task);
         }
+    }
+
+    protected function createRequest(HTTP_Request2_Adapter $adapter)
+    {
+        $request = new HTTP_Request2();
+        $request->setAdapter($adapter);
+        return $request;
+    }
+
+    protected function createMockAdapter(array $responses)
+    {
+        $adapter = new HTTP_Request2_Adapter_Mock();
+        foreach ($responses as $response) {
+            $adapter->addResponse($response);
+        }
+        return $adapter;
+    }
+
+    /**
+     * @expectedException BuildException
+     * @expectedExceptionMessage Required attribute 'url' is missing
+     */
+    public function testMissingUrl()
+    {
+        $this->executeTarget('missingURL');
     }
 }

@@ -30,4 +30,9 @@
         <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" />
         <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" />
     </target>
+
+    <target name="configuration">
+        <httpget url="http://example.com/" dir="${tmp.dir}"
+                 followRedirects="true" proxy="socks5://localhost:1080/" sslVerifyPeer="false" />
+    </target>
 </project>

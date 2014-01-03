@@ -14,4 +14,22 @@
     <target name="doesNotMatchRegexp">
         <http-request url="http://example.com/" responseRegex="/bar/" />
     </target>
+
+    <target name="post">
+        <http-request url="http://example.com/form" method="POST">
+            <postparameter name="foo" value="bar" />
+            <postparameter name="baz" value="quux" />
+        </http-request>
+    </target>
+
+    <target name="authentication">
+        <http-request url="http://example.com/" authScheme="digest" authUser="luser" authPassword="secret" />
+    </target>
+
+    <target name="nested-tags">
+        <http-request url="http://example.com">
+            <config name="timeout" value="10" />
+            <header name="user-agent" value="Phing HttpRequestTask" />
+        </http-request>
+    </target>
 </project>

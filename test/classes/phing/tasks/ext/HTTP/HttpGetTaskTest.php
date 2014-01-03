@@ -34,15 +34,6 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
     /**
      * @expectedException BuildException
-     * @expectedExceptionMessage Required attribute 'url' is missing
-     */
-    public function testMissingUrl()
-    {
-        $this->executeTarget('missingURL');
-    }
-
-    /**
-     * @expectedException BuildException
      * @expectedExceptionMessage Required attribute 'dir' is missing
      */
     public function testMissingDir()
@@ -56,18 +47,16 @@ class HttpGetTaskTest extends BaseHttpTaskTest
      */
     public function testError404()
     {
-        $proto = new HTTP_Request2();
-        $mock  = new HTTP_Request2_Adapter_Mock();
-
-        $mock->addResponse(
-            "HTTP/1.1 404 Not Found\r\n" .
-            "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-            "\r\n" .
-            "The file you seek is not here"
+        $this->copyTasksAddingCustomRequest(
+            'error404', 'recipient', $this->createRequest($this->createMockAdapter(
+                array(
+                    "HTTP/1.1 404 Not Found\r\n" .
+                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                    "\r\n" .
+                    "The file you seek is not here"
+                )
+            ))
         );
-        $proto->setAdapter($mock);
-
-        $this->copyTasksAddingCustomRequest('error404', 'recipient', $proto);
         $this->executeTarget('recipient');
     }
 
@@ -75,30 +64,27 @@ class HttpGetTaskTest extends BaseHttpTaskTest
     {
         $this->executeTarget('mkdir');
 
-        $proto = new HTTP_Request2();
-        $mock  = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(
-            "HTTP/1.1 200 OK\r\n" .
-            "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-            "\r\n" .
-            "This file is named explicitly"
-        );
-        $mock->addResponse(
-            "HTTP/1.1 200 OK\r\n" .
-            "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-            "Content-Disposition: attachment; filename=\"disposition.txt\"\r\n" .
-            "\r\n" .
-            "This file is named according to Content-Disposition header"
-        );
-        $mock->addResponse(
-            "HTTP/1.1 200 OK\r\n" .
-            "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-            "\r\n" .
-            "This file is named according to an URL part"
-        );
-        $proto->setAdapter($mock);
+        $this->copyTasksAddingCustomRequest(
+            'filenames', 'recipient', $this->createRequest($this->createMockAdapter(
+                array(
+                    "HTTP/1.1 200 OK\r\n" .
+                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                    "\r\n" .
+                    "This file is named explicitly",
 
-        $this->copyTasksAddingCustomRequest('filenames', 'recipient', $proto);
+                    "HTTP/1.1 200 OK\r\n" .
+                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                    "Content-Disposition: attachment; filename=\"disposition.txt\"\r\n" .
+                    "\r\n" .
+                    "This file is named according to Content-Disposition header",
+
+                    "HTTP/1.1 200 OK\r\n" .
+                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                    "\r\n" .
+                    "This file is named according to an URL part"
+                )
+            ))
+        );
         $this->executeTarget('recipient');
 
         $this->assertStringEqualsFile(
@@ -115,5 +101,25 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         );
 
         $this->executeTarget('rmdir');
+    }
+
+    public function testExplicitConfiguration()
+    {
+        $trace = new TraceHttpAdapter();
+        $this->copyTasksAddingCustomRequest('configuration', 'recipient', $this->createRequest($trace));
+
+        try {
+            $this->executeTarget('recipient');
+        } catch (BuildException $e) {
+            // the request returns error 400, but we don't really care
+        }
+
+        $request = new HTTP_Request2(null, 'GET', array(
+            'proxy'            => 'socks5://localhost:1080/',
+            'ssl_verify_peer'  => false,
+            'follow_redirects' => true
+        ));
+
+        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
 }

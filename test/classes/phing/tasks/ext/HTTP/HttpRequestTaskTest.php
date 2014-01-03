@@ -34,26 +34,12 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 
     protected function createRequestWithMockAdapter()
     {
-        $mock = new HTTP_Request2_Adapter_Mock();
-        $mock->addResponse(
+        return $this->createRequest($this->createMockAdapter(array(
             "HTTP/1.1 200 OK\r\n" .
             "Content-Type: text/plain; charset=iso-8859-1\r\n" .
             "\r\n" .
             "The response containing a 'foo' string"
-        );
-        $request = new HTTP_Request2();
-        $request->setAdapter($mock);
-
-        return $request;
-    }
-
-    /**
-     * @expectedException BuildException
-     * @expectedExceptionMessage Required attribute 'url' is missing
-     */
-    public function testMissingUrl()
-    {
-        $this->executeTarget('missingURL');
+        )));
     }
 
     public function testMatchesRegexp()
@@ -72,5 +58,40 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->copyTasksAddingCustomRequest('doesNotMatchRegexp', 'recipient', $this->createRequestWithMockAdapter());
 
         $this->executeTarget('recipient');
+    }
+
+    public function testPostRequest()
+    {
+        $trace = new TraceHttpAdapter();
+
+        $this->copyTasksAddingCustomRequest('post', 'recipient', $this->createRequest($trace));
+        $this->executeTarget('recipient');
+
+        $this->assertEquals('POST', $trace->requests[0]['method']);
+        $this->assertEquals('foo=bar&baz=quux', $trace->requests[0]['body']);
+    }
+
+    public function testAuthentication()
+    {
+        $trace = new TraceHttpAdapter();
+
+        $this->copyTasksAddingCustomRequest('authentication', 'recipient', $this->createRequest($trace));
+        $this->executeTarget('recipient');
+
+        $this->assertEquals(
+            array('user' => 'luser', 'password' => 'secret', 'scheme' => 'digest'),
+            $trace->requests[0]['auth']
+        );
+    }
+
+    public function testConfigAndHeaderTags()
+    {
+        $trace = new TraceHttpAdapter();
+
+        $this->copyTasksAddingCustomRequest('nested-tags', 'recipient', $this->createRequest($trace));
+        $this->executeTarget('recipient');
+
+        $this->assertEquals(10, $trace->requests[0]['config']['timeout']);
+        $this->assertEquals('Phing HttpRequestTask', $trace->requests[0]['headers']['user-agent']);
     }
 }
