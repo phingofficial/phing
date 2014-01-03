@@ -238,15 +238,13 @@ class HttpRequestTask extends HttpTask
     }
 
     /**
-     * Make the http request
+     * Creates and configures an instance of HTTP_Request2
+     *
+     * @return HTTP_Request2
      */
-    public function main()
+    protected function createRequest()
     {
-        if (!isset($this->url)) {
-            throw new BuildException('Missing attribute "url" set');
-        }
-
-        $request = new HTTP_Request2($this->url);
+        $request = parent::createRequest();
 
         // set the authentication data
         if (!empty($this->authUser)) {
@@ -282,8 +280,18 @@ class HttpRequestTask extends HttpTask
             $request->attach($observer);
         }
 
-        $response = $request->send();
+        return $request;
+    }
 
+    /**
+     * Checks whether response body matches the given regexp
+     *
+     * @param HTTP_Request2_Response $response
+     * @return void
+     * @throws BuildException
+     */
+    protected function processResponse(HTTP_Request2_Response $response)
+    {
         if ($this->responseRegex !== '') {
             $matches = array();
             preg_match($this->responseRegex, $response->getBody(), $matches);

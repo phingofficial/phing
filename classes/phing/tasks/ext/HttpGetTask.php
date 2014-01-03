@@ -67,49 +67,57 @@ class HttpGetTask extends HttpTask
      */
     protected $proxy = null;
 
-
-    /**
-     * Make the GET request
-     *
-     * @throws BuildException
-     */
-    public function main()
+    protected function createRequest()
     {
-        if (!isset($this->url)) {
-            throw new BuildException("Missing attribute 'url'");
+        if (!isset($this->dir)) {
+            throw new BuildException("Required attribute 'dir' is missing");
         }
 
-        if (!isset($this->dir)) {
-            throw new BuildException("Missing attribute 'dir'");
-        }
-        
-        $config = array();
+        $config = array(
+            'ssl_verify_peer' => $this->sslVerifyPeer
+        );
         if (isset($this->proxy)) {
             $config['proxy'] = $this->proxy;
         }
-
-        $config['ssl_verify_peer'] = $this->sslVerifyPeer;
-        
         if (null !== $this->followRedirects) {
             $config['follow_redirects'] = $this->followRedirects;
         }
 
+        $request = parent::createRequest();
+        $request->setConfig($config);
+
         $this->log("Fetching " . $this->url);
 
-        $request = new HTTP_Request2($this->url, '', $config);
-        $response =  $request->send();
+        return $request;
+    }
+
+    /**
+     * Saves the response body to a specified directory
+     *
+     * @param HTTP_Request2_Response $response
+     * @return void
+     * @throws BuildException
+     */
+    protected function processResponse(HTTP_Request2_Response $response)
+    {
         if ($response->getStatus() != 200) {
-            throw new BuildException("Request unsuccessful. Response from server: " . $response->getStatus() . " " . $response->getReasonPhrase());
+            throw new BuildException(
+                "Request unsuccessful. Response from server: " . $response->getStatus()
+                . " " . $response->getReasonPhrase()
+            );
         }
-         
-        $content = $response->getBody();
+
+        $content     = $response->getBody();
         $disposition = $response->getHeader('content-disposition');
-        
+
         if ($this->filename) {
             $filename = $this->filename;
+
         } elseif ($disposition && 0 == strpos($disposition, 'attachment')
-            && preg_match('/filename="([^"]+)"/', $disposition, $m)) {
+                  && preg_match('/filename="([^"]+)"/', $disposition, $m)
+        ) {
             $filename = basename($m[1]);
+
         } else {
             $filename = basename(parse_url($this->url, PHP_URL_PATH));
         }
@@ -117,10 +125,10 @@ class HttpGetTask extends HttpTask
         if (!is_writable($this->dir)) {
             throw new BuildException("Cannot write to directory: " . $this->dir);
         }
-         
+
         $filename = $this->dir . "/" . $filename;
         file_put_contents($filename, $content);
-         
+
         $this->log("Contents from " . $this->url . " saved to $filename");
     }
 

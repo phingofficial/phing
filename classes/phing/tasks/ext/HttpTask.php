@@ -41,6 +41,13 @@ abstract class HttpTask extends Task
     protected $url = null;
 
     /**
+     * Prototype HTTP_Request2 object, cloned in createRequest()
+     *
+     * @var HTTP_Request2
+     */
+    protected $requestPrototype = null;
+
+    /**
      * Load the necessary environment for running this task.
      *
      * @throws BuildException
@@ -66,5 +73,57 @@ abstract class HttpTask extends Task
     public function setUrl($url)
     {
         $this->url = $url;
+    }
+
+    /**
+     * Sets the prototype object that will be cloned in createRequest()
+     *
+     * Used in tests to inject an instance of HTTP_Request2 containing a custom adapter
+     *
+     * @param HTTP_Request2 $request
+     */
+    public function setRequestPrototype(HTTP_Request2 $request)
+    {
+        $this->requestPrototype = $request;
+    }
+
+    /**
+     * Creates and configures an instance of HTTP_Request2
+     *
+     * @return HTTP_Request2
+     */
+    protected function createRequest()
+    {
+        if (!$this->requestPrototype) {
+            return new HTTP_Request2($this->url);
+
+        } else {
+            $request = clone $this->requestPrototype;
+            $request->setUrl($this->url);
+            return $request;
+        }
+    }
+
+    /**
+     * Processes the server's response
+     *
+     * @param HTTP_Request2_Response $response
+     * @return void
+     * @throws BuildException
+     */
+    abstract protected function processResponse(HTTP_Request2_Response $response);
+
+    /**
+     * Makes a HTTP request and processes its response
+     *
+     * @throws BuildException
+     */
+    public function main()
+    {
+        if (!isset($this->url)) {
+            throw new BuildException("Required attribute 'url' is missing");
+        }
+
+        $this->processResponse($this->createRequest()->send());
     }
 }
