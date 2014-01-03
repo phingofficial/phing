@@ -194,7 +194,7 @@ class PHPCPDTask extends Task
      */
     public function main()
     {
-        if (class_exists('Composer\\Autoloader\\ClassLoader', false)) {
+        if (class_exists('\\Composer\\Autoload\\ClassLoader', false)) {
             if (!class_exists('\\SebastianBergmann\\PHPCPD\\Detector\\Detector')) {
                 throw new BuildException('You need to install PHPCPD or add your include path to your composer installation.');
             }
