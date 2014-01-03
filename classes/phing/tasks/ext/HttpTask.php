@@ -137,6 +137,12 @@ abstract class HttpTask extends Task
             $request->setUrl($this->url);
         }
 
+        foreach (array_keys($this->getProject()->getProperties()) as $propName) {
+            if (0 === strpos($propName, 'phing.http.')) {
+                $request->setConfig(substr($propName, 11), $this->getProject()->getProperty($propName));
+            }
+        }
+
         // set the authentication data
         if (!empty($this->authUser)) {
             $request->setAuth(

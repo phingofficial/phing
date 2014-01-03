@@ -32,4 +32,13 @@
             <header name="user-agent" value="Phing HttpRequestTask" />
         </http-request>
     </target>
+
+    <target name="config-properties">
+        <property name="hostname" value="localhost" />
+        <property name="phing.http.proxy" value="http://${hostname}:8080/" />
+        <property name="phing.http.max_redirects" value="8" />
+        <http-request url="http://example.com/foo.bar">
+            <config name="max_redirects" value="9" />
+        </http-request>
+    </target>
 </project>

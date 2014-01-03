@@ -154,4 +154,24 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->assertEquals(15, $trace->requests[0]['config']['timeout']);
         $this->assertEquals('Phing HttpGetTask', $trace->requests[0]['headers']['user-agent']);
     }
+
+    public function testConfigurationViaProperties()
+    {
+        $trace = new TraceHttpAdapter();
+        $this->copyTasksAddingCustomRequest('config-properties', 'recipient', $this->createRequest($trace));
+
+        try {
+            $this->executeTarget('recipient');
+        } catch (BuildException $e) {
+            // the request returns error 400, but we don't really care
+        }
+
+        $request = new HTTP_Request2(null, 'GET', array(
+            'proxy'         => 'http://localhost:8080/',
+            'timeout'       => 20,
+            'max_redirects' => 9
+        ));
+
+        $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
+    }
 }
