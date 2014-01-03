@@ -59,6 +59,7 @@ installPearTask ()
     pear install --alldeps PEAR_PackageFileManager
     pear install --alldeps PEAR_PackageFileManager2
     pear install Net_Growl
+    pear install HTTP_Request2
 
     # update paths
     phpenv rehash
