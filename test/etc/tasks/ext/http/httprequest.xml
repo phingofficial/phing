@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<project name="test for http-request task" default="recipient">
+    <!-- Actual tasks will be copied here from other targets -->
+    <target name="recipient" />
+
+    <target name="missingURL">
+        <http-request />
+    </target>
+
+    <target name="matchesRegexp">
+        <http-request url="http://example.com/" responseRegex="/foo/" />
+    </target>
+
+    <target name="doesNotMatchRegexp">
+        <http-request url="http://example.com/" responseRegex="/bar/" />
+    </target>
+</project>

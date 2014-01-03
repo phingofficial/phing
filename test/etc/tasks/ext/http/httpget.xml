@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<project name="test for httpget task" default="recipient">
+    <property name="tmp.dir" value="./../../../../tmp/httpget" />
+
+    <!-- Actual tasks will be copied here from other targets -->
+    <target name="recipient" />
+
+    <target name="missingURL">
+        <httpget dir="${tmp.dir}" />
+    </target>
+
+    <target name="missingDir">
+        <httpget url="http://example.com/" />
+    </target>
+
+    <target name="error404">
+        <httpget url="http://example.com/missing" dir="${tmp.dir}" />
+    </target>
+
+    <target name="mkdir">
+        <mkdir dir="${tmp.dir}" />
+    </target>
+
+    <target name="rmdir">
+        <delete dir="${tmp.dir}" />
+    </target>
+
+    <target name="filenames">
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" filename="foobar.txt" />
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" />
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" />
+    </target>
+</project>
