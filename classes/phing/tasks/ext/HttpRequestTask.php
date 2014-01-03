@@ -47,40 +47,6 @@ class HttpRequestTask extends HttpTask
      */
     protected $verbose = false;
 
-    /**
-     * Holds additional header data
-     *
-     * @var Parameter[]
-     */
-    protected $headers = array();
-
-    /**
-     * Holds additional config data for HTTP_Request2
-     *
-     * @var Parameter[]
-     */
-    protected $configData = array();
-
-    /**
-     * Holds the authentication user name
-     *
-     * @var string
-     */
-    protected $authUser = null;
-
-    /**
-     * Holds the authentication password
-     *
-     * @var string
-     */
-    protected $authPassword = '';
-
-    /**
-     * Holds the authentication scheme
-     *
-     * @var string
-     */
-    protected $authScheme;
 
     /**
      * Holds the events that will be logged
@@ -120,35 +86,6 @@ class HttpRequestTask extends HttpTask
         $this->responseRegex = $regex;
     }
 
-    /**
-     * Sets the authentication user name
-     *
-     * @param string $user
-     */
-    public function setAuthUser($user)
-    {
-        $this->authUser = $user;
-    }
-
-    /**
-     * Sets the authentication password
-     *
-     * @param string $password
-     */
-    public function setAuthPassword($password)
-    {
-        $this->authPassword = $password;
-    }
-
-    /**
-     * Sets the authentication scheme
-     *
-     * @param string $scheme
-     */
-    public function setAuthScheme($scheme)
-    {
-        $this->authScheme = $scheme;
-    }
 
     /**
      * Sets whether to enable detailed logging
@@ -186,29 +123,6 @@ class HttpRequestTask extends HttpTask
         $this->method = $method;
     }
 
-    /**
-     * Creates an additional header for this task
-     *
-     * @return Parameter The created header
-     */
-    public function createHeader()
-    {
-        $num = array_push($this->headers, new Parameter());
-
-        return $this->headers[$num-1];
-    }
-
-    /**
-     * Creates a config parameter for this task
-     *
-     * @return Parameter The created config parameter
-     */
-    public function createConfig()
-    {
-        $num = array_push($this->configData, new Parameter());
-
-        return $this->configData[$num-1];
-    }
 
     /**
      * Creates post body parameters for this request
@@ -245,23 +159,6 @@ class HttpRequestTask extends HttpTask
     protected function createRequest()
     {
         $request = parent::createRequest();
-
-        // set the authentication data
-        if (!empty($this->authUser)) {
-            $request->setAuth(
-                $this->authUser,
-                $this->authPassword,
-                $this->authScheme
-            );
-        }
-
-        foreach ($this->configData as $config) {
-            $request->setConfig($config->getName(), $config->getValue());
-        }
-
-        foreach ($this->headers as $header) {
-            $request->setHeader($header->getName(), $header->getValue());
-        }
 
         if ($this->method == HTTP_Request2::METHOD_POST) {
             $request->setMethod(HTTP_Request2::METHOD_POST);

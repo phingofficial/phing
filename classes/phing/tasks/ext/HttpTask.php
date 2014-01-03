@@ -48,6 +48,41 @@ abstract class HttpTask extends Task
     protected $requestPrototype = null;
 
     /**
+     * Holds additional header data
+     *
+     * @var Parameter[]
+     */
+    protected $headers = array();
+
+    /**
+     * Holds additional config data for HTTP_Request2
+     *
+     * @var Parameter[]
+     */
+    protected $configData = array();
+
+    /**
+     * Holds the authentication user name
+     *
+     * @var string
+     */
+    protected $authUser = null;
+
+    /**
+     * Holds the authentication password
+     *
+     * @var string
+     */
+    protected $authPassword = '';
+
+    /**
+     * Holds the authentication scheme
+     *
+     * @var string
+     */
+    protected $authScheme;
+
+    /**
      * Load the necessary environment for running this task.
      *
      * @throws BuildException
@@ -95,13 +130,31 @@ abstract class HttpTask extends Task
     protected function createRequest()
     {
         if (!$this->requestPrototype) {
-            return new HTTP_Request2($this->url);
+            $request = new HTTP_Request2($this->url);
 
         } else {
             $request = clone $this->requestPrototype;
             $request->setUrl($this->url);
-            return $request;
         }
+
+        // set the authentication data
+        if (!empty($this->authUser)) {
+            $request->setAuth(
+                $this->authUser,
+                $this->authPassword,
+                $this->authScheme
+            );
+        }
+
+        foreach ($this->configData as $config) {
+            $request->setConfig($config->getName(), $config->getValue());
+        }
+
+        foreach ($this->headers as $header) {
+            $request->setHeader($header->getName(), $header->getValue());
+        }
+
+        return $request;
     }
 
     /**
@@ -125,5 +178,59 @@ abstract class HttpTask extends Task
         }
 
         $this->processResponse($this->createRequest()->send());
+    }
+
+    /**
+     * Creates an additional header for this task
+     *
+     * @return Parameter The created header
+     */
+    public function createHeader()
+    {
+        $num = array_push($this->headers, new Parameter());
+
+        return $this->headers[$num - 1];
+    }
+
+    /**
+     * Creates a config parameter for this task
+     *
+     * @return Parameter The created config parameter
+     */
+    public function createConfig()
+    {
+        $num = array_push($this->configData, new Parameter());
+
+        return $this->configData[$num - 1];
+    }
+
+    /**
+     * Sets the authentication user name
+     *
+     * @param string $user
+     */
+    public function setAuthUser($user)
+    {
+        $this->authUser = $user;
+    }
+
+    /**
+     * Sets the authentication password
+     *
+     * @param string $password
+     */
+    public function setAuthPassword($password)
+    {
+        $this->authPassword = $password;
+    }
+
+    /**
+     * Sets the authentication scheme
+     *
+     * @param string $scheme
+     */
+    public function setAuthScheme($scheme)
+    {
+        $this->authScheme = $scheme;
     }
 }

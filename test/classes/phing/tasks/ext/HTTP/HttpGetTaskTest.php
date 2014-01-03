@@ -122,4 +122,36 @@ class HttpGetTaskTest extends BaseHttpTaskTest
 
         $this->assertEquals($request->getConfig(), $trace->requests[0]['config']);
     }
+
+    public function testAuthentication()
+    {
+        $trace = new TraceHttpAdapter();
+
+        $this->copyTasksAddingCustomRequest('authentication', 'recipient', $this->createRequest($trace));
+        try {
+            $this->executeTarget('recipient');
+        } catch (BuildException $e) {
+            // the request returns error 400, but we don't really care
+        }
+
+        $this->assertEquals(
+            array('user' => 'luser', 'password' => 'secret', 'scheme' => 'basic'),
+            $trace->requests[0]['auth']
+        );
+    }
+
+    public function testConfigAndHeaderTags()
+    {
+        $trace = new TraceHttpAdapter();
+
+        $this->copyTasksAddingCustomRequest('nested-tags', 'recipient', $this->createRequest($trace));
+        try {
+            $this->executeTarget('recipient');
+        } catch (BuildException $e) {
+            // the request returns error 400, but we don't really care
+        }
+
+        $this->assertEquals(15, $trace->requests[0]['config']['timeout']);
+        $this->assertEquals('Phing HttpGetTask', $trace->requests[0]['headers']['user-agent']);
+    }
 }

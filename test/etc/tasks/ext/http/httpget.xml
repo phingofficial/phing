@@ -35,4 +35,15 @@
         <httpget url="http://example.com/" dir="${tmp.dir}"
                  followRedirects="true" proxy="socks5://localhost:1080/" sslVerifyPeer="false" />
     </target>
+
+    <target name="authentication">
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" authScheme="basic" authUser="luser" authPassword="secret" />
+    </target>
+
+    <target name="nested-tags">
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}">
+            <config name="timeout" value="15" />
+            <header name="user-agent" value="Phing HttpGetTask" />
+        </httpget>
+    </target>
 </project>
