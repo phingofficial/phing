@@ -19,26 +19,19 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/HttpTask.php';
 
 /**
- * A HTTP request task.
- * Making an HTTP request and try to match the response against an provided
- * regular expression.
+ * A HTTP download task.
+ *
+ * Downloads a file via HTTP GET method and saves it to a specified directory
  *
  * @package phing.tasks.ext
  * @author  Ole Markus With <o.with@sportradar.com>
  * @version $Id$
  */
-class HttpGetTask extends Task
+class HttpGetTask extends HttpTask
 {
-    /**
-     * Holds the request URL
-     *
-     * @var string
-     */
-    protected $url = null;
-
     /**
      * Holds the filename to store the output in
      *
@@ -72,25 +65,7 @@ class HttpGetTask extends Task
      *
      * @var string
      */
-    protected $_proxy = null;
-
-    /**
-     * Load the necessary environment for running this task.
-     *
-     * @throws BuildException
-     */
-    public function init()
-    {
-        @include_once 'HTTP/Request2.php';
-
-        if (! class_exists('HTTP_Request2')) {
-            throw new BuildException(
-                'HttpRequestTask depends on HTTP_Request2 being installed '
-                . 'and on include_path.',
-                $this->getLocation()
-            );
-        }
-    }
+    protected $proxy = null;
 
 
     /**
@@ -109,11 +84,8 @@ class HttpGetTask extends Task
         }
         
         $config = array();
-        if (isset($this->_proxy) && $url = parse_url($this->_proxy)) {
-            $config['proxy_user'] = $url['user'];
-            $config['proxy_password'] = $url['pass'];
-            $config['proxy_host'] = $url['host'];
-            $config['proxy_port'] = $url['port'];
+        if (isset($this->proxy)) {
+            $config['proxy'] = $this->proxy;
         }
 
         $config['ssl_verify_peer'] = $this->sslVerifyPeer;
@@ -152,14 +124,6 @@ class HttpGetTask extends Task
         $this->log("Contents from " . $this->url . " saved to $filename");
     }
 
-    /**
-     * Sets the request URL
-     * 
-     * @param string $url
-     */
-    public function setUrl($url) {
-        $this->url = $url;
-    }
 
     /**
      * Sets the filename to store the output in
@@ -204,7 +168,8 @@ class HttpGetTask extends Task
      *
      * @param string $proxy
      */
-    public function setProxy($proxy) {
-        $this->_proxy = $proxy;
+    public function setProxy($proxy)
+    {
+        $this->proxy = $proxy;
     }
 }

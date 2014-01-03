@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/HttpTask.php';
 
 /**
  * A HTTP request task.
@@ -31,15 +31,8 @@ require_once 'phing/Task.php';
  * @version $Id$
  * @since   2.4.1
  */
-class HttpRequestTask extends Task
+class HttpRequestTask extends HttpTask
 {
-    /**
-     * Holds the request URL
-     *
-     * @var string
-     */
-    protected $url = null;
-
     /**
      * Holds the regular expression that should match the response
      *
@@ -116,16 +109,6 @@ class HttpRequestTask extends Task
      * @var Parameter[]
      */
     protected $postParameters = array();
-
-    /**
-     * Sets the request URL
-     *
-     * @param string $url
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
 
     /**
      * Sets the response regex
@@ -246,14 +229,7 @@ class HttpRequestTask extends Task
      */
     public function init()
     {
-        @include_once 'HTTP/Request2.php';
-
-        if (! class_exists('HTTP_Request2')) {
-            throw new BuildException(
-                'HttpRequestTask depends on HTTP_Request2 being installed  and on include_path.',
-                $this->getLocation()
-            );
-        }
+        parent::init();
 
         $this->authScheme = HTTP_Request2::AUTH_BASIC;
 
