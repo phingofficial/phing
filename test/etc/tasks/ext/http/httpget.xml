@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<project name="test for httpget task" default="recipient">
+    <property name="tmp.dir" value="./../../../../tmp/httpget" />
+
+    <!-- Actual tasks will be copied here from other targets -->
+    <target name="recipient" />
+
+    <target name="missingURL">
+        <httpget dir="${tmp.dir}" />
+    </target>
+
+    <target name="missingDir">
+        <httpget url="http://example.com/" />
+    </target>
+
+    <target name="error404">
+        <httpget url="http://example.com/missing" dir="${tmp.dir}" />
+    </target>
+
+    <target name="mkdir">
+        <mkdir dir="${tmp.dir}" />
+    </target>
+
+    <target name="rmdir">
+        <delete dir="${tmp.dir}" />
+    </target>
+
+    <target name="filenames">
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" filename="foobar.txt" />
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" />
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" />
+    </target>
+
+    <target name="configuration">
+        <httpget url="http://example.com/" dir="${tmp.dir}"
+                 followRedirects="true" proxy="socks5://localhost:1080/" sslVerifyPeer="false" />
+    </target>
+
+    <target name="authentication">
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}" authScheme="basic" authUser="luser" authPassword="secret" />
+    </target>
+
+    <target name="nested-tags">
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}">
+            <config name="timeout" value="15" />
+            <header name="user-agent" value="Phing HttpGetTask" />
+        </httpget>
+    </target>
+
+    <target name="config-properties">
+        <property name="phing.http.proxy" value="http://localhost:8080/" />
+        <property name="phing.http.timeout" value="20" />
+        <property name="phing.http.max_redirects" value="10" />
+        <httpget url="http://example.com/foo.bar" dir="${tmp.dir}">
+            <config name="max_redirects" value="9" />
+        </httpget>
+    </target>
+</project>

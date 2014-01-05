@@ -202,7 +202,7 @@ etc.), file system operations, interactive build support, SQL execution, and muc
             $package->addPackageDepWithChannel( 'optional', 'Archive_Tar', 'pear.php.net', '1.3.0');
             $package->addPackageDepWithChannel( 'optional', 'PEAR_PackageFileManager', 'pear.php.net', '1.5.2');
             $package->addPackageDepWithChannel( 'optional', 'Services_Amazon_S3', 'pear.php.net', '0.3.1');
-            $package->addPackageDepWithChannel( 'optional', 'HTTP_Request2', 'pear.php.net', '0.5.2');
+            $package->addPackageDepWithChannel( 'optional', 'HTTP_Request2', 'pear.php.net', '2.1.1');
             $package->addPackageDepWithChannel( 'optional', 'PHP_Depend', 'pear.pdepend.org', '0.10.0');
             $package->addPackageDepWithChannel( 'optional', 'PHP_PMD', 'pear.phpmd.org', '1.1.0');
             $package->addPackageDepWithChannel( 'optional', 'phpcpd', 'pear.phpunit.de', '1.3.3');

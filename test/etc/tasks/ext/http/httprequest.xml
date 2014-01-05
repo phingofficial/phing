@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<project name="test for http-request task" default="recipient">
+    <!-- Actual tasks will be copied here from other targets -->
+    <target name="recipient" />
+
+    <target name="missingURL">
+        <http-request />
+    </target>
+
+    <target name="matchesRegexp">
+        <http-request url="http://example.com/" responseRegex="/foo/" />
+    </target>
+
+    <target name="doesNotMatchRegexp">
+        <http-request url="http://example.com/" responseRegex="/bar/" />
+    </target>
+
+    <target name="post">
+        <http-request url="http://example.com/form" method="POST">
+            <postparameter name="foo" value="bar" />
+            <postparameter name="baz" value="quux" />
+        </http-request>
+    </target>
+
+    <target name="authentication">
+        <http-request url="http://example.com/" authScheme="digest" authUser="luser" authPassword="secret" />
+    </target>
+
+    <target name="nested-tags">
+        <http-request url="http://example.com">
+            <config name="timeout" value="10" />
+            <header name="user-agent" value="Phing HttpRequestTask" />
+        </http-request>
+    </target>
+
+    <target name="config-properties">
+        <property name="hostname" value="localhost" />
+        <property name="phing.http.proxy" value="http://${hostname}:8080/" />
+        <property name="phing.http.max_redirects" value="8" />
+        <http-request url="http://example.com/foo.bar">
+            <config name="max_redirects" value="9" />
+        </http-request>
+    </target>
+</project>

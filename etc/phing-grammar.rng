@@ -2465,6 +2465,20 @@
         Http manipulation
         =========================================        
     -->
+    <define name="header">
+        <element name="header">
+            <attribute name="name"/>
+            <attribute name="value"/>
+        </element>
+    </define>
+
+    <define name="postparameter">
+        <element name="postparameter">
+            <attribute name="name"/>
+            <attribute name="value"/>
+        </element>
+    </define>
+
     <define name="httpget">
         <element name="httpget">
             <interleave>
@@ -2473,16 +2487,38 @@
                 <optional>
                     <attribute name="filename"/>
                 </optional>
+                <optional>
+                    <attribute name="followredirects">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="proxy"/>
+                </optional>
+                <optional>
+                    <attribute name="sslverifypeer">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="authuser"/>
+                </optional>
+                <optional>
+                    <attribute name="authpassword"/>
+                </optional>
+                <optional>
+                    <attribute name="authschema"/>
+                </optional>
+                <zeroOrMore>
+                    <ref name="config"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="header"/>
+                </zeroOrMore>
             </interleave>
         </element>
     </define>
 
-    <define name="header">
-        <element name="header">
-            <attribute name="name"/>
-            <attribute name="val"/>
-        </element>
-    </define>
 
     <define name="httprequest">
         <element name="httprequest">
@@ -2508,11 +2544,17 @@
                 <optional>
                     <attribute name="observerevents"/>
                 </optional>
+                <optional>
+                    <attribute name="method"/>
+                </optional>
                 <zeroOrMore>
                     <ref name="config"/>
                 </zeroOrMore>
                 <zeroOrMore>
                     <ref name="header"/>
+                </zeroOrMore>
+                <zeroOrMore>
+                    <ref name="postparameter"/>
                 </zeroOrMore>
             </interleave>
         </element>

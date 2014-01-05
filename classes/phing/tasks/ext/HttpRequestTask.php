@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+require_once 'phing/tasks/ext/HttpTask.php';
 
 /**
  * A HTTP request task.
@@ -31,15 +31,8 @@ require_once 'phing/Task.php';
  * @version $Id$
  * @since   2.4.1
  */
-class HttpRequestTask extends Task
+class HttpRequestTask extends HttpTask
 {
-    /**
-     * Holds the request URL
-     *
-     * @var string
-     */
-    protected $url = null;
-
     /**
      * Holds the regular expression that should match the response
      *
@@ -54,40 +47,6 @@ class HttpRequestTask extends Task
      */
     protected $verbose = false;
 
-    /**
-     * Holds additional header data
-     *
-     * @var Parameter[]
-     */
-    protected $headers = array();
-
-    /**
-     * Holds additional config data for HTTP_Request2
-     *
-     * @var Parameter[]
-     */
-    protected $configData = array();
-
-    /**
-     * Holds the authentication user name
-     *
-     * @var string
-     */
-    protected $authUser = null;
-
-    /**
-     * Holds the authentication password
-     *
-     * @var string
-     */
-    protected $authPassword = '';
-
-    /**
-     * Holds the authentication scheme
-     *
-     * @var string
-     */
-    protected $authScheme;
 
     /**
      * Holds the events that will be logged
@@ -118,16 +77,6 @@ class HttpRequestTask extends Task
     protected $postParameters = array();
 
     /**
-     * Sets the request URL
-     *
-     * @param string $url
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-
-    /**
      * Sets the response regex
      *
      * @param string $regex
@@ -137,35 +86,6 @@ class HttpRequestTask extends Task
         $this->responseRegex = $regex;
     }
 
-    /**
-     * Sets the authentication user name
-     *
-     * @param string $user
-     */
-    public function setAuthUser($user)
-    {
-        $this->authUser = $user;
-    }
-
-    /**
-     * Sets the authentication password
-     *
-     * @param string $password
-     */
-    public function setAuthPassword($password)
-    {
-        $this->authPassword = $password;
-    }
-
-    /**
-     * Sets the authentication scheme
-     *
-     * @param string $scheme
-     */
-    public function setAuthScheme($scheme)
-    {
-        $this->authScheme = $scheme;
-    }
 
     /**
      * Sets whether to enable detailed logging
@@ -203,29 +123,6 @@ class HttpRequestTask extends Task
         $this->method = $method;
     }
 
-    /**
-     * Creates an additional header for this task
-     *
-     * @return Parameter The created header
-     */
-    public function createHeader()
-    {
-        $num = array_push($this->headers, new Parameter());
-
-        return $this->headers[$num-1];
-    }
-
-    /**
-     * Creates a config parameter for this task
-     *
-     * @return Parameter The created config parameter
-     */
-    public function createConfig()
-    {
-        $num = array_push($this->configData, new Parameter());
-
-        return $this->configData[$num-1];
-    }
 
     /**
      * Creates post body parameters for this request
@@ -246,14 +143,7 @@ class HttpRequestTask extends Task
      */
     public function init()
     {
-        @include_once 'HTTP/Request2.php';
-
-        if (! class_exists('HTTP_Request2')) {
-            throw new BuildException(
-                'HttpRequestTask depends on HTTP_Request2 being installed  and on include_path.',
-                $this->getLocation()
-            );
-        }
+        parent::init();
 
         $this->authScheme = HTTP_Request2::AUTH_BASIC;
 
@@ -262,32 +152,13 @@ class HttpRequestTask extends Task
     }
 
     /**
-     * Make the http request
+     * Creates and configures an instance of HTTP_Request2
+     *
+     * @return HTTP_Request2
      */
-    public function main()
+    protected function createRequest()
     {
-        if (!isset($this->url)) {
-            throw new BuildException('Missing attribute "url" set');
-        }
-
-        $request = new HTTP_Request2($this->url);
-
-        // set the authentication data
-        if (!empty($this->authUser)) {
-            $request->setAuth(
-                $this->authUser,
-                $this->authPassword,
-                $this->authScheme
-            );
-        }
-
-        foreach ($this->configData as $config) {
-            $request->setConfig($config->getName(), $config->getValue());
-        }
-
-        foreach ($this->headers as $header) {
-            $request->setHeader($header->getName(), $header->getValue());
-        }
+        $request = parent::createRequest();
 
         if ($this->method == HTTP_Request2::METHOD_POST) {
             $request->setMethod(HTTP_Request2::METHOD_POST);
@@ -306,8 +177,18 @@ class HttpRequestTask extends Task
             $request->attach($observer);
         }
 
-        $response = $request->send();
+        return $request;
+    }
 
+    /**
+     * Checks whether response body matches the given regexp
+     *
+     * @param HTTP_Request2_Response $response
+     * @return void
+     * @throws BuildException
+     */
+    protected function processResponse(HTTP_Request2_Response $response)
+    {
         if ($this->responseRegex !== '') {
             $matches = array();
             preg_match($this->responseRegex, $response->getBody(), $matches);
