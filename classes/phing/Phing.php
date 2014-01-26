@@ -205,7 +205,7 @@ class Phing {
         }
         if (self::$err === null) {
             if (!defined('STDERR')) {
-              self::$out = new OutputStream(fopen('php://stderr', 'w'));
+              self::$err = new OutputStream(fopen('php://stderr', 'w'));
             } else {
               self::$err = new OutputStream(STDERR);
             }
