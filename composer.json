@@ -17,10 +17,13 @@
     "require": {
         "php": ">=5.2.0"
     },
+    "suggest": {
+        "symfony/yaml": "Allow the usage of yaml files for properties"
+    },
     "autoload": {
         "classmap": ["classes/phing/"]
     },
-    "include-path": ["classes"],
+    "include-path": ["classes", "vendor"],
     "bin": [
         "bin/phing"
     ],
