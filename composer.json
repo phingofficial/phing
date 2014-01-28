@@ -46,6 +46,7 @@
         "pear/versioncontrol_svn": "A simple OO-style interface for Subversion, the free/open-source version control system",
         "pear/versioncontrol_git": "A library that provides OO interface to handle Git repository",
         "pear/archive_tar": "Tar file management class",
-        "tedivm/jshrink": "Javascript Minifier built in PHP"
+        "tedivm/jshrink": "Javascript Minifier built in PHP",
+        "symfony/yaml": "Allow the usage of yaml files for properties"
     }
 }

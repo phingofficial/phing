@@ -7,3 +7,4 @@ build/pear
 test/reports
 docs/api/docs
 vendor
+composer.lock
