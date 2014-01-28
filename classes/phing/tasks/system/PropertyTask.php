@@ -22,6 +22,8 @@
 
 include_once 'phing/Task.php';
 include_once 'phing/system/util/Properties.php';
+include_once 'phing/system/io/FileParserFactoryInterface.php';
+include_once 'phing/system/io/FileParserFactory.php';
 
 /**
  * Task for setting properties in buildfiles.
@@ -34,28 +36,41 @@ include_once 'phing/system/util/Properties.php';
 class PropertyTask extends Task {
 
     /** name of the property */
-    protected $name; 
-    
+    protected $name;
+
     /** value of the property */
     protected $value;
-    
+
     protected $reference;
     protected $env;     // Environment
     protected $file;
     protected $ref;
     protected $prefix;
     protected $fallback;
-    
+
     /** Whether to force overwrite of existing property. */
     protected $override = false;
-    
+
     /** Whether property should be treated as "user" property. */
     protected $userProperty = false;
-    
+
     /**
      * All filterchain objects assigned to this task
      */
     protected $filterChains  = array();
+
+    /**
+     * @var FileParserFactoryInterface
+     */
+    private $fileParserFactory;
+
+    /**
+     * @param FileParserFactoryInterface $fileParserFactory
+     */
+    public function __construct(FileParserFactoryInterface $fileParserFactory = null)
+    {
+        $this->fileParserFactory = $fileParserFactory != null ? $fileParserFactory : new FileParserFactory();
+    }
 
     /**
      * Sets a the name of current property component
@@ -63,7 +78,7 @@ class PropertyTask extends Task {
     function setName($name) {
         $this->name = (string) $name;
     }
-    
+
     /** Get property component name. */
     function getName() {
         return $this->name;
@@ -76,7 +91,7 @@ class PropertyTask extends Task {
     function setValue($value) {
         $this->value = (string) $value;
     }
-    
+
     /**
      * Sets value of property to CDATA tag contents.
      * @param string $values
@@ -85,12 +100,12 @@ class PropertyTask extends Task {
     public function addText($value) {
         $this->setValue($value);
     }
-    
+
     /** Get the value of current property component. */
     function getValue() {
         return $this->value;
     }
-    
+
     /** Set a file to use as the source for properties. */
     function setFile($file) {
         if (is_string($file)) {
@@ -98,7 +113,7 @@ class PropertyTask extends Task {
         }
         $this->file = $file;
     }
-    
+
     /** Get the PhingFile that is being used as property source. */
     function getFile() {
         return $this->file;
@@ -107,7 +122,7 @@ class PropertyTask extends Task {
     function setRefid(Reference $ref) {
         $this->reference = $ref;
     }
-    
+
     function getRefid() {
         return $this->reference;
     }
@@ -159,7 +174,7 @@ class PropertyTask extends Task {
     function getEnvironment() {
         return $this->env;
     }
-    
+
     /**
      * Set whether this is a user property (ro).
      * This is deprecated in Ant 1.5, but the userProperty attribute
@@ -170,19 +185,19 @@ class PropertyTask extends Task {
     function setUserProperty($v) {
         $this->userProperty = (boolean) $v;
     }
-    
+
     function getUserProperty() {
         return $this->userProperty;
     }
-    
+
     function setOverride($v) {
         $this->override = (boolean) $v;
     }
-    
+
     function getOverride() {
         return $this->override;
     }
-    
+
     function toString() {
         return (string) $this->value;
     }
@@ -193,7 +208,7 @@ class PropertyTask extends Task {
     function setFallback($p) {
         $this->fallback = $p;
     }
-    
+
     function getFallback() {
         return $this->fallback;
     }
@@ -207,7 +222,7 @@ class PropertyTask extends Task {
     public function createFilterChain() {
         $num = array_push($this->filterChains, new FilterChain($this->project));
         return $this->filterChains[$num-1];
-    }  
+    }
 
     /**
      * set the property in the project to the value.
@@ -228,7 +243,7 @@ class PropertyTask extends Task {
         if ($this->file === null && $this->prefix !== null) {
             throw new BuildException("Prefix is only valid when loading from a file.", $this->getLocation());
         }
-        
+
         if (($this->name !== null) && ($this->value !== null)) {
             $this->addProperty($this->name, $this->value);
         }
@@ -254,7 +269,7 @@ class PropertyTask extends Task {
             }
         }
     }
-    
+
     /**
      * load the environment values
      * @param string $prefix prefix to place before them
@@ -278,9 +293,9 @@ class PropertyTask extends Task {
      */
     protected function addProperties($props) {
         $this->resolveAllProperties($props);
-        foreach($props->keys() as $name) {        
+        foreach($props->keys() as $name) {
             $value = $props->getProperty($name);
-            $v = $this->project->replaceProperties($value);            
+            $v = $this->project->replaceProperties($value);
             if ($this->prefix !== null) {
                 $name = $this->prefix . $name;
             }
@@ -295,10 +310,10 @@ class PropertyTask extends Task {
      */
     protected function addProperty($name, $value) {
         if (count($this->filterChains) > 0) {
-            $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);        
+            $in = FileUtils::getChainedReader(new StringReader($value), $this->filterChains, $this->project);
             $value = $in->read();
         }
-        
+
         if ($this->userProperty) {
             if ($this->project->getUserProperty($name) === null || $this->override) {
                 $this->project->setInheritedProperty($name, $value);
@@ -319,6 +334,8 @@ class PropertyTask extends Task {
      * @param PhingFile $file
      */
     protected function loadFile(PhingFile $file) {
+        $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
+
         $props = new Properties();
         $this->log("Loading ". $file->getAbsolutePath(), Project::MSG_INFO);
         try { // try to load file
@@ -332,16 +349,16 @@ class PropertyTask extends Task {
             throw new BuildException("Could not load properties from file.", $ioe);
         }
     }
-    
+
     /**
      * Given a Properties object, this method goes through and resolves
      * any references to properties within the object.
-     * 
+     *
      * @param Properties $props The collection of Properties that need to be resolved.
      * @return void
      */
     protected function resolveAllProperties(Properties $props) {
-        
+
         $keys = $props->keys();
 
         while(count($keys)) {
@@ -351,13 +368,13 @@ class PropertyTask extends Task {
             // would probably be a lot uglier to work into a preg_replace_callback()
             // system.  The biggest problem is the fact that a resolution may require
             // multiple passes.
-            
+
             $name     = array_shift($keys);
             $value    = $props->getProperty($name);
             $resolved = false;
-            
+
             while(!$resolved) {
-            
+
                 $fragments = array();
                 $propertyRefs = array();
 
@@ -394,15 +411,15 @@ class PropertyTask extends Task {
                         }
                         $sb .= $fragment;
                     }
-                    
+
                     $this->log("Resolved Property \"$value\" to \"$sb\"", Project::MSG_DEBUG);
-                    $value = $sb;                    
+                    $value = $sb;
                     $props->setProperty($name, $value);
-                                 
+
                 } // if (count($propertyRefs))
-                
+
             } // while (!$resolved)
-            
+
         } // while (count($keys)
     }
 
@@ -422,12 +439,12 @@ class PropertyTask extends Task {
      * @param  array &$propertyRefs The found refs
      */
     protected function parsePropertyString($value, &$fragments, &$propertyRefs) {
-    
+
         $prev = 0;
         $pos  = 0;
 
         while (($pos = strpos($value, '$', $prev)) !== false) {
-            
+
             if ($pos > $prev) {
                 array_push($fragments, StringHelper::substring($value, $prev, $pos-1));
             }

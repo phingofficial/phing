@@ -1,0 +1,16 @@
+testarea: testvalue
+testarea1:
+  - testvalue1: 1
+  - testvalue2: 2
+testarea2:
+  - [testvalue1, testvalu2, testvalue3]
+testarea3: false
+testarea4: true
+testarea5:
+  testkey1: [testvalue1, testvalue2]
+testarea6:
+  testkey1:
+    testkey1: testvalue1
+    testkey2: testvalue2
+  testkey2:
+    testkey1: testvalue1
