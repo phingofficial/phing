@@ -98,10 +98,7 @@ class YamlFileParserTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('testvalue', $properties['testarea']);
         $this->assertEquals(1, $properties['testarea1.testkey1']);
         $this->assertEquals(2, $properties['testarea1.testkey2']);
-        $this->assertArrayHasKey(0, $properties['testarea2']);
-        $this->assertArrayHasKey(2, $properties['testarea2']);
-        $this->assertEquals('testvalue1', $properties['testarea2'][0]);
-        $this->assertEquals('testvalue3', $properties['testarea2'][2]);
+        $this->assertEquals('testvalue1,testvalue2,testvalue3', $properties['testarea2']);
         $this->assertEquals(false, $properties['testarea3']);
         $this->assertEquals(true, $properties['testarea4']);
         $this->assertEquals('testvalue1', $properties['testarea6.testkey1.testkey1']);
