@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 include_once 'phing/system/io/FileParserInterface.php';
-include_once 'autoload.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -47,6 +46,35 @@ class YamlFileParser implements FileParserInterface
             throw new IOException("Unable to parse contents of " . $file . ": " . $e->getMessage());
         }
 
-        return $properties;
+        return $this->flattenArray($properties);
+    }
+
+    /**
+     * Flattens an array to key => value.
+     * @todo: milo - 20142901 - If you plan to extend phing and add a new fileparser, please move this to an abstract
+     * class.
+     *
+     * @param array $arrayToFlatten
+     */
+    private function flattenArray(array $arrayToFlatten, $separator = '.', $flattenedKey = '')
+    {
+        $flattenedArray = array();
+        foreach($arrayToFlatten as $key => $value) {
+            $tmpFlattendKey = (!empty($flattenedKey) ? $flattenedKey.$separator : '') . $key;
+            // only append next value if is array and is an associative array
+            if(is_array($value) && array_keys($value) !== range(0, count($value) - 1)) {
+                $flattenedArray = array_merge(
+                    $flattenedArray,
+                    $this->flattenArray(
+                        $value,
+                        $separator,
+                        $tmpFlattendKey
+                    )
+                );
+            } else {
+                $flattenedArray[$tmpFlattendKey] = $value;
+            }
+        }
+        return $flattenedArray;
     }
 }
