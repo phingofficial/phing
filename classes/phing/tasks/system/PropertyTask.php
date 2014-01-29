@@ -346,8 +346,7 @@ class PropertyTask extends Task {
      */
     protected function loadFile(PhingFile $file) {
         $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
-
-        $props = new Properties();
+        $props = new Properties(null, $fileParser);
         $this->log("Loading ". $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
