@@ -1,9 +1,9 @@
 testarea: testvalue
 testarea1:
-  - testvalue1: 1
-  - testvalue2: 2
+  testkey1: 1
+  testkey2: 2
 testarea2:
-  - [testvalue1, testvalu2, testvalue3]
+  [testvalue1, testvalue2, testvalue3]
 testarea3: false
 testarea4: true
 testarea5:
