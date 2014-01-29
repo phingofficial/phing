@@ -46,7 +46,14 @@ class YamlFileParser implements FileParserInterface
             throw new IOException("Unable to parse contents of " . $file . ": " . $e->getMessage());
         }
 
-        return $this->flattenArray($properties);
+        $flattenedProperties = $this->flattenArray($properties);
+        foreach ($flattenedProperties as $key => $flattenedProperty) {
+            if (is_array($flattenedProperty)) {
+                $flattenedProperties[$key] = implode(',', $flattenedProperty);
+            }
+        }
+
+        return $flattenedProperties;
     }
 
     /**
