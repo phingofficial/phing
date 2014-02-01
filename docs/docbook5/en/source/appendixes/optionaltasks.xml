@@ -1159,6 +1159,18 @@ checksum="true" />;</programlisting>
                                 <literal>debug</literal>.</entry>
                         <entry><literal>verbose</literal></entry>
                         <entry>No</entry>
+		    </row>
+		    <row>
+                        <entry><literal>rawdatafallback</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+			<entry>
+				If Net_FTP is not able to parse the raw ftp data, the depends option does not work at all.
+				Setting rawdatafallback will cause phing trying to parse the ftp data on its own, so the 
+				depends option might work again.
+
+				If depends is set to false, rawdatafallback is ignored.
+			</entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>
