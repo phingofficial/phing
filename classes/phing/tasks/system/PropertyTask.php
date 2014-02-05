@@ -74,7 +74,14 @@ class PropertyTask extends Task {
      * @param    mixed      Value of name, all scalars allowed
      */
     function setValue($value) {
-        $this->value = (string) $value;
+        // value is a string representation of a boolean type,
+        // convert it to primitive
+        if (StringHelper::isBoolean($value)) {
+
+            $this->value = StringHelper::booleanValue($value);
+        } else {
+            $this->value = (string) $value;
+        }
     }
     
     /**
