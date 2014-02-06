@@ -24,7 +24,8 @@
 
     <target name="docs">
         <phpdoc2 title="Phing API Documentation"
-	    output="${buildfile.dir}/docs">
+	    output="${buildfile.dir}/docs"
+	    defaultPackageName="phing">
             <fileset dir="${phingpkg.home}/classes">
                 <include name="**/*.php"/>
             </fileset>
