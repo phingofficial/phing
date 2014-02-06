@@ -57,6 +57,12 @@ class PhpDocumentor2Task extends Task
     private $title = "API Documentation";
     
     /**
+     * Name of default package
+     * @var string
+     */
+    private $defaultPackageName = "Default";
+    
+    /**
      * Nested creator, adds a set of files (nested fileset attribute).
      * 
      * @return FileSet
@@ -104,6 +110,15 @@ class PhpDocumentor2Task extends Task
     }
     
     /**
+     * Sets the default package name
+     * @param string $defaultPackageName
+     */
+    public function setDefaultPackageName($defaultPackageName)
+    {
+        $this->defaultPackageName = (string) $defaultPackageName;
+    }
+    
+    /**
      * Forces phpDocumentor to be quiet
      * @deprecated
      * @param boolean $quiet
@@ -139,6 +154,7 @@ class PhpDocumentor2Task extends Task
         $wrapper->setDestDir($this->destDir);
         $wrapper->setTemplate($this->template);
         $wrapper->setTitle($this->title);
+        $wrapper->setDefaultPackageName($this->defaultPackageName);
         $wrapper->run();
     }
 }

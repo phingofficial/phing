@@ -61,6 +61,12 @@ class PhpDocumentor2Wrapper
     private $title = "API Documentation";
     
     /**
+     * Name of the default package
+     * @var string
+     */
+    private $defaultPackageName = "Default";
+    
+    /**
      * Path to the phpDocumentor 2 source
      * @var string
      */
@@ -102,7 +108,7 @@ class PhpDocumentor2Wrapper
 
     /**
      * Sets the template to use
-     * @param strings $template
+     * @param string $template
      */
     public function setTemplate($template)
     {
@@ -111,11 +117,20 @@ class PhpDocumentor2Wrapper
     
     /**
      * Sets the title of the project
-     * @param strings $title
+     * @param string $title
      */
     public function setTitle($title)
     {
         $this->title = (string) $title;
+    }
+    
+    /**
+     * Sets the default package name
+     * @param string $defaultPackageName
+     */
+    public function setDefaultPackageName($defaultPackageName)
+    {
+        $this->defaultPackageName = (string) $defaultPackageName;
     }
     
     /**
@@ -176,7 +191,7 @@ class PhpDocumentor2Wrapper
         $mapper->populate($projectDescriptor);
         
         $parser->setPath($files->getProjectRoot());
-        $parser->setDefaultPackageName("Default");
+        $parser->setDefaultPackageName($this->defaultPackageName);
         
         $parser->parse($builder, $files);
         
