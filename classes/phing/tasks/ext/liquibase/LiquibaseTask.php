@@ -64,9 +64,3 @@ class LiquibaseTask extends AbstractLiquibaseTask
 
 }
 
-
-
-
-
-
-?>
