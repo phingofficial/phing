@@ -120,7 +120,6 @@ class TargetHandler extends AbstractHandler {
         }
 
         $this->target = new Target();
-        $this->target->addDependency("");
         $this->target->setName($name);
         $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
