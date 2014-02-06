@@ -7700,7 +7700,7 @@ Note that you can omit both startpoint and track attributes in this case
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentor2Task">
-        <title>DocBloxTask</title>
+        <title>PhpDocumentor2Task</title>
         <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
                 >phpDocumentor 2</link>, a PHP 5.3-compatible API documentation tool.
                 This project is the result of the merge of the phpDocumentor
