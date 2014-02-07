@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'PHPUnit/TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/system/io/FileParserFactoryInterface.php';
 include_once 'phing/system/io/FileParserFactory.php';
 
