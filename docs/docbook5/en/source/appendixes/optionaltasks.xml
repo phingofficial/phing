@@ -980,7 +980,9 @@
 	                <row>
 	                    <entry><literal>options</literal></entry>
 	                    <entry><literal role="type">String</literal></entry>
-	                    <entry>Any options that rsync supports, removes the default options</entry>
+	                    <entry>Any options that rsync supports, removes the default options.
+						Should you wish to change the port ssh uses for remote transfers,
+						set this attribute to <literal>-e 'ssh -p XXXXX' -rpKzl</literal></entry>
 	                    <entry>-rpKz</entry>
 	                    <entry>No</entry>
 	                </row>
