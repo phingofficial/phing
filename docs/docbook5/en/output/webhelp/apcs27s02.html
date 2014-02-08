@@ -13,10 +13,10 @@
       <link rel="home" href="index.html" title="Phing User Guide" />
       <link rel="up" href="HttpRequestTask.html" title="HttpRequestTask" />
       <link rel="prev" href="apcs27s01.html" title="Example" />
-      <link rel="next" href="IoncubeEncoderTask.html" title="IoncubeEncoderTask" />
+      <link rel="next" href="apcs27s03.html" title="Global configuration" />
       <meta name="Section-title" content="Supported Nested Tags" /><script type="text/javascript">
             //The id for tree cookie
-            var treeCookieId = "treeview-44839";
+            var treeCookieId = "treeview-45301";
             var language = "en";
             var w = new Object();
             //Localization
@@ -168,7 +168,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                              |
                                                              <a accesskey="u" class="navLinkUp" tabindex="5" href="HttpRequestTask.html">Up</a>
                                                          |
-                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="IoncubeEncoderTask.html">Next</a></td>
+                                                         <a accesskey="n" class="navLinkNext" tabindex="5" href="apcs27s03.html">Next</a></td>
                </tr>
             </table>
          </div>
@@ -179,7 +179,7 @@ border: none; background: none; font-weight: none; color: none; }
             <div xmlns="" class="titlepage">
                <div>
                   <div>
-                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e7698"></a>Supported Nested Tags
+                     <h3 xmlns="http://www.w3.org/1999/xhtml" class="title"><a id="d5e7816"></a>Supported Nested Tags
                      </h3>
                   </div>
                </div>
@@ -192,12 +192,14 @@ border: none; background: none; font-weight: none; color: none; }
                                          
                      <p>config </p>
                                          
-                     <p>Holds additional config data. See HTTP_Request2 for supported
-                                                values.
+                     <p>Holds additional config data. See
+                                                <a class="ulink" href="http://pear.php.net/manual/en/package.http.http-request2.config.php" target="_top">HTTP_Request2  documentation</a>
+                                                for supported values.
+                                            
                      </p>
                      
                                          
-                     <div class="table"><a id="d5e7704"></a><p class="title"><strong>Table 91. Attributes</strong></p>
+                     <div class="table"><a id="d5e7823"></a><p class="title"><strong>Table 93. Attributes</strong></p>
                         <div class="table-contents">
                                                    
                                                    
@@ -248,7 +250,7 @@ border: none; background: none; font-weight: none; color: none; }
                                                     <code class="literal">value</code>.
                      </p>
                                          
-                     <div class="table"><a id="d5e7740"></a><p class="title"><strong>Table 92. Attributes</strong></p>
+                     <div class="table"><a id="d5e7859"></a><p class="title"><strong>Table 94. Attributes</strong></p>
                         <div class="table-contents">
                                                    
                                                    
@@ -291,6 +293,57 @@ border: none; background: none; font-weight: none; color: none; }
                      </div><br class="table-break" />
                                      
                   </li>
+                  <li class="listitem">
+                                         
+                     <p>postparameter </p>
+                                         
+                     <p>Used when performing a POST request. Contains <code class="literal">name</code> and
+                                                    <code class="literal">value</code> of a form field.
+                     </p>
+                                         
+                     <div class="table"><a id="d5e7896"></a><p class="title"><strong>Table 95. Attributes</strong></p>
+                        <div class="table-contents">
+                                                   
+                                                   
+                           <table summary="Attributes" border="1">
+                              <colgroup>
+                                 <col class="name" />
+                                 <col class="type" />
+                                 <col class="description" />
+                                 <col class="default" />
+                                 <col class="required" />
+                              </colgroup>
+                              <thead>
+                                 <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Default</th>
+                                    <th>Required</th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 <tr>
+                                    <td><code class="literal">name</code></td>
+                                    <td><code class="literal">String</code></td>
+                                    <td>Field name</td>
+                                    <td>n/a</td>
+                                    <td>Yes</td>
+                                 </tr>
+                                 <tr>
+                                    <td><code class="literal">value</code></td>
+                                    <td><code class="literal">String</code></td>
+                                    <td>Field value</td>
+                                    <td>n/a</td>
+                                    <td>Yes</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                                               
+                        </div>
+                     </div><br class="table-break" />
+                                     
+                  </li>
                </ul>
             </div>
                     
@@ -303,7 +356,7 @@ border: none; background: none; font-weight: none; color: none; }
                   <td width="40%" align="left"><a accesskey="p" href="apcs27s01.html">Prev</a> 
                   </td>
                   <td width="20%" align="center"><a accesskey="u" href="HttpRequestTask.html">Up</a></td>
-                  <td width="40%" align="right"> <a accesskey="n" href="IoncubeEncoderTask.html">Next</a></td>
+                  <td width="40%" align="right"> <a accesskey="n" href="apcs27s03.html">Next</a></td>
                </tr>
                <tr>
                   <td width="40%" align="left" valign="top"> </td>
@@ -797,11 +850,14 @@ border: none; background: none; font-weight: none; color: none; }
                               </li>
                               <li><span class="file"><a href="HttpGetTask.html" tabindex="1">HttpGetTask</a></span><ul>
                                     <li><span class="file"><a href="apcs26s01.html" tabindex="1">Example</a></span></li>
+                                    <li><span class="file"><a href="apcs26s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs26s03.html" tabindex="1">Global configuration</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="HttpRequestTask.html" tabindex="1">HttpRequestTask</a></span><ul>
                                     <li><span class="file"><a href="apcs27s01.html" tabindex="1">Example</a></span></li>
                                     <li id="webhelp-currentid"><span class="file"><a href="apcs27s02.html" tabindex="1">Supported Nested Tags</a></span></li>
+                                    <li><span class="file"><a href="apcs27s03.html" tabindex="1">Global configuration</a></span></li>
                                  </ul>
                               </li>
                               <li><span class="file"><a href="IoncubeEncoderTask.html" tabindex="1">IoncubeEncoderTask</a></span><ul>
@@ -927,7 +983,7 @@ border: none; background: none; font-weight: none; color: none; }
                                     <li><span class="file"><a href="apcs52s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
                               </li>
-                              <li><span class="file"><a href="PhpDocumentor2Task.html" tabindex="1">DocBloxTask</a></span><ul>
+                              <li><span class="file"><a href="PhpDocumentor2Task.html" tabindex="1">PhpDocumentor2Task</a></span><ul>
                                     <li><span class="file"><a href="apcs53s01.html" tabindex="1">Example</a></span></li>
                                     <li><span class="file"><a href="apcs53s02.html" tabindex="1">Supported Nested Tags</a></span></li>
                                  </ul>
