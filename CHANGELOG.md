@@ -2,6 +2,53 @@ P     H     I     N     G
 =========================
 
 
+Feb. 13, 2014 - Phing 2.7.0
+---------------------------
+
+New or improved functionality:
+
+ * Support for PHP CodeSniffer 1.5, PHP Copy&Paste Detector 2.0 and PHPLOC 2.0
+ * Composer support for PHPCPD and PhpDocumentor tasks
+ * Fixed / improved error handling in various places
+ * More unit / regression tests added
+ * Various bugs and documentation errors fixed
+
+Additionally, the following Trac tickets (see www.phing.info) were fixed in this release:
+
+ * [1083] PhpDocumentor2Task: add support for default package name
+ * [1082] Tasks in root target are executed twice
+ * [1081] Documentation of AvailableTask does not link to conditions page
+ * [1078] IoncubeEncoderTask does not support PHP 5.4
+ * [1073] Phing silently died, when cant read build.xml
+ * [1070] PHPCS 1.5.0 breaks PHPCodeSniffer Task
+ * [1064] Formatter 'brief' not implemented when using Unittest task
+ * [1063] PHPCPD 2.0 breaks PHPCPD Task
+ * [1062] AvailableTask throws exception when filepath contains duplicates
+ * [1059] phing exits with return code 0 when there is unkown argument
+ * [1057] pdo exception thrown from pdosqlexec not properly handled
+ * [1056] filesyncTask: problem (error?) with verbose (-v) option
+ * [1054] Missing or erroneous definition in phing-grammar.rng
+ * [1053] Add composer support for phpdoc2 task
+ * [1051] phing 2.6.1 - impossible upgrade
+ * [1045] PHPLocTask broken with recent phploc updates
+ * [1044] Using fileset in echo does not list subdirectories
+ * [1042] Fix UnknownElement wrapping and configuring
+ * [1035] phpcpd tasks does not find dependencies when installed by composer
+ * [1034] Improving debuggability of errors in custom code
+ * [1032] FileSync Port
+ * [1030] JsMin task creates directories with 0700 permissions
+ * [1028] Change visibility of FailTask variables
+ * [1021] MailTask backend configuration
+ * [1010] Invalid error about refid attribute when specifying multiple targets
+ * [1009] certain liquibase tasks (rollback, tag and update) do not check return value
+ * [994] Clarify pdoexec autocommit/transactions
+ * [991] GitCommit: add fileset support
+ * [984] Improve documentation about including custom tasks
+ * [983] Selenium with PHPUnit: browser configurations are not processed
+ * [978] svn switches: recursive
+ * [976] phpunitreport: broken html for test suite names containing "/"
+ * [650] Namespace support for extensions (PSR0 support)
+
 Aug. 27, 2013 - Phing 2.6.1
 ---------------------------
 
