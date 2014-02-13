@@ -53,8 +53,6 @@ Documentation
   Documentation is available in various formats in the *docs/docbook5/en/output*
   directory (generated from DocBook sources located in *docs/docbook5/en/source*).
 
-  Additionally, the legacy user guide can be found in *docs/phing_guide*.
-
   For online documentation, you can also visit the Phing website: http://www.phing.info/
 
 Licensing
