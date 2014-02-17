@@ -5838,7 +5838,7 @@ Note that you can omit both startpoint and track attributes in this case
             and are set using PEAR_PackageFileManager::setOptions(). Use the
                 <literal>&lt;mapping></literal> tag to represent complex values.</para>
         <para> Note that Travis Swicegood has created a more complete implementation of this
-            functionality which can be found here: <link xlink:href="http://pear.domain51.com/"
+            functionality which can be found here: <link xlink:href="http://domain51.github.io/pear.domain51.com/"
                 role="extern">pear.domain51.com</link>.</para>
         <table>
             <title>Attributes</title>
