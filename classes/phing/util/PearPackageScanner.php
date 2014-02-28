@@ -34,10 +34,11 @@ class PearPackageScanner extends DirectoryScanner
     protected $packageFile;
 
     /**
-     * Sets the file to use for generated package.xml
+     * Sets the package.xml file to read, instead of using the
+     * local pear installation.
      *
      * @param string $descfile Name of package xml file
-
+     *
      * @return void
      */
     public function setDescFile($descfile)
