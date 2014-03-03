@@ -6,8 +6,8 @@
     <title>Project Components</title>
 
     <para>This file will give you a quick introduction and a reference of the things that you may
-        see in a build files besides <xref xlink:href="#app.coretasks"/>tasks and <xref
-            xlink:href="#app.coretypes"/>types.</para>
+        see in a build files besides <link linkend="app.coretasks">tasks</link> and
+            <link linkend="app.coretypes">types</link>.</para>
 
     <sect1 xml:id="Project">
         <title>Phing Projects</title>

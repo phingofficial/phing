@@ -281,7 +281,7 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -321,7 +321,7 @@
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>classpath</literal></entry>
+                        <entry><literal><link linkend="path">classpath</link></literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Additional classpath to locate source referenced in the
                             report</entry>
@@ -467,13 +467,13 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>classpath</literal></para>
+                    <para><literal><link linkend="path">classpath</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>filelist</literal></para>
+                    <para><literal><link linkend="FileList">filelist</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -549,10 +549,10 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>classpath</literal></para>
+                    <para><literal><link linkend="path">classpath</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para>excludes</para>
+                    <para><literal><link linkend="Excludes">excludes</link></literal></para>
                 </listitem>
             </itemizedlist>
             <para>Validates an optional code coverage database against the default
@@ -766,7 +766,7 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset - Files that should be included for parsing</para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for parsing</para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -1201,7 +1201,7 @@ checksum="true" />;</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                     <para>The files to deploy</para>
                 </listitem>
             </itemizedlist>
@@ -1994,7 +1994,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -3174,7 +3174,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>config </para>
+                    <para><literal>config</literal></para>
                     <para>Holds additional config data. See
                         <link xlink:href="http://pear.php.net/manual/en/package.http.http-request2.config.php"
                               role="extern">HTTP_Request2  documentation</link>
@@ -3218,7 +3218,7 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>header </para>
+                    <para><literal>header</literal></para>
                     <para> Holds additional header <literal>name</literal> and
                             <literal>value</literal>.</para>
                     <table>
@@ -3399,7 +3399,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>config </para>
+                    <para><literal>config</literal></para>
                     <para>Holds additional config data. See
                         <link xlink:href="http://pear.php.net/manual/en/package.http.http-request2.config.php"
                               role="extern">HTTP_Request2  documentation</link>
@@ -3443,7 +3443,7 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>header </para>
+                    <para><literal>header</literal></para>
                     <para> Holds additional header <literal>name</literal> and
                             <literal>value</literal>.</para>
                     <table>
@@ -3483,7 +3483,7 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>postparameter </para>
+                    <para><literal>postparameter</literal></para>
                     <para>Used when performing a POST request. Contains <literal>name</literal> and
                             <literal>value</literal> of a form field.</para>
                     <table>
@@ -3835,7 +3835,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>comment </para>
+                    <para><literal>comment</literal></para>
                     <para>Custom text that is added to the start of each encoded file.</para>
                 </listitem>
             </itemizedlist>
@@ -3931,7 +3931,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>comment </para>
+                    <para><literal>comment</literal></para>
                     <para>Custom text that is added to the start of each encoded file.</para>
                 </listitem>
             </itemizedlist>
@@ -4044,7 +4044,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -4112,7 +4112,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>JavaScript files to be minified.</para>
                 </listitem>
@@ -4150,7 +4150,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4364,7 +4364,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4488,7 +4488,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4625,7 +4625,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4775,7 +4775,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4909,7 +4909,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <entry>Yes</entry>
             </row>
             <row>
-                <entry><literal>classpath</literal></entry>
+                <entry><literal><link linkend="path">classpath</link></literal></entry>
                 <entry><literal role="type">String</literal></entry>
                 <entry>Additional classpath entries.</entry>
                 <entry>n/a</entry>
@@ -5043,7 +5043,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -5221,7 +5221,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>Files to be attached.</para>
                 </listitem>
@@ -5565,12 +5565,12 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>Files containing SQL statements.</para>
                 </listitem>
                 <listitem>
-                    <para><literal>filelist</literal>
+                    <para><literal><link linkend="FileList">filelist</link></literal>
                     </para>
                     <para>Files containing SQL statements.</para>
                 </listitem>
@@ -5765,7 +5765,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
                     <para><literal>option</literal></para>
@@ -5908,7 +5908,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
                     <para><literal>option</literal></para>
@@ -6436,13 +6436,13 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <!--
     TODO Describe metadata element.
   -->
                 <listitem>
-                    <para>metadata </para>
+                    <para><literal>metadata</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -6644,9 +6644,9 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>file</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The file or folder to check (usually the nested tag
-                                <literal>fileset</literal> is used instead).</entry>
+                                <literal><link linkend="FileSet">fileset</link></literal> is used instead).</entry>
                         <entry><literal>false</literal></entry>
-                        <entry>Either this attribute or the nested tag <literal>fileset</literal> is
+                        <entry>Either this attribute or the nested tag <literal><link linkend="FileSet">fileset</link></literal> is
                             required.</entry>
                     </row>
                     <row>
@@ -6747,7 +6747,7 @@ Note that you can omit both startpoint and track attributes in this case
   format="summary"
   file="/path/to/source-files"
   allowedFileExtensions="php php5 inc"/></programlisting>
-            <para> Checks all matching files in the <literal>fileset</literal> with the
+            <para> Checks all matching files in the <literal><link linkend="FileSet">fileset</link></literal> with the
                     <literal>Zend</literal> standard, sets the <literal>zend_ca_path</literal>
                 configuration which may be required by one of the sniffs, prints a list of used
                 sniffs and prints the <literal>default</literal> report with warnings and the
@@ -6780,7 +6780,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>Either this nested tag or the attribute <literal>file</literal> is
                         required.</para>
@@ -6918,7 +6918,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
                         <entry>Only when there are <emphasis>no</emphasis> nested
-                        <literal>fileset</literal> elements</entry>
+                        <literal><link linkend="FileSet">fileset</link></literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>minTokens</literal></entry>
@@ -6971,7 +6971,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
@@ -7129,7 +7129,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -7165,7 +7165,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
                         <entry>Only when there are <emphasis>no</emphasis> nested
-                        <literal>fileset</literal> elements</entry>
+                        <literal><link linkend="FileSet">fileset</link></literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>rulesets</literal></entry>
@@ -7231,7 +7231,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
@@ -7324,7 +7324,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
                         <entry>Only when there are <emphasis>no</emphasis> nested
-                                <literal>fileset</literal> elements</entry>
+                                <literal><link linkend="FileSet">fileset</link></literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>configFile</literal></entry>
@@ -7410,7 +7410,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
@@ -7691,11 +7691,11 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal> - Files that should be included for
+                    <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for
                         parsing</para>
                 </listitem>
                 <listitem>
-                    <para><literal>projdocfileset</literal> - Files that should be treated as
+                    <para><literal><link linkend="FileSet">projdocfileset</link></literal> - Files that should be treated as
                         README/INSTALL/CHANGELOG files</para>
                 </listitem>
             </itemizedlist>
@@ -7778,7 +7778,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset - Files that should be included for parsing</para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for parsing</para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -7977,7 +7977,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
 
@@ -8245,7 +8245,7 @@ Note that you can omit both startpoint and track attributes in this case
                                     <entry>No</entry>
                                 </row>
                                 <row>
-                                    <entry><literal>classpath</literal></entry>
+                                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>Used to define more paths on which - besides the PHP
                                         include_path - to look for the test files.</entry>
@@ -8311,7 +8311,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8576,7 +8576,7 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/target>
 &lt;/project></programlisting>
             <para> Rendering multiple files </para>
-            <para> A nested <literal>fileset</literal> tag may be used to specify multiple
+            <para> A nested <literal><link linkend="FileSet">fileset</link></literal> tag may be used to specify multiple
                 files.</para>
             <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
@@ -8592,7 +8592,7 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/target>
 &lt;/project></programlisting>
             <para> Rendering multiple files to another directory </para>
-            <para> A nested <literal>mapper</literal> may be used to determine the output file
+            <para> A nested <literal><link linkend="app.coremappers">mapper</link></literal> may be used to determine the output file
                 names.</para>
             <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
@@ -8660,13 +8660,13 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>mapper</literal></para>
+                    <para><literal><link linkend="app.coremappers">mapper</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>filterchain</literal></para>
+                    <para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8787,7 +8787,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -9006,7 +9006,7 @@ host="webserver" todir="/www/htdocs/project/">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
                     <para><literal>sshconfig</literal>
@@ -9432,7 +9432,7 @@ host="webserver" command="ls" /></programlisting>
                     </table>
                 </listitem>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
 
@@ -10667,7 +10667,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -10773,7 +10773,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -10846,7 +10846,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -10910,7 +10910,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11142,7 +11142,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11331,7 +11331,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11535,7 +11535,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11784,7 +11784,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>

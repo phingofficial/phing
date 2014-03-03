@@ -215,7 +215,7 @@
 				<literal>FileSet</literal>
 			</title>
 
-			<para>FileSets are groups of files. You can include or exclude specific files and
+			<para><link linkend="FileSet">FileSets</link> are groups of files. You can include or exclude specific files and
 				patterns to/from a FileSet. The use of patterns is explained below. For a start,
 				look at the following example:</para>
 
@@ -241,7 +241,7 @@
 			<title>
 				<literal>FileList</literal>
 			</title>
-			<para>FileLists, like FileSets, are collections of files; however, a FileList is an
+			<para><link linkend="FileList">FileLists</link>, like FileSets, are collections of files; however, a FileList is an
 				explicitly defined list of files -- and the files don't necessarily have to exist on
 				the filesystem.</para>
 			<para>Besides being able to refer to nonexistent files, another thing that
@@ -259,7 +259,7 @@
 			<title>
 				<literal>FilterChains</literal> and Filters </title>
 
-			<para><literal>FilterChains</literal> can be compared to Unix pipes. Unix pipes add a
+			<para><literal><link linkend="app.corefilters">FilterChains</link></literal> can be compared to Unix pipes. Unix pipes add a
 				great deal of flexibility to command line operations; for example, if you wanted to
 				copy just those lines that contained the string <literal>blee</literal> from the
 				first 10 lines of a file called <literal>foo</literal> to a file called
@@ -317,7 +317,8 @@
 			<title> File Mappers </title>
 
 			<para>With <literal>FilterChains</literal> and filters provide a powerful tool for
-				changing contents of files, Mappers provide a powerful tool for changing the names
+				changing contents of files, <literal><link linkend="app.coremappers">mappers</link></literal>
+                                provide a powerful tool for changing the names
 				of files.</para>
 
 			<para>To use a Mapper, you must specify a pattern to match on and a replacement pattern
@@ -356,7 +357,7 @@
 			</para>
 		</sect2>
 	</sect1>
-	<sect1>
+	<sect1 xml:id="conditions">
 		<title> Conditions </title>
 
 		<para> Conditions are nested elements of the <xref xlink:href="#app.coretasks"/> and <xref

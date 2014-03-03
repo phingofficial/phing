@@ -196,13 +196,13 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>filelist</literal></para>
+					<para><literal><link linkend="FileList">filelist</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>filterchain</literal></para>
+					<para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -476,8 +476,8 @@
 						</table>
 					</para>
 				</listitem>
-                <listitem><para><literal>fileset</literal></para></listitem>
-                <listitem><para><literal>filelist</literal></para></listitem>
+                <listitem><para><literal><link linkend="FileSet">fileset</link></literal></para></listitem>
+                <listitem><para><literal><link linkend="FileList">filelist</link></literal></para></listitem>
                 <listitem><para><literal>srcfile</literal></para></listitem>
 			</itemizedlist>
 		</sect2>
@@ -668,7 +668,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -754,7 +754,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -964,16 +964,16 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>filelist</literal></para>
+					<para><literal><link linkend="FileList">filelist</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>filterchain</literal></para>
+					<para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>mapper</literal></para>
+					<para><literal><link linkend="app.coremappers">mapper</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1279,7 +1279,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1366,7 +1366,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1733,13 +1733,13 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>filelist</literal></para>
+					<para><literal><link linkend="FileList">filelist</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>mapper</literal></para>
+					<para><literal><link linkend="app.coremappers">mapper</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -2089,7 +2089,7 @@
 			<title>Supported Nested Tags:</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>filterchain</literal></para>
+					<para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -2261,7 +2261,7 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -2609,7 +2609,7 @@
 			<title>Supported Nested Tags:</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>filterchain</literal></para>
+					<para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -2736,10 +2736,10 @@
 			<title>Supported Nested Tags:</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>filterchain</literal></para>
+					<para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -2909,7 +2909,7 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>classpath</literal></para>
+					<para><literal><link linkend="path">classpath</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -2975,7 +2975,7 @@ file defines a task in the format: name=path.to.Task -->
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -3239,7 +3239,7 @@ Includes the Type named "CustomProject" and makes it available by
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>classpath</literal></para>
+					<para><literal><link linkend="path">classpath</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -3329,13 +3329,13 @@ Includes the Type named "CustomProject" and makes it available by
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>filelist</literal></para>
+					<para><literal><link linkend="FileList">filelist</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>fileset</literal></para>
+					<para><literal><link linkend="FileSet">fileset</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>mapper</literal></para>
+					<para><literal><link linkend="app.coremappers">mapper</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -3413,7 +3413,7 @@ Includes the Type named "CustomProject" and makes it available by
 		</sect2>
 		<sect2 role="nestedtags">
 			<title>Supported Nested Tags</title>
-			<para>All conditionals including <literal>and</literal>, <literal>or</literal>,
+			<para>All <link linkend="conditions">conditionals</link> including <literal>and</literal>, <literal>or</literal>,
 					<literal>not</literal> etc. </para>
 		</sect2>
 	</sect1>
@@ -3484,13 +3484,13 @@ Includes the Type named "CustomProject" and makes it available by
 &lt;/xslt></programlisting>
 		</sect2>
 		<sect2 role="nestedtags">
-			<title>Supported Nested Elements</title>
+			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>mapper</literal></para>
+					<para><literal><link linkend="app.coremappers">mapper</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>filterchain</literal></para>
+					<para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
 				</listitem>
 				<listitem>
 					<para><literal>param</literal></para>

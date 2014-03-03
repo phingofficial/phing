@@ -71,13 +71,10 @@ class PearPackageFileSet extends FileSet
     protected $role = 'php';
 
     /**
-     * Prefix to prepend to the file paths in the zip
-     */
-    protected $prefix;
-
-    /**
      * Full path to a PEAR config file.
      * If none provided, default one is used.
+     *
+     * @var string
      */
     protected $config;
 
@@ -143,6 +140,7 @@ class PearPackageFileSet extends FileSet
 
     /**
      * Sets the package.xml filename.
+     * If it is not set, the local pear installation is queried for the package.
      *
      * @return void
      */
