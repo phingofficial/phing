@@ -15,17 +15,17 @@
 			<title>Nested tags</title>
 			<itemizedlist>
 				<listitem>
-					<para>File</para>
+					<para><literal>file</literal></para>
 				</listitem>
 				<listitem>
-					<para>Class</para>
+					<para><literal>class</literal></para>
 				</listitem>
 				<listitem>
-					<para>Method</para>
+					<para><literal>method</literal></para>
 				</listitem>
 			</itemizedlist>
 			<table>
-				<title> Common attributes for all <literal>File, Class, Method</literal> tags </title>
+				<title> Common attributes for all <literal>file</literal>, <literal>class</literal>, <literal>method</literal> tags </title>
 				<tgroup cols="5">
 					<colspec colname="name" colnum="1" colwidth="1.5*"/>
 					<colspec colname="type" colnum="2" colwidth="0.8*"/>
@@ -46,7 +46,7 @@
 							<entry><literal>name</literal></entry>
 							<entry><literal role="type">String</literal></entry>
 							<entry>The name of the class, method or file. This may also be specified
-								as a pattern.</entry>
+								as a <link linkend="patterns">pattern</link>.</entry>
 							<entry>n/a</entry>
 							<entry>Yes</entry>
 						</row>
@@ -133,8 +133,8 @@
 		<title>FileSet</title>
 
 		<para> FileSets offer an easy and straightforward way to include files. The tag supports
-			Selectors (see <xref xlink:href="#app.selectors" />) and
-			PatternSets (see <xref xlink:href="#PatternSet" />). Additionally, you can include/exclude
+			<link linkend="app.selectors">Selectors</link> and
+			<link linkend="PatternSet">PatternSets</link>. Additionally, you can include/exclude
 			files in/from a fileset using the
 				<literal>&lt;include></literal>/<literal>&lt;exclude></literal> tags. In patterns,
 			one asterisk (<literal>*</literal>) maps to a part of a file/directory name within a
@@ -234,7 +234,7 @@
 				</tbody>
 			</tgroup>
 		</table>
-		<sect2>
+		<sect2 xml:id="patterns">
 			<title>Using wildcards</title>
 			<itemizedlist>
 				<listitem>
@@ -275,13 +275,13 @@
 			<para> The tags that are supported by <literal>Fileset</literal> are:</para>
 			<itemizedlist>
 				<listitem>
-					<para>include</para>
+					<para><literal>include</literal></para>
 				</listitem>
 				<listitem>
-					<para>exclude</para>
+					<para><literal>exclude</literal></para>
 				</listitem>
 				<listitem>
-					<para>patternset</para>
+					<para><literal><link linkend="PatternSet">patternset</link></literal></para>
 				</listitem>
 			</itemizedlist>
 			<para>The <literal>&lt;include></literal> and the <literal>&lt;exclude></literal> tags
@@ -292,7 +292,7 @@
 	<sect1 role="typedef" xml:id="PatternSet">
 		<title>PatternSet </title>
 		<para>The PatternSet data type defines patterns that can be grouped into sets and nested
-			into <link xlink:href="#FileSet">FileSets</link>. Patterns can be specified by nested
+			into <link linkend="FileSet">FileSets</link>. Patterns can be specified by nested
 			&lt;include> or &lt;exclude> elements.</para>
 		<table>
 			<title> Attributes for <literal>&lt;patternset></literal> tag </title>
@@ -360,7 +360,7 @@
 			<para> The <literal>&lt;patternset></literal> tag only supports
 					<literal>&lt;include></literal> and <literal>&lt;exclude></literal>. The
 					<literal>&lt;include></literal> and the <literal>&lt;exclude></literal> tags
-				must have a <literal>name</literal> attribute that contains the pattern to
+				must have a <literal>name</literal> attribute that contains the <link linkend="patterns">pattern</link> to
 				include/exclude.</para>
 		</sect2>
 	</sect1>
@@ -418,7 +418,7 @@
 		<sect2 role="nestedtags">
 			<title>Nested tags</title>
 			<para> The <literal>&lt;paentry> </literal>tag supports nested
-					<literal>&lt;fileset></literal> and <literal>&lt;dirset></literal> tags.</para>
+					<literal><link linkend="FileSet">&lt;fileset></link></literal> and <literal>&lt;dirset></literal> tags.</para>
 		</sect2>
 	</sect1>
 </appendix>

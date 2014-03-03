@@ -47,7 +47,7 @@
             <title> Mappers </title>
 
             <para>Creating new mappers is also a rare need, since most everything can be handled by
-                the <xref xlink:href="#app.coretypes"/>. The Mapper framework does provide a simple
+                the <xref xlink:href="#app.coremappers"/>. The Mapper framework does provide a simple
                 way for defining your own mappers to use instead, however, and mappers implement a
                 very simple interface.</para>
         </sect2>
