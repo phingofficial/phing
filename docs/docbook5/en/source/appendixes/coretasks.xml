@@ -1910,8 +1910,12 @@
 	</sect1>
 	<sect1 role="taskdef" xml:id="IncludePathTask">
 		<title>IncludePathTask </title>
-		<para>Sets the PHP <literal>include_path</literal> configuration option for the duration of this
-			phing run.</para>
+		<para>Modifies the PHP <literal><link xlink:href="http://php.net/include_path" role="extern">include_path</link></literal>
+                    configuration option for the duration of this
+                    phing run.</para>
+                <para>
+                    The given path is prepended to the current include path.
+                </para>
 		<table>
 			<title>Attributes</title>
 			<tgroup cols="5">
