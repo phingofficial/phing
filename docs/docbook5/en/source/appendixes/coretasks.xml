@@ -500,8 +500,7 @@
 				so the property <literal>foo.ext.loaded</literal> is set to <literal>"true"</literal> (default).
 			<emphasis role="bold">k</emphasis></para>
 		<para><emphasis role="bold">NB:</emphasis> the Available task can also be used as a
-			condition, see <xref
-				xlink:href="#app.projcomponents"/>.</para>
+			condition, see <link linkend="conditions">conditions</link>.</para>
 
 		<table>
 			<title>Attributes</title>
@@ -767,7 +766,7 @@
 			the property is not set. You can set the value to something other than the default by
 			specifying the <literal>value</literal> attribute.</para>
 		<para>Conditions are specified as nested elements, you must specify exactly one condition -
-			see <xref xlink:href="#app.projcomponents"/> for a complete list of nested
+			see <link linkend="conditions">conditions</link> for a complete list of nested
 			elements.</para>
 		<table>
 			<title>Attributes</title>
@@ -817,10 +816,10 @@
 			<title>Supported Nested Tags</title>
 			<itemizedlist>
 				<listitem>
-					<para><literal>or</literal></para>
+					<para><literal><link linkend="conditions.or">or</link></literal></para>
 				</listitem>
 				<listitem>
-					<para><literal>and</literal></para>
+					<para><literal><link linkend="conditions.and">and</link></literal></para>
 				</listitem>
 			</itemizedlist>
 		</sect2>
@@ -1748,9 +1747,9 @@
 		<title>IfTask </title>
 		<para>Perform some tasks based on whether a given condition holds true or not.</para>
 		<para>This task doesn't have any attributes, the condition to test is specified by a nested
-			element - see the <xref xlink:href="#app.projcomponents"/> for a complete list of nested
+			element - see the <link linkend="conditions">conditions</link> for a complete list of nested
 			elements.</para>
-		<para>Just like the <literal>&lt;condition></literal> task, only a single condition can be
+		<para>Just like the <literal><link linkend="ConditionTask">&lt;condition></link></literal> task, only a single condition can be
 			specified - you combine them using <literal>&lt;and></literal> or
 				<literal>&lt;or></literal> conditions.</para>
 		<para>In addition to the condition, you can specify three different child elements,
