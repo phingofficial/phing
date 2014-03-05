@@ -4,15 +4,15 @@
             Project Mess Detector (PMD) for PHP Code. You need an installed version of this software
             to use this task.</p>
 
-        <div class="table"><a name="idp74280688"></a><p class="formal-object-title"><span class="label">Table C.69: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp48659344"></a><p class="formal-object-title"><span class="label">Table C.69: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file or path</td><td>n/a</td><td>Only when there are <span class="emphasis"><em>no</em></span> nested
-                        <code class="literal">fileset</code> elements</td></tr><tr><td><code class="literal">rulesets</code></td><td><code class="literal">String</code></td><td>Sets the rulesets used for analyzing the source code</td><td>codesize, unusedcode</td><td>No</td></tr><tr><td><code class="literal">minimumPriority</code></td><td><code class="literal">Integer</code></td><td>The minimum priority for rules to load.</td><td>5</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>Comma-separated list of valid file extensions (without dot) for
+                        <code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code> elements</td></tr><tr><td><code class="literal">rulesets</code></td><td><code class="literal">String</code></td><td>Sets the rulesets used for analyzing the source code</td><td>codesize, unusedcode</td><td>No</td></tr><tr><td><code class="literal">minimumPriority</code></td><td><code class="literal">Integer</code></td><td>The minimum priority for rules to load.</td><td>5</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>Comma-separated list of valid file extensions (without dot) for
                             analyzed files.</td><td>php</td><td>No</td></tr><tr><td><code class="literal">ignorePatterns</code></td><td><code class="literal">String</code></td><td>Comma-separated list of directory patterns to ignore.</td><td><code class="literal">.git</code>, <code class="literal">.svn</code>,
                                 <code class="literal">CVS</code>, <code class="literal">.bzr</code>,
                                 <code class="literal">.hg</code></td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The format for the report when no nested formatter is used.</td><td>text</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp74314208"></a>C.50.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp48693328"></a>C.50.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;phpmd file="path/to/source.php"/&gt;</pre>
 
@@ -31,10 +31,10 @@
  &lt;/phpmd&gt;</pre>
             <p>Checking syntax of source files in the fileset pathes.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp74319216"></a>C.50.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp48698144"></a>C.50.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-                    <p><code class="literal">fileset</code>
+                    <p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code>
                     </p>
                     <p> This nested tag is required when the <code class="literal">file</code> attribute is
                         not set.</p>
@@ -46,7 +46,7 @@
                         attribute to <code class="literal">true</code> and set an filename in the
                             <code class="literal">outfile</code> attribute.</p>
 
-                    <div class="table"><a name="idp74325664"></a><p class="formal-object-title"><span class="label">Table C.70: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp48704864"></a><p class="formal-object-title"><span class="label">Table C.70: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                             <code class="literal">format</code> attribute

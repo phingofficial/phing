@@ -2,7 +2,8 @@
     
 
     <p>This file will give you a quick introduction and a reference of the things that you may
-        see in a build files besides <a class="xref" href="apb.html" title="Appendix B. Core tasks">Appendix B, <i>Core tasks</i></a>tasks and <a class="xref" href="apd.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>types.</p>
+        see in a build files besides <a class="link" href="apb.html" title="Appendix B. Core tasks">tasks</a> and
+            <a class="link" href="apd.html" title="Appendix D. Core Types">types</a>.</p>
 
     <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="Project"></a>H.1 Phing Projects</h2></div></div></div>
         
@@ -11,7 +12,7 @@
                 <code class="literal">&lt;project&gt;</code> tag also is the root tag in build files. It
             contains the name, the directory, a short description and a default target.</p>
         <p>Project may contain task calls and targets (see below).</p>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77175152"></a>H.1.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51568928"></a>H.1.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;?xml version="1.0" ?&gt;
 
@@ -23,9 +24,9 @@
 &lt;/project&gt;</pre>
             
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77176896"></a>H.1.2 Attributes</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51570672"></a>H.1.2 Attributes</h3></div></div></div>
             
-            <div class="table"><a name="idp77177664"></a><p class="formal-object-title"><span class="label">Table H.1: </span><span class="title">Attributes</span></p><div class="table-contents">
+            <div class="table"><a name="idp51571440"></a><p class="formal-object-title"><span class="label">Table H.1: </span><span class="title">Attributes</span></p><div class="table-contents">
                 
                 <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">basedir</code></td><td><code class="literal">String</code></td><td>The base directory of the project, i.e. the directory all paths
                                 are relative to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">default</code></td><td><code class="literal">String</code></td><td>The name of the target that is executed if none is explicitely

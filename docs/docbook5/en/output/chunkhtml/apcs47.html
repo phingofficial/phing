@@ -3,7 +3,7 @@
         <p> This task runs <a class="ulink" href="http://pear.php.net/package/PHP_CodeSniffer" target="_top">PHP_CodeSniffer</a> to detect violations of a defined set of coding
             standards.</p>
 
-        <div class="table"><a name="idp74031536"></a><p class="formal-object-title"><span class="label">Table C.63: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp48407200"></a><p class="formal-object-title"><span class="label">Table C.63: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">standard</code></td><td><code class="literal">String</code></td><td>The name of the standard to check for.</td><td>Generic</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The output format. The <code class="literal">default</code> format is specified
                             in the task itself. Additionally all report formats of PHP_CodeSniffer
@@ -11,7 +11,7 @@
                                 <code class="literal">full</code>, <code class="literal">summary</code>, ...).</td><td>default</td><td>No Ignored if nested <code class="literal">formatter</code> elements are
                             supplied.</td></tr><tr><td><code class="literal">showSniffs</code></td><td><code class="literal">Boolean</code></td><td>Print the list of used sniffs.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">showWarnings</code></td><td><code class="literal">Boolean</code></td><td>Print warnings.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">showSources</code></td><td><code class="literal">Boolean</code></td><td>Flag that determines whether to show sources or not.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">docGenerator</code></td><td><code class="literal">String</code></td><td>The name of the doc generator (HTML, Text).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">docFile</code></td><td><code class="literal">String</code></td><td>Path to write output file to. If not set documentation will be
                             written to STDOUT when <code class="literal">docGenerator</code> is set.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file or folder to check (usually the nested tag
-                                <code class="literal">fileset</code> is used instead).</td><td><code class="literal">false</code></td><td>Either this attribute or the nested tag <code class="literal">fileset</code> is
+                                <code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code> is used instead).</td><td><code class="literal">false</code></td><td>Either this attribute or the nested tag <code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code> is
                             required.</td></tr><tr><td><code class="literal">sniffs</code></td><td><code class="literal">String</code></td><td>The list of allowed sniffs (separated by space, comma or semicolon).
                             The sniffs must be part of the choosen standard.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">verbosity</code></td><td><code class="literal">Integer</code></td><td>The verbosity level of CodeSniffer where level 1 prints progress
                             information and level 2 prints developer debug information.</td><td>0</td><td>No</td></tr><tr><td><code class="literal">encoding</code></td><td><code class="literal">String</code></td><td>The encoding of the files to check</td><td>iso-8859-1</td><td>No</td></tr><tr><td><code class="literal">tabWidth</code></td><td><code class="literal">Integer</code></td><td>Replaces tabs with the given number of spaces. If zero no replacing
@@ -22,7 +22,7 @@
                             the <code class="literal">file</code> attribute.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonerror</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if errors occurred during the
                             run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonwarning</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if warnings occurred during the run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">skipversioncheck</code></td><td><code class="literal">Boolean</code></td><td>Skips the version check when the task starts.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp74111632"></a>C.47.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp48488048"></a>C.47.1 Examples</h3></div></div></div>
             
             <p> Checks all files in the directory <code class="literal">file</code> matching the allowed
                 file extension with the <code class="literal">PEAR</code> standard and prints the
@@ -32,7 +32,7 @@
   format="summary"
   file="/path/to/source-files"
   allowedFileExtensions="php php5 inc"/&gt;</pre>
-            <p> Checks all matching files in the <code class="literal">fileset</code> with the
+            <p> Checks all matching files in the <code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code> with the
                     <code class="literal">Zend</code> standard, sets the <code class="literal">zend_ca_path</code>
                 configuration which may be required by one of the sniffs, prints a list of used
                 sniffs and prints the <code class="literal">default</code> report with warnings and the
@@ -61,10 +61,10 @@
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/&gt;
 &lt;/phpcodesniffer&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp74122480"></a>C.47.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp48499200"></a>C.47.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-                    <p><code class="literal">fileset</code>
+                    <p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code>
                     </p>
                     <p>Either this nested tag or the attribute <code class="literal">file</code> is
                         required.</p>
@@ -74,7 +74,7 @@
                     <p>The configuration parameters which are usually loaded from the
                         CodeSniffer.conf can be set.</p>
 
-                    <div class="table"><a name="idp74127744"></a><p class="formal-object-title"><span class="label">Table C.64: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp48504976"></a><p class="formal-object-title"><span class="label">Table C.64: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of the configuration parameter.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Value of the configuration parameter.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -86,7 +86,7 @@
                         attribute to <code class="literal">false.</code>
                     </p>
 
-                    <div class="table"><a name="idp74148496"></a><p class="formal-object-title"><span class="label">Table C.65: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp48525696"></a><p class="formal-object-title"><span class="label">Table C.65: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                             <code class="literal">format</code> attribute

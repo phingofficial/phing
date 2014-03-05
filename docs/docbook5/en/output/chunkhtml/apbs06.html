@@ -4,23 +4,23 @@
 
 		<p>For more informations, see <a class="ulink" href="http://php.net/chmod" target="_top">chmod</a> in the
 			PHP Manual.</p>
-		<div class="table"><a name="idp70081664"></a><p class="formal-object-title"><span class="label">Table B.7: </span><span class="title">Attributes</span></p><div class="table-contents">
+		<div class="table"><a name="idp35661120"></a><p class="formal-object-title"><span class="label">Table B.7: </span><span class="title">Attributes</span></p><div class="table-contents">
 			
 			<table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The name of the file or directory. You either have to specify this
 							attribute, or use a fileset.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">mode</code></td><td><code class="literal">String</code></td><td>The new mode (octal) for the file. Specified in octal, even if the
 							first digit is not a '0'.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>Set quiet mode, which suppresses warnings if
 								<code class="literal">chmod()</code> fails</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">failonerror</code></td><td><code class="literal">Boolean</code></td><td>This flag means 'note errors to the output, but keep going'</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">verbose</code></td><td><code class="literal">Boolean</code></td><td>Give more information in error message in case of a failure</td><td><code class="literal">true</code></td><td>No</td></tr></tbody></table>
 		</div></div><br class="table-break">
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp70106384"></a>B.6.1 Examples</h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp35691360"></a>B.6.1 Examples</h3></div></div></div>
 			
 			<pre class="programlisting">&lt;chmod file="test.txt" mode="0755" /&gt;
 &lt;chmod file="/home/test" mode="0775" /&gt;
 &lt;chmod file="/home/test/mine.txt" mode="0500" verbose="true" /&gt;</pre>
 		</div>
-		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp70107936"></a>B.6.2 Supported Nested Tags</h3></div></div></div>
+		<div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp35693280"></a>B.6.2 Supported Nested Tags</h3></div></div></div>
 			
 			<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-					<p><code class="literal">fileset</code></p>
+					<p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code></p>
 				</li></ul></div>
 		</div>
 	</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apbs05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="apb.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apbs07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.5 AvailableTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.7 ChownTask </td></tr></table></div></body></html>
