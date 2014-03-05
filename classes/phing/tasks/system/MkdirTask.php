@@ -65,6 +65,10 @@ class MkdirTask extends Task {
         if (!$this->dir->exists()) {
             $result = $this->dir->mkdirs($this->mode);
             if (!$result) {
+                if ($this->dir->exists()) {
+                    $this->log("A different process or task has already created " . $this->dir->getAbsolutePath());
+                    return;
+                }
                 $msg = "Directory " . $this->dir->getAbsolutePath() . " creation was not successful for an unknown reason";
                 throw new BuildException($msg, $this->location);
             }
