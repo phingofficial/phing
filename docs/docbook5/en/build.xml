@@ -431,7 +431,7 @@
         <phingcall target="hlhtml"/>
         <phingcall target="chunk"/>
         <phingcall target="epub"/>
-        <phingcall target="webhelp"/>
+<!--        <phingcall target="webhelp"/> -->
     </target>
 
 </project>
