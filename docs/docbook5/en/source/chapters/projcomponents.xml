@@ -360,10 +360,11 @@
 	<sect1 xml:id="conditions">
 		<title> Conditions </title>
 
-		<para> Conditions are nested elements of the <xref xlink:href="#app.coretasks"/> and <xref
-				xlink:href="#app.coretasks"/> tasks.</para>
+		<para> Conditions are nested elements of the <link linkend="ConditionTask">condition</link>,
+				<link linkend="IfTask">if</link> and
+				<link linkend="WaitForTask">waitfor</link> tasks.</para>
 
-		<sect2>
+		<sect2 xml:id="conditions.not">
 			<title><literal>not</literal></title>
 			<para> The <code>&lt;not></code> element expects exactly one other condition to be
 				nested into this element, negating the result of the condition. It doesn't have any
@@ -371,7 +372,7 @@
 				as well.</para>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.and">
 			<title><literal>and</literal></title>
 			<para> The <code>&lt;and></code> element doesn't have any attributes and accepts an
 				arbitrary number of conditions as nested elements. This condition is true if all of
@@ -383,7 +384,7 @@
 				one of the nested conditions is false, no other condition will be evaluated.</para>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.or">
 			<title><literal>or</literal></title>
 			<para> The <code>&lt;or></code> element doesn't have any attributes and accepts an
 				arbitrary number of conditions as nested elements. This condition is true if at
@@ -395,7 +396,7 @@
 				the nested conditions is true, no other condition will be evaluated.</para>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.os">
 			<title><literal>os</literal></title>
 			<para>Test whether the current operating system is of a given type.</para>
 
@@ -435,7 +436,7 @@
 			</itemizedlist>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.equals">
 			<title><literal>equals</literal></title>
 			<para>Tests whether the two given Strings are identical</para>
 			<table>
@@ -478,7 +479,7 @@
 			</table>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.isset">
 			<title><literal>isset</literal></title>
 			<para>Test whether a given property has been set in this project.</para>
 			<table>
@@ -505,7 +506,7 @@
 			</table>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.contains">
 			<title><literal>contains</literal></title>
 			<para>Tests whether a string contains another one.</para>
 			<table>
@@ -542,7 +543,7 @@
 			</table>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.istrue">
 			<title><literal>istrue</literal></title>
 			<para>Tests whether a string evaluates to true.</para>
 
@@ -572,7 +573,7 @@
 &lt;istrue value=&quot;false&quot;/&gt;</programlisting>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.isfalse">
 			<title><literal>isfalse</literal></title>
 			<para>Tests whether a string evaluates to not true, the negation of
 					<literal>&lt;istrue></literal></para>
@@ -602,7 +603,7 @@
 &lt;isfalse value="false"/></programlisting>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.referenceexists">
 			<title><literal>referenceexists</literal></title>
 			<para>Tests whether a specified reference exists.</para>
 			<table>
@@ -630,9 +631,9 @@
 			<programlisting language="xml">&lt;referenceexists ref="${someid}"/></programlisting>
 
 		</sect2>
-		<sect2>
+		<sect2 xml:id="conditions.available">
 			<title><literal>available</literal></title>
-			<para>This condition is identical to the <link xlink:href="#AvailableTask"
+			<para>This condition is identical to the <link linkend="AvailableTask"
 					>Available</link> task, all attributes and nested elements of that task are
 				supported, the property and value attributes are redundant and will be
 				ignored.</para>
