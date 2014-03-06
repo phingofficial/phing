@@ -51,7 +51,7 @@
 		<mkdir dir="${tests.reports.dir.resolved}/coverage"/>
 			
 		<fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
-			<include name="**/*${test.class}Test.php"/>
+			<include name="**/*${test.class}.php"/>
 		</fileset>
 	</target>
 
@@ -98,6 +98,8 @@
 		<property name="test.class" value="" override="true"/>
 	</target>
 	
-	<target name="phpunit" depends="initialize,reports" description="Executes the PHPUnit test suite"/>
+	<target name="phpunit"
+	    depends="initialize,reports"
+	    description="Executes the PHPUnit test suite. To run a specific test: phing -Dtest=NameOfTest"/>
 	
 </project>
