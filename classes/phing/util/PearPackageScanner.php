@@ -223,7 +223,9 @@ class PearPackageScanner extends DirectoryScanner
                 continue;
             }
             $origFile = $file;
-            $file = ltrim($att['baseinstalldir'] . '/' . $file, '/');
+            if (isset($att['baseinstalldir'])) {
+                $file = ltrim($att['baseinstalldir'] . '/' . $file, '/');
+            }
             $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
 
             if ($this->isIncluded($file)) {
