@@ -216,11 +216,14 @@ class PearPackageScanner extends DirectoryScanner
         $this->dirsNotIncluded  = array();
         $this->dirsExcluded     = array();
         $this->dirsDeselected   = array();
+        $origFirstFile = null;
 
         foreach ($list as $file => $att) {
             if ($att['role'] != $this->role && $this->role != '') {
                 continue;
             }
+            $origFile = $file;
+            $file = ltrim($att['baseinstalldir'] . '/' . $file, '/');
             $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
 
             if ($this->isIncluded($file)) {
@@ -237,6 +240,9 @@ class PearPackageScanner extends DirectoryScanner
                         $this->dirsIncluded[] = $file;
                     } else {
                         $this->filesIncluded[] = $file;
+                        if ($origFirstFile === null) {
+                            $origFirstFile = $origFile;
+                        }
                     }
                 }
             } else {
@@ -251,11 +257,10 @@ class PearPackageScanner extends DirectoryScanner
 
         if (count($this->filesIncluded) > 0) {
             if (empty($this->packageFile)) {
-                $file = $this->filesIncluded[0];
-                $file = str_replace(DIRECTORY_SEPARATOR, '/', $file);
-                $att  = $list[$file];
-
-                $base_dir = substr($att['installed_as'], 0, -strlen($file));
+                $att = $list[$origFirstFile];
+                $base_dir = substr(
+                    $att['installed_as'], 0, -strlen($this->filesIncluded[0])
+                );
             } else {
                 $base_dir = dirname($this->packageFile);
             }
