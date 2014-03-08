@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.gettingstarted">
@@ -90,7 +90,7 @@
     &lt;/target&gt;
 
     &lt;!-- ============================================  --&gt;
-    &lt;!-- (DEFAULT)  Target: dist                       --&gt; 
+    &lt;!-- (DEFAULT)  Target: dist                       --&gt;
     &lt;!-- ============================================  --&gt;
     &lt;target name=&quot;dist&quot; depends=&quot;build&quot;&gt;
         &lt;echo msg=&quot;Creating archive...&quot; /&gt;
@@ -448,9 +448,9 @@
             auto-completion by adding a specification in the beginning of the XML file. For example,
             the following two lines in the beginning of an XML file would do (of course the exact
             path to the grammar will depend on your system setup) </para>
-        <screen>&lt;?xml version="1.0" encoding="UTF-8"?> 
-&lt;?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
-            type="application/xml" 
+        <screen>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng"
+            type="application/xml"
             schematypens="http://relaxng.org/ns/structure/1.0" ?></screen>
         <para>Using auto-completion will make it substantially easier to edit large build files.
             Please note that since the phing-grammar does not have an official designation we must

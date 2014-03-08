@@ -431,7 +431,7 @@ class MyEchoTask extends Task {
             path isn't already on the include path. See <xref
             xlink:href="#IncludePathTask"/> for
             a more detailed explanation.</para>
-            
+
             <para> Now, as we have registered the task by assigning a name and the worker class
                 ([see source code above]) it is ready for usage within the
                     <literal>&lt;target></literal> context (line 8). You see that we pass the
@@ -788,7 +788,7 @@ class DSN extends DataType {
   &lt;target name="main">
 
     &lt;my-special-db-task>
-	     &lt;dsn refid="maindsn"/>
+         &lt;dsn refid="maindsn"/>
     &lt;/my-special-db-task>
 
     &lt;my-other-db-task>
@@ -896,7 +896,7 @@ class DOSMapper implements FileNameMapper {
    */
   public function setFrom($from) {}
 
-	 /**
+     /**
    * The "from" attribute is not needed here, but method must exist.
    */
   public function setTo($to) {}

@@ -2,7 +2,7 @@
 
 <sect1 role="taskdef" xml:id="#NAME_OF_TASK#Task">
     <title>#NAME_OF_TASK#Task</title>
-    <para> DESCRIPTION OF TASK. 
+    <para> DESCRIPTION OF TASK.
         INCLUDE LINKS AS <link xlink:href="http://XXXX_URL">XXXX_NAME</link>.
     </para>
     <table>

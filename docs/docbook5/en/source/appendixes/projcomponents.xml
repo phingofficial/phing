@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.projcomponents">
@@ -26,7 +26,7 @@
   &lt;!-- Everything else goes here --&gt;
 
 &lt;/project&gt;</programlisting>
-            
+
         </sect2>
         <sect2>
             <title>Attributes</title>
@@ -37,7 +37,7 @@
                     <colspec colname="type" colnum="2" colwidth="0.8*"/>
                     <colspec colname="description" colnum="3" colwidth="3.5*"/>
                     <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="required" colnum="5" colwidth="1.2*"/>                    
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
@@ -119,7 +119,7 @@
                     <colspec colname="type" colnum="2" colwidth="0.8*"/>
                     <colspec colname="description" colnum="3" colwidth="3.5*"/>
                     <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="required" colnum="5" colwidth="1.2*"/>                    
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
