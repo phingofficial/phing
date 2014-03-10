@@ -3937,6 +3937,74 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="JsHintTask">
+        <title>JsHintTask</title>
+        <para>This task runs <link xlink:href="http://www.jshint.com/" role="extern">JSHint</link>,
+            a tool that helps to detect errors and potential problems in JavaScript code.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Single file to perform check on.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>haltOnError</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+                        <entry>Should the build fail when there are errors in the JS code?</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>haltOnWarning</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+                        <entry>Should the build fail when there are warnings in the JS code?</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checkstyleReportPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path where the the report in Checkstyle format should be saved.</entry>
+                        <entry>n/a</entry>
+                        <entry morerows="2">No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">
+        &lt;jshint
+            haltonerror="false"
+            haltOnWarning="false"
+            checkstyleReportPath="${project.basedir}/build/checkstyle-jshint.xml">
+            &lt;fileset dir="${project.basedir}/public_html/www/js">
+                &lt;include name="**/**.js"/>
+                &lt;exclude name="js-cache/**"/>
+            &lt;/fileset>
+        &lt;/jshint></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="JslLintTask">
         <title>JslLintTask</title>
         <para> The <literal>JslLintTask</literal> uses the <link
