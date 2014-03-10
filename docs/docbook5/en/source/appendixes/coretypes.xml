@@ -292,6 +292,14 @@
                 must have a <literal>name</literal> attribute that contains the pattern to
                 include/exclude.</para>
         </sect2>
+        <sect2 role="related">
+            <title>Related types</title>
+            <itemizedlist>
+                 <listitem>
+                      <link linkend="PearPackageFileSet">pearpackagefileset</link>
+                 </listitem>
+            </itemizedlist>
+        </sect2>
     </sect1>
     <sect1 role="typedef" xml:id="PatternSet">
         <title>PatternSet </title>
@@ -423,6 +431,126 @@
             <title>Nested tags</title>
             <para> The <literal>&lt;paentry> </literal>tag supports nested
                     <literal><link linkend="FileSet">&lt;fileset></link></literal> and <literal>&lt;dirset></literal> tags.</para>
+        </sect2>
+    </sect1>
+
+
+    <sect1 role="typedef" xml:id="PearPackageFileSet">
+        <title>PearPackageFileSet</title>
+
+        <para>
+            Specialized <link linkend="FileSet">fileset</link> that represents
+            files of a <link xlink:href="http://pear.php.net/">PEAR</link>
+            package installed on the system.
+            It is useful for collecting dependencies, for example when packing up
+            a <link linkend="PharPackageTask">phar</link> file with all dependencies.
+        </para>
+        <table>
+            <title>Attributes for the <literal>&lt;pearpackagefileset></literal> tag</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>package</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>
+                            Package name, or <literal>$channel/$package</literal>
+                            combination.
+                            If only a package name is given,
+                            <literal>pear.php.net</literal> is used as channel.
+                        </entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>config</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>
+                            Path to PEAR configuration file.
+                            If none is given, the system default is used.
+                        </entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>descfile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>
+                            <literal>package.xml</literal> file path.
+                            If not given, the local PEAR installation is queried
+                            for the package.
+                        </entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>role</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>
+                            PEAR file role/category.
+                            PEAR supports the following
+                            <link xlink:href="http://pear.php.net/manual/en/guide.developers.package2.file.php#guide.developers.package2.file.roles">roles</link>:
+                            php, doc, data, www, test, script, cfg.
+                            You probably want to use <literal>php</literal>.
+                        </entry>
+                        <entry><literal>php</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <para>
+         In addition, all attributes of <link linkend="FileSet">fileset</link>
+         are supported.
+        </para>
+        <sect2>
+            <title>Usage Examples</title>
+            <programlisting language="xml"><![CDATA[
+<pearPackageFileset id="dep-Console_Table" package="pear.php.net/Console_Table"/>
+<copy todir="lib/">
+    <fileset refid="dep-Console_Table"/>
+</copy>
+]]></programlisting>
+            <para>
+                Copy all PHP files of package
+                <link xlink:href="http://pear.php.net/package/Console_Table">Console_Table</link>
+                to
+                <literal>lib/</literal>
+            </para>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Nested tags</title>
+            <para>
+                The tags that are supported by <literal>PearPackageFileset</literal>
+                are:
+            </para>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="patterns">include</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="patterns">exclude</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para><literal><link linkend="PatternSet">patternset</link></literal></para>
+                </listitem>
+                <listitem>
+                    <para>any of the <link linkend="app.selectors">selectors</link></para>
+                </listitem>
+            </itemizedlist>
         </sect2>
     </sect1>
 </appendix>
