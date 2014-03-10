@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.about">
@@ -35,10 +35,10 @@
         <title>License</title>
         <para>This documentation is made available under the GNU Free Document License (see <xref
                 xlink:href="#sec.gfdl" xlink:title="[gnu-fdl]"/>)</para>
-        <programlisting language="xml">Copyright (c) 2002 - 2013, The Phing Group 
+        <programlisting language="xml">Copyright (c) 2002 - 2013, The Phing Group
 
-Permission is granted to copy, distribute and/or modify this document 
-under the terms of the GNU Free Documentation License, Version 1.1 or 
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
 any later version published by the Free Software Foundation;</programlisting>
     </sect1>
     <sect1>
@@ -170,8 +170,8 @@ any later version published by the Free Software Foundation;</programlisting>
  clean        Removes all output files
  epub         Builds the EPUB version
  hlhtml       Builds the HTML version with syntax highlight
- hlpdf        Builds the PDF version with syntax highlight   
- html         Builds the HTML version  
+ hlpdf        Builds the PDF version with syntax highlight
+ html         Builds the HTML version
  htmlfancy    Builds the HTML version with an alternative styling for screen output
  pdf          Builds the PDF version
  webhelp      Builds the webhelp version (Note: This requires Java and Ant to be installed!)
@@ -324,14 +324,14 @@ any later version published by the Free Software Foundation;</programlisting>
                                 </tgroup>
                             </table>
                             <para><emphasis role="bold">Example:</emphasis></para>
-                            <programlisting>&lt;appendix xmlns="http://docbook.org/ns/docbook" 
+                            <programlisting>&lt;appendix xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
-	xmlns:xlink="http://www.w3.org/1999/xlink" 
-    version="5.0" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.0"
     xml:id="app.coretasks">
-	&lt;title>Core tasks&lt;/title>
+    &lt;title>Core tasks&lt;/title>
 ...
-&lt;/appendix></programlisting>                            
+&lt;/appendix></programlisting>
                         </listitem>
                     </varlistentry>
                     <varlistentry>
@@ -462,15 +462,15 @@ any later version published by the Free Software Foundation;</programlisting>
                             </table>
                             <para><emphasis role="bold">Example:</emphasis></para>
                             <programlisting>&lt;programlisting language="xml">
-  &amp;lt;append 
+  &amp;lt;append
    destFile="${process.outputfile}">
   &amp;lt;filterchain>
     &amp;lt;xsltfilter style="${process.stylesheet}">
-	     &amp;lt;param name="mode" expression="${process.xslt.mode}"/>
+         &amp;lt;param name="mode" expression="${process.xslt.mode}"/>
     &amp;lt;/xsltfilter>
   &amp;lt;/filterchain>
   &amp;lt;filelist dir="book/" listfile="book/PhingGuide.book"/>
-&amp;lt;/append>&lt;/programlisting></programlisting>                            
+&amp;lt;/append>&lt;/programlisting></programlisting>
                         </listitem>
                     </varlistentry>
                     <varlistentry>
@@ -513,7 +513,7 @@ any later version published by the Free Software Foundation;</programlisting>
                                 </tgroup>
                             </table>
                             <para><emphasis role="bold">Example:</emphasis></para>
-                            <programlisting>&lt;filename role="dir">/etc/php5&lt;/filename></programlisting>                            
+                            <programlisting>&lt;filename role="dir">/etc/php5&lt;/filename></programlisting>
                         </listitem>
                     </varlistentry>
                     <varlistentry>
@@ -545,7 +545,7 @@ any later version published by the Free Software Foundation;</programlisting>
                             </table>
                             <para><emphasis role="bold">Example:</emphasis></para>
                             <programlisting>&lt;link xlink:href="http://qbnz.com/highlighter/"
->GeSHi Homepage&lt;/link></programlisting>                                                        
+>GeSHi Homepage&lt;/link></programlisting>
                         </listitem>
                     </varlistentry>
                     <varlistentry>
@@ -578,7 +578,7 @@ any later version published by the Free Software Foundation;</programlisting>
                                 </tgroup>
                             </table>
                             <para><emphasis role="bold">Example:</emphasis></para>
-                            <programlisting>&lt;xref xlink:href="#ch.projcomponents"/></programlisting>                                                        
+                            <programlisting>&lt;xref xlink:href="#ch.projcomponents"/></programlisting>
                         </listitem>
                     </varlistentry>
                     <varlistentry>
@@ -643,11 +643,11 @@ any later version published by the Free Software Foundation;</programlisting>
                             <programlisting>&lt;table>
     &lt;title>Required attributes&lt;/title>
     &lt;tgroup cols="3">
-        &lt;colspec colname="attribute"   colnum="1" 
+        &lt;colspec colname="attribute"   colnum="1"
                  colwidth="1.0*"/>
-        &lt;colspec colname="value"       colnum="2" 
+        &lt;colspec colname="value"       colnum="2"
                  colwidth="1.0*"/>
-        &lt;colspec colname="description" colnum="3" 
+        &lt;colspec colname="description" colnum="3"
                  colwidth="1.0*"/>
         &lt;thead>
             &lt;row>
@@ -669,7 +669,7 @@ any later version published by the Free Software Foundation;</programlisting>
             &lt;/row>
         &lt;/tbody>
     &lt;/tgroup>
-&lt;/table></programlisting>                            
+&lt;/table></programlisting>
                         </listitem>
                     </varlistentry>
                     <varlistentry>
@@ -679,10 +679,10 @@ any later version published by the Free Software Foundation;</programlisting>
                                 wanted that warrents the text to be rendered in a bold style to be
                                 shown as emphasised. </para>
                             <para><emphasis role="bold">Example:</emphasis></para>
-                            <programlisting>&lt;emphasis role="bold">PH&lt;/emphasis>ing &lt;emphasis 
+                            <programlisting>&lt;emphasis role="bold">PH&lt;/emphasis>ing &lt;emphasis
 role="bold">I&lt;/emphasis>s &lt;emphasis
-role="bold">N&lt;/emphasis>ot &lt;emphasis 
-role="bold">GN&lt;/emphasis>U make;</programlisting>  
+role="bold">N&lt;/emphasis>ot &lt;emphasis
+role="bold">GN&lt;/emphasis>U make;</programlisting>
                             <para>The above example will then be rendered as: "<emphasis role="bold"
                                     >PH</emphasis>ing <emphasis role="bold">I</emphasis>s <emphasis
                                     role="bold">N</emphasis>ot <emphasis role="bold">GN</emphasis>U
