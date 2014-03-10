@@ -284,6 +284,9 @@
                 <listitem>
                     <para><literal><link linkend="PatternSet">patternset</link></literal></para>
                 </listitem>
+                <listitem>
+                    <para>any of the <link linkend="app.selectors">selectors</link></para>
+                </listitem>
             </itemizedlist>
             <para>The <literal>&lt;include></literal> and the <literal>&lt;exclude></literal> tags
                 must have a <literal>name</literal> attribute that contains the pattern to
