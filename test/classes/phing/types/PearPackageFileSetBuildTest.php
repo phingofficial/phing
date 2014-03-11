@@ -47,6 +47,12 @@ class PearPackageFileSetBuildTest extends BuildFileTest
         $this->assertInLogs('Console' . DIRECTORY_SEPARATOR . 'Getopt.php');
     }
 
+    public function testDirect()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs('Console' . DIRECTORY_SEPARATOR . 'Getopt.php');
+    }
+
     public function testRoleDoc()
     {
         $this->executeTarget(__FUNCTION__);
