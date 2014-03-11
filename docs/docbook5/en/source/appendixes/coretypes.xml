@@ -519,9 +519,8 @@
         <sect2>
             <title>Usage Examples</title>
             <programlisting language="xml"><![CDATA[
-<pearPackageFileset id="dep-Console_Table" package="pear.php.net/Console_Table"/>
 <copy todir="lib/">
-    <fileset refid="dep-Console_Table"/>
+    <pearPackageFileset package="pear.php.net/Console_Table"/>
 </copy>
 ]]></programlisting>
             <para>
