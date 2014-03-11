@@ -290,7 +290,7 @@ class ForeachTask extends Task {
      *
      * @return void
      */
-    function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs) {
         $this->filesets[] = $fs;
     }
 

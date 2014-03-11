@@ -63,16 +63,14 @@ class PhpDocumentor2Task extends Task
     private $defaultPackageName = "Default";
     
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * 
-     * @return FileSet
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
      */
-    public function createFileSet()
-    {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
-    
+
     /**
      * Sets destination/target directory
      * @param PhingFile $destDir

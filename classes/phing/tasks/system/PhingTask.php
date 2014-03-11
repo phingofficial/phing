@@ -558,14 +558,12 @@ class PhingTask extends Task {
     }
 
     /**
-     * Support for filesets; This method returns a reference to an instance
-     * of a FileSet object.
+     * Nested adder, adds a set of files (nested fileset attribute).
      *
-     * @return FileSet
+     * @return void
      */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**

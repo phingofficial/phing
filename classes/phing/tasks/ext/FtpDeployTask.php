@@ -126,9 +126,13 @@ class FtpDeployTask extends Task
         $this->rawDataFallback = (bool) $fallback;
     }
 
-    public function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    /**
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
+     */
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**

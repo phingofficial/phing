@@ -451,14 +451,12 @@ class DbDeployTask extends Task
     }
 
     /**
-     * Add a new fileset.
-     * @return FileSet
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
      */
-    public function createFileSet()
-    {
-        $this->fileset = new FileSet();
-        $this->filesets[] = $this->fileset;
-        return $this->fileset;
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 }
 
