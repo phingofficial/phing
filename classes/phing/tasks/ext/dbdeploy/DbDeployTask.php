@@ -241,8 +241,6 @@ class DbDeployTask extends Task
      */
     protected function generateSql($undo = false)
     {
-        echo 'narf';
-
         $sql = '';
         $lastChangeAppliedInDb = $this->getLastChangeAppliedInDb();
         $files = $this->getDeltasFilesArray();
