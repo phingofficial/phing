@@ -126,7 +126,7 @@ class DbDeployTask extends Task
      * @var int
      */
     protected $checkall = false;
-    
+
     /**
      * The value of the 'applied_by' column for
      * each changelog entry
@@ -134,6 +134,13 @@ class DbDeployTask extends Task
      * @var string
      */
     protected $appliedBy = 'dbdeploy';
+
+    /**
+     * Apply each delta in an transaction so it is either complete or non at all
+     *
+     * @var boolean
+     */
+    protected $transactional = false;
 
     /**
      * The main function for the task
@@ -234,6 +241,8 @@ class DbDeployTask extends Task
      */
     protected function generateSql($undo = false)
     {
+        echo 'narf';
+
         $sql = '';
         $lastChangeAppliedInDb = $this->getLastChangeAppliedInDb();
         $files = $this->getDeltasFilesArray();
@@ -249,6 +258,10 @@ class DbDeployTask extends Task
                             ' VALUES (' . $fileChangeNumber . ', \'' . $this->deltaSet . '\', ' .
                                 $this->dbmsSyntax->generateTimestamp() .
                                 ', \'' . $this->appliedBy . '\', \'' . $fileName . '\');' . "\n";
+                }
+
+                if($this->transactional) {
+                    $sql .= $this->dbmsSyntax->beginTransaction() . "\n";
                 }
 
                 // read the file
@@ -275,6 +288,10 @@ class DbDeployTask extends Task
 	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 }
 
+                if($this->transactional) {
+                    $sql .= $this->dbmsSyntax->commitTransaction() . "\n";
+                }
+
                 $sql .= '-- Fragment ends: ' . $fileChangeNumber . ' --' . "\n";
             }
         }
@@ -290,14 +307,14 @@ class DbDeployTask extends Task
     protected function getDeltasFilesArray()
     {
         $files = array();
-        
+
         $baseDir = realpath($this->dir);
         $dh = opendir($baseDir);
-        
+
         if ($dh === false) {
             return $files;
         }
-        
+
         $fileChangeNumberPrefix = '';
         while (($file = readdir($dh)) !== false) {
             if (preg_match('[\d+]', $file, $fileChangeNumberPrefix)) {
@@ -438,7 +455,7 @@ class DbDeployTask extends Task
     {
         $this->checkall = (int)$checkall;
     }
-    
+
     /**
      * Set the appliedBy property
      *
@@ -448,6 +465,17 @@ class DbDeployTask extends Task
     public function setAppliedBy($appliedBy)
     {
         $this->appliedBy = $appliedBy;
+    }
+
+    /**
+     * Set the appliedBy property
+     *
+     * @param boolean $transactional
+     * @return void
+     */
+    public function setTransactional($transactional)
+    {
+        $this->transactional = $transactional;
     }
 
     /**
