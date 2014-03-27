@@ -165,4 +165,26 @@ class PearPackageScannerTest extends BuildFileTest
         );
     }
 
+    /**
+     * baseinstalldir attribute needs to be taken into account.
+     */
+    public function testScanBaseInstallDir()
+    {
+        $pps = new PearPackageScanner();
+        $pps->setDescFile(
+            PHING_TEST_BASE . '/etc/types/package_Console_Table-1.2.0.xml'
+        );
+        $pps->setRole('php');
+        $pps->scan();
+
+        $arFiles = $pps->getIncludedFiles();
+
+        $this->assertEquals(
+            $arFiles,
+            array(
+                'Console/Table.php'
+            )
+        );
+    }
+
 }
