@@ -187,4 +187,30 @@ class PearPackageScannerTest extends BuildFileTest
         );
     }
 
+    /**
+     * install_as-attribute needs to be taken into account.
+     *
+     * We need to use a serialized package info here since some
+     * properties we need are only available in the registry,
+     * not in the package file itself.
+     */
+    public function testScanInstallAs()
+    {
+        $pkgInfoFile = __DIR__ . '/../../../etc/types/'
+            . 'packageInfo_Services_Linkback-0.2.0.ser.dat';
+
+        $pps = new PearPackageScanner();
+        $prop = new ReflectionProperty('PearPackageScanner', 'packageInfo');
+        $prop->setAccessible(true);
+        $prop->setValue($pps, unserialize(file_get_contents($pkgInfoFile)));
+        $pps->setRole('php');
+        $pps->scan();
+
+        $arFiles = $pps->getIncludedFiles();
+        $this->assertContains(
+            'PEAR2/Services/Linkback/Response/Ping.php',
+            $arFiles
+        );
+    }
+
 }
