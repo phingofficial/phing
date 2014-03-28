@@ -189,12 +189,11 @@ class MailTask extends Task
     }
     
     /**
-     * Adds a fileset
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
      */
-    public function createFileSet()
-    {
-        $fileset = new FileSet();
-        $this->filesets[] = $fileset;
-        return $fileset;
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 }
