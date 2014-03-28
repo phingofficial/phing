@@ -290,13 +290,12 @@ class ScpTask extends Task
     }
 
     /**
-     * Nested creator, creates a FileSet for this task
+     * Nested adder, adds a set of files (nested fileset attribute).
      *
-     * @return FileSet The created fileset object
+     * @return void
      */
-    public function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**

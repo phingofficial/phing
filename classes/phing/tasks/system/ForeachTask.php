@@ -286,11 +286,12 @@ class ForeachTask extends Task {
     }
 
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
      */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**

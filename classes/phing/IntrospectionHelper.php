@@ -389,8 +389,9 @@ class IntrospectionHelper {
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
      * @param  Project $project
-     * @param  string $element
-     * @param  string $elementName
+     * @param  object  $element     Object the XML tag is child of.
+     *                              Often a task object.
+     * @param  string  $elementName XML tag name
      * @return object Returns the nested element.
      * @throws BuildException
      */
@@ -446,8 +447,32 @@ class IntrospectionHelper {
                 throw new BuildException($exc);
             }
         } else {
-            $msg = $this->getElementName($project, $element) . " doesn't support the '$elementName' creator/adder.";
-            throw new BuildException($msg);
+            //try the add method for the element's parent class
+            $typedefs = $project->getDataTypeDefinitions();
+            if (isset($typedefs[$elementName])) {
+                $elementClass = Phing::import($typedefs[$elementName]);
+                $parentClass  = get_parent_class($elementClass);
+                $addMethod    = 'add' . strtolower($parentClass);
+
+                if (isset($this->nestedCreators[$addMethod])) {
+                    $method = $this->nestedCreators[$addMethod];
+                    try {
+                        $project->log(
+                            "    -calling parent adder "
+                            . $method->getDeclaringClass()->getName()."::".$method->getName()."()",
+                            Project::MSG_DEBUG
+                        );
+                        $nestedElement = new $elementClass();
+                        $method->invoke($element, $nestedElement);
+                    } catch (Exception $exc) {
+                        throw new BuildException($exc);
+                    }
+                }
+            }
+            if ($nestedElement === null) {
+                $msg = $this->getElementName($project, $element) . " doesn't support the '$elementName' creator/adder.";
+                throw new BuildException($msg);
+            }
         }                                
         
         if ($nestedElement instanceof ProjectComponent) {

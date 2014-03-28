@@ -223,7 +223,9 @@ class PearPackageScanner extends DirectoryScanner
                 continue;
             }
             $origFile = $file;
-            if (isset($att['baseinstalldir'])) {
+            if (isset($att['install-as'])) {
+                $file = $att['install-as'];
+            } else if (isset($att['baseinstalldir'])) {
                 $file = ltrim($att['baseinstalldir'] . '/' . $file, '/');
             }
             $file = str_replace('/', DIRECTORY_SEPARATOR, $file);

@@ -116,13 +116,12 @@ class PHPLocTask extends Task
     }
 
     /**
-     * @return FileSet
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
      */
-    public function createFileSet()
-    {
-        $num = array_push($this->fileSets, new FileSet());
-
-        return $this->fileSets[$num - 1];
+    public function addFileSet(FileSet $fs) {
+        $this->fileSets[] = $fs;
     }
 
     /**

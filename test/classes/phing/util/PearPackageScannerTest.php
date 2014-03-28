@@ -165,4 +165,56 @@ class PearPackageScannerTest extends BuildFileTest
         );
     }
 
+    /**
+     * baseinstalldir attribute needs to be taken into account.
+     */
+    public function testScanBaseInstallDir()
+    {
+        $pps = new PearPackageScanner();
+        $pps->setDescFile(
+            PHING_TEST_BASE . '/etc/types/package_Console_Table-1.2.0.xml'
+        );
+        $pps->setRole('php');
+        $pps->scan();
+
+        $arFiles = $pps->getIncludedFiles();
+
+        $this->assertEquals(
+            $arFiles,
+            array(
+                'Console/Table.php'
+            )
+        );
+    }
+
+    /**
+     * install_as-attribute needs to be taken into account.
+     *
+     * We need to use a serialized package info here since some
+     * properties we need are only available in the registry,
+     * not in the package file itself.
+     */
+    public function testScanInstallAs()
+    {
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+            return $this->markTestSkipped('Test works on PHP 5.3 only');
+        }
+
+        $pkgInfoFile = __DIR__ . '/../../../etc/types/'
+            . 'packageInfo_Services_Linkback-0.2.0.ser.dat';
+
+        $pps = new PearPackageScanner();
+        $prop = new ReflectionProperty('PearPackageScanner', 'packageInfo');
+        $prop->setAccessible(true);
+        $prop->setValue($pps, unserialize(file_get_contents($pkgInfoFile)));
+        $pps->setRole('php');
+        $pps->scan();
+
+        $arFiles = $pps->getIncludedFiles();
+        $this->assertContains(
+            'PEAR2/Services/Linkback/Response/Ping.php',
+            $arFiles
+        );
+    }
+
 }
