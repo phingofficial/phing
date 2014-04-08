@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Framework/TestListener.php';
-
 require_once 'phing/system/io/Writer.php';
 
 /**
@@ -157,7 +155,11 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
     {
         $this->skipCounts[count($this->skipCounts) - 1]++;
     }
-    
+
+    public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
+    }
+
     public function getRunCount()
     {
         return end($this->runCounts);

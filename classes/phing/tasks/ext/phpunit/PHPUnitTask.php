@@ -68,10 +68,15 @@ class PHPUnitTask extends Task
      */
     public function init() {
         /**
-         * Determine PHPUnit version number
+         * Determine PHPUnit version number, try
+         * PEAR old-style, then composer, then PHAR
          */
         @include_once 'PHPUnit/Runner/Version.php';
-        
+        @include_once 'phpunit/Runner/Version.php';
+        $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+        @include_once '/usr/bin/phpunit';
+        @include_once 'PHPUnit/Autoload.php';
+
         if (!class_exists('PHPUnit_Runner_Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
