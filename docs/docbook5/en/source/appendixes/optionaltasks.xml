@@ -263,6 +263,45 @@
   todo="true"/></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="AutoloaderTask">
+        <title>AutoloaderTask</title>
+        <para>
+            The AutoloaderTask includes autoload file to bootstrap all necessary components in Phing execution context.
+            It could be useful if build tools (e.g. phpunit, phploc etc.) are installed as Composer dependencies.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>autoloaderpath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to autoloader file</entry>
+                        <entry>vendor/autoload.php</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;autoloader autoloaderpath="foo/autoload.php"/></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="CoverageMergerTask">
         <title>CoverageMergerTask</title>
         <para>The CoverageMergerTask merges code coverage information from external sources with an
