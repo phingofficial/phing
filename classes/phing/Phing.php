@@ -443,9 +443,13 @@ class Phing {
         }
         
         try {
-            // make sure buildfile exists
+            // make sure buildfile (or buildfile.dist) exists
             if (!$this->buildFile->exists()) {
-                throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
+                $distFile = new PhingFile($this->buildFile->getAbsolutePath() . ".dist");
+                if (! $distFile->exists()) {
+                    throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
+                }
+                $this->buildFile = $distFile;
             }
         
             // make sure it's not a directory
