@@ -9,4 +9,16 @@
 			<formatter type="full" usefile="true" outfile="report.txt" />
 		</phpcodesniffer>
 	</target>
+
+    <target name="testCustomStandard">
+        <phpcodesniffer
+            standard="PhingTest"
+            file="test.php"
+            showSniffs="false"
+            allowedFileExtensions="php">
+            <config name="installed_paths" value="standards"/>
+            <formatter type="summary" usefile="false"  />
+            <formatter type="full" usefile="true" outfile="report.txt" />
+        </phpcodesniffer>
+    </target>
 </project>
