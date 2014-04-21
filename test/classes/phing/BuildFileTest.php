@@ -24,7 +24,6 @@ if (version_compare(PHP_VERSION, '5.3.2') < 0) {
     define('E_DEPRECATED', 8192);
 }
                              
-require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'phing/BuildListener.php';
 require_once 'phing/system/io/PhingFile.php';
 

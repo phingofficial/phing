@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/BuildFileTest.php';
 include_once 'phing/types/Mapper.php';
 include_once 'phing/Project.php';
