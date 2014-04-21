@@ -6597,11 +6597,11 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>format</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The output format. The <literal>default</literal> format is specified
+                        <entry>The output format. The <literal>full</literal> format is specified
                             in the task itself. Additionally all report formats of PHP_CodeSniffer
                             can be choosen (ex. <literal>checkstyle</literal>,
                                 <literal>full</literal>, <literal>summary</literal>, ...).</entry>
-                        <entry>default</entry>
+                        <entry>full</entry>
                         <entry>No Ignored if nested <literal>formatter</literal> elements are
                             supplied.</entry>
                     </row>
@@ -6762,7 +6762,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;include name="**/*.php"/>
   &lt;/fileset>
   &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/>
-  &lt;formatter type="default" usefile="false"/>
+  &lt;formatter type="full" usefile="false"/>
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
 &lt;/phpcodesniffer></programlisting>
             <para> Checks all files in the directory <literal>file</literal> with the
@@ -6775,6 +6775,16 @@ Note that you can omit both startpoint and track attributes in this case
   docGenerator="HTML"
   docFile="/path/to/doc.html">
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
+&lt;/phpcodesniffer></programlisting>
+            <para> Checks all files in the directory <literal>file</literal> matching the allowed
+                file extension with the custom <literal>Foo</literal> standard and prints the
+                <literal>summary</literal> report without warnings.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
+  standard="Foo"
+  format="summary"
+  file="/path/to/source-files"
+  allowedFileExtensions="php php5 inc">
+    &lt;config name="installed_paths" value="/path/to/Standards/directory"/>
 &lt;/phpcodesniffer></programlisting>
         </sect2>
         <sect2 role="nestedtags">
