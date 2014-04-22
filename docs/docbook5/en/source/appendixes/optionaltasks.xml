@@ -704,73 +704,6 @@
                 dbdeploy/deltas in the project base dir.</para>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="DocBloxTask">
-        <title>DocBloxTask</title>
-        <para> <emphasis role="bold">This task is now deprecated in favor of the
-            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
-        <para> This task runs <link xlink:href="http://www.docblox-project.org/" role="extern"
-                >DocBlox</link>, a PHP 5.3-compatible API documentation tool.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>title</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Title of the project.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>destdir</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Destination directory for output files.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Suppress DocBlox chatter.</entry>
-                        <entry><literal>true</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;docblox title="API Documentation"
-  destdir="apidocs">
-   &lt;fileset dir="./classes">
-      &lt;include name="**/*.php" />
-   &lt;/fileset>
-&lt;/docblox></programlisting>
-        </sect2>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for parsing</para>
-                </listitem>
-            </itemizedlist>
-        </sect2>
-    </sect1>
     <sect1 role="taskdef" xml:id="ExportPropertiesTask">
         <title>ExportPropertiesTask</title>
         <para>Exports all defined properties to a specified file.</para>
@@ -6664,11 +6597,11 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>format</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The output format. The <literal>default</literal> format is specified
+                        <entry>The output format. The <literal>full</literal> format is specified
                             in the task itself. Additionally all report formats of PHP_CodeSniffer
                             can be choosen (ex. <literal>checkstyle</literal>,
                                 <literal>full</literal>, <literal>summary</literal>, ...).</entry>
-                        <entry>default</entry>
+                        <entry>full</entry>
                         <entry>No Ignored if nested <literal>formatter</literal> elements are
                             supplied.</entry>
                     </row>
@@ -6829,7 +6762,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;include name="**/*.php"/>
   &lt;/fileset>
   &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/>
-  &lt;formatter type="default" usefile="false"/>
+  &lt;formatter type="full" usefile="false"/>
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
 &lt;/phpcodesniffer></programlisting>
             <para> Checks all files in the directory <literal>file</literal> with the
@@ -6842,6 +6775,16 @@ Note that you can omit both startpoint and track attributes in this case
   docGenerator="HTML"
   docFile="/path/to/doc.html">
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
+&lt;/phpcodesniffer></programlisting>
+            <para> Checks all files in the directory <literal>file</literal> matching the allowed
+                file extension with the custom <literal>Foo</literal> standard and prints the
+                <literal>summary</literal> report without warnings.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
+  standard="Foo"
+  format="summary"
+  file="/path/to/source-files"
+  allowedFileExtensions="php php5 inc">
+    &lt;config name="installed_paths" value="/path/to/Standards/directory"/>
 &lt;/phpcodesniffer></programlisting>
         </sect2>
         <sect2 role="nestedtags">

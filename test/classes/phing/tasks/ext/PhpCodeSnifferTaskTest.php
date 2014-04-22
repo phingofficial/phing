@@ -19,22 +19,32 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests for PhpCodeSnifferTask
- * 
+ *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class PhpCodeSnifferTaskTest extends BuildFileTest {
+
+    public function setUp() {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
     }
 
     public function testNestedFormatters() {
+        ob_start();
+        $this->executeTarget(__FUNCTION__);
+        $output = ob_get_clean();
+        $this->assertContains("PHP CODE SNIFFER REPORT SUMMARY", $output);
+        $this->assertFileExists(
+            PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt'
+        );
+        unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt');
+    }
+    public function testCustomStandard() {
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
