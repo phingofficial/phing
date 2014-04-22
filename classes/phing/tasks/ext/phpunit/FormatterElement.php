@@ -145,6 +145,10 @@ class FormatterElement
      */
     public function getFormatter()
     {
+        if ($this->formatter !== null) {
+            return $this->formatter;
+        }
+        
         if ($this->type == "summary") {
             require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
             $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
