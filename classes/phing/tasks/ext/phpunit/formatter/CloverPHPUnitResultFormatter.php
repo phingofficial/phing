@@ -66,8 +66,6 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
 
     public function endTestRun()
     {
-        require_once 'PHP/CodeCoverage/Report/Clover.php';
-        
         $coverage = $this->result->getCodeCoverage();
         
         if (!empty($coverage)) {

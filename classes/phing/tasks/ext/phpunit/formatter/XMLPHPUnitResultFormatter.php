@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Util/Log/JUnit.php';
-
 require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 
 /**
