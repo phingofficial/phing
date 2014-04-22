@@ -23,6 +23,8 @@ require_once 'phing/Task.php';
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/Writer.php';
 require_once 'phing/util/LogWriter.php';
+require_once 'phing/tasks/ext/phpunit/BatchTest.php';
+require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
 /**
  * Runs PHPUnit tests.
@@ -56,6 +58,11 @@ class PHPUnitTask extends Task
     private $usecustomerrorhandler = true;
     
     /**
+     * @var string
+     */
+    private $pharLocation = "";
+    
+    /**
      * @var PhingFile
      */
     private $configuration = null;
@@ -66,15 +73,24 @@ class PHPUnitTask extends Task
      * appropriate error if they cannot be found.  This is not done in header
      * because we may want this class to be loaded w/o triggering an error.
      */
-    public function init() {
+    public function init()
+    {
+    }
+    
+    private function loadPHPUnit()
+    {
         /**
          * Determine PHPUnit version number, try
          * PEAR old-style, then composer, then PHAR
          */
         @include_once 'PHPUnit/Runner/Version.php';
         @include_once 'phpunit/Runner/Version.php';
-        $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
-        @include_once '/usr/bin/phpunit';
+        if (! empty($this->pharLocation)) {
+            $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+            ob_start();
+            @include $this->pharLocation;
+            ob_end_clean();
+        }
         @include_once 'PHPUnit/Autoload.php';
 
         if (!class_exists('PHPUnit_Runner_Version')) {
@@ -92,8 +108,6 @@ class PHPUnitTask extends Task
          * Other dependencies that should only be loaded when class is actually used.
          */
         require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
-        require_once 'phing/tasks/ext/phpunit/BatchTest.php';
-        require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
         /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
@@ -232,6 +246,14 @@ class PHPUnitTask extends Task
     }
     
     /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
+    }
+    
+    /**
      * Load and processes the PHPUnit configuration
      */
     protected function handlePHPUnitConfiguration($configuration)
@@ -300,6 +322,8 @@ class PHPUnitTask extends Task
             throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
         }
         
+        $this->loadPHPUnit();
+        
         $suite = new PHPUnit_Framework_TestSuite('AllTests');
         
         if ($this->configuration) {
@@ -329,9 +353,9 @@ class PHPUnitTask extends Task
             require $this->bootstrap;
         }
         
-        foreach ($this->batchtests as $batchtest)
+        foreach ($this->batchtests as $batchTest)
         {
-            $batchtest->addToTestSuite($suite);
+            $this->appendBatchTestToTestSuite($batchTest, $suite);
         }
         
         $this->execute($suite);
@@ -439,6 +463,23 @@ class PHPUnitTask extends Task
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastSkippedMessage();
             }
+        }
+    }
+    
+    /**
+     * Add the tests in this batchtest to a test suite
+     *
+     * @param BatchTest $batchTest
+     * @param PHPUnit_Framework_TestSuite $suite
+     */
+    protected function appendBatchTestToTestSuite(BatchTest $batchTest, PHPUnit_Framework_TestSuite $suite)
+    {
+        foreach ($batchTest->elements() as $element) {
+            $testClass = new $element();
+            if (! ($testClass instanceof PHPUnit_Framework_TestSuite)) {
+                $testClass = new ReflectionClass($element);
+            }
+            $suite->addTestSuite($testClass);
         }
     }
 
