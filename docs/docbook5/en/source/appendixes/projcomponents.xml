@@ -29,6 +29,9 @@
 
         </sect2>
         <sect2>
+        Phing allows declaring tasks outside targets. Note that these tasks
+        are evaluated before any targets are executed.</sect2>
+        <sect2>
             <title>Attributes</title>
             <table>
                 <title>Attributes</title>

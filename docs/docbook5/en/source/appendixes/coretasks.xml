@@ -2321,7 +2321,13 @@
         <para>A <literal>&lt;phingcall></literal> tag may contain <literal>&lt;property></literal>
             tags that define new properties. These properties are only set if properties of the same
             name have not been set outside the <literal>"phingcall"</literal> tag.</para>
-
+        <para>When a target is invoked by <literal>phingcall</literal>, all of its dependent
+            targets will also be called within the context of any new
+            parameters. For example. if the target "doSomethingElse"
+            depended on the target "init", then using
+            <literal>phingcall</literal> to execute "doSomethingElse" will
+            also execute "init". Note: the top level tasks of a project
+            will always be executed!</para>
 
         <table>
             <title>Attributes</title>
