@@ -26,5 +26,12 @@
     ],
     "config": {
         "bin-dir": "bin"
+    },
+    "suggest": {
+        "phpdocumentor/phpdocumentor",
+        "sebastian/phpcpd",
+        "phpmd/phpmd",
+        "pdepend/pdepend",
+        "phploc/phploc"
     }
 }
