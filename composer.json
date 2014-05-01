@@ -3,7 +3,7 @@
     "description": "PHing Is Not GNU make; it's a PHP project build system or build tool based on Apache Ant.",
     "keywords": ["build", "tool", "task"],
     "homepage": "http://www.phing.info/",
-    "license": "LGPL3",
+    "license": "LGPL-3.0",
     "authors": [
         {
             "name": "Michiel Rook",
