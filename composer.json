@@ -30,7 +30,7 @@
     "suggest": {
         "phpdocumentor/phpdocumentor",
         "sebastian/phpcpd",
-        "phpmd/phpmd",
+        "phpmd/phpmd": "1.*",
         "pdepend/pdepend",
         "phploc/phploc"
     }
