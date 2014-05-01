@@ -28,10 +28,10 @@
         "bin-dir": "bin"
     },
     "suggest": {
-        "phpdocumentor/phpdocumentor",
-        "sebastian/phpcpd",
-        "phpmd/phpmd": "1.*",
-        "pdepend/pdepend",
-        "phploc/phploc"
+        "phpdocumentor/phpdocumentor": "Documentation Generator for PHP",
+        "sebastian/phpcpd": "Copy/Paste Detector (CPD) for PHP code",
+        "phpmd/phpmd": "PHP version of PMD tool",
+        "pdepend/pdepend": "PHP version of JDepend",
+        "phploc/phploc": "A tool for quickly measuring the size of a PHP project"
     }
 }
