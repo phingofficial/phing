@@ -54,7 +54,7 @@
           description=""
   >
     <pearPackageFileSet
-         package="pear.phpunit.de/PHPUnit"
+         package="pear.php.net/Archive_Tar"
          role="doc"
          id="co"/>
     <foreach param="filename" absparam="absfilename" target="echoFilesetFile">

@@ -56,7 +56,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     public function testRoleDoc()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs(DIRECTORY_SEPARATOR . 'LICENSE');
+        $this->assertInLogs(DIRECTORY_SEPARATOR . 'Archive_Tar.txt');
     }
 
     public function testCopyConsoleGetopt()

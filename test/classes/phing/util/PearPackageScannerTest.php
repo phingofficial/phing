@@ -89,14 +89,14 @@ class PearPackageScannerTest extends BuildFileTest
     public function testScanRoleDocCorrectDirectory()
     {
         $pps = new PearPackageScanner();
-        $pps->setChannel('pear.phpunit.de');
-        $pps->setPackage('phpunit');
+        $pps->setChannel('pear.php.net');
+        $pps->setPackage('Archive_Tar');
         $pps->setRole('doc');
         $pps->scan();
 
         $arFiles = $pps->getIncludedFiles();
         $basedir = $pps->getBaseDir();
-        $this->assertContains('LICENSE', $arFiles);
+        $this->assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
             $fullpath = $basedir . $file;
             $this->assertTrue(
@@ -143,26 +143,6 @@ class PearPackageScannerTest extends BuildFileTest
     {
         $ppfs = new PearPackageScanner();
         $ppfs->setDescFile('/this/file/does/not/exist');
-    }
-
-    public function testScanRoleDocPackageXml()
-    {
-        $pps = new PearPackageScanner();
-        $pps->setDescFile(PHING_TEST_BASE . '/etc/types/package_PHPUnit-3.7.10.xml');
-        $pps->setRole('doc');
-        $pps->scan();
-
-        $arFiles = $pps->getIncludedFiles();
-
-        $this->assertEquals(
-            $arFiles,
-            array(
-                'ChangeLog.md',
-                'CONTRIBUTING.md',
-                'LICENSE',
-                'README.md'
-            )
-        );
     }
 
     /**
