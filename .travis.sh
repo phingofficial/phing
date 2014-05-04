@@ -80,6 +80,8 @@ installPearTask ()
         pear upgrade pecl.php.net/Phar ||
             pear install pecl.php.net/Phar
         phpenv rehash
+        mkdir vendor
+        touch vendor/autoload.php
     else
     	composer selfupdate --quiet
         composer install
