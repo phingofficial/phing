@@ -1,7 +1,7 @@
 {
     "name": "phing/phing",
     "description": "PHing Is Not GNU make; it's a PHP project build system or build tool based on Apache Ant.",
-    "keywords": ["build", "tool", "task"],
+    "keywords": ["build", "tool", "task", "phing"],
     "homepage": "http://www.phing.info/",
     "license": "LGPL-3.0",
     "authors": [
@@ -14,8 +14,15 @@
             "homepage": "http://www.phing.info/trac/wiki/Development/Contributors"
         }
     ],
+    "support": {
+        "issues": "http://www.phing.info/trac/report",
+        "irc": "irc://irc.freenode.net/phing"
+    },
     "require": {
         "php": ">=5.2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=3.7"
     },
     "autoload": {
         "classmap": ["classes/phing/"]
