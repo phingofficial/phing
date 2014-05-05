@@ -206,14 +206,14 @@ class PHPMDTask extends Task
 
         if($new){
             require_once 'PHPMD/AbstractRule.php';
-            $abstract_rule_class = '\PHPMD\AbstractRule';
+            $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
         } else {
             require_once 'PHP/PMD/AbstractRule.php';
-            $abstract_rule_class = 'PHP_PMD_AbstractRule';
+            $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
         }
 
         if (!$this->minimumPriority) {
-            $this->minimumPriority = $abstract_rule_class::LOWEST_PRIORITY;
+            $this->minimumPriority = $minPriority;
         }
 
         if (!isset($this->file) and count($this->filesets) == 0) {
