@@ -1,6 +1,6 @@
 <?php
 /**
- *  $Id$
+ *  $Id: e326bdbc8232087866d06746e509e5f6811c990a $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -28,7 +28,7 @@ require_once 'phing/tasks/ext/phpmd/PHPMDFormatterElement.php';
  *
  * @package phing.tasks.ext.phpmd
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
+ * @version $Id: e326bdbc8232087866d06746e509e5f6811c990a $
  * @since   2.4.1
  */
 class PHPMDTask extends Task
@@ -183,22 +183,40 @@ class PHPMDTask extends Task
      */
     public function main()
     {
-        /**
+				/**
          * Find PHPMD
          */
-        @include_once 'PHP/PMD.php';
+        
+				if(false === stream_resolve_include_path("PHP/PMD.php")){
+					@include_once 'PHPMD/PHPMD.php';
+					$class_name = '\PHPMD\PHPMD';
+					$new = true;
+				} else {
+					@include_once 'PHP/PMD.php';
+					$class_name = "PHP_PMD";
+					$new = false;
+					
+					
+				}
+		    echo $class_name;
 
-        if (! class_exists('PHP_PMD')) {
+        if (! class_exists($class_name)) {
             throw new BuildException(
                 'PHPMDTask depends on PHPMD being installed and on include_path.',
                 $this->getLocation()
             );
         }
 
-        require_once 'PHP/PMD/AbstractRule.php';
+				if($new){
+					require_once 'PHPMD/AbstractRule.php';
+					$abstract_rule_class = '\PHPMD\AbstractRule';
+				} else {
+					require_once 'PHP/PMD/AbstractRule.php';
+					$abstract_rule_class = 'PHP_PMD_AbstractRule';
+				}
 
         if (!$this->minimumPriority) {
-            $this->minimumPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
+            $this->minimumPriority = $abstract_rule_class::LOWEST_PRIORITY;
         }
 
         if (!isset($this->file) and count($this->filesets) == 0) {
@@ -229,10 +247,16 @@ class PHPMDTask extends Task
         }
 
         // Create a rule set factory
-        $ruleSetFactory = new PHP_PMD_RuleSetFactory();
-        $ruleSetFactory->setMinimumPriority($this->minimumPriority);
-
-        $phpmd = new PHP_PMD();
+				if($new){
+					$ruleSetFactory = new \PHPMD\RuleSetFactory();
+					@require_once "PHPMD/RuleSetFactory.php";
+				} else {
+					$ruleSetFactory = new PHP_PMD_RuleSetFactory();
+					
+				}
+				$ruleSetFactory->setMinimumPriority($this->minimumPriority);
+        
+				$phpmd = new $class_name();
         $phpmd->setFileExtensions($this->allowedFileExtensions);
         $phpmd->setIgnorePattern($this->ignorePatterns);
 
