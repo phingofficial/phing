@@ -183,22 +183,19 @@ class PHPMDTask extends Task
      */
     public function main()
     {
-				/**
+	    /**
          * Find PHPMD
          */
-        
-				if(false === stream_resolve_include_path("PHP/PMD.php")){
-					@include_once 'PHPMD/PHPMD.php';
-					$class_name = '\PHPMD\PHPMD';
-					$new = true;
-				} else {
-					@include_once 'PHP/PMD.php';
-					$class_name = "PHP_PMD";
-					$new = false;
-					
-					
-				}
-		    echo $class_name;
+        if(false === stream_resolve_include_path("PHP/PMD.php")){
+		    @include_once 'PHPMD/PHPMD.php';
+		    $class_name = '\PHPMD\PHPMD';
+		    $new = true;
+	    } else {
+		    @include_once 'PHP/PMD.php';
+		    $class_name = "PHP_PMD";
+		    $new = false;
+		}
+
 
         if (! class_exists($class_name)) {
             throw new BuildException(
@@ -207,13 +204,13 @@ class PHPMDTask extends Task
             );
         }
 
-				if($new){
-					require_once 'PHPMD/AbstractRule.php';
-					$abstract_rule_class = '\PHPMD\AbstractRule';
-				} else {
-					require_once 'PHP/PMD/AbstractRule.php';
-					$abstract_rule_class = 'PHP_PMD_AbstractRule';
-				}
+		if($new){
+			require_once 'PHPMD/AbstractRule.php';
+			$abstract_rule_class = '\PHPMD\AbstractRule';
+		} else {
+			require_once 'PHP/PMD/AbstractRule.php';
+			$abstract_rule_class = 'PHP_PMD_AbstractRule';
+		}
 
         if (!$this->minimumPriority) {
             $this->minimumPriority = $abstract_rule_class::LOWEST_PRIORITY;
@@ -247,16 +244,16 @@ class PHPMDTask extends Task
         }
 
         // Create a rule set factory
-				if($new){
-					$ruleSetFactory = new \PHPMD\RuleSetFactory();
-					@require_once "PHPMD/RuleSetFactory.php";
-				} else {
-					$ruleSetFactory = new PHP_PMD_RuleSetFactory();
-					
-				}
-				$ruleSetFactory->setMinimumPriority($this->minimumPriority);
+		if($new){
+			$ruleSetFactory = new \PHPMD\RuleSetFactory();
+			@require_once "PHPMD/RuleSetFactory.php";
+		} else {
+			$ruleSetFactory = new PHP_PMD_RuleSetFactory();
+			
+		}
+		$ruleSetFactory->setMinimumPriority($this->minimumPriority);
         
-				$phpmd = new $class_name();
+		$phpmd = new $class_name();
         $phpmd->setFileExtensions($this->allowedFileExtensions);
         $phpmd->setIgnorePattern($this->ignorePatterns);
 
