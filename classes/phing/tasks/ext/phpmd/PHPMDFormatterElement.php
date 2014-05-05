@@ -67,7 +67,7 @@ class PHPMDFormatterElement
     public function setType($type)
     {
         $this->type = $type;
-				$root = false === stream_resolve_include_path("PHP/PMD.php") ? "PHPMD/" : "PHP/PMD/";
+        $root = false === stream_resolve_include_path("PHP/PMD.php") ? "PHPMD/" : "PHP/PMD/";
         switch ($this->type) {
             case 'xml':
                 include_once $root .'Renderer/XMLRenderer.php';
@@ -144,33 +144,33 @@ class PHPMDFormatterElement
      */
     public function getRenderer()
     {
-				if(false === stream_resolve_include_path("PHP/PMD.php")){
-					$render_root = 'PHPMD\Renderer\\';
-					$writer_class = '\PHPMD\Writer\StreamWriter'; 
-					$writer_file = 'PHPMD/Writer/StreamWriter.php';
-				} else {
-					$render_root = 'PHP_PMD_RENDERER_';
-					$writer_class = 'PHP_PMD_Writer_Stream';
-					$writer_file = 'PHP/PMD/Writer/Stream.php';
-				}
-        
-				switch ($this->type) {
+        if(false === stream_resolve_include_path("PHP/PMD.php")){
+            $render_root = 'PHPMD\Renderer\\';
+            $writer_class = '\PHPMD\Writer\StreamWriter'; 
+            $writer_file = 'PHPMD/Writer/StreamWriter.php';
+        } else {
+            $render_root = 'PHP_PMD_RENDERER_';
+            $writer_class = 'PHP_PMD_Writer_Stream';
+            $writer_file = 'PHP/PMD/Writer/Stream.php';
+        }
+
+        switch ($this->type) {
             case 'xml':
-								$class = $render_root.'XMLRenderer';
+                $class = $render_root.'XMLRenderer';
                 break;
 
             case 'html':
-								$class = $render_root.'HTMLRenderer';
+                $class = $render_root.'HTMLRenderer';
                 break;
 
             case 'text':
-								$class = $render_root.'TextRenderer';
+                $class = $render_root.'TextRenderer';
                 break;
 
             default:
                 throw new BuildException('PHP_MD renderer "' . $this->type . '" not implemented');
         }
-				$renderer = new $class();
+        $renderer = new $class();
         
 				// Create a report stream
         if ($this->getUseFile() === false || $this->getOutfile() === null) {
