@@ -67,18 +67,18 @@ class PHPMDFormatterElement
     public function setType($type)
     {
         $this->type = $type;
-
+        $root = false === stream_resolve_include_path("PHP/PMD/") ? "PHPMD/" : "PHP/PMD/";
         switch ($this->type) {
             case 'xml':
-                include_once 'PHP/PMD/Renderer/XMLRenderer.php';
+                include_once $root .'Renderer/XMLRenderer.php';
                 break;
 
             case 'html':
-                include_once 'PHP/PMD/Renderer/HTMLRenderer.php';
+                include_once $root . 'Renderer/HTMLRenderer.php';
                 break;
 
             case 'text':
-                include_once 'PHP/PMD/Renderer/TextRenderer.php';
+                include_once $root . 'Renderer/TextRenderer.php';
                 break;
 
             default:
