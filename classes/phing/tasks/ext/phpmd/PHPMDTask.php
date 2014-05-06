@@ -206,7 +206,8 @@ class PHPMDTask extends Task
 
         if($new){
             require_once 'PHPMD/AbstractRule.php';
-            $minPriority = \PHPMD\AbstractRule::LOWEST_PRIORITY;
+            //weird syntax to allow 5.2 parser compatability
+            $minPriority = constant('\PHPMD\AbstractRule::LOWEST_PRIORITY');
         } else {
             require_once 'PHP/PMD/AbstractRule.php';
             $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
@@ -245,8 +246,10 @@ class PHPMDTask extends Task
 
         // Create a rule set factory
         if($new){
-            $ruleSetFactory = new \PHPMD\RuleSetFactory();
             @require_once "PHPMD/RuleSetFactory.php";
+            $ruleSetClass = '\PHPMD\RuleSetFactory';
+            $ruleSetFactory = new $ruleSetClass(); //php 5.2 parser compatability
+            
         } else {
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();
 
