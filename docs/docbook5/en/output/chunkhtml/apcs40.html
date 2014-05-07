@@ -1,13 +1,13 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.40 ParallelTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="apc.html" title="Appendix C. Optional tasks"><link rel="prev" href="apcs39.html" title="C.39 MailTask"><link rel="next" href="apcs41.html" title="C.41 PatchTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.40 ParallelTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apcs39.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="apcs41.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ParallelTask"></a>C.40 ParallelTask</h2></div></div></div>
         
         <p>Executes nested tasks in parallel.</p>
-        <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p>This task is highly experimental, and will only work on *nix machines 
+        <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p>This task is highly experimental, and will only work on *nix machines
             that have the PHP <code class="literal">pcntl</code> extension installed.</p></div>
-        <div class="table"><a name="idp47835792"></a><p class="formal-object-title"><span class="label">Table C.47: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp47261152"></a><p class="formal-object-title"><span class="label">Table C.47: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">threadCount</code></td><td><code class="literal">Integer</code></td><td>Maximum number of threads / processes to use.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp47849760"></a>C.40.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp47275152"></a>C.40.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;parallel threadCount="4"&gt;
     &lt;echo&gt;Job 1&lt;/echo&gt;
