@@ -114,6 +114,7 @@ class JsMinTask extends Task
      */
     public function main()
     {
+        // if composer autoloader is not yet loaded, load it here
         @require_once 'vendor/autoload.php';
         if (! class_exists('\\JShrink\\Minifier')) {
             throw new BuildException(
@@ -157,6 +158,8 @@ class JsMinTask extends Task
                 }
                 
                 $contents = file_get_contents($fullPath . '/' . $file);
+                
+                // nasty hack to not trip PHP 5.2 parser
                 $minified = forward_static_call(array('\\JShrink\\Minifier', 'minify'), $contents);
                 
                 file_put_contents($target, $minified);
