@@ -3157,7 +3157,7 @@ file defines a task in the format: name=path.to.Task -->
                             <entry>Yes</entry>
                         </row>
                         <row>
-                            <entry><literal>classname</literal></entry>
+                            <entry><literal>pattern</literal></entry>
                             <entry><literal role="type">String</literal></entry>
                             <entry>The date/time pattern to be used. The values are as defined by
                                 the PHP strftime() function.</entry>
