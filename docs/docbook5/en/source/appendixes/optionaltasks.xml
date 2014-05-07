@@ -3919,7 +3919,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path where the the report in Checkstyle format should be saved.</entry>
                         <entry>n/a</entry>
-                        <entry morerows="2">No</entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>
