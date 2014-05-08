@@ -4053,11 +4053,9 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="JsMinTask">
         <title>JsMinTask</title>
         <para> The <literal>JsMinTask</literal> minifies JavaScript files using <link
-                xlink:href="http://code.google.com/p/jsmin-php/">JsMin</link>. JsMin is bundled with
-            Phing and does not need to be installed separately.</para>
-        <para> For more information on minifying JavaScript files see <link
-                xlink:href="http://www.crockford.com/javascript/jsmin.html" role="extern">Douglas
-                Crockford's introduction to minifying JavaScript files</link>.</para>
+                xlink:href="https://github.com/tedivm/JShrink">JShrink</link>,
+                which can be installed using composer (Phing will try
+                to use the composer autoloader)</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
