@@ -5592,7 +5592,7 @@ Note that you can omit both startpoint and track attributes in this case
                             </thead>
                             <tbody>
                                 <row>
-                                    <entry><literal>tsrcfile</literal></entry>
+                                    <entry><literal>src</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>File with statements to be run as one transaction</entry>
                                     <entry>n/a</entry>
