@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<project name="Autoloader Test" default="build">
+    <target name="testDefault">
+        <autoloader />
+    </target>
+
+    <target name="testExisting">
+        <autoloader autoloaderpath="autoload.php"/>
+    </target>
+
+    <target name="build" depends="testDefault,testExisting"/>
+</project>
