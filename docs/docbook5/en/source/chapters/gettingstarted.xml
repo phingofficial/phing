@@ -202,13 +202,13 @@
 &lt;target name="C" depends="B" /&gt;
 &lt;target name="D" depends="C,B,A" /&gt;</screen>
 
-            <para>Suppose we want to execute target <literal>D</literal> . From its depends
-                aliteralribute, you might think that first target <literal>C</literal> , then
+            <para>Suppose we want to execute target <literal>D</literal>. Looking at its depends
+                attribute, you might think that first target <literal>C</literal>, then
                     <literal>B</literal> and then <literal>A</literal> is executed. Wrong!
-                    <literal>C</literal> depends on <literal>B</literal> , and <literal>B</literal>
-                depends on <literal>A</literal> , so first <literal>A</literal> is executed, then
-                    <literal>B</literal> , then <literal>C</literal> , and finally
-                    <literal>D</literal> .</para>
+                    <literal>C</literal> depends on <literal>B</literal>, and <literal>B</literal>
+                depends on <literal>A</literal>, so first <literal>A</literal> is executed, then
+                    <literal>B</literal>, then <literal>C</literal>, and finally
+                    <literal>D</literal>.</para>
 
             <para>A target gets executed only once, even when more than one target depends on it
                 (see the previous example).</para>
