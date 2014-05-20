@@ -8172,6 +8172,20 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>groups</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Only run tests from the specified group(s).</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>excludeGroups</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Exclude tests from the specified group(s).</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>pharlocation</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Location of the PHPUnit PHAR package.</entry>
