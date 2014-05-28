@@ -39,13 +39,31 @@ The Latest Version
 Installation
 ------------
 
+  1. **PEAR**
+
   The preferred method to install Phing is through PEAR and the Phing PEAR
   channel. You can install Phing by adding the pear.phing.info channel
   to your PEAR environment and then installing Phing using the *phing*
   channel alias and *phing* package name:
 
-    $> pear channel-discover pear.phing.info
-    $> pear install [--alldeps] phing/phing
+         $ pear channel-discover pear.phing.info
+         $ pear install [--alldeps] phing/phing
+
+  2. **Composer**
+  
+  Install Phing by adding a dependency to [phing/phing](https://packagist.org/packages/phing/phing) to the require-dev or require section of your project's composer.json configuration file, and running 'composer install':
+
+         {
+             "require-dev": {
+                 "phing/phing": "2.*"
+             }
+         }
+
+  3. **Phar**
+  
+  Download the [Phar archive](http://www.phing.info/get/phing-latest.phar). The archive can then be executed by running:
+
+         $ php phing-latest.phar
 
 Documentation
 -------------
