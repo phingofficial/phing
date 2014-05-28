@@ -51,7 +51,10 @@ Installation
 
   2. **Composer**
   
-  Install Phing by adding a dependency to [phing/phing](https://packagist.org/packages/phing/phing) to the require-dev or require section of your project's composer.json configuration file, and running 'composer install':
+  Install Phing by adding a dependency to
+  [phing/phing](https://packagist.org/packages/phing/phing) to the
+  require-dev or require section of your project's composer.json
+  configuration file, and running 'composer install':
 
          {
              "require-dev": {
@@ -61,7 +64,8 @@ Installation
 
   3. **Phar**
   
-  Download the [Phar archive](http://www.phing.info/get/phing-latest.phar). The archive can then be executed by running:
+  Download the [Phar archive](http://www.phing.info/get/phing-latest.phar).
+  The archive can then be executed by running:
 
          $ php phing-latest.phar
 
