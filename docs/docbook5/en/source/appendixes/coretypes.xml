@@ -179,7 +179,11 @@
                                 <literal>SCCS/**</literal>, <literal>vssver.scc</literal>,
                                 <literal>.svn</literal>, <literal>.svn/**</literal>,
                                 <literal>._*</literal>, <literal>.DS_Store</literal>,
-                                <literal>.darcs</literal>, <literal>.darcs/**</literal>
+                                <literal>.darcs</literal>, <literal>.darcs/**</literal>,
+                                <literal>.git</literal>, <literal>.git/**</literal>,
+                                <literal>.gitattributes</literal>,
+                                <literal>.gitignore</literal>,
+                                <literal>.gitmodules</literal>
                         </entry>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
