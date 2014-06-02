@@ -1584,12 +1584,11 @@
     <define name="waitfor">
         <element name="waitfor">
             <interleave>
-                <attribute name="maxwait" a:defaultValue="180000">
-                    <data type="integer"/>
+                <attribute name="maxwait">
+                    <data type="int"/>
                 </attribute>
                 <optional>
                     <attribute name="maxwaitunit" a:defaultValue="millisecond">
-                        <data type="string"/>
                         <choice>
                             <value>week</value>
                             <value>day</value>
@@ -1600,8 +1599,8 @@
                         </choice>
                     </attribute>
                 </optional>
-                <attribute name="checkevery" a:defaultValue="500">
-                    <data type="integer"/>
+                <attribute name="checkevery">
+                    <data type="int"/>
                 </attribute>
                 <optional>
                     <attribute name="checkeveryunit" a:defaultValue="millisecond">
