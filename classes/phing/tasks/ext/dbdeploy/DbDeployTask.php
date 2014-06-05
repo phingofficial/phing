@@ -269,6 +269,8 @@ class DbDeployTask extends Task
 	                         AND delta_set = \'' . $this->deltaSet . '\';' . "\n";
                 } else {
                     $sql .= substr($contents, 0, $split);
+                    // Ensuring there's a newline after the final -- //
+                    $sql .= PHP_EOL;
                     $sql .= 'UPDATE ' . DbDeployTask::$TABLE_NAME . '
 	                         SET complete_dt = ' . $this->dbmsSyntax->generateTimestamp() . '
 	                         WHERE change_number = ' . $fileChangeNumber . '
