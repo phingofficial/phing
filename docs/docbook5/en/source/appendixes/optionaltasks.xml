@@ -1004,16 +1004,19 @@
             </tgroup>
         </table>
         <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" />;
+            <title>Examples</title>
+            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" />
+
+&lt;filesync sourcedir="host::module" destinationdir="/var/www/project1/" />
 
 &lt;filesync
-sourcedir="/var/www/development/project1"
-destinationdir="user@server:/var/www/project1"
-dryrun="true"
-itemizechanges="true"
-verbose="true"
-checksum="true" />;</programlisting>
+  sourcedir="/var/www/development/project1"
+  destinationdir="user@server:/var/www/project1"
+  dryrun="true"
+  itemizechanges="true"
+  verbose="true"
+  checksum="true" /></programlisting>
+            <para>In the <literal>sourcedir</literal> and <literal>destinationdir</literal> properties user name for remote connections is optional.</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="FtpDeployTask">
