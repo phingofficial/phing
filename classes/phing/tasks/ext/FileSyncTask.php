@@ -482,7 +482,7 @@ class FileSyncTask extends Task
     /**
      * Requests a simple itemized list of the changes that are being made to each file, including attribute changes.
      *
-     * @param boolean $dryRun
+     * @param boolean $itemizeChanges
      * @return void
      */
     public function setItemizeChanges($itemizeChanges)
