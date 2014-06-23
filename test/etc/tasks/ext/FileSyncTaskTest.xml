@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FileSyncTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+
+    <target name="setup">
+    	<mkdir dir="${tmp.dir}/project"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="noSourceDir">
+    	<filesync destinationdir="${tmp.dir}/destination/"/>
+    </target>
+
+    <target name="noDestinationDir">
+    	<filesync sourcedir="${tmp.dir}/project/"/>
+    </target>
+
+    <target name="wrongSource">
+    	<filesync sourcedir="${tmp.dir}/nonexistent/" destinationdir="${tmp.dir}/destination/"/>
+    </target>
+
+    <!--target name="testLocalFileSync">
+    	<filesync sourcedir="${tmp.dir}/project/" destinationdir="${tmp.dir}/destination/"/>
+    </target>
+
+    <target name="testRemoteFileSync">
+    	<filesync sourcedir="${tmp.dir}/project" destinationdir="host:/var/www/project"/>
+    	<filesync sourcedir="${tmp.dir}/project" destinationdir="user@host:/var/www/project"/>
+    	<filesync sourcedir="${tmp.dir}/project" destinationdir="host::module"/>
+    	<filesync sourcedir="host:/var/www/project" destinationdir="${tmp.dir}/project"/>
+    	<filesync sourcedir="user@host:/var/www/remote_project/" destinationdir="${tmp.dir}/project/"/>
+    </target-->
+
+    <target name="testRemoteToRemoteSync">
+    	<filesync sourcedir="host1::module" destinationdir="user@host2:/var/www/project"/>
+    </target>
+
+    <target name="main"/>
+</project>
