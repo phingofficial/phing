@@ -57,6 +57,16 @@ class DummyPDOQuerySplitter extends PDOQuerySplitter
             }
 
             $sql .= " " . $line . "\n";
+            
+            /**
+             * fix issue with PDO and wrong formated multistatements
+             * @issue 1108
+             */
+            if (StringHelper::endsWith($delimiter, $line))
+            {
+                break;
+            }
+            
         }
 
         return $sql;
