@@ -21,6 +21,7 @@
  */
  
 require_once 'phing/BuildFileTest.php';
+require_once 'phing/tasks/system/PropertyTask.php';
 
 /**
  * @author Hans Lellelid (Phing)
@@ -42,17 +43,6 @@ class PropertyTaskTest extends BuildFileTest {
     public function test2() { 
         $this->expectLog("test2", "testprop1=aa, testprop3=xxyy, testprop4=aazz");
     }
-    
-    public function test3() {        
-        try {
-            $this->executeTarget("test3");
-        } catch (BuildException $e) {
-            $this->assertTrue(strpos($e->getMessage(), "was circularly defined") !== false, "Circular definition not detected - ");
-            return;                     
-        }
-        $this->fail("Did not throw exception on circular exception");          
-    }
-    
     
     public function test4() { 
         $this->expectLog("test4", "http.url is http://localhost:999");
@@ -79,5 +69,48 @@ class PropertyTaskTest extends BuildFileTest {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
     }
-    
+
+    public function circularDefinitionTargets() 
+    {
+        return array(
+            array('test3'),
+            array('testCircularDefinition1'),
+            array('testCircularDefinition2')
+        );
+    }
+
+    /**
+     * @dataProvider circularDefinitionTargets 
+     */
+    public function testCircularDefinitionDetection($target)
+    {
+        try {
+            $this->executeTarget($target);
+        } catch (BuildException $e) {
+            $this->assertTrue(strpos($e->getMessage(), "was circularly defined") !== false, "Circular definition not detected - ");
+            return;                     
+        }
+        $this->fail("Did not throw exception on circular exception");      
+    }
+}
+
+class HangDetectorPropertyTask extends PropertyTask {
+
+    protected function loadFile(PhingFile $file) {
+        $props = new HangDetectorProperties();
+        $props->load($file);
+        $this->addProperties($props);
+    }
+}
+
+class HangDetectorProperties extends Properties {
+    private $accesses = 0;
+    public function getProperty($prop) 
+    {
+        $this->accesses++;
+        if( $this->accesses > 100 ) {
+            throw new Exception('Cirular definition Hanged!');
+        }
+        return parent::getProperty($prop);
+    }
 }

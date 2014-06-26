@@ -40,4 +40,13 @@
     </property>
   </target>
 
+  <taskdef name="hangdetectorproperty" classname="HangDetectorPropertyTask" />
+  <target name="testCircularDefinition1">
+    <property name="testprop2" value="${testprop1}"  />
+    <hangdetectorproperty file="property2.properties"/>
+  </target>
+  
+  <target name="testCircularDefinition2">
+      <hangdetectorproperty file="property_hang.properties"/>
+  </target>
 </project>
