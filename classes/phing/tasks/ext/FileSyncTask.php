@@ -192,10 +192,6 @@ class FileSyncTask extends Task
 
         if (strpos($this->destinationDir, ':')) {
             $this->setIsRemoteConnection(true);
-        } else {
-            if (! (is_dir($this->destinationDir) && is_readable($this->destinationDir))) {
-                throw new BuildException("No such file or directory: " . $this->destinationDir);
-            }
         }
 
         if (strpos($this->sourceDir, ':')) {
