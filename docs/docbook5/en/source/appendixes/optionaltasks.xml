@@ -924,14 +924,17 @@
                     <row>
                         <entry><literal>sourceDir</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Source directory (with user&amp;host for remote sources)</entry>
+                        <entry>Source directory (use [user@]host:path for remote sources)</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
                     <row>
                         <entry><literal>destinationDir</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Destination directory (with user&amp;host for remote destinations)</entry>
+                        <entry>Destination directory (use [user@]host:path for remote
+                        destinations). Note: sub directories are created by
+                        default if they do not exist in the destination
+                        directory.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
