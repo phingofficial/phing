@@ -2,6 +2,35 @@ P     H     I     N     G
 =========================
 
 
+Jun. 30, 2014 - Phing 2.8.0
+---------------------------
+
+New or improved functionality:
+
+ * The rsync task can now handle remote connections without specifying a username
+ * The rsync task now creates remote directories as needed by default
+ * Support for PHP MD 2.*
+ * Various tasks now support dependencies loaded through composer
+ * AutoloaderTask added
+ * Various bugs and documentation errors fixed
+
+Additionally, the following Trac tickets (see www.phing.info) were fixed in this release:
+
+ * [1108] pdosqlexec doesn't throw exception for the non-first SQL instruction
+ * [1106] Add .git and associated files to defaultexcludes attribute
+ * [1105] PHPUnitTask: attributes 'groups' and 'excludeGroups' not documented
+ * [1102] Phing is not compatible with PHPMD 2.0.0 beta
+ * [1101] Add (optional) external deps to suggest section in composer.json
+ * [1100] Add composer / PHAR installation instructions to README & web pages
+ * [1099] Allow loading of externals through composer [meta ticket]
+ * [1091] Phing is not compatible with PHPUnit 4.x
+ * [1090] PearPackageFileSet copies files with baseinstalldir incorrectly
+ * [1085] Conditions section (5.8) does not correctly link to mentioned tasks
+ * [1084] pdepend task does not find dependencies when installed by composer
+ * [980] Support for .dist files
+ * [975] Included JSmin has non-free license
+ * [964] includePathTask: talk about appending/prepending
+
 Feb. 13, 2014 - Phing 2.7.0
 ---------------------------
 
