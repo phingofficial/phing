@@ -2467,7 +2467,7 @@
                     <row>
                         <entry><literal>level</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Control the level at which phplint reports status messages. One of
+                        <entry>Control the level at which php reports status messages. One of
                                 <literal>error</literal>, <literal>warning</literal>,
                                 <literal>info</literal>, <literal>verbose</literal>,
                                 <literal>debug</literal>.</entry>
