@@ -51,10 +51,10 @@ class PhpLintTask extends Task {
     protected $deprecatedAsError = false;
 
     /**
-     * Initialize the interpreter with the Phing property
+     * Initialize the interpreter with the Phing property php.interpreter
      */
-    public function __construct() {
-        $this->setInterpreter(Phing::getProperty('php.interpreter'));
+    public function init() {
+        $this->setInterpreter($this->project->getProperty('php.interpreter'));
     }
 
     /**
@@ -64,7 +64,7 @@ class PhpLintTask extends Task {
      * @param   string  $sPhp
      */
     public function setInterpreter($sPhp) {
-        $this->Interpreter = $sPhp;
+        $this->interpreter = $sPhp;
     }
 
     /**
@@ -209,9 +209,9 @@ class PhpLintTask extends Task {
      * @return void
      */
     protected function lint($file) {
-        $command = $this->Interpreter == ''
+        $command = $this->interpreter == ''
             ? 'php'
-            : $this->Interpreter;
+            : $this->interpreter;
         $command .= ' -n -l ';
         
         if ($this->deprecatedAsError) {

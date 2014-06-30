@@ -7974,7 +7974,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>interpreter</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to alternative PHP interpreter</entry>
-                        <entry>Defaults to the <literal>${php.command}</literal> property which is
+                        <entry>Defaults to the <literal>${php.interpreter}</literal> property which is
                             the interpreter used to execute phing itself.</entry>
                         <entry>No</entry>
                     </row>
