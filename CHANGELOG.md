@@ -2,6 +2,16 @@ P     H     I     N     G
 =========================
 
 
+Jul. 1, 2014 - Phing 2.8.1
+--------------------------
+
+This patch release fixes a regression preventing Phing from
+being used on machines where PEAR is not installed, as well
+as another (unrelated) issue.
+
+ * [1114] PHP Fatal Error using Phing on machines without PEAR
+ * [1111] setting PhpLintTask interpreter
+
 Jun. 30, 2014 - Phing 2.8.0
 ---------------------------
 
