@@ -12,8 +12,6 @@
  * @link     http://www.phing.info/
  */
 require_once 'phing/util/DirectoryScanner.php';
-require_once 'PEAR/Config.php';
-require_once 'PEAR/PackageFile.php';
 
 /**
  * Scans for files in a PEAR package.
@@ -32,6 +30,19 @@ class PearPackageScanner extends DirectoryScanner
     protected $package;
     protected $channel = 'pear.php.net';
     protected $packageFile;
+
+    /**
+     * Load PEAR_Config and PEAR_PackageFile
+     */
+    public function __construct()
+    {
+        @require_once 'PEAR/Config.php';
+        @require_once 'PEAR/PackageFile.php';
+
+        if (! class_exists('PEAR_Config')) {
+            throw new BuildException(__CLASS__ . " requires PEAR to be installed");
+        }
+    }
 
     /**
      * Sets the package.xml file to read, instead of using the
