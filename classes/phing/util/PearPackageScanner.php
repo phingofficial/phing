@@ -36,8 +36,8 @@ class PearPackageScanner extends DirectoryScanner
      */
     public function __construct()
     {
-        @require_once 'PEAR/Config.php';
-        @require_once 'PEAR/PackageFile.php';
+        @include_once 'PEAR/Config.php';
+        @include_once 'PEAR/PackageFile.php';
 
         if (! class_exists('PEAR_Config')) {
             throw new BuildException(__CLASS__ . " requires PEAR to be installed");
