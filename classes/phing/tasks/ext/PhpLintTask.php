@@ -64,6 +64,9 @@ class PhpLintTask extends Task {
      * @param   string  $sPhp
      */
     public function setInterpreter($sPhp) {
+        if (strpos($sPhp, ' ') !== false) {
+            $sPhp = escapeshellarg($sPhp);
+        }
         $this->interpreter = $sPhp;
     }
 
@@ -233,7 +236,7 @@ class PhpLintTask extends Task {
                 
                 $messages = array();
                 $errorCount = 0;
-
+                
                 exec($command.'"'.$file.'" 2>&1', $messages);
                 
                 for ($i = 0; $i < count($messages) - 1; $i++) {
