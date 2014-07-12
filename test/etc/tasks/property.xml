@@ -49,4 +49,8 @@
   <target name="testCircularDefinition2">
       <hangdetectorproperty file="property_hang.properties"/>
   </target>
+
+  <target name="testUsingPropertyTwiceInPropertyValueShouldNotThrowException">
+      <property file="property_notcircular.properties"/>
+  </target>
 </project>

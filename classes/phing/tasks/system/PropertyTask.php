@@ -386,8 +386,10 @@ class PropertyTask extends Task {
                             if ($fragment === null) {
                                 if ($props->containsKey($propertyName)) {
                                     $fragment = $props->getProperty($propertyName);
-                                    $resolveStack[] = $propertyName;
-                                    $resolved = false; // parse again (could have been replaced w/ another var)
+                                    if (strpos($fragment, '${') !== false) {
+                                        $resolveStack[] = $propertyName;
+                                        $resolved = false; // parse again (could have been replaced w/ another var)
+                                    }
                                 } else {
                                     $fragment = "\${".$propertyName."}";
                                 }

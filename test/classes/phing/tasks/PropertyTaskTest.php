@@ -75,7 +75,7 @@ class PropertyTaskTest extends BuildFileTest {
         return array(
             array('test3'),
             array('testCircularDefinition1'),
-            array('testCircularDefinition2')
+            array('testCircularDefinition2'),
         );
     }
 
@@ -91,6 +91,15 @@ class PropertyTaskTest extends BuildFileTest {
             return;                     
         }
         $this->fail("Did not throw exception on circular exception");      
+    }
+
+    /**
+     * Inspired by @link http://www.phing.info/trac/ticket/1118
+     * This test should not throw exceptions
+     */
+    public function testUsingPropertyTwiceInPropertyValueShouldNotThrowException()
+    {
+        $this->executeTarget(__FUNCTION__);
     }
 }
 
