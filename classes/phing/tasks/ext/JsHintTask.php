@@ -63,6 +63,11 @@ class JsHintTask extends Task
     private $haltOnWarning = false;
 
     /**
+     * Exclude Path, allows addition of an exclude path.
+     */
+    private $excludePath = NULL;
+
+    /**
      * Path where the the report in Checkstyle format should be saved
      * 
      * @var string
@@ -95,6 +100,10 @@ class JsHintTask extends Task
         $this->haltOnWarning = $haltOnWarning;
     }
 
+    public function setExcludePath($excludePath) {
+        $this->excludePath = $excludePath;
+    }
+
     public function setCheckstyleReportPath($checkstyleReportPath) {
         $this->checkstyleReportPath = $checkstyleReportPath;
     }
@@ -122,6 +131,9 @@ class JsHintTask extends Task
         $this->_checkJsHintIsInstalled();
 
         $command = 'jshint --reporter=checkstyle ' . implode(' ', $fileList);
+        if ($this->excludePath !== NULL) {
+            $command .= " --excludePath={$this->excludePath}";
+        }
         $output = array();
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
