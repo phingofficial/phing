@@ -18,6 +18,18 @@ installPearTask ()
     pear -qq channel-discover pear.phing.info
     echo "... OK"
 
+    echo -e "\nInstalling / upgrading phpcpd ... "
+    which phpcpd >/dev/null                      &&
+        pear upgrade pear.phpunit.de/phpcpd ||
+        pear install pear.phpunit.de/phpcpd
+    phpenv rehash
+
+    echo -e "\nInstalling / upgrading phploc ... "
+    which phploc >/dev/null                      &&
+        pear upgrade pear.phpunit.de/phploc ||
+        pear install pear.phpunit.de/phploc
+    phpenv rehash
+
     echo -e "\nInstalling / upgrading phpdepend ... "
     if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
         which pdepend >/dev/null                      &&
@@ -67,16 +79,6 @@ installPearTask ()
     	pear install -f phpunit/Text_Template-1.1.1
         pear upgrade pecl.php.net/Phar ||
             pear install pecl.php.net/Phar
-        echo -e "\nInstalling / upgrading phpcpd ... "
-        which phpcpd >/dev/null                      &&
-            pear upgrade pear.phpunit.de/phpcpd ||
-            pear install pear.phpunit.de/phpcpd
-        phpenv rehash
-
-        echo -e "\nInstalling / upgrading phploc ... "
-        which phploc >/dev/null                      &&
-            pear upgrade pear.phpunit.de/phploc ||
-            pear install pear.phpunit.de/phploc
         phpenv rehash
         mkdir vendor
         touch vendor/autoload.php
