@@ -18,18 +18,6 @@ installPearTask ()
     pear -qq channel-discover pear.phing.info
     echo "... OK"
 
-    echo -e "\nInstalling / upgrading phpdepend ... "
-    if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
-        which pdepend >/dev/null                      &&
-            pear upgrade pear.pdepend.org/PHP_Depend-1.1.0 ||
-            pear install pear.pdepend.org/PHP_Depend-1.1.0
-    else
-        which pdepend >/dev/null                      &&
-            pear upgrade pear.pdepend.org/PHP_Depend-beta ||
-            pear install pear.pdepend.org/PHP_Depend-beta
-    fi
-    phpenv rehash
-
     echo -e "\nInstalling / upgrading phpcs ... "
     which phpcs >/dev/null                             &&
         pear upgrade pear.php.net/PHP_CodeSniffer ||
@@ -41,8 +29,6 @@ installPearTask ()
         return 1
 
     sudo apt-get install python-docutils
-    pear install VersionControl_Git-alpha
-    pear install VersionControl_SVN-alpha
     pear install pear/XML_Serializer-beta
     pear install --alldeps PEAR_PackageFileManager
     pear install --alldeps PEAR_PackageFileManager2
@@ -78,6 +64,10 @@ installPearTask ()
             pear upgrade pear.phpunit.de/phploc ||
             pear install pear.phpunit.de/phploc
         phpenv rehash
+
+        which pdepend >/dev/null                      &&
+            pear upgrade pear.pdepend.org/PHP_Depend-1.1.0 ||
+            pear install pear.pdepend.org/PHP_Depend-1.1.0
         mkdir vendor
         touch vendor/autoload.php
     else

@@ -25,7 +25,11 @@
         "phpunit/phpunit": ">=3.7",
         "phpdocumentor/phpdocumentor": "2.x",
 	"phploc/phploc": "2.x",
-	"sebastian/phpcpd": "2.x"
+	"sebastian/phpcpd": "2.x",
+	"pear/pear_exception": "@dev",
+	"pear/versioncontrol_svn": "@dev",
+	"pear/versioncontrol_git": "@dev",
+	"pdepend/pdepend": "1.x"
     },
     "autoload": {
         "classmap": ["classes/phing/"]
