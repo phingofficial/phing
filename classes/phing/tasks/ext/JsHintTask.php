@@ -49,6 +49,13 @@ class JsHintTask extends Task
     protected $filesets = array();
 
     /**
+     * <path> arguments for full path
+     * Accepts one path only
+     * @var string
+     */
+    private $paths;
+
+    /**
      * Should the build fail on JSHint errors
      * 
      * @var boolean
@@ -92,6 +99,16 @@ class JsHintTask extends Task
         $this->filesets[] = $fs;
     }
 
+    public function setPaths($paths)
+    {
+        $this->paths = $paths;
+    }
+
+    public function getPaths()
+    {
+        return $this->paths;
+    }
+
     public function setHaltOnError($haltOnError) {
         $this->haltOnError = $haltOnError;
     }
@@ -116,13 +133,18 @@ class JsHintTask extends Task
         if (!isset($this->file)) {
             $fileList = array();
             $project = $this->getProject();
-            foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
-                $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getAbsolutePath();
-                foreach ($files as $file) {
-                    $fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
+            if ($this->filesets) {
+                foreach ($this->filesets as $fs) {
+                    $ds = $fs->getDirectoryScanner($project);
+                    $files = $ds->getIncludedFiles();
+                    $dir = $fs->getDir($this->project)->getAbsolutePath();
+                    foreach ($files as $file) {
+                        $fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
+                    }
                 }
+            }
+            elseif ($this->paths) {
+                $fileList = explode(PATH_SEPARATOR, $this->getPaths());
             }
         } else {
             $fileList = array($this->file);
@@ -134,6 +156,7 @@ class JsHintTask extends Task
         if ($this->excludePath !== NULL) {
             $command .= " --exclude-path={$this->excludePath}";
         }
+        $this->log($command);
         $output = array();
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
