@@ -132,7 +132,7 @@ class JsHintTask extends Task
 
         $command = 'jshint --reporter=checkstyle ' . implode(' ', $fileList);
         if ($this->excludePath !== NULL) {
-            $command .= " --excludePath={$this->excludePath}";
+            $command .= " --exclude-path={$this->excludePath}";
         }
         $output = array();
         exec($command, $output);
