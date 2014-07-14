@@ -23,7 +23,9 @@
     },
     "require-dev": {
         "phpunit/phpunit": ">=3.7",
-        "phpdocumentor/phpdocumentor": "2.x"
+        "phpdocumentor/phpdocumentor": "2.x",
+	"phploc/phploc": "2.x",
+	"phpmd/phpmd": "2.x"
     },
     "autoload": {
         "classmap": ["classes/phing/"]
