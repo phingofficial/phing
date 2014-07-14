@@ -126,7 +126,7 @@ class JsHintTask extends Task
     }
 
     public function main() {
-        if (!isset($this->file) && count($this->filesets) === 0) {
+        if (!isset($this->file) && count($this->filesets) === 0 && !isset($this->paths)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
         
