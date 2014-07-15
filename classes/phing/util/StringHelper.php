@@ -12,8 +12,8 @@
  */
 class StringHelper {
 
-    private static $TRUE_VALUES = array("on", "true", "t", "yes");
-    private static $FALSE_VALUES = array("off", "false", "f", "no");
+    private static $TRUE_VALUES = array("on", "true", "t", "yes", "1");
+    private static $FALSE_VALUES = array("off", "false", "f", "no", "0");
     
     /**
      * Replaces identifier tokens with corresponding text values in passed string.
