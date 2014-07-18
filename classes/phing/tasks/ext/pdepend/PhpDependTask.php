@@ -134,22 +134,21 @@ class PhpDependTask extends Task
      */
     protected function requireDependencies()
     {
-        /**
-         * Determine PHP_Depend installation
-         */
-        @include_once 'PHP/Depend/TextUI/Runner.php';
-
+        // check composer autoloader
         if (! class_exists('PHP_Depend_TextUI_Runner')) {
-            throw new BuildException(
-                'PhpDependTask depends on PHP_Depend being installed and on include_path',
-                $this->getLocation()
-            );
+            @include_once 'PHP/Depend/Autoload.php';
+            
+            if (! class_exists('PHP_Depend_Autoload')) {
+                throw new BuildException(
+                    'PhpDependTask depends on PHP_Depend being installed and on include_path',
+                    $this->getLocation()
+                );
+            }
+            
+            // register PHP_Depend autoloader
+            $autoload = new PHP_Depend_Autoload();
+            $autoload->register();
         }
-
-        /**
-         * Other dependencies that should only be loaded when class is actually used
-         */
-        require_once 'PHP/Depend/Autoload.php';
     }
 
     /**
@@ -309,9 +308,6 @@ class PhpDependTask extends Task
     public function main()
     {
         $this->requireDependencies();
-
-        $autoload = new PHP_Depend_Autoload();
-        $autoload->register();
 
         if (!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException('Missing either a nested fileset or attribute "file" set');
