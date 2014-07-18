@@ -29,11 +29,6 @@ installPearTask ()
         return 1
 
     sudo apt-get install python-docutils
-    pear install pear/XML_Serializer-beta
-    pear install --alldeps PEAR_PackageFileManager
-    pear install --alldeps PEAR_PackageFileManager2
-    pear install Net_Growl
-    pear install HTTP_Request2
 
     # update paths
     phpenv rehash
@@ -57,17 +52,24 @@ installPearTask ()
         which phpcpd >/dev/null                      &&
             pear upgrade pear.phpunit.de/phpcpd ||
             pear install pear.phpunit.de/phpcpd
-        phpenv rehash
 
         echo -e "\nInstalling / upgrading phploc ... "
         which phploc >/dev/null                      &&
             pear upgrade pear.phpunit.de/phploc ||
             pear install pear.phpunit.de/phploc
-        phpenv rehash
 
         which pdepend >/dev/null                      &&
             pear upgrade pear.pdepend.org/PHP_Depend-1.1.0 ||
             pear install pear.pdepend.org/PHP_Depend-1.1.0
+        
+        pear install pear/XML_Serializer-beta
+        pear install --alldeps PEAR_PackageFileManager
+        pear install --alldeps PEAR_PackageFileManager2
+        pear install Net_Growl
+        pear install HTTP_Request2
+        
+        phpenv rehash
+        
         mkdir vendor
         touch vendor/autoload.php
     else
