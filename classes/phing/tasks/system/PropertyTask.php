@@ -57,6 +57,9 @@ class PropertyTask extends Task {
      */
     protected $filterChains  = array();
 
+    /** Whether to log messages as INFO or VERBOSE  */
+    protected $logOutput = true;
+
     /**
      * Sets a the name of current property component
      */
@@ -209,6 +212,14 @@ class PropertyTask extends Task {
         return $this->filterChains[$num-1];
     }  
 
+    function setLogoutput($logOutput) {
+        $this->logOutput = (bool) $logOutput;
+    }
+
+    function getLogoutput() {
+        return $this->logOutput;
+    }
+
     /**
      * set the property in the project to the value.
      * if the task was give a file or env attribute
@@ -320,7 +331,7 @@ class PropertyTask extends Task {
      */
     protected function loadFile(PhingFile $file) {
         $props = new Properties();
-        $this->log("Loading ". $file->getAbsolutePath(), Project::MSG_INFO);
+        $this->log("Loading ". $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
                 $props->load($file);

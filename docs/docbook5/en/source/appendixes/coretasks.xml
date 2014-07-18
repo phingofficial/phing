@@ -2584,6 +2584,14 @@
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>logoutput</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to log returned output as MSG_INFO instead of
+                            MSG_VERBOSE.</entry>
+                        <entry><literal>true</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
