@@ -6,15 +6,11 @@
 # Target system: travis-ci
 #-----------------------------------------------------------
 
-installPearTask ()
-{
     sudo apt-get update -qq
-#    sudo apt-get install -qq php5-xdebug
     
     echo -e "\nAuto-discover pear channels and upgrade ..."
     pear config-set auto_discover 1
     pear -qq channel-update pear.php.net
-#    pear -qq upgrade
     pear -qq channel-discover pear.phing.info
     echo "... OK"
 
@@ -29,17 +25,6 @@ installPearTask ()
         return 1
 
     sudo apt-get install python-docutils
-
-    # update paths
-    phpenv rehash
-}
-
-
-#-----------------------------------------------------------
-
-    installPearTask &&
-        echo -e "\nSUCCESS - PHP ENVIRONMENT READY." ||
-        ( echo "=== FAILED."; exit 1 )
 
     if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
     	pear install -f phpunit/File_Iterator-1.3.2
@@ -72,20 +57,16 @@ installPearTask ()
         pear install VersionControl_SVN-alpha
         pear install VersionControl_Git-alpha
         
-        phpenv rehash
-        
         mkdir vendor
         touch vendor/autoload.php
     else
+    	echo -e "\nInstalling composer packages ... "
     	composer selfupdate --quiet
-        composer install
+        composer install -o --no-progress
     fi
 
-#    echo "=== BUILDING PHING ==="
-#    cd build
-#    phing -Dversion=2.0.0b1
-
     phpenv config-add .travis.php.ini
+    phpenv rehash
 
     echo "=== SETTING GIT IDENTITY ==="
     git config --global user.email "travis-ci-build@phing.info"
