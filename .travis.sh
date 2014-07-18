@@ -67,6 +67,8 @@ installPearTask ()
         pear install --alldeps PEAR_PackageFileManager2
         pear install Net_Growl
         pear install HTTP_Request2
+        pear install VersionControl_SVN-alpha
+        pear install VersionControl_Git-alpha
         
         phpenv rehash
         
