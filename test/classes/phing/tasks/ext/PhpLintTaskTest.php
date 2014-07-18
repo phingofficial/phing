@@ -34,14 +34,23 @@ class PhpLintTaskTest extends BuildFileTest {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");
     }
 
+    public function tearDown()
+    {
+        @unlink(PHING_TEST_BASE . '/tmp/phplint_file.php');
+    }
+
     public function testSyntaxOK()
     {
+        file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world'; ?>");
+
         $this->executeTarget(__FUNCTION__);
-        $this->assertInLogs("my_file_ok.php: No syntax errors detected");
+        $this->assertInLogs("phplint_file.php: No syntax errors detected");
     }
 
     public function testSyntaxError()
     {
+        file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
+
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Parse error: syntax error, unexpected");
     }
@@ -51,12 +60,17 @@ class PhpLintTaskTest extends BuildFileTest {
      */
     public function testDeprecated()
     {
+        file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', '<?php class TestClass {}; $t = & new TestClass();');
+
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Assigning the return value of new by reference is deprecated in");
     }
 
     public function testHaltOnFailure()
     {
-        $this->expectBuildException(__FUNCTION__, " Syntax error(s) in PHP files: ./my_file.php=Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in ./my_file.php on line 2");
+        file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
+
+        $this->expectBuildException(__FUNCTION__, " Syntax error(s) in PHP files: " . PHING_TEST_BASE . "/tmp/phplint_file.php" .
+            "=Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in " . PHING_TEST_BASE . "/tmp/phplint_file.php on line 2");
     }
 }
