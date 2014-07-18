@@ -50,18 +50,20 @@ installPearTask ()
             pear install pecl.php.net/Phar
         echo -e "\nInstalling / upgrading phpcpd ... "
         which phpcpd >/dev/null                      &&
-            pear upgrade pear.phpunit.de/phpcpd ||
-            pear install pear.phpunit.de/phpcpd
+            pear upgrade pear.phpunit.de/phpcpd-1.3.5 ||
+            pear install pear.phpunit.de/phpcpd-1.3.5
 
         echo -e "\nInstalling / upgrading phploc ... "
         which phploc >/dev/null                      &&
-            pear upgrade pear.phpunit.de/phploc ||
-            pear install pear.phpunit.de/phploc
-
+            pear upgrade pear.phpunit.de/phploc-1.6.4 ||
+            pear install pear.phpunit.de/phploc-1.6.4
+            
+        echo -e "\nInstalling / upgrading phpdepend ... "
         which pdepend >/dev/null                      &&
             pear upgrade pear.pdepend.org/PHP_Depend-1.1.0 ||
             pear install pear.pdepend.org/PHP_Depend-1.1.0
         
+        echo -e "\nInstalling PEAR packages ... "
         pear install pear/XML_Serializer-beta
         pear install --alldeps PEAR_PackageFileManager
         pear install --alldeps PEAR_PackageFileManager2
