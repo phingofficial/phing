@@ -46,7 +46,7 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition {
                                      . "condition");
         }        
         $refs = $this->project->getReferences();
-        return isset($refs[$this->refid]);
+        return ! ($refs[$this->refid] instanceof UnknownElement) && isset($refs[$this->refid]);
     }
 
 }

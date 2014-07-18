@@ -39,5 +39,11 @@ class ConditionTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isCustom');
     }*/
+
+    public function testReferenceExists()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyUnset('ref.exists');
+    }
 }
 
