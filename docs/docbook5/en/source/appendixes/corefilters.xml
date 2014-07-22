@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.corefilters">
@@ -60,7 +60,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -137,7 +137,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -177,7 +177,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -217,7 +217,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -299,7 +299,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -342,7 +342,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -408,7 +408,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -482,15 +482,15 @@
             want to replace references to *.java with *.php:</para>
         <programlisting language="xml">&lt;filterchain>
   &lt;replaceregexp>
-	&lt;regexp pattern="ANT" replace="Phing" ignoreCase="true"/>
-	&lt;regexp pattern="(\w+)\.java" replace="\1.php"/>
+    &lt;regexp pattern="ANT" replace="Phing" ignoreCase="true"/>
+    &lt;regexp pattern="(\w+)\.java" replace="\1.php"/>
   &lt;/replaceregexp>
 &lt;/filterchain></programlisting>
         <para>Or, replace all Windows line-endings with Unix
             line-endings:</para>
         <programlisting language="xml">&lt;filterchain>
   &lt;replaceregexp>
-	&lt;regexp pattern="\r(\n)" replace="\1"/>
+    &lt;regexp pattern="\r(\n)" replace="\1"/>
   &lt;/replaceregexp>
 &lt;/filterchain></programlisting>
 
@@ -507,7 +507,7 @@
                     <colspec colname="type" colnum="2" colwidth="0.8*"/>
                     <colspec colname="description" colnum="3" colwidth="3.5*"/>
                     <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                    <colspec colname="required" colnum="5" colwidth="1.2*"/>                    
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
                     <thead>
                         <row>
                             <entry>Name</entry>
@@ -568,8 +568,8 @@
                 time):</para>
             <programlisting language="xml">&lt;filterchain>
   &lt;replaceregexp>
-	&lt;regexp pattern="ANT" replace="Phing" modifiers="i"/>
-	&lt;regexp pattern="(\w+)\.java" replace="\1.php"/>
+    &lt;regexp pattern="ANT" replace="Phing" modifiers="i"/>
+    &lt;regexp pattern="(\w+)\.java" replace="\1.php"/>
   &lt;/replaceregexp>
 &lt;/filterchain></programlisting>
         </sect2>
@@ -638,7 +638,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -676,7 +676,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -717,7 +717,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -775,7 +775,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>
@@ -828,7 +828,7 @@
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
                 <colspec colname="description" colnum="3" colwidth="3.5*"/>
                 <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>                
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
                 <thead>
                     <row>
                         <entry>Name</entry>

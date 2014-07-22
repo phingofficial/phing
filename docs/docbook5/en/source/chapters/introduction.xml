@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.introduction">
@@ -9,7 +9,7 @@
         <para><acronym>Phing</acronym> is a project build system based on Apache ant (See <xref
                 xlink:href="#ant" xlink:title="[ant]"/>). You can do anything with
                 <acronym>Phing</acronym> that you could do with a traditional build system like Gnu
-            make (See <xref xlink:href="#gnumake" xlink:title="[gmake]"/>), and 
+            make (See <xref xlink:href="#gnumake" xlink:title="[gmake]"/>), and
             <acronym>Phing's</acronym> use of
             simple XML build files and extensible PHP task classes make it an easy-to-use and highly
             flexible build framework.</para>
@@ -42,8 +42,8 @@
         </itemizedlist>
         <para>It the beginning, Binarycloud used the GNU make system; however, this approach had
             some drawbacks: The space-before-tab-problem in makefiles, the fact that it is only
-            natively available for Unix systems etc. So, the need for a better build system arose. 
-            Due to it's XML build files and modular design, Apache Ant was a logical choice.
+            natively available for Unix systems etc. So, the need for a better build system arose.
+            Due to its XML build files and modular design, Apache Ant was a logical choice.
             The problem was that Ant is written in Java, so you need to install a JVM on your
             computer to use it. Besides the need for yet another interpreter (i.e. besides PHP),
             there was also legal/ideological conflict in requiring a commercial JVM (there were
@@ -106,7 +106,7 @@
         </itemizedlist>
         <sect2>
             <title> Participating in the development </title>
-            
+
             <para>As of 1 January 2012 all Phing development is based on Git and the project is
                 hosted at GitHub (<link xlink:href="https://github.com/"
                 >https://github.com/</link>)</para>
@@ -162,7 +162,7 @@
                             >http://progit.org/</link>. </para>
                 </note>
             </para>
-        </sect2>        
+        </sect2>
     </sect1>
 
 </chapter>

@@ -190,15 +190,11 @@ class FileSyncTask extends Task
             throw new BuildException('The "destinationdir" attribute is missing or undefined.');
         }
 
-        if (strpos($this->destinationDir, '@')) {
+        if (strpos($this->destinationDir, ':')) {
             $this->setIsRemoteConnection(true);
-        } else {
-            if (! (is_dir($this->destinationDir) && is_readable($this->destinationDir))) {
-                throw new BuildException("No such file or directory: " . $this->destinationDir);
-            }
         }
 
-        if (strpos($this->sourceDir, '@')) {
+        if (strpos($this->sourceDir, ':')) {
             if ($this->isRemoteConnection) {
                 throw new BuildException('The source and destination cannot both be remote.');
             }
@@ -482,7 +478,7 @@ class FileSyncTask extends Task
     /**
      * Requests a simple itemized list of the changes that are being made to each file, including attribute changes.
      *
-     * @param boolean $dryRun
+     * @param boolean $itemizeChanges
      * @return void
      */
     public function setItemizeChanges($itemizeChanges)

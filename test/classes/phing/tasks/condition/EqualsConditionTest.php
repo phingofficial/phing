@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/tasks/system/condition/EqualsCondition.php';
 
 /**

@@ -102,15 +102,14 @@ class AppendTask extends Task {
     }
 
     /**
-     * Nested creator, adds a set of files (nested <fileset> attribute).
-     * This is for when you don't care what order files get appended.
-     * @return FileSet
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
      */
-    function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
-    
+
     /**
      * Creates a filterchain
      *

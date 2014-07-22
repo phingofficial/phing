@@ -21,7 +21,6 @@
  */
 
 
-require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/system/io/FileOutputStream.php';
 
 /**

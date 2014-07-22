@@ -61,6 +61,12 @@ class PhpDocumentor2Wrapper
     private $title = "API Documentation";
     
     /**
+     * Name of the default package
+     * @var string
+     */
+    private $defaultPackageName = "Default";
+    
+    /**
      * Path to the phpDocumentor 2 source
      * @var string
      */
@@ -102,7 +108,7 @@ class PhpDocumentor2Wrapper
 
     /**
      * Sets the template to use
-     * @param strings $template
+     * @param string $template
      */
     public function setTemplate($template)
     {
@@ -111,7 +117,7 @@ class PhpDocumentor2Wrapper
     
     /**
      * Sets the title of the project
-     * @param strings $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -119,20 +125,36 @@ class PhpDocumentor2Wrapper
     }
     
     /**
+     * Sets the default package name
+     * @param string $defaultPackageName
+     */
+    public function setDefaultPackageName($defaultPackageName)
+    {
+        $this->defaultPackageName = (string) $defaultPackageName;
+    }
+    
+    /**
      * Finds and initializes the phpDocumentor installation
      */
     private function initializePhpDocumentor()
     {
-        $phpDocumentorPath = $this->findPhpDocumentorPath();
+        if (class_exists('Composer\\Autoload\\ClassLoader', false)) {
+            if (!class_exists('phpDocumentor\\Bootstrap')) {
+                throw new BuildException('You need to install PhpDocumentor 2 or add your include path to your composer installation.');
+            }
+            $phpDocumentorPath = '';
+        } else {
+            $phpDocumentorPath = $this->findPhpDocumentorPath();
 
-        if (empty($phpDocumentorPath)) {
-            throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.");
+            if (empty($phpDocumentorPath)) {
+                throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.");
+            }
+            
+            set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
+            
+            require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';        
         }
         
-        set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
-        
-        require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
-            
         $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
         
         $this->phpDocumentorPath = $phpDocumentorPath;
@@ -176,7 +198,7 @@ class PhpDocumentor2Wrapper
         $mapper->populate($projectDescriptor);
         
         $parser->setPath($files->getProjectRoot());
-        $parser->setDefaultPackageName("Default");
+        $parser->setDefaultPackageName($this->defaultPackageName);
         
         $parser->parse($builder, $files);
         

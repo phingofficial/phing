@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.optionaltasks">
@@ -263,6 +263,45 @@
   todo="true"/></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="AutoloaderTask">
+        <title>AutoloaderTask</title>
+        <para>
+            The AutoloaderTask includes autoload file to bootstrap all necessary components in Phing execution context.
+            It could be useful if build tools (e.g. phpunit, phploc etc.) are installed as Composer dependencies.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>autoloaderpath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path to autoloader file</entry>
+                        <entry>vendor/autoload.php</entry>
+                        <entry>Yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;autoloader autoloaderpath="foo/autoload.php"/></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="CoverageMergerTask">
         <title>CoverageMergerTask</title>
         <para>The CoverageMergerTask merges code coverage information from external sources with an
@@ -281,7 +320,7 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -321,7 +360,7 @@
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>classpath</literal></entry>
+                        <entry><literal><link linkend="path">classpath</link></literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Additional classpath to locate source referenced in the
                             report</entry>
@@ -467,13 +506,13 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>classpath</literal></para>
+                    <para><literal><link linkend="path">classpath</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>filelist</literal></para>
+                    <para><literal><link linkend="FileList">filelist</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -549,10 +588,10 @@
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>classpath</literal></para>
+                    <para><literal><link linkend="path">classpath</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para>excludes</para>
+                    <para><literal><link linkend="Excludes">excludes</link></literal></para>
                 </listitem>
             </itemizedlist>
             <para>Validates an optional code coverage database against the default
@@ -702,73 +741,6 @@
 
             <para>The above example uses a sqlite database and delta scripts located in
                 dbdeploy/deltas in the project base dir.</para>
-        </sect2>
-    </sect1>
-    <sect1 role="taskdef" xml:id="DocBloxTask">
-        <title>DocBloxTask</title>
-        <para> <emphasis role="bold">This task is now deprecated in favor of the
-            <xref xlink:href="#PhpDocumentor2Task"/>.</emphasis></para>
-        <para> This task runs <link xlink:href="http://www.docblox-project.org/" role="extern"
-                >DocBlox</link>, a PHP 5.3-compatible API documentation tool.</para>
-
-        <table>
-            <title>Attributes</title>
-            <tgroup cols="5">
-                <colspec colname="name" colnum="1" colwidth="1.5*"/>
-                <colspec colname="type" colnum="2" colwidth="0.8*"/>
-                <colspec colname="description" colnum="3" colwidth="3.5*"/>
-                <colspec colname="default" colnum="4" colwidth="0.8*"/>
-                <colspec colname="required" colnum="5" colwidth="1.2*"/>
-                <thead>
-                    <row>
-                        <entry>Name</entry>
-                        <entry>Type</entry>
-                        <entry>Description</entry>
-                        <entry>Default</entry>
-                        <entry>Required</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><literal>title</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Title of the project.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>destdir</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Destination directory for output files.</entry>
-                        <entry>n/a</entry>
-                        <entry>Yes</entry>
-                    </row>
-                    <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Suppress DocBlox chatter.</entry>
-                        <entry><literal>true</literal></entry>
-                        <entry>No</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-        <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;docblox title="API Documentation"
-  destdir="apidocs">
-   &lt;fileset dir="./classes">
-      &lt;include name="**/*.php" />
-   &lt;/fileset>
-&lt;/docblox></programlisting>
-        </sect2>
-        <sect2 role="nestedtags">
-            <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>fileset - Files that should be included for parsing</para>
-                </listitem>
-            </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="ExportPropertiesTask">
@@ -922,7 +894,7 @@
     </sect1>
     <sect1 role="taskdef" xml:id="FileSyncTask">
         <title>FileSyncTask</title>
-        <para>Syncs files or directories using the rsync command. Syncing can be done on the 
+        <para>Syncs files or directories using the rsync command. Syncing can be done on the
            same server or from/to a remote server.</para>
         <table>
             <title>Attributes</title>
@@ -949,97 +921,105 @@
                         <entry>/usr/bin/rsync</entry>
                         <entry>Yes</entry>
                     </row>
-	                <row>
-	                    <entry><literal>sourceDir</literal></entry>
-	                    <entry><literal role="type">String</literal></entry>
-	                    <entry>Source directory (with user&amp;host for remote sources)</entry>
-	                    <entry>n/a</entry>
-	                    <entry>Yes</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>destinationDir</literal></entry>
-	                    <entry><literal role="type">String</literal></entry>
-	                    <entry>Destination directory (with user&amp;host for remote destinations)</entry>
-	                    <entry>n/a</entry>
-	                    <entry>Yes</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>excludeFile</literal></entry>
-	                    <entry><literal role="type">String</literal></entry>
-	                    <entry>Excluded patterns file</entry>
-	                    <entry>n/a</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>backupDir</literal></entry>
-	                    <entry><literal role="type">String</literal></entry>
-	                    <entry>Creates a backup so users can rollback to an existing restore point</entry>
-	                    <entry>n/a</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>options</literal></entry>
-	                    <entry><literal role="type">String</literal></entry>
-	                    <entry>Any options that rsync supports, removes the default options</entry>
-	                    <entry>-rpKz</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>verbose</literal></entry>
-	                    <entry><literal role="type">Boolean</literal></entry>
-	                    <entry>This option increases the amount of information you are given during the transfer</entry>
-	                    <entry>True</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>dryRun</literal></entry>
-	                    <entry><literal role="type">Boolean</literal></entry>
-	                    <entry>This option makes rsync perform a trial run that doesn't make any changes</entry>
-	                    <entry>False</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>itemizeChanges</literal></entry>
-	                    <entry><literal role="type">Boolean</literal></entry>
-	                    <entry>This option requests a simple itemized list of the changes that are being made to each file, including attribute changes</entry>
-	                    <entry>False</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>checksum</literal></entry>
-	                    <entry><literal role="type">Boolean</literal></entry>
-	                    <entry>This option will cause rsync to skip files based on checksum, not mod-time &amp; size</entry>
-	                    <entry>False</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>delete</literal></entry>
-	                    <entry><literal role="type">Boolean</literal></entry>
-	                    <entry>This option deletes files that don't exist on sender after transfer including <literal>force</literal> and <literal>ignore-errors</literal></entry>
-	                    <entry>False</entry>
-	                    <entry>No</entry>
-	                </row>
-	                <row>
-	                    <entry><literal>identityFile</literal></entry>
-	                    <entry><literal role="type">String</literal></entry>
-	                    <entry>Identity file for ssh authentication of a remote transfer</entry>
-	                    <entry>n/a</entry>
-	                    <entry>No</entry>
-	                </row>
+                    <row>
+                        <entry><literal>sourceDir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Source directory (use [user@]host:path for remote sources)</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>destinationDir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Destination directory (use [user@]host:path for remote
+                        destinations). Note: sub directories are created by
+                        default if they do not exist in the destination
+                        directory.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>excludeFile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Excluded patterns file</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>backupDir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Creates a backup so users can rollback to an existing restore point</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>options</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Any options that rsync supports, removes the default options.
+                        Should you wish to change the port ssh uses for remote transfers,
+                        set this attribute to <literal>-e 'ssh -p XXXXX' -rpKzl</literal></entry>
+                        <entry>-rpKz</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>verbose</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>This option increases the amount of information you are given during the transfer</entry>
+                        <entry>True</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>dryRun</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>This option makes rsync perform a trial run that doesn't make any changes</entry>
+                        <entry>False</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>itemizeChanges</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>This option requests a simple itemized list of the changes that are being made to each file, including attribute changes</entry>
+                        <entry>False</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checksum</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>This option will cause rsync to skip files based on checksum, not mod-time &amp; size</entry>
+                        <entry>False</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>delete</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>This option deletes files that don't exist on sender after transfer including <literal>force</literal> and <literal>ignore-errors</literal></entry>
+                        <entry>False</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>identityFile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Identity file for ssh authentication of a remote transfer</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
         <sect2>
-            <title>Example</title>
-            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" />;
+            <title>Examples</title>
+            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" />
+
+&lt;filesync sourcedir="host::module" destinationdir="/var/www/project1/" />
 
 &lt;filesync
-sourcedir="/var/www/development/project1"
-destinationdir="user@server:/var/www/project1"
-dryrun="true"
-itemizechanges="true"
-verbose="true"
-checksum="true" />;</programlisting>
+  sourcedir="/var/www/development/project1"
+  destinationdir="user@server:/var/www/project1"
+  dryrun="true"
+  itemizechanges="true"
+  verbose="true"
+  checksum="true" /></programlisting>
+            <para>In the <literal>sourcedir</literal> and <literal>destinationdir</literal> properties user name for remote connections is optional.</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="FtpDeployTask">
@@ -1159,18 +1139,30 @@ checksum="true" />;</programlisting>
                                 <literal>debug</literal>.</entry>
                         <entry><literal>verbose</literal></entry>
                         <entry>No</entry>
+            </row>
+            <row>
+                        <entry><literal>rawdatafallback</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+            <entry>
+                If Net_FTP is not able to parse the raw ftp data, the depends option does not work at all.
+                Setting rawdatafallback will cause phing trying to parse the ftp data on its own, so the
+                depends option might work again.
+
+                If depends is set to false, rawdatafallback is ignored.
+            </entry>
+                        <entry>No</entry>
                     </row>
                 </tbody>
             </tgroup>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;ftpdeploy 
-  host="${ftp.host}" 
-  port="${ftp.port}" 
-  username="${ftp.username}" 
+            <programlisting language="xml">&lt;ftpdeploy
+  host="${ftp.host}"
+  port="${ftp.port}"
+  username="${ftp.username}"
   password="${ftp.password}"
-  dir="${ftp.dir}" 
+  dir="${ftp.dir}"
   passive="false"
   mode="${ftp.mode}">
   &lt;fileset dir=".">
@@ -1187,7 +1179,7 @@ checksum="true" />;</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                     <para>The files to deploy</para>
                 </listitem>
             </itemizedlist>
@@ -1315,12 +1307,12 @@ checksum="true" />;</programlisting>
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- Clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 
 &lt;!-- Clone bare repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}"
     bare="true" /></programlisting>
@@ -1410,13 +1402,13 @@ checksum="true" />;</programlisting>
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- Clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 
 &lt;!-- Cleanup repository-->
-&lt;gitgc 
-    repository="${repo.dir.resolved}" 
+&lt;gitgc
+    repository="${repo.dir.resolved}"
     aggressive="true"
     prune="1.week.ago" /></programlisting>
         </sect2>
@@ -1569,35 +1561,35 @@ checksum="true" />;</programlisting>
 
 &lt;!-- Create branch "sample-branch" tracking current HEAD -->
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="sample-branch" />
 
-&lt;!-- 
-Create branch "sample-branch" tracking origin/master 
+&lt;!--
+Create branch "sample-branch" tracking origin/master
 Note that you can omit both startpoint and track attributes in this case
 -->
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="sample-branch"
     startpoint="origin/master"
     track="true" />
 
 &lt;!-- Delete fully merged branch "sample-branch" -->
-&lt;gitbranch 
-    repository="${repo.dir.resolved}" 
-    branchname="sample-branch" 
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch"
     delete="true" />
 
 &lt;!-- Force delete even unmerged branch "sample-branch" -->
-&lt;gitbranch 
-    repository="${repo.dir.resolved}" 
-    branchname="sample-branch" 
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch"
     forcedelete="true" />
 
 &lt;!-- Renabe "branch1" to "branch2" -->
-&lt;gitbranch 
-    repository="${repo.dir.resolved}" 
-    branchname="branch1" 
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="branch1"
     newbranch="branch2"
     move="true" /></programlisting>
         </sect2>
@@ -1753,10 +1745,10 @@ Note that you can omit both startpoint and track attributes in this case
     repository="${repo.dir.resolved}" all="true" />
 
 &lt;!-- Fetch from origin/master to "refspec-branch" local branch -->
-&lt;gitfetch 
-    repository="${repo.dir.resolved}" 
+&lt;gitfetch
+    repository="${repo.dir.resolved}"
     source="origin"
-    refspec="master:refspec-branch" 
+    refspec="master:refspec-branch"
     quiet="true" /></programlisting>
         </sect2>
     </sect1>
@@ -1890,24 +1882,24 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 
 &lt;!-- create and switch to "mybranch" branch -->
 &lt;gitcheckout
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="mybranch" quiet="true" create="true" />
 
 &lt;!-- get back to "master" branch -->
 &lt;gitcheckout
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="master" quiet="true" />
 
 &lt;!-- create (force) already created branch -->
 &lt;gitcheckout
-    repository="${repo.dir.resolved}" 
-    branchname="mybranch" quiet="true" 
+    repository="${repo.dir.resolved}"
+    branchname="mybranch" quiet="true"
     forceCreate="true" /></programlisting>
         </sect2>
     </sect1>
@@ -1973,14 +1965,14 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Example</title>
             <programlisting language="xml">&lt;!-- commit all modified / deleted files -->;
 &lt;gitcommit
-    repository="/path/to/repo" 
+    repository="/path/to/repo"
     message="Commit message" allFiles="true" />;</programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -2111,22 +2103,22 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 
 &lt;!-- create couple of test branches -->
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="merge-test-1" startpoint="origin/master" />
 &lt;gitbranch
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     branchname="merge-test-2" startpoint="origin/master" />
 
 &lt;!-- Merge those branches back into master -->
 &lt;gitmerge
-    repository="${repo.dir.resolved}" 
-    remote="merge-test-1 merge-test-2" 
+    repository="${repo.dir.resolved}"
+    remote="merge-test-1 merge-test-2"
     message="merging repos" commit="true" /></programlisting>
         </sect2>
     </sect1>
@@ -2295,7 +2287,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 
@@ -2305,8 +2297,8 @@ Note that you can omit both startpoint and track attributes in this case
 
 &lt;!-- pull remote origin/foobranch and rebase when merging -->
 &lt;gitpull
-    repository="${repo.dir.resolved}" 
-    source="origin" refspec="foobranch" 
+    repository="${repo.dir.resolved}"
+    source="origin" refspec="foobranch"
     strategy="recursive" keep="true"
     force="true" quiet="true" rebase="true" /></programlisting>
         </sect2>
@@ -2430,23 +2422,23 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 
 &lt;!-- push branch "master" into "foobranch" on "origin" remote -->
 &lt;gitpush
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     refspec="master:foobranch" tags="true" />
 
 &lt;!-- create new branch "newbranch" on "origin" remote -->
 &lt;gitpush
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     refspec="master:newbranch" quiet="true" />
 
 &lt;!-- delete "newbranch" branch from "origin" remote -->
 &lt;gitpush
-    repository="${repo.dir.resolved}" 
+    repository="${repo.dir.resolved}"
     delete="true"
     refspec="newbranch" quiet="true" /></programlisting>
         </sect2>
@@ -2644,28 +2636,28 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 
 &lt;gittag repository="${repo.dir.resolved}" name="ver1.0" />
 &lt;!-- Force duplicate tag creation -->
-&lt;gittag 
-    repository="${repo.dir.resolved}" 
+&lt;gittag
+    repository="${repo.dir.resolved}"
     name="ver1.0" force="true"/>
 &lt;!-- Create tag with annotation and message -->
-&lt;gittag 
-    repository="${repo.dir.resolved}" 
+&lt;gittag
+    repository="${repo.dir.resolved}"
     name="ver1.0"
     annotate="true" message="Version 1.0 tag"/>
 &lt;!-- Delete tag -->
-&lt;gittag 
+&lt;gittag
     repository="${repo.dir.resolved}"
         name="ver2.0" delete="true" />
 &lt;!-- List tags matching to pattern "marked" into "tags" variable -->
-&lt;gittag repository="${repo.dir.resolved}" 
+&lt;gittag repository="${repo.dir.resolved}"
     list="true"
-    outputProperty="tags" 
+    outputProperty="tags"
     pattern="marked" /></programlisting>
         </sect2>
     </sect1>
@@ -2795,11 +2787,11 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" />
 
 &lt;!-- clone repository -->
-&lt;gitclone 
+&lt;gitclone
     repository="git://github.com/path/to/repo/repo.git"
     targetPath="${repo.dir.resolved}" />
 <!-- write git-log output to "logs" variable -->
-&lt;gitlog 
+&lt;gitlog
     paths="${repo.dir.resolved}"
     format="oneline"
     maxCount="2"
@@ -2807,16 +2799,16 @@ Note that you can omit both startpoint and track attributes in this case
     noMerges="false"
     since="Sun Jan 23 23:55:42 2011 +0300"
     until="Mon Jan 24 09:59:33 2011 +0300"
-    outputProperty="logs" 
+    outputProperty="logs"
     repository="${repo.dir.resolved}" /></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="GrowlNotifyTask">
         <title>GrowlNotifyTask</title>
-        <para>When you have a long process and want to be notified when it is finished, without to stay 
+        <para>When you have a long process and want to be notified when it is finished, without to stay
             focused on the console windows. Then use the GrowlNotify task.
         </para>
-        <para>This task requires the PEAR 
+        <para>This task requires the PEAR
             <link xlink:href="http://pear.php.net/package/Net_Growl" role="extern">Net_Growl</link>
             package installed (version  2.6.0).
         </para>
@@ -3003,7 +2995,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project&gt;</programlisting>
             <para>Send a single notification with UDP protocol</para>
             <para>
-                When you don't have a Macintosh, OS compatible with Growl GNTP, you 
+                When you don't have a Macintosh, OS compatible with Growl GNTP, you
                 should use the basic UDP protocol.
             </para>
             <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -3044,8 +3036,8 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/project&gt;</programlisting>
             <para>Use your icons to identify an application</para>
             <para>
-                You may customize the Growl notification system, with different icons 
-                and more. 
+                You may customize the Growl notification system, with different icons
+                and more.
             </para>
             <programlisting language="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
@@ -3115,18 +3107,18 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
-                    	<entry><literal>followRedirects</literal></entry>
-                    	<entry><literal role="type">Boolean</literal></entry>
-                    	<entry>Whether to follow HTTP redirects</entry>
-                    	<entry>false</entry>
-                    	<entry>No</entry>
+                        <entry><literal>followRedirects</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to follow HTTP redirects</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
                     </row>
                     <row>
-                    	<entry><literal>sslVerifyPeer</literal></entry>
-                    	<entry><literal role="type">Boolean</literal></entry>
-                    	<entry>Whether to verify SSL certificates</entry>
-                    	<entry>true</entry>
-                    	<entry>No</entry>
+                        <entry><literal>sslVerifyPeer</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to verify SSL certificates</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>authUser</literal></entry>
@@ -3160,7 +3152,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>config </para>
+                    <para><literal>config</literal></para>
                     <para>Holds additional config data. See
                         <link xlink:href="http://pear.php.net/manual/en/package.http.http-request2.config.php"
                               role="extern">HTTP_Request2  documentation</link>
@@ -3204,7 +3196,7 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>header </para>
+                    <para><literal>header</literal></para>
                     <para> Holds additional header <literal>name</literal> and
                             <literal>value</literal>.</para>
                     <table>
@@ -3385,7 +3377,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>config </para>
+                    <para><literal>config</literal></para>
                     <para>Holds additional config data. See
                         <link xlink:href="http://pear.php.net/manual/en/package.http.http-request2.config.php"
                               role="extern">HTTP_Request2  documentation</link>
@@ -3429,7 +3421,7 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>header </para>
+                    <para><literal>header</literal></para>
                     <para> Holds additional header <literal>name</literal> and
                             <literal>value</literal>.</para>
                     <table>
@@ -3469,7 +3461,7 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para>postparameter </para>
+                    <para><literal>postparameter</literal></para>
                     <para>Used when performing a POST request. Contains <literal>name</literal> and
                             <literal>value</literal> of a form field.</para>
                     <table>
@@ -3821,7 +3813,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>comment </para>
+                    <para><literal>comment</literal></para>
                     <para>Custom text that is added to the start of each encoded file.</para>
                 </listitem>
             </itemizedlist>
@@ -3917,10 +3909,78 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>comment </para>
+                    <para><literal>comment</literal></para>
                     <para>Custom text that is added to the start of each encoded file.</para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="JsHintTask">
+        <title>JsHintTask</title>
+        <para>This task runs <link xlink:href="http://www.jshint.com/" role="extern">JSHint</link>,
+            a tool that helps to detect errors and potential problems in JavaScript code.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Single file to perform check on.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>haltOnError</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+                        <entry>Should the build fail when there are errors in the JS code?</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>haltOnWarning</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+                        <entry>Should the build fail when there are warnings in the JS code?</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checkstyleReportPath</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Path where the the report in Checkstyle format should be saved.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">
+        &lt;jshint
+            haltonerror="false"
+            haltOnWarning="false"
+            checkstyleReportPath="${project.basedir}/build/checkstyle-jshint.xml">
+            &lt;fileset dir="${project.basedir}/public_html/www/js">
+                &lt;include name="**/**.js"/>
+                &lt;exclude name="js-cache/**"/>
+            &lt;/fileset>
+        &lt;/jshint></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="JslLintTask">
@@ -4030,7 +4090,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -4038,11 +4098,9 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="JsMinTask">
         <title>JsMinTask</title>
         <para> The <literal>JsMinTask</literal> minifies JavaScript files using <link
-                xlink:href="http://code.google.com/p/jsmin-php/">JsMin</link>. JsMin is bundled with
-            Phing and does not need to be installed separately.</para>
-        <para> For more information on minifying JavaScript files see <link
-                xlink:href="http://www.crockford.com/javascript/jsmin.html" role="extern">Douglas
-                Crockford's introduction to minifying JavaScript files</link>.</para>
+                xlink:href="https://github.com/tedivm/JShrink">JShrink</link>,
+                which can be installed using composer (Phing will try
+                to use the composer autoloader)</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -4098,18 +4156,18 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>JavaScript files to be minified.</para>
                 </listitem>
             </itemizedlist>
         </sect2>
     </sect1>
-    
+
 <sect1 role="taskdef" xml:id="LiquibaseTask">
     <title>LiquibaseTask</title>
     <para>The <literal>LiquibaseTask</literal> is a generic task for liquibase commands that don't require extra command parameters. You can run commands like <literal>updateSQL</literal>, <literal>validate</literal> or <literal>updateTestingRollback</literal> with this task but not <literal>rollbackToDateSQL</literal> since it requires a date parameter after the command.
-    </para> 
+    </para>
     <table>
         <title>Attributes</title>
         <tgroup cols="5">
@@ -4136,7 +4194,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4169,42 +4227,42 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>command</literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>What liquibase command to run. Currently only supports commands that doesn't require command parameters, such as validate and updateSQL.</entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>display</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>passthru</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
                     <entry>true</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>checkreturn</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>outputProperty</literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
                     <entry>n/a</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
             </tbody>
         </tgroup>
     </table>
@@ -4224,7 +4282,7 @@ Note that you can omit both startpoint and track attributes in this case
                 outputProperty="liquibase.updateSQL.output"
                 command="updateSQL"
             >
-                &lt;parameter name="logLevel" value="info" />        
+                &lt;parameter name="logLevel" value="info" />
                 &lt;property name="tablename" value="Person" />
             &lt;/liquibase>
         </programlisting>
@@ -4315,13 +4373,13 @@ Note that you can omit both startpoint and track attributes in this case
                             </tbody>
                         </tgroup>
                     </table>
-            </listitem>           
+            </listitem>
         </itemizedlist>
     </sect2>
 </sect1>
 <sect1 role="taskdef" xml:id="LiquibaseChangeLogTask">
     <title>LiquibaseChangeLogTask</title>
-    <para>The <literal>LiquibaseChangeLogTask</literal> writes the Change Log XML to copy the current state of the 
+    <para>The <literal>LiquibaseChangeLogTask</literal> writes the Change Log XML to copy the current state of the
         database to the given changeLogFile.
     </para>
     <table>
@@ -4350,7 +4408,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4383,28 +4441,28 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>   
+                </row>
                 <row>
                     <entry><literal>display</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>passthru</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
                     <entry>true</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>checkreturn</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>outputProperty</literal></entry>
                     <entry><literal role="type">String</literal></entry>
@@ -4438,7 +4496,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <para><literal>property</literal>
                 </para>
                 <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
-            </listitem>           
+            </listitem>
         </itemizedlist>
     </sect2>
 </sect1>
@@ -4474,7 +4532,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4511,39 +4569,39 @@ Note that you can omit both startpoint and track attributes in this case
                 <row>
                     <entry><literal>outputDir</literal></entry>
                     <entry><literal role="type">String</literal></entry>
-                    <entry>Absolute path where the documentation gets written to. 
+                    <entry>Absolute path where the documentation gets written to.
                         If the given directory does not exist, it get`s created automatically.</entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>                
+                </row>
                  <row>
                     <entry><literal>display</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>passthru</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
                     <entry>true</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>checkreturn</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>outputProperty</literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
                     <entry>n/a</entry>
                     <entry>No</entry>
-                </row>               
+                </row>
             </tbody>
         </tgroup>
     </table>
@@ -4571,7 +4629,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <para><literal>property</literal>
                 </para>
                 <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
-            </listitem>           
+            </listitem>
         </itemizedlist>
     </sect2>
 
@@ -4581,8 +4639,8 @@ Note that you can omit both startpoint and track attributes in this case
 
 <sect1 role="taskdef" xml:id="LiquibaseDiffTask">
     <title>LiquibaseDiffTask</title>
-    <para>The <literal>LiquibaseDiffTask</literal> creates a diff between two databases. Will 
-        output the changes needed to convert the reference database to the state 
+    <para>The <literal>LiquibaseDiffTask</literal> creates a diff between two databases. Will
+        output the changes needed to convert the reference database to the state
         of the database.
     </para>
     <table>
@@ -4611,7 +4669,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4644,7 +4702,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>referenceUsername</literal></entry>
                     <entry><literal role="type">String</literal></entry>
@@ -4665,35 +4723,35 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>The JDBC Url representing the database reference datasource, e.g <literal>jdbc:mysql://localhost/refdatabase</literal></entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>display</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>passthru</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
                     <entry>true</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>checkreturn</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>outputProperty</literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
                     <entry>n/a</entry>
                     <entry>No</entry>
-                </row>               
+                </row>
             </tbody>
         </tgroup>
     </table>
@@ -4723,7 +4781,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <para><literal>property</literal>
                 </para>
                 <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
-            </listitem>           
+            </listitem>
         </itemizedlist>
     </sect2>
 
@@ -4732,7 +4790,7 @@ Note that you can omit both startpoint and track attributes in this case
 
 <sect1 role="taskdef" xml:id="LiquibaseRollbackTask">
     <title>LiquibaseRollbackTask</title>
-    <para>The <literal>LiquibaseRollbackTask</literal> rolls back the database to 
+    <para>The <literal>LiquibaseRollbackTask</literal> rolls back the database to
         the state is was when the tag was applied.
     </para>
     <table>
@@ -4761,7 +4819,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -4794,7 +4852,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>rollbackTag</literal></entry>
                     <entry><literal role="type">String</literal></entry>
@@ -4808,28 +4866,28 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>passthru</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
                     <entry>true</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>checkreturn</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>outputProperty</literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
                     <entry>n/a</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
             </tbody>
         </tgroup>
     </table>
@@ -4857,16 +4915,16 @@ Note that you can omit both startpoint and track attributes in this case
                 <para><literal>property</literal>
                 </para>
                 <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
-            </listitem>           
+            </listitem>
         </itemizedlist>
     </sect2>
-   
+
 </sect1>
 
 
 <sect1 role="taskdef" xml:id="LiquibaseTagTask">
     <title>LiquibaseTagTask</title>
-    <para>The <literal>LiquibaseTagTask</literal> tags the current database 
+    <para>The <literal>LiquibaseTagTask</literal> tags the current database
         state for future rollback.
 </para>
 <table>
@@ -4895,7 +4953,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <entry>Yes</entry>
             </row>
             <row>
-                <entry><literal>classpath</literal></entry>
+                <entry><literal><link linkend="path">classpath</link></literal></entry>
                 <entry><literal role="type">String</literal></entry>
                 <entry>Additional classpath entries.</entry>
                 <entry>n/a</entry>
@@ -4928,7 +4986,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
                 <entry>n/a</entry>
                 <entry>Yes</entry>
-            </row>                
+            </row>
             <row>
                 <entry><literal>tag</literal></entry>
                 <entry><literal role="type">String</literal></entry>
@@ -4942,28 +5000,28 @@ Note that you can omit both startpoint and track attributes in this case
                 <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
                 <entry>false</entry>
                 <entry>No</entry>
-            </row>                
+            </row>
             <row>
                 <entry><literal>passthru</literal></entry>
                 <entry><literal role="type">Boolean</literal></entry>
                 <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
                 <entry>true</entry>
                 <entry>No</entry>
-            </row>                
+            </row>
             <row>
                 <entry><literal>checkreturn</literal></entry>
                 <entry><literal role="type">Boolean</literal></entry>
                 <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
                 <entry>false</entry>
                 <entry>No</entry>
-            </row>                
+            </row>
             <row>
                 <entry><literal>outputProperty</literal></entry>
                 <entry><literal role="type">String</literal></entry>
                 <entry>Property name to set output value to from the execution. Ignored if <literal>passthru</literal> attribute is true.</entry>
                 <entry>n/a</entry>
                 <entry>No</entry>
-            </row>           
+            </row>
         </tbody>
     </tgroup>
 </table>
@@ -4991,7 +5049,7 @@ Note that you can omit both startpoint and track attributes in this case
                 <para><literal>property</literal>
                 </para>
                 <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
-            </listitem>           
+            </listitem>
         </itemizedlist>
     </sect2>
 
@@ -5000,7 +5058,7 @@ Note that you can omit both startpoint and track attributes in this case
 
 <sect1 role="taskdef" xml:id="LiquibaseUpdateTask">
     <title>LiquibaseUpdateTask</title>
-    <para>The <literal>LiquibaseUpdateTask</literal> applies the latest changes from the changelog 
+    <para>The <literal>LiquibaseUpdateTask</literal> applies the latest changes from the changelog
         file to the definied database.
     </para>
     <table>
@@ -5029,7 +5087,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>Yes</entry>
                 </row>
                 <row>
-                    <entry><literal>classpath</literal></entry>
+                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                     <entry><literal role="type">String</literal></entry>
                     <entry>Additional classpath entries.</entry>
                     <entry>n/a</entry>
@@ -5062,28 +5120,28 @@ Note that you can omit both startpoint and track attributes in this case
                     <entry>The JDBC Url representing the database datasource, e.g <literal>jdbc:mysql://localhost/mydatabase</literal></entry>
                     <entry>n/a</entry>
                     <entry>Yes</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>display</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to display the output of the command. Only used if <literal>passthru</literal> isn't true.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>passthru</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to use PHP's <literal>passthru()</literal> function instead of <literal>exec()</literal>. True by default for backwards compatibility. When true, the attributes <literal>display</literal>, <literal>outputProperty</literal> and <literal>checkReturn</literal>are ignored.</entry>
                     <entry>true</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>checkreturn</literal></entry>
                     <entry><literal role="type">Boolean</literal></entry>
                     <entry>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</entry>
                     <entry>false</entry>
                     <entry>No</entry>
-                </row>                
+                </row>
                 <row>
                     <entry><literal>outputProperty</literal></entry>
                     <entry><literal role="type">String</literal></entry>
@@ -5117,14 +5175,14 @@ Note that you can omit both startpoint and track attributes in this case
                 <para><literal>property</literal>
                 </para>
                 <para>Same as for <xref xlink:href="#LiquibaseTask"/>.</para>
-            </listitem>           
+            </listitem>
         </itemizedlist>
     </sect2>
-   
+
 </sect1>
 
-    
-    
+
+
     <sect1 role="taskdef" xml:id="MailTask">
         <title>MailTask</title>
         <para>A task to send email. Attachments are supported
@@ -5207,17 +5265,17 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>Files to be attached.</para>
                 </listitem>
             </itemizedlist>
         </sect2>
-    </sect1>   
+    </sect1>
     <sect1 role="taskdef" xml:id="ParallelTask">
         <title>ParallelTask</title>
         <para>Executes nested tasks in parallel.</para>
-        <warning><para>This task is highly experimental, and will only work on *nix machines 
+        <warning><para>This task is highly experimental, and will only work on *nix machines
             that have the PHP <literal>pcntl</literal> extension installed.</para></warning>
         <table>
             <title>Attributes</title>
@@ -5257,8 +5315,8 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;/parallel></programlisting>
         </sect2>
     </sect1>
-    
-    
+
+
     <sect1 role="taskdef" xml:id="PatchTask">
         <title>PatchTask</title>
         <para> The <literal>PatchTask</literal> uses the <link
@@ -5481,8 +5539,8 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Example</title>
             <programlisting language="xml">&lt;pdosqlexec url="pgsql:host=localhost dbname=test">
   &lt;fileset dir="sqlfiles">
-	  &lt;include name="*.sql"/>
-	  &lt;/fileset>
+      &lt;include name="*.sql"/>
+      &lt;/fileset>
 &lt;/pdosqlexec></programlisting>
 
             <programlisting language="xml">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password">
@@ -5495,7 +5553,7 @@ Note that you can omit both startpoint and track attributes in this case
             </note>
             <programlisting language="xml">&lt;pdo url="pgsql:host=localhost dbname=test">
   &lt;fileset dir="sqlfiles">
-	  &lt;include name="*.sql"/>
+      &lt;include name="*.sql"/>
   &lt;/fileset>
 
   &lt;!-- xml formatter -->
@@ -5540,7 +5598,7 @@ Note that you can omit both startpoint and track attributes in this case
                             </thead>
                             <tbody>
                                 <row>
-                                    <entry><literal>tsrcfile</literal></entry>
+                                    <entry><literal>src</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>File with statements to be run as one transaction</entry>
                                     <entry>n/a</entry>
@@ -5551,12 +5609,12 @@ Note that you can omit both startpoint and track attributes in this case
                     </table>
                 </listitem>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>Files containing SQL statements.</para>
                 </listitem>
                 <listitem>
-                    <para><literal>filelist</literal>
+                    <para><literal><link linkend="FileList">filelist</link></literal>
                     </para>
                     <para>Files containing SQL statements.</para>
                 </listitem>
@@ -5751,7 +5809,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
                     <para><literal>option</literal></para>
@@ -5824,7 +5882,7 @@ Note that you can omit both startpoint and track attributes in this case
             and are set using PEAR_PackageFileManager::setOptions(). Use the
                 <literal>&lt;mapping></literal> tag to represent complex values.</para>
         <para> Note that Travis Swicegood has created a more complete implementation of this
-            functionality which can be found here: <link xlink:href="http://pear.domain51.com/"
+            functionality which can be found here: <link xlink:href="http://domain51.github.io/pear.domain51.com/"
                 role="extern">pear.domain51.com</link>.</para>
         <table>
             <title>Attributes</title>
@@ -5894,7 +5952,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
                     <para><literal>option</literal></para>
@@ -6422,13 +6480,13 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <!--
     TODO Describe metadata element.
   -->
                 <listitem>
-                    <para>metadata </para>
+                    <para><literal>metadata</literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -6582,11 +6640,11 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>format</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The output format. The <literal>default</literal> format is specified
+                        <entry>The output format. The <literal>full</literal> format is specified
                             in the task itself. Additionally all report formats of PHP_CodeSniffer
                             can be choosen (ex. <literal>checkstyle</literal>,
                                 <literal>full</literal>, <literal>summary</literal>, ...).</entry>
-                        <entry>default</entry>
+                        <entry>full</entry>
                         <entry>No Ignored if nested <literal>formatter</literal> elements are
                             supplied.</entry>
                     </row>
@@ -6630,9 +6688,9 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>file</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The file or folder to check (usually the nested tag
-                                <literal>fileset</literal> is used instead).</entry>
+                                <literal><link linkend="FileSet">fileset</link></literal> is used instead).</entry>
                         <entry><literal>false</literal></entry>
-                        <entry>Either this attribute or the nested tag <literal>fileset</literal> is
+                        <entry>Either this attribute or the nested tag <literal><link linkend="FileSet">fileset</link></literal> is
                             required.</entry>
                     </row>
                     <row>
@@ -6677,7 +6735,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>allowedFileExtensions</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The allowed file extensions / file types to process.
-	                        Separated by space, comma or semicolon.</entry>
+                            Separated by space, comma or semicolon.</entry>
                         <entry>php, inc, js, css</entry>
                         <entry>No</entry>
                     </row>
@@ -6733,7 +6791,7 @@ Note that you can omit both startpoint and track attributes in this case
   format="summary"
   file="/path/to/source-files"
   allowedFileExtensions="php php5 inc"/></programlisting>
-            <para> Checks all matching files in the <literal>fileset</literal> with the
+            <para> Checks all matching files in the <literal><link linkend="FileSet">fileset</link></literal> with the
                     <literal>Zend</literal> standard, sets the <literal>zend_ca_path</literal>
                 configuration which may be required by one of the sniffs, prints a list of used
                 sniffs and prints the <literal>default</literal> report with warnings and the
@@ -6747,7 +6805,7 @@ Note that you can omit both startpoint and track attributes in this case
     &lt;include name="**/*.php"/>
   &lt;/fileset>
   &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/>
-  &lt;formatter type="default" usefile="false"/>
+  &lt;formatter type="full" usefile="false"/>
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
 &lt;/phpcodesniffer></programlisting>
             <para> Checks all files in the directory <literal>file</literal> with the
@@ -6761,12 +6819,22 @@ Note that you can omit both startpoint and track attributes in this case
   docFile="/path/to/doc.html">
   &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/>
 &lt;/phpcodesniffer></programlisting>
+            <para> Checks all files in the directory <literal>file</literal> matching the allowed
+                file extension with the custom <literal>Foo</literal> standard and prints the
+                <literal>summary</literal> report without warnings.</para>
+            <programlisting language="xml">&lt;phpcodesniffer
+  standard="Foo"
+  format="summary"
+  file="/path/to/source-files"
+  allowedFileExtensions="php php5 inc">
+    &lt;config name="installed_paths" value="/path/to/Standards/directory"/>
+&lt;/phpcodesniffer></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>Either this nested tag or the attribute <literal>file</literal> is
                         required.</para>
@@ -6904,7 +6972,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
                         <entry>Only when there are <emphasis>no</emphasis> nested
-                        <literal>fileset</literal> elements</entry>
+                        <literal><link linkend="FileSet">fileset</link></literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>minTokens</literal></entry>
@@ -6957,7 +7025,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para>This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
@@ -7019,7 +7087,7 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
-    
+
     <sect1 role="taskdef" xml:id="PHPLocTask">
         <title>PHPLocTask</title>
         <para>This task runs <link xlink:href="http://github.com/sebastianbergmann/phploc/" role="extern">phploc</link>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</para>
@@ -7115,12 +7183,12 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
     </sect1>
-    
+
     <sect1 role="taskdef" xml:id="PHPMDTask">
         <title>PHPMDTask</title>
         <para> This task runs <link xlink:href="http://phpmd.org" role="extern">phpmd</link>, a
@@ -7151,7 +7219,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
                         <entry>Only when there are <emphasis>no</emphasis> nested
-                        <literal>fileset</literal> elements</entry>
+                        <literal><link linkend="FileSet">fileset</link></literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>rulesets</literal></entry>
@@ -7217,7 +7285,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
@@ -7310,7 +7378,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Path to source file or path</entry>
                         <entry>n/a</entry>
                         <entry>Only when there are <emphasis>no</emphasis> nested
-                                <literal>fileset</literal> elements</entry>
+                                <literal><link linkend="FileSet">fileset</link></literal> elements</entry>
                     </row>
                     <row>
                         <entry><literal>configFile</literal></entry>
@@ -7396,7 +7464,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal>
+                    <para><literal><link linkend="FileSet">fileset</link></literal>
                     </para>
                     <para> This nested tag is required when the <literal>file</literal> attribute is
                         not set.</para>
@@ -7677,18 +7745,18 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal> - Files that should be included for
+                    <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for
                         parsing</para>
                 </listitem>
                 <listitem>
-                    <para><literal>projdocfileset</literal> - Files that should be treated as
+                    <para><literal><link linkend="FileSet">projdocfileset</link></literal> - Files that should be treated as
                         README/INSTALL/CHANGELOG files</para>
                 </listitem>
             </itemizedlist>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpDocumentor2Task">
-        <title>DocBloxTask</title>
+        <title>PhpDocumentor2Task</title>
         <para> This task runs <link xlink:href="http://www.phpdoc.org/" role="extern"
                 >phpDocumentor 2</link>, a PHP 5.3-compatible API documentation tool.
                 This project is the result of the merge of the phpDocumentor
@@ -7740,6 +7808,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>responsive-twig</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>defaultPackageName</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Name of the default package.</entry>
+                        <entry><literal>Default</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -7757,7 +7832,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para>fileset - Files that should be included for parsing</para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal> - Files that should be included for parsing</para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -7899,7 +7974,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>interpreter</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Path to alternative PHP interpreter</entry>
-                        <entry>Defaults to the <literal>${php.command}</literal> property which is
+                        <entry>Defaults to the <literal>${php.interpreter}</literal> property which is
                             the interpreter used to execute phing itself.</entry>
                         <entry>No</entry>
                     </row>
@@ -7956,7 +8031,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
 
@@ -8102,6 +8177,27 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>groups</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Only run tests from the specified group(s).</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>excludeGroups</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Exclude tests from the specified group(s).</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pharlocation</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the PHPUnit PHAR package.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -8224,7 +8320,7 @@ Note that you can omit both startpoint and track attributes in this case
                                     <entry>No</entry>
                                 </row>
                                 <row>
-                                    <entry><literal>classpath</literal></entry>
+                                    <entry><literal><link linkend="path">classpath</link></literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>Used to define more paths on which - besides the PHP
                                         include_path - to look for the test files.</entry>
@@ -8290,7 +8386,7 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8371,9 +8467,9 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;phpunitreport infile="reports/testsuites.xml" 
-    format="frames" 
-    todir="reports/tests" 
+            <programlisting language="xml">&lt;phpunitreport infile="reports/testsuites.xml"
+    format="frames"
+    todir="reports/tests"
     styledir="/home/phing/etc"/></programlisting>
             <para> Generates a framed report in the directory <literal>reports/tests</literal> using
                 the file <literal>reports/testsuites.xml</literal> as input.</para>
@@ -8555,7 +8651,7 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/target>
 &lt;/project></programlisting>
             <para> Rendering multiple files </para>
-            <para> A nested <literal>fileset</literal> tag may be used to specify multiple
+            <para> A nested <literal><link linkend="FileSet">fileset</link></literal> tag may be used to specify multiple
                 files.</para>
             <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
@@ -8571,7 +8667,7 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;/target>
 &lt;/project></programlisting>
             <para> Rendering multiple files to another directory </para>
-            <para> A nested <literal>mapper</literal> may be used to determine the output file
+            <para> A nested <literal><link linkend="app.coremappers">mapper</link></literal> may be used to determine the output file
                 names.</para>
             <programlisting language="xml">&lt;?xml version="1.0" encoding="utf-8"?>
 &lt;project name="example" basedir="." default="multiple">
@@ -8639,13 +8735,13 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>mapper</literal></para>
+                    <para><literal><link linkend="app.coremappers">mapper</link></literal></para>
                 </listitem>
                 <listitem>
-                    <para><literal>filterchain</literal></para>
+                    <para><literal><link linkend="app.corefilters">filterchain</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8717,14 +8813,14 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>Yes (unless fileset)</entry>
                     </row>
                     <row>
-                    	<entry><literal>contentType</literal></entry>
-                    	<entry><literal role="type">String</literal></entry>
-                    	<entry>Content type of the object, set to
-                    	<literal>auto</literal> if you want to autodetect
-                    	the content type based on the source file
-                    	extension</entry>
-                    	<entry>binary/octet-stream</entry>
-                    	<entry>No</entry>
+                        <entry><literal>contentType</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Content type of the object, set to
+                        <literal>auto</literal> if you want to autodetect
+                        the content type based on the source file
+                        extension</entry>
+                        <entry>binary/octet-stream</entry>
+                        <entry>No</entry>
                     </row>
                      <row>
                         <entry><literal>fileNameOnly</literal></entry>
@@ -8757,16 +8853,16 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;property name="amazon.secret" value="my_secret" />
 &lt;property name="amazon.bucket" value="mybucket" />
 &lt;s3put>
-	&lt;fileset dir="${project.basedir}">
-		&lt;include name="**/*.jpg" />
-	&lt;/fileset>
+    &lt;fileset dir="${project.basedir}">
+        &lt;include name="**/*.jpg" />
+    &lt;/fileset>
 &lt;/s3put></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -8985,7 +9081,7 @@ host="webserver" todir="/www/htdocs/project/">
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
                 <listitem>
                     <para><literal>sshconfig</literal>
@@ -9411,7 +9507,7 @@ host="webserver" command="ls" /></programlisting>
                     </table>
                 </listitem>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
 
@@ -9632,7 +9728,7 @@ host="webserver" command="ls" /></programlisting>
     username="anony"
     password="anony"
     nocache="true"
-    workingcopy="/home/joe/dev/project"    
+    workingcopy="/home/joe/dev/project"
     message="Updated documentation, fixed typos" /></programlisting>
             <para>The most basic usage only needs the working copy and the commit message as
                 in</para>
@@ -10556,7 +10652,7 @@ host="webserver" command="ls" /></programlisting>
                                     <entry>set to true if the value should be enclosed in double quotes</entry>
                                     <entry>false</entry>
                                     <entry>No</entry>
-                                </row>                                
+                                </row>
                             </tbody>
                         </tgroup>
                     </table>
@@ -10617,9 +10713,9 @@ host="webserver" command="ls" /></programlisting>
             <programlisting language="xml">&lt;symlink target="/path/to/original/file" link="/where/to/symlink" /></programlisting>
             <para>Using filesets</para>
             <programlisting language="xml">&lt;symlink link="/where/to/symlink">
-	&lt;fileset dir="/some/directory">
-		&lt;include name="*" />
-	&lt;/fileset>
+    &lt;fileset dir="/some/directory">
+        &lt;include name="*" />
+    &lt;/fileset>
 &lt;/symlink></programlisting>
             <para>In the fileset example, assuming the contents of "/some/directory" were:</para>
             <itemizedlist>
@@ -10646,7 +10742,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -10737,7 +10833,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Example</title>
             <programlisting language="xml">&lt;tar destfile="phing.tar">
  &lt;fileset dir=".">
-	 &lt;include name="**/**" />
+     &lt;include name="**/**" />
  &lt;/fileset>
 &lt;/tar></programlisting>
 
@@ -10752,7 +10848,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -10825,7 +10921,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -10889,7 +10985,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11121,7 +11217,7 @@ host="webserver" command="ls" /></programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11289,13 +11385,13 @@ a2.a3.a4=false</programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;zendcodeanalyzer 
-  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" 
+            <programlisting language="xml">&lt;zendcodeanalyzer
+  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer"
   file="SomeClass.php"/></programlisting>
 
             <para>Analyze one PHP source file with all default warnings enabled.</para>
-            <programlisting language="xml">&lt;zendcodeanalyzer 
-  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer" 
+            <programlisting language="xml">&lt;zendcodeanalyzer
+  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer"
   disable="var-ref-notmodified,if-if-else">
   &lt;fileset dir=".">
     &lt;include name="**/*.php"/>
@@ -11310,7 +11406,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11498,7 +11594,7 @@ a2.a3.a4=false</programlisting>
    &lt;exclude name="cache/**" />
    &lt;exclude name="plugins/**" />
  &lt;/fileset>
- 
+
  &lt;fileset dir="src">
    &lt;include name="plugins/cs*/**/*.php" />
    &lt;include name="plugins/cs*/*.php" />
@@ -11514,7 +11610,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>
@@ -11749,7 +11845,7 @@ a2.a3.a4=false</programlisting>
             <title>Example</title>
             <programlisting language="xml">&lt;zip destfile="phing.zip">
  &lt;fileset dir=".">
-	 &lt;include name="**/**" />
+     &lt;include name="**/**" />
  &lt;/fileset>
 &lt;/zip></programlisting>
 
@@ -11763,7 +11859,7 @@ a2.a3.a4=false</programlisting>
             <title>Supported Nested Tags</title>
             <itemizedlist>
                 <listitem>
-                    <para><literal>fileset</literal></para>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
         </sect2>

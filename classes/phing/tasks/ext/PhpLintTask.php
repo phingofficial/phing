@@ -51,10 +51,10 @@ class PhpLintTask extends Task {
     protected $deprecatedAsError = false;
 
     /**
-     * Initialize the interpreter with the Phing property
+     * Initialize the interpreter with the Phing property php.interpreter
      */
-    public function __construct() {
-        $this->setInterpreter(Phing::getProperty('php.interpreter'));
+    public function init() {
+        $this->setInterpreter($this->project->getProperty('php.interpreter'));
     }
 
     /**
@@ -64,7 +64,10 @@ class PhpLintTask extends Task {
      * @param   string  $sPhp
      */
     public function setInterpreter($sPhp) {
-        $this->Interpreter = $sPhp;
+        if (strpos($sPhp, ' ') !== false) {
+            $sPhp = escapeshellarg($sPhp);
+        }
+        $this->interpreter = $sPhp;
     }
 
     /**
@@ -113,15 +116,14 @@ class PhpLintTask extends Task {
     }
 
     /**
-     * Nested creator, creates a FileSet for this task
+     * Nested adder, adds a set of files (nested fileset attribute).
      *
-     * @return FileSet The created fileset object
+     * @return void
      */
-    public function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
-    
+
     /**
      * Set level of log messages generated (default = info)
      * @param string $level
@@ -210,9 +212,9 @@ class PhpLintTask extends Task {
      * @return void
      */
     protected function lint($file) {
-        $command = $this->Interpreter == ''
+        $command = $this->interpreter == ''
             ? 'php'
-            : $this->Interpreter;
+            : $this->interpreter;
         $command .= ' -n -l ';
         
         if ($this->deprecatedAsError) {
@@ -234,7 +236,7 @@ class PhpLintTask extends Task {
                 
                 $messages = array();
                 $errorCount = 0;
-
+                
                 exec($command.'"'.$file.'" 2>&1', $messages);
                 
                 for ($i = 0; $i < count($messages) - 1; $i++) {

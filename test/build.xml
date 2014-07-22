@@ -51,7 +51,7 @@
 		<mkdir dir="${tests.reports.dir.resolved}/coverage"/>
 			
 		<fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
-			<include name="**/*${test.class}Test.php"/>
+			<include name="**/*${test.class}.php"/>
 		</fileset>
 	</target>
 
@@ -68,7 +68,8 @@
         		</coverage-setup>
 	    	</then>
 		</if>
-		<phpunit codecoverage="${tests.codecoverage}" haltonerror="true" haltonfailure="true" printsummary="true" configuration="phpunit-sparse.xml">
+		<phpunit codecoverage="${tests.codecoverage}" haltonerror="true" haltonfailure="true" printsummary="true"
+	    	configuration="phpunit-sparse.xml" bootstrap="../vendor/autoload.php">
 			<formatter type="xml" usefile="true" todir="${tests.reports.dir.resolved}" outfile="test-results.xml" />
             <formatter type="clover" todir="${tests.reports.dir.resolved}"/>
 			<formatter type="plain" usefile="false"/>
@@ -98,6 +99,8 @@
 		<property name="test.class" value="" override="true"/>
 	</target>
 	
-	<target name="phpunit" depends="initialize,reports" description="Executes the PHPUnit test suite"/>
+	<target name="phpunit"
+	    depends="initialize,reports"
+	    description="Executes the PHPUnit test suite. To run a specific test: phing -Dtest=NameOfTest"/>
 	
 </project>

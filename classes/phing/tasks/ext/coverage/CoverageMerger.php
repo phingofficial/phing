@@ -114,18 +114,11 @@ class CoverageMerger
         $coverageTotal = $codeCoverageInformation;
         
         foreach ($coverageTotal as $filename => $data) {
-            $ignoreLines = PHP_CodeCoverage_Util::getLinesToBeIgnored($filename);
-            
             $lines = array();
             $filename = strtolower($filename);
 
             if ($props->getProperty($filename) != null) {
                 foreach ($data as $_line => $_data) {
-                    if(isset($ignoreLines[$_line])) {
-                        // line is marked as ignored
-                	continue;
-                    }
-                    
                     if ($_data === null) {
                         continue;
                     }

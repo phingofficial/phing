@@ -61,12 +61,12 @@ class PearPackageFileSetTest extends BuildFileTest
     public function testRoleDoc()
     {
         $ppfs = new PearPackageFileSet();
-        $ppfs->setPackage('pear.phpunit.de/phpunit');
+        $ppfs->setPackage('pear.php.net/Archive_Tar');
         $ppfs->setRole('doc');
         $ds = $ppfs->getDirectoryScanner(new Project());
 
         $arFiles = $ds->getIncludedFiles();
-        $this->assertContains('LICENSE', $arFiles);
+        $this->assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
             $this->assertNotContains(
                 '.php', $file, 'php files should not be in there'

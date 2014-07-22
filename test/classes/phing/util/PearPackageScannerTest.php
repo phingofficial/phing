@@ -89,14 +89,14 @@ class PearPackageScannerTest extends BuildFileTest
     public function testScanRoleDocCorrectDirectory()
     {
         $pps = new PearPackageScanner();
-        $pps->setChannel('pear.phpunit.de');
-        $pps->setPackage('phpunit');
+        $pps->setChannel('pear.php.net');
+        $pps->setPackage('Archive_Tar');
         $pps->setRole('doc');
         $pps->scan();
 
         $arFiles = $pps->getIncludedFiles();
         $basedir = $pps->getBaseDir();
-        $this->assertContains('LICENSE', $arFiles);
+        $this->assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
             $fullpath = $basedir . $file;
             $this->assertTrue(
@@ -145,11 +145,16 @@ class PearPackageScannerTest extends BuildFileTest
         $ppfs->setDescFile('/this/file/does/not/exist');
     }
 
-    public function testScanRoleDocPackageXml()
+    /**
+     * baseinstalldir attribute needs to be taken into account.
+     */
+    public function testScanBaseInstallDir()
     {
         $pps = new PearPackageScanner();
-        $pps->setDescFile(PHING_TEST_BASE . '/etc/types/package_PHPUnit-3.7.10.xml');
-        $pps->setRole('doc');
+        $pps->setDescFile(
+            PHING_TEST_BASE . '/etc/types/package_Console_Table-1.2.0.xml'
+        );
+        $pps->setRole('php');
         $pps->scan();
 
         $arFiles = $pps->getIncludedFiles();
@@ -157,11 +162,38 @@ class PearPackageScannerTest extends BuildFileTest
         $this->assertEquals(
             $arFiles,
             array(
-                'ChangeLog.md',
-                'CONTRIBUTING.md',
-                'LICENSE',
-                'README.md'
+                'Console/Table.php'
             )
+        );
+    }
+
+    /**
+     * install_as-attribute needs to be taken into account.
+     *
+     * We need to use a serialized package info here since some
+     * properties we need are only available in the registry,
+     * not in the package file itself.
+     */
+    public function testScanInstallAs()
+    {
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+            return $this->markTestSkipped('Test works on PHP 5.3 only');
+        }
+
+        $pkgInfoFile = __DIR__ . '/../../../etc/types/'
+            . 'packageInfo_Services_Linkback-0.2.0.ser.dat';
+
+        $pps = new PearPackageScanner();
+        $prop = new ReflectionProperty('PearPackageScanner', 'packageInfo');
+        $prop->setAccessible(true);
+        $prop->setValue($pps, unserialize(file_get_contents($pkgInfoFile)));
+        $pps->setRole('php');
+        $pps->scan();
+
+        $arFiles = $pps->getIncludedFiles();
+        $this->assertContains(
+            'PEAR2/Services/Linkback/Response/Ping.php',
+            $arFiles
         );
     }
 

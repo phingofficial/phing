@@ -1,20 +1,22 @@
 <project name="Regression #590" default="main">
+        <property name="tmp.dir" value="./../../../../tmp" />
+        
 	<target name="testSyntaxOK">
-		<phplint file="my_file_ok.php"/>
+		<phplint file="${tmp.dir}/phplint_file.php"/>
 	</target>
 
 	<target name="testSyntaxError">
-		<phplint deprecatedaserror="true" file="my_file.php"/>
+		<phplint deprecatedaserror="true" file="${tmp.dir}/phplint_file.php"/>
 	</target>
 
 	<target name="testDeprecated">
-		<phplint deprecatedaserror="true" file="my_file_depr.php"/>
+		<phplint deprecatedaserror="true" file="${tmp.dir}/phplint_file.php"/>
 	</target>
 	
 	<target name="testHaltOnFailure">
 		<phplint haltOnFailure="true">
-			<fileset dir=".">
-				<include name="my_file.php"/>
+			<fileset dir="${tmp.dir}">
+				<include name="phplint_file.php"/>
 			</fileset>
 		</phplint>
 	</target>

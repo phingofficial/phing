@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="ch.gettingstarted">
@@ -39,15 +39,15 @@
                 <para>The document prolog</para>
             </listitem>
             <listitem>
-                <para>Exactly one root element called <literal>&lt;project></literal> .</para>
+                <para>Exactly one root element called <literal><link linkend="Project">&lt;project></link></literal> .</para>
             </listitem>
             <listitem>
                 <para>Several Phing <literal>type</literal> elements (i.e.
-                        <literal>&lt;property></literal> , <literal>&lt;fileset></literal> ,
-                        <literal>&lt;patternset></literal> etc.)</para>
+                        <literal><link linkend="PropertyTask">&lt;property></link></literal> , <literal><link linkend="FileSet">&lt;fileset></link></literal> ,
+                        <literal><link linkend="PatternSet">&lt;patternset></link></literal> etc.)</para>
             </listitem>
             <listitem>
-                <para>One or more <literal>&lt;target></literal> elements containing built-in or
+                <para>One or more <literal><link linkend="Target">&lt;target></link></literal> elements containing built-in or
                     user defined Phing <literal>task</literal> elements (i.e.
                         <literal>&lt;install></literal> , <literal>&lt;bcc></literal> , etc).</para>
             </listitem>
@@ -90,7 +90,7 @@
     &lt;/target&gt;
 
     &lt;!-- ============================================  --&gt;
-    &lt;!-- (DEFAULT)  Target: dist                       --&gt; 
+    &lt;!-- (DEFAULT)  Target: dist                       --&gt;
     &lt;!-- ============================================  --&gt;
     &lt;target name=&quot;dist&quot; depends=&quot;build&quot;&gt;
         &lt;echo msg=&quot;Creating archive...&quot; /&gt;
@@ -174,6 +174,9 @@
                     </tbody>
                 </tgroup>
             </table>
+            <para>
+                See <xref xlink:href="#Project"/> for a complete reference.
+            </para>
         </sect2>
         <sect2>
             <title> Target Element </title>
@@ -199,13 +202,13 @@
 &lt;target name="C" depends="B" /&gt;
 &lt;target name="D" depends="C,B,A" /&gt;</screen>
 
-            <para>Suppose we want to execute target <literal>D</literal> . From its depends
-                aliteralribute, you might think that first target <literal>C</literal> , then
+            <para>Suppose we want to execute target <literal>D</literal>. Looking at its depends
+                attribute, you might think that first target <literal>C</literal>, then
                     <literal>B</literal> and then <literal>A</literal> is executed. Wrong!
-                    <literal>C</literal> depends on <literal>B</literal> , and <literal>B</literal>
-                depends on <literal>A</literal> , so first <literal>A</literal> is executed, then
-                    <literal>B</literal> , then <literal>C</literal> , and finally
-                    <literal>D</literal> .</para>
+                    <literal>C</literal> depends on <literal>B</literal>, and <literal>B</literal>
+                depends on <literal>A</literal>, so first <literal>A</literal> is executed, then
+                    <literal>B</literal>, then <literal>C</literal>, and finally
+                    <literal>D</literal>.</para>
 
             <para>A target gets executed only once, even when more than one target depends on it
                 (see the previous example).</para>
@@ -263,6 +266,9 @@
                     </tgroup>
                 </table>
             </sect3>
+            <para>
+                See <xref xlink:href="#Target"/> for a complete reference.
+            </para>
         </sect2>
 
         <sect2>
@@ -299,8 +305,8 @@
             <title> Property Element </title>
 
             <para><literal>Properties</literal> are essentially variables that can be used in the
-                buildfile. These might be set in the buildfile by calling the <xref
-                    xlink:href="#app.coretasks"/>, or might be set outside Phing on the command line
+                buildfile. These might be set in the buildfile by calling the <link linkend="PropertyTask">property</link> task,
+                or might be set outside Phing on the command line
                 (properties set on the command line always override the ones in the buildfile). A
                 property has a name and a value only. Properties may be used in the value of task
                 attributes. This is done by placing the property name between &quot;
@@ -357,8 +363,9 @@
 &lt;/project&gt;</programlisting>
 
         <para>This build file first defines some properties with the
-                <literal>&lt;property></literal> task call to <literal>PropertyTask</literal>. Then,
-            it defines a fileset and two targets. Let us have a quick rundown of this build file.</para>
+                <literal><link linkend="PropertyTask">&lt;property></link></literal> task call to <literal>PropertyTask</literal>. Then,
+            it defines a <link linkend="FileSet">fileset</link> and two <link linkend="Target">targets</link>.
+            Let us have a quick rundown of this build file.</para>
 
         <para> The first five four within the <literal>project</literal> tag define properties. They
             appear in the two ways this tag can occur: </para>
@@ -441,9 +448,9 @@
             auto-completion by adding a specification in the beginning of the XML file. For example,
             the following two lines in the beginning of an XML file would do (of course the exact
             path to the grammar will depend on your system setup) </para>
-        <screen>&lt;?xml version="1.0" encoding="UTF-8"?> 
-&lt;?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng" 
-            type="application/xml" 
+        <screen>&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng"
+            type="application/xml"
             schematypens="http://relaxng.org/ns/structure/1.0" ?></screen>
         <para>Using auto-completion will make it substantially easier to edit large build files.
             Please note that since the phing-grammar does not have an official designation we must

@@ -165,7 +165,7 @@ class BatchTest
      *
      * @return array an array of tests.
      */
-    protected function elements()
+    public function elements()
     {
         $filenames = $this->getFilenames();
         
@@ -185,46 +185,6 @@ class BatchTest
         $elements = array_filter($declaredClasses, array($this, "filterTests"));
 
         return $elements;
-    }
-    
-    /**
-     * Returns a testsuite containing all the tests in this batch
-     *
-     * @deprecated
-     * @return PHPUnit_Framework_TestSuite
-     */
-    public function getTestSuite()
-    {
-        $suite = new PHPUnit_Framework_TestSuite($this->name);
-        
-        foreach ($this->elements() as $test)
-        {
-            $testClass = new $test();
-            if (!($testClass instanceof PHPUnit_Framework_TestSuite))
-            {
-              $testClass = new ReflectionClass($test);
-            }
-            
-            $suite->addTestSuite($testClass);
-        }
-        
-        return $suite;
-    }
-    
-    /**
-     * Add the tests in this batchtest to a test suite
-     * @param PHPUnit_Framework_TestSuite $suite
-     */
-    public function addToTestSuite(PHPUnit_Framework_TestSuite $suite)
-    {
-        foreach ($this->elements() as $element) {
-            $testClass = new $element();
-            if (!($testClass instanceof PHPUnit_Framework_TestSuite))
-            {
-                $testClass = new ReflectionClass($element);
-            }
-            $suite->addTestSuite($testClass);
-        }
     }
     
 }

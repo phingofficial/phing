@@ -67,18 +67,18 @@ class PHPMDFormatterElement
     public function setType($type)
     {
         $this->type = $type;
-
+        $root = false === stream_resolve_include_path("PHP/PMD.php") ? "PHPMD/" : "PHP/PMD/";
         switch ($this->type) {
             case 'xml':
-                include_once 'PHP/PMD/Renderer/XMLRenderer.php';
+                include_once $root .'Renderer/XMLRenderer.php';
                 break;
 
             case 'html':
-                include_once 'PHP/PMD/Renderer/HTMLRenderer.php';
+                include_once $root . 'Renderer/HTMLRenderer.php';
                 break;
 
             case 'text':
-                include_once 'PHP/PMD/Renderer/TextRenderer.php';
+                include_once $root . 'Renderer/TextRenderer.php';
                 break;
 
             default:
@@ -144,33 +144,45 @@ class PHPMDFormatterElement
      */
     public function getRenderer()
     {
+        if(false === stream_resolve_include_path("PHP/PMD.php")){
+            $render_root = 'PHPMD\Renderer\\';
+            $writer_class = '\PHPMD\Writer\StreamWriter'; 
+            $writer_file = 'PHPMD/Writer/StreamWriter.php';
+        } else {
+            $render_root = 'PHP_PMD_RENDERER_';
+            $writer_class = 'PHP_PMD_Writer_Stream';
+            $writer_file = 'PHP/PMD/Writer/Stream.php';
+        }
+
         switch ($this->type) {
             case 'xml':
-                $renderer = new PHP_PMD_Renderer_XMLRenderer();
+                $class = $render_root.'XMLRenderer';
                 break;
 
             case 'html':
-                $renderer = new PHP_PMD_Renderer_HTMLRenderer();
+                $class = $render_root.'HTMLRenderer';
                 break;
 
             case 'text':
-                $renderer = new PHP_PMD_Renderer_TextRenderer();
+                $class = $render_root.'TextRenderer';
                 break;
 
             default:
                 throw new BuildException('PHP_MD renderer "' . $this->type . '" not implemented');
         }
-
-        // Create a report stream
+        $renderer = new $class();
+        
+				// Create a report stream
         if ($this->getUseFile() === false || $this->getOutfile() === null) {
             $stream = STDOUT;
         } else {
             $stream = fopen($this->getOutfile()->getAbsoluteFile(), 'wb');
         }
 
-        require_once 'PHP/PMD/Writer/Stream.php';
+				
+        require_once $writer_file;
 
-        $renderer->setWriter(new PHP_PMD_Writer_Stream($stream));
+        $renderer->setWriter(new $writer_class($stream));
 
         return $renderer;
     }

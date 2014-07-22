@@ -59,34 +59,6 @@ class FormatterElement
     public function setType($type)
     {
         $this->type = $type;
-        
-        if ($this->type == "summary")
-        {
-            require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
-            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
-        }
-        else
-        if ($this->type == "clover")
-        {
-            require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
-            $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
-        }
-        else
-        if ($this->type == "xml")
-        {
-            require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
-            $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
-        }
-        else
-        if ($this->type == "plain")
-        {
-            require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
-            $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
-        }
-        else
-        {
-            throw new BuildException("Formatter '" . $this->type . "' not implemented");
-        }
     }
 
     /**
@@ -173,6 +145,26 @@ class FormatterElement
      */
     public function getFormatter()
     {
+        if ($this->formatter !== null) {
+            return $this->formatter;
+        }
+        
+        if ($this->type == "summary") {
+            require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
+            $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
+        } elseif ($this->type == "clover") {
+            require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
+            $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
+        } elseif ($this->type == "xml") {
+            require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
+            $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
+        } elseif ($this->type == "plain") {
+            require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
+            $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
+        } else {
+            throw new BuildException("Formatter '" . $this->type . "' not implemented");
+        }
+        
         return $this->formatter;
     }
 }

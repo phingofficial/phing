@@ -21,8 +21,6 @@
  */
 
 
-require_once 'PHPUnit/Framework/TestCase.php';
-
 /**
  * @author Daniel Holmes
  * @package phing.system.io

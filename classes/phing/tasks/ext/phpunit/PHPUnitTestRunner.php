@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'PHPUnit/Autoload.php';
 require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 require_once 'phing/system/util/Timer.php';
 
@@ -234,6 +233,17 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         $this->lastSkippedMessage = $this->composeMessage("SKIPPED", $test, $e);
+    }
+
+    /**
+     * Risky test
+     *
+     * @param  PHPUnit_Framework_Test $test
+     * @param  Exception              $e
+     * @param  float                  $time
+     */
+    public function addRiskyTest(PHPUnit_Framework_Test $test, Exception $e, $time)
+    {
     }
 
     /**

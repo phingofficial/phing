@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <book xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="phing-guide">
@@ -51,7 +51,7 @@
         </authorgroup>
         <pubdate><?dbtimestamp format="Y-m-d"?></pubdate>
         <copyright>
-            <year>2007-2013</year>
+            <year>2007-2014</year>
             <holder>The Phing Project</holder>
         </copyright>
     </info>

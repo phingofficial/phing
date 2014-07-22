@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng" 
+<?xml-model xlink:href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbookxi.rng"
             schematypens="http://relaxng.org/ns/structure/1.0"?>
 <appendix xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude"
     xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="app.selectors">
@@ -358,8 +358,8 @@
         <para>The <literal>&lt;present></literal> tag selects files that have an equivalent file in
             another directory tree.</para>
 
-        <para>The <literal>&lt;present></literal> tag supports the use of a contained <xref
-                xlink:href="#app.coremappers"/>Mapper element to define the location of the file to
+        <para>The <literal>&lt;present></literal> tag supports the use of a contained <link
+                linkend="app.coremappers">mapper</link> element to define the location of the file to
             be compared against. If no <literal>mapper</literal> element is specified, the identity
             type mapper is used.</para>
 
@@ -656,7 +656,7 @@
 
         <para>The <literal>&lt;selector></literal> tag is used to create selectors that can be
             reused through references. It is the only selector which can be used outside of any
-            target, as an element of the <literal>&lt;project></literal> tag. It can contain only
+            target, as an element of the <literal><link linkend="Project">&lt;project></link></literal> tag. It can contain only
             one other selector, but of course that selector can be a container.</para>
 
     </sect1>

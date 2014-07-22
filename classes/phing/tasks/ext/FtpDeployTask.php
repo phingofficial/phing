@@ -23,10 +23,10 @@ require_once 'phing/Task.php';
 
 /**
  * FtpDeployTask
- * 
+ *
  * Deploys a set of files to a remote FTP server.
- * 
- * 
+ *
+ *
  * Example usage:
  * <ftpdeploy host="host" port="21" username="user" password="password" dir="public_html" mode="ascii" clearfirst="true" depends="false" filemode="" dirmode="">
  *   <fileset dir=".">
@@ -60,34 +60,35 @@ class FtpDeployTask extends Task
     private $depends = false;
     private $dirmode = false;
     private $filemode = false;
+    private $rawDataFallback = false;
 
     protected $logLevel = Project::MSG_VERBOSE;
-    
+
     public function __construct() {
         $this->filesets = array();
         $this->completeDirMap = array();
     }
-    
+
     public function setHost($host) {
         $this->host = $host;
     }
-    
+
     public function setPort($port) {
         $this->port = (int) $port;
     }
-    
+
     public function setUsername($username) {
         $this->username = $username;
     }
-    
+
     public function setPassword($password) {
         $this->password = $password;
     }
-    
+
     public function setDir($dir) {
         $this->dir = $dir;
     }
-    
+
     public function setMode($mode) {
         switch(strtolower($mode)) {
             case 'ascii':
@@ -99,33 +100,41 @@ class FtpDeployTask extends Task
                 break;
         }
     }
-    
+
     public function setPassive($passive)
     {
         $this->passive = (bool) $passive;
     }
-    
+
     public function setClearFirst($clearFirst) {
         $this->clearFirst = (bool) $clearFirst;
     }
 
-    public function setDepends($depends){
-		$this->depends = (bool) $depends;
-	}
-    
-    public function setFilemode($filemode){
+    public function setDepends($depends) {
+        $this->depends = (bool) $depends;
+    }
+
+    public function setFilemode($filemode) {
         $this->filemode = octdec(str_pad($filemode,4,'0',STR_PAD_LEFT));
     }
-    
-    public function setDirmode($dirmode){
+
+    public function setDirmode($dirmode) {
         $this->dirmode = octdec(str_pad($dirmode,4,'0',STR_PAD_LEFT));
     }
-    
-    public function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+
+    public function setRawdatafallback($fallback) {
+        $this->rawDataFallback = (bool) $fallback;
     }
-    
+
+    /**
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
+     */
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
+    }
+
     /**
      * Set level of log messages generated (default = info)
      * @param string $level
@@ -156,13 +165,13 @@ class FtpDeployTask extends Task
         }
         throw new BuildException('The FTP Deploy task requires the Net_FTP PEAR package.');
     }
-    
+
     /**
      * The main entry point method.
      */
     public function main() {
         $project = $this->getProject();
-        
+
         require_once 'Net/FTP.php';
         $ftp = new Net_FTP($this->host, $this->port);
         $ret = $ftp->connect();
@@ -190,20 +199,20 @@ class FtpDeployTask extends Task
 
         // append '/' to the end if necessary
         $dir = substr($this->dir, -1) == '/' ? $this->dir : $this->dir.'/';
-        
+
         if($this->clearFirst) {
             // TODO change to a loop through all files and directories within current directory
             $this->log('Clearing directory '.$dir, $this->logLevel);
             $ftp->rm($dir, true);
         }
-        
+
         // Create directory just in case
         $ret = $ftp->mkdir($dir, true);
         if(@PEAR::isError($ret)) {
             $ftp->disconnect();
             throw new BuildException('Could not create directory '.$dir.': '.$ret->getMessage());
         }
-        
+
         $ret = $ftp->cd($dir);
         if(@PEAR::isError($ret)) {
             $ftp->disconnect();
@@ -211,7 +220,7 @@ class FtpDeployTask extends Task
         } else {
             $this->log('Changed directory ' . $dir, $this->logLevel);
         }
-        
+
         $fs = FileSystem::getFileSystem();
         $convert = $fs->getSeparator() == '\\';
 
@@ -227,7 +236,7 @@ class FtpDeployTask extends Task
             foreach($srcDirs as $dirname) {
                 if($convert)
                     $dirname = str_replace('\\', '/', $dirname);
-				
+
                 // Read directory informations, if file exists, else create the directory
                 if(!$this->_directoryInformations($ftp, $remoteFileInformations, $dirname)){
                     $this->log('Will create directory '.$dirname, $this->logLevel);
@@ -245,14 +254,14 @@ class FtpDeployTask extends Task
                     }
                     // Because Net_FTP does not support a chmod call we call ftp_chmod directly
                     ftp_chmod($ftp->_handle, $mode, $dirname);
-				}
+                }
             }
 
             foreach($srcFiles as $filename) {
                 $file = new PhingFile($fromDir->getAbsolutePath(), $filename);
                 if($convert)
                     $filename = str_replace('\\', '/', $filename);
-				
+
                 $local_filemtime = filemtime($file->getCanonicalPath());
                 if(isset($remoteFileInformations[$filename]['stamp'])){
                     $remoteFileModificationTime = $remoteFileInformations[$filename]['stamp'];
@@ -279,14 +288,24 @@ class FtpDeployTask extends Task
                 }
             }
         }
-        
+
         $ftp->disconnect();
         $this->log('Disconnected from FTP server', $this->logLevel);
     }
 
     private function _directoryInformations(Net_FTP $ftp, &$remoteFileInformations, $directory) {
         $content = $ftp->ls($directory);
-        if (@PEAR::isError($content) || sizeof($content) == 0) {
+        if (@PEAR::isError($content)) {
+            if ($this->rawDataFallback) {
+                $content = $ftp->ls($directory, NET_FTP_RAWLIST);
+            }
+            if (@PEAR::isError($content)) {
+                return false;
+            }
+            $content = $this->parseRawFtpContent($content, $directory);
+        }
+
+        if (sizeof($content) == 0) {
             return false;
         } else {
             if (!empty($directory)) {
@@ -300,4 +319,45 @@ class FtpDeployTask extends Task
             return true;
         }
     }
+
+    private function parseRawFtpContent($content, $directory = null) {
+        if (!is_array($content)) {
+            return array();
+        }
+
+        $this->log('Start parsing FTP_RAW_DATA in ' . $directory);
+        $retval = array();
+        foreach ($content as $rawInfo) {
+            $rawInfo  = explode(' ', $rawInfo);
+            $rawInfo2 = array();
+            foreach ($rawInfo as $part) {
+                $part = trim($part);
+                if (!empty($part)) {
+                    $rawInfo2[] = $part;
+                }
+            }
+
+            $date = date_parse($rawInfo2[5] . ' ' . $rawInfo2[6] . ' ' . $rawInfo2[7]);
+            if ($date['year'] === false) {
+                $date['year'] = date('Y');
+            }
+            $date = mktime($date['hour'], $date['minute'], $date['second'], $date['month'], $date['day'], $date['year']);
+
+            $retval[] = array(
+                'name'         => $rawInfo2[8],
+                'rights'       => substr($rawInfo2[0], 1),
+                'user'         => $rawInfo2[2],
+                'group'        => $rawInfo2[3],
+                'date'         => $date,
+                'stamp'        => $date,
+                'is_dir'       => strpos($rawInfo2[0], 'd') === 0,
+                'files_inside' => (int) $rawInfo2[1],
+                'size'         => (int) $rawInfo2[4],
+            );
+        }
+
+        $this->log('Finished parsing FTP_RAW_DATA in ' . $directory);
+        return $retval;
+    }
+
 }

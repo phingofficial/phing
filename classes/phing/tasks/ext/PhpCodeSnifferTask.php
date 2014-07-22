@@ -49,7 +49,7 @@ class PhpCodeSnifferTask extends Task {
 
     // parameters to customize output
     protected $showSniffs = false;
-    protected $format = 'default';
+    protected $format = 'full';
     protected $formatters = array();
 
     /**
@@ -88,13 +88,12 @@ class PhpCodeSnifferTask extends Task {
     }
 
     /**
-     * Nested creator, creates a FileSet for this task
+     * Nested adder, adds a set of files (nested fileset attribute).
      *
-     * @return FileSet The created fileset object
+     * @return void
      */
-    public function createFileSet() {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**
@@ -345,6 +344,50 @@ class PhpCodeSnifferTask extends Task {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
+        if (count($this->formatters) == 0) {
+          // turn legacy format attribute into formatter
+          $fmt = new PhpCodeSnifferTask_FormatterElement();
+          $fmt->setType($this->format);
+          $fmt->setUseFile(false);
+          $this->formatters[] = $fmt;
+        }
+
+        $fileList = array();
+
+        if (!isset($this->file)) {
+            $project = $this->getProject();
+            foreach ($this->filesets as $fs) {
+                $ds = $fs->getDirectoryScanner($project);
+                $files = $ds->getIncludedFiles();
+                $dir = $fs->getDir($this->project)->getAbsolutePath();
+                foreach ($files as $file) {
+                    $fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
+                }
+            }
+        } else {
+            $fileList[] = $this->file->getPath();
+        }
+
+        $cwd = getcwd();
+
+        // Save command line arguments because it confuses PHPCS (version 1.3.0)
+        $oldArgs = $_SERVER['argv'];
+        $_SERVER['argv'] = array();
+        $_SERVER['argc'] = 0;
+
+        include_once 'phing/tasks/ext/phpcs/PhpCodeSnifferTask_Wrapper.php';
+
+        $codeSniffer = new PhpCodeSnifferTask_Wrapper($this->verbosity, $this->tabWidth, $this->encoding);
+        $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
+        if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
+        foreach ($this->configData as $configData) {
+            $codeSniffer->setConfigData($configData->getName(), $configData->getValue(), true);
+        }
+
+        /*
+         * Verifying if standard is installed only after setting config data.
+         * Custom standard paths could be provided via installed_paths config parameter.
+         */
         if (PHP_CodeSniffer::isInstalledStandard($this->standard) === false) {
             // They didn't select a valid coding standard, so help them
             // out by letting them know which standards are installed.
@@ -372,46 +415,6 @@ class PhpCodeSnifferTask extends Task {
             );
         }
 
-        if (count($this->formatters) == 0) {
-          // turn legacy format attribute into formatter
-          $fmt = new PhpCodeSnifferTask_FormatterElement();
-          $fmt->setType($this->format);
-          $fmt->setUseFile(false);
-          $this->formatters[] = $fmt;
-        }
-        
-        $fileList = array();
-        
-        if (!isset($this->file)) {
-            $project = $this->getProject();
-            foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
-                $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getAbsolutePath();
-                foreach ($files as $file) {
-                    $fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
-                }
-            }
-        } else {
-            $fileList[] = $this->file->getPath();
-        }
-
-        $cwd = getcwd();
-        
-        // Save command line arguments because it confuses PHPCS (version 1.3.0)
-        $oldArgs = $_SERVER['argv'];
-        $_SERVER['argv'] = array();
-        $_SERVER['argc'] = 0;
-        
-        include_once 'phing/tasks/ext/phpcs/PhpCodeSnifferTask_Wrapper.php';
-        
-        $codeSniffer = new PhpCodeSnifferTask_Wrapper($this->verbosity, $this->tabWidth, $this->encoding);
-        $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
-        if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
-        foreach ($this->configData as $configData) {
-            $codeSniffer->setConfigData($configData->getName(), $configData->getValue(), true);
-        }
-        
         // nasty integration hack
         $values = $codeSniffer->cli->getDefaults();
         $_SERVER['argv'] = array('t');
@@ -425,7 +428,7 @@ class PhpCodeSnifferTask extends Task {
         $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
         $_SERVER['argv'] = array();
         $_SERVER['argc'] = 0;
-        
+
         $this->printErrorReport($codeSniffer);
 
         // generate the documentation
@@ -452,10 +455,10 @@ class PhpCodeSnifferTask extends Task {
             throw new BuildException('phpcodesniffer detected ' . $codeSniffer->reporting->totalErrors . ' error' . ($codeSniffer->reporting->totalErrors > 1 ? 's' : ''));
         }
 
-        if ($this->haltonwarning && $codesniffer->reporting->totalWarnings > 0) {
-            throw new BuildException('phpcodesniffer detected ' . $codesniffer->reporting->totalWarnings . ' warning' . ($codeSniffer->reporting->totalWarnings > 1 ? 's' : ''));
+        if ($this->haltonwarning && $codeSniffer->reporting->totalWarnings > 0) {
+            throw new BuildException('phpcodesniffer detected ' . $codeSniffer->reporting->totalWarnings . ' warning' . ($codeSniffer->reporting->totalWarnings > 1 ? 's' : ''));
         }
-        
+
         $_SERVER['argv'] = $oldArgs;
         $_SERVER['argc'] = count($oldArgs);
         chdir($cwd);
@@ -601,7 +604,7 @@ class PhpCodeSnifferTask_FormatterElement extends DataType {
         if(empty($this->type)) {
             throw new BuildException("Format missing required 'type' attribute.");
     }
-    if ($useFile && empty($this->outfile)) {
+    if ($this->useFile && empty($this->outfile)) {
       throw new BuildException("Format requires 'outfile' attribute when 'useFile' is true.");
     }
 

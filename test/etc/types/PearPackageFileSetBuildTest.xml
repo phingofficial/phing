@@ -33,7 +33,6 @@
     </foreach>
   </target>
 
-  <!-- FIXME: does not work yet
   <target name="testDirect"
           description="using a pearpackagefileset directly in a task"
   >
@@ -41,7 +40,6 @@
       <pearPackageFileSet package="Console_Getopt" id="co"/>
     </foreach>
   </target>
-  -->
 
   <target name="testPEAR"
           description=""
@@ -56,7 +54,7 @@
           description=""
   >
     <pearPackageFileSet
-         package="pear.phpunit.de/PHPUnit"
+         package="pear.php.net/Archive_Tar"
          role="doc"
          id="co"/>
     <foreach param="filename" absparam="absfilename" target="echoFilesetFile">

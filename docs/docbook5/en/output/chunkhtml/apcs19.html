@@ -2,22 +2,22 @@
         
         <p> Record changes to the repository. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html" target="_top">documentation</a>.</p>
 
-        <div class="table"><a name="idp53870608"></a><p class="formal-object-title"><span class="label">Table C.19: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp71397504"></a><p class="formal-object-title"><span class="label">Table C.19: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">message</code></td><td><code class="literal">String</code></td><td>Commit message</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">allFiles</code></td><td><code class="literal">Boolean</code></td><td>Whether to automatically stage files that have been modified and deleted
                     (see --all in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-commit.html" target="_top">git-commit</a>)</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53892192"></a>C.19.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp71419088"></a>C.19.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;!-- commit all modified / deleted files --&gt;;
 &lt;gitcommit
-    repository="/path/to/repo" 
+    repository="/path/to/repo"
     message="Commit message" allFiles="true" /&gt;;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53893744"></a>C.19.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp71420640"></a>C.19.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-                    <p><code class="literal">fileset</code></p>
+                    <p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code></p>
                 </li></ul></div>
         </div>
     </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apcs18.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="apc.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apcs20.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.18 GitCheckoutTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.20 GitMergeTask</td></tr></table></div></body></html>

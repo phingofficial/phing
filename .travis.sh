@@ -14,7 +14,7 @@ installPearTask ()
     echo -e "\nAuto-discover pear channels and upgrade ..."
     pear config-set auto_discover 1
     pear -qq channel-update pear.php.net
-    pear -qq upgrade
+#    pear -qq upgrade
     pear -qq channel-discover pear.phing.info
     echo "... OK"
 
@@ -80,6 +80,8 @@ installPearTask ()
         pear upgrade pecl.php.net/Phar ||
             pear install pecl.php.net/Phar
         phpenv rehash
+        mkdir vendor
+        touch vendor/autoload.php
     else
     	composer selfupdate --quiet
         composer install

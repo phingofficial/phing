@@ -20,13 +20,12 @@
  */
 
 require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/jsmin/JsMin.php';
 
 /**
  * Task to minify javascript files.
  *
- * Requires JSMin which can be found at http://code.google.com/p/jsmin-php/ but
- * is bundled with Phing so no additional install of JsMin is required.
+ * Requires JShrink (https://github.com/tedivm/JShrink) which
+ * can be installed using composer
  *
  * @author Frank Kleine <mikey@stubbles.net>
  * @version $Id$
@@ -61,15 +60,15 @@ class JsMinTask extends Task
      *
      * @var  string
      */
-    protected $targetDir;
+    protected $targetDir = "";
 
     /**
-     *  Nested creator, adds a set of files (nested fileset attribute).
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
      */
-    public function createFileSet()
-    {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num - 1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**
@@ -115,23 +114,26 @@ class JsMinTask extends Task
      */
     public function main()
     {
+        // if composer autoloader is not yet loaded, load it here
+        @require_once 'vendor/autoload.php';
+        if (! class_exists('\\JShrink\\Minifier')) {
+            throw new BuildException(
+                'JsMinTask depends on JShrink being installed and on include_path.', 
+                $this->getLocation()
+            );
+        }
+        
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            throw new BuildException('JsMinTask requires PHP 5.3+');
+        }
+        
+        if (empty($this->targetDir)) {
+            throw new BuildException('Attribute "targetDir" is required');
+        }
+        
         foreach ($this->filesets as $fs) {
             try {
-                $files    = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
-                $fullPath = realpath($fs->getDir($this->project));
-                foreach ($files as $file) {
-                    $this->log('Minifying file ' . $file);
-                    try {
-                        $target = $this->targetDir . '/' . str_replace($fullPath, '', str_replace('.js', $this->suffix . '.js', $file));
-                        if (file_exists(dirname($target)) === false) {
-                            mkdir(dirname($target), 0777 - umask(), true);
-                        }
-                        
-                        file_put_contents($target, JSMin::minify(file_get_contents($fullPath . '/' . $file)));
-                    } catch (JSMinException $jsme) {
-                        $this->log("Could not minify file $file: " . $jsme->getMessage(), Project::MSG_ERR);
-                    }
-                }
+                $this->processFileSet($fs);
             } catch (BuildException $be) {
                 // directory doesn't exist or is not readable
                 if ($this->failonerror) {
@@ -139,6 +141,30 @@ class JsMinTask extends Task
                 } else {
                     $this->log($be->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
                 }
+            }
+        }
+    }
+    
+    protected function processFileSet(FileSet $fs)
+    {
+        $files    = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+        $fullPath = realpath($fs->getDir($this->project));
+        foreach ($files as $file) {
+            $this->log('Minifying file ' . $file);
+            try {
+                $target = $this->targetDir . '/' . str_replace($fullPath, '', str_replace('.js', $this->suffix . '.js', $file));
+                if (file_exists(dirname($target)) === false) {
+                    mkdir(dirname($target), 0777 - umask(), true);
+                }
+                
+                $contents = file_get_contents($fullPath . '/' . $file);
+                
+                // nasty hack to not trip PHP 5.2 parser
+                $minified = forward_static_call(array('\\JShrink\\Minifier', 'minify'), $contents);
+                
+                file_put_contents($target, $minified);
+            } catch (Exception $jsme) {
+                $this->log("Could not minify file $file: " . $jsme->getMessage(), Project::MSG_ERR);
             }
         }
     }

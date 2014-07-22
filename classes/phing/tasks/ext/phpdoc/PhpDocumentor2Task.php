@@ -57,16 +57,20 @@ class PhpDocumentor2Task extends Task
     private $title = "API Documentation";
     
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
-     * 
-     * @return FileSet
+     * Name of default package
+     * @var string
      */
-    public function createFileSet()
-    {
-        $num = array_push($this->filesets, new FileSet());
-        return $this->filesets[$num-1];
-    }
+    private $defaultPackageName = "Default";
     
+    /**
+     * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @return void
+     */
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
+    }
+
     /**
      * Sets destination/target directory
      * @param PhingFile $destDir
@@ -101,6 +105,15 @@ class PhpDocumentor2Task extends Task
     public function setTitle($title)
     {
         $this->title = (string) $title;
+    }
+    
+    /**
+     * Sets the default package name
+     * @param string $defaultPackageName
+     */
+    public function setDefaultPackageName($defaultPackageName)
+    {
+        $this->defaultPackageName = (string) $defaultPackageName;
     }
     
     /**
@@ -139,6 +152,7 @@ class PhpDocumentor2Task extends Task
         $wrapper->setDestDir($this->destDir);
         $wrapper->setTemplate($this->template);
         $wrapper->setTitle($this->title);
+        $wrapper->setDefaultPackageName($this->defaultPackageName);
         $wrapper->run();
     }
 }

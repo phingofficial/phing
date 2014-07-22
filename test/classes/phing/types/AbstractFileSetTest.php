@@ -21,7 +21,6 @@
  */
  
 require_once 'phing/BuildFileTest.php';
-require_once 'PHPUnit/Framework/TestCase.php';
 include_once 'phing/types/FileSet.php';
 
 /**

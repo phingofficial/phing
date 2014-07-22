@@ -443,9 +443,13 @@ class Phing {
         }
         
         try {
-            // make sure buildfile exists
+            // make sure buildfile (or buildfile.dist) exists
             if (!$this->buildFile->exists()) {
-                throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
+                $distFile = new PhingFile($this->buildFile->getAbsolutePath() . ".dist");
+                if (! $distFile->exists()) {
+                    throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
+                }
+                $this->buildFile = $distFile;
             }
         
             // make sure it's not a directory
@@ -1243,7 +1247,11 @@ class Phing {
                 break;
         }
 
-        self::setProperty('php.interpreter', getenv('PHP_COMMAND'));
+        if (defined('PHP_BINARY')) {
+            self::setProperty('php.interpreter', PHP_BINARY);
+        } else {
+            self::setProperty('php.interpreter', getenv('PHP_COMMAND'));
+        }
         self::setProperty('line.separator', PHP_EOL);
         self::setProperty('php.version', PHP_VERSION);
         self::setProperty('user.home', getenv('HOME'));

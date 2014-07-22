@@ -18,4 +18,14 @@
 	    <testcondition foo="bar"/>
     	</condition>
     </target>
+
+    <target name="testReferenceExists">
+        <condition property="ref.exists">
+            <referenceexists ref="file.set"/>
+        </condition>
+        <echo>${ref.exists}</echo>
+        <patternset id="file.set">
+            <include name="build.xml"/>
+        </patternset>
+    </target>
 </project>

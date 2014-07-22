@@ -100,15 +100,12 @@ class PHPMDTask extends Task
     }
 
     /**
-     * Nested creator, adds a set of files (nested fileset attribute).
+     * Nested adder, adds a set of files (nested fileset attribute).
      *
-     * @return FileSet The created fileset object
+     * @return void
      */
-    public function createFileSet()
-    {
-        $num = array_push($this->filesets, new FileSet());
-
-        return $this->filesets[$num-1];
+    public function addFileSet(FileSet $fs) {
+        $this->filesets[] = $fs;
     }
 
     /**
@@ -186,22 +183,38 @@ class PHPMDTask extends Task
      */
     public function main()
     {
-        /**
+	    /**
          * Find PHPMD
          */
-        @include_once 'PHP/PMD.php';
+        if(false === stream_resolve_include_path("PHP/PMD.php")){
+            @include_once 'PHPMD/PHPMD.php';
+            $class_name = '\PHPMD\PHPMD';
+            $new = true;
+        } else {
+            @include_once 'PHP/PMD.php';
+            $class_name = "PHP_PMD";
+            $new = false;
+        }
 
-        if (! class_exists('PHP_PMD')) {
+
+        if (! class_exists($class_name)) {
             throw new BuildException(
                 'PHPMDTask depends on PHPMD being installed and on include_path.',
                 $this->getLocation()
             );
         }
 
-        require_once 'PHP/PMD/AbstractRule.php';
+        if($new){
+            require_once 'PHPMD/AbstractRule.php';
+            //weird syntax to allow 5.2 parser compatability
+            $minPriority = constant('\PHPMD\AbstractRule::LOWEST_PRIORITY');
+        } else {
+            require_once 'PHP/PMD/AbstractRule.php';
+            $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
+        }
 
         if (!$this->minimumPriority) {
-            $this->minimumPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
+            $this->minimumPriority = $minPriority;
         }
 
         if (!isset($this->file) and count($this->filesets) == 0) {
@@ -232,10 +245,18 @@ class PHPMDTask extends Task
         }
 
         // Create a rule set factory
-        $ruleSetFactory = new PHP_PMD_RuleSetFactory();
-        $ruleSetFactory->setMinimumPriority($this->minimumPriority);
+        if($new){
+            @require_once "PHPMD/RuleSetFactory.php";
+            $ruleSetClass = '\PHPMD\RuleSetFactory';
+            $ruleSetFactory = new $ruleSetClass(); //php 5.2 parser compatability
+            
+        } else {
+            $ruleSetFactory = new PHP_PMD_RuleSetFactory();
 
-        $phpmd = new PHP_PMD();
+        }
+        $ruleSetFactory->setMinimumPriority($this->minimumPriority);
+        
+        $phpmd = new $class_name();
         $phpmd->setFileExtensions($this->allowedFileExtensions);
         $phpmd->setIgnorePattern($this->ignorePatterns);
 
