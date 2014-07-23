@@ -35,7 +35,7 @@ class PhingFile {
 
     /** path separator string, static, obtained from FileSystem (; or :)*/
     public static $pathSeparator;
-
+    
     /**
      * This abstract pathname's normalized pathname string.  A normalized
      * pathname string uses the default name-separator character and does not
@@ -51,7 +51,7 @@ class PhingFile {
 
     /** constructor */
     function __construct($arg1 = null, $arg2 = null) {
-
+        
         if (self::$separator === null || self::$pathSeparator === null) {
             $fs = FileSystem::getFileSystem();
             self::$separator = $fs->getSeparator();
@@ -76,17 +76,17 @@ class PhingFile {
 
     /**
      * Returns the length of this abstract pathname's prefix.
-     *
+     * 
      * @return int
      */
     function getPrefixLength() {
         return (int) $this->prefixLength;
     }
-
+    
     /* -- constructors not called by signature match, so we need some helpers --*/
 
     /**
-     *
+     * 
      * Enter description here ...
      * @param unknown_type $pathname
      */
@@ -103,7 +103,7 @@ class PhingFile {
     }
 
     /**
-     *
+     * 
      * Enter description here ...
      * @param unknown_type $parent
      * @param unknown_type $child
@@ -128,7 +128,7 @@ class PhingFile {
     }
 
     /**
-     *
+     * 
      * Enter description here ...
      * @param unknown_type $parent
      * @param unknown_type $child
@@ -286,7 +286,7 @@ class PhingFile {
      * @see    #isAbsolute()
      */
     function getAbsolutePath() {
-        $fs = FileSystem::getFileSystem();
+        $fs = FileSystem::getFileSystem();        
         return $fs->resolveFile($this);
     }
 
@@ -391,7 +391,7 @@ class PhingFile {
     }
 
     /**
-     *
+     * 
      * Enter description here ...
      * @param  PhingFile|string $path
      * @param  boolean $isDirectory
@@ -518,7 +518,7 @@ class PhingFile {
         }
         return (($fs->getBooleanAttributes($this) & $fs->BA_HIDDEN) !== 0);
     }
-
+    
     /**
      * Tests whether the file denoted by this abstract pathname is a symbolic link.
      *
@@ -590,7 +590,7 @@ class PhingFile {
         }
         return file_get_contents($this->getAbsolutePath());
     }
-
+    
     /* -- File operations -- */
 
     /**
@@ -621,7 +621,7 @@ class PhingFile {
     function delete($recursive = false) {
         $fs = FileSystem::getFileSystem();
         if ($fs->canDelete($this) !== true) {
-            throw new IOException("Cannot delete " . $this->path . "\n");
+            throw new IOException("Cannot delete " . $this->path . "\n"); 
         }
         return $fs->delete($this, $recursive);
     }
@@ -669,7 +669,7 @@ class PhingFile {
     }
 
     /**
-     *
+     * 
      * Enter description here ...
      * @param PhingFile[] $filter
      */
@@ -707,7 +707,7 @@ class PhingFile {
             }
         } catch (IOException $ioe) {
             // IOException from mkdir() means that directory propbably didn't exist.
-        }
+        }        
         $parentFile = $this->getParentFile();
         return (($parentFile !== null) && ($parentFile->mkdirs($mode) && $this->mkdir($mode)));
     }
@@ -812,15 +812,15 @@ class PhingFile {
         $fs = FileSystem::getFileSystem();
         return $fs->chown($this->getPath(), $user);
     }
-
+    
     /**
      * Retrieve the owner of this file.
-     * @return int User ID of the owner of this file.
+     * @return int User ID of the owner of this file. 
      */
     function getUser() {
         return @fileowner($this->getPath());
     }
-
+    
     /**
      * Sets the group of the file.
      * @param mixed $user User name or number.
@@ -829,10 +829,10 @@ class PhingFile {
         $fs = FileSystem::getFileSystem();
         return $fs->chgrp($this->getPath(), $group);
     }
-
+    
     /**
      * Retrieve the group of this file.
-     * @return int User ID of the owner of this file.
+     * @return int User ID of the owner of this file. 
      */
     function getGroup() {
         return @filegroup($this->getPath());
@@ -916,7 +916,7 @@ class PhingFile {
      * @return PhingFile
      */
     public static function createTempFile($prefix, $suffix, PhingFile $directory) {
-
+        
         // quick but efficient hack to create a unique filename ;-)
         $result = null;
         do {
@@ -984,17 +984,17 @@ class PhingFile {
 
     /**
      * Backwards compatibility - @see __toString()
-     *
+     * 
      * @return string
      */
     public function toString()
     {
         return $this->__toString();
     }
-
+    
     /**
      * Return string representation of the object
-     *
+     * 
      * @return string
      */
     public function __toString()
