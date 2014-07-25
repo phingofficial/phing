@@ -85,6 +85,7 @@ class TargetHandler extends AbstractHandler {
         $id = null;
         $description = null;
         $isHidden = false;
+        $logskipped = false;
 
         foreach($attrs as $key => $value) {
             if ($key==="name") {
@@ -101,6 +102,8 @@ class TargetHandler extends AbstractHandler {
                 $isHidden = ($value == 'true' || $value == '1') ? true : false;
             } else if ($key==="description") {
                 $description = (string)$value;
+            } elseif ($key === 'logskipped') {
+                $logskipped = $value;
             } else {
                 throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation());
             }
@@ -125,6 +128,7 @@ class TargetHandler extends AbstractHandler {
         $this->target->setIf($ifCond);
         $this->target->setUnless($unlessCond);
         $this->target->setDescription($description);
+        $this->target->setLogSkipped(StringHelper::booleanValue($logskipped));
         // take care of dependencies
         if (strlen($depends) > 0) {
             $this->target->setDepends($depends);
