@@ -179,6 +179,13 @@
                             <entry>False</entry>
                             <entry>No</entry>
                         </row>
+                        <row>
+                            <entry><literal>logskipped</literal></entry>
+                            <entry><literal role="type">Boolean</literal></entry>
+                            <entry>Whether to log message as INFO instead of VERBOSE if target is skipped</entry>
+                            <entry>False</entry>
+                            <entry>No</entry>
+                        </row>
                     </tbody>
                 </tgroup>
             </table>
