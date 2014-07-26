@@ -14,15 +14,6 @@
     pear -qq channel-discover pear.phing.info
     echo "... OK"
 
-    echo -e "\nInstalling / upgrading phpcs ... "
-    which phpcs >/dev/null                             &&
-        pear upgrade pear.php.net/PHP_CodeSniffer ||
-        pear install pear.php.net/PHP_CodeSniffer
-    phpenv rehash
-    # re-test for phpcs:
-    phpcs --version 2>&1 >/dev/null   &&
-        echo "... OK"           ||
-        return 1
 
     sudo apt-get install python-docutils
 
@@ -33,6 +24,15 @@
     	pear install -f phpunit/Text_Template-1.1.1
         pear upgrade pecl.php.net/Phar ||
             pear install pecl.php.net/Phar
+
+        echo -e "\nInstalling / upgrading phpcs ... "
+        which phpcs >/dev/null                             &&
+            pear upgrade pear.php.net/PHP_CodeSniffer ||
+            pear install pear.php.net/PHP_CodeSniffer
+        phpenv rehash
+        # re-test for phpcs:
+        phpcs --version 2>&1 >/dev/null   &&
+            echo "... OK"
         echo -e "\nInstalling / upgrading phpcpd ... "
         which phpcpd >/dev/null                      &&
             pear upgrade pear.phpunit.de/phpcpd-1.3.5 ||
