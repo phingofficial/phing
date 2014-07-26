@@ -1913,7 +1913,8 @@
                     configuration option for the duration of this
                     phing run.</para>
                 <para>
-                    The given path is prepended to the current include path.
+                    The given path can be prepended (default) or appended to the current include path, or
+                    it can replace the include path.
                 </para>
         <table>
             <title>Attributes</title>
@@ -1945,6 +1946,14 @@
                         <entry><literal role="type">String</literal></entry>
                         <entry>Reference to a previously defined Path type</entry>
                         <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>mode</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Whether to <literal>prepend</literal>, <literal>append</literal> or <literal>replace</literal>
+                        the include path with the given path.</entry>
+                        <entry>prepend</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>

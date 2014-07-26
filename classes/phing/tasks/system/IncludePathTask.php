@@ -57,6 +57,12 @@ class IncludePathTask extends Task {
      * Refid to already defined classpath
      */
     private $classpathId;
+
+    /**
+     * Whether to prepend, append or replace the include path
+     * @var string
+     */
+    private $mode = "prepend";
     
     /**
      * Set the classpath to be used when searching for component being defined
@@ -89,6 +95,19 @@ class IncludePathTask extends Task {
         $this->createClasspath()->setRefid($r);
     }
 
+    /**
+     * @param $mode
+     * @throws BuildException
+     */
+    public function setMode($mode)
+    {
+        if (! in_array('mode', array('append', 'prepend', 'replace'))) {
+            throw new BuildException("Illegal mode: needs to be either append, prepend or replace");
+        }
+
+        $this->mode = $mode;
+    }
+
     
     /** Main entry point */
     public function main() {
@@ -105,11 +124,43 @@ class IncludePathTask extends Task {
         $curr_parts = Phing::explodeIncludePath();
         $add_parts = Phing::explodeIncludePath($classpath);
         $new_parts = array_diff($add_parts, $curr_parts);
-        
+
         if ($new_parts) {
-            $this->log("Prepending new include_path components: " . implode(PATH_SEPARATOR, $new_parts), Project::MSG_VERBOSE);
-            set_include_path(implode(PATH_SEPARATOR, array_merge($new_parts, $curr_parts)));
+            $this->updateIncludePath($new_parts, $curr_parts);
         }
-        
+    }
+
+    /**
+     * @param $new_parts
+     * @param $curr_parts
+     */
+    private function updateIncludePath($new_parts, $curr_parts)
+    {
+        $includePath = array();
+        $verb = "";
+
+        switch ($this->mode) {
+            case "append":
+                $includePath = array_merge($curr_parts, $new_parts);
+                $verb = "Appending";
+                break;
+
+            case "replace":
+                $includePath = $new_parts;
+                $verb = "Replacing";
+                break;
+
+            case "prepend":
+                $includePath = array_merge($new_parts, $curr_parts);
+                $verb = "Prepending";
+                break;
+        }
+
+        $this->log(
+            $verb . " new include_path components: " . implode(PATH_SEPARATOR, $new_parts),
+            Project::MSG_VERBOSE
+        );
+
+        set_include_path(implode(PATH_SEPARATOR, $includePath));
     }
 }
