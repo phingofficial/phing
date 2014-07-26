@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitInitTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,14 +28,24 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitInitTaskTest extends BuildFileTest { 
+class GitInitTaskTest extends BuildFileTest
+{
 
-    public function setUp() { 
+    public function setUp()
+    {
+        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
+        // not work on Windows.
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped('Testing not on a windows os.');
+        }
+
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitInitTaskTest.xml');
+        $this->configureProject(
+            PHING_TEST_BASE
+            . '/etc/tasks/ext/git/GitInitTaskTest.xml'
+        );
     }
 
     public function tearDown()
@@ -45,9 +55,11 @@ class GitInitTaskTest extends BuildFileTest {
 
     public function testWrongRepository()
     {
-        $this->expectBuildExceptionContaining('wrongRepository', 
-            'Repository directory not readable', 
-            'You must specify readable directory as repository.');
+        $this->expectBuildExceptionContaining(
+            'wrongRepository',
+            'Repository directory not readable',
+            'You must specify readable directory as repository.'
+        );
     }
 
     public function testGitInit()
@@ -76,9 +88,11 @@ class GitInitTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining(
+            'noRepository',
             'Repo dir is required',
-            '"repository" is required parameter');
+            '"repository" is required parameter'
+        );
     }
 
 }
