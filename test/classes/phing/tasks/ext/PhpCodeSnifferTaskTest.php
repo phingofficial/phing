@@ -28,13 +28,18 @@ require_once 'phing/BuildFileTest.php';
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTaskTest extends BuildFileTest {
-
-    public function setUp() {
+class PhpCodeSnifferTaskTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        if (! class_exists('PHP_CodeSniffer') || ! @include_once('PHP_CodeSniffer')) {
+            $this->markTestSkipped('PHP CodeSniffer package not available.');
+        }
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
     }
 
-    public function testNestedFormatters() {
+    public function testNestedFormatters()
+    {
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
@@ -44,7 +49,9 @@ class PhpCodeSnifferTaskTest extends BuildFileTest {
         );
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcs/report.txt');
     }
-    public function testCustomStandard() {
+
+    public function testCustomStandard()
+    {
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();
