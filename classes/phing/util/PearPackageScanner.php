@@ -184,7 +184,7 @@ class PearPackageScanner extends DirectoryScanner
             $packageInfo = $pkg->fromPackageFile($this->packageFile, PEAR_VALIDATE_NORMAL);
             PEAR::staticPopErrorHandling();
             if (PEAR::isError($packageInfo)) {
-                throw new BuildException("Errors in package file");
+                throw new BuildException("Errors in package file " . var_export($packageInfo, true));
             }
         }
         return $packageInfo;
