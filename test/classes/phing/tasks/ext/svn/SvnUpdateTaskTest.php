@@ -34,7 +34,7 @@ class SvnUpdateTaskTest extends AbstractSvnTaskTest {
 
     public function testUpdateSimple()
     {
-        $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
+        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('updateSimple');
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
         $this->assertInLogs("Updating SVN repository at '$repository'");

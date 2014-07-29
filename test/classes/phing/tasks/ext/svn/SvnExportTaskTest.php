@@ -34,7 +34,7 @@ class SvnExportTaskTest extends AbstractSvnTaskTest {
 
     public function testExportSimple()
     {
-        $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
+        $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('exportSimple');
         $this->assertInLogs("Exporting SVN repository to '" . $repository . "'");
     }
