@@ -18,19 +18,25 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitTagTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
+ * @version $Id: f13507509db5e53ff5d003d073e2e66f720190f5 $
  * @package phing.tasks.ext
  */
-class GitTagTaskTest extends BuildFileTest { 
+class GitTagTaskTest extends BuildFileTest {
 
-    public function setUp() { 
+    public function setUp() {
+        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
+        // not work on Windows.
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped('Testing not on a windows os.');
+        }
+
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -39,7 +45,7 @@ class GitTagTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
+        $this->configureProject(PHING_TEST_BASE
                               . '/etc/tasks/ext/git/GitTagTaskTest.xml');
     }
 
@@ -72,14 +78,14 @@ class GitTagTaskTest extends BuildFileTest {
 
     public function testGitTagCreateDuplicate()
     {
-        $this->expectBuildExceptionContaining('gitTagCreateDuplicate', 
+        $this->expectBuildExceptionContaining('gitTagCreateDuplicate',
             'Tag already exists',
             "fatal: tag 'ver1.0' already exists");
     }
 
     public function testTagCreateAnnotatedNoMessage()
     {
-        $this->expectBuildExceptionContaining('gitTagCreateAnnotatedNoMessage', 
+        $this->expectBuildExceptionContaining('gitTagCreateAnnotatedNoMessage',
             'Message not provided..',
             '"message" or "file" required to make a tag');
     }
@@ -179,7 +185,7 @@ class GitTagTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining('noRepository',
             'Repo dir is required',
             '"repository" is required parameter');
     }

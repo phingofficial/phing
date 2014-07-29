@@ -31,6 +31,9 @@ require_once 'phing/BuildFileTest.php';
 class PhpCodeSnifferTaskTest extends BuildFileTest {
 
     public function setUp() {
+        if (! class_exists('PHP_CodeSniffer')) {
+            $this->markTestSkipped('PHP CodeSniffer package not available.');
+        }
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcs/build.xml");
     }
 

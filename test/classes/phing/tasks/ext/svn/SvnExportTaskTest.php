@@ -18,30 +18,30 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
+ * @version $Id: 11e8e04d563d560b31b09eda2aef8835ee3ce4c3 $
  * @package phing.tasks.ext.svn
  */
-class SvnExportTaskTest extends AbstractSvnTaskTest { 
+class SvnExportTaskTest extends AbstractSvnTaskTest {
     public function setUp() {
         parent::setUp('SvnExportTest.xml', false);
     }
 
     public function testExportSimple()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
+        $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget('exportSimple');
         $this->assertInLogs("Exporting SVN repository to '" . $repository . "'");
     }
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining('noRepository',
             'Repository is required',
             'is not a working copy');
     }
