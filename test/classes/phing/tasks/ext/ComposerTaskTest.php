@@ -100,6 +100,7 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('At least PHP 5.3.2 is required');
         }
         $o = $this->object;
+        $o->setPhp('php');
         $o->setCommand('install');
         $o->createArg()->setValue('--dry-run');
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');
