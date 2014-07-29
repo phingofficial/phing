@@ -460,7 +460,7 @@
                                         <entry><literal role="type">String</literal></entry>
                                         <entry>A string that will be treated as a path-like string
                                             as a single command-line argument; you can use ; or : as
-                                            path separators and Ant will convert it to the
+                                            path separators and Phing will convert it to the
                                             platform's local conventions.</entry>
                                         <entry>n/a</entry>
                                     </row>
@@ -1559,7 +1559,7 @@
                                         <entry><literal role="type">String</literal></entry>
                                         <entry>A string that will be treated as a path-like string
                                             as a single command-line argument; you can use ; or : as
-                                            path separators and Ant will convert it to the
+                                            path separators and Phing will convert it to the
                                             platform's local conventions.</entry>
                                         <entry>n/a</entry>
                                     </row>
