@@ -15,3 +15,7 @@ script: ./.travis.sh
 
 notifications:
   irc: "chat.freenode.net#phing"
+
+cache:
+  directories:
+  - $HOME/.composer/cache
