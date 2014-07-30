@@ -24,7 +24,7 @@ require_once '../classes/phing/tasks/ext/git/GitBaseTask.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: e3fa357523af70ff7cb09c86ccfcd37883574700 $
+ * @version $Id$
  * @package phing.tasks.ext
  */
 class GitBaseTest extends BuildFileTest {

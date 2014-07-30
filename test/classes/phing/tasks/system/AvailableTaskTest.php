@@ -25,7 +25,7 @@ require_once 'phing/BuildFileTest.php';
  * Tests the Available Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id: abc9d994f6e6fcbb673e35db8ffed25d6eb83b74 $
+ * @version $Id$
  * @package phing.tasks.system
  *
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests

@@ -25,7 +25,7 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id: efb2b300efba7eb27bf1b9c1aa9693eb23366915 $
+ * @version $Id$
  * @package phing.tasks.ext
  */
 class GitGcTaskTest extends BuildFileTest {
