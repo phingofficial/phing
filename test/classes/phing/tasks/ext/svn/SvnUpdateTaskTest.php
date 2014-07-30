@@ -18,23 +18,23 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
+ * @version $Id: 22e5a46fbdc7a368224b7b4807489525fee680c7 $
  * @package phing.tasks.ext
  */
-class SvnUpdateTaskTest extends AbstractSvnTaskTest { 
-    public function setUp() { 
+class SvnUpdateTaskTest extends AbstractSvnTaskTest {
+    public function setUp() {
         parent::setUp('SvnUpdateTest.xml', false);
     }
 
     public function testUpdateSimple()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
+        $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget('updateSimple');
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
         $this->assertInLogs("Updating SVN repository at '$repository'");

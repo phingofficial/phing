@@ -18,19 +18,25 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitFetchTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
+ * @version $Id: 8089fb0bb6c5be65e766eed4e1dc30fbfecea353 $
  * @package phing.tasks.ext
  */
-class GitFetchTaskTest extends BuildFileTest { 
+class GitFetchTaskTest extends BuildFileTest {
 
-    public function setUp() { 
+    public function setUp() {
+        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
+        // not work on Windows.
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped('Testing not on a windows os.');
+        }
+
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -39,7 +45,7 @@ class GitFetchTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
+        $this->configureProject(PHING_TEST_BASE
                               . '/etc/tasks/ext/git/GitFetchTaskTest.xml');
     }
 
@@ -66,14 +72,14 @@ class GitFetchTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining('noRepository',
             'Repo dir is required',
             '"repository" is required parameter');
     }
 
     public function testNoTargetSpecified()
     {
-        $this->expectBuildExceptionContaining('noTarget', 
+        $this->expectBuildExceptionContaining('noTarget',
             'Target is required',
             'No remote repository specified');
     }

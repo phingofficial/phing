@@ -25,19 +25,19 @@ require_once 'phing/BuildFileTest.php';
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
+ * TODO: skip these tests when requirements are not met. (Like when running on windows?)
  */
-class rSTTaskTest extends BuildFileTest 
-{ 
-    public function setUp() 
-    { 
+class rSTTaskTest extends BuildFileTest
+{
+    public function setUp()
+    {
         //needed for PEAR's System class
         error_reporting(error_reporting() & ~E_STRICT & ~E_DEPRECATED);
-        
+
         chdir(PHING_TEST_BASE . '/etc/tasks/ext/rst');
         $this->configureProject(
             PHING_TEST_BASE . '/etc/tasks/ext/rst/build.xml'
         );
-        //$this->assertInLogs('Property ${version} => 1.0.1');
     }
 
     public function tearDown()
@@ -63,17 +63,13 @@ class rSTTaskTest extends BuildFileTest
     }
 
 
-
     /**
      * @expectedException BuildException
      * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
+     * @requires PHP 5.3.2
      */
     public function testGetToolPathFail()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $rt = new rSTTask();
         $rt->init();
         $ref = new ReflectionClass($rt);
@@ -84,21 +80,17 @@ class rSTTaskTest extends BuildFileTest
 
     /**
      * Get the tool path previously set with setToolpath()
+     * @requires PHP 5.3.2
      */
     public function testGetToolPathCustom()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $rt = new rSTTask();
-        $rt->setToolpath('true');//mostly /bin/true on unix
+        $rt->setToolpath('true'); //mostly /bin/true on unix
         $ref = new ReflectionClass($rt);
         $method = $ref->getMethod('getToolPath');
         $method->setAccessible(true);
         $this->assertContains('/true', $method->invoke($rt, 'foo'));
     }
-
 
 
     /**
@@ -143,7 +135,8 @@ class rSTTaskTest extends BuildFileTest
     public function testSingleFileInvalidParameterFormat()
     {
         $this->expectBuildExceptionContaining(
-            __FUNCTION__, 'Invalid parameter',
+            __FUNCTION__,
+            'Invalid parameter',
             'Invalid output format "foo", allowed are'
         );
     }
@@ -186,7 +179,8 @@ class rSTTaskTest extends BuildFileTest
         $file = PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html';
         $this->assertFileExists($file);
         $this->assertEquals(
-            0, filesize($file),
+            0,
+            filesize($file),
             'File size is not 0, which it should have been when'
             . ' rendering was skipped'
         );
@@ -205,7 +199,8 @@ class rSTTaskTest extends BuildFileTest
     public function testBrokenFile()
     {
         $this->expectBuildExceptionContaining(
-            __FUNCTION__, 'Broken file',
+            __FUNCTION__,
+            'Broken file',
             'Rendering rST failed'
         );
         $this->assertInLogs(
@@ -218,7 +213,8 @@ class rSTTaskTest extends BuildFileTest
     public function testMissingFiles()
     {
         $this->expectBuildExceptionContaining(
-            __FUNCTION__, 'Missing attributes/tags',
+            __FUNCTION__,
+            'Missing attributes/tags',
             '"file" attribute or "fileset" subtag required'
         );
     }
@@ -272,7 +268,6 @@ class rSTTaskTest extends BuildFileTest
     }
 
 
-
     public function testCustomParameter()
     {
         $this->executeTarget(__FUNCTION__);
@@ -284,5 +279,3 @@ class rSTTaskTest extends BuildFileTest
         unlink($file);
     }
 }
-
-?>

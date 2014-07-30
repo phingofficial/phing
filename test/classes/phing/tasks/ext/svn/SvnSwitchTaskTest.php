@@ -18,17 +18,17 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
+ * @version $Id: e778ea5c41202d1f04594858ef59b30b98d2334c $
  * @package phing.tasks.ext
  */
-class SvnSwitchTaskTest extends BuildFileTest { 
-    public function setUp() { 
+class SvnSwitchTaskTest extends BuildFileTest {
+    public function setUp() {
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -37,7 +37,7 @@ class SvnSwitchTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/svn');
 
-        $this->configureProject(PHING_TEST_BASE 
+        $this->configureProject(PHING_TEST_BASE
                               . '/etc/tasks/ext/svn/SvnSwitchTest.xml');
     }
 
@@ -48,7 +48,7 @@ class SvnSwitchTaskTest extends BuildFileTest {
 
     public function testSwitchSimple()
     {
-        $repository = PHING_TEST_BASE . '/tmp/svn';
+        $repository = PHING_TEST_BASE . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'svn';
         $this->executeTarget('switchSimple');
         $this->assertInLogs("Checking out SVN repository to '" . $repository . "'");
         $this->assertInLogs("Switching SVN repository at '$repository' to 'https://github.com/phingofficial/phing/tags/2.4.12/etc'");
