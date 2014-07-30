@@ -71,6 +71,14 @@ class JsHintTask extends Task
     private $reporter = 'checkstyle';
 
     /**
+     * xmlAttributes
+     *
+     * @var array
+     * @access private
+     */
+    private $xmlAttributes;
+
+    /**
      * Path where the the report in Checkstyle format should be saved
      * 
      * @var string
@@ -110,6 +118,27 @@ class JsHintTask extends Task
     public function setReporter($reporter)
     {
         $this->reporter = $reporter;
+
+        switch ($this->reporter) {
+            case 'jslint':
+                $this->xmlAttributes = array(
+                    'severity' => array('error' => 'E', 'warning' => 'W', 'info' => 'I'),
+                    'fileError' => 'issue',
+                    'line' => 'line',
+                    'column' => 'char',
+                    'message' => 'reason',
+                );
+                break;
+            default:
+                $this->xmlAttributes = array(
+                    'severity' => array('error' => 'error', 'warning' => 'warning', 'info' => 'info'),
+                    'fileError' => 'error',
+                    'line' => 'line',
+                    'column' => 'column',
+                    'message' => 'message',
+                );
+                break;
+        }
     }
 
     public function main() {
@@ -146,22 +175,23 @@ class JsHintTask extends Task
         foreach ($xml->file as $file) {
             $fileAttributes = $file->attributes();
             $fileName = (string) $fileAttributes['name'];
-            foreach ($file->error as $error) {
+            $fileError = $file->{$this->xmlAttributes['fileError']};
+            foreach ($fileError as $error) {
                 $attrs = current((array) $error->attributes());
 
-                if ($attrs['severity'] === 'error') {
+                if ($attrs['severity'] === $this->xmlAttributes['severity']['error']) {
                     $errorsCount++;
-                } elseif ($attrs['severity'] === 'warning') {
+                } elseif ($attrs['severity'] === $this->xmlAttributes['severity']['warning']) {
                     $warningsCount++;
-                } else {
+                } elseif ($attrs['severity'] !== $this->xmlAttributes['severity']['info']) {
                     throw new BuildException(sprintf('Unknown severity "%s"', $attrs['severity']));
                 }
                 $e = sprintf(
                     '%s: line %d, col %d, %s',
                     str_replace($projectBasedir, '', $fileName),
-                    $attrs['line'],
-                    $attrs['column'],
-                    $attrs['message']
+                    $attrs[$this->xmlAttributes['line']],
+                    $attrs[$this->xmlAttributes['column']],
+                    $attrs[$this->xmlAttributes['message']]
                 );
                 $this->log($e);
             }
