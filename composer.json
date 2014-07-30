@@ -21,9 +21,30 @@
     "require": {
         "php": ">=5.2.0"
     },
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.php.net"
+        }
+    ],
+    "minimum-stability": "beta",
     "require-dev": {
         "phpunit/phpunit": ">=3.7",
-        "phpdocumentor/phpdocumentor": "2.x"
+        "phpdocumentor/phpdocumentor": "2.x",
+	"phploc/phploc": "2.x",
+	"sebastian/phpcpd": "2.x",
+	"pear/pear_exception": "@dev",
+	"pear/versioncontrol_svn": "@dev",
+	"pear/versioncontrol_git": "@dev",
+	"pdepend/pdepend": "1.x",
+        "pear-pear.php.net/HTTP_Request2": "2.2.x",
+        "pear-pear.php.net/Net_Growl": "2.7.x",
+	"pear-pear.php.net/PEAR_PackageFileManager": "1.7.x",
+	"pear-pear.php.net/PEAR_PackageFileManager2": "1.0.x",
+	"pear-pear.php.net/XML_Serializer": "0.20.x",
+	"squizlabs/php_codesniffer": "1.5.x",
+	"lastcraft/simpletest": "@dev",
+	"ext-pdo_sqlite": "*"
     },
     "autoload": {
         "classmap": ["classes/phing/"]

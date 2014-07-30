@@ -69,6 +69,21 @@ Installation
 
          $ php phing-latest.phar
 
+Running the (unit) tests
+------------------------
+
+  To succesfully run all Phing tests, the following conditions have to be met:
+
+  * PEAR installed, channel "pear.phing.info" discovered
+  * Packages "python-docutils" and "subversion" installed
+  * php.ini setting "phar.readonly" set to "Off"
+
+  Then, perform the following steps (on a clone/fork of Phing):
+
+         $ composer install
+         $ cd test
+         $ ../bin/phing
+
 Documentation
 -------------
 

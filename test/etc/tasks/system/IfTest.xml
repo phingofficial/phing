@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IfTaskTest" default="testAddElseIf">
+    <property name="foo" value="foo" />
+    <property name="bar" value="bar" />
+
+    <target name="testAddElseIf">
+
+        <if>
+            <equals arg1="${foo}" arg2="bar" />
+            <then>
+                <echo message="The value of property foo is 'bar'" />
+            </then>
+
+            <elseif>
+                <equals arg1="${foo}" arg2="foo" />
+                <then>
+                    <echo message="The value of property foo is 'foo'" />
+                </then>
+            </elseif>
+
+            <else>
+                <echo message="The value of property foo is not 'foo' or 'bar'" />
+            </else>
+        </if>
+    </target>
+
+    <target name="testAddThen">
+        <if>
+            <equals arg1="${foo}" arg2="foo" />
+            <then>
+                <echo message="The value of property foo is 'foo'" />
+            </then>
+            <else>
+                <echo message="The value of property foo is not 'bar'" />
+            </else>
+        </if>
+    </target>
+
+    <target name="testAddElse">
+        <if>
+            <equals arg1="${foo}" arg2="bar" />
+            <then>
+                <echo message="The value of property foo is 'bar'" />
+            </then>
+            <else>
+                <echo message="The value of property foo is not 'bar'" />
+            </else>
+        </if>
+    </target>
+
+    <target name="testAddDoubleThen">
+        <if>
+            <then>
+                <echo message='first then' />
+            </then>
+            <then>
+                <echo message='second then' />
+            </then>
+        </if>
+    </target>
+
+    <target name="testAddDoubleElse">
+        <if>
+            <equals arg1="${foo}" arg2="bar" />
+
+            <then>
+                <echo message="The value of property foo is 'bar'" />
+            </then>
+
+            <else>
+                <echo message="first else" />
+            </else>
+
+            <else>
+                <echo message="second else" />
+            </else>
+        </if>
+    </target>
+
+    <target name="testMultipleConditions">
+        <if>
+            <equals arg1="${foo}" arg2="foo" />
+            <equals arg1="${bar}" arg2="bar" />
+
+            <then>
+                <echo message="The value of property foo is 'bar'" />
+            </then>
+        </if>
+    </target>
+</project>
