@@ -63,6 +63,14 @@ class JsHintTask extends Task
     private $haltOnWarning = false;
 
     /**
+     * reporter
+     *
+     * @var string
+     * @access private
+     */
+    private $reporter = 'checkstyle';
+
+    /**
      * Path where the the report in Checkstyle format should be saved
      * 
      * @var string
@@ -99,6 +107,11 @@ class JsHintTask extends Task
         $this->checkstyleReportPath = $checkstyleReportPath;
     }
 
+    public function setReporter($reporter)
+    {
+        $this->reporter = $reporter;
+    }
+
     public function main() {
         if (!isset($this->file) && count($this->filesets) === 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
@@ -121,7 +134,7 @@ class JsHintTask extends Task
         
         $this->_checkJsHintIsInstalled();
 
-        $command = 'jshint --reporter=checkstyle ' . implode(' ', $fileList);
+        $command = 'jshint --reporter=' . $this->reporter . ' ' . implode(' ', $fileList);
         $output = array();
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
@@ -135,7 +148,7 @@ class JsHintTask extends Task
             $fileName = (string) $fileAttributes['name'];
             foreach ($file->error as $error) {
                 $attrs = current((array) $error->attributes());
-                
+
                 if ($attrs['severity'] === 'error') {
                     $errorsCount++;
                 } elseif ($attrs['severity'] === 'warning') {
