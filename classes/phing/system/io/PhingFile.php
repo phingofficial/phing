@@ -301,6 +301,15 @@ class PhingFile {
         return new PhingFile((string) $this->getAbsolutePath());
     }
 
+    /**
+     * Returns the file extension for a given file. For example test.php would be returned as php.
+     *
+     * @return string The name of the extension.
+     */
+    function getFileExtension() {
+        return pathinfo((string) $this->getAbsolutePath(), PATHINFO_EXTENSION);
+    }
+
 
     /**
      * Returns the canonical pathname string of this abstract pathname.

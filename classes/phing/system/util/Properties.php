@@ -22,6 +22,8 @@
 
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/FileWriter.php';
+include_once 'phing/system/io/FileParserInterface.php';
+include_once 'phing/system/io/IniFileParser.php';
 
 /**
  * Convenience class for reading and writing property files.
@@ -34,8 +36,16 @@ include_once 'phing/system/io/FileWriter.php';
  */
 class Properties {
 
+    /**
+     * @var array
+     */
     private $properties = array();
     
+    /**
+     * @var FileParserInterface
+     */
+    private $fileParser;
+
     /**
      * @var PhingFile
      */
@@ -46,8 +56,10 @@ class Properties {
      *
      * @param array $properties
      */
-    function __construct($properties = NULL)
+    function __construct($properties = NULL, FileParserInterface $fileParser = null)
     {
+        $this->fileParser = $fileParser == null ? new IniFileParser() : $fileParser;
+
         if (is_array($properties)) {
             foreach ($properties as $key => $value) {
                 $this->setProperty($key, $value);
@@ -74,66 +86,15 @@ class Properties {
     }
     
     /**
-     * Replaces parse_ini_file() or better_parse_ini_file().
-     * Saves a step since we don't have to parse and then check return value
-     * before throwing an error or setting class properties.
-     * 
+     * Parses the file given.
+     *
      * @param string $filePath
-     * @param boolean $processSections Whether to honor [SectionName] sections in INI file.
      * @return array Properties loaded from file (no prop replacements done yet).
      */
-    protected function parse($filePath) {
-
-        // load() already made sure that file is readable                
-        // but we'll double check that when reading the file into 
-        // an array
-        
-        if (($lines = @file($filePath)) === false) {
-            throw new IOException("Unable to parse contents of $filePath");
-        }
-
-        // concatenate lines ending with backslash
-        $linesCount = count($lines);
-        for($i = 0; $i < $linesCount; $i++) {
-            if (substr($lines[$i], -2, 1) === '\\') {
-                $lines[$i + 1] = substr($lines[$i], 0, -2) . ltrim($lines[$i + 1]);
-                $lines[$i] = '';
-            }
-        }
-
-        $this->properties = array();
-        $sec_name = "";
-        
-        foreach($lines as $line) {
-            // strip comments and leading/trailing spaces
-            $line = trim(preg_replace("/\s+[;#]\s.+$/", "", $line));
-            
-            if (empty($line) || $line[0] == ';' || $line[0] == '#') {
-                continue;
-            }
-                
-            $pos = strpos($line, '=');
-            $property = trim(substr($line, 0, $pos));
-            $value = trim(substr($line, $pos + 1));                
-            $this->properties[$property] = $this->inVal($value);
-            
-        } // for each line        
+    protected function parse(PhingFile $file) {
+        $this->properties = $this->fileParser->parseFile($file);
     }
-    
-    /**
-     * Process values when being read in from properties file.
-     * does things like convert "true" => true
-     * @param string $val Trimmed value.
-     * @return mixed The new property value (may be boolean, etc.)
-     */
-    protected function inVal($val) {
-        if ($val === "true") { 
-            $val = true;
-        } elseif ($val === "false") { 
-            $val = false; 
-        }
-        return $val;
-    }
+
     
     /**
      * Process values when being written out to properties file.
