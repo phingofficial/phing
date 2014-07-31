@@ -20,15 +20,17 @@
  */
 
 /**
- *  @package phing.system.lang
+ * @package phing.system.lang
  */
-class EventObject {
+class EventObject
+{
 
     /** The object on which the Event initially occurred. */
     protected $source;
 
     /** Constructs a prototypical Event. */
-    function __construct($source) {
+    public function __construct($source)
+    {
         if ($source === null) {
             throw new Exception("Null source");
         }
@@ -36,17 +38,18 @@ class EventObject {
     }
 
     /** The object on which the Event initially occurred. */
-    function getSource() {
+    public function getSource()
+    {
         return $this->source;
     }
 
     /** Returns a String representation of this EventObject.*/
-    function toString() {
+    public function toString()
+    {
         if (method_exists($this->source, "toString")) {
-            return get_class($this)."[source=".$this->source->toString()."]";
+            return get_class($this) . "[source=" . $this->source->toString() . "]";
         } else {
-            return get_class($this)."[source=".get_class($this->source)."]";
+            return get_class($this) . "[source=" . get_class($this->source) . "]";
         }
     }
 }
-

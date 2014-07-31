@@ -33,14 +33,17 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  * @access    public
  * @package   phing.tasks.system.condition
  */
-class OrCondition extends ConditionBase implements Condition {
+class OrCondition extends ConditionBase implements Condition
+{
 
-    function evaluate() {
-        foreach($this as $c) { // ConditionBase implements IteratorAggregator
-              if ($c->evaluate()) {
+    public function evaluate()
+    {
+        foreach ($this as $c) { // ConditionBase implements IteratorAggregator
+            if ($c->evaluate()) {
                 return true;
             }
         }
+
         return false;
     }
 }

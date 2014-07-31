@@ -1,8 +1,8 @@
 <?php
 
 /*
- *  $Id$  
- * 
+ *  $Id$
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -42,58 +42,59 @@ require_once 'phing/filters/BaseParamFilterReader.php';
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class TailFilter extends BaseParamFilterReader implements ChainableReader {
+class TailFilter extends BaseParamFilterReader implements ChainableReader
+{
 
     /**
      * Parameter name for the number of lines to be returned.
      * @var string
      */
     const LINES_KEY = "lines";
-    
-    
+
     /**
      * Number of lines to be returned in the filtered stream.
      * @var integer
-     */ 
+     */
     private $_lines = 10;
-    
+
     /**
      * Array to hold lines.
      * @var array
-     */ 
-    private    $_lineBuffer = array();
-                
+     */
+    private $_lineBuffer = array();
+
     /**
      * Returns the last n lines of a file.
-     * @param int $len Num chars to read.
+     * @param  int   $len Num chars to read.
      * @return mixed The filtered buffer or -1 if EOF.
      */
-    function read($len = null) {
-    
-        while ( ($buffer = $this->in->read($len)) !== -1 ) {
+    public function read($len = null)
+    {
+
+        while (($buffer = $this->in->read($len)) !== -1) {
             // Remove the last "\n" from buffer for
             // prevent explode to add an empty cell at
             // the end of array
-            $buffer= trim($buffer, "\n");
-            
+            $buffer = trim($buffer, "\n");
+
             $lines = explode("\n", $buffer);
 
-            if ( count($lines) >= $this->_lines ) {
+            if (count($lines) >= $this->_lines) {
                 // Buffer have more (or same) number of lines than needed.
                 // Fill lineBuffer with the last "$this->_lines" lasts ones.
-                $off = count($lines)-$this->_lines;
+                $off = count($lines) - $this->_lines;
                 $this->_lineBuffer = array_slice($lines, $off);
             } else {
                 // Some new lines ...
                 // Prepare space for insert these new ones
-                $this->_lineBuffer = array_slice($this->_lineBuffer, count($lines)-1);
+                $this->_lineBuffer = array_slice($this->_lineBuffer, count($lines) - 1);
                 $this->_lineBuffer = array_merge($this->_lineBuffer, $lines);
             }
         }
 
-        if ( empty($this->_lineBuffer) )
+        if (empty($this->_lineBuffer)) {
             $ret = -1;
-        else {
+        } else {
             $ret = implode("\n", $this->_lineBuffer);
             $this->_lineBuffer = array();
         }
@@ -103,37 +104,41 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader {
 
     /**
      * Sets the number of lines to be returned in the filtered stream.
-     * 
+     *
      * @param integer $lines the number of lines to be returned in the filtered stream.
      */
-    function setLines($lines) {
+    public function setLines($lines)
+    {
         $this->_lines = (int) $lines;
     }
 
     /**
      * Returns the number of lines to be returned in the filtered stream.
-     * 
+     *
      * @return integer The number of lines to be returned in the filtered stream.
      */
-    function getLines() {
+    public function getLines()
+    {
         return $this->_lines;
     }
 
     /**
      * Creates a new TailFilter using the passed in
      * Reader for instantiation.
-     * 
+     *
      * @param object A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     * 
+     *
      * @return object A new filter based on this configuration, but filtering
-     *         the specified reader.
+     *                the specified reader.
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new TailFilter($reader);
         $newFilter->setLines($this->getLines());
         $newFilter->setInitialized(true);
-        $newFilter->setProject($this->getProject());        
+        $newFilter->setProject($this->getProject());
+
         return $newFilter;
     }
 
@@ -141,11 +146,12 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader {
      * Scans the parameters list for the "lines" parameter and uses
      * it to set the number of lines to be returned in the filtered stream.
      */
-    private function _initialize() {
+    private function _initialize()
+    {
         $params = $this->getParameters();
-        if ( $params !== null ) {
-            for($i=0, $_i=count($params); $i < $_i; $i++) {
-                if ( self::LINES_KEY == $params[$i]->getName() ) {
+        if ($params !== null) {
+            for ($i = 0, $_i = count($params); $i < $_i; $i++) {
+                if (self::LINES_KEY == $params[$i]->getName()) {
                     $this->_lines = (int) $params[$i]->getValue();
                     break;
                 }
@@ -153,5 +159,3 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader {
         }
     }
 }
-
-

@@ -32,7 +32,6 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
 {
     protected $tag;
 
-
     /**
      * Sets the name of tag which is used to mark the database state for
      * possible future rollback.
@@ -44,7 +43,6 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
         $this->tag = $tag;
     }
 
-
     /**
      * @see AbstractTask::checkParams()
      */
@@ -52,17 +50,15 @@ class LiquibaseTagTask extends AbstractLiquibaseTask
     {
         parent::checkParams();
 
-        if(null === $this->tag)
-        {
+        if (null === $this->tag) {
             throw new BuildException(
-            sprintf(
-					'Please specify the tag!',
-            $this->tag
-            )
+                sprintf(
+                    'Please specify the tag!',
+                    $this->tag
+                )
             );
         }
     }
-
 
     /**
      * @see Task::main()

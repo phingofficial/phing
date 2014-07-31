@@ -97,19 +97,19 @@ class S3PutTask extends Service_Amazon_S3
      */
     protected $_contentType = 'binary/octet-stream';
 
-        /**
-         * Object maxage (in seconds).
-         *
-         * @var int
-         */
-        protected $_maxage = null;
+    /**
+     * Object maxage (in seconds).
+     *
+     * @var int
+     */
+    protected $_maxage = null;
 
-        /**
-         * Content is gzipped.
-         *
-         * @var boolean
-         */
-        protected $_gzipped = false;
+    /**
+     * Content is gzipped.
+     *
+     * @var boolean
+     */
+    protected $_gzipped = false;
 
     /**
      * Extension content type mapper
@@ -118,30 +118,30 @@ class S3PutTask extends Service_Amazon_S3
      * @access protected
      */
     protected $_extensionContentTypeMapper = array(
-        'js'    => 'application/x-javascript',
-        'css'   => 'text/css',
-        'html'  => 'text/html',
-        'gif'   => 'image/gif',
-        'png'   => 'image/png',
-        'jpg'   => 'image/jpeg',
-        'jpeg'  => 'image/jpeg',
-        'txt'   => 'text/plain'
+        'js' => 'application/x-javascript',
+        'css' => 'text/css',
+        'html' => 'text/html',
+        'gif' => 'image/gif',
+        'png' => 'image/png',
+        'jpg' => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'txt' => 'text/plain'
     );
 
     /**
-    * Whether filenames contain paths
-    *
-    * (default value: false)
-    *
-    * @var bool
-    * @access protected
-    */
+     * Whether filenames contain paths
+     *
+     * (default value: false)
+     *
+     * @var bool
+     * @access protected
+     */
     protected $_fileNameOnly = false;
 
     public function setSource($source)
     {
         if (!is_readable($source)) {
-                throw new BuildException('Source is not readable: ' . $source);
+            throw new BuildException('Source is not readable: ' . $source);
         }
 
         $this->_source = $source;
@@ -150,7 +150,7 @@ class S3PutTask extends Service_Amazon_S3
     public function getSource()
     {
         if ($this->_source === null) {
-                throw new BuildException('Source is not set');
+            throw new BuildException('Source is not set');
         }
 
         return $this->_source;
@@ -227,12 +227,12 @@ class S3PutTask extends Service_Amazon_S3
 
     public function setCreateBuckets($createBuckets)
     {
-            $this->_createBuckets = (bool) $createBuckets;
+        $this->_createBuckets = (bool) $createBuckets;
     }
 
     public function getCreateBuckets()
     {
-            return (bool) $this->_createBuckets;
+        return (bool) $this->_createBuckets;
     }
 
     /**
@@ -242,18 +242,18 @@ class S3PutTask extends Service_Amazon_S3
      */
     public function setMaxage($seconds)
     {
-            $this->_maxage = $seconds;
+        $this->_maxage = $seconds;
     }
 
     /**
      * Get seconds in max-age or null.
      *
      * @return int
-     *   Number of seconds in maxage or null.
+     *             Number of seconds in maxage or null.
      */
     public function getMaxage()
     {
-            return $this->_maxage;
+        return $this->_maxage;
     }
 
     /**
@@ -263,25 +263,25 @@ class S3PutTask extends Service_Amazon_S3
      */
     public function setGzip($gzipped)
     {
-            $this->_gzipped = $gzipped;
+        $this->_gzipped = $gzipped;
     }
 
     /**
      * Return if content is gzipped.
      *
      * @return booleand
-     *   Indicate if content is gzipped.
+     *                  Indicate if content is gzipped.
      */
     public function getGzip()
     {
-            return $this->_gzipped;
+        return $this->_gzipped;
     }
 
     /**
      * Generate HTTPHEader array sent to S3.
      *
      * @return array
-     *   HttpHeader to set in S3 Object.
+     *               HttpHeader to set in S3 Object.
      */
     protected function getHttpHeaders()
     {
@@ -292,6 +292,7 @@ class S3PutTask extends Service_Amazon_S3
         if ($this->_gzipped) {
             $headers['Content-Encoding'] = 'gzip';
         }
+
         return $headers;
     }
 
@@ -309,7 +310,8 @@ class S3PutTask extends Service_Amazon_S3
     public function createFileset()
     {
         $num = array_push($this->_filesets, new FileSet());
-        return $this->_filesets[$num-1];
+
+        return $this->_filesets[$num - 1];
     }
 
     /**
@@ -323,7 +325,7 @@ class S3PutTask extends Service_Amazon_S3
         return $this->_filesets;
     }
 
-        /**
+    /**
      * Determines what we're going to store in the object
      *
      * If _content has been set, this will get stored,
@@ -340,7 +342,7 @@ class S3PutTask extends Service_Amazon_S3
             $source = $this->getSource();
 
             if (!is_file($source)) {
-                                throw new BuildException('Currently only files can be used as source');
+                throw new BuildException('Currently only files can be used as source');
             }
 
             $content = file_get_contents($source);
@@ -390,7 +392,10 @@ class S3PutTask extends Service_Amazon_S3
             } else {
                 foreach ($objects as $object) {
                     $this->_source = $object;
-                    $this->saveObject(str_replace('\\', '/', $object), file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
+                    $this->saveObject(
+                        str_replace('\\', '/', $object),
+                        file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object)
+                    );
                 }
             }
 

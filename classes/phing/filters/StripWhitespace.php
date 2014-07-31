@@ -25,71 +25,77 @@ include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
- * 
+ *
  * @author    Hans Lellelid, hans@velum.net
  * @version   $Id$
  * @see       FilterReader
  * @package   phing.filters
  * @todo -c use new PHP functions to perform this instead of regex.
  */
-class StripWhitespace extends BaseFilterReader implements ChainableReader {
-    
+class StripWhitespace extends BaseFilterReader implements ChainableReader
+{
+
     private $processed = false;
-    
+
     /**
      * Returns the  stream without Php comments and whitespace.
-     * 
+     *
      * @return the resulting stream, or -1
-     *         if the end of the resulting stream has been reached
-     * 
+     *             if the end of the resulting stream has been reached
+     *
      * @throws IOException if the underlying stream throws an IOException
-     *                        during reading     
+     *                     during reading
      */
-    function read($len = null) {
-    
+    public function read($len = null)
+    {
+
         if ($this->processed === true) {
             return -1; // EOF
         }
-        
+
         // Read XML
         $php = null;
-        while ( ($buffer = $this->in->read($len)) !== -1 ) {
+        while (($buffer = $this->in->read($len)) !== -1) {
             $php .= $buffer;
         }
-        
-        if ($php === null ) { // EOF?
+
+        if ($php === null) { // EOF?
+
             return -1;
         }
-        
-        if(empty($php)) {
+
+        if (empty($php)) {
             $this->log("PHP file is empty!", Project::MSG_WARN);
+
             return ''; // return empty string, don't attempt to strip whitespace
         }
-                
+
         // write buffer to a temporary file, since php_strip_whitespace() needs a filename
         $file = new PhingFile(tempnam(PhingFile::getTempDir(), 'stripwhitespace'));
         file_put_contents($file->getAbsolutePath(), $php);
         $output = php_strip_whitespace($file->getAbsolutePath());
         unlink($file->getAbsolutePath());
-        
+
         $this->processed = true;
-        
+
         return $output;
     }
 
     /**
      * Creates a new StripWhitespace using the passed in
      * Reader for instantiation.
-     * 
+     *
      * @param reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     * 
+     *
      * @return a new filter based on this configuration, but filtering
-     *         the specified reader
+     *           the specified reader
      */
-    public function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new StripWhitespace($reader);
-        $newFilter->setProject($this->getProject());        
+        $newFilter->setProject($this->getProject());
+
         return $newFilter;
     }
 }

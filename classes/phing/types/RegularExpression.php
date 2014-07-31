@@ -35,94 +35,111 @@ include_once 'phing/util/regexp/Regexp.php';
  * @access    public
  * @see       phing.util.regex.RegexMatcher
  * @package   phing.types
-*/
-class RegularExpression extends DataType {
+ */
+class RegularExpression extends DataType
+{
 
-    private $regexp   = null;
+    private $regexp = null;
     /**
      * @todo Probably both $ignoreCase and $multiline should be removed
-     * from attribute list of RegularExpression class: 
+     * from attribute list of RegularExpression class:
      * actual values are preserved on regexp *engine* level, not expression
      * object itself.
      */
     private $ignoreCase = false;
     private $multiline = false;
-    
-    function __construct() {
-        $this->regexp  = new Regexp();
+
+    public function __construct()
+    {
+        $this->regexp = new Regexp();
     }
 
-    function setPattern($pattern) {
+    public function setPattern($pattern)
+    {
         $this->regexp->setPattern($pattern);
     }
 
-    function setReplace($replace) {
+    public function setReplace($replace)
+    {
         $this->regexp->setReplace($replace);
     }
 
-    function getPattern($p) {
-        if ( $this->isReference() ) {
+    public function getPattern($p)
+    {
+        if ($this->isReference()) {
             $ref = $this->getRef($p);
+
             return $ref->getPattern($p);
         }
+
         return $this->regexp->getPattern();
     }
 
-    function getReplace($p) {
-        if ( $this->isReference() ) {
+    public function getReplace($p)
+    {
+        if ($this->isReference()) {
             $ref = $this->getRef($p);
+
             return $ref->getReplace($p);
         }
 
         return $this->regexp->getReplace();
     }
 
-    function setModifiers($modifiers) {
+    public function setModifiers($modifiers)
+    {
         $this->regexp->setModifiers($modifiers);
     }
 
-    function getModifiers() {
+    public function getModifiers()
+    {
         return $this->regexp->getModifiers();
     }
-    
-    function setIgnoreCase($bit) {
+
+    public function setIgnoreCase($bit)
+    {
         $this->regexp->setIgnoreCase($bit);
     }
-    
-    function getIgnoreCase() {
+
+    public function getIgnoreCase()
+    {
         return $this->regexp->getIgnoreCase();
     }
 
-    function setMultiline($multiline) {
+    public function setMultiline($multiline)
+    {
         $this->regexp->setMultiline($multiline);
     }
 
-    function getMultiline() {
+    public function getMultiline()
+    {
         return $this->regexp->getMultiline();
     }
-    
-    function getRegexp(Project $p) {
-        if ( $this->isReference() ) {
+
+    public function getRegexp(Project $p)
+    {
+        if ($this->isReference()) {
             $ref = $this->getRef($p);
+
             return $ref->getRegexp($p);
         }
+
         return $this->regexp;
     }
 
-    function getRef(Project $p) {
-        if ( !$this->checked ) {
+    public function getRef(Project $p)
+    {
+        if (!$this->checked) {
             $stk = array();
             array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);            
+            $this->dieOnCircularReference($stk, $p);
         }
 
         $o = $this->ref->getReferencedObject($p);
-        if ( !($o instanceof RegularExpression) ) {
-            throw new BuildException($this->ref->getRefId()." doesn't denote a RegularExpression");
+        if (!($o instanceof RegularExpression)) {
+            throw new BuildException($this->ref->getRefId() . " doesn't denote a RegularExpression");
         } else {
             return $o;
         }
     }
 }
-
-

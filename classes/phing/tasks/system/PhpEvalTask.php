@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 
 /**
@@ -34,94 +34,107 @@ require_once 'phing/Task.php';
  *
  * @todo Add support for evaluating expressions
  */
-class PhpEvalTask extends Task {
-        
+class PhpEvalTask extends Task
+{
+
     protected $expression; // Expression to evaluate
     protected $function; // Function to execute
     protected $class; // Class containing function to execute
-    protected $returnProperty = null; // name of property to set to return value 
+    protected $returnProperty = null; // name of property to set to return value
     protected $params = array(); // parameters for function calls
-    
+
     protected $logLevel = Project::MSG_INFO;
-    
+
     /**
      * Set level of log messages generated (default = info)
      * @param string $level
      */
     public function setLevel($level)
     {
-        switch ($level)
-        {
-            case "error": $this->logLevel = Project::MSG_ERR; break;
-            case "warning": $this->logLevel = Project::MSG_WARN; break;
-            case "info": $this->logLevel = Project::MSG_INFO; break;
-            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
-            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        switch ($level) {
+            case "error":
+                $this->logLevel = Project::MSG_ERR;
+                break;
+            case "warning":
+                $this->logLevel = Project::MSG_WARN;
+                break;
+            case "info":
+                $this->logLevel = Project::MSG_INFO;
+                break;
+            case "verbose":
+                $this->logLevel = Project::MSG_VERBOSE;
+                break;
+            case "debug":
+                $this->logLevel = Project::MSG_DEBUG;
+                break;
         }
     }
-    
+
     /** Main entry point. */
-    function main() {
-        
+    public function main()
+    {
+
         if ($this->function === null && $this->expression === null) {
             throw new BuildException("You must specify a function to execute or PHP expression to evalute.", $this->location);
         }
-        
+
         if ($this->function !== null && $this->expression !== null) {
             throw new BuildException("You can specify function or expression, but not both.", $this->location);
         }
-        
+
         if ($this->expression !== null && !empty($this->params)) {
             throw new BuildException("You cannot use nested <param> tags when evaluationg a PHP expression.", $this->location);
         }
-        
+
         if ($this->function !== null) {
-            $this->callFunction();                                    
+            $this->callFunction();
         } elseif ($this->expression !== null) {
             $this->evalExpression();
         }
     }
-    
+
     /**
      * Calls function and returns results.
      * @return mixed
      */
-    protected function callFunction() {
-                        
+    protected function callFunction()
+    {
+
         if ($this->class !== null) {
             // import the classname & unqualify it, if necessary
             $this->class = Phing::import($this->class);
-                        
+
             $user_func = array($this->class, $this->function);
             $h_func = $this->class . '::' . $this->function; // human-readable (for log)
         } else {
             $user_func = $this->function;
             $h_func = $user_func; // human-readable (for log)
         }
-        
+
         // put parameters into simple array
         $params = array();
-        foreach($this->params as $p) {
+        foreach ($this->params as $p) {
             $params[] = $p->getValue();
         }
-        
+
         $this->log("Calling PHP function: " . $h_func . "()", $this->logLevel);
-        foreach($params as $p) {
+        foreach ($params as $p) {
             $this->log("  param: " . $p, Project::MSG_VERBOSE);
-        } 
-        
+        }
+
         $return = call_user_func_array($user_func, $params);
-        
+
         if ($this->returnProperty !== null) {
             $this->project->setProperty($this->returnProperty, $return);
         }
     }
-    
+
     /**
      * Evaluates expression and returns resulting value.
      * @return mixed
      */
-    protected function evalExpression() {
+    protected function evalExpression()
+    {
         $this->log("Evaluating PHP expression: " . $this->expression, $this->logLevel);
         if (!StringHelper::endsWith(';', trim($this->expression))) {
             $this->expression .= ';';
@@ -135,38 +148,45 @@ class PhpEvalTask extends Task {
             eval($this->expression);
         }
     }
-    
+
     /** Set function to execute */
-    public function setFunction($f) {
-       $this->function = $f;
+    public function setFunction($f)
+    {
+        $this->function = $f;
     }
 
     /** Set [static] class which contains function to execute */
-    public function setClass($c) {
-       $this->class = $c;
+    public function setClass($c)
+    {
+        $this->class = $c;
     }
-    
+
     /** Sets property name to set with return value of function or expression.*/
-    public function setReturnProperty($r) {
-       $this->returnProperty = $r;
+    public function setReturnProperty($r)
+    {
+        $this->returnProperty = $r;
     }
-    
+
     /** Set PHP expression to evaluate. */
-    public function addText($expression) {
+    public function addText($expression)
+    {
         $this->expression = $expression;
     }
 
     /** Set PHP expression to evaluate. */
-    public function setExpression($expression) {
+    public function setExpression($expression)
+    {
         $this->expression = $expression;
     }
-    
+
     /** Add a nested <param> tag. */
-    public function createParam() {
+    public function createParam()
+    {
         $p = new FunctionParam();
         $this->params[] = $p;
+
         return $p;
-    }        
+    }
 }
 
 /**
@@ -174,19 +194,23 @@ class PhpEvalTask extends Task {
  *
  * @package  phing.tasks.system
  */
-class FunctionParam {
+class FunctionParam
+{
 
     private $val;
-    
-    public function setValue($v) {
+
+    public function setValue($v)
+    {
         $this->val = $v;
     }
-    
-    public function addText($v) {
+
+    public function addText($v)
+    {
         $this->val = $v;
     }
-    
-    public function getValue() {
+
+    public function getValue()
+    {
         return $this->val;
     }
 }

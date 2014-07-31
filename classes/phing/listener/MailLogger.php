@@ -23,7 +23,7 @@ require_once 'phing/listener/DefaultLogger.php';
 include_once 'phing/system/util/Properties.php';
 
 /**
- * Uses PEAR Mail package to send the build log to one or 
+ * Uses PEAR Mail package to send the build log to one or
  * more recipients.
  *
  * @author     Michiel Rook <mrook@php.net>
@@ -33,15 +33,16 @@ include_once 'phing/system/util/Properties.php';
 class MailLogger extends DefaultLogger
 {
     private $_mailMessage = "";
-    
+
     private $_from = "phing@phing.info";
     private $_subject = "Phing build result";
     private $_tolist = null;
-    
+
     /**
      * Construct new MailLogger
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
 
         @require_once 'Mail.php';
@@ -50,36 +51,36 @@ class MailLogger extends DefaultLogger
             throw new BuildException('Need the PEAR Mail package to send logs');
         }
 
-        $from    = Phing::getDefinedProperty('phing.log.mail.from');
+        $from = Phing::getDefinedProperty('phing.log.mail.from');
         $subject = Phing::getDefinedProperty('phing.log.mail.subject');
-        $tolist  = Phing::getDefinedProperty('phing.log.mail.recipients');
-        
+        $tolist = Phing::getDefinedProperty('phing.log.mail.recipients');
+
         if (!empty($from)) {
             $this->_from = $from;
         }
-        
+
         if (!empty($subject)) {
             $this->_subject = $subject;
         }
-        
+
         if (!empty($tolist)) {
             $this->_tolist = $tolist;
         }
     }
-    
+
     /**
      * @see DefaultLogger#printMessage
-     * @param string $message
+     * @param string       $message
      * @param OutputStream $stream
-     * @param int $priority
+     * @param int          $priority
      */
-    protected final function printMessage($message, OutputStream $stream, $priority)
+    final protected function printMessage($message, OutputStream $stream, $priority)
     {
         if ($message !== null) {
             $this->_mailMessage .= $message . "\n";
         }
     }
-    
+
     /**
      * Sends the mail
      *
@@ -89,13 +90,13 @@ class MailLogger extends DefaultLogger
     public function buildFinished(BuildEvent $event)
     {
         parent::buildFinished($event);
-        
+
         if (empty($this->_tolist)) {
             return;
         }
-        
+
         $hdrs = array(
-            'From'    => $this->_from,
+            'From' => $this->_from,
             'Subject' => $this->_subject . (empty($event) ? " (build succesful)" : " (build failed)")
         );
 

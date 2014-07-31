@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 
@@ -60,8 +60,8 @@ class GitFetchTask extends GitBaseTask
     private $keepFiles = false;
 
     /**
-     * After fetching, remove any remote tracking branches which no longer 
-     * exist on the remote. 
+     * After fetching, remove any remote tracking branches which no longer
+     * exist on the remote.
      * --prune key to git fetch
      * @var boolean
      */
@@ -119,11 +119,11 @@ class GitFetchTask extends GitBaseTask
             ->setOption('force', $this->isForce());
 
         // set operation target
-        if ($this->isAllRemotes()) {            // --all
+        if ($this->isAllRemotes()) { // --all
             $command->setOption('all', true);
-        } elseif ($this->getGroup()) {          // <group>
+        } elseif ($this->getGroup()) { // <group>
             $command->addArgument($this->getGroup());
-        } elseif ($this->getSource()) {         // <repository> [<refspec>]
+        } elseif ($this->getSource()) { // <repository> [<refspec>]
             $command->addArgument($this->getSource());
             if ($this->getRefspec()) {
                 $command->addArgument($this->getRefspec());
@@ -141,8 +141,9 @@ class GitFetchTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-fetch: branch "%s" repository', $this->getRepository()), 
-            Project::MSG_INFO); 
+            sprintf('git-fetch: branch "%s" repository', $this->getRepository()),
+            Project::MSG_INFO
+        );
         $this->log('git-fetch output: ' . trim($output), Project::MSG_INFO);
     }
 
@@ -220,7 +221,7 @@ class GitFetchTask extends GitBaseTask
     {
         return $this->getPrune();
     }
-    
+
     public function setNoTags($flag)
     {
         $this->noTags = $flag;

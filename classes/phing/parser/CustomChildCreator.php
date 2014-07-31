@@ -31,10 +31,10 @@ interface CustomChildCreator
 {
     /**
      * Creates the object for the child element
-     * 
-     * @param string $elementName the name of the element that has been requested
-     * @param Project $project The project the element is in
-     * @return object Returns the nested element
+     *
+     * @param  string  $elementName the name of the element that has been requested
+     * @param  Project $project     The project the element is in
+     * @return object  Returns the nested element
      */
     public function customChildCreator($elementName, Project $project);
 }

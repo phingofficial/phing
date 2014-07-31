@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/BuildException.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
@@ -53,10 +53,10 @@ class GitInitTask extends GitBaseTask
         $client = $this->getGitClient();
         $client->initRepository($this->isBare());
 
-        $msg = 'git-init: initializing ' 
+        $msg = 'git-init: initializing '
             . ($this->isBare() ? '(bare) ' : '')
-            . '"' . $this->getRepository() .'" repository'; 
-        $this->log($msg, Project::MSG_INFO); 
+            . '"' . $this->getRepository() . '" repository';
+        $this->log($msg, Project::MSG_INFO);
     }
 
     /**
@@ -76,6 +76,6 @@ class GitInitTask extends GitBaseTask
 
     public function setBare($flag)
     {
-        $this->isBare = (bool)$flag;
+        $this->isBare = (bool) $flag;
     }
 }

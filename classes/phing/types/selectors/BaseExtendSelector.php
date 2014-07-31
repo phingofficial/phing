@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/types/selectors/ExtendFileSelector.php';
 require_once 'phing/types/selectors/BaseSelector.php';
 include_once 'phing/types/Parameter.php';
@@ -34,7 +34,8 @@ include_once 'phing/types/Parameter.php';
  * @author Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
-abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSelector {
+abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSelector
+{
 
     /** The passed in parameter array. */
     protected $parameters = null;
@@ -45,7 +46,8 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
      *
      * @param parameters the complete set of parameters for this selector
      */
-    public function setParameters($parameters) {
+    public function setParameters($parameters)
+    {
         $this->parameters = $parameters;
     }
 
@@ -55,8 +57,8 @@ abstract class BaseExtendSelector extends BaseSelector implements ExtendFileSele
      *
      * @return the set of parameters defined for this selector
      */
-    protected function getParameters() {
+    protected function getParameters()
+    {
         return $this->parameters;
     }
 }
-

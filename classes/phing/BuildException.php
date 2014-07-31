@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
@@ -26,20 +26,21 @@
  * @version  $Id$
  * @package  phing
  */
-class BuildException extends Exception {
+class BuildException extends Exception
+{
 
     /**
      * Location in the xml file.
      * @var Location
      */
     protected $location;
-            
+
     /**
      * The nested "cause" exception.
      * @var Exception
      */
     protected $cause;
-    
+
     /**
      * Construct a BuildException.
      * Supported signatures:
@@ -49,16 +50,17 @@ class BuildException extends Exception {
      *         throw new BuildException($msg, $causeExc);
      *         throw new BuildException($msg, $loc);
      *         throw new BuildException($msg, $causeExc, $loc);
-     * @param Exception|string $p1
+     * @param Exception|string        $p1
      * @param Location|Exception|null $p2
-     * @param Location|null $p3
+     * @param Location|null           $p3
      */
-    public function __construct($p1, $p2 = null, $p3 = null) {        
-        
+    public function __construct($p1, $p2 = null, $p3 = null)
+    {
+
         $cause = null;
         $loc = null;
         $msg = "";
-        
+
         if ($p3 !== null) {
             $cause = $p2;
             $loc = $p3;
@@ -80,35 +82,37 @@ class BuildException extends Exception {
         } else {
             $msg = $p1;
         }
-        
+
         parent::__construct($msg);
-        
+
         if ($cause !== null) {
             $this->cause = $cause;
             $this->message .= "\n" . $this->getTraceAsString();
             $this->message .= "\n\nPrevious " . (string) $cause;
         }
-        
+
         if ($loc !== null) {
             $this->setLocation($loc);
-        }                
+        }
     }
-    
+
     /**
      * Gets the cause exception.
      *
      * @return Exception
      */
-    public function getCause() {
+    public function getCause()
+    {
         return $this->cause;
     }
-    
+
     /**
      * Gets the location of error in XML file.
      *
      * @return Location
      */
-    public function getLocation() {
+    public function getLocation()
+    {
         return $this->location;
     }
 
@@ -117,7 +121,8 @@ class BuildException extends Exception {
      *
      * @param Location $loc
      */
-    public function setLocation(Location $loc) {        
+    public function setLocation(Location $loc)
+    {
         $this->location = $loc;
         $this->message = $loc->toString() . ': ' . $this->message;
     }

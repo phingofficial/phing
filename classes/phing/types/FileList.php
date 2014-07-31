@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/types/DataType.php';
@@ -27,43 +27,45 @@ include_once 'phing/system/io/PhingFile.php';
  * are useful when you want to capture a list of files regardless of
  * whether they currently exist.
  *
- * <filelist 
- *    id="docfiles" 
+ * <filelist
+ *    id="docfiles"
  *   dir="${phing.docs.dir}"
- *   files="chapters/Installation.html,chapters/Setup.html"/> 
+ *   files="chapters/Installation.html,chapters/Setup.html"/>
  *
- * OR 
- * 
+ * OR
+ *
  * <filelist
  *         dir="${doc.src.dir}"
  *         listfile="${phing.docs.dir}/PhingGuide.book"/>
- * 
+ *
  * (or a mixture of files="" and listfile="" can be used)
- * 
+ *
  * @author Hans Lellelid <hans@xmpl.org>
  * @version $Id$
  * @package phing.types
  */
-class FileList extends DataType {
-        
+class FileList extends DataType
+{
+
     // public for "cloning" purposes
-    
+
     /** Array containing all filenames. */
     public $filenames = array();
-    
+
     /** Base directory for this file list. */
     public $dir;
-    
+
     /** PhingFile that contains a list of files (one per line). */
     public $listfile;
-    
+
     /**
      * Construct a new FileList.
-     * @param array $filelist;
+     * @param array $filelist ;
      */
-    function __construct($filelist = null) {
+    public function __construct($filelist = null)
+    {
         if ($filelist !== null) {
-            $this->dir       = $filelist->dir;
+            $this->dir = $filelist->dir;
             $this->filenames = $filelist->filenames;
             $this->listfile = $filelist->listfile;
         }
@@ -73,7 +75,8 @@ class FileList extends DataType {
      * Makes this instance in effect a reference to another FileList
      * instance.
      */
-    function setRefid(Reference $r) {
+    public function setRefid(Reference $r)
+    {
         if ($this->dir !== null || count($this->filenames) !== 0) {
             throw $this->tooManyAttributes();
         }
@@ -84,7 +87,8 @@ class FileList extends DataType {
      * Base directory for files in list.
      * @param PhingFile $dir
      */
-    function setDir(PhingFile $dir) {
+    public function setDir(PhingFile $dir)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -93,29 +97,33 @@ class FileList extends DataType {
         }
         $this->dir = $dir;
     }
-    
+
     /**
      * Get the basedir for files in list.
      * @return PhingFile
      */
-    function getDir(Project $p) {
+    public function getDir(Project $p)
+    {
         if ($this->isReference()) {
             $ref = $this->getRef($p);
+
             return $ref->getDir($p);
         }
+
         return $this->dir;
     }
-    
+
     /**
      * Set the array of files in list.
      * @param array $filenames
      */
-    function setFiles($filenames) {
+    public function setFiles($filenames)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
         if (!empty($filenames)) {
-            $tok = strtok($filenames, ", \t\n\r");            
+            $tok = strtok($filenames, ", \t\n\r");
             while ($tok !== false) {
                 $fname = trim($tok);
                 if ($fname !== "") {
@@ -125,12 +133,13 @@ class FileList extends DataType {
             }
         }
     }
-    
+
     /**
      * Sets a source "list" file that contains filenames to add -- one per line.
      * @param string $file
      */
-    function setListFile($file) {
+    public function setListFile($file)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -139,56 +148,61 @@ class FileList extends DataType {
         }
         $this->listfile = $file;
     }
-    
+
     /**
      * Get the source "list" file that contains file names.
-     * @param Project $p
+     * @param  Project   $p
      * @return PhingFile
      */
-    function getListFile(Project $p) {
+    public function getListFile(Project $p)
+    {
         if ($this->isReference()) {
             $ref = $this->getRef($p);
+
             return $ref->getListFile($p);
         }
+
         return $this->listfile;
     }
 
     /**
      * Returns the list of files represented by this FileList.
-     * @param Project $p
+     * @param  Project $p
      * @return array
      */
-    function getFiles(Project $p) {
-    
+    public function getFiles(Project $p)
+    {
+
         if ($this->isReference()) {
             $ret = $this->getRef($p);
             $ret = $ret->getFiles($p);
+
             return $ret;
         }
-        
+
         if ($this->listfile !== null) {
             $this->readListFile($p);
         }
-        
+
         return $this->filenames;
     }
 
-
     /**
-      * Performs the check for circular references and returns the
-      * referenced FileSet.
-      * @param Project $p
-      */
-    function getRef(Project $p) {
+     * Performs the check for circular references and returns the
+     * referenced FileSet.
+     * @param Project $p
+     */
+    public function getRef(Project $p)
+    {
         if (!$this->checked) {
             $stk = array();
             array_push($stk, $this);
-            $this->dieOnCircularReference($stk, $p);            
+            $this->dieOnCircularReference($stk, $p);
         }
 
         $o = $this->ref->getReferencedObject($p);
         if (!($o instanceof FileList)) {
-            throw new BuildException($this->ref->getRefId()." doesn't denote a filelist");
+            throw new BuildException($this->ref->getRefId() . " doesn't denote a filelist");
         } else {
             return $o;
         }
@@ -198,12 +212,13 @@ class FileList extends DataType {
      * Reads file names from a file and adds them to the files array.
      * @param Project $p
      */
-    private function readListFile(Project $p) {
+    private function readListFile(Project $p)
+    {
         $listReader = null;
         try {
             // Get a FileReader
-            $listReader = new BufferedReader(new FileReader($this->listfile)); 
-        
+            $listReader = new BufferedReader(new FileReader($this->listfile));
+
             $line = $listReader->readLine();
             while ($line !== null) {
                 if (!empty($line)) {
@@ -211,14 +226,16 @@ class FileList extends DataType {
                     $this->filenames[] = trim($line);
                 }
                 $line = $listReader->readLine();
-            }            
-        } catch (Exception $e)  {
-            if ($listReader) $listReader->close();            
-            throw new BuildException("An error occured while reading from list file " . $this->listfile->__toString() . ": " . $e->getMessage()); 
-        } 
-        
-        $listReader->close();        
+            }
+        } catch (Exception $e) {
+            if ($listReader) {
+                $listReader->close();
+            }
+            throw new BuildException("An error occured while reading from list file " . $this->listfile->__toString(
+                ) . ": " . $e->getMessage());
+        }
+
+        $listReader->close();
     }
 
 }
-

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 include_once 'phing/mappers/FileNameMapper.php';
@@ -28,7 +28,8 @@ include_once 'phing/mappers/FileNameMapper.php';
  * @version  $Id$
  * @package   phing.mappers
  */
-class GlobMapper implements FileNameMapper {
+class GlobMapper implements FileNameMapper
+{
 
     /**
      * Part of &quot;from&quot; pattern before the *.
@@ -60,53 +61,57 @@ class GlobMapper implements FileNameMapper {
      */
     private $toPostfix = null;
 
-
-    function main($_sourceFileName) {
+    public function main($_sourceFileName)
+    {
         if (($this->fromPrefix === null)
             || !StringHelper::startsWith($this->fromPrefix, $_sourceFileName)
-            || !StringHelper::endsWith($this->fromPostfix, $_sourceFileName)) {
+            || !StringHelper::endsWith($this->fromPostfix, $_sourceFileName)
+        ) {
             return null;
         }
         $varpart = $this->_extractVariablePart($_sourceFileName);
-        $substitution = $this->toPrefix.$varpart.$this->toPostfix;
+        $substitution = $this->toPrefix . $varpart . $this->toPostfix;
+
         return array($substitution);
     }
 
-
-
-   function setFrom($from) {
+    public function setFrom($from)
+    {
         $index = strrpos($from, '*');
 
         if ($index === false) {
             $this->fromPrefix = $from;
             $this->fromPostfix = "";
         } else {
-            $this->fromPrefix  = substr($from, 0, $index);
-            $this->fromPostfix = substr($from, $index+1);
+            $this->fromPrefix = substr($from, 0, $index);
+            $this->fromPostfix = substr($from, $index + 1);
         }
-        $this->prefixLength  = strlen($this->fromPrefix);
+        $this->prefixLength = strlen($this->fromPrefix);
         $this->postfixLength = strlen($this->fromPostfix);
     }
 
     /**
      * Sets the &quot;to&quot; pattern. Required.
      */
-    function setTo($to) {
+    public function setTo($to)
+    {
         $index = strrpos($to, '*');
         if ($index === false) {
             $this->toPrefix = $to;
             $this->toPostfix = "";
         } else {
-            $this->toPrefix  = substr($to, 0, $index);
-            $this->toPostfix = substr($to, $index+1);
+            $this->toPrefix = substr($to, 0, $index);
+            $this->toPostfix = substr($to, $index + 1);
         }
     }
 
-    private function _extractVariablePart($_name) {
+    private function _extractVariablePart($_name)
+    {
         // ergh, i really hate php's string functions .... all but natural
         $start = ($this->prefixLength === 0) ? 0 : $this->prefixLength;
-        $end   = ($this->postfixLength === 0) ? strlen($_name) : strlen($_name) - $this->postfixLength;
-        $len   = $end-$start;
+        $end = ($this->postfixLength === 0) ? strlen($_name) : strlen($_name) - $this->postfixLength;
+        $len = $end - $start;
+
         return substr($_name, $start, $len);
     }
 

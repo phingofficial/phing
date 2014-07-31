@@ -43,7 +43,7 @@ class FileSizeTask extends Task
      * @var string $property
      */
     private $propertyName = "filesize";
-    
+
     /**
      * Which file to calculate the file size of
      * @param PhingFile $file
@@ -66,8 +66,8 @@ class FileSizeTask extends Task
     /**
      * Main-Method for the Task
      *
-     * @return  void
-     * @throws  BuildException
+     * @return void
+     * @throws BuildException
      */
     public function main()
     {
@@ -76,9 +76,9 @@ class FileSizeTask extends Task
 
         $size = filesize($this->file);
 
-        if( $size === false ) {
-            throw new BuildException(sprintf('[FileSize] Cannot determine size of file: %s',$this->file));
-            
+        if ($size === false) {
+            throw new BuildException(sprintf('[FileSize] Cannot determine size of file: %s', $this->file));
+
         }
 
         // publish hash value
@@ -95,13 +95,17 @@ class FileSizeTask extends Task
     {
         // check File
         if ($this->file === null ||
-            strlen($this->file) == 0) {
+            strlen($this->file) == 0
+        ) {
             throw new BuildException('[FileSize] You must specify an input file.', $this->file);
         }
 
-        if( ! is_readable($this->file) ) { 
-            throw new BuildException(sprintf('[FileSize] Input file does not exist or is not readable: %s',$this->file));
-        }     
+        if (!is_readable($this->file)) {
+            throw new BuildException(sprintf(
+                '[FileSize] Input file does not exist or is not readable: %s',
+                $this->file
+            ));
+        }
 
     }
 
@@ -113,7 +117,8 @@ class FileSizeTask extends Task
     private function checkPropertyName()
     {
         if (is_null($this->propertyName) ||
-            strlen($this->propertyName) === 0) {
+            strlen($this->propertyName) === 0
+        ) {
             throw new BuildException('[FileSize] Property name for publishing file size is not set');
         }
     }

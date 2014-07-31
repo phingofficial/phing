@@ -32,12 +32,12 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     private $inner = "";
-    
+
     public function getExtension()
     {
         return ".txt";
     }
-    
+
     public function getPreferredOutfile()
     {
         return "testresults";
@@ -46,27 +46,25 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         parent::startTestSuite($suite);
-        
+
         $this->inner = "";
     }
-    
+
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
-        if ($suite->getName() == 'AllTests')
-        {
+        if ($suite->getName() == 'AllTests') {
             return false;
         }
-        
-        $sb = "Testsuite: " . $suite->getName() . "\n";
-        $sb.= "Tests run: " . $this->getRunCount();
-        $sb.= ", Failures: " . $this->getFailureCount();
-        $sb.= ", Errors: " . $this->getErrorCount();
-        $sb.= ", Incomplete: " . $this->getIncompleteCount();
-        $sb.= ", Skipped: " . $this->getSkippedCount();
-        $sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
 
-        if ($this->out != NULL)
-        {
+        $sb = "Testsuite: " . $suite->getName() . "\n";
+        $sb .= "Tests run: " . $this->getRunCount();
+        $sb .= ", Failures: " . $this->getFailureCount();
+        $sb .= ", Errors: " . $this->getErrorCount();
+        $sb .= ", Incomplete: " . $this->getIncompleteCount();
+        $sb .= ", Skipped: " . $this->getSkippedCount();
+        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+
+        if ($this->out != null) {
             $this->out->write($sb);
             $this->out->write($this->inner);
         }
@@ -77,7 +75,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addError($test, $e, $time);
-        
+
         $this->formatError("ERROR", $test, $e);
     }
 
@@ -90,7 +88,7 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addIncompleteTest($test, $e, $time);
-        
+
         $this->formatError("INCOMPLETE", $test);
     }
 
@@ -102,27 +100,24 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
 
     private function formatError($type, PHPUnit_Framework_Test $test, Exception $e = null)
     {
-        if ($test != null)
-        {
+        if ($test != null) {
             $this->endTest($test, time());
         }
-        
-        $this->inner.= $test->getName() . " " . $type . "\n";
-        
+
+        $this->inner .= $test->getName() . " " . $type . "\n";
+
         if ($e !== null) {
-            $this->inner.= $e->getMessage() . "\n";
+            $this->inner .= $e->getMessage() . "\n";
             // $this->inner.= PHPUnit_Util_Filter::getFilteredStackTrace($e, true) . "\n";
         }
     }
-    
+
     public function endTestRun()
     {
         parent::endTestRun();
-        
-        if ($this->out != NULL)
-        {
+
+        if ($this->out != null) {
             $this->out->close();
         }
     }
 }
-

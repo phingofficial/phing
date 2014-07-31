@@ -56,12 +56,12 @@ class PHPUnitTask extends Task
     private $excludeGroups = array();
     private $processIsolation = false;
     private $usecustomerrorhandler = true;
-    
+
     /**
      * @var string
      */
     private $pharLocation = "";
-    
+
     /**
      * @var PhingFile
      */
@@ -76,7 +76,7 @@ class PHPUnitTask extends Task
     public function init()
     {
     }
-    
+
     private function loadPHPUnit()
     {
         /**
@@ -85,7 +85,7 @@ class PHPUnitTask extends Task
          */
         @include_once 'PHPUnit/Runner/Version.php';
         @include_once 'phpunit/Runner/Version.php';
-        if (! empty($this->pharLocation)) {
+        if (!empty($this->pharLocation)) {
             $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
             ob_start();
             @include $this->pharLocation;
@@ -99,11 +99,10 @@ class PHPUnitTask extends Task
 
         $version = PHPUnit_Runner_Version::id();
 
-        if (version_compare($version, '3.6.0') < 0)
-        {
+        if (version_compare($version, '3.6.0') < 0) {
             throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.6.0", $this->getLocation());
         }
-            
+
         /**
          * Other dependencies that should only be loaded when class is actually used.
          */
@@ -112,12 +111,11 @@ class PHPUnitTask extends Task
         /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
          */
-        if (!defined('PHPUnit_MAIN_METHOD'))
-        {
+        if (!defined('PHPUnit_MAIN_METHOD')) {
             define('PHPUnit_MAIN_METHOD', 'PHPUnitTask::undefined');
         }
     }
-    
+
     /**
      * Sets the name of a bootstrap file that is run before
      * executing the tests
@@ -128,27 +126,27 @@ class PHPUnitTask extends Task
     {
         $this->bootstrap = $bootstrap;
     }
-    
+
     public function setErrorproperty($value)
     {
         $this->errorproperty = $value;
     }
-    
+
     public function setFailureproperty($value)
     {
         $this->failureproperty = $value;
     }
-    
+
     public function setIncompleteproperty($value)
     {
         $this->incompleteproperty = $value;
     }
-    
+
     public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
     }
-    
+
     public function setHaltonerror($value)
     {
         $this->haltonerror = $value;
@@ -158,7 +156,7 @@ class PHPUnitTask extends Task
     {
         $this->haltonfailure = $value;
     }
-    
+
     public function getHaltonfailure()
     {
         return $this->haltonfailure;
@@ -168,7 +166,7 @@ class PHPUnitTask extends Task
     {
         $this->haltonincomplete = $value;
     }
-    
+
     public function getHaltonincomplete()
     {
         return $this->haltonincomplete;
@@ -178,7 +176,7 @@ class PHPUnitTask extends Task
     {
         $this->haltonskipped = $value;
     }
-    
+
     public function getHaltonskipped()
     {
         return $this->haltonskipped;
@@ -188,7 +186,7 @@ class PHPUnitTask extends Task
     {
         $this->printsummary = $printsummary;
     }
-    
+
     public function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
@@ -236,7 +234,7 @@ class PHPUnitTask extends Task
         $fe->setParent($this);
         $this->formatters[] = $fe;
     }
-    
+
     /**
      * @param PhingFile $configuration
      */
@@ -244,7 +242,7 @@ class PHPUnitTask extends Task
     {
         $this->configuration = $configuration;
     }
-    
+
     /**
      * @param string $pharLocation
      */
@@ -252,7 +250,7 @@ class PHPUnitTask extends Task
     {
         $this->pharLocation = $pharLocation;
     }
-    
+
     /**
      * Load and processes the PHPUnit configuration
      */
@@ -261,25 +259,25 @@ class PHPUnitTask extends Task
         if (!$configuration->exists()) {
             throw new BuildException("Unable to find PHPUnit configuration file '" . (string) $configuration . "'");
         }
-        
+
         $config = PHPUnit_Util_Configuration::getInstance($configuration->getAbsolutePath());
-        
+
         if (empty($config)) {
             return;
         }
-        
+
         $phpunit = $config->getPHPUnitConfiguration();
-        
+
         if (empty($phpunit)) {
             return;
         }
-        
+
         $config->handlePHPConfiguration();
-        
+
         if (isset($phpunit['bootstrap'])) {
             $this->setBootstrap($phpunit['bootstrap']);
         }
-        
+
         if (isset($phpunit['stopOnFailure'])) {
             $this->setHaltonfailure($phpunit['stopOnFailure']);
         }
@@ -299,14 +297,15 @@ class PHPUnitTask extends Task
         if (isset($phpunit['processIsolation'])) {
             $this->setProcessIsolation($phpunit['processIsolation']);
         }
-        
+
         $browsers = $config->getSeleniumBrowserConfiguration();
-        
+
         if (!empty($browsers) &&
-            class_exists('PHPUnit_Extensions_SeleniumTestCase')) {  
+            class_exists('PHPUnit_Extensions_SeleniumTestCase')
+        ) {
             PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
         }
-        
+
         return $phpunit;
     }
 
@@ -317,59 +316,55 @@ class PHPUnitTask extends Task
      */
     public function main()
     {
-        if ($this->codecoverage && !extension_loaded('xdebug'))
-        {
+        if ($this->codecoverage && !extension_loaded('xdebug')) {
             throw new Exception("PHPUnitTask depends on Xdebug being installed to gather code coverage information.");
         }
-        
+
         $this->loadPHPUnit();
-        
+
         $suite = new PHPUnit_Framework_TestSuite('AllTests');
-        
+
         if ($this->configuration) {
             $arguments = $this->handlePHPUnitConfiguration($this->configuration);
-            
-            if ($arguments['backupGlobals'] === FALSE) {
-                $suite->setBackupGlobals(FALSE);
+
+            if ($arguments['backupGlobals'] === false) {
+                $suite->setBackupGlobals(false);
             }
-            
-            if ($arguments['backupStaticAttributes'] === TRUE) {
-                $suite->setBackupStaticAttributes(TRUE);
+
+            if ($arguments['backupStaticAttributes'] === true) {
+                $suite->setBackupStaticAttributes(true);
             }
         }
-        
-        if ($this->printsummary)
-        {
+
+        if ($this->printsummary) {
             $fe = new FormatterElement();
             $fe->setParent($this);
             $fe->setType("summary");
             $fe->setUseFile(false);
             $this->formatters[] = $fe;
         }
-        
+
         $autoloadSave = spl_autoload_functions();
-        
+
         if ($this->bootstrap) {
             require $this->bootstrap;
         }
-        
-        foreach ($this->batchtests as $batchTest)
-        {
+
+        foreach ($this->batchtests as $batchTest) {
             $this->appendBatchTestToTestSuite($batchTest, $suite);
         }
-        
+
         $this->execute($suite);
-        
-        if ($this->testfailed)
-        {
+
+        if ($this->testfailed) {
             throw new BuildException($this->testfailuremessage);
         }
-        
+
         $autoloadNew = spl_autoload_functions();
         foreach ($autoloadNew as $autoload) {
             spl_autoload_unregister($autoload);
         }
-        
+
         foreach ($autoloadSave as $autoload) {
             spl_autoload_register($autoload);
         }
@@ -381,35 +376,31 @@ class PHPUnitTask extends Task
     protected function execute($suite)
     {
         $runner = new PHPUnitTestRunner($this->project, $this->groups, $this->excludeGroups, $this->processIsolation);
-        
+
         if ($this->codecoverage) {
             /**
              * Add some defaults to the PHPUnit filter
              */
             $pwd = dirname(__FILE__);
             $path = realpath($pwd . '/../../../');
-            
+
             $filter = new PHP_CodeCoverage_Filter();
             $filter->addDirectoryToBlacklist($path);
             $runner->setCodecoverage(new PHP_CodeCoverage(null, $filter));
         }
-        
+
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
 
-        foreach ($this->formatters as $fe)
-        {
+        foreach ($this->formatters as $fe) {
             $formatter = $fe->getFormatter();
 
-            if ($fe->getUseFile())
-            {
+            if ($fe->getUseFile()) {
                 $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
-                
+
                 $writer = new FileWriter($destFile->getAbsolutePath());
 
                 $formatter->setOutput($writer);
-            }
-            else
-            {
+            } else {
                 $formatter->setOutput($this->getDefaultOutput());
             }
 
@@ -417,17 +408,16 @@ class PHPUnitTask extends Task
 
             $formatter->startTestRun();
         }
-        
+
         $runner->run($suite);
 
-        foreach ($this->formatters as $fe)
-        {
+        foreach ($this->formatters as $fe) {
             $formatter = $fe->getFormatter();
             $formatter->endTestRun();
         }
-        
+
         $retcode = $runner->getRetCode();
-        
+
         if ($retcode == PHPUnitTestRunner::ERRORS) {
             if ($this->errorproperty) {
                 $this->project->setNewProperty($this->errorproperty, true);
@@ -440,7 +430,7 @@ class PHPUnitTask extends Task
             if ($this->failureproperty) {
                 $this->project->setNewProperty($this->failureproperty, true);
             }
-            
+
             if ($this->haltonfailure) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastFailureMessage();
@@ -449,7 +439,7 @@ class PHPUnitTask extends Task
             if ($this->incompleteproperty) {
                 $this->project->setNewProperty($this->incompleteproperty, true);
             }
-            
+
             if ($this->haltonincomplete) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastIncompleteMessage();
@@ -458,25 +448,25 @@ class PHPUnitTask extends Task
             if ($this->skippedproperty) {
                 $this->project->setNewProperty($this->skippedproperty, true);
             }
-            
+
             if ($this->haltonskipped) {
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastSkippedMessage();
             }
         }
     }
-    
+
     /**
      * Add the tests in this batchtest to a test suite
      *
-     * @param BatchTest $batchTest
+     * @param BatchTest                   $batchTest
      * @param PHPUnit_Framework_TestSuite $suite
      */
     protected function appendBatchTestToTestSuite(BatchTest $batchTest, PHPUnit_Framework_TestSuite $suite)
     {
         foreach ($batchTest->elements() as $element) {
             $testClass = new $element();
-            if (! ($testClass instanceof PHPUnit_Framework_TestSuite)) {
+            if (!($testClass instanceof PHPUnit_Framework_TestSuite)) {
                 $testClass = new ReflectionClass($element);
             }
             $suite->addTestSuite($testClass);
@@ -502,4 +492,3 @@ class PHPUnitTask extends Task
         return $batchtest;
     }
 }
-

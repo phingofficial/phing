@@ -43,14 +43,15 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
         if (get_class($clones) == 'SebastianBergmann\PHPCPD\CodeCloneMap') {
             if (class_exists('SebastianBergmann\PHPCPD\Log\Text')) {
                 $this->processClonesNew($clones, $useFile, $outFile);
+
                 return;
             }
-            
+
             $logger = new \SebastianBergmann\PHPCPD\TextUI\ResultPrinter();
         } else {
             $logger = new PHPCPD_TextUI_ResultPrinter();
         }
-        
+
         // default format goes to logs, no buffering
         ob_start();
         $logger->printResult($clones, $project->getBaseDir(), true);
@@ -63,7 +64,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
             file_put_contents($outFile->getPath(), $output);
         }
     }
-    
+
     /**
      * Wrapper for PHPCPD 2.0
      *
@@ -78,7 +79,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
         } else {
             $resource = fopen("php://output", "w");
         }
-        
+
         $output = new \Symfony\Component\Console\Output\StreamOutput($resource);
         $logger = new \SebastianBergmann\PHPCPD\Log\Text();
         $logger->printResult($output, $clones);

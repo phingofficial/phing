@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
@@ -27,13 +27,14 @@
  * @version $Id$
  * @package phing.mappers
  */
-interface FileNameMapper {
+interface FileNameMapper
+{
 
     /**
      * The mapper implementation.
      *
-     * @param mixed $sourceFileName The data the mapper works on.
-     * @return  array The data after the mapper has been applied; must be in array format (for some reason).
+     * @param  mixed $sourceFileName The data the mapper works on.
+     * @return array The data after the mapper has been applied; must be in array format (for some reason).
      */
     public function main($sourceFileName);
 
@@ -41,7 +42,7 @@ interface FileNameMapper {
      * Accessor. Sets the to property. The actual implementation
      * depends on the child class.
      *
-     * @param string $to To what this mapper should convert the from string
+     * @param  string $to To what this mapper should convert the from string
      * @return void
      */
     public function setTo($to);
@@ -51,7 +52,7 @@ interface FileNameMapper {
      * recognize. The actual implementation is dependent upon the
      * child class
      *
-     * @param string $from On what this mapper should work
+     * @param  string $from On what this mapper should work
      * @return void
      */
     public function setFrom($from);

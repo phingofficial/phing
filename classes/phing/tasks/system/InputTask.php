@@ -23,10 +23,10 @@ require_once 'phing/Task.php';
 include_once 'phing/input/InputRequest.php';
 include_once 'phing/input/YesNoInputRequest.php';
 include_once 'phing/input/MultipleChoiceInputRequest.php';
- 
+
 /**
  * Reads input from the InputHandler.
- * 
+ *
  * @see       Project::getInputHandler()
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Ulrich Schmidt <usch@usch.net> (Ant)
@@ -34,14 +34,15 @@ include_once 'phing/input/MultipleChoiceInputRequest.php';
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class InputTask extends Task {
-    
+class InputTask extends Task
+{
+
     private $validargs;
     private $message = ""; // required
     private $propertyName; // required
     private $defaultValue;
     private $promptChar;
-    
+
     /**
      * Defines valid input parameters as comma separated strings. If set, input
      * task will reject any input not defined as accepted and requires the user
@@ -50,7 +51,8 @@ class InputTask extends Task {
      *
      * @param validargs A comma separated String defining valid input args.
      */
-    public function setValidargs ($validargs) {
+    public function setValidargs($validargs)
+    {
         $this->validargs = $validargs;
     }
 
@@ -59,7 +61,8 @@ class InputTask extends Task {
      *
      * @param string $name Name for the property to be set from input
      */
-    public function setPropertyName($name) {
+    public function setPropertyName($name)
+    {
         $this->propertyName = $name;
     }
 
@@ -67,81 +70,89 @@ class InputTask extends Task {
      * Sets the Message which gets displayed to the user during the build run.
      * @param message The message to be displayed.
      */
-    public function setMessage ($message) {
+    public function setMessage($message)
+    {
         $this->message = $message;
     }
 
     /**
      * Set a multiline message.
      */
-    public function addText($msg) {
+    public function addText($msg)
+    {
         $this->message .= $this->project->replaceProperties($msg);
     }
-    
+
     /**
      * Add a default value.
      * @param string $v
      */
-    public function setDefaultValue($v) {
+    public function setDefaultValue($v)
+    {
         $this->defaultValue = $v;
     }
-    
+
     /**
      * Set the character/string to use for the prompt.
      * @param string $c
      */
-    public function setPromptChar($c) {
+    public function setPromptChar($c)
+    {
         $this->promptChar = $c;
     }
-    
+
     /**
      * Actual method executed by phing.
      * @throws BuildException
      */
-    public function main() {
-    
+    public function main()
+    {
+
         if ($this->propertyName === null) {
             throw new BuildException("You must specify a value for propertyName attribute.");
         }
-        
+
         if ($this->message === "") {
             throw new BuildException("You must specify a message for input task.");
         }
-        
+
         if ($this->validargs !== null) {
             $accept = preg_split('/[\s,]+/', $this->validargs);
-            
+
             // is it a boolean (yes/no) inputrequest?
             $yesno = false;
             if (count($accept) == 2) {
                 $yesno = true;
-                foreach($accept as $ans) {
-                    if(!StringHelper::isBoolean($ans)) {
+                foreach ($accept as $ans) {
+                    if (!StringHelper::isBoolean($ans)) {
                         $yesno = false;
                         break;
                     }
                 }
             }
-            if ($yesno) $request = new YesNoInputRequest($this->message, $accept);
-            else $request = new MultipleChoiceInputRequest($this->message, $accept);
+            if ($yesno) {
+                $request = new YesNoInputRequest($this->message, $accept);
+            } else {
+                $request = new MultipleChoiceInputRequest($this->message, $accept);
+            }
         } else {
             $request = new InputRequest($this->message);
         }
-        
-        // default default is curr prop value        
+
+        // default default is curr prop value
         $request->setDefaultValue($this->project->getProperty($this->propertyName));
-        
+
         $request->setPromptChar($this->promptChar);
-        
+
         // unless overridden...
         if ($this->defaultValue !== null) {
             $request->setDefaultValue($this->defaultValue);
         }
-        
+
         $this->project->getInputHandler()->handleInput($request);
 
         $value = $request->getInput();
-        
+
         if ($value !== null) {
             $this->project->setUserProperty($this->propertyName, $value);
         }

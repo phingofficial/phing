@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/system/io/InputStreamReader.php';
@@ -26,16 +26,17 @@ require_once 'phing/system/io/FileInputStream.php';
  * Convenience class for reading files.
  * @package   phing.system.io
  */
-class FileReader extends InputStreamReader {
+class FileReader extends InputStreamReader
+{
 
     /**
      * Construct a new FileReader.
      * @param mixed $file PhingFile or string pathname.
      */
-    public function __construct($file) {
+    public function __construct($file)
+    {
         $in = new FileInputStream($file);
         parent::__construct($in);
     }
-        
-}
 
+}

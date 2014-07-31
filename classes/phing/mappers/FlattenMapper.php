@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/mappers/FileNameMapper.php';
@@ -28,28 +28,35 @@ require_once 'phing/mappers/FileNameMapper.php';
  * @version  $Id$
  * @package  phing.mappers
  */
-class FlattenMapper implements FileNameMapper {
+class FlattenMapper implements FileNameMapper
+{
 
     /**
      * The mapper implementation. Returns string with source filename
      * but without leading directory information
      *
-     * @param string $sourceFileName The data the mapper works on
-     * @return array The data after the mapper has been applied
+     * @param  string $sourceFileName The data the mapper works on
+     * @return array  The data after the mapper has been applied
      */
-    function main($sourceFileName) {
+    public function main($sourceFileName)
+    {
         $f = new PhingFile($sourceFileName);
+
         return array($f->getName());
     }
 
     /**
      * Ignored here.
      */
-    function setTo($to) {}
+    public function setTo($to)
+    {
+    }
 
     /**
      * Ignored here.
      */
-    function setFrom($from) {}
+    public function setFrom($from)
+    {
+    }
 
 }

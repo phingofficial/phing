@@ -29,31 +29,34 @@ require_once 'phing/tasks/system/condition/Condition.php';
  * @author Steve Loughran (Ant)
  * @package phing.tasks.system.condition
  */
-class IsTrueCondition extends ProjectComponent implements Condition {
+class IsTrueCondition extends ProjectComponent implements Condition
+{
 
-    /**  
+    /**
      * what we eval
-     */ 
+     */
     private $value;
 
     /**
      * Set the value to be tested.
      * @param boolean $value
-     */ 
-    public function setValue($value) {
+     */
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
     /**
      * return the inverted value;
      * @throws BuildException if someone forgot to spec a value
-     */ 
-    public function evaluate() {
+     */
+    public function evaluate()
+    {
         if ($this->value === null) {
             throw new BuildException("Nothing to test for falsehood");
         }
+
         return $this->value;
     }
 
 }
-

@@ -35,13 +35,13 @@ class PhpDocumentor2Wrapper
      * @var Project
      */
     private $project = null;
-    
+
     /**
      * List of filesets
      * @var FileSet[]
      */
     private $filesets = array();
-    
+
     /**
      * Destination/target directory
      * @var PhingFile
@@ -53,30 +53,30 @@ class PhpDocumentor2Wrapper
      * @var string
      */
     private $template = "responsive-twig";
-    
+
     /**
      * Title of the project
      * @var string
      */
     private $title = "API Documentation";
-    
+
     /**
      * Name of the default package
      * @var string
      */
     private $defaultPackageName = "Default";
-    
+
     /**
      * Path to the phpDocumentor 2 source
      * @var string
      */
     private $phpDocumentorPath = "";
-    
+
     /**
      * @var \phpDocumentor\Application
      */
     private $app = null;
-    
+
     /**
      * Sets project instance
      *
@@ -86,17 +86,17 @@ class PhpDocumentor2Wrapper
     {
         $this->project = $project;
     }
-    
+
     /**
      * Sets filesets array
-     * 
+     *
      * @param FileSet[] $filesets
      */
     public function setFilesets($filesets)
     {
         $this->filesets = $filesets;
     }
-    
+
     /**
      * Sets destination/target directory
      * @param PhingFile $destDir
@@ -114,7 +114,7 @@ class PhpDocumentor2Wrapper
     {
         $this->template = (string) $template;
     }
-    
+
     /**
      * Sets the title of the project
      * @param string $title
@@ -123,7 +123,7 @@ class PhpDocumentor2Wrapper
     {
         $this->title = (string) $title;
     }
-    
+
     /**
      * Sets the default package name
      * @param string $defaultPackageName
@@ -132,7 +132,7 @@ class PhpDocumentor2Wrapper
     {
         $this->defaultPackageName = (string) $defaultPackageName;
     }
-    
+
     /**
      * Finds and initializes the phpDocumentor installation
      */
@@ -149,17 +149,17 @@ class PhpDocumentor2Wrapper
             if (empty($phpDocumentorPath)) {
                 throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.");
             }
-            
+
             set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
-            
-            require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';        
+
+            require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
         }
-        
+
         $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
-        
+
         $this->phpDocumentorPath = $phpDocumentorPath;
     }
-    
+
     /**
      * Build a list of files (from the fileset elements)
      * and call the phpDocumentor parser
@@ -170,43 +170,43 @@ class PhpDocumentor2Wrapper
     {
         $parser = $this->app['parser'];
         $builder = $this->app['descriptor.builder'];
-        
-        $builder->createProjectDescriptor(); 
+
+        $builder->createProjectDescriptor();
         $projectDescriptor = $builder->getProjectDescriptor();
         $projectDescriptor->setName($this->title);
-        
+
         $paths = array();
-        
+
         // filesets
         foreach ($this->filesets as $fs) {
-            $ds    = $fs->getDirectoryScanner($this->project);
-            $dir   = $fs->getDir($this->project);
+            $ds = $fs->getDirectoryScanner($this->project);
+            $dir = $fs->getDir($this->project);
             $srcFiles = $ds->getIncludedFiles();
-            
+
             foreach ($srcFiles as $file) {
                 $paths[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
             }
         }
-        
+
         $this->project->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
-        
+
         $files = new \phpDocumentor\Fileset\Collection();
         $files->addFiles($paths);
-        
+
         $mapper = new \phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper($this->app['descriptor.cache']);
         $mapper->garbageCollect($files);
         $mapper->populate($projectDescriptor);
-        
+
         $parser->setPath($files->getProjectRoot());
         $parser->setDefaultPackageName($this->defaultPackageName);
-        
+
         $parser->parse($builder, $files);
-        
+
         $mapper->save($projectDescriptor);
-        
+
         return $mapper;
     }
-    
+
     /**
      * Transforms the parsed files
      */
@@ -216,29 +216,29 @@ class PhpDocumentor2Wrapper
         $compiler = $this->app['compiler'];
         $builder = $this->app['descriptor.builder'];
         $projectDescriptor = $builder->getProjectDescriptor();
-        
+
         $transformer->getTemplates()->load($this->template, $transformer);
         $transformer->setTarget($this->destDir->getAbsolutePath());
-        
+
         foreach ($compiler as $pass) {
             $pass->execute($projectDescriptor);
         }
     }
 
     /**
-     * Runs phpDocumentor 2 
+     * Runs phpDocumentor 2
      */
     public function run()
     {
         $this->initializePhpDocumentor();
-        
+
         $cache = $this->app['descriptor.cache'];
         $cache->getOptions()->setCacheDir($this->destDir->getAbsolutePath());
-        
+
         $this->parseFiles();
-        
+
         $this->project->log("Transforming...", Project::MSG_VERBOSE);
-        
+
         $this->transformFiles();
     }
 

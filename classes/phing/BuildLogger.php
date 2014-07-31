@@ -23,10 +23,10 @@ require_once 'phing/BuildListener.php';
 
 /**
  * Interface for build loggers.
- * 
+ *
  * Build loggers are build listeners but with some additional functionality:
  *   - They can be configured with a log level (below which they will ignore messages)
- *   - They have error and output streams 
+ *   - They have error and output streams
  *
  * Classes that implement a listener must implement this interface.
  *
@@ -36,11 +36,12 @@ require_once 'phing/BuildListener.php';
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface BuildLogger extends BuildListener {
+interface BuildLogger extends BuildListener
+{
 
     /**
      * Sets the min log level that this logger should respect.
-     * 
+     *
      * Messages below this level are ignored.
      *
      * Constants for the message levels are in Project.php. The order of
@@ -57,7 +58,7 @@ interface BuildLogger extends BuildListener {
 
     /**
      * Sets the standard output stream to use.
-     * @param OutputStream $output Configured output stream (e.g. STDOUT) for standard output. 
+     * @param OutputStream $output Configured output stream (e.g. STDOUT) for standard output.
      */
     public function setOutputStream(OutputStream $output);
 

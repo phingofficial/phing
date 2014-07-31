@@ -32,82 +32,79 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  */
 class SvnCommitTask extends SvnBaseTask
 {
-       /**
-        * Commit message
-        */
-        private $message = '';
+    /**
+     * Commit message
+     */
+    private $message = '';
 
-       /**
-        * Property name where we store the revision number of the just
-        * commited version.
-        */
-        private $propertyName = "svn.committedrevision";
+    /**
+     * Property name where we store the revision number of the just
+     * commited version.
+     */
+    private $propertyName = "svn.committedrevision";
 
-        /**
-         * Sets the commit message
-         */
-        function setMessage($message)
-        {
-                $this->message = $message;
+    /**
+     * Sets the commit message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * Gets the commit message
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * Sets the name of the property to use for returned revision
+     */
+    public function setPropertyName($propertyName)
+    {
+        $this->propertyName = $propertyName;
+    }
+
+    /**
+     * Returns the name of the property to use for returned revision
+     */
+    public function getPropertyName()
+    {
+        return $this->propertyName;
+    }
+
+    /**
+     * The main entry point
+     *
+     * @throws BuildException
+     */
+    public function main()
+    {
+        if (trim($this->message) === '') {
+            throw new BuildException('SVN Commit message can not be empty.');
         }
 
-        /**
-         * Gets the commit message
-         */
-        function getMessage()
-        {
-                 return $this->message;
+        $this->setup('commit');
+
+        $this->log(
+            "Commiting SVN working copy at '" . $this->getWorkingCopy() . "' with message '" . $this->GetMessage() . "'"
+        );
+
+        $output = $this->run(array(), array('message' => $this->GetMessage()));
+
+        if (preg_match('/[\s]*Committed revision[\s]+([\d]+)/', $output, $matches)) {
+            $this->project->setProperty($this->getPropertyName(), $matches[1]);
+        } else {
+            /**
+             * If no new revision was committed set revision to "empty". Remember that
+             * this is not necessarily an error. It could be that the specified working
+             * copy is identical to the copy in the repository and in that case
+             * there will be no update and no new revision number.
+             */
+            $this->project->setProperty($this->getPropertyName(), '');
         }
 
-        /**
-         * Sets the name of the property to use for returned revision
-         */
-        function setPropertyName($propertyName)
-        {
-                $this->propertyName = $propertyName;
-        }
-
-        /**
-         * Returns the name of the property to use for returned revision
-         */
-        function getPropertyName()
-        {
-                return $this->propertyName;
-        }
-
-        /**
-         * The main entry point
-         *
-         * @throws BuildException
-         */
-        function main()
-        {
-                if( trim($this->message) === '' )
-                {
-                        throw new BuildException('SVN Commit message can not be empty.');
-                }
-
-                $this->setup('commit');
-
-                $this->log("Commiting SVN working copy at '" . $this->getWorkingCopy() . "' with message '".$this->GetMessage()."'");
-
-                $output = $this->run(array(), array('message' => $this->GetMessage() ) );
-
-                if( preg_match('/[\s]*Committed revision[\s]+([\d]+)/', $output, $matches) )
-                {
-                        $this->project->setProperty($this->getPropertyName(), $matches[1]);
-                }
-                else
-                {
-                        /**
-                         * If no new revision was committed set revision to "empty". Remember that
-                         * this is not necessarily an error. It could be that the specified working
-                         * copy is identical to the copy in the repository and in that case
-                         * there will be no update and no new revision number.
-                         */
-                        $this->project->setProperty($this->getPropertyName(), '' );
-                }
-
-        }
+    }
 }
-

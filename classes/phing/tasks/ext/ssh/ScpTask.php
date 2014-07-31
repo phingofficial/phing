@@ -50,14 +50,14 @@ class ScpTask extends Task
     protected $pubkeyfile = '';
     protected $privkeyfile = '';
     protected $privkeyfilepassphrase = '';
-       
+
     protected $connection = null;
     protected $sftp = null;
-    
+
     protected $counter = 0;
-    
+
     protected $logLevel = Project::MSG_VERBOSE;
-    
+
     /**
      * If number of success of "sftp" is grater than declared number
      * decide to skip "scp" operation.
@@ -65,7 +65,7 @@ class ScpTask extends Task
      * @var int
      */
     protected $heuristicDecision = 5;
-    
+
     /**
      * Indicate number of failures in sending files via "scp" over "sftp"
      *
@@ -156,7 +156,7 @@ class ScpTask extends Task
     {
         return $this->password;
     }
-    
+
     /**
      * Sets the public key file of the user to scp
      */
@@ -172,7 +172,7 @@ class ScpTask extends Task
     {
         return $this->pubkeyfile;
     }
-    
+
     /**
      * Sets the private key file of the user to scp
      */
@@ -188,7 +188,7 @@ class ScpTask extends Task
     {
         return $this->privkeyfile;
     }
-    
+
     /**
      * Sets the private key file passphrase of the user to scp
      */
@@ -204,7 +204,7 @@ class ScpTask extends Task
     {
         return $this->privkeyfilepassphrase;
     }
-    
+
     /**
      * Sets whether to autocreate remote directories
      */
@@ -212,7 +212,7 @@ class ScpTask extends Task
     {
         $this->autocreate = (bool) $autocreate;
     }
-    
+
     /**
      * Returns whether to autocreate remote directories
      */
@@ -220,7 +220,7 @@ class ScpTask extends Task
     {
         return $this->autocreate;
     }
-    
+
     /**
      * Set destination directory
      */
@@ -252,7 +252,7 @@ class ScpTask extends Task
     {
         return $this->file;
     }
-    
+
     /**
      * Sets whether to send (default) or fetch files
      */
@@ -260,7 +260,7 @@ class ScpTask extends Task
     {
         $this->fetch = (bool) $fetch;
     }
-    
+
     /**
      * Returns whether to send (default) or fetch files
      */
@@ -272,7 +272,7 @@ class ScpTask extends Task
     /**
      * Declare number of successful operations above which "sftp" will be chosen over "scp".
      *
-     * @param int $heuristicDecision    Number
+     * @param int $heuristicDecision Number
      */
     public function setHeuristicDecision($heuristicDecision)
     {
@@ -294,7 +294,8 @@ class ScpTask extends Task
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -305,22 +306,32 @@ class ScpTask extends Task
     public function createSshconfig()
     {
         $this->methods = new Ssh2MethodParam();
+
         return $this->methods;
     }
-    
+
     /**
      * Set level of log messages generated (default = verbose)
      * @param string $level
      */
     public function setLevel($level)
     {
-        switch ($level)
-        {
-            case "error": $this->logLevel = Project::MSG_ERR; break;
-            case "warning": $this->logLevel = Project::MSG_WARN; break;
-            case "info": $this->logLevel = Project::MSG_INFO; break;
-            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
-            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        switch ($level) {
+            case "error":
+                $this->logLevel = Project::MSG_ERR;
+                break;
+            case "warning":
+                $this->logLevel = Project::MSG_WARN;
+                break;
+            case "info":
+                $this->logLevel = Project::MSG_INFO;
+                break;
+            case "verbose":
+                $this->logLevel = Project::MSG_VERBOSE;
+                break;
+            case "debug":
+                $this->logLevel = Project::MSG_DEBUG;
+                break;
         }
     }
 
@@ -332,14 +343,14 @@ class ScpTask extends Task
     {
         $p = $this->getProject();
 
-        if (!function_exists('ssh2_connect')) { 
+        if (!function_exists('ssh2_connect')) {
             throw new BuildException("To use ScpTask, you need to install the PHP SSH2 extension.");
         }
-        
+
         if ($this->file == "" && empty($this->filesets)) {
             throw new BuildException("Missing either a nested fileset or attribute 'file'");
         }
-        
+
         if ($this->host == "" || $this->username == "") {
             throw new BuildException("Attribute 'host' and 'username' must be set");
         }
@@ -351,50 +362,58 @@ class ScpTask extends Task
         }
 
         $could_auth = null;
-        if ( $this->pubkeyfile ) {
-            $could_auth = ssh2_auth_pubkey_file($this->connection, $this->username, $this->pubkeyfile, $this->privkeyfile, $this->privkeyfilepassphrase);
+        if ($this->pubkeyfile) {
+            $could_auth = ssh2_auth_pubkey_file(
+                $this->connection,
+                $this->username,
+                $this->pubkeyfile,
+                $this->privkeyfile,
+                $this->privkeyfilepassphrase
+            );
         } else {
             $could_auth = ssh2_auth_password($this->connection, $this->username, $this->password);
         }
         if (!$could_auth) {
             throw new BuildException("Could not authenticate connection!");
         }
-        
+
         // prepare sftp resource
         if ($this->autocreate) {
             $this->sftp = ssh2_sftp($this->connection);
         }
-        
+
         if ($this->file != "") {
             $this->copyFile($this->file, basename($this->file));
         } else {
             if ($this->fetch) {
                 throw new BuildException("Unable to use filesets to retrieve files from remote server");
             }
-            
-            foreach($this->filesets as $fs) {
+
+            foreach ($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($this->project);
                 $files = $ds->getIncludedFiles();
                 $dir = $fs->getDir($this->project)->getPath();
-                foreach($files as $file) {
-                    $path = $dir.DIRECTORY_SEPARATOR.$file;
-                    
+                foreach ($files as $file) {
+                    $path = $dir . DIRECTORY_SEPARATOR . $file;
+
                     // Translate any Windows paths
                     $this->copyFile($path, strtr($file, '\\', '/'));
                 }
             }
         }
-        
-        $this->log("Copied " . $this->counter . " file(s) " . ($this->fetch ? "from" : "to") . " '" . $this->host . "'");
-        
+
+        $this->log(
+            "Copied " . $this->counter . " file(s) " . ($this->fetch ? "from" : "to") . " '" . $this->host . "'"
+        );
+
         // explicitly close ssh connection
         @ssh2_exec($this->connection, 'exit');
     }
-    
+
     protected function copyFile($local, $remote)
     {
         $path = rtrim($this->todir, "/") . "/";
-        
+
         if ($this->fetch) {
             $localEndpoint = $path . $remote;
             $remoteEndpoint = $local;
@@ -402,7 +421,7 @@ class ScpTask extends Task
             $this->log('Will fetch ' . $remoteEndpoint . ' to ' . $localEndpoint, $this->logLevel);
 
             $ret = @ssh2_scp_recv($this->connection, $remoteEndpoint, $localEndpoint);
-            
+
             if ($ret === false) {
                 throw new BuildException("Could not fetch remote file '" . $remoteEndpoint . "'");
             }
@@ -411,11 +430,16 @@ class ScpTask extends Task
             $remoteEndpoint = $path . $remote;
 
             if ($this->autocreate) {
-                ssh2_sftp_mkdir($this->sftp, dirname($remoteEndpoint), (is_null($this->mode) ? 0777 : $this->mode), true);
+                ssh2_sftp_mkdir(
+                    $this->sftp,
+                    dirname($remoteEndpoint),
+                    (is_null($this->mode) ? 0777 : $this->mode),
+                    true
+                );
             }
-            
+
             $this->log('Will copy ' . $localEndpoint . ' to ' . $remoteEndpoint, $this->logLevel);
-            
+
             $ret = false;
             // If more than "$this->heuristicDecision" successfully send files by "ssh2.sftp" over "ssh2_scp_send"
             // then ship this step (task finish ~40% faster)
@@ -426,7 +450,7 @@ class ScpTask extends Task
                     $ret = @ssh2_scp_send($this->connection, $localEndpoint, $remoteEndpoint);
                 }
             }
-            
+
             // sometimes remote server allow only create files via sftp (eg. phpcloud.com)
             if (false === $ret && $this->sftp) {
                 // mark failure of "scp"
@@ -437,7 +461,7 @@ class ScpTask extends Task
                 if (is_resource($fh)) {
                     $ret = fwrite($fh, file_get_contents($localEndpoint));
                     fclose($fh);
-            
+
                     // mark success of "sftp"
                     $this->heuristicScpSftp += 2;
                 }

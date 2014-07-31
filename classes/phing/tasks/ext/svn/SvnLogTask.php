@@ -41,7 +41,7 @@ class SvnLogTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      */
-    function setPropertyName($propertyName)
+    public function setPropertyName($propertyName)
     {
         $this->propertyName = $propertyName;
     }
@@ -49,7 +49,7 @@ class SvnLogTask extends SvnBaseTask
     /**
      * Returns the name of the property to use
      */
-    function getPropertyName()
+    public function getPropertyName()
     {
         return $this->propertyName;
     }
@@ -65,7 +65,7 @@ class SvnLogTask extends SvnBaseTask
     /**
      * Sets the max num of log entries to get from svn
      */
-    function setLimit($limit)
+    public function setLimit($limit)
     {
         $this->limit = (int) $limit;
     }
@@ -75,18 +75,18 @@ class SvnLogTask extends SvnBaseTask
      *
      * @throws BuildException
      */
-    function main()
+    public function main()
     {
         $this->setup('log');
 
-        $switches= array();
+        $switches = array();
         if ($this->limit > 0) {
             $switches['limit'] = $this->limit;
         }
 
         $output = $this->run(array(), $switches);
         $result = null;
-        
+
         if ($this->oldVersion) {
             foreach ($output as $line) {
                 $result .= (!empty($result)) ? "\n" : '';

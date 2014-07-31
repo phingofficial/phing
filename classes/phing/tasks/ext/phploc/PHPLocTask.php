@@ -92,7 +92,7 @@ class PHPLocTask extends Task
     public function setSuffixes($suffixListOrSingleSuffix)
     {
         if (stripos($suffixListOrSingleSuffix, ',')) {
-            $suffixes              = explode(',', $suffixListOrSingleSuffix);
+            $suffixes = explode(',', $suffixListOrSingleSuffix);
             $this->suffixesToCheck = array_map('trim', $suffixes);
         } else {
             $this->suffixesToCheck[] = trim($suffixListOrSingleSuffix);
@@ -120,7 +120,8 @@ class PHPLocTask extends Task
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->fileSets[] = $fs;
     }
 
@@ -154,8 +155,8 @@ class PHPLocTask extends Task
          * Find PHPLoc
          */
         if (!class_exists('\SebastianBergmann\PHPLOC\Analyser')) {
-            if (!@include_once('SebastianBergmann/PHPLOC/autoload.php')) {
-                if (!@include_once('PHPLOC/Analyser.php')) {
+            if (!@include_once 'SebastianBergmann/PHPLOC/autoload.php') {
+                if (!@include_once 'PHPLOC/Analyser.php') {
                     throw new BuildException(
                         'PHPLocTask depends on PHPLoc being installed and on include_path.',
                         $this->getLocation()
@@ -181,7 +182,7 @@ class PHPLocTask extends Task
             $reportOutputDir = new PhingFile($this->reportDirectory);
 
             $logMessage = "Report output directory doesn't exist, creating: "
-                        . $reportOutputDir->getAbsolutePath() . '.';
+                . $reportOutputDir->getAbsolutePath() . '.';
 
             $this->log($logMessage);
             $reportOutputDir->mkdirs();
@@ -194,8 +195,8 @@ class PHPLocTask extends Task
         if (count($this->fileSets) > 0) {
             foreach ($this->fileSets as $fileSet) {
                 $directoryScanner = $fileSet->getDirectoryScanner($this->project);
-                $files            = $directoryScanner->getIncludedFiles();
-                $directory        = $fileSet->getDir($this->project)->getPath();
+                $files = $directoryScanner->getIncludedFiles();
+                $directory = $fileSet->getDir($this->project)->getPath();
 
                 foreach ($files as $file) {
                     if ($this->isFileSuffixSet($file)) {
@@ -267,7 +268,7 @@ class PHPLocTask extends Task
 
         if ($this->reportType != 'cli') {
             $logMessage = 'Writing report to: '
-                        . $this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName;
+                . $this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName;
 
             $this->log($logMessage);
         }
@@ -283,14 +284,14 @@ class PHPLocTask extends Task
                         $printerClass = '\\SebastianBergmann\\PHPLOC\\TextUI\\ResultPrinter';
                     }
 
-                    $printer = new $printerClass;
+                    $printer = new $printerClass();
                     $printer->printResult($count, $this->countTests);
                 } else {
-                    $outputClass  = '\\Symfony\\Component\\Console\\Output\\ConsoleOutput';
+                    $outputClass = '\\Symfony\\Component\\Console\\Output\\ConsoleOutput';
                     $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Text';
 
-                    $output  = new $outputClass;
-                    $printer = new $printerClass;
+                    $output = new $outputClass();
+                    $printer = new $printerClass();
                     $printer->printResult($output, $count, $this->countTests);
                 }
                 break;
@@ -305,7 +306,7 @@ class PHPLocTask extends Task
                         $printerClass = '\\SebastianBergmann\\PHPLOC\\TextUI\\ResultPrinter';
                     }
 
-                    $printer = new $printerClass;
+                    $printer = new $printerClass();
 
                     ob_start();
                     $printer->printResult($count, $this->countTests);
@@ -314,12 +315,12 @@ class PHPLocTask extends Task
 
                     file_put_contents($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $result);
                 } else {
-                    $outputClass  = '\\Symfony\\Component\\Console\\Output\\StreamOutput';
+                    $outputClass = '\\Symfony\\Component\\Console\\Output\\StreamOutput';
                     $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\Text';
 
-                    $stream  = fopen($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, 'a+');
-                    $output  = new $outputClass($stream);
-                    $printer = new $printerClass;
+                    $stream = fopen($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, 'a+');
+                    $output = new $outputClass($stream);
+                    $printer = new $printerClass();
                     $printer->printResult($output, $count, $this->countTests);
                 }
                 break;
@@ -333,7 +334,7 @@ class PHPLocTask extends Task
                     $printerClass = '\\SebastianBergmann\\PHPLOC\\Log\\XML';
                 }
 
-                $printer = new $printerClass;
+                $printer = new $printerClass();
                 $printer->printResult($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $count);
                 break;
 
@@ -350,7 +351,7 @@ class PHPLocTask extends Task
                     }
                 }
 
-                $printer = new $printerClass;
+                $printer = new $printerClass();
                 $printer->printResult($this->reportDirectory . DIRECTORY_SEPARATOR . $this->reportFileName, $count);
                 break;
         }
@@ -382,7 +383,7 @@ class PHPLocTask extends Task
     protected function getCountForFiles(array $files)
     {
         $analyserClass = ($this->oldVersion ? 'PHPLOC_Analyser' : '\\SebastianBergmann\\PHPLOC\\Analyser');
-        $analyser      = new $analyserClass();
+        $analyser = new $analyserClass();
 
         return $analyser->countFiles($files, $this->countTests);
     }

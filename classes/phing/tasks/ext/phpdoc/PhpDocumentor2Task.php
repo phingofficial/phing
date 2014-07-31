@@ -37,7 +37,7 @@ class PhpDocumentor2Task extends Task
      * @var FileSet[]
      */
     private $filesets = array();
-    
+
     /**
      * Destination/target directory
      * @var PhingFile
@@ -49,25 +49,26 @@ class PhpDocumentor2Task extends Task
      * @var string
      */
     private $template = "responsive-twig";
-    
+
     /**
      * Title of the project
      * @var string
      */
     private $title = "API Documentation";
-    
+
     /**
      * Name of default package
      * @var string
      */
     private $defaultPackageName = "Default";
-    
+
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -97,7 +98,7 @@ class PhpDocumentor2Task extends Task
     {
         $this->template = (string) $template;
     }
-    
+
     /**
      * Sets the title of the project
      * @param strings $title
@@ -106,7 +107,7 @@ class PhpDocumentor2Task extends Task
     {
         $this->title = (string) $title;
     }
-    
+
     /**
      * Sets the default package name
      * @param string $defaultPackageName
@@ -115,7 +116,7 @@ class PhpDocumentor2Task extends Task
     {
         $this->defaultPackageName = (string) $defaultPackageName;
     }
-    
+
     /**
      * Forces phpDocumentor to be quiet
      * @deprecated
@@ -125,7 +126,7 @@ class PhpDocumentor2Task extends Task
     {
         $this->project->log(__CLASS__ . ": the 'quiet' option has been deprecated", Project::MSG_WARN);
     }
-    
+
     /**
      * Task entry point
      * @see Task::main()
@@ -135,17 +136,17 @@ class PhpDocumentor2Task extends Task
         if (empty($this->destDir)) {
             throw new BuildException("You must supply the 'destdir' attribute", $this->getLocation());
         }
-        
+
         if (empty($this->filesets)) {
             throw new BuildException("You have not specified any files to include (<fileset>)", $this->getLocation());
         }
-        
+
         if (version_compare(PHP_VERSION, '5.3.0') < 0) {
             throw new BuildException("The phpdocumentor2 task requires PHP 5.3+");
         }
-        
+
         require_once 'phing/tasks/ext/phpdoc/PhpDocumentor2Wrapper.php';
-        
+
         $wrapper = new PhpDocumentor2Wrapper();
         $wrapper->setProject($this->project);
         $wrapper->setFilesets($this->filesets);

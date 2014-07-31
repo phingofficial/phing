@@ -19,26 +19,27 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 include_once 'phing/types/Path.php';
 
 /**
  * Adds a normalized path to the PHP include_path.
- * 
+ *
  * This provides a way to alter the include_path without editing any global php.ini settings
  * or PHP_CLASSPATH environment variable.
- * 
+ *
  * <code>
  *   <includepath classpath="new/path/here"/>
  * </code>
- * 
+ *
  * @author    Hans Lellelid <hans@xmpl.org>
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class IncludePathTask extends Task {
-   
+class IncludePathTask extends Task
+{
+
     /**
      * Classname of task to register.
      * This can be a dot-path -- relative to a location on PHP include_path.
@@ -46,13 +47,13 @@ class IncludePathTask extends Task {
      * @var string
      */
     private $classname;
-    
+
     /**
      * Path to add to PHP include_path to aid in finding specified class.
      * @var Path
      */
     private $classpath;
-    
+
     /**
      * Refid to already defined classpath
      */
@@ -63,13 +64,14 @@ class IncludePathTask extends Task {
      * @var string
      */
     private $mode = "prepend";
-    
+
     /**
      * Set the classpath to be used when searching for component being defined
-     * 
+     *
      * @param Path $classpath An Path object containing the classpath.
      */
-    public function setClasspath(Path $classpath) {
+    public function setClasspath(Path $classpath)
+    {
         if ($this->classpath === null) {
             $this->classpath = $classpath;
         } else {
@@ -79,18 +81,21 @@ class IncludePathTask extends Task {
 
     /**
      * Create the classpath to be used when searching for component being defined
-     */ 
-    public function createClasspath() {
+     */
+    public function createClasspath()
+    {
         if ($this->classpath === null) {
             $this->classpath = new Path($this->project);
         }
+
         return $this->classpath->createPath();
     }
 
     /**
      * Reference to a classpath to use when loading the files.
      */
-    public function setClasspathRef(Reference $r) {
+    public function setClasspathRef(Reference $r)
+    {
         $this->classpathId = $r->getRefId();
         $this->createClasspath()->setRefid($r);
     }
@@ -101,26 +106,26 @@ class IncludePathTask extends Task {
      */
     public function setMode($mode)
     {
-        if (! in_array('mode', array('append', 'prepend', 'replace'))) {
+        if (!in_array('mode', array('append', 'prepend', 'replace'))) {
             throw new BuildException("Illegal mode: needs to be either append, prepend or replace");
         }
 
         $this->mode = $mode;
     }
 
-    
     /** Main entry point */
-    public function main() {
-    
+    public function main()
+    {
+
         // Apparently casting to (string) no longer invokes __toString() automatically.
         if (is_object($this->classpath)) {
             $classpath = $this->classpath->__toString();
         }
-        
+
         if (empty($classpath)) {
             throw new BuildException("Provided classpath was empty.");
         }
-        
+
         $curr_parts = Phing::explodeIncludePath();
         $add_parts = Phing::explodeIncludePath($classpath);
         $new_parts = array_diff($add_parts, $curr_parts);

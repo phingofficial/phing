@@ -22,8 +22,6 @@
 require_once 'phing/types/DataType.php';
 require_once 'Ssh2MethodConnectionParam.php';
 
-
-
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter
  * This corresponds to the optional $methods parameter
@@ -69,10 +67,10 @@ class Ssh2MethodParam extends DataType
      */
     public function getHostkey(Project $p)
     {
-        if($this->isReference())
-        {
+        if ($this->isReference()) {
             return $this->getRef($p)->getHostkey($p);
         }
+
         return $this->hostkey;
     }
 
@@ -89,10 +87,10 @@ class Ssh2MethodParam extends DataType
      */
     public function getKex(Project $p)
     {
-        if($this->isReference())
-        {
+        if ($this->isReference()) {
             return $this->getRef($p)->getKex($p);
         }
+
         return $this->kex;
     }
 
@@ -101,8 +99,7 @@ class Ssh2MethodParam extends DataType
      */
     public function getClientToServer(Project $p)
     {
-        if($this->isReference())
-        {
+        if ($this->isReference()) {
             return $this->getRef($p)->getClientToServer($p);
         }
 
@@ -114,15 +111,12 @@ class Ssh2MethodParam extends DataType
      */
     public function getServerToClient(Project $p)
     {
-        if($this->isReference())
-        {
+        if ($this->isReference()) {
             return $this->getRef($p)->getServerToClient($p);
         }
+
         return $this->server_to_client;
     }
-
-
-
 
     /**
      * Handles the <client /> nested element
@@ -131,6 +125,7 @@ class Ssh2MethodParam extends DataType
     public function createClient()
     {
         $this->client_to_server = new Ssh2MethodConnectionParam();
+
         return $this->client_to_server;
     }
 
@@ -141,6 +136,7 @@ class Ssh2MethodParam extends DataType
     public function createServer()
     {
         $this->server_to_client = new Ssh2MethodConnectionParam();
+
         return $this->server_to_client;
     }
 
@@ -162,11 +158,12 @@ class Ssh2MethodParam extends DataType
 
         return array_filter($array, array($this, '_filterParam'));
     }
-    
+
     /**
      * @return boolean
      */
-    protected function _filterParam($var) {
+    protected function _filterParam($var)
+    {
         if (is_array($var)) {
             return !empty($var);
         }
@@ -178,19 +175,19 @@ class Ssh2MethodParam extends DataType
      *
      * @return Ssh2MethodParam
      */
-    public function getRef(Project $p) {
-        if ( !$this->checked ) {
+    public function getRef(Project $p)
+    {
+        if (!$this->checked) {
             $stk = array();
             array_push($stk, $this);
             $this->dieOnCircularReference($stk, $p);
         }
         $o = $this->ref->getReferencedObject($p);
-        if ( !($o instanceof Ssh2MethodParam) ) {
-            throw new BuildException($this->ref->getRefId()." doesn't denote a Ssh2MethodParam");
+        if (!($o instanceof Ssh2MethodParam)) {
+            throw new BuildException($this->ref->getRefId() . " doesn't denote a Ssh2MethodParam");
         } else {
             return $o;
         }
     }
 
 }
-

@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 include_once 'phing/types/DataType.php';
@@ -24,7 +24,7 @@ include_once 'phing/types/Path.php';
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).
- * 
+ *
  * Built-in mappers can be accessed by specifying they "type" attribute:
  * <code>
  * <mapper type="glob" from="*.php" to="*.php.bak"/>
@@ -39,26 +39,28 @@ include_once 'phing/types/Path.php';
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.types
  */
-class Mapper extends DataType {
+class Mapper extends DataType
+{
 
-    protected $type;    
+    protected $type;
     protected $classname;
     protected $from;
     protected $to;
     protected $classpath;
     protected $classpathId;
 
-    
-    function __construct(Project $project) {
+    public function __construct(Project $project)
+    {
         $this->project = $project;
     }
-    
+
     /**
      * Set the classpath to be used when searching for component being defined
-     * 
+     *
      * @param Path $classpath An Path object containing the classpath.
      */
-    public function setClasspath(Path $classpath) {
+    public function setClasspath(Path $classpath)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -71,21 +73,24 @@ class Mapper extends DataType {
 
     /**
      * Create the classpath to be used when searching for component being defined
-     */ 
-    public function createClasspath() {
+     */
+    public function createClasspath()
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
         if ($this->classpath === null) {
             $this->classpath = new Path($this->project);
         }
+
         return $this->classpath->createPath();
     }
 
     /**
      * Reference to a classpath to use when loading the files.
      */
-    public function setClasspathRef(Reference $r) {
+    public function setClasspathRef(Reference $r)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -94,7 +99,8 @@ class Mapper extends DataType {
     }
 
     /** Set the type of FileNameMapper to use. */
-    function setType($type) {
+    public function setType($type)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -102,7 +108,8 @@ class Mapper extends DataType {
     }
 
     /** Set the class name of the FileNameMapper to use. */
-    function setClassname($classname) {
+    public function setClassname($classname)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -112,7 +119,8 @@ class Mapper extends DataType {
     /**
      * Set the argument to FileNameMapper.setFrom
      */
-    function setFrom($from) {
+    public function setFrom($from)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -122,7 +130,8 @@ class Mapper extends DataType {
     /**
      * Set the argument to FileNameMapper.setTo
      */
-    function setTo($to) {
+    public function setTo($to)
+    {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
@@ -134,7 +143,8 @@ class Mapper extends DataType {
      *
      * You must not set any other attribute if you make it a reference.
      */
-    function setRefid(Reference $r) {
+    public function setRefid(Reference $r)
+    {
         if ($this->type !== null || $this->from !== null || $this->to !== null) {
             throw DataType::tooManyAttributes();
         }
@@ -142,66 +152,67 @@ class Mapper extends DataType {
     }
 
     /** Factory, returns inmplementation of file name mapper as new instance */
-    function getImplementation() {
+    public function getImplementation()
+    {
         if ($this->isReference()) {
             $tmp = $this->getRef();
+
             return $tmp->getImplementation();
         }
 
         if ($this->type === null && $this->classname === null) {
             throw new BuildException("either type or classname attribute must be set for <mapper>");
         }
-        
+
         if ($this->type !== null) {
-            switch($this->type) {
-            case 'identity':
-                $this->classname = 'phing.mappers.IdentityMapper';
-                break;
-            case 'flatten':
-                $this->classname = 'phing.mappers.FlattenMapper';
-                break;
-            case 'glob':
-                $this->classname = 'phing.mappers.GlobMapper';
-                break;
-            case 'regexp':
-            case 'regex':
-                $this->classname = 'phing.mappers.RegexpMapper';            
-                break;
-            case 'merge':
-                $this->classname = 'phing.mappers.MergeMapper';                
-                break;
-            default:
-                throw new BuildException("Mapper type {$this->type} not known");
-                break;
+            switch ($this->type) {
+                case 'identity':
+                    $this->classname = 'phing.mappers.IdentityMapper';
+                    break;
+                case 'flatten':
+                    $this->classname = 'phing.mappers.FlattenMapper';
+                    break;
+                case 'glob':
+                    $this->classname = 'phing.mappers.GlobMapper';
+                    break;
+                case 'regexp':
+                case 'regex':
+                    $this->classname = 'phing.mappers.RegexpMapper';
+                    break;
+                case 'merge':
+                    $this->classname = 'phing.mappers.MergeMapper';
+                    break;
+                default:
+                    throw new BuildException("Mapper type {$this->type} not known");
+                    break;
             }
         }
 
         // get the implementing class
         $cls = Phing::import($this->classname, $this->classpath);
-        
-        $m = new $cls;
+
+        $m = new $cls();
         $m->setFrom($this->from);
         $m->setTo($this->to);
-        
+
         return $m;
     }
 
     /** Performs the check for circular references and returns the referenced Mapper. */
-    private function getRef() {
+    private function getRef()
+    {
         if (!$this->checked) {
             $stk = array();
             $stk[] = $this;
-            $this->dieOnCircularReference($stk, $this->project);            
+            $this->dieOnCircularReference($stk, $this->project);
         }
 
         $o = $this->ref->getReferencedObject($this->project);
         if (!($o instanceof Mapper)) {
-            $msg = $this->ref->getRefId()." doesn't denote a mapper";
+            $msg = $this->ref->getRefId() . " doesn't denote a mapper";
             throw new BuildException($msg);
         } else {
             return $o;
         }
     }
 }
-
-

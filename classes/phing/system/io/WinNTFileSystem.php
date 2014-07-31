@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 include_once 'phing/system/io/Win32FileSystem.php';
@@ -25,10 +25,9 @@ include_once 'phing/system/io/Win32FileSystem.php';
  * FileSystem for Windows NT/2000.
  * @package phing.system.io
  */
-class WinNTFileSystem extends Win32FileSystem {
+class WinNTFileSystem extends Win32FileSystem
+{
 
     /* -- class only for convenience and future use everything is inherinted --*/
 
-
 }
-

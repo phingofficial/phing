@@ -85,7 +85,7 @@ class Arg extends DataType
      * Should the argument value be enclosed in double quotes
      * @param boolean $quotes
      */
-    public function setQuotes( $quotes)
+    public function setQuotes($quotes)
     {
         $this->quotes = $quotes;
     }
@@ -102,7 +102,7 @@ class Arg extends DataType
         $quote = $this->getQuotes() ? '"' : '';
 
         if (!is_null($this->getValue())) {
-            $value = $quote . $this->getValue() . $quote ;
+            $value = $quote . $this->getValue() . $quote;
         }
 
         if (!is_null($this->getName())) {
@@ -112,6 +112,7 @@ class Arg extends DataType
         if (strlen($name) > 0 && strlen($value) > 0) {
             $value = '=' . $value;
         }
+
         return $name . $value;
     }
 

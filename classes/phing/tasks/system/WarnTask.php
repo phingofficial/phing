@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/tasks/system/EchoTask.php';
 
 /**
@@ -28,8 +28,10 @@ require_once 'phing/tasks/system/EchoTask.php';
  * @version  $Id$
  * @package  phing.tasks.system
  */
-class WarnTask extends EchoTask {
-    function main() {
+class WarnTask extends EchoTask
+{
+    public function main()
+    {
         $this->log($this->msg, Project::MSG_WARN);
     }
 }

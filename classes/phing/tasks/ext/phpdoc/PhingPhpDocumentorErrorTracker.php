@@ -23,76 +23,80 @@ require_once 'PhpDocumentor/phpDocumentor/Errors.inc';
 
 /**
  * Phing subclass of the ErrorTracker class provided with PhpDocumentor to work around limitations in PhpDocumentor API.
- * 
+ *
  * This class is necessary because PhpDocumentor does directly output errors and
  * warnings occured during testing for undocumented elements to stdout.
  * This class is injected globally to force PhpDocumentor to use phing's logging
  * mechanism.
- * 
+ *
  * Obviously this is far from ideal, but there's also no solution given the inflexibility of the
- * PhpDocumentor design. 
- * 
+ * PhpDocumentor design.
+ *
  * @author Timo A. Hummel <privat@timohummel.com> @author felicitus
  * @version $Id$
  * @package phing.tasks.ext.phpdoc
- */ 
-class PhingPhpDocumentorErrorTracker extends ErrorTracker {
-	
-	/*
-	 * @var object	Reference to the task we're called with
-	 */
-	private $task;
-	
-	/**
-	 * Outputs a warning. This is an almost 1:1 copy from PhpDocumentor,
-	 * we're just processing the warning text and send it to phing's logger.
-	 * 
-	 * @param $num integer	Number of parameters
-	 * @return nothing
-	 */
-	function addWarning ($num) {
+ */
+class PhingPhpDocumentorErrorTracker extends ErrorTracker
+{
+
+    /*
+     * @var object	Reference to the task we're called with
+     */
+    private $task;
+
+    /**
+     * Outputs a warning. This is an almost 1:1 copy from PhpDocumentor,
+     * we're just processing the warning text and send it to phing's logger.
+     *
+     * @param $num integer    Number of parameters
+     * @return nothing
+     */
+    public function addWarning($num)
+    {
         $a = array('', '', '', '');
-        if (func_num_args()>1) {
-            for ($i=1;$i<func_num_args();$i++) {
+        if (func_num_args() > 1) {
+            for ($i = 1; $i < func_num_args(); $i++) {
                 $a[$i - 1] = func_get_arg($i);
             }
         }
-        
-       $message = sprintf($GLOBALS['phpDocumentor_warning_descrip'][$num], $a[0], $a[1], $a[2], $a[3]);
-       $this->task->log($message, Project::MSG_WARN);
-		
-	}
-	
-	/**
-	 * Outputs an error. This is an almost 1:1 copy from PhpDocumentor,
-	 * we're just processing the error text and send it to phing's logger.
-	 * 
-	 * @param $num integer	Number of parameters
-	 * @return nothing
-	 */
-	
-	function addError ($num) {
+
+        $message = sprintf($GLOBALS['phpDocumentor_warning_descrip'][$num], $a[0], $a[1], $a[2], $a[3]);
+        $this->task->log($message, Project::MSG_WARN);
+
+    }
+
+    /**
+     * Outputs an error. This is an almost 1:1 copy from PhpDocumentor,
+     * we're just processing the error text and send it to phing's logger.
+     *
+     * @param $num integer    Number of parameters
+     * @return nothing
+     */
+
+    public function addError($num)
+    {
         $a = array('', '', '', '');
-        if (func_num_args()>1) {
-            for ($i=1;$i<func_num_args();$i++) {
+        if (func_num_args() > 1) {
+            for ($i = 1; $i < func_num_args(); $i++) {
                 $a[$i - 1] = func_get_arg($i);
             }
         }
-        
-       $message = sprintf($GLOBALS['phpDocumentor_error_descrip'][$num], $a[0], $a[1], $a[2], $a[3]);
-       $this->task->log($message, Project::MSG_ERR);
-		
-	}
-	
-	/**
-	 * Sets the task we're working with. This is necessary since we need to be
-	 * able to call the method "log".
-	 * 
-	 * @param object $task	The task we're working with
-	 * @return nothing
-	 */
-	public function setTask ($task) {
-		$this->task = $task;
-	}
-	
+
+        $message = sprintf($GLOBALS['phpDocumentor_error_descrip'][$num], $a[0], $a[1], $a[2], $a[3]);
+        $this->task->log($message, Project::MSG_ERR);
+
+    }
+
+    /**
+     * Sets the task we're working with. This is necessary since we need to be
+     * able to call the method "log".
+     *
+     * @param  object  $task The task we're working with
+     * @return nothing
+     */
+    public function setTask($task)
+    {
+        $this->task = $task;
+    }
+
 }

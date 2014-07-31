@@ -47,7 +47,6 @@ class HttpRequestTask extends HttpTask
      */
     protected $verbose = false;
 
-
     /**
      * Holds the events that will be logged
      *
@@ -86,7 +85,6 @@ class HttpRequestTask extends HttpTask
         $this->responseRegex = $regex;
     }
 
-
     /**
      * Sets whether to enable detailed logging
      *
@@ -107,7 +105,7 @@ class HttpRequestTask extends HttpTask
         $this->observerEvents = array();
 
         $token = ' ,;';
-        $ext   = strtok($observerEvents, $token);
+        $ext = strtok($observerEvents, $token);
 
         while ($ext !== false) {
             $this->observerEvents[] = $ext;
@@ -123,7 +121,6 @@ class HttpRequestTask extends HttpTask
         $this->method = $method;
     }
 
-
     /**
      * Creates post body parameters for this request
      *
@@ -131,9 +128,9 @@ class HttpRequestTask extends HttpTask
      */
     public function createPostParameter()
     {
-      $num = array_push($this->postParameters, new Parameter());
+        $num = array_push($this->postParameters, new Parameter());
 
-      return $this->postParameters[$num-1];
+        return $this->postParameters[$num - 1];
     }
 
     /**
@@ -183,7 +180,7 @@ class HttpRequestTask extends HttpTask
     /**
      * Checks whether response body matches the given regexp
      *
-     * @param HTTP_Request2_Response $response
+     * @param  HTTP_Request2_Response $response
      * @return void
      * @throws BuildException
      */

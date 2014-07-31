@@ -39,7 +39,7 @@ class SvnLastRevisionTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      */
-    function setPropertyName($propertyName)
+    public function setPropertyName($propertyName)
     {
         $this->propertyName = $propertyName;
     }
@@ -47,11 +47,11 @@ class SvnLastRevisionTask extends SvnBaseTask
     /**
      * Returns the name of the property to use
      */
-    function getPropertyName()
+    public function getPropertyName()
     {
         return $this->propertyName;
     }
-    
+
     /**
      * Sets whether to force compatibility with older SVN versions (< 1.2)
      *
@@ -61,7 +61,7 @@ class SvnLastRevisionTask extends SvnBaseTask
     public function setForceCompatible($force)
     {
     }
-    
+
     /**
      * Sets whether to retrieve the last changed revision
      */
@@ -75,17 +75,17 @@ class SvnLastRevisionTask extends SvnBaseTask
      *
      * @throws BuildException
      */
-    function main()
+    public function main()
     {
         $this->setup('info');
-        
+
         if ($this->oldVersion) {
             $output = $this->run(array('--xml'));
-            
+
             if (!($xmlObj = @simplexml_load_string($output))) {
                 throw new BuildException("Failed to parse the output of 'svn info --xml'.");
             }
-            
+
             if ($this->lastChanged) {
                 $found = (int) $xmlObj->entry->commit['revision'];
             } else {
@@ -93,18 +93,18 @@ class SvnLastRevisionTask extends SvnBaseTask
             }
         } else {
             $output = $this->run();
-            
+
             if (empty($output) || !isset($output['entry'][0])) {
                 throw new BuildException("Failed to parse the output of 'svn info'.");
             }
-            
+
             if ($this->lastChanged) {
                 $found = $output['entry'][0]['commit']['revision'];
             } else {
                 $found = $output['entry'][0]['revision'];
             }
         }
-        
+
         $this->project->setProperty($this->getPropertyName(), $found);
     }
 }

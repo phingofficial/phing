@@ -143,6 +143,7 @@ class CoverageThresholdTask extends Task
     public function createClasspath()
     {
         $this->classpath = new Path();
+
         return $this->classpath;
     }
 
@@ -189,7 +190,7 @@ class CoverageThresholdTask extends Task
     /**
      * Filter covered statements
      *
-     * @param integer $var Coverage CODE/count
+     * @param  integer $var Coverage CODE/count
      * @return boolean
      */
     protected function filterCovered($var)
@@ -205,6 +206,7 @@ class CoverageThresholdTask extends Task
     public function createExcludes()
     {
         $this->_excludes = new Excludes($this->project);
+
         return $this->_excludes;
     }
 
@@ -227,7 +229,7 @@ class CoverageThresholdTask extends Task
                     }
                 }
 
-                $reflection     = new ReflectionClass($className);
+                $reflection = new ReflectionClass($className);
                 $classStartLine = $reflection->getStartLine();
 
                 // Strange PHP5 reflection bug, classes without parent class
@@ -265,7 +267,7 @@ class CoverageThresholdTask extends Task
                     }
 
                     $methodStartLine = $method->getStartLine();
-                    $methodEndLine   = $method->getEndLine();
+                    $methodEndLine = $method->getEndLine();
 
                     // small fix for XDEBUG_CC_UNUSED
                     if (isset($coverageInformation[$methodStartLine])) {
@@ -288,7 +290,7 @@ class CoverageThresholdTask extends Task
                     }
 
                     $methodStatementsCovered = 0;
-                    $methodStatementCount    = 0;
+                    $methodStatementCount = 0;
 
                     while ($lineNr !== null && $lineNr <= $methodEndLine) {
                         $methodStatementCount++;
@@ -304,8 +306,8 @@ class CoverageThresholdTask extends Task
                     }
 
                     if ($methodStatementCount > 0) {
-                        $methodCoverage = (  $methodStatementsCovered
-                                           / $methodStatementCount) * 100;
+                        $methodCoverage = ($methodStatementsCovered
+                                / $methodStatementCount) * 100;
                     } else {
                         $methodCoverage = 0;
                     }
@@ -321,8 +323,8 @@ class CoverageThresholdTask extends Task
                             . $filename . '"'
                         );
                     } elseif ($methodCoverage < $this->_perMethod
-                              && $method->isAbstract()
-                              && $this->_verbose === true
+                        && $method->isAbstract()
+                        && $this->_verbose === true
                     ) {
                         $this->log(
                             'Skipped coverage threshold for abstract method "'
@@ -340,7 +342,7 @@ class CoverageThresholdTask extends Task
                     }
                 }
 
-                $classStatementCount    = count($coverageInformation);
+                $classStatementCount = count($coverageInformation);
                 $classStatementsCovered = count(
                     array_filter(
                         $coverageInformation,
@@ -349,8 +351,8 @@ class CoverageThresholdTask extends Task
                 );
 
                 if ($classStatementCount > 0) {
-                    $classCoverage = (  $classStatementsCovered
-                                      / $classStatementCount) * 100;
+                    $classCoverage = ($classStatementsCovered
+                            / $classStatementCount) * 100;
                 } else {
                     $classCoverage = 0;
                 }
@@ -365,8 +367,8 @@ class CoverageThresholdTask extends Task
                         . 'see file: "' . $filename . '"'
                     );
                 } elseif ($classCoverage < $this->_perClass
-                          && $reflection->isAbstract()
-                          && $this->_verbose === true
+                    && $reflection->isAbstract()
+                    && $this->_verbose === true
                 ) {
                     $this->log(
                         'Skipped coverage threshold for abstract class "'
@@ -383,7 +385,7 @@ class CoverageThresholdTask extends Task
                     $this->_minClassCoverageFound = $classCoverage;
                 }
 
-                $this->_projectStatementCount    += $classStatementCount;
+                $this->_projectStatementCount += $classStatementCount;
                 $this->_projectStatementsCovered += $classStatementsCovered;
             }
         }
@@ -393,9 +395,9 @@ class CoverageThresholdTask extends Task
     {
         if ($this->_database === null) {
             $coverageDatabase = $this->project
-                                     ->getProperty('coverage.database');
+                ->getProperty('coverage.database');
 
-            if (! $coverageDatabase) {
+            if (!$coverageDatabase) {
                 throw new BuildException(
                     'Either include coverage-setup in your build file or set '
                     . 'the "database" attribute'
@@ -434,8 +436,8 @@ class CoverageThresholdTask extends Task
         }
 
         if ($this->_projectStatementCount > 0) {
-            $coverage = (  $this->_projectStatementsCovered
-                         / $this->_projectStatementCount) * 100;
+            $coverage = ($this->_projectStatementsCovered
+                    / $this->_projectStatementCount) * 100;
         } else {
             $coverage = 0;
         }

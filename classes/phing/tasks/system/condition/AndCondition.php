@@ -26,21 +26,24 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  *
  * Iterates over all conditions and returns false as soon as one
  * evaluates to false.
- * 
+ *
  * @author    Hans Lellelid <hans@xmpl.org>
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
  * @package   phing.tasks.system.condition
  */
-class AndCondition extends ConditionBase implements Condition {
+class AndCondition extends ConditionBase implements Condition
+{
 
-    public function evaluate() {
-        foreach($this as $c) { // ConditionBase implements IteratorAggregator
-              if (!$c->evaluate()) {
+    public function evaluate()
+    {
+        foreach ($this as $c) { // ConditionBase implements IteratorAggregator
+            if (!$c->evaluate()) {
                 return false;
             }
         }
-        return true;       
+
+        return true;
     }
 }

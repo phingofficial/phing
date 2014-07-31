@@ -38,7 +38,6 @@ class ZendGuardEncodeTask extends MatchingTask
     protected $filesets = array();
     protected $encodeCommand;
 
-
     /**
      * TASK PROPERTIES
      *
@@ -290,6 +289,7 @@ class ZendGuardEncodeTask extends MatchingTask
     {
         $this->fileset = new ZendGuardFileSet();
         $this->filesets[] = $this->fileset;
+
         return $this->fileset;
     }
 
@@ -492,8 +492,8 @@ class ZendGuardFileSet extends FileSet
 
     /**
      *  Get a list of files and directories specified in the fileset.
-     *  @return array a list of file and directory names, relative to
-     *    the baseDir for the project.
+     * @return array a list of file and directory names, relative to
+     *               the baseDir for the project.
      */
     public function getFiles(Project $p, $includeEmpty = true)
     {

@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 /**
  * Utility class for generating necessary server-specific SQL commands
  *
@@ -26,11 +26,10 @@
  * @version  $Id$
  * @package  phing.tasks.ext.dbdeploy
  */
-class DbmsSyntaxMsSql extends DbmsSyntax 
+class DbmsSyntaxMsSql extends DbmsSyntax
 {
     public function generateTimestamp()
     {
         return "DATEDIFF(s, '19700101', GETDATE())";
     }
 }
-

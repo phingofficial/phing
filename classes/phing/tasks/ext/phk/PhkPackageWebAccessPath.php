@@ -29,6 +29,7 @@ class PhkPackageWebAccessPath
      * @var string
      */
     private $path;
+
     /**
      * @param string $path
      */
@@ -36,6 +37,7 @@ class PhkPackageWebAccessPath
     {
         $this->path = trim($path);
     }
+
     /**
      * @return string
      */

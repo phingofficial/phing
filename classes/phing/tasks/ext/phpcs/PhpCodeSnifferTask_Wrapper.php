@@ -28,7 +28,8 @@ require_once 'phing/Task.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTask_Wrapper extends PHP_CodeSniffer {
+class PhpCodeSnifferTask_Wrapper extends PHP_CodeSniffer
+{
     public function __destruct()
     {
         // override destructor

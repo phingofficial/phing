@@ -27,7 +27,8 @@
  * @author Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
-interface FileSelector {
+interface FileSelector
+{
 
     /**
      * Method that each selector will implement to create their
@@ -38,10 +39,9 @@ interface FileSelector {
      * @param basedir A PhingFile object for the base directory
      * @param filename The name of the file to check
      * @param file A PhingFile object for this filename
-     * @return whether the file should be selected or not
+     * @return whether        the file should be selected or not
      * @throws BuildException if the selector was not configured correctly
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file);
 
 }
-

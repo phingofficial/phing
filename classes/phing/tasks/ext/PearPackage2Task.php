@@ -88,9 +88,11 @@ require_once 'phing/tasks/ext/PearPackageTask.php';
  * @package  phing.tasks.ext
  * @version  $Id$
  */
-class PearPackage2Task extends PearPackageTask {
+class PearPackage2Task extends PearPackageTask
+{
 
-    public function init() {
+    public function init()
+    {
         include_once 'PEAR/PackageFileManager2.php';
         if (!class_exists('PEAR_PackageFileManager2')) {
             throw new BuildException("You must have installed PEAR_PackageFileManager in order to create a PEAR package.xml version 2.0 file.");
@@ -101,7 +103,7 @@ class PearPackage2Task extends PearPackageTask {
     {
         $this->pkg->setPackage($this->package);
         $this->pkg->setDate(strftime('%Y-%m-%d'));
-        $this->pkg->setTime(strftime('%H:%M:%S')); 
+        $this->pkg->setTime(strftime('%H:%M:%S'));
 
         $newopts = array();
         foreach ($this->options as $opt) {
@@ -180,11 +182,18 @@ class PearPackage2Task extends PearPackageTask {
 
                         if (!empty($channel)) {
                             $this->pkg->addPackageDepWithChannel(
-                                $type, $dep['name'], $channel, $min, $max, $rec
+                                $type,
+                                $dep['name'],
+                                $channel,
+                                $min,
+                                $max,
+                                $rec
                             );
                         } elseif (!empty($uri)) {
                             $this->pkg->addPackageDepWithUri(
-                                $type, $dep['name'], $uri
+                                $type,
+                                $dep['name'],
+                                $uri
                             );
                         }
                     };
@@ -199,7 +208,11 @@ class PearPackage2Task extends PearPackageTask {
                         $rec = isset($dep['recommended']) ? $dep['recommended'] : $dep['version'];
 
                         $this->pkg->addExtensionDep(
-                            $type, $dep['name'], $min, $max, $rec
+                            $type,
+                            $dep['name'],
+                            $min,
+                            $max,
+                            $rec
                         );
                     };
                     break;
@@ -226,21 +239,21 @@ class PearPackage2Task extends PearPackageTask {
                 case 'replacements':
                     $replacements = $map->getValue();
 
-                    foreach($replacements as $replacement) { 
+                    foreach ($replacements as $replacement) {
                         $this->pkg->addReplacement(
-                            $replacement['path'], 
-                            $replacement['type'], 
-                            $replacement['from'], 
+                            $replacement['path'],
+                            $replacement['type'],
+                            $replacement['from'],
                             $replacement['to']
                         );
                     }
                     break;
 
-				case 'role':
-					foreach ($map->getValue() as $role) {
-						$this->pkg->addRole($role['extension'], $role['role']);
-					}
-					break;
+                case 'role':
+                    foreach ($map->getValue() as $role) {
+                        $this->pkg->addRole($role['extension'], $role['role']);
+                    }
+                    break;
 
                 default:
                     $newmaps[] = $map;

@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
@@ -24,4 +24,6 @@
  *
  * @package   phing.system.io
  */
-class IOException extends Exception {}
+class IOException extends Exception
+{
+}

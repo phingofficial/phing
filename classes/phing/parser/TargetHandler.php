@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/parser/AbstractHandler.php';
 
 /**
@@ -32,7 +32,8 @@ require_once 'phing/parser/AbstractHandler.php';
  * @version   $Id$
  * @package   phing.parser
  */
-class TargetHandler extends AbstractHandler {
+class TargetHandler extends AbstractHandler
+{
 
     /**
      * Reference to the target object that represents the currently parsed
@@ -54,8 +55,12 @@ class TargetHandler extends AbstractHandler {
      * @param  object  the parent handler that invoked this handler
      * @param  object  the ProjectConfigurator object
      */
-    public function __construct(AbstractSAXParser $parser, AbstractHandler $parentHandler, ProjectConfigurator $configurator, PhingXMLContext $context)
-    {
+    public function __construct(
+        AbstractSAXParser $parser,
+        AbstractHandler $parentHandler,
+        ProjectConfigurator $configurator,
+        PhingXMLContext $context
+    ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
         $this->context = $context;
@@ -77,7 +82,8 @@ class TargetHandler extends AbstractHandler {
      * @param  array   attributes the tag carries
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
-    function init($tag, $attrs) {
+    public function init($tag, $attrs)
+    {
         $name = null;
         $depends = "";
         $ifCond = null;
@@ -87,30 +93,44 @@ class TargetHandler extends AbstractHandler {
         $isHidden = false;
         $logskipped = false;
 
-        foreach($attrs as $key => $value) {
-            if ($key==="name") {
+        foreach ($attrs as $key => $value) {
+            if ($key === "name") {
                 $name = (string) $value;
-            } else if ($key==="depends") {
-                $depends = (string) $value;
-            } else if ($key==="if") {
-                $ifCond = (string) $value;
-            } else if ($key==="unless") {
-                $unlessCond = (string) $value;
-            } else if ($key==="id") {
-                $id = (string) $value;
-            } else if ($key==="hidden") {
-                $isHidden = ($value == 'true' || $value == '1') ? true : false;
-            } else if ($key==="description") {
-                $description = (string)$value;
-            } elseif ($key === 'logskipped') {
-                $logskipped = $value;
             } else {
-                throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation());
+                if ($key === "depends") {
+                    $depends = (string) $value;
+                } else {
+                    if ($key === "if") {
+                        $ifCond = (string) $value;
+                    } else {
+                        if ($key === "unless") {
+                            $unlessCond = (string) $value;
+                        } else {
+                            if ($key === "id") {
+                                $id = (string) $value;
+                            } else {
+                                if ($key === "hidden") {
+                                    $isHidden = ($value == 'true' || $value == '1') ? true : false;
+                                } else {
+                                    if ($key === "description") {
+                                        $description = (string) $value;
+                                    } elseif ($key === 'logskipped') {
+                                        $logskipped = $value;
+                                    } else {
+                                        throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation(
+                                        ));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
         if ($name === null) {
-            throw new ExpatParseException("target element appears without a name attribute",  $this->parser->getLocation());
+            throw new ExpatParseException("target element appears without a name attribute", $this->parser->getLocation(
+            ));
         }
 
         // shorthand
@@ -118,8 +138,8 @@ class TargetHandler extends AbstractHandler {
 
         // check to see if this target is a dup within the same file
         if (isset($this->context->getCurrentTargets[$name])) {
-          throw new BuildException("Duplicate target: $targetName",  
-              $this->parser->getLocation());
+            throw new BuildException("Duplicate target: $targetName",
+                $this->parser->getLocation());
         }
 
         $this->target = new Target();
@@ -138,32 +158,36 @@ class TargetHandler extends AbstractHandler {
         // check to see if target with same name is already defined
         $projectTargets = $project->getTargets();
         if (isset($projectTargets[$name])) {
-          $project->log("Already defined in main or a previous import, " .
-            "ignore {$name}", Project::MSG_VERBOSE);
+            $project->log(
+                "Already defined in main or a previous import, " .
+                "ignore {$name}",
+                Project::MSG_VERBOSE
+            );
         } else {
-          $project->addOrReplaceTarget($name, $this->target);
-          if ($id !== null && $id !== "") {
-            $project->addReference($id, $this->target);
-          }
-          $usedTarget = true;
+            $project->addOrReplaceTarget($name, $this->target);
+            if ($id !== null && $id !== "") {
+                $project->addReference($id, $this->target);
+            }
+            $usedTarget = true;
         }
 
-        if ($this->configurator->isIgnoringProjectTag() && 
-            $this->configurator->getCurrentProjectName() != null && 
-            strlen($this->configurator->getCurrentProjectName()) != 0) {
-          // In an impored file (and not completely
-          // ignoring the project tag)
-          $newName = $this->configurator->getCurrentProjectName() . "." . $name;
-          if ($usedTarget) {
-            // clone needs to make target->children a shared reference
-            $newTarget = clone $this->target;
-          } else {
-            $newTarget = $this->target;
-          }
-          $newTarget->setName($newName);
-          $ct = &$this->context->getCurrentTargets();
-          $ct[$newName] = $newTarget;
-          $project->addOrReplaceTarget($newName, $newTarget);
+        if ($this->configurator->isIgnoringProjectTag() &&
+            $this->configurator->getCurrentProjectName() != null &&
+            strlen($this->configurator->getCurrentProjectName()) != 0
+        ) {
+            // In an impored file (and not completely
+            // ignoring the project tag)
+            $newName = $this->configurator->getCurrentProjectName() . "." . $name;
+            if ($usedTarget) {
+                // clone needs to make target->children a shared reference
+                $newTarget = clone $this->target;
+            } else {
+                $newTarget = $this->target;
+            }
+            $newTarget->setName($newName);
+            $ct = & $this->context->getCurrentTargets();
+            $ct[$newName] = $newTarget;
+            $project->addOrReplaceTarget($newName, $newTarget);
         }
     }
 
@@ -174,15 +198,16 @@ class TargetHandler extends AbstractHandler {
      * @param  string  the tag that comes in
      * @param  array   attributes the tag carries
      */
-    function startElement($name, $attrs) {
+    public function startElement($name, $attrs)
+    {
         // shorthands
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
-        
+
         $tmp = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->target);
         $tmp->init($name, $attrs);
     }
-    
+
     /**
      * Checks if this target has dependencies and/or nested tasks.
      * If the target has neither, show a warning.
@@ -190,8 +215,11 @@ class TargetHandler extends AbstractHandler {
     protected function finished()
     {
         if (!count($this->target->getDependencies()) && !count($this->target->getTasks())) {
-            $this->configurator->project->log("Warning: target '" . $this->target->getName() .
-                "' has no tasks or dependencies", Project::MSG_WARN);
+            $this->configurator->project->log(
+                "Warning: target '" . $this->target->getName() .
+                "' has no tasks or dependencies",
+                Project::MSG_WARN
+            );
         }
     }
 }

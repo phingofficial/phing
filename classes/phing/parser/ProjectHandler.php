@@ -33,19 +33,20 @@ require_once 'phing/parser/ElementHandler.php';
  * @access    public
  * @package   phing.parser
  */
-class ProjectHandler extends AbstractHandler {
+class ProjectHandler extends AbstractHandler
+{
 
     /**
      * The phing project configurator object.
      * @var ProjectConfigurator
      */
     private $configurator;
-    
+
     /**
      * @var PhingXMLContext
      */
     private $context;
-    
+
     /**
      * Constructs a new ProjectHandler
      *
@@ -54,9 +55,10 @@ class ProjectHandler extends AbstractHandler {
      * @param  object  the ProjectConfigurator object
      * @access public
      */
-    function __construct($parser, $parentHandler, $configurator, PhingXMLContext $context) {
+    public function __construct($parser, $parentHandler, $configurator, PhingXMLContext $context)
+    {
         parent::__construct($parser, $parentHandler);
-        
+
         $this->configurator = $configurator;
         $this->context = $context;
     }
@@ -70,10 +72,11 @@ class ProjectHandler extends AbstractHandler {
      * @param  object  the ProjectConfigurator object
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
-    public function init($tag, $attrs) {
+    public function init($tag, $attrs)
+    {
         $def = null;
         $name = null;
-        $id    = null;
+        $id = null;
         $desc = null;
         $baseDir = null;
         $ver = null;
@@ -103,20 +106,20 @@ class ProjectHandler extends AbstractHandler {
         if (null != $name) {
             $canonicalName = self::canonicalName($name);
             $this->configurator->setCurrentProjectName($canonicalName);
-            $path = (string) $this->configurator->getBuildFile(); 
+            $path = (string) $this->configurator->getBuildFile();
             $project->setUserProperty("phing.file.{$canonicalName}", $path);
-            $project->setUserProperty("phing.dir.{$canonicalName}",  dirname($path));
+            $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
         }
 
         if ($this->configurator->isIgnoringProjectTag()) {
             return;
         }
-        
+
         if ($def === null) {
             throw new ExpatParseException(
                 "The default attribute of project is required");
         }
-        
+
         $project->setDefaultTarget($def);
 
         if ($name !== null) {
@@ -130,7 +133,7 @@ class ProjectHandler extends AbstractHandler {
 
         if ($desc !== null) {
             $project->setDescription($desc);
-        }        
+        }
 
         if ($ver !== null) {
             $project->setPhingVersion($ver);
@@ -145,13 +148,13 @@ class ProjectHandler extends AbstractHandler {
                 // check whether the user has specified an absolute path
                 $f = new PhingFile($baseDir);
                 if ($f->isAbsolute()) {
-                  $project->setBasedir($baseDir);
+                    $project->setBasedir($baseDir);
                 } else {
-                  $project->setBaseDir($project->resolveFile($baseDir, new PhingFile(getcwd())));
+                    $project->setBaseDir($project->resolveFile($baseDir, new PhingFile(getcwd())));
                 }
             }
         }
-        
+
         $project->addTarget("", $this->context->getImplicitTarget());
     }
 
@@ -164,22 +167,24 @@ class ProjectHandler extends AbstractHandler {
      * @throws ExpatParseException if a unxepected element occurs
      * @access public
      */
-    function startElement($name, $attrs) {
-    
+    public function startElement($name, $attrs)
+    {
+
         $project = $this->configurator->project;
         $types = $project->getDataTypeDefinitions();
-        
+
         if ($name == "target") {
             $tf = new TargetHandler($this->parser, $this, $this->configurator, $this->context);
             $tf->init($name, $attrs);
         } else {
-            $tf = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->context->getImplicitTarget());
+            $tf = new ElementHandler($this->parser, $this, $this->configurator, null, null, $this->context->getImplicitTarget(
+            ));
             $tf->init($name, $attrs);
         }
     }
 
-    static function canonicalName ($name) {
-      return preg_replace('/\W/', '_', strtolower($name));
+    public static function canonicalName($name)
+    {
+        return preg_replace('/\W/', '_', strtolower($name));
     }
 }
-

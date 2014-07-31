@@ -16,69 +16,84 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
- * Dummy class for reading from string of characters. 
+ * Dummy class for reading from string of characters.
  * @package phing.system.io
  */
-class StringReader extends Reader {
-    
+class StringReader extends Reader
+{
+
     /**
      * @var string
      */
     private $_string;
-    
+
     /**
      * @var int
      */
     private $mark = 0;
-    
+
     /**
      * @var int
      */
     private $currPos = 0;
-    
-    function __construct($string) {
+
+    public function __construct($string)
+    {
         $this->_string = $string;
     }
 
-    function skip($n) {}
+    public function skip($n)
+    {
+    }
 
-    function read($len = null) {
+    public function read($len = null)
+    {
         if ($len === null) {
             return $this->_string;
-        } else {            
+        } else {
             if ($this->currPos >= strlen($this->_string)) {
                 return -1;
-            }            
+            }
             $out = substr($this->_string, $this->currPos, $len);
             $this->currPos += $len;
+
             return $out;
         }
     }
 
-    function mark() {
+    public function mark()
+    {
         $this->mark = $this->currPos;
     }
 
-    function reset() {
+    public function reset()
+    {
         $this->currPos = $this->mark;
     }
 
-    function close() {}
+    public function close()
+    {
+    }
 
-    function open() {}
+    public function open()
+    {
+    }
 
-    function ready() {}
+    public function ready()
+    {
+    }
 
-    function markSupported() {
+    public function markSupported()
+    {
         return true;
     }
-    
-    function getResource() {
-        return '(string) "'.$this->_string . '"';
+
+    public function getResource()
+    {
+        return '(string) "' . $this->_string . '"';
     }
 }
-

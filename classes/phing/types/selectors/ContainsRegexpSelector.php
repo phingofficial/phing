@@ -26,30 +26,32 @@ include_once 'phing/types/RegularExpression.php';
 /**
  * Selector that filters files based on whether they contain a
  * particular string using regexp.
- * 
+ *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
  * @version   $Id$
  * @package   phing.types.selectors
  */
-class ContainsRegexpSelector extends BaseExtendSelector {
+class ContainsRegexpSelector extends BaseExtendSelector
+{
 
     /** @var string The expression set from XML. */
     private $userProvidedExpression;
-    
+
     /** @var Regexp */
     private $myExpression;
-     
+
     private $casesensitive = true;
-    
+
     /** @var RegularExpression */
     private $myRegExp;
-    
+
     const EXPRESSION_KEY = "expression";
-    
+
     const CASE_KEY = "casesensitive";
-    
-    public function toString() {
+
+    public function toString()
+    {
         $buf = "{containsregexpselector expression: ";
         $buf .= $this->userProvidedExpression;
         $buf .= " casesensitive: ";
@@ -59,6 +61,7 @@ class ContainsRegexpSelector extends BaseExtendSelector {
             $buf .= "false";
         }
         $buf .= "}";
+
         return $buf;
     }
 
@@ -67,7 +70,8 @@ class ContainsRegexpSelector extends BaseExtendSelector {
      *
      * @param string $exp the string that a file must contain to be selected.
      */
-    public function setExpression($exp) {
+    public function setExpression($exp)
+    {
         $this->userProvidedExpression = $exp;
     }
 
@@ -76,7 +80,8 @@ class ContainsRegexpSelector extends BaseExtendSelector {
      *
      * @param boolean $casesensitive whether to pay attention to case sensitivity
      */
-    public function setCasesensitive($casesensitive) {
+    public function setCasesensitive($casesensitive)
+    {
         $this->casesensitive = $casesensitive;
     }
 
@@ -86,12 +91,13 @@ class ContainsRegexpSelector extends BaseExtendSelector {
      *
      * @param array $parameters the complete set of parameters for this selector
      */
-    public function setParameters($parameters) {
+    public function setParameters($parameters)
+    {
         parent::setParameters($parameters);
         if ($parameters !== null) {
-            for ($i=0,$size=count($parameters); $i < $size; $i++) {
+            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
                 $paramname = $parameters[$i]->getName();
-                switch(strtolower($paramname)) {
+                switch (strtolower($paramname)) {
                     case self::EXPRESSION_KEY:
                         $this->setExpression($parameters[$i]->getValue());
                         break;
@@ -100,7 +106,7 @@ class ContainsRegexpSelector extends BaseExtendSelector {
                         break;
                     default:
                         $this->setError("Invalid parameter " . $paramname);
-                }                
+                }
             } // for each param
         } // if params
     }
@@ -110,7 +116,8 @@ class ContainsRegexpSelector extends BaseExtendSelector {
      * means that the pattern attribute has been set.
      *
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->userProvidedExpression === null) {
             $this->setError("The expression attribute is required");
         }
@@ -125,26 +132,27 @@ class ContainsRegexpSelector extends BaseExtendSelector {
      * @param file a PhingFile object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
 
         $this->validate();
 
         if ($file->isDirectory()) {
             return true;
         }
-        
+
         if ($this->myRegExp === null) {
             $this->myRegExp = new RegularExpression();
-            $this->myRegExp->setPattern($this->userProvidedExpression);            
+            $this->myRegExp->setPattern($this->userProvidedExpression);
             if (!$this->casesensitive) {
                 $this->myRegExp->setIgnoreCase(true);
             }
             $this->myExpression = $this->myRegExp->getRegexp($this->getProject());
         }
-                        
+
         $in = null;
         try {
-            $in = new BufferedReader(new FileReader($file));        
+            $in = new BufferedReader(new FileReader($file));
             $teststr = $in->readLine();
             while ($teststr !== null) {
                 if ($this->myExpression->matches($teststr)) {
@@ -152,13 +160,15 @@ class ContainsRegexpSelector extends BaseExtendSelector {
                 }
                 $teststr = $in->readLine();
             }
+
             return false;
         } catch (IOException $ioe) {
-            if ($in) $in->close();
+            if ($in) {
+                $in->close();
+            }
             throw new BuildException("Could not read file " . $filename);
         }
-        $in->close();                
+        $in->close();
     }
 
 }
-

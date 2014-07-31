@@ -41,43 +41,41 @@ class CoverageReportTask extends Task
     private $transformers = array();
 
     /** the classpath to use (optional) */
-    private $classpath = NULL;
-    
+    private $classpath = null;
+
     /** the path to the GeSHi library (optional) */
     private $geshipath = "";
-    
+
     /** the path to the GeSHi language files (optional) */
     private $geshilanguagespath = "";
-    
-    function setClasspath(Path $classpath)
+
+    public function setClasspath(Path $classpath)
     {
-        if ($this->classpath === null)
-        {
+        if ($this->classpath === null) {
             $this->classpath = $classpath;
-        }
-        else
-        {
+        } else {
             $this->classpath->append($classpath);
         }
     }
 
-    function createClasspath()
+    public function createClasspath()
     {
         $this->classpath = new Path();
+
         return $this->classpath;
     }
-    
-    function setGeshiPath($path)
+
+    public function setGeshiPath($path)
     {
         $this->geshipath = $path;
     }
 
-    function setGeshiLanguagesPath($path)
+    public function setGeshiLanguagesPath($path)
     {
         $this->geshilanguagespath = $path;
     }
 
-    function __construct()
+    public function __construct()
     {
         $this->doc = new DOMDocument();
         $this->doc->encoding = 'UTF-8';
@@ -85,7 +83,7 @@ class CoverageReportTask extends Task
         $this->doc->appendChild($this->doc->createElement('snapshot'));
     }
 
-    function setOutfile($outfile)
+    public function setOutfile($outfile)
     {
         $this->outfile = $outfile;
     }
@@ -93,10 +91,11 @@ class CoverageReportTask extends Task
     /**
      * Generate a report based on the XML created by this task
      */
-    function createReport()
+    public function createReport()
     {
         $transformer = new CoverageReportTransformer($this);
         $this->transformers[] = $transformer;
+
         return $transformer;
     }
 
@@ -104,22 +103,20 @@ class CoverageReportTask extends Task
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
 
-        foreach ($packages as $package)
-        {
-            if ($package->getAttribute('name') == $packageName)
-            {
+        foreach ($packages as $package) {
+            if ($package->getAttribute('name') == $packageName) {
                 return $package;
             }
         }
 
-        return NULL;
+        return null;
     }
 
     protected function addClassToPackage($packageName, $element)
     {
         $package = $this->getPackageElement($packageName);
 
-        if ($package === NULL) {
+        if ($package === null) {
             $package = $this->doc->createElement('package');
             $package->setAttribute('name', $packageName);
             $this->doc->documentElement->appendChild($package);
@@ -139,7 +136,7 @@ class CoverageReportTask extends Task
      */
     protected function addSubpackageToPackage($packageName, $subpackageName)
     {
-        $package    = $this->getPackageElement($packageName);
+        $package = $this->getPackageElement($packageName);
         $subpackage = $this->getSubpackageElement($subpackageName);
 
         if ($package === null) {
@@ -217,10 +214,9 @@ class CoverageReportTask extends Task
 
     protected function highlightSourceFile($filename)
     {
-        if ($this->geshipath)
-        {
+        if ($this->geshipath) {
             require_once $this->geshipath . '/geshi.php';
-            
+
             $source = file_get_contents($filename);
 
             $geshi = new GeSHi($source, 'php', $this->geshilanguagespath);
@@ -231,7 +227,7 @@ class CoverageReportTask extends Task
 
             $geshi->enable_classes(true);
 
-            $geshi->set_url_for_keyword_group(3, ''); 
+            $geshi->set_url_for_keyword_group(3, '');
 
             $html = $geshi->parse_code();
 
@@ -246,30 +242,25 @@ class CoverageReportTask extends Task
             $lines = array_map(array($this, 'stripDiv'), $lines);
 
             return $lines;
-        }
-        else
-        {
+        } else {
             $lines = file($filename);
-            
-            for ($i = 0; $i < count($lines); $i++)
-            {
+
+            for ($i = 0; $i < count($lines); $i++) {
                 $line = $lines[$i];
-                
+
                 $line = rtrim($line);
-                
+
                 if (function_exists('mb_check_encoding') && mb_check_encoding($line, 'UTF-8')) {
-                	$lines[$i] = $line;
-                }
-                else if (function_exists('mb_convert_encoding'))
-                {
-                    $lines[$i] = mb_convert_encoding($line, 'UTF-8');
-                }
-                else
-                {
-                    $lines[$i] = utf8_encode($line);
+                    $lines[$i] = $line;
+                } else {
+                    if (function_exists('mb_convert_encoding')) {
+                        $lines[$i] = mb_convert_encoding($line, 'UTF-8');
+                    } else {
+                        $lines[$i] = utf8_encode($line);
+                    }
                 }
             }
-            
+
             return $lines;
         }
     }
@@ -278,7 +269,7 @@ class CoverageReportTask extends Task
     {
         $sourceElement = $this->doc->createElement('sourcefile');
         $sourceElement->setAttribute('name', basename($filename));
-        
+
         /**
          * Add original/full filename to document
          */
@@ -288,13 +279,14 @@ class CoverageReportTask extends Task
 
         $linenr = 1;
 
-        foreach ($filelines as $line)
-        {
+        foreach ($filelines as $line) {
             $lineElement = $this->doc->createElement('sourceline');
-            $lineElement->setAttribute('coveredcount', (isset($coverageInformation[$linenr]) ? $coverageInformation[$linenr] : '0'));
+            $lineElement->setAttribute(
+                'coveredcount',
+                (isset($coverageInformation[$linenr]) ? $coverageInformation[$linenr] : '0')
+            );
 
-            if ($linenr == $classStartLine)
-            {
+            if ($linenr == $classStartLine) {
                 $lineElement->setAttribute('startclass', 1);
             }
 
@@ -308,7 +300,7 @@ class CoverageReportTask extends Task
 
         return $sourceElement;
     }
-    
+
     /**
      * Transforms the coverage information
      *
@@ -320,26 +312,24 @@ class CoverageReportTask extends Task
      * @return void
      */
     protected function transformCoverageInformation($filename, $coverageInformation)
-    {   
+    {
         $classes = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
-        
-        if (is_array($classes))
-        {
-            foreach ($classes as $classname)
-            {
+
+        if (is_array($classes)) {
+            foreach ($classes as $classname) {
                 $reflection = new ReflectionClass($classname);
                 $methods = $reflection->getMethods();
-                
+
                 if (method_exists($reflection, 'getShortName')) {
                     $className = $reflection->getShortName();
                 } else {
                     $className = $reflection->getName();
                 }
-                
+
                 $classElement = $this->doc->createElement('class');
                 $classElement->setAttribute('name', $className);
-                
-                $packageName    = PHPUnitUtil::getPackageName($reflection->getName());
+
+                $packageName = PHPUnitUtil::getPackageName($reflection->getName());
                 $subpackageName = PHPUnitUtil::getSubpackageName($reflection->getName());
 
                 if ($subpackageName !== null) {
@@ -350,60 +340,51 @@ class CoverageReportTask extends Task
                 }
 
                 $classStartLine = $reflection->getStartLine();
-                
+
                 $methodscovered = 0;
                 $methodcount = 0;
-                
+
                 // Strange PHP5 reflection bug, classes without parent class or implemented interfaces seem to start one line off
-                if ($reflection->getParentClass() == NULL && count($reflection->getInterfaces()) == 0)
-                {
+                if ($reflection->getParentClass() == null && count($reflection->getInterfaces()) == 0) {
                     unset($coverageInformation[$classStartLine + 1]);
-                }
-                else
-                {
+                } else {
                     unset($coverageInformation[$classStartLine]);
                 }
-                
+
                 // Remove out-of-bounds info
                 unset($coverageInformation[0]);
-                
-                reset($coverageInformation);                
-                
-                foreach ($methods as $method)
-                {
+
+                reset($coverageInformation);
+
+                foreach ($methods as $method) {
                     // PHP5 reflection considers methods of a parent class to be part of a subclass, we don't
-                    if ($method->getDeclaringClass()->getName() != $reflection->getName())
-                    {
+                    if ($method->getDeclaringClass()->getName() != $reflection->getName()) {
                         continue;
                     }
 
                     // small fix for XDEBUG_CC_UNUSED
-                    if (isset($coverageInformation[$method->getStartLine()]))
-                    {
+                    if (isset($coverageInformation[$method->getStartLine()])) {
                         unset($coverageInformation[$method->getStartLine()]);
                     }
 
-                    if (isset($coverageInformation[$method->getEndLine()]))
-                    {
+                    if (isset($coverageInformation[$method->getEndLine()])) {
                         unset($coverageInformation[$method->getEndLine()]);
                     }
 
-                    if ($method->isAbstract())
-                    {
+                    if ($method->isAbstract()) {
                         continue;
                     }
 
                     $linenr = key($coverageInformation);
 
-                    while ($linenr !== null && $linenr < $method->getStartLine())
-                    {
+                    while ($linenr !== null && $linenr < $method->getStartLine()) {
                         next($coverageInformation);
                         $linenr = key($coverageInformation);
                     }
 
                     $methodCoveredCount = 0;
                     $methodTotalCount = 0;
-                    
+
                     $methodHasCoveredLine = false;
 
                     while ($linenr !== null && $linenr <= $method->getEndLine()) {
@@ -414,11 +395,11 @@ class CoverageReportTask extends Task
                         if ($coverageInformation[$linenr] > 0 || $coverageInformation[$linenr] == -2) {
                             $methodCoveredCount++;
                         }
-                        
+
                         next($coverageInformation);
                         $linenr = key($coverageInformation);
                     }
-                    
+
                     if (($methodTotalCount == $methodCoveredCount) && $methodHasCoveredLine) {
                         $methodscovered++;
                     }
@@ -426,17 +407,23 @@ class CoverageReportTask extends Task
                     $methodcount++;
                 }
 
-                $statementcount = count(array_filter(
-                    $coverageInformation, 
-                    create_function('$var', 'return ($var != -2);')
-                ));
-                
-                $statementscovered = count(array_filter(
-                    $coverageInformation, 
-                    create_function('$var', 'return ($var >= 0);')
-                ));
-                
-                $classElement->appendChild($this->transformSourceFile($filename, $coverageInformation, $classStartLine));
+                $statementcount = count(
+                    array_filter(
+                        $coverageInformation,
+                        create_function('$var', 'return ($var != -2);')
+                    )
+                );
+
+                $statementscovered = count(
+                    array_filter(
+                        $coverageInformation,
+                        create_function('$var', 'return ($var >= 0);')
+                    )
+                );
+
+                $classElement->appendChild(
+                    $this->transformSourceFile($filename, $coverageInformation, $classStartLine)
+                );
 
                 $classElement->setAttribute('methodcount', $methodcount);
                 $classElement->setAttribute('methodscovered', $methodscovered);
@@ -468,19 +455,19 @@ class CoverageReportTask extends Task
             $subpackages = $package->getElementsByTagName('subpackage');
 
             foreach ($subpackages as $subpackage) {
-                $subpackageMethodCount    = 0;
+                $subpackageMethodCount = 0;
                 $subpackageMethodsCovered = 0;
 
-                $subpackageStatementCount    = 0;
+                $subpackageStatementCount = 0;
                 $subpackageStatementsCovered = 0;
 
                 $subpackageClasses = $subpackage->getElementsByTagName('class');
 
                 foreach ($subpackageClasses as $subpackageClass) {
-                    $subpackageMethodCount    += $subpackageClass->getAttribute('methodcount');
+                    $subpackageMethodCount += $subpackageClass->getAttribute('methodcount');
                     $subpackageMethodsCovered += $subpackageClass->getAttribute('methodscovered');
 
-                    $subpackageStatementCount    += $subpackageClass->getAttribute('statementcount');
+                    $subpackageStatementCount += $subpackageClass->getAttribute('statementcount');
                     $subpackageStatementsCovered += $subpackageClass->getAttribute('statementscovered');
                 }
 
@@ -530,35 +517,32 @@ class CoverageReportTask extends Task
         $this->doc->documentElement->setAttribute('totalcovered', $totalmethodscovered + $totalstatementscovered);
     }
 
-    function main()
+    public function main()
     {
         $coverageDatabase = $this->project->getProperty('coverage.database');
-        
-        if (!$coverageDatabase)
-        {
+
+        if (!$coverageDatabase) {
             throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
-        
+
         $database = new PhingFile($coverageDatabase);
 
         $this->log("Transforming coverage report");
-        
+
         $props = new Properties();
         $props->load($database);
 
-        foreach ($props->keys() as $filename)
-        {
+        foreach ($props->keys() as $filename) {
             $file = unserialize($props->getProperty($filename));
-            
+
             $this->transformCoverageInformation($file['fullname'], $file['coverage']);
         }
-        
+
         $this->calculateStatistics();
 
         $this->doc->save($this->outfile);
 
-        foreach ($this->transformers as $transformer)
-        {
+        foreach ($this->transformers as $transformer) {
             $transformer->setXmlDocument($this->doc);
             $transformer->transform();
         }

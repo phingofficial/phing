@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -16,58 +16,58 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
  * Contains some shared attributes and methods -- and some abstract methods with
  * engine-specific implementations that sub-classes must override.
- * 
+ *
  * @author Hans Lellelid <hans@velum.net>
  * @package phing.util.regexp
  * @version $Id$
  */
-interface RegexpEngine {
-    
+interface RegexpEngine
+{
+
     /**
      * Sets whether or not regex operation should ingore case.
-     * @param boolean $bit
+     * @param  boolean $bit
      * @return void
      */
     public function setIgnoreCase($bit);
-    
+
     /**
      * Returns status of ignore case flag.
      * @return boolean
      */
     public function getIgnoreCase();
-    
+
     /**
      * Matches pattern against source string and sets the matches array.
-     * @param string $pattern The regex pattern to match.
-     * @param string $source The source string.
-     * @param array $matches The array in which to store matches.
+     * @param  string  $pattern The regex pattern to match.
+     * @param  string  $source  The source string.
+     * @param  array   $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
-    function match($pattern, $source, &$matches);
-    
+    public function match($pattern, $source, &$matches);
+
     /**
      * Matches all patterns in source string and sets the matches array.
-     * @param string $pattern The regex pattern to match.
-     * @param string $source The source string.
-     * @param array $matches The array in which to store matches.
+     * @param  string  $pattern The regex pattern to match.
+     * @param  string  $source  The source string.
+     * @param  array   $matches The array in which to store matches.
      * @return boolean Success of matching operation.
-     */    
-    function matchAll($pattern, $source, &$matches);
+     */
+    public function matchAll($pattern, $source, &$matches);
 
     /**
      * Replaces $pattern with $replace in $source string.
-     * @param string $pattern The regex pattern to match.
-     * @param string $replace The string with which to replace matches.
-     * @param string $source The source string.
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $replace The string with which to replace matches.
+     * @param  string $source  The source string.
      * @return string The replaced source string.
-     */        
-    function replace($pattern, $replace, $source);
+     */
+    public function replace($pattern, $replace, $source);
 
 }
-

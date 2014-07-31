@@ -54,7 +54,7 @@ class CoverageMerger
                 } else {
                     $coverageMerged[$linenr_right] = current($left) + current($right);
                 }
-                
+
                 next($left);
                 next($right);
             }
@@ -72,47 +72,47 @@ class CoverageMerger
 
         return $coverageMerged;
     }
-    
+
     /**
-     * @param  Project $project
+     * @param  Project        $project
      * @return Properties
      * @throws BuildException
      */
     protected static function _getDatabase($project)
     {
         $coverageDatabase = $project->getProperty('coverage.database');
-        
+
         if (!$coverageDatabase) {
             throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
-        
+
         $database = new PhingFile($coverageDatabase);
 
         $props = new Properties();
         $props->load($database);
-        
+
         return $props;
     }
-    
+
     public static function getWhiteList($project)
     {
         $whitelist = array();
         $props = self::_getDatabase($project);
-        
+
         foreach ($props->getProperties() as $property) {
             $data = unserialize($property);
             $whitelist[] = $data['fullname'];
         }
-        
+
         return $whitelist;
     }
 
     public static function merge($project, $codeCoverageInformation)
     {
         $props = self::_getDatabase($project);
-        
+
         $coverageTotal = $codeCoverageInformation;
-        
+
         foreach ($coverageTotal as $filename => $data) {
             $lines = array();
             $filename = strtolower($filename);
@@ -122,16 +122,22 @@ class CoverageMerger
                     if ($_data === null) {
                         continue;
                     }
-                    
+
                     if (is_array($_data)) {
                         $count = count($_data);
-                        if ($count == 0) $count = -1;
-                    } else if ($_data == -1) {
-                        // not executed
-                        $count = -1;
-                    } else if ($_data == -2) {
-                        // dead code
-                        $count = -2;
+                        if ($count == 0) {
+                            $count = -1;
+                        }
+                    } else {
+                        if ($_data == -1) {
+                            // not executed
+                            $count = -1;
+                        } else {
+                            if ($_data == -2) {
+                                // dead code
+                                $count = -2;
+                            }
+                        }
                     }
 
                     $lines[$_line] = $count;
@@ -146,7 +152,7 @@ class CoverageMerger
 
                 $file['coverage'] = $coverageMerged;
                 $props->setProperty($filename, serialize($file));
-            }           
+            }
         }
 
         $props->store();

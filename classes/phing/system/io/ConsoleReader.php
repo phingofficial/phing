@@ -16,52 +16,56 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
- 
+
 include_once 'phing/system/io/Reader.php';
 
 /**
  * Convenience class for reading console input.
- * 
+ *
  * @author Hans Lellelid <hans@xmpl.org>
  * @author Matthew Hershberger <matthewh@lightsp.com>
  * @version $Id$
  * @package phing.system.io
  */
-class ConsoleReader extends Reader {
-    
-    function readLine() {
-        
+class ConsoleReader extends Reader
+{
+
+    public function readLine()
+    {
+
         $out = fgets(STDIN); // note: default maxlen is 1kb
         $out = rtrim($out);
 
         return $out;
     }
-    
+
     /**
-     * 
-     * @param int $len Num chars to read.
+     *
+     * @param  int    $len Num chars to read.
      * @return string chars read or -1 if eof.
      */
-    function read($len = null) {
-        
+    public function read($len = null)
+    {
+
         $out = fread(STDIN, $len);
-        
-        
+
         return $out;
         // FIXME
         // read by chars doesn't work (yet?) with PHP stdin.  Maybe
         // this is just a language feature, maybe there's a way to get
         // ability to read chars w/o <enter> ?
-        
-    }   
-        
-    function close() {
+
+    }
+
+    public function close()
+    {
         // STDIN is always open
     }
 
-    function open() {
+    public function open()
+    {
         // STDIN is always open
     }
 
@@ -69,16 +73,17 @@ class ConsoleReader extends Reader {
      * Whether eof has been reached with stream.
      * @return boolean
      */
-    function eof() {
+    public function eof()
+    {
         return feof(STDIN);
-    }        
-    
+    }
+
     /**
      * Returns path to file we are reading.
      * @return string
      */
-    function getResource() {
+    public function getResource()
+    {
         return "console";
     }
 }
-

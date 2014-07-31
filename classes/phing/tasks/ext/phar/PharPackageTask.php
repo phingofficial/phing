@@ -112,8 +112,9 @@ class PharPackageTask
      */
     public function createFileSet()
     {
-        $this->fileset      = new IterableFileSet();
-        $this->filesets[]   = $this->fileset;
+        $this->fileset = new IterableFileSet();
+        $this->filesets[] = $this->fileset;
+
         return $this->fileset;
     }
 
@@ -263,7 +264,7 @@ class PharPackageTask
 
         try {
             $this->log(
-                'Building package: '.$this->destinationFile->__toString(),
+                'Building package: ' . $this->destinationFile->__toString(),
                 Project::MSG_INFO
             );
 
@@ -328,7 +329,7 @@ class PharPackageTask
             }
         } catch (Exception $e) {
             throw new BuildException(
-                'Problem creating package: '.$e->getMessage(),
+                'Problem creating package: ' . $e->getMessage(),
                 $e,
                 $this->getLocation()
             );
@@ -359,13 +360,15 @@ class PharPackageTask
         }
         if (!is_null($this->baseDirectory)) {
             if (!$this->baseDirectory->exists()) {
-                throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation());
+                throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!", $this->getLocation(
+                    ));
             }
         }
         if ($this->signatureAlgorithm == Phar::OPENSSL) {
 
             if (!extension_loaded('openssl')) {
-                throw new BuildException("PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation());
+                throw new BuildException("PHP OpenSSL extension is required for OpenSSL signing of Phars!", $this->getLocation(
+                ));
             }
 
             if (is_null($this->key)) {
@@ -417,7 +420,7 @@ class PharPackageTask
             $phar->setMetadata($metadata);
         }
 
-        if(!empty($this->alias)){
+        if (!empty($this->alias)) {
             $phar->setAlias($this->alias);
         }
 

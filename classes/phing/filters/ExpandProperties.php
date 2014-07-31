@@ -37,63 +37,74 @@ include_once 'phing/filters/ChainableReader.php';
  * @see       BaseFilterReader
  * @package   phing.filters
  */
-class ExpandProperties extends BaseFilterReader implements ChainableReader {
+class ExpandProperties extends BaseFilterReader implements ChainableReader
+{
     protected $logLevel = Project::MSG_VERBOSE;
-   
+
     /**
      * Set level of log messages generated (default = info)
      * @param string $level
      */
     public function setLevel($level)
     {
-        switch ($level)
-        {
-            case "error": $this->logLevel = Project::MSG_ERR; break;
-            case "warning": $this->logLevel = Project::MSG_WARN; break;
-            case "info": $this->logLevel = Project::MSG_INFO; break;
-            case "verbose": $this->logLevel = Project::MSG_VERBOSE; break;
-            case "debug": $this->logLevel = Project::MSG_DEBUG; break;
+        switch ($level) {
+            case "error":
+                $this->logLevel = Project::MSG_ERR;
+                break;
+            case "warning":
+                $this->logLevel = Project::MSG_WARN;
+                break;
+            case "info":
+                $this->logLevel = Project::MSG_INFO;
+                break;
+            case "verbose":
+                $this->logLevel = Project::MSG_VERBOSE;
+                break;
+            case "debug":
+                $this->logLevel = Project::MSG_DEBUG;
+                break;
         }
     }
-    
+
     /**
-     * Returns the filtered stream. 
+     * Returns the filtered stream.
      * The original stream is first read in fully, and the Phing properties are expanded.
-     * 
-     * @return mixed     the filtered stream, or -1 if the end of the resulting stream has been reached.
-     * 
+     *
+     * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
+     *
      * @exception IOException if the underlying stream throws an IOException
      * during reading
      */
-    function read($len = null) {
-                
+    public function read($len = null)
+    {
+
         $buffer = $this->in->read($len);
-        
-        if($buffer === -1) {
+
+        if ($buffer === -1) {
             return -1;
         }
-        
+
         $project = $this->getProject();
         $buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties(), $this->logLevel);
-        
+
         return $buffer;
     }
-        
+
     /**
      * Creates a new ExpandProperties filter using the passed in
      * Reader for instantiation.
-     * 
+     *
      * @param object A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     * 
+     *
      * @return object A new filter based on this configuration, but filtering
-     *         the specified reader
+     *                the specified reader
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new ExpandProperties($reader);
         $newFilter->setProject($this->getProject());
+
         return $newFilter;
     }
 }
-
-

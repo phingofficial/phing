@@ -26,18 +26,17 @@
  * @author Magesh Umasankar
  * @package phing.filters
  */
-interface ChainableReader {
+interface ChainableReader
+{
 
     /**
      * Returns a reader with the same configuration as this one,
      * but filtering input from the specified reader.
-     * 
+     *
      * @param Reader $rdr the reader which the returned reader should be filtering
-     * 
+     *
      * @return Reader A reader with the same configuration as this one, but
-     *         filtering input from the specified reader
+     *                filtering input from the specified reader
      */
     public function chain(Reader $rdr);
 }
-
-

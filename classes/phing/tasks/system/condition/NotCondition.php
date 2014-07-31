@@ -33,9 +33,11 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  * @access    public
  * @package   phing.tasks.system.condition
  */
-class NotCondition extends ConditionBase implements Condition {
+class NotCondition extends ConditionBase implements Condition
+{
 
-    function evaluate() {
+    public function evaluate()
+    {
         if ($this->countConditions() > 1) {
             throw new BuildException("You must not nest more than one condition into <not>");
         }
@@ -43,6 +45,7 @@ class NotCondition extends ConditionBase implements Condition {
             throw new BuildException("You must nest a condition into <not>");
         }
         $conds = $this->getIterator();
+
         return !$conds->current()->evaluate();
     }
 }

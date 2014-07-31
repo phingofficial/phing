@@ -30,34 +30,34 @@
  */
 abstract class PDOQuerySplitter
 {
-   /**
-    * Task that uses the splitter
-    * @var PDOSQLExecTask
-    */
+    /**
+     * Task that uses the splitter
+     * @var PDOSQLExecTask
+     */
     protected $parent;
 
-   /**
-    * Reader with SQL source
-    * @var BufferedReader
-    */
+    /**
+     * Reader with SQL source
+     * @var BufferedReader
+     */
     protected $sqlReader;
 
-   /**
-    * Constructor, sets the parent task and reader with SQL source
-    * 
-    * @param PDOSQLExecTask $parent
-    * @param Reader $reader
-    */
+    /**
+     * Constructor, sets the parent task and reader with SQL source
+     *
+     * @param PDOSQLExecTask $parent
+     * @param Reader         $reader
+     */
     public function __construct(PDOSQLExecTask $parent, Reader $reader)
     {
-        $this->parent    = $parent;
+        $this->parent = $parent;
         $this->sqlReader = new BufferedReader($reader);
     }
 
-   /**
-    * Returns next query from SQL source, null if no more queries left
-    *
-    * @return string|null
-    */
+    /**
+     * Returns next query from SQL source, null if no more queries left
+     *
+     * @return string|null
+     */
     abstract public function nextQuery();
 }

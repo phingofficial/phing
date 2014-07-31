@@ -27,99 +27,104 @@ require_once 'phing/parser/ProjectConfigurator.php';
 /**
  * Imports another build file into the current project.
  *
- * Targets and properties of the imported file can be overrridden 
- * by targets and properties of the same name declared in the importing file. 
+ * Targets and properties of the imported file can be overrridden
+ * by targets and properties of the same name declared in the importing file.
  *
- * The imported file will have a new synthetic property of 
- * "phing.file.<projectname>" declared which gives the full path to the 
- * imported file. Additionally each target in the imported file will be 
- * declared twice: once with the normal name and once with "<projectname>." 
- * prepended. The "<projectname>.<targetname>" synthetic targets allow the 
- * importing file a mechanism to call the imported files targets as 
+ * The imported file will have a new synthetic property of
+ * "phing.file.<projectname>" declared which gives the full path to the
+ * imported file. Additionally each target in the imported file will be
+ * declared twice: once with the normal name and once with "<projectname>."
+ * prepended. The "<projectname>.<targetname>" synthetic targets allow the
+ * importing file a mechanism to call the imported files targets as
  * dependencies or via the <phing> or <phingcall> task mechanisms.
  *
  * @author Bryan Davis <bpd@keynetics.com>
  * @version $Id$
  * @package phing.tasks.system
  */
-class ImportTask extends Task {
+class ImportTask extends Task
+{
 
-  /**
-   * @var FileSystem
-   */
-  protected $fs;
+    /**
+     * @var FileSystem
+     */
+    protected $fs;
 
-  /**
-   * @var PhingFile
-   */
-  protected $file = null;
+    /**
+     * @var PhingFile
+     */
+    protected $file = null;
 
-  /**
-   * @var bool
-   */
-  protected $optional = false;
+    /**
+     * @var bool
+     */
+    protected $optional = false;
 
-  /**
-   * Initialize task.
-   * @return void
-   */
-  public function init () {
-    $this->fs = FileSystem::getFileSystem();
-  } //end init
+    /**
+     * Initialize task.
+     * @return void
+     */
+    public function init()
+    {
+        $this->fs = FileSystem::getFileSystem();
+    } //end init
 
-
-  /**
-   * Set the file to import.
-   * @param string $f Path to file
-   * @return void
-   */
-  public function setFile ($f) {
-    $this->file = $f;
-  }
-
-  /**
-   * Is this include optional?
-   * @param bool $opt If true, do not stop the build if the file does not 
-   * exist
-   * @return void
-   */
-  public function setOptional ($opt) {
-    $this->optional = $opt;
-  }
-
-  /**
-   * Parse a Phing build file and copy the properties, tasks, data types and 
-   * targets it defines into the current project.
-   *
-   * @return void
-   */
-  public function main () {
-    if (!isset($this->file)) {
-      throw new BuildException("Missing attribute 'file'");
+    /**
+     * Set the file to import.
+     * @param  string $f Path to file
+     * @return void
+     */
+    public function setFile($f)
+    {
+        $this->file = $f;
     }
 
-    $file = new PhingFile($this->file);
-    if (!$file->isAbsolute()) {
-      $file = new PhingFile($this->project->getBasedir(), $this->file);
-    }
-    if (!$file->exists()) {
-      $msg = "Unable to find build file: {$file->getPath()}";
-      if ($this->optional) {
-        $this->log($msg . '... skipped');
-        return;
-      } else {
-        throw new BuildException($msg);
-      }
+    /**
+     * Is this include optional?
+     * @param  bool $opt If true, do not stop the build if the file does not
+     *                   exist
+     * @return void
+     */
+    public function setOptional($opt)
+    {
+        $this->optional = $opt;
     }
 
-    $ctx = $this->project->getReference("phing.parsing.context");
-    $cfg = $ctx->getConfigurator();
-    // Import xml file into current project scope
-    // Since this is delayed until after the importing file has been 
-    // processed, the properties and targets of this new file may not take 
-    // effect if they have alreday been defined in the outer scope.
-    $this->log("Importing file from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
-    ProjectConfigurator::configureProject($this->project, $file);
-  } //end main
+    /**
+     * Parse a Phing build file and copy the properties, tasks, data types and
+     * targets it defines into the current project.
+     *
+     * @return void
+     */
+    public function main()
+    {
+        if (!isset($this->file)) {
+            throw new BuildException("Missing attribute 'file'");
+        }
+
+        $file = new PhingFile($this->file);
+        if (!$file->isAbsolute()) {
+            $file = new PhingFile($this->project->getBasedir(), $this->file);
+        }
+        if (!$file->exists()) {
+            $msg = "Unable to find build file: {$file->getPath()}";
+            if ($this->optional) {
+                $this->log($msg . '... skipped');
+
+                return;
+            } else {
+                throw new BuildException($msg);
+            }
+        }
+
+        $ctx = $this->project->getReference("phing.parsing.context");
+        $cfg = $ctx->getConfigurator();
+        // Import xml file into current project scope
+        // Since this is delayed until after the importing file has been
+        // processed, the properties and targets of this new file may not take
+        // effect if they have alreday been defined in the outer scope.
+        $this->log("Importing file from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
+        ProjectConfigurator::configureProject($this->project, $file);
+    } //end main
 
 } //end ImportTask

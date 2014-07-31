@@ -25,9 +25,9 @@ include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Applies XSL stylesheet to incoming text.
- * 
+ *
  * Uses PHP XSLT support (libxslt).
- * 
+ *
  * @author    Hans Lellelid <hans@velum.net>
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Andreas Aderhold <andi@binarycloud.com>
@@ -35,83 +35,89 @@ include_once 'phing/filters/ChainableReader.php';
  * @see       FilterReader
  * @package   phing.filters
  */
-class XsltFilter extends BaseParamFilterReader implements ChainableReader {
+class XsltFilter extends BaseParamFilterReader implements ChainableReader
+{
 
     /**
      * Path to XSL stylesheet.
      * @var string
      */
-    private $xslFile   = null;
+    private $xslFile = null;
 
     /**
      * Whether XML file has been transformed.
      * @var boolean
      */
     private $processed = false;
-    
+
     /**
      * XSLT Params.
      * @var array
      */
-    private $xsltParams = array();    
-    
+    private $xsltParams = array();
+
     /**
      * Whether to use loadHTML() to parse the input XML file.
      */
     private $html = false;
-    
+
     /**
-     * Whether to resolve entities in the XML document (see 
-     * {@link http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals} 
+     * Whether to resolve entities in the XML document (see
+     * {@link http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals}
      * for more details).
-     * 
+     *
      * @var bool
-     * 
+     *
      * @since 2.4
      */
     private $resolveDocumentExternals = false;
-    
+
     /**
      * Whether to resolve entities in the stylesheet.
-     * 
+     *
      * @var bool
-     * 
+     *
      * @since 2.4
      */
     private $resolveStylesheetExternals = false;
-    
+
     /**
      * Create new XSLT Param object, to handle the <param/> nested element.
      * @return XSLTParam
      */
-    function createParam() {
+    public function createParam()
+    {
         $num = array_push($this->xsltParams, new XSLTParam());
-        return $this->xsltParams[$num-1];
+
+        return $this->xsltParams[$num - 1];
     }
-    
+
     /**
      * Sets the XSLT params for this class.
      * This is used to "clone" this class, in the chain() method.
      * @param array $params
      */
-    function setParams($params) {
+    public function setParams($params)
+    {
         $this->xsltParams = $params;
     }
-    
+
     /**
      * Returns the XSLT params set for this class.
      * This is used to "clone" this class, in the chain() method.
      * @return array
      */
-    function getParams() {
+    public function getParams()
+    {
         return $this->xsltParams;
     }
-        
+
     /**
      * Set the XSLT stylesheet.
      * @param mixed $file PhingFile object or path.
      */
-    function setStyle(PhingFile $file) {
+    public function setStyle(PhingFile $file)
+    {
         $this->xslFile = $file;
     }
 
@@ -120,112 +126,126 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
      * This is supported in libxml2 -- Yay!
      * @return boolean
      */
-    function getHtml() {
+    public function getHtml()
+    {
         return $this->html;
     }
-    
+
     /**
      * Whether to use HTML parser for XML.
      * @param boolean $b
      */
-    function setHtml($b) {        
+    public function setHtml($b)
+    {
         $this->html = (boolean) $b;
     }
-    
+
     /**
      * Get the path to XSLT stylesheet.
      * @return mixed XSLT stylesheet path.
      */
-    function getStyle() {
+    public function getStyle()
+    {
         return $this->xslFile;
     }
-    
+
     /**
      * Whether to resolve entities in document.
-     * 
+     *
      * @param bool $resolveExternals
-     * 
+     *
      * @since 2.4
      */
-    function setResolveDocumentExternals($resolveExternals) {
-        $this->resolveDocumentExternals = (bool)$resolveExternals;
+    public function setResolveDocumentExternals($resolveExternals)
+    {
+        $this->resolveDocumentExternals = (bool) $resolveExternals;
     }
-    
+
     /**
      * @return bool
-     * 
+     *
      * @since 2.4
      */
-    function getResolveDocumentExternals() {
+    public function getResolveDocumentExternals()
+    {
         return $this->resolveDocumentExternals;
     }
-    
+
     /**
      * Whether to resolve entities in stylesheet.
-     * 
+     *
      * @param bool $resolveExternals
-     * 
+     *
      * @since 2.4
      */
-    function setResolveStylesheetExternals($resolveExternals) {
-        $this->resolveStylesheetExternals = (bool)$resolveExternals;
+    public function setResolveStylesheetExternals($resolveExternals)
+    {
+        $this->resolveStylesheetExternals = (bool) $resolveExternals;
     }
-    
+
     /**
      * @return bool
-     * 
+     *
      * @since 2.4
      */
-    function getResolveStylesheetExternals() {
+    public function getResolveStylesheetExternals()
+    {
         return $this->resolveStylesheetExternals;
     }
-    
+
     /**
      * Reads stream, applies XSLT and returns resulting stream.
-     * @return string transformed buffer.
+     * @return string         transformed buffer.
      * @throws BuildException - if XSLT support missing, if error in xslt processing
      */
-    function read($len = null) {
-        
+    public function read($len = null)
+    {
+
         if (!class_exists('XSLTProcessor')) {
             throw new BuildException("Could not find the XSLTProcessor class. Make sure PHP has been compiled/configured to support XSLT.");
         }
-        
+
         if ($this->processed === true) {
             return -1; // EOF
         }
-        
-        if ( !$this->getInitialized() ) {
+
+        if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
         }
 
         // Read XML
         $_xml = null;
-        while ( ($data = $this->in->read($len)) !== -1 )
+        while (($data = $this->in->read($len)) !== -1) {
             $_xml .= $data;
+        }
 
-        if ($_xml === null ) { // EOF?
+        if ($_xml === null) { // EOF?
+
             return -1;
         }
 
-        if(empty($_xml)) {
+        if (empty($_xml)) {
             $this->log("XML file is empty!", Project::MSG_WARN);
+
             return ''; // return empty string, don't attempt to apply XSLT
         }
-       
+
         // Read XSLT
         $_xsl = null;
         $xslFr = new FileReader($this->xslFile);
         $xslFr->readInto($_xsl);
-        
-        $this->log("Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(), Project::MSG_VERBOSE);
-        
+
+        $this->log(
+            "Tranforming XML " . $this->in->getResource() . " using style " . $this->xslFile->getPath(),
+            Project::MSG_VERBOSE
+        );
+
         $out = '';
         try {
             $out = $this->process($_xml, $_xsl);
             $this->processed = true;
-        } catch (IOException $e) {            
+        } catch (IOException $e) {
             throw new BuildException($e);
         }
 
@@ -239,30 +259,31 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
      * @param   string  XML to process.
      * @param   string  XSLT sheet to use for the processing.
      *
-     * @throws BuildException   On XSLT errors
+     * @throws BuildException On XSLT errors
      */
-    protected function process($xml, $xsl) {    
-                
+    protected function process($xml, $xsl)
+    {
+
         $processor = new XSLTProcessor();
-        
+
         // Create and setup document.
-        $xmlDom                   = new DOMDocument();
+        $xmlDom = new DOMDocument();
         $xmlDom->resolveExternals = $this->resolveDocumentExternals;
-        
+
         // Create and setup stylesheet.
-        $xslDom                   = new DOMDocument();
+        $xslDom = new DOMDocument();
         $xslDom->resolveExternals = $this->resolveStylesheetExternals;
-        
-        if ($this->html) {            
+
+        if ($this->html) {
             $xmlDom->loadHTML($xml);
         } else {
             $xmlDom->loadXML($xml);
         }
-        
+
         $xslDom->loadxml($xsl);
-        
+
         if (defined('XSL_SECPREF_WRITE_FILE')) {
-            if (version_compare(PHP_VERSION,'5.4',"<")) {
+            if (version_compare(PHP_VERSION, '5.4', "<")) {
                 ini_set("xsl.security_prefs", XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
             } else {
                 $processor->setSecurityPrefs(XSL_SECPREF_WRITE_FILE | XSL_SECPREF_CREATE_DIRECTORY);
@@ -272,24 +293,24 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
 
         // ignoring param "type" attrib, because
         // we're only supporting direct XSL params right now
-        foreach($this->xsltParams as $param) {
+        foreach ($this->xsltParams as $param) {
             $this->log("Setting XSLT param: " . $param->getName() . "=>" . $param->getExpression(), Project::MSG_DEBUG);
             $processor->setParameter(null, $param->getName(), $param->getExpression());
         }
-        
+
         $errorlevel = error_reporting();
         error_reporting($errorlevel & ~E_WARNING);
         @$result = $processor->transformToXML($xmlDom);
         error_reporting($errorlevel);
-        
+
         if (false === $result) {
             //$errno = xslt_errno($processor);
-            //$err   = xslt_error($processor);    
-            throw new BuildException("XSLT Error");            
+            //$err   = xslt_error($processor);
+            throw new BuildException("XSLT Error");
         } else {
             return $result;
         }
-    }    
+    }
 
     /**
      * Creates a new XsltFilter using the passed in
@@ -299,26 +320,29 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
      *               Must not be <code>null</code>.
      *
      * @return Reader A new filter based on this configuration, but filtering
-     *         the specified reader
+     *                the specified reader
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new XsltFilter($reader);
         $newFilter->setProject($this->getProject());
         $newFilter->setStyle($this->getStyle());
         $newFilter->setInitialized(true);
         $newFilter->setParams($this->getParams());
         $newFilter->setHtml($this->getHtml());
+
         return $newFilter;
     }
 
     /**
      * Parses the parameters to get stylesheet path.
      */
-    private function _initialize() {        
+    private function _initialize()
+    {
         $params = $this->getParameters();
-        if ( $params !== null ) {
-            for($i = 0, $_i=count($params) ; $i < $_i; $i++) {
-                if ( $params[$i]->getType() === null ) {
+        if ($params !== null) {
+            for ($i = 0, $_i = count($params); $i < $_i; $i++) {
+                if ($params[$i]->getType() === null) {
                     if ($params[$i]->getName() === "style") {
                         $this->setStyle($params[$i]->getValue());
                     }
@@ -334,36 +358,38 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader {
 
 }
 
-
 /**
  * Class that holds an XSLT parameter.
  *
  * @package   phing.filters
  */
-class XSLTParam {
-    
+class XSLTParam
+{
+
     private $name;
-    
-    private $expr;    
-    
+
+    private $expr;
+
     /**
      * Sets param name.
      * @param string $name
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
-    
+
     /**
      * Get param name.
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
-    
+
     /**
-     * Sets expression value (alias to the setExpression()) method. 
+     * Sets expression value (alias to the setExpression()) method.
      *
      * @param string $v
      * @see setExpression()
@@ -372,9 +398,9 @@ class XSLTParam {
     {
         $this->setExpression($v);
     }
-    
+
     /**
-     * Gets expression value (alias to the getExpression()) method. 
+     * Gets expression value (alias to the getExpression()) method.
      *
      * @param string $v
      * @see getExpression()
@@ -383,33 +409,35 @@ class XSLTParam {
     {
         return $this->getExpression();
     }
-    
+
     /**
      * Sets expression value.
      * @param string $expr
      */
-    public function setExpression($expr) {
+    public function setExpression($expr)
+    {
         $this->expr = $expr;
     }
-    
+
     /**
      * Sets expression to dynamic register slot.
      * @param RegisterSlot $expr
      */
-    public function setListeningExpression(RegisterSlot $expr) {
-        $this->expr = $expr;    
+    public function setListeningExpression(RegisterSlot $expr)
+    {
+        $this->expr = $expr;
     }
-    
+
     /**
      * Returns expression value -- performs lookup if expr is registerslot.
      * @return string
      */
-    public function getExpression() {
+    public function getExpression()
+    {
         if ($this->expr instanceof RegisterSlot) {
             return $this->expr->getValue();
         } else {
             return $this->expr;
         }
-    }        
+    }
 }
-

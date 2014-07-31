@@ -49,13 +49,14 @@ include_once 'phing/system/util/Properties.php';
  * @package    phing.listener
  * @version    $Id$
  */
-class HtmlColorLogger extends DefaultLogger {
+class HtmlColorLogger extends DefaultLogger
+{
 
-    const CLASS_ERR     = 'phing_err';
+    const CLASS_ERR = 'phing_err';
     const CLASS_VERBOSE = 'phing_verbose';
-    const CLASS_DEBUG   = 'phing_debug';
-    const CLASS_WARN    = 'phing_warn';
-    const CLASS_INFO    = 'phing_info';
+    const CLASS_DEBUG = 'phing_debug';
+    const CLASS_WARN = 'phing_warn';
+    const CLASS_INFO = 'phing_info';
 
     const PREFIX = '<span class="';
     const SUFFIX = '">';
@@ -73,20 +74,22 @@ class HtmlColorLogger extends DefaultLogger {
      * Construct new HtmlColorLogger
      * Perform initializations that cannot be done in var declarations.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->errColor =     self::PREFIX . self::CLASS_ERR     . self::SUFFIX;
-        $this->warnColor =    self::PREFIX . self::CLASS_WARN    . self::SUFFIX;
-        $this->infoColor =    self::PREFIX . self::CLASS_INFO    . self::SUFFIX;
+        $this->errColor = self::PREFIX . self::CLASS_ERR . self::SUFFIX;
+        $this->warnColor = self::PREFIX . self::CLASS_WARN . self::SUFFIX;
+        $this->infoColor = self::PREFIX . self::CLASS_INFO . self::SUFFIX;
         $this->verboseColor = self::PREFIX . self::CLASS_VERBOSE . self::SUFFIX;
-        $this->debugColor =   self::PREFIX . self::CLASS_DEBUG   . self::SUFFIX;
+        $this->debugColor = self::PREFIX . self::CLASS_DEBUG . self::SUFFIX;
     }
 
     /**
      * Set the colors to use from a property file specified in the
      * special phing property file "phing/listener/defaults.properties".
      */
-    private final function setColors() {
+    final private function setColors()
+    {
 
         $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
 
@@ -95,11 +98,11 @@ class HtmlColorLogger extends DefaultLogger {
 
             $prop->load($systemColorFile);
 
-            $err     = $prop->getProperty("HtmlColorLogger.ERROR_CLASS");
-            $warn    = $prop->getProperty("HtmlColorLogger.WARNING_CLASS");
-            $info    = $prop->getProperty("HtmlColorLogger.INFO_CLASS");
+            $err = $prop->getProperty("HtmlColorLogger.ERROR_CLASS");
+            $warn = $prop->getProperty("HtmlColorLogger.WARNING_CLASS");
+            $info = $prop->getProperty("HtmlColorLogger.INFO_CLASS");
             $verbose = $prop->getProperty("HtmlColorLogger.VERBOSE_CLASS");
-            $debug   = $prop->getProperty("HtmlColorLogger.DEBUG_CLASS");
+            $debug = $prop->getProperty("HtmlColorLogger.DEBUG_CLASS");
             if ($err !== null) {
                 $this->errColor = self::PREFIX . $err . self::SUFFIX;
             }
@@ -122,11 +125,12 @@ class HtmlColorLogger extends DefaultLogger {
 
     /**
      * @see DefaultLogger#printMessage
-     * @param string $message
+     * @param string       $message
      * @param OutputStream $stream
-     * @param int $priority
+     * @param int          $priority
      */
-    protected final function printMessage($message, OutputStream $stream, $priority) {
+    final protected function printMessage($message, OutputStream $stream, $priority)
+    {
         if ($message !== null) {
 
             if (!$this->colorsSet) {

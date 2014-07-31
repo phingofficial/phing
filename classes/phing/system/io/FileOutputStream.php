@@ -1,7 +1,7 @@
 <?php
 /*
- *  $Id$  
- * 
+ *  $Id$
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,24 +24,26 @@ require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Output stream subclass for file streams.
- * 
+ *
  * @package   phing.system.io
  */
-class FileOutputStream extends OutputStream {
-    
+class FileOutputStream extends OutputStream
+{
+
     /**
      * @var PhingFile The associated file.
      */
     protected $file;
-    
+
     /**
      * Construct a new FileOutputStream.
-     * @param mixed $file
-     * @param boolean $append Whether to append bytes to end of file rather than beginning.
-     * @throws Exception - if invalid argument specified.
+     * @param  mixed       $file
+     * @param  boolean     $append Whether to append bytes to end of file rather than beginning.
+     * @throws Exception   - if invalid argument specified.
      * @throws IOException - if unable to open file.
      */
-    public function __construct($file, $append = false) {
+    public function __construct($file, $append = false)
+    {
         global $php_errormsg;
         if ($file instanceof PhingFile) {
             $this->file = $file;
@@ -60,13 +62,13 @@ class FileOutputStream extends OutputStream {
         }
         parent::__construct($stream);
     }
-    
+
     /**
      * Returns a string representation of the attached file.
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         return $this->file->getPath();
     }
 }
-

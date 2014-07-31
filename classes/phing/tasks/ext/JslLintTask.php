@@ -33,13 +33,13 @@ require_once 'phing/util/DataStore.php';
  */
 class JslLintTask extends Task
 {
-    protected $file;  // the source file (from xml attribute)
+    protected $file; // the source file (from xml attribute)
     protected $filesets = array(); // all fileset objects assigned to this task
 
     protected $showWarnings = true;
     protected $haltOnFailure = false;
     protected $haltOnWarning = false;
-    protected $hasErrors   = false;
+    protected $hasErrors = false;
     protected $hasWarnings = false;
     private $badFiles = array();
 
@@ -47,7 +47,7 @@ class JslLintTask extends Task
     private $conf = null;
 
     private $executable = "jsl";
-    
+
     /**
      * @var PhingFile
      */
@@ -57,7 +57,8 @@ class JslLintTask extends Task
      * Sets the flag if warnings should be shown
      * @param boolean $show
      */
-    public function setShowWarnings($show) {
+    public function setShowWarnings($show)
+    {
         $this->showWarnings = StringHelper::booleanValue($show);
     }
 
@@ -65,7 +66,8 @@ class JslLintTask extends Task
      * The haltonfailure property
      * @param boolean $aValue
      */
-    public function setHaltOnFailure($aValue) {
+    public function setHaltOnFailure($aValue)
+    {
         $this->haltOnFailure = $aValue;
     }
 
@@ -73,7 +75,8 @@ class JslLintTask extends Task
      * The haltonwarning property
      * @param boolean $aValue
      */
-    public function setHaltOnWarning($aValue) {
+    public function setHaltOnWarning($aValue)
+    {
         $this->haltOnWarning = $aValue;
     }
 
@@ -81,7 +84,8 @@ class JslLintTask extends Task
      * File to be performed syntax check on
      * @param PhingFile $file
      */
-    public function setFile(PhingFile $file) {
+    public function setFile(PhingFile $file)
+    {
         $this->file = $file;
     }
 
@@ -105,15 +109,17 @@ class JslLintTask extends Task
         $this->conf = $file;
     }
 
-    public function setExecutable($path){
+    public function setExecutable($path)
+    {
         $this->executable = $path;
-        
+
         if (!@file_exists($path)) {
             throw new BuildException("JavaScript Lint executable '{$path}' not found");
         }
     }
-     
-    public function getExecutable(){
+
+    public function getExecutable()
+    {
         return $this->executable;
     }
 
@@ -122,7 +128,8 @@ class JslLintTask extends Task
      *
      * @return void
      */
-    function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -139,8 +146,9 @@ class JslLintTask extends Task
     /**
      * Execute lint check against PhingFile or a FileSet
      */
-    public function main() {
-        if(!isset($this->file) and count($this->filesets) == 0) {
+    public function main()
+    {
+        if (!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
@@ -148,16 +156,16 @@ class JslLintTask extends Task
             throw new BuildException("Missing the 'executable' attribute");
         }
 
-        if($this->file instanceof PhingFile) {
+        if ($this->file instanceof PhingFile) {
             $this->lint($this->file->getPath());
         } else { // process filesets
             $project = $this->getProject();
-            foreach($this->filesets as $fs) {
+            foreach ($this->filesets as $fs) {
                 $ds = $fs->getDirectoryScanner($project);
                 $files = $ds->getIncludedFiles();
                 $dir = $fs->getDir($this->project)->getPath();
-                foreach($files as $file) {
-                    $this->lint($dir.DIRECTORY_SEPARATOR.$file);
+                foreach ($files as $file) {
+                    $this->lint($dir . DIRECTORY_SEPARATOR . $file);
                 }
             }
         }
@@ -165,29 +173,41 @@ class JslLintTask extends Task
         // write list of 'bad files' to file (if specified)
         if ($this->tofile) {
             $writer = new FileWriter($this->tofile);
-            
+
             foreach ($this->badFiles as $file => $messages) {
-            	foreach ($messages as $msg) {
-                	$writer->write($file . "=" . $msg . PHP_EOL);
-            	}
+                foreach ($messages as $msg) {
+                    $writer->write($file . "=" . $msg . PHP_EOL);
+                }
             }
-            
+
             $writer->close();
         }
 
-        if ($this->haltOnFailure && $this->hasErrors) throw new BuildException('Syntax error(s) in JS files:' .implode(', ', array_keys($this->badFiles)));
-        if ($this->haltOnWarning && $this->hasWarnings) throw new BuildException('Syntax warning(s) in JS files:' .implode(', ', array_keys($this->badFiles)));
+        if ($this->haltOnFailure && $this->hasErrors) {
+            throw new BuildException('Syntax error(s) in JS files:' . implode(
+                    ', ',
+                    array_keys($this->badFiles)
+                ));
+        }
+        if ($this->haltOnWarning && $this->hasWarnings) {
+            throw new BuildException('Syntax warning(s) in JS files:' . implode(
+                    ', ',
+                    array_keys($this->badFiles)
+                ));
+        }
     }
 
     /**
      * Performs the actual syntax check
      *
-     * @param string $file
+     * @param  string $file
      * @return void
      */
     protected function lint($file)
     {
-        $command = $this->executable . ' -output-format ' . escapeshellarg('file:__FILE__;line:__LINE__;message:__ERROR__') . ' ';
+        $command = $this->executable . ' -output-format ' . escapeshellarg(
+                'file:__FILE__;line:__LINE__;message:__ERROR__'
+            ) . ' ';
 
         if (isset($this->conf)) {
             $command .= '-conf ' . escapeshellarg($this->conf->getPath()) . ' ';
@@ -195,24 +215,21 @@ class JslLintTask extends Task
 
         $command .= '-process ';
 
-        if(file_exists($file))
-        {
-            if(is_readable($file))
-            {
-                if ($this->cache)
-                {
+        if (file_exists($file)) {
+            if (is_readable($file)) {
+                if ($this->cache) {
                     $lastmtime = $this->cache->get($file);
 
-                    if ($lastmtime >= filemtime($file))
-                    {
+                    if ($lastmtime >= filemtime($file)) {
                         $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
+
                         return false;
                     }
                 }
 
                 $messages = array();
-                exec($command.'"'.$file.'"', $messages, $return);
-                
+                exec($command . '"' . $file . '"', $messages, $return);
+
                 if ($return > 100) {
                     throw new BuildException("Could not execute Javascript Lint executable '{$this->executable}'");
                 }
@@ -224,7 +241,7 @@ class JslLintTask extends Task
 
                 preg_match('/(\d+)\swarning/', $summary, $matches);
                 $warningCount = (count($matches) > 1 ? $matches[1] : 0);
-                
+
                 $errors = array();
                 $warnings = array();
                 if ($errorCount > 0 || $warningCount > 0) {
@@ -235,61 +252,67 @@ class JslLintTask extends Task
                             $column = strlen($message);
                             if ($last == 'error') {
                                 $errors[count($errors) - 1]['column'] = $column;
-                            } else if ($last == 'warning') {
-                                $warnings[count($warnings) - 1]['column'] = $column;
+                            } else {
+                                if ($last == 'warning') {
+                                    $warnings[count($warnings) - 1]['column'] = $column;
+                                }
                             }
                             $last = false;
                         }
-                        if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', $message, $matches)) continue;
+                        if (!preg_match('/^file:(.+);line:(\d+);message:(.+)$/', $message, $matches)) {
+                            continue;
+                        }
                         $msg = $matches[3];
                         $data = array('filename' => $matches[1], 'line' => $matches[2], 'message' => $msg);
                         if (preg_match('/^.*error:.+$/i', $msg)) {
                             $errors[] = $data;
                             $last = 'error';
-                        } else if (preg_match('/^.*warning:.+$/i', $msg)) {
-                            $warnings[] = $data;
-                            $last = 'warning';
+                        } else {
+                            if (preg_match('/^.*warning:.+$/i', $msg)) {
+                                $warnings[] = $data;
+                                $last = 'warning';
+                            }
                         }
                     }
                 }
 
-                if($this->showWarnings && $warningCount > 0)
-                {
+                if ($this->showWarnings && $warningCount > 0) {
                     $this->log($file . ': ' . $warningCount . ' warnings detected', Project::MSG_WARN);
                     foreach ($warnings as $warning) {
-                        $this->log('- line ' . $warning['line'] . (isset($warning['column']) ? ' column ' . $warning['column'] : '') . ': ' . $warning['message'], Project::MSG_WARN);
+                        $this->log(
+                            '- line ' . $warning['line'] . (isset($warning['column']) ? ' column ' . $warning['column'] : '') . ': ' . $warning['message'],
+                            Project::MSG_WARN
+                        );
                     }
                     $this->hasWarnings = true;
                 }
 
-                if($errorCount > 0)
-                {
+                if ($errorCount > 0) {
                     $this->log($file . ': ' . $errorCount . ' errors detected', Project::MSG_ERR);
                     if (!isset($this->badFiles[$file])) {
                         $this->badFiles[$file] = array();
                     }
-                        
+
                     foreach ($errors as $error) {
                         $message = 'line ' . $error['line'] . (isset($error['column']) ? ' column ' . $error['column'] : '') . ': ' . $error['message'];
                         $this->log('- ' . $message, Project::MSG_ERR);
                         array_push($this->badFiles[$file], $message);
                     }
                     $this->hasErrors = true;
-                } else if (!$this->showWarnings || $warningCount == 0) {
-                    $this->log($file . ': No syntax errors detected', Project::MSG_VERBOSE);
+                } else {
+                    if (!$this->showWarnings || $warningCount == 0) {
+                        $this->log($file . ': No syntax errors detected', Project::MSG_VERBOSE);
 
-                    if ($this->cache)
-                    {
-                        $this->cache->put($file, filemtime($file));
+                        if ($this->cache) {
+                            $this->cache->put($file, filemtime($file));
+                        }
                     }
                 }
             } else {
-                throw new BuildException('Permission denied: '.$file);
+                throw new BuildException('Permission denied: ' . $file);
             }
         } else {
-            throw new BuildException('File not found: '.$file);
+            throw new BuildException('File not found: ' . $file);
         }
     }
 }
-
-

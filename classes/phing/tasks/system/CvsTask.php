@@ -25,7 +25,7 @@ include_once 'phing/types/Commandline.php';
 
 /**
  * Task for performing CVS operations.
- * 
+ *
  *  NOTE: This implementation has been moved here from Cvs.java with
  *  the addition of some accessors for extensibility.  Another task
  *  can extend this with some customized output processing.
@@ -38,18 +38,19 @@ include_once 'phing/types/Commandline.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class CvsTask extends Task {
+class CvsTask extends Task
+{
 
-    /** 
+    /**
      * Default compression level to use, if compression is enabled via
-     * setCompression( true ). 
+     * setCompression( true ).
      */
     const DEFAULT_COMPRESSION_LEVEL = 3;
 
     private $cmd;
 
-    /** 
-     * List of Commandline children 
+    /**
+     * List of Commandline children
      * @var array Commandline[]
      */
     private $commandlines = array();
@@ -73,7 +74,7 @@ class CvsTask extends Task {
      * the default command.
      */
     private static $default_command = "checkout";
-    
+
     /**
      * the CVS command to execute.
      */
@@ -110,70 +111,77 @@ class CvsTask extends Task {
      * @var File
      */
     private $dest;
-   
+
     private $error;
-    
+
     private $output;
-   
+
     /**
      * If true it will stop the build if cvs exits with error.
      * Default is false. (Iulian)
      * @var boolean
      */
     private $failOnError = false;
-  
-    public function init() {
+
+    public function init()
+    {
         $this->cmd = new Commandline();
     }
-    
+
     /**
      * Sets up the environment for toExecute and then runs it.
-     * @param Commandline $toExecute
+     * @param  Commandline    $toExecute
      * @throws BuildException
      */
-    protected function runCommand(Commandline $toExecute) {
-    
+    protected function runCommand(Commandline $toExecute)
+    {
+
         // We are putting variables into the script's environment
-        // and not removing them (!)  This should be fine, but is 
+        // and not removing them (!)  This should be fine, but is
         // worth remembering and testing.
-            
+
         if ($this->port > 0) {
-            putenv("CVS_CLIENT_PORT=".$this->port);
+            putenv("CVS_CLIENT_PORT=" . $this->port);
         }
-        
-         // Need a better cross platform integration with <cvspass>, so
-         // use the same filename.
+
+        // Need a better cross platform integration with <cvspass>, so
+        // use the same filename.
 
         if ($this->passFile === null) {
-            $defaultPassFile = new PhingFile(Phing::getProperty("cygwin.user.home", Phing::getProperty("user.home")) 
+            $defaultPassFile = new PhingFile(Phing::getProperty("cygwin.user.home", Phing::getProperty("user.home"))
                 . DIRECTORY_SEPARATOR . ".cvspass");
-            if($defaultPassFile->exists()) {
+            if ($defaultPassFile->exists()) {
                 $this->setPassfile($defaultPassFile);
             }
         }
 
         if ($this->passFile !== null) {
-            if ($this->passFile->isFile() && $this->passFile->canRead()) {            
+            if ($this->passFile->isFile() && $this->passFile->canRead()) {
                 putenv("CVS_PASSFILE=" . $this->passFile->__toString());
                 $this->log("Using cvs passfile: " . $this->passFile->__toString(), Project::MSG_INFO);
             } elseif (!$this->passFile->canRead()) {
-                $this->log("cvs passfile: " . $this->passFile->__toString() 
-                    . " ignored as it is not readable", Project::MSG_WARN);
+                $this->log(
+                    "cvs passfile: " . $this->passFile->__toString()
+                    . " ignored as it is not readable",
+                    Project::MSG_WARN
+                );
             } else {
-                $this->log("cvs passfile: " . $this->passFile->__toString() 
+                $this->log(
+                    "cvs passfile: " . $this->passFile->__toString()
                     . " ignored as it is not a file",
-                    Project::MSG_WARN);
+                    Project::MSG_WARN
+                );
             }
         }
 
         if ($this->cvsRsh !== null) {
-            putenv("CVS_RSH=".$this->cvsRsh);
+            putenv("CVS_RSH=" . $this->cvsRsh);
         }
 
-        // Use the ExecTask to handle execution of the command        
+        // Use the ExecTask to handle execution of the command
         $exe = new ExecTask($this->project);
         $exe->setProject($this->project);
-        
+
         //exe.setAntRun(project);
         if ($this->dest === null) {
             $this->dest = $this->project->getBaseDir();
@@ -182,7 +190,7 @@ class CvsTask extends Task {
         if (!$this->dest->exists()) {
             $this->dest->mkdirs();
         }
-        
+
         if ($this->output !== null) {
             $exe->setOutput($this->output);
         }
@@ -190,15 +198,15 @@ class CvsTask extends Task {
         if ($this->error !== null) {
             $exe->setError($this->error);
         }
-        
+
         $exe->setDir($this->dest);
-        
+
         if (is_object($toExecute)) {
             $toExecuteStr = $toExecute->__toString(); // unfortunately no more automagic for initial 5.0.0 release :(
         }
-        
+
         $exe->setCommand($toExecuteStr);
-        
+
         try {
             $actualCommandLine = $toExecuteStr; // we converted to string above
             $this->log($actualCommandLine, Project::MSG_INFO);
@@ -207,10 +215,10 @@ class CvsTask extends Task {
             /*Throw an exception if cvs exited with error. (Iulian)*/
             if ($this->failOnError && $retCode !== 0) {
                 throw new BuildException("cvs exited with error code "
-                                         . $retCode 
-                                         . PHP_EOL
-                                         . "Command line was ["
-                                         . $toExecute->describeCommand() . "]", $this->getLocation());
+                    . $retCode
+                    . PHP_EOL
+                    . "Command line was ["
+                    . $toExecute->describeCommand() . "]", $this->getLocation());
             }
         } catch (IOException $e) {
             if ($this->failOnError) {
@@ -238,11 +246,12 @@ class CvsTask extends Task {
     }
 
     /**
-     * 
+     *
      * @return void
      * @throws BuildException
      */
-    public function main() {
+    public function main()
+    {
 
         $savedCommand = $this->getCommand();
 
@@ -260,16 +269,16 @@ class CvsTask extends Task {
         }
 
         try {
-            for ($i = 0, $vecsize=count($this->commandlines); $i < $vecsize; $i++) {
+            for ($i = 0, $vecsize = count($this->commandlines); $i < $vecsize; $i++) {
                 $this->runCommand($this->commandlines[$i]);
             }
-            
+
             // finally    {
             if ($cloned !== null) {
                 $this->removeCommandline($cloned);
             }
             $this->setCommand($savedCommand);
-            
+
         } catch (Exception $e) {
             // finally {
             if ($cloned !== null) {
@@ -285,7 +294,8 @@ class CvsTask extends Task {
      *
      * @param string $root
      */
-    public function setCvsRoot($root) {
+    public function setCvsRoot($root)
+    {
 
         // Check if not real cvsroot => set it to null
         if ($root !== null) {
@@ -297,7 +307,8 @@ class CvsTask extends Task {
         $this->cvsRoot = $root;
     }
 
-    public function getCvsRoot() {
+    public function getCvsRoot()
+    {
         return $this->cvsRoot;
     }
 
@@ -306,7 +317,8 @@ class CvsTask extends Task {
      *
      * @param rsh
      */
-    public function setCvsRsh($rsh) {
+    public function setCvsRsh($rsh)
+    {
         // Check if not real cvsrsh => set it to null
         if ($rsh !== null) {
             if (trim($rsh) == "") {
@@ -317,7 +329,8 @@ class CvsTask extends Task {
         $this->cvsRsh = $rsh;
     }
 
-    public function getCvsRsh() {
+    public function getCvsRsh()
+    {
         return $this->cvsRsh;
     }
 
@@ -326,14 +339,16 @@ class CvsTask extends Task {
      *
      * @param int $port
      */
-    public function setPort($port){
+    public function setPort($port)
+    {
         $this->port = $port;
     }
 
     /**
      * @return int
      */
-    public function getPort() {
+    public function getPort()
+    {
         return $this->port;
     }
 
@@ -342,14 +357,16 @@ class CvsTask extends Task {
      *
      * @param passFile
      */
-    public function setPassfile(PhingFile $passFile) {
+    public function setPassfile(PhingFile $passFile)
+    {
         $this->passFile = $passFile;
     }
-    
+
     /**
      * @return File
      */
-    public function getPassFile() {
+    public function getPassFile()
+    {
         return $this->passFile;
     }
 
@@ -358,11 +375,13 @@ class CvsTask extends Task {
      *
      * @param PhingFile $dest
      */
-    public function setDest(PhingFile $dest) {
+    public function setDest(PhingFile $dest)
+    {
         $this->dest = $dest;
     }
 
-    public function getDest() {
+    public function getDest()
+    {
         return $this->dest;
     }
 
@@ -371,11 +390,13 @@ class CvsTask extends Task {
      *
      * @param string $p
      */
-    public function setModule($m) {
+    public function setModule($m)
+    {
         $this->cvsModule = $m;
     }
 
-    public function getModule(){
+    public function getModule()
+    {
         return $this->cvsModule;
     }
 
@@ -383,7 +404,8 @@ class CvsTask extends Task {
      * The tag of the package/module to operate upon.
      * @param string $p
      */
-    public function setTag($p) {
+    public function setTag($p)
+    {
         // Check if not real tag => set it to null
         if ($p !== null && trim($p) !== "") {
             $this->appendCommandArgument("-r");
@@ -395,7 +417,8 @@ class CvsTask extends Task {
      * This needs to be public to allow configuration
      *      of commands externally.
      */
-    public function appendCommandArgument($arg) {
+    public function appendCommandArgument($arg)
+    {
         $this->cmd->createArgument()->setValue($arg);
     }
 
@@ -403,7 +426,8 @@ class CvsTask extends Task {
      * Use the most recent revision no later than the given date.
      * @param p
      */
-    public function setDate($p) {
+    public function setDate($p)
+    {
         if ($p !== null && trim($p) !== "") {
             $this->appendCommandArgument("-D");
             $this->appendCommandArgument($p);
@@ -414,11 +438,13 @@ class CvsTask extends Task {
      * The CVS command to execute.
      * @param string $c
      */
-    public function setCommand($c) {
+    public function setCommand($c)
+    {
         $this->command = $c;
     }
-    
-    public function getCommand() {
+
+    public function getCommand()
+    {
         return $this->command;
     }
 
@@ -426,7 +452,8 @@ class CvsTask extends Task {
      * If true, suppress informational messages.
      * @param boolean $q
      */
-    public function setQuiet($q) {
+    public function setQuiet($q)
+    {
         $this->quiet = $q;
     }
 
@@ -435,7 +462,8 @@ class CvsTask extends Task {
      *
      * @param boolean $ne
      */
-    public function setNoexec($ne) {
+    public function setNoexec($ne)
+    {
         $this->noexec = (boolean) $ne;
     }
 
@@ -445,7 +473,8 @@ class CvsTask extends Task {
      * Defaults to false.
      * @param boolean $failOnError
      */
-    public function setFailOnError($failOnError) {
+    public function setFailOnError($failOnError)
+    {
         $this->failOnError = (boolean) $failOnError;
     }
 
@@ -453,12 +482,13 @@ class CvsTask extends Task {
      * Configure a commandline element for things like cvsRoot, quiet, etc.
      * @return string
      */
-    protected function configureCommandline($c) {
+    protected function configureCommandline($c)
+    {
         if ($c === null) {
             return;
         }
         $c->setExecutable("cvs");
-        
+
         if ($this->cvsModule !== null) {
             $c->createArgument()->setLine($this->cvsModule);
         }
@@ -476,22 +506,25 @@ class CvsTask extends Task {
         }
     }
 
-    protected function removeCommandline(Commandline $c) {
+    protected function removeCommandline(Commandline $c)
+    {
         $idx = array_search($c, $this->commandlines, true);
         if ($idx === false) {
             return false;
         }
         $this->commandlines = array_splice($this->commandlines, $idx, 1);
+
         return true;
     }
 
     /**
-    * Configures and adds the given Commandline.
-    * @param insertAtStart If true, c is
-    */
-    public function addConfiguredCommandline(Commandline $c, $insertAtStart = false) {
+     * Configures and adds the given Commandline.
+     * @param insertAtStart If true, c is
+     */
+    public function addConfiguredCommandline(Commandline $c, $insertAtStart = false)
+    {
         if ($c === null) {
-            return; 
+            return;
         }
         $this->configureCommandline($c);
         if ($insertAtStart) {
@@ -502,11 +535,12 @@ class CvsTask extends Task {
     }
 
     /**
-    * If set to a value 1-9 it adds -zN to the cvs command line, else
-    * it disables compression.
-    * @param int $level
-    */
-    public function setCompressionLevel($level) {
+     * If set to a value 1-9 it adds -zN to the cvs command line, else
+     * it disables compression.
+     * @param int $level
+     */
+    public function setCompressionLevel($level)
+    {
         $this->compression = $level;
     }
 
@@ -514,26 +548,31 @@ class CvsTask extends Task {
      * If true, this is the same as compressionlevel="3".
      *
      * @param boolean $usecomp If true, turns on compression using default
-     * level, AbstractCvsTask.DEFAULT_COMPRESSION_LEVEL.
+     *                         level, AbstractCvsTask.DEFAULT_COMPRESSION_LEVEL.
      */
-    public function setCompression($usecomp) {
-        $this->setCompressionLevel($usecomp ? 
-                            self::DEFAULT_COMPRESSION_LEVEL : 0);
+    public function setCompression($usecomp)
+    {
+        $this->setCompressionLevel(
+            $usecomp ?
+                self::DEFAULT_COMPRESSION_LEVEL : 0
+        );
     }
 
     /**
      * File to which output should be written.
      * @param PhingFile $output
      */
-    function setOutput(PhingFile $f) {
+    public function setOutput(PhingFile $f)
+    {
         $this->output = $f;
     }
-    
+
     /**
      * File to which error output should be written.
      * @param PhingFile $output
      */
-    function setError(PhingFile $f) {
+    public function setError(PhingFile $f)
+    {
         $this->error = $f;
     }
 

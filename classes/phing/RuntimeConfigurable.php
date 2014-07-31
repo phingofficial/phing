@@ -31,7 +31,8 @@
  * @version   $Id$
  * @package   phing
  */
-class RuntimeConfigurable {
+class RuntimeConfigurable
+{
 
     private $elementTag = null;
     private $children = array();
@@ -40,69 +41,76 @@ class RuntimeConfigurable {
     private $characters = "";
     private $proxyConfigured = false;
 
-
     /** @param proxy The element to wrap. */
-    function __construct($proxy, $elementTag) {
+    public function __construct($proxy, $elementTag)
+    {
         $this->wrappedObject = $proxy;
         $this->elementTag = $elementTag;
-        
+
         if ($proxy instanceof Task) {
             $proxy->setRuntimeConfigurableWrapper($this);
         }
     }
-    
+
     public function getProxy()
     {
         return $this->wrappedObject;
     }
 
-    function setProxy($proxy) {
+    public function setProxy($proxy)
+    {
         $this->wrappedObject = $proxy;
         $this->proxyConfigured = false;
     }
 
     /** Set's the attributes for the wrapped element. */
-    function setAttributes($attributes) {
+    public function setAttributes($attributes)
+    {
         $this->attributes = $attributes;
     }
 
     /** Returns the AttributeList of the wrapped element. */
-    function getAttributes() {
+    public function getAttributes()
+    {
         return $this->attributes;
     }
 
     /** Adds child elements to the wrapped element. */
-    function addChild(RuntimeConfigurable $child) {
+    public function addChild(RuntimeConfigurable $child)
+    {
         $this->children[] = $child;
     }
 
     /** Returns the child with index */
-    function getChild($index) {
-        return $this->children[(int)$index];
+    public function getChild($index)
+    {
+        return $this->children[(int) $index];
     }
 
     /** Add characters from #PCDATA areas to the wrapped element. */
-    function addText($data) {
+    public function addText($data)
+    {
         $this->characters .= (string) $data;
     }
 
-    function getElementTag() {
+    public function getElementTag()
+    {
         return $this->elementTag;
     }
 
-
     /** Configure the wrapped element and all children. */
-    function maybeConfigure(Project $project) {
+    public function maybeConfigure(Project $project)
+    {
         if ($this->proxyConfigured) {
             return;
         }
-        
+
         $id = null;
 
         // DataType configured in ProjectConfigurator
         //        if ( is_a($this->wrappedObject, "DataType") )
         //            return;
-        
+
         if ($this->attributes || $this->characters) {
             ProjectConfigurator::configure($this->wrappedObject, $this->attributes, $project);
 
@@ -120,13 +128,12 @@ class RuntimeConfigurable {
 
         /*if ( is_array($this->children) && !empty($this->children) ) {
             // Configure all child of this object ...
-            foreach($this->children as $child) {
+            foreach ($this->children as $child) {
                 $child->maybeConfigure($project);
                 ProjectConfigurator::storeChild($project, $this->wrappedObject, $child->wrappedObject, strtolower($child->getElementTag()));
             }
         }*/
-        
+
         $this->proxyConfigured = true;
     }
 }
-

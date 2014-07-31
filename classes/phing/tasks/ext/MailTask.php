@@ -18,14 +18,14 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/Task.php';
 
 /**
  * Send an e-mail message
  *
- * <mail tolist="user@example.org" subject="build complete">The build process is a success...</mail> 
- * 
+ * <mail tolist="user@example.org" subject="build complete">The build process is a success...</mail>
+ *
  * @author   Michiel Rook <mrook@php.net>
  * @author   Francois Harvey at SecuriWeb (http://www.securiweb.net)
  * @version  $Id$
@@ -37,57 +37,58 @@ class MailTask extends Task
     protected $subject = null;
     protected $msg = null;
     protected $from = null;
-    
+
     protected $filesets = array();
-    
+
     protected $backend = 'mail';
     protected $backendParams = array();
-    
+
     public function main()
     {
         if (empty($this->from)) {
             throw new BuildException('Missing "from" attribute');
         }
-        
+
         $this->log('Sending mail to ' . $this->tolist);
-        
+
         if (!empty($this->filesets)) {
             $this->sendFilesets();
+
             return;
         }
-        
+
         mail($this->tolist, $this->subject, $this->msg, "From: {$this->from}\n");
     }
-    
+
     protected function sendFilesets()
     {
         @require_once 'Mail.php';
         @require_once 'Mail/mime.php';
-        
+
         if (!class_exists('Mail_mime')) {
             throw new BuildException('Need the PEAR Mail_mime package to send attachments');
         }
-        
+
         $mime = new Mail_mime(array('text_charset' => 'UTF-8'));
         $hdrs = array(
-            'From'    => $this->from,
+            'From' => $this->from,
             'Subject' => $this->subject
         );
         $mime->setTXTBody($this->msg);
-        
+
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($this->project);
-            $fromDir  = $fs->getDir($this->project);
+            $fromDir = $fs->getDir($this->project);
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $file) {
                 $mime->addAttachment($fromDir . DIRECTORY_SEPARATOR . $file, 'application/octet-stream');
             }
         }
-        
+
         $body = $mime->get();
         $hdrs = $mime->headers($hdrs);
-        
+
         $mail = Mail::factory($this->backend, $this->backendParams);
         $mail->send($this->tolist, $hdrs, $body);
     }
@@ -107,7 +108,7 @@ class MailTask extends Task
     {
         $this->msg = (string) $msg;
     }
-    
+
     /**
      * Setter for subject
      */
@@ -123,7 +124,7 @@ class MailTask extends Task
     {
         $this->tolist = $tolist;
     }
-    
+
     /**
      * Alias for (deprecated) recipient
      */
@@ -139,7 +140,7 @@ class MailTask extends Task
     {
         $this->tolist = (string) $to;
     }
-        
+
     /**
      * Supports the <mail>Message</mail> syntax.
      */
@@ -147,7 +148,7 @@ class MailTask extends Task
     {
         $this->msg = (string) $msg;
     }
-    
+
     /**
      * Sets email address of sender
      */
@@ -155,7 +156,7 @@ class MailTask extends Task
     {
         $this->from = $from;
     }
-    
+
     /**
      * Sets PEAR Mail backend to use
      */
@@ -163,37 +164,38 @@ class MailTask extends Task
     {
         $this->backend = $backend;
     }
-    
+
     /**
      * Sets PEAR Mail backend params to use
      */
     public function setBackendParams($backendParams)
     {
         $params = explode(',', $backendParams);
-        
+
         foreach ($params as $param) {
             $values = explode('=', $param);
-            
+
             if (count($values) < 1) {
                 continue;
             }
-            
+
             if (count($values) == 1) {
                 $this->backendParams[] = $values[0];
-            } else{
+            } else {
                 $key = $values[0];
                 $value = $values[1];
                 $this->backendParams[$key] = $value;
             }
         }
     }
-    
+
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 }

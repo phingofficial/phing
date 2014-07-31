@@ -30,7 +30,7 @@
 class PHPUnitUtil
 {
     protected static $definedClasses = array();
-    
+
     /**
      * Returns the package of a class as defined in the docblock of the class using @package
      *
@@ -40,10 +40,10 @@ class PHPUnitUtil
     public static function getPackageName($classname)
     {
         $reflect = new ReflectionClass($classname);
-        
+
         if (method_exists($reflect, 'getNamespaceName')) {
             $namespace = $reflect->getNamespaceName();
-            
+
             if ($namespace != '') {
                 return $namespace;
             }
@@ -52,10 +52,10 @@ class PHPUnitUtil
         if (preg_match('/@package[\s]+([\.\w]+)/', $reflect->getDocComment(), $matches)) {
             return $matches[1];
         }
-        
+
         return "default";
     }
-    
+
     /**
      * Returns the subpackage of a class as defined in the docblock of the class
      * using @subpackage
@@ -87,14 +87,13 @@ class PHPUnitUtil
     public static function getClassFromFileName($filename)
     {
         $filename = basename($filename);
-        
+
         $rpos = strrpos($filename, '.');
-        
-        if ($rpos != -1)
-        {
+
+        if ($rpos != -1) {
             $filename = substr($filename, 0, $rpos);
         }
-        
+
         return $filename;
     }
 
@@ -103,44 +102,38 @@ class PHPUnitUtil
      * @param Path optional classpath
      * @return array list of classes defined in the file
      */
-    public static function getDefinedClasses($filename, $classpath = NULL)
+    public static function getDefinedClasses($filename, $classpath = null)
     {
         $filename = realpath($filename);
-        
-        if (!file_exists($filename))
-        {
+
+        if (!file_exists($filename)) {
             throw new Exception("File '" . $filename . "' does not exist");
         }
-        
-        if (isset(self::$definedClasses[$filename]))
-        {
+
+        if (isset(self::$definedClasses[$filename])) {
             return self::$definedClasses[$filename];
         }
-        
+
         Phing::__import($filename, $classpath);
 
         $declaredClasses = get_declared_classes();
-        
-        foreach ($declaredClasses as $classname)
-        {
+
+        foreach ($declaredClasses as $classname) {
             $reflect = new ReflectionClass($classname);
-            
+
             self::$definedClasses[$reflect->getFilename()][] = $classname;
-            
-            if (is_array(self::$definedClasses[$reflect->getFilename()]))
-            {           
-                self::$definedClasses[$reflect->getFilename()] = array_unique(self::$definedClasses[$reflect->getFilename()]);
+
+            if (is_array(self::$definedClasses[$reflect->getFilename()])) {
+                self::$definedClasses[$reflect->getFilename()] = array_unique(
+                    self::$definedClasses[$reflect->getFilename()]
+                );
             }
         }
-        
-        if (isset(self::$definedClasses[$filename]))
-        {
+
+        if (isset(self::$definedClasses[$filename])) {
             return self::$definedClasses[$filename];
-        }
-        else
-        {
+        } else {
             return array();
         }
     }
 }
-

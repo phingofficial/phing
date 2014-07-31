@@ -34,9 +34,9 @@ class SvnCheckoutTask extends SvnBaseTask
 {
     /**
      * Which Revision to Export
-     * 
+     *
      * @todo check if version_control_svn supports constants
-     * 
+     *
      * @var string
      */
     private $revision = 'HEAD';
@@ -46,11 +46,14 @@ class SvnCheckoutTask extends SvnBaseTask
      *
      * @throws BuildException
      */
-    function main()
+    public function main()
     {
         $this->setup('checkout');
 
-        $this->log("Checking out SVN repository to '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
+        $this->log(
+            "Checking out SVN repository to '" . $this->getToDir(
+            ) . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
+        );
 
         // revision
         $switches = array(

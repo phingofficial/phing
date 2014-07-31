@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/Task.php';
 
 /**
@@ -34,7 +34,7 @@ include_once 'phing/Task.php';
 class TryCatchTask extends Task
 {
     protected $propertyName = "";
-    
+
     protected $tryContainer = null;
     protected $catchContainer = null;
     protected $finallyContainer = null;
@@ -44,37 +44,37 @@ class TryCatchTask extends Task
      *
      * @throws BuildException
      * @return void
-     */    
+     */
     public function main()
     {
         $exc = null;
-        
+
         if (empty($this->tryContainer)) {
             throw new BuildException('A nested <try> element is required');
         }
-        
+
         try {
             $this->tryContainer->perform();
         } catch (BuildException $e) {
             if (!empty($this->propertyName)) {
                 $this->project->setProperty($this->propertyName, $e->getMessage());
             }
-            
+
             if (!empty($this->referenceName)) {
                 $this->project->addReference($this->referenceName, $e);
             }
-            
+
             if (!empty($this->catchContainer)) {
                 $this->catchContainer->perform();
             } else {
                 $exc = $e;
             }
         }
-        
+
         if (!empty($this->finallyContainer)) {
             $this->finallyContainer->perform();
         }
-        
+
         if (!empty($exc)) {
             throw $exc;
         }
@@ -90,7 +90,7 @@ class TryCatchTask extends Task
     {
         $this->propertyName = (string) $property;
     }
-    
+
     /**
      * Add nested <try> element
      *

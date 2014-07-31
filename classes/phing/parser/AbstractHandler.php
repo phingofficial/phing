@@ -30,7 +30,8 @@ include_once 'phing/parser/ExpatParseException.php';
  * @version   $Id$
  * @package   phing.parser
  */
-abstract class AbstractHandler {
+abstract class AbstractHandler
+{
 
     public $parentHandler = null;
     public $parser = null;
@@ -43,12 +44,13 @@ abstract class AbstractHandler {
      * @param   object  the parser object
      * @param   object  the parent handler of this handler
      */
-    protected function __construct($parser, $parentHandler) {
+    protected function __construct($parser, $parentHandler)
+    {
         $this->parentHandler = $parentHandler;
         $this->parser = $parser;
         $this->parser->setHandler($this);
     }
-        
+
     /**
      * Gets invoked when a XML open tag occurs
      *
@@ -58,7 +60,8 @@ abstract class AbstractHandler {
      * @param  string  the name of the XML element
      * @param  array   the attributes of the XML element
      */
-    public function startElement($name, $attribs) {
+    public function startElement($name, $attribs)
+    {
         throw new ExpatParseException("Unexpected element $name");
     }
 
@@ -66,7 +69,9 @@ abstract class AbstractHandler {
      * Gets invoked when element closes method.
      *
      */
-    protected function finished() {}
+    protected function finished()
+    {
+    }
 
     /**
      * Gets invoked when a XML element ends.
@@ -76,8 +81,9 @@ abstract class AbstractHandler {
      *
      * @param  string  the name of the XML element
      */
-    public function endElement($name) {
-        $this->finished();        
+    public function endElement($name)
+    {
+        $this->finished();
         $this->parser->setHandler($this->parentHandler);
     }
 
@@ -89,7 +95,8 @@ abstract class AbstractHandler {
      *            was called
      * @access    public
      */
-    public function characters($data) {
+    public function characters($data)
+    {
         $s = trim($data);
         if (strlen($s) > 0) {
             throw new ExpatParseException("Unexpected text '$s'", $this->parser->getLocation());

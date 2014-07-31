@@ -139,12 +139,13 @@ class PhpDependTask extends Task
             // include_path hack for PHP_Depend 1.1.3
             $rc = new ReflectionClass('PHP_Depend');
             set_include_path(get_include_path() . ":" . realpath(dirname($rc->getFileName()) . "/../"));
+
             return;
         }
 
         @include_once 'PHP/Depend/Autoload.php';
 
-        if (! class_exists('PHP_Depend_Autoload')) {
+        if (!class_exists('PHP_Depend_Autoload')) {
             throw new BuildException(
                 'PhpDependTask depends on PHP_Depend being installed and on include_path',
                 $this->getLocation()
@@ -171,7 +172,8 @@ class PhpDependTask extends Task
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -185,7 +187,7 @@ class PhpDependTask extends Task
         $this->allowedFileExtensions = array();
 
         $token = ' ,;';
-        $ext   = strtok($fileExtensions, $token);
+        $ext = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
@@ -202,7 +204,7 @@ class PhpDependTask extends Task
     {
         $this->excludeDirectories = array();
 
-        $token   = ' ,;';
+        $token = ' ,;';
         $pattern = strtok($excludeDirectories, $token);
 
         while ($pattern !== false) {
@@ -220,7 +222,7 @@ class PhpDependTask extends Task
     {
         $this->excludePackages = array();
 
-        $token   = ' ,;';
+        $token = ' ,;';
         $pattern = strtok($excludePackages, $token);
 
         while ($pattern !== false) {
@@ -290,7 +292,7 @@ class PhpDependTask extends Task
     {
         $num = array_push($this->loggers, new PhpDependLoggerElement());
 
-        return $this->loggers[$num-1];
+        return $this->loggers[$num - 1];
     }
 
     /**
@@ -302,7 +304,7 @@ class PhpDependTask extends Task
     {
         $num = array_push($this->analyzers, new PhpDependAnalyzerElement());
 
-        return $this->analyzers[$num-1];
+        return $this->analyzers[$num - 1];
     }
 
     /**
@@ -335,8 +337,8 @@ class PhpDependTask extends Task
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                     $f = new PhingFile($fs->getDir($this->project), $filename);
-                     $filesToParse[] = $f->getAbsolutePath();
+                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $filesToParse[] = $f->getAbsolutePath();
                 }
             }
         }
@@ -345,7 +347,7 @@ class PhpDependTask extends Task
         $this->runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
 
         $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
-        $configuration        = $configurationFactory->createDefault();
+        $configuration = $configurationFactory->createDefault();
 
         $this->runner->setConfiguration($configuration);
         $this->runner->setSourceArguments($filesToParse);

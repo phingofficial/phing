@@ -20,14 +20,14 @@
  * <http://phing.info>.
  */
 
-
 /**
  * This is the interface for selectors that can contain other selectors.
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
  * @package phing.types.selectors
  */
-interface SelectorContainer {
+interface SelectorContainer
+{
 
     /**
      * Indicates whether there are any selectors here.
@@ -138,4 +138,3 @@ interface SelectorContainer {
     public function createDepend();
 
 }
-

@@ -27,6 +27,7 @@
  * @author Magesh Umasankar (Ant)
  * @package phing.types
  */
-interface Parameterizable {
-    function setParameters($parameters);
+interface Parameterizable
+{
+    public function setParameters($parameters);
 }

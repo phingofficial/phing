@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/ProjectComponent.php';
@@ -33,7 +33,8 @@ include_once 'phing/BuildException.php';
  *
  * @package   phing.types
  */
-class DataType extends ProjectComponent {
+class DataType extends ProjectComponent
+{
 
     /** The descriptin the user has set. */
     public $description = null;
@@ -50,22 +51,25 @@ class DataType extends ProjectComponent {
      * @var boolean
      */
     protected $checked = true;
-  
+
     /**
      * Sets a description of the current data type. It will be useful
      * in commenting what we are doing.
      */
-    function setDescription($desc) {
+    public function setDescription($desc)
+    {
         $this->description = (string) $desc;
     }
 
     /** Return the description for the current data type. */
-    function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
     /** Has the refid attribute of this element been set? */
-    function isReference() {
+    public function isReference()
+    {
         return ($this->ref !== null);
     }
 
@@ -75,11 +79,12 @@ class DataType extends ProjectComponent {
      * Subclasses may need to check whether any other attributes
      * have been set as well or child elements have been created and
      * thus override this method. if they do they must call parent::setRefid()
-     * 
-     * @param Reference $r
+     *
+     * @param  Reference $r
      * @return void
      */
-    function setRefid(Reference $r) {
+    public function setRefid(Reference $r)
+    {
         $this->ref = $r;
         $this->checked = false;
     }
@@ -98,7 +103,8 @@ class DataType extends ProjectComponent {
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
      */
-    function dieOnCircularReference(&$stk, Project $p) {
+    public function dieOnCircularReference(&$stk, Project $p)
+    {
         if ($this->checked || !$this->isReference()) {
             return;
         }
@@ -106,7 +112,7 @@ class DataType extends ProjectComponent {
         $o = $this->ref->getReferencedObject($p);
 
         if ($o instanceof DataType) {
-            
+
             // TESTME - make sure that in_array() works just as well here
             //
             // check if reference is in stack
@@ -131,18 +137,19 @@ class DataType extends ProjectComponent {
     }
 
     /** Performs the check for circular references and returns the referenced object. */
-    function getCheckedRef($requiredClass, $dataTypeName) {
-    
+    public function getCheckedRef($requiredClass, $dataTypeName)
+    {
+
         if (!$this->checked) {
             // should be in stack
             $stk = array();
             $stk[] = $this;
-            $this->dieOnCircularReference($stk, $this->getProject());            
+            $this->dieOnCircularReference($stk, $this->getProject());
         }
 
         $o = $this->ref->getReferencedObject($this->getProject());
-        if (!($o instanceof $requiredClass) ) {
-            throw new BuildException($this->ref->getRefId()." doesn't denote a " . $dataTypeName);
+        if (!($o instanceof $requiredClass)) {
+            throw new BuildException($this->ref->getRefId() . " doesn't denote a " . $dataTypeName);
         } else {
             return $o;
         }
@@ -152,15 +159,17 @@ class DataType extends ProjectComponent {
      * Creates an exception that indicates that refid has to be the
      * only attribute if it is set.
      */
-    function tooManyAttributes() {
-        return new BuildException( "You must not specify more than one attribute when using refid" );
+    public function tooManyAttributes()
+    {
+        return new BuildException("You must not specify more than one attribute when using refid");
     }
 
     /**
      * Creates an exception that indicates that this XML element must
      * not have child elements if the refid attribute is set.
      */
-    function noChildrenAllowed() {
+    public function noChildrenAllowed()
+    {
         return new BuildException("You must not specify nested elements when using refid");
     }
 
@@ -168,15 +177,17 @@ class DataType extends ProjectComponent {
      * Creates an exception that indicates the user has generated a
      * loop of data types referencing each other.
      */
-    function circularReference() {
+    public function circularReference()
+    {
         return new BuildException("This data type contains a circular reference.");
     }
-    
+
     /**
-     * Template method being called when the data type has been 
+     * Template method being called when the data type has been
      * parsed completely.
      * @return void
      */
-    function parsingComplete() {}
+    public function parsingComplete()
+    {
+    }
 }
-

@@ -16,41 +16,46 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /** Class to hold a reference to another object in the project.
  * @package phing.types
  */
-class Reference {
+class Reference
+{
 
     protected $refid;
 
-    function __construct($id = null) {
+    public function __construct($id = null)
+    {
         if ($id !== null) {
             $this->setRefId($id);
         }
     }
 
-    function setRefId($id) {
+    public function setRefId($id)
+    {
         $this->refid = (string) $id;
     }
 
-    function getRefId() {
+    public function getRefId()
+    {
         return $this->refid;
     }
 
     /** returns reference to object in references container of project */
-    function getReferencedObject($project) {    
+    public function getReferencedObject($project)
+    {
         if ($this->refid === null) {
             throw new BuildException("No reference specified");
         }
         $refs = $project->getReferences();
         $o = @$refs[$this->refid];
-        if (!is_object($o)) {       
+        if (!is_object($o)) {
             throw new BuildException("Reference {$this->refid} not found.");
         }
+
         return $o;
     }
 }
-
