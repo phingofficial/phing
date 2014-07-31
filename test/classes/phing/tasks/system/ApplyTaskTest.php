@@ -20,7 +20,6 @@
 
 require_once 'phing/BuildFileTest.php';
 
-
 /**
  * Tests the Apply Task
  *
@@ -35,7 +34,6 @@ class ApplyTaskTest extends BuildFileTest
      * @var bool
      */
     protected $windows;
-
 
     /**
      * Setup the test
@@ -55,11 +53,9 @@ class ApplyTaskTest extends BuildFileTest
         $this->windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
     }
 
-
     /**********************************************************************************/
     /************************************** T E S T S *********************************/
     /**********************************************************************************/
-
 
     /**
      * Tests the OS configuration setting
@@ -237,7 +233,6 @@ class ApplyTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs('Working directory change successful');
     }
-
 
     /**
      * Tests the failonerror/checkreturn value for 'true'
@@ -443,13 +438,12 @@ class ApplyTaskTest extends BuildFileTest
         $this->assertEquals(1, substr_count(implode("\n", $this->logBuffer), 'Command execution :'));
     }
 
-
     /**********************************************************************************/
     /************************** H E L P E R  M E T H O D S ****************************/
     /**********************************************************************************/
 
     /**
-     * @param string $name
+     * @param  string    $name
      * @return Target
      * @throws Exception
      */
@@ -465,9 +459,9 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param string $target
-     * @param string $taskName
-     * @param int $pos
+     * @param  string    $target
+     * @param  string    $taskName
+     * @param  int       $pos
      * @return Task
      * @throws Exception
      */
@@ -487,8 +481,8 @@ class ApplyTaskTest extends BuildFileTest
     }
 
     /**
-     * @param string $target
-     * @param string $task
+     * @param  string $target
+     * @param  string $task
      * @return Task
      */
     protected function getConfiguredTask($target, $task)
@@ -519,6 +513,5 @@ class ApplyTaskTest extends BuildFileTest
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
     }
-
 
 }

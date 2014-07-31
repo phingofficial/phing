@@ -55,14 +55,15 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      * Asserts that the log buffer contains specified message at specified priority.
      * @param string $expected Message subsctring
-     * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
      */
     protected function assertInLogs($expected, $priority = null, $errormsg = "Expected to find '%s' in logs: %s")
     {
         foreach ($this->logBuffer as $log) {
             if (false !== stripos($log, $expected)) {
                 $this->assertEquals(1, 1); // increase number of positive assertions
+
                 return;
             }
         }
@@ -72,8 +73,8 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      * Asserts that the log buffer does NOT contain specified message at specified priority.
      * @param string $expected Message subsctring
-     * @param int $priority Message priority (default: any)
-     * @param string $errmsg The error message to display.
+     * @param int    $priority Message priority (default: any)
+     * @param string $errmsg   The error message to display.
      */
     protected function assertNotInLogs(
         $message,
@@ -197,6 +198,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
                 }
             }
         }
+
         return $cleanedBuffer;
     }
 
@@ -277,6 +279,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
                 );
             }
             $this->assertEquals(1, 1); // increase number of positive assertions
+
             return;
         }
         $this->fail("Should throw BuildException because: " . $cause);
@@ -304,11 +307,11 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
                 );
             }
             $this->assertEquals(1, 1); // increase number of positive assertions
+
             return;
         }
         $this->fail("Should throw BuildException because: " . $cause);
     }
-
 
     /**
      * call a target, verify property is as expected
@@ -353,7 +356,6 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
         $this->assertPropertyEquals($property, null);
     }
 
-
     /**
      * call a target, verify property is null
      * @param target build file target
@@ -378,7 +380,6 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
         //assertNotNull("Could not find resource :" + resource, url);
         //return url;
     }
-
 
 }
 

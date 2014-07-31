@@ -63,4 +63,3 @@ class UpToDateTaskTest extends BuildFileTest
     }
 
 }
-

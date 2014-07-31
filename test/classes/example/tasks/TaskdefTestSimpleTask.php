@@ -33,6 +33,7 @@ class TaskdefTestSimpleTask extends Task
     public function createEcho()
     {
         $this->echo = new TestEcho();
+
         return $this->echo;
     }
 
@@ -52,4 +53,3 @@ class TestEcho
         $this->message = $s;
     }
 }
-

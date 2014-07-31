@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/system/io/AbstractWinFileSystemTestCase.php';
 include_once 'phing/system/io/Win32FileSystem.php';
 

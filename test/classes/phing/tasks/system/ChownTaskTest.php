@@ -71,5 +71,3 @@ class ChownTaskTest extends BuildFileTest
     }
 
 }
-
-?>

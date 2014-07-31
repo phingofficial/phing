@@ -174,12 +174,14 @@ CREATE FUNCTION phingPDOtest() RETURNS "trigger"
 if (1)
 {
     # All is well - just continue
+
     return;
 }
 else
 {
     # Not good - this is probably a fatal error!
     elog(ERROR,"True is not true");
+
     return "SKIP";
 }
 \$_X$

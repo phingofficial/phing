@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * @author Daniel Holmes
  * @package phing.system.io
@@ -219,8 +218,8 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider isAbsoluteDataProvider
      * @param boolean $expected
-     * @param string $path
-     * @param int $prefix
+     * @param string  $path
+     * @param int     $prefix
      */
     public function testIsAbsolute($expected, $path, $prefix)
     {

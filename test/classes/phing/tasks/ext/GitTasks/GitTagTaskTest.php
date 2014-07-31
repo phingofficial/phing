@@ -204,5 +204,4 @@ class GitTagTaskTest extends BuildFileTest
         );
     }
 
-
 }

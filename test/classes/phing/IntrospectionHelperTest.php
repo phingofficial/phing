@@ -93,7 +93,8 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /*
-    public function testGetNestedElements() {
+    public function testGetNestedElements()
+    {
         Hashtable h = new Hashtable();
         h.put("six", java.lang.String.class);
         h.put("thirteen", java.lang.StringBuffer.class);
@@ -112,11 +113,13 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue("Found all", h.isEmpty());
     }
 
-    public function createOne() {
+    public function createOne()
+    {
         return "test";
     }
     /*
-    public function testAttributeSetters() {
+    public function testAttributeSetters()
+    {
         $ih = IntrospectionHelper::getHelper(get_class($this));
         try {
             $ih->setAttribute($p, $this, "one", "test");
@@ -279,7 +282,8 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
         $this->assertTrue("Found all", h.isEmpty());
     }
 
-    public function setTwo($s) {
+    public function setTwo($s)
+    {
         return 0;
     }
 
@@ -304,9 +308,9 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
     }
 
     public void setTen(File f) {
-        if (Os.isFamily("unix")) { 
+        if (Os.isFamily("unix")) {
             $this->assertEquals(projectBasedir+"2", f.getAbsolutePath());
-        } else if (Os.isFamily("netware")) {
+        } elseif (Os.isFamily("netware")) {
             $this->assertEquals(projectBasedir+"2", f.getAbsolutePath().toLowerCase(Locale.US));
         } else {
             $this->assertEquals(":"+projectBasedir+"2", f.getAbsolutePath().toLowerCase(Locale.US).substring(1));
@@ -368,16 +372,15 @@ class IHProjectComponent
     }
 }
 
-
 // These classes force failure
-// 
+//
 
 class IHCreatorFail1
 {
     /**
      * cannot take param!
      */
-    function createBlah($param)
+    public function createBlah($param)
     {
     }
 }
@@ -388,7 +391,7 @@ class IHCreatorFail2
     /**
      * no class hint!
      */
-    function addBlah($blah)
+    public function addBlah($blah)
     {
     }
 }
@@ -399,11 +402,10 @@ class IHCreatorFail3
     /**
      * no class hint!
      */
-    function addConfiguredBlah($blah)
+    public function addConfiguredBlah($blah)
     {
     }
 }
-
 
 class IHFail4
 {
@@ -411,7 +413,7 @@ class IHFail4
     /**
      * 2 params!
      */
-    function setBlah($blah, $blah2)
+    public function setBlah($blah, $blah2)
     {
     }
 }
@@ -422,7 +424,7 @@ class IHFail5
     /**
      * no params!
      */
-    function setBlah()
+    public function setBlah()
     {
     }
 

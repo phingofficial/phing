@@ -41,14 +41,14 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         $this->project->setBasedir(PHING_TEST_BASE);
     }
 
-    protected abstract function getInstance();
+    abstract protected function getInstance();
 
-    protected final function getProject()
+    final protected function getProject()
     {
         return $this->project;
     }
 
-    public final function testEmptyElementIfIsReference()
+    final public function testEmptyElementIfIsReference()
     {
         $f = $this->getInstance();
         $f->setIncludes("**/*.php");
@@ -252,6 +252,5 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         }
 
     }
-
 
 }

@@ -17,14 +17,15 @@ class GitTestsHelper
                 return false;
             }
         }
+
         return rmdir($dir);
     }
 
     /**
      * Get relative date
      *
-     * @param int $timestamp Timestamp to us as pin-point
-     * @param string $type Whether 'fulldate' or 'time'
+     * @param int    $timestamp Timestamp to us as pin-point
+     * @param string $type      Whether 'fulldate' or 'time'
      */
     public static function getRelativeDate($timestamp, $type = 'fulldate')
     {

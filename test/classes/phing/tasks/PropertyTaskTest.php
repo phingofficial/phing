@@ -36,7 +36,6 @@ class PropertyTaskTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
     }
 
-
     public function test1()
     {
         // should get no output at all
@@ -59,7 +58,6 @@ class PropertyTaskTest extends BuildFileTest
         $this->assertEquals("80", $this->project->getProperty("server1.http.port"));
     }
 
-
     public function testPrefixFailure()
     {
         try {
@@ -69,6 +67,7 @@ class PropertyTaskTest extends BuildFileTest
                 strpos($e->getMessage(), "Prefix is only valid") !== false,
                 "Prefix allowed on non-resource/file load - "
             );
+
             return;
         }
         $this->fail("Did not throw exception on invalid use of prefix");
@@ -101,6 +100,7 @@ class PropertyTaskTest extends BuildFileTest
                 strpos($e->getMessage(), "was circularly defined") !== false,
                 "Circular definition not detected - "
             );
+
             return;
         }
         $this->fail("Did not throw exception on circular exception");
@@ -137,6 +137,7 @@ class HangDetectorProperties extends Properties
         if ($this->accesses > 100) {
             throw new Exception('Cirular definition Hanged!');
         }
+
         return parent::getProperty($prop);
     }
 }

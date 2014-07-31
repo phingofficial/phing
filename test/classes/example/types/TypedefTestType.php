@@ -26,4 +26,3 @@ class TypedefTestType extends DataType
 {
 
 }
-

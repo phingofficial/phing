@@ -64,4 +64,3 @@ class DeleteTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Could not find file');
     }
 }
-

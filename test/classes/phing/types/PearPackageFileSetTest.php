@@ -125,5 +125,3 @@ class PearPackageFileSetTest extends BuildFileTest
         $ppfs->setPackage('pear.php.net/console_getopt/thisiswrong');
     }
 }
-
-?>

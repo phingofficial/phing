@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/system/io/FileOutputStream.php';
 
 /**
@@ -80,7 +79,6 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase
         $this->outStream->flush();
         $newstring .= '012';
         $this->assertFileContents($newstring);
-
 
     }
 

@@ -74,6 +74,7 @@ class ExecTaskTest extends BuildFileTest
         $target = $this->getTargetByName($target);
         $task = $this->getTaskFromTarget($target, $task);
         $task->maybeConfigure();
+
         return $task;
     }
 
@@ -280,7 +281,6 @@ class ExecTaskTest extends BuildFileTest
         $this->getConfiguredTask('testPropertySetLevelUnknown', 'ExecTask');
     }
 
-
     public function testDoNotExecuteOnWrongOs()
     {
         $this->executeTarget(__FUNCTION__);
@@ -297,7 +297,6 @@ class ExecTaskTest extends BuildFileTest
         $this->assertInLogs('this should be executed');
     }
 
-
     public function testFailOnNonExistingDir()
     {
         try {
@@ -310,7 +309,6 @@ class ExecTaskTest extends BuildFileTest
             );
         }
     }
-
 
     public function testChangeToDir()
     {
@@ -438,5 +436,3 @@ class ExecTaskTest extends BuildFileTest
         $this->assertPropertyEquals('outval', 'abc$b3!SB');
     }
 }
-
-?>

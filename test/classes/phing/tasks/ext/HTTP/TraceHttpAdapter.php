@@ -39,7 +39,7 @@ class TraceHttpAdapter extends HTTP_Request2_Adapter_Mock
             'method' => $request->getMethod(),
             'headers' => $request->getHeaders(),
             'auth' => $request->getAuth(),
-            'body' => (string)$request->getBody()
+            'body' => (string) $request->getBody()
         );
 
         return parent::sendRequest($request);

@@ -49,6 +49,7 @@ abstract class BaseHttpTaskTest extends BuildFileTest
     {
         $request = new HTTP_Request2();
         $request->setAdapter($adapter);
+
         return $request;
     }
 
@@ -58,6 +59,7 @@ abstract class BaseHttpTaskTest extends BuildFileTest
         foreach ($responses as $response) {
             $adapter->addResponse($response);
         }
+
         return $adapter;
     }
 

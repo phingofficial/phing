@@ -134,5 +134,4 @@ class GitCheckoutTaskTest extends BuildFileTest
         );
     }
 
-
 }

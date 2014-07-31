@@ -106,6 +106,7 @@ class WikiPublishTaskTest extends BuildFileTest
     private function getWikiPublishMock()
     {
         $result = $this->getMock('WikiPublishTask', array('callApi'));
+
         return $result;
     }
 }

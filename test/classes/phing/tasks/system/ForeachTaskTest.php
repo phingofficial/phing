@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Unit test for ForeachTask.
  *

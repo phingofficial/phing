@@ -20,9 +20,7 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/types/Commandline.php';
-
 
 /**
  * Unit test for mappers.
@@ -49,13 +47,12 @@ class CommandlineTest extends PHPUnit_Framework_TestCase
         $cmd2 = "cvs -d:pserver:hans@xmpl.org:/cvs commit -m\"added a new test file for 'fun'\" Test.php";
         $cmd3 = "cvs -d:pserver:hans@xmpl.org:/cvs  commit   -m 'added a new test file for fun' Test.php";
 
-
         // This should work fine; we expect 5 args
         $cmd1 = "cvs -d:pserver:hans@xmpl.org:/cvs commit -m \"added a new test file\" Test.php";
         $c = new Commandline($cmd1);
         $this->assertEquals(5, count($c->getArguments()));
 
-        // This has some extra space, but we expect same number of args        
+        // This has some extra space, but we expect same number of args
         $cmd2 = "cvs -d:pserver:hans@xmpl.org:/cvs   commit  -m \"added a new test file\"    Test.php";
         $c2 = new Commandline($cmd2);
         $this->assertEquals(5, count($c->getArguments()));

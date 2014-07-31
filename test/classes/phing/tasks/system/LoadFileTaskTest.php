@@ -50,4 +50,3 @@ class LoadFileTaskTest extends BuildFileTest
         $this->assertInLogs('<property>filterchain-test-123</property');
     }
 }
-

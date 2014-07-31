@@ -301,7 +301,6 @@ class GitLogTaskTest extends BuildFileTest
         }
     }
 
-
     public function testNoRepositorySpecified()
     {
         $this->expectBuildExceptionContaining(
@@ -310,6 +309,5 @@ class GitLogTaskTest extends BuildFileTest
             '"repository" is required parameter'
         );
     }
-
 
 }

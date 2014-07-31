@@ -70,4 +70,3 @@ class CopyTaskTest extends BuildFileTest
         $this->assertGreaterThan(0, $this->project->getProperty('test.filesize'));
     }
 }
-

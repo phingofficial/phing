@@ -55,4 +55,3 @@ class IniFileTokenReaderTest extends BuildFileTest
         $this->assertEquals('to replace: replaced', file_get_contents($filename));
     }
 }
-

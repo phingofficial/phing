@@ -71,4 +71,3 @@ class ZipUnzipTaskTest extends BuildFileTest
         $this->assertEquals('TEST', file_get_contents($filename));
     }
 }
-

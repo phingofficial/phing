@@ -175,5 +175,4 @@ class GitBranchTaskTest extends BuildFileTest
         );
     }
 
-
 }

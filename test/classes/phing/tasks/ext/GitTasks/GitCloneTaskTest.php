@@ -110,5 +110,4 @@ class GitCloneTaskTest extends BuildFileTest
         );
     }
 
-
 }

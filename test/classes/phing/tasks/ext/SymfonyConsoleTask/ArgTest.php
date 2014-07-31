@@ -19,7 +19,7 @@ class ArgTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Arg;
+        $this->object = new Arg();
     }
 
     /**
@@ -40,7 +40,6 @@ class ArgTest extends PHPUnit_Framework_TestCase
         $o->setName('foo');
         $this->assertEquals('foo', $o->getName());
     }
-
 
     /**
      * @covers Arg::getValue
@@ -126,5 +125,3 @@ class ArgTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('"value"', '' . $o);
     }
 }
-
-?>

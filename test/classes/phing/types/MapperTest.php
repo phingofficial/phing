@@ -110,7 +110,7 @@ class MapperTest extends PHPUnit_Framework_TestCase
             $this->assertEquals("This data type contains a circular reference.", $be->getMessage());
         }
 
-        // dummy1 --> dummy2 --> dummy3 
+        // dummy1 --> dummy2 --> dummy3
         // (which holds a glob mapper from "*.java" to "*.class"
         $m1 = new Mapper($this->project);
         $this->project->addReference("dummy1", $m1);
@@ -146,7 +146,6 @@ class MapperTest extends PHPUnit_Framework_TestCase
     }
 
 }
-
 
 /**
  * @package phing.mappers

@@ -35,7 +35,6 @@ class DbDeployTaskTest extends BuildFileTest
         $this->executeTarget("prepare");
     }
 
-
     public function testDeployAndUndo()
     {
         $this->expectLog("testDeploy", "Current db revision: 1");

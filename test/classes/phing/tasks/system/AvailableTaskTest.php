@@ -87,4 +87,3 @@ class AvailableTaskTest extends BuildFileTest
         $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
     }
 }
-

@@ -43,4 +43,3 @@ class ConditionTaskTest extends BuildFileTest
         $this->assertPropertyUnset('ref.exists');
     }
 }
-
