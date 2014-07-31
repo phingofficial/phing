@@ -448,7 +448,6 @@ class DirectoryScanner implements SelectorScanner {
      * @param vpath the path relative to the basedir (needed to prevent
      *              problems with an absolute path when using dir)
      *
-     * @access private
      * @see #filesIncluded
      * @see #filesNotIncluded
      * @see #filesExcluded

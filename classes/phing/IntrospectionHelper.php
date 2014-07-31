@@ -94,7 +94,6 @@ class IntrospectionHelper {
      * The Class that's been introspected.
      *
      * @var     object
-     * @access  private
      */
     private $bean;
     

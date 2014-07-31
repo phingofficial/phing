@@ -48,7 +48,6 @@ class MoveTask extends CopyTask {
     /**
      * Validates attributes coming in from XML
      *
-     * @access  private
      * @return  void
      * @throws  BuildException
      */

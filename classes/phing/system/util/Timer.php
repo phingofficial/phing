@@ -87,9 +87,8 @@ class Timer {
      *
      * @author    Everett Michaud, Zend.com
      * @return    current time in microseconds
-     * @access    private
      */
-    function getMicrotime() {
+    private function getMicrotime() {
         list($usec, $sec) = explode(" ", microtime());
         return ((float)$usec + (float)$sec);
     }

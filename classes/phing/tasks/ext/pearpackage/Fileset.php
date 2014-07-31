@@ -205,14 +205,13 @@ class PEAR_PackageFileManager_Fileset {
      * Sorting functions for the file list
      * @param string
      * @param string
-     * @access private
      */
-    function sortfiles($a, $b)
+    private function sortfiles($a, $b)
     {
         return strnatcasecmp($a['file'],$b['file']);
     }
     
-    function mystrucsort($a, $b)
+    private function mystrucsort($a, $b)
     {
         if (is_numeric($a) && is_string($b)) return 1;
         if (is_numeric($b) && is_string($a)) return -1;

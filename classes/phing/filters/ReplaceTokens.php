@@ -104,7 +104,6 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader {
      * Performs lookup on key and returns appropriate replacement string.
      * @param array $matches Array of 1 el containing key to search for.
      * @return string     Text with which to replace key or value of key if none is found.
-     * @access private
      */
     private function replaceTokenCallback($matches) {
                 

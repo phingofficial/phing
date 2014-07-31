@@ -329,7 +329,6 @@ class CopyTask extends Task {
     /**
      * Validates attributes coming in from XML
      *
-     * @access  private
      * @return  void
      * @throws  BuildException
      */
@@ -364,7 +363,6 @@ class CopyTask extends Task {
      * Compares source files to destination files to see if they
      * should be copied.
      *
-     * @access  private
      * @return  void
      */
     private function _scan(&$fromDir, &$toDir, &$files, &$dirs) {
@@ -385,7 +383,6 @@ class CopyTask extends Task {
     /**
      * Builds a map of filenames (from->to) that should be copied
      *
-     * @access  private
      * @return  void
      */
     private function buildMap(&$fromDir, &$toDir, &$names, &$mapper, &$map) {
@@ -416,7 +413,6 @@ class CopyTask extends Task {
     /**
      * Actually copies the files
      *
-     * @access  private
      * @return  void
      * @throws  BuildException
      */

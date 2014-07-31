@@ -38,7 +38,6 @@ class ExportPropertiesTask extends Task
      * (default value: null)
      * 
      * @var array
-     * @access private
      */
     private $_properties = null;
     
@@ -48,7 +47,6 @@ class ExportPropertiesTask extends Task
      * (default value: null)
      * 
      * @var string
-     * @access private
      */
     private $_targetFile = null;
     
@@ -56,7 +54,6 @@ class ExportPropertiesTask extends Task
      * Exclude properties starting with these prefixes
      * 
      * @var array
-     * @access private
      */
     private $_disallowedPropertyPrefixes = array(
         'host.',

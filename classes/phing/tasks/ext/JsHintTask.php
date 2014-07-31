@@ -66,7 +66,6 @@ class JsHintTask extends Task
      * reporter
      *
      * @var string
-     * @access private
      */
     private $reporter = 'checkstyle';
 
@@ -74,7 +73,6 @@ class JsHintTask extends Task
      * xmlAttributes
      *
      * @var array
-     * @access private
      */
     private $xmlAttributes;
 

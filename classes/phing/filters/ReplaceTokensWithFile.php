@@ -230,7 +230,6 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Replace the token found with the appropriate file contents
      * @param array $matches Array of 1 el containing key to search for.
      * @return string     Text with which to replace key or value of key if none is found.
-     * @access private
      */
     private function replaceTokenCallback($matches) {
 

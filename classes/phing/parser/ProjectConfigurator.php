@@ -81,7 +81,6 @@ class ProjectConfigurator {
      *
      * @param  object  the Project instance this configurator should use
      * @param  object  the buildfile object the parser should use
-     * @access private
      */
     function __construct(Project $project, PhingFile $buildFile) {
         $this->project = $project;
@@ -148,7 +147,6 @@ class ProjectConfigurator {
      *
      * @throws BuildException if there is any kind of execption during
      *         the parsing process
-     * @access private
      */
     protected function parse() 
     {

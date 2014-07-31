@@ -56,7 +56,6 @@ class SymlinkTask extends Task
      * (default value: null)
      * 
      * @var string
-     * @access private
      */
     private $_target = null;
     
@@ -66,7 +65,6 @@ class SymlinkTask extends Task
      * (default value: null)
      * 
      * @var string
-     * @access private
      */
     private $_link = null;
     
@@ -77,7 +75,6 @@ class SymlinkTask extends Task
      * (default value: array())
      * 
      * @var array
-     * @access private
      */
     private $_filesets = array();
     
@@ -88,7 +85,6 @@ class SymlinkTask extends Task
      * (default value: false)
      *
      * @var boolean
-     * @access private
      */
     private $_overwrite = false;
 
