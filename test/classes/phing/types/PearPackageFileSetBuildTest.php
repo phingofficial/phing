@@ -72,7 +72,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     public function testPackageXmlFilelist()
     {
         $registry = new PEAR_Registry();
-        if (! $registry->channelExists('pear.phpunit.de')) {
+        if (!$registry->channelExists('pear.phpunit.de')) {
             $this->markTestSkipped('PEAR channel pear.phpunit.de not registered');
         }
 
@@ -83,7 +83,7 @@ class PearPackageFileSetBuildTest extends BuildFileTest
     public function testPackageXmlIncludeCondition()
     {
         $registry = new PEAR_Registry();
-        if (! $registry->channelExists('pear.phpunit.de')) {
+        if (!$registry->channelExists('pear.phpunit.de')) {
             $this->markTestSkipped('PEAR channel pear.phpunit.de not registered');
         }
 

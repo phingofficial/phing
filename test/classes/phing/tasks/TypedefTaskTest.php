@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -27,37 +27,46 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class TypedefTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class TypedefTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/typedef.xml");
     }
-    
-    public function testEmpty() { 
+
+    public function testEmpty()
+    {
         $this->expectBuildException("empty", "required argument not specified");
     }
 
-    public function testNoName() { 
+    public function testNoName()
+    {
         $this->expectBuildException("noName", "required argument not specified");
     }
 
-    public function testNoClassname() { 
+    public function testNoClassname()
+    {
         $this->expectBuildException("noClassname", "required argument not specified");
     }
 
     /**
      * @expectedException PHPUnit_Framework_Error
      */
-    public function testClassNotFound() { 
+    public function testClassNotFound()
+    {
         try {
             $this->executeTarget("classNotFound");
-            $this->fail("Should throw ConfigurationException because: " . 
-              "classname specified doesn't exist");
+            $this->fail(
+                "Should throw ConfigurationException because: " .
+                "classname specified doesn't exist"
+            );
         } catch (ConfigurationException $ignored) {
         }
     }
 
-    public function testGlobal() {
+    public function testGlobal()
+    {
         $this->expectLog("testGlobal", "Adding reference: global -> TypedefTestType");
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
@@ -65,7 +74,8 @@ class TypedefTaskTest extends BuildFileTest {
         $this->assertEquals("TypedefTestType", get_class($ref));
     }
 
-    public function testLocal() {
+    public function testLocal()
+    {
         $this->expectLog("testLocal", "Adding reference: local -> TypedefTestType");
         $refs = $this->project->getReferences();
         $ref = $refs["local"];

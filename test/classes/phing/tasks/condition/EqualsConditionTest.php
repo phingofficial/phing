@@ -24,15 +24,17 @@ include_once 'phing/tasks/system/condition/EqualsCondition.php';
 
 /**
  * Testcase for the &lt;equals&gt; condition.
- * 
+ *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Id$
  * @package phing.tasks.system.condition
  */
-class EqualsConditionTest extends PHPUnit_Framework_TestCase {
+class EqualsConditionTest extends PHPUnit_Framework_TestCase
+{
 
-    public function testTrim() {
+    public function testTrim()
+    {
         $eq = new EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2(" a");
@@ -45,7 +47,8 @@ class EqualsConditionTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($eq->evaluate());
     }
 
-    public function testCaseSensitive() {
+    public function testCaseSensitive()
+    {
         $eq = new EqualsCondition();
         $eq->setArg1("a");
         $eq->setArg2("A");

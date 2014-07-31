@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,15 +28,18 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class ForeachFileSetTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class ForeachFileSetTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/252/build.xml");
     }
 
-    public function testCustomTask () {
-      $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/252/build.xml");
-      $this->executeTarget("main");
-      $this->assertInLogs("Calling Buildfile '" . $f->getAbsolutePath() . "' with target 'subtask'");
+    public function testCustomTask()
+    {
+        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/252/build.xml");
+        $this->executeTarget("main");
+        $this->assertInLogs("Calling Buildfile '" . $f->getAbsolutePath() . "' with target 'subtask'");
     }
 }

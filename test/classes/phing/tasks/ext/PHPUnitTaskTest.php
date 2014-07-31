@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -27,11 +27,12 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.tasks.ext
  */
-class PHPUnitTaskTest extends BuildFileTest { 
-    protected $backupGlobals = FALSE;
-        
+class PHPUnitTaskTest extends BuildFileTest
+{
+    protected $backupGlobals = false;
+
     public function setUp()
-    { 
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpunit/build.xml");
     }
 
@@ -45,20 +46,21 @@ class PHPUnitTaskTest extends BuildFileTest {
         $this->assertInLogs("Tests run: 2, Failures: 1, Errors: 0, Incomplete: 0, Skipped: 0, Time elapsed:");
     }
 
-    /**    
+    /**
      * Regression test for ticket http://www.phing.info/trac/ticket/363
      * "PHPUnit task fails with formatter type 'xml'"
      */
-    public function testXmlFormatter() {
-      $this->executeTarget(__FUNCTION__);
-      $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
+    public function testXmlFormatter()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("<testcase name=\"testSayHello\" class=\"HelloWorldTest\"");
     }
-    
+
     /**
      * Regression test for ticket http://www.phing.info/trac/ticket/893
      */
     public function testDoubleAutoloader()
     {
-      $this->executeTarget(__FUNCTION__);
+        $this->executeTarget(__FUNCTION__);
     }
 }

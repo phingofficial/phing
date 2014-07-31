@@ -28,9 +28,11 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitTagTaskTest extends BuildFileTest {
+class GitTagTaskTest extends BuildFileTest
+{
 
-    public function setUp() {
+    public function setUp()
+    {
         // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
         // not work on Windows.
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
@@ -45,8 +47,10 @@ class GitTagTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE
-                              . '/etc/tasks/ext/git/GitTagTaskTest.xml');
+        $this->configureProject(
+            PHING_TEST_BASE
+            . '/etc/tasks/ext/git/GitTagTaskTest.xml'
+        );
     }
 
     public function tearDown()
@@ -78,16 +82,20 @@ class GitTagTaskTest extends BuildFileTest {
 
     public function testGitTagCreateDuplicate()
     {
-        $this->expectBuildExceptionContaining('gitTagCreateDuplicate',
+        $this->expectBuildExceptionContaining(
+            'gitTagCreateDuplicate',
             'Tag already exists',
-            "fatal: tag 'ver1.0' already exists");
+            "fatal: tag 'ver1.0' already exists"
+        );
     }
 
     public function testTagCreateAnnotatedNoMessage()
     {
-        $this->expectBuildExceptionContaining('gitTagCreateAnnotatedNoMessage',
+        $this->expectBuildExceptionContaining(
+            'gitTagCreateAnnotatedNoMessage',
             'Message not provided..',
-            '"message" or "file" required to make a tag');
+            '"message" or "file" required to make a tag'
+        );
     }
 
     public function testTagCreateAnnotated()
@@ -142,7 +150,9 @@ class GitTagTaskTest extends BuildFileTest {
     public function testTagWithCommitSet()
     {
         $this->executeTarget('gitTagWithCommitSet');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\'');
+        $this->assertInLogs(
+            'git-tag command: /usr/bin/git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\''
+        );
         $this->assertInLogs('c573116f395d36497a1ac1dba565ecd3d3944277');
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888');
         $this->assertInLogs('6dbaf4508e75dcd426b5b974a67c462c70d46e1f');
@@ -153,7 +163,9 @@ class GitTagTaskTest extends BuildFileTest {
     public function testTagWithObjectSet()
     {
         $this->executeTarget('gitTagWithObjectSet');
-        $this->assertInLogs('git-tag command: /usr/bin/git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\'');
+        $this->assertInLogs(
+            'git-tag command: /usr/bin/git tag \'ver1.0\' \'c573116f395d36497a1ac1dba565ecd3d3944277\''
+        );
         $this->assertInLogs('c573116f395d36497a1ac1dba565ecd3d3944277');
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888');
         $this->assertInLogs('6dbaf4508e75dcd426b5b974a67c462c70d46e1f');
@@ -174,7 +186,7 @@ class GitTagTaskTest extends BuildFileTest {
     {
         $msgFile = PHING_TEST_BASE . '/tmp/msg.txt';
         $fp = fopen($msgFile, 'w');
-        fwrite($fp , 'test tag message');
+        fwrite($fp, 'test tag message');
         fclose($fp);
 
         $this->executeTarget('gitTagFileSet');
@@ -185,9 +197,11 @@ class GitTagTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository',
+        $this->expectBuildExceptionContaining(
+            'noRepository',
             'Repo dir is required',
-            '"repository" is required parameter');
+            '"repository" is required parameter'
+        );
     }
 
 

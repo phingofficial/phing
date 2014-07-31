@@ -34,12 +34,16 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
 
     protected function createRequestWithMockAdapter()
     {
-        return $this->createRequest($this->createMockAdapter(array(
-            "HTTP/1.1 200 OK\r\n" .
-            "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-            "\r\n" .
-            "The response containing a 'foo' string"
-        )));
+        return $this->createRequest(
+            $this->createMockAdapter(
+                array(
+                    "HTTP/1.1 200 OK\r\n" .
+                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                    "\r\n" .
+                    "The response containing a 'foo' string"
+                )
+            )
+        );
     }
 
     public function testMatchesRegexp()
@@ -103,7 +107,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
         $this->executeTarget('recipient');
 
         $request = new HTTP_Request2(null, 'GET', array(
-            'proxy'         => 'http://localhost:8080/',
+            'proxy' => 'http://localhost:8080/',
             'max_redirects' => 9
         ));
 

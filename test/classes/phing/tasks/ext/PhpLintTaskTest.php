@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -27,10 +27,11 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.tasks.ext
  */
-class PhpLintTaskTest extends BuildFileTest { 
-        
+class PhpLintTaskTest extends BuildFileTest
+{
+
     public function setUp()
-    { 
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phplint/build.xml");
     }
 
@@ -60,7 +61,10 @@ class PhpLintTaskTest extends BuildFileTest {
      */
     public function testDeprecated()
     {
-        file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', '<?php class TestClass {}; $t = & new TestClass();');
+        file_put_contents(
+            PHING_TEST_BASE . '/tmp/phplint_file.php',
+            '<?php class TestClass {}; $t = & new TestClass();'
+        );
 
         $this->executeTarget(__FUNCTION__);
         $this->assertInLogs("Assigning the return value of new by reference is deprecated in");
@@ -70,7 +74,10 @@ class PhpLintTaskTest extends BuildFileTest {
     {
         file_put_contents(PHING_TEST_BASE . '/tmp/phplint_file.php', "<?php echo 'Hello world; ?>");
 
-        $this->expectBuildException(__FUNCTION__, " Syntax error(s) in PHP files: " . PHING_TEST_BASE . "/tmp/phplint_file.php" .
-            "=Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in " . PHING_TEST_BASE . "/tmp/phplint_file.php on line 2");
+        $this->expectBuildException(
+            __FUNCTION__,
+            " Syntax error(s) in PHP files: " . PHING_TEST_BASE . "/tmp/phplint_file.php" .
+            "=Parse error: syntax error, unexpected T_ENCAPSED_AND_WHITESPACE in " . PHING_TEST_BASE . "/tmp/phplint_file.php on line 2"
+        );
     }
 }

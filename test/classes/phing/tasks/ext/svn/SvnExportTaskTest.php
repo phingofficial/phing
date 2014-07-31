@@ -27,8 +27,10 @@ require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
  * @version $Id$
  * @package phing.tasks.ext.svn
  */
-class SvnExportTaskTest extends AbstractSvnTaskTest {
-    public function setUp() {
+class SvnExportTaskTest extends AbstractSvnTaskTest
+{
+    public function setUp()
+    {
         parent::setUp('SvnExportTest.xml', false);
     }
 
@@ -41,8 +43,10 @@ class SvnExportTaskTest extends AbstractSvnTaskTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository',
+        $this->expectBuildExceptionContaining(
+            'noRepository',
             'Repository is required',
-            'is not a working copy');
+            'is not a working copy'
+        );
     }
 }

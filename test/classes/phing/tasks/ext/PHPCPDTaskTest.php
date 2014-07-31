@@ -19,26 +19,29 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests for PHPCPDTask
- * 
+ *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class PHPCPDTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class PHPCPDTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
-        
+
         if (version_compare(PHP_VERSION, '5.3.2') < 0) {
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
     }
 
-    public function testFormatterOutfile() {
+    public function testFormatterOutfile()
+    {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput'
@@ -46,7 +49,8 @@ class PHPCPDTaskTest extends BuildFileTest {
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/tempoutput');
     }
 
-    public function testFormatterPMD() {
+    public function testFormatterPMD()
+    {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml'
@@ -54,7 +58,8 @@ class PHPCPDTaskTest extends BuildFileTest {
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phpcpd/temp.xml');
     }
 
-    public function testFormatterNoFile() { 
+    public function testFormatterNoFile()
+    {
         ob_start();
         $this->executeTarget(__FUNCTION__);
         $output = ob_get_clean();

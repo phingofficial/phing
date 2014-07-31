@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,16 +28,19 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class FilesetFoldersTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class FilesetFoldersTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/654/build.xml");
     }
 
-    public function testFilesetNotSelectingFolders() {
-      $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/654/build.xml");
-      $this->executeTarget("main");
-      $this->assertInLogs("Property \${test.msg} => data");
-      $this->assertInLogs("Property \${test.msg} => files");
+    public function testFilesetNotSelectingFolders()
+    {
+        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/654/build.xml");
+        $this->executeTarget("main");
+        $this->assertInLogs("Property \${test.msg} => data");
+        $this->assertInLogs("Property \${test.msg} => files");
     }
 }

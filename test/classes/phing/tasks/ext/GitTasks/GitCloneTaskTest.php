@@ -28,9 +28,11 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitCloneTaskTest extends BuildFileTest {
+class GitCloneTaskTest extends BuildFileTest
+{
 
-    public function setUp() {
+    public function setUp()
+    {
         // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
         // not work on Windows.
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
@@ -40,8 +42,10 @@ class GitCloneTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE
-                              . '/etc/tasks/ext/git/GitCloneTaskTest.xml');
+        $this->configureProject(
+            PHING_TEST_BASE
+            . '/etc/tasks/ext/git/GitCloneTaskTest.xml'
+        );
     }
 
     public function tearDown()
@@ -51,9 +55,11 @@ class GitCloneTaskTest extends BuildFileTest {
 
     public function testWrongRepository()
     {
-        $this->expectBuildExceptionContaining('wrongRepository',
+        $this->expectBuildExceptionContaining(
+            'wrongRepository',
             'Repository not readable',
-            'The remote end hung up unexpectedly');
+            'The remote end hung up unexpectedly'
+        );
     }
 
     public function testGitClone()
@@ -76,7 +82,9 @@ class GitCloneTaskTest extends BuildFileTest {
         $repository = PHING_TEST_BASE . '/tmp/git';
         $gitFilesDir = $repository . '/.git';
         $this->executeTarget('gitCloneBare');
-        $this->assertInLogs('git-clone: cloning (bare) "' . $bundle . '" repository to "' . $repository . '" directory');
+        $this->assertInLogs(
+            'git-clone: cloning (bare) "' . $bundle . '" repository to "' . $repository . '" directory'
+        );
         $this->assertTrue(is_dir($repository));
         $this->assertTrue(is_dir($repository . '/branches'));
         $this->assertTrue(is_dir($repository . '/info'));
@@ -86,16 +94,20 @@ class GitCloneTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository',
+        $this->expectBuildExceptionContaining(
+            'noRepository',
             'Repo dir is required',
-            '"repository" is required parameter');
+            '"repository" is required parameter'
+        );
     }
 
     public function testNoTargetPathSpecified()
     {
-        $this->expectBuildExceptionContaining('noTargetPath',
+        $this->expectBuildExceptionContaining(
+            'noTargetPath',
             'Target path is required',
-            '"targetPath" is required parameter');
+            '"targetPath" is required parameter'
+        );
     }
 
 

@@ -62,6 +62,7 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
         $o->setCommand('foo');
         $this->assertEquals('foo', $o->getCommand());
     }
+
     /**
      * @covers ComposerTask::getPhp
      * @covers ComposerTask::setPhp

@@ -31,7 +31,8 @@ require_once dirname(__FILE__) . '/../../../classes/phing/Phing.php';
  * @version $Revision: $
  * @package phing
  */
-class PhingTest  extends PHPUnit_Framework_TestCase {
+class PhingTest extends PHPUnit_Framework_TestCase
+{
 
     const NAMESPACED_CLASS = 'Vendor\\Package\\Sub_Package\\Separated_FullSeparatedClass';
     const SEPARATED_CLASS = 'Vendor_Package_SeparatedClass';
@@ -44,7 +45,8 @@ class PhingTest  extends PHPUnit_Framework_TestCase {
      * Test a PSR-0 support of class loading
      * @link http://groups.google.com/group/php-standards/web/psr-0-final-proposal
      */
-    public function testImportPSR0() {
+    public function testImportPSR0()
+    {
         // Test the namespace support only if PHP >= 5.3
         if (version_compare(PHP_VERSION, '5.3', '>=')) {
             $className = Phing::import(self::NAMESPACED_CLASS, self::getClassPath());
@@ -61,7 +63,8 @@ class PhingTest  extends PHPUnit_Framework_TestCase {
     /**
      * Test the default dot separated class loading
      */
-    public function testImportDotPath() {
+    public function testImportDotPath()
+    {
         $className = Phing::import(self::DOTED_CLASS, self::getClassPath());
         self::assertEquals(self::DOTED_CLASS_SHORTNAME, $className);
         self::assertTrue(class_exists(self::DOTED_CLASS_SHORTNAME));

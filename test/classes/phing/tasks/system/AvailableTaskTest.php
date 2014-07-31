@@ -35,8 +35,10 @@ class AvailableTaskTest extends BuildFileTest
 {
     public function setUp()
     {
-        $this->configureProject(PHING_TEST_BASE
-                              . "/etc/tasks/system/AvailableTaskTest.xml");
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/AvailableTaskTest.xml"
+        );
         $this->executeTarget("setup");
     }
 

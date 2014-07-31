@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,20 +28,25 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class ExcludeZipTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class ExcludeZipTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/137/build.xml");
     }
 
-    public function testZipTask () {
+    public function testZipTask()
+    {
         $this->executeTarget("main");
-        
+
         $expected = "Adding ./.git to archive.";
 
-        foreach($this->logBuffer as $log) {
+        foreach ($this->logBuffer as $log) {
             if (stripos($log, $expected) !== false) {
-                $this->fail(sprintf("Expected to find '%s' in logs: %s", $expected, var_export($this->logBuffer,true)));
+                $this->fail(
+                    sprintf("Expected to find '%s' in logs: %s", $expected, var_export($this->logBuffer, true))
+                );
             }
         }
     }

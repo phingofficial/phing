@@ -27,9 +27,11 @@ require_once 'phing/BuildFileTest.php';
  * @package phing.tasks.ext
  * @requires extension phar
  */
-class PharPackageTaskTest extends BuildFileTest {
+class PharPackageTaskTest extends BuildFileTest
+{
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");
     }
 
@@ -37,7 +39,8 @@ class PharPackageTaskTest extends BuildFileTest {
      * @requires extension openssl
      * @requires PHP 5.3.10
      */
-    public function testOpenSSLSignature() {
+    public function testOpenSSLSignature()
+    {
         // Generate a private key on the fly.
         $passphrase = uniqid();
         $passfile = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';

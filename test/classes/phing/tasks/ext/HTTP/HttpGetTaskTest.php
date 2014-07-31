@@ -48,14 +48,18 @@ class HttpGetTaskTest extends BaseHttpTaskTest
     public function testError404()
     {
         $this->copyTasksAddingCustomRequest(
-            'error404', 'recipient', $this->createRequest($this->createMockAdapter(
-                array(
-                    "HTTP/1.1 404 Not Found\r\n" .
-                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                    "\r\n" .
-                    "The file you seek is not here"
+            'error404',
+            'recipient',
+            $this->createRequest(
+                $this->createMockAdapter(
+                    array(
+                        "HTTP/1.1 404 Not Found\r\n" .
+                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                        "\r\n" .
+                        "The file you seek is not here"
+                    )
                 )
-            ))
+            )
         );
         $this->executeTarget('recipient');
     }
@@ -65,25 +69,27 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         $this->executeTarget('mkdir');
 
         $this->copyTasksAddingCustomRequest(
-            'filenames', 'recipient', $this->createRequest($this->createMockAdapter(
-                array(
-                    "HTTP/1.1 200 OK\r\n" .
-                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                    "\r\n" .
-                    "This file is named explicitly",
-
-                    "HTTP/1.1 200 OK\r\n" .
-                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                    "Content-Disposition: attachment; filename=\"disposition.txt\"\r\n" .
-                    "\r\n" .
-                    "This file is named according to Content-Disposition header",
-
-                    "HTTP/1.1 200 OK\r\n" .
-                    "Content-Type: text/plain; charset=iso-8859-1\r\n" .
-                    "\r\n" .
-                    "This file is named according to an URL part"
+            'filenames',
+            'recipient',
+            $this->createRequest(
+                $this->createMockAdapter(
+                    array(
+                        "HTTP/1.1 200 OK\r\n" .
+                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                        "\r\n" .
+                        "This file is named explicitly",
+                        "HTTP/1.1 200 OK\r\n" .
+                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                        "Content-Disposition: attachment; filename=\"disposition.txt\"\r\n" .
+                        "\r\n" .
+                        "This file is named according to Content-Disposition header",
+                        "HTTP/1.1 200 OK\r\n" .
+                        "Content-Type: text/plain; charset=iso-8859-1\r\n" .
+                        "\r\n" .
+                        "This file is named according to an URL part"
+                    )
                 )
-            ))
+            )
         );
         $this->executeTarget('recipient');
 
@@ -115,8 +121,8 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         }
 
         $request = new HTTP_Request2(null, 'GET', array(
-            'proxy'            => 'socks5://localhost:1080/',
-            'ssl_verify_peer'  => false,
+            'proxy' => 'socks5://localhost:1080/',
+            'ssl_verify_peer' => false,
             'follow_redirects' => true
         ));
 
@@ -167,8 +173,8 @@ class HttpGetTaskTest extends BaseHttpTaskTest
         }
 
         $request = new HTTP_Request2(null, 'GET', array(
-            'proxy'         => 'http://localhost:8080/',
-            'timeout'       => 20,
+            'proxy' => 'http://localhost:8080/',
+            'timeout' => 20,
             'max_redirects' => 9
         ));
 

@@ -27,8 +27,10 @@ require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnCheckoutTaskTest extends AbstractSvnTaskTest {
-    public function setUp() {
+class SvnCheckoutTaskTest extends AbstractSvnTaskTest
+{
+    public function setUp()
+    {
         parent::setUp('SvnCheckoutTest.xml');
     }
 
@@ -41,8 +43,10 @@ class SvnCheckoutTaskTest extends AbstractSvnTaskTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository',
+        $this->expectBuildExceptionContaining(
+            'noRepository',
             'Repository is required',
-            'Error parsing arguments');
+            'Error parsing arguments'
+        );
     }
 }

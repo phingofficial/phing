@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,8 +28,9 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class ConditionInProjectTagTest extends BuildFileTest { 
-        
+class ConditionInProjectTagTest extends BuildFileTest
+{
+
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/943/build.xml");
@@ -37,7 +38,7 @@ class ConditionInProjectTagTest extends BuildFileTest {
 
     public function testConditionInProjectTag()
     {
-      $this->executeTarget("test");
-      $this->assertInLogs("Message");
+        $this->executeTarget("test");
+        $this->assertInLogs("Message");
     }
 }

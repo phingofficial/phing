@@ -117,4 +117,5 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($ret, $o->getCmdString());
     }
 }
+
 ?>

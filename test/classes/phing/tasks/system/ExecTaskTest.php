@@ -30,10 +30,10 @@ require_once 'phing/BuildFileTest.php';
  */
 class ExecTaskTest extends BuildFileTest
 {
-   /**
-    * Whether test is being run on windows
-    * @var bool
-    */
+    /**
+     * Whether test is being run on windows
+     * @var bool
+     */
     protected $windows;
 
     public function setUp()
@@ -80,17 +80,18 @@ class ExecTaskTest extends BuildFileTest
     protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
     {
         $task = $this->getConfiguredTask(
-            'testPropertySet' . ucfirst($property), 'ExecTask'
+            'testPropertySet' . ucfirst($property),
+            'ExecTask'
         );
 
         if ($propertyName === null) {
             $propertyName = $property;
         }
-        
+
         if ($task instanceof UnknownElement) {
             $task = $task->getRuntimeConfigurableWrapper()->getProxy();
         }
-        
+
         $rprop = new ReflectionProperty('ExecTask', $propertyName);
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
@@ -397,7 +398,8 @@ class ExecTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $end = time();
         $this->assertLessThan(
-            4, $end - $start,
+            4,
+            $end - $start,
             'Time between start and end should be lower than 4 seconds'
             . ' - otherwise it looks as spawning did not work'
         );
@@ -426,7 +428,7 @@ class ExecTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
     }
-    
+
     /**
      * Inspired by {@link http://www.phing.info/trac/ticket/833}
      */

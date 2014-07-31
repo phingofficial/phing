@@ -27,8 +27,10 @@ require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnUpdateTaskTest extends AbstractSvnTaskTest {
-    public function setUp() {
+class SvnUpdateTaskTest extends AbstractSvnTaskTest
+{
+    public function setUp()
+    {
         parent::setUp('SvnUpdateTest.xml', false);
     }
 

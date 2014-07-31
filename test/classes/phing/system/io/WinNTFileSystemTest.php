@@ -29,8 +29,9 @@ include_once 'phing/system/io/WinNTFileSystem.php';
  * @author Daniel Holmes
  * @package phing.system.io
  */
-class WinNTFileSystemTest extends AbstractWinFileSystemTestCase {
-    
+class WinNTFileSystemTest extends AbstractWinFileSystemTestCase
+{
+
     protected function createFileSystem()
     {
         return new WinNTFileSystem();

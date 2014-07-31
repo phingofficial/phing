@@ -19,26 +19,29 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests for PHPLOCTask
- * 
+ *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class PHPLOCTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class PHPLOCTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phploc/build.xml");
-        
+
         if (version_compare(PHP_VERSION, '5.3.2') < 0) {
             $this->markTestSkipped("Need PHP 5.3.2+ for this test");
         }
     }
 
-    public function testReportText() {
+    public function testReportText()
+    {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt'
@@ -46,7 +49,8 @@ class PHPLOCTaskTest extends BuildFileTest {
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.txt');
     }
 
-    public function testReportCSV() {
+    public function testReportCSV()
+    {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv'
@@ -54,7 +58,8 @@ class PHPLOCTaskTest extends BuildFileTest {
         unlink(PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.csv');
     }
 
-    public function testReportXML() {
+    public function testReportXML()
+    {
         $this->executeTarget(__FUNCTION__);
         $this->assertFileExists(
             PHING_TEST_BASE . '/etc/tasks/ext/phploc/phploc-report.xml'

@@ -30,9 +30,11 @@ include_once 'phing/tasks/system/condition/ContainsCondition.php';
  * @version $Id$
  * @package phing.tasks.system.condition
  */
-class ContainsConditionTest extends PHPUnit_Framework_TestCase {
+class ContainsConditionTest extends PHPUnit_Framework_TestCase
+{
 
-    public function testCaseSensitive() {
+    public function testCaseSensitive()
+    {
         $con = new ContainsCondition();
         $con->setString("abc");
         $con->setSubstring("A");

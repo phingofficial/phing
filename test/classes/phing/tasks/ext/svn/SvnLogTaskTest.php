@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
@@ -27,8 +27,10 @@ require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnLogTaskTest extends AbstractSvnTaskTest { 
-    public function setUp() {
+class SvnLogTaskTest extends AbstractSvnTaskTest
+{
+    public function setUp()
+    {
         parent::setUp('SvnLogTest.xml');
     }
 
@@ -36,6 +38,9 @@ class SvnLogTaskTest extends AbstractSvnTaskTest {
     {
         $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getLog');
-        $this->assertPropertyEquals('svn.log', "1560 | michiel.rook  | 2012-04-06T18:33:25.000000Z  | Update changelog for maintenance release\n");
+        $this->assertPropertyEquals(
+            'svn.log',
+            "1560 | michiel.rook  | 2012-04-06T18:33:25.000000Z  | Update changelog for maintenance release\n"
+        );
     }
 }

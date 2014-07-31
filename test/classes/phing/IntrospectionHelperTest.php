@@ -23,27 +23,30 @@ include_once 'phing/tasks/system/condition/OsCondition.php';
 
 /**
  * testcases for phing.IntrospectionHelper.
- * 
+ *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @version $Id$
  * @package phing
  */
-class IntrospectionHelperTest extends PHPUnit_Framework_TestCase {
+class IntrospectionHelperTest extends PHPUnit_Framework_TestCase
+{
 
     /** @var Project */
     private $p;
-    
-    public function setUp() {
+
+    public function setUp()
+    {
         $this->p = new Project();
         $this->p->setBasedir(DIRECTORY_SEPARATOR);
     }
-    
+
     /**
      *
      * @throws BuildException
      */
-    public function testAddText()  {
+    public function testAddText()
+    {
         $ih = IntrospectionHelper::getHelper('Exception');
         try {
             $ih->addText($this->p, new Exception(), "test");
@@ -55,35 +58,40 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase {
         $ih->addText($this->p, new IHProjectComponent(), "test");
     }
 
-    public function testSupportsCharacters() {
+    public function testSupportsCharacters()
+    {
         $ih = IntrospectionHelper::getHelper('Exception');
         $this->assertTrue(!$ih->supportsCharacters(), "String doesn\'t support addText");
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertTrue($ih->supportsCharacters(), "IHProjectComponent supports addText");
-    }    
-    
-    public function testElementCreators() {
-        
+    }
+
+    public function testElementCreators()
+    {
+
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail1');
             $this->fail("create cannot take param");
-        } catch (BuildException $be) {}
+        } catch (BuildException $be) {
+        }
 
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail2');
             $this->fail("no class hint for add");
-        } catch (BuildException $be) {}
+        } catch (BuildException $be) {
+        }
 
         try {
             $ihtmp = IntrospectionHelper::getHelper('IHCreatorFail3');
             $this->fail("no class hint for addconfigured");
-        } catch (BuildException $be) {}
-        
+        } catch (BuildException $be) {
+        }
+
         $ih = IntrospectionHelper::getHelper('IHProjectComponent');
         $this->assertEquals("test", $ih->createElement($this->p, new IHProjectComponent(), "one"));
-       
+
     }
-    
+
     /*
     public function testGetNestedElements() {
         Hashtable h = new Hashtable();
@@ -341,66 +349,81 @@ class IntrospectionHelperTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(19, d, 1e-6);
     }
     */
-}// IntrospectionHelperTest
+}
+
+// IntrospectionHelperTest
 
 // These are sample project components
 
-class IHProjectComponent {
+class IHProjectComponent
+{
 
-    public function addText($text) {        
+    public function addText($text)
+    {
     }
-    
-    public function createOne() {
+
+    public function createOne()
+    {
         return "test";
-    }    
+    }
 }
 
 
 // These classes force failure
 // 
 
-class IHCreatorFail1 {
+class IHCreatorFail1
+{
     /**
      * cannot take param!
      */
-    function createBlah($param) {    
+    function createBlah($param)
+    {
     }
 }
 
-class IHCreatorFail2 {
+class IHCreatorFail2
+{
 
     /**
      * no class hint!
      */
-    function addBlah($blah) {
+    function addBlah($blah)
+    {
     }
 }
 
-class IHCreatorFail3 {
+class IHCreatorFail3
+{
 
     /**
      * no class hint!
      */
-    function addConfiguredBlah($blah) {
-    }    
+    function addConfiguredBlah($blah)
+    {
+    }
 }
 
 
-class IHFail4 {
+class IHFail4
+{
 
     /**
      * 2 params!
      */
-    function setBlah($blah, $blah2) {
+    function setBlah($blah, $blah2)
+    {
     }
 }
 
-class IHFail5 {
+class IHFail5
+{
 
     /**
      * no params!
      */
-    function setBlah() {
+    function setBlah()
+    {
     }
-    
+
 }

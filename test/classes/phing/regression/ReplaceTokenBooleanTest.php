@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,14 +28,17 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class ReplaceTokenBooleanTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class ReplaceTokenBooleanTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/376/build.xml");
     }
 
-    public function testCustomTask () {
-      $this->executeTarget("main");
-      $this->assertInLogs("Replaced \"@TOKEN_KEY_TRUE@\" with \"true\"");
+    public function testCustomTask()
+    {
+        $this->executeTarget("main");
+        $this->assertInLogs("Replaced \"@TOKEN_KEY_TRUE@\" with \"true\"");
     }
 }

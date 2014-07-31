@@ -29,11 +29,13 @@ require_once 'phing/BuildFileTest.php';
  * TODO: skip when user doesn't have pear installed (you cannot check for the class name, because
  *       it is included via composer)
  */
-class PearPkg2CompatibilityTest extends BuildFileTest {
+class PearPkg2CompatibilityTest extends BuildFileTest
+{
     private $savedErrorLevel;
-    protected $backupGlobals = FALSE;
+    protected $backupGlobals = false;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/regression/524/build.xml";
@@ -47,19 +49,22 @@ class PearPkg2CompatibilityTest extends BuildFileTest {
         $this->executeTarget("teardown");
     }
 
-    public function testInactiveMaintainers () {
+    public function testInactiveMaintainers()
+    {
         $this->executeTarget("inactive");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertTrue(strpos($content, '<active>no</active>') !== false);
     }
 
-    public function testActiveMaintainers () {
+    public function testActiveMaintainers()
+    {
         $this->executeTarget("active");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertTrue(strpos($content, '<active>yes</active>') !== false);
     }
 
-    public function testNotSetMaintainers () {
+    public function testNotSetMaintainers()
+    {
         $this->executeTarget("notset");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertTrue(strpos($content, '<active>yes</active>') !== false);

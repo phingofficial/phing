@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,14 +28,17 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class CopyTaskFileListTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class CopyTaskFileListTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/229/build.xml");
     }
 
-    public function testCopyTask () {
-      $this->executeTarget("main");
-      $this->assertInLogs("Copying 2 files to");
+    public function testCopyTask()
+    {
+        $this->executeTarget("main");
+        $this->assertInLogs("Copying 2 files to");
     }
 }

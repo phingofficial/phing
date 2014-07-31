@@ -26,17 +26,24 @@ require_once 'phing/BuildFileTest.php';
  * @author Max Romanovsky <max.romanovsky@gmail.com>
  * @package phing.tasks.ext
  */
-class AutoloaderTaskTest extends BuildFileTest {
+class AutoloaderTaskTest extends BuildFileTest
+{
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/autoloader/autoloader.xml");
     }
 
-    public function testDefault() {
-        $this->expectBuildException("testDefault", sprintf('Provided autoloader file "%s" is not a readable file', AutoloaderTask::DEFAULT_AUTOLOAD_PATH));
+    public function testDefault()
+    {
+        $this->expectBuildException(
+            "testDefault",
+            sprintf('Provided autoloader file "%s" is not a readable file', AutoloaderTask::DEFAULT_AUTOLOAD_PATH)
+        );
     }
 
-    public function testExisting() {
+    public function testExisting()
+    {
         $this->expectLog("testExisting", 'Loading autoloader from autoload.php');
         $this->assertTrue(class_exists('Phing_Autoload_Stub', false));
     }

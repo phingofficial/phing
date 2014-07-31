@@ -73,9 +73,12 @@ class GrowlNotifyTaskErrorTest extends BuildFileTest
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/growl/build.xml');
 
         $name = '';
-        
+
         $gntpMock = Net_Growl::singleton(
-            $name, array(), '', array('protocol' => 'gntpMock')
+            $name,
+            array(),
+            '',
+            array('protocol' => 'gntpMock')
         );
 
         /*
