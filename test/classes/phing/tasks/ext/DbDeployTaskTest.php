@@ -19,22 +19,24 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class DbDeployTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class DbDeployTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/dbdeploy/build.xml");
         $this->executeTarget("prepare");
     }
-        
 
-    public function testDeployAndUndo() { 
+    public function testDeployAndUndo()
+    {
         $this->expectLog("testDeploy", "Current db revision: 1");
         $this->expectLog("testUndo", "Current db revision: 0");
     }

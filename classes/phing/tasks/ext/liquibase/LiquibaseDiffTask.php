@@ -33,7 +33,6 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
     protected $referencePassword;
     protected $referenceUrl;
 
-
     /**
      * Sets the username to connect to the reference database.
      *
@@ -44,7 +43,6 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
         $this->referenceUsername = $username;
     }
 
-
     /**
      * Sets the password to connect to the refernce database.
      *
@@ -54,7 +52,6 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
     {
         $this->referencePassword = $password;
     }
-
 
     /**
      * Sets the url to connect to the reference database in jdbc style, e.g.
@@ -69,7 +66,6 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
         $this->referenceUrl = $url;
     }
 
-
     /**
      * @see AbstractTask::checkParams()
      */
@@ -77,22 +73,18 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
     {
         parent::checkParams();
 
-        if(null === $this->referenceUsername)
-        {
+        if (null === $this->referenceUsername) {
             throw new BuildException('Please provide a username for the reference database acccess!');
         }
 
-        if(null === $this->referencePassword)
-        {
+        if (null === $this->referencePassword) {
             throw new BuildException('Please provide a password for the reference database acccess!');
         }
 
-        if(null === $this->referenceUrl)
-        {
+        if (null === $this->referenceUrl) {
             throw new BuildException('Please provide a url for the reference database acccess!');
         }
     }
-
 
     /**
      * @see Task::main()
@@ -102,20 +94,19 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
         $this->checkParams();
 
         $refparams = sprintf(
-			'--referenceUsername=%s --referencePassword=%s --referenceUrl=%s',
-        escapeshellarg($this->referenceUsername),
-        escapeshellarg($this->referencePassword),
-        escapeshellarg($this->referenceUrl)
+            '--referenceUsername=%s --referencePassword=%s --referenceUrl=%s',
+            escapeshellarg($this->referenceUsername),
+            escapeshellarg($this->referencePassword),
+            escapeshellarg($this->referenceUrl)
         );
 
         // save main changelog file
         $changelogFile = $this->changeLogFile;
 
         // set the name of the new generated changelog file
-        $this->setChangeLogFile(dirname($changelogFile).'/diffs/'.date('YmdHis').'.xml');
-        if(!is_dir(dirname($changelogFile).'/diffs/'))
-        {
-            mkdir(dirname($changelogFile).'/diffs/', 0777, true);
+        $this->setChangeLogFile(dirname($changelogFile) . '/diffs/' . date('YmdHis') . '.xml');
+        if (!is_dir(dirname($changelogFile) . '/diffs/')) {
+            mkdir(dirname($changelogFile) . '/diffs/', 0777, true);
         }
         $this->execute('diffChangeLog', $refparams);
 
@@ -123,11 +114,11 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
         $xmlFile->load($changelogFile);
 
         // create the new node
-        $rootNode    = $xmlFile->getElementsByTagName('databaseChangeLog')->item(0);
+        $rootNode = $xmlFile->getElementsByTagName('databaseChangeLog')->item(0);
         $includeNode = $rootNode->appendChild($xmlFile->createElement('include'));
 
         // set the attributes for the new node
-        $includeNode->setAttribute('file', str_replace(dirname($changelogFile).'/', '', $this->changeLogFile));
+        $includeNode->setAttribute('file', str_replace(dirname($changelogFile) . '/', '', $this->changeLogFile));
         $includeNode->setAttribute('relativeToChangelogFile', 'true');
         file_put_contents($changelogFile, $xmlFile->saveXML());
 

@@ -90,7 +90,8 @@ class DocBlox_Parallel_WorkerPipe
         // push the gathered data onto a name pipe
         $pipe = fopen($this->path, 'w');
         fwrite(
-            $pipe, serialize(
+            $pipe,
+            serialize(
                 array(
                     $this->worker->getResult(),
                     $this->worker->getError(),

@@ -17,14 +17,14 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once dirname(dirname(__FILE__)) . "/Amazon.php";
 
 /**
  * Abstract Service_Amazon_S3 class.
- * 
+ *
  * Provides common methods and properties to all of the S3 tasks
  *
  * @extends Service_Amazon
@@ -37,18 +37,18 @@ abstract class Service_Amazon_S3 extends Service_Amazon
 {
     /**
      * Services_Amazon_S3 client
-     * 
+     *
      * (default value: null)
-     * 
+     *
      * @var Services_Amazon_S3
      * @see Services_Amazon_S3
      * @access protected
      */
     protected $_client = null;
-    
+
     /**
      * We only instantiate the client once per task call
-     * 
+     *
      * @access public
      * @return Services_Amazon_S3
      */
@@ -56,130 +56,131 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     {
         require_once "Services/Amazon/S3.php";
 
-        if($this->_client === null) {
+        if ($this->_client === null) {
             $this->_client = Services_Amazon_S3::getAccount($this->getKey(), $this->getSecret());
         }
-        
+
         return $this->_client;
     }
-    
+
     public function setBucket($bucket)
     {
-		if(empty($bucket) || !is_string($bucket)) {
-			throw new BuildException('Bucket must be a non-empty string');
-		}
+        if (empty($bucket) || !is_string($bucket)) {
+            throw new BuildException('Bucket must be a non-empty string');
+        }
 
         $this->bucket = (string) $bucket;
     }
 
     public function getBucket()
     {
-        if(!($bucket = $this->bucket)) {
+        if (!($bucket = $this->bucket)) {
             throw new BuildException('Bucket is not set');
         }
-        
+
         return $this->bucket;
     }
 
     /**
-	 * Returns an instance of Services_Amazon_S3_Resource_Object
-	 * 
-	 * @access public
-	 * @param mixed $object
-	 * @return Services_Amazon_S3_Resource_Object
-	 */
-	public function getObjectInstance($object)
-	{
-		return $this->getBucketInstance()->getObject($object);
-	}
-    
+     * Returns an instance of Services_Amazon_S3_Resource_Object
+     *
+     * @access public
+     * @param  mixed                              $object
+     * @return Services_Amazon_S3_Resource_Object
+     */
+    public function getObjectInstance($object)
+    {
+        return $this->getBucketInstance()->getObject($object);
+    }
+
     /**
      * Check if the object already exists in the current bucket
-     * 
+     *
      * @access public
-     * @param mixed $object
+     * @param  mixed $object
      * @return bool
      */
     public function isObjectAvailable($object)
     {
-		return (bool) $this->getObjectInstance($object)->load(Services_Amazon_S3_Resource_Object::LOAD_METADATA_ONLY);
+        return (bool) $this->getObjectInstance($object)->load(Services_Amazon_S3_Resource_Object::LOAD_METADATA_ONLY);
     }
 
     /**
-	 * Returns an instance of Services_Amazon_S3_Resource_Bucket
-	 * 
-	 * @access public
-	 * @return Services_Amazon_S3_Resource_Bucket
-	 */
-	public function getBucketInstance()
-	{
-		return $this->getClient()->getBucket($this->getBucket());
-	}
+     * Returns an instance of Services_Amazon_S3_Resource_Bucket
+     *
+     * @access public
+     * @return Services_Amazon_S3_Resource_Bucket
+     */
+    public function getBucketInstance()
+    {
+        return $this->getClient()->getBucket($this->getBucket());
+    }
 
     /**
-	 * Check if the current bucket is available
-	 * 
-	 * @access public
-	 * @return bool
-	 */
-	public function isBucketAvailable()
-	{
-		return (bool) $this->getBucketInstance($this->getBucket())->load();
-	}
-    
+     * Check if the current bucket is available
+     *
+     * @access public
+     * @return bool
+     */
+    public function isBucketAvailable()
+    {
+        return (bool) $this->getBucketInstance($this->getBucket())->load();
+    }
+
     /**
      * Get the contents of an object (by it's name)
-     * 
+     *
      * @access public
-     * @param string $object
+     * @param  string $object
      * @return mixed
      */
     public function getObjectContents($object)
     {
-		if(!$this->isBucketAvailable($this->getBucket())) {
-			throw new BuildException('Bucket doesn\'t exist or wrong permissions');
-		}
-		
-		$bucket = $this->getClient()->getBucket($this->getBucket());
-        if(!$this->isObjectAvailable($object)) {
+        if (!$this->isBucketAvailable($this->getBucket())) {
+            throw new BuildException('Bucket doesn\'t exist or wrong permissions');
+        }
+
+        $bucket = $this->getClient()->getBucket($this->getBucket());
+        if (!$this->isObjectAvailable($object)) {
             throw new BuildException('Object not available: ' . $object);
         }
-        
+
         $object = $this->getObjectInstance($object);
-		$object->load();
-		return $object->data;
+        $object->load();
+
+        return $object->data;
     }
 
     /**
-	 * Create a bucket
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function createBucket()
-	{
-		$bucket = $this->getBucketInstance();
-		$bucket->name = $this->getBucket();
-		$bucket->save();
-		
-		return $this->isBucketAvailable();
-	}
-    
+     * Create a bucket
+     *
+     * @access public
+     * @return void
+     */
+    public function createBucket()
+    {
+        $bucket = $this->getBucketInstance();
+        $bucket->name = $this->getBucket();
+        $bucket->save();
+
+        return $this->isBucketAvailable();
+    }
+
     /**
      * Main entry point, doesn't do anything
-     * 
+     *
      * @access public
      * @final
      * @return void
      */
     final public function main()
-    {       
+    {
         $this->execute();
     }
-    
+
     /**
      * Entry point to children tasks
-     * 
+     *
      * @access public
      * @abstract
      * @return void

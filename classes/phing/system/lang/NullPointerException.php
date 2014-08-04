@@ -22,5 +22,6 @@
 /**
  * @package phing.system.lang
  */
-class NullPointerException extends Exception {}
-
+class NullPointerException extends Exception
+{
+}

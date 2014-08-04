@@ -51,20 +51,23 @@ class ChownTaskTest extends BuildFileTest
         }
 
         $this->project->setUserProperty(
-            'targetuser', $username . '.' . $group['name']
+            'targetuser',
+            $username . '.' . $group['name']
         );
         $this->executeTarget(__FUNCTION__);
         $a = stat(PHING_TEST_BASE . '/etc/tasks/system/tmp/chowntestA');
         $b = stat(PHING_TEST_BASE . '/etc/tasks/system/tmp/chowntestB');
 
         $this->assertNotEquals(
-            $group['gid'], $a['gid'], 'chowntestA group should not have changed'
+            $group['gid'],
+            $a['gid'],
+            'chowntestA group should not have changed'
         );
         $this->assertEquals(
-            $group['gid'], $b['gid'], 'chowntestB group should have changed'
+            $group['gid'],
+            $b['gid'],
+            'chowntestB group should have changed'
         );
     }
 
 }
-
-?>

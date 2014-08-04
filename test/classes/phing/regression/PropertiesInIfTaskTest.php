@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,13 +28,16 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class PropertiesInIfTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class PropertiesInIfTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/1041/build.xml");
     }
 
-    public function testCopyTask () {
+    public function testCopyTask()
+    {
         $this->executeTarget("test");
 
         $this->assertNotInLogs('Property ${outp} has not been set.');

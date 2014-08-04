@@ -31,18 +31,18 @@ require_once 'phing/system/io/PhingFile.php';
  */
 class FormatterElement
 {
-    protected $formatter = NULL;
-    
+    protected $formatter = null;
+
     protected $type = "";
-    
+
     protected $useFile = true;
-    
+
     protected $toDir = ".";
-    
+
     protected $outfile = "";
-    
-    protected $parent = NULL;
-    
+
+    protected $parent = null;
+
     /**
      * Sets parent task
      * @param Task $parent Calling Task
@@ -78,7 +78,7 @@ class FormatterElement
     {
         $this->useFile = $useFile;
     }
-    
+
     /**
      * Returns whether to store formatting results in a file
      */
@@ -86,7 +86,7 @@ class FormatterElement
     {
         return $this->useFile;
     }
-    
+
     /**
      * Sets output directory
      * @param string $toDir
@@ -95,7 +95,7 @@ class FormatterElement
     {
         $this->toDir = $toDir;
     }
-    
+
     /**
      * Returns output directory
      * @return string
@@ -113,23 +113,20 @@ class FormatterElement
     {
         $this->outfile = $outfile;
     }
-    
+
     /**
      * Returns output filename
      * @return string
      */
     public function getOutfile()
     {
-        if ($this->outfile)
-        {
+        if ($this->outfile) {
             return $this->outfile;
-        }
-        else
-        {
+        } else {
             return $this->formatter->getPreferredOutfile() . $this->getExtension();
         }
     }
-    
+
     /**
      * Returns extension
      * @return string
@@ -148,7 +145,7 @@ class FormatterElement
         if ($this->formatter !== null) {
             return $this->formatter;
         }
-        
+
         if ($this->type == "summary") {
             require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
             $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
@@ -164,7 +161,7 @@ class FormatterElement
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");
         }
-        
+
         return $this->formatter;
     }
 }

@@ -18,13 +18,13 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- * 
+ *
  * @package phing.tasks.ext
  */
 
 /**
  * Uses the DocBlox_Parallel library to run nested Phing tasks concurrently.
- * 
+ *
  * WARNING: this task is highly experimental!
  *
  * @author Michiel Rook <mrook@php.net>
@@ -40,7 +40,7 @@ class ParallelTask extends SequentialTask
      * @var int
      */
     private $threadCount = 2;
-    
+
     /**
      * Sets the maximum number of threads / processes to use
      * @param int $threadCount
@@ -49,11 +49,11 @@ class ParallelTask extends SequentialTask
     {
         $this->threadCount = $threadCount;
     }
-    
+
     public function init()
     {
     }
-    
+
     public function main()
     {
         @include_once 'phing/contrib/DocBlox/Parallel/Manager.php';
@@ -68,16 +68,16 @@ class ParallelTask extends SequentialTask
 
         $mgr = new DocBlox_Parallel_Manager();
         $mgr->setProcessLimit($this->threadCount);
-        
+
         foreach ($this->nestedTasks as $task) {
             $worker = new DocBlox_Parallel_Worker(
                 array($task, 'perform'),
                 array($task)
             );
-            
+
             $mgr->addWorker($worker);
         }
-        
+
         $mgr->execute();
     }
 }

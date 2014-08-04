@@ -37,6 +37,7 @@ class PharMetadataElement
      * @var string
      */
     private $value;
+
     /**
      * @param string $value
      */
@@ -44,6 +45,7 @@ class PharMetadataElement
     {
         $this->value = $value;
     }
+
     /**
      * @param string $name
      */
@@ -51,6 +53,7 @@ class PharMetadataElement
     {
         $this->name = $name;
     }
+
     /**
      * @return string
      */
@@ -58,6 +61,7 @@ class PharMetadataElement
     {
         return $this->name;
     }
+
     /**
      * Return array of
      *
@@ -68,8 +72,10 @@ class PharMetadataElement
         /*
          * Elements first!
          */
+
         return (empty($this->elements) ? $this->value : $this->elements);
     }
+
     /**
      * @return string|array
      */

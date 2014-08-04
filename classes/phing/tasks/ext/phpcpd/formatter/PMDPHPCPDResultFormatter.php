@@ -52,6 +52,6 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
             $logger = new \SebastianBergmann\PHPCPD\Log\PMD($outFile);
         }
 
-    	$logger->processClones($clones);
+        $logger->processClones($clones);
     }
 }

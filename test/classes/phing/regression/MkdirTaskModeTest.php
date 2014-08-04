@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,21 +28,24 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class MkdirTaskModeTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class MkdirTaskModeTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/745/build.xml");
     }
 
-    public function testCorrectModeSet () {
+    public function testCorrectModeSet()
+    {
         $this->executeTarget("test");
-        
+
         $dir = new PhingFile(PHING_TEST_BASE . "/etc/regression/745/testdir");
-        
+
         $mode = $dir->getMode() & 511;
-        
+
         $this->assertEquals($mode, 511);
-        
+
         $dir->delete(true);
     }
 }

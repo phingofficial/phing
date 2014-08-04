@@ -83,7 +83,6 @@ class PearPackageFileSet extends FileSet
      */
     protected $pps;
 
-
     /**
      * Creates and returns the pear package scanner.
      * Scanner already has scan() called.
@@ -96,10 +95,12 @@ class PearPackageFileSet extends FileSet
     {
         if ($this->isReference()) {
             $obj = $this->getRef($p);
+
             return $obj->getDirectoryScanner($p);
         }
 
         $this->loadPearPackageScanner($p);
+
         return $this->pps;
     }
 
@@ -115,6 +116,7 @@ class PearPackageFileSet extends FileSet
         if ($this->pps === null) {
             $this->loadPearPackageScanner($p);
         }
+
         return new PhingFile((string) $this->pps->getBaseDir());
     }
 

@@ -1,8 +1,8 @@
 <?php
 
 /*
- *  $Id$  
- * 
+ *  $Id$
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -53,47 +53,49 @@ include_once 'phing/filters/ChainableReader.php';
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class StripLineComments extends BaseParamFilterReader implements ChainableReader {
-    
+class StripLineComments extends BaseParamFilterReader implements ChainableReader
+{
+
     /** Parameter name for the comment prefix. */
     const COMMENTS_KEY = "comment";
-    
+
     /** Array that holds the comment prefixes. */
     private $_comments = array();
-    
+
     /**
      * Returns stream only including
-     * lines from the original stream which don't start with any of the 
+     * lines from the original stream which don't start with any of the
      * specified comment prefixes.
-     * 
+     *
      * @return mixed the resulting stream, or -1
-     *         if the end of the resulting stream has been reached.
-     * 
+     *               if the end of the resulting stream has been reached.
+     *
      * @throws IOException if the underlying stream throws an IOException
-     *            during reading     
+     *                     during reading
      */
-    function read($len = null) {
-    
-        if ( !$this->getInitialized() ) {
+    public function read($len = null)
+    {
+
+        if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
         }
-        
+
         $buffer = $this->in->read($len);
-        
+
         if ($buffer === -1) {
             return -1;
         }
-        
-        $lines = explode("\n", $buffer);        
-        $filtered = array();    
-            
+
+        $lines = explode("\n", $buffer);
+        $filtered = array();
+
         $commentsSize = count($this->_comments);
-        
-        foreach($lines as $line) {            
-            for($i = 0; $i < $commentsSize; $i++) {
+
+        foreach ($lines as $line) {
+            for ($i = 0; $i < $commentsSize; $i++) {
                 $comment = $this->_comments[$i]->getValue();
-                if ( StringHelper::startsWith($comment, ltrim($line)) ) {
+                if (StringHelper::startsWith($comment, ltrim($line))) {
                     $line = null;
                     break;
                 }
@@ -102,29 +104,33 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
                 $filtered[] = $line;
             }
         }
-                
-        $filtered_buffer = implode("\n", $filtered);    
+
+        $filtered_buffer = implode("\n", $filtered);
+
         return $filtered_buffer;
-    }        
+    }
 
     /*
      * Adds a <code>comment</code> element to the list of prefixes.
-     * 
+     *
      * @return comment The <code>comment</code> element added to the
      *                 list of comment prefixes to strip.
     */
-    function createComment() {
+    public function createComment()
+    {
         $num = array_push($this->_comments, new Comment());
-        return $this->_comments[$num-1];
+
+        return $this->_comments[$num - 1];
     }
 
     /*
      * Sets the list of comment prefixes to strip.
-     * 
+     *
      * @param comments A list of strings, each of which is a prefix
      *                 for a comment line. Must not be <code>null</code>.
     */
-    function setComments($lineBreaks) {
+    public function setComments($lineBreaks)
+    {
         if (!is_array($lineBreaks)) {
             throw new Exception("Excpected 'array', got something else");
         }
@@ -133,39 +139,43 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
 
     /*
      * Returns the list of comment prefixes to strip.
-     * 
+     *
      * @return array The list of comment prefixes to strip.
     */
-    function getComments() {
+    public function getComments()
+    {
         return $this->_comments;
     }
 
     /*
      * Creates a new StripLineComments using the passed in
      * Reader for instantiation.
-     * 
+     *
      * @param reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
-     * 
+     *
      * @return a new filter based on this configuration, but filtering
-     *         the specified reader
+     *           the specified reader
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new StripLineComments($reader);
         $newFilter->setComments($this->getComments());
         $newFilter->setInitialized(true);
-        $newFilter->setProject($this->getProject());        
+        $newFilter->setProject($this->getProject());
+
         return $newFilter;
     }
 
     /*
      * Parses the parameters to set the comment prefixes.
     */
-    private function _initialize() {
+    private function _initialize()
+    {
         $params = $this->getParameters();
-        if ( $params !== null ) {
-            for($i = 0 ; $i<count($params) ; $i++) {
-                if ( self::COMMENTS_KEY === $params[$i]->getType() ) {
+        if ($params !== null) {
+            for ($i = 0; $i < count($params); $i++) {
+                if (self::COMMENTS_KEY === $params[$i]->getType()) {
                     $comment = new Comment();
                     $comment->setValue($params[$i]->getValue());
                     array_push($this->_comments, $comment);
@@ -180,28 +190,30 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
  *
  * @package phing.filters
  */
-class Comment {
-    
+class Comment
+{
+
     /** The prefix for a line comment. */
-    private    $_value;
+    private $_value;
 
     /*
      * Sets the prefix for this type of line comment.
      *
      * @param string $value The prefix for a line comment of this type.
-     *                Must not be <code>null</code>.
+     *                      Must not be <code>null</code>.
      */
-    function setValue($value) {
+    public function setValue($value)
+    {
         $this->_value = (string) $value;
     }
 
     /*
      * Returns the prefix for this type of line comment.
-     * 
+     *
      * @return string The prefix for this type of line comment.
     */
-    function getValue() {
+    public function getValue()
+    {
         return $this->_value;
     }
 }
-

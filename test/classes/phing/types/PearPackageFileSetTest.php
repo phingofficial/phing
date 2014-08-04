@@ -18,7 +18,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- * 
+ *
  * @package phing.util
  */
 require_once 'phing/BuildFileTest.php';
@@ -26,13 +26,13 @@ require_once 'phing/types/PearPackageFileSet.php';
 
 /**
  * Testcases for phing.types.PearPackageFileSet
- * 
+ *
  * @author  Christian Weiske <cweiske@cweiske.de>
  * @package phing.types
  */
-class PearPackageFileSetTest extends BuildFileTest 
-{ 
-    public function setUp() 
+class PearPackageFileSetTest extends BuildFileTest
+{
+    public function setUp()
     {
         //needed for PEAR's Config and Registry classes
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_STRICT);
@@ -47,14 +47,17 @@ class PearPackageFileSetTest extends BuildFileTest
 
         $arFiles = $ds->getIncludedFiles();
         $this->assertInternalType(
-            'array', $arFiles, 'getIncludedFiles returned no array'
+            'array',
+            $arFiles,
+            'getIncludedFiles returned no array'
         );
         $this->assertEquals(1, count($arFiles));
         $this->assertContains('Console' . DIRECTORY_SEPARATOR . 'Getopt.php', $arFiles);
 
         $fullPath = $ds->getBaseDir() . reset($arFiles);
         $this->assertTrue(
-            file_exists($fullPath), 'File does not exist: ' . $fullPath
+            file_exists($fullPath),
+            'File does not exist: ' . $fullPath
         );
     }
 
@@ -69,14 +72,16 @@ class PearPackageFileSetTest extends BuildFileTest
         $this->assertContains('docs/Archive_Tar.txt', $arFiles);
         foreach ($arFiles as $file) {
             $this->assertNotContains(
-                '.php', $file, 'php files should not be in there'
+                '.php',
+                $file,
+                'php files should not be in there'
             );
         }
     }
 
     public function testGetDir()
     {
-        $proj = new Project(); 
+        $proj = new Project();
         $ppfs = new PearPackageFileSet();
         $ppfs->setPackage('console_getopt');
         $ppfs->setRole('php');
@@ -84,10 +89,12 @@ class PearPackageFileSetTest extends BuildFileTest
 
         $dir = $ppfs->getDir($proj);
         $this->assertTrue(
-            file_exists($dir), 'Directory does not exist: ' . $dir
+            file_exists($dir),
+            'Directory does not exist: ' . $dir
         );
         $this->assertTrue(
-            is_dir($dir), '$dir is not a directory: ' . $dir
+            is_dir($dir),
+            '$dir is not a directory: ' . $dir
         );
     }
 
@@ -99,10 +106,12 @@ class PearPackageFileSetTest extends BuildFileTest
 
         $dir = $ppfs->getDir(new Project());
         $this->assertTrue(
-            file_exists($dir), 'Directory does not exist: ' . $dir
+            file_exists($dir),
+            'Directory does not exist: ' . $dir
         );
         $this->assertTrue(
-            is_dir($dir), '$dir is not a directory: ' . $dir
+            is_dir($dir),
+            '$dir is not a directory: ' . $dir
         );
     }
 
@@ -116,4 +125,3 @@ class PearPackageFileSetTest extends BuildFileTest
         $ppfs->setPackage('pear.php.net/console_getopt/thisiswrong');
     }
 }
-?>

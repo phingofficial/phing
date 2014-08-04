@@ -128,7 +128,6 @@ class ExecTask extends Task
     protected $checkreturn = false;
 
 
-
     public function __construct()
     {
         $this->commandline = new Commandline();
@@ -174,10 +173,12 @@ class ExecTask extends Task
         $this->log(
             sprintf(
                 'Operating system %s not found in %s',
-                $myos, $this->os
+                $myos,
+                $this->os
             ),
             Project::MSG_VERBOSE
         );
+
         return false;
     }
 
@@ -215,20 +216,24 @@ class ExecTask extends Task
             throw new BuildException(
                 'ExecTask: Please provide "command" OR "executable"'
             );
-        } else if ($this->command === null) {
-            $this->realCommand = Commandline::toString($this->commandline->getCommandline(), $this->escape);
-        } else if ($this->commandline->getExecutable() === null) {
-            $this->realCommand = $this->command;
-            
-            //we need to escape the command only if it's specified directly
-            // commandline takes care of "executable" already
-            if ($this->escape == true) {
-                $this->realCommand = escapeshellcmd($this->realCommand);
-            }
         } else {
-            throw new BuildException(
-                'ExecTask: Either use "command" OR "executable"'
-            );
+            if ($this->command === null) {
+                $this->realCommand = Commandline::toString($this->commandline->getCommandline(), $this->escape);
+            } else {
+                if ($this->commandline->getExecutable() === null) {
+                    $this->realCommand = $this->command;
+
+                    //we need to escape the command only if it's specified directly
+                    // commandline takes care of "executable" already
+                    if ($this->escape == true) {
+                        $this->realCommand = escapeshellcmd($this->realCommand);
+                    }
+                } else {
+                    throw new BuildException(
+                        'ExecTask: Either use "command" OR "executable"'
+                    );
+                }
+            }
         }
 
         if ($this->error !== null) {
@@ -313,7 +318,8 @@ class ExecTask extends Task
 
         if ($this->outputProperty) {
             $this->project->setProperty(
-                $this->outputProperty, implode("\n", $output)
+                $this->outputProperty,
+                implode("\n", $output)
             );
         }
 
@@ -344,7 +350,7 @@ class ExecTask extends Task
      */
     public function setExecutable($executable)
     {
-        $this->commandline->setExecutable((string)$executable);
+        $this->commandline->setExecutable((string) $executable);
     }
 
     /**
@@ -440,7 +446,7 @@ class ExecTask extends Task
      */
     public function setSpawn($spawn)
     {
-        $this->spawn  = (bool) $spawn;
+        $this->spawn = (bool) $spawn;
     }
 
     /**
@@ -489,25 +495,25 @@ class ExecTask extends Task
     public function setLevel($level)
     {
         switch ($level) {
-        case 'error':
-            $this->logLevel = Project::MSG_ERR;
-            break;
-        case 'warning':
-            $this->logLevel = Project::MSG_WARN;
-            break;
-        case 'info':
-            $this->logLevel = Project::MSG_INFO;
-            break;
-        case 'verbose':
-            $this->logLevel = Project::MSG_VERBOSE;
-            break;
-        case 'debug':
-            $this->logLevel = Project::MSG_DEBUG;
-            break;
-        default:
-            throw new BuildException(
-                sprintf('Unknown log level "%s"', $level)
-            );
+            case 'error':
+                $this->logLevel = Project::MSG_ERR;
+                break;
+            case 'warning':
+                $this->logLevel = Project::MSG_WARN;
+                break;
+            case 'info':
+                $this->logLevel = Project::MSG_INFO;
+                break;
+            case 'verbose':
+                $this->logLevel = Project::MSG_VERBOSE;
+                break;
+            case 'debug':
+                $this->logLevel = Project::MSG_DEBUG;
+                break;
+            default:
+                throw new BuildException(
+                    sprintf('Unknown log level "%s"', $level)
+                );
         }
     }
 
@@ -521,4 +527,3 @@ class ExecTask extends Task
         return $this->commandline->createArgument();
     }
 }
-

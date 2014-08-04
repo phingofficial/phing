@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php'; 
+require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
@@ -32,14 +32,16 @@ class ReplaceTokensWithFileTest extends BuildFileTest
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
     }
-    
+
     /**
      * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
      */
     public function testPostfix()
     {
         $this->executeTarget(__FUNCTION__);
-        
-        $this->assertInLogs('[filter:ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"');
+
+        $this->assertInLogs(
+            '[filter:ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"'
+        );
     }
 }

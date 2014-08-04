@@ -19,38 +19,39 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Register a task for use within a buildfile.
- * 
+ *
  * This is for registering your own tasks -- or any non-core Task -- for use within a buildfile.
- * If you find that you are using a particular class frequently, you may want to edit the 
+ * If you find that you are using a particular class frequently, you may want to edit the
  * phing/tasks/defaults.properties file so that it is included by default. You may also
  * want to submit it (if LGPL or compatible license) to be included in Phing distribution.
- * 
+ *
  * <pre>
  *   <taskdef name="mytag" classname="path.to.MyHandlingClass"/>
  *   .
  *   .
  *   <mytag param1="val1" param2="val2"/>
  * </pre>
- * 
+ *
  * TODO:
  *    -- possibly refactor since this is almost the same as TypeDefTask
  *      (right now these are just too simple to really justify creating an abstract class)
- * 
+ *
  * @author    Hans Lellelid <hans@xmpl.org>
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class TaskdefTask extends Task {
+class TaskdefTask extends Task
+{
 
     /** Tag name for task that will be used in XML */
     private $name;
-    
+
     /**
      * Classname of task to register.
      * This can be a dot-path -- relative to a location on PHP include_path.
@@ -58,13 +59,13 @@ class TaskdefTask extends Task {
      * @var string
      */
     private $classname;
-    
+
     /**
      * Path to add to PHP include_path to aid in finding specified class.
      * @var Path
      */
     private $classpath;
-    
+
     /**
      * Refid to already defined classpath
      */
@@ -75,13 +76,14 @@ class TaskdefTask extends Task {
      * @var string
      */
     private $typeFile;
-    
+
     /**
      * Set the classpath to be used when searching for component being defined
-     * 
+     *
      * @param Path $classpath A Path object containing the classpath.
      */
-    public function setClasspath(Path $classpath) {
+    public function setClasspath(Path $classpath)
+    {
         if ($this->classpath === null) {
             $this->classpath = $classpath;
         } else {
@@ -91,20 +93,23 @@ class TaskdefTask extends Task {
 
     /**
      * Create the classpath to be used when searching for component being defined
-     * 
+     *
      * @return Path
-     */ 
-    public function createClasspath() {
+     */
+    public function createClasspath()
+    {
         if ($this->classpath === null) {
             $this->classpath = new Path($this->project);
         }
+
         return $this->classpath->createPath();
     }
 
     /**
      * Reference to a classpath to use when loading the files.
      */
-    public function setClasspathRef(Reference $r) {
+    public function setClasspathRef(Reference $r)
+    {
         $this->classpathId = $r->getRefId();
         $this->createClasspath()->setRefid($r);
     }
@@ -113,30 +118,35 @@ class TaskdefTask extends Task {
      * Sets the name that will be used in XML buildfile.
      * @param string $name
      */
-    public function setName($name)    {
+    public function setName($name)
+    {
         $this->name = $name;
     }
-    
+
     /**
      * Sets the class name / dotpath to use.
      * @param string $class
      */
-    public function setClassname($class) {
+    public function setClassname($class)
+    {
         $this->classname = $class;
     }
-    
+
     /**
      * Sets the file of definitionas to use to use.
      * @param string $file
      */
-    public function setFile($file) {
+    public function setFile($file)
+    {
         $this->typeFile = $file;
     }
-    
+
     /** Main entry point */
-    public function main() {
-        if ($this->typeFile === null && 
-            ($this->name === null || $this->classname === null)) {
+    public function main()
+    {
+        if ($this->typeFile === null &&
+            ($this->name === null || $this->classname === null)
+        ) {
             throw new BuildException("You must specify name and class attributes for <taskdef>.");
         }
         if ($this->typeFile == null) {
@@ -153,7 +163,7 @@ class TaskdefTask extends Task {
                 $props->load($in);
 
                 $enum = $props->propertyNames();
-                foreach($enum as $key) {
+                foreach ($enum as $key) {
                     $value = $props->getProperty($key);
                     $this->project->addTaskDefinition($key, $value, $this->classpath);
                 }

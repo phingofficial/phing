@@ -32,6 +32,7 @@ class PharMetadata
      * @var array
      */
     protected $elements = array();
+
     /**
      * @return PharMetadataElement
      */
@@ -39,6 +40,7 @@ class PharMetadata
     {
         return ($this->elements[] = new PharMetadataElement());
     }
+
     /**
      * @return array
      */

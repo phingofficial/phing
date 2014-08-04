@@ -54,6 +54,7 @@ class PhkPackageTask extends Task
      * @var array
      */
     private $options = array();
+
     /**
      * @return PhkPackageWebAccess
      */
@@ -61,6 +62,7 @@ class PhkPackageTask extends Task
     {
         return ($this->webAccess = new PhkPackageWebAccess());
     }
+
     /**
      * @param string $crcCheck
      */
@@ -68,6 +70,7 @@ class PhkPackageTask extends Task
     {
         $this->options['crc_check'] = ('true' == $crcCheck ? true : false);
     }
+
     /**
      * @param string $webRunScript
      */
@@ -75,6 +78,7 @@ class PhkPackageTask extends Task
     {
         $this->options['web_run_script'] = $webRunScript;
     }
+
     /**
      * @param string $cliRunScript
      */
@@ -82,6 +86,7 @@ class PhkPackageTask extends Task
     {
         $this->options['cli_run_script'] = $cliRunScript;
     }
+
     /**
      * @param string $libRunScript
      */
@@ -89,13 +94,15 @@ class PhkPackageTask extends Task
     {
         $this->options['lib_run_script'] = $libRunScript;
     }
+
     /**
      * @param string $name
      */
     public function setName($name)
     {
-        $this->options['name'] =  $name;
+        $this->options['name'] = $name;
     }
+
     /**
      * @param string $webMainRedirect
      */
@@ -103,6 +110,7 @@ class PhkPackageTask extends Task
     {
         $this->options['web_main_redirect'] = ('true' == $webMainRedirect ? true : false);
     }
+
     /**
      * @param string $pluginClass
      */
@@ -110,6 +118,7 @@ class PhkPackageTask extends Task
     {
         $this->options['plugin_class'] = $pluginClass;
     }
+
     /**
      * @param string $version
      */
@@ -117,6 +126,7 @@ class PhkPackageTask extends Task
     {
         $this->options['version'] = $version;
     }
+
     /**
      * @param string $summary
      */
@@ -124,6 +134,7 @@ class PhkPackageTask extends Task
     {
         $this->options['summary'] = $summary;
     }
+
     /**
      * @param string $inputDirectory
      */
@@ -131,6 +142,7 @@ class PhkPackageTask extends Task
     {
         $this->inputDirectory = $inputDirectory;
     }
+
     /**
      * @param string $outputFile
      */
@@ -138,6 +150,7 @@ class PhkPackageTask extends Task
     {
         $this->outputFile = $outputFile;
     }
+
     /**
      * May be none, gzip or bzip2.
      *
@@ -147,6 +160,7 @@ class PhkPackageTask extends Task
     {
         $this->modifiers['compress'] = $compress;
     }
+
     /**
      * True or false.
      *
@@ -156,6 +170,7 @@ class PhkPackageTask extends Task
     {
         $this->modifiers['strip'] = $strip;
     }
+
     /**
      * Path to PHK_Creator.phk file.
      *
@@ -165,6 +180,7 @@ class PhkPackageTask extends Task
     {
         $this->phkCreatorPath = $path;
     }
+
     /**
      *
      */
@@ -172,6 +188,7 @@ class PhkPackageTask extends Task
     {
 
     }
+
     /**
      * Main method...
      */

@@ -30,10 +30,10 @@ require_once 'phing/BuildFileTest.php';
  */
 class ExecTaskTest extends BuildFileTest
 {
-   /**
-    * Whether test is being run on windows
-    * @var bool
-    */
+    /**
+     * Whether test is being run on windows
+     * @var bool
+     */
     protected $windows;
 
     public function setUp()
@@ -74,23 +74,25 @@ class ExecTaskTest extends BuildFileTest
         $target = $this->getTargetByName($target);
         $task = $this->getTaskFromTarget($target, $task);
         $task->maybeConfigure();
+
         return $task;
     }
 
     protected function assertAttributeIsSetTo($property, $value, $propertyName = null)
     {
         $task = $this->getConfiguredTask(
-            'testPropertySet' . ucfirst($property), 'ExecTask'
+            'testPropertySet' . ucfirst($property),
+            'ExecTask'
         );
 
         if ($propertyName === null) {
             $propertyName = $property;
         }
-        
+
         if ($task instanceof UnknownElement) {
             $task = $task->getRuntimeConfigurableWrapper()->getProxy();
         }
-        
+
         $rprop = new ReflectionProperty('ExecTask', $propertyName);
         $rprop->setAccessible(true);
         $this->assertEquals($value, $rprop->getValue($task));
@@ -279,7 +281,6 @@ class ExecTaskTest extends BuildFileTest
         $this->getConfiguredTask('testPropertySetLevelUnknown', 'ExecTask');
     }
 
-
     public function testDoNotExecuteOnWrongOs()
     {
         $this->executeTarget(__FUNCTION__);
@@ -296,7 +297,6 @@ class ExecTaskTest extends BuildFileTest
         $this->assertInLogs('this should be executed');
     }
 
-
     public function testFailOnNonExistingDir()
     {
         try {
@@ -309,7 +309,6 @@ class ExecTaskTest extends BuildFileTest
             );
         }
     }
-
 
     public function testChangeToDir()
     {
@@ -397,7 +396,8 @@ class ExecTaskTest extends BuildFileTest
         $this->executeTarget(__FUNCTION__);
         $end = time();
         $this->assertLessThan(
-            4, $end - $start,
+            4,
+            $end - $start,
             'Time between start and end should be lower than 4 seconds'
             . ' - otherwise it looks as spawning did not work'
         );
@@ -426,7 +426,7 @@ class ExecTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
     }
-    
+
     /**
      * Inspired by {@link http://www.phing.info/trac/ticket/833}
      */
@@ -436,5 +436,3 @@ class ExecTaskTest extends BuildFileTest
         $this->assertPropertyEquals('outval', 'abc$b3!SB');
     }
 }
-
-?>

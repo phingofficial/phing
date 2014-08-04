@@ -35,12 +35,12 @@ class GitCommitTask extends GitBaseTask
      * @var boolean
      */
     private $allFiles = false;
-    
+
     /**
      * @var string
      */
     private $message;
-    
+
     /**
      * @var FileSet[]
      */
@@ -67,11 +67,11 @@ class GitCommitTask extends GitBaseTask
         $arguments = array();
         if ($this->allFiles !== true) {
             foreach ($this->filesets as $fs) {
-                $ds       = $fs->getDirectoryScanner($this->project);
+                $ds = $fs->getDirectoryScanner($this->project);
                 $srcFiles = $ds->getIncludedFiles();
-                
+
                 foreach ($srcFiles as $file) {
-                	$arguments[] = $file;
+                    $arguments[] = $file;
                 }
             }
         }
@@ -84,7 +84,7 @@ class GitCommitTask extends GitBaseTask
 
         try {
             $client = $this->getGitClient(false, $this->getRepository());
-            
+
             $command = $client->getCommand('commit');
             $command->setArguments($arguments);
             $command->setOptions($options);
@@ -92,20 +92,18 @@ class GitCommitTask extends GitBaseTask
         } catch (Exception $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
-        
+
         $this->logCommand($options, $arguments);
     }
-    
+
     protected function logCommand(array $options, array $arguments)
     {
         $msg = 'git-commit: Executed git commit ';
-        foreach ($options as $option=>$value)
-        {
+        foreach ($options as $option => $value) {
             $msg .= ' --' . $option . '=' . $value;
         }
 
-        foreach ($arguments as $argument)
-        {
+        foreach ($arguments as $argument) {
             $msg .= ' ' . $argument;
         }
 
@@ -119,17 +117,17 @@ class GitCommitTask extends GitBaseTask
 
     public function setAllFiles($flag)
     {
-        $this->allFiles = (bool)$flag;
+        $this->allFiles = (bool) $flag;
     }
 
     public function getMessage()
     {
-    	return $this->message;
+        return $this->message;
     }
 
     public function setMessage($message)
     {
-    	$this->message = $message;
+        $this->message = $message;
     }
 
     /**
@@ -137,7 +135,8 @@ class GitCommitTask extends GitBaseTask
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 }

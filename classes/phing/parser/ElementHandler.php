@@ -34,7 +34,8 @@ require_once 'phing/UnknownElement.php';
  * @version   $Id$
  * @package   phing.parser
  */
-class ElementHandler extends AbstractHandler {
+class ElementHandler extends AbstractHandler
+{
 
     /**
      * Reference to the parent object that represents the parent tag
@@ -52,34 +53,40 @@ class ElementHandler extends AbstractHandler {
 
     /**
      *  Reference to the parent wrapper object
-     *  @var object
+     * @var object
      */
     private $parentWrapper;
 
     /**
      *  Reference to the child wrapper object
-     *  @var object
+     * @var object
      */
     private $childWrapper;
 
     /**
      *  Reference to the related target object
-     *  @var object the target instance
+     * @var object the target instance
      */
     private $target;
 
     /**
      *  Constructs a new NestedElement handler and sets up everything.
      *
-     *  @param  object  the ExpatParser object
-     *  @param  object  the parent handler that invoked this handler
-     *  @param  object  the ProjectConfigurator object
-     *  @param  object  the parent object this element is contained in
-     *  @param  object  the parent wrapper object
-     *  @param  object  the target object this task is contained in
+     * @param  object  the ExpatParser object
+     * @param  object  the parent handler that invoked this handler
+     * @param  object  the ProjectConfigurator object
+     * @param  object  the parent object this element is contained in
+     * @param  object  the parent wrapper object
+     * @param  object  the target object this task is contained in
      */
-    public function __construct($parser, $parentHandler, $configurator, $parent = null, $parentWrapper = null, $target = null)
-    {
+    public function __construct(
+        $parser,
+        $parentHandler,
+        $configurator,
+        $parent = null,
+        $parentWrapper = null,
+        $target = null
+    ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
         if ($parentWrapper != null) {
@@ -88,7 +95,7 @@ class ElementHandler extends AbstractHandler {
             $this->parent = $parent;
         }
         $this->parentWrapper = $parentWrapper;
-        $this->target = $target;        
+        $this->target = $target;
     }
 
     /**
@@ -101,7 +108,7 @@ class ElementHandler extends AbstractHandler {
      * <li>calling the setters for attributes</li>
      * <li>adding the element to the container object</li>
      * <li>adding a reference to the element (if id attribute is given)</li>
-         * </ul>
+     * </ul>
      *
      * @param  string  the tag that comes in
      * @param  array   attributes the tag carries
@@ -111,34 +118,35 @@ class ElementHandler extends AbstractHandler {
     {
         $configurator = $this->configurator;
         $project = $this->configurator->project;
-        
+
         try {
             $this->child = new UnknownElement(strtolower($propType));
             $this->child->setTaskName($propType);
             $this->child->setTaskType($propType);
             $this->child->setProject($project);
             $this->child->setLocation($this->parser->getLocation());
-            
+
             if ($this->target !== null) {
                 $this->child->setOwningTarget($this->target);
             }
-            
+
             if ($this->parent !== null) {
                 $this->parent->addChild($this->child);
             } elseif ($this->target !== null) {
                 $this->target->addTask($this->child);
             }
-            
+
             $configurator->configureId($this->child, $attrs);
-            
+
             $this->childWrapper = new RuntimeConfigurable($this->child, $propType);
             $this->childWrapper->setAttributes($attrs);
-            
+
             if ($this->parentWrapper !== null) {
                 $this->parentWrapper->addChild($this->childWrapper);
             }
         } catch (BuildException $exc) {
-            throw new ExpatParseException("Error initializing nested element <$propType>", $exc, $this->parser->getLocation());
+            throw new ExpatParseException("Error initializing nested element <$propType>", $exc, $this->parser->getLocation(
+            ));
         }
     }
 
@@ -150,9 +158,9 @@ class ElementHandler extends AbstractHandler {
      */
     public function characters($data)
     {
-        $configurator = $this->configurator;        
+        $configurator = $this->configurator;
         $project = $this->configurator->project;
-        
+
         $this->childWrapper->addText($data);
     }
 

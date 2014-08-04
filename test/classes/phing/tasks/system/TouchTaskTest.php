@@ -18,25 +18,27 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests the Touch Task
- * 
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.system
  */
-class TouchTaskTest extends BuildFileTest 
-{ 
-    public function setUp() 
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/system/TouchTaskTest.xml");
+class TouchTaskTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/TouchTaskTest.xml"
+        );
         $this->executeTarget("setup");
     }
-    
+
     public function tearDown()
     {
         $this->executeTarget("clean");
@@ -45,8 +47,9 @@ class TouchTaskTest extends BuildFileTest
     public function testSimpleTouch()
     {
         $this->executeTarget(__FUNCTION__);
-        $this->assertFileExists(PHING_TEST_BASE
-                              . "/etc/tasks/system/tmp/simple-file");
+        $this->assertFileExists(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/tmp/simple-file"
+        );
     }
 }
-

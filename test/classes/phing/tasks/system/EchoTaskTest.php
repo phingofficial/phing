@@ -57,5 +57,3 @@ class EchoTaskTest extends BuildFileTest
         $this->assertInLogs('EchoTest.xml');
     }
 }
-
-?>

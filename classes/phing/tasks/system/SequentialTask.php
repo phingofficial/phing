@@ -33,16 +33,18 @@ require_once 'phing/TaskContainer.php';
  * @since 2.1.2
  * @package phing.tasks.system
  */
-class SequentialTask extends Task implements TaskContainer {
+class SequentialTask extends Task implements TaskContainer
+{
 
     /** Optional Vector holding the nested tasks */
     protected $nestedTasks = array();
 
     /**
      * Add a nested task to Sequential.
-     * @param Task $nestedTask  Nested task to execute Sequential
+     * @param Task $nestedTask Nested task to execute Sequential
      */
-    public function addTask(Task $nestedTask) {
+    public function addTask(Task $nestedTask)
+    {
         $this->nestedTasks[] = $nestedTask;
     }
 
@@ -50,8 +52,9 @@ class SequentialTask extends Task implements TaskContainer {
      * Execute all nestedTasks.
      * @throws BuildException if one of the nested tasks fails.
      */
-    public function main() {
-        foreach($this->nestedTasks as $task) {
+    public function main()
+    {
+        foreach ($this->nestedTasks as $task) {
             $task->perform();
         }
     }

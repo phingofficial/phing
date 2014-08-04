@@ -30,120 +30,134 @@ include_once 'phing/system/io/Reader.php';
  * @see       FilterReader
  * @package   phing.system.io
  */
-class BufferedReader extends Reader {
+class BufferedReader extends Reader
+{
 
     private $bufferSize = 0;
-    private $buffer     = null;
-    private $bufferPos  = 0;
-    
+    private $buffer = null;
+    private $bufferPos = 0;
+
     /**
      * The Reader we are buffering for.
      */
     private $in;
-    
+
     /**
-     * 
-     * @param object $reader The reader (e.g. FileReader).
+     *
+     * @param object  $reader   The reader (e.g. FileReader).
      * @param integer $buffsize The size of the buffer we should use for reading files.
-     *                             A large buffer ensures that most files (all scripts?) are parsed in 1 buffer.
-     */     
-    function __construct(Reader $reader, $buffsize = 65536) {
+     *                          A large buffer ensures that most files (all scripts?) are parsed in 1 buffer.
+     */
+    public function __construct(Reader $reader, $buffsize = 65536)
+    {
         $this->in = $reader;
         $this->bufferSize = $buffsize;
     }
 
     /**
      * Reads and returns a chunk of data.
-     * @param int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
+     * @param  int   $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
      * @return mixed buffer or -1 if EOF.
      */
-    function read($len = null) {
-        
+    public function read($len = null)
+    {
+
         // if $len is specified, we'll use that; otherwise, use the configured buffer size.
-        if ($len === null) $len = $this->bufferSize; 
-        
-        if ( ($data = $this->in->read($len)) !== -1 ) {
-        
+        if ($len === null) {
+            $len = $this->bufferSize;
+        }
+
+        if (($data = $this->in->read($len)) !== -1) {
+
             // not all files end with a newline character, so we also need to check EOF
             if (!$this->in->eof()) {
-            
+
                 $notValidPart = strrchr($data, "\n");
                 $notValidPartSize = strlen($notValidPart);
-            
-                if ( $notValidPartSize > 1 ) {
+
+                if ($notValidPartSize > 1) {
                     // Block doesn't finish on a EOL
                     // Find the last EOL and forget all following stuff
                     $dataSize = strlen($data);
                     $validSize = $dataSize - $notValidPartSize + 1;
-                
+
                     $data = substr($data, 0, $validSize);
-    
+
                     // Rewind to the begining of the forgotten stuff.
-                    $this->in->skip(-$notValidPartSize+1);
+                    $this->in->skip(-$notValidPartSize + 1);
                 }
-                
+
             } // if !EOF
         }
+
         return $data;
     }
-    
-    function skip($n) {
+
+    public function skip($n)
+    {
         return $this->in->skip($n);
     }
-    
-    function reset() {
+
+    public function reset()
+    {
         return $this->in->reset();
     }
-    
-    function close() {
+
+    public function close()
+    {
         return $this->in->close();
     }
-    
-    function open() {
+
+    public function open()
+    {
         return $this->in->open();
     }
-    
+
     /**
      * Read a line from input stream.
      */
-    function readLine() {
+    public function readLine()
+    {
         $line = null;
-        while ( ($ch = $this->readChar()) !== -1 ) {
-            if ( $ch === "\n" ) {
+        while (($ch = $this->readChar()) !== -1) {
+            if ($ch === "\n") {
                 break;
             }
             $line .= $ch;
         }
 
         // Warning : Not considering an empty line as an EOF
-        if ( $line === null && $ch !== -1 )
+        if ($line === null && $ch !== -1) {
             return "";
+        }
 
         return $line;
     }
-    
+
     /**
      * Reads a single char from the reader.
      * @return string single char or -1 if EOF.
      */
-    function readChar() {        
+    public function readChar()
+    {
 
-        if ( $this->buffer === null ) {
+        if ($this->buffer === null) {
             // Buffer is empty, fill it ...
             $read = $this->in->read($this->bufferSize);
             if ($read === -1) {
                 $ch = -1;
             } else {
                 $this->buffer = $read;
+
                 return $this->readChar(); // recurse
             }
-        } else {            
+        } else {
             // Get next buffered char ...
             // handle case where buffer is read-in, but is empty.  The next readChar() will return -1 EOF,
             // so we just return empty string (char) at this point.  (Probably could also return -1 ...?)
             $ch = ($this->buffer !== "") ? $this->buffer{$this->bufferPos} : '';
             $this->bufferPos++;
-            if ( $this->bufferPos >= strlen($this->buffer) ) {
+            if ($this->bufferPos >= strlen($this->buffer)) {
                 $this->buffer = null;
                 $this->bufferPos = 0;
             }
@@ -151,18 +165,20 @@ class BufferedReader extends Reader {
 
         return $ch;
     }
-    
+
     /**
      * Returns whether eof has been reached in stream.
      * This is important, because filters may want to know if the end of the file (and not just buffer)
      * has been reached.
      * @return boolean
-     */ 
-    function eof() {
+     */
+    public function eof()
+    {
         return $this->in->eof();
     }
 
-    function getResource() {
+    public function getResource()
+    {
         return $this->in->getResource();
-    }    
+    }
 }

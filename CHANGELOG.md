@@ -2,6 +2,14 @@ P     H     I     N     G
 =========================
 
 
+Jul. 18, 2014 - Phing 2.8.2
+---------------------------
+
+This patch release fixes two regressions.
+
+ * [1119] #1111 breaks PHPLint task
+ * [1118] Property "X" was circularly defined.
+
 Jul. 1, 2014 - Phing 2.8.1
 --------------------------
 

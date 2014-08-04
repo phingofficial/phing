@@ -25,7 +25,7 @@
  * (that is, a description that applies to a buildfile as a whole).
  * If present, the &lt;description&gt; element is printed out before the
  * target descriptions.
- * 
+ *
  * Description has no attributes, only text.  There can only be one
  * project description per project.  A second description element will
  * overwrite the first.
@@ -34,14 +34,16 @@
  * @author Craeg Strong <cstrong@arielpartners.com> (Ant)
  * @package phing.types
  */
-class Description extends DataType {
+class Description extends DataType
+{
 
     /**
      * Adds descriptive text to the project.
      *
      * @return void
      */
-    public function addText($text) {
+    public function addText($text)
+    {
         $currentDescription = $this->project->getDescription();
         if ($currentDescription === null) {
             $this->project->setDescription($text);
@@ -49,5 +51,5 @@ class Description extends DataType {
             $this->project->setDescription($currentDescription . $text);
         }
     }
-    
+
 }

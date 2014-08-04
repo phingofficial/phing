@@ -51,5 +51,3 @@ class WaitForTaskTest extends BuildFileTest
         $this->assertEquals('true', $this->project->getProperty('waitfor.timeout'));
     }
 }
-
-?>

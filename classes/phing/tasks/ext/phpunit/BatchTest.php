@@ -36,17 +36,17 @@ class BatchTest
     private $filesets = array();
 
     /** the reference to the project */
-    private $project = NULL;
+    private $project = null;
 
     /** the classpath to use with Phing::__import() calls */
-    private $classpath = NULL;
-    
+    private $classpath = null;
+
     /** names of classes to exclude */
     private $excludeClasses = array();
-    
+
     /** name of the batchtest/suite */
     protected $name = "Phing Batchtest";
-    
+
     /**
      * Create a new batchtest instance
      *
@@ -56,7 +56,7 @@ class BatchTest
     {
         $this->project = $project;
     }
-    
+
     /**
      * Sets the name of the batchtest/suite
      */
@@ -64,7 +64,7 @@ class BatchTest
     {
         $this->name = $name;
     }
-    
+
     /**
      * Sets the classes to exclude
      */
@@ -78,12 +78,9 @@ class BatchTest
      */
     public function setClasspath(Path $classpath)
     {
-        if ($this->classpath === null)
-        {
+        if ($this->classpath === null) {
             $this->classpath = $classpath;
-        }
-        else
-        {
+        } else {
             $this->classpath->append($classpath);
         }
     }
@@ -94,6 +91,7 @@ class BatchTest
     public function createClasspath()
     {
         $this->classpath = new Path();
+
         return $this->classpath;
     }
 
@@ -124,30 +122,31 @@ class BatchTest
     {
         $filenames = array();
 
-        foreach ($this->filesets as $fileset)
-        {
+        foreach ($this->filesets as $fileset) {
             $ds = $fileset->getDirectoryScanner($this->project);
             $ds->scan();
 
             $files = $ds->getIncludedFiles();
 
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 $filenames[] = $ds->getBaseDir() . "/" . $file;
             }
         }
 
         return $filenames;
     }
-    
+
     /**
      * Checks wheter $input is a PHPUnit Test
      */
     private function isTestCase($input)
-    {   
-        return is_subclass_of($input, 'PHPUnit_Framework_TestCase') || is_subclass_of($input, 'PHPUnit_Framework_TestSuite');
+    {
+        return is_subclass_of($input, 'PHPUnit_Framework_TestCase') || is_subclass_of(
+            $input,
+            'PHPUnit_Framework_TestSuite'
+        );
     }
-    
+
     /**
      * Filters an array of classes, removes all classes that are not test cases or test suites,
      * or classes that are declared abstract
@@ -155,7 +154,7 @@ class BatchTest
     private function filterTests($input)
     {
         $reflect = new ReflectionClass($input);
-        
+
         return $this->isTestCase($input) && (!$reflect->isAbstract());
     }
 
@@ -168,23 +167,22 @@ class BatchTest
     public function elements()
     {
         $filenames = $this->getFilenames();
-        
-        $declaredClasses = array();     
 
-        foreach ($filenames as $filename)
-        {
+        $declaredClasses = array();
+
+        foreach ($filenames as $filename) {
             $definedClasses = PHPUnitUtil::getDefinedClasses($filename, $this->classpath);
-            
-            foreach($definedClasses as $definedClass) {
+
+            foreach ($definedClasses as $definedClass) {
                 $this->project->log("(PHPUnit) Adding $definedClass (from $filename) to tests.", Project::MSG_DEBUG);
             }
-            
+
             $declaredClasses = array_merge($declaredClasses, $definedClasses);
         }
-        
+
         $elements = array_filter($declaredClasses, array($this, "filterTests"));
 
         return $elements;
     }
-    
+
 }

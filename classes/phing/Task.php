@@ -33,38 +33,39 @@ include_once 'phing/RuntimeConfigurable.php';
  * @see       Project#createTask()
  * @package   phing
  */
-abstract class Task extends ProjectComponent {
+abstract class Task extends ProjectComponent
+{
 
     /**
      * Owning Target object
      * @var Target
      */
     protected $target;
-    
+
     /**
      * Description of the task
      * @var string
      */
     protected $description;
-    
+
     /**
      * Internal taskname (req)
      * @var string
      */
     protected $taskType;
-    
+
     /**
      * Taskname for logger
      * @var string
      */
     protected $taskName;
-    
+
     /**
      * Stored buildfile location
      * @var Location
      */
     protected $location;
-    
+
     /**
      * Wrapper of the task
      * @var RuntimeConfigurable
@@ -76,7 +77,8 @@ abstract class Task extends ProjectComponent {
      *
      * @param Target Reference to owning target
      */
-    public function setOwningTarget(Target $target) {
+    public function setOwningTarget(Target $target)
+    {
         $this->target = $target;
     }
 
@@ -85,7 +87,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return Target The target object that owns this task
      */
-    public function getOwningTarget() {
+    public function getOwningTarget()
+    {
         return $this->target;
     }
 
@@ -94,7 +97,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return string Name of this task
      */
-    public function getTaskName() {
+    public function getTaskName()
+    {
         if ($this->taskName === null) {
             // if no task name is set, then it's possible
             // this task was created from within another task.  We don't
@@ -103,6 +107,7 @@ abstract class Task extends ProjectComponent {
             // for log messages, so we don't have to worry much about accuracy.
             return preg_replace('/task$/i', '', get_class($this));
         }
+
         return $this->taskName;
     }
 
@@ -112,7 +117,8 @@ abstract class Task extends ProjectComponent {
      * @param  string $name
      * @return string A string representing the name of this task for log
      */
-    public function setTaskName($name) {
+    public function setTaskName($name)
+    {
         $this->taskName = (string) $name;
     }
 
@@ -122,7 +128,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return string The type of this task (XML Tag)
      */
-    public function getTaskType() {
+    public function getTaskType()
+    {
         return $this->taskType;
     }
 
@@ -131,18 +138,20 @@ abstract class Task extends ProjectComponent {
      *
      * @param string The type of this task (XML Tag)
      */
-    public function setTaskType($name) {
+    public function setTaskType($name)
+    {
         $this->taskType = (string) $name;
     }
-    
+
     /**
-     * Returns a name 
+     * Returns a name
      * @param string $slotName
      */
-    protected function getRegisterSlot($slotName) {
+    protected function getRegisterSlot($slotName)
+    {
         return Register::getSlot('task.' . $this->getTaskName() . '.' . $slotName);
     }
-    
+
     /**
      * Provides a project level log event to the task.
      *
@@ -151,7 +160,8 @@ abstract class Task extends ProjectComponent {
      * @see BuildEvent
      * @see BuildListener
      */
-    function log($msg, $level = Project::MSG_INFO) {
+    public function log($msg, $level = Project::MSG_INFO)
+    {
         $this->project->logObject($this, $msg, $level);
     }
 
@@ -160,7 +170,8 @@ abstract class Task extends ProjectComponent {
      *
      * @param string $desc The text describing the task
      */
-    public function setDescription($desc) {
+    public function setDescription($desc)
+    {
         $this->description = $desc;
     }
 
@@ -169,7 +180,8 @@ abstract class Task extends ProjectComponent {
      *
      * @return string The text description of the task
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -181,7 +193,8 @@ abstract class Task extends ProjectComponent {
      *
      * @throws BuildException
      */
-    public function init() {
+    public function init()
+    {
     }
 
     /**
@@ -203,7 +216,8 @@ abstract class Task extends ProjectComponent {
      * @return Location The location object describing the position of this
      *                  task within the buildfile.
      */
-    function getLocation() {
+    public function getLocation()
+    {
         return $this->location;
     }
 
@@ -214,7 +228,8 @@ abstract class Task extends ProjectComponent {
      * @param Location $location The location object describing the position of this
      *                           task within the buildfile.
      */
-    function setLocation(Location $location) {
+    public function setLocation(Location $location)
+    {
         $this->location = $location;
     }
 
@@ -223,10 +238,12 @@ abstract class Task extends ProjectComponent {
      *
      * @return RuntimeConfigurable The wrapper object used by this task
      */
-    function getRuntimeConfigurableWrapper() {
+    public function getRuntimeConfigurableWrapper()
+    {
         if ($this->wrapper === null) {
             $this->wrapper = new RuntimeConfigurable($this, $this->getTaskName());
         }
+
         return $this->wrapper;
     }
 
@@ -236,14 +253,16 @@ abstract class Task extends ProjectComponent {
      *
      * @param RuntimeConfigurable $wrapper The wrapper object this task should use
      */
-    function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper) {
+    public function setRuntimeConfigurableWrapper(RuntimeConfigurable $wrapper)
+    {
         $this->wrapper = $wrapper;
     }
 
     /**
      *  Configure this task if it hasn't been done already.
      */
-    public function maybeConfigure() {
+    public function maybeConfigure()
+    {
         if ($this->wrapper !== null) {
             $this->wrapper->maybeConfigure($this->project);
         }
@@ -252,13 +271,14 @@ abstract class Task extends ProjectComponent {
     /**
      * Perfrom this task
      */
-    public function perform() {
+    public function perform()
+    {
 
         try { // try executing task
             $this->project->fireTaskStarted($this);
             $this->maybeConfigure();
             $this->main();
-            $this->project->fireTaskFinished($this, $null=null);
+            $this->project->fireTaskFinished($this, $null = null);
         } catch (Exception $exc) {
             if ($exc instanceof BuildException) {
                 if ($this->getLocation() !== null) {

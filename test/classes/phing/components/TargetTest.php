@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -34,12 +33,14 @@ class TargetTest extends BuildFileTest
 {
     /** @var Target */
     private $target;
-    
+
     public function setUp()
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/components/Target/Target.xml");
-        
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/components/Target/Target.xml"
+        );
+
         $this->target = new Target();
         $this->target->setProject($this->project);
         $this->target->setName('MyTarget');
@@ -59,16 +60,16 @@ class TargetTest extends BuildFileTest
 
     /**
      * @dataProvider setDependsValidDataProvider
-     * @param array $expectedDepends
+     * @param array  $expectedDepends
      * @param string $depends
      */
     public function testSetDependsValid(array $expectedDepends, $depends)
     {
         $this->target->setDepends($depends);
-        
+
         $this->assertEquals($expectedDepends, $this->target->getDependencies());
     }
-    
+
     public function setDependsValidDataProvider()
     {
         return array(
@@ -76,19 +77,21 @@ class TargetTest extends BuildFileTest
             array(array('target1', 'target2'), 'target1,target2')
         );
     }
-    
+
     /**
      * @dataProvider setDependsInvalidDataProvider
      * @param string $depends
      */
     public function testSetDependsInvalid($depends)
     {
-        $this->setExpectedException('BuildException', 
-            'Syntax Error: Depend attribute for target MyTarget is malformed.');
-        
+        $this->setExpectedException(
+            'BuildException',
+            'Syntax Error: Depend attribute for target MyTarget is malformed.'
+        );
+
         $this->target->setDepends($depends);
     }
-    
+
     public function setDependsInvalidDataProvider()
     {
         return array(
@@ -96,99 +99,99 @@ class TargetTest extends BuildFileTest
             array('target1,')
         );
     }
-    
+
     public function testGetTasksReturnsCorrectTasks()
     {
         $task = new EchoTask();
         $task->setMessage('Hello World');
         $this->target->addTask($task);
         $this->target->addDataType('dataType');
-        
+
         $tasks = $this->target->getTasks();
-        
+
         $this->assertEquals(array($task), $tasks);
     }
-    
+
     public function testGetTasksClonesTasks()
     {
         $task = new EchoTask();
         $task->setMessage('Hello World');
         $this->target->addTask($task);
-        
+
         $tasks = $this->target->getTasks();
-        
+
         $this->assertNotSame($task, $tasks[0]);
     }
-    
+
     public function testMainAppliesConfigurables()
     {
         $configurable = $this->getMockBuilder('RuntimeConfigurable')
-                             ->disableOriginalConstructor()
-                             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $configurable->expects($this->once())->method('maybeConfigure')->with($this->project);
         $this->target->addDataType($configurable);
-        
+
         $this->target->main();
     }
-    
+
     public function testMainFalseIfDoesntApplyConfigurable()
     {
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
-        
+
         $configurable = $this->getMockBuilder('RuntimeConfigurable')
-                             ->disableOriginalConstructor()
-                             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $configurable->expects($this->never())->method('maybeConfigure');
         $this->target->addDataType($configurable);
-        
+
         $this->target->main();
     }
-    
+
     public function testMainTrueUnlessDoesntApplyConfigurable()
     {
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
-        
+
         $configurable = $this->getMockBuilder('RuntimeConfigurable')
-                             ->disableOriginalConstructor()
-                             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
         $configurable->expects($this->never())->method('maybeConfigure');
         $this->target->addDataType($configurable);
-        
+
         $this->target->main();
     }
-    
+
     public function testMainPerformsTasks()
     {
         $task = $this->getMock('Task');
         $task->expects($this->once())->method('perform');
         $this->target->addTask($task);
-        
+
         $this->target->main();
     }
-    
+
     public function testMainFalseIfDoesntPerformTasks()
     {
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
-        
+
         $task = $this->getMock('Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
-        
+
         $this->target->main();
     }
-    
+
     public function testMainTrueUnlessDoesntPerformTasks()
     {
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
-        
+
         $task = $this->getMock('Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
-        
+
         $this->target->main();
     }
 }

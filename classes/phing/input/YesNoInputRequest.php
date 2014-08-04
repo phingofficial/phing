@@ -28,20 +28,23 @@ require_once 'phing/input/MultipleChoiceInputRequest.php';
  * @version $Id$
  * @package phing.input
  */
-class YesNoInputRequest extends MultipleChoiceInputRequest {     
+class YesNoInputRequest extends MultipleChoiceInputRequest
+{
 
     /**
      * @return true if the input is one of the allowed values.
      */
-    public function isInputValid() {
-        return StringHelper::isBoolean($this->input);        
+    public function isInputValid()
+    {
+        return StringHelper::isBoolean($this->input);
     }
-    
+
     /**
      * Converts input to boolean.
      * @return boolean
      */
-    public function getInput() {
+    public function getInput()
+    {
         return StringHelper::booleanValue($this->input);
     }
 }

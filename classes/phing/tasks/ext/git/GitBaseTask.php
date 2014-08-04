@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/BuildException.php';
 
@@ -48,17 +48,17 @@ abstract class GitBaseTask extends Task
      * Current repository directory
      * @var string
      */
-    private $repository; 
+    private $repository;
 
     /**
      * Initialize Task.
      * Check and include necessary libraries.
      */
-    public function init() 
+    public function init()
     {
         @include_once 'VersionControl/Git.php';
         if (false == class_exists('VersionControl_Git')) {
-            throw new BuildException("The Git tasks depend on PEAR\'s " 
+            throw new BuildException("The Git tasks depend on PEAR\'s "
                 . "VersionControl_Git package.", $this->getLocation());
         }
     }
@@ -66,12 +66,13 @@ abstract class GitBaseTask extends Task
     /**
      * Set repository directory
      *
-     * @param string $repository Repo directory
+     * @param  string      $repository Repo directory
      * @return GitBaseTask
      */
     public function setRepository($repository)
     {
         $this->repository = $repository;
+
         return $this;
     }
 
@@ -88,12 +89,13 @@ abstract class GitBaseTask extends Task
     /**
      * Set path to git executable
      *
-     * @param string $gitPath New path to git repository
+     * @param  string      $gitPath New path to git repository
      * @return GitBaseTask
      */
     public function setGitPath($gitPath)
     {
         $this->gitPath = $gitPath;
+
         return $this;
     }
 
@@ -110,11 +112,11 @@ abstract class GitBaseTask extends Task
     protected function getGitClient($reset = false, $repository = null)
     {
         $this->gitClient = ($reset === true) ? null : $this->gitClient;
-        $repository = (null === $repository) 
-                    ? $this->getRepository() 
-                    : $repository;
+        $repository = (null === $repository)
+            ? $this->getRepository()
+            : $repository;
 
-        if(null === $this->gitClient) {
+        if (null === $this->gitClient) {
             try {
                 $this->gitClient = new VersionControl_Git($repository);
             } catch (VersionControl_Git_Exception $e) {
@@ -129,6 +131,3 @@ abstract class GitBaseTask extends Task
         return $this->gitClient;
     }
 }
-
-
-

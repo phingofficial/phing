@@ -20,32 +20,36 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php'; 
+require_once 'phing/BuildFileTest.php';
 include_once 'phing/util/FileUtils.php';
 
 /**
  * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
  * @package phing.filters
  */
-class LineContainsTest extends BuildFileTest {
-    
+class LineContainsTest extends BuildFileTest
+{
+
     protected $fu;
-    
-    public function setUp() { 
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/filters/linecontains.xml");
         $this->fu = new FileUtils();
     }
-    
-    public function tearDown() { 
+
+    public function tearDown()
+    {
         $this->executeTarget("cleanup");
     }
-    
-    public function testLineContains() { 
+
+    public function testLineContains()
+    {
         $this->executeTarget("testLineContains");
-        
+
         $expected = $this->getProject()->resolveFile("expected/linecontains.test");
         $result = $this->getProject()->resolveFile("result/linecontains.test");
         $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
     }
-    
+
 }

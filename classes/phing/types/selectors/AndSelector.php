@@ -29,15 +29,18 @@ require_once 'phing/types/selectors/BaseSelectorContainer.php';
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a> (Ant)
  * @package phing.types.selectors
  */
-class AndSelector extends BaseSelectorContainer {
+class AndSelector extends BaseSelectorContainer
+{
 
-    public function toString() {
+    public function toString()
+    {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{andselect: ";
             $buf .= parent::toString();
             $buf .= "}";
         }
+
         return $buf;
     }
 
@@ -51,17 +54,18 @@ class AndSelector extends BaseSelectorContainer {
      * can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
         $this->validate();
-        $selectors = $this->selectorElements();       
-           for($i=0,$size=count($selectors); $i < $size; $i++) {
+        $selectors = $this->selectorElements();
+        for ($i = 0, $size = count($selectors); $i < $size; $i++) {
             $result = $selectors[$i]->isSelected($basedir, $filename, $file);
             if (!$result) {
                 return false;
             }
         }
+
         return true;
     }
 
 }
-

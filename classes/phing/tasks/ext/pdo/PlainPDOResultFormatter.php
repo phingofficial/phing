@@ -23,7 +23,7 @@ require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
 
 /**
- * Plain text formatter for PDO results. 
+ * Plain text formatter for PDO results.
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.ext.pdo
@@ -53,7 +53,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     /**
      * Row delimiter.
      * Defaults to PHP_EOL.
-     * @var string 
+     * @var string
      */
     private $rowdelimiter = PHP_EOL;
 
@@ -61,7 +61,8 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * Set the showheaders attribute.
      * @param boolean $v
      */
-    public function setShowheaders($v) {
+    public function setShowheaders($v)
+    {
         $this->showheaders = StringHelper::booleanValue($v);
     }
 
@@ -69,7 +70,8 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * Sets the column delimiter.
      * @param string $v
      */
-    public function setColdelim($v) {
+    public function setColdelim($v)
+    {
         $this->coldelimiter = $v;
     }
 
@@ -77,7 +79,8 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      * Sets the row delimiter.
      * @param string $v
      */
-    public function setRowdelim($v) {
+    public function setRowdelim($v)
+    {
         $this->rowdelimiter = $v;
     }
 
@@ -86,12 +89,17 @@ class PlainPDOResultFormatter extends PDOResultFormatter
      *
      * @param array $row Row of PDO result set.
      */
-    public function processRow($row) {
+    public function processRow($row)
+    {
 
         if (!$this->colsprinted && $this->showheaders) {
             $first = true;
-            foreach($row as $fieldName => $ignore) {
-                if ($first) $first = false; else $line .= ",";
+            foreach ($row as $fieldName => $ignore) {
+                if ($first) {
+                    $first = false;
+                } else {
+                    $line .= ",";
+                }
                 $line .= $fieldName;
             }
 
@@ -103,7 +111,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
         } // if show headers
 
         $first = true;
-        foreach($row as $columnValue) {
+        foreach ($row as $columnValue) {
 
             if ($columnValue != null) {
                 $columnValue = trim($columnValue);
@@ -116,7 +124,7 @@ class PlainPDOResultFormatter extends PDOResultFormatter
             }
             $line .= $columnValue;
         }
-        
+
         $this->out->write($line);
         $this->out->write($this->rowdelimiter);
 
@@ -126,5 +134,5 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     {
         return new PhingFile('results.txt');
     }
-    
+
 }

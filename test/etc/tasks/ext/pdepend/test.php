@@ -2,7 +2,7 @@
 
 class Test
 {
-    public function test()
+    public function test($a = 0)
     {
         echo "Hello World";
     }

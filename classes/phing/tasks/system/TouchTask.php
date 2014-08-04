@@ -34,15 +34,17 @@ include_once 'phing/system/io/IOException.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class TouchTask extends Task {
+class TouchTask extends Task
+{
 
     private $file;
-    private $millis    = -1;
+    private $millis = -1;
     private $dateTime;
     private $filesets = array();
     private $fileUtils;
 
-    function __construct() {
+    public function __construct()
+    {
         $this->fileUtils = new FileUtils();
     }
 
@@ -50,7 +52,8 @@ class TouchTask extends Task {
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      */
-    function setFile(PhingFile $file) {        
+    public function setFile(PhingFile $file)
+    {
         $this->file = $file;
     }
 
@@ -59,7 +62,8 @@ class TouchTask extends Task {
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
      */
-    function setMillis($millis) {
+    public function setMillis($millis)
+    {
         $this->millis = (int) $millis;
     }
 
@@ -68,7 +72,8 @@ class TouchTask extends Task {
      * in the format MM/DD/YYYY HH:MM AM or PM;
      * Optional, default=now
      */
-    function setDatetime($dateTime) {
+    public function setDatetime($dateTime)
+    {
         $this->dateTime = (string) $dateTime;
     }
 
@@ -77,14 +82,16 @@ class TouchTask extends Task {
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
     /**
      * Execute the touch operation.
      */
-    function main() {
+    public function main()
+    {
         $savedMillis = $this->millis;
 
         if ($this->file === null && count($this->filesets) === 0) {
@@ -106,22 +113,24 @@ class TouchTask extends Task {
         } catch (Exception $ex) {
             throw new BuildException("Error touch()ing file", $ex, $this->location);
         }
-        
+
         $this->millis = $savedMillis;
-        
+
     }
 
     /**
      * Does the actual work.
      */
-    function _touch() {
+    public function _touch()
+    {
         if ($this->file !== null) {
             if (!$this->file->exists()) {
                 $this->log("Creating " . $this->file->__toString(), Project::MSG_INFO);
                 try { // try to create file
                     $this->file->createNewFile();
-                } catch(IOException  $ioe) {
-                    throw new BuildException("Error creating new file " . $this->file->__toString(), $ioe, $this->location);
+                } catch (IOException  $ioe) {
+                    throw new BuildException("Error creating new file " . $this->file->__toString(
+                        ), $ioe, $this->location);
                 }
             }
         }
@@ -137,19 +146,19 @@ class TouchTask extends Task {
         }
 
         // deal with the filesets
-        foreach($this->filesets as $fs) {
-        
+        foreach ($this->filesets as $fs) {
+
             $ds = $fs->getDirectoryScanner($this->getProject());
             $fromDir = $fs->getDir($this->getProject());
 
             $srcFiles = $ds->getIncludedFiles();
             $srcDirs = $ds->getIncludedDirectories();
 
-            for ($j=0,$_j=count($srcFiles); $j < $_j; $j++) {
+            for ($j = 0, $_j = count($srcFiles); $j < $_j; $j++) {
                 $this->touchFile(new PhingFile($fromDir, (string) $srcFiles[$j]));
             }
-            
-            for ($j=0,$_j=count($srcDirs); $j < $_j ; $j++) {
+
+            for ($j = 0, $_j = count($srcDirs); $j < $_j; $j++) {
                 $this->touchFile(new PhingFile($fromDir, (string) $srcDirs[$j]));
             }
         }
@@ -159,12 +168,12 @@ class TouchTask extends Task {
         }
     }
 
-    private function touchFile($file) {
-        if ( !$file->canWrite() ) {
+    private function touchFile($file)
+    {
+        if (!$file->canWrite()) {
             throw new BuildException("Can not change modification date of read-only file " . $file->__toString());
         }
         $file->setLastModified($this->millis);
     }
 
 }
-

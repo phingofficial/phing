@@ -40,7 +40,8 @@ include_once 'phing/util/StringHelper.php';
  * @version   $Id$
  * @package   phing.tasks.ext
  */
-class SmartyTask extends Task {
+class SmartyTask extends Task
+{
 
     /**
      * Smarty template engine.
@@ -159,12 +160,12 @@ class SmartyTask extends Task {
     // specified in the XML for the smarty task.
     // -----------------------------------------------------------------------
 
-    public function init() {
+    public function init()
+    {
         // This check returns true for smarty 3 and false otherwise.
-        if (stream_resolve_include_path ('SmartyBC.class.php')) {
+        if (stream_resolve_include_path('SmartyBC.class.php')) {
             include_once 'SmartyBC.class.php';
-        }
-        else {
+        } else {
             include_once 'Smarty.class.php';
         }
 
@@ -176,10 +177,11 @@ class SmartyTask extends Task {
     /**
      * [REQUIRED] Set the control template for the
      * generating process.
-     * @param string $controlTemplate
+     * @param  string $controlTemplate
      * @return void
      */
-    public function setControlTemplate ($controlTemplate) {
+    public function setControlTemplate($controlTemplate)
+    {
         $this->controlTemplate = $controlTemplate;
     }
 
@@ -188,7 +190,8 @@ class SmartyTask extends Task {
      * generating process.
      * @return string
      */
-    public function getControlTemplate() {
+    public function getControlTemplate()
+    {
         return $this->controlTemplate;
     }
 
@@ -199,10 +202,11 @@ class SmartyTask extends Task {
      * @return void
      * @throws Exception
      */
-    public function setTemplatePath($templatePath) {
+    public function setTemplatePath($templatePath)
+    {
         $resolvedPath = "";
         $tok = strtok($templatePath, ",");
-        while ( $tok ) {
+        while ($tok) {
             // resolve relative path from basedir and leave
             // absolute path untouched.
             $fullPath = $this->project->resolveFile($tok);
@@ -213,12 +217,12 @@ class SmartyTask extends Task {
                 $resolvedPath .= $cpath;
             }
             $tok = strtok(",");
-            if ( $tok ) {
+            if ($tok) {
                 $resolvedPath .= ",";
             }
         }
         $this->templatePath = $resolvedPath;
-     }
+    }
 
     /**
      * Get the path where Velocity will look
@@ -226,21 +230,26 @@ class SmartyTask extends Task {
      * loader.
      * @return string
      */
-    public function getTemplatePath() {
+    public function getTemplatePath()
+    {
         return $this->templatePath;
     }
 
     /**
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
-     * @param PhingFile $outputDirectory
+     * @param  PhingFile $outputDirectory
      * @return void
      * @throws Exception
      */
-    public function setOutputDirectory(PhingFile $outputDirectory) {
+    public function setOutputDirectory(PhingFile $outputDirectory)
+    {
         try {
             if (!$outputDirectory->exists()) {
-                $this->log("Output directory does not exist, creating: " . $outputDirectory->getPath(),Project::MSG_VERBOSE);
+                $this->log(
+                    "Output directory does not exist, creating: " . $outputDirectory->getPath(),
+                    Project::MSG_VERBOSE
+                );
                 if (!$outputDirectory->mkdirs()) {
                     throw new IOException("Unable to create Ouptut directory: " . $outputDirectory->getAbsolutePath());
                 }
@@ -255,7 +264,8 @@ class SmartyTask extends Task {
      * Get the output directory.
      * @return string
      */
-    public function getOutputDirectory() {
+    public function getOutputDirectory()
+    {
         return $this->outputDirectory;
     }
 
@@ -264,7 +274,8 @@ class SmartyTask extends Task {
      * generation process.
      * @return void
      */
-    public function setOutputFile($outputFile) {
+    public function setOutputFile($outputFile)
+    {
         $this->outputFile = $outputFile;
     }
 
@@ -273,7 +284,8 @@ class SmartyTask extends Task {
      * generation process.
      * @return string
      */
-    public function getOutputFile() {
+    public function getOutputFile()
+    {
         return $this->outputFile;
     }
 
@@ -281,7 +293,8 @@ class SmartyTask extends Task {
      * Set the path Smarty uses as a "cache" for compiled templates.
      * @param string $compilePath
      */
-    public function setCompilePath($compilePath) {
+    public function setCompilePath($compilePath)
+    {
         $this->compilePath = $compilePath;
     }
 
@@ -289,16 +302,18 @@ class SmartyTask extends Task {
      * Get the path Smarty uses for compiling templates.
      * @return string
      */
-    public function getCompilePath() {
+    public function getCompilePath()
+    {
         return $this->compilePath;
     }
 
     /**
      * Set whether Smarty should always recompile tempaltes.
-     * @param boolean $force
+     * @param  boolean $force
      * @return void
      */
-    public function setForceCompile($force) {
+    public function setForceCompile($force)
+    {
         $this->forceCompile = (boolean) $force;
     }
 
@@ -306,16 +321,18 @@ class SmartyTask extends Task {
      * Get whether Smarty should always recompile template.
      * @return boolean
      */
-    public function getForceCompile() {
+    public function getForceCompile()
+    {
         return $this->forceCompile;
     }
 
     /**
      * Set where Smarty looks for config files.
-     * @param string $configPath
+     * @param  string $configPath
      * @return void
      */
-    public function setConfigPath($configPath) {
+    public function setConfigPath($configPath)
+    {
         $this->configPath = $configPath;
     }
 
@@ -323,16 +340,18 @@ class SmartyTask extends Task {
      * Get the path that Smarty uses for looking for config files.
      * @return string
      */
-    public function getConfigPath() {
+    public function getConfigPath()
+    {
         return $this->configPath;
     }
 
     /**
      * Set Smarty template left delimiter.
-     * @param string $delim
+     * @param  string $delim
      * @return void
      */
-    public function setLeftDelimiter($delim) {
+    public function setLeftDelimiter($delim)
+    {
         $this->leftDelimiter = $delim;
     }
 
@@ -340,16 +359,18 @@ class SmartyTask extends Task {
      * Get Smarty template right delimiter
      * @return string
      */
-    public function getLeftDelimiter() {
+    public function getLeftDelimiter()
+    {
         return $this->leftDelimiter;
     }
 
     /**
      * Set Smarty template right delimiter.
-     * @param string $delim
+     * @param  string $delim
      * @return void
      */
-    public function setRightDelimiter($delim) {
+    public function setRightDelimiter($delim)
+    {
         $this->rightDelimiter = $delim;
     }
 
@@ -357,19 +378,20 @@ class SmartyTask extends Task {
      * Get Smarty template right delimiter
      * @return string
      */
-    public function getRightDelimiter() {
+    public function getRightDelimiter()
+    {
         return $this->rightDelimiter;
     }
-
 
     /**
      * Set the context properties that will be
      * fed into the initial context be the
      * generating process starts.
-     * @param string $file
+     * @param  string $file
      * @return void
      */
-    public function setContextProperties($file) {
+    public function setContextProperties($file)
+    {
 
         $sources = explode(",", $file);
         $this->contextProperties = new Properties();
@@ -380,7 +402,7 @@ class SmartyTask extends Task {
         // resource in the filesystem. If this fails than attempt
         // to get the context properties resource from the
         // classpath.
-        for ($i=0, $sourcesLength=count($sources); $i < $sourcesLength; $i++) {
+        for ($i = 0, $sourcesLength = count($sources); $i < $sourcesLength; $i++) {
             $source = new Properties();
 
             try {
@@ -393,8 +415,8 @@ class SmartyTask extends Task {
 
             } catch (Exception $e) {
 
-              throw new BuildException("Context properties file " . $sources[$i] .
-                            " could not be found in the file system!");
+                throw new BuildException("Context properties file " . $sources[$i] .
+                    " could not be found in the file system!");
 
             }
 
@@ -414,7 +436,8 @@ class SmartyTask extends Task {
      * generating process starts.
      * @return Properties
      */
-    public function getContextProperties() {
+    public function getContextProperties()
+    {
         return $this->contextProperties;
     }
 
@@ -422,16 +445,17 @@ class SmartyTask extends Task {
     // End of XML setters & getters
     // ---------------------------------------------------------------
 
-
     /**
      * Creates a Smarty object.
      *
-     * @return Smarty initialized (cleared) Smarty context.
+     * @return Smarty    initialized (cleared) Smarty context.
      * @throws Exception the execute method will catch
-     *         and rethrow as a <code>BuildException</code>
+     *                   and rethrow as a <code>BuildException</code>
      */
-    public function initControlContext() {
+    public function initControlContext()
+    {
         $this->context->clear_all_assign();
+
         return $this->context;
     }
 
@@ -439,10 +463,11 @@ class SmartyTask extends Task {
      * Execute the input script with Velocity
      *
      * @throws BuildException
-     * BuildExceptions are thrown when required attributes are missing.
-     * Exceptions thrown by Velocity are rethrown as BuildExceptions.
+     *                        BuildExceptions are thrown when required attributes are missing.
+     *                        Exceptions thrown by Velocity are rethrown as BuildExceptions.
      */
-    public function main() {
+    public function main()
+    {
 
         // Make sure the template path is set.
         if (empty($this->templatePath)) {
@@ -474,8 +499,7 @@ class SmartyTask extends Task {
         // Use the smarty backwards compatibility layer if existent.
         if (class_exists('SmartyBC')) {
             $this->context = new SmartyBC();
-        }
-        else {
+        } else {
             $this->context = new Smarty();
         }
 
@@ -508,9 +532,12 @@ class SmartyTask extends Task {
 
         $smartyCompilePath = new PhingFile($this->context->compile_dir);
         if (!$smartyCompilePath->exists()) {
-            $this->log("Compile directory does not exist, creating: " . $smartyCompilePath->getPath(), Project::MSG_VERBOSE);
+            $this->log(
+                "Compile directory does not exist, creating: " . $smartyCompilePath->getPath(),
+                Project::MSG_VERBOSE
+            );
             if (!$smartyCompilePath->mkdirs()) {
-                throw new BuildException("Smarty needs a place to compile templates; specify a 'compilePath' or create ".$this->context->compile_dir);
+                throw new BuildException("Smarty needs a place to compile templates; specify a 'compilePath' or create " . $this->context->compile_dir);
             }
         }
 
@@ -541,7 +568,7 @@ class SmartyTask extends Task {
         // in the control/worker templates.
         if ($this->contextProperties !== null) {
 
-            foreach($this->contextProperties->keys() as $property) {
+            foreach ($this->contextProperties->keys() as $property) {
 
                 $value = $this->contextProperties->getProperty($property);
 
@@ -567,13 +594,13 @@ class SmartyTask extends Task {
                         }
                     }
 
-                 } // if ends with file.contents
+                } // if ends with file.contents
 
-                    if (StringHelper::isBoolean($value)) {
-                        $value = StringHelper::booleanValue($value);
-                    }
+                if (StringHelper::isBoolean($value)) {
+                    $value = StringHelper::booleanValue($value);
+                }
 
-                 $c->assign($property, $value);
+                $c->assign($property, $value);
 
             } // foreach property
 
@@ -605,10 +632,11 @@ class SmartyTask extends Task {
      * {@link #initControlContext()}.
      * @return void
      * @throws Exception Error while populating context.  The {@link
-     * #execute()} method will catch and rethrow as a
-     * <code>BuildException</code>.
+     *                   #execute()} method will catch and rethrow as a
+     *                   <code>BuildException</code>.
      */
-    protected function populateInitialContext(Smarty $context)  {
+    protected function populateInitialContext(Smarty $context)
+    {
     }
 
     /**
@@ -619,6 +647,7 @@ class SmartyTask extends Task {
      * @return void
      * @throws Exception Problem cleaning up.
      */
-    protected function cleanup() {
+    protected function cleanup()
+    {
     }
 }

@@ -27,7 +27,7 @@ require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
  * Splits SQL source into queries using simple regular expressions
  *
  * Extracted from PDOSQLExecTask::runStatements()
- * 
+ *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author  Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext.pdo
@@ -35,61 +35,65 @@ require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
  */
 class DefaultPDOQuerySplitter extends PDOQuerySplitter
 {
-   /**
-    * Delimiter type, one of PDOSQLExecTask::DELIM_ROW or PDOSQLExecTask::DELIM_NORMAL
-    * @var string
-    */
+    /**
+     * Delimiter type, one of PDOSQLExecTask::DELIM_ROW or PDOSQLExecTask::DELIM_NORMAL
+     * @var string
+     */
     private $delimiterType;
 
-   /**
-    * Leftover SQL from previous line
-    * @var string
-    */
+    /**
+     * Leftover SQL from previous line
+     * @var string
+     */
     private $sqlBacklog = '';
 
-   /**
-    * Constructor, sets the parent task, reader with SQL source and delimiter type 
-    *
-    * @param PDOSQLExecTask $parent
-    * @param Reader $reader
-    * @param string $delimiterType
-    */
+    /**
+     * Constructor, sets the parent task, reader with SQL source and delimiter type
+     *
+     * @param PDOSQLExecTask $parent
+     * @param Reader         $reader
+     * @param string         $delimiterType
+     */
     public function __construct(PDOSQLExecTask $parent, Reader $reader, $delimiterType = PDOSQLExecTask::DELIM_NORMAL)
     {
         parent::__construct($parent, $reader);
         $this->delimiterType = $delimiterType;
     }
 
-   /**
-    * Returns next query from SQL source, null if no more queries left
-    *
-    * In case of "row" delimiter type this searches for strings containing only
-    * delimiters. In case of "normal" delimiter type, this uses simple regular
-    * expression logic to search for delimiters.
-    *
-    * @return string|null
-    */
+    /**
+     * Returns next query from SQL source, null if no more queries left
+     *
+     * In case of "row" delimiter type this searches for strings containing only
+     * delimiters. In case of "normal" delimiter type, this uses simple regular
+     * expression logic to search for delimiters.
+     *
+     * @return string|null
+     */
     public function nextQuery()
     {
-        $sql      = "";
+        $sql = "";
         $hasQuery = false;
 
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
-            $project   = $this->parent->getOwningTarget()->getProject();
-            $line      = ProjectConfigurator::replaceProperties(
-                             $project, trim($line), $project->getProperties()
-                         );
+            $project = $this->parent->getOwningTarget()->getProject();
+            $line = ProjectConfigurator::replaceProperties(
+                $project,
+                trim($line),
+                $project->getProperties()
+            );
 
             if (($line != $delimiter) && (
-                StringHelper::startsWith("//", $line) ||
-                StringHelper::startsWith("--", $line) ||
-                StringHelper::startsWith("#", $line))) {
+                    StringHelper::startsWith("//", $line) ||
+                    StringHelper::startsWith("--", $line) ||
+                    StringHelper::startsWith("#", $line))
+            ) {
                 continue;
             }
 
             if (strlen($line) > 4
-                    && strtoupper(substr($line,0, 4)) == "REM ") {
+                && strtoupper(substr($line, 0, 4)) == "REM "
+            ) {
                 continue;
             }
 
@@ -135,8 +139,13 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
 
             if ($hasQuery || ($this->delimiterType == PDOSQLExecTask::DELIM_ROW && $line == $delimiter)) {
                 // this assumes there is always a delimter on the end of the SQL statement.
-                $sql = StringHelper::substring($sql, 0, strlen($sql) - strlen($delimiter)
-                                                        - ($this->delimiterType == PDOSQLExecTask::DELIM_ROW ? 2 : 1));
+                $sql = StringHelper::substring(
+                    $sql,
+                    0,
+                    strlen($sql) - strlen($delimiter)
+                    - ($this->delimiterType == PDOSQLExecTask::DELIM_ROW ? 2 : 1)
+                );
+
                 return $sql;
             }
         }

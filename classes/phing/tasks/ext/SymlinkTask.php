@@ -17,7 +17,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once "phing/Task.php";
@@ -42,7 +42,7 @@ require_once "phing/Task.php";
  *         </fileset>
  *     </symlink>
  * </code>
- * 
+ *
  * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
  * @extends Task
  * @version $ID$
@@ -52,35 +52,32 @@ class SymlinkTask extends Task
 {
     /**
      * What we're symlinking from
-     * 
+     *
      * (default value: null)
-     * 
+     *
      * @var string
-     * @access private
      */
     private $_target = null;
-    
+
     /**
      * Symlink location
-     * 
+     *
      * (default value: null)
-     * 
+     *
      * @var string
-     * @access private
      */
     private $_link = null;
-    
+
     /**
      * Collection of filesets
      * Used when linking contents of a directory
-     * 
+     *
      * (default value: array())
-     * 
+     *
      * @var array
-     * @access private
      */
     private $_filesets = array();
-    
+
     /**
      * Whether to override the symlink if it exists but points
      * to a different location
@@ -88,51 +85,51 @@ class SymlinkTask extends Task
      * (default value: false)
      *
      * @var boolean
-     * @access private
      */
     private $_overwrite = false;
 
     /**
      * setter for _target
-     * 
+     *
      * @access public
-     * @param string $target
+     * @param  string $target
      * @return void
      */
     public function setTarget($target)
     {
         $this->_target = $target;
     }
-    
+
     /**
      * setter for _link
-     * 
+     *
      * @access public
-     * @param string $link
+     * @param  string $link
      * @return void
      */
     public function setLink($link)
-    {        
+    {
         $this->_link = $link;
     }
-    
+
     /**
      * creator for _filesets
-     * 
+     *
      * @access public
      * @return FileSet
      */
     public function createFileset()
     {
         $num = array_push($this->_filesets, new FileSet());
-        return $this->_filesets[$num-1];
+
+        return $this->_filesets[$num - 1];
     }
 
     /**
      * setter for _overwrite
      *
      * @access public
-     * @param boolean $overwrite
+     * @param  boolean $overwrite
      * @return void
      */
     public function setOverwrite($overwrite)
@@ -142,37 +139,37 @@ class SymlinkTask extends Task
 
     /**
      * getter for _target
-     * 
+     *
      * @access public
      * @return string
      */
     public function getTarget()
     {
-        if($this->_target === null) {
+        if ($this->_target === null) {
             throw new BuildException('Target not set');
         }
-        
+
         return $this->_target;
     }
-    
+
     /**
      * getter for _link
-     * 
+     *
      * @access public
      * @return string
      */
     public function getLink()
     {
-        if($this->_link === null) {
+        if ($this->_link === null) {
             throw new BuildException('Link not set');
         }
-        
+
         return $this->_link;
     }
-    
+
     /**
      * getter for _filesets
-     * 
+     *
      * @access public
      * @return array
      */
@@ -195,104 +192,106 @@ class SymlinkTask extends Task
     /**
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
-     * 
+     *
      * @access protected
      * @return array|string
      */
     protected function getMap()
     {
         $fileSets = $this->getFilesets();
-        
+
         // No filesets set
         // We're assuming single file / directory
-        if(empty($fileSets)) {
+        if (empty($fileSets)) {
             return $this->getTarget();
         }
-    
+
         $targets = array();
-        
-        foreach($fileSets as $fs) {
-            if(!($fs instanceof FileSet)) {
+
+        foreach ($fileSets as $fs) {
+            if (!($fs instanceof FileSet)) {
                 continue;
             }
-            
+
             // We need a directory to store the links
-            if(!is_dir($this->getLink())) {
+            if (!is_dir($this->getLink())) {
                 throw new BuildException('Link must be an existing directory when using fileset');
             }
-            
+
             $fromDir = $fs->getDir($this->getProject())->getAbsolutePath();
 
-            if(!is_dir($fromDir)) {
+            if (!is_dir($fromDir)) {
                 $this->log('Directory doesn\'t exist: ' . $fromDir, Project::MSG_WARN);
                 continue;
             }
-            
+
             $fsTargets = array();
-            
+
             $ds = $fs->getDirectoryScanner($this->getProject());
-            
+
             $fsTargets = array_merge(
                 $fsTargets,
                 $ds->getIncludedDirectories(),
                 $ds->getIncludedFiles()
             );
-            
+
             // Add each target to the map
-            foreach($fsTargets as $target) {
-                if(!empty($target)) {
+            foreach ($fsTargets as $target) {
+                if (!empty($target)) {
                     $targets[$target] = $fromDir . DIRECTORY_SEPARATOR . $target;
                 }
             }
         }
-        
+
         return $targets;
     }
-    
+
     /**
      * Main entry point for task
-     * 
+     *
      * @access public
      * @return bool
      */
     public function main()
     {
         $map = $this->getMap();
-        
+
         // Single file symlink
-        if(is_string($map)) {
+        if (is_string($map)) {
             return $this->symlink($map, $this->getLink());
         }
-        
+
         // Multiple symlinks
-        foreach($map as $name => $targetPath) {
+        foreach ($map as $name => $targetPath) {
             $this->symlink($targetPath, $this->getLink() . DIRECTORY_SEPARATOR . $name);
         }
-        
+
         return true;
     }
-    
+
     /**
      * Create the actual link
-     * 
+     *
      * @access protected
-     * @param string $target
-     * @param string $link
+     * @param  string $target
+     * @param  string $link
      * @return bool
      */
     protected function symlink($target, $link)
     {
         $fs = FileSystem::getFileSystem();
-        
+
         if (is_link($link) && readlink($link) == $target) {
             $this->log('Link exists: ' . $link, Project::MSG_INFO);
+
             return true;
         } elseif (file_exists($link)) {
             if (!$this->getOverwrite()) {
                 $this->log('Not overwriting existing link ' . $link, Project::MSG_ERR);
+
                 return false;
             }
-            
+
             if (is_link($link) || is_file($link)) {
                 $fs->unlink($link);
                 $this->log('Link removed: ' . $link, Project::MSG_INFO);
@@ -301,9 +300,9 @@ class SymlinkTask extends Task
                 $this->log('Directory removed: ' . $link, Project::MSG_INFO);
             }
         }
-    
+
         $this->log('Linking: ' . $target . ' to ' . $link, Project::MSG_INFO);
-        
+
         return $fs->symlink($target, $link);
     }
 }

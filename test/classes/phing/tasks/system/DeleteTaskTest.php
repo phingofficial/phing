@@ -18,25 +18,27 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests the Delete Task
- * 
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.system
  */
-class DeleteTaskTest extends BuildFileTest 
-{ 
-    public function setUp() 
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/system/DeleteTaskTest.xml");
+class DeleteTaskTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/DeleteTaskTest.xml"
+        );
         $this->executeTarget("setup");
     }
-    
+
     public function tearDown()
     {
         $this->executeTarget("clean");
@@ -51,7 +53,7 @@ class DeleteTaskTest extends BuildFileTest
         $this->executeTarget("testDeleteDanglingSymlink");
         $this->assertInLogs("Deleting 1 files from");
     }
-    
+
     public function testDeleteNonExistingDirectory()
     {
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'does not exist or is not a directory');
@@ -62,4 +64,3 @@ class DeleteTaskTest extends BuildFileTest
         $this->expectBuildExceptionContaining(__FUNCTION__, __FUNCTION__, 'Could not find file');
     }
 }
-

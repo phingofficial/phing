@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/util/StringHelper.php';
 
 /**
@@ -36,17 +36,20 @@ include_once 'phing/util/StringHelper.php';
  * @author Bruce Atherton, bruce@callenish.com (Ant)
  * @package phing.types.selectors
  */
-class SelectorUtils {
+class SelectorUtils
+{
 
     private static $instance;
 
-     /**
-      * Retrieves the instance of the Singleton.
-      */
-    public static function getInstance() {
+    /**
+     * Retrieves the instance of the Singleton.
+     */
+    public static function getInstance()
+    {
         if (!isset(self::$instance)) {
             self::$instance = new SelectorUtils();
         }
+
         return self::$instance;
     }
 
@@ -66,16 +69,18 @@ class SelectorUtils {
      *                        case sensitively.
      *
      * @return whether or not a given path matches the start of a given
-     * pattern up to the first "**".
+     *                 pattern up to the first "**".
      */
-    public static function matchPatternStart($pattern, $str, $isCaseSensitive = true) {
+    public static function matchPatternStart($pattern, $str, $isCaseSensitive = true)
+    {
 
         // When str starts with a DIRECTORY_SEPARATOR, pattern has to start with a
         // DIRECTORY_SEPARATOR.
         // When pattern starts with a DIRECTORY_SEPARATOR, str has to start with a
         // DIRECTORY_SEPARATOR.
         if (StringHelper::startsWith(DIRECTORY_SEPARATOR, $str) !==
-            StringHelper::startsWith(DIRECTORY_SEPARATOR, $pattern)) {
+            StringHelper::startsWith(DIRECTORY_SEPARATOR, $pattern)
+        ) {
             return false;
         }
 
@@ -83,9 +88,9 @@ class SelectorUtils {
         $strDirs = explode(DIRECTORY_SEPARATOR, $str);
 
         $patIdxStart = 0;
-        $patIdxEnd   = count($patDirs)-1;
+        $patIdxEnd = count($patDirs) - 1;
         $strIdxStart = 0;
-        $strIdxEnd   = count($strDirs)-1;
+        $strIdxEnd = count($strDirs) - 1;
 
         // up to first '**'
         while ($patIdxStart <= $patIdxEnd && $strIdxStart <= $strIdxEnd) {
@@ -112,7 +117,7 @@ class SelectorUtils {
             return true;
         }
     }
-    
+
     /**
      * Tests whether or not a given path matches a given pattern.
      *
@@ -124,23 +129,25 @@ class SelectorUtils {
      *                        case sensitively.
      *
      * @return <code>true</code> if the pattern matches against the string,
-     *         or <code>false</code> otherwise.
+     *                           or <code>false</code> otherwise.
      */
-    public static function matchPath($pattern, $str, $isCaseSensitive = true) {
-    
+    public static function matchPath($pattern, $str, $isCaseSensitive = true)
+    {
+
         $rePattern = preg_quote($pattern, '/');
         $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
-        $trailingDirSep = '(('.$dirSep.')?|('.$dirSep.').+)';
+        $trailingDirSep = '((' . $dirSep . ')?|(' . $dirSep . ').+)';
         $patternReplacements = array(
-            $dirSep.'\*\*'.$dirSep => $dirSep.'.*'.$trailingDirSep,
-            $dirSep.'\*\*' => $trailingDirSep,
-            '\*\*'.$dirSep => '.*'.$trailingDirSep,
+            $dirSep . '\*\*' . $dirSep => $dirSep . '.*' . $trailingDirSep,
+            $dirSep . '\*\*' => $trailingDirSep,
+            '\*\*' . $dirSep => '.*' . $trailingDirSep,
             '\*\*' => '.*',
-            '\*' => '[^'.$dirSep.']*',
-            '\?' => '[^'.$dirSep.']'
+            '\*' => '[^' . $dirSep . ']*',
+            '\?' => '[^' . $dirSep . ']'
         );
         $rePattern = str_replace(array_keys($patternReplacements), array_values($patternReplacements), $rePattern);
-        $rePattern = '/^'.$rePattern.'$/'.($isCaseSensitive ? '' : 'i');
+        $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
+
         return (bool) preg_match($rePattern, $str);
     }
 
@@ -159,13 +166,15 @@ class SelectorUtils {
      *
      *
      * @return <code>true</code> if the string matches against the pattern,
-     *         or <code>false</code> otherwise.
+     *                           or <code>false</code> otherwise.
      */
-    public static function match($pattern, $str, $isCaseSensitive = true) {
-    
+    public static function match($pattern, $str, $isCaseSensitive = true)
+    {
+
         $rePattern = preg_quote($pattern, '/');
         $rePattern = str_replace(array("\*", "\?"), array('.*', '.'), $rePattern);
-        $rePattern = '/^'.$rePattern.'$/'.($isCaseSensitive ? '' : 'i');
+        $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
+
         return (bool) preg_match($rePattern, $str);
     }
 
@@ -177,13 +186,14 @@ class SelectorUtils {
      * false if the src file doesn't even exist, since how could the
      * target then be out of date.
      *
-     * @param PhingFile $src the original file
-     * @param PhingFile $target the file being compared against
-     * @param int $granularity the amount in seconds of slack we will give in
-     *        determining out of dateness
-     * @return whether the target is out of date
+     * @param  PhingFile $src         the original file
+     * @param  PhingFile $target      the file being compared against
+     * @param  int       $granularity the amount in seconds of slack we will give in
+     *                                determining out of dateness
+     * @return whether   the target is out of date
      */
-    public static function isOutOfDate(PhingFile $src, PhingFile $target, $granularity) {
+    public static function isOutOfDate(PhingFile $src, PhingFile $target, $granularity)
+    {
         if (!$src->exists()) {
             return false;
         }
@@ -193,8 +203,8 @@ class SelectorUtils {
         if (($src->lastModified() - $granularity) > $target->lastModified()) {
             return true;
         }
+
         return false;
     }
 
 }
-

@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 
 /**
@@ -26,7 +26,7 @@ require_once 'phing/Task.php';
  * The default properties are TSTAMP, DSTAMP and TODAY;
  *
  * Based on Ant's Tstamp task.
- * 
+ *
  * @author   Michiel Rook <mrook@php.net>
  * @version  $Id$
  * @package  phing.tasks.system
@@ -35,9 +35,9 @@ require_once 'phing/Task.php';
 class TstampTask extends Task
 {
     private $customFormats = array();
-    
+
     private $prefix = "";
-    
+
     /**
      * Set a prefix for the properties. If the prefix does not end with a "."
      * one is automatically added.
@@ -46,13 +46,12 @@ class TstampTask extends Task
     public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
-        
-        if (!empty($this->prefix))
-        {
-            $this->prefix.= ".";
+
+        if (!empty($this->prefix)) {
+            $this->prefix .= ".";
         }
     }
-    
+
     /**
      * Adds a custom format
      *
@@ -71,21 +70,20 @@ class TstampTask extends Task
      */
     public function main()
     {
-        foreach ($this->customFormats as $cf)
-        {
+        foreach ($this->customFormats as $cf) {
             $cf->execute($this);
         }
-        
+
         $dstamp = strftime('%Y%m%d');
         $this->prefixProperty('DSTAMP', $dstamp);
-        
+
         $tstamp = strftime('%H%M');
         $this->prefixProperty('TSTAMP', $tstamp);
-        
+
         $today = strftime('%B %d %Y');
         $this->prefixProperty('TODAY', $today);
     }
-    
+
     /**
      * helper that encapsulates prefix logic and property setting
      * policy (i.e. we use setNewProperty instead of setProperty).
@@ -104,7 +102,7 @@ class TstampCustomFormat
     private $propertyName = "";
     private $pattern = "";
     private $locale = "";
-    
+
     /**
      * The property to receive the date/time string in the given pattern
      *
@@ -125,7 +123,7 @@ class TstampCustomFormat
     {
         $this->pattern = $pattern;
     }
-    
+
     /**
      * The locale used to create date/time string.
      *
@@ -135,7 +133,7 @@ class TstampCustomFormat
     {
         $this->locale = $locale;
     }
-    
+
     /**
      * validate parameter and execute the format.
      *
@@ -143,29 +141,24 @@ class TstampCustomFormat
      */
     public function execute(TstampTask $tstamp)
     {
-        if (empty($this->propertyName))
-        {
+        if (empty($this->propertyName)) {
             throw new BuildException("property attribute must be provided");
         }
 
-        if (empty($this->pattern))
-        {
+        if (empty($this->pattern)) {
             throw new BuildException("pattern attribute must be provided");
         }
-        
-        if (!empty($this->locale))
-        {
+
+        if (!empty($this->locale)) {
             setlocale(LC_ALL, $this->locale);
         }
-        
+
         $value = strftime($this->pattern);
         $tstamp->prefixProperty($this->propertyName, $value);
-        
-        if (!empty($this->locale))
-        {
+
+        if (!empty($this->locale)) {
             // reset locale
-            setlocale(LC_ALL, NULL);
+            setlocale(LC_ALL, null);
         }
     }
 }
-

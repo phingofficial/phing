@@ -23,7 +23,8 @@
  *  Class only required to make it possible to add a property as reference
  * @package phing.types
  */
-class PropertyValue {
+class PropertyValue
+{
 
     /**
      * @var string
@@ -34,7 +35,8 @@ class PropertyValue {
      * Constructor optionaly sets a the value of property component.
      * @param    mixed      Value of name, all scalars allowed
      */
-    function __construct($value = null) {
+    public function __construct($value = null)
+    {
         if ($value !== null) {
             $this->setValue($value);
         }
@@ -44,17 +46,19 @@ class PropertyValue {
      * Sets a the value of property component.
      * @param    mixed      Value of name, all scalars allowed
      */
-    function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = (string) $value;
     }
 
     /** Get the value of property component. */
-    function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 
-    function toString() {
+    public function toString()
+    {
         return $this->getValue();
     }
 }
-

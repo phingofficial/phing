@@ -331,7 +331,7 @@
                     <row>
                         <entry><literal>name</literal></entry>
                         <entry>The name of files to select. The name parameter can contain the
-                            standard Ant wildcard characters.</entry>
+                            standard Phing wildcard characters.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>

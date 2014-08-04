@@ -37,7 +37,7 @@ class HttpGetTask extends HttpTask
      *
      * @var string
      */
-    protected $filename = null;    
+    protected $filename = null;
 
     /**
      * Holds the save location
@@ -52,7 +52,7 @@ class HttpGetTask extends HttpTask
      * @var boolean
      */
     protected $sslVerifyPeer = true;
-    
+
     /**
      * Holds value for "follow_redirects" option
      *
@@ -94,7 +94,7 @@ class HttpGetTask extends HttpTask
     /**
      * Saves the response body to a specified directory
      *
-     * @param HTTP_Request2_Response $response
+     * @param  HTTP_Request2_Response $response
      * @return void
      * @throws BuildException
      */
@@ -107,14 +107,14 @@ class HttpGetTask extends HttpTask
             );
         }
 
-        $content     = $response->getBody();
+        $content = $response->getBody();
         $disposition = $response->getHeader('content-disposition');
 
         if ($this->filename) {
             $filename = $this->filename;
 
         } elseif ($disposition && 0 == strpos($disposition, 'attachment')
-                  && preg_match('/filename="([^"]+)"/', $disposition, $m)
+            && preg_match('/filename="([^"]+)"/', $disposition, $m)
         ) {
             $filename = basename($m[1]);
 
@@ -132,22 +132,23 @@ class HttpGetTask extends HttpTask
         $this->log("Contents from " . $this->url . " saved to $filename");
     }
 
-
     /**
      * Sets the filename to store the output in
-     * 
+     *
      * @param string $filename
      */
-    public function setFilename($filename) {
+    public function setFilename($filename)
+    {
         $this->filename = $filename;
     }
 
     /**
      * Sets the save location
-     * 
+     *
      * @param string $dir
      */
-    public function setDir($dir) {
+    public function setDir($dir)
+    {
         $this->dir = $dir;
     }
 
@@ -160,7 +161,7 @@ class HttpGetTask extends HttpTask
     {
         $this->sslVerifyPeer = $value;
     }
-    
+
     /**
      * Sets the follow_redirects option
      *

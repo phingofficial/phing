@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 
 /**
@@ -28,35 +28,33 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
  * @version $Id$
  * @package phing.tasks.ext.formatter
  * @since 2.1.0
- */ 
+ */
 class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         parent::endTestSuite($suite);
     }
-    
+
     public function endTestRun()
     {
         parent::endTestRun();
-        
+
         $sb = "Total tests run: " . $this->getRunCount();
-        $sb.= ", Failures: " . $this->getFailureCount();
-        $sb.= ", Errors: " . $this->getErrorCount();
-        $sb.= ", Incomplete: " . $this->getIncompleteCount();
-        $sb.= ", Skipped: " . $this->getSkippedCount();
-        $sb.= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
-        
-        if ($this->out != NULL)
-        {
+        $sb .= ", Failures: " . $this->getFailureCount();
+        $sb .= ", Errors: " . $this->getErrorCount();
+        $sb .= ", Incomplete: " . $this->getIncompleteCount();
+        $sb .= ", Skipped: " . $this->getSkippedCount();
+        $sb .= ", Time elapsed: " . sprintf('%0.5f', $this->getElapsedTime()) . " s\n";
+
+        if ($this->out != null) {
             $this->out->write($sb);
             $this->out->close();
         }
     }
-    
+
     public function getExtension()
     {
-        return NULL;
+        return null;
     }
 }
-

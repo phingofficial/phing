@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -26,13 +26,15 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class UpToDateTaskTest extends BuildFileTest 
-{ 
+class UpToDateTaskTest extends BuildFileTest
+{
 
-    public function setUp() 
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/system/UpToDateTest.xml");
+    public function setUp()
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/UpToDateTest.xml"
+        );
     }
 
     /**
@@ -40,11 +42,11 @@ class UpToDateTaskTest extends BuildFileTest
      */
     public function testOverrideNoPropertySet()
     {
-      $this->executeTarget("overrideNoPropertySet");
-      $this->assertInLogs('Property ${prop} has not been set.');
-      $this->assertInLogs('Property ${prop} => updated');
-      $this->assertInLogs('echo = ${prop}');
-      $this->assertInLogs('echo = updated');
+        $this->executeTarget("overrideNoPropertySet");
+        $this->assertInLogs('Property ${prop} has not been set.');
+        $this->assertInLogs('Property ${prop} => updated');
+        $this->assertInLogs('echo = ${prop}');
+        $this->assertInLogs('echo = updated');
     }
 
     /**
@@ -52,13 +54,12 @@ class UpToDateTaskTest extends BuildFileTest
      */
     public function testOverridePropertySet()
     {
-      $this->executeTarget("overridePropertySet");
-      $this->assertInLogs('Setting project property: prop -> value exists');
-      $this->assertInLogs('Property ${prop} => value exists');
-      $this->assertInLogs('Property ${prop} => updated');
-      $this->assertInLogs('echo = value exists');
-      $this->assertInLogs('echo = updated');
+        $this->executeTarget("overridePropertySet");
+        $this->assertInLogs('Setting project property: prop -> value exists');
+        $this->assertInLogs('Property ${prop} => value exists');
+        $this->assertInLogs('Property ${prop} => updated');
+        $this->assertInLogs('echo = value exists');
+        $this->assertInLogs('echo = updated');
     }
 
 }
-

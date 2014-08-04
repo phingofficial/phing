@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/system/io/UnixFileSystem.php';
 
 /**
@@ -29,36 +28,43 @@ include_once 'phing/system/io/UnixFileSystem.php';
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.io
  */
-class UnixFileSystemTest extends PHPUnit_Framework_TestCase {
+class UnixFileSystemTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * @var FileSystem
      */
     private $fs;
-    
-    public function setUp() {
+
+    public function setUp()
+    {
         $this->fs = new UnixFileSystem();
     }
-    
-    public function tearDown() {
+
+    public function tearDown()
+    {
     }
-    
-    public function testCompare() {
+
+    public function testCompare()
+    {
         $f1 = new PhingFile(__FILE__);
         $f2 = new PhingFile(__FILE__);
-        
+
         $this->assertEquals($this->fs->compare($f1, $f2), 0);
     }
-    
-    public function testHomeDirectory1() {
+
+    public function testHomeDirectory1()
+    {
         $this->assertEquals($this->fs->normalize('~/test'), '~/test');
     }
 
-    public function testHomeDirectory2() {
+    public function testHomeDirectory2()
+    {
         $this->assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
     }
 
-    public function testHomeDirectory3() {
+    public function testHomeDirectory3()
+    {
         $this->assertEquals($this->fs->normalize('~test'), '~test');
     }
 }

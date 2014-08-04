@@ -18,25 +18,30 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests the Available Task
- * 
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.system
+ *
+ * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
+ *       are throwing errors.
  */
-class AvailableTaskTest extends BuildFileTest 
-{ 
-    public function setUp() 
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/system/AvailableTaskTest.xml");
+class AvailableTaskTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/AvailableTaskTest.xml"
+        );
         $this->executeTarget("setup");
     }
-    
+
     public function tearDown()
     {
         $this->executeTarget("clean");
@@ -82,4 +87,3 @@ class AvailableTaskTest extends BuildFileTest
         $this->assertNull($this->project->getProperty("prop." . __FUNCTION__));
     }
 }
-

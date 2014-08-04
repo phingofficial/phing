@@ -130,7 +130,8 @@ class SymfonyConsoleTask extends Task
     public function createArg()
     {
         $num = array_push($this->args, new Arg());
-        return $this->args[$num-1];
+
+        return $this->args[$num - 1];
     }
 
     /**
@@ -142,20 +143,22 @@ class SymfonyConsoleTask extends Task
         return $this->args;
     }
 
-
     /**
      * Gets the command string to be executed
      * @return string
      */
-    public function getCmdString() {
+    public function getCmdString()
+    {
         $cmd = array(
-                $this->console,
-                $this->command,
-                implode(' ', $this->args)
+            $this->console,
+            $this->command,
+            implode(' ', $this->args)
         );
         $cmd = implode(' ', $cmd);
+
         return $cmd;
     }
+
     /**
      * executes the synfony consile application
      */
@@ -169,13 +172,13 @@ class SymfonyConsoleTask extends Task
         exec($cmd, $output, $return);
 
         $lines = implode("\r\n", $output);
-        
+
         $this->log($lines, Project::MSG_INFO);
-        
+
         if ($this->propertyName != null) {
             $this->project->setProperty($this->propertyName, $lines);
         }
-        
+
         if ($return != 0 && $this->checkreturn) {
             $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
             throw new BuildException("SymfonyConsole execution failed");

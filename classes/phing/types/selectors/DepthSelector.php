@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
@@ -30,19 +30,22 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  * @version   $Id$
  * @package   phing.types.selectors
  */
-class DepthSelector extends BaseExtendSelector {
+class DepthSelector extends BaseExtendSelector
+{
 
     public $min = -1;
     public $max = -1;
     const MIN_KEY = "min";
     const MAX_KEY = "max";
 
-    public function toString() {
+    public function toString()
+    {
         $buf = "{depthselector min: ";
         $buf .= $this->min;
         $buf .= " max: ";
         $buf .= $this->max;
         $buf .= "}";
+
         return $buf;
     }
 
@@ -51,7 +54,8 @@ class DepthSelector extends BaseExtendSelector {
      *
      * @param min minimum directory levels below basedir to go
      */
-    public function setMin($min) {
+    public function setMin($min)
+    {
         $this->min = (int) $min;
     }
 
@@ -60,7 +64,8 @@ class DepthSelector extends BaseExtendSelector {
      *
      * @param min maximum directory levels below basedir to go
      */
-    public function setMax($max) {
+    public function setMax($max)
+    {
         $this->max = (int) $max;
     }
 
@@ -70,22 +75,23 @@ class DepthSelector extends BaseExtendSelector {
      *
      * @param parameters the complete set of parameters for this selector
      */
-    public function setParameters($parameters) {
+    public function setParameters($parameters)
+    {
         parent::setParameters($parameters);
         if ($parameters !== null) {
-            for ($i = 0, $size=count($parameters); $i < $size; $i++) {
+            for ($i = 0, $size = count($parameters); $i < $size; $i++) {
                 $paramname = $parameters[$i]->getName();
-                switch(strtolower($paramname)) {
+                switch (strtolower($paramname)) {
                     case self::MIN_KEY:
                         $this->setMin($parameters[$i]->getValue());
                         break;
                     case self::MAX_KEY:
                         $this->setMax($parameters[$i]->getValue());
                         break;
-                        
+
                     default:
                         $this->setError("Invalud parameter " . $paramname);
-                } // switch                
+                } // switch
             }
         }
     }
@@ -94,10 +100,13 @@ class DepthSelector extends BaseExtendSelector {
      * Checks to make sure all settings are kosher. In this case, it
      * means that the max depth is not lower than the min depth.
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->min < 0 && $this->max < 0) {
-            $this->setError("You must set at least one of the min or the " .
-                    "max levels.");
+            $this->setError(
+                "You must set at least one of the min or the " .
+                "max levels."
+            );
         }
         if ($this->max < $this->min && $this->max > -1) {
             $this->setError("The maximum depth is lower than the minimum.");
@@ -116,7 +125,8 @@ class DepthSelector extends BaseExtendSelector {
      * @param file is a PhingFile object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
 
         $this->validate();
 
@@ -124,11 +134,11 @@ class DepthSelector extends BaseExtendSelector {
         // If you felt daring, you could cache the basedir absolute path
         $abs_base = $basedir->getAbsolutePath();
         $abs_file = $file->getAbsolutePath();
-        
+
         $tok_base = explode(DIRECTORY_SEPARATOR, $abs_base);
         $tok_file = explode(DIRECTORY_SEPARATOR, $abs_file);
-        
-        for($i=0,$size=count($tok_file); $i < $size; $i++) {
+
+        for ($i = 0, $size = count($tok_file); $i < $size; $i++) {
             $filetoken = $tok_file[$i];
             if (isset($tok_base[$i])) {
                 $basetoken = $tok_base[$i];
@@ -151,8 +161,8 @@ class DepthSelector extends BaseExtendSelector {
         if ($this->min > -1 && $depth < $this->min) {
             return false;
         }
+
         return true;
     }
 
 }
-

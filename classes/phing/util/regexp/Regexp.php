@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -16,7 +16,7 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
@@ -25,37 +25,39 @@
  * @package  phing.util.regexp
  * @version $Id$
  */
-class Regexp {
+class Regexp
+{
 
     /**
-     * Matching groups found. 
+     * Matching groups found.
      * @var array
      */
     private $groups = array();
-     
+
     /**
      * Pattern to match.
      * @var string
      */
     private $pattern;
-    
+
     /**
      * Replacement pattern.
      * @var string
      */
     private $replace;
-    
+
     /**
      * The regex engine -- e.g. 'preg' or 'ereg';
      * @var RegexpEngine
      */
     private $engine;
-    
+
     /**
      * Constructor sets the regex engine to use (preg by default).
      * @param string $_engineType The regex engine to use.
      */
-    function __construct($engineType='preg') {        
+    public function __construct($engineType = 'preg')
+    {
         if ($engineType == 'preg') {
             include_once 'phing/util/regexp/PregEngine.php';
             $this->engine = new PregEngine();
@@ -64,123 +66,137 @@ class Regexp {
             $this->engine = new EregEngine();
         } else {
             throw new BuildException("Invalid engine type for Regexp: " . $engineType);
-        }                
+        }
     }
 
     /**
      * Sets pattern to use for matching.
-     * @param string $pat The pattern to match on.
+     * @param  string $pat The pattern to match on.
      * @return void
      */
-    public function setPattern($pat) {
-        $this->pattern = (string) $pat;        
+    public function setPattern($pat)
+    {
+        $this->pattern = (string) $pat;
     }
-    
-    
+
     /**
      * Gets pattern to use for matching.
      * @return string The pattern to match on.
      */
-    public function getPattern() {
+    public function getPattern()
+    {
         return $this->pattern;
     }
-    
+
     /**
      * Sets replacement string.
-     * @param string $rep The pattern to replace matches with.
+     * @param  string $rep The pattern to replace matches with.
      * @return void
      */
-    public function setReplace($rep) {
+    public function setReplace($rep)
+    {
         $this->replace = (string) $rep;
     }
-    
+
     /**
      * Gets replacement string.
      * @return string The pattern to replace matches with.
      */
-    public function getReplace() {
+    public function getReplace()
+    {
         return $this->replace;
     }
 
     /**
      * Performs match of specified pattern against $subject.
-     * @param string $subject The subject, on which to perform matches.
+     * @param  string  $subject The subject, on which to perform matches.
      * @return boolean Whether or not pattern matches subject string passed.
      */
-    public function matches($subject) {
-        if($this->pattern === null) {            
+    public function matches($subject)
+    {
+        if ($this->pattern === null) {
             throw new Exception("No pattern specified for regexp match().");
         }
+
         return $this->engine->match($this->pattern, $subject, $this->groups);
     }
-    
+
     /**
      * Performs replacement of specified pattern and replacement strings.
-     * @param string $subject Text on which to perform replacement.
+     * @param  string $subject Text on which to perform replacement.
      * @return string subject after replacement has been performed.
      */
-    public function replace($subject) {
+    public function replace($subject)
+    {
         if ($this->pattern === null || $this->replace === null) {
             throw new Exception("Missing pattern or replacement string regexp replace().");
-        }        
+        }
+
         return $this->engine->replace($this->pattern, $this->replace, $subject);
     }
-    
+
     /**
      * Get array of matched groups.
      * @return array Matched groups
-     */ 
-    function getGroups() {
+     */
+    public function getGroups()
+    {
         return $this->groups;
     }
 
     /**
-     * Get specific matched group. 
-     * @param integer $idx
-     * @return string specified group or NULL if group is not set.
-     */ 
-    function getGroup($idx) { 
+     * Get specific matched group.
+     * @param  integer $idx
+     * @return string  specified group or NULL if group is not set.
+     */
+    public function getGroup($idx)
+    {
         if (!isset($this->groups[$idx])) {
             return null;
         }
+
         return $this->groups[$idx];
     }
 
     /**
      * Sets pattern modifiers for regex engine
      *
-     * @param string $mods Modifiers to be applied to a given regex
+     * @param  string $mods Modifiers to be applied to a given regex
      * @return void
      */
-    public function setModifiers($mods) {
+    public function setModifiers($mods)
+    {
         $this->engine->setModifiers($mods);
     }
 
     /**
      * Gets pattern modifiers.
      * Subsequent call to engines getModifiers() filters out duplicates
-     * i.e. if i is provided in $mods, and setIgnoreCase(true), "i" 
+     * i.e. if i is provided in $mods, and setIgnoreCase(true), "i"
      * modifier would be included only once
      * @return string
      */
-    public function getModifiers() {
+    public function getModifiers()
+    {
         return $this->engine->getModifiers();
     }
-    
+
     /**
      * Sets whether the regexp matching is case insensitive.
      * (default is false -- i.e. case sensisitive)
      * @param boolean $bit
-     */ 
-    function setIgnoreCase($bit) {
+     */
+    public function setIgnoreCase($bit)
+    {
         $this->engine->setIgnoreCase($bit);
     }
-    
+
     /**
      * Gets whether the regexp matching is case insensitive.
      * @return boolean
      */
-    function getIgnoreCase() {
+    public function getIgnoreCase()
+    {
         return $this->engine->getIgnoreCase();
     }
 
@@ -188,7 +204,8 @@ class Regexp {
      * Sets whether regexp should be applied in multiline mode.
      * @param boolean $bit
      */
-    function setMultiline($bit) {
+    public function setMultiline($bit)
+    {
         $this->engine->setMultiline($bit);
     }
 
@@ -196,8 +213,8 @@ class Regexp {
      * Gets whether regexp is to be applied in multiline mode.
      * @return boolean
      */
-    function getMultiline() {
+    public function getMultiline()
+    {
         return $this->engine->getMultiline();
     }
-} 
-
+}

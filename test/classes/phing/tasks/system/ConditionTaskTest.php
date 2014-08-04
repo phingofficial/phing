@@ -31,13 +31,15 @@ class ConditionTaskTest extends BuildFileTest
         $this->assertPropertySet('isContains');
     }
 
-    /*
-    Temporarily disabled due to http://www.phing.info/trac/ticket/1041
-    
     public function testCustomCondition()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertPropertySet('isCustom');
-    }*/
-}
+    }
 
+    public function testReferenceExists()
+    {
+        $this->executeTarget(__FUNCTION__);
+        $this->assertPropertyUnset('ref.exists');
+    }
+}

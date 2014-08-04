@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * This selector is here just to shake up your thinking a bit. Don't get
  * too caught up in boolean, there are other ways you can evaluate a
@@ -34,21 +33,25 @@
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
-class MajoritySelector extends BaseSelectorContainer {
+class MajoritySelector extends BaseSelectorContainer
+{
 
     private $allowtie = true;
 
-    public function toString() {
+    public function toString()
+    {
         $buf = "";
         if ($this->hasSelectors()) {
             $buf .= "{majorityselect: ";
             $buf .= parent::toString();
             $buf .= "}";
         }
+
         return $buf;
     }
 
-    public function setAllowtie($tiebreaker) {
+    public function setAllowtie($tiebreaker)
+    {
         $this->allowtie = $tiebreaker;
     }
 
@@ -63,16 +66,17 @@ class MajoritySelector extends BaseSelectorContainer {
      * can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
-        
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
+
         $this->validate();
-        
+
         $yesvotes = 0;
         $novotes = 0;
-        
+
         $selectors = $this->selectorElements();
-        for($i=0,$size=count($selectors); $i < $size; $i++) {
-            $result = $selectors[$i]->isSelected($basedir,$filename,$file);
+        for ($i = 0, $size = count($selectors); $i < $size; $i++) {
+            $result = $selectors[$i]->isSelected($basedir, $filename, $file);
             if ($result) {
                 $yesvotes = $yesvotes + 1;
             } else {
@@ -81,12 +85,12 @@ class MajoritySelector extends BaseSelectorContainer {
         }
         if ($yesvotes > $novotes) {
             return true;
-        }
-        else if ($novotes > $yesvotes) {
-            return false;
+        } else {
+            if ($novotes > $yesvotes) {
+                return false;
+            }
         }
         // At this point, we know we have a tie.
         return $this->allowtie;
     }
 }
-

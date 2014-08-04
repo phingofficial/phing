@@ -1,7 +1,7 @@
 <?php
 /*
- *  $Id$  
- * 
+ *  $Id$
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,7 +36,8 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  * @access    public
  * @package   phing.tasks.system
  */
-class ConditionTask extends ConditionBase {
+class ConditionTask extends ConditionBase
+{
 
     private $property;
     private $value = "true";
@@ -44,21 +45,24 @@ class ConditionTask extends ConditionBase {
     /**
      * The name of the property to set. Required.
      */
-    function setProperty($p) {
+    public function setProperty($p)
+    {
         $this->property = $p;
     }
 
     /**
      * The value for the property to set. Defaults to "true".
      */
-    function setValue($v) {
+    public function setValue($v)
+    {
         $this->value = $v;
     }
 
     /**
      * See whether our nested condition holds and set the property.
      */
-    function main() {
+    public function main()
+    {
 
         if ($this->countConditions() > 1) {
             throw new BuildException("You must not nest more than one condition into <condition>");
@@ -66,7 +70,7 @@ class ConditionTask extends ConditionBase {
         if ($this->countConditions() < 1) {
             throw new BuildException("You must nest a condition into <condition>");
         }
-        $cs = $this->getIterator();        
+        $cs = $this->getIterator();
         if ($cs->current()->evaluate()) {
             $this->project->setProperty($this->property, $this->value);
         }

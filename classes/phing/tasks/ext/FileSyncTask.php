@@ -50,9 +50,9 @@ class FileSyncTask extends Task
     /**
      * Path to rsync command.
      * @var string
-    */	  	
+     */
     protected $rsyncPath = '/usr/bin/rsync';
-    
+
     /**
      * Source directory.
      * For remote sources this must contain user and host, e.g.: user@host:/my/source/dir
@@ -175,7 +175,7 @@ class FileSyncTask extends Task
     /**
      * Executes the rsync command and returns the exit code.
      *
-     * @return int Return code from execution.
+     * @return int            Return code from execution.
      * @throws BuildException
      */
     public function executeCommand()
@@ -183,11 +183,13 @@ class FileSyncTask extends Task
         if ($this->rsyncPath === null) {
             throw new BuildException('The "rsyncPath" attribute is missing or undefined.');
         }
-        
+
         if ($this->sourceDir === null) {
             throw new BuildException('The "sourcedir" attribute is missing or undefined.');
-        } else if ($this->destinationDir === null) {
-            throw new BuildException('The "destinationdir" attribute is missing or undefined.');
+        } else {
+            if ($this->destinationDir === null) {
+                throw new BuildException('The "destinationdir" attribute is missing or undefined.');
+            }
         }
 
         if (strpos($this->destinationDir, ':')) {
@@ -200,7 +202,7 @@ class FileSyncTask extends Task
             }
             $this->setIsRemoteConnection(true);
         } else {
-            if (! (is_dir($this->sourceDir) && is_readable($this->sourceDir))) {
+            if (!(is_dir($this->sourceDir) && is_readable($this->sourceDir))) {
                 throw new BuildException('No such file or directory: ' . $this->sourceDir);
             }
         }
@@ -223,10 +225,13 @@ class FileSyncTask extends Task
         }
 
         $this->log($command);
-        
+
         if ($return != 0) {
             $this->log('Task exited with code: ' . $return, Project::MSG_ERR);
-            $this->log('Task exited with message: (' . $return . ') ' . $this->getErrorMessage($return), Project::MSG_ERR);
+            $this->log(
+                'Task exited with message: (' . $return . ') ' . $this->getErrorMessage($return),
+                Project::MSG_ERR
+            );
             throw new BuildException($return . ': ' . $this->getErrorMessage($return));
         } else {
             $this->log($lines, Project::MSG_INFO);
@@ -241,44 +246,44 @@ class FileSyncTask extends Task
      * @return string
      */
     public function getCommand()
-    { 
+    {
         $options = $this->defaultOptions;
-        
+
         if ($this->options !== null) {
             $options = $this->options;
         }
-        
+
         if ($this->verbose === true) {
             $options .= ' --verbose';
         }
-        
+
         if ($this->checksum === true) {
             $options .= ' --checksum';
         }
-        
+
         if ($this->identityFile !== null) {
-            $options .= ' -e "ssh -i '. $this->identityFile . '"';
+            $options .= ' -e "ssh -i ' . $this->identityFile . '"';
         } else {
             if ($this->remoteShell !== null) {
                 $options .= ' -e "' . $this->remoteShell . '"';
             }
         }
-        
+
         if ($this->dryRun === true) {
             $options .= ' --dry-run';
         }
-        
+
         if ($this->delete === true) {
             $options .= ' --delete-after --ignore-errors --force';
         }
-        
+
         if ($this->itemizeChanges === true) {
             $options .= ' --itemize-changes';
         }
         if ($this->backupDir !== null) {
             $options .= ' -b --backup-dir="' . $this->backupDir . '"';
         }
-        
+
         if ($this->excludeFile !== null) {
             $options .= ' --exclude-from="' . $this->excludeFile . '"';
         }
@@ -296,19 +301,19 @@ class FileSyncTask extends Task
     /**
      * Returns an error message based on a given error code.
      *
-     * @param int $code Error code
+     * @param  int         $code Error code
      * @return null|string
      */
     public function getErrorMessage($code)
     {
-        $error[0]  = 'Success';
-        $error[1]  = 'Syntax or usage error';
-        $error[2]  = 'Protocol incompatibility';
-        $error[3]  = 'Errors selecting input/output files, dirs';
-        $error[4]  = 'Requested action not supported: an attempt was made to manipulate '
-                   . '64-bit files on a platform that cannot support them; or an option '
-                   . 'was specified that is supported by the client and not by the server';
-        $error[5]  = 'Error starting client-server protocol';
+        $error[0] = 'Success';
+        $error[1] = 'Syntax or usage error';
+        $error[2] = 'Protocol incompatibility';
+        $error[3] = 'Errors selecting input/output files, dirs';
+        $error[4] = 'Requested action not supported: an attempt was made to manipulate '
+            . '64-bit files on a platform that cannot support them; or an option '
+            . 'was specified that is supported by the client and not by the server';
+        $error[5] = 'Error starting client-server protocol';
         $error[10] = 'Error in socket I/O';
         $error[11] = 'Error in file I/O';
         $error[12] = 'Error in rsync protocol data stream';
@@ -331,7 +336,7 @@ class FileSyncTask extends Task
     /**
      * Sets the path to the rsync command.
      *
-     * @param string $path
+     * @param  string $path
      * @return void
      */
     public function setRsyncPath($path)
@@ -342,7 +347,7 @@ class FileSyncTask extends Task
     /**
      * Sets the isRemoteConnection property.
      *
-     * @param boolean $isRemote
+     * @param  boolean $isRemote
      * @return void
      */
     protected function setIsRemoteConnection($isRemote)
@@ -353,7 +358,7 @@ class FileSyncTask extends Task
     /**
      * Sets the source directory.
      *
-     * @param string $dir
+     * @param  string $dir
      * @return void
      */
     public function setSourceDir($dir)
@@ -364,7 +369,7 @@ class FileSyncTask extends Task
     /**
      * Sets the command options.
      *
-     * @param string $options
+     * @param  string $options
      * @return void
      */
     public function setOptions($options)
@@ -376,7 +381,7 @@ class FileSyncTask extends Task
      * Sets the destination directory. If the option remotehost is not included
      * in the build.xml file, rsync will point to a local directory instead.
      *
-     * @param string $dir
+     * @param  string $dir
      * @return void
      */
     public function setDestinationDir($dir)
@@ -387,7 +392,7 @@ class FileSyncTask extends Task
     /**
      * Sets the remote host.
      *
-     * @param string $host
+     * @param  string $host
      * @return void
      */
     public function setRemoteHost($host)
@@ -399,7 +404,7 @@ class FileSyncTask extends Task
      * Specifies the user to log in as on the remote machine. This also may be
      * specified in the properties file.
      *
-     * @param string $user
+     * @param  string $user
      * @return void
      */
     public function setRemoteUser($user)
@@ -412,7 +417,7 @@ class FileSyncTask extends Task
      * daemon. Note that this option is only useful when accessing an rsync daemon
      * using the built in transport, not when using a remote shell as the transport.
      *
-     * @param string $pass
+     * @param  string $pass
      * @return void
      */
     public function setRemotePass($pass)
@@ -426,7 +431,7 @@ class FileSyncTask extends Task
      * rsync is configured to use ssh by default, but you may prefer to use rsh
      * on a local network.
      *
-     * @param string $shell
+     * @param  string $shell
      * @return void
      */
     public function setRemoteShell($shell)
@@ -440,7 +445,7 @@ class FileSyncTask extends Task
      * information about what files are being transferred and a brief summary at
      * the end.
      *
-     * @param boolean $verbose
+     * @param  boolean $verbose
      * @return void
      */
     public function setVerbose($verbose)
@@ -454,7 +459,7 @@ class FileSyncTask extends Task
      * size and time of last modification match between the sender and receiver.
      * This option changes this to compare a 128-bit checksum for each file that has a matching size.
      *
-     * @param boolean $checksum
+     * @param  boolean $checksum
      * @return void
      */
     public function setChecksum($checksum)
@@ -467,7 +472,7 @@ class FileSyncTask extends Task
      * output as a real run).  It is  most commonly used in combination with the -v, --verbose and/or
      * -i, --itemize-changes options to see what an rsync command is going to do before one actually runs it.
      *
-     * @param boolean $dryRun
+     * @param  boolean $dryRun
      * @return void
      */
     public function setDryRun($dryRun)
@@ -478,7 +483,7 @@ class FileSyncTask extends Task
     /**
      * Requests a simple itemized list of the changes that are being made to each file, including attribute changes.
      *
-     * @param boolean $itemizeChanges
+     * @param  boolean $itemizeChanges
      * @return void
      */
     public function setItemizeChanges($itemizeChanges)
@@ -491,7 +496,7 @@ class FileSyncTask extends Task
      * for the directories that are being synchronized. Files that are excluded
      * from transfer are also excluded from being deleted.
      *
-     * @param boolean $delete
+     * @param  boolean $delete
      * @return void
      */
     public function setDelete($delete)
@@ -503,7 +508,7 @@ class FileSyncTask extends Task
      * Exclude files matching patterns from $file, Blank lines in $file and
      * lines starting with ';' or '#' are ignored.
      *
-     * @param string $file
+     * @param  string $file
      * @return void
      */
     public function setExcludeFile($file)

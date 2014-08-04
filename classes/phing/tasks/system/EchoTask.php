@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/Task.php';
 
 /**
@@ -29,26 +29,37 @@ include_once 'phing/Task.php';
  * @version  $Id$
  * @package  phing.tasks.system
  */
-class EchoTask extends Task {
-    
+class EchoTask extends Task
+{
+
     protected $msg = "";
-    
+
     protected $file = "";
-    
+
     protected $append = false;
-    
+
     protected $level = "info";
 
     protected $filesets = array();
 
-    function main() {       
-        switch ($this->level)
-        {
-            case "error": $loglevel = Project::MSG_ERR; break;
-            case "warning": $loglevel = Project::MSG_WARN; break;
-            case "info": $loglevel = Project::MSG_INFO; break;
-            case "verbose": $loglevel = Project::MSG_VERBOSE; break;
-            case "debug": $loglevel = Project::MSG_DEBUG; break;
+    public function main()
+    {
+        switch ($this->level) {
+            case "error":
+                $loglevel = Project::MSG_ERR;
+                break;
+            case "warning":
+                $loglevel = Project::MSG_WARN;
+                break;
+            case "info":
+                $loglevel = Project::MSG_INFO;
+                break;
+            case "verbose":
+                $loglevel = Project::MSG_VERBOSE;
+                break;
+            case "debug":
+                $loglevel = Project::MSG_DEBUG;
+                break;
         }
 
         if (count($this->filesets)) {
@@ -57,24 +68,18 @@ class EchoTask extends Task {
             }
             $this->msg .= $this->getFilesetsMsg();
         }
-        
-        if (empty($this->file))
-        {
+
+        if (empty($this->file)) {
             $this->log($this->msg, $loglevel);
-        }
-        else
-        {
-            if ($this->append)
-            {
+        } else {
+            if ($this->append) {
                 $handle = fopen($this->file, "a");
-            }
-            else
-            {
+            } else {
                 $handle = fopen($this->file, "w");
             }
-            
+
             fwrite($handle, $this->msg);
-            
+
             fclose($handle);
         }
     }
@@ -90,8 +95,8 @@ class EchoTask extends Task {
         $msg = '';
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($project);
-            $fromDir  = $fs->getDir($project);
-            $srcDirs  = $ds->getIncludedDirectories();
+            $fromDir = $fs->getDir($project);
+            $srcDirs = $ds->getIncludedDirectories();
             $srcFiles = $ds->getIncludedFiles();
             $msg .= 'Directory: ' . $fromDir . ' => '
                 . realpath($fromDir) . "\n";
@@ -107,37 +112,39 @@ class EchoTask extends Task {
 
         return $msg;
     }
-    
+
     /** setter for file */
-    function setFile($file)
+    public function setFile($file)
     {
         $this->file = (string) $file;
     }
 
     /** setter for level */
-    function setLevel($level)
+    public function setLevel($level)
     {
         $this->level = (string) $level;
     }
 
     /** setter for append */
-    function setAppend($append)
+    public function setAppend($append)
     {
         $this->append = $append;
     }
 
     /** setter for message */
-    function setMsg($msg) {
+    public function setMsg($msg)
+    {
         $this->setMessage($msg);
     }
 
     /** alias setter */
-    function setMessage($msg) {
+    public function setMessage($msg)
+    {
         $this->msg = (string) $msg;
     }
-    
+
     /** Supporting the <echo>Message</echo> syntax. */
-    function addText($msg)
+    public function addText($msg)
     {
         $this->msg = (string) $msg;
     }

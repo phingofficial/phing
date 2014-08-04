@@ -27,7 +27,8 @@
  * @access    public
  * @package   phing.parser
  */
-class PhingXMLContext {
+class PhingXMLContext
+{
 
     /**
      * Target that will hold all tasks/types placed outside of targets
@@ -35,26 +36,26 @@ class PhingXMLContext {
      * @var Target
      */
     private $implicitTarget;
-    
+
     /**
      * Current target
      *
      * @var Target
      */
     private $currentTarget = null;
-    
+
     /**
      * List of current targets
      *
      * @var Target[]
      */
     private $currentTargets = null;
-    
+
     /**
      * Constructor
      * @param $project the project to which this antxml context belongs to
      */
-    public function __construct ($project)
+    public function __construct($project)
     {
         $this->project = $project;
         $this->implicitTarget = new Target();
@@ -67,52 +68,58 @@ class PhingXMLContext {
 
     private $configurators = array();
 
-    public function startConfigure ($cfg) {
-      $this->configurators[] = $cfg;
+    public function startConfigure($cfg)
+    {
+        $this->configurators[] = $cfg;
     }
 
-    public function endConfigure () {
-      array_pop($this->configurators);
+    public function endConfigure()
+    {
+        array_pop($this->configurators);
     }
 
-    public function getConfigurator () {
-      $l = count($this->configurators);
-      if (0 == $l) {
-        return null;
-      } else {
-        return $this->configurators[$l - 1];
-      }
+    public function getConfigurator()
+    {
+        $l = count($this->configurators);
+        if (0 == $l) {
+            return null;
+        } else {
+            return $this->configurators[$l - 1];
+        }
     }
 
     /** Impoerted files */
     private $importStack = array();
 
-    public function addImport ($file) {
-      $this->importStack[] = $file;
+    public function addImport($file)
+    {
+        $this->importStack[] = $file;
     }
 
-    public function getImportStack () {
-      return $this->importStack;
+    public function getImportStack()
+    {
+        return $this->importStack;
     }
 
     /**
      * find out the project to which this context belongs
      * @return project
      */
-    public function getProject() {
+    public function getProject()
+    {
         return $this->project;
     }
-    
+
     public function getImplicitTarget()
     {
         return $this->implicitTarget;
     }
-    
+
     public function setImplicitTarget(Target $target)
     {
         $this->implicitTarget = $target;
     }
-    
+
     /**
      * @return Target
      */
@@ -120,7 +127,7 @@ class PhingXMLContext {
     {
         return $this->currentTarget;
     }
-    
+
     /**
      * @param Target $target
      */
@@ -128,7 +135,7 @@ class PhingXMLContext {
     {
         $this->currentTarget = $target;
     }
-    
+
     /**
      * @return Target[]
      */
@@ -136,7 +143,7 @@ class PhingXMLContext {
     {
         return $this->currentTargets;
     }
-    
+
     /**
      * @param Target[] $currentTargets
      */

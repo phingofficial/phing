@@ -27,7 +27,8 @@
  * @version $Id$
  * @package phing.input
  */
-interface InputHandler {
+interface InputHandler
+{
 
     /**
      * Handle the request encapsulated in the argument.
@@ -41,5 +42,5 @@ interface InputHandler {
      * @throws BuildException
      */
     public function handleInput(InputRequest $request);
-    
+
 }

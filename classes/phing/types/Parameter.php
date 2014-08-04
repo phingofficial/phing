@@ -30,25 +30,28 @@ include_once 'phing/types/DataType.php';
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @package   phing.types
  */
-class Parameter extends DataType {
+class Parameter extends DataType
+{
 
     /** Parameter name */
     protected $name;
-    
+
     /** Paramter type */
     protected $type;
-    
+
     /** Parameter value */
     protected $value;
-    
+
     /** Nested parameters */
     protected $parameters = array();
 
-    function setName($name) {
+    public function setName($name)
+    {
         $this->name = (string) $name;
     }
-    
-    function setType($type) {
+
+    public function setType($type)
+    {
         $this->type = (string) $type;
     }
 
@@ -56,44 +59,50 @@ class Parameter extends DataType {
      * Sets value to dynamic register slot.
      * @param RegisterSlot $value
      */
-    public function setListeningValue(RegisterSlot $value) {
+    public function setListeningValue(RegisterSlot $value)
+    {
         $this->value = $value;
     }
-    
-    function setValue($value) {
+
+    public function setValue($value)
+    {
         $this->value = (string) $value;
     }
 
-    function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
-    function getValue() {
+    public function getValue()
+    {
         if ($this->value instanceof RegisterSlot) {
             return $this->value->getValue();
         } else {
             return $this->value;
         }
     }
-    
+
     /**
      * @return Parameter
      */
-    function createParam() {
+    public function createParam()
+    {
         $num = array_push($this->parameters, new Parameter());
-        return $this->parameters[$num-1];
+
+        return $this->parameters[$num - 1];
     }
 
     /**
      * @return array Nested parameters.
      */
-    function getParams() {
+    public function getParams()
+    {
         return $this->parameters;
     }
 }
-
-

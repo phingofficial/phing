@@ -43,7 +43,7 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new SymfonyConsoleTask;
+        $this->object = new SymfonyConsoleTask();
     }
 
     /**
@@ -117,4 +117,3 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($ret, $o->getCmdString());
     }
 }
-?>

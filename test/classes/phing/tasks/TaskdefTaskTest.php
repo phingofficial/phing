@@ -18,43 +18,50 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * @version $Id$
  * @package phing.tasks.system
  */
-class TaskdefTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class TaskdefTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/taskdef.xml");
     }
-    
-    public function testEmpty() { 
+
+    public function testEmpty()
+    {
         $this->expectBuildException("empty", "required argument not specified");
     }
 
-    public function testNoName() { 
+    public function testNoName()
+    {
         $this->expectBuildException("noName", "required argument not specified");
     }
 
-    public function testNoClassname() { 
+    public function testNoClassname()
+    {
         $this->expectBuildException("noClassname", "required argument not specified");
     }
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     */    
-    public function testClassNotFound() { 
-      try {
-        $this->expectBuildException("classNotFound", "classname specified doesn't exist");
-      } catch (ConfigurationException $e) {
-        //ignored
-      }
+     */
+    public function testClassNotFound()
+    {
+        try {
+            $this->expectBuildException("classNotFound", "classname specified doesn't exist");
+        } catch (ConfigurationException $e) {
+            //ignored
+        }
     }
 
-    public function testGlobal() {
+    public function testGlobal()
+    {
         $this->expectLog("testGlobal", "simpletask: testGlobal echo");
         $refs = $this->project->getReferences();
         $ref = $refs["global"];
@@ -62,7 +69,8 @@ class TaskdefTaskTest extends BuildFileTest {
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 
-    public function testLocal() {
+    public function testLocal()
+    {
         $this->expectLog("testLocal", "Task local will be handled by class example.tasks.TaskdefTestSimpleTask");
         $refs = $this->project->getReferences();
         $ref = $refs["local"];
@@ -70,7 +78,8 @@ class TaskdefTaskTest extends BuildFileTest {
         $this->assertEquals("TaskdefTestSimpleTask", get_class($ref));
     }
 
-    public function tesFile() {
+    public function tesFile()
+    {
         $this->expectLog("testFile", "simpletask: testTdfile echo");
         $refs = $this->project->getReferences();
         $ref = $refs["tdfile"];

@@ -74,6 +74,19 @@ class JsHintTask extends Task
      */
     private $excludePath = NULL;
 
+	 * reporter
+     *
+     * @var string
+     */
+    private $reporter = 'checkstyle';
+
+    /**
+     * xmlAttributes
+     *
+     * @var array
+     */
+    private $xmlAttributes;
+
     /**
      * Path where the the report in Checkstyle format should be saved
      * 
@@ -117,16 +130,12 @@ class JsHintTask extends Task
         $this->haltOnWarning = $haltOnWarning;
     }
 
-    public function setExcludePath($excludePath) {
-        $this->excludePath = $excludePath;
-    }
-
     public function setCheckstyleReportPath($checkstyleReportPath) {
         $this->checkstyleReportPath = $checkstyleReportPath;
     }
 
     public function main() {
-        if (!isset($this->file) && count($this->filesets) === 0 && !isset($this->paths)) {
+        if (!isset($this->file) && count($this->filesets) === 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
         
@@ -143,9 +152,6 @@ class JsHintTask extends Task
                     }
                 }
             }
-            elseif ($this->paths) {
-                $fileList = explode(PATH_SEPARATOR, $this->getPaths());
-            }
         } else {
             $fileList = array($this->file);
         }
@@ -153,10 +159,6 @@ class JsHintTask extends Task
         $this->_checkJsHintIsInstalled();
 
         $command = 'jshint --reporter=checkstyle ' . implode(' ', $fileList);
-        if ($this->excludePath !== NULL) {
-            $command .= " --exclude-path={$this->excludePath}";
-        }
-        $this->log($command);
         $output = array();
         exec($command, $output);
         $output = implode(PHP_EOL, $output);

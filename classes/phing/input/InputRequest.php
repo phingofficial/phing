@@ -28,80 +28,90 @@
  * @version $Id$
  * @package phing.input
  */
-class InputRequest {
+class InputRequest
+{
 
     protected $prompt;
     protected $input;
     protected $defaultValue;
     protected $promptChar;
-    
+
     /**
      * @param string $prompt The prompt to show to the user.  Must not be null.
      */
-    public function __construct($prompt) {
+    public function __construct($prompt)
+    {
         if ($prompt === null) {
             throw new BuildException("prompt must not be null");
-        }        
+        }
         $this->prompt = $prompt;
     }
 
     /**
      * Retrieves the prompt text.
      */
-    public function getPrompt() {
+    public function getPrompt()
+    {
         return $this->prompt;
     }
 
     /**
      * Sets the user provided input.
      */
-    public function setInput($input) {
+    public function setInput($input)
+    {
         $this->input = $input;
     }
-    
+
     /**
      * Is the user input valid?
      */
-    public function isInputValid() {
+    public function isInputValid()
+    {
         return true;
     }
 
     /**
      * Retrieves the user input.
      */
-    public function getInput() {
+    public function getInput()
+    {
         return $this->input;
     }
-    
+
     /**
      * Set the default value to use.
      * @param mixed $v
      */
-    public function setDefaultValue($v) {
+    public function setDefaultValue($v)
+    {
         $this->defaultValue = $v;
     }
-    
+
     /**
      * Return the default value to use.
      * @return mixed
      */
-    public function getDefaultValue() {
+    public function getDefaultValue()
+    {
         return $this->defaultValue;
     }
-    
+
     /**
      * Set the default value to use.
      * @param string $c
      */
-    public function setPromptChar($c) {
+    public function setPromptChar($c)
+    {
         $this->promptChar = $c;
     }
-    
+
     /**
      * Return the default value to use.
      * @return string
      */
-    public function getPromptChar() {
+    public function getPromptChar()
+    {
         return $this->promptChar;
     }
 }

@@ -1,7 +1,7 @@
 <?php
 /*
- *  $Id$  
- * 
+ *  $Id$
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,16 +27,17 @@ require_once 'phing/system/io/FileOutputStream.php';
  *
  * @package   phing.system.io
  */
-class FileWriter extends OutputStreamWriter {
-    
+class FileWriter extends OutputStreamWriter
+{
+
     /**
      * Construct a new FileWriter.
-     * @param mixed $file PhingFile or string pathname.
+     * @param mixed   $file   PhingFile or string pathname.
      * @param boolean $append Append to existing file?
      */
-    function __construct($file, $append = false) {
+    public function __construct($file, $append = false)
+    {
         $out = new FileOutputStream($file, $append);
         parent::__construct($out);
     }
 }
-

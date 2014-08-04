@@ -27,4 +27,3 @@ class TryCatchTaskTest extends BuildFileTest
         $this->assertStringEndsWith('Tada!', $this->project->getProperty("prop." . __FUNCTION__));
     }
 }
-

@@ -35,23 +35,26 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
      * @var Properties
      */
     private $props = null;
-    
+
     public function setUp()
     {
         $this->props = new Properties();
     }
-    
+
     public function tearDown()
     {
         unset($this->props);
     }
-    
+
     public function testComments()
     {
-        $file = new PhingFile(PHING_TEST_BASE .  "/etc/system/util/comments.properties");
+        $file = new PhingFile(PHING_TEST_BASE . "/etc/system/util/comments.properties");
         $this->props->load($file);
-        
-        $this->assertEquals($this->props->getProperty('useragent'), 'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1');
+
+        $this->assertEquals(
+            $this->props->getProperty('useragent'),
+            'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1'
+        );
         $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
         $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
     }

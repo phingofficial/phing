@@ -45,7 +45,8 @@ require_once 'phing/Task.php';
  * @access    public
  * @package   phing.tasks.system
  */
-class PhingCallTask extends Task {
+class PhingCallTask extends Task
+{
 
     /**
      * The called Phing task.
@@ -78,9 +79,10 @@ class PhingCallTask extends Task {
     /**
      *  If true, pass all properties to the new Phing project.
      *  Defaults to true. Future use.
-     *  @param boolean new value
+     * @param boolean new value
      */
-    function setInheritAll($inherit) {
+    public function setInheritAll($inherit)
+    {
         $this->inheritAll = (boolean) $inherit;
     }
 
@@ -88,9 +90,10 @@ class PhingCallTask extends Task {
      *  If true, pass all references to the new Phing project.
      *  Defaults to false. Future use.
      *
-     *  @param boolean new value
+     * @param boolean new value
      */
-    function setInheritRefs($inheritRefs) {
+    public function setInheritRefs($inheritRefs)
+    {
         $this->inheritRefs = (boolean) $inheritRefs;
     }
 
@@ -98,27 +101,32 @@ class PhingCallTask extends Task {
      * Alias for createProperty
      * @see createProperty()
      */
-    function createParam() {
+    public function createParam()
+    {
         if ($this->callee === null) {
             $this->init();
         }
+
         return $this->callee->createProperty();
     }
 
     /**
      * Property to pass to the invoked target.
      */
-    function createProperty() {
+    public function createProperty()
+    {
         if ($this->callee === null) {
             $this->init();
         }
+
         return $this->callee->createProperty();
     }
 
     /**
      * Target to execute, required.
      */
-    function setTarget($target) {
+    public function setTarget($target)
+    {
         $this->subTarget = (string) $target;
     }
 
@@ -126,7 +134,8 @@ class PhingCallTask extends Task {
      *  init this task by creating new instance of the phing task and
      *  configuring it's by calling its own init method.
      */
-    function init() {
+    public function init()
+    {
         $this->callee = $this->project->createTask("phing");
         $this->callee->setOwningTarget($this->getOwningTarget());
         $this->callee->setTaskName($this->getTaskName());
@@ -137,10 +146,11 @@ class PhingCallTask extends Task {
 
     /**
      *  hand off the work to the phing task of ours, after setting it up
-     *  @throws BuildException on validation failure or if the target didn't
-     *  execute
+     * @throws BuildException on validation failure or if the target didn't
+     *                        execute
      */
-    function main() {
+    public function main()
+    {
 
         $this->log("Running PhingCallTask for target '" . $this->subTarget . "'", Project::MSG_DEBUG);
         if ($this->callee === null) {

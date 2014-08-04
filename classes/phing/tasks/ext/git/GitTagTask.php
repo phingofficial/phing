@@ -39,37 +39,37 @@ class GitTagTask extends GitBaseTask
      * @var boolean
      */
     private $annotate = false;
-    
+
     /**
      * Make GPG-signed tag. See -s of git-tag
      * @var boolean
      */
     private $sign = false;
-    
+
     /**
      * Make GPG-signed tag, using given key. See -u of git-tag
      * @var string
      */
     private $keySign;
-    
+
     /**
      * Replace existing tag with given name. See -f of git-tag
      * @var boolean
      */
     private $replace = false;
-    
+
     /**
      * Delete existing tags with given names. See -d of git-tag
      * @var boolean
      */
     private $delete = false;
-    
+
     /**
      * Verify gpg signature of given tag names. See -v of git-tag
      * @var boolean
      */
     private $verify = false;
-    
+
     /**
      * List tags with names matching given pattern. See -l of git-tag
      * @var boolean
@@ -77,60 +77,60 @@ class GitTagTask extends GitBaseTask
     private $list = false;
 
     /**
-     * <num> specifies how many lines from the annotation, if any, are printed 
+     * <num> specifies how many lines from the annotation, if any, are printed
      * when using -l. See -n of git-tag
      * @var int
      */
     private $num;
-    
+
     /**
      * Only list tags containing specified commit. See --contains of git-tag
      * @var string
      */
     private $contains;
-    
+
     /**
      * Use given tag message. See -m of git-tag
      * @var string
      */
     private $message;
-    
+
     /**
      * Take tag message from given file. See -F of git-tag
      * @var string
      */
     private $file;
-    
+
     /**
      * <tagname> argument to git-tag
      * @var string
      */
     private $name;
-    
+
     /**
      * <commit> argument to git-tag
      * @var string
      */
     private $commit;
-    
+
     /**
      * <object> argument to git-tag
      * @var string
      */
     private $object;
-    
+
     /**
      * <pattern> argument to git-tag
      * @var string
      */
     private $pattern;
-    
+
     /**
      * Property name to set with output value from git-tag
      * @var string
      */
     private $outputProperty;
-    
+
     /**
      * The main entry point for the task
      */
@@ -149,7 +149,7 @@ class GitTagTask extends GitBaseTask
             ->setOption('d', $this->isDelete())
             ->setOption('v', $this->isVerify())
             ->setOption('l', $this->isList());
-        
+
         if (null !== $this->getKeySign()) {
             $command->setOption('u', $this->getKeySign());
         }
@@ -161,12 +161,12 @@ class GitTagTask extends GitBaseTask
         if (null !== $this->getFile()) {
             $command->setOption('F', $this->getFile());
         }
-        
+
         // Use 'name' arg, if relevant
         if (null != $this->getName() && false == $this->isList()) {
             $command->addArgument($this->getName());
         }
-        
+
         if (null !== $this->getKeySign() || $this->isAnnotate() || $this->isSign()) {
             // Require a tag message or file
             if (null === $this->getMessage() && null === $this->getFile()) {
@@ -177,10 +177,12 @@ class GitTagTask extends GitBaseTask
         // Use 'commit' or 'object' args, if relevant
         if (null !== $this->getCommit()) {
             $command->addArgument($this->getCommit());
-        } else if (null !== $this->getObject()) {
-            $command->addArgument($this->getObject());
+        } else {
+            if (null !== $this->getObject()) {
+                $command->addArgument($this->getObject());
+            }
         }
-        
+
         // Customize list (-l) options
         if ($this->isList()) {
             if (null !== $this->getContains()) {
@@ -208,21 +210,22 @@ class GitTagTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-tag: tags for "%s" repository', $this->getRepository()), 
-            Project::MSG_INFO); 
+            sprintf('git-tag: tags for "%s" repository', $this->getRepository()),
+            Project::MSG_INFO
+        );
         $this->log('git-tag output: ' . trim($output), Project::MSG_INFO);
     }
-    
+
     public function setAnnotate($flag)
     {
-        $this->annotate = (bool)$flag;
+        $this->annotate = (bool) $flag;
     }
-    
+
     public function getAnnotate()
     {
         return $this->annotate;
     }
-    
+
     public function isAnnotate()
     {
         return $this->getAnnotate();
@@ -230,14 +233,14 @@ class GitTagTask extends GitBaseTask
 
     public function setSign($flag)
     {
-        $this->sign = (bool)$flag;
+        $this->sign = (bool) $flag;
     }
-    
+
     public function getSign()
     {
         return $this->sign;
     }
-    
+
     public function isSign()
     {
         return $this->getSign();
@@ -247,7 +250,7 @@ class GitTagTask extends GitBaseTask
     {
         $this->keySign = $keyId;
     }
-    
+
     public function getKeySign()
     {
         return $this->keySign;
@@ -255,14 +258,14 @@ class GitTagTask extends GitBaseTask
 
     public function setReplace($flag)
     {
-        $this->replace = (bool)$flag;
+        $this->replace = (bool) $flag;
     }
-    
+
     public function getReplace()
     {
         return $this->replace;
     }
-    
+
     public function isReplace()
     {
         return $this->getReplace();
@@ -272,17 +275,17 @@ class GitTagTask extends GitBaseTask
     {
         return $this->setReplace($flag);
     }
-    
+
     public function setDelete($flag)
     {
-        $this->delete = (bool)$flag;
+        $this->delete = (bool) $flag;
     }
-    
+
     public function getDelete()
     {
         return $this->delete;
     }
-    
+
     public function isDelete()
     {
         return $this->getDelete();
@@ -290,14 +293,14 @@ class GitTagTask extends GitBaseTask
 
     public function setVerify($flag)
     {
-        $this->verify = (bool)$flag;
+        $this->verify = (bool) $flag;
     }
-    
+
     public function getVerify()
     {
         return $this->verify;
     }
-    
+
     public function isVerify()
     {
         return $this->getVerify();
@@ -305,14 +308,14 @@ class GitTagTask extends GitBaseTask
 
     public function setList($flag)
     {
-        $this->list = (bool)$flag;
+        $this->list = (bool) $flag;
     }
-    
+
     public function getList()
     {
         return $this->list;
     }
-    
+
     public function isList()
     {
         return $this->getList();
@@ -320,9 +323,9 @@ class GitTagTask extends GitBaseTask
 
     public function setNum($num)
     {
-        $this->num = (int)$num;
+        $this->num = (int) $num;
     }
-    
+
     public function getNum()
     {
         return $this->num;
@@ -332,7 +335,7 @@ class GitTagTask extends GitBaseTask
     {
         $this->contains = $commit;
     }
-    
+
     public function getContains()
     {
         return $this->contains;
@@ -342,7 +345,7 @@ class GitTagTask extends GitBaseTask
     {
         $this->message = $msg;
     }
-    
+
     public function getMessage()
     {
         return $this->message;
@@ -352,7 +355,7 @@ class GitTagTask extends GitBaseTask
     {
         $this->file = $file;
     }
-    
+
     public function getFile()
     {
         return $this->file;
@@ -362,7 +365,7 @@ class GitTagTask extends GitBaseTask
     {
         $this->name = $name;
     }
-    
+
     public function getName()
     {
         return $this->name;
@@ -372,7 +375,7 @@ class GitTagTask extends GitBaseTask
     {
         $this->commit = $commit;
     }
-    
+
     public function getCommit()
     {
         return $this->commit;
@@ -382,7 +385,7 @@ class GitTagTask extends GitBaseTask
     {
         $this->object = $object;
     }
-    
+
     public function getObject()
     {
         return $this->object;
@@ -392,15 +395,14 @@ class GitTagTask extends GitBaseTask
     {
         $this->pattern = $pattern;
     }
-    
+
     public function getPattern()
     {
         return $this->pattern;
     }
-    
+
     public function setOutputProperty($prop)
     {
         $this->outputProperty = $prop;
     }
 }
-

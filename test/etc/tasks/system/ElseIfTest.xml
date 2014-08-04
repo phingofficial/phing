@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ElseIfTaskTest" default="testAddElseIf">
+    <property name="foo" value="foo" />
+    <property name="bar" value="bar" />
+
+    <target name="testAddThen">
+
+        <if>
+            <equals arg1="${foo}" arg2="bar" />
+            <then>
+                <echo message="The value of property foo is 'bar'" />
+            </then>
+
+            <elseif>
+                <equals arg1="${foo}" arg2="foo" />
+                <then>
+                    <echo message="Elseif: The value of property foo is 'foo'" />
+                </then>
+            </elseif>
+        </if>
+    </target>
+
+    <target name="testEvaluate">
+        <if>
+            <equals arg1="${foo}" arg2="bar" />
+            <then>
+                <echo message="We should not get here" />
+            </then>
+            <elseif>
+                <equals arg1="${foo}" arg2="foo" />
+                <then>
+                    <echo message="Elseif: The value of property foo is foo" />
+                </then>
+            </elseif>
+        </if>
+    </target>
+
+    <target name="testMultipleConditions">
+        <if>
+            <equals arg1="${foo}" arg2="bar" />
+
+            <then>
+                <echo message="We should not get here" />
+            </then>
+
+            <elseif>
+                <equals arg1="${foo}" arg2="foo" />
+                <equals arg1="${bar}" arg2="bar" />
+
+                <then>
+                    <echo message="This throws an error because you can't have multiple conditions inside an if-task." />
+                </then>
+            </elseif>
+        </if>
+    </target>
+
+    <target name="testNoConditions">
+        <if>
+            <equals arg1="${foo}" arg2="bar" />
+
+            <then>
+                <echo message="We should not get here" />
+            </then>
+
+            <elseif>
+                <then>
+                    <echo message="This throws an error because you can't have multiple conditions inside an if-task." />
+                </then>
+            </elseif>
+        </if>
+    </target>
+</project>

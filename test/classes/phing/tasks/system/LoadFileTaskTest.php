@@ -18,34 +18,35 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests the LoadFile Task
- * 
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.system
  */
-class LoadFileTaskTest extends BuildFileTest 
-{ 
-    public function setUp() 
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/system/LoadFileTest.xml");
+class LoadFileTaskTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/LoadFileTest.xml"
+        );
     }
 
     public function testVersionPropertySet()
     {
-      $this->executeTarget("test-version");
-      $this->assertInLogs('Property ${version} => 1.0.1');
+        $this->executeTarget("test-version");
+        $this->assertInLogs('Property ${version} => 1.0.1');
     }
-    
+
     public function testFilterChain()
     {
         $this->executeTarget("test-filterchain");
         $this->assertInLogs('<property>filterchain-test-123</property');
     }
 }
-

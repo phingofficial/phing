@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 
@@ -143,8 +143,9 @@ class GitBranchTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-branch: branch "%s" repository', $this->getRepository()), 
-            Project::MSG_INFO); 
+            sprintf('git-branch: branch "%s" repository', $this->getRepository()),
+            Project::MSG_INFO
+        );
         $this->log('git-branch output: ' . trim($output), Project::MSG_INFO);
     }
 
@@ -232,7 +233,7 @@ class GitBranchTask extends GitBaseTask
     {
         $this->extraOptions['d'] = $flag;
     }
-    
+
     public function getDelete()
     {
         return $this->extraOptions['d'];
@@ -247,7 +248,7 @@ class GitBranchTask extends GitBaseTask
     {
         $this->extraOptions['D'] = $flag;
     }
-    
+
     public function getForceDelete()
     {
         return $this->extraOptions['D'];
@@ -257,7 +258,7 @@ class GitBranchTask extends GitBaseTask
     {
         $this->extraOptions['m'] = $flag;
     }
-    
+
     public function getMove()
     {
         return $this->extraOptions['m'];
@@ -272,7 +273,7 @@ class GitBranchTask extends GitBaseTask
     {
         $this->extraOptions['M'] = $flag;
     }
-    
+
     public function getForceMove()
     {
         return $this->extraOptions['M'];

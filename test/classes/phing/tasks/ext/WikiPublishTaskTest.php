@@ -27,12 +27,14 @@ require_once 'phing/tasks/ext/WikiPublishTask.php';
  * @author  Piotr Lewandowski <piotr@cassis.pl>
  * @package phing.tasks.ext
  */
-class WikiPublishTaskTest extends BuildFileTest {
+class WikiPublishTaskTest extends BuildFileTest
+{
 
     /**
      * Test Wiki api success request and response sequence
      */
-    public function testApiEdit() {
+    public function testApiEdit()
+    {
         $task = $this->getWikiPublishMock();
 
         $task->setApiUrl('http://localhost/testApi.php');
@@ -78,7 +80,8 @@ class WikiPublishTaskTest extends BuildFileTest {
     /**
      * Test invalid input attributes
      */
-    public function testInvalidAttributes() {
+    public function testInvalidAttributes()
+    {
         $task = $this->getWikiPublishMock();
 
         try {
@@ -100,8 +103,10 @@ class WikiPublishTaskTest extends BuildFileTest {
      * Creates WikiPublishTask mock
      * @return WikiPublishTask
      */
-    private function getWikiPublishMock() {
+    private function getWikiPublishMock()
+    {
         $result = $this->getMock('WikiPublishTask', array('callApi'));
+
         return $result;
     }
 }

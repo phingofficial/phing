@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/system/io/FileOutputStream.php';
 
 /**
@@ -29,55 +28,63 @@ include_once 'phing/system/io/FileOutputStream.php';
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.system
  */
-class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
+class FileOutputStreamTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * @var FileOutputStream
      */
     private $outStream;
-    
-    public function setUp() {
-        $this->tmpFile = new PhingFile(PHING_TEST_BASE .  "/tmp/" . get_class($this) . ".txt");
+
+    public function setUp()
+    {
+        $this->tmpFile = new PhingFile(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
-    
-    public function tearDown() {
+
+    public function tearDown()
+    {
         $this->outStream->close();
         FileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
     }
-    
+
     public function assertFileContents($contents)
     {
         $actual = file_get_contents($this->tmpFile->getAbsolutePath());
-        $this->assertEquals($contents, $actual, "Expected file contents to match; expected '" . $contents . "', actual '" . $actual . "'");
+        $this->assertEquals(
+            $contents,
+            $actual,
+            "Expected file contents to match; expected '" . $contents . "', actual '" . $actual . "'"
+        );
     }
-    
-    public function testWrite() {
-        
+
+    public function testWrite()
+    {
+
         $string = "0123456789";
         $this->outStream->write($string);
-        
+
         $this->assertFileContents($string);
 
         $newstring = $string;
-        
+
         // check offset (no len)
         $this->outStream->write($string, 1);
         $this->outStream->flush();
         $newstring .= '123456789';
         $this->assertFileContents($newstring);
-        
+
         // check len (no offset)
         $this->outStream->write($string, 0, 3);
         $this->outStream->flush();
         $newstring .= '012';
         $this->assertFileContents($newstring);
 
-        
     }
-    
-    public function testFlush() {
-    
+
+    public function testFlush()
+    {
+
         $this->outStream->write("Some data");
         $this->outStream->flush();
         $this->outStream->close();
@@ -89,5 +96,5 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase {
             // exception is expected
         }
     }
-    
+
 }

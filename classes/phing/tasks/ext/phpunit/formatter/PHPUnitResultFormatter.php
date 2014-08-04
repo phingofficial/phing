@@ -31,22 +31,22 @@ require_once 'phing/system/io/Writer.php';
  */
 abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
 {
-    protected $out = NULL;
-    
-    protected $project = NULL;
-    
+    protected $out = null;
+
+    protected $project = null;
+
     private $timers = false;
-    
+
     private $runCounts = false;
-    
+
     private $failureCounts = false;
-    
+
     private $errorCounts = false;
-    
+
     private $incompleteCounts = false;
-    
+
     private $skipCounts = false;
-    
+
     /**
      * Constructor
      * @param PHPUnitTask $parentTask Calling Task
@@ -55,13 +55,13 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
     {
         $this->project = $parentTask->getProject();
     }
-    
+
     /**
      * Sets the writer the formatter is supposed to write its results to.
      */
     public function setOutput(Writer $out)
     {
-        $this->out = $out;  
+        $this->out = $out;
     }
 
     /**
@@ -78,11 +78,11 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
     {
         return "";
     }
-    
+
     public function processResult(PHPUnit_Framework_TestResult $result)
     {
     }
-    
+
     public function startTestRun()
     {
         $this->timers = array($this->getMicrotime());
@@ -92,11 +92,11 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
         $this->incompleteCounts = array(0);
         $this->skipCounts = array(0);
     }
-    
+
     public function endTestRun()
     {
     }
-    
+
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         $this->timers[] = $this->getMicrotime();
@@ -106,24 +106,24 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
         $this->incompleteCounts[] = 0;
         $this->skipCounts[] = 0;
     }
-    
+
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         $lastRunCount = array_pop($this->runCounts);
         $this->runCounts[count($this->runCounts) - 1] += $lastRunCount;
-        
+
         $lastFailureCount = array_pop($this->failureCounts);
         $this->failureCounts[count($this->failureCounts) - 1] += $lastFailureCount;
-        
+
         $lastErrorCount = array_pop($this->errorCounts);
         $this->errorCounts[count($this->errorCounts) - 1] += $lastErrorCount;
-        
+
         $lastIncompleteCount = array_pop($this->incompleteCounts);
         $this->incompleteCounts[count($this->incompleteCounts) - 1] += $lastIncompleteCount;
-        
+
         $lastSkipCount = array_pop($this->skipCounts);
         $this->skipCounts[count($this->skipCounts) - 1] += $lastSkipCount;
-        
+
         array_pop($this->timers);
     }
 
@@ -164,42 +164,40 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
     {
         return end($this->runCounts);
     }
-    
+
     public function getFailureCount()
     {
         return end($this->failureCounts);
     }
-    
+
     public function getErrorCount()
     {
         return end($this->errorCounts);
     }
-    
+
     public function getIncompleteCount()
     {
         return end($this->incompleteCounts);
     }
-    
+
     public function getSkippedCount()
     {
         return end($this->skipCounts);
     }
-    
+
     public function getElapsedTime()
     {
-        if (end($this->timers))
-        {
+        if (end($this->timers)) {
             return $this->getMicrotime() - end($this->timers);
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
 
-    private function getMicrotime() {
+    private function getMicrotime()
+    {
         list($usec, $sec) = explode(' ', microtime());
-        return (float)$usec + (float)$sec;
+
+        return (float) $usec + (float) $sec;
     }
 }
-

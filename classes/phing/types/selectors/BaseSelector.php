@@ -30,7 +30,8 @@ require_once 'phing/types/selectors/FileSelector.php';
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
  * @package phing.types.selectors
  */
-abstract class BaseSelector extends DataType implements FileSelector {
+abstract class BaseSelector extends DataType implements FileSelector
+{
 
     private $errmsg = null;
 
@@ -40,7 +41,8 @@ abstract class BaseSelector extends DataType implements FileSelector {
      *
      * @param msg The error message any BuildException should throw.
      */
-    public function setError($msg) {
+    public function setError($msg)
+    {
         if ($this->errmsg === null) {
             $this->errmsg = $msg;
         }
@@ -51,10 +53,10 @@ abstract class BaseSelector extends DataType implements FileSelector {
      *
      * @return the error condition
      */
-    public function getError() {
+    public function getError()
+    {
         return $this->errmsg;
     }
-
 
     /**
      * <p>Subclasses can override this method to provide checking of their
@@ -63,22 +65,22 @@ abstract class BaseSelector extends DataType implements FileSelector {
      * <p>Implementations should check for incorrect settings and call
      * setError() as necessary.</p>
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
     }
 
     /**
      * Subclasses can use this to throw the requisite exception
      * in isSelected() in the case of an error condition.
      */
-    public function validate() {
+    public function validate()
+    {
         if ($this->getError() === null) {
             $this->verifySettings();
         }
         if ($this->getError() !== null) {
             throw new BuildException($this->errmsg);
         }
-    }   
+    }
 
 }
-
-

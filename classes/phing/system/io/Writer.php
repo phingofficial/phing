@@ -16,38 +16,41 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 /**
  * Abstract class for writing character streams.
- * 
+ *
  * @package   phing.system.io
  */
-abstract class Writer {
-    
+abstract class Writer
+{
+
     /**
      * Writes data to output stream.
      * @param string $buf
-     * @param int $off
-     * @param int $len
+     * @param int    $off
+     * @param int    $len
      */
     abstract public function write($buf, $off = null, $len = null);
-    
+
     /**
      * Close the stream.
      * @throws IOException - if there is an error closing stream.
      */
     abstract public function close();
-    
+
     /**
      * Flush the stream, if supported by the stream.
      */
-    public function flush() {}
-    
+    public function flush()
+    {
+    }
+
     /**
      * Returns a string representation of resource filename, url, etc. that is being written to.
      * @return string
-     */    
+     */
     abstract public function getResource();
 }

@@ -30,15 +30,17 @@
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
  * @package phing.types.selectors
  */
-class PresentSelector extends BaseSelector {
+class PresentSelector extends BaseSelector
+{
 
     private $targetdir = null;
     private $mapperElement = null;
     private $map = null;
     private $destmustexist = true;
     private static $filePresence = array("srconly", "both");
-    
-    public function toString() {
+
+    public function toString()
+    {
         $buf = "{presentselector targetdir: ";
         if ($this->targetdir === null) {
             $buf .= "NOT YET SET";
@@ -57,6 +59,7 @@ class PresentSelector extends BaseSelector {
             $buf .= $this->mapperElement->toString();
         }
         $buf .= "}";
+
         return $buf;
     }
 
@@ -66,22 +69,24 @@ class PresentSelector extends BaseSelector {
      *
      * @param targetdir the directory to scan looking for matching files.
      */
-    public function setTargetdir(PhingFile $targetdir) {
+    public function setTargetdir(PhingFile $targetdir)
+    {
         $this->targetdir = $targetdir;
     }
 
     /**
      * Defines the FileNameMapper to use (nested mapper element).
-     * @throws BuildException 
+     * @throws BuildException
      */
-    public function createMapper() {
+    public function createMapper()
+    {
         if ($this->mapperElement !== null) {
             throw new BuildException("Cannot define more than one mapper");
         }
         $this->mapperElement = new Mapper($this->getProject());
+
         return $this->mapperElement;
     }
-
 
     /**
      * This sets whether to select a file if its dest file is present.
@@ -93,11 +98,12 @@ class PresentSelector extends BaseSelector {
      * a <code>destonly</code> option.
      *
      * @param string $fp An attribute set to either <code>srconly</code> or
-     *           <code>both</code>.
+     *                   <code>both</code>.
      */
-    public function setPresent($fp) {
+    public function setPresent($fp)
+    {
         $idx = array_search($fp, self::$filePresence, true);
-        if ( $idx === 0 ) {
+        if ($idx === 0) {
             $this->destmustexist = false;
         }
     }
@@ -106,7 +112,8 @@ class PresentSelector extends BaseSelector {
      * Checks to make sure all settings are kosher. In this case, it
      * means that the targetdir attribute has been set and we have a mapper.
      */
-    public function verifySettings() {
+    public function verifySettings()
+    {
         if ($this->targetdir === null) {
             $this->setError("The targetdir attribute is required.");
         }
@@ -129,7 +136,8 @@ class PresentSelector extends BaseSelector {
      * @param file is a PhingFile object the selector can use
      * @return whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file) {
+    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    {
 
         $this->validate();
 
@@ -147,8 +155,8 @@ class PresentSelector extends BaseSelector {
         }
         $destname = $destfiles[0];
         $destfile = new PhingFile($this->targetdir, $destname);
+
         return $destfile->exists() === $this->destmustexist;
     }
 
 }
-

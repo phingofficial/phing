@@ -44,20 +44,20 @@ class ZendGuardLicenseTask extends Task
      */
     /**
      * Path to Zend Guard zendenc_sign executable
-     * 
+     *
      * @var string
      */
     protected $zendsignPath;
     /**
      * Path to private key that will be used to sign the license
-     * 
+     *
      * @var string
      */
     protected $privateKeyPath;
     /**
      * Where to store the signed license file
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $outputFile;
     /**
@@ -73,7 +73,7 @@ class ZendGuardLicenseTask extends Task
      * the PHP files.
      *
      * REQUIRED
-     * 
+     *
      * @var string
      */
     protected $productName;
@@ -81,8 +81,8 @@ class ZendGuardLicenseTask extends Task
      * The Name of the Registered owner of the license.
      *
      * REQUIRED
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $registeredTo;
     /**
@@ -98,38 +98,38 @@ class ZendGuardLicenseTask extends Task
      */
     protected $expires;
     /**
-     * Limits the use of the license to IP addresses that fall within specification. Supports 
-     * wildcards for any of the IP place holders, as well as the two types of net masks 
+     * Limits the use of the license to IP addresses that fall within specification. Supports
+     * wildcards for any of the IP place holders, as well as the two types of net masks
      * (filters).
-     * Netmask pair An IP a.b.c.d, and a netmask w.x.y.z. (That is., 10.1.0.0/255.255.0.0), 
+     * Netmask pair An IP a.b.c.d, and a netmask w.x.y.z. (That is., 10.1.0.0/255.255.0.0),
      * where the binary of mask is applied to filter IP addresses.
-     * ip/nnn (similar to a CIDR specification) This mask consists of nnn high-order 1 bits. 
-     * (That is, 10.1.0.0/16 is the same as 10.1.0.0/255.255.0.0). Instead of spelling out 
-     * the bits of the subnet mask, this mask notation is simply listed as the number of 1s 
-     * bits that start the mask. Rather than writing the address and subnet mask as 
-     * 192.60.128.0/255.255.252.0 the network address would be written simply as: 
+     * ip/nnn (similar to a CIDR specification) This mask consists of nnn high-order 1 bits.
+     * (That is, 10.1.0.0/16 is the same as 10.1.0.0/255.255.0.0). Instead of spelling out
+     * the bits of the subnet mask, this mask notation is simply listed as the number of 1s
+     * bits that start the mask. Rather than writing the address and subnet mask as
+     * 192.60.128.0/255.255.252.0 the network address would be written simply as:
      * 192.60.128.0/22 which indicates starting address of the network and number of 1s
-     * bits (22) in the network portion of the address. The mask in binary is 
+     * bits (22) in the network portion of the address. The mask in binary is
      * (11111111.11111111.11111100.00000000).
-     * 
+     *
      * OPTIONAL
-     * 
+     *
      * Example (Wildcard):
      * IP-Range = 10.1.*.*
      * Example (Net Mask):
      * IP-Range = 10.1.0.0/255.255.0.0
      * Example (Net Mask):
      * IP-Range = 10.1.0.0/16
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $ipRange;
     /**
-     * Coded string (Zend Host ID) used to lock the license to a specific hardware. The 
-     * Zend Host ID obtained from the machine where the encoded files and license are 
+     * Coded string (Zend Host ID) used to lock the license to a specific hardware. The
+     * Zend Host ID obtained from the machine where the encoded files and license are
      * to be installed. The Zend Host ID code can be obtained by using the zendid utility.
      * For more details, see Getting the Zend Host ID.
-     * 
+     *
      * REQUIRED if Hardware-Locked is set equal to YES.
      * Meaningless if Hardware-Locked is set equal to NO.
      *
@@ -137,14 +137,14 @@ class ZendGuardLicenseTask extends Task
      *
      * Example:
      * Host-ID = H:MFM43-Q9CXC-B9EDX-GWYSU;H:MFM43-Q9CXC-B9EDX-GWYTY
-     * 
-     * @var string 
+     *
+     * @var string
      */
     protected $hostID;
     /**
      * Option that indicates if the license will be locked to a specific machine
      * using the Zend Host ID code(s). If set to YES, the Host-ID is required.
-     * 
+     *
      * OPTIONAL
      *
      * @var bool
@@ -174,7 +174,6 @@ class ZendGuardLicenseTask extends Task
      * @var string
      */
     protected $xUserDefinedValues;
-
 
     public function setLicenseTemplate($value)
     {
@@ -378,7 +377,6 @@ class ZendGuardLicenseTask extends Task
         // add key path
         $command .= ' ' . $this->privateKeyPath;
 
-
         $this->zendsignCommand = $command;
 
         return $command;
@@ -496,19 +494,22 @@ class ZendGuardLicenseTask extends Task
     }
 
     /**
-     * Parse the given string in format like key1=value1;key2=value2;... and 
+     * Parse the given string in format like key1=value1;key2=value2;... and
      * converts it to array
      *   (key1=>value1, key2=value2, ...)
      *
      * @param stirng $valueString Semi-colon separated value pairs
-     * @param array  $valueArray Array to which the values will be added
-     * @param string $keyPrefix Prefix to use when adding the key
+     * @param array  $valueArray  Array to which the values will be added
+     * @param string $keyPrefix   Prefix to use when adding the key
      *
      * @return void
      */
-    protected function parseAndAddUserDefinedValues($valueString, array &$valueArray, $keyPrefix = '',
-                                                    $pairSeparator = ';')
-    {
+    protected function parseAndAddUserDefinedValues(
+        $valueString,
+        array &$valueArray,
+        $keyPrefix = '',
+        $pairSeparator = ';'
+    ) {
         // explode the valueString (semicolon)
         $valuePairs = explode($pairSeparator, $valueString);
         if (!empty($valuePairs)) {

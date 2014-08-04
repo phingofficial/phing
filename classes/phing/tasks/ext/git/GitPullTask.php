@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 
@@ -121,7 +121,12 @@ class GitPullTask extends GitBaseTask
      * @var array
      */
     private $validStrategies = array(
-        'octopus', 'ours', 'recursive', 'resolve', 'subtree');
+        'octopus',
+        'ours',
+        'recursive',
+        'resolve',
+        'subtree'
+    );
 
     /**
      * The main entry point for the task
@@ -146,13 +151,15 @@ class GitPullTask extends GitBaseTask
             // check if strategy is valid
             if (false === in_array($strategy, $this->validStrategies)) {
                 throw new BuildException(
-                    "Could not find merge strategy '" . $strategy . "'\n".
+                    "Could not find merge strategy '" . $strategy . "'\n" .
                     "Available strategies are: " . implode(', ', $this->validStrategies));
             }
             $command->setOption('strategy', $strategy);
             if ($this->getStrategyOption()) {
                 $command->setOption(
-                    'strategy-option', $this->getStrategyOption());
+                    'strategy-option',
+                    $this->getStrategyOption()
+                );
             }
         }
 
@@ -166,18 +173,22 @@ class GitPullTask extends GitBaseTask
             ->setOption('force', $this->isForce());
 
         // set operation target
-        if ($this->isAllRemotes()) {            // --all
+        if ($this->isAllRemotes()) { // --all
             $command->setOption('all', true);
             $this->log('git-pull: fetching from all remotes', Project::MSG_INFO);
-        } elseif ($this->getSource()) {         // <repository> [<refspec>]
+        } elseif ($this->getSource()) { // <repository> [<refspec>]
             $command->addArgument($this->getSource());
             if ($this->getRefspec()) {
                 $command->addArgument($this->getRefspec());
             }
             $this->log(
-                sprintf('git-pull: pulling from %s %s', 
-                    $this->getSource(), $this->getRefspec()), 
-                Project::MSG_INFO); 
+                sprintf(
+                    'git-pull: pulling from %s %s',
+                    $this->getSource(),
+                    $this->getRefspec()
+                ),
+                Project::MSG_INFO
+            );
         } else {
             throw new BuildException('No source repository specified');
         }
@@ -190,7 +201,7 @@ class GitPullTask extends GitBaseTask
             throw new BuildException('Task execution failed.', $e);
         }
 
-        $this->log('git-pull: complete', Project::MSG_INFO); 
+        $this->log('git-pull: complete', Project::MSG_INFO);
         $this->log('git-pull output: ' . trim($output), Project::MSG_INFO);
 
     }
@@ -252,7 +263,7 @@ class GitPullTask extends GitBaseTask
 
     public function setAppend($flag)
     {
-        $this->append = (boolean)$flag;
+        $this->append = (boolean) $flag;
     }
 
     public function getAppend()
@@ -327,7 +338,7 @@ class GitPullTask extends GitBaseTask
 
     public function setRebase($flag)
     {
-        $this->rebase = (boolean)$flag;
+        $this->rebase = (boolean) $flag;
     }
 
     public function getRebase()
@@ -342,7 +353,7 @@ class GitPullTask extends GitBaseTask
 
     public function setNoRebase($flag)
     {
-        $this->noRebase = (boolean)$flag;
+        $this->noRebase = (boolean) $flag;
     }
 
     public function getNoRebase()

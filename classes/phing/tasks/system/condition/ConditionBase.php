@@ -29,7 +29,7 @@ include_once 'phing/parser/CustomChildCreator.php';
  * Abstract baseclass for the <condition> task as well as several
  * conditions - ensures that the types of conditions inside the task
  * and the "container" conditions are in sync.
- * 
+ *
  * @author  Hans Lellelid <hans@xmpl.org>
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
@@ -37,125 +37,150 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent
-    implements IteratorAggregate, CustomChildCreator {
-        
+    implements IteratorAggregate, CustomChildCreator
+{
+
     public $conditions = array(); // needs to be public for "inner" class access
 
-    function countConditions() {
+    public function countConditions()
+    {
         return count($this->conditions);
     }
-    
+
     /**
      * Required for IteratorAggregate
      */
-    function getIterator() {
+    public function getIterator()
+    {
         return new ConditionEnumeration($this);
     }
-    
-    function getConditions() {
+
+    public function getConditions()
+    {
         return $this->conditions;
     }
 
     /**
      * @return void
      */
-    function addAvailable(AvailableTask $a) {
+    public function addAvailable(AvailableTask $a)
+    {
         $this->conditions[] = $a;
     }
 
     /**
      * @return NotCondition
      */
-    function createNot() {
+    public function createNot()
+    {
         include_once 'phing/tasks/system/condition/NotCondition.php';
         $num = array_push($this->conditions, new NotCondition());
-        return $this->conditions[$num-1];        
+
+        return $this->conditions[$num - 1];
     }
 
     /**
      * @return AndCondition
      */
-    function createAnd() {
+    public function createAnd()
+    {
         include_once 'phing/tasks/system/condition/AndCondition.php';
         $num = array_push($this->conditions, new AndCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
-    
+
     /**
      * @return OrCondition
      */
-    function createOr() {
+    public function createOr()
+    {
         include_once 'phing/tasks/system/condition/OrCondition.php';
         $num = array_push($this->conditions, new OrCondition());
-        return $this->conditions[$num-1];        
+
+        return $this->conditions[$num - 1];
     }
 
     /**
      * @return EqualsCondition
      */
-    function createEquals() {
-        include_once 'phing/tasks/system/condition/EqualsCondition.php';  
+    public function createEquals()
+    {
+        include_once 'phing/tasks/system/condition/EqualsCondition.php';
         $num = array_push($this->conditions, new EqualsCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
 
     /**
      * @return OsCondition
      */
-    function createOs() {
+    public function createOs()
+    {
         include_once 'phing/tasks/system/condition/OsCondition.php';
         $num = array_push($this->conditions, new OsCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
-   
+
     /**
      * @return IsFalseCondition
      */
-    function createIsFalse() {
+    public function createIsFalse()
+    {
         include_once 'phing/tasks/system/condition/IsFalseCondition.php';
         $num = array_push($this->conditions, new IsFalseCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
-   
+
     /**
      * @return IsTrueCondition
      */
-    function createIsTrue() {
+    public function createIsTrue()
+    {
         include_once 'phing/tasks/system/condition/IsTrueCondition.php';
         $num = array_push($this->conditions, new IsTrueCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
-   
+
     /**
      * @return ContainsCondition
      */
-    function createContains() {
+    public function createContains()
+    {
         include_once 'phing/tasks/system/condition/ContainsCondition.php';
         $num = array_push($this->conditions, new ContainsCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
-   
+
     /**
      * @return IsSetCondition
      */
-    function createIsSet() {
+    public function createIsSet()
+    {
         include_once 'phing/tasks/system/condition/IsSetCondition.php';
         $num = array_push($this->conditions, new IsSetCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
 
     /**
      * @return ReferenceExistsCondition
      */
-    function createReferenceExists() {
+    public function createReferenceExists()
+    {
         include_once 'phing/tasks/system/condition/ReferenceExistsCondition.php';
         $num = array_push($this->conditions, new ReferenceExistsCondition());
-        return $this->conditions[$num-1];
+
+        return $this->conditions[$num - 1];
     }
-    
+
     /**
-     * @param string $elementName
-     * @param Project $project
+     * @param  string         $elementName
+     * @param  Project        $project
      * @throws BuildException
      * @return Condition
      */
@@ -163,6 +188,7 @@ abstract class ConditionBase extends ProjectComponent
     {
         $condition = $project->createCondition($elementName);
         $num = array_push($this->conditions, $condition);
+
         return $this->conditions[$num - 1];
     }
 
@@ -174,39 +200,47 @@ abstract class ConditionBase extends ProjectComponent
  *
  * @package   phing.tasks.system.condition
  */
-class ConditionEnumeration implements Iterator {
-    
+class ConditionEnumeration implements Iterator
+{
+
     /** Current element number */
     private $num = 0;
-    
+
     /** "Outer" ConditionBase class. */
     private $outer;
 
-    function __construct(ConditionBase $outer) {
+    public function __construct(ConditionBase $outer)
+    {
         $this->outer = $outer;
     }
-    
-    public function valid() {
+
+    public function valid()
+    {
         return $this->outer->countConditions() > $this->num;
     }
 
-    function current() {
+    public function current()
+    {
         $o = $this->outer->conditions[$this->num];
         if ($o instanceof ProjectComponent) {
             $o->setProject($this->outer->getProject());
         }
+
         return $o;
     }
-    
-    function next() {
+
+    public function next()
+    {
         $this->num++;
     }
-    
-    function key() {
+
+    public function key()
+    {
         return $this->num;
     }
-    
-    function rewind() {
+
+    public function rewind()
+    {
         $this->num = 0;
     }
 }

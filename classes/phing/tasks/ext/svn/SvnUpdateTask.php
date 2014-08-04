@@ -34,9 +34,9 @@ class SvnUpdateTask extends SvnBaseTask
 {
     /**
      * Which Revision to Export
-     * 
+     *
      * @todo check if version_control_svn supports constants
-     * 
+     *
      * @var string
      */
     private $revision = 'HEAD';
@@ -46,11 +46,14 @@ class SvnUpdateTask extends SvnBaseTask
      *
      * @throws BuildException
      */
-    function main()
+    public function main()
     {
         $this->setup('update');
 
-        $this->log("Updating SVN repository at '" . $this->getToDir() . "'". ($this->revision=='HEAD'?'':" (revision: {$this->revision})"));
+        $this->log(
+            "Updating SVN repository at '" . $this->getToDir(
+            ) . "'" . ($this->revision == 'HEAD' ? '' : " (revision: {$this->revision})")
+        );
 
         // revision
         $switches = array(

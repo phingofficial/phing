@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
@@ -27,11 +27,13 @@ require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnInfoTaskTest extends AbstractSvnTaskTest { 
-    public function setUp() {
+class SvnInfoTaskTest extends AbstractSvnTaskTest
+{
+    public function setUp()
+    {
         parent::setUp('SvnInfoTest.xml');
     }
-    
+
     public function testGetUrl()
     {
         $repository = PHING_TEST_BASE . '/tmp/svn';

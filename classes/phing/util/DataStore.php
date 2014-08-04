@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/system/io/PhingFile.php';
 require_once 'phing/system/io/FileWriter.php';
 
@@ -32,32 +32,31 @@ require_once 'phing/system/io/FileWriter.php';
  */
 class DataStore
 {
-    private $data = array();    
+    private $data = array();
     private $file = null;
-    
+
     /**
      * Constructs a new data store
      *
      * @param PhingFile $file object pointing to the data store on disk
      */
-    function __construct(PhingFile $file)
+    public function __construct(PhingFile $file)
     {
         $this->file = $file;
-        
-        if ($this->file->exists())
-        {
+
+        if ($this->file->exists()) {
             $this->read();
         }
     }
-    
+
     /**
      * Destructor
      */
-    function __destruct()
+    public function __destruct()
     {
         $this->commit();
     }
-    
+
     /**
      * Retrieves a value from the data store
      *
@@ -67,22 +66,19 @@ class DataStore
      */
     public function get($key)
     {
-        if (!isset($this->data[$key]))
-        {
+        if (!isset($this->data[$key])) {
             return null;
-        }
-        else
-        {
+        } else {
             return $this->data[$key];
         }
     }
-    
+
     /**
      * Adds a value to the data store
      *
      * @param string  $key        the key
      * @param mixed   $value      the value
-     * @param boolean $autocommit whether to auto-commit (write) 
+     * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      *
      * @return none
@@ -90,13 +86,12 @@ class DataStore
     public function put($key, $value, $autocommit = false)
     {
         $this->data[$key] = $value;
-        
-        if ($autocommit)
-        {
+
+        if ($autocommit) {
             $this->commit();
         }
     }
-    
+
     /**
      * Commits data store to disk
      *
@@ -106,7 +101,7 @@ class DataStore
     {
         $this->write();
     }
-    
+
     /**
      * Internal function to read data store from file
      *
@@ -114,15 +109,12 @@ class DataStore
      */
     private function read()
     {
-        if (!$this->file->canRead())
-        {
-            throw new BuildException("Can't read data store from '" . 
+        if (!$this->file->canRead()) {
+            throw new BuildException("Can't read data store from '" .
                 $file->getPath() . "'");
-        }
-        else
-        {
+        } else {
             $serializedData = $this->file->contents();
-            
+
             $this->data = unserialize($serializedData);
         }
     }
@@ -134,18 +126,17 @@ class DataStore
      */
     private function write()
     {
-        if (!$this->file->canWrite())
-        {
-            throw new BuildException("Can't write data store to '" . 
+        if (!$this->file->canWrite()) {
+            throw new BuildException("Can't write data store to '" .
                 $file->getPath() . "'");
-        }
-        else
-        {
+        } else {
             $serializedData = serialize($this->data);
 
             $writer = new FileWriter($this->file);
             $writer->write($serializedData);
             $writer->close();
         }
-    }    
-};
+    }
+}
+
+;

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -16,39 +16,45 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once 'phing/mappers/FileNameMapper.php';
 
 /**
  * This mapper does nothing ;)
- * 
+ *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
  * @version   $Id$
  * @package   phing.mappers
  */
-class IdentityMapper implements FileNameMapper {
+class IdentityMapper implements FileNameMapper
+{
 
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
      * @param  string $sourceFileName The data the mapper works on.
-     * @return array The data after the mapper has been applied
+     * @return array  The data after the mapper has been applied
      */
-    function main($sourceFileName) {
+    public function main($sourceFileName)
+    {
         return array($sourceFileName);
     }
 
     /**
      * Ignored here.
      */
-    function setTo($to) {}
+    public function setTo($to)
+    {
+    }
 
     /**
      * Ignored here.
      */
-    function setFrom($from) {}
+    public function setFrom($from)
+    {
+    }
 
 }

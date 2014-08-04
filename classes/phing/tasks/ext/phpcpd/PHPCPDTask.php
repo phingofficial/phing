@@ -139,7 +139,7 @@ class PHPCPDTask extends Task
         $this->allowedFileExtensions = array();
 
         $token = ' ,;';
-        $ext   = strtok($fileExtensions, $token);
+        $ext = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
@@ -156,7 +156,7 @@ class PHPCPDTask extends Task
     {
         $this->ignorePatterns = array();
 
-        $token   = ' ,;';
+        $token = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
 
         while ($pattern !== false) {
@@ -184,7 +184,7 @@ class PHPCPDTask extends Task
     {
         $num = array_push($this->formatters, new PHPCPDFormatterElement($this));
 
-        return $this->formatters[$num-1];
+        return $this->formatters[$num - 1];
     }
 
     /**
@@ -194,11 +194,14 @@ class PHPCPDTask extends Task
      */
     public function main()
     {
-        if (class_exists('Composer\\Autoload\\ClassLoader', false) && class_exists('\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy')) {
+        if (class_exists('Composer\\Autoload\\ClassLoader', false) && class_exists(
+                '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy'
+            )
+        ) {
             $oldVersion = false;
         } elseif ($handler = @fopen('SebastianBergmann/PHPCPD/autoload.php', 'r', true)) {
             fclose($handler);
-            @include_once('SebastianBergmann/PHPCPD/autoload.php');
+            @include_once 'SebastianBergmann/PHPCPD/autoload.php';
 
             if (version_compare(PHP_VERSION, '5.3.0') < 0) {
                 throw new BuildException('The PHPCPD task now requires PHP 5.3+');
@@ -207,7 +210,7 @@ class PHPCPDTask extends Task
             $oldVersion = false;
         } elseif ($handler = @fopen('PHPCPD/Autoload.php', 'r', true)) {
             fclose($handler);
-            @include_once('PHPCPD/Autoload.php');
+            @include_once 'PHPCPD/Autoload.php';
 
             $oldVersion = true;
         } else {
@@ -242,8 +245,8 @@ class PHPCPDTask extends Task
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                     $f = new PhingFile($fs->getDir($this->project), $filename);
-                     $filesToParse[] = $f->getAbsolutePath();
+                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $filesToParse[] = $f->getAbsolutePath();
                 }
             }
         }
@@ -258,8 +261,8 @@ class PHPCPDTask extends Task
             $strategyClass = '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy';
         }
 
-        $detector = new $detectorClass(new $strategyClass);
-        $clones   = $detector->copyPasteDetection(
+        $detector = new $detectorClass(new $strategyClass());
+        $clones = $detector->copyPasteDetection(
             $filesToParse,
             $this->minLines,
             $this->minTokens

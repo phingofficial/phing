@@ -34,18 +34,18 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
     /**
      * @var PHPUnit_Framework_TestResult
      */
-    private $result = NULL;
-    
+    private $result = null;
+
     /**
      * PHPUnit version
      * @var string
      */
-    private $version = NULL;
+    private $version = null;
 
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
-        
+
         $this->version = PHPUnit_Runner_Version::id();
     }
 
@@ -67,19 +67,18 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
     public function endTestRun()
     {
         $coverage = $this->result->getCodeCoverage();
-        
+
         if (!empty($coverage)) {
             $clover = new PHP_CodeCoverage_Report_Clover();
-            
+
             $contents = $clover->process($coverage);
-    
-            if ($this->out)
-            {
+
+            if ($this->out) {
                 $this->out->write($contents);
                 $this->out->close();
             }
         }
-        
+
         parent::endTestRun();
     }
 }

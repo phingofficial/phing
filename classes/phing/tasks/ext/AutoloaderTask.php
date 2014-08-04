@@ -26,7 +26,8 @@ require_once "phing/Task.php";
  * @author Max Romanovsky <max.romanovsky@gmail.com>
  * @package phing.tasks.ext
  */
-class AutoloaderTask extends Task {
+class AutoloaderTask extends Task
+{
 
     const DEFAULT_AUTOLOAD_PATH = 'vendor/autoload.php';
 
@@ -61,7 +62,10 @@ class AutoloaderTask extends Task {
     public function main()
     {
         if (is_dir($this->autoloaderPath) || !is_readable($this->autoloaderPath)) {
-            throw new BuildException(sprintf('Provided autoloader file "%s" is not a readable file', $this->autoloaderPath));
+            throw new BuildException(sprintf(
+                'Provided autoloader file "%s" is not a readable file',
+                $this->autoloaderPath
+            ));
         }
         $this->log('Loading autoloader from ' . $this->autoloaderPath);
         require_once $this->autoloaderPath;

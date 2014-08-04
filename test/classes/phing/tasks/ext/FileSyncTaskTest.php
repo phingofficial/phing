@@ -33,8 +33,10 @@ class FileSyncTaskTest extends BuildFileTest
 {
     public function setUp()
     {
-        $this->configureProject(PHING_TEST_BASE
-                              . "/etc/tasks/ext/FileSyncTaskTest.xml");
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/ext/FileSyncTaskTest.xml"
+        );
         $this->executeTarget("setup");
     }
 
@@ -45,23 +47,29 @@ class FileSyncTaskTest extends BuildFileTest
 
     public function testNoSourceSpecified()
     {
-        $this->expectBuildExceptionContaining('noSourceDir',
+        $this->expectBuildExceptionContaining(
+            'noSourceDir',
             'No source set',
-            '"sourcedir" attribute is missing');
+            '"sourcedir" attribute is missing'
+        );
     }
 
     public function testNoDestinationSpecified()
     {
-        $this->expectBuildExceptionContaining('noDestinationDir',
+        $this->expectBuildExceptionContaining(
+            'noDestinationDir',
             'No destination set',
-            '"destinationdir" attribute is missing');
+            '"destinationdir" attribute is missing'
+        );
     }
 
     public function testNonexistentSource()
     {
-        $this->expectBuildExceptionContaining('wrongSource',
+        $this->expectBuildExceptionContaining(
+            'wrongSource',
             'Local source directory must be readable',
-            'No such file or directory');
+            'No such file or directory'
+        );
     }
 
 //    public function testLocalFileSync()
@@ -76,8 +84,10 @@ class FileSyncTaskTest extends BuildFileTest
 
     public function testRemoteToRemoteSync()
     {
-        $this->expectBuildExceptionContaining(__FUNCTION__,
+        $this->expectBuildExceptionContaining(
+            __FUNCTION__,
             'Either "sourcedir" or "destinationdir" must be local',
-            'The source and destination cannot both be remote');
+            'The source and destination cannot both be remote'
+        );
     }
 }

@@ -14,13 +14,12 @@
             if ($silent) {
                 return;
             }
+
             return 'foo';
         }
 
-        function sayHello()
+        public function sayHello()
         {
             return "Hello World!";
         }
     };
-
-?>

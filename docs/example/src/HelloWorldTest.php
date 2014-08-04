@@ -18,5 +18,3 @@
             $this->assertEquals("Hello World!", $hello->sayHello());
         }
     }
-
-?>

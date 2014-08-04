@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitLogTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,79 +28,87 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitLogTaskTest extends BuildFileTest { 
+class GitLogTaskTest extends BuildFileTest
+{
 
     private $testCommits = array(
         array(
-            'commit'    => '6dbaf4508e75dcd426b5b974a67c462c70d46e1f',
-            'author'    => 'Victor Farazdagi <simple.square@gmail.com>',
-            'date'      => 'Sun Sep 26 21:14:44 2010 +0400',
-            'msg'       => 'Inited',
-            'msg-full'  => '',
-            'From'      => '6dbaf4508e75dcd426b5b974a67c462c70d46e1f Mon Sep 17 00:00:00 2001',
-            'From:'     => 'Victor Farazdagi <simple.square@gmail.com>',
-            'Date'      =>  'Sun, 26 Sep 2010 21:14:44 +0400',
-            'Subject'   => '[PATCH] Inited',
+            'commit' => '6dbaf4508e75dcd426b5b974a67c462c70d46e1f',
+            'author' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'date' => 'Sun Sep 26 21:14:44 2010 +0400',
+            'msg' => 'Inited',
+            'msg-full' => '',
+            'From' => '6dbaf4508e75dcd426b5b974a67c462c70d46e1f Mon Sep 17 00:00:00 2001',
+            'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'Date' => 'Sun, 26 Sep 2010 21:14:44 +0400',
+            'Subject' => '[PATCH] Inited',
         ),
         array(
-            'commit'    => 'b8cddb3fa5f408560d0d00d6c8721fe333895888',
-            'author'    => 'Victor Farazdagi <simple.square@gmail.com>',
-            'date'      =>   'Sun Jan 23 22:53:07 2011 +0300',
-            'msg'       => 'Added file1 + file2',
-            'msg-full'  => '',
-            'From'      => 'b8cddb3fa5f408560d0d00d6c8721fe333895888 Mon Sep 17 00:00:00 2001',
-            'From:'     => 'Victor Farazdagi <simple.square@gmail.com>',
-            'Date'      =>  'Sun, 23 Jan 2011 22:53:07 +0300',
-            'Subject'   => '[PATCH] Added file1 + file2',
+            'commit' => 'b8cddb3fa5f408560d0d00d6c8721fe333895888',
+            'author' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'date' => 'Sun Jan 23 22:53:07 2011 +0300',
+            'msg' => 'Added file1 + file2',
+            'msg-full' => '',
+            'From' => 'b8cddb3fa5f408560d0d00d6c8721fe333895888 Mon Sep 17 00:00:00 2001',
+            'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'Date' => 'Sun, 23 Jan 2011 22:53:07 +0300',
+            'Subject' => '[PATCH] Added file1 + file2',
         ),
         array(
-            'commit'    => 'c573116f395d36497a1ac1dba565ecd3d3944277',
-            'author'    => 'Victor Farazdagi <simple.square@gmail.com>',
-            'date'      =>   'Sun Jan 23 22:53:19 2011 +0300',
-            'msg'       => 'Added file3',
-            'msg-full'  => '',
-            'From'      => 'c573116f395d36497a1ac1dba565ecd3d3944277 Mon Sep 17 00:00:00 2001',
-            'From:'     => 'Victor Farazdagi <simple.square@gmail.com>',
-            'Date'      =>  'Sun, 23 Jan 2011 22:53:19 +0300',
-            'Subject'   => '[PATCH] Added file3',
+            'commit' => 'c573116f395d36497a1ac1dba565ecd3d3944277',
+            'author' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'date' => 'Sun Jan 23 22:53:19 2011 +0300',
+            'msg' => 'Added file3',
+            'msg-full' => '',
+            'From' => 'c573116f395d36497a1ac1dba565ecd3d3944277 Mon Sep 17 00:00:00 2001',
+            'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'Date' => 'Sun, 23 Jan 2011 22:53:19 +0300',
+            'Subject' => '[PATCH] Added file3',
         ),
         array(
-            'commit'    => '2b4a5409bf60813b6a84d583bbdcbed25c7c3a00',
-            'author'    => 'Victor Farazdagi <simple.square@gmail.com>',
-            'date'      => 'Sun Jan 23 22:53:42 2011 +0300',
-            'msg'       => 'Removed file3',
-            'msg-full'  => '',
-            'From'      => '2b4a5409bf60813b6a84d583bbdcbed25c7c3a00 Mon Sep 17 00:00:00 2001',
-            'From:'     => 'Victor Farazdagi <simple.square@gmail.com>',
-            'Date'      =>  'Sun, 23 Jan 2011 22:53:42 +0300',
-            'Subject'   => '[PATCH] Removed file3',
+            'commit' => '2b4a5409bf60813b6a84d583bbdcbed25c7c3a00',
+            'author' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'date' => 'Sun Jan 23 22:53:42 2011 +0300',
+            'msg' => 'Removed file3',
+            'msg-full' => '',
+            'From' => '2b4a5409bf60813b6a84d583bbdcbed25c7c3a00 Mon Sep 17 00:00:00 2001',
+            'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'Date' => 'Sun, 23 Jan 2011 22:53:42 +0300',
+            'Subject' => '[PATCH] Removed file3',
         ),
         array(
-            'commit'    => 'ee07085160003ffd1100867deb6059bae0c45455',
-            'author'    => 'Victor Farazdagi <simple.square@gmail.com>',
-            'date'      =>   'Sun Jan 23 23:38:34 2011 +0300',
-            'msg'       => 'Title: file4 was added',
-            'msg-full'  => 'Full commit message: and here goes some elaboration on what has been done.',
-            'From'      => 'ee07085160003ffd1100867deb6059bae0c45455 Mon Sep 17 00:00:00 2001',
-            'From:'     => 'Victor Farazdagi <simple.square@gmail.com>',
-            'Date'      =>  'Sun, 23 Jan 2011 23:38:34 +0300',
-            'Subject'   => '[PATCH] Title: file4 was added',
+            'commit' => 'ee07085160003ffd1100867deb6059bae0c45455',
+            'author' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'date' => 'Sun Jan 23 23:38:34 2011 +0300',
+            'msg' => 'Title: file4 was added',
+            'msg-full' => 'Full commit message: and here goes some elaboration on what has been done.',
+            'From' => 'ee07085160003ffd1100867deb6059bae0c45455 Mon Sep 17 00:00:00 2001',
+            'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'Date' => 'Sun, 23 Jan 2011 23:38:34 +0300',
+            'Subject' => '[PATCH] Title: file4 was added',
         ),
         array(
             'commit' => '1b767b75bb5329f4e53345c516c0a9f4ed32d330',
             'author' => 'Victor Farazdagi <simple.square@gmail.com>',
-            'date'   => 'Mon Jan 24 09:58:33 2011 +0300',
-            'msg'   => 'Added file5', 
-            'msg-full'  => 'This file was added one day after file1, file2, file3 and file4 were added',
-            'From'      => '1b767b75bb5329f4e53345c516c0a9f4ed32d330 Mon Sep 17 00:00:00 2001',
-            'From:'     => 'Victor Farazdagi <simple.square@gmail.com>',
-            'Date'      => 'Mon, 24 Jan 2011 09:58:33 +0300',
-            'Subject'   => '[PATCH] Added file5',
+            'date' => 'Mon Jan 24 09:58:33 2011 +0300',
+            'msg' => 'Added file5',
+            'msg-full' => 'This file was added one day after file1, file2, file3 and file4 were added',
+            'From' => '1b767b75bb5329f4e53345c516c0a9f4ed32d330 Mon Sep 17 00:00:00 2001',
+            'From:' => 'Victor Farazdagi <simple.square@gmail.com>',
+            'Date' => 'Mon, 24 Jan 2011 09:58:33 +0300',
+            'Subject' => '[PATCH] Added file5',
         ),
-    
+
     );
 
-    public function setUp() { 
+    public function setUp()
+    {
+        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
+        // not work on Windows.
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped('Testing not on a windows os.');
+        }
+
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -109,8 +117,10 @@ class GitLogTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitLogTaskTest.xml');
+        $this->configureProject(
+            PHING_TEST_BASE
+            . '/etc/tasks/ext/git/GitLogTaskTest.xml'
+        );
     }
 
     public function tearDown()
@@ -121,7 +131,7 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitLogWithoutParams()
     {
         $this->executeTarget('gitLogWithoutParams');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertInLogs($commit['date']);
             $this->assertInLogs($commit['author']);
             $this->assertInLogs($commit['commit']);
@@ -137,13 +147,13 @@ class GitLogTaskTest extends BuildFileTest {
         $this->executeTarget('gitLogWithMostParams');
         $lastTwoCommits = array_slice($this->testCommits, -2);
         $allOtherCommits = array_slice($this->testCommits, 0, -2);
-        
+
         // test max-count
-        foreach($lastTwoCommits as $commit) {
+        foreach ($lastTwoCommits as $commit) {
             $this->assertInLogs($commit['commit']);
             $this->assertInLogs($commit['msg']);
         }
-        foreach($allOtherCommits as $commit) {
+        foreach ($allOtherCommits as $commit) {
             $this->assertNotInLogs($commit['commit']);
             $this->assertNotInLogs($commit['msg']);
         }
@@ -172,7 +182,7 @@ class GitLogTaskTest extends BuildFileTest {
     {
         $this->markTestSkipped('Need to implement the Git relative date calculation');
         $this->executeTarget('gitLogDateRelative');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $timestamp = strtotime($commit['date']);
             $this->assertInLogs(GitTestsHelper::getRelativeDate($timestamp));
         }
@@ -188,7 +198,7 @@ class GitLogTaskTest extends BuildFileTest {
         $this->assertInLogs('c573116f395d36497a1ac1dba565ecd3d3944277 Added file3');
         $this->assertInLogs('b8cddb3fa5f408560d0d00d6c8721fe333895888 Added file1 + file2');
     }
-    
+
     public function testGitBeforeAfterSet()
     {
         $this->executeTarget('gitLogBeforeAfterSet');
@@ -203,7 +213,7 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitFormatOneLine()
     {
         $this->executeTarget('gitLogFormatOneLine');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertNotInLogs($commit['author']);
             $this->assertNotInLogs($commit['date']);
             $this->assertInLogs($commit['commit']);
@@ -214,7 +224,7 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitFormatShort()
     {
         $this->executeTarget('gitLogFormatShort');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertNotInLogs($commit['date']);
             $this->assertInLogs($commit['author']);
             $this->assertInLogs($commit['commit']);
@@ -225,7 +235,7 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitFormatMedium()
     {
         $this->executeTarget('gitLogFormatMedium');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertInLogs($commit['date']);
             $this->assertInLogs($commit['author']);
             $this->assertInLogs($commit['commit']);
@@ -239,7 +249,7 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitFormatFull()
     {
         $this->executeTarget('gitLogFormatFull');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertNotInLogs($commit['date']);
             $this->assertInLogs('Author: ' . $commit['author']);
             $this->assertInLogs('Commit: ' . $commit['author']);
@@ -254,7 +264,7 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitFormatFuller()
     {
         $this->executeTarget('gitLogFormatFuller');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertInLogs('Author:     ' . $commit['author']);
             $this->assertInLogs('AuthorDate: ' . $commit['date']);
             $this->assertInLogs('Commit:     ' . $commit['author']);
@@ -270,7 +280,7 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitFormatEmail()
     {
         $this->executeTarget('gitLogFormatEmail');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertInLogs('From ' . $commit['From']);
             $this->assertInLogs('From: ' . $commit['From:']);
             $this->assertInLogs('Date: ' . $commit['Date']);
@@ -284,20 +294,20 @@ class GitLogTaskTest extends BuildFileTest {
     public function testGitFormatCustom()
     {
         $this->executeTarget('gitLogFormatCustom');
-        foreach($this->testCommits as $commit) {
+        foreach ($this->testCommits as $commit) {
             $this->assertInLogs(
-                sprintf('The author of %s was %s', $commit['commit'], $commit['author']));
+                sprintf('The author of %s was %s', $commit['commit'], $commit['author'])
+            );
         }
     }
 
-
-
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining(
+            'noRepository',
             'Repo dir is required',
-            '"repository" is required parameter');
+            '"repository" is required parameter'
+        );
     }
-
 
 }

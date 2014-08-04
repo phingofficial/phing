@@ -19,24 +19,28 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class FileHashTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class FileHashTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/filehash.xml");
     }
 
-    public function testMD5() { 
+    public function testMD5()
+    {
         $this->expectLog("testMD5", "c9dcdf095de0ef3d2e3f71cb4dc7ee11");
     }
 
-    public function testSHA1() { 
+    public function testSHA1()
+    {
         $this->expectLog("testSHA1", "dadd0aafb79d9fb8299a928efb23c112874bbda3");
     }
 }

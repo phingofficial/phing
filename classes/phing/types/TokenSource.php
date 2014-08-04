@@ -35,7 +35,7 @@ include_once 'phing/util/StringHelper.php';
  * </replacetokens>
  *
  * or:
- * 
+ *
  * <filterreader classname="phing.filters.ReplaceTokens">
  *   <param type="tokensource>
  *     <param name="classname" value="phing.filters.util.IniFileTokenReader" />
@@ -46,7 +46,8 @@ include_once 'phing/util/StringHelper.php';
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @package   phing.types
  */
-class TokenSource extends DataType {
+class TokenSource extends DataType
+{
 
     /**
      * String to hold the path to the TokenReader
@@ -75,13 +76,14 @@ class TokenSource extends DataType {
      * This method is called to load the sources from the reader
      * into the buffer of the source.
      */
-    function load() {
+    public function load()
+    {
         // Create new Reader
         if ($this->classname === null) {
             throw new BuildException("No Classname given to TokenSource.");
         }
-        
-        $classname = Phing::import($this->classname);        
+
+        $classname = Phing::import($this->classname);
         $this->reader = new $classname($this->project);
 
         // Configure Reader
@@ -105,9 +107,11 @@ class TokenSource extends DataType {
      *
      * @access  public
      */
-    function getTokens() {
-        if (count($this->tokens) == 0)
+    public function getTokens()
+    {
+        if (count($this->tokens) == 0) {
             $this->Load();
+        }
 
         return $this->tokens;
     }
@@ -117,7 +121,8 @@ class TokenSource extends DataType {
      * TokenSource.
      * @param TokenReader $reader
      */
-    private function configureTokenReader(TokenReader $reader) {
+    private function configureTokenReader(TokenReader $reader)
+    {
         $count = count($this->parameters);
         for ($i = 0; $i < $count; $i++) {
             $method_name = "Set" . $this->parameters[$i]->getName();
@@ -125,20 +130,22 @@ class TokenSource extends DataType {
             $reader->$method_name($value);
         }
     }
-    
+
     /**
      * Set the classname (dot-path) to use for handling token replacement.
      * @param string $c
      */
-    function setClassname($c) {
+    public function setClassname($c)
+    {
         $this->classname = $c;
     }
-    
+
     /**
      * Returns the qualified classname (dot-path) to use for handling token replacement.
      * @return string
      */
-    function getClassname() {
+    public function getClassname()
+    {
         return $this->classname;
     }
 
@@ -147,11 +154,10 @@ class TokenSource extends DataType {
      * Uses standard name/value Parameter class.
      * @return Parameter
      */
-    function createParam() {
+    public function createParam()
+    {
         $num = array_push($this->parameters, new Parameter());
-        return $this->parameters[$num-1];
+
+        return $this->parameters[$num - 1];
     }
 }
-
-
-

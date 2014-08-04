@@ -29,75 +29,83 @@ include_once 'phing/filters/XsltFilter.php';
  *
  * This is a shortcut for calling the <copy> task with the XSLTFilter used
  * in the <filterchains> section.
- * 
+ *
  * @author    Andreas Aderhold, andi@binarycloud.com
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class XsltTask extends CopyTask {
-    
+class XsltTask extends CopyTask
+{
+
     /** XSLTFilter object that we use to handle transformation. */
     private $xsltFilter;
-    
+
     /** Parameters to pass to XSLT procesor. */
     private $parameters = array();
-    
+
     /**
      * Setup the filterchains w/ XSLTFilter that we will use while copying the files.
      */
-    function init() {
+    public function init()
+    {
         $xf = new XsltFilter();
         $chain = $this->createFilterChain($this->getProject());
         $chain->addXsltFilter($xf);
-        $this->xsltFilter = $xf;        
+        $this->xsltFilter = $xf;
     }
-    
+
     /**
      * Set any XSLT Param and invoke CopyTask::main()
      * @see CopyTask::main()
      */
-    function main() {        
+    public function main()
+    {
         $this->log("Doing XSLT transformation using stylesheet " . $this->xsltFilter->getStyle(), Project::MSG_VERBOSE);
         $this->xsltFilter->setParams($this->parameters);
         parent::main();
     }
-    
+
     /**
      * Set the stylesheet to use.
      * @param PhingFile $style
      */
-    function setStyle(PhingFile $style) {
+    public function setStyle(PhingFile $style)
+    {
         $this->xsltFilter->setStyle($style);
     }
-    
+
     /**
      * Whether to resolve entities in the XML document.
-     * 
+     *
      * @param bool $resolveExternals
-     * 
+     *
      * @since 2.4
      */
-    function setResolveDocumentExternals($resolveExternals) {
-        $this->xsltFilter->setResolveDocumentExternals((bool)$resolveExternals);
+    public function setResolveDocumentExternals($resolveExternals)
+    {
+        $this->xsltFilter->setResolveDocumentExternals((bool) $resolveExternals);
     }
-    
+
     /**
      * Whether to resolve entities in the stylesheet.
-     * 
+     *
      * @param bool $resolveExternals
-     * 
+     *
      * @since 2.4
      */
-    function setResolveStylesheetExternals($resolveExternals) {
-        $this->xsltFilter->setResolveStylesheetExternals((bool)$resolveExternals);
+    public function setResolveStylesheetExternals($resolveExternals)
+    {
+        $this->xsltFilter->setResolveStylesheetExternals((bool) $resolveExternals);
     }
-    
+
     /**
      * Support nested <param> tags useing XSLTParam class.
      * @return XSLTParam
      */
-    function createParam() {
+    public function createParam()
+    {
         $num = array_push($this->parameters, new XSLTParam());
-        return $this->parameters[$num-1];
+
+        return $this->parameters[$num - 1];
     }
 }

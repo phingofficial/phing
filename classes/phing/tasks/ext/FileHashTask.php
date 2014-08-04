@@ -43,16 +43,15 @@ class FileHashTask extends Task
      * @var string $property
      */
     private $propertyName = "filehashvalue";
-    
+
     /**
      * Specify which hash algorithm to use.
      *   0 = MD5
      *   1 = SHA1
-     * 
+     *
      * @var integer $hashtype
      */
-    private $hashtype=0;
-
+    private $hashtype = 0;
 
     /**
      * Specify if MD5 or SHA1 hash should be used
@@ -85,8 +84,8 @@ class FileHashTask extends Task
     /**
      * Main-Method for the Task
      *
-     * @return  void
-     * @throws  BuildException
+     * @return void
+     * @throws BuildException
      */
     public function main()
     {
@@ -94,18 +93,19 @@ class FileHashTask extends Task
         $this->checkPropertyName();
 
         // read file
-        if( (int)$this->hashtype === 0 ) {
-            $this->log("Calculating MD5 hash from: ".$this->file);
-            $hashValue = md5_file($this->file,false);
-        }
-        elseif( (int)$this->hashtype === 1 ) {
-            $this->log("Calculating SHA1 hash from: ".$this->file);
-            $hashValue = sha1_file($this->file,false);
-        }
-        else {
+        if ((int) $this->hashtype === 0) {
+            $this->log("Calculating MD5 hash from: " . $this->file);
+            $hashValue = md5_file($this->file, false);
+        } elseif ((int) $this->hashtype === 1) {
+            $this->log("Calculating SHA1 hash from: " . $this->file);
+            $hashValue = sha1_file($this->file, false);
+        } else {
             throw new BuildException(
-                sprintf('[FileHash] Unknown hashtype specified %d. Must be either 0 (=MD5) or 1 (=SHA1).',$this->hashtype));
-            
+                sprintf(
+                    '[FileHash] Unknown hashtype specified %d. Must be either 0 (=MD5) or 1 (=SHA1).',
+                    $this->hashtype
+                ));
+
         }
 
         // publish hash value
@@ -122,13 +122,17 @@ class FileHashTask extends Task
     {
         // check File
         if ($this->file === null ||
-            strlen($this->file) == 0) {
+            strlen($this->file) == 0
+        ) {
             throw new BuildException('[FileHash] You must specify an input file.', $this->file);
         }
 
-        if( ! is_readable($this->file) ) { 
-            throw new BuildException(sprintf('[FileHash] Input file does not exist or is not readable: %s',$this->file));
-        }     
+        if (!is_readable($this->file)) {
+            throw new BuildException(sprintf(
+                '[FileHash] Input file does not exist or is not readable: %s',
+                $this->file
+            ));
+        }
 
     }
 
@@ -140,7 +144,8 @@ class FileHashTask extends Task
     private function checkPropertyName()
     {
         if (is_null($this->propertyName) ||
-            strlen($this->propertyName) === 0) {
+            strlen($this->propertyName) === 0
+        ) {
             throw new BuildException('Property name for publishing hashvalue is not set');
         }
     }

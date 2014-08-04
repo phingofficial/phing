@@ -24,11 +24,12 @@
  *  the project components
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org> 
+ * @author    Hans Lellelid <hans@xmpl.org>
  * @version   $Id$
  * @package   phing
  */
-abstract class ProjectComponent {
+abstract class ProjectComponent
+{
 
     /**
      * Holds a reference to the project that a project component
@@ -43,7 +44,8 @@ abstract class ProjectComponent {
      *
      * @param Project $project The reference to the current project
      */
-    public function setProject($project) {
+    public function setProject($project)
+    {
         $this->project = $project;
     }
 
@@ -52,17 +54,19 @@ abstract class ProjectComponent {
      *
      * @return Project Reference to current porject object
      */
-    public function getProject() {
+    public function getProject()
+    {
         return $this->project;
     }
 
     /**
      * Logs a message with the given priority.
      *
-     * @param string $msg The message to be logged.
+     * @param string  $msg   The message to be logged.
      * @param integer $level The message's priority at this message should have
      */
-    public function log($msg, $level = Project::MSG_INFO) {
+    public function log($msg, $level = Project::MSG_INFO)
+    {
         if ($this->project !== null) {
             $this->project->log($msg, $level);
         }

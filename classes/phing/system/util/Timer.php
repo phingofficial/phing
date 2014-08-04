@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * This class can be used to obtain the execution time of all of the scripts
  * that are executed in the process of building a page.
@@ -40,20 +39,22 @@
  * @package    phing.system.util
  * @version    $Id$
  */
-class Timer {
+class Timer
+{
 
     /** start time */
     protected $stime;
-    
+
     /** end time */
-    protected $etime;  
+    protected $etime;
 
     /**
      * This function sets the class variable $stime to the current time in
      * microseconds.
      * @return void
      */
-    public function start() {
+    public function start()
+    {
         $this->stime = $this->getMicrotime();
     }
 
@@ -62,10 +63,11 @@ class Timer {
      * microseconds.
      * @return void
      */
-    function stop() {
+    public function stop()
+    {
         $this->etime = $this->getMicrotime();
     }
-    
+
     /**
      * This function returns the elapsed time in seconds.
      *
@@ -73,24 +75,27 @@ class Timer {
      * the end of script execution.  Then, call elapsed_time() to obtain the
      * difference between start_time() and end_time().
      *
-     * @param    $places  decimal place precision of elapsed time (default is 5)
+     * @param         $places decimal place precision of elapsed time (default is 5)
      * @return string Properly formatted time.
      */
-    function getElapsedTime($places=5) {
+    public function getElapsedTime($places = 5)
+    {
         $etime = $this->etime - $this->stime;
-        $format = "%0.".$places."f";
-        return (sprintf ($format, $etime));
+        $format = "%0." . $places . "f";
+
+        return (sprintf($format, $etime));
     }
 
     /**
      * This function returns the current time in microseconds.
      *
      * @author    Everett Michaud, Zend.com
-     * @return    current time in microseconds
-     * @access    private
+     * @return current time in microseconds
      */
-    function getMicrotime() {
+    private function getMicrotime()
+    {
         list($usec, $sec) = explode(" ", microtime());
-        return ((float)$usec + (float)$sec);
+
+        return ((float) $usec + (float) $sec);
     }
 }

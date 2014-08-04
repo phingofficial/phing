@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,9 +28,11 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class MoveReplaceRegexpTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class MoveReplaceRegexpTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/307/build.xml");
     }
 
@@ -39,11 +41,12 @@ class MoveReplaceRegexpTest extends BuildFileTest {
         @unlink(PHING_TEST_BASE . "/etc/regression/307/anotherfile.bak");
     }
 
-    public function testPhingCallTask () {      
+    public function testPhingCallTask()
+    {
         $this->executeTarget("main");
-        
+
         $contents = file_get_contents(PHING_TEST_BASE . "/etc/regression/307/anotherfile.bak");
-        
+
         $this->assertEquals("BAR", $contents);
     }
 }

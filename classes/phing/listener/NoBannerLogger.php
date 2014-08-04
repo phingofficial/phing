@@ -29,25 +29,32 @@ require_once 'phing/listener/DefaultLogger.php';
  * @version   $Id$
  * @package   phing.listener
  */
-class NoBannerLogger extends DefaultLogger {
+class NoBannerLogger extends DefaultLogger
+{
 
     private $targetName = null;
 
-    function targetStarted(BuildEvent $event) {
+    public function targetStarted(BuildEvent $event)
+    {
         $target = $event->getTarget();
         $this->targetName = $target->getName();
     }
 
-    function targetFinished(BuildEvent $event) {
+    public function targetFinished(BuildEvent $event)
+    {
         $this->targetName = null;
     }
 
-    function messageLogged(BuildEvent $event) {
-        
-        if ($event->getPriority() > $this->msgOutputLevel || null === $event->getMessage() || trim($event->getMessage() === "")) {
+    public function messageLogged(BuildEvent $event)
+    {
+
+        if ($event->getPriority() > $this->msgOutputLevel || null === $event->getMessage() || trim(
+                $event->getMessage() === ""
+            )
+        ) {
             return;
         }
-        
+
         if ($this->targetName !== null) {
             $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $this->targetName . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());

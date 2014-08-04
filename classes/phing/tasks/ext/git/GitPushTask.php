@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 
@@ -105,21 +105,25 @@ class GitPushTask extends GitBaseTask
             ->setOption('force', $this->isForce());
 
         // set operation target
-        if ($this->isAllRemotes()) {            // --all
+        if ($this->isAllRemotes()) { // --all
             $command->setOption('all', true);
-            $this->log('git-push: push to all refs', Project::MSG_INFO); 
-        } elseif ($this->isMirror()) {         // <repository> [<refspec>]
+            $this->log('git-push: push to all refs', Project::MSG_INFO);
+        } elseif ($this->isMirror()) { // <repository> [<refspec>]
             $command->setOption('mirror', true);
-            $this->log('git-push: mirror all refs', Project::MSG_INFO); 
-        } elseif ($this->getDestination()) {         // <repository> [<refspec>]
+            $this->log('git-push: mirror all refs', Project::MSG_INFO);
+        } elseif ($this->getDestination()) { // <repository> [<refspec>]
             $command->addArgument($this->getDestination());
             if ($this->getRefspec()) {
                 $command->addArgument($this->getRefspec());
             }
             $this->log(
-                sprintf('git-push: pushing to %s %s', 
-                    $this->getDestination(), $this->getRefspec()), 
-                Project::MSG_INFO); 
+                sprintf(
+                    'git-push: pushing to %s %s',
+                    $this->getDestination(),
+                    $this->getRefspec()
+                ),
+                Project::MSG_INFO
+            );
         } else {
             throw new BuildException('At least one destination must be provided');
         }
@@ -132,7 +136,7 @@ class GitPushTask extends GitBaseTask
             throw new BuildException('Task execution failed.', $e);
         }
 
-        $this->log('git-push: complete', Project::MSG_INFO); 
+        $this->log('git-push: complete', Project::MSG_INFO);
         if ($this->isDelete()) {
             $this->log('git-push: branch delete requested', Project::MSG_INFO);
         }
@@ -156,7 +160,7 @@ class GitPushTask extends GitBaseTask
 
     public function setMirror($flag)
     {
-        $this->mirror = (boolean)$flag;
+        $this->mirror = (boolean) $flag;
     }
 
     public function getMirror()
@@ -171,7 +175,7 @@ class GitPushTask extends GitBaseTask
 
     public function setDelete($flag)
     {
-        $this->delete = (boolean)$flag;
+        $this->delete = (boolean) $flag;
     }
 
     public function getDelete()
@@ -248,8 +252,5 @@ class GitPushTask extends GitBaseTask
     {
         return $this->getQuiet();
     }
-
-
-
 
 }

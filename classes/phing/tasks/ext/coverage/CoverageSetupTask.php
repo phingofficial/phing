@@ -45,14 +45,14 @@ class CoverageSetupTask extends Task
     private $database = "coverage.db";
 
     /** the classpath to use (optional) */
-    private $classpath = NULL;
+    private $classpath = null;
 
     /**
      * Add a new fileset containing the .php files to process
      *
      * @param FileSet the new fileset containing .php files
      */
-    function addFileSet(FileSet $fileset)
+    public function addFileSet(FileSet $fileset)
     {
         $this->filesets[] = $fileset;
     }
@@ -61,9 +61,11 @@ class CoverageSetupTask extends Task
      * Supports embedded <filelist> element.
      * @return FileList
      */
-    function createFileList() {
+    public function createFileList()
+    {
         $num = array_push($this->filelists, new FileList());
-        return $this->filelists[$num-1];
+
+        return $this->filelists[$num - 1];
     }
 
     /**
@@ -71,29 +73,27 @@ class CoverageSetupTask extends Task
      *
      * @param string the filename of the database
      */
-    function setDatabase($database)
+    public function setDatabase($database)
     {
         $this->database = $database;
     }
 
-    function setClasspath(Path $classpath)
+    public function setClasspath(Path $classpath)
     {
-        if ($this->classpath === null)
-        {
+        if ($this->classpath === null) {
             $this->classpath = $classpath;
-        }
-        else
-        {
+        } else {
             $this->classpath->append($classpath);
         }
     }
 
-    function createClasspath()
+    public function createClasspath()
     {
         $this->classpath = new Path();
+
         return $this->classpath;
     }
-    
+
     /**
      * Iterate over all filesets and return the filename of all files.
      *
@@ -103,10 +103,10 @@ class CoverageSetupTask extends Task
     {
         $files = array();
 
-        foreach($this->filelists as $fl) {
+        foreach ($this->filelists as $fl) {
             try {
                 $list = $fl->getFiles($this->project);
-                foreach($list as $file) {
+                foreach ($list as $file) {
                     $fs = new PhingFile(strval($fl->getDir($this->project)), $file);
                     $files[] = array('key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath());
                 }
@@ -115,30 +115,27 @@ class CoverageSetupTask extends Task
             }
         }
 
-
-        foreach ($this->filesets as $fileset)
-        {
+        foreach ($this->filesets as $fileset) {
             $ds = $fileset->getDirectoryScanner($this->project);
             $ds->scan();
 
             $includedFiles = $ds->getIncludedFiles();
 
-            foreach ($includedFiles as $file)
-            {
+            foreach ($includedFiles as $file) {
                 $fs = new PhingFile(realpath($ds->getBaseDir()), $file);
-                    
+
                 $files[] = array('key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath());
             }
         }
 
         return $files;
     }
-    
-    function init()
+
+    public function init()
     {
     }
 
-    function main()
+    public function main()
     {
         $files = $this->getFilenames();
 
@@ -146,11 +143,10 @@ class CoverageSetupTask extends Task
 
         $props = new Properties();
 
-        foreach ($files as $file)
-        {
+        foreach ($files as $file) {
             $fullname = $file['fullname'];
             $filename = $file['key'];
-            
+
             $props->setProperty($filename, serialize(array('fullname' => $fullname, 'coverage' => array())));
         }
 
@@ -161,4 +157,3 @@ class CoverageSetupTask extends Task
         $this->project->setProperty('coverage.database', $dbfile->getAbsolutePath());
     }
 }
-

@@ -29,7 +29,8 @@
  * @version $Id$
  * @package phing.tasks.system.condition
  */
-interface Condition {
+interface Condition
+{
     /**
      * @return boolean
      * @throws BuildException

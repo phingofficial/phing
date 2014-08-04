@@ -18,25 +18,27 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests the IniFileTokenReader class
- * 
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.ext
  */
-class IniFileTokenReaderTest extends BuildFileTest 
-{ 
-    public function setUp() 
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-            . "/etc/filters/util/IniFileTokenReaderTest.xml");
+class IniFileTokenReaderTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/filters/util/IniFileTokenReaderTest.xml"
+        );
         $this->executeTarget("setup");
     }
-    
+
     public function tearDown()
     {
         $this->executeTarget("clean");
@@ -45,12 +47,11 @@ class IniFileTokenReaderTest extends BuildFileTest
     public function testFileParameterString()
     {
         $filename = PHING_TEST_BASE .
-          "/etc/filters/util/tmp/test.txt";
-        
+            "/etc/filters/util/tmp/test.txt";
+
         $this->executeTarget(__FUNCTION__);
-        
+
         $this->assertFileExists($filename);
         $this->assertEquals('to replace: replaced', file_get_contents($filename));
     }
 }
-

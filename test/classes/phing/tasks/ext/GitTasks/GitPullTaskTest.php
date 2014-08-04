@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitPullTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,9 +28,17 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitPullTaskTest extends BuildFileTest { 
+class GitPullTaskTest extends BuildFileTest
+{
 
-    public function setUp() { 
+    public function setUp()
+    {
+        // the pear git package hardcodes the path to git to /usr/bin/git and will therefore
+        // not work on Windows.
+        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+            $this->markTestSkipped('Testing not on a windows os.');
+        }
+
         if (is_readable(PHING_TEST_BASE . '/tmp/git')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
@@ -39,8 +47,10 @@ class GitPullTaskTest extends BuildFileTest {
         // set temp directory used by test cases
         mkdir(PHING_TEST_BASE . '/tmp/git');
 
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/git/GitPullTaskTest.xml');
+        $this->configureProject(
+            PHING_TEST_BASE
+            . '/etc/tasks/ext/git/GitPullTaskTest.xml'
+        );
     }
 
     public function tearDown()
@@ -112,21 +122,28 @@ class GitPullTaskTest extends BuildFileTest {
 
     public function testNoRepositorySpecified()
     {
-        $this->expectBuildExceptionContaining('noRepository', 
+        $this->expectBuildExceptionContaining(
+            'noRepository',
             'Repo dir is required',
-            '"repository" is required parameter');
+            '"repository" is required parameter'
+        );
     }
 
     public function testNoSourceSpecified()
     {
-        $this->expectBuildExceptionContaining('noSource', 
+        $this->expectBuildExceptionContaining(
+            'noSource',
             'At least one source must be provided',
-            'No source repository specified');
+            'No source repository specified'
+        );
     }
 
     public function testWrongStrategySet()
     {
-        $this->expectBuildExceptionContaining('wrongStrategySet', 
-            'Wrong strategy passed', 'Could not find merge strategy \'plain-wrong\'');
+        $this->expectBuildExceptionContaining(
+            'wrongStrategySet',
+            'Wrong strategy passed',
+            'Could not find merge strategy \'plain-wrong\''
+        );
     }
 }

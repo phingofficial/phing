@@ -384,7 +384,10 @@ class ApiGenTask extends Task
         if (!empty($this->options['config'])) {
             // Config check
             if (!is_file($this->options['config'])) {
-                throw new BuildException(sprintf('Config file %s doesn\'t exist', $this->options['config']), $this->getLocation());
+                throw new BuildException(sprintf(
+                    'Config file %s doesn\'t exist',
+                    $this->options['config']
+                ), $this->getLocation());
             }
         } else {
             // Source check
@@ -434,6 +437,7 @@ class ApiGenTask extends Task
                 $args[] = '--' . $option . '=' . escapeshellarg($value);
             }
         }
+
         return implode(' ', $args);
     }
 }

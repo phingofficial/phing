@@ -29,7 +29,8 @@ require_once 'Ssh2MethodParam.php';
  * @version   $Id$
  * @package   phing.tasks.ext
  */
-class SshTask extends Task {
+class SshTask extends Task
+{
 
     private $host = "";
     private $port = 22;
@@ -48,49 +49,49 @@ class SshTask extends Task {
      * @var string
      */
     private $property = "";
-    
+
     /**
      * Whether to display the output of the command
      * @var boolean
      */
     private $display = true;
 
-    public function setHost($host) 
+    public function setHost($host)
     {
         $this->host = $host;
     }
 
-    public function getHost() 
+    public function getHost()
     {
         return $this->host;
     }
 
-    public function setPort($port) 
+    public function setPort($port)
     {
         $this->port = $port;
     }
 
-    public function getPort() 
+    public function getPort()
     {
         return $this->port;
     }
 
-    public function setUsername($username) 
+    public function setUsername($username)
     {
         $this->username = $username;
     }
 
-    public function getUsername() 
+    public function getUsername()
     {
         return $this->username;
     }
 
-    public function setPassword($password) 
+    public function setPassword($password)
     {
         $this->password = $password;
     }
 
-    public function getPassword() 
+    public function getPassword()
     {
         return $this->password;
     }
@@ -110,7 +111,7 @@ class SshTask extends Task {
     {
         return $this->pubkeyfile;
     }
-    
+
     /**
      * Sets the private key file of the user to scp
      */
@@ -126,7 +127,7 @@ class SshTask extends Task {
     {
         return $this->privkeyfile;
     }
-    
+
     /**
      * Sets the private key file passphrase of the user to scp
      */
@@ -142,13 +143,13 @@ class SshTask extends Task {
     {
         return $this->privkeyfilepassphrase;
     }
-    
-    public function setCommand($command) 
+
+    public function setCommand($command)
     {
         $this->command = $command;
     }
 
-    public function getCommand() 
+    public function getCommand()
     {
         return $this->command;
     }
@@ -171,7 +172,7 @@ class SshTask extends Task {
     {
         $this->property = $property;
     }
-    
+
     /**
      * Sets whether to display the output of the command
      * @param boolean $display
@@ -197,26 +198,25 @@ class SshTask extends Task {
     public function createSshconfig()
     {
         $this->methods = new Ssh2MethodParam();
+
         return $this->methods;
     }
 
-
-    public function init() 
+    public function init()
     {
     }
 
     /**
-      * Initiates a ssh connection and stores
-      * it in $this->connection
-      */
+     * Initiates a ssh connection and stores
+     * it in $this->connection
+     */
     protected function setupConnection()
     {
         $p = $this->getProject();
 
-        if (!function_exists('ssh2_connect')) { 
+        if (!function_exists('ssh2_connect')) {
             throw new BuildException("To use SshTask, you need to install the PHP SSH2 extension.");
         }
-
 
         $methods = !empty($this->methods) ? $this->methods->toArray($p) : array();
         $this->connection = ssh2_connect($this->host, $this->port, $methods);
@@ -225,8 +225,14 @@ class SshTask extends Task {
         }
 
         $could_auth = null;
-        if ( $this->pubkeyfile ) {
-            $could_auth = ssh2_auth_pubkey_file($this->connection, $this->username, $this->pubkeyfile, $this->privkeyfile, $this->privkeyfilepassphrase);
+        if ($this->pubkeyfile) {
+            $could_auth = ssh2_auth_pubkey_file(
+                $this->connection,
+                $this->username,
+                $this->pubkeyfile,
+                $this->privkeyfile,
+                $this->privkeyfilepassphrase
+            );
         } else {
             $could_auth = ssh2_auth_password($this->connection, $this->username, $this->password);
         }
@@ -246,21 +252,21 @@ class SshTask extends Task {
         }
 
         $this->handleStream($stream);
-     }
+    }
 
     /**
-      This function reads the streams from the ssh2_exec
-      command, stores output data, checks for errors and
-      closes the streams properly.
-    */
+     * This function reads the streams from the ssh2_exec
+     * command, stores output data, checks for errors and
+     * closes the streams properly.
+     */
     protected function handleStream($stream)
     {
         if (!$stream) {
             throw new BuildException("Could not execute command!");
         }
-        
+
         $this->log("Executing command {$this->command}", Project::MSG_VERBOSE);
-        
+
         stream_set_blocking($stream, true);
         $result = stream_get_contents($stream);
 
@@ -268,15 +274,15 @@ class SshTask extends Task {
         $stderr_stream = ssh2_fetch_stream($stream, SSH2_STREAM_STDERR);
         stream_set_blocking($stderr_stream, true);
         $result_error = stream_get_contents($stderr_stream);
-        
+
         if ($this->display) {
             print($result);
         }
-        
+
         if (!empty($this->property)) {
             $this->project->setProperty($this->property, $result);
         }
-        
+
         fclose($stream);
         if (isset($stderr_stream)) {
             fclose($stderr_stream);
@@ -287,6 +293,4 @@ class SshTask extends Task {
         }
     }
 
-
 }
-

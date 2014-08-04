@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 
 /**
@@ -30,8 +30,8 @@ require_once 'phing/Task.php';
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class FailTask extends Task 
-{ 
+class FailTask extends Task
+{
     protected $message;
     protected $ifCondition;
     protected $unlessCondition;
@@ -41,7 +41,8 @@ class FailTask extends Task
      *
      * @param string $value message to output
      */
-    public function setMsg($value) {
+    public function setMsg($value)
+    {
         $this->setMessage($value);
     }
 
@@ -50,7 +51,8 @@ class FailTask extends Task
      *
      * @param value message to output
      */
-    public function setMessage($value) {
+    public function setMessage($value)
+    {
         $this->message = $value;
     }
 
@@ -58,7 +60,8 @@ class FailTask extends Task
      * Only fail if a property of the given name exists in the current project.
      * @param c property name
      */
-    public function setIf($c) {
+    public function setIf($c)
+    {
         $this->ifCondition = $c;
     }
 
@@ -67,16 +70,18 @@ class FailTask extends Task
      * exist in the current project.
      * @param c property name
      */
-    public function setUnless($c) {
+    public function setUnless($c)
+    {
         $this->unlessCondition = $c;
     }
 
     /**
      * @throws BuildException
      */
-    public function main()  {
+    public function main()
+    {
         if ($this->testIfCondition() && $this->testUnlessCondition()) {
-            if ($this->message !== null) { 
+            if ($this->message !== null) {
                 throw new BuildException($this->message, $this->getLocation());
             } else {
                 throw new BuildException("No message", $this->getLocation());
@@ -87,7 +92,8 @@ class FailTask extends Task
     /**
      * Set a multiline message.
      */
-    public function addText($msg) {
+    public function addText($msg)
+    {
         if ($this->message === null) {
             $this->message = "";
         }
@@ -97,21 +103,24 @@ class FailTask extends Task
     /**
      * @return boolean
      */
-    protected function testIfCondition() {
+    protected function testIfCondition()
+    {
         if ($this->ifCondition === null || $this->ifCondition === "") {
             return true;
         }
-        
+
         return $this->project->getProperty($this->ifCondition) !== null;
     }
-    
+
     /**
      * @return boolean
      */
-    protected function testUnlessCondition() {
-        if ($this->unlessCondition === null || $this->unlessCondition ===  "") {
+    protected function testUnlessCondition()
+    {
+        if ($this->unlessCondition === null || $this->unlessCondition === "") {
             return true;
         }
+
         return $this->project->getProperty($this->unlessCondition) === null;
     }
 

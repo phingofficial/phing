@@ -23,9 +23,9 @@ require_once 'phing/BuildLogger.php';
 
 /**
  * Interface for build loggers that require that out/err streams be set in order to function.
- * 
+ *
  * This is just an empty sub-interface to BuildLogger, but is used by Phing to throw
- * graceful errors when classes like phing.listener.DefaultLogger are being used as 
+ * graceful errors when classes like phing.listener.DefaultLogger are being used as
  * -listener.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
@@ -34,6 +34,7 @@ require_once 'phing/BuildLogger.php';
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface StreamRequiredBuildLogger extends BuildLogger {
+interface StreamRequiredBuildLogger extends BuildLogger
+{
 
 }

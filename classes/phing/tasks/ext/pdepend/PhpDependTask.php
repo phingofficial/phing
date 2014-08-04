@@ -134,22 +134,27 @@ class PhpDependTask extends Task
      */
     protected function requireDependencies()
     {
-        /**
-         * Determine PHP_Depend installation
-         */
-        @include_once 'PHP/Depend/TextUI/Runner.php';
+        // check composer autoloader
+        if (class_exists('PHP_Depend_TextUI_Runner')) {
+            // include_path hack for PHP_Depend 1.1.3
+            $rc = new ReflectionClass('PHP_Depend');
+            set_include_path(get_include_path() . ":" . realpath(dirname($rc->getFileName()) . "/../"));
 
-        if (! class_exists('PHP_Depend_TextUI_Runner')) {
+            return;
+        }
+
+        @include_once 'PHP/Depend/Autoload.php';
+
+        if (!class_exists('PHP_Depend_Autoload')) {
             throw new BuildException(
                 'PhpDependTask depends on PHP_Depend being installed and on include_path',
                 $this->getLocation()
             );
         }
 
-        /**
-         * Other dependencies that should only be loaded when class is actually used
-         */
-        require_once 'PHP/Depend/Autoload.php';
+        // register PHP_Depend autoloader
+        $autoload = new PHP_Depend_Autoload();
+        $autoload->register();
     }
 
     /**
@@ -167,7 +172,8 @@ class PhpDependTask extends Task
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -181,7 +187,7 @@ class PhpDependTask extends Task
         $this->allowedFileExtensions = array();
 
         $token = ' ,;';
-        $ext   = strtok($fileExtensions, $token);
+        $ext = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
@@ -198,7 +204,7 @@ class PhpDependTask extends Task
     {
         $this->excludeDirectories = array();
 
-        $token   = ' ,;';
+        $token = ' ,;';
         $pattern = strtok($excludeDirectories, $token);
 
         while ($pattern !== false) {
@@ -216,7 +222,7 @@ class PhpDependTask extends Task
     {
         $this->excludePackages = array();
 
-        $token   = ' ,;';
+        $token = ' ,;';
         $pattern = strtok($excludePackages, $token);
 
         while ($pattern !== false) {
@@ -286,7 +292,7 @@ class PhpDependTask extends Task
     {
         $num = array_push($this->loggers, new PhpDependLoggerElement());
 
-        return $this->loggers[$num-1];
+        return $this->loggers[$num - 1];
     }
 
     /**
@@ -298,7 +304,7 @@ class PhpDependTask extends Task
     {
         $num = array_push($this->analyzers, new PhpDependAnalyzerElement());
 
-        return $this->analyzers[$num-1];
+        return $this->analyzers[$num - 1];
     }
 
     /**
@@ -309,9 +315,6 @@ class PhpDependTask extends Task
     public function main()
     {
         $this->requireDependencies();
-
-        $autoload = new PHP_Depend_Autoload();
-        $autoload->register();
 
         if (!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException('Missing either a nested fileset or attribute "file" set');
@@ -334,8 +337,8 @@ class PhpDependTask extends Task
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                     $f = new PhingFile($fs->getDir($this->project), $filename);
-                     $filesToParse[] = $f->getAbsolutePath();
+                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $filesToParse[] = $f->getAbsolutePath();
                 }
             }
         }
@@ -344,7 +347,7 @@ class PhpDependTask extends Task
         $this->runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
 
         $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
-        $configuration        = $configurationFactory->createDefault();
+        $configuration = $configurationFactory->createDefault();
 
         $this->runner->setConfiguration($configuration);
         $this->runner->setSourceArguments($filesToParse);

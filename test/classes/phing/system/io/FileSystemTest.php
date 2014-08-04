@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/system/io/FileSystem.php';
 
 /**
@@ -28,7 +27,8 @@ include_once 'phing/system/io/FileSystem.php';
  *
  * @package phing.system.io
  */
-class FileSystemTest extends PHPUnit_Framework_TestCase {
+class FileSystemTest extends PHPUnit_Framework_TestCase
+{
 
     private $oldFsType = "";
 
@@ -39,53 +39,53 @@ class FileSystemTest extends PHPUnit_Framework_TestCase {
                 'Need at least PHP version 5.3.2 to run this unit test'
             );
         }
-        
+
         $this->oldFsType = Phing::getProperty('host.fstype');
-    } 
-    
+    }
+
     public function tearDown()
     {
         if (version_compare(PHP_VERSION, '5.3.2') < 0) {
             return;
         }
-        
+
         Phing::setProperty('host.fstype', $this->oldFsType);
         $this->_resetFileSystem();
     }
 
     protected function _resetFileSystem()
     {
-        $refClass    = new ReflectionClass('FileSystem');
+        $refClass = new ReflectionClass('FileSystem');
         $refProperty = $refClass->getProperty('fs');
         $refProperty->setAccessible(true);
         $refProperty->setValue(null);
     }
-    
+
     public function testGetFileSystemWithUnknownTypeKeyThrowsException()
     {
         $this->_resetFileSystem();
-        
+
         $this->setExpectedException('IOException');
-        
+
         Phing::setProperty('host.fstype', 'UNRECOGNISED');
-        
+
         FileSystem::getFileSystem();
     }
-    
+
     /**
      * @dataProvider fileSystemMappingsDataProvider
      */
     public function testGetFileSystemReturnsCorrect($expectedFileSystemClass, $fsTypeKey)
     {
         $this->_resetFileSystem();
-        
+
         Phing::setProperty('host.fstype', $fsTypeKey);
-        
+
         $system = FileSystem::getFileSystem();
-        
+
         $this->assertInstanceOf($expectedFileSystemClass, $system);
     }
-    
+
     public function fileSystemMappingsDataProvider()
     {
         return array(

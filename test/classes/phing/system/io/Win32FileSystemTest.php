@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-
 include_once 'phing/system/io/AbstractWinFileSystemTestCase.php';
 include_once 'phing/system/io/Win32FileSystem.php';
 
@@ -29,8 +28,9 @@ include_once 'phing/system/io/Win32FileSystem.php';
  * @author Daniel Holmes
  * @package phing.system.io
  */
-class Win32FileSystemTest extends AbstractWinFileSystemTestCase {
-    
+class Win32FileSystemTest extends AbstractWinFileSystemTestCase
+{
+
     protected function createFileSystem()
     {
         return new Win32FileSystem();

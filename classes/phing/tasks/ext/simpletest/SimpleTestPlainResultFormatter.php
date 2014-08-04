@@ -32,64 +32,62 @@ require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
 class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
 {
     private $inner = "";
-    
-    function getExtension()
+
+    public function getExtension()
     {
         return ".txt";
     }
-    
-    function getPreferredOutfile()
+
+    public function getPreferredOutfile()
     {
         return "testresults";
     }
 
-    function paintCaseStart($test_name)
+    public function paintCaseStart($test_name)
     {
         parent::paintCaseStart($test_name);
-        
+
         $this->inner = "";
     }
-    
-    function paintCaseEnd($test_name)
+
+    public function paintCaseEnd($test_name)
     {
         parent::paintCaseEnd($test_name);
-        
-    $sb = "";
-        /* Only count suites where more than one test was run */
-        if ($this->getRunCount())
-        {
-            $sb.= "Testsuite: $test_name\n";
-            $sb.= "Tests run: " . $this->getRunCount();
-            $sb.= ", Failures: " . $this->getFailureCount();
-            $sb.= ", Errors: " . $this->getErrorCount();
-            $sb.= ", Time elapsed: " . $this->getElapsedTime();
-            $sb.= " sec\n";
 
-            if ($this->out != NULL)
-            {
+        $sb = "";
+        /* Only count suites where more than one test was run */
+        if ($this->getRunCount()) {
+            $sb .= "Testsuite: $test_name\n";
+            $sb .= "Tests run: " . $this->getRunCount();
+            $sb .= ", Failures: " . $this->getFailureCount();
+            $sb .= ", Errors: " . $this->getErrorCount();
+            $sb .= ", Time elapsed: " . $this->getElapsedTime();
+            $sb .= " sec\n";
+
+            if ($this->out != null) {
                 $this->out->write($sb);
                 $this->out->write($this->inner);
             }
         }
     }
 
-    function paintError($message)
+    public function paintError($message)
     {
         parent::paintError($message);
-        
+
         $this->formatError("ERROR", $message);
     }
 
-    function paintFail($message)
+    public function paintFail($message)
     {
         parent::paintFail($message);
-        
+
         $this->formatError("FAILED", $message);
     }
 
     private function formatError($type, $message)
     {
-        $this->inner.= $this->getTestName() . " " . $type . "\n";
-        $this->inner.= $message . "\n"; 
+        $this->inner .= $this->getTestName() . " " . $type . "\n";
+        $this->inner .= $message . "\n";
     }
 }

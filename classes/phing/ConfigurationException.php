@@ -26,7 +26,8 @@
  * @version  $Id$
  * @package  phing
  */
-class ConfigurationException extends Exception {
+class ConfigurationException extends Exception
+{
 
     /**
      * Location in the xml file.
@@ -47,9 +48,10 @@ class ConfigurationException extends Exception {
      *         throw new BuildException($msg);
      *         throw new BuildException($msg, $causeExc);
      * @param Exception|string $p1
-     * @param Exception|null $p2
+     * @param Exception|null   $p2
      */
-    public function __construct($p1, $p2 = null) {
+    public function __construct($p1, $p2 = null)
+    {
 
         $cause = null;
         $msg = "";
@@ -69,17 +71,18 @@ class ConfigurationException extends Exception {
 
         if ($cause !== null) {
             $this->cause = $cause;
-            $this->message .= " [wrapped: " . $cause->getMessage() ."]";
+            $this->message .= " [wrapped: " . $cause->getMessage() . "]";
         }
     }
-    
+
     /**
      * Gets the cause exception.
      *
      * @return Exception
      */
-    public function getCause() {
+    public function getCause()
+    {
         return $this->cause;
     }
-     
+
 }

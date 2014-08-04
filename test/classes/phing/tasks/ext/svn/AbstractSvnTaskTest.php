@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
 
@@ -27,18 +27,20 @@ require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-abstract class AbstractSvnTaskTest extends BuildFileTest { 
-    protected $backupGlobals = FALSE;
-    
+abstract class AbstractSvnTaskTest extends BuildFileTest
+{
+    protected $backupGlobals = false;
+
     protected $savedErrorLevel = 0;
-     
-    public function setUp($buildFilename, $createDirectory = true) { 
+
+    public function setUp($buildFilename, $createDirectory = true)
+    {
         if (is_readable(PHING_TEST_BASE . '/tmp/svn')) {
             // make sure we purge previously created directory
             // if left-overs from previous run are found
             GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
         }
-        
+
         if ($createDirectory) {
             // set temp directory used by test cases
             mkdir(PHING_TEST_BASE . '/tmp/svn');
@@ -46,9 +48,11 @@ abstract class AbstractSvnTaskTest extends BuildFileTest {
 
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
-        
-        $this->configureProject(PHING_TEST_BASE 
-                              . '/etc/tasks/ext/svn/' . $buildFilename);
+
+        $this->configureProject(
+            PHING_TEST_BASE
+            . '/etc/tasks/ext/svn/' . $buildFilename
+        );
     }
 
     public function tearDown()

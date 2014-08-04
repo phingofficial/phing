@@ -22,7 +22,7 @@
 require_once 'phing/system/io/PhingFile.php';
 
 /**
- * Abstract 
+ * Abstract
  *
  * @author Hans Lellelid <hans@xmpl.org>
  * @package phing.tasks.ext.pdo
@@ -42,7 +42,8 @@ abstract class PDOResultFormatter
      *
      * @param Writer $out
      */
-    public function setOutput(Writer $out) {
+    public function setOutput(Writer $out)
+    {
         $this->out = $out;
     }
 
@@ -51,7 +52,8 @@ abstract class PDOResultFormatter
      *
      * @return Writer
      */
-    public function getOutput() {
+    public function getOutput()
+    {
         return $this->out;
     }
 
@@ -64,7 +66,8 @@ abstract class PDOResultFormatter
     /**
      * Perform any initialization.
      */
-    public function initialize() {
+    public function initialize()
+    {
 
     }
 
@@ -78,7 +81,8 @@ abstract class PDOResultFormatter
     /**
      * Perform any final tasks and Close the writer.
      */
-    public function close() {
+    public function close()
+    {
         $this->out->close();
     }
 }

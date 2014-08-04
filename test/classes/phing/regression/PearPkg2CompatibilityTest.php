@@ -18,46 +18,53 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
- * Regression test for tickets 
+ * Regression test for tickets
  * http://www.phing.info/trac/ticket/524
  *
  * @package phing.regression
+ * TODO: skip when user doesn't have pear installed (you cannot check for the class name, because
+ *       it is included via composer)
  */
-class PearPkg2CompatibilityTest extends BuildFileTest { 
+class PearPkg2CompatibilityTest extends BuildFileTest
+{
     private $savedErrorLevel;
-    protected $backupGlobals = FALSE;
-        
-    public function setUp() { 
+    protected $backupGlobals = false;
+
+    public function setUp()
+    {
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/regression/524/build.xml";
         $this->configureProject($buildFile);
         $this->executeTarget("setup");
     }
-    
+
     public function tearDown()
     {
         error_reporting($this->savedErrorLevel);
         $this->executeTarget("teardown");
     }
 
-    public function testInactiveMaintainers () {      
+    public function testInactiveMaintainers()
+    {
         $this->executeTarget("inactive");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertTrue(strpos($content, '<active>no</active>') !== false);
     }
 
-    public function testActiveMaintainers () {      
+    public function testActiveMaintainers()
+    {
         $this->executeTarget("active");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertTrue(strpos($content, '<active>yes</active>') !== false);
     }
 
-    public function testNotSetMaintainers () {      
+    public function testNotSetMaintainers()
+    {
         $this->executeTarget("notset");
         $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
         $this->assertTrue(strpos($content, '<active>yes</active>') !== false);

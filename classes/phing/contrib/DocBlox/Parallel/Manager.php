@@ -41,7 +41,9 @@ class DocBlox_Parallel_Manager extends ArrayObject
      * @param string $iterator_class Iterator class for this array object.
      */
     public function __construct(
-        $input = array(), $flags = 0, $iterator_class = "ArrayIterator"
+        $input = array(),
+        $flags = 0,
+        $iterator_class = "ArrayIterator"
     ) {
         parent::__construct($input, $flags, $iterator_class);
 
@@ -62,8 +64,8 @@ class DocBlox_Parallel_Manager extends ArrayObject
      *
      * Example:
      *
-     *    $cb1 = function() { var_dump('a'); sleep(1); };
-     *    $cb2 = function() { var_dump('b'); sleep(1); };
+     *    $cb1 = function () { var_dump('a'); sleep(1); };
+     *    $cb2 = function () { var_dump('b'); sleep(1); };
      *
      *    $mgr = new DocBlox_Parallel_Manager();
      *    $mgr->setProcessLimit(2)
@@ -77,9 +79,9 @@ class DocBlox_Parallel_Manager extends ArrayObject
      * @see DocBlox_Parallel_Manager::execute()
      *
      * @throws RuntimeException         if this method is invoked while the
-     *     manager is busy executing tasks.
+     *                                  manager is busy executing tasks.
      * @throws InvalidArgumentException if the provided element is not of type
-     *     DocBlox_Parallel_Worker.
+     *                                  DocBlox_Parallel_Worker.
      *
      * @return void
      */
@@ -263,7 +265,8 @@ class DocBlox_Parallel_Manager extends ArrayObject
      * @return void
      */
     protected function forkAndRun(
-        DocBlox_Parallel_Worker $worker, array &$processes
+        DocBlox_Parallel_Worker $worker,
+        array &$processes
     ) {
         $worker->pipe = new DocBlox_Parallel_WorkerPipe($worker);
 
@@ -271,24 +274,24 @@ class DocBlox_Parallel_Manager extends ArrayObject
         $pid = pcntl_fork();
 
         switch ($pid) {
-        case -1:
-            throw new RuntimeException('Unable to establish a fork');
-        case 0: // Child process
-            $worker->execute();
+            case -1:
+                throw new RuntimeException('Unable to establish a fork');
+            case 0: // Child process
+                $worker->execute();
 
-            $worker->pipe->pull();
+                $worker->pipe->pull();
 
-            // Kill -9 this process to prevent closing of shared file handlers.
-            // Not doing this causes, for example, MySQL connections to be cleaned.
-            posix_kill(getmypid(), SIGKILL);
-        default: // Parent process
-            // Keep track if the worker children
-            $processes[] = $pid;
+                // Kill -9 this process to prevent closing of shared file handlers.
+                // Not doing this causes, for example, MySQL connections to be cleaned.
+                posix_kill(getmypid(), SIGKILL);
+            default: // Parent process
+                // Keep track if the worker children
+                $processes[] = $pid;
 
-            if (count($processes) >= $this->getProcessLimit()) {
-                pcntl_waitpid(array_shift($processes), $status);
-            }
-            break;
+                if (count($processes) >= $this->getProcessLimit()) {
+                    pcntl_waitpid(array_shift($processes), $status);
+                }
+                break;
         }
     }
 
@@ -299,6 +302,6 @@ class DocBlox_Parallel_Manager extends ArrayObject
      */
     protected function checkRequirements()
     {
-        return (bool)(extension_loaded('pcntl'));
+        return (bool) (extension_loaded('pcntl'));
     }
 }

@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
@@ -122,8 +122,9 @@ class GitCheckoutTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-checkout: checkout "%s" repository', $this->getRepository()), 
-            Project::MSG_INFO); 
+            sprintf('git-checkout: checkout "%s" repository', $this->getRepository()),
+            Project::MSG_INFO
+        );
         $this->log('git-checkout output: ' . trim($output), Project::MSG_INFO);
     }
 
@@ -206,12 +207,12 @@ class GitCheckoutTask extends GitBaseTask
     {
         return $this->getNoTrack();
     }
-    
+
     public function setCreate($flag)
     {
         $this->extraOptions['b'] = $flag;
     }
-    
+
     public function getCreate()
     {
         return $this->extraOptions['b'];
@@ -228,7 +229,7 @@ class GitCheckoutTask extends GitBaseTask
     {
         $this->setForce($flag);
     }
-    
+
     public function getForceCreate()
     {
         return $this->extraOptions['B'];
@@ -243,7 +244,7 @@ class GitCheckoutTask extends GitBaseTask
     {
         $this->extraOptions['m'] = $flag;
     }
-    
+
     public function getMerge()
     {
         return $this->extraOptions['m'];

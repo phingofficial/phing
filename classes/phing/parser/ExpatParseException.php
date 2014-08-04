@@ -16,9 +16,9 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildException.php';
 
 /**
@@ -28,4 +28,6 @@ require_once 'phing/BuildException.php';
  * @version  $Id$
  * @package  phing.parser
  */
-class ExpatParseException extends BuildException {}
+class ExpatParseException extends BuildException
+{
+}

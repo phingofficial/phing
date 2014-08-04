@@ -22,7 +22,7 @@
 require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
 
 /**
- * Task for running liquibase commands that doesn't have their own 
+ * Task for running liquibase commands that doesn't have their own
  * commands yet.
  *
  * Parameters can be provided by nested <parameter name='foo' value='bar' /> tags.
@@ -36,31 +36,28 @@ class LiquibaseTask extends AbstractLiquibaseTask
 {
 
     /**
-      * What liquibase command you wish to run.
-      */
+     * What liquibase command you wish to run.
+     */
     private $command;
 
     public function setCommand($command)
     {
-        $this->command = (string)$command;
+        $this->command = (string) $command;
     }
 
-    protected function checkParams() 
+    protected function checkParams()
     {
         parent::checkParams();
-    
-        if( null === $this->command ) 
-        {
+
+        if (null === $this->command) {
             throw new BuildException('Please provide a liquibase command.');
         }
     }
+
     public function main()
     {
         $this->checkParams();
         $this->execute($this->command, '');
     }
 
-
-
 }
-

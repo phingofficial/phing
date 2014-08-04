@@ -30,7 +30,6 @@ class LiquibaseRollbackTask extends AbstractLiquibaseTask
 {
     protected $rollbackTag;
 
-
     /**
      * Sets the name of the tag to roll back to.
      *
@@ -41,7 +40,6 @@ class LiquibaseRollbackTask extends AbstractLiquibaseTask
         $this->rollbackTag = $rollbackTag;
     }
 
-
     /**
      * @see AbstractTask::checkParams()
      */
@@ -49,17 +47,15 @@ class LiquibaseRollbackTask extends AbstractLiquibaseTask
     {
         parent::checkParams();
 
-        if(null === $this->rollbackTag)
-        {
+        if (null === $this->rollbackTag) {
             throw new BuildException(
-            sprintf(
-					'Please specify the tag to rollback to!',
-            $this->rollbackTag
-            )
+                sprintf(
+                    'Please specify the tag to rollback to!',
+                    $this->rollbackTag
+                )
             );
         }
     }
-
 
     /**
      * @see Task::main()

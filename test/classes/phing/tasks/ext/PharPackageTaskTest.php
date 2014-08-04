@@ -17,30 +17,30 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests for PharPackageTask
- * 
+ *
  * @author François Poirotte <clicky@erebot.net>
  * @package phing.tasks.ext
+ * @requires extension phar
  */
-class PharPackageTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
-        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");
+class PharPackageTaskTest extends BuildFileTest
+{
 
-        if (!extension_loaded('Phar')) {
-            $this->markTestSkipped("Need Phar extension");
-        }
+    public function setUp()
+    {
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");
     }
 
-    public function testOpenSSLSignature() {
-        if (!extension_loaded('OpenSSL')) {
-            $this->markTestSkipped("Need OpenSSL extension");
-        }
-
+    /**
+     * @requires extension openssl
+     * @requires PHP 5.3.10
+     */
+    public function testOpenSSLSignature()
+    {
         // Generate a private key on the fly.
         $passphrase = uniqid();
         $passfile = PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt';
@@ -62,9 +62,13 @@ class PharPackageTaskTest extends BuildFileTest {
         $signature = $phar->getSignature();
         $this->assertEquals('OpenSSL', $signature['hash_type']);
 
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key');
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar.pubkey');
-        unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt');
-        unlink($dest);
+    }
+
+    public function tearDown()
+    {
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/priv.key');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar.pubkey');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pass.txt');
+        @unlink(PHING_TEST_BASE . '/etc/tasks/ext/pharpackage/pharpackage.phar');
     }
 }

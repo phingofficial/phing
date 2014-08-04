@@ -18,25 +18,27 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests the Copy Task
- * 
+ *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.system
  */
-class CopyTaskTest extends BuildFileTest 
-{ 
-    public function setUp() 
-    { 
-        $this->configureProject(PHING_TEST_BASE 
-                              . "/etc/tasks/system/CopyTaskTest.xml");
+class CopyTaskTest extends BuildFileTest
+{
+    public function setUp()
+    {
+        $this->configureProject(
+            PHING_TEST_BASE
+            . "/etc/tasks/system/CopyTaskTest.xml"
+        );
         $this->executeTarget("setup");
     }
-    
+
     public function tearDown()
     {
         $this->executeTarget("clean");
@@ -51,7 +53,7 @@ class CopyTaskTest extends BuildFileTest
         $this->executeTarget("testCopyDanglingSymlink");
         $this->assertInLogs("Copying 1 file to");
     }
-    
+
     /**
      * Test for {@link http://www.phing.info/trac/ticket/981}
      * FileUtil::copyFile(): preserveLastModified causes
@@ -68,4 +70,3 @@ class CopyTaskTest extends BuildFileTest
         $this->assertGreaterThan(0, $this->project->getProperty('test.filesize'));
     }
 }
-

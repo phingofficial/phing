@@ -19,10 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/types/DataType.php';
 
-class TypedefTestType extends DataType {
+class TypedefTestType extends DataType
+{
 
 }
-

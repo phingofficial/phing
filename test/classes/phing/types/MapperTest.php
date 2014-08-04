@@ -32,16 +32,19 @@ include_once 'phing/types/Reference.php';
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @package phing.types
  */
-class MapperTest extends PHPUnit_Framework_TestCase {
+class MapperTest extends PHPUnit_Framework_TestCase
+{
 
     private $project;
 
-    public function setUp() {
-        $this->project = new Project();                    
+    public function setUp()
+    {
+        $this->project = new Project();
         $this->project->setBasedir(dirname(__FILE__));
     }
 
-    public function testEmptyElementIfIsReference() {
+    public function testEmptyElementIfIsReference()
+    {
         $m = new Mapper($this->project);
         $m->setFrom("*.java");
         try {
@@ -78,7 +81,8 @@ class MapperTest extends PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testCircularReferenceCheck() {
+    public function testCircularReferenceCheck()
+    {
         $m = new Mapper($this->project);
         $this->project->addReference("dummy", $m);
         $m->setRefid(new Reference("dummy"));
@@ -106,7 +110,7 @@ class MapperTest extends PHPUnit_Framework_TestCase {
             $this->assertEquals("This data type contains a circular reference.", $be->getMessage());
         }
 
-        // dummy1 --> dummy2 --> dummy3 
+        // dummy1 --> dummy2 --> dummy3
         // (which holds a glob mapper from "*.java" to "*.class"
         $m1 = new Mapper($this->project);
         $this->project->addReference("dummy1", $m1);
@@ -116,11 +120,11 @@ class MapperTest extends PHPUnit_Framework_TestCase {
         $m2->setRefid(new Reference("dummy3"));
         $m3 = new Mapper($this->project);
         $this->project->addReference("dummy3", $m3);
-        
+
         $m3->setType("glob");
         $m3->setFrom("*.java");
         $m3->setTo("*.class");
-                
+
         $fmm = $m1->getImplementation();
         $this->assertTrue($fmm instanceof GlobMapper, "Should be instance of GlobMapper");
         $result = $fmm->main("a.java");
@@ -128,35 +132,39 @@ class MapperTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals("a.class", $result[0]);
     }
 
-    public function testCopyTaskWithTwoFilesets() {
+    public function testCopyTaskWithTwoFilesets()
+    {
         $t = new TaskdefForCopyTest("test1");
         try {
             $t->setUp();
             $t->test1();
             $t->tearDown();
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             $t->tearDown();
             throw $e;
-        }        
+        }
     }
-    
-}
 
+}
 
 /**
  * @package phing.mappers
  */
-class TaskdefForCopyTest extends BuildFileTest {
+class TaskdefForCopyTest extends BuildFileTest
+{
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/types/mapper.xml");
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         $this->executeTarget("cleanup");
     }
 
-    public function test1() { 
+    public function test1()
+    {
         $this->executeTarget("test1");
     }
 }

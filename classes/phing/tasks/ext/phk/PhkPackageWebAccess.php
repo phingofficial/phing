@@ -31,6 +31,7 @@ class PhkPackageWebAccess
      * @var array
      */
     private $paths = array();
+
     /**
      * @return PhkPackageWebAccessPath
      */
@@ -38,6 +39,7 @@ class PhkPackageWebAccess
     {
         return ($this->paths[] = new PhkPackageWebAccessPath());
     }
+
     /**
      * @return array
      */

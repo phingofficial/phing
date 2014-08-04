@@ -41,7 +41,7 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new ComposerTask;
+        $this->object = new ComposerTask();
     }
 
     /**
@@ -62,6 +62,7 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
         $o->setCommand('foo');
         $this->assertEquals('foo', $o->getCommand());
     }
+
     /**
      * @covers ComposerTask::getPhp
      * @covers ComposerTask::setPhp
@@ -100,6 +101,7 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('At least PHP 5.3.2 is required');
         }
         $o = $this->object;
+        $o->setPhp('php');
         $o->setCommand('install');
         $o->createArg()->setValue('--dry-run');
         $method = new ReflectionMethod('ComposerTask', 'prepareCommandLine');

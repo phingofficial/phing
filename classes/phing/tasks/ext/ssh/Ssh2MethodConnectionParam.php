@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Class that holds parameters for an ssh2_connect $methods parameter
  * This corresponds to the client_to_server and server_to_client keys of the optional $methods parameter
@@ -107,7 +106,7 @@ class Ssh2MethodConnectionParam
             array($this, '_filterParam')
         );
     }
-    
+
     protected function _filterParam($var)
     {
         return !is_null($var);

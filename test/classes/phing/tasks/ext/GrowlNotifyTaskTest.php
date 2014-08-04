@@ -63,19 +63,23 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function setUp() 
+    public function setUp()
     {
         if (!class_exists('Net_Growl')) {
             $this->markTestSkipped("Need Net_Growl installed to test");
+
             return;
         }
-        
+
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/ext/growl/build.xml');
 
         $name = '';
-        
+
         $gntpMock = Net_Growl::singleton(
-            $name, array(), '', array('protocol' => 'gntpMock')
+            $name,
+            array(),
+            '',
+            array('protocol' => 'gntpMock')
         );
         $gntpMock->addResponse(
             "GNTP/1.0 -OK NONE\r\n" .
@@ -96,7 +100,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
 
     /**
      * Test for required message attribute
-     * 
+     *
      * @expectedException        BuildException
      * @expectedExceptionMessage "message" attribute cannot be empty
      * @return void
@@ -128,7 +132,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     {
         $this->mockTask->setMessage('Sticky message !!!');
         $this->mockTask->setSticky(true);
-        
+
         $this->executeTarget('test');
         $this->assertInLogs('Notification-Sticky: 1', Project::MSG_DEBUG);
     }
@@ -152,7 +156,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
      *
      * @return void
      */
-    public function testSingleNotificationType() 
+    public function testSingleNotificationType()
     {
         $this->mockTask->setMessage('Build FINISHED.');
         $this->mockTask->setNotification('Status');

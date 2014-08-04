@@ -20,18 +20,18 @@
  * <http://phing.info>.
  */
 
-
 /**
  * @author Daniel Holmes
  * @package phing.system.io
  */
-abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase {
+abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
+{
 
     /**
      * @var FileSystem
      */
     private $fs;
-    
+
     protected function setUp()
     {
 
@@ -42,31 +42,31 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase 
         }
         $this->fs = $this->createFileSystem();
     }
-    
+
     abstract protected function createFileSystem();
-    
+
     public function testGetSeparatorReturnsCorrect()
     {
         $this->assertSame('\\', $this->fs->getSeparator());
     }
-    
+
     public function testGetPathSeparatorReturnsCorrect()
     {
         $this->assertSame(';', $this->fs->getPathSeparator());
     }
-    
+
     /**
      * @dataProvider normaliseDataProvider
      * @param string $expected
-     * @param string $path 
+     * @param string $path
      */
     public function testNormalise($expected, $path)
     {
         $normalisedPath = $this->fs->normalize($path);
-        
+
         $this->assertSame($expected, $normalisedPath);
     }
-    
+
     public function normaliseDataProvider()
     {
         return array(
@@ -81,19 +81,19 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase 
             //'unc' => array('\\\\server\\My Files\\file.txt', '\\\\server\\My Files\\file.txt')
         );
     }
-    
+
     /**
      * @dataProvider prefixLengthDataPRovider
      * @param type $expected
-     * @param type $pathname 
+     * @param type $pathname
      */
     public function testPrefixLength($expected, $pathname)
     {
         $length = $this->fs->prefixLength($pathname);
-        
+
         $this->assertSame($expected, $length);
     }
-    
+
     public function prefixLengthDataProvider()
     {
         return array(
@@ -107,20 +107,20 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase 
             'relative' => array(0, 'My Files\\file.txt')
         );
     }
-    
+
     /**
      * @dataProvider resolveDataProvider
      * @param string $expected
-     * @param string $parent 
-     * @param string $child 
+     * @param string $parent
+     * @param string $child
      */
     public function testResolve($expected, $parent, $child)
     {
         $resolved = $this->fs->resolve($parent, $child);
-        
+
         $this->assertSame($expected, $resolved);
     }
-    
+
     public function resolveDataProvider()
     {
         return array(
@@ -132,37 +132,34 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase 
             'endSlashParent' => array('C:\\My Files\\file.txt', 'C:\\My Files\\', '\\file.txt')
         );
     }
-    
+
     /**
      * @dataProvider resolveFileDataProvider
      * @param string $expected
      * @param string $path
-     * @param string $prefix 
+     * @param string $prefix
      */
     public function testResolveFile($expected, $path, $prefix)
     {
         $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue($path));
         $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue($prefix));
-        
+
         $resolved = $this->fs->resolveFile($file);
-        
+
         $this->assertSame($expected, $resolved);
     }
-    
+
     public function resolveFileDataProvider()
     {
         $cwd = getcwd();
         $driveLetter = '';
         // This is a bit wierd, but it lets us run the win tests on unix machines. Might be better
         // to find an abstraction for drive letter within file system
-        if (substr(PHP_OS, 0, 3) === 'WIN')
-        {
+        if (substr(PHP_OS, 0, 3) === 'WIN') {
             $colonPos = strpos($cwd, ':');
             $driveLetter = substr($cwd, 0, $colonPos) . ':';
-        }
-        else
-        {
+        } else {
             $cwd = str_replace('/', '\\', $cwd);
         }
 
@@ -175,37 +172,37 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase 
             'driveRelative' => array($driveLetter . '\\files\\file.txt', '\\files\\file.txt', 1)
         );
     }
-    
+
     public function testResolveFileUnknownFile()
     {
         $this->setExpectedException('InvalidArgumentException', 'Unresolvable path: file.txt');
-        
+
         $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue('file.txt'));
         $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue(5));
-        
+
         $this->fs->resolveFile($file);
     }
-    
+
     public function testGetDefaultParent()
     {
         $parent = $this->fs->getDefaultParent();
-        
+
         $this->assertSame('\\', $parent);
     }
-    
+
     /**
      * @dataProvider fromURIPathDataProvider
      * @param type $expected
-     * @param type $path 
+     * @param type $path
      */
     public function testFromURIPath($expected, $path)
     {
         $resultPath = $this->fs->fromURIPath($path);
-        
+
         $this->assertSame($expected, $resultPath);
     }
-    
+
     public function fromURIPathDataProvider()
     {
         return array(
@@ -217,24 +214,24 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase 
             'slashPathRootDrive' => array('c:/', '/c:/')
         );
     }
-    
+
     /**
      * @dataProvider isAbsoluteDataProvider
      * @param boolean $expected
-     * @param string $path
-     * @param int $prefix 
+     * @param string  $path
+     * @param int     $prefix
      */
     public function testIsAbsolute($expected, $path, $prefix)
     {
         $file = $this->getMockBuilder('PhingFile')->disableOriginalConstructor()->getMock();
         $file->expects($this->any())->method('getPath')->will($this->returnValue($path));
         $file->expects($this->any())->method('getPrefixLength')->will($this->returnValue($prefix));
-        
+
         $is = $this->fs->isAbsolute($file);
-        
+
         $this->assertSame($expected, $is);
     }
-    
+
     public function isAbsoluteDataProvider()
     {
         return array(

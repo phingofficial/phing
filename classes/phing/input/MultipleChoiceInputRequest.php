@@ -28,31 +28,35 @@ require_once 'phing/input/InputRequest.php';
  * @version $Id$
  * @package phing.input
  */
-class MultipleChoiceInputRequest extends InputRequest {
+class MultipleChoiceInputRequest extends InputRequest
+{
 
     protected $choices = array();
 
     /**
-     * @param string $prompt The prompt to show to the user.  Must not be null.
-     * @param array $choices holds all input values that are allowed.
-     *                Must not be null.
+     * @param string $prompt  The prompt to show to the user.  Must not be null.
+     * @param array  $choices holds all input values that are allowed.
+     *                        Must not be null.
      */
-    public function __construct($prompt, $choices) {
-        parent::__construct($prompt);        
+    public function __construct($prompt, $choices)
+    {
+        parent::__construct($prompt);
         $this->choices = $choices;
     }
 
     /**
      * @return The possible values.
      */
-    public function getChoices() {
+    public function getChoices()
+    {
         return $this->choices;
     }
 
     /**
      * @return true if the input is one of the allowed values.
      */
-    public function isInputValid() {
+    public function isInputValid()
+    {
         return in_array($this->getInput(), $this->choices); // not strict (?)
     }
 }

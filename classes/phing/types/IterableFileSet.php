@@ -38,17 +38,18 @@ class IterableFileSet
     {
         return new ArrayIterator($this->getFiles());
     }
+
     /**
      * @return array
      */
     private function getFiles()
     {
-        $directoryScanner   = $this->getDirectoryScanner($this->getProject());
-        $files              = $directoryScanner->getIncludedFiles();
+        $directoryScanner = $this->getDirectoryScanner($this->getProject());
+        $files = $directoryScanner->getIncludedFiles();
 
         $baseDirectory = $directoryScanner->getBasedir();
         foreach ($files as $index => $file) {
-            $files[$index] = realpath($baseDirectory.'/'.$file);
+            $files[$index] = realpath($baseDirectory . '/' . $file);
         }
 
         return $files;

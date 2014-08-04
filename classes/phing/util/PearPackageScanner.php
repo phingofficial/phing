@@ -39,7 +39,7 @@ class PearPackageScanner extends DirectoryScanner
         @include_once 'PEAR/Config.php';
         @include_once 'PEAR/PackageFile.php';
 
-        if (! class_exists('PEAR_Config')) {
+        if (!class_exists('PEAR_Config')) {
             throw new BuildException(__CLASS__ . " requires PEAR to be installed");
         }
     }
@@ -172,7 +172,8 @@ class PearPackageScanner extends DirectoryScanner
                 throw new BuildException(
                     sprintf(
                         'PEAR package %s/%s does not exist',
-                        $this->channel, $this->package
+                        $this->channel,
+                        $this->package
                     )
                 );
             }
@@ -184,9 +185,10 @@ class PearPackageScanner extends DirectoryScanner
             $packageInfo = $pkg->fromPackageFile($this->packageFile, PEAR_VALIDATE_NORMAL);
             PEAR::staticPopErrorHandling();
             if (PEAR::isError($packageInfo)) {
-                throw new BuildException("Errors in package file");
+                throw new BuildException("Errors in package file: " . $packageInfo->getMessage());
             }
         }
+
         return $packageInfo;
     }
 
@@ -218,15 +220,15 @@ class PearPackageScanner extends DirectoryScanner
             $this->excludes = array();
         }
 
-        $this->filesIncluded    = array();
+        $this->filesIncluded = array();
         $this->filesNotIncluded = array();
-        $this->filesExcluded    = array();
-        $this->filesDeselected  = array();
+        $this->filesExcluded = array();
+        $this->filesDeselected = array();
 
-        $this->dirsIncluded     = array();
-        $this->dirsNotIncluded  = array();
-        $this->dirsExcluded     = array();
-        $this->dirsDeselected   = array();
+        $this->dirsIncluded = array();
+        $this->dirsNotIncluded = array();
+        $this->dirsExcluded = array();
+        $this->dirsDeselected = array();
         $origFirstFile = null;
 
         foreach ($list as $file => $att) {
@@ -236,8 +238,10 @@ class PearPackageScanner extends DirectoryScanner
             $origFile = $file;
             if (isset($att['install-as'])) {
                 $file = $att['install-as'];
-            } else if (isset($att['baseinstalldir'])) {
-                $file = ltrim($att['baseinstalldir'] . '/' . $file, '/');
+            } else {
+                if (isset($att['baseinstalldir'])) {
+                    $file = ltrim($att['baseinstalldir'] . '/' . $file, '/');
+                }
             }
             $file = str_replace('/', DIRECTORY_SEPARATOR, $file);
 
@@ -274,7 +278,9 @@ class PearPackageScanner extends DirectoryScanner
             if (empty($this->packageFile)) {
                 $att = $list[$origFirstFile];
                 $base_dir = substr(
-                    $att['installed_as'], 0, -strlen($this->filesIncluded[0])
+                    $att['installed_as'],
+                    0,
+                    -strlen($this->filesIncluded[0])
                 );
             } else {
                 $base_dir = dirname($this->packageFile);

@@ -19,17 +19,18 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/tasks/system/AdhocTask.php';
 
 /**
  * A class for creating adhoc datatypes in build file.
- * 
+ *
  * @author    Hans Lellelid <hans@xmpl.org>
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class AdhocTypedefTask extends AdhocTask {
+class AdhocTypedefTask extends AdhocTask
+{
 
     /**
      * The tag that refers to this task.
@@ -39,33 +40,35 @@ class AdhocTypedefTask extends AdhocTask {
     /**
      * Set the tag that will represent this adhoc task/type.
      * @param string $name
-     */       
-    public function setName($name) {
+     */
+    public function setName($name)
+    {
         $this->name = $name;
     }
-        
+
     /** Main entry point */
-    public function main() {
-    
+    public function main()
+    {
+
         if ($this->name === null) {
-            throw new BuildException("The name attribute is required for adhoc task definition.",$this->location);
+            throw new BuildException("The name attribute is required for adhoc task definition.", $this->location);
         }
-        
+
         $this->execute();
-        
+
         $classes = $this->getNewClasses();
         if (count($classes) !== 1) {
             throw new BuildException("You must define one (and only one) class for AdhocTypedefTask.");
         }
         $classname = array_shift($classes);
-        
+
         // instantiate it to make sure it is an instance of ProjectComponent
         $t = new $classname();
         if (!($t instanceof ProjectComponent)) {
             throw new BuildException("The adhoc class you defined must be an instance of phing.ProjectComponent", $this->location);
         }
-        
+
         $this->log("Datatype " . $this->name . " will be handled by class " . $classname, Project::MSG_VERBOSE);
-        $this->project->addDataTypeDefinition($this->name, $classname);        
+        $this->project->addDataTypeDefinition($this->name, $classname);
     }
 }

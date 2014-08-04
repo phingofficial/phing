@@ -19,28 +19,33 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class VersionTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class VersionTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/version.xml");
     }
 
-    public function testBugfix() { 
+    public function testBugfix()
+    {
         $this->expectLog("testBugfix", "1.0.1");
     }
 
-    public function testMinor() { 
+    public function testMinor()
+    {
         $this->expectLog("testMinor", "1.1.0");
     }
 
-    public function testMajor() { 
+    public function testMajor()
+    {
         $this->expectLog("testMajor", "2.0.0");
     }
 }

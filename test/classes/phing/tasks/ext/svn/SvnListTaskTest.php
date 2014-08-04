@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
@@ -27,8 +27,10 @@ require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnListTaskTest extends AbstractSvnTaskTest { 
-    public function setUp() { 
+class SvnListTaskTest extends AbstractSvnTaskTest
+{
+    public function setUp()
+    {
         parent::setUp('SvnListTest.xml');
         GitTestsHelper::rmdir(PHING_TEST_BASE . '/tmp/svn');
     }
@@ -37,12 +39,15 @@ class SvnListTaskTest extends AbstractSvnTaskTest {
     {
         $repository = PHING_TEST_BASE . '/tmp/svn';
         $this->executeTarget('getList');
-        $this->assertPropertyEquals('svn.list', "1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | VERSION.TXT
+        $this->assertPropertyEquals(
+            'svn.list',
+            "1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | VERSION.TXT
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | coverage-frames.xsl
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | log.xsl
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phing-grammar.rng
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phpunit-frames.xsl
 1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | phpunit-noframes.xsl
-1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | str.replace.function.xsl");
+1560 | michiel.rook | 2012-04-06T18:33:25.000000Z | str.replace.function.xsl"
+        );
     }
 }

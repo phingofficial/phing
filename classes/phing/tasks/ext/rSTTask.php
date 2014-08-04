@@ -50,7 +50,12 @@ class rSTTask extends Task
      * @see $targetExt
      */
     protected static $supportedFormats = array(
-        'html', 'latex', 'man', 'odt', 's5', 'xml'
+        'html',
+        'latex',
+        'man',
+        'odt',
+        's5',
+        'xml'
     );
 
     /**
@@ -59,12 +64,12 @@ class rSTTask extends Task
      * @var array
      */
     protected static $targetExt = array(
-        'html'  => 'html',
+        'html' => 'html',
         'latex' => 'tex',
-        'man'   => '3',
-        'odt'   => 'odt',
-        's5'    => 'html',
-        'xml'   => 'xml',
+        'man' => '3',
+        'odt' => 'odt',
+        's5' => 'html',
+        'xml' => 'xml',
     );
 
     /**
@@ -97,7 +102,7 @@ class rSTTask extends Task
      */
     protected $destination = null;
 
-    protected $filesets      = array(); // all fileset objects assigned to this task
+    protected $filesets = array(); // all fileset objects assigned to this task
     protected $mapperElement = null;
 
     /**
@@ -125,10 +130,11 @@ class rSTTask extends Task
     /**
      * Sets up this object internal stuff. i.e. the default mode
      *
-     * @return object   The rSTTask instance
+     * @return object The rSTTask instance
      * @access public
      */
-    function __construct() {
+    public function __construct()
+    {
         $this->mode = 0777 - umask();
     }
 
@@ -153,9 +159,10 @@ class rSTTask extends Task
         }
 
         if ($this->file != '') {
-            $file   = $this->file;
+            $file = $this->file;
             $targetFile = $this->getTargetFile($file, $this->destination);
             $this->render($tool, $file, $targetFile);
+
             return;
         }
 
@@ -174,11 +181,11 @@ class rSTTask extends Task
         $project = $this->getProject();
         foreach ($this->filesets as $fs) {
             $ds = $fs->getDirectoryScanner($project);
-            $fromDir  = $fs->getDir($project);
+            $fromDir = $fs->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $src) {
-                $file  = new PhingFile($fromDir, $src);
+                $file = new PhingFile($fromDir, $src);
                 if ($mapper !== null) {
                     $results = $mapper->main($file);
                     if ($results === null) {
@@ -197,8 +204,6 @@ class rSTTask extends Task
             }
         }
     }
-
-
 
     /**
      * Renders a single file and applies filters on it
@@ -221,13 +226,14 @@ class rSTTask extends Task
         $this->fileUtils->copyFile(
             new PhingFile($tmpTarget),
             new PhingFile($targetFile),
-            true, false, $this->filterChains,
-            $this->getProject(), $this->mode
+            true,
+            false,
+            $this->filterChains,
+            $this->getProject(),
+            $this->mode
         );
         unlink($tmpTarget);
     }
-
-
 
     /**
      * Renders a single file with the rST tool.
@@ -271,8 +277,6 @@ class rSTTask extends Task
         $this->log(implode("\n", $arOutput), Project::MSG_DEBUG);
     }
 
-
-
     /**
      * Finds the rst2* binary path
      *
@@ -298,8 +302,6 @@ class rSTTask extends Task
 
         return $path;
     }
-
-
 
     /**
      * Determines and returns the target file name from the
@@ -327,10 +329,8 @@ class rSTTask extends Task
             $file = substr($file, 0, -4);
         }
 
-        return $destination . $file . '.'  . self::$targetExt[$this->format];
+        return $destination . $file . '.' . self::$targetExt[$this->format];
     }
-
-
 
     /**
      * The setter for the attribute "file"
@@ -343,8 +343,6 @@ class rSTTask extends Task
     {
         $this->file = $file;
     }
-
-
 
     /**
      * The setter for the attribute "format"
@@ -368,8 +366,6 @@ class rSTTask extends Task
         }
         $this->format = $format;
     }
-
-
 
     /**
      * The setter for the attribute "destination"
@@ -433,10 +429,8 @@ class rSTTask extends Task
      */
     public function setUptodate($uptodate)
     {
-        $this->uptodate = (boolean)$uptodate;
+        $this->uptodate = (boolean) $uptodate;
     }
-
-
 
     /**
      * Add a set of files to be rendered.
@@ -449,8 +443,6 @@ class rSTTask extends Task
     {
         $this->filesets[] = $fileset;
     }
-
-
 
     /**
      * Nested creator, creates one Mapper for this task
@@ -467,10 +459,9 @@ class rSTTask extends Task
             );
         }
         $this->mapperElement = new Mapper($this->project);
+
         return $this->mapperElement;
     }
-
-
 
     /**
      * Creates a filterchain, stores and returns it
@@ -480,6 +471,7 @@ class rSTTask extends Task
     public function createFilterChain()
     {
         $num = array_push($this->filterChains, new FilterChain($this->project));
-        return $this->filterChains[$num-1];
+
+        return $this->filterChains[$num - 1];
     }
 }

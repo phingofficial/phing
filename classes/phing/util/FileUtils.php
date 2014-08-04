@@ -35,37 +35,40 @@ include_once 'phing/system/io/PhingFile.php';
  * @package  phing.util
  * @version  $Id$
  */
-class FileUtils {
-        
-  /**
-   * Returns the default file/dir creation mask value
-   * (The mask value is prepared w.r.t the current user's file-creation mask value)
-   * 
-   * @param boolean $dirmode Directory creation mask to select
-   * @param boolean $returnoctal Whether the return value is in octal representation
-   * @return String Creation Mask
-   */
-  public static function getDefaultFileCreationMask($dirmode = false, $returnoctal = false) {
+class FileUtils
+{
 
-    // Preparing the creation mask base permission
-    $permission = ($dirmode === true) ? 0777 : 0666;
-    
-    // Default mask information
-    $defaultmask = sprintf('%03o', ($permission & ($permission - (int) sprintf('%04o', umask()))));
-    
-    return ($returnoctal ? octdec($defaultmask) : $defaultmask);
-  }
+    /**
+     * Returns the default file/dir creation mask value
+     * (The mask value is prepared w.r.t the current user's file-creation mask value)
+     *
+     * @param  boolean $dirmode     Directory creation mask to select
+     * @param  boolean $returnoctal Whether the return value is in octal representation
+     * @return String  Creation Mask
+     */
+    public static function getDefaultFileCreationMask($dirmode = false, $returnoctal = false)
+    {
+
+        // Preparing the creation mask base permission
+        $permission = ($dirmode === true) ? 0777 : 0666;
+
+        // Default mask information
+        $defaultmask = sprintf('%03o', ($permission & ($permission - (int) sprintf('%04o', umask()))));
+
+        return ($returnoctal ? octdec($defaultmask) : $defaultmask);
+    }
 
     /**
      * Returns a new Reader with filterchains applied.  If filterchains are empty,
      * simply returns passed reader.
-     * 
-     * @param Reader $in Reader to modify (if appropriate).
-     * @param array &$filterChains filter chains to apply.
-     * @param Project $project
-     * @return Reader Assembled Reader (w/ filter chains).
+     *
+     * @param  Reader  $in            Reader to modify (if appropriate).
+     * @param  array   &$filterChains filter chains to apply.
+     * @param  Project $project
+     * @return Reader  Assembled Reader (w/ filter chains).
      */
-    public static function getChainedReader(Reader $in, &$filterChains, Project $project) {
+    public static function getChainedReader(Reader $in, &$filterChains, Project $project)
+    {
         if (!empty($filterChains)) {
             $crh = new ChainReaderHelper();
             $crh->setBufferSize(65536); // 64k buffer, but isn't being used (yet?)
@@ -73,26 +76,36 @@ class FileUtils {
             $crh->setFilterChains($filterChains);
             $crh->setProject($project);
             $rdr = $crh->getAssembledReader();
+
             return $rdr;
         } else {
             return $in;
         }
     }
-    
+
     /**
      * Copies a file using filter chains.
-     * 
-     * @param PhingFile $sourceFile
-     * @param PhingFile $destFile
-     * @param boolean $overwrite
-     * @param boolean $preserveLastModified
-     * @param array $filterChains 
-     * @param Project $project
-     * @param integer $mode
+     *
+     * @param  PhingFile $sourceFile
+     * @param  PhingFile $destFile
+     * @param  boolean   $overwrite
+     * @param  boolean   $preserveLastModified
+     * @param  array     $filterChains
+     * @param  Project   $project
+     * @param  integer   $mode
      * @return void
      */
-    function copyFile(PhingFile $sourceFile, PhingFile $destFile, $overwrite = false, $preserveLastModified = true, &$filterChains = null, Project $project, $mode = 0755, $preservePermissions = true) {
-       
+    public function copyFile(
+        PhingFile $sourceFile,
+        PhingFile $destFile,
+        $overwrite = false,
+        $preserveLastModified = true,
+        &$filterChains = null,
+        Project $project,
+        $mode = 0755,
+        $preservePermissions = true
+    ) {
+
         if ($overwrite || !$destFile->exists() || $destFile->lastModified() < $sourceFile->lastModified()) {
             if ($destFile->exists() && $destFile->isFile()) {
                 $destFile->delete();
@@ -102,46 +115,48 @@ class FileUtils {
             $parent = $destFile->getParentFile();
             if ($parent !== null && !$parent->exists()) {
 
-                // Setting source directory permissions to target                                                                                                  
-                // (On permissions preservation, the target directory permissions                                                                                  
-                // will be inherited from the source directory, otherwise the 'mode'                                                                               
-                // will be used)                                                                                                                                   
+                // Setting source directory permissions to target
+                // (On permissions preservation, the target directory permissions
+                // will be inherited from the source directory, otherwise the 'mode'
+                // will be used)
                 $dirMode = ($preservePermissions ? $sourceFile->getParentFile()->getMode() : $mode);
 
                 $parent->mkdirs($dirMode);
             }
 
             if ((is_array($filterChains)) && (!empty($filterChains))) {
-                
+
                 $in = self::getChainedReader(new BufferedReader(new FileReader($sourceFile)), $filterChains, $project);
-                $out = new BufferedWriter(new FileWriter($destFile));                
-                
-                // New read() methods returns a big buffer.                
-                while(-1 !== ($buffer = $in->read())) { // -1 indicates EOF
+                $out = new BufferedWriter(new FileWriter($destFile));
+
+                // New read() methods returns a big buffer.
+                while (-1 !== ($buffer = $in->read())) { // -1 indicates EOF
                     $out->write($buffer);
                 }
-                
-                if ( $in !== null )
+
+                if ($in !== null) {
                     $in->close();
-                if ( $out !== null )
+                }
+                if ($out !== null) {
                     $out->close();
+                }
 
                 // Set/Copy the permissions on the target
                 if ($preservePermissions === true) {
-                  $destFile->setMode($sourceFile->getMode());
+                    $destFile->setMode($sourceFile->getMode());
                 }
 
             } else {
                 // simple copy (no filtering)
                 $sourceFile->copyTo($destFile);
-                
-                // By default, PHP::Copy also copies the file permissions. Therefore, 
+
+                // By default, PHP::Copy also copies the file permissions. Therefore,
                 // re-setting the mode with the "user file-creation mask" information.
                 if ($preservePermissions === false) {
-                  $destFile->setMode( FileUtils::getDefaultFileCreationMask(false, true) );
+                    $destFile->setMode(FileUtils::getDefaultFileCreationMask(false, true));
                 }
             }
-            
+
             if ($preserveLastModified && !$destFile->isLink()) {
                 $destFile->setLastModified($sourceFile->lastModified());
             }
@@ -159,9 +174,10 @@ class FileUtils {
      * @param  $filename a file name
      *
      * @return PhingFile A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
-     *         and uses the correct separator for the current platform.
+     *                   and uses the correct separator for the current platform.
      */
-    function resolveFile($file, $filename) {
+    public function resolveFile($file, $filename)
+    {
         // remove this and use the static class constant File::seperator
         // as soon as ZE2 is ready
         $fs = FileSystem::getFileSystem();
@@ -170,7 +186,8 @@ class FileUtils {
 
         // deal with absolute files
         if (StringHelper::startsWith($fs->getSeparator(), $filename) ||
-                (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')) {
+            (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')
+        ) {
             return new PhingFile($this->normalize($filename));
         }
 
@@ -186,17 +203,20 @@ class FileUtils {
             if ($part === '..') {
                 $parentFile = $helpFile->getParent();
                 if ($parentFile === null) {
-                    $msg = "The file or path you specified ($filename) is invalid relative to ".$file->getPath();
+                    $msg = "The file or path you specified ($filename) is invalid relative to " . $file->getPath();
                     throw new IOException($msg);
                 }
                 $helpFile = new PhingFile($parentFile);
-            } else if ($part === '.') {
-                // Do nothing here
             } else {
-                $helpFile = new PhingFile($helpFile, $part);
+                if ($part === '.') {
+                    // Do nothing here
+                } else {
+                    $helpFile = new PhingFile($helpFile, $part);
+                }
             }
             $tok = strtok($fs->getSeparator());
         }
+
         return new PhingFile($helpFile->getAbsolutePath());
     }
 
@@ -209,11 +229,12 @@ class FileUtils {
      *   - resolve all ./, .\, ../ and ..\ sequences.
      *   - DOS style paths that start with a drive letter will have
      *     \ as the separator.
-     * @param string $path Path to normalize.
+     * @param  string $path Path to normalize.
      * @return string
      */
-    function normalize($path) {
-    
+    public function normalize($path)
+    {
+
         $path = (string) $path;
         $orig = $path;
 
@@ -221,7 +242,8 @@ class FileUtils {
 
         // make sure we are dealing with an absolute path
         if (!StringHelper::startsWith(DIRECTORY_SEPARATOR, $path)
-                && !(strlen($path) >= 2 && Character::isLetter($path{0}) && $path{1} === ':')) {
+            && !(strlen($path) >= 2 && Character::isLetter($path{0}) && $path{1} === ':')
+        ) {
             throw new IOException("$path is not an absolute path");
         }
 
@@ -236,16 +258,16 @@ class FileUtils {
             $ca = str_replace('/', '\\', $path);
             $ca = StringHelper::toCharArray($ca);
 
-            $path = strtoupper($ca[0]).':';
-            
-            for ($i=2, $_i=count($ca); $i < $_i; $i++) {
+            $path = strtoupper($ca[0]) . ':';
+
+            for ($i = 2, $_i = count($ca); $i < $_i; $i++) {
                 if (($ca[$i] !== '\\') ||
-                        ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
-                   ) {
+                    ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
+                ) {
                     $path .= $ca[$i];
                 }
             }
-         
+
             $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
 
             if (strlen($path) == 2) {
@@ -260,21 +282,22 @@ class FileUtils {
             if (strlen($path) == 1) {
                 $root = DIRECTORY_SEPARATOR;
                 $path = "";
-            } else if ($path{1} == DIRECTORY_SEPARATOR) {
-                // UNC drive
-                $root = DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR;
-                $path = substr($path, 2);
-            }
-            else {
-                $root = DIRECTORY_SEPARATOR;
-                $path = substr($path, 1);
+            } else {
+                if ($path{1} == DIRECTORY_SEPARATOR) {
+                    // UNC drive
+                    $root = DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR;
+                    $path = substr($path, 2);
+                } else {
+                    $root = DIRECTORY_SEPARATOR;
+                    $path = substr($path, 1);
+                }
             }
         }
 
         $s = array();
         array_push($s, $root);
         $tok = strtok($path, DIRECTORY_SEPARATOR);
-        while ($tok !== false) {            
+        while ($tok !== false) {
             $thisToken = $tok;
             if ("." === $thisToken) {
                 $tok = strtok(DIRECTORY_SEPARATOR);
@@ -293,7 +316,7 @@ class FileUtils {
         }
 
         $sb = "";
-        for ($i=0,$_i=count($s); $i < $_i; $i++) {
+        for ($i = 0, $_i = count($s); $i < $_i; $i++) {
             if ($i > 1) {
                 // not before the filesystem root and not after it, since root
                 // already contains one
@@ -307,14 +330,16 @@ class FileUtils {
         if ($dosWithDrive === true) {
             $path = str_replace('/', '\\', $path);
         }
+
         return $path;
     }
-    
+
     /**
      * @return boolean Whether contents of two files is the same.
      */
-    public function contentEquals(PhingFile $file1, PhingFile $file2) {
-        
+    public function contentEquals(PhingFile $file1, PhingFile $file2)
+    {
+
         if (!($file1->exists() || $file2->exists())) {
             return false;
         }
@@ -322,12 +347,11 @@ class FileUtils {
         if (!($file1->canRead() || $file2->canRead())) {
             return false;
         }
-        
+
         $c1 = file_get_contents($file1->getAbsolutePath());
         $c2 = file_get_contents($file2->getAbsolutePath());
-        
-        return trim($c1) == trim($c2);    
-    }
-    
-}
 
+        return trim($c1) == trim($c2);
+    }
+
+}

@@ -19,29 +19,28 @@
  * <http://phing.info>.
  */
 
-
 /**
  * Unit test for ForeachTask.
  *
  * @author  Laurent Laville <pear@laurent-laville.org>
  * @package phing.tasks.system
  */
-class ForeachTaskTest extends BuildFileTest 
+class ForeachTaskTest extends BuildFileTest
 {
     /**
      * Sets up the fixture.
      *
      * @return void
      */
-    public function setUp() 
+    public function setUp()
     {
         // Tests definitions
-        $this->configureProject( PHING_TEST_BASE . '/etc/tasks/system/ForeachTaskTest.xml' );
+        $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ForeachTaskTest.xml');
     }
 
     /**
      * Test for required attributes
-     * 
+     *
      * @expectedException BuildException
      * @return void
      */
@@ -52,7 +51,7 @@ class ForeachTaskTest extends BuildFileTest
 
     /**
      * Test list of values to process without the 'param' attribute
-     * 
+     *
      * @expectedException BuildException
      * @return void
      */
@@ -63,7 +62,7 @@ class ForeachTaskTest extends BuildFileTest
 
     /**
      * Test list of values to process without the 'target' attribute
-     * 
+     *
      * @expectedException BuildException
      * @return void
      */

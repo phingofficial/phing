@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 /**
@@ -62,7 +62,8 @@ class GitCloneTask extends GitBaseTask
             throw new BuildException(
                 sprintf(
                     '"%s" target directory is not empty',
-                    $this->getTargetPath())
+                    $this->getTargetPath()
+                )
             );
         }
 
@@ -70,18 +71,19 @@ class GitCloneTask extends GitBaseTask
 
         try {
             $client->createClone(
-                $this->getRepository(), 
-                $this->isBare(), 
-                $this->getTargetPath());
+                $this->getRepository(),
+                $this->isBare(),
+                $this->getTargetPath()
+            );
         } catch (Exception $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
 
-        $msg = 'git-clone: cloning ' 
+        $msg = 'git-clone: cloning '
             . ($this->isBare() ? '(bare) ' : '')
-            . '"' . $this->getRepository() .'" repository'
-            . ' to "' . $this->getTargetPath() .'" directory'; 
-        $this->log($msg, Project::MSG_INFO); 
+            . '"' . $this->getRepository() . '" repository'
+            . ' to "' . $this->getTargetPath() . '" directory';
+        $this->log($msg, Project::MSG_INFO);
     }
 
     /**
@@ -97,7 +99,7 @@ class GitCloneTask extends GitBaseTask
     /**
      * Set path to source repo
      *
-     * @param string $targetPath Path to repository used as source
+     * @param  string $targetPath Path to repository used as source
      * @return void
      */
     public function setTargetPath($targetPath)
@@ -122,7 +124,7 @@ class GitCloneTask extends GitBaseTask
 
     public function setBare($flag)
     {
-        $this->isBare = (bool)$flag;
+        $this->isBare = (bool) $flag;
     }
 
 }

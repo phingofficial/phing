@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 require_once 'phing/tasks/ext/git/GitBaseTask.php';
 
@@ -88,7 +88,13 @@ class GitMergeTask extends GitBaseTask
      * @var array
      */
     private $validStrategies = array(
-        'octopus', 'ours', 'theirs', 'recursive', 'resolve', 'subtree');
+        'octopus',
+        'ours',
+        'theirs',
+        'recursive',
+        'resolve',
+        'subtree'
+    );
 
     /**
      * The main entry point for the task
@@ -126,13 +132,15 @@ class GitMergeTask extends GitBaseTask
             // check if strategy is valid
             if (false === in_array($strategy, $this->validStrategies)) {
                 throw new BuildException(
-                    "Could not find merge strategy '" . $strategy . "'\n".
+                    "Could not find merge strategy '" . $strategy . "'\n" .
                     "Available strategies are: " . implode(', ', $this->validStrategies));
             }
             $command->setOption('strategy', $strategy);
             if ($this->getStrategyOption()) {
                 $command->setOption(
-                    'strategy-option', $this->getStrategyOption());
+                    'strategy-option',
+                    $this->getStrategyOption()
+                );
             }
         }
 
@@ -150,8 +158,9 @@ class GitMergeTask extends GitBaseTask
         }
 
         $this->log(
-            sprintf('git-merge: replaying "%s" commits', $this->getRemote()), 
-            Project::MSG_INFO); 
+            sprintf('git-merge: replaying "%s" commits', $this->getRemote()),
+            Project::MSG_INFO
+        );
         $this->log('git-merge output: ' . trim($output), Project::MSG_INFO);
 
     }
@@ -213,7 +222,7 @@ class GitMergeTask extends GitBaseTask
 
     public function setCommit($flag)
     {
-        $this->commit = (boolean)$flag;
+        $this->commit = (boolean) $flag;
     }
 
     public function getCommit()
@@ -228,7 +237,7 @@ class GitMergeTask extends GitBaseTask
 
     public function setNoCommit($flag)
     {
-        $this->noCommit = (boolean)$flag;
+        $this->noCommit = (boolean) $flag;
     }
 
     public function getNoCommit()

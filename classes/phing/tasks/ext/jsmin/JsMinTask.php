@@ -39,7 +39,7 @@ class JsMinTask extends Task
      *
      * @var  FileSet
      */
-    protected $filesets    = array();
+    protected $filesets = array();
     /**
      * Whether the build should fail, if
      * errors occured
@@ -47,14 +47,14 @@ class JsMinTask extends Task
      * @var boolean
      */
     protected $failonerror = false;
-    
+
     /**
      * Define if the target should use or not a suffix -min
      *
      * @var boolean
      */
-    protected $suffix   = '-min';
-    
+    protected $suffix = '-min';
+
     /**
      * directory to put minified javascript files into
      *
@@ -67,7 +67,8 @@ class JsMinTask extends Task
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -90,11 +91,11 @@ class JsMinTask extends Task
     {
         $this->suffix = $value;
     }
-    
+
     /**
      * sets the directory where minified javascript files should be put inot
      *
-     * @param  string  $targetDir
+     * @param string $targetDir
      */
     public function setTargetDir($targetDir)
     {
@@ -116,21 +117,21 @@ class JsMinTask extends Task
     {
         // if composer autoloader is not yet loaded, load it here
         @require_once 'vendor/autoload.php';
-        if (! class_exists('\\JShrink\\Minifier')) {
+        if (!class_exists('\\JShrink\\Minifier')) {
             throw new BuildException(
-                'JsMinTask depends on JShrink being installed and on include_path.', 
+                'JsMinTask depends on JShrink being installed and on include_path.',
                 $this->getLocation()
             );
         }
-        
+
         if (version_compare(PHP_VERSION, '5.3.0') < 0) {
             throw new BuildException('JsMinTask requires PHP 5.3+');
         }
-        
+
         if (empty($this->targetDir)) {
             throw new BuildException('Attribute "targetDir" is required');
         }
-        
+
         foreach ($this->filesets as $fs) {
             try {
                 $this->processFileSet($fs);
@@ -144,24 +145,28 @@ class JsMinTask extends Task
             }
         }
     }
-    
+
     protected function processFileSet(FileSet $fs)
     {
-        $files    = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+        $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
         $fullPath = realpath($fs->getDir($this->project));
         foreach ($files as $file) {
             $this->log('Minifying file ' . $file);
             try {
-                $target = $this->targetDir . '/' . str_replace($fullPath, '', str_replace('.js', $this->suffix . '.js', $file));
+                $target = $this->targetDir . '/' . str_replace(
+                        $fullPath,
+                        '',
+                        str_replace('.js', $this->suffix . '.js', $file)
+                    );
                 if (file_exists(dirname($target)) === false) {
                     mkdir(dirname($target), 0777 - umask(), true);
                 }
-                
+
                 $contents = file_get_contents($fullPath . '/' . $file);
-                
+
                 // nasty hack to not trip PHP 5.2 parser
                 $minified = forward_static_call(array('\\JShrink\\Minifier', 'minify'), $contents);
-                
+
                 file_put_contents($target, $minified);
             } catch (Exception $jsme) {
                 $this->log("Could not minify file $file: " . $jsme->getMessage(), Project::MSG_ERR);

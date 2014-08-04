@@ -53,7 +53,8 @@ include_once 'phing/filters/ChainableReader.php';
  * @see       ReplaceTokensWithFile
  * @package   phing.filters
  */
-class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableReader {
+class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableReader
+{
 
     /**
      * Default "begin token" character.
@@ -78,27 +79,27 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Character marking the beginning of a token.
      * @var string
      */
-    private    $_beginToken =  ReplaceTokensWithFile::DEFAULT_BEGIN_TOKEN;
+    private $_beginToken = ReplaceTokensWithFile::DEFAULT_BEGIN_TOKEN;
 
     /**
      * Character marking the end of a token.
      * @var string
      */
-    private    $_endToken = ReplaceTokensWithFile::DEFAULT_END_TOKEN;
+    private $_endToken = ReplaceTokensWithFile::DEFAULT_END_TOKEN;
 
     /**
      * File prefix to be inserted in front of the token to create the
      * file name to be used.
      * @var string
      */
-    private    $_prefix = '';
+    private $_prefix = '';
 
     /**
      * File postfix to be inserted in front of the token to create the
      * file name to be used.
      * @var string
      */
-    private    $_postfix = '';
+    private $_postfix = '';
 
     /**
      * Directory where to look for the files. The default is to look in the
@@ -106,7 +107,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @var string
      */
-    private    $_dir = './';
+    private $_dir = './';
 
     /**
      * Translate all HTML entities in the file to the corresponding HTML
@@ -115,41 +116,44 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @var boolean
      */
-    private    $_translatehtml = true;
-
+    private $_translatehtml = true;
 
     /**
      * Sets the drectory where to look for the files to use for token replacement
      *
      * @param string $dir
      */
-    function setTranslateHTML($translate) {
+    public function setTranslateHTML($translate)
+    {
         $this->_translatehtml = (bool) $translate;
     }
 
     /**
      * Returns the drectory where to look for the files to use for token replacement
      */
-    function getTranslateHTML() {
+    public function getTranslateHTML()
+    {
         return $this->_translatehtml;
     }
-    
+
     /**
      * Sets the drectory where to look for the files to use for token replacement
      *
      * @param string $dir
      */
-    function setDir($dir) {
+    public function setDir($dir)
+    {
         $this->_dir = (string) $dir;
     }
 
     /**
      * Returns the drectory where to look for the files to use for token replacement
      */
-    function getDir() {
+    public function getDir()
+    {
         return $this->_dir;
     }
-        
+
     /**
      * Sets the prefix that is prepended to the token in order to create the file
      * name. For example if the token is 01 and the prefix is "example" then
@@ -157,7 +161,8 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @param string $prefix
      */
-    function setPrefix($prefix) {
+    public function setPrefix($prefix)
+    {
         $this->_prefix = (string) $prefix;
     }
 
@@ -166,10 +171,11 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * name. For example if the token is 01 and the prefix is "example" then
      * the filename to look for will be "example01"
      */
-    function getPrefix() {
+    public function getPrefix()
+    {
         return $this->_prefix;
     }
-    
+
     /**
      * Sets the postfix that is added to the token in order to create the file
      * name. For example if the token is 01 and the postfix is ".php" then
@@ -177,7 +183,8 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @param string $postfix
      */
-    function setPostfix($postfix) {
+    public function setPostfix($postfix)
+    {
         $this->_postfix = (string) $postfix;
     }
 
@@ -186,16 +193,18 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * name. For example if the token is 01 and the postfix is ".php" then
      * the filename to look for will be "01.php"
      */
-    function getPostfix() {
+    public function getPostfix()
+    {
         return $this->_postfix;
     }
-    
+
     /**
      * Sets the "begin token" character.
      *
      * @param string $beginToken the character used to denote the beginning of a token.
      */
-    function setBeginToken($beginToken) {
+    public function setBeginToken($beginToken)
+    {
         $this->_beginToken = (string) $beginToken;
     }
 
@@ -204,7 +213,8 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @return string The character used to denote the beginning of a token.
      */
-    function getBeginToken() {
+    public function getBeginToken()
+    {
         return $this->_beginToken;
     }
 
@@ -213,7 +223,8 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @param string $endToken the character used to denote the end of a token
      */
-    function setEndToken($endToken) {
+    public function setEndToken($endToken)
+    {
         $this->_endToken = (string) $endToken;
     }
 
@@ -222,40 +233,44 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @return the character used to denote the beginning of a token
      */
-    function getEndToken() {
+    public function getEndToken()
+    {
         return $this->_endToken;
     }
 
     /**
      * Replace the token found with the appropriate file contents
-     * @param array $matches Array of 1 el containing key to search for.
-     * @return string     Text with which to replace key or value of key if none is found.
-     * @access private
+     * @param  array  $matches Array of 1 el containing key to search for.
+     * @return string Text with which to replace key or value of key if none is found.
      */
-    private function replaceTokenCallback($matches) {
+    private function replaceTokenCallback($matches)
+    {
 
         $filetoken = $matches[1];
 
         // We look in all specified directories for the named file and use
         // the first directory which has the file.
-        $dirs = explode(';',$this->_dir);
+        $dirs = explode(';', $this->_dir);
 
         $ndirs = count($dirs);
         $n = 0;
         $file = $dirs[$n] . $this->_prefix . $filetoken . $this->_postfix;
 
-        while ( $n < $ndirs && ! is_readable($file) ) {
+        while ($n < $ndirs && !is_readable($file)) {
             ++$n;
         }
 
-        if( ! is_readable($file) || $n >= $ndirs ) {
-            $this->log("Can not read or find file \"$file\". Searched in directories: {$this->_dir}", Project::MSG_WARN);
+        if (!is_readable($file) || $n >= $ndirs) {
+            $this->log(
+                "Can not read or find file \"$file\". Searched in directories: {$this->_dir}",
+                Project::MSG_WARN
+            );
             //return $this->_beginToken  . $filetoken . $this->_endToken;
-            return "[Phing::Filters::ReplaceTokensWithFile: Can not find file "  . '"' . $filetoken . $this->_postfix . '"' . "]";
+            return "[Phing::Filters::ReplaceTokensWithFile: Can not find file " . '"' . $filetoken . $this->_postfix . '"' . "]";
         }
 
         $buffer = file_get_contents($file);
-        if( $this->_translatehtml ) {
+        if ($this->_translatehtml) {
             $buffer = htmlentities($buffer);
         }
 
@@ -263,7 +278,9 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
             $buffer = $this->_beginToken . $filetoken . $this->_endToken;
             $this->log("No corresponding file found for key \"$buffer\"", Project::MSG_WARN);
         } else {
-            $this->log("Replaced \"".$this->_beginToken . $filetoken . $this->_endToken."\" with content from file \"$file\"");
+            $this->log(
+                "Replaced \"" . $this->_beginToken . $filetoken . $this->_endToken . "\" with content from file \"$file\""
+            );
         }
 
         return $buffer;
@@ -275,8 +292,9 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *
      * @return mixed filtered stream, -1 on EOF.
      */
-    function read($len = null) {
-        if ( !$this->getInitialized() ) {
+    public function read($len = null)
+    {
+        if (!$this->getInitialized()) {
             $this->_initialize();
             $this->setInitialized(true);
         }
@@ -284,14 +302,16 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         // read from next filter up the chain
         $buffer = $this->in->read($len);
 
-        if($buffer === -1) {
+        if ($buffer === -1) {
             return -1;
         }
 
         // filter buffer
         $buffer = preg_replace_callback(
-            "/".preg_quote($this->_beginToken)."([\w\.\-:\/]+?)".preg_quote($this->_endToken)."/",
-            array($this, 'replaceTokenCallback'), $buffer);
+            "/" . preg_quote($this->_beginToken) . "([\w\.\-:\/]+?)" . preg_quote($this->_endToken) . "/",
+            array($this, 'replaceTokenCallback'),
+            $buffer
+        );
 
         return $buffer;
     }
@@ -304,9 +324,10 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      *               Must not be <code>null</code>.
      *
      * @return object A new filter based on this configuration, but filtering
-     *         the specified reader
+     *                the specified reader
      */
-    function chain(Reader $reader) {
+    public function chain(Reader $reader)
+    {
         $newFilter = new ReplaceTokensWithFile($reader);
         $newFilter->setProject($this->getProject());
         $newFilter->setTranslateHTML($this->getTranslateHTML());
@@ -316,6 +337,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
         $newFilter->setBeginToken($this->getBeginToken());
         $newFilter->setEndToken($this->getEndToken());
         $newFilter->setInitialized(true);
+
         return $newFilter;
     }
 
@@ -324,38 +346,37 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * This method is only called when this filter is used through
      * a <filterreader> tag in build file.
      */
-    private function _initialize() {
+    private function _initialize()
+    {
         $params = $this->getParameters();
         $n = count($params);
 
-        if ( $params !== null ) {
-            for($i = 0 ; $i < $n ; $i++) {
-                if ( $params[$i] !== null ) {
+        if ($params !== null) {
+            for ($i = 0; $i < $n; $i++) {
+                if ($params[$i] !== null) {
                     $name = $params[$i]->getName();
-                    switch( $name ) {
-                    case 'begintoken' :
-                        $this->_beginToken = $params[$i]->getValue();
-                        break;
-                    case 'endtoken' :
-                        $this->_endToken = $params[$i]->getValue();
-                        break;
-                    case 'dir':
-                        $this->_dir = $params[$i]->getValue();
-                        break;
-                    case 'prefix':
-                        $this->_prefix = $params[$i]->getValue();
-                        break;
-                    case 'postfix':
-                        $this->_postfix = $params[$i]->getValue();
-                        break;
-                    case 'translatehtml':
-                        $this->_translatehtml = $params[$i]->getValue();
-                        break;
+                    switch ($name) {
+                        case 'begintoken' :
+                            $this->_beginToken = $params[$i]->getValue();
+                            break;
+                        case 'endtoken' :
+                            $this->_endToken = $params[$i]->getValue();
+                            break;
+                        case 'dir':
+                            $this->_dir = $params[$i]->getValue();
+                            break;
+                        case 'prefix':
+                            $this->_prefix = $params[$i]->getValue();
+                            break;
+                        case 'postfix':
+                            $this->_postfix = $params[$i]->getValue();
+                            break;
+                        case 'translatehtml':
+                            $this->_translatehtml = $params[$i]->getValue();
+                            break;
                     }
                 }
             }
         }
     }
 }
-
-

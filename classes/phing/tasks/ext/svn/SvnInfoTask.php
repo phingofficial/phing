@@ -34,7 +34,7 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 class SvnInfoTask extends SvnBaseTask
 {
     private $propertyName = "svn.info";
-    
+
     private $element = 'url';
     private $subElement = null;
 
@@ -53,7 +53,7 @@ class SvnInfoTask extends SvnBaseTask
     {
         return $this->propertyName;
     }
-    
+
     /**
      * Sets the name of the xml element to use
      */
@@ -61,7 +61,7 @@ class SvnInfoTask extends SvnBaseTask
     {
         $this->element = $element;
     }
-    
+
     /**
      * Returns the name of the xml element to use
      */
@@ -77,7 +77,7 @@ class SvnInfoTask extends SvnBaseTask
     {
         $this->subElement = $subElement;
     }
-    
+
     /**
      * Returns the name of the xml sub element to use
      */
@@ -91,36 +91,36 @@ class SvnInfoTask extends SvnBaseTask
      *
      * @throws BuildException
      */
-    function main()
+    public function main()
     {
         $this->setup('info');
-        
+
         if ($this->oldVersion) {
             $output = $this->run(array('--xml', '--incremental'));
 
             if (!($xmlObj = @simplexml_load_string($output))) {
                 throw new BuildException("Failed to parse the output of 'svn info --xml'.");
             }
-            
+
             $object = $xmlObj->{$this->element};
-            
+
             if (!empty($this->subElement)) {
                 $object = $object->{$this->subElement};
             }
         } else {
             $output = $this->run();
-            
+
             if (empty($output) || !isset($output['entry'][0])) {
                 throw new BuildException("Failed to parse the output of 'svn info'.");
             }
-            
+
             $object = $output['entry'][0][$this->element];
-            
+
             if (!empty($this->subElement)) {
                 $object = $object[$this->subElement];
             }
         }
-        
+
         $this->project->setProperty($this->getPropertyName(), (string) $object);
     }
 }

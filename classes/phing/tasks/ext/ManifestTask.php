@@ -24,27 +24,27 @@ require_once 'phing/system/io/PhingFile.php';
 
 /**
  * ManifestTask
- * 
+ *
  * Generates a simple Manifest file with optional checksums.
- * 
- * 
+ *
+ *
  * Manifest schema:
  * ...
  * path/to/file     CHECKSUM    [CHECKSUM2]     [CHECKSUM3]
  * path/to/secondfile       CHECKSUM    [CHECKSUM2]     [CHECKSUM3]
  * ...
- * 
+ *
  * Example usage:
  * <manifest checksum="crc32" file="${dir_build}/Manifest">
  *      <fileset refid="files_build" />
  * </manifest>
- * 
+ *
  * <manifest checksum="md5,adler32,sha256" file="${dir_build}/Manifest">
  *      <fileset refid="files_build" />
  * </manifest>
- * 
- * 
- * 
+ *
+ *
+ *
  * @author David Persson <davidpersson at qeweurope dot org>
  * @package phing.tasks.ext
  * @version $Id$
@@ -52,28 +52,28 @@ require_once 'phing/system/io/PhingFile.php';
  */
 class ManifestTask extends Task
 {
-    var $taskname = 'manifest';
-    
+    public $taskname = 'manifest';
+
     /**
      * Action
-     * 
+     *
      * "w" for reading in files from fileSet
      * and writing manifest
-     * 
+     *
      * or
-     * 
+     *
      * "r" for reading in files from fileSet
      * and checking against manifest
-     * 
+     *
      * @var string "r" or "w"
      */
     private $action = 'w';
-    
+
     /**
      * The target file passed in the buildfile.
      */
     private $destFile = null;
-    
+
     /**
      * Holds filesets
      *
@@ -87,30 +87,29 @@ class ManifestTask extends Task
      * false disables checksuming
      * string "md5,sha256,..." enables generation of multiple checksums
      * string "sha256" generates sha256 checksum only
-     * 
+     *
      * @var mixed
      */
     private $checksum = false;
-    
+
     /**
      * A string used in hashing method
      *
      * @var string
      */
     private $salt = '';
-    
+
     /**
      * Holds some data collected during runtime
      *
      * @var array
      */
-    private $meta = array('totalFileCount' => 0,'totalFileSize' => 0);
-    
-    
+    private $meta = array('totalFileCount' => 0, 'totalFileSize' => 0);
+
     /**
      * The setter for the attribute "file"
      * This is where the manifest will be written to/read from
-     * 
+     *
      * @param string Path to readable file
      * @return void
      */
@@ -121,44 +120,45 @@ class ManifestTask extends Task
 
     /**
      * The setter for the attribute "checksum"
-     * 
-     * @param mixed $mixed
+     *
+     * @param  mixed $mixed
      * @return void
      */
     public function setChecksum($mixed)
     {
-        if(is_string($mixed)) {
+        if (is_string($mixed)) {
             $data = array(strtolower($mixed));
 
-            if(strpos($data[0],',')) {
-                $data = explode(',',$mixed);
+            if (strpos($data[0], ',')) {
+                $data = explode(',', $mixed);
             }
-            
+
             $this->checksum = $data;
-                                    
-        } elseif($mixed === true) {
+
+        } elseif ($mixed === true) {
             $this->checksum = array('md5');
-            
+
         }
     }
-    
+
     /**
      * The setter for the optional attribute "salt"
      *
-     * @param string $string
+     * @param  string $string
      * @return void
      */
-    public function setSalt($string) 
+    public function setSalt($string)
     {
         $this->salt = $string;
-    }    
-    
+    }
+
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -167,7 +167,7 @@ class ManifestTask extends Task
      */
     public function init()
     {
-      // nothing to do here
+        // nothing to do here
     }
 
     /**
@@ -176,70 +176,73 @@ class ManifestTask extends Task
     public function main()
     {
         $this->validateAttributes();
-        
-        if($this->action == 'w') {
+
+        if ($this->action == 'w') {
             $this->write();
-            
-        } elseif($this->action == 'r') {
+
+        } elseif ($this->action == 'r') {
             $this->read();
-            
+
         }
     }
 
     /**
      * Creates Manifest file
      * Writes to $this->file
-     * 
+     *
      * @throws BuildException
      */
     private function write()
     {
         $project = $this->getProject();
-        
-        if(!touch($this->file->getPath())) {
-            throw new BuildException("Unable to write to ".$this->file->getPath().".");
-        }        
+
+        if (!touch($this->file->getPath())) {
+            throw new BuildException("Unable to write to " . $this->file->getPath() . ".");
+        }
 
         $this->log("Writing to " . $this->file->__toString(), Project::MSG_INFO);
 
-        if(is_array($this->checksum)) {
-            $this->log("Using " . implode(', ',$this->checksum)." for checksuming.", Project::MSG_INFO);
+        if (is_array($this->checksum)) {
+            $this->log("Using " . implode(', ', $this->checksum) . " for checksuming.", Project::MSG_INFO);
         }
-        
-        foreach($this->filesets as $fs) {
-            
+
+        foreach ($this->filesets as $fs) {
+
             $dir = $fs->getDir($this->project)->getPath();
 
             $ds = $fs->getDirectoryScanner($project);
-            $fromDir  = $fs->getDir($project);
+            $fromDir = $fs->getDir($project);
             $srcFiles = $ds->getIncludedFiles();
-            $srcDirs  = $ds->getIncludedDirectories();          
+            $srcDirs = $ds->getIncludedDirectories();
 
-            foreach($ds->getIncludedFiles() as $file_path) {
+            foreach ($ds->getIncludedFiles() as $file_path) {
                 $line = $file_path;
-                if($this->checksum) {
-                    foreach($this->checksum as $algo) {
-                        if(!$hash = $this->hashFile($dir.'/'.$file_path,$algo)) {
+                if ($this->checksum) {
+                    foreach ($this->checksum as $algo) {
+                        if (!$hash = $this->hashFile($dir . '/' . $file_path, $algo)) {
                             throw new BuildException("Hashing $dir/$file_path with $algo failed!");
                         }
 
-                        $line .= "\t".$hash;
+                        $line .= "\t" . $hash;
                     }
                 }
                 $line .= "\n";
                 $manifest[] = $line;
-                $this->log("Adding file ".$file_path,Project::MSG_VERBOSE);
-                $this->meta['totalFileCount'] ++;
-                $this->meta['totalFileSize'] += filesize($dir.'/'.$file_path);
+                $this->log("Adding file " . $file_path, Project::MSG_VERBOSE);
+                $this->meta['totalFileCount']++;
+                $this->meta['totalFileSize'] += filesize($dir . '/' . $file_path);
             }
-            
+
         }
-        
-        file_put_contents($this->file,$manifest);
-        
-        $this->log("Done. Total files: ".$this->meta['totalFileCount'].". Total file size: ".$this->meta['totalFileSize']." bytes.", Project::MSG_INFO);        
+
+        file_put_contents($this->file, $manifest);
+
+        $this->log(
+            "Done. Total files: " . $this->meta['totalFileCount'] . ". Total file size: " . $this->meta['totalFileSize'] . " bytes.",
+            Project::MSG_INFO
+        );
     }
-    
+
     /**
      * @todo implement
      */
@@ -247,85 +250,84 @@ class ManifestTask extends Task
     {
         throw new BuildException("Checking against manifest not yet supported.");
     }
-    
+
     /**
      * Wrapper method for hash generation
      * Automatically selects extension
      * Falls back to built-in functions
-     * 
+     *
      * @link  http://www.php.net/mhash
      * @link  http://www.php.net/hash
-     * 
-     * @param string $msg The string that should be hashed
-     * @param string $algo Algorithm
-     * @return mixed String on success, false if $algo is not available 
+     *
+     * @param  string $msg  The string that should be hashed
+     * @param  string $algo Algorithm
+     * @return mixed  String on success, false if $algo is not available
      */
-    private function hash($msg,$algo) 
+    private function hash($msg, $algo)
     {
-        if(extension_loaded('hash')) {
+        if (extension_loaded('hash')) {
             $algo = strtolower($algo);
-            
-            if(in_array($algo,hash_algos())) {
-                return hash($algo,$this->salt.$msg);
+
+            if (in_array($algo, hash_algos())) {
+                return hash($algo, $this->salt . $msg);
             }
-            
+
         }
-        
-        if(extension_loaded('mhash')) {
+
+        if (extension_loaded('mhash')) {
             $algo = strtoupper($algo);
-            
-            if(defined('MHASH_'.$algo)) {
-                return mhash('MHASH_'.$algo,$this->salt.$msg);
-            
+
+            if (defined('MHASH_' . $algo)) {
+                return mhash('MHASH_' . $algo, $this->salt . $msg);
+
             }
         }
-        
-        switch(strtolower($algo)) {
+
+        switch (strtolower($algo)) {
             case 'md5':
-                return md5($this->salt.$msg);
+                return md5($this->salt . $msg);
             case 'crc32':
-                return abs(crc32($this->salt.$msg));
+                return abs(crc32($this->salt . $msg));
         }
-        
+
         return false;
     }
-    
+
     /**
-     * Hash a files contents 
+     * Hash a files contents
      * plus it's size an modification time
      *
-     * @param string $file
-     * @param string $algo
-     * @return mixed String on success, false if $algo is not available 
+     * @param  string $file
+     * @param  string $algo
+     * @return mixed  String on success, false if $algo is not available
      */
-    private function hashFile($file,$algo)
+    private function hashFile($file, $algo)
     {
-        if(!file_exists($file)) {
+        if (!file_exists($file)) {
             return false;
         }
-        
-        $msg = file_get_contents($file).filesize($file).filemtime($file);
-        
-        return $this->hash($msg,$algo);
+
+        $msg = file_get_contents($file) . filesize($file) . filemtime($file);
+
+        return $this->hash($msg, $algo);
     }
-    
+
     /**
      * Validates attributes coming in from XML
      *
-     * @access  private
-     * @return  void
-     * @throws  BuildException
+     * @return void
+     * @throws BuildException
      */
     protected function validateAttributes()
     {
-        if($this->action != 'r' && $this->action != 'w') {
+        if ($this->action != 'r' && $this->action != 'w') {
             throw new BuildException("'action' attribute has non valid value. Use 'r' or 'w'");
         }
-                
-        if(empty($this->salt)) {
+
+        if (empty($this->salt)) {
             $this->log("No salt provided. Specify one with the 'salt' attribute.", Project::MSG_WARN);
         }
-        
+
         if (is_null($this->file) && count($this->filesets) === 0) {
             throw new BuildException("Specify at least sources and destination - a file or a fileset.");
         }
@@ -333,8 +335,6 @@ class ManifestTask extends Task
         if (!is_null($this->file) && $this->file->exists() && $this->file->isDirectory()) {
             throw new BuildException("Destination file cannot be a directory.");
         }
-        
-    }     
+
+    }
 }
-
-

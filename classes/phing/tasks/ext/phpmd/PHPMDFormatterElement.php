@@ -70,7 +70,7 @@ class PHPMDFormatterElement
         $root = false === stream_resolve_include_path("PHP/PMD.php") ? "PHPMD/" : "PHP/PMD/";
         switch ($this->type) {
             case 'xml':
-                include_once $root .'Renderer/XMLRenderer.php';
+                include_once $root . 'Renderer/XMLRenderer.php';
                 break;
 
             case 'html':
@@ -140,13 +140,13 @@ class PHPMDFormatterElement
      * Creates a report renderer instance based on the formatter type.
      *
      * @return PHP_PMD_AbstractRenderer
-     * @throws BuildException When the specified renderer does not exist.
+     * @throws BuildException           When the specified renderer does not exist.
      */
     public function getRenderer()
     {
-        if(false === stream_resolve_include_path("PHP/PMD.php")){
+        if (false === stream_resolve_include_path("PHP/PMD.php")) {
             $render_root = 'PHPMD\Renderer\\';
-            $writer_class = '\PHPMD\Writer\StreamWriter'; 
+            $writer_class = '\PHPMD\Writer\StreamWriter';
             $writer_file = 'PHPMD/Writer/StreamWriter.php';
         } else {
             $render_root = 'PHP_PMD_RENDERER_';
@@ -156,30 +156,29 @@ class PHPMDFormatterElement
 
         switch ($this->type) {
             case 'xml':
-                $class = $render_root.'XMLRenderer';
+                $class = $render_root . 'XMLRenderer';
                 break;
 
             case 'html':
-                $class = $render_root.'HTMLRenderer';
+                $class = $render_root . 'HTMLRenderer';
                 break;
 
             case 'text':
-                $class = $render_root.'TextRenderer';
+                $class = $render_root . 'TextRenderer';
                 break;
 
             default:
                 throw new BuildException('PHP_MD renderer "' . $this->type . '" not implemented');
         }
         $renderer = new $class();
-        
-				// Create a report stream
+
+        // Create a report stream
         if ($this->getUseFile() === false || $this->getOutfile() === null) {
             $stream = STDOUT;
         } else {
             $stream = fopen($this->getOutfile()->getAbsoluteFile(), 'wb');
         }
 
-				
         require_once $writer_file;
 
         $renderer->setWriter(new $writer_class($stream));

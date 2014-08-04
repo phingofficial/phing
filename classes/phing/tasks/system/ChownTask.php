@@ -29,7 +29,8 @@ include_once 'phing/types/FileSet.php';
  * @version   $Id$
  * @package   phing.tasks.system
  */
-class ChownTask extends Task {
+class ChownTask extends Task
+{
 
     private $file;
 
@@ -48,7 +49,8 @@ class ChownTask extends Task {
      * This flag means 'note errors to the output, but keep going'
      * @see setQuiet()
      */
-    function setFailonerror($bool) {
+    public function setFailonerror($bool)
+    {
         $this->failonerror = $bool;
     }
 
@@ -56,7 +58,8 @@ class ChownTask extends Task {
      * Set quiet mode, which suppresses warnings if chown() fails.
      * @see setFailonerror()
      */
-    function setQuiet($bool) {
+    public function setQuiet($bool)
+    {
         $this->quiet = $bool;
         if ($this->quiet) {
             $this->failonerror = false;
@@ -67,36 +70,41 @@ class ChownTask extends Task {
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
      */
-    function setVerbose($bool) {
-        $this->verbose = (bool)$bool;
+    public function setVerbose($bool)
+    {
+        $this->verbose = (bool) $bool;
     }
 
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
      */
-    function setFile(PhingFile $file) {
+    public function setFile(PhingFile $file)
+    {
         $this->file = $file;
     }
 
     /**
      * Sets the user
      */
-    function setUser($user) {
+    public function setUser($user)
+    {
         $this->user = $user;
     }
 
     /**
      * Sets the group
      */
-    function setGroup($group) {
+    public function setGroup($group)
+    {
         $this->group = $group;
     }
 
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
      */
-    function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -104,7 +112,8 @@ class ChownTask extends Task {
      * Execute the touch operation.
      * @return void
      */
-    function main() {
+    public function main()
+    {
         // Check Parameters
         $this->checkParams();
         $this->chown();
@@ -114,7 +123,8 @@ class ChownTask extends Task {
      * Ensure that correct parameters were passed in.
      * @return void
      */
-    private function checkParams() {
+    private function checkParams()
+    {
 
         if ($this->file === null && empty($this->filesets)) {
             throw new BuildException("Specify at least one source - a file or a fileset.");
@@ -129,11 +139,12 @@ class ChownTask extends Task {
      * Does the actual work.
      * @return void
      */
-    private function chown() {
+    private function chown()
+    {
         $userElements = explode('.', $this->user);
 
         $user = $userElements[0];
-        
+
         if (count($userElements) > 1) {
             $group = $userElements[1];
         } else {
@@ -151,7 +162,7 @@ class ChownTask extends Task {
         }
 
         // filesets
-        foreach($this->filesets as $fs) {
+        foreach ($this->filesets as $fs) {
 
             $ds = $fs->getDirectoryScanner($this->project);
             $fromDir = $fs->getDir($this->project);
@@ -167,7 +178,7 @@ class ChownTask extends Task {
 
             $dircount = count($srcDirs);
             $total_dirs = $total_dirs + $dircount;
-            for ($j = 0; $j <  $dircount; $j++) {
+            for ($j = 0; $j < $dircount; $j++) {
                 $this->chownFile(new PhingFile($fromDir, $srcDirs[$j]), $user, $group);
             }
         }
@@ -182,11 +193,12 @@ class ChownTask extends Task {
     /**
      * Actually change the mode for the file.
      * @param PhingFile $file
-     * @param string $user
-     * @param string $group
+     * @param string    $user
+     * @param string    $group
      */
-    private function chownFile(PhingFile $file, $user, $group = "") {
-        if ( !$file->exists() ) {
+    private function chownFile(PhingFile $file, $user, $group = "")
+    {
+        if (!$file->exists()) {
             throw new BuildException("The file " . $file->__toString() . " does not exist");
         }
 
@@ -194,16 +206,18 @@ class ChownTask extends Task {
             if (!empty($user)) {
                 $file->setUser($user);
             }
-            
+
             if (!empty($group)) {
                 $file->setGroup($group);
             }
-            
+
             if ($this->verbose) {
-                $this->log("Changed file owner on '" . $file->__toString() ."' to " . $user . ($group ? "." . $group : ""));
+                $this->log(
+                    "Changed file owner on '" . $file->__toString() . "' to " . $user . ($group ? "." . $group : "")
+                );
             }
         } catch (Exception $e) {
-            if($this->failonerror) {
+            if ($this->failonerror) {
                 throw $e;
             } else {
                 $this->log($e->getMessage(), $this->quiet ? Project::MSG_VERBOSE : Project::MSG_WARN);
@@ -212,5 +226,3 @@ class ChownTask extends Task {
     }
 
 }
-
-

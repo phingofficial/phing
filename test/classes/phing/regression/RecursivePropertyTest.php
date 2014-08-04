@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,9 +28,11 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class RecursivePropertyTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class RecursivePropertyTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/regression/269/build.xml");
     }
 
@@ -39,7 +41,8 @@ class RecursivePropertyTest extends BuildFileTest {
         @unlink(PHING_TEST_BASE . "/etc/regression/269/testoutput");
     }
 
-    public function testCopyTask () {
+    public function testCopyTask()
+    {
         $this->executeTarget("main");
 
         $contents = file_get_contents(PHING_TEST_BASE . "/etc/regression/269/testoutput");

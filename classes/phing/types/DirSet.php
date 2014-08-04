@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 include_once 'phing/types/AbstractFileSet.php';
 
 /**
@@ -28,17 +28,20 @@ include_once 'phing/types/AbstractFileSet.php';
  *
  * @package phing.types
  */
-class DirSet extends AbstractFileSet {
-    
-    public function __construct($dirset = null) {
+class DirSet extends AbstractFileSet
+{
+
+    public function __construct($dirset = null)
+    {
         parent::__construct($dirset);
-    }    
+    }
 
     /**
      * Return a DirSet that has the same basedir and same patternsets
      * as this one.
      */
-    public function __clone() {
+    public function __clone()
+    {
         if ($this->isReference()) {
             return new DirSet($this->getRef($this->getProject()));
         } else {

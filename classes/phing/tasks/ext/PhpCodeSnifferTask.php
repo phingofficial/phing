@@ -28,9 +28,10 @@ require_once 'phing/Task.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTask extends Task {
+class PhpCodeSnifferTask extends Task
+{
 
-    protected $file;    // the source file (from xml attribute)
+    protected $file; // the source file (from xml attribute)
     protected $filesets = array(); // all fileset objects assigned to this task
 
     // parameters for php code sniffer
@@ -83,7 +84,8 @@ class PhpCodeSnifferTask extends Task {
      * File to be performed syntax check on
      * @param PhingFile $file
      */
-    public function setFile(PhingFile $file) {
+    public function setFile(PhingFile $file)
+    {
         $this->file = $file;
     }
 
@@ -92,7 +94,8 @@ class PhpCodeSnifferTask extends Task {
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -185,7 +188,7 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setVerbosity($level)
     {
-        $this->verbosity = (int)$level;
+        $this->verbosity = (int) $level;
     }
 
     /**
@@ -194,7 +197,7 @@ class PhpCodeSnifferTask extends Task {
      */
     public function setTabWidth($width)
     {
-        $this->tabWidth = (int)$width;
+        $this->tabWidth = (int) $width;
     }
 
     /**
@@ -250,9 +253,11 @@ class PhpCodeSnifferTask extends Task {
      *
      * @return Parameter The created parameter
      */
-    public function createConfig() {
+    public function createConfig()
+    {
         $num = array_push($this->configData, new Parameter());
-        return $this->configData[$num-1];
+
+        return $this->configData[$num - 1];
     }
 
     /**
@@ -277,10 +282,14 @@ class PhpCodeSnifferTask extends Task {
      * Create object for nested formatter element.
      * @return CodeSniffer_FormatterElement
      */
-    public function createFormatter () {
-        $num = array_push($this->formatters,
-        new PhpCodeSnifferTask_FormatterElement());
-        return $this->formatters[$num-1];
+    public function createFormatter()
+    {
+        $num = array_push(
+            $this->formatters,
+            new PhpCodeSnifferTask_FormatterElement()
+        );
+
+        return $this->formatters[$num - 1];
     }
 
     /**
@@ -313,12 +322,14 @@ class PhpCodeSnifferTask extends Task {
     /**
      * Executes PHP code sniffer against PhingFile or a FileSet
      */
-    public function main() {
+    public function main()
+    {
         if (!class_exists('PHP_CodeSniffer')) {
             @include_once 'PHP/CodeSniffer.php';
 
             if (!class_exists('PHP_CodeSniffer')) {
-                throw new BuildException("This task requires the PHP_CodeSniffer package installed and available on the include path", $this->getLocation());
+                throw new BuildException("This task requires the PHP_CodeSniffer package installed and available on the include path", $this->getLocation(
+                ));
             }
         }
 
@@ -340,16 +351,16 @@ class PhpCodeSnifferTask extends Task {
             }
         }
 
-        if(!isset($this->file) and count($this->filesets) == 0) {
+        if (!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
         if (count($this->formatters) == 0) {
-          // turn legacy format attribute into formatter
-          $fmt = new PhpCodeSnifferTask_FormatterElement();
-          $fmt->setType($this->format);
-          $fmt->setUseFile(false);
-          $this->formatters[] = $fmt;
+            // turn legacy format attribute into formatter
+            $fmt = new PhpCodeSnifferTask_FormatterElement();
+            $fmt->setType($this->format);
+            $fmt->setUseFile(false);
+            $this->formatters[] = $fmt;
         }
 
         $fileList = array();
@@ -361,7 +372,7 @@ class PhpCodeSnifferTask extends Task {
                 $files = $ds->getIncludedFiles();
                 $dir = $fs->getDir($this->project)->getAbsolutePath();
                 foreach ($files as $file) {
-                    $fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
+                    $fileList[] = $dir . DIRECTORY_SEPARATOR . $file;
                 }
             }
         } else {
@@ -379,7 +390,9 @@ class PhpCodeSnifferTask extends Task {
 
         $codeSniffer = new PhpCodeSnifferTask_Wrapper($this->verbosity, $this->tabWidth, $this->encoding);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
-        if (is_array($this->ignorePatterns)) $codeSniffer->setIgnorePatterns($this->ignorePatterns);
+        if (is_array($this->ignorePatterns)) {
+            $codeSniffer->setIgnorePatterns($this->ignorePatterns);
+        }
         foreach ($this->configData as $configData) {
             $codeSniffer->setConfigData($configData->getName(), $configData->getValue(), true);
         }
@@ -392,8 +405,8 @@ class PhpCodeSnifferTask extends Task {
             // They didn't select a valid coding standard, so help them
             // out by letting them know which standards are installed.
             $installedStandards = PHP_CodeSniffer::getInstalledStandards();
-            $numStandards       = count($installedStandards);
-            $errMsg             = '';
+            $numStandards = count($installedStandards);
+            $errMsg = '';
 
             if ($numStandards === 0) {
                 $errMsg = 'No coding standards are installed.';
@@ -403,7 +416,7 @@ class PhpCodeSnifferTask extends Task {
                 if ($numStandards === 1) {
                     $errMsg = 'The only coding standard installed is ' . $lastStandard;
                 } else {
-                    $standardList  = implode(', ', $installedStandards);
+                    $standardList = implode(', ', $installedStandards);
                     $standardList .= ' and ' . $lastStandard;
                     $errMsg = 'The installed coding standards are ' . $standardList;
                 }
@@ -421,7 +434,7 @@ class PhpCodeSnifferTask extends Task {
         $_SERVER['argc'] = 1;
         foreach ($this->formatters as $fe) {
             $output = ($fe->getUseFile() ? $fe->getOutFile() : null);
-            $_SERVER['argv'][]= '--report-' . $fe->getType() . '=' . $output;
+            $_SERVER['argv'][] = '--report-' . $fe->getType() . '=' . $output;
             $_SERVER['argc']++;
         }
 
@@ -442,7 +455,7 @@ class PhpCodeSnifferTask extends Task {
 
             // write to file
             $outputFile = $this->docFile->getPath();
-            $check      = file_put_contents($outputFile, $output);
+            $check = file_put_contents($outputFile, $output);
 
             if (is_bool($check) && !$check) {
                 throw new BuildException('Error writing doc to ' . $outputFile);
@@ -486,7 +499,7 @@ class PhpCodeSnifferTask extends Task {
         }
 
         // process output
-        $reporting       = $phpcs->reporting;
+        $reporting = $phpcs->reporting;
         foreach ($this->formatters as $fe) {
             $reportFile = null;
 
@@ -515,20 +528,27 @@ class PhpCodeSnifferTask extends Task {
      *
      * @param array $report Packaged list of all errors in each file
      */
-    protected function outputCustomFormat($report) {
+    protected function outputCustomFormat($report)
+    {
         $files = $report['files'];
         foreach ($files as $file => $attributes) {
             $errors = $attributes['errors'];
             $warnings = $attributes['warnings'];
             $messages = $attributes['messages'];
             if ($errors > 0) {
-                $this->log($file . ': ' . $errors . ' error' . ($errors > 1 ? 's' : '') . ' detected', Project::MSG_ERR);
+                $this->log(
+                    $file . ': ' . $errors . ' error' . ($errors > 1 ? 's' : '') . ' detected',
+                    Project::MSG_ERR
+                );
                 $this->outputCustomFormatMessages($messages, 'ERROR');
             } else {
                 $this->log($file . ': No syntax errors detected', Project::MSG_VERBOSE);
             }
             if ($warnings > 0) {
-                $this->log($file . ': ' . $warnings . ' warning' . ($warnings > 1 ? 's' : '') . ' detected', Project::MSG_WARN);
+                $this->log(
+                    $file . ': ' . $warnings . ' warning' . ($warnings > 1 ? 's' : '') . ' detected',
+                    Project::MSG_WARN
+                );
                 $this->outputCustomFormatMessages($messages, 'WARNING');
             }
         }
@@ -548,10 +568,11 @@ class PhpCodeSnifferTask extends Task {
 
     /**
      * Outputs the messages of a specific type for one file
-     * @param array $messages
+     * @param array  $messages
      * @param string $type
      */
-    protected function outputCustomFormatMessages($messages, $type) {
+    protected function outputCustomFormatMessages($messages, $type)
+    {
         foreach ($messages as $line => $messagesPerLine) {
             foreach ($messagesPerLine as $column => $messagesPerColumn) {
                 foreach ($messagesPerColumn as $message) {
@@ -560,8 +581,10 @@ class PhpCodeSnifferTask extends Task {
                         $logLevel = Project::MSG_INFO;
                         if ($msgType == 'ERROR') {
                             $logLevel = Project::MSG_ERR;
-                        } else if ($msgType == 'WARNING') {
-                            $logLevel = Project::MSG_WARN;
+                        } else {
+                            if ($msgType == 'WARNING') {
+                                $logLevel = Project::MSG_WARN;
+                            }
                         }
                         $text = $message['message'];
                         $string = $msgType . ' in line ' . $line . ' column ' . $column . ': ' . $text;
@@ -577,61 +600,69 @@ class PhpCodeSnifferTask extends Task {
 /**
  * @package phing.tasks.ext
  */
-class PhpCodeSnifferTask_FormatterElement extends DataType {
+class PhpCodeSnifferTask_FormatterElement extends DataType
+{
 
-  /**
-   * Type of output to generate
-   * @var string
-   */
-  protected $type      = "";
+    /**
+     * Type of output to generate
+     * @var string
+     */
+    protected $type = "";
 
-  /**
-   * Output to file?
-   * @var bool
-   */
-  protected $useFile   = true;
+    /**
+     * Output to file?
+     * @var bool
+     */
+    protected $useFile = true;
 
-  /**
-   * Output file.
-   * @var string
-   */
-  protected $outfile   = "";
+    /**
+     * Output file.
+     * @var string
+     */
+    protected $outfile = "";
 
-  /**
-   * Validate config.
-   */
-  public function parsingComplete () {
-        if(empty($this->type)) {
+    /**
+     * Validate config.
+     */
+    public function parsingComplete()
+    {
+        if (empty($this->type)) {
             throw new BuildException("Format missing required 'type' attribute.");
+        }
+        if ($this->useFile && empty($this->outfile)) {
+            throw new BuildException("Format requires 'outfile' attribute when 'useFile' is true.");
+        }
+
     }
-    if ($this->useFile && empty($this->outfile)) {
-      throw new BuildException("Format requires 'outfile' attribute when 'useFile' is true.");
+
+    public function setType($type)
+    {
+        $this->type = $type;
     }
 
-  }
+    public function getType()
+    {
+        return $this->type;
+    }
 
-  public function setType ($type)  {
-    $this->type = $type;
-  }
+    public function setUseFile($useFile)
+    {
+        $this->useFile = $useFile;
+    }
 
-  public function getType () {
-    return $this->type;
-  }
+    public function getUseFile()
+    {
+        return $this->useFile;
+    }
 
-  public function setUseFile ($useFile) {
-    $this->useFile = $useFile;
-  }
+    public function setOutfile($outfile)
+    {
+        $this->outfile = $outfile;
+    }
 
-  public function getUseFile () {
-    return $this->useFile;
-  }
-
-  public function setOutfile ($outfile) {
-    $this->outfile = $outfile;
-  }
-
-  public function getOutfile () {
-    return $this->outfile;
-  }
+    public function getOutfile()
+    {
+        return $this->outfile;
+    }
 
 } //end FormatterElement

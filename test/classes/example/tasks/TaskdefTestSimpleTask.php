@@ -19,29 +19,37 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/Task.php';
 
-class TaskdefTestSimpleTask extends Task {
+class TaskdefTestSimpleTask extends Task
+{
 
     private $echo;
-    
+
     /**
      * @return TestEcho
      */
-    public function createEcho() {
+    public function createEcho()
+    {
         $this->echo = new TestEcho();
+
         return $this->echo;
     }
-    
-    public function main() {
-      $this->log("simpletask: " . $this->echo->message, Project::MSG_INFO);
+
+    public function main()
+    {
+        $this->log("simpletask: " . $this->echo->message, Project::MSG_INFO);
     }
 
 }
 
-class TestEcho {
+class TestEcho
+{
     public $message;
-    public function setMessage($s) {$this->message = $s;}
-}
 
+    public function setMessage($s)
+    {
+        $this->message = $s;
+    }
+}

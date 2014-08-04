@@ -104,7 +104,8 @@ class PHPMDTask extends Task
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs) {
+    public function addFileSet(FileSet $fs)
+    {
         $this->filesets[] = $fs;
     }
 
@@ -138,7 +139,7 @@ class PHPMDTask extends Task
         $this->allowedFileExtensions = array();
 
         $token = ' ,;';
-        $ext   = strtok($fileExtensions, $token);
+        $ext = strtok($fileExtensions, $token);
 
         while ($ext !== false) {
             $this->allowedFileExtensions[] = $ext;
@@ -155,7 +156,7 @@ class PHPMDTask extends Task
     {
         $this->ignorePatterns = array();
 
-        $token   = ' ,;';
+        $token = ' ,;';
         $pattern = strtok($ignorePatterns, $token);
 
         while ($pattern !== false) {
@@ -173,7 +174,7 @@ class PHPMDTask extends Task
     {
         $num = array_push($this->formatters, new PHPMDFormatterElement());
 
-        return $this->formatters[$num-1];
+        return $this->formatters[$num - 1];
     }
 
     /**
@@ -183,10 +184,10 @@ class PHPMDTask extends Task
      */
     public function main()
     {
-	    /**
+        /**
          * Find PHPMD
          */
-        if(false === stream_resolve_include_path("PHP/PMD.php")){
+        if (false === stream_resolve_include_path("PHP/PMD.php")) {
             @include_once 'PHPMD/PHPMD.php';
             $class_name = '\PHPMD\PHPMD';
             $new = true;
@@ -197,14 +198,14 @@ class PHPMDTask extends Task
         }
 
 
-        if (! class_exists($class_name)) {
+        if (!class_exists($class_name)) {
             throw new BuildException(
                 'PHPMDTask depends on PHPMD being installed and on include_path.',
                 $this->getLocation()
             );
         }
 
-        if($new){
+        if ($new) {
             require_once 'PHPMD/AbstractRule.php';
             //weird syntax to allow 5.2 parser compatability
             $minPriority = constant('\PHPMD\AbstractRule::LOWEST_PRIORITY');
@@ -245,17 +246,17 @@ class PHPMDTask extends Task
         }
 
         // Create a rule set factory
-        if($new){
+        if ($new) {
             @require_once "PHPMD/RuleSetFactory.php";
             $ruleSetClass = '\PHPMD\RuleSetFactory';
             $ruleSetFactory = new $ruleSetClass(); //php 5.2 parser compatability
-            
+
         } else {
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();
 
         }
         $ruleSetFactory->setMinimumPriority($this->minimumPriority);
-        
+
         $phpmd = new $class_name();
         $phpmd->setFileExtensions($this->allowedFileExtensions);
         $phpmd->setIgnorePattern($this->ignorePatterns);
@@ -268,8 +269,8 @@ class PHPMDTask extends Task
             // append any files in filesets
             foreach ($this->filesets as $fs) {
                 foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
-                     $f = new PhingFile($fs->getDir($this->project), $filename);
-                     $filesToParse[] = $f->getAbsolutePath();
+                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $filesToParse[] = $f->getAbsolutePath();
                 }
             }
         }

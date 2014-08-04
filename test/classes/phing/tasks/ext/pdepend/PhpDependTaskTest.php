@@ -19,32 +19,36 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests for PhpDependTask
- * 
+ *
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.pdepend
  */
-class PhpDependTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class PhpDependTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pdepend/build.xml");
     }
 
-    public function testLoggerSummary() {
+    public function testLoggerSummary()
+    {
         $this->executeTarget(__FUNCTION__);
-        
+
         $filename = PHING_TEST_BASE . '/etc/tasks/ext/pdepend/tempoutput';
         $this->assertFileExists($filename);
         unlink($filename);
     }
 
-    public function testAnalyzer() { 
+    public function testAnalyzer()
+    {
         $this->executeTarget(__FUNCTION__);
-        
+
         $filename = PHING_TEST_BASE . '/etc/tasks/ext/pdepend/tempoutput';
         $this->assertFileExists($filename);
         unlink($filename);

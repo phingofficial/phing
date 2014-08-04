@@ -11,16 +11,16 @@
  * need, and that is to allow access to dynamic values that are set by logic
  * that is not represented in a build file.  For exampe, we need a system for getting
  * the current resource (file) that is being processed by a filterchain in a fileset.
- * 
+ *
  * Each slot corresponds to only one read-only, dynamic-value RegisterSlot object. In
  * a build.xml register slots are expressed using a syntax similar to variables:
- * 
+ *
  * <replaceregexp>
  *    <regexp pattern="\n" replace="%{task.current_file}"/>
  * </replaceregexp>
- * 
+ *
  * The task/type must provide a supporting setter for the attribute:
- * 
+ *
  * <code>
  *     function setListeningReplace(RegisterSlot $slot) {
  *        $this->replace = $slot;
@@ -38,54 +38,59 @@
  * @version $Id$
  * @package phing.system.util
  */
-class Register {
-    
+class Register
+{
+
     /** Slots that have been registered */
     private static $slots = array();
-    
+
     /**
      * Returns RegisterSlot for specified key.
-     * 
+     *
      * If not slot exists a new one is created for key.
-     * 
-     * @param string $key
+     *
+     * @param  string       $key
      * @return RegisterSlot
      */
-    public static function getSlot($key) {
+    public static function getSlot($key)
+    {
         if (!isset(self::$slots[$key])) {
             self::$slots[$key] = new RegisterSlot($key);
         }
-        return self::$slots[$key];
-    }    
-}
 
+        return self::$slots[$key];
+    }
+}
 
 /**
  * Represents a slot in the register.
  *
  * @package phing.system.util
  */
-class RegisterSlot {
-    
+class RegisterSlot
+{
+
     /** The name of this slot. */
     private $key;
-    
+
     /** The value for this slot. */
     private $value;
-    
+
     /**
      * Constructs a new RegisterSlot, setting the key to passed param.
      * @param string $key
      */
-    public function __construct($key) {
+    public function __construct($key)
+    {
         $this->key = (string) $key;
     }
-    
+
     /**
      * Sets the key / name for this slot.
      * @param string $k
      */
-    public function setKey($k) {
+    public function setKey($k)
+    {
         $this->key = (string) $k;
     }
 
@@ -93,34 +98,38 @@ class RegisterSlot {
      * Gets the key / name for this slot.
      * @return string
      */
-    public function getKey() {
+    public function getKey()
+    {
         return $this->key;
     }
-    
+
     /**
      * Sets the value for this slot.
      * @param mixed
      */
-    public function setValue($v) {
+    public function setValue($v)
+    {
         $this->value = $v;
     }
-    
+
     /**
      * Returns the value at this slot.
      * @return mixed
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
-    
+
     /**
      * Recursively implodes an array to a comma-separated string
      * @param  array  $arr
      * @return string
      */
-    private function implodeArray(array $arr) {
+    private function implodeArray(array $arr)
+    {
         $values = array();
-        
+
         foreach ($arr as $value) {
             if (is_array($value)) {
                 $values[] = $this->implodeArray($value);
@@ -128,10 +137,10 @@ class RegisterSlot {
                 $values[] = $value;
             }
         }
-        
+
         return "{" . implode(",", $values) . "}";
     }
-    
+
     /**
      * Returns the value at this slot as a string value.
      * @return string
@@ -144,6 +153,5 @@ class RegisterSlot {
             return (string) $this->value;
         }
     }
-    
-}
 
+}

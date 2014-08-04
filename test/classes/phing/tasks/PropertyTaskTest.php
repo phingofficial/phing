@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
- 
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/system/PropertyTask.php';
 
@@ -28,49 +28,58 @@ require_once 'phing/tasks/system/PropertyTask.php';
  * @author Conor MacNeill (Ant)
  * @package phing.tasks.system
  */
-class PropertyTaskTest extends BuildFileTest { 
-        
-    public function setUp() { 
+class PropertyTaskTest extends BuildFileTest
+{
+
+    public function setUp()
+    {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
     }
-        
 
-    public function test1() { 
+    public function test1()
+    {
         // should get no output at all
         $this->expectOutputAndError("test1", "", "");
     }
 
-    public function test2() { 
+    public function test2()
+    {
         $this->expectLog("test2", "testprop1=aa, testprop3=xxyy, testprop4=aazz");
     }
-    
-    public function test4() { 
+
+    public function test4()
+    {
         $this->expectLog("test4", "http.url is http://localhost:999");
     }
-    
-    public function testPrefixSuccess() {
+
+    public function testPrefixSuccess()
+    {
         $this->executeTarget("prefix.success");
         $this->assertEquals("80", $this->project->getProperty("server1.http.port"));
     }
-    
-    
-    public function testPrefixFailure() {
-       try {
+
+    public function testPrefixFailure()
+    {
+        try {
             $this->executeTarget("prefix.fail");
         } catch (BuildException $e) {
-            $this->assertTrue(strpos($e->getMessage(), "Prefix is only valid") !== false, "Prefix allowed on non-resource/file load - ");
-            return;                     
+            $this->assertTrue(
+                strpos($e->getMessage(), "Prefix is only valid") !== false,
+                "Prefix allowed on non-resource/file load - "
+            );
+
+            return;
         }
         $this->fail("Did not throw exception on invalid use of prefix");
     }
-    
+
     public function testFilterChain()
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
     }
 
-    public function circularDefinitionTargets() 
+    public function circularDefinitionTargets()
     {
         return array(
             array('test3'),
@@ -80,17 +89,21 @@ class PropertyTaskTest extends BuildFileTest {
     }
 
     /**
-     * @dataProvider circularDefinitionTargets 
+     * @dataProvider circularDefinitionTargets
      */
     public function testCircularDefinitionDetection($target)
     {
         try {
             $this->executeTarget($target);
         } catch (BuildException $e) {
-            $this->assertTrue(strpos($e->getMessage(), "was circularly defined") !== false, "Circular definition not detected - ");
-            return;                     
+            $this->assertTrue(
+                strpos($e->getMessage(), "was circularly defined") !== false,
+                "Circular definition not detected - "
+            );
+
+            return;
         }
-        $this->fail("Did not throw exception on circular exception");      
+        $this->fail("Did not throw exception on circular exception");
     }
 
     /**
@@ -103,23 +116,28 @@ class PropertyTaskTest extends BuildFileTest {
     }
 }
 
-class HangDetectorPropertyTask extends PropertyTask {
+class HangDetectorPropertyTask extends PropertyTask
+{
 
-    protected function loadFile(PhingFile $file) {
+    protected function loadFile(PhingFile $file)
+    {
         $props = new HangDetectorProperties();
         $props->load($file);
         $this->addProperties($props);
     }
 }
 
-class HangDetectorProperties extends Properties {
+class HangDetectorProperties extends Properties
+{
     private $accesses = 0;
-    public function getProperty($prop) 
+
+    public function getProperty($prop)
     {
         $this->accesses++;
-        if( $this->accesses > 100 ) {
+        if ($this->accesses > 100) {
             throw new Exception('Cirular definition Hanged!');
         }
+
         return parent::getProperty($prop);
     }
 }

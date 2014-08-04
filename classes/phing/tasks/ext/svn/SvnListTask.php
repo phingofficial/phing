@@ -42,7 +42,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Sets the name of the property to use
      */
-    function setPropertyName($propertyName)
+    public function setPropertyName($propertyName)
     {
         $this->propertyName = $propertyName;
     }
@@ -50,7 +50,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Returns the name of the property to use
      */
-    function getPropertyName()
+    public function getPropertyName()
     {
         return $this->propertyName;
     }
@@ -66,7 +66,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Sets the max num of tags to display
      */
-    function setLimit($limit)
+    public function setLimit($limit)
     {
         $this->limit = (int) $limit;
     }
@@ -74,7 +74,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Sets whether to sort tags in descending order
      */
-    function setOrderDescending($orderDescending)
+    public function setOrderDescending($orderDescending)
     {
         $this->orderDescending = (bool) $orderDescending;
     }
@@ -84,27 +84,27 @@ class SvnListTask extends SvnBaseTask
      *
      * @throws BuildException
      */
-    function main()
+    public function main()
     {
         $this->setup('list');
-        
+
         if ($this->oldVersion) {
             $this->svn->setOptions(array('fetchmode' => VERSIONCONTROL_SVN_FETCHMODE_XML));
             $output = $this->run(array('--xml'));
-            
+
             if (!($xmlObj = @simplexml_load_string($output))) {
                 throw new BuildException("Failed to parse the output of 'svn list --xml'.");
             }
-            
+
             $objects = $xmlObj->list->entry;
             $entries = array();
-            
+
             foreach ($objects as $object) {
                 $entries[] = array(
                     'commit' => array(
                         'revision' => (string) $object->commit['revision'],
-                        'author'   => (string) $object->commit->author,
-                        'date'     => (string) $object->commit->date
+                        'author' => (string) $object->commit->author,
+                        'date' => (string) $object->commit->date
                     ),
                     'name' => (string) $object->name
                 );
@@ -113,19 +113,19 @@ class SvnListTask extends SvnBaseTask
             $output = $this->run(array());
             $entries = $output['list'][0]['entry'];
         }
-        
+
         if ($this->orderDescending) {
             $entries = array_reverse($entries);
         }
-        
+
         $result = null;
         $count = 0;
-        
+
         foreach ($entries as $entry) {
             if ($this->limit > 0 && $count >= $this->limit) {
                 break;
             }
-            
+
             $result .= (!empty($result)) ? "\n" : '';
             $result .= $entry['commit']['revision'] . ' | ' . $entry['commit']['author'] . ' | ' . $entry['commit']['date'] . ' | ' . $entry['name'];
             $count++;

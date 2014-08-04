@@ -17,14 +17,14 @@
  *
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
- * <http://phing.info>. 
+ * <http://phing.info>.
  */
 
 require_once dirname(dirname(__FILE__)) . '/S3.php';
 
 /**
  * Downloads an object off S3
- * 
+ *
  * @version $Id$
  * @package phing.tasks.ext
  * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
@@ -34,75 +34,75 @@ class S3GetTask extends Service_Amazon_S3
 {
     /**
      * This is where we'll store the object
-     * 
+     *
      * (default value: null)
-     * 
+     *
      * @var mixed
      * @access protected
      */
     protected $_target = null;
-    
+
     /**
      * The S3 object we're working with
-     * 
+     *
      * (default value: null)
-     * 
+     *
      * @var mixed
      * @access protected
      */
     protected $_object = null;
-    
-	public function setObject($object)
-	{
-		if(empty($object) || !is_string($object)) {
-			throw new BuildException('Object must be a non-empty string');
-		}
-		
-		$this->_object = $object;
-	}
-	
-	public function getObject()
-	{
-		if($this->_object === null) {
-			throw new BuildException('Object is not set');
-		}
-		
-		return $this->_object;
-	}
+
+    public function setObject($object)
+    {
+        if (empty($object) || !is_string($object)) {
+            throw new BuildException('Object must be a non-empty string');
+        }
+
+        $this->_object = $object;
+    }
+
+    public function getObject()
+    {
+        if ($this->_object === null) {
+            throw new BuildException('Object is not set');
+        }
+
+        return $this->_object;
+    }
 
     public function setTarget($target)
     {
-        if(!is_file($target) && !is_dir($target) && !is_link($target)) {
-            if(!is_writable(dirname($target))) {
+        if (!is_file($target) && !is_dir($target) && !is_link($target)) {
+            if (!is_writable(dirname($target))) {
                 throw new BuildException('Target is not writable: ' . $target);
             }
         } else {
-            if(!is_writable($target)) {
+            if (!is_writable($target)) {
                 throw new BuildException('Target is not writable: ' . $target);
             }
         }
 
         $this->_target = $target;
     }
-    
+
     public function getTarget()
     {
-        if($this->_target === null) {
+        if ($this->_target === null) {
             throw new BuildException('Target is not set');
         }
-        
+
         return $this->_target;
     }
-    
+
     public function execute()
     {
-		$target = $this->getTarget();
-		
+        $target = $this->getTarget();
+
         // Use the object name as the target if the current target is a directory
-        if(is_dir($target)) {
+        if (is_dir($target)) {
             $target = rtrim($target, '/') . '/' . $this->getObject();
         }
 
-		file_put_contents($target, $this->getObjectContents($this->getObject()));
+        file_put_contents($target, $this->getObjectContents($this->getObject()));
     }
 }
