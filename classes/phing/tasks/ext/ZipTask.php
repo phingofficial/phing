@@ -135,10 +135,6 @@ class ZipTask extends MatchingTask
             throw new BuildException("Can not write to the specified zipfile!", $this->getLocation());
         }
 
-        // shouldn't need to clone, since the entries in filesets
-        // themselves won't be modified -- only elements will be added
-        $savedFileSets = $this->filesets;
-
         try {
             if ($this->baseDir !== null) {
                 if (!$this->baseDir->exists()) {
@@ -162,20 +158,7 @@ class ZipTask extends MatchingTask
 
             // check if zip is out of date with respect to each
             // fileset
-            $upToDate = true;
-            foreach ($this->filesets as $fs) {
-                $files = $fs->getFiles($this->project, $this->includeEmpty);
-                if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {
-                    $upToDate = false;
-                }
-                for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                    if ($this->zipFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
-                        throw new BuildException("A zip file cannot include itself", $this->getLocation());
-                    }
-                }
-            }
-
-            if ($upToDate) {
+            if ($this->areFilesetsUpToDate()) {
                 $this->log("Nothing to do: " . $this->zipFile->__toString() . " is up to date.", Project::MSG_INFO);
 
                 return;
@@ -190,40 +173,13 @@ class ZipTask extends MatchingTask
                 throw new Exception("ZipArchive::open() failed with code " . $res);
             }
 
-            foreach ($this->filesets as $fs) {
-                $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
-                    $fs->getDir($this->project);
-
-                $files = $fs->getFiles($this->project, $this->includeEmpty);
-
-                $filesToZip = array();
-                for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                    $f = new PhingFile($fsBasedir, $files[$i]);
-
-                    $pathInZip = $this->prefix
-                        . $f->getPathWithoutBase($fsBasedir);
-
-                    $pathInZip = str_replace('\\', '/', $pathInZip);
-
-                    if ($f->isDirectory()) {
-                        if ($pathInZip != '.') {
-                            $zip->addEmptyDir($pathInZip);
-                        }
-                    } else {
-                        $zip->addFile($f->getPath(), $pathInZip);
-                    }
-                    $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
-                }
-            }
+            $this->addFilesetsToArchive($zip);
 
             $zip->close();
         } catch (IOException $ioe) {
             $msg = "Problem creating ZIP: " . $ioe->getMessage();
-            $this->filesets = $savedFileSets;
             throw new BuildException($msg, $ioe, $this->getLocation());
         }
-
-        $this->filesets = $savedFileSets;
     }
 
     /**
@@ -231,13 +187,64 @@ class ZipTask extends MatchingTask
      * @param  PhingFile $dir
      * @return boolean
      */
-    protected function archiveIsUpToDate($files, $dir)
+    private function archiveIsUpToDate($files, $dir)
     {
         $sfs = new SourceFileScanner($this);
         $mm = new MergeMapper();
         $mm->setTo($this->zipFile->getAbsolutePath());
 
         return count($sfs->restrict($files, $dir, null, $mm)) == 0;
+    }
+
+    /**
+     * @return array
+     * @throws BuildException
+     */
+    public function areFilesetsUpToDate()
+    {
+        foreach ($this->filesets as $fs) {
+            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {
+                return false;
+            }
+            for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
+                if ($this->zipFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
+                    throw new BuildException("A zip file cannot include itself", $this->getLocation());
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param $zip
+     */
+    private function addFilesetsToArchive($zip)
+    {
+        foreach ($this->filesets as $fs) {
+            $fsBasedir = (null != $this->baseDir) ? $this->baseDir :
+                $fs->getDir($this->project);
+
+            $files = $fs->getFiles($this->project, $this->includeEmpty);
+
+            for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
+                $f = new PhingFile($fsBasedir, $files[$i]);
+
+                $pathInZip = $this->prefix
+                    . $f->getPathWithoutBase($fsBasedir);
+
+                $pathInZip = str_replace('\\', '/', $pathInZip);
+
+                if ($f->isDirectory()) {
+                    if ($pathInZip != '.') {
+                        $zip->addEmptyDir($pathInZip);
+                    }
+                } else {
+                    $zip->addFile($f->getPath(), $pathInZip);
+                }
+                $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
+            }
+        }
     }
 
 }
