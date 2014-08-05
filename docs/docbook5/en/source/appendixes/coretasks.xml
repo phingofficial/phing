@@ -411,9 +411,6 @@
     &lt;include name="*.conf" /&gt;
   &lt;/fileset&gt;
 &lt;/apply&gt;
-
-
-
             </programlisting>
         </sect2>
         <sect2 role="nestedtags">
@@ -498,7 +495,7 @@
             will set <literal>foo.bar</literal> to <literal>"Well, yes"</literal>.
             And last it checks if extension <literal>foo</literal> is loaded,
                 so the property <literal>foo.ext.loaded</literal> is set to <literal>"true"</literal> (default).
-            <emphasis role="bold">k</emphasis></para>
+        </para>
         <para><emphasis role="bold">NB:</emphasis> the Available task can also be used as a
             condition, see <link linkend="conditions">conditions</link>.</para>
 
