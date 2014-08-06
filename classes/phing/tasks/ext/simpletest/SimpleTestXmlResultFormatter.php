@@ -20,7 +20,7 @@
  */
 
 require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
-require_once 'simpletest/xml.php';
+@include_once 'simpletest/xml.php';
 
 /**
  * Prints plain text output of the test to a specified Writer.

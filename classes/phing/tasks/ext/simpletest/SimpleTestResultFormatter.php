@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'simpletest/scorer.php';
+@include_once 'simpletest/scorer.php';
 
 require_once 'phing/system/io/Writer.php';
 
