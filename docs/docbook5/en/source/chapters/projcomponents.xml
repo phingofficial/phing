@@ -479,6 +479,51 @@
             </table>
 
         </sect2>
+        
+        <sect2 xml:id="conditions.isset">
+            <title><literal>version-compare</literal></title>
+            <para>Compares two given versions</para>
+            <table>
+                <title>version-compare Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>version</literal></entry>
+                            <entry>The version you want to compare</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>desiredVersion</literal></entry>
+                            <entry>The version you want to compare agains</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>operator</literal></entry>
+                            <entry>The operator to use for version comparison. Default
+                                is <literal>&gt;=</literal>.</entry>
+                            <entry>No</entry>
+                        </row>
+                        <row>
+                            <entry>debug</entry>
+                            <entry>Turns on debug mode, that echoes the comparion message. Default is false.</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;version-compare version="${someproperty}" desiredVersion="1.3" operator="gt" /&gt;</programlisting>
+            <para>This condition internally uses PHP version_compare(). Operators and behavior are the same.</para> 
+        </sect2>
         <sect2 xml:id="conditions.isset">
             <title><literal>isset</literal></title>
             <para>Test whether a given property has been set in this project.</para>
