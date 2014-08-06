@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SymlinkTaskTest" default="main">
+	<property name="tmp.dir" value="tmp"/>
+	
+	<target name="setup">
+		<mkdir dir="${tmp.dir}"/>
+	</target>
+	
+	<target name="clean">
+		<delete dir="${tmp.dir}"/>
+	</target>
+
+    <target name="testSymlinkExists">
+        <touch file="${tmp.dir}/fake1"/>
+        <symlink target="fake1" link="${tmp.dir}/l"/>
+        <symlink target="fake1" link="${tmp.dir}/l"/>
+    </target>
+
+    <target name="testOverwritingSymlink">
+        <touch file="${tmp.dir}/fake1"/>
+        <touch file="${tmp.dir}/fake2"/>
+        <symlink target="fake1" link="${tmp.dir}/l"/>
+        <symlink target="fake2" link="${tmp.dir}/l" overwrite="true"/>
+    </target>
+
+    <target name="testOverwritingDirectory">
+        <mkdir dir="${tmp.dir}/l"/>
+        <touch file="${tmp.dir}/fake1"/>
+        <symlink target="fake1" link="${tmp.dir}/l" overwrite="true"/>
+    </target>
+
+    <target name="testNotOverwritingSymlink">
+        <touch file="${tmp.dir}/fake1"/>
+        <touch file="${tmp.dir}/fake2"/>
+        <symlink target="fake1" link="${tmp.dir}/l"/>
+        <symlink target="fake2" link="${tmp.dir}/l"/>
+    </target>
+
+	<target name="main"/>
+</project>
