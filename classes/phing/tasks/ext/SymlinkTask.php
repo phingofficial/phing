@@ -285,7 +285,9 @@ class SymlinkTask extends Task
             $this->log('Link exists: ' . $link, Project::MSG_INFO);
 
             return true;
-        } elseif (file_exists($link)) {
+        }
+
+        if (file_exists($link) || is_link($link)) {
             if (!$this->getOverwrite()) {
                 $this->log('Not overwriting existing link ' . $link, Project::MSG_ERR);
 

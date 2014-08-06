@@ -36,5 +36,10 @@
         <symlink target="fake2" link="${tmp.dir}/l"/>
     </target>
 
-	<target name="main"/>
+    <target name="testOverwriteDanglingSymlink">
+        <symlink target="fake1" link="${tmp.dir}/l"/>
+        <symlink target="fake2" link="${tmp.dir}/l" overwrite="true"/>
+    </target>
+
+    <target name="main"/>
 </project>
