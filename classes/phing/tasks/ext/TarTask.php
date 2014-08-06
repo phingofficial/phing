@@ -235,24 +235,9 @@ class TarTask extends MatchingTask
             }
 
             // check if tar is out of date with respect to each fileset
-            if ($this->tarFile->exists()) {
-                $upToDate = true;
-                foreach ($this->filesets as $fs) {
-                    $files = $fs->getFiles($this->project, $this->includeEmpty);
-                    if (!$this->archiveIsUpToDate($files, $fs->getDir($this->project))) {
-                        $upToDate = false;
-                    }
-                    for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
-                        if ($this->tarFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
-                            throw new BuildException("A tar file cannot include itself", $this->getLocation());
-                        }
-                    }
-                }
-                if ($upToDate) {
-                    $this->log("Nothing to do: " . $this->tarFile->__toString() . " is up to date.", Project::MSG_INFO);
-
-                    return;
-                }
+            if ($this->tarFile->exists() && $this->isArchiveUpToDate()) {
+                $this->log("Nothing to do: " . $this->tarFile->__toString() . " is up to date.", Project::MSG_INFO);
+                return;
             }
 
             $this->log("Building tar: " . $this->tarFile->__toString(), Project::MSG_INFO);
@@ -300,13 +285,33 @@ class TarTask extends MatchingTask
      * @param  PhingFile $dir
      * @return boolean
      */
-    protected function archiveIsUpToDate($files, $dir)
+    protected function areFilesUpToDate($files, $dir)
     {
         $sfs = new SourceFileScanner($this);
         $mm = new MergeMapper();
         $mm->setTo($this->tarFile->getAbsolutePath());
 
         return count($sfs->restrict($files, $dir, null, $mm)) == 0;
+    }
+
+    /**
+     * @return array
+     * @throws BuildException
+     */
+    private function isArchiveUpToDate()
+    {
+        foreach ($this->filesets as $fs) {
+            $files = $fs->getFiles($this->project, $this->includeEmpty);
+            if (!$this->areFilesUpToDate($files, $fs->getDir($this->project))) {
+                return false;
+            }
+            for ($i = 0, $fcount = count($files); $i < $fcount; $i++) {
+                if ($this->tarFile->equals(new PhingFile($fs->getDir($this->project), $files[$i]))) {
+                    throw new BuildException("A tar file cannot include itself", $this->getLocation());
+                }
+            }
+        }
+        return true;
     }
 
 }
