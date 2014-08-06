@@ -32,6 +32,19 @@ class UntarTask extends ExtractBaseTask
 {
 
     /**
+     * @var bool
+     */
+    private $preservePermissions = false;
+
+    /**
+     * @param bool $preservePermissions
+     */
+    public function setPreservePermissions($preservePermissions)
+    {
+        $this->preservePermissions = $preservePermissions;
+    }
+
+    /**
      * Ensures that PEAR lib exists.
      */
     public function init()
@@ -51,7 +64,7 @@ class UntarTask extends ExtractBaseTask
 
         try {
             $tar = $this->initTar($tarfile);
-            if (!$tar->extractModify($this->todir->getAbsolutePath(), $this->removepath)) {
+            if (!$tar->extractModify($this->todir->getAbsolutePath(), $this->removepath, $this->preservePermissions)) {
                 throw new BuildException('Failed to extract tar file: ' . $tarfile->getAbsolutePath());
             }
         } catch (IOException $ioe) {

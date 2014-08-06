@@ -11024,6 +11024,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>preservePermissions</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>When set to true, preserve permissions (mode, uid, gid) as set in the tar file..</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
