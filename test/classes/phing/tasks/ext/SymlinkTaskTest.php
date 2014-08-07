@@ -72,11 +72,13 @@ class SymlinkTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $this->assertEquals("fake1", readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
+        $this->assertInLogs("Not overwriting existing link");
     }
 
     public function testOverwriteDanglingSymlink()
     {
         $this->executeTarget(__FUNCTION__);
+        $this->assertInLogs("Link removed: ");
         $this->assertEquals("fake2", readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
     }
 }
