@@ -51,6 +51,7 @@ class SymlinkTaskTest extends BuildFileTest
     public function testSymlinkExists()
     {
         $this->executeTarget(__FUNCTION__);
+        $this->assertEquals("tmp/fake1", readlink(PHING_TEST_BASE . "/etc/tasks/ext/tmp/l"));
         $this->assertInLogs("Link exists: ");
     }
 
