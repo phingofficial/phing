@@ -281,7 +281,7 @@ class SymlinkTask extends Task
     {
         $fs = FileSystem::getFileSystem();
 
-        if (is_link($link) && readlink($link) == $target) {
+        if (is_link($link) && @readlink($link) == $target) {
             $this->log('Link exists: ' . $link, Project::MSG_INFO);
 
             return true;
