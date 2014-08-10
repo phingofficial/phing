@@ -58,4 +58,34 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
         $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
     }
+
+    public function testEmpty()
+    {
+        $this->assertTrue($this->props->isEmpty());
+    }
+
+    public function testAppendPropertyValues()
+    {
+        $this->props->append('t', 'a');
+        $this->props->append('t', 'b');
+        $this->assertEquals('a,b', $this->props->get('t'));
+    }
+
+    public function testToString()
+    {
+        $this->props->put('a', 'b');
+
+        $this->assertEquals("a=b" . PHP_EOL, $this->props->toString());
+    }
+
+    public function testStore()
+    {
+        $file = new PhingFile(PHING_TEST_BASE . "/tmp/props");
+        $this->props->put('t', 'a');
+        $this->props->store($file, 'header');
+        $this->assertFileExists($file->getPath());
+        $this->assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
+        unlink($file->getPath());
+    }
+
 }
