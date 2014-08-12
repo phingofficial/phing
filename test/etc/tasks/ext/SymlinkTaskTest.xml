@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="SymlinkTaskTest" default="main">
-	<property name="tmp.dir" value="tmp"/>
-	
-	<target name="setup">
-		<mkdir dir="${tmp.dir}"/>
-	</target>
-	
-	<target name="clean">
-		<delete dir="${tmp.dir}"/>
-	</target>
+    <property name="tmp.dir" value="tmp"/>
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}"/>
+   
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
 
     <target name="testSymlinkExists">
-        <touch file="${tmp.dir}/fake1"/>
-        <symlink target="${tmp.dir}/fake1" link="${tmp.dir}/l"/>
-        <symlink target="${tmp.dir}/fake1" link="${tmp.dir}/l"/>
+        <touch file="${tmp.dir.resolved}/fake1"/>
+        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
+        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
     </target>
 
     <target name="testOverwritingSymlink">
-        <touch file="${tmp.dir}/fake1"/>
-        <touch file="${tmp.dir}/fake2"/>
-        <symlink target="${tmp.dir}/fake1" link="${tmp.dir}/l"/>
-        <symlink target="${tmp.dir}/fake2" link="${tmp.dir}/l" overwrite="true"/>
+        <touch file="${tmp.dir.resolved}/fake1"/>
+        <touch file="${tmp.dir.resolved}/fake2"/>
+        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
+        <symlink target="${tmp.dir.resolved}/fake2" link="${tmp.dir.resolved}/l" overwrite="true"/>
     </target>
 
     <target name="testOverwritingDirectory">
-        <mkdir dir="${tmp.dir}/l"/>
-        <touch file="${tmp.dir}/fake1"/>
-        <symlink target="${tmp.dir}/fake1" link="${tmp.dir}/l" overwrite="true"/>
+        <mkdir dir="${tmp.dir.resolved}/l"/>
+        <touch file="${tmp.dir.resolved}/fake1"/>
+        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l" overwrite="true"/>
     </target>
 
     <target name="testNotOverwritingSymlink">
-        <touch file="${tmp.dir}/fake1"/>
-        <touch file="${tmp.dir}/fake2"/>
-        <symlink target="${tmp.dir}/fake1" link="${tmp.dir}/l"/>
-        <symlink target="${tmp.dir}/fake2" link="${tmp.dir}/l"/>
+        <touch file="${tmp.dir.resolved}/fake1"/>
+        <touch file="${tmp.dir.resolved}/fake2"/>
+        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
+        <symlink target="${tmp.dir.resolved}/fake2" link="${tmp.dir.resolved}/l"/>
     </target>
 
     <target name="testOverwriteDanglingSymlink">
-        <symlink target="${tmp.dir}/fake1" link="${tmp.dir}/l"/>
-        <symlink target="${tmp.dir}/fake2" link="${tmp.dir}/l" overwrite="true"/>
+        <symlink target="${tmp.dir.resolved}/fake1" link="${tmp.dir.resolved}/l"/>
+        <symlink target="${tmp.dir.resolved}/fake2" link="${tmp.dir.resolved}/l" overwrite="true"/>
     </target>
 
     <target name="main"/>
