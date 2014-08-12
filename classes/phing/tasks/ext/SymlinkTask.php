@@ -292,6 +292,8 @@ class SymlinkTask extends Task
                 $this->log('Not overwriting existing link ' . $link, Project::MSG_ERR);
                 $this->log('is_link: ' . var_export(is_link($link), true), Project::MSG_ERR);
                 $this->log('readlink: ' . @readlink($link), Project::MSG_ERR);
+                $this->log('cwd: ' . getcwd(), Project::MSG_ERR);
+                $this->log('readlink+cwd: ' . @readlink(getcwd() . '/' . $link), Project::MSG_ERR);
                 $this->log('target: ' . var_export($target, true), Project::MSG_ERR);
 
                 return false;
