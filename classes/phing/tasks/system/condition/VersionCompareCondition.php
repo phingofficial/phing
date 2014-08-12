@@ -92,7 +92,7 @@ class VersionCompareCondition implements Condition
         $isValid = version_compare($this->version, $this->desiredVersion, $this->operator);
         if ($this->debug) {
             echo sprintf(
-                'Assertion that %s %s %s %s' . PHP_EOL,
+                'Assertion that %s %s %s failed' . PHP_EOL,
                 $this->version,
                 $this->operator,
                 $this->desiredVersion
