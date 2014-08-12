@@ -286,10 +286,13 @@ class SymlinkTask extends Task
 
             return true;
         }
-
+        
         if (file_exists($link) || is_link($link)) {
             if (!$this->getOverwrite()) {
                 $this->log('Not overwriting existing link ' . $link, Project::MSG_ERR);
+                $this->log('is_link: ' . var_export(is_link($link), true), Project::MSG_ERR);
+                $this->log('readlink: ' . @readlink($link), Project::MSG_ERR);
+                $this->log('target: ' . var_export($target, true), Project::MSG_ERR);
 
                 return false;
             }
