@@ -22,7 +22,7 @@
 require_once 'phing/BuildFileTest.php';
 
 /**
- * Tests the Available Task
+ * Tests the Symlink Task
  *
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
