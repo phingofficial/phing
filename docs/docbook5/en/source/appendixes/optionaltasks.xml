@@ -5392,6 +5392,65 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+
+    <sect1 role="taskdef" xml:id="ManifestTask">
+        <title>ManifestTask</title>
+        <para>This task generates a simple manifest file with optional checksums.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>salt</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Salt to use when generating checksums.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>checksum</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Comma separated list of checksums (hashing algoritms) to run, or <literal>false</literal> to disable checksum generation.
+                        Possible values are <literal>md5</literal>, <literal>crc32</literal> or any of the algorithms returned by <link
+                            xlink:href="http://www.php.net/manual/en/function.hash-algos.php"
+                            role="extern">hash_algos()</link>.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The path to the manifest file.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes.</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
+
     <sect1 role="taskdef" xml:id="ParallelTask">
         <title>ParallelTask</title>
         <para>Executes nested tasks in parallel.</para>
