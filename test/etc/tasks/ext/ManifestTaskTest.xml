@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ManifestTaskTest" default="main">
+    <property name="tmp.dir" value="tmp"/>
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}"/>
+   
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="testGenerateManifest">
+        <echo file="${tmp.dir.resolved}/file1" message="File1"/>
+        <manifest checksum="md5" salt="salty" file="${tmp.dir.resolved}/manifest">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="file1"/>
+            </fileset>
+        </manifest>
+    </target>
+
+    <target name="main"/>
+</project>

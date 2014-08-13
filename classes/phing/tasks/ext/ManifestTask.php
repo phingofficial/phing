@@ -294,8 +294,7 @@ class ManifestTask extends Task
     }
 
     /**
-     * Hash a files contents
-     * plus it's size an modification time
+     * Hash a file's contents
      *
      * @param  string $file
      * @param  string $algo
@@ -307,7 +306,7 @@ class ManifestTask extends Task
             return false;
         }
 
-        $msg = file_get_contents($file) . filesize($file) . filemtime($file);
+        $msg = file_get_contents($file);
 
         return $this->hash($msg, $algo);
     }
