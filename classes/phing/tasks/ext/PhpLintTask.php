@@ -232,10 +232,15 @@ class PhpLintTask extends Task
         $command = $this->interpreter == ''
             ? 'php'
             : $this->interpreter;
-        $command .= ' -n -l ';
 
-        if ($this->deprecatedAsError) {
-            $command .= '-d error_reporting=32767 ';
+        if (strpos($command, 'hhvm') !== false) {
+            $command .= ' --no-config -l';
+        } else {
+            if ($this->deprecatedAsError) {
+                $command .= ' -d error_reporting=32767 ';
+            }
+
+            $command .= ' -n -l ';
         }
 
         if (! file_exists($file)) {
@@ -261,7 +266,7 @@ class PhpLintTask extends Task
 
         exec($command . '"' . $file . '" 2>&1', $messages);
 
-        for ($i = 0; $i < count($messages) - 1; $i++) {
+        for ($i = 0; $i < count($messages); $i++) {
             $message = $messages[$i];
             if (trim($message) == '') {
                 continue;
