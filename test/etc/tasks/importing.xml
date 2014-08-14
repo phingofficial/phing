@@ -17,4 +17,8 @@
   <target name="flop">
     <echo>This is ${phing.file} flop target.</echo>
   </target>
+
+    <target name="testOnlyTopLevel">
+        <import file="imports/imported.xml"/>
+    </target>
 </project>

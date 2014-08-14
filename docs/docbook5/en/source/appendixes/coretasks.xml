@@ -1798,6 +1798,7 @@
         <para>On execution it will read another Phing file into the same Project. Functionally it is
             nearly the same as copy and pasting the imported file onto the end of the importing
             file.</para>
+        <para>The import task may only be used as a top-level task. This means that it may not be used in a target.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">

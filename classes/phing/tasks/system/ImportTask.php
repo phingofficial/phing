@@ -102,6 +102,10 @@ class ImportTask extends Task
             throw new BuildException("Missing attribute 'file'");
         }
 
+        if ($this->getOwningTarget() == null || $this->getOwningTarget()->getName() != '') {
+            throw new BuildException("import only allowed as a top-level task");
+        }
+
         $file = new PhingFile($this->file);
         if (!$file->isAbsolute()) {
             $file = new PhingFile($this->project->getBasedir(), $this->file);

@@ -83,4 +83,13 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " flipflop target.");
 
     }
+
+    public function testOnlyTopLevel()
+    {
+        $this->expectBuildExceptionContaining(
+            __FUNCTION__,
+            'Import can only be used as a top-level task',
+            'import only allowed as a top-level task'
+        );
+    }
 }
