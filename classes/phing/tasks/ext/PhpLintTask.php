@@ -238,59 +238,59 @@ class PhpLintTask extends Task
             $command .= '-d error_reporting=32767 ';
         }
 
-        if (file_exists($file)) {
-            if (is_readable($file)) {
-                if ($this->cache) {
-                    $lastmtime = $this->cache->get($file);
-
-                    if ($lastmtime >= filemtime($file)) {
-                        $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
-
-                        return false;
-                    }
-                }
-
-                $messages = array();
-                $errorCount = 0;
-
-                exec($command . '"' . $file . '" 2>&1', $messages);
-
-                for ($i = 0; $i < count($messages) - 1; $i++) {
-                    $message = $messages[$i];
-                    if (trim($message) == '') {
-                        continue;
-                    }
-
-                    if ((!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match(
-                            '/^No syntax errors detected/',
-                            $message
-                        )
-                    ) {
-                        $this->log($message, Project::MSG_ERR);
-
-                        if (!isset($this->badFiles[$file])) {
-                            $this->badFiles[$file] = array();
-                        }
-
-                        array_push($this->badFiles[$file], $message);
-
-                        $this->hasErrors = true;
-                        $errorCount++;
-                    }
-                }
-
-                if (!$errorCount) {
-                    $this->log($file . ': No syntax errors detected', $this->logLevel);
-
-                    if ($this->cache) {
-                        $this->cache->put($file, filemtime($file));
-                    }
-                }
-            } else {
-                throw new BuildException('Permission denied: ' . $file);
-            }
-        } else {
+        if (! file_exists($file)) {
             throw new BuildException('File not found: ' . $file);
+        }
+
+        if (! is_readable($file)) {
+            throw new BuildException('Permission denied: ' . $file);
+        }
+
+        if ($this->cache) {
+            $lastmtime = $this->cache->get($file);
+
+            if ($lastmtime >= filemtime($file)) {
+                $this->log("Not linting '" . $file . "' due to cache", Project::MSG_DEBUG);
+
+                return false;
+            }
+        }
+
+        $messages = array();
+        $errorCount = 0;
+
+        exec($command . '"' . $file . '" 2>&1', $messages);
+
+        for ($i = 0; $i < count($messages) - 1; $i++) {
+            $message = $messages[$i];
+            if (trim($message) == '') {
+                continue;
+            }
+
+            if ((!preg_match('/^(.*)Deprecated:/', $message) || $this->deprecatedAsError) && !preg_match(
+                    '/^No syntax errors detected/',
+                    $message
+                )
+            ) {
+                $this->log($message, Project::MSG_ERR);
+
+                if (!isset($this->badFiles[$file])) {
+                    $this->badFiles[$file] = array();
+                }
+
+                array_push($this->badFiles[$file], $message);
+
+                $this->hasErrors = true;
+                $errorCount++;
+            }
+        }
+
+        if (!$errorCount) {
+            $this->log($file . ': No syntax errors detected', $this->logLevel);
+
+            if ($this->cache) {
+                $this->cache->put($file, filemtime($file));
+            }
         }
     }
 }
