@@ -103,13 +103,15 @@ class ProjectHandler extends AbstractHandler
             }
         }
         // these things get done no matter what
-        if (null != $name) {
-            $canonicalName = self::canonicalName($name);
-            $this->configurator->setCurrentProjectName($canonicalName);
-            $path = (string) $this->configurator->getBuildFile();
-            $project->setUserProperty("phing.file.{$canonicalName}", $path);
-            $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
+        if (null == $name) {
+            $name = basename($this->configurator->getBuildFile());
         }
+
+        $canonicalName = self::canonicalName($name);
+        $this->configurator->setCurrentProjectName($canonicalName);
+        $path = (string) $this->configurator->getBuildFile();
+        $project->setUserProperty("phing.file.{$canonicalName}", $path);
+        $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
 
         if ($this->configurator->isIgnoringProjectTag()) {
             return;
