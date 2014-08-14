@@ -94,37 +94,33 @@ class TargetHandler extends AbstractHandler
         $logskipped = false;
 
         foreach ($attrs as $key => $value) {
-            if ($key === "name") {
-                $name = (string) $value;
-            } else {
-                if ($key === "depends") {
+            switch ($key) {
+                case "name":
+                    $name = (string) $value;
+                    break;
+                case "depends":
                     $depends = (string) $value;
-                } else {
-                    if ($key === "if") {
-                        $ifCond = (string) $value;
-                    } else {
-                        if ($key === "unless") {
-                            $unlessCond = (string) $value;
-                        } else {
-                            if ($key === "id") {
-                                $id = (string) $value;
-                            } else {
-                                if ($key === "hidden") {
-                                    $isHidden = ($value == 'true' || $value == '1') ? true : false;
-                                } else {
-                                    if ($key === "description") {
-                                        $description = (string) $value;
-                                    } elseif ($key === 'logskipped') {
-                                        $logskipped = $value;
-                                    } else {
-                                        throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation(
-                                        ));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                    break;
+                case "if":
+                    $ifCond = (string) $value;
+                    break;
+                case "unless":
+                    $unlessCond = (string) $value;
+                    break;
+                case "id":
+                    $id = (string) $value;
+                    break;
+                case "hidden":
+                    $isHidden = ($value == 'true' || $value == '1') ? true : false;
+                    break;
+                case "description":
+                    $description = (string) $value;
+                    break;
+                case "logskipped":
+                    $logskipped = $value;
+                    break;
+                default:
+                    throw new ExpatParseException("Unexpected attribute '$key'", $this->parser->getLocation());
             }
         }
 
