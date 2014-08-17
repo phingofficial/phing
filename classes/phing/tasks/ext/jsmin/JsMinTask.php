@@ -116,7 +116,7 @@ class JsMinTask extends Task
     public function main()
     {
         // if composer autoloader is not yet loaded, load it here
-        @require_once 'vendor/autoload.php';
+        @include_once 'vendor/autoload.php';
         if (!class_exists('\\JShrink\\Minifier')) {
             throw new BuildException(
                 'JsMinTask depends on JShrink being installed and on include_path.',
