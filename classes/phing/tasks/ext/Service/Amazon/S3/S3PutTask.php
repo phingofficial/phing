@@ -149,6 +149,13 @@ class S3PutTask extends Service_Amazon_S3
 
     public function getSource()
     {
+        if ($this->_content !== null) {
+            $tempFile = tempnam('/tmp', 's3_put_');
+
+            file_put_contents($tempFile, $this->_content);
+            $this->_source = $tempFile;
+        }
+
         if ($this->_source === null) {
             throw new BuildException('Source is not set');
         }
