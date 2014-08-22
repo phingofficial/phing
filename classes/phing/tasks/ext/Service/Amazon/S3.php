@@ -163,9 +163,8 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      */
     public function createBucket()
     {
-        $bucket = $this->getBucketInstance();
-        $bucket->name = $this->getBucket();
-        $bucket->save();
+        $client = $this->getBucketInstance();
+        $client->createBucket(array('Bucket' => $this->getBucket()));
 
         return $this->isBucketAvailable();
     }
