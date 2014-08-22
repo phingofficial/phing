@@ -464,7 +464,7 @@ class S3PutTask extends Service_Amazon_S3
      */
     protected function saveObject($key, $sourceFile)
     {
-        $client = $this->getBucketInstance();
+        $client = $this->getClientInstance();
         $client->putObject(array(
             'Bucket'     => $this->getBucket(),
             'Key'        => $key,

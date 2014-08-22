@@ -103,7 +103,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      */
     public function getObjectInstance($object)
     {
-        return $this->getBucketInstance()->getObject($object);
+        return $this->getClientInstance()->getObject($object);
     }
 
     /**
@@ -125,7 +125,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      *
      * @return \Aws\S3\S3Client
      */
-    public function getBucketInstance()
+    public function getClientInstance()
     {
         return $this->getClient();
     }
@@ -139,7 +139,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      */
     public function isBucketAvailable()
     {
-        return $this->getBucketInstance()->doesBucketExist($this->getBucket());
+        return $this->getClientInstance()->doesBucketExist($this->getBucket());
     }
 
     /**
@@ -150,7 +150,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      */
     public function createBucket()
     {
-        $client = $this->getBucketInstance();
+        $client = $this->getClientInstance();
         $client->createBucket(array('Bucket' => $this->getBucket()));
 
         return $this->isBucketAvailable();
