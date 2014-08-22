@@ -336,6 +336,8 @@ class S3PutTask extends Service_Amazon_S3
      */
     public function getObjectData()
     {
+        return $this->getSource();
+
         try {
             $content = $this->getContent();
         } catch (BuildException $e) {
@@ -387,14 +389,14 @@ class S3PutTask extends Service_Amazon_S3
             if ($this->_fileNameOnly) {
                 foreach ($objects as $object) {
                     $this->_source = $object;
-                    $this->saveObject(basename($object), file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object));
+                    $this->saveObject(basename($object), $fromDir . DIRECTORY_SEPARATOR . $object);
                 }
             } else {
                 foreach ($objects as $object) {
                     $this->_source = $object;
                     $this->saveObject(
                         str_replace('\\', '/', $object),
-                        file_get_contents($fromDir . DIRECTORY_SEPARATOR . $object)
+                        $fromDir . DIRECTORY_SEPARATOR . $object
                     );
                 }
             }
@@ -402,20 +404,16 @@ class S3PutTask extends Service_Amazon_S3
             return true;
         }
 
-        $this->saveObject($this->getObject(), $this->getObjectData());
+        $this->saveObject($this->getObject(), $this->getSource());
     }
 
     protected function saveObject($object, $data)
     {
-        $object = $this->getObjectInstance($object);
-        $object->data = $data;
-        $object->acl = $this->getAcl();
-        $object->contentType = $this->getContentType();
-        $object->httpHeaders = $this->getHttpHeaders();
-        $object->save();
-
-        if (!$this->isObjectAvailable($object->key)) {
-            throw new BuildException('Upload failed');
-        }
+        $client = $this->getBucketInstance();
+        $result = $client->putObject(array(
+            'Bucket'     => $this->getBucket(),
+            'Key'        => $object,
+            'SourceFile' => $data
+        ));
     }
 }

@@ -54,10 +54,14 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      */
     public function getClient()
     {
-        require_once "Services/Amazon/S3.php";
 
         if ($this->_client === null) {
-            $this->_client = Services_Amazon_S3::getAccount($this->getKey(), $this->getSecret());
+            $s3Client = Aws\S3\S3Client::factory(array(
+                'key'    => $this->getKey(),
+                'secret' => $this->getSecret(),
+            ));
+
+            $this->_client = $s3Client;
         }
 
         return $this->_client;
@@ -109,11 +113,11 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      * Returns an instance of Services_Amazon_S3_Resource_Bucket
      *
      * @access public
-     * @return Services_Amazon_S3_Resource_Bucket
+     * @return \Aws\S3\S3Client
      */
     public function getBucketInstance()
     {
-        return $this->getClient()->getBucket($this->getBucket());
+        return $this->getClient();
     }
 
     /**
@@ -124,7 +128,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      */
     public function isBucketAvailable()
     {
-        return (bool) $this->getBucketInstance($this->getBucket())->load();
+        return $this->getBucketInstance()->doesBucketExist($this->getBucket());
     }
 
     /**
