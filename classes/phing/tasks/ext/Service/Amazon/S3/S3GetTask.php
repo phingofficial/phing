@@ -103,6 +103,11 @@ class S3GetTask extends Service_Amazon_S3
             $target = rtrim($target, '/') . '/' . $this->getObject();
         }
 
-        file_put_contents($target, $this->getObjectContents($this->getObject()));
+        $client = $this->getBucketInstance();
+        $client->getObject(array(
+            'Bucket' => $this->getBucket(),
+            'Key'    => $this->getObject(),
+            'SaveAs' => $target
+        ));
     }
 }
