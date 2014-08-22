@@ -49,7 +49,6 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * We only instantiate the client once per task call
      *
-     * @access public
      * @return Services_Amazon_S3
      */
     public function getClient()
@@ -67,6 +66,11 @@ abstract class Service_Amazon_S3 extends Service_Amazon
         return $this->_client;
     }
 
+    /**
+     * @param string $bucket
+     *
+     * @throws BuildException if $bucket is a empty string
+     */
     public function setBucket($bucket)
     {
         if (empty($bucket) || !is_string($bucket)) {
@@ -76,6 +80,11 @@ abstract class Service_Amazon_S3 extends Service_Amazon
         $this->bucket = (string) $bucket;
     }
 
+    /**
+     * @return string
+     *
+     * @throws BuildException if bucket is not set
+     */
     public function getBucket()
     {
         if (!($bucket = $this->bucket)) {
@@ -88,8 +97,8 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Returns an instance of Services_Amazon_S3_Resource_Object
      *
-     * @access public
-     * @param  mixed                              $object
+     * @param  mixed $object
+     *
      * @return Services_Amazon_S3_Resource_Object
      */
     public function getObjectInstance($object)
@@ -100,8 +109,8 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Check if the object already exists in the current bucket
      *
-     * @access public
      * @param  mixed $object
+     *
      * @return bool
      */
     public function isObjectAvailable($object)
@@ -113,6 +122,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      * Returns an instance of Services_Amazon_S3_Resource_Bucket
      *
      * @access public
+     *
      * @return \Aws\S3\S3Client
      */
     public function getBucketInstance()
@@ -124,35 +134,12 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      * Check if the current bucket is available
      *
      * @access public
+     *
      * @return bool
      */
     public function isBucketAvailable()
     {
         return $this->getBucketInstance()->doesBucketExist($this->getBucket());
-    }
-
-    /**
-     * Get the contents of an object (by it's name)
-     *
-     * @access public
-     * @param  string $object
-     * @return mixed
-     */
-    public function getObjectContents($object)
-    {
-        if (!$this->isBucketAvailable($this->getBucket())) {
-            throw new BuildException('Bucket doesn\'t exist or wrong permissions');
-        }
-
-        $bucket = $this->getClient()->getBucket($this->getBucket());
-        if (!$this->isObjectAvailable($object)) {
-            throw new BuildException('Object not available: ' . $object);
-        }
-
-        $object = $this->getObjectInstance($object);
-        $object->load();
-
-        return $object->data;
     }
 
     /**

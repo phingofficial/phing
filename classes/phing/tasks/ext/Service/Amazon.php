@@ -47,6 +47,10 @@ abstract class Service_Amazon extends Task
      */
     protected $_options = array();
 
+    /**
+     * @param string $var
+     * @param mixed $val
+     */
     public function __set($var, $val)
     {
         $this->_options[$var] = $val;
@@ -77,11 +81,21 @@ abstract class Service_Amazon extends Task
         return $this->_options[$var];
     }
 
+    /**
+     * @param string $var
+     *
+     * @return bool
+     */
     public function __isset($var)
     {
         return array_key_exists($var, $this->_options);
     }
 
+    /**
+     * @param string $key
+     *
+     * @throws BuildException if $key is a empty string
+     */
     public function setKey($key)
     {
         if (empty($key) || !is_string($key)) {
@@ -91,6 +105,11 @@ abstract class Service_Amazon extends Task
         $this->key = $key;
     }
 
+    /**
+     * @return string
+     *
+     * @throws BuildException if key is not set
+     */
     public function getKey()
     {
         if (!($key = $this->key)) {
@@ -100,6 +119,11 @@ abstract class Service_Amazon extends Task
         return $key;
     }
 
+    /**
+     * @param string $secret
+     *
+     * @throws BuildException if $secret is a empty string
+     */
     public function setSecret($secret)
     {
         if (empty($secret) || !is_string($secret)) {
@@ -109,6 +133,11 @@ abstract class Service_Amazon extends Task
         $this->secret = $secret;
     }
 
+    /**
+     * @return string
+     *
+     * @throws BuildException if secret is not set
+     */
     public function getSecret()
     {
         if (!($secret = $this->secret)) {
