@@ -336,21 +336,13 @@ class S3PutTask extends Service_Amazon_S3
      */
     public function getObjectData()
     {
-        return $this->getSource();
+        $source = $this->getSource();
 
-        try {
-            $content = $this->getContent();
-        } catch (BuildException $e) {
-            $source = $this->getSource();
-
-            if (!is_file($source)) {
-                throw new BuildException('Currently only files can be used as source');
-            }
-
-            $content = file_get_contents($source);
+        if (!is_file($source)) {
+            throw new BuildException('Currently only files can be used as source');
         }
 
-        return $content;
+        return $source;
     }
 
     /**
