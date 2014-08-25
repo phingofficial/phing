@@ -3764,7 +3764,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry>obfuscation-key</entry>
+                        <entry>obfuscationkey</entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The obfuscation key must be supplied when using the obfuscate
                             option</entry>
