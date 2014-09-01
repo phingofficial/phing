@@ -10770,6 +10770,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>Yes</entry>
                     </row>
                     <row>
+                        <entry><literal>category</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Set a category for the timer.</entry>
+                        <entry></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>action</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Action could be one of start, stop or lap</entry>
