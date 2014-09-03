@@ -6919,6 +6919,16 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>allowedTypes</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The allowed types used by PHP_CodeSniffer::suggestType() which is
+                            used internally by some PHPCS rules (e.g. Squiz.Commenting.FunctionComment
+                            uses it to check variables / parameter types).
+                            Separated by space, comma or semicolon.</entry>
+                        <entry>n/a (PHP_CodeSniffer default is used)</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>ignorePatterns</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The patterns to ignore files and folders (separated by space, comma
