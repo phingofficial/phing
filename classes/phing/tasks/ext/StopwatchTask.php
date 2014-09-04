@@ -96,7 +96,8 @@ class StopwatchTask extends Task
     private function getStopwatchInstance()
     {
         if (self::$timer === null) {
-            self::$timer = new Stopwatch();
+            $stopwatch = '\\Symfony\\Component\\Stopwatch\\Stopwatch';
+            self::$timer = new $stopwatch;
         }
 
         return self::$timer;
