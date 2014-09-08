@@ -3242,6 +3242,9 @@
                     <attribute name="allowedFileExtensions"/>
                 </optional>
                 <optional>
+                    <attribute name="allowedTypes"/>
+                </optional>
+                <optional>
                     <attribute name="ignorePatterns"/>
                 </optional>
                 <optional>
