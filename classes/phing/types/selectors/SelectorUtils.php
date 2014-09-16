@@ -133,6 +133,10 @@ class SelectorUtils
      */
     public static function matchPath($pattern, $str, $isCaseSensitive = true)
     {
+        // explicitly exclude directory itself
+        if ($str == '' && $pattern == '**/*') {
+            return false;
+        }
 
         $rePattern = preg_quote($pattern, '/');
         $dirSep = preg_quote(DIRECTORY_SEPARATOR, '/');
