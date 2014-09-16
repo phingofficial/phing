@@ -325,18 +325,26 @@ class CopyTask extends Task
 
         // process filesets
         foreach ($this->filesets as $fs) {
-            $ds = $fs->getDirectoryScanner($project);
-            $fromDir = $fs->getDir($project);
-            $srcFiles = $ds->getIncludedFiles();
-            $srcDirs = $ds->getIncludedDirectories();
+            try {
+                $ds = $fs->getDirectoryScanner($project);
+                $fromDir = $fs->getDir($project);
+                $srcFiles = $ds->getIncludedFiles();
+                $srcDirs = $ds->getIncludedDirectories();
 
-            if (!$this->flatten && $this->mapperElement === null &&
-                $ds->isEverythingIncluded()
-            ) {
-                $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
+                if (!$this->flatten && $this->mapperElement === null &&
+                    $ds->isEverythingIncluded()
+                ) {
+                    $this->completeDirMap[$fromDir->getAbsolutePath()] = $this->destDir->getAbsolutePath();
+                }
+
+                $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
+            } catch (BuildException $e) {
+                if ($this->haltonerror == true) {
+                    throw $e;
+                }
+
+                $this->logError($e->getMessage());
             }
-
-            $this->_scan($fromDir, $this->destDir, $srcFiles, $srcDirs);
         }
 
         // go and copy the stuff
