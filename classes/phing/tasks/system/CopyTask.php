@@ -488,46 +488,48 @@ class CopyTask extends Task
             }
         }
 
-        if ($mapSize > 0) {
-            $this->log(
-                "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath(
-                )
-            );
-            // walks the map and actually copies the files
-            $count = 0;
-            foreach ($this->fileCopyMap as $from => $to) {
-                if ($from === $to) {
-                    $this->log("Skipping self-copy of " . $from, $this->verbosity);
-                    $total--;
-                    continue;
-                }
-                $this->log("From " . $from . " to " . $to, $this->verbosity);
-                try { // try to copy file
+        if ($mapSize == 0) {
+            return;
+        }
 
-                    $fromFile = new PhingFile($from);
-                    $toFile = new PhingFile($to);
+        $this->log(
+            "Copying " . $mapSize . " file" . (($mapSize) === 1 ? '' : 's') . " to " . $this->destDir->getAbsolutePath(
+            )
+        );
+        // walks the map and actually copies the files
+        $count = 0;
+        foreach ($this->fileCopyMap as $from => $to) {
+            if ($from === $to) {
+                $this->log("Skipping self-copy of " . $from, $this->verbosity);
+                $total--;
+                continue;
+            }
+            $this->log("From " . $from . " to " . $to, $this->verbosity);
+            try { // try to copy file
 
-                    $fromSlot->setValue($fromFile->getPath());
-                    $fromBasenameSlot->setValue($fromFile->getName());
+                $fromFile = new PhingFile($from);
+                $toFile = new PhingFile($to);
 
-                    $toSlot->setValue($toFile->getPath());
-                    $toBasenameSlot->setValue($toFile->getName());
+                $fromSlot->setValue($fromFile->getPath());
+                $fromBasenameSlot->setValue($fromFile->getName());
 
-                    $this->fileUtils->copyFile(
-                        $fromFile,
-                        $toFile,
-                        $this->overwrite,
-                        $this->preserveLMT,
-                        $this->filterChains,
-                        $this->getProject(),
-                        $this->mode,
-                        $this->preservePermissions
-                    );
+                $toSlot->setValue($toFile->getPath());
+                $toBasenameSlot->setValue($toFile->getName());
 
-                    $count++;
-                } catch (IOException $ioe) {
-                    $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
-                }
+                $this->fileUtils->copyFile(
+                    $fromFile,
+                    $toFile,
+                    $this->overwrite,
+                    $this->preserveLMT,
+                    $this->filterChains,
+                    $this->getProject(),
+                    $this->mode,
+                    $this->preservePermissions
+                );
+
+                $count++;
+            } catch (IOException $ioe) {
+                $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
             }
         }
     }
