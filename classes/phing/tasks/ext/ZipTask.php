@@ -240,7 +240,7 @@ class ZipTask extends MatchingTask
                         $zip->addEmptyDir($pathInZip);
                     }
                 } else {
-                    $zip->addFile($f->getPath(), $pathInZip);
+                    $zip->addFile($f->getAbsolutePath(), $pathInZip);
                 }
                 $this->log("Adding " . $f->getPath() . " as " . $pathInZip . " to archive.", Project::MSG_VERBOSE);
             }
