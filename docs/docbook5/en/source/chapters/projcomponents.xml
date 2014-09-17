@@ -480,7 +480,7 @@
 
         </sect2>
         
-        <sect2 xml:id="conditions.isset">
+        <sect2 xml:id="conditions.versioncompare">
             <title><literal>version-compare</literal></title>
             <para>Compares two given versions</para>
             <table>
