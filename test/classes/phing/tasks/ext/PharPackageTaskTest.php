@@ -32,6 +32,10 @@ class PharPackageTaskTest extends BuildFileTest
 
     public function setUp()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped("PHAR tests do not run on HHVM");
+        }
+
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/pharpackage/build.xml");
     }
 
