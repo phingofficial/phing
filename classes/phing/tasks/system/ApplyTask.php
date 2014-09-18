@@ -459,7 +459,7 @@ class ApplyTask extends Task
     {
 
         $this->commandline = new Commandline();
-        $this->loglevel = Project::MSG_INFO; //VERBOSE;
+        $this->loglevel = Project::MSG_VERBOSE;
     }
 
     /**
