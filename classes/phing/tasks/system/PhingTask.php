@@ -260,7 +260,7 @@ class PhingTask extends Task
             $file = $fu->resolveFile($this->dir, $this->phingFile);
             $this->phingFile = $file->getAbsolutePath();
 
-            $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'");
+            $this->log("Calling Buildfile '" . $this->phingFile . "' with target '" . $this->newTarget . "'", Project::MSG_VERBOSE);
 
             $this->newProject->setUserProperty("phing.file", $this->phingFile);
 
