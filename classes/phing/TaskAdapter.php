@@ -57,6 +57,8 @@ class TaskAdapter extends Task
         if (method_exists($this->proxy, "main")) {
             try { //try to call main
                 $this->proxy->main($this->project);
+            } catch (BuildException $be) {
+                throw $be;
             } catch (Exception $ex) {
                 $this->log("Error in " . get_class($this->proxy), Project::MSG_ERR);
                 throw new BuildException("Error in " . get_class($this->proxy), $ex);
