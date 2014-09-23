@@ -481,7 +481,7 @@ class PhingTask extends Task
             $this->log(
                 "No object referenced by " . $oldKey . ". Can't copy to "
                 . $newKey,
-                PROJECT_SG_WARN
+                Project::MSG_WARN
             );
 
             return;
