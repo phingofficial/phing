@@ -191,9 +191,11 @@ class ZipTask extends MatchingTask
                 throw new Exception("ZipArchive::open() failed with code " . $res);
             }
 
-            $isCommented = $zip->setArchiveComment($this->comment);
-            if ($isCommented === false) {
-                $this->log("Could not add a comment for the Archive.", Project::MSG_INFO);
+            if ($this->comment !== '') {
+                $isCommented = $zip->setArchiveComment($this->comment);
+                if ($isCommented === false) {
+                    $this->log("Could not add a comment for the Archive.", Project::MSG_INFO);
+                }
             }
 
             $this->addFilesetsToArchive($zip);
