@@ -23,12 +23,12 @@ require_once 'phing/tasks/system/MatchingTask.php';
 require_once 'phing/types/IterableFileSet.php';
 
 /**
- * Data task for {@link http://www.php.net/manual/en/book.phar.php Phar technology}.
+ * Data task for {@link http://php.net/manual/en/class.phardata.php PharData class}.
  *
  * @package phing.tasks.ext
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  */
-class PharPackageTask extends MatchingTask
+class PharDataTask extends MatchingTask
 {
     /**
      * @var PhingFile
@@ -96,7 +96,7 @@ class PharPackageTask extends MatchingTask
 
     /**
      * Base directory, which will be deleted from each included file (from path).
-     * Paths with deleted basedir part are local paths in package.
+     * Paths with deleted basedir part are local paths in archive.
      *
      * @param PhingFile $baseDirectory
      */
@@ -114,12 +114,12 @@ class PharPackageTask extends MatchingTask
 
         try {
             $this->log(
-                'Building package: ' . $this->destinationFile->__toString(),
+                'Building archive: ' . $this->destinationFile->__toString(),
                 Project::MSG_INFO
             );
 
             /**
-             * Delete old package, if exists.
+             * Delete old archive, if exists.
              */
             if ($this->destinationFile->exists()) {
                 /**
@@ -147,7 +147,7 @@ class PharPackageTask extends MatchingTask
             }
         } catch (Exception $e) {
             throw new BuildException(
-                'Problem creating package: ' . $e->getMessage(),
+                'Problem creating archive: ' . $e->getMessage(),
                 $e,
                 $this->getLocation()
             );
