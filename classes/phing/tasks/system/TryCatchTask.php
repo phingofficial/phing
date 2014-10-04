@@ -34,6 +34,7 @@ include_once 'phing/Task.php';
 class TryCatchTask extends Task
 {
     protected $propertyName = "";
+    protected $referenceName = '';
 
     protected $tryContainer = null;
     protected $catchContainer = null;
@@ -89,6 +90,19 @@ class TryCatchTask extends Task
     public function setProperty($property)
     {
         $this->propertyName = (string) $property;
+    }
+
+    /**
+     * Sets the name of the reference that will
+     * contain the exception.
+     *
+     * @param Exception $reference
+     *
+     * @return void
+     */
+    public function setReference($reference)
+    {
+        $this->referenceName = $reference;
     }
 
     /**

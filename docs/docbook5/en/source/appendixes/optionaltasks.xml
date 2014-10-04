@@ -11121,6 +11121,70 @@ host="webserver" command="ls" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="ThrowTask">
+        <title>ThrowTask</title>
+        <para> Extension of build in <literal>FailTask</literal> that can throw an exception that is given by a reference.
+            This may be useful if you want to rethrow the exception that has been caught by a <literal>TryCatchTask</literal>
+            in the &lt;catch> block.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>refid</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Id of the referenced exception.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <note>
+            <para>In addition, all attributes of the <literal>FailTask</literal> are supported.</para>
+        </note>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;target name="tryCatchThrow">
+  &lt;trycatch property="foo" reference="bar">
+    &lt;try>
+      &lt;fail>Tada!&lt;/fail>
+    &lt;/try>
+
+    &lt;catch>
+      &lt;echo>In &lt;catch&gt;.&lt;/echo>
+    &lt;/catch>
+
+    &lt;finally>
+      &lt;echo>In &lt;finally&gt;.&lt;/echo>
+    &lt;/finally>
+  &lt;/trycatch>
+
+  &lt;echo>As property: ${foo}&lt;/echo>
+  &lt;property name="baz" refid="bar" />
+  &lt;echo>From reference: ${baz}&lt;/echo>
+
+  &lt;echo>Throw ...&lt;/echo>
+  &lt;throw refid="bar" />
+
+&lt;/target></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="UntarTask">
         <title>UntarTask</title>
         <para> The <literal>UntarTask</literal> unpacks one or more tar archives.</para>
