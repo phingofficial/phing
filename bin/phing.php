@@ -7,11 +7,30 @@
  * @version $Id$
  */
 
-// Use composers autoload.php if available
-if (file_exists(dirname(__FILE__) . '/../vendor/autoload.php')) {
-    require_once dirname(__FILE__) . '/../vendor/autoload.php';
-} elseif (file_exists(dirname(__FILE__) . '/../../../autoload.php')) {
-    require_once dirname(__FILE__) . '/../../../autoload.php';
+
+/**
+ * use composer if available.
+ * move test logic to test/bootstrap.php
+ */
+if (is_readable('composer.json'))
+{
+	$composer = json_decode(file_get_contents('composer.json'), true);
+	if (is_array($composer) and isset($composer['config']['vendor-dir']))
+	{
+		$autoloadDir = realpath($composer['config']['vendor-dir']);
+	}
+	else
+	{
+		$autoloadDir = realpath('vendor');
+	}
+
+	$autoloadFile = $autoloadDir . '/autoload.php';
+	if (is_readable($autoloadFile))
+	{
+		require_once $autoloadFile;
+		define ('PHING_COMPOSER_AUTOLOAD_FILE', $autoloadFile);
+	}
+	unset ($composer, $autoloadDir, $autoloadFile);
 }
 
 // Set any INI options for PHP

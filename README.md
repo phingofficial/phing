@@ -120,3 +120,16 @@ PhpStorm License
   [![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")](http://www.jetbrains.com/phpstorm)
 
   Intelligent PHP IDE for coding, testing and debugging with pleasure
+
+Synch your fork
+---------------
+
+  After clone your fork, execute this command only once:
+
+      https://github.com/phingofficial/phing.git
+
+
+  Everytime that you need to synch your fork with the official repo, execute
+
+      git fetch upstream
+      git merge upstream/master

@@ -7,3 +7,11 @@ build/pear
 test/reports
 docs/api/docs
 vendor
+composer.lock
+bin/
+!bin/pear-phing
+!bin/pear-phing.bat
+!bin/phing
+!bin/phing.bat
+!bin/phing.php
+test/tmp
