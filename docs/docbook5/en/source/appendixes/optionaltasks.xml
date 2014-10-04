@@ -6740,20 +6740,20 @@ Note that you can omit both startpoint and track attributes in this case
             <title>Example</title>
             <para>Sample build command:</para>
             <programlisting language="xml">&lt;pharpackage
-                destfile="./build/package.phar"
-                basedir="./">
-                &lt;fileset dir="./classes">
-                &lt;include name="**/**" />
-                &lt;/fileset>
-                &lt;metadata>
-                &lt;element name="version" value="1.0" />
-                &lt;element name="authors">
-                &lt;element name="John Doe">
-                &lt;element name="e-mail" value="john@example.com" />
-                &lt;/element>
-                &lt;/element>
-                &lt;/metadata>
-                &lt;/pharpackage></programlisting>
+  destfile="./build/package.phar"
+  basedir="./">
+  &lt;fileset dir="./classes">
+    &lt;include name="**/**" />
+  &lt;/fileset>
+  &lt;metadata>
+    &lt;element name="version" value="1.0" />
+    &lt;element name="authors">
+      &lt;element name="John Doe">
+        &lt;element name="e-mail" value="john@example.com" />
+      &lt;/element>
+    &lt;/element>
+  &lt;/metadata>
+&lt;/pharpackage></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
