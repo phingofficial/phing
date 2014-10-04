@@ -1,5 +1,4 @@
 <?php
-
 /*
  *  $Id$
  *
@@ -32,55 +31,42 @@ require_once 'phing/BuildFileTest.php';
  */
 class PearPkg2CompatibilityTest extends BuildFileTest
 {
+    private $savedErrorLevel;
+    protected $backupGlobals = false;
 
-	private $savedErrorLevel;
-	protected $backupGlobals = false;
+    public function setUp()
+    {
+        $this->savedErrorLevel = error_reporting();
+        error_reporting(E_ERROR);
+        $buildFile = PHING_TEST_BASE . "/etc/regression/524/build.xml";
+        $this->configureProject($buildFile);
+        $this->executeTarget("setup");
+    }
 
-	public function setUp()
-	{
-		$this->savedErrorLevel	 = error_reporting();
-		error_reporting(E_ERROR);
-		$buildFile				 = PHING_TEST_BASE . "/etc/regression/524/build.xml";
-		$this->configureProject($buildFile);
-		$this->executeTarget("setup");
-	}
+    public function tearDown()
+    {
+        error_reporting($this->savedErrorLevel);
+        $this->executeTarget("teardown");
+    }
 
-	public function tearDown()
-	{
-		error_reporting($this->savedErrorLevel);
-		$this->executeTarget("teardown");
-	}
+    public function testInactiveMaintainers()
+    {
+        $this->executeTarget("inactive");
+        $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
+        $this->assertTrue(strpos($content, '<active>no</active>') !== false);
+    }
 
-	public function testInactiveMaintainers()
-	{
-		try
-		{
-			$this->executeTarget("inactive");
-			$content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-			$this->assertTrue(strpos($content, '<active>no</active>') !== false);
-		}
-		catch (Exception $e)
-		{
-			/**
-			 * usualy problems with PEAR
-			 * @todo check what happens with pear installed as a dependence of phing
-			 */
-			$this->markTestIncomplete($e->getMessage());
-		}
-	}
+    public function testActiveMaintainers()
+    {
+        $this->executeTarget("active");
+        $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
+        $this->assertTrue(strpos($content, '<active>yes</active>') !== false);
+    }
 
-	public function testActiveMaintainers()
-	{
-		$this->executeTarget("active");
-		$content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-		$this->assertTrue(strpos($content, '<active>yes</active>') !== false);
-	}
-
-	public function testNotSetMaintainers()
-	{
-		$this->executeTarget("notset");
-		$content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
-		$this->assertTrue(strpos($content, '<active>yes</active>') !== false);
-	}
-
+    public function testNotSetMaintainers()
+    {
+        $this->executeTarget("notset");
+        $content = file_get_contents(PHING_TEST_BASE . '/etc/regression/524/out/package2.xml');
+        $this->assertTrue(strpos($content, '<active>yes</active>') !== false);
+    }
 }
