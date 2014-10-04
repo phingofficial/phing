@@ -2,11 +2,11 @@
         
         <p>Calculates either MD5 or SHA1 hash value of a file and stores the value as a hex
             string in a property.</p>
-        <div class="table"><a name="idp57361072"></a><p class="formal-object-title"><span class="label">Table C.11: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp63185184"></a><p class="formal-object-title"><span class="label">Table C.11: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Filename</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">hashtype</code></td><td><code class="literal">Integer</code></td><td>Specifies what hash algorithm to use. 0=MD5, 1=SHA1</td><td>0</td><td>No</td></tr><tr><td><code class="literal">propertyname</code></td><td><code class="literal">String</code></td><td>Name of property where the hash value is stored</td><td>filehashvalue</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp57379056"></a>C.10.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp63206096"></a>C.10.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;filehash file="${builddir}/${tarball}.tar.${compression}" /&gt;
 &lt;echo msg="Hashvalue is; ${filehashvalue}" /&gt;</pre>

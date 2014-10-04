@@ -459,7 +459,7 @@ class ApplyTask extends Task
     {
 
         $this->commandline = new Commandline();
-        $this->loglevel = Project::MSG_INFO; //VERBOSE;
+        $this->loglevel = Project::MSG_VERBOSE;
     }
 
     /**
@@ -738,11 +738,15 @@ class ApplyTask extends Task
                     $this->project->setProperty($this->returnProperty, $returncode);
                 }
 
-                // Sets the output property
-                if ($this->outputProperty) {
-                    $this->project->setProperty($this->outputProperty, implode("\n", $output));
-                }
+            }
 
+            // Sets the output property
+            if ($this->outputProperty) {
+                $previousValue = $this->project->getProperty($this->outputProperty);
+                if (! empty($previousValue)) {
+                    $previousValue .= "\n";
+                }
+                $this->project->setProperty($this->outputProperty, $previousValue . implode("\n", $output));
             }
 
             // Validating the 'return-code'

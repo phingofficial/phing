@@ -79,5 +79,14 @@ class ParallelTask extends SequentialTask
         }
 
         $mgr->execute();
+
+        /** @var DocBlox_Parallel_Worker $nestedTask */
+        foreach ($mgr as $nestedTask) {
+            if ($nestedTask->getError() === "") {
+                continue;
+            }
+
+            throw new BuildException($nestedTask->getError());
+        }
     }
 }

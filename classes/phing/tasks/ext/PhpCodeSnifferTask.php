@@ -43,6 +43,7 @@ class PhpCodeSnifferTask extends Task
     protected $verbosity = 0;
     protected $tabWidth = 0;
     protected $allowedFileExtensions = array('php', 'inc', 'js', 'css');
+    protected $allowedTypes = array();
     protected $ignorePatterns = false;
     protected $noSubdirectories = false;
     protected $configData = array();
@@ -225,6 +226,21 @@ class PhpCodeSnifferTask extends Task
     }
 
     /**
+     * Sets the allowed types for the PHP_CodeSniffer::suggestType()
+     * @param array $types
+     */
+    public function setAllowedTypes($types)
+    {
+        $this->allowedTypes = array();
+        $token = ' ,;';
+        $type = strtok($types, $token);
+        while ($type !== false) {
+            $this->allowedTypes[] = $type;
+            $type = strtok($token);
+        }
+    }
+
+    /**
      * Sets the ignore patterns to skip files when using directories instead of specific files
      * @param array $extensions
      */
@@ -390,6 +406,9 @@ class PhpCodeSnifferTask extends Task
 
         $codeSniffer = new PhpCodeSnifferTask_Wrapper($this->verbosity, $this->tabWidth, $this->encoding);
         $codeSniffer->setAllowedFileExtensions($this->allowedFileExtensions);
+        if ($this->allowedTypes) {
+            PhpCodeSnifferTask_Wrapper::$allowedTypes = $this->allowedTypes;
+        }
         if (is_array($this->ignorePatterns)) {
             $codeSniffer->setIgnorePatterns($this->ignorePatterns);
         }

@@ -41,6 +41,9 @@ class ChownTaskTest extends BuildFileTest
                 //current group id, the file has that group anyway
                 continue;
             }
+            if (!is_array($grpinfo['members'])) {
+                continue;
+            }
             if (in_array($username, $grpinfo['members'])) {
                 $group = $grpinfo;
                 break;

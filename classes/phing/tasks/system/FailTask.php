@@ -82,9 +82,9 @@ class FailTask extends Task
     {
         if ($this->testIfCondition() && $this->testUnlessCondition()) {
             if ($this->message !== null) {
-                throw new BuildException($this->message, $this->getLocation());
+                throw new BuildException($this->message);
             } else {
-                throw new BuildException("No message", $this->getLocation());
+                throw new BuildException("No message");
             }
         }
     }

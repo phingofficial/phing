@@ -36,6 +36,10 @@ class PearPackageScannerTest extends BuildFileTest
 
     public function setUp()
     {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped("PEAR tests do not run on HHVM");
+        }
+
         //needed for PEAR's Config and Registry classes
         error_reporting(error_reporting() & ~E_DEPRECATED & ~E_NOTICE & ~E_STRICT);
     }

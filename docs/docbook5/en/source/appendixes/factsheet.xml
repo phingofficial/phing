@@ -177,9 +177,9 @@
                     </row>
                     <row>
                         <entry><literal>-logger path.to.Logger</literal></entry>
-                        <entry>Specify an alternate logger. Default is phing.listener.DefaultLogger.
+                        <entry>Specify an alternate logger. Default is phing.listener.AnsiColorLogger.
                             Other options include phing.listener.NoBannerLogger,
-                            phing.listener.AnsiColorLogger, phing.listener.XmlLogger,
+                            phing.listener.DefaultLogger, phing.listener.XmlLogger,
                             phing.listener.TargetLogger and phing.listener.HtmlColorLogger.</entry>
                     </row>
                     <row>
