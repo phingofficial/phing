@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
+include_once 'phing/Task.php';
 require_once 'phing/tasks/system/SequentialTask.php';
 
 /**
@@ -75,7 +75,7 @@ require_once 'phing/tasks/system/SequentialTask.php';
  * @author Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
-class SwitchTask extends ConditionBase
+class SwitchTask extends Task
 {
     /** @var mixed $value */
     private $value = null;
