@@ -61,6 +61,13 @@ class ZipTask extends MatchingTask
     private $prefix = null;
 
     /**
+     * Comment for zip archive.
+     *
+     * @var string $comment
+     */
+    private $comment = '';
+
+    /**
      * Add a new fileset.
      * @return FileSet
      */
@@ -114,6 +121,18 @@ class ZipTask extends MatchingTask
     }
 
     /**
+     * Add a comment to the zip archive.
+     *
+     * @param string $text
+     *
+     * @return void
+     */
+    public function setComment($text)
+    {
+        $this->comment = $text;
+    }
+
+    /**
      * do the work
      * @throws BuildException
      */
@@ -138,8 +157,7 @@ class ZipTask extends MatchingTask
         try {
             if ($this->baseDir !== null) {
                 if (!$this->baseDir->exists()) {
-                    throw new BuildException("basedir '" . (string) $this->baseDir . "' does not exist!", $this->getLocation(
-                        ));
+                    throw new BuildException("basedir '" . (string) $this->baseDir . "' does not exist!", $this->getLocation());
                 }
 
                 if (empty($this->filesets)) {
@@ -171,6 +189,13 @@ class ZipTask extends MatchingTask
 
             if ($res !== true) {
                 throw new Exception("ZipArchive::open() failed with code " . $res);
+            }
+
+            if ($this->comment !== '') {
+                $isCommented = $zip->setArchiveComment($this->comment);
+                if ($isCommented === false) {
+                    $this->log("Could not add a comment for the Archive.", Project::MSG_INFO);
+                }
             }
 
             $this->addFilesetsToArchive($zip);
@@ -316,5 +341,4 @@ class ZipFileSet extends FileSet
 
         return $this->files;
     }
-
 }
