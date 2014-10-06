@@ -133,3 +133,9 @@ Synch your fork
 
       git fetch upstream
       git merge upstream/master
+
+  Set the merge ours driver to true to avoid to merge files in .gitattributes marked as ours, as 
+.travis.yml, .travis.sh, .gitattributes and this file
+
+      git config merge.ours.driver true
+
