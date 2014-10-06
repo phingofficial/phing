@@ -14,4 +14,4 @@ matrix:
 script: ./.travis.sh
 
 notifications:
-  irc: "chat.freenode.net#phing"
+  hipchat: b2db23d76a46abe120c9fe87e1f63a@build
