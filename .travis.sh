@@ -71,7 +71,8 @@
     echo "=== SETTING GIT IDENTITY ==="
     git config --global user.email "travis-ci-build@phing.info"
     git config --global user.name "Phing Travis Builder"
-
+##  check with composer config --list
+##  composer config github-oauth.github.com AUTH_KEY
     echo "=== TESTING PHING ==="
     cd test
     ../bin/phing
