@@ -14,4 +14,4 @@ matrix:
 script: ./.travis.sh
 
 notifications:
-  hipchat: b2db23d76a46abe120c9fe87e1f63a@build
+  hipchat: b2db23d76a46abe120c9fe87e1f63a@builds
