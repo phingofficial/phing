@@ -7,30 +7,41 @@
  * @version $Id$
  */
 
-
-/**
- * use composer if available.
- * move test logic to test/bootstrap.php
- */
-if (is_readable('composer.json'))
+function phing_composer_autoload_file($composerFile)
 {
-	$composer = json_decode(file_get_contents('composer.json'), true);
+	$composer = json_decode(file_get_contents($composerFile), true);
 	if (is_array($composer) and isset($composer['config']['vendor-dir']))
 	{
 		$autoloadDir = realpath($composer['config']['vendor-dir']);
 	}
 	else
 	{
-		$autoloadDir = realpath('vendor');
+		$dir = realpath(dirname($composerFile));
+		$autoloadDir = $dir . '/vendor';
 	}
+	define ('PHING_COMPOSER_VENDOR_DIR', $autoloadDir);
 
 	$autoloadFile = $autoloadDir . '/autoload.php';
 	if (is_readable($autoloadFile))
 	{
 		require_once $autoloadFile;
 		define ('PHING_COMPOSER_AUTOLOAD_FILE', $autoloadFile);
-	}
-	unset ($composer, $autoloadDir, $autoloadFile);
+	}	
+}
+/**
+ * use composer if available.
+ * move test logic to test/bootstrap.php
+ */
+if (is_readable('composer.json'))
+{
+	phing_composer_autoload_file('composer.json');
+}
+/**
+ * handle autoloader if phing is executed under test folder!
+ */
+elseif(is_readable('../composer.json'))
+{
+	phing_composer_autoload_file('../composer.json');
 }
 
 // Set any INI options for PHP
