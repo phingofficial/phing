@@ -12110,6 +12110,13 @@ a2.a3.a4=false</programlisting>
                         <entry><literal>true</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>comment</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Comment to add to the zip archive</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
