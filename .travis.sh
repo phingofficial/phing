@@ -63,6 +63,7 @@
     	echo -e "\nInstalling composer packages ... "
     	composer selfupdate --quiet
         composer install -o --no-progress
+        composer config github-oauth.github.com dceebb816c481b5f768c2ef56777eec4f466de22
     fi
 
     phpenv config-add .travis.php.ini
