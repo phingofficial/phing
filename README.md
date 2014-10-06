@@ -1,7 +1,7 @@
 P     H     I     N     G
 =========================
 
-  Master at corretgecom fork: [![Build Status](https://travis-ci.org/corretgecom/phing.png?branch=master)](https://travis-ci.org/corretgecom/phing)
+  Master at corretgecom fork: [![Build Status](https://travis-ci.org/corretgecom/phing.png?branch=develop)](https://travis-ci.org/corretgecom/phing)
 
   (PH)ing (I)s (N)ot (G)NU make; it's a PHP project build system or build
   tool based on Apache Ant. You can do anything with it that you could do
