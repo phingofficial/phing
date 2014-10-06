@@ -10,6 +10,7 @@ php:
 matrix:
     allow_failures:
         - php: hhvm
+        - php: 5.2
 
 script: ./.travis.sh
 
