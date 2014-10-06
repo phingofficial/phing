@@ -69,7 +69,7 @@
     phpenv rehash
 
     echo "=== SETTING GIT IDENTITY ==="
-    git config --global user.email "travis-ci-build@corretge.cat"
+    git config --global user.email "travis-ci-build@phing.info"
     git config --global user.name "Phing Travis Builder"
 
     echo "=== TESTING PHING ==="
