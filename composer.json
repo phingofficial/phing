@@ -56,6 +56,11 @@
     "config": {
         "bin-dir": "bin"
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.9.x-dev"
+        }
+    },
     "suggest": {
         "phpdocumentor/phpdocumentor": "Documentation Generator for PHP",
         "sebastian/phpcpd": "Copy/Paste Detector (CPD) for PHP code",
