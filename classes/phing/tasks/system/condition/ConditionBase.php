@@ -193,6 +193,14 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createHttp()
+    {
+        include_once 'phing/tasks/system/condition/HttpCondition.php';
+        $num = array_push($this->conditions, new HttpCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project
