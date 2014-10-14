@@ -132,6 +132,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      *
      * @access public
      * @param  string $object
+     * @throws BuildException
      * @return mixed
      */
     public function getObjectContents($object)

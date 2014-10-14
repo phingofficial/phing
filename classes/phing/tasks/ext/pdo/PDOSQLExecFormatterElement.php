@@ -186,6 +186,7 @@ class PDOSQLExecFormatterElement
     /**
      * Sets the formatter type.
      * @param string $type
+     * @throws BuildException
      */
     public function setType($type)
     {

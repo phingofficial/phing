@@ -141,6 +141,7 @@ class SymlinkTask extends Task
      * getter for _target
      *
      * @access public
+     * @throws BuildException
      * @return string
      */
     public function getTarget()
@@ -156,6 +157,7 @@ class SymlinkTask extends Task
      * getter for _link
      *
      * @access public
+     * @throws BuildException
      * @return string
      */
     public function getLink()
@@ -194,6 +196,7 @@ class SymlinkTask extends Task
      * If _filesets is empty, returns getTarget()
      *
      * @access protected
+     * @throws BuildException
      * @return array|string
      */
     protected function getMap()

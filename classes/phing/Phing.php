@@ -292,6 +292,7 @@ class Phing
     /**
      * Setup/initialize Phing environment from commandline args.
      * @param  array $args commandline args passed to phing shell.
+     * @throws ConfigurationException
      * @return void
      */
     public function execute($args)
@@ -507,11 +508,11 @@ class Phing
      * root of the file-system has been reached an exception
      * is thrown.
      *
-     * @param  string    $start  Start file path.
-     * @param  string    $suffix Suffix filename to look for in parents.
+     * @param  string $start Start file path.
+     * @param  string $suffix Suffix filename to look for in parents.
+     * @throws ConfigurationException
      * @return PhingFile A handle to the build file
      *
-     * @throws BuildException Failed to locate a build file
      */
     private function _findBuildFile($start, $suffix)
     {
@@ -538,6 +539,8 @@ class Phing
 
     /**
      * Executes the build.
+     * @throws ConfigurationException
+     * @throws Exception
      * @return void
      */
     public function runBuild()
@@ -665,6 +668,8 @@ class Phing
      * with -listener arg.
      *
      * @param  Project $project
+     * @throws BuildException
+     * @throws ConfigurationException
      * @return void
      */
     private function addBuildListeners(Project $project)
@@ -696,8 +701,7 @@ class Phing
      *
      * @param Project $project the project instance.
      *
-     * @throws BuildException if a specified InputHandler
-     *                        class could not be loaded.
+     * @throws ConfigurationException
      */
     private function addInputHandler(Project $project)
     {
@@ -722,6 +726,7 @@ class Phing
 
     /**
      * Creates the default build logger for sending build events to the log.
+     * @throws BuildException
      * @return BuildLogger The created Logger
      */
     private function createLogger()
@@ -908,8 +913,8 @@ class Phing
 
     /**
      * Gets the current Phing version based on VERSION.TXT file.
+     * @throws ConfigurationException
      * @return string
-     * @throws BuildException - if unable to find version file.
      */
     public static function getPhingVersion()
     {
@@ -1107,9 +1112,9 @@ class Phing
 
     /**
      * Import a PHP file
-     * @param  string         $path      Path to the PHP file
-     * @param  mixed          $classpath String or object supporting __toString()
-     * @throws BuildException - if cannot find the specified file
+     * @param  string $path Path to the PHP file
+     * @param  mixed $classpath String or object supporting __toString()
+     * @throws ConfigurationException
      */
     public static function __import($path, $classpath = null)
     {

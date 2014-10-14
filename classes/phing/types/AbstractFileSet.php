@@ -242,7 +242,6 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the name of the file containing the includes patterns.
      *
      * @param $incl The file to fetch the include patterns from.
-     * @throws BE
      */
     public function setIncludesfile($incl)
     {
@@ -256,7 +255,6 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the name of the file containing the includes patterns.
      *
      * @param $excl The file to fetch the exclude patterns from.
-     * @throws BE
      */
     public function setExcludesfile($excl)
     {
@@ -416,6 +414,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Gives the count of the number of selectors in this container
      *
+     * @throws Exception
      * @return int The number of selectors in this container
      */
     public function selectorCount()
@@ -468,7 +467,9 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Add a new selector into this container.
      *
-     * @param selector the new selector to add
+     * @param FileSelector|the $selector
+     * @return \the|void
+     * @internal param the $selector new selector to add
      */
     public function appendSelector(FileSelector $selector)
     {

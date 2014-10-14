@@ -207,6 +207,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Ensure that correct parameters were passed in.
      *
+     * @throws BuildException
      * @return void
      */
     protected function checkParams()
@@ -249,8 +250,9 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Executes the given command and returns the output.
      *
-     * @param string the command to execute
-     * @param string additional parameters
+     * @param $lbcommand
+     * @param string $lbparams the command to execute
+     * @throws BuildException
      * @return string the output of the executed command
      */
     protected function execute($lbcommand, $lbparams = '')

@@ -837,6 +837,7 @@ class ApplyTask extends Task
      *
      * @param  $information Exception information
      *
+     * @throws BuildException
      * @return void
      */
     private function throwBuildException($information)

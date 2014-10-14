@@ -149,6 +149,7 @@ class rSTTask extends Task
     /**
      * The main entry point method.
      *
+     * @throws BuildException
      * @return void
      */
     public function main()

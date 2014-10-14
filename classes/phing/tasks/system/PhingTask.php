@@ -202,6 +202,7 @@ class PhingTask extends Task
     /**
      * Execute phing file.
      *
+     * @throws BuildException
      * @return void
      */
     private function processFile()
@@ -472,6 +473,7 @@ class PhingTask extends Task
      *
      * @param  string $oldKey
      * @param  string $newKey
+     * @throws BuildException
      * @return void
      */
     private function copyReference($oldKey, $newKey)

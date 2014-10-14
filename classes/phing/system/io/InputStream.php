@@ -45,6 +45,7 @@ class InputStream
     /**
      * Construct a new InputStream.
      * @param resource $stream Configured PHP stream for writing.
+     * @throws IOException
      */
     public function __construct($stream)
     {

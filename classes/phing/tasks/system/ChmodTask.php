@@ -112,6 +112,7 @@ class ChmodTask extends Task
 
     /**
      * Ensure that correct parameters were passed in.
+     * @throws BuildException
      * @return void
      */
     private function checkParams()
@@ -188,7 +189,9 @@ class ChmodTask extends Task
     /**
      * Actually change the mode for the file.
      * @param PhingFile $file
-     * @param int       $mode
+     * @param int $mode
+     * @throws BuildException
+     * @throws Exception
      */
     private function chmodFile(PhingFile $file, $mode)
     {

@@ -86,7 +86,9 @@ class BuildEvent extends EventObject
     /**
      * Construct a BuildEvent for a project, task or target source event
      *
-     * @param  object  project the project that emitted the event.
+     * @param $source
+     * @throws Exception
+     * @internal param project $object the project that emitted the event.
      */
     public function __construct($source)
     {

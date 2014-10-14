@@ -198,6 +198,7 @@ class ZendGuardLicenseTask extends Task
      *
      * @param mixed $expires
      *
+     * @throws BuildException
      * @return string
      */
     public function setExpires($expires)
@@ -403,6 +404,7 @@ class ZendGuardLicenseTask extends Task
     /**
      * Creates the signed license at the defined output path
      *
+     * @throws BuildException
      * @return void
      */
     protected function generateLicense()
@@ -425,6 +427,7 @@ class ZendGuardLicenseTask extends Task
      * It will generate a temporary license template
      * based on the properties defined.
      *
+     * @throws BuildException
      * @return string Path of the temporary license template file
      */
     protected function generateLicenseTemplate()
@@ -498,7 +501,7 @@ class ZendGuardLicenseTask extends Task
      * converts it to array
      *   (key1=>value1, key2=value2, ...)
      *
-     * @param stirng $valueString Semi-colon separated value pairs
+     * @param string $valueString Semi-colon separated value pairs
      * @param array  $valueArray  Array to which the values will be added
      * @param string $keyPrefix   Prefix to use when adding the key
      *

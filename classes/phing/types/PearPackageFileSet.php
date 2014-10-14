@@ -157,6 +157,7 @@ class PearPackageFileSet extends FileSet
      *
      * @param string $package Single package name, or "channel/name" combination
      *
+     * @throws BuildException
      * @return void
      */
     public function setPackage($package)

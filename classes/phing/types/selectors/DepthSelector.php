@@ -120,9 +120,13 @@ class DepthSelector extends BaseExtendSelector
      * that provides the same services for both FilenameSelector and
      * DirectoryScanner.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename is the name of the file to check
-     * @param file is a PhingFile object the selector can use
+     * @param PhingFile|the $basedir
+     * @param is $filename
+     * @param is|PhingFile $file
+     * @throws BuildException
+     * @internal param the $basedir base directory the scan is being done from
+     * @internal param is $filename the name of the file to check
+     * @internal param is $file a PhingFile object the selector can use
      * @return whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

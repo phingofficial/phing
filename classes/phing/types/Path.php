@@ -229,6 +229,7 @@ class Path extends DataType
 
     /**
      * Returns all path elements defined by this and nested path objects.
+     * @throws BuildException
      * @return array List of path elements.
      */
     public function listPaths()

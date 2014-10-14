@@ -188,6 +188,7 @@ abstract class FileSystem
      * other I/O error occurs.
      *
      * @param PhingFile $f
+     * @throws IOException
      */
     public function getBooleanAttributes($f)
     {
@@ -482,6 +483,7 @@ abstract class FileSystem
      *
      * @param PhingFile $f1
      * @param PhingFile $f2
+     * @throws IOException
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
@@ -643,8 +645,8 @@ abstract class FileSystem
     /**
      * Unlocks a file and throws an IO Error if this is not possible.
      *
-     * @param  PhingFile   $f
-     * @throws IOException
+     * @param  PhingFile $f
+     * @throws Exception
      * @return void
      */
     public function unlock(PhingFile $f)
@@ -681,7 +683,8 @@ abstract class FileSystem
      * Currently symlink is not implemented on Windows. Don't use if the application is to be portable.
      *
      * @param  string $target Path and/or name of file to link.
-     * @param  string $link   Path and/or name of link to be created.
+     * @param  string $link Path and/or name of link to be created.
+     * @throws IOException
      * @return void
      */
     public function symlink($target, $link)
@@ -702,7 +705,8 @@ abstract class FileSystem
      * Set the modification and access time on a file to the present time.
      *
      * @param  string $file Path and/or name of file to touch.
-     * @param  int    $time
+     * @param  int $time
+     * @throws Exception
      * @return void
      */
     public function touch($file, $time = null)
@@ -725,8 +729,11 @@ abstract class FileSystem
     /**
      * Delete an empty directory OR a directory and all of its contents.
      *
-     * @param    dir    String. Path and/or name of directory to delete.
-     * @param    children    Boolean.    False: don't delete directory contents.
+     * @param String $dir
+     * @param bool $children
+     * @throws Exception
+     * @internal param String $dir . Path and/or name of directory to delete.
+     * @internal param bool $children .    False: don't delete directory contents.
      *                                    True: delete directory contents.
      *
      * @return void

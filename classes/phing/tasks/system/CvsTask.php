@@ -247,8 +247,8 @@ class CvsTask extends Task
 
     /**
      *
+     * @throws Exception
      * @return void
-     * @throws BuildException
      */
     public function main()
     {

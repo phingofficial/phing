@@ -165,6 +165,7 @@ class UpToDateTask extends Task implements Condition
     /**
      * Evaluate (all) target and source file(s) to
      * see if the target(s) is/are up-to-date.
+     * @throws BuildException
      * @return boolean
      */
     public function evaluate()

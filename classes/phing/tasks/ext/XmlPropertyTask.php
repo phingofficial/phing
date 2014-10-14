@@ -169,6 +169,7 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      * @param PhingFile $file
+     * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
     {
@@ -198,6 +199,7 @@ class XmlPropertyTask extends PropertyTask
      *
      * @param string $filePath
      *
+     * @throws IOException
      * @return Properties
      */
     protected function _getProperties($filePath)

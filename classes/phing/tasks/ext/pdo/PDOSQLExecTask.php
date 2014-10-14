@@ -261,6 +261,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Sets the fetch mode to use for the PDO resultset.
      * @param mixed $mode The PDO fetchmode integer or constant name.
+     * @throws BuildException
      */
     public function setFetchmode($mode)
     {

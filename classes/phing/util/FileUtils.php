@@ -173,6 +173,7 @@ class FileUtils
      *         ./ or ../ sequences (same for \ instead of /).
      * @param  $filename a file name
      *
+     * @throws IOException
      * @return PhingFile A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
      *                   and uses the correct separator for the current platform.
      */
@@ -230,6 +231,7 @@ class FileUtils
      *   - DOS style paths that start with a drive letter will have
      *     \ as the separator.
      * @param  string $path Path to normalize.
+     * @throws IOException
      * @return string
      */
     public function normalize($path)

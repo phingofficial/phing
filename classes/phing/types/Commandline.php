@@ -210,6 +210,7 @@ class Commandline
     /**
      *
      * @param  string $to_process
+     * @throws BuildException
      * @return array
      */
     public static function translateCommandline($to_process)

@@ -332,6 +332,7 @@ class S3PutTask extends Service_Amazon_S3
      * otherwise, we read from _source
      *
      * @access public
+     * @throws BuildException
      * @return string
      */
     public function getObjectData()
@@ -355,6 +356,7 @@ class S3PutTask extends Service_Amazon_S3
      * Store the object on S3
      *
      * @access public
+     * @throws BuildException
      * @return void
      */
     public function execute()

@@ -121,6 +121,7 @@ class ChownTask extends Task
 
     /**
      * Ensure that correct parameters were passed in.
+     * @throws BuildException
      * @return void
      */
     private function checkParams()
@@ -193,8 +194,10 @@ class ChownTask extends Task
     /**
      * Actually change the mode for the file.
      * @param PhingFile $file
-     * @param string    $user
-     * @param string    $group
+     * @param string $user
+     * @param string $group
+     * @throws BuildException
+     * @throws Exception
      */
     private function chownFile(PhingFile $file, $user, $group = "")
     {

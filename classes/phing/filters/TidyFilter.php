@@ -94,10 +94,10 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads input and returns Tidy-filtered output.
      *
+     * @param null $len
+     * @throws BuildException
      * @return the resulting stream, or -1 if the end of the resulting stream has been reached
      *
-     * @throws IOException if the underlying stream throws an IOException
-     *                     during reading
      */
     public function read($len = null)
     {

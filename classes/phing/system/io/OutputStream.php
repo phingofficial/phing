@@ -35,6 +35,7 @@ class OutputStream
     /**
      * Construct a new OutputStream.
      * @param resource $stream Configured PHP stream for writing.
+     * @throws IOException
      */
     public function __construct($stream)
     {

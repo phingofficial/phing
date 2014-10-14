@@ -173,6 +173,8 @@ class Ssh2MethodParam extends DataType
 
     /**
      *
+     * @param Project $p
+     * @throws BuildException
      * @return Ssh2MethodParam
      */
     public function getRef(Project $p)

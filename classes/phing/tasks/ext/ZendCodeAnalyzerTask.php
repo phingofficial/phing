@@ -168,6 +168,7 @@ class ZendCodeAnalyzerTask extends Task
      * Analyze file
      *
      * @param  string $file
+     * @throws BuildException
      * @return void
      */
     protected function analyze($file)

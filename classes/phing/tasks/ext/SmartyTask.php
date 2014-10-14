@@ -388,6 +388,7 @@ class SmartyTask extends Task
      * fed into the initial context be the
      * generating process starts.
      * @param  string $file
+     * @throws BuildException
      * @return void
      */
     public function setContextProperties($file)

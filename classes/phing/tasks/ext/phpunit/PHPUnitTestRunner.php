@@ -305,6 +305,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      * a test suite.
      *
      * @param string $message
+     * @throws BuildException
      */
     protected function runFailed($message)
     {

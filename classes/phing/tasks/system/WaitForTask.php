@@ -111,6 +111,7 @@ class WaitForTask extends ConditionBase
     /**
      * Convert the unit to a multipler.
      * @param string $unit
+     * @throws BuildException
      */
     protected function _convertUnit($unit)
     {

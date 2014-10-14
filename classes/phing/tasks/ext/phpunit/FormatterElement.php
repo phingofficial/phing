@@ -143,6 +143,7 @@ class FormatterElement
 
     /**
      * Returns formatter object
+     * @throws BuildException
      * @return PHPUnitResultFormatter
      */
     public function getFormatter()

@@ -215,6 +215,7 @@ class DeleteTask extends Task
     /**
      * Recursively removes a directory.
      * @param PhingFile $d The directory to remove.
+     * @throws BuildException
      */
     private function removeDir($d)
     {
@@ -257,9 +258,10 @@ class DeleteTask extends Task
     /**
      * remove an array of files in a directory, and a list of subdirectories
      * which will only be deleted if 'includeEmpty' is true
-     * @param PhingFile $d      directory to work from
-     * @param array     &$files array of files to delete; can be of zero length
-     * @param array     &$dirs  array of directories to delete; can of zero length
+     * @param PhingFile $d directory to work from
+     * @param array &$files array of files to delete; can be of zero length
+     * @param array &$dirs array of directories to delete; can of zero length
+     * @throws BuildException
      */
     private function removeFiles(PhingFile $d, &$files, &$dirs)
     {

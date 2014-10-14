@@ -70,6 +70,7 @@ class ExportPropertiesTask extends Task
      *
      * @access public
      * @param  string $file
+     * @throws BuildException
      * @return bool
      */
     public function setTargetFile($file)

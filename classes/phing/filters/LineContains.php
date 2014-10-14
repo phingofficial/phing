@@ -178,6 +178,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @param array $contains An array of words which must be contained
      *                        within a line in order for it to match in this filter.
      *                        Must not be <code>null</code>.
+     * @throws Exception
      */
     public function setContains($contains)
     {

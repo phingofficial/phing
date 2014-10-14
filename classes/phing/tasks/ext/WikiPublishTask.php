@@ -165,6 +165,7 @@ class WikiPublishTask extends Task
 
     /**
      * @param string $mode
+     * @throws BuildException
      */
     public function setMode($mode)
     {

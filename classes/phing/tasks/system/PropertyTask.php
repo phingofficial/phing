@@ -359,6 +359,7 @@ class PropertyTask extends Task
     /**
      * load properties from a file.
      * @param PhingFile $file
+     * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
     {
@@ -384,6 +385,7 @@ class PropertyTask extends Task
      * any references to properties within the object.
      *
      * @param  Properties $props The collection of Properties that need to be resolved.
+     * @throws BuildException
      * @return void
      */
     protected function resolveAllProperties(Properties $props)
@@ -467,9 +469,10 @@ class PropertyTask extends Task
      * This is slower than regex, but useful for this class, which has to handle
      * multiple parsing passes for properties.
      *
-     * @param string $value         The string to be scanned for property references
-     * @param array  &$fragments    The found fragments
-     * @param array  &$propertyRefs The found refs
+     * @param string $value The string to be scanned for property references
+     * @param array &$fragments The found fragments
+     * @param array &$propertyRefs The found refs
+     * @throws BuildException
      */
     protected function parsePropertyString($value, &$fragments, &$propertyRefs)
     {

@@ -186,6 +186,7 @@ class ExecTask extends Task
      * Prepares the command building and execution, i.e.
      * changes to the specified directory.
      *
+     * @throws BuildException
      * @return void
      */
     protected function prepare()
@@ -207,6 +208,7 @@ class ExecTask extends Task
     /**
      * Builds the full command to execute and stores it in $command.
      *
+     * @throws BuildException
      * @return void
      * @uses   $command
      */
@@ -297,8 +299,9 @@ class ExecTask extends Task
      * - verify return value
      *
      * @param integer $return Return code
-     * @param array   $output Array with command output
+     * @param array $output Array with command output
      *
+     * @throws BuildException
      * @return void
      */
     protected function cleanup($return, $output)
@@ -490,6 +493,7 @@ class ExecTask extends Task
      *
      * @param string $level Log level
      *
+     * @throws BuildException
      * @return void
      */
     public function setLevel($level)

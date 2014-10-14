@@ -517,6 +517,7 @@ class Project
     /**
      * Set basedir object from xm
      * @param PhingFile|string $dir
+     * @throws BuildException
      */
     public function setBasedir($dir)
     {
@@ -649,6 +650,7 @@ class Project
      * Add a new target to the project
      * @param string $targetName
      * @param Target $target
+     * @throws BuildException
      */
     public function addTarget($targetName, $target)
     {
@@ -893,10 +895,12 @@ class Project
 
     /**
      * Topologically sort a set of Targets.
-     * @param  string $root    is the (String) name of the root Target. The sort is
+     * @param  string $root is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @param  array  $targets is a array representing a "name to Target" mapping
+     * @param  array $targets is a array representing a "name to Target" mapping
+     * @throws BuildException
+     * @throws Exception
      * @return An     array of Strings with the names of the targets in
      *                        sorted order.
      */

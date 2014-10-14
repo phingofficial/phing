@@ -110,6 +110,7 @@ class ForeachTask extends Task
 
     /**
      * This method does the work.
+     * @throws BuildException
      * @return void
      */
     public function main()

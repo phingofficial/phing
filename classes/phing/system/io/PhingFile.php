@@ -92,6 +92,7 @@ class PhingFile
      *
      * Enter description here ...
      * @param unknown_type $pathname
+     * @throws NullPointerException
      */
     protected function _constructPathname($pathname)
     {
@@ -111,6 +112,7 @@ class PhingFile
      * Enter description here ...
      * @param unknown_type $parent
      * @param unknown_type $child
+     * @throws NullPointerException
      */
     protected function _constructStringParentStringChild($parent, $child = null)
     {
@@ -137,6 +139,7 @@ class PhingFile
      * Enter description here ...
      * @param unknown_type $parent
      * @param unknown_type $child
+     * @throws NullPointerException
      */
     protected function _constructFileParentStringChild($parent, $child = null)
     {
@@ -494,6 +497,7 @@ class PhingFile
      * Tests whether the file denoted by this abstract pathname is a
      * directory.
      *
+     * @throws IOException
      * @return boolean true if and only if the file denoted by this
      *                 abstract pathname exists and is a directory;
      *                 false otherwise
@@ -534,6 +538,7 @@ class PhingFile
      * hidden if it has been marked as such in the filesystem. Currently there
      * seems to be no way to dermine isHidden on Win file systems via PHP
      *
+     * @throws IOException
      * @return boolean true if and only if the file denoted by this
      *                 abstract pathname is hidden according to the conventions of the
      *                 underlying platform
@@ -551,6 +556,7 @@ class PhingFile
     /**
      * Tests whether the file denoted by this abstract pathname is a symbolic link.
      *
+     * @throws IOException
      * @return boolean true if and only if the file denoted by this
      *                 abstract pathname exists and is a symbolic link;
      *                 false otherwise
@@ -580,6 +586,7 @@ class PhingFile
      * Returns the time that the file denoted by this abstract pathname was
      * last modified.
      *
+     * @throws IOException
      * @return int An integer value representing the time the file was
      *             last modified, measured in milliseconds since the epoch
      *             (00:00:00 GMT, January 1, 1970), or 0 if the
@@ -599,6 +606,7 @@ class PhingFile
      * Returns the length of the file denoted by this abstract pathname.
      * The return value is unspecified if this pathname denotes a directory.
      *
+     * @throws IOException
      * @return int The length, in bytes, of the file denoted by this abstract
      *             pathname, or 0 if the file does not exist
      */
@@ -653,6 +661,8 @@ class PhingFile
      * this pathname denotes a directory, then the directory must be empty in
      * order to be deleted.
      *
+     * @param bool $recursive
+     * @throws IOException
      * @return boolean true if and only if the file or directory is
      *                 successfully deleted; false otherwise
      */
@@ -780,6 +790,7 @@ class PhingFile
      * Renames the file denoted by this abstract pathname.
      *
      * @param  PhingFile $destFile The new abstract pathname for the named file
+     * @throws IOException
      * @return boolean   true if and only if the renaming succeeded; false otherwise
      */
     public function renameTo(PhingFile $destFile)
@@ -797,6 +808,7 @@ class PhingFile
      * PhingFile
      *
      * @param  PhingFile $destFile The new abstract pathname for the named file
+     * @throws IOException
      * @return boolean   true if and only if the renaming succeeded; false otherwise
      */
     public function copyTo(PhingFile $destFile)
@@ -825,8 +837,9 @@ class PhingFile
      * lastModified method will return the (possibly truncated) time argument
      * that was passed to this method.
      *
-     * @param  int     $time The new last-modified time, measured in milliseconds since
+     * @param  int $time The new last-modified time, measured in milliseconds since
      *                       the epoch (00:00:00 GMT, January 1, 1970)
+     * @throws Exception
      * @return boolean true if and only if the operation succeeded; false otherwise
      */
     public function setLastModified($time)
@@ -848,6 +861,7 @@ class PhingFile
      * marked to allow write access.  Whether or not a read-only file or
      * directory may be deleted depends upon the underlying system.
      *
+     * @throws IOException
      * @return boolean true if and only if the operation succeeded; false otherwise
      */
     public function setReadOnly()

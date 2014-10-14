@@ -176,7 +176,8 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param includesFile The file to fetch the include patterns from.
+     * @param The $includesFile
+     * @internal param The $includesFile file to fetch the include patterns from.
      */
     public function setIncludesFile($includesFile)
     {
@@ -193,7 +194,8 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the excludes patterns.
      *
-     * @param excludesFile The file to fetch the exclude patterns from.
+     * @param The $excludesFile
+     * @internal param The $excludesFile file to fetch the exclude patterns from.
      */
     public function setExcludesFile($excludesFile)
     {

@@ -191,6 +191,8 @@ class FileList extends DataType
      * Performs the check for circular references and returns the
      * referenced FileSet.
      * @param Project $p
+     * @throws BuildException
+     * @return
      */
     public function getRef(Project $p)
     {
@@ -211,6 +213,7 @@ class FileList extends DataType
     /**
      * Reads file names from a file and adds them to the files array.
      * @param Project $p
+     * @throws BuildException
      */
     private function readListFile(Project $p)
     {

@@ -118,6 +118,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets PEAR package.xml options, based on class properties.
+     * @throws BuildException
      * @return void
      */
     protected function setOptions()
@@ -219,6 +220,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Main entry point.
+     * @throws BuildException
      * @return void
      */
     public function main()
