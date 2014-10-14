@@ -42,6 +42,9 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
      */
     private $version = null;
 
+    /**
+     * @param PHPUnitTask $parentTask
+     */
     public function __construct(PHPUnitTask $parentTask)
     {
         parent::__construct($parentTask);
@@ -49,16 +52,25 @@ class CloverPHPUnitResultFormatter extends PHPUnitResultFormatter
         $this->version = PHPUnit_Runner_Version::id();
     }
 
+    /**
+     * @return string
+     */
     public function getExtension()
     {
         return ".xml";
     }
 
+    /**
+     * @return string
+     */
     public function getPreferredOutfile()
     {
         return "clover-coverage";
     }
 
+    /**
+     * @param PHPUnit_Framework_TestResult $result
+     */
     public function processResult(PHPUnit_Framework_TestResult $result)
     {
         $this->result = $result;

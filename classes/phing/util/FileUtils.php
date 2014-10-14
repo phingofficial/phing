@@ -88,11 +88,14 @@ class FileUtils
      *
      * @param  PhingFile $sourceFile
      * @param  PhingFile $destFile
-     * @param  boolean   $overwrite
-     * @param  boolean   $preserveLastModified
-     * @param  array     $filterChains
-     * @param  Project   $project
-     * @param  integer   $mode
+     * @param  boolean $overwrite
+     * @param  boolean $preserveLastModified
+     * @param  array $filterChains
+     * @param  Project $project
+     * @param  integer $mode
+     * @param bool $preservePermissions
+     * @throws Exception
+     * @throws IOException
      * @return void
      */
     public function copyFile(
@@ -337,6 +340,8 @@ class FileUtils
     }
 
     /**
+     * @param PhingFile $file1
+     * @param PhingFile $file2
      * @return boolean Whether contents of two files is the same.
      */
     public function contentEquals(PhingFile $file1, PhingFile $file2)

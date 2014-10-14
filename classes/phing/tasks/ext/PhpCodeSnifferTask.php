@@ -93,6 +93,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -242,7 +243,8 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the ignore patterns to skip files when using directories instead of specific files
-     * @param array $extensions
+     * @param $patterns
+     * @internal param array $extensions
      */
     public function setIgnorePatterns($patterns)
     {
@@ -654,31 +656,49 @@ class PhpCodeSnifferTask_FormatterElement extends DataType
 
     }
 
+    /**
+     * @param $type
+     */
     public function setType($type)
     {
         $this->type = $type;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @param $useFile
+     */
     public function setUseFile($useFile)
     {
         $this->useFile = $useFile;
     }
 
+    /**
+     * @return bool
+     */
     public function getUseFile()
     {
         return $this->useFile;
     }
 
+    /**
+     * @param $outfile
+     */
     public function setOutfile($outfile)
     {
         $this->outfile = $outfile;
     }
 
+    /**
+     * @return string
+     */
     public function getOutfile()
     {
         return $this->outfile;

@@ -283,26 +283,41 @@ class ForeachTask extends Task
         }
     }
 
+    /**
+     * @param $list
+     */
     public function setList($list)
     {
         $this->list = (string) $list;
     }
 
+    /**
+     * @param $target
+     */
     public function setTarget($target)
     {
         $this->calleeTarget = (string) $target;
     }
 
+    /**
+     * @param $param
+     */
     public function setParam($param)
     {
         $this->param = (string) $param;
     }
 
+    /**
+     * @param $absparam
+     */
     public function setAbsparam($absparam)
     {
         $this->absparam = (string) $absparam;
     }
 
+    /**
+     * @param $delimiter
+     */
     public function setDelimiter($delimiter)
     {
         $this->delimiter = (string) $delimiter;

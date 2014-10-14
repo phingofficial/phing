@@ -187,6 +187,7 @@ class ApplyTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -250,7 +251,8 @@ class ApplyTask extends Task
     /**
      * File to which output should be written
      *
-     * @param PhingFile $outputfile Output log file
+     * @param $append
+     * @internal param PhingFile $outputfile Output log file
      *
      * @return void
      */
@@ -342,7 +344,8 @@ class ApplyTask extends Task
      * Whether the filenames should be passed on the command line as relative
      * pathnames (relative to the base directory of the corresponding fileset/list)
      *
-     * @param boolean $escape Escape command before execution
+     * @param $relative
+     * @internal param bool $escape Escape command before execution
      *
      * @return void
      */
@@ -389,6 +392,9 @@ class ApplyTask extends Task
         $this->failonerror = (bool) $failonerror;
     }
 
+    /**
+     * @param $failonerror
+     */
     public function setCheckreturn($failonerror)
     {
         $this->setFailonerror($failonerror);
@@ -409,7 +415,8 @@ class ApplyTask extends Task
     /**
      * Limit the amount of parallelism by passing at most this many sourcefiles at once
      *
-     * @param boolean $forwardslash Indicator to use forward-slash
+     * @param $max
+     * @internal param bool $forwardslash Indicator to use forward-slash
      *
      * @return void
      */
@@ -751,7 +758,7 @@ class ApplyTask extends Task
 
             // Validating the 'return-code'
             if (($this->failonerror) && ($returncode != 0)) {
-                return $this->throwBuildException("Task exited with code ($returncode)");
+                $this->throwBuildException("Task exited with code ($returncode)");
             }
 
             // Validate the 'parallel' information for command execution. If the command has been
@@ -768,6 +775,7 @@ class ApplyTask extends Task
     /**
      * Executes the specified command and returns the return code & output.
      *
+     * @param $command
      * @return array array(return code, array with output)
      */
     private function executeCommand($command)
@@ -809,7 +817,9 @@ class ApplyTask extends Task
     /**
      * Prepares the filename per base directory and relative path information
      *
-     * @param $information Exception information
+     * @param $filename
+     * @param $basedir
+     * @param $relative
      *
      * @return mixed processed filenames
      */

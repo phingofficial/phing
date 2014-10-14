@@ -63,11 +63,17 @@ class SvnSwitchTask extends SvnBaseTask
         $this->run(array($this->getToDir()), $switches);
     }
 
+    /**
+     * @param $revision
+     */
     public function setRevision($revision)
     {
         $this->revision = $revision;
     }
 
+    /**
+     * @return string
+     */
     public function getRevision()
     {
         return $this->revision;

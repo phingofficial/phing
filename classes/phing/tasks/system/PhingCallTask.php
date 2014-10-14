@@ -124,6 +124,7 @@ class PhingCallTask extends Task
 
     /**
      * Target to execute, required.
+     * @param $target
      */
     public function setTarget($target)
     {

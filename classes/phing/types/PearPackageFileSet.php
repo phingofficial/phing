@@ -144,6 +144,7 @@ class PearPackageFileSet extends FileSet
      * Sets the package.xml filename.
      * If it is not set, the local pear installation is queried for the package.
      *
+     * @param $descFile
      * @return void
      */
     public function setDescFile($descFile)

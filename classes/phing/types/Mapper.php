@@ -49,6 +49,9 @@ class Mapper extends DataType
     protected $classpath;
     protected $classpathId;
 
+    /**
+     * @param Project $project
+     */
     public function __construct(Project $project)
     {
         $this->project = $project;
@@ -58,6 +61,7 @@ class Mapper extends DataType
      * Set the classpath to be used when searching for component being defined
      *
      * @param Path $classpath An Path object containing the classpath.
+     * @throws BuildException
      */
     public function setClasspath(Path $classpath)
     {
@@ -88,6 +92,8 @@ class Mapper extends DataType
 
     /**
      * Reference to a classpath to use when loading the files.
+     * @param Reference $r
+     * @throws BuildException
      */
     public function setClasspathRef(Reference $r)
     {
@@ -98,7 +104,10 @@ class Mapper extends DataType
         $this->createClasspath()->setRefid($r);
     }
 
-    /** Set the type of FileNameMapper to use. */
+    /** Set the type of FileNameMapper to use.
+     * @param $type
+     * @throws BuildException
+     */
     public function setType($type)
     {
         if ($this->isReference()) {
@@ -107,7 +116,10 @@ class Mapper extends DataType
         $this->type = $type;
     }
 
-    /** Set the class name of the FileNameMapper to use. */
+    /** Set the class name of the FileNameMapper to use.
+     * @param $classname
+     * @throws BuildException
+     */
     public function setClassname($classname)
     {
         if ($this->isReference()) {
@@ -118,6 +130,8 @@ class Mapper extends DataType
 
     /**
      * Set the argument to FileNameMapper.setFrom
+     * @param $from
+     * @throws BuildException
      */
     public function setFrom($from)
     {
@@ -129,6 +143,8 @@ class Mapper extends DataType
 
     /**
      * Set the argument to FileNameMapper.setTo
+     * @param $to
+     * @throws BuildException
      */
     public function setTo($to)
     {
@@ -142,6 +158,8 @@ class Mapper extends DataType
      * Make this Mapper instance a reference to another Mapper.
      *
      * You must not set any other attribute if you make it a reference.
+     * @param Reference $r
+     * @throws BuildException
      */
     public function setRefid(Reference $r)
     {

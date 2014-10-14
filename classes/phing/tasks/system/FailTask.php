@@ -49,7 +49,7 @@ class FailTask extends Task
     /**
      * A message giving further information on why the build exited.
      *
-     * @param value message to output
+     * @param string $value message to output
      */
     public function setMessage($value)
     {
@@ -91,6 +91,7 @@ class FailTask extends Task
 
     /**
      * Set a multiline message.
+     * @param $msg
      */
     public function addText($msg)
     {

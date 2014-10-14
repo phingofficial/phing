@@ -53,6 +53,7 @@ class IconvFilter
 
     /**
      * Returns first n lines of stream.
+     * @param null $len
      * @return the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *

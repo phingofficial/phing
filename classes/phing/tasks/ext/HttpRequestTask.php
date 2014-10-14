@@ -115,6 +115,7 @@ class HttpRequestTask extends HttpTask
 
     /**
      * The setter for the method
+     * @param $method
      */
     public function setMethod($method)
     {

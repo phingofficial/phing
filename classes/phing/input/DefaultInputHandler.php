@@ -37,6 +37,7 @@ class DefaultInputHandler implements InputHandler
     /**
      * Prompts and requests input.  May loop until a valid input has
      * been entered.
+     * @param InputRequest $request
      * @throws BuildException
      */
     public function handleInput(InputRequest $request)

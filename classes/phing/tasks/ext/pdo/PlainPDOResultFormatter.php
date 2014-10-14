@@ -130,6 +130,9 @@ class PlainPDOResultFormatter extends PDOResultFormatter
 
     }
 
+    /**
+     * @return PhingFile
+     */
     public function getPreferredOutfile()
     {
         return new PhingFile('results.txt');

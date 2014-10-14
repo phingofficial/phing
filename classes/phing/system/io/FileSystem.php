@@ -850,10 +850,10 @@ abstract class FileSystem
     /**
      * Compare the modified time of two files.
      *
-     * @param    file1    String. Path and name of file1.
-     * @param    file2    String. Path and name of file2.
+     * @param string $file1 Path and name of file1.
+     * @param string $file2 Path and name of file2.
      *
-     * @return Int. 1 if file1 is newer.
+     * @return int  1 if file1 is newer.
      *              -1 if file2 is newer.
      *              0 if files have the same time.
      *              Err object on failure.

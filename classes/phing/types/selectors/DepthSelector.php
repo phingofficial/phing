@@ -38,6 +38,9 @@ class DepthSelector extends BaseExtendSelector
     const MIN_KEY = "min";
     const MAX_KEY = "max";
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{depthselector min: ";
@@ -74,6 +77,7 @@ class DepthSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param parameters the complete set of parameters for this selector
+     * @return mixed|void
      */
     public function setParameters($parameters)
     {

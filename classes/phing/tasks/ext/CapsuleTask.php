@@ -144,8 +144,8 @@ class CapsuleTask extends Task
      * [REQUIRED] Set the path where Velocity will look
      * for templates using the file template
      * loader.
+     * @param $templatePath
      * @return void
-     * @throws Exception
      */
     public function setTemplatePath($templatePath)
     {
@@ -483,11 +483,17 @@ class AssignedVar
     private $name;
     private $value;
 
+    /**
+     * @param $v
+     */
     public function setName($v)
     {
         $this->name = $v;
     }
 
+    /**
+     * @param $v
+     */
     public function setValue($v)
     {
         $this->value = $v;

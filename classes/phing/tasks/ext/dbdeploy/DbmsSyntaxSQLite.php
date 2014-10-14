@@ -28,6 +28,9 @@
  */
 class DbmsSyntaxSQLite extends DbmsSyntax
 {
+    /**
+     * @return string
+     */
     public function generateTimestamp()
     {
         return "strftime('%s','now')";

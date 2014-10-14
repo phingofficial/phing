@@ -70,6 +70,8 @@ class UnixFileSystem extends FileSystem
      * This way we iterate through the whole pathname string only once.
      *
      * NOTE: this method no longer expands the tilde (~) character!
+     * @param string $strPathname
+     * @return string
      */
     public function normalize($strPathname)
     {
@@ -106,6 +108,10 @@ class UnixFileSystem extends FileSystem
     /**
      * Normalize the given pathname, whose length is $len, starting at the given
      * $offset; everything before this offset is already normal.
+     * @param $pathname
+     * @param $len
+     * @param $offset
+     * @return string
      */
     protected function normalizer($pathname, $len, $offset)
     {
@@ -140,6 +146,8 @@ class UnixFileSystem extends FileSystem
     /**
      * Compute the length of the pathname string's prefix.  The pathname
      * string must be in normal form.
+     * @param string $pathname
+     * @return int
      */
     public function prefixLength($pathname)
     {
@@ -167,6 +175,9 @@ class UnixFileSystem extends FileSystem
      * Resolve the child pathname string against the parent.
      * Both strings must be in normal form, and the result
      * will be in normal form.
+     * @param string $parent
+     * @param string $child
+     * @return string
      */
     public function resolve($parent, $child)
     {
@@ -190,11 +201,18 @@ class UnixFileSystem extends FileSystem
         return $parent . '/' . $child;
     }
 
+    /**
+     * @return string
+     */
     public function getDefaultParent()
     {
         return '/';
     }
 
+    /**
+     * @param PhingFile $f
+     * @return bool
+     */
     public function isAbsolute(PhingFile $f)
     {
         return ($f->getPrefixLength() !== 0);
@@ -202,6 +220,8 @@ class UnixFileSystem extends FileSystem
 
     /**
      * the file resolver
+     * @param PhingFile $f
+     * @return string
      */
     public function resolveFile(PhingFile $f)
     {
@@ -216,6 +236,10 @@ class UnixFileSystem extends FileSystem
     /* -- most of the following is mapped to the php natives wrapped by FileSystem */
 
     /* -- Attribute accessors -- */
+    /**
+     * @param PhingFile $f
+     * @return int
+     */
     public function getBooleanAttributes($f)
     {
         //$rv = getBooleanAttributes0($f);
@@ -227,6 +251,9 @@ class UnixFileSystem extends FileSystem
 
     /**
      * set file readonly on unix
+     * @param PhingFile $f
+     * @throws Exception
+     * @throws IOException
      */
     public function setReadOnly($f)
     {
@@ -242,6 +269,9 @@ class UnixFileSystem extends FileSystem
 
     /**
      * compares file paths lexicographically
+     * @param PhingFile $f1
+     * @param PhingFile $f2
+     * @return int|void
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
@@ -280,6 +310,9 @@ class UnixFileSystem extends FileSystem
 
     /* -- fs interface --*/
 
+    /**
+     * @return array
+     */
     public function listRoots()
     {
         if (!$this->checkAccess('/', false)) {
@@ -291,6 +324,9 @@ class UnixFileSystem extends FileSystem
 
     /**
      * returns the contents of a directory in an array
+     * @param $f
+     * @throws Exception
+     * @return array
      */
     public function lister($f)
     {
@@ -310,6 +346,10 @@ class UnixFileSystem extends FileSystem
         return $vv;
     }
 
+    /**
+     * @param string $p
+     * @return string
+     */
     public function fromURIPath($p)
     {
         if (StringHelper::endsWith("/", $p) && (strlen($p) > 1)) {

@@ -40,6 +40,7 @@ class SvnInfoTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     * @param $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -72,6 +73,7 @@ class SvnInfoTask extends SvnBaseTask
 
     /**
      * Sets the name of the xml sub element to use
+     * @param $subElement
      */
     public function setSubElement($subElement)
     {

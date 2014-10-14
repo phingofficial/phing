@@ -42,6 +42,9 @@ abstract class ConditionBase extends ProjectComponent
 
     public $conditions = array(); // needs to be public for "inner" class access
 
+    /**
+     * @return int
+     */
     public function countConditions()
     {
         return count($this->conditions);
@@ -55,12 +58,16 @@ abstract class ConditionBase extends ProjectComponent
         return new ConditionEnumeration($this);
     }
 
+    /**
+     * @return array
+     */
     public function getConditions()
     {
         return $this->conditions;
     }
 
     /**
+     * @param AvailableTask $a
      * @return void
      */
     public function addAvailable(AvailableTask $a)
@@ -217,11 +224,17 @@ class ConditionEnumeration implements Iterator
     /** "Outer" ConditionBase class. */
     private $outer;
 
+    /**
+     * @param ConditionBase $outer
+     */
     public function __construct(ConditionBase $outer)
     {
         $this->outer = $outer;
     }
 
+    /**
+     * @return bool
+     */
     public function valid()
     {
         return $this->outer->countConditions() > $this->num;
@@ -242,6 +255,9 @@ class ConditionEnumeration implements Iterator
         $this->num++;
     }
 
+    /**
+     * @return int
+     */
     public function key()
     {
         return $this->num;

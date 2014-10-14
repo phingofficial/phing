@@ -58,7 +58,9 @@ class ReflexiveTask extends Task
     /** Any filters to be applied before append happens. */
     private $filterChains = array();
 
-    /** Alias for setFrom() */
+    /** Alias for setFrom()
+     * @param PhingFile $f
+     */
     public function setFile(PhingFile $f)
     {
         $this->file = $f;
@@ -67,6 +69,7 @@ class ReflexiveTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)

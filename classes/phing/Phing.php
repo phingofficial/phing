@@ -645,6 +645,11 @@ class Phing
         self::unsetCurrentProject();
     }
 
+    /**
+     * @param $version
+     * @throws BuildException
+     * @throws ConfigurationException
+     */
     private function comparePhingVersion($version)
     {
         $current = strtolower(self::getPhingVersion());
@@ -793,6 +798,10 @@ class Phing
     /**
      * Error handler for PHP errors encountered during the build.
      * This uses the logging for the currently configured project.
+     * @param $level
+     * @param $message
+     * @param $file
+     * @param $line
      */
     public static function handlePhpError($level, $message, $file, $line)
     {
@@ -942,6 +951,8 @@ class Phing
 
     /**
      * Print the project description, if any
+     * @param Project $project
+     * @throws IOException
      */
     public static function printDescription(Project $project)
     {
@@ -950,7 +961,9 @@ class Phing
         }
     }
 
-    /** Print out a list of all targets in the current buildfile */
+    /** Print out a list of all targets in the current buildfile
+     * @param $project
+     */
     public function printTargets($project)
     {
         // find the target with the longest name
@@ -1162,6 +1175,7 @@ class Phing
 
     /**
      * Looks on include path for specified file.
+     * @param $path
      * @return string File found (null if no file found).
      */
     public static function getResourcePath($path)
@@ -1361,6 +1375,7 @@ class Phing
      * This sets a property that was set via command line or otherwise passed into Phing.
      *
      * @param  string $name
+     * @param $value
      * @return string value of found property (or null, if none found).
      */
     public static function setDefinedProperty($name, $value)
@@ -1374,7 +1389,7 @@ class Phing
      * and user.dir.  Many of these correspond to similar properties in Java
      * or Ant.
      *
-     * @param  string $paramName
+     * @param  string $propName
      * @return string Value of found property (or null, if none found).
      */
     public static function getProperty($propName)
@@ -1402,6 +1417,11 @@ class Phing
         return self::$properties;
     }
 
+    /**
+     * @param $propName
+     * @param $propValue
+     * @return string
+     */
     public static function setProperty($propName, $propValue)
     {
         $propName = (string) $propName;
@@ -1411,6 +1431,9 @@ class Phing
         return $oldValue;
     }
 
+    /**
+     * @return float
+     */
     public static function currentTimeMillis()
     {
         list($usec, $sec) = explode(" ", microtime());

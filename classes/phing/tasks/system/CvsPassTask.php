@@ -384,6 +384,8 @@ class CvsPassTask extends Task
 
     /**
      * "Encode" the password.
+     * @param $password
+     * @return string
      */
     final private function mangle($password)
     {

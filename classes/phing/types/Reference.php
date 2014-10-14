@@ -27,6 +27,9 @@ class Reference
 
     protected $refid;
 
+    /**
+     * @param null $id
+     */
     public function __construct($id = null)
     {
         if ($id !== null) {
@@ -34,6 +37,9 @@ class Reference
         }
     }
 
+    /**
+     * @param $id
+     */
     public function setRefId($id)
     {
         $this->refid = (string) $id;
@@ -44,7 +50,11 @@ class Reference
         return $this->refid;
     }
 
-    /** returns reference to object in references container of project */
+    /** returns reference to object in references container of project
+     * @param $project
+     * @throws BuildException
+     * @return
+     */
     public function getReferencedObject($project)
     {
         if ($this->refid === null) {

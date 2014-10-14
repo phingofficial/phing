@@ -39,6 +39,9 @@ class FilenameSelector extends BaseExtendSelector
     const CASE_KEY = "casesensitive";
     const NEGATE_KEY = "negate";
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{filenameselector name: ";
@@ -106,6 +109,7 @@ class FilenameSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
+     * @return mixed|void
      */
     public function setParameters($parameters)
     {

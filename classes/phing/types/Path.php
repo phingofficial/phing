@@ -115,6 +115,7 @@ class Path extends DataType
      *
      * <p>You must not set another attribute or nest elements inside
      * this element if you make it a reference.</p>
+     * @param Reference $r
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -143,6 +144,7 @@ class Path extends DataType
 
     /**
      * Adds a nested <code>&lt;fileset&gt;</code> element.
+     * @param FileSet $fs
      * @throws BuildException
      */
     public function addFileset(FileSet $fs)
@@ -156,6 +158,7 @@ class Path extends DataType
 
     /**
      * Adds a nested <code>&lt;dirset&gt;</code> element.
+     * @param DirSet $dset
      * @throws BuildException
      */
     public function addDirset(DirSet $dset)
@@ -185,6 +188,8 @@ class Path extends DataType
 
     /**
      * Append the contents of the other Path instance to this.
+     * @param Path $other
+     * @throws BuildException
      */
     public function append(Path $other)
     {
@@ -352,6 +357,8 @@ class Path extends DataType
     /**
      * Returns its argument with all file separator characters
      * replaced so that they match the local OS conventions.
+     * @param $source
+     * @return string
      */
     public static function translateFile($source)
     {
@@ -371,6 +378,9 @@ class Path extends DataType
      * Translates all occurrences of / or \ to correct separator of the
      * current platform and returns whether it had to do any
      * replacements.
+     * @param $buffer
+     * @param $pos
+     * @return bool
      */
     protected static function translateFileSep(&$buffer, $pos)
     {
@@ -408,6 +418,8 @@ class Path extends DataType
     /**
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
+     * @param $stk
+     * @param Project $p
      * @throws BuildException
      */
     public function dieOnCircularReference(&$stk, Project $p)
@@ -442,6 +454,9 @@ class Path extends DataType
      * Resolve a filename with Project's help - if we know one that is.
      *
      * <p>Assume the filename is absolute if project is null.</p>
+     * @param Project $project
+     * @param $relativeName
+     * @return string
      */
     private static function resolveFile(Project $project, $relativeName)
     {
@@ -467,21 +482,33 @@ class PathElement
     private $parts = array();
     private $outer;
 
+    /**
+     * @param Path $outer
+     */
     public function __construct(Path $outer)
     {
         $this->outer = $outer;
     }
 
+    /**
+     * @param PhingFile $loc
+     */
     public function setDir(PhingFile $loc)
     {
         $this->parts = array(Path::translateFile($loc->getAbsolutePath()));
     }
 
+    /**
+     * @param $path
+     */
     public function setPath($path)
     {
         $this->parts = Path::translatePath($this->outer->getProject(), $path);
     }
 
+    /**
+     * @return array
+     */
     public function getParts()
     {
         return $this->parts;

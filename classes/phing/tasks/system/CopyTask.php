@@ -104,6 +104,7 @@ class CopyTask extends Task
 
     /**
      * @see CopyTask::setPreserveLastModified
+     * @param $bool
      */
     public function setTstamp($bool)
     {
@@ -138,6 +139,9 @@ class CopyTask extends Task
         $this->preservePermissions = (boolean) $bool;
     }
 
+    /**
+     * @param $bool
+     */
     public function setPreservemode($bool)
     {
         $this->setPreservepermissions($bool);
@@ -228,7 +232,8 @@ class CopyTask extends Task
     /**
      * Nested creator, creates a FileSet for this task
      *
-     * @param FileSet $fileset Set of files to copy
+     * @param FileSet $fs
+     * @internal param FileSet $fileset Set of files to copy
      *
      * @return void
      */
@@ -393,6 +398,10 @@ class CopyTask extends Task
      * Compares source files to destination files to see if they
      * should be copied.
      *
+     * @param $fromDir
+     * @param $toDir
+     * @param $files
+     * @param $dirs
      * @return void
      */
     private function _scan(&$fromDir, &$toDir, &$files, &$dirs)
@@ -416,6 +425,11 @@ class CopyTask extends Task
     /**
      * Builds a map of filenames (from->to) that should be copied
      *
+     * @param $fromDir
+     * @param $toDir
+     * @param $names
+     * @param $mapper
+     * @param $map
      * @return void
      */
     private function buildMap(&$fromDir, &$toDir, &$names, &$mapper, &$map)
@@ -542,6 +556,11 @@ class CopyTask extends Task
         }
     }
 
+    /**
+     * @param $message
+     * @param null $location
+     * @throws BuildException
+     */
     protected function logError($message, $location = null)
     {
         if ($this->haltonerror) {

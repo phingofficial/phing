@@ -50,6 +50,8 @@ abstract class TokenReader
 
     /**
      * Utility function for logging
+     * @param $level
+     * @param $msg
      */
     public function log($level, $msg)
     {

@@ -40,6 +40,7 @@ class SvnLogTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     * @param $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -57,6 +58,7 @@ class SvnLogTask extends SvnBaseTask
     /**
      * Sets whether to force compatibility with older SVN versions (< 1.2)
      * @deprecated
+     * @param $force
      */
     public function setForceCompatible($force)
     {
@@ -64,6 +66,7 @@ class SvnLogTask extends SvnBaseTask
 
     /**
      * Sets the max num of log entries to get from svn
+     * @param $limit
      */
     public function setLimit($limit)
     {

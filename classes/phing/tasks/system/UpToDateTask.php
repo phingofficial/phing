@@ -53,7 +53,7 @@ class UpToDateTask extends Task implements Condition
      * The property to set if the target file is more up-to-date than
      * (each of) the source file(s).
      *
-     * @param property the name of the property to set if Target is up-to-date.
+     * @param string $property the name of the property to set if Target is up-to-date.
      */
     public function setProperty($property)
     {
@@ -62,7 +62,7 @@ class UpToDateTask extends Task implements Condition
 
     /**
      * Get property name
-     * @param property the name of the property to set if Target is up-to-date.
+     * @return string property the name of the property to set if Target is up-to-date.
      */
     public function getProperty()
     {
@@ -131,6 +131,7 @@ class UpToDateTask extends Task implements Condition
 
     /**
      * Nested <fileset> element.
+     * @param FileSet $fs
      */
     public function addFileset(FileSet $fs)
     {
@@ -272,6 +273,11 @@ class UpToDateTask extends Task implements Condition
         }
     }
 
+    /**
+     * @param PhingFile $srcDir
+     * @param $files
+     * @return bool
+     */
     protected function scanDir(PhingFile $srcDir, $files)
     {
         $sfs = new SourceFileScanner($this);

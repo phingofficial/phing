@@ -511,6 +511,7 @@ class PhingTask extends Task
      * Defaults to true.
      *
      * @access      public
+     * @param $value
      */
     public function setInheritAll($value)
     {
@@ -522,6 +523,7 @@ class PhingTask extends Task
      * Defaults to false.
      *
      * @access      public
+     * @param $value
      */
     public function setInheritRefs($value)
     {
@@ -535,6 +537,7 @@ class PhingTask extends Task
      * value. This will override the basedir setting of the called project.
      *
      * @access      public
+     * @param $d
      */
     public function setDir($d)
     {
@@ -551,6 +554,7 @@ class PhingTask extends Task
      * to the dir attribute given.
      *
      * @access      public
+     * @param $s
      */
     public function setPhingfile($s)
     {
@@ -564,6 +568,7 @@ class PhingTask extends Task
      * Alias function for setPhingfile
      *
      * @access       public
+     * @param $s
      */
     public function setBuildfile($s)
     {
@@ -575,6 +580,7 @@ class PhingTask extends Task
      * Defaults to the new project's default target.
      *
      * @access      public
+     * @param $s
      */
     public function setTarget($s)
     {
@@ -584,6 +590,7 @@ class PhingTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)

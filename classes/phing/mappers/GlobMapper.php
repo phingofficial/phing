@@ -61,6 +61,10 @@ class GlobMapper implements FileNameMapper
      */
     private $toPostfix = null;
 
+    /**
+     * @param mixed $_sourceFileName
+     * @return array|null
+     */
     public function main($_sourceFileName)
     {
         if (($this->fromPrefix === null)
@@ -75,6 +79,9 @@ class GlobMapper implements FileNameMapper
         return array($substitution);
     }
 
+    /**
+     * @param string $from
+     */
     public function setFrom($from)
     {
         $index = strrpos($from, '*');
@@ -92,6 +99,7 @@ class GlobMapper implements FileNameMapper
 
     /**
      * Sets the &quot;to&quot; pattern. Required.
+     * @param string $to
      */
     public function setTo($to)
     {
@@ -105,6 +113,10 @@ class GlobMapper implements FileNameMapper
         }
     }
 
+    /**
+     * @param $_name
+     * @return string
+     */
     private function _extractVariablePart($_name)
     {
         // ergh, i really hate php's string functions .... all but natural

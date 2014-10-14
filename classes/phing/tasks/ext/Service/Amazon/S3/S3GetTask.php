@@ -52,6 +52,10 @@ class S3GetTask extends Service_Amazon_S3
      */
     protected $_object = null;
 
+    /**
+     * @param $object
+     * @throws BuildException
+     */
     public function setObject($object)
     {
         if (empty($object) || !is_string($object)) {
@@ -61,6 +65,10 @@ class S3GetTask extends Service_Amazon_S3
         $this->_object = $object;
     }
 
+    /**
+     * @return mixed
+     * @throws BuildException
+     */
     public function getObject()
     {
         if ($this->_object === null) {
@@ -70,6 +78,10 @@ class S3GetTask extends Service_Amazon_S3
         return $this->_object;
     }
 
+    /**
+     * @param $target
+     * @throws BuildException
+     */
     public function setTarget($target)
     {
         if (!is_file($target) && !is_dir($target) && !is_link($target)) {
@@ -85,6 +97,10 @@ class S3GetTask extends Service_Amazon_S3
         $this->_target = $target;
     }
 
+    /**
+     * @return mixed
+     * @throws BuildException
+     */
     public function getTarget()
     {
         if ($this->_target === null) {

@@ -55,11 +55,10 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
     /**
      * Returns the  stream without Php comments.
      *
+     * @param null $len
      * @return the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
-     * @throws IOException if the underlying stream throws an IOException
-     *                     during reading
      */
     public function read($len = null)
     {
@@ -129,6 +128,9 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * @throws IOException if the underlying stream throws an IOException
      *                     during reading
      * @deprecated
+     */
+    /**
+     * @return int
      */
     public function readChar()
     {

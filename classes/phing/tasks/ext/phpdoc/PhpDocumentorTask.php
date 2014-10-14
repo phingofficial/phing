@@ -138,6 +138,7 @@ class PhpDocumentorTask extends Task
 
     /**
      * Set the title for the generated documentation
+     * @param $title
      */
     public function setTitle($title)
     {
@@ -146,6 +147,7 @@ class PhpDocumentorTask extends Task
 
     /**
      * Set the destination directory for the generated documentation
+     * @param PhingFile $destdir
      */
     public function setDestdir(PhingFile $destdir)
     {
@@ -155,6 +157,7 @@ class PhpDocumentorTask extends Task
     /**
      * Alias for {@link setDestdir()}.
      * @see setDestdir()
+     * @param PhingFile $destdir
      */
     public function setTarget(PhingFile $destdir)
     {

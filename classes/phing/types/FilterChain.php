@@ -52,6 +52,9 @@ class FilterChain extends DataType
 
     private $filterReaders = array();
 
+    /**
+     * @param null $project
+     */
     public function __construct($project = null)
     {
         if ($project) {
@@ -59,125 +62,188 @@ class FilterChain extends DataType
         }
     }
 
+    /**
+     * @return array
+     */
     public function getFilterReaders()
     {
         return $this->filterReaders;
     }
 
+    /**
+     * @param ExpandProperties $o
+     */
     public function addExpandProperties(ExpandProperties $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param TranslateGettext $o
+     */
     public function addGettext(TranslateGettext $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param HeadFilter $o
+     */
     public function addHeadFilter(HeadFilter $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param IconvFilter $o
+     */
     public function addIconvFilter(IconvFilter $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param TailFilter $o
+     */
     public function addTailFilter(TailFilter $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param LineContains $o
+     */
     public function addLineContains(LineContains $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param LineContainsRegExp $o
+     */
     public function addLineContainsRegExp(LineContainsRegExp $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param PrefixLines $o
+     */
     public function addPrefixLines(PrefixLines $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param ReplaceTokens $o
+     */
     public function addReplaceTokens(ReplaceTokens $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param ReplaceTokensWithFile $o
+     */
     public function addReplaceTokensWithFile(ReplaceTokensWithFile $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param ReplaceRegexp $o
+     */
     public function addReplaceRegexp(ReplaceRegexp $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param StripPhpComments $o
+     */
     public function addStripPhpComments(StripPhpComments $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param StripLineBreaks $o
+     */
     public function addStripLineBreaks(StripLineBreaks $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param StripLineComments $o
+     */
     public function addStripLineComments(StripLineComments $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param StripWhitespace $o
+     */
     public function addStripWhitespace(StripWhitespace $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param TidyFilter $o
+     */
     public function addTidyFilter(TidyFilter $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param TabToSpaces $o
+     */
     public function addTabToSpaces(TabToSpaces $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param XincludeFilter $o
+     */
     public function addXincludeFilter(XincludeFilter $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param XsltFilter $o
+     */
     public function addXsltFilter(XsltFilter $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param PhingFilterReader $o
+     */
     public function addFilterReader(PhingFilterReader $o)
     {
         $o->setProject($this->project);
@@ -194,6 +260,10 @@ class FilterChain extends DataType
      * @param  $r the reference to which this instance is associated
      * @throws BuildException if this instance already has been configured.
     */
+    /**
+     * @param Reference $r
+     * @throws BuildException
+     */
     public function setRefid(Reference $r)
     {
 

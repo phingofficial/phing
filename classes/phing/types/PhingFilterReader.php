@@ -38,6 +38,9 @@ class PhingFilterReader extends DataType
     private $parameters = array();
     private $classPath;
 
+    /**
+     * @param $className
+     */
     public function setClassName($className)
     {
         $this->className = $className;
@@ -51,6 +54,7 @@ class PhingFilterReader extends DataType
     /**
      * Set the classpath to load the FilterReader through (attribute).
      * @param Path $classpath
+     * @throws BuildException
      */
     public function setClasspath(Path $classpath)
     {
@@ -67,6 +71,10 @@ class PhingFilterReader extends DataType
     /*
      * Set the classpath to load the FilterReader through (nested element).
     */
+    /**
+     * @return Path
+     * @throws BuildException
+     */
     public function createClasspath()
     {
         if ($this->isReference()) {
@@ -84,6 +92,10 @@ class PhingFilterReader extends DataType
         return $this->classPath;
     }
 
+    /**
+     * @param Reference $r
+     * @throws BuildException
+     */
     public function setClasspathRef(Reference $r)
     {
         if ($this->isReference()) {
@@ -93,6 +105,9 @@ class PhingFilterReader extends DataType
         $o->setRefid($r);
     }
 
+    /**
+     * @param Parameter $param
+     */
     public function addParam(Parameter $param)
     {
         $this->parameters[] = $param;
@@ -105,6 +120,9 @@ class PhingFilterReader extends DataType
         return $this->parameters[$num - 1];
     }
 
+    /**
+     * @return array
+     */
     public function getParams()
     {
         // We return a COPY
@@ -126,6 +144,10 @@ class PhingFilterReader extends DataType
      * @param Reference $r the reference to which this instance is associated
      * @exception BuildException if this instance already has been configured.
     */
+    /**
+     * @param Reference $r
+     * @throws BuildException
+     */
     public function setRefid(Reference $r)
     {
         if ((count($this->parameters) !== 0) || ($this->className !== null)) {

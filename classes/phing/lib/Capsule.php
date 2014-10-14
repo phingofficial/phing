@@ -45,6 +45,9 @@ class Capsule
      */
     private $old_include_path;
 
+    /**
+     *
+     */
     public function __construct()
     {
     }

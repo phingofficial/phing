@@ -125,7 +125,7 @@ abstract class CreoleTask extends Task
 
     /**
      * Sets the password; required.
-     * @param password The password to set
+     * @param $password The password to set
      */
     public function setPassword($password)
     {
@@ -135,7 +135,7 @@ abstract class CreoleTask extends Task
     /**
      * Auto commit flag for database connection;
      * optional, default false.
-     * @param autocommit The autocommit to set
+     * @param $autocommit The autocommit to set
      */
     public function setAutocommit($autocommit)
     {
@@ -152,6 +152,9 @@ abstract class CreoleTask extends Task
         $this->version = $version;
     }
 
+    /**
+     * @return array
+     */
     protected function getLoaderMap()
     {
         return self::$loaderMap;
@@ -204,6 +207,9 @@ abstract class CreoleTask extends Task
 
     }
 
+    /**
+     * @param $value
+     */
     public function isCaching($value)
     {
         $this->caching = $value;

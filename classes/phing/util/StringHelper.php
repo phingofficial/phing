@@ -57,7 +57,8 @@ class StringHelper
      * Converts a string to an indexed array of chars
      * There's really no reason for this to be used in PHP, since strings
      * are all accessible using the $string{0} notation.
-     * @param  string $string
+     * @param $str
+     * @internal param string $string
      * @return array
      * @deprecated
      */
@@ -75,6 +76,8 @@ class StringHelper
     /**
      * Get the qualifier part of a qualified name.
      * E.g. eg.Cat -> eg
+     * @param $qualifiedName
+     * @param string $seperator
      * @return string
      */
     public static function qualifier($qualifiedName, $seperator = '.')
@@ -107,6 +110,8 @@ class StringHelper
 
     /**
      *
+     * @param $qualifiedName
+     * @param string $separator
      * @return string
      */
     public static function root($qualifiedName, $separator = '.')
@@ -117,6 +122,7 @@ class StringHelper
     }
 
     /**
+     * @param $string
      * @return int
      */
     public static function hashCode($string)
@@ -125,6 +131,7 @@ class StringHelper
     }
 
     /**
+     * @param $s
      * @return boolean
      */
     public static function booleanValue($s)
@@ -138,7 +145,10 @@ class StringHelper
         return (boolean) in_array($trimmed, self::$TRUE_VALUES);
     }
 
-    /** tests if a string is a representative of a boolean */
+    /** tests if a string is a representative of a boolean
+     * @param $s
+     * @return bool
+     */
     public static function isBoolean($s)
     {
 
@@ -166,7 +176,11 @@ class StringHelper
         return serialize($args);
     }
 
-    /** tests if a string starts with a given string */
+    /** tests if a string starts with a given string
+     * @param $check
+     * @param $string
+     * @return bool
+     */
     public static function startsWith($check, $string)
     {
         if ($check === "" || $check === $string) {
@@ -176,7 +190,11 @@ class StringHelper
         }
     }
 
-    /** tests if a string ends with a given string */
+    /** tests if a string ends with a given string
+     * @param $check
+     * @param $string
+     * @return bool
+     */
     public static function endsWith($check, $string)
     {
         if ($check === "" || $check === $string) {
@@ -189,6 +207,10 @@ class StringHelper
     /**
      * a natural way of getting a subtring, php's circular string buffer and strange
      * return values suck if you want to program strict as of C or friends
+     * @param $string
+     * @param $startpos
+     * @param int $endpos
+     * @return string
      */
     public static function substring($string, $startpos, $endpos = -1)
     {

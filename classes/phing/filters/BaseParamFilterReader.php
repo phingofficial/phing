@@ -47,6 +47,11 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      * @param array Array of parameters to be used by this filter.
      *              Should not be <code>null</code>.
     */
+    /**
+     * @param $parameters
+     * @return mixed|void
+     * @throws Exception
+     */
     public function setParameters($parameters)
     {
         // type check, error must never occur, bad code of it does
@@ -63,6 +68,9 @@ class BaseParamFilterReader extends BaseFilterReader implements Parameterizable
      *
      * @return the parameters to be used by this filter
     */
+    /**
+     * @return array
+     */
     public function &getParameters()
     {
         return $this->_parameters;

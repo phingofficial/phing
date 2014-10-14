@@ -39,6 +39,9 @@ class PresentSelector extends BaseSelector
     private $destmustexist = true;
     private static $filePresence = array("srconly", "both");
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{presentselector targetdir: ";

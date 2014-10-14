@@ -153,6 +153,13 @@ class UnknownElement extends Task
         }
     }
 
+    /**
+     * @param IntrospectionHelper $ih
+     * @param $parent
+     * @param UnknownElement $child
+     * @param RuntimeConfigurable $childWrapper
+     * @return bool
+     */
     public function handleChild(
         IntrospectionHelper $ih,
         $parent,

@@ -56,36 +56,57 @@ class AvailableTask extends Task
 
     private $followSymlinks = false;
 
+    /**
+     * @param $property
+     */
     public function setProperty($property)
     {
         $this->property = (string) $property;
     }
 
+    /**
+     * @param $value
+     */
     public function setValue($value)
     {
         $this->value = (string) $value;
     }
 
+    /**
+     * @param PhingFile $file
+     */
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
     }
 
+    /**
+     * @param $resource
+     */
     public function setResource($resource)
     {
         $this->resource = (string) $resource;
     }
 
+    /**
+     * @param $extension
+     */
     public function setExtension($extension)
     {
         $this->extension = (string) $extension;
     }
 
+    /**
+     * @param $type
+     */
     public function setType($type)
     {
         $this->type = (string) strtolower($type);
     }
 
+    /**
+     * @param $followSymlinks
+     */
     public function setFollowSymlinks($followSymlinks)
     {
         $this->followSymlinks = (bool) $followSymlinks;
@@ -129,6 +150,10 @@ class AvailableTask extends Task
         }
     }
 
+    /**
+     * @return bool
+     * @throws BuildException
+     */
     public function evaluate()
     {
         if ($this->file === null && $this->resource === null && $this->extension === null) {
@@ -170,6 +195,9 @@ class AvailableTask extends Task
     }
 
     // this is prepared for the path type
+    /**
+     * @return bool
+     */
     private function _checkFile()
     {
         if ($this->filepath === null) {
@@ -188,6 +216,11 @@ class AvailableTask extends Task
         return false;
     }
 
+    /**
+     * @param PhingFile $file
+     * @return bool
+     * @throws IOException
+     */
     private function _checkFile1(PhingFile $file)
     {
         // Resolve symbolic links
@@ -219,6 +252,10 @@ class AvailableTask extends Task
         return $file->exists();
     }
 
+    /**
+     * @param $resource
+     * @return bool
+     */
     private function _checkResource($resource)
     {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {

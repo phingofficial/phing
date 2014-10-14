@@ -199,8 +199,8 @@ class SmartyTask extends Task
      * [REQUIRED] Set the path where Velocity will look
      * for templates using the file template
      * loader.
+     * @param $templatePath
      * @return void
-     * @throws Exception
      */
     public function setTemplatePath($templatePath)
     {
@@ -272,6 +272,7 @@ class SmartyTask extends Task
     /**
      * [REQUIRED] Set the output file for the
      * generation process.
+     * @param $outputFile
      * @return void
      */
     public function setOutputFile($outputFile)

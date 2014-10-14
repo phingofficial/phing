@@ -45,6 +45,9 @@ class RegexpMapper implements FileNameMapper
      */
     private $reg;
 
+    /**
+     *
+     */
     public function __construct()
     {
         // instantiage regexp matcher here
@@ -61,6 +64,7 @@ class RegexpMapper implements FileNameMapper
 
     /**
      * Sets the &quot;to&quot; pattern. Required.
+     * @param string $to
      */
     public function setTo($to)
     {
@@ -71,6 +75,11 @@ class RegexpMapper implements FileNameMapper
         $this->to = $to;
     }
 
+    /**
+     * @param mixed $sourceFileName
+     * @return array|null
+     * @throws Exception
+     */
     public function main($sourceFileName)
     {
         if ($this->reg === null || $this->to === null || !$this->reg->matches((string) $sourceFileName)) {

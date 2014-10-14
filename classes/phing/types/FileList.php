@@ -74,6 +74,8 @@ class FileList extends DataType
     /**
      * Makes this instance in effect a reference to another FileList
      * instance.
+     * @param Reference $r
+     * @throws BuildException
      */
     public function setRefid(Reference $r)
     {
@@ -86,6 +88,7 @@ class FileList extends DataType
     /**
      * Base directory for files in list.
      * @param PhingFile $dir
+     * @throws BuildException
      */
     public function setDir(PhingFile $dir)
     {
@@ -100,6 +103,8 @@ class FileList extends DataType
 
     /**
      * Get the basedir for files in list.
+     * @param Project $p
+     * @throws BuildException
      * @return PhingFile
      */
     public function getDir(Project $p)
@@ -116,6 +121,7 @@ class FileList extends DataType
     /**
      * Set the array of files in list.
      * @param array $filenames
+     * @throws BuildException
      */
     public function setFiles($filenames)
     {
@@ -137,6 +143,7 @@ class FileList extends DataType
     /**
      * Sets a source "list" file that contains filenames to add -- one per line.
      * @param string $file
+     * @throws BuildException
      */
     public function setListFile($file)
     {

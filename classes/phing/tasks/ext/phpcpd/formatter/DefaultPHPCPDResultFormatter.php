@@ -68,7 +68,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
     /**
      * Wrapper for PHPCPD 2.0
      *
-     * @param object         $clones
+     * @param CodeCloneMap   $clones
      * @param boolean        $useFile
      * @param PhingFile|null $outFile
      */

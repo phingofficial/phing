@@ -41,7 +41,10 @@ class RuntimeConfigurable
     private $characters = "";
     private $proxyConfigured = false;
 
-    /** @param proxy The element to wrap. */
+    /**
+     * @param The $proxy
+     * @param proxy The element to wrap.
+     */
     public function __construct($proxy, $elementTag)
     {
         $this->wrappedObject = $proxy;
@@ -52,18 +55,26 @@ class RuntimeConfigurable
         }
     }
 
+    /**
+     * @return null|The
+     */
     public function getProxy()
     {
         return $this->wrappedObject;
     }
 
+    /**
+     * @param $proxy
+     */
     public function setProxy($proxy)
     {
         $this->wrappedObject = $proxy;
         $this->proxyConfigured = false;
     }
 
-    /** Set's the attributes for the wrapped element. */
+    /** Set's the attributes for the wrapped element.
+     * @param $attributes
+     */
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
@@ -75,30 +86,48 @@ class RuntimeConfigurable
         return $this->attributes;
     }
 
-    /** Adds child elements to the wrapped element. */
+    /**
+     * Adds child elements to the wrapped element.
+     * @param RuntimeConfigurable $child
+     * @return void
+     */
     public function addChild(RuntimeConfigurable $child)
     {
         $this->children[] = $child;
     }
 
-    /** Returns the child with index */
+    /** Returns the child with index
+     * @param int $index
+     * @return void
+     */
     public function getChild($index)
     {
         return $this->children[(int) $index];
     }
 
-    /** Add characters from #PCDATA areas to the wrapped element. */
+    /**
+     * Add characters from #PCDATA areas to the wrapped element.
+     * @param $data
+     * @return void
+     */
     public function addText($data)
     {
         $this->characters .= (string) $data;
     }
 
+    /**
+     * @return
+     */
     public function getElementTag()
     {
         return $this->elementTag;
     }
 
-    /** Configure the wrapped element and all children. */
+    /** Configure the wrapped element and all children.
+     * @param Project $project
+     * @throws BuildException
+     * @throws Exception
+     */
     public function maybeConfigure(Project $project)
     {
         if ($this->proxyConfigured) {

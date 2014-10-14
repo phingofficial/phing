@@ -92,6 +92,9 @@ class AbstractFileSet extends DataType implements SelectorContainer
     public $isCaseSensitive = true;
     public $selectors = array();
 
+    /**
+     * @param null $fileset
+     */
     public function __construct($fileset = null)
     {
         if ($fileset !== null && ($fileset instanceof FileSet)) {
@@ -119,6 +122,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * instance.
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
+     * @param Reference $r
+     * @throws BuildException
      */
     public function setRefid(Reference $r)
     {
@@ -134,6 +139,10 @@ class AbstractFileSet extends DataType implements SelectorContainer
         parent::setRefid($r);
     }
 
+    /**
+     * @param $dir
+     * @throws BuildException
+     */
     public function setDir($dir)
     {
         if ($this->isReference()) {
@@ -145,6 +154,11 @@ class AbstractFileSet extends DataType implements SelectorContainer
         $this->dir = new PhingFile((string) $dir);
     }
 
+    /**
+     * @param Project $p
+     * @return mixed
+     * @throws BuildException
+     */
     public function getDir(Project $p)
     {
         if ($this->isReference()) {
@@ -154,6 +168,10 @@ class AbstractFileSet extends DataType implements SelectorContainer
         return $this->dir;
     }
 
+    /**
+     * @return mixed
+     * @throws BuildException
+     */
     public function createPatternSet()
     {
         if ($this->isReference()) {
@@ -207,8 +225,6 @@ class AbstractFileSet extends DataType implements SelectorContainer
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
-
-            return;
         }
 
         return $this->defaultPatterns->createExcludesFile();
@@ -217,6 +233,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
+     * @param $includes
+     * @throws BuildException
      */
     public function setIncludes($includes)
     {
@@ -229,6 +247,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Sets the set of exclude patterns. Patterns may be separated by a comma
      * or a space.
+     * @param $excludes
+     * @throws BuildException
      */
     public function setExcludes($excludes)
     {
@@ -242,6 +262,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the name of the file containing the includes patterns.
      *
      * @param $incl The file to fetch the include patterns from.
+     * @throws BuildException
      */
     public function setIncludesfile($incl)
     {
@@ -255,6 +276,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the name of the file containing the includes patterns.
      *
      * @param $excl The file to fetch the exclude patterns from.
+     * @throws BuildException
      */
     public function setExcludesfile($excl)
     {
@@ -270,6 +292,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * @param $useDefaultExcludes "true"|"on"|"yes" when default exclusions
      *                           should be used, "false"|"off"|"no" when they
      *                           shouldn't be used.
+     * @throws BuildException
+     * @return void
      */
     public function setDefaultexcludes($useDefaultExcludes)
     {
@@ -281,13 +305,19 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /**
      * Sets case sensitivity of the file system
+     * @param $isCaseSensitive
      */
     public function setCaseSensitive($isCaseSensitive)
     {
         $this->isCaseSensitive = $isCaseSensitive;
     }
 
-    /** returns a reference to the dirscanner object belonging to this fileset */
+    /** returns a reference to the dirscanner object belonging to this fileset
+     * @param Project $p
+     * @throws BuildException
+     * @throws Exception
+     * @return \DirectoryScanner
+     */
     public function getDirectoryScanner(Project $p)
     {
         if ($this->isReference()) {
@@ -315,7 +345,12 @@ class AbstractFileSet extends DataType implements SelectorContainer
         return $ds;
     }
 
-    /** feed dirscanner with infos defined by this fileset */
+    /** feed dirscanner with infos defined by this fileset
+     * @param DirectoryScanner $ds
+     * @param Project $p
+     * @throws BuildException
+     * @throws Exception
+     */
     protected function setupDirectoryScanner(DirectoryScanner $ds, Project $p)
     {
         if ($ds === null) {
@@ -351,6 +386,9 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Performs the check for circular references and returns the
      * referenced FileSet.
+     * @param Project $p
+     * @throws BuildException
+     * @return
      */
     public function getRef(Project $p)
     {
@@ -433,6 +471,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Returns the set of selectors as an array.
      *
+     * @param Project $p
+     * @throws BuildException
      * @return an array of selectors in this container
      */
     public function getSelectors(Project $p)
@@ -468,6 +508,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Add a new selector into this container.
      *
      * @param FileSelector|the $selector
+     * @throws BuildException
      * @return \the|void
      * @internal param the $selector new selector to add
      */

@@ -138,6 +138,9 @@ class IniFileTokenReader extends TokenReader
         throw new BuildException("Unsupported value " . (string) $file);
     }
 
+    /**
+     * @param $str
+     */
     public function setSection($str)
     {
         $this->section = (string) $str;

@@ -49,7 +49,7 @@ class InputTask extends Task
      * to reenter it. Validargs are case sensitive. If you want 'a' and 'A' to
      * be accepted you need to define both values as accepted arguments.
      *
-     * @param validargs A comma separated String defining valid input args.
+     * @param string $validargs A comma separated String defining valid input args.
      */
     public function setValidargs($validargs)
     {
@@ -77,6 +77,7 @@ class InputTask extends Task
 
     /**
      * Set a multiline message.
+     * @param $msg
      */
     public function addText($msg)
     {

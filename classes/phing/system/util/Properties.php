@@ -317,6 +317,7 @@ class Properties
 
     /**
      * Whether loaded properties array contains specified property name.
+     * @param $key
      * @return boolean
      */
     public function containsKey($key)

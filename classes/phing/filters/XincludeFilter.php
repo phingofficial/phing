@@ -74,11 +74,17 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         return $this->resolveExternals;
     }
 
+    /**
+     * @param PhingFile $dir
+     */
     public function setBasedir(PhingFile $dir)
     {
         $this->basedir = $dir;
     }
 
+    /**
+     * @return null
+     */
     public function getBasedir()
     {
         return $this->basedir;
@@ -86,8 +92,9 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Reads stream, applies XSLT and returns resulting stream.
+     * @param null $len
+     * @throws BuildException
      * @return string         transformed buffer.
-     * @throws BuildException - if XSLT support missing, if error in xslt processing
      */
     public function read($len = null)
     {

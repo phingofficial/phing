@@ -51,9 +51,13 @@ class TargetHandler extends AbstractHandler
     /**
      * Constructs a new TargetHandler
      *
-     * @param  object  the ExpatParser object
-     * @param  object  the parent handler that invoked this handler
-     * @param  object  the ProjectConfigurator object
+     * @param AbstractSAXParser $parser
+     * @param AbstractHandler $parentHandler
+     * @param ProjectConfigurator $configurator
+     * @param PhingXMLContext $context
+     * @internal param the $object ExpatParser object
+     * @internal param the $object parent handler that invoked this handler
+     * @internal param the $object ProjectConfigurator object
      */
     public function __construct(
         AbstractSAXParser $parser,

@@ -39,8 +39,9 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup
     /**
      * Constructs a new PhingPhpDocumentorSetup.
      *
-     * @param string $configDir Directory in which to look for configuration files.
-     * @param object $task      The task we're working with, so we can pass it on to the ErrorTracker
+     * @param null $configdir
+     * @param object $task The task we're working with, so we can pass it on to the ErrorTracker
+     * @internal param string $configDir Directory in which to look for configuration files.
      */
     public function __construct($configdir = null, $task)
     {

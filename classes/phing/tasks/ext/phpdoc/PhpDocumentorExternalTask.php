@@ -50,6 +50,7 @@ class PhpDocumentorExternalTask extends PhpDocumentorTask
 
     /**
      * Sets the path to the phpDocumentor executable
+     * @param $programPath
      */
     public function setProgramPath($programPath)
     {
@@ -66,6 +67,7 @@ class PhpDocumentorExternalTask extends PhpDocumentorTask
 
     /**
      * Set the source path. A directory or a comma separate list of directories.
+     * @param $sourcepath
      */
     public function setSourcepath($sourcepath)
     {

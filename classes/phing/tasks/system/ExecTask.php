@@ -128,6 +128,9 @@ class ExecTask extends Task
     protected $checkreturn = false;
 
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->commandline = new Commandline();

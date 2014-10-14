@@ -149,6 +149,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
+     * @param PhingFile $srcFile
      */
     public function setSrc(PhingFile $srcFile)
     {
@@ -158,6 +159,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set an inline SQL command to execute.
      * NB: Properties are not expanded in this text.
+     * @param $sql
      */
     public function addText($sql)
     {
@@ -166,6 +168,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Adds a set of files (nested fileset attribute).
+     * @param FileSet $set
      */
     public function addFileset(FileSet $set)
     {
@@ -174,6 +177,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Adds a set of files (nested filelist attribute).
+     * @param FileList $list
      */
     public function addFilelist(FileList $list)
     {
@@ -252,6 +256,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Action to perform when statement fails: continue, stop, or abort
      * optional; default &quot;abort&quot;
+     * @param $action
      */
     public function setOnerror($action)
     {
@@ -425,7 +430,8 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * read in lines and execute them
-     * @throws PDOException, IOException
+     * @param Reader $reader
+     * @throws BuildException
      */
     public function runStatements(Reader $reader)
     {
@@ -469,7 +475,9 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Exec the sql statement.
-     * @throws PDOException
+     * @param $sql
+     * @throws BuildException
+     * @throws Exception
      */
     protected function execSQL($sql)
     {
@@ -598,17 +606,26 @@ class PDOSQLExecTransaction
     private $tSqlCommand = "";
     private $parent;
 
+    /**
+     * @param $parent
+     */
     public function __construct($parent)
     {
         // Parent is required so that we can log things ...
         $this->parent = $parent;
     }
 
+    /**
+     * @param PhingFile $src
+     */
     public function setSrc(PhingFile $src)
     {
         $this->tSrcFile = $src;
     }
 
+    /**
+     * @param $sql
+     */
     public function addText($sql)
     {
         $this->tSqlCommand .= $sql;

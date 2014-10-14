@@ -67,6 +67,11 @@ class HttpGetTask extends HttpTask
      */
     protected $proxy = null;
 
+    /**
+     * @return HTTP_Request2
+     * @throws BuildException
+     * @throws HTTP_Request2_LogicException
+     */
     protected function createRequest()
     {
         if (!isset($this->dir)) {

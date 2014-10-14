@@ -33,10 +33,19 @@ include_once 'phing/Task.php';
  */
 abstract class SvnBaseTask extends Task
 {
+    /**
+     * @var string
+     */
     private $workingCopy = "";
 
+    /**
+     * @var string
+     */
     private $repositoryUrl = "";
 
+    /**
+     * @var string
+     */
     private $svnPath = "/usr/bin/svn";
 
     protected $svn = null;
@@ -70,6 +79,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the path to the workingcopy
+     * @param $workingCopy
      */
     public function setWorkingCopy($workingCopy)
     {
@@ -86,6 +96,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the path/URI to the repository
+     * @param $repositoryUrl
      */
     public function setRepositoryUrl($repositoryUrl)
     {
@@ -102,6 +113,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the path to the SVN executable
+     * @param $svnPath
      */
     public function setSvnPath($svnPath)
     {
@@ -122,6 +134,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the path to export/checkout to
+     * @param $toDir
      */
     public function setToDir($toDir)
     {
@@ -142,6 +155,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the force switch
+     * @param $value
      */
     public function setForce($value)
     {
@@ -158,6 +172,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the username of the user to export
+     * @param $value
      */
     public function setUsername($value)
     {
@@ -174,6 +189,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the password of the user to export
+     * @param $value
      */
     public function setPassword($value)
     {
@@ -190,6 +206,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the no-auth-cache switch
+     * @param $value
      */
     public function setNoCache($value)
     {
@@ -207,6 +224,7 @@ abstract class SvnBaseTask extends Task
     /**
      * Sets the recursive switch
      * @deprecated
+     * @param $value
      */
     public function setRecursive($value)
     {
@@ -222,6 +240,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the depth switch
+     * @param $value
      */
     public function setDepth($value)
     {
@@ -238,6 +257,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the ignore-externals switch
+     * @param $value
      */
     public function setIgnoreExternals($value)
     {
@@ -254,6 +274,7 @@ abstract class SvnBaseTask extends Task
 
     /**
      * Sets the trust-server-cert switch
+     * @param $value
      */
     public function setTrustServerCert($value)
     {

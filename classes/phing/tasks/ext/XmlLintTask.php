@@ -117,6 +117,10 @@ class XmlLintTask extends Task
         restore_error_handler();
     }
 
+    /**
+     * @param $message
+     * @throws BuildException
+     */
     protected function logError($message)
     {
         if ($this->haltonfailure) {
@@ -173,10 +177,11 @@ class XmlLintTask extends Task
     /**
      * Local error handler to catch validation errors and log them through Phing
      *
-     * @param int    $level
+     * @param int $level
      * @param string $message
      * @param string $file
-     * @param int    $line
+     * @param int $line
+     * @param $context
      */
     public function errorHandler($level, $message, $file, $line, $context)
     {

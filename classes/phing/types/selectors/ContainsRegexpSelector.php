@@ -50,6 +50,9 @@ class ContainsRegexpSelector extends BaseExtendSelector
 
     const CASE_KEY = "casesensitive";
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{containsregexpselector expression: ";
@@ -90,6 +93,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
+     * @return mixed|void
      */
     public function setParameters($parameters)
     {
@@ -165,6 +169,8 @@ class ContainsRegexpSelector extends BaseExtendSelector
                 $teststr = $in->readLine();
             }
 
+            $in->close();
+
             return false;
         } catch (IOException $ioe) {
             if ($in) {
@@ -172,7 +178,6 @@ class ContainsRegexpSelector extends BaseExtendSelector
             }
             throw new BuildException("Could not read file " . $filename);
         }
-        $in->close();
     }
 
 }

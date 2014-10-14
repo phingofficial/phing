@@ -50,7 +50,12 @@ class PhingFile
      */
     private $prefixLength = 0;
 
-    /** constructor */
+    /** constructor
+     * @param null $arg1
+     * @param null $arg2
+     * @throws IOException
+     * @throws NullPointerException
+     */
     public function __construct($arg1 = null, $arg2 = null)
     {
 
@@ -748,10 +753,11 @@ class PhingFile
      * operation fails it may have succeeded in creating some of the necessary
      * parent directories.
      *
+     * @param int $mode
+     * @throws IOException
      * @return boolean     true if and only if the directory was created,
      *                     along with all necessary parent directories; false
      *                     otherwise
-     * @throws IOException
      */
     public function mkdirs($mode = 0755)
     {
@@ -773,8 +779,9 @@ class PhingFile
     /**
      * Creates the directory named by this abstract pathname.
      *
-     * @return boolean     true if and only if the directory was created; false otherwise
+     * @param int $mode
      * @throws IOException
+     * @return boolean     true if and only if the directory was created; false otherwise
      */
     public function mkdir($mode = 0755)
     {
@@ -898,7 +905,9 @@ class PhingFile
 
     /**
      * Sets the group of the file.
-     * @param mixed $user User name or number.
+     * @param $group
+     * @throws IOException
+     * @internal param mixed $user User name or number.
      */
     public function setGroup($group)
     {
@@ -996,6 +1005,9 @@ class PhingFile
      * Then, the file is locked for exclusive reading/writing.
      *
      * @author manuel holtgrewe, grin@gmx.net
+     * @param $prefix
+     * @param $suffix
+     * @param PhingFile $directory
      * @throws IOException
      * @return PhingFile
      */
@@ -1060,6 +1072,7 @@ class PhingFile
      * pathnames are equal depends upon the underlying system.  On UNIX
      * systems, alphabetic case is significant in comparing pathnames; on Win32
      * systems it is not.
+     * @param $obj
      * @return boolean
      */
     public function equals($obj)

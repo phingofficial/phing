@@ -55,13 +55,17 @@ class DataType extends ProjectComponent
     /**
      * Sets a description of the current data type. It will be useful
      * in commenting what we are doing.
+     * @param string $desc
      */
     public function setDescription($desc)
     {
         $this->description = (string) $desc;
     }
 
-    /** Return the description for the current data type. */
+    /**
+     * Return the description for the current data type.
+     * @retujrn string
+     */
     public function getDescription()
     {
         return $this->description;
@@ -102,6 +106,9 @@ class DataType extends ProjectComponent
      *
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
+     * @param $stk
+     * @param Project $p
+     * @throws BuildException
      */
     public function dieOnCircularReference(&$stk, Project $p)
     {
@@ -136,7 +143,12 @@ class DataType extends ProjectComponent
         $this->checked = true;
     }
 
-    /** Performs the check for circular references and returns the referenced object. */
+    /** Performs the check for circular references and returns the referenced object.
+     * @param $requiredClass
+     * @param $dataTypeName
+     * @throws BuildException
+     * @return mixed
+     */
     public function getCheckedRef($requiredClass, $dataTypeName)
     {
 

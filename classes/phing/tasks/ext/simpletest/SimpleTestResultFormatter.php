@@ -49,6 +49,7 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
 
     /**
      * Sets the writer the formatter is supposed to write its results to.
+     * @param Writer $out
      */
     public function setOutput(Writer $out)
     {
@@ -75,11 +76,17 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
         $this->project = $project;
     }
 
+    /**
+     * @return string
+     */
     public function getPreferredOutfile()
     {
         return "";
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintMethodStart($test_name)
     {
         parent::paintMethodStart($test_name);
@@ -87,6 +94,9 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
         $this->currentTest = $test_name;
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintMethodEnd($test_name)
     {
         parent::paintMethodEnd($test_name);
@@ -94,6 +104,9 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
         $this->runCount++;
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseStart($test_name)
     {
         parent::paintCaseStart($test_name);
@@ -106,6 +119,9 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
         $this->timer->start();
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseEnd($test_name)
     {
         parent::paintCaseEnd($test_name);
@@ -113,6 +129,9 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
         $this->timer->stop();
     }
 
+    /**
+     * @param string $message
+     */
     public function paintError($message)
     {
         parent::paintError($message);
@@ -120,6 +139,9 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
         $this->errorCount++;
     }
 
+    /**
+     * @param string $message
+     */
     public function paintFail($message)
     {
         parent::paintFail($message);
@@ -127,26 +149,41 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
         $this->failureCount++;
     }
 
+    /**
+     * @return int
+     */
     public function getRunCount()
     {
         return $this->runCount;
     }
 
+    /**
+     * @return int
+     */
     public function getFailureCount()
     {
         return $this->failureCount;
     }
 
+    /**
+     * @return int
+     */
     public function getErrorCount()
     {
         return $this->errorCount;
     }
 
+    /**
+     * @return string
+     */
     public function getTestName()
     {
         return $this->currentTest;
     }
 
+    /**
+     * @return int
+     */
     public function getElapsedTime()
     {
         if ($this->timer) {

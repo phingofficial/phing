@@ -201,10 +201,10 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream.
      * The original stream is first read in fully, and then translation is performed.
      *
+     * @param null $len
+     * @throws BuildException
      * @return mixed the filtered stream, or -1 if the end of the resulting stream has been reached.
      *
-     * @throws IOException    - if the underlying stream throws an IOException during reading
-     * @throws BuildException - if the correct params are not supplied
      */
     public function read($len = null)
     {

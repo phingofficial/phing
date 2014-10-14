@@ -41,6 +41,9 @@ class DependSelector extends BaseSelector
     private $map = null;
     private $granularity = 0;
 
+    /**
+     *
+     */
     public function __construct()
     {
         // not yet supported:
@@ -49,6 +52,9 @@ class DependSelector extends BaseSelector
         //}
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{dependselector targetdir: ";
@@ -85,6 +91,7 @@ class DependSelector extends BaseSelector
     /**
      * Sets the number of milliseconds leeway we will give before we consider
      * a file out of date.
+     * @param $granularity
      */
     public function setGranularity($granularity)
     {

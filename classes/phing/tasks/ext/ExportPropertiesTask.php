@@ -92,7 +92,8 @@ class ExportPropertiesTask extends Task
      * setter for _disallowedPropertyPrefixes
      *
      * @access public
-     * @param  string $file
+     * @param $prefixes
+     * @internal param string $file
      * @return bool
      */
     public function setDisallowedPropertyPrefixes($prefixes)

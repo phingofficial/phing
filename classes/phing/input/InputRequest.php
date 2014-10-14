@@ -58,6 +58,7 @@ class InputRequest
 
     /**
      * Sets the user provided input.
+     * @param $input
      */
     public function setInput($input)
     {

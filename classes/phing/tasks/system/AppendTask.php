@@ -71,7 +71,9 @@ class AppendTask extends Task
     /** Text to append. (cannot be used in conjunction w/ files or filesets) */
     private $text;
 
-    /** Sets specific file to append. */
+    /** Sets specific file to append.
+     * @param PhingFile $f
+     */
     public function setFile(PhingFile $f)
     {
         $this->file = $f;
@@ -113,6 +115,7 @@ class AppendTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -255,6 +258,10 @@ class AppendTask extends Task
         } // if !empty
     }
 
+    /**
+     * @param FileWriter $writer
+     * @param PhingFile $f
+     */
     private function appendFile(FileWriter $writer, PhingFile $f)
     {
         $in = FileUtils::getChainedReader(new FileReader($f), $this->filterChains, $this->project);

@@ -31,6 +31,9 @@ require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
  */
 class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
+    /**
+     * @param PHPUnit_Framework_TestSuite $suite
+     */
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         parent::endTestSuite($suite);
@@ -53,6 +56,9 @@ class SummaryPHPUnitResultFormatter extends PHPUnitResultFormatter
         }
     }
 
+    /**
+     * @return null
+     */
     public function getExtension()
     {
         return null;

@@ -41,6 +41,9 @@ include_once 'phing/system/io/IOException.php';
 class MoveTask extends CopyTask
 {
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -172,7 +175,11 @@ class MoveTask extends CopyTask
         }
     }
 
-    /** Its only ok to delete a dir tree if there are no files in it. */
+    /** Its only ok to delete a dir tree if there are no files in it.
+     * @param $d
+     * @throws IOException
+     * @return bool
+     */
     private function okToDelete($d)
     {
         $list = $d->listDir();
@@ -195,7 +202,11 @@ class MoveTask extends CopyTask
         return true;
     }
 
-    /** Go and delete the directory tree. */
+    /** Go and delete the directory tree.
+     * @param $d
+     * @throws BuildException
+     * @throws IOException
+     */
     private function deleteDir($d)
     {
 

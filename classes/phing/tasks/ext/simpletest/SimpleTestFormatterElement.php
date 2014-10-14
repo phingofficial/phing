@@ -32,6 +32,10 @@ require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
  */
 class SimpleTestFormatterElement extends FormatterElement
 {
+    /**
+     * @param string $type
+     * @throws BuildException
+     */
     public function setType($type)
     {
         $this->type = $type;

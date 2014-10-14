@@ -79,6 +79,9 @@ class SizeSelector extends BaseExtendSelector
         "TEBI"
     );
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{sizeselector value: ";
@@ -101,7 +104,7 @@ class SizeSelector extends BaseExtendSelector
      * This will be further modified by the multiplier to get an
      * actual size limit.
      *
-     * @param size the size to select against expressed in units
+     * @param int $size the size to select against expressed in units
      */
     public function setValue($size)
     {
@@ -187,6 +190,7 @@ class SizeSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param parameters the complete set of parameters for this selector
+     * @return mixed|void
      */
     public function setParameters($parameters)
     {

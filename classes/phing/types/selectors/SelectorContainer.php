@@ -46,6 +46,7 @@ interface SelectorContainer
     /**
      * Returns a *copy* of the set of selectors as an array.
      *
+     * @param Project $p
      * @return an array of selectors in this container
      */
     public function getSelectors(Project $p);

@@ -33,16 +33,25 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
 {
     private $inner = "";
 
+    /**
+     * @return string
+     */
     public function getExtension()
     {
         return ".txt";
     }
 
+    /**
+     * @return string
+     */
     public function getPreferredOutfile()
     {
         return "testresults";
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseStart($test_name)
     {
         parent::paintCaseStart($test_name);
@@ -50,6 +59,9 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
         $this->inner = "";
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseEnd($test_name)
     {
         parent::paintCaseEnd($test_name);
@@ -71,6 +83,9 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
         }
     }
 
+    /**
+     * @param string $message
+     */
     public function paintError($message)
     {
         parent::paintError($message);
@@ -78,6 +93,9 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
         $this->formatError("ERROR", $message);
     }
 
+    /**
+     * @param string $message
+     */
     public function paintFail($message)
     {
         parent::paintFail($message);
@@ -85,6 +103,10 @@ class SimpleTestPlainResultFormatter extends SimpleTestResultFormatter
         $this->formatError("FAILED", $message);
     }
 
+    /**
+     * @param $type
+     * @param $message
+     */
     private function formatError($type, $message)
     {
         $this->inner .= $this->getTestName() . " " . $type . "\n";

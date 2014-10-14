@@ -65,6 +65,7 @@ class JsMinTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -146,6 +147,10 @@ class JsMinTask extends Task
         }
     }
 
+    /**
+     * @param FileSet $fs
+     * @throws BuildException
+     */
     protected function processFileSet(FileSet $fs)
     {
         $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();

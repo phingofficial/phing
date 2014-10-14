@@ -33,6 +33,7 @@ class SvnCopyTask extends SvnBaseTask
 
     /**
      * Sets the message
+     * @param $message
      */
     public function setMessage($message)
     {

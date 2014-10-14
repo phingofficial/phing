@@ -39,7 +39,7 @@ abstract class BaseSelector extends DataType implements FileSelector
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
-     * @param msg The error message any BuildException should throw.
+     * @param string $msg The error message any BuildException should throw.
      */
     public function setError($msg)
     {
@@ -51,7 +51,7 @@ abstract class BaseSelector extends DataType implements FileSelector
     /**
      * Returns any error messages that have been set.
      *
-     * @return the error condition
+     * @return string the error condition
      */
     public function getError()
     {

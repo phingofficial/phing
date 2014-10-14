@@ -43,6 +43,9 @@ class TouchTask extends Task
     private $filesets = array();
     private $fileUtils;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->fileUtils = new FileUtils();
@@ -51,6 +54,8 @@ class TouchTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param PhingFile $file
+     * @return void
      */
     public function setFile(PhingFile $file)
     {
@@ -61,6 +66,8 @@ class TouchTask extends Task
      * the new modification time of the file
      * in milliseconds since midnight Jan 1 1970.
      * Optional, default=now
+     * @param $millis
+     * @return void
      */
     public function setMillis($millis)
     {
@@ -71,6 +78,8 @@ class TouchTask extends Task
      * the new modification time of the file
      * in the format MM/DD/YYYY HH:MM AM or PM;
      * Optional, default=now
+     * @param $dateTime
+     * @return void
      */
     public function setDatetime($dateTime)
     {
@@ -80,6 +89,7 @@ class TouchTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -89,6 +99,7 @@ class TouchTask extends Task
 
     /**
      * Execute the touch operation.
+     * @throws BuildException
      */
     public function main()
     {
@@ -168,6 +179,10 @@ class TouchTask extends Task
         }
     }
 
+    /**
+     * @param $file
+     * @throws BuildException
+     */
     private function touchFile($file)
     {
         if (!$file->canWrite()) {

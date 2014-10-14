@@ -47,6 +47,9 @@ class DateSelector extends BaseExtendSelector
     const WHEN_KEY = "when";
     private static $timeComparisons = array("before", "after", "equal");
 
+    /**
+     *
+     */
     public function __construct()
     {
         //if (Os.isFamily("dos")) {
@@ -54,6 +57,9 @@ class DateSelector extends BaseExtendSelector
         //}
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{dateselector date: ";
@@ -154,6 +160,7 @@ class DateSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
+     * @return mixed|void
      */
     public function setParameters($parameters)
     {

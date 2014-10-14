@@ -39,11 +39,17 @@ class EqualsCondition implements Condition
     private $trim = false;
     private $caseSensitive = true;
 
+    /**
+     * @param $a1
+     */
     public function setArg1($a1)
     {
         $this->arg1 = $a1;
     }
 
+    /**
+     * @param $a2
+     */
     public function setArg2($a2)
     {
         $this->arg2 = $a2;
@@ -67,6 +73,10 @@ class EqualsCondition implements Condition
         $this->caseSensitive = (boolean) $b;
     }
 
+    /**
+     * @return bool
+     * @throws BuildException
+     */
     public function evaluate()
     {
         if ($this->arg1 === null || $this->arg2 === null) {

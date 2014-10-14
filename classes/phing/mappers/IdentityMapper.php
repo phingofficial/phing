@@ -45,6 +45,7 @@ class IdentityMapper implements FileNameMapper
 
     /**
      * Ignored here.
+     * @param string $to
      */
     public function setTo($to)
     {

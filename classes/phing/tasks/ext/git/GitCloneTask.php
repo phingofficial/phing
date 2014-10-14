@@ -117,11 +117,17 @@ class GitCloneTask extends GitBaseTask
         return $this->getBare();
     }
 
+    /**
+     * @return string
+     */
     public function getBare()
     {
         return $this->isBare;
     }
 
+    /**
+     * @param $flag
+     */
     public function setBare($flag)
     {
         $this->isBare = (bool) $flag;

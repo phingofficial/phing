@@ -68,6 +68,7 @@ class MergeMapper implements FileNameMapper
 
     /**
      * Ignored.
+     * @param string $from
      */
     public function setFrom($from)
     {

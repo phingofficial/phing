@@ -52,8 +52,8 @@ class ProjectHandler extends AbstractHandler
      *
      * @param  object  the ExpatParser object
      * @param  object  the parent handler that invoked this handler
-     * @param  object  the ProjectConfigurator object
-     * @access public
+     * @param  ProjectConfigurator $configurator the ProjectConfigurator object
+     * @param PhingXMLContext $context
      */
     public function __construct($parser, $parentHandler, $configurator, PhingXMLContext $context)
     {
@@ -67,9 +67,8 @@ class ProjectHandler extends AbstractHandler
      * Executes initialization actions required to setup the project. Usually
      * this method handles the attributes of a tag.
      *
-     * @param  string  the tag that comes in
-     * @param  array   attributes the tag carries
-     * @param  object  the ProjectConfigurator object
+     * @param  string $tag the tag that comes in
+     * @param  array  $attrs attributes the tag carries
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
     public function init($tag, $attrs)
@@ -185,6 +184,10 @@ class ProjectHandler extends AbstractHandler
         }
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public static function canonicalName($name)
     {
         return preg_replace('/\W/', '_', strtolower($name));

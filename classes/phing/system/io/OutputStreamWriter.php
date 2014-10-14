@@ -50,16 +50,17 @@ class OutputStreamWriter extends Writer
 
     /**
      * Close the stream.
+     * @return void
      */
     public function close()
     {
-        return $this->outStream->close();
+        $this->outStream->close();
     }
 
     /**
      * Write char data to stream.
      *
-     * @param  unknown_type $buf
+     * @param  string $buf
      * @param  unknown_type $off
      * @param  unknown_type $len
      * @return unknown

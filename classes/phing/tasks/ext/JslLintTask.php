@@ -109,6 +109,10 @@ class JslLintTask extends Task
         $this->conf = $file;
     }
 
+    /**
+     * @param $path
+     * @throws BuildException
+     */
     public function setExecutable($path)
     {
         $this->executable = $path;
@@ -118,6 +122,9 @@ class JslLintTask extends Task
         }
     }
 
+    /**
+     * @return string
+     */
     public function getExecutable()
     {
         return $this->executable;
@@ -126,6 +133,7 @@ class JslLintTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -136,7 +144,8 @@ class JslLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param PhingFile $file
+     * @param PhingFile $tofile
+     * @internal param PhingFile $file
      */
     public function setToFile(PhingFile $tofile)
     {

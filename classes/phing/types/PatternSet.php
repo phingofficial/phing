@@ -43,6 +43,8 @@ class PatternSet extends DataType
      * instance.
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
+     * @param Reference $r
+     * @throws BuildException
      */
     public function setRefid(Reference $r)
     {
@@ -107,8 +109,6 @@ class PatternSet extends DataType
     {
         if ($this->isReference()) {
             throw $this->noChildrenAllowed();
-
-            return;
         }
 
         return $this->addPatternToList($this->excludesFileList);
@@ -118,7 +118,7 @@ class PatternSet extends DataType
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      *
-     * @param  string the string containing the include patterns
+     * @param  string $includes the string containing the include patterns
      * @return void
      * @throws BuildException
      */
@@ -177,6 +177,7 @@ class PatternSet extends DataType
      * Sets the name of the file containing the includes patterns.
      *
      * @param The $includesFile
+     * @throws BuildException
      * @internal param The $includesFile file to fetch the include patterns from.
      */
     public function setIncludesFile($includesFile)
@@ -195,6 +196,7 @@ class PatternSet extends DataType
      * Sets the name of the file containing the excludes patterns.
      *
      * @param The $excludesFile
+     * @throws BuildException
      * @internal param The $excludesFile file to fetch the exclude patterns from.
      */
     public function setExcludesFile($excludesFile)
@@ -212,6 +214,10 @@ class PatternSet extends DataType
     /**
      *  Reads path matching patterns from a file and adds them to the
      *  includes or excludes list
+     * @param PhingFile $patternfile
+     * @param $patternlist
+     * @param Project $p
+     * @throws BuildException
      */
     private function readPatterns(PhingFile $patternfile, &$patternlist, Project $p)
     {
@@ -242,7 +248,11 @@ class PatternSet extends DataType
         $patternReader->close();
     }
 
-    /** Adds the patterns of the other instance to this set. */
+    /** Adds the patterns of the other instance to this set.
+     * @param $other
+     * @param $p
+     * @throws BuildException
+     */
     public function append($other, $p)
     {
         if ($this->isReference()) {
@@ -266,7 +276,11 @@ class PatternSet extends DataType
         }
     }
 
-    /** Returns the filtered include patterns. */
+    /** Returns the filtered include patterns.
+     * @param Project $p
+     * @throws BuildException
+     * @return array
+     */
     public function getIncludePatterns(Project $p)
     {
         if ($this->isReference()) {
@@ -280,7 +294,11 @@ class PatternSet extends DataType
         }
     }
 
-    /** Returns the filtered exclude patterns. */
+    /** Returns the filtered exclude patterns.
+     * @param Project $p
+     * @throws BuildException
+     * @return array
+     */
     public function getExcludePatterns(Project $p)
     {
         if ($this->isReference()) {
@@ -304,6 +322,9 @@ class PatternSet extends DataType
     /**
      * Performs the check for circular references and returns the
      * referenced PatternSet.
+     * @param Project $p
+     * @throws BuildException
+     * @return
      */
     public function getRef(Project $p)
     {
@@ -340,7 +361,10 @@ class PatternSet extends DataType
         return $tmpNames;
     }
 
-    /** Read includesfile or excludesfile if not already done so. */
+    /** Read includesfile or excludesfile if not already done so.
+     * @param Project $p
+     * @throws BuildException
+     */
     private function readFiles(Project $p)
     {
         if (!empty($this->includesFileList)) {
@@ -364,8 +388,6 @@ class PatternSet extends DataType
                     $exclFile = $p->resolveFile($fileName);
                     if (!$exclFile->exists()) {
                         throw new BuildException("Excludesfile " . $exclFile->getAbsolutePath() . " not found.");
-
-                        return;
                     }
                     $this->readPatterns($exclFile, $this->excludeList, $p);
                 }
@@ -374,6 +396,9 @@ class PatternSet extends DataType
         }
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
 
@@ -481,6 +506,7 @@ class PatternSetNameEntry
 
     /**
      * Evaluates the pattern.
+     * @param Project $project
      * @return string The pattern or null if it is ruled out by a condition.
      */
     public function evalName(Project $project)

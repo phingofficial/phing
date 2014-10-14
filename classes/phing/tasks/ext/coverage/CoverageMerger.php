@@ -31,6 +31,11 @@ require_once 'phing/system/util/Properties.php';
  */
 class CoverageMerger
 {
+    /**
+     * @param $left
+     * @param $right
+     * @return array
+     */
     private static function mergeCodeCoverage($left, $right)
     {
         $coverageMerged = array();
@@ -94,6 +99,11 @@ class CoverageMerger
         return $props;
     }
 
+    /**
+     * @param $project
+     * @return array
+     * @throws BuildException
+     */
     public static function getWhiteList($project)
     {
         $whitelist = array();
@@ -107,6 +117,12 @@ class CoverageMerger
         return $whitelist;
     }
 
+    /**
+     * @param $project
+     * @param $codeCoverageInformation
+     * @throws BuildException
+     * @throws IOException
+     */
     public static function merge($project, $codeCoverageInformation)
     {
         $props = self::_getDatabase($project);

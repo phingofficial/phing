@@ -32,6 +32,9 @@ require_once 'phing/types/selectors/BaseSelectorContainer.php';
 class OrSelector extends BaseSelectorContainer
 {
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "";

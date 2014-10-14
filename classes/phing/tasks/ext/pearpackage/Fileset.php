@@ -217,6 +217,11 @@ class PEAR_PackageFileManager_Fileset
         return strnatcasecmp($a['file'], $b['file']);
     }
 
+    /**
+     * @param $a
+     * @param $b
+     * @return int
+     */
     private function mystrucsort($a, $b)
     {
         if (is_numeric($a) && is_string($b)) {

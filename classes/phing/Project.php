@@ -284,9 +284,9 @@ class Project
      * Sets a property unless it is already defined as a user property
      * (in which case the method returns silently).
      *
-     * @param name The name of the property.
+     * @param string $name The name of the property.
      *             Must not be <code>null</code>.
-     * @param value The property value. Must not be <code>null</code>.
+     * @param string $value The property value. Must not be <code>null</code>.
      */
     private function setPropertyInternal($name, $value)
     {
@@ -970,6 +970,15 @@ class Project
     //    "ret" now contains the sorted sequence of Targets upto the current
     //    Target.
 
+    /**
+     * @param $root
+     * @param $targets
+     * @param $state
+     * @param $visiting
+     * @param $ret
+     * @throws BuildException
+     * @throws Exception
+     */
     public function _tsort($root, &$targets, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
@@ -1019,6 +1028,11 @@ class Project
         $ret[] = $target;
     }
 
+    /**
+     * @param $end
+     * @param $stk
+     * @return BuildException
+     */
     public function _makeCircularException($end, $stk)
     {
         $sb = "Circular dependency: $end";
@@ -1079,16 +1093,27 @@ class Project
         $this->logObject($this, $msg, $level);
     }
 
+    /**
+     * @param $obj
+     * @param $msg
+     * @param $level
+     */
     public function logObject($obj, $msg, $level)
     {
         $this->fireMessageLogged($obj, $msg, $level);
     }
 
+    /**
+     * @param BuildListener $listener
+     */
     public function addBuildListener(BuildListener $listener)
     {
         $this->listeners[] = $listener;
     }
 
+    /**
+     * @param BuildListener $listener
+     */
     public function removeBuildListener(BuildListener $listener)
     {
         $newarray = array();
@@ -1100,6 +1125,9 @@ class Project
         $this->listeners = $newarray;
     }
 
+    /**
+     * @return array
+     */
     public function getBuildListeners()
     {
         return $this->listeners;
@@ -1113,6 +1141,9 @@ class Project
         }
     }
 
+    /**
+     * @param $exception
+     */
     public function fireBuildFinished($exception)
     {
         $event = new BuildEvent($this);
@@ -1122,6 +1153,9 @@ class Project
         }
     }
 
+    /**
+     * @param $target
+     */
     public function fireTargetStarted($target)
     {
         $event = new BuildEvent($target);
@@ -1130,6 +1164,10 @@ class Project
         }
     }
 
+    /**
+     * @param $target
+     * @param $exception
+     */
     public function fireTargetFinished($target, $exception)
     {
         $event = new BuildEvent($target);
@@ -1139,6 +1177,9 @@ class Project
         }
     }
 
+    /**
+     * @param $task
+     */
     public function fireTaskStarted($task)
     {
         $event = new BuildEvent($task);
@@ -1147,6 +1188,10 @@ class Project
         }
     }
 
+    /**
+     * @param $task
+     * @param $exception
+     */
     public function fireTaskFinished($task, $exception)
     {
         $event = new BuildEvent($task);
@@ -1156,6 +1201,11 @@ class Project
         }
     }
 
+    /**
+     * @param $event
+     * @param $message
+     * @param $priority
+     */
     public function fireMessageLoggedEvent($event, $message, $priority)
     {
         $event->setMessage($message, $priority);
@@ -1164,6 +1214,11 @@ class Project
         }
     }
 
+    /**
+     * @param $object
+     * @param $message
+     * @param $priority
+     */
     public function fireMessageLogged($object, $message, $priority)
     {
         $this->fireMessageLoggedEvent(new BuildEvent($object), $message, $priority);

@@ -126,6 +126,9 @@ abstract class PDOTask extends Task
         $this->version = $version;
     }
 
+    /**
+     * @return mixed
+     */
     protected function getLoaderMap()
     {
         return self::$loaderMap;
@@ -179,6 +182,9 @@ abstract class PDOTask extends Task
 
     }
 
+    /**
+     * @param $value
+     */
     public function isCaching($value)
     {
         $this->caching = $value;

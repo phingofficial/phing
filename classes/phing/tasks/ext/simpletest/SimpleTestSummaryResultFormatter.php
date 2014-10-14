@@ -31,6 +31,9 @@ require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
  */
 class SimpleTestSummaryResultFormatter extends SimpleTestResultFormatter
 {
+    /**
+     * @param string $test_name
+     */
     public function paintCaseEnd($test_name)
     {
         parent::paintCaseEnd($test_name);

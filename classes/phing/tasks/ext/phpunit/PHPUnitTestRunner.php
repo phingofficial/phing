@@ -53,6 +53,12 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
 
     private $useCustomErrorHandler = true;
 
+    /**
+     * @param Project $project
+     * @param array $groups
+     * @param array $excludeGroups
+     * @param bool $processIsolation
+     */
     public function __construct(
         Project $project,
         $groups = array(),
@@ -65,21 +71,36 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         $this->processIsolation = $processIsolation;
     }
 
+    /**
+     * @param $codecoverage
+     */
     public function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
     }
 
+    /**
+     * @param $useCustomErrorHandler
+     */
     public function setUseCustomErrorHandler($useCustomErrorHandler)
     {
         $this->useCustomErrorHandler = $useCustomErrorHandler;
     }
 
+    /**
+     * @param $formatter
+     */
     public function addFormatter($formatter)
     {
         $this->formatters[] = $formatter;
     }
 
+    /**
+     * @param $level
+     * @param $message
+     * @param $file
+     * @param $line
+     */
     public function handleError($level, $message, $file, $line)
     {
         return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
@@ -87,6 +108,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
 
     /**
      * Run a test
+     * @param PHPUnit_Framework_TestSuite $suite
      */
     public function run(PHPUnit_Framework_TestSuite $suite)
     {
@@ -180,26 +202,44 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         return $this->hasSkipped;
     }
 
+    /**
+     * @return string
+     */
     public function getLastErrorMessage()
     {
         return $this->lastErrorMessage;
     }
 
+    /**
+     * @return string
+     */
     public function getLastFailureMessage()
     {
         return $this->lastFailureMessage;
     }
 
+    /**
+     * @return string
+     */
     public function getLastIncompleteMessage()
     {
         return $this->lastIncompleteMessage;
     }
 
+    /**
+     * @return string
+     */
     public function getLastSkippedMessage()
     {
         return $this->lastSkippedMessage;
     }
 
+    /**
+     * @param string $message
+     * @param PHPUnit_Framework_Test $test
+     * @param Exception $e
+     * @return string
+     */
     protected function composeMessage($message, PHPUnit_Framework_Test $test, Exception $e)
     {
         $message = "Test $message (" . $test->getName() . " in class " . get_class($test) . "): " . $e->getMessage();

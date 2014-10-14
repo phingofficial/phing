@@ -59,6 +59,7 @@ class BatchTest
 
     /**
      * Sets the name of the batchtest/suite
+     * @param $name
      */
     public function setName($name)
     {
@@ -75,6 +76,7 @@ class BatchTest
 
     /**
      * Sets the classpath
+     * @param Path $classpath
      */
     public function setClasspath(Path $classpath)
     {
@@ -138,6 +140,8 @@ class BatchTest
 
     /**
      * Checks wheter $input is a PHPUnit Test
+     * @param $input
+     * @return bool
      */
     private function isTestCase($input)
     {
@@ -150,6 +154,8 @@ class BatchTest
     /**
      * Filters an array of classes, removes all classes that are not test cases or test suites,
      * or classes that are declared abstract
+     * @param $input
+     * @return bool
      */
     private function filterTests($input)
     {

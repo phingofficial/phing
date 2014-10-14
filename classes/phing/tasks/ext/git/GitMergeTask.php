@@ -165,101 +165,161 @@ class GitMergeTask extends GitBaseTask
 
     }
 
+    /**
+     * @param $remote
+     */
     public function setRemote($remote)
     {
         $this->remote = $remote;
     }
 
+    /**
+     * @return string
+     */
     public function getRemote()
     {
         return $this->remote;
     }
 
+    /**
+     * @param $message
+     */
     public function setMessage($message)
     {
         $this->message = $message;
     }
 
+    /**
+     * @return string
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
+    /**
+     * @param $strategy
+     */
     public function setStrategy($strategy)
     {
         $this->strategy = $strategy;
     }
 
+    /**
+     * @return string
+     */
     public function getStrategy()
     {
         return $this->strategy;
     }
 
+    /**
+     * @param $strategyOption
+     */
     public function setStrategyOption($strategyOption)
     {
         $this->strategyOption = $strategyOption;
     }
 
+    /**
+     * @return string
+     */
     public function getStrategyOption()
     {
         return $this->strategyOption;
     }
 
+    /**
+     * @param $flag
+     */
     public function setQuiet($flag)
     {
         $this->quiet = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getQuiet()
     {
         return $this->quiet;
     }
 
+    /**
+     * @return bool
+     */
     public function isQuiet()
     {
         return $this->getQuiet();
     }
 
+    /**
+     * @param $flag
+     */
     public function setCommit($flag)
     {
         $this->commit = (boolean) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getCommit()
     {
         return $this->commit;
     }
 
+    /**
+     * @return bool
+     */
     public function isCommit()
     {
         return $this->getCommit();
     }
 
+    /**
+     * @param $flag
+     */
     public function setNoCommit($flag)
     {
         $this->noCommit = (boolean) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getNoCommit()
     {
         return $this->noCommit;
     }
 
+    /**
+     * @return bool
+     */
     public function isNoCommit()
     {
         return $this->getNoCommit();
     }
 
+    /**
+     * @param $flag
+     */
     public function setFastForwardCommit($flag)
     {
         $this->fastForwardCommit = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getFastForwardCommit()
     {
         return $this->fastForwardCommit;
     }
 
+    /**
+     * @return bool
+     */
     public function isFastForwardCommit()
     {
         return $this->getFastForwardCommit();

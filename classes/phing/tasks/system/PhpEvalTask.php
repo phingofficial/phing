@@ -149,31 +149,41 @@ class PhpEvalTask extends Task
         }
     }
 
-    /** Set function to execute */
+    /** Set function to execute
+     * @param $f
+     */
     public function setFunction($f)
     {
         $this->function = $f;
     }
 
-    /** Set [static] class which contains function to execute */
+    /** Set [static] class which contains function to execute
+     * @param $c
+     */
     public function setClass($c)
     {
         $this->class = $c;
     }
 
-    /** Sets property name to set with return value of function or expression.*/
+    /** Sets property name to set with return value of function or expression.
+     * @param $r
+     */
     public function setReturnProperty($r)
     {
         $this->returnProperty = $r;
     }
 
-    /** Set PHP expression to evaluate. */
+    /** Set PHP expression to evaluate.
+     * @param $expression
+     */
     public function addText($expression)
     {
         $this->expression = $expression;
     }
 
-    /** Set PHP expression to evaluate. */
+    /** Set PHP expression to evaluate.
+     * @param $expression
+     */
     public function setExpression($expression)
     {
         $this->expression = $expression;
@@ -199,11 +209,17 @@ class FunctionParam
 
     private $val;
 
+    /**
+     * @param $v
+     */
     public function setValue($v)
     {
         $this->val = $v;
     }
 
+    /**
+     * @param $v
+     */
     public function addText($v)
     {
         $this->val = $v;

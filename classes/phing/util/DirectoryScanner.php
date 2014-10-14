@@ -238,8 +238,11 @@ class DirectoryScanner implements SelectorScanner
      * '*' which means zero or more characters,
      * '?' which means one and only one character.
      *
-     * @param  pattern the (non-null) pattern to match against
-     * @param  str     the (non-null) string that must be matched against the
+     * @param the $pattern
+     * @param the $str
+     * @param bool $isCaseSensitive
+     * @internal param the $pattern pattern to match against
+     * @internal param the $str string that must be matched against the
      *                 pattern
      *
      * @return boolean true when the string matches against the pattern,
@@ -458,8 +461,11 @@ class DirectoryScanner implements SelectorScanner
      * matching of includes and excludes. When a directory is found, it is
      * scanned recursively.
      *
-     * @param dir   the directory to scan
-     * @param vpath the path relative to the basedir (needed to prevent
+     * @param $_rootdir
+     * @param $_vpath
+     * @param $_fast
+     * @internal param the $dir directory to scan
+     * @internal param the $vpath path relative to the basedir (needed to prevent
      *              problems with an absolute path when using dir)
      *
      * @see #filesIncluded

@@ -34,7 +34,7 @@ interface SelectorScanner
     /**
      * Sets the selectors the scanner should use.
      *
-     * @param selectors the list of selectors
+     * @param $selectors the list of selectors
      */
     public function setSelectors($selectors);
 

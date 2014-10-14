@@ -28,6 +28,9 @@
  */
 class DbmsSyntaxMysql extends DbmsSyntax
 {
+    /**
+     * @return string
+     */
     public function generateTimestamp()
     {
         return "NOW()";
