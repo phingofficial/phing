@@ -259,6 +259,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * @param   string  XML to process.
      * @param   string  XSLT sheet to use for the processing.
      *
+     * @return string
      * @throws BuildException On XSLT errors
      */
     protected function process($xml, $xsl)
@@ -403,6 +404,7 @@ class XSLTParam
      * Gets expression value (alias to the getExpression()) method.
      *
      * @param string $v
+     * @return string
      * @see getExpression()
      */
     public function getValue()

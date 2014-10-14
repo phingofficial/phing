@@ -84,6 +84,7 @@ class RegexpMapper implements FileNameMapper
      * Replace all backreferences in the to pattern with the matched groups.
      * groups of the source.
      * @param string $source The source filename.
+     * @return mixed
      */
     private function replaceReferences($source)
     {
@@ -102,6 +103,7 @@ class RegexpMapper implements FileNameMapper
     /**
      * Gets the matched group from the Regexp engine.
      * @param array $matches Matched elements.
+     * @return string
      */
     private function replaceReferencesCallback($matches)
     {

@@ -59,6 +59,7 @@ class InputStreamReader extends Reader
     /**
      * Skip over $n bytes.
      * @param int $n
+     * @return int|void
      */
     public function skip($n)
     {

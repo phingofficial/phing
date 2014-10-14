@@ -65,6 +65,7 @@ class DefaultInputHandler implements InputHandler
      *
      * @param $request the request to construct the prompt for.
      *                Must not be <code>null</code>.
+     * @return string
      */
     protected function getPrompt(InputRequest $request)
     {

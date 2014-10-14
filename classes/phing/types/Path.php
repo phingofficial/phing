@@ -318,7 +318,8 @@ class Path extends DataType
     /**
      * Splits a PATH (with : or ; as separators) into its parts.
      * @param Project $project
-     * @param string  $source
+     * @param string $source
+     * @return array
      */
     public static function translatePath(Project $project, $source)
     {

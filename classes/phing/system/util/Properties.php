@@ -280,7 +280,8 @@ class Properties
      * interface for properties.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
+     * @return mixed
      */
     public function put($key, $value)
     {

@@ -58,6 +58,7 @@ class InputStream
     /**
      * Skip over $n bytes.
      * @param int $n
+     * @return int
      */
     public function skip($n)
     {

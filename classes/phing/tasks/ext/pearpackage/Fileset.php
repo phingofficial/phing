@@ -210,6 +210,7 @@ class PEAR_PackageFileManager_Fileset
      * Sorting functions for the file list
      * @param string
      * @param string
+     * @return int
      */
     private function sortfiles($a, $b)
     {

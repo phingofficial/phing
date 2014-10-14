@@ -204,7 +204,8 @@ abstract class FileSystem
      * occurs.
      *
      * @param PhingFile $f
-     * @param boolean   $write
+     * @param boolean $write
+     * @return bool
      */
     public function checkAccess(PhingFile $f, $write = false)
     {
@@ -373,6 +374,7 @@ abstract class FileSystem
      * directory if successful; otherwise, return <code>null</code>.
      *
      * @param PhingFile $f
+     * @return array
      */
     public function listDir(PhingFile $f)
     {

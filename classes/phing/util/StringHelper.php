@@ -39,7 +39,8 @@ class StringHelper
      * Remove qualification to name.
      * E.g. eg.Cat -> Cat
      * @param string $qualifiedName
-     * @param string $separator     Character used to separate.
+     * @param string $separator Character used to separate.
+     * @return string
      */
     public static function unqualify($qualifiedName, $separator = '.')
     {
@@ -211,6 +212,7 @@ class StringHelper
     /**
      * Does the value correspond to a slot variable?
      * @param string $value
+     * @return bool|int
      */
     public static function isSlotVar($value)
     {

@@ -1438,6 +1438,7 @@ class Phing
      * Converts shorthand notation values as returned by ini_get()
      * @see http://www.php.net/ini_get
      * @param string $val
+     * @return int|string
      */
     private static function convertShorthand($val)
     {

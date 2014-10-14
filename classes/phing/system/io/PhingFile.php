@@ -725,6 +725,7 @@ class PhingFile
      *
      * Enter description here ...
      * @param PhingFile[] $filter
+     * @return array
      */
     public function listFiles($filter = null)
     {

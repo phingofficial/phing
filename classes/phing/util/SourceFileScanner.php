@@ -58,6 +58,7 @@ class SourceFileScanner
      *                source file names.
      * @param force   Boolean that determines if the files should be
      *                forced to be copied.
+     * @return array
      */
     public function restrict(&$files, $srcDir, $destDir, $mapper, $force = false)
     {

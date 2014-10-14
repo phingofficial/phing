@@ -273,6 +273,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Formats a time micro integer to human readable format.
      *
      * @param  integer The time stamp
+     * @return string
      */
     public static function formatTime($micros)
     {
