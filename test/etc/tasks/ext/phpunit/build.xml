@@ -46,4 +46,14 @@
 			</batchtest>
 		</phpunit>
 	</target>
+	
+	<target name="testShouldNotIgnoreFailuresAfterError">
+		<phpunit haltonerror="false" haltonfailure="true">
+			<batchtest>
+				<fileset dir="tests">
+					<include name="ErroringTest.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
 </project>

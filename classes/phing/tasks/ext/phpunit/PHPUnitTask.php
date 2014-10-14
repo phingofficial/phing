@@ -416,9 +416,7 @@ class PHPUnitTask extends Task
             $formatter->endTestRun();
         }
 
-        $retcode = $runner->getRetCode();
-
-        if ($retcode == PHPUnitTestRunner::ERRORS) {
+        if ($runner->hasErrors()) {
             if ($this->errorproperty) {
                 $this->project->setNewProperty($this->errorproperty, true);
             }
@@ -426,7 +424,9 @@ class PHPUnitTask extends Task
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastErrorMessage();
             }
-        } elseif ($retcode == PHPUnitTestRunner::FAILURES) {
+        }
+
+        if ($runner->hasFailures()) {
             if ($this->failureproperty) {
                 $this->project->setNewProperty($this->failureproperty, true);
             }
@@ -435,7 +435,9 @@ class PHPUnitTask extends Task
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastFailureMessage();
             }
-        } elseif ($retcode == PHPUnitTestRunner::INCOMPLETES) {
+        }
+
+        if ($runner->hasIncomplete()) {
             if ($this->incompleteproperty) {
                 $this->project->setNewProperty($this->incompleteproperty, true);
             }
@@ -444,7 +446,9 @@ class PHPUnitTask extends Task
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastIncompleteMessage();
             }
-        } elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
+        }
+
+        if ($runner->hasSkipped()) {
             if ($this->skippedproperty) {
                 $this->project->setNewProperty($this->skippedproperty, true);
             }

@@ -63,4 +63,12 @@ class PHPUnitTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
     }
+
+    /**
+     * Regression test for ticket http://www.phing.info/trac/ticket/945
+     */
+    public function testShouldNotIgnoreFailuresAfterError()
+    {
+        $this->expectBuildException(__FUNCTION__, "Fail");
+    }
 }

@@ -32,13 +32,10 @@ require_once 'phing/system/util/Timer.php';
  */
 class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit_Framework_TestListener
 {
-    const SUCCESS = 0;
-    const FAILURES = 1;
-    const ERRORS = 2;
-    const INCOMPLETES = 3;
-    const SKIPPED = 4;
-
-    private $retCode = 0;
+    private $hasErrors = false;
+    private $hasFailures = false;
+    private $hasIncomplete = false;
+    private $hasSkipped = false;
     private $lastErrorMessage = '';
     private $lastFailureMessage = '';
     private $lastIncompleteMessage = '';
@@ -66,7 +63,6 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
         $this->groups = $groups;
         $this->excludeGroups = $excludeGroups;
         $this->processIsolation = $processIsolation;
-        $this->retCode = self::SUCCESS;
     }
 
     public function setCodecoverage($codecoverage)
@@ -130,26 +126,58 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
             CoverageMerger::merge($this->project, $this->codecoverage->getData());
         }
 
-        if ($res->errorCount() != 0) {
-            $this->retCode = self::ERRORS;
-        } else {
-            if ($res->failureCount() != 0) {
-                $this->retCode = self::FAILURES;
-            } else {
-                if ($res->notImplementedCount() != 0) {
-                    $this->retCode = self::INCOMPLETES;
-                } else {
-                    if ($res->skippedCount() != 0) {
-                        $this->retCode = self::SKIPPED;
-                    }
-                }
-            }
+        $this->checkResult($res);
+    }
+
+    private function checkResult($res)
+    {
+        if ($res->skippedCount() > 0) {
+            $this->hasSkipped = true;
+        }
+
+        if ($res->notImplementedCount() > 0) {
+            $this->hasIncomplete = true;
+        }
+
+        if ($res->failureCount() > 0) {
+            $this->hasFailures = true;
+        }
+
+        if ($res->errorCount() > 0) {
+            $this->hasErrors = true;
         }
     }
 
-    public function getRetCode()
+    /**
+     * @return boolean
+     */
+    public function hasErrors()
     {
-        return $this->retCode;
+        return $this->hasErrors;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasFailures()
+    {
+        return $this->hasFailures;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasIncomplete()
+    {
+        return $this->hasIncomplete;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasSkipped()
+    {
+        return $this->hasSkipped;
     }
 
     public function getLastErrorMessage()
