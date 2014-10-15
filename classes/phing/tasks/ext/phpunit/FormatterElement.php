@@ -93,6 +93,11 @@ class FormatterElement
      */
     public function setToDir($toDir)
     {
+        if (!is_dir($toDir)) {
+            $toDir = new PhingFile($toDir);
+            $toDir->mkdirs();
+        }
+
         $this->toDir = $toDir;
     }
 
