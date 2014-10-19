@@ -61,14 +61,18 @@ class SelectorUtils
      * can live with false positives. For example, <code>pattern=**\a</code>
      * and <code>str=b</code> will yield <code>true</code>.
      *
-     * @param pattern The pattern to match against. Must not be
+     * @param string $pattern
+     * @param string $str
+     * @param bool $isCaseSensitive
+     *
+     * @internal param The $pattern pattern to match against. Must not be
      *                <code>null</code>.
-     * @param str     The path to match, as a String. Must not be
+     * @internal param The $str path to match, as a String. Must not be
      *                <code>null</code>.
-     * @param isCaseSensitive Whether or not matching should be performed
+     * @internal param Whether $isCaseSensitive or not matching should be performed
      *                        case sensitively.
      *
-     * @return whether or not a given path matches the start of a given
+     * @return bool whether or not a given path matches the start of a given
      *                 pattern up to the first "**".
      */
     public static function matchPatternStart($pattern, $str, $isCaseSensitive = true)
@@ -121,15 +125,17 @@ class SelectorUtils
     /**
      * Tests whether or not a given path matches a given pattern.
      *
-     * @param pattern The pattern to match against. Must not be
+     * @param The $pattern
+     * @param The $str
+     * @param bool|Whether $isCaseSensitive
+     * @internal param The $pattern pattern to match against. Must not be
      *                <code>null</code>.
-     * @param str     The path to match, as a String. Must not be
+     * @internal param The $str path to match, as a String. Must not be
      *                <code>null</code>.
-     * @param isCaseSensitive Whether or not matching should be performed
+     * @internal param Whether $isCaseSensitive or not matching should be performed
      *                        case sensitively.
      *
-     * @return <code>true</code> if the pattern matches against the string,
-     *                           or <code>false</code> otherwise.
+     * @return bool <code>true</code> if the pattern matches against the string,
      */
     public static function matchPath($pattern, $str, $isCaseSensitive = true)
     {
@@ -161,20 +167,19 @@ class SelectorUtils
      * '*' means zero or more characters<br>
      * '?' means one and only one character
      *
-     * @param pattern The pattern to match against.
+     * @param string $pattern The pattern to match against.
      *                Must not be <code>null</code>.
-     * @param str     The string which must be matched against the pattern.
+     * @param string $str     The string which must be matched against the pattern.
      *                Must not be <code>null</code>.
-     * @param isCaseSensitive Whether or not matching should be performed
+     * @param bool $isCaseSensitive Whether or not matching should be performed
      *                        case sensitively.
      *
      *
-     * @return <code>true</code> if the string matches against the pattern,
+     * @return bool <code>true</code> if the string matches against the pattern,
      *                           or <code>false</code> otherwise.
      */
     public static function match($pattern, $str, $isCaseSensitive = true)
     {
-
         $rePattern = preg_quote($pattern, '/');
         $rePattern = str_replace(array("\*", "\?"), array('.*', '.'), $rePattern);
         $rePattern = '/^' . $rePattern . '$/' . ($isCaseSensitive ? '' : 'i');
@@ -194,7 +199,7 @@ class SelectorUtils
      * @param  PhingFile $target      the file being compared against
      * @param  int       $granularity the amount in seconds of slack we will give in
      *                                determining out of dateness
-     * @return whether   the target is out of date
+     * @return bool whether   the target is out of date
      */
     public static function isOutOfDate(PhingFile $src, PhingFile $target, $granularity)
     {
@@ -210,5 +215,4 @@ class SelectorUtils
 
         return false;
     }
-
 }

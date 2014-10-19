@@ -391,7 +391,7 @@ class Commandline
      * verbose output before a call to
      * <code>Runtime.exec(String[])</code>
      * @param $args arguments to use (default is to use current class args)
-     * @param $offset ignore entries before this index
+     * @param ignore|int $offset ignore entries before this index
      * @return string
      */
     protected function describeArguments($args = null, $offset = 0)
@@ -465,7 +465,8 @@ class CommandlineArgument
      * PATH - ensures the right separator for the local platform
      * is used.
      *
-     * @param value a single commandline argument.
+     * @param a $value
+     * @internal param a $value single commandline argument.
      */
     public function setPath($value)
     {
@@ -476,7 +477,8 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param value a single commandline argument.
+     * @param a|PhingFile $value
+     * @internal param a $value single commandline argument.
      */
     public function setFile(PhingFile $value)
     {

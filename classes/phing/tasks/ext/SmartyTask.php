@@ -630,12 +630,10 @@ class SmartyTask extends Task
      * <p><code>$generator</code> is not put into the context in this
      * method.</p>
      *
-     * @param context The context to populate, as retrieved from
+     * @param Smarty|The $context
+     * @internal param The $context context to populate, as retrieved from
      * {@link #initControlContext()}.
      * @return void
-     * @throws Exception Error while populating context.  The {@link
-     *                   #execute()} method will catch and rethrow as a
-     *                   <code>BuildException</code>.
      */
     protected function populateInitialContext(Smarty $context)
     {

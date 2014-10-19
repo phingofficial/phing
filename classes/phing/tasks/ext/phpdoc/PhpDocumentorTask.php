@@ -330,7 +330,8 @@ class PhpDocumentorTask extends Task
     /**
      * Set base location of all templates for this parse.
      *
-     * @param PhingFile $destdir
+     * @param PhingFile $oTemplateBase
+     * @internal param PhingFile $destdir
      */
     public function setTemplateBase(PhingFile $oTemplateBase)
     {

@@ -73,7 +73,8 @@ class UpToDateTask extends Task implements Condition
      * The value to set the named property to if the target file is more
      * up-to-date than (each of) the source file(s). Defaults to 'true'.
      *
-     * @param value the value to set the property to if Target is up-to-date
+     * @param the $value
+     * @internal param the $value value to set the property to if Target is up-to-date
      */
     public function setValue($value)
     {
@@ -92,7 +93,8 @@ class UpToDateTask extends Task implements Condition
      * The file which must be more up-to-date than (each of) the source file(s)
      * if the property is to be set.
      *
-     * @param file the file we are checking against.
+     * @param the $file
+     * @internal param the $file file we are checking against.
      */
     public function setTargetFile($file)
     {
@@ -106,7 +108,8 @@ class UpToDateTask extends Task implements Condition
      * The file that must be older than the target file
      * if the property is to be set.
      *
-     * @param file the file we are checking against the target file.
+     * @param the $file
+     * @internal param the $file file we are checking against the target file.
      */
     public function setSrcfile($file)
     {

@@ -644,8 +644,10 @@ class PhingReference extends Reference
      * Set the id that this reference to be stored under in the
      * new project.
      *
-     * @param targetid the id under which this reference will be passed to
-     *        the new project */
+     * @param the $targetid
+     * @internal param the $targetid id under which this reference will be passed to
+     *        the new project
+     */
     public function setToRefid($targetid)
     {
         $this->targetid = $targetid;

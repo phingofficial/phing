@@ -299,6 +299,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the obfuscate option
+     * @param $value
      */
     public function setObfuscate($value)
     {
@@ -485,6 +486,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the message-if-no-loader option
+     * @param $value
      */
     public function setMessageIfNoLoader($value)
     {

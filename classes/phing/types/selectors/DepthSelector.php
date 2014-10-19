@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,14 +25,17 @@ require_once 'phing/types/selectors/BaseExtendSelector.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Bruce Atherton <bruce@callenish.com> (Ant)
- * @version   $Id$
+ *
  * @package   phing.types.selectors
  */
 class DepthSelector extends BaseExtendSelector
 {
-
+    /** @var int $min */
     public $min = -1;
+
+    /** @var int $max */
     public $max = -1;
+
     const MIN_KEY = "min";
     const MAX_KEY = "max";
 
@@ -55,7 +56,9 @@ class DepthSelector extends BaseExtendSelector
     /**
      * The minimum depth below the basedir before a file is selected.
      *
-     * @param min minimum directory levels below basedir to go
+     * @param int $min minimum directory levels below basedir to go
+     *
+     * @return void
      */
     public function setMin($min)
     {
@@ -65,7 +68,9 @@ class DepthSelector extends BaseExtendSelector
     /**
      * The minimum depth below the basedir before a file is selected.
      *
-     * @param min maximum directory levels below basedir to go
+     * @param int $max maximum directory levels below basedir to go
+     *
+     * @return void
      */
     public function setMax($max)
     {
@@ -76,7 +81,10 @@ class DepthSelector extends BaseExtendSelector
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param parameters the complete set of parameters for this selector
+     * {@inheritdoc}
+     *
+     * @param array $parameters the complete set of parameters for this selector
+     *
      * @return mixed|void
      */
     public function setParameters($parameters)
@@ -103,6 +111,10 @@ class DepthSelector extends BaseExtendSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the max depth is not lower than the min depth.
+     *
+     * {@inheritdoc}
+     *
+     * @return void
      */
     public function verifySettings()
     {
@@ -124,14 +136,15 @@ class DepthSelector extends BaseExtendSelector
      * that provides the same services for both FilenameSelector and
      * DirectoryScanner.
      *
-     * @param PhingFile|the $basedir
-     * @param is $filename
-     * @param is|PhingFile $file
+     * {@inheritdoc}
+     *
+     * @param PhingFile $basedir base directory the scan is being done from
+     * @param string $filename the name of the file to check
+     * @param PhingFile $file a PhingFile object the selector can use
+     *
      * @throws BuildException
-     * @internal param the $basedir base directory the scan is being done from
-     * @internal param is $filename the name of the file to check
-     * @internal param is $file a PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
@@ -172,5 +185,4 @@ class DepthSelector extends BaseExtendSelector
 
         return true;
     }
-
 }

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -39,14 +37,15 @@ include_once 'phing/system/io/FileSystem.php';
  *  - Error handling reduced to min, error are handled by PhingFile mainly
  *
  * @author    Andreas Aderhold, andi@binarycloud.com
- * @version   $Id$
+ *
  * @package   phing.system.io
  */
 class UnixFileSystem extends FileSystem
 {
-
     /**
      * returns OS dependant path separator char
+     *
+     * @return string
      */
     public function getSeparator()
     {
@@ -55,6 +54,8 @@ class UnixFileSystem extends FileSystem
 
     /**
      * returns OS dependant directory separator char
+     *
+     * @return string
      */
     public function getPathSeparator()
     {
@@ -70,12 +71,13 @@ class UnixFileSystem extends FileSystem
      * This way we iterate through the whole pathname string only once.
      *
      * NOTE: this method no longer expands the tilde (~) character!
+     *
      * @param string $strPathname
+     *
      * @return string
      */
     public function normalize($strPathname)
     {
-
         if (!strlen($strPathname)) {
             return;
         }
@@ -108,9 +110,11 @@ class UnixFileSystem extends FileSystem
     /**
      * Normalize the given pathname, whose length is $len, starting at the given
      * $offset; everything before this offset is already normal.
-     * @param $pathname
-     * @param $len
-     * @param $offset
+     *
+     * @param string $pathname
+     * @param int $len
+     * @param int $offset
+     *
      * @return string
      */
     protected function normalizer($pathname, $len, $offset)
@@ -146,7 +150,9 @@ class UnixFileSystem extends FileSystem
     /**
      * Compute the length of the pathname string's prefix.  The pathname
      * string must be in normal form.
+     *
      * @param string $pathname
+     *
      * @return int
      */
     public function prefixLength($pathname)
@@ -175,8 +181,10 @@ class UnixFileSystem extends FileSystem
      * Resolve the child pathname string against the parent.
      * Both strings must be in normal form, and the result
      * will be in normal form.
+     *
      * @param string $parent
      * @param string $child
+     *
      * @return string
      */
     public function resolve($parent, $child)
@@ -211,6 +219,7 @@ class UnixFileSystem extends FileSystem
 
     /**
      * @param PhingFile $f
+     *
      * @return bool
      */
     public function isAbsolute(PhingFile $f)
@@ -220,7 +229,9 @@ class UnixFileSystem extends FileSystem
 
     /**
      * the file resolver
+     *
      * @param PhingFile $f
+     *
      * @return string
      */
     public function resolveFile(PhingFile $f)

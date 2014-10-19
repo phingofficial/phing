@@ -34,20 +34,23 @@ include_once 'phing/types/RegularExpression.php';
  */
 class ContainsRegexpSelector extends BaseExtendSelector
 {
-
-    /** @var string The expression set from XML. */
+    /**
+     * The expression set from XML.
+     *
+     * @var string $userProvidedExpression
+     */
     private $userProvidedExpression;
 
-    /** @var Regexp */
+    /** @var Regexp $myExpression */
     private $myExpression;
 
+    /** @var bool $casesensitive */
     private $casesensitive = true;
 
-    /** @var RegularExpression */
+    /** @var RegularExpression $myRegExp */
     private $myRegExp;
 
     const EXPRESSION_KEY = "expression";
-
     const CASE_KEY = "casesensitive";
 
     /**
@@ -93,7 +96,8 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
-     * @return mixed|void
+     *
+     * @return void
      */
     public function setParameters($parameters)
     {
@@ -131,14 +135,13 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile|the $basedir
-     * @param is $filename
-     * @param a|PhingFile $file
+     * @param PhingFile $basedir base directory the scan is being done from
+     * @param string $filename the name of the file to check
+     * @param PhingFile $file PhingFile object the selector can use
+     *
      * @throws BuildException
-     * @internal param the $basedir base directory the scan is being done from
-     * @internal param is $filename the name of the file to check
-     * @internal param a $file PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {

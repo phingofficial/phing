@@ -1,4 +1,21 @@
 <?php
+/**
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * This software consists of voluntary contributions made by many individuals
+ * and is licensed under the LGPL. For more information please see
+ * <http://phing.info>.
+ */
 
 /**
  * String helper utility class.
@@ -8,12 +25,15 @@
  * classpaths.  (e.g. "phing.util.StringHelper").
  *
  * @author Hans Lellelid <hans@xmpl.org>
+ *
  * @package phing.system.util
  */
 class StringHelper
 {
-
+    /** @var array */
     private static $TRUE_VALUES = array("on", "true", "t", "yes");
+
+    /** @var array */
     private static $FALSE_VALUES = array("off", "false", "f", "no");
 
     /**
@@ -22,6 +42,7 @@ class StringHelper
      * @param  array  $strings      Array of strings to multiply. (If string is passed, will convert to array)
      * @param  array  $tokens       The tokens to search for.
      * @param  array  $replacements The values with which to replace found tokens.
+     *
      * @return string
      */
     public static function multiply($strings, $tokens, $replacements)
@@ -38,8 +59,10 @@ class StringHelper
     /**
      * Remove qualification to name.
      * E.g. eg.Cat -> Cat
+     *
      * @param string $qualifiedName
      * @param string $separator Character used to separate.
+     *
      * @return string
      */
     public static function unqualify($qualifiedName, $separator = '.')
@@ -57,9 +80,11 @@ class StringHelper
      * Converts a string to an indexed array of chars
      * There's really no reason for this to be used in PHP, since strings
      * are all accessible using the $string{0} notation.
-     * @param $str
-     * @internal param string $string
+     *
+     * @param string $str
+     *
      * @return array
+     *
      * @deprecated
      */
     public static function toCharArray($str)
@@ -76,8 +101,10 @@ class StringHelper
     /**
      * Get the qualifier part of a qualified name.
      * E.g. eg.Cat -> eg
+     *
      * @param $qualifiedName
      * @param string $seperator
+     *
      * @return string
      */
     public static function qualifier($qualifiedName, $seperator = '.')
@@ -93,6 +120,7 @@ class StringHelper
     /**
      * @param  array  $columns String[]
      * @param  string $prefix
+     *
      * @return array  String[]
      */
     public static function prefix($columns, $prefix)
@@ -109,9 +137,9 @@ class StringHelper
     }
 
     /**
-     *
      * @param $qualifiedName
      * @param string $separator
+     *
      * @return string
      */
     public static function root($qualifiedName, $separator = '.')
@@ -123,6 +151,7 @@ class StringHelper
 
     /**
      * @param $string
+     *
      * @return int
      */
     public static function hashCode($string)
@@ -131,7 +160,8 @@ class StringHelper
     }
 
     /**
-     * @param $s
+     * @param bool|string $s
+     *
      * @return boolean
      */
     public static function booleanValue($s)
@@ -145,8 +175,11 @@ class StringHelper
         return (boolean) in_array($trimmed, self::$TRUE_VALUES);
     }
 
-    /** tests if a string is a representative of a boolean
-     * @param $s
+    /**
+     * tests if a string is a representative of a boolean
+     *
+     * @param bool|string $s
+     *
      * @return bool
      */
     public static function isBoolean($s)
@@ -167,6 +200,7 @@ class StringHelper
 
     /**
      * Creates a key based on any number of passed params.
+     *
      * @return string
      */
     public static function key()
@@ -176,9 +210,12 @@ class StringHelper
         return serialize($args);
     }
 
-    /** tests if a string starts with a given string
+    /**
+     * tests if a string starts with a given string
+     *
      * @param $check
      * @param $string
+     *
      * @return bool
      */
     public static function startsWith($check, $string)
@@ -190,9 +227,12 @@ class StringHelper
         }
     }
 
-    /** tests if a string ends with a given string
+    /**
+     * tests if a string ends with a given string
+     *
      * @param $check
      * @param $string
+     *
      * @return bool
      */
     public static function endsWith($check, $string)
@@ -207,9 +247,11 @@ class StringHelper
     /**
      * a natural way of getting a subtring, php's circular string buffer and strange
      * return values suck if you want to program strict as of C or friends
-     * @param $string
-     * @param $startpos
+     *
+     * @param string $string
+     * @param int $startpos
      * @param int $endpos
+     *
      * @return string
      */
     public static function substring($string, $startpos, $endpos = -1)
@@ -233,7 +275,9 @@ class StringHelper
 
     /**
      * Does the value correspond to a slot variable?
+     *
      * @param string $value
+     *
      * @return bool|int
      */
     public static function isSlotVar($value)
@@ -248,12 +292,13 @@ class StringHelper
 
     /**
      * Extracts the variable name for a slot var in the format %{task.current_file}
+     *
      * @param  string $var The var from build file.
+     *
      * @return string Extracted name part.
      */
     public static function slotVar($var)
     {
         return trim($var, '%{} ');
     }
-
 }

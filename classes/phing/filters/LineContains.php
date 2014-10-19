@@ -209,11 +209,11 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Creates a new LineContains using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader
+     * @return LineContains A new filter based on this configuration, but filtering
+     *                      the specified reader
      */
     public function chain(Reader $reader)
     {

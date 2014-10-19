@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,7 +29,7 @@ include_once 'phing/util/StringHelper.php';
  * @author    Stefano Mazzocchi <stefano@apache.org> (Ant)
  * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author    Magesh Umasankar
- * @version   $Id$
+ *
  * @package   phing.tasks.ext
  */
 class TarTask extends MatchingTask
@@ -125,9 +123,10 @@ class TarTask extends MatchingTask
 
     /**
      * Set the include empty dirs flag.
-     * @param  boolean  Flag if empty dirs should be tarred too
+     *
+     * @param  boolean $bool Flag if empty dirs should be tarred too
+     *
      * @return void
-     * @access public
      */
     public function setIncludeEmptyDirs($bool)
     {
@@ -161,7 +160,7 @@ class TarTask extends MatchingTask
      * <li>  gzip - Gzip compression
      * <li>  bzip2 - Bzip2 compression
      * </ul>
-     * @param $mode
+     * @param string $mode
      */
     public function setCompression($mode)
     {
@@ -199,7 +198,6 @@ class TarTask extends MatchingTask
      */
     public function main()
     {
-
         if ($this->tarFile === null) {
             throw new BuildException("tarfile attribute must be set!", $this->getLocation());
         }
@@ -285,6 +283,7 @@ class TarTask extends MatchingTask
     /**
      * @param  array     $files array of filenames
      * @param  PhingFile $dir
+     *
      * @return boolean
      */
     protected function areFilesUpToDate($files, $dir)
@@ -315,7 +314,6 @@ class TarTask extends MatchingTask
         }
         return true;
     }
-
 }
 
 
@@ -341,10 +339,13 @@ class TarFileSet extends FileSet
     private $preserveLeadingSlashes = false;
 
     /**
-     *  Get a list of files and directories specified in the fileset.
+     * Get a list of files and directories specified in the fileset.
+     *
      * @param Project $p
      * @param bool $includeEmpty
+     *
      * @throws BuildException
+     *
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      */
@@ -457,7 +458,7 @@ class TarFileSet extends FileSet
      * If the prefix attribute is set, all files in the fileset
      * are prefixed with that path in the archive.
      * optional.
-     * @param $prefix
+     * @param bool $prefix
      */
     public function setPrefix($prefix)
     {
@@ -493,10 +494,12 @@ class TarFileSet extends FileSet
     }
 
     /**
-     * Flag to indicates whether leading `/'s should
+     * Flag to indicates whether leading `/'s` should
      * be preserved in the file names.
      * Optional, default is <code>false</code>.
-     * @param $b
+     *
+     * @param bool $b
+     *
      * @return void
      */
     public function setPreserveLeadingSlashes($b)

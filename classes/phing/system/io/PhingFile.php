@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,12 +23,10 @@ include_once 'phing/system/lang/NullPointerException.php';
 /**
  * An abstract representation of file and directory pathnames.
  *
- * @version   $Id$
  * @package   phing.system.io
  */
 class PhingFile
 {
-
     /** separator string, static, obtained from FileSystem */
     public static $separator;
 
@@ -50,9 +46,12 @@ class PhingFile
      */
     private $prefixLength = 0;
 
-    /** constructor
-     * @param null $arg1
-     * @param null $arg2
+    /**
+     * constructor
+     *
+     * @param mixed $arg1
+     * @param mixed $arg2
+     *
      * @throws IOException
      * @throws NullPointerException
      */
@@ -94,9 +93,8 @@ class PhingFile
     /* -- constructors not called by signature match, so we need some helpers --*/
 
     /**
+     * @param string $pathname
      *
-     * Enter description here ...
-     * @param unknown_type $pathname
      * @throws NullPointerException
      */
     protected function _constructPathname($pathname)
@@ -175,9 +173,9 @@ class PhingFile
      * sequence.  If the pathname's name sequence is empty, then the empty
      * string is returned.
      *
-     * @return The name of the file or directory denoted by this abstract
-     *             pathname, or the empty string if this pathname's name sequence
-     *             is empty
+     * @return string The name of the file or directory denoted by this abstract
+     *                pathname, or the empty string if this pathname's name sequence
+     *                is empty
      */
     public function getName()
     {
@@ -199,8 +197,8 @@ class PhingFile
      * If the name sequence is empty then the pathname does not name a parent
      * directory.
      *
-     * @return The pathname string of the parent directory named by this
-     *             abstract pathname, or null if this pathname does not name a parent
+     * @return string $pathname string of the parent directory named by this
+     *                          abstract pathname, or null if this pathname does not name a parent
      */
     public function getParent()
     {
@@ -649,10 +647,12 @@ class PhingFile
      * are a single operation that is atomic with respect to all other
      * filesystem activities that might affect the file.
      *
+     * @param bool $parents
+     * @param int $mode
+     * @throws IOException
      * @return boolean     true if the named file does not exist and was
      *                     successfully created; <code>false</code> if the named file
      *                     already exists
-     * @throws IOException if file can't be created
      */
     public function createNewFile($parents = true, $mode = 0777)
     {
@@ -712,7 +712,7 @@ class PhingFile
      * will appear in any specific order; they are not, in particular,
      * guaranteed to appear in alphabetical order.
      *
-     * @param $filter string
+     * @param string $filter
      * @return array An array of strings naming the files and directories in the
      *               directory denoted by this abstract pathname.  The array will be
      *               empty if the directory is empty.  Returns null if
@@ -727,9 +727,8 @@ class PhingFile
     }
 
     /**
+     * @param string $filter
      *
-     * Enter description here ...
-     * @param PhingFile[] $filter
      * @return array
      */
     public function listFiles($filter = null)
@@ -885,7 +884,10 @@ class PhingFile
 
     /**
      * Sets the owner of the file.
+     *
      * @param mixed $user User name or number.
+     *
+     * @throws IOException
      */
     public function setUser($user)
     {
@@ -896,6 +898,7 @@ class PhingFile
 
     /**
      * Retrieve the owner of this file.
+     *
      * @return int User ID of the owner of this file.
      */
     public function getUser()
@@ -905,9 +908,10 @@ class PhingFile
 
     /**
      * Sets the group of the file.
-     * @param $group
+     *
+     * @param string $group
+     *
      * @throws IOException
-     * @internal param mixed $user User name or number.
      */
     public function setGroup($group)
     {
@@ -918,6 +922,7 @@ class PhingFile
 
     /**
      * Retrieve the group of this file.
+     *
      * @return int User ID of the owner of this file.
      */
     public function getGroup()
@@ -927,6 +932,7 @@ class PhingFile
 
     /**
      * Sets the mode of the file
+     *
      * @param int $mode Ocatal mode.
      */
     public function setMode($mode)
@@ -938,6 +944,7 @@ class PhingFile
 
     /**
      * Retrieve the mode of this file.
+     *
      * @return int
      */
     public function getMode()
@@ -1005,9 +1012,11 @@ class PhingFile
      * Then, the file is locked for exclusive reading/writing.
      *
      * @author manuel holtgrewe, grin@gmx.net
+     *
      * @param $prefix
      * @param $suffix
      * @param PhingFile $directory
+     *
      * @throws IOException
      * @return PhingFile
      */
@@ -1029,9 +1038,7 @@ class PhingFile
 
     /**
      * If necessary, $File the lock on $File is removed and then the file is
-     * deleted
-     *
-     * @access      public
+     * deleted.
      */
     public function removeTempFile()
     {
@@ -1072,7 +1079,9 @@ class PhingFile
      * pathnames are equal depends upon the underlying system.  On UNIX
      * systems, alphabetic case is significant in comparing pathnames; on Win32
      * systems it is not.
-     * @param $obj
+     *
+     * @param PhingFile $obj
+     *
      * @return boolean
      */
     public function equals($obj)

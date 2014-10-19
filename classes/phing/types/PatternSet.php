@@ -176,9 +176,9 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param The $includesFile
+     * @param File|PhingFile $includesFile file to fetch the include patterns from.
+     *
      * @throws BuildException
-     * @internal param The $includesFile file to fetch the include patterns from.
      */
     public function setIncludesFile($includesFile)
     {
@@ -195,9 +195,8 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the excludes patterns.
      *
-     * @param The $excludesFile
+     * @param PhingFile $excludesFile file to fetch the exclude patterns from.
      * @throws BuildException
-     * @internal param The $excludesFile file to fetch the exclude patterns from.
      */
     public function setExcludesFile($excludesFile)
     {
@@ -212,11 +211,13 @@ class PatternSet extends DataType
     }
 
     /**
-     *  Reads path matching patterns from a file and adds them to the
-     *  includes or excludes list
+     * Reads path matching patterns from a file and adds them to the
+     * includes or excludes list
+     *
      * @param PhingFile $patternfile
      * @param $patternlist
      * @param Project $p
+     *
      * @throws BuildException
      */
     private function readPatterns(PhingFile $patternfile, &$patternlist, Project $p)
@@ -248,9 +249,12 @@ class PatternSet extends DataType
         $patternReader->close();
     }
 
-    /** Adds the patterns of the other instance to this set.
+    /**
+     * Adds the patterns of the other instance to this set.
+     *
      * @param $other
-     * @param $p
+     * @param Project $p
+     *
      * @throws BuildException
      */
     public function append($other, $p)
@@ -276,9 +280,13 @@ class PatternSet extends DataType
         }
     }
 
-    /** Returns the filtered include patterns.
+    /**
+     * Returns the filtered include patterns.
+     *
      * @param Project $p
+     *
      * @throws BuildException
+     *
      * @return array
      */
     public function getIncludePatterns(Project $p)
@@ -294,9 +302,13 @@ class PatternSet extends DataType
         }
     }
 
-    /** Returns the filtered exclude patterns.
+    /**
+     * Returns the filtered exclude patterns.
+     *
      * @param Project $p
+     *
      * @throws BuildException
+     *
      * @return array
      */
     public function getExcludePatterns(Project $p)
@@ -312,7 +324,11 @@ class PatternSet extends DataType
         }
     }
 
-    /** helper for FileSet. */
+    /**
+     * helper for FileSet.
+     *
+     * @return bool
+     */
     public function hasPatterns()
     {
         return (boolean) count($this->includesFileList) > 0 || count($this->excludesFileList) > 0
@@ -322,9 +338,12 @@ class PatternSet extends DataType
     /**
      * Performs the check for circular references and returns the
      * referenced PatternSet.
+     *
      * @param Project $p
+     *
      * @throws BuildException
-     * @return
+     *
+     * @return Reference
      */
     public function getRef(Project $p)
     {
@@ -342,7 +361,14 @@ class PatternSet extends DataType
         }
     }
 
-    /** Convert a array of PatternSetNameEntry elements into an array of Strings. */
+    /**
+     * Convert a array of PatternSetNameEntry elements into an array of Strings.
+     *
+     * @param array $list
+     * @param Project $p
+     *
+     * @return array
+     */
     private function makeArray(&$list, Project $p)
     {
 
@@ -361,8 +387,11 @@ class PatternSet extends DataType
         return $tmpNames;
     }
 
-    /** Read includesfile or excludesfile if not already done so.
+    /**
+     * Read includesfile or excludesfile if not already done so.
+     *
      * @param Project $p
+     *
      * @throws BuildException
      */
     private function readFiles(Project $p)

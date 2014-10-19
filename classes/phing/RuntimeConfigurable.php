@@ -33,17 +33,26 @@
  */
 class RuntimeConfigurable
 {
-
     private $elementTag = null;
+
+    /** @var array $children */
     private $children = array();
+
+    /** @var object|Task $wrappedObject */
     private $wrappedObject = null;
+
+    /** @var array $attributes */
     private $attributes = array();
+
+    /** @var string $characters */
     private $characters = "";
+
+    /** @var bool $proxyConfigured */
     private $proxyConfigured = false;
 
     /**
-     * @param The $proxy
-     * @param proxy The element to wrap.
+     * @param Task|object $proxy
+     * @param mixed $elementTag The element to wrap.
      */
     public function __construct($proxy, $elementTag)
     {
@@ -56,7 +65,7 @@ class RuntimeConfigurable
     }
 
     /**
-     * @return null|The
+     * @return object|Task
      */
     public function getProxy()
     {
@@ -64,7 +73,9 @@ class RuntimeConfigurable
     }
 
     /**
-     * @param $proxy
+     * @param object|Task $proxy
+     *
+     * @return void
      */
     public function setProxy($proxy)
     {
@@ -72,15 +83,23 @@ class RuntimeConfigurable
         $this->proxyConfigured = false;
     }
 
-    /** Set's the attributes for the wrapped element.
-     * @param $attributes
+    /**
+     * Set's the attributes for the wrapped element.
+     *
+     * @param array $attributes
+     *
+     * @return void
      */
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
     }
 
-    /** Returns the AttributeList of the wrapped element. */
+    /**
+     * Returns the AttributeList of the wrapped element.
+     *
+     * @return array
+     */
     public function getAttributes()
     {
         return $this->attributes;
@@ -88,7 +107,9 @@ class RuntimeConfigurable
 
     /**
      * Adds child elements to the wrapped element.
+     *
      * @param RuntimeConfigurable $child
+     *
      * @return void
      */
     public function addChild(RuntimeConfigurable $child)
@@ -96,9 +117,12 @@ class RuntimeConfigurable
         $this->children[] = $child;
     }
 
-    /** Returns the child with index
+    /**
+     * Returns the child with index
+     *
      * @param int $index
-     * @return void
+     *
+     * @return RuntimeConfigurable
      */
     public function getChild($index)
     {
@@ -107,7 +131,9 @@ class RuntimeConfigurable
 
     /**
      * Add characters from #PCDATA areas to the wrapped element.
-     * @param $data
+     *
+     * @param string $data
+     *
      * @return void
      */
     public function addText($data)
@@ -115,16 +141,18 @@ class RuntimeConfigurable
         $this->characters .= (string) $data;
     }
 
-    /**
-     * @return
-     */
     public function getElementTag()
     {
         return $this->elementTag;
     }
 
-    /** Configure the wrapped element and all children.
+    /**
+     * Configure the wrapped element and all children.
+     *
      * @param Project $project
+     *
+     * @return void
+     *
      * @throws BuildException
      * @throws Exception
      */

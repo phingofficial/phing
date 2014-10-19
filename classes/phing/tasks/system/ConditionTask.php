@@ -38,13 +38,16 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  */
 class ConditionTask extends ConditionBase
 {
-
+    /** @var string $property */
     private $property;
+
+    /** @var string $value */
     private $value = "true";
 
     /**
      * The name of the property to set. Required.
-     * @param $p
+     * @param string $p
+     * @return void
      */
     public function setProperty($p)
     {
@@ -53,6 +56,8 @@ class ConditionTask extends ConditionBase
 
     /**
      * The value for the property to set. Defaults to "true".
+     * @param string $v
+     * @return void
      */
     public function setValue($v)
     {
@@ -61,6 +66,8 @@ class ConditionTask extends ConditionBase
 
     /**
      * See whether our nested condition holds and set the property.
+     * @throws BuildException
+     * @return void
      */
     public function main()
     {

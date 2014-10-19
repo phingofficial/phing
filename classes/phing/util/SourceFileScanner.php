@@ -51,8 +51,8 @@ class SourceFileScanner
      * their corresponding target files.
      *
      * @param array $files   the original set of files
-     * @param $srcDir  all files are relative to this directory
-     * @param $destDir target files live here. if null file names
+     * @param PhingFile $srcDir  all files are relative to this directory
+     * @param PhingFile $destDir target files live here. if null file names
      *                returned by the mapper are assumed to be absolute.
      * @param FilenameMapper $mapper  knows how to construct a target file names from
      *                source file names.

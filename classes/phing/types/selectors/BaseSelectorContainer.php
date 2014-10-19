@@ -94,7 +94,8 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
     /**
      * Add a new selector into this container.
      *
-     * @param selector the new selector to add
+     * @param FileSelector|the $selector
+     * @internal param the $selector new selector to add
      * @return the selector that was added
      */
     public function appendSelector(FileSelector $selector)

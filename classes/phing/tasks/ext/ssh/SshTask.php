@@ -156,6 +156,7 @@ class SshTask extends Task
 
     /**
      * Sets the private key file passphrase of the user to scp
+     * @param $privkeyfilepassphrase
      */
     public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
     {

@@ -355,7 +355,8 @@ class CvsTask extends Task
     /**
      * Password file to read passwords from.
      *
-     * @param passFile
+     * @param PhingFile $passFile
+     * @internal param $passFile
      */
     public function setPassfile(PhingFile $passFile)
     {

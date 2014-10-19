@@ -344,5 +344,4 @@ class Properties
     {
         return empty($this->properties);
     }
-
 }

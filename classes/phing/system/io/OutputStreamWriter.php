@@ -61,9 +61,10 @@ class OutputStreamWriter extends Writer
      * Write char data to stream.
      *
      * @param  string $buf
-     * @param  unknown_type $off
-     * @param  unknown_type $len
-     * @return unknown
+     * @param  int $off
+     * @param  int $len
+     *
+     * @return void
      */
     public function write($buf, $off = null, $len = null)
     {

@@ -171,7 +171,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function setIncludesfile(PhingFile $includesfile)
     {
-        $this->fileset->setIncludesfile(includesfile);
+        $this->fileset->setIncludesfile($includesfile);
     }
 
     /**

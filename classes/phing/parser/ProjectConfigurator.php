@@ -111,7 +111,7 @@ class ProjectConfigurator
 
     /**
      * find out the current project name
-     * @return current project name
+     * @return string current project name
      */
     public function getCurrentProjectName()
     {
@@ -243,11 +243,14 @@ class ProjectConfigurator
     /**
      * Configures an element and resolves eventually given properties.
      *
-     * @param  object  the element to configure
-     * @param  array   the element's attributes
-     * @param  object  the project this element belongs to
-     * @throws Exception      if arguments are not valid
-     * @throws BuildException if attributes can not be configured
+     * @param $target
+     * @param $attrs
+     * @param Project $project
+     * @throws BuildException
+     * @throws Exception
+     * @internal param the $object element to configure
+     * @internal param the $array element's attributes
+     * @internal param the $object project this element belongs to
      * @access public
      */
     public static function configure($target, $attrs, Project $project)
@@ -336,10 +339,10 @@ class ProjectConfigurator
      * string value of the corresponding data types. This method is
      * static.
      *
-     * @param  object  $project  the project that should be used for property look-ups
-     * @param  string  $value    the string to be scanned for property references
-     * @param  array   $keys     property keys
-     * @param  integer $logLevel the level of generated log messages
+     * @param object|Project $project the project that should be used for property look-ups
+     * @param  string $value the string to be scanned for property references
+     * @param  array $keys property keys
+     * @param int $logLevel the level of generated log messages
      * @return string  the replaced string or <code>null</code> if the string
      *                          itself was null
      */

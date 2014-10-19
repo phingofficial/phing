@@ -83,7 +83,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Sets the project to work with.
      *
-     * @param object $project The project this filter is part of.
+     * @param object|Project $project The project this filter is part of.
      *                        Should not be <code>null</code>.
      */
     public function setProject(Project $project)
@@ -105,10 +105,9 @@ class BaseFilterReader extends FilterReader
     /**
      * Reads characters.
      *
-     * @param  off  Offset at which to start storing characters.
-     * @param  len  Maximum number of characters to read.
+     * @param  int $len  Maximum number of characters to read.
      *
-     * @return Characters read, or -1 if the end of the stream
+     * @return string Characters read, or -1 if the end of the stream
      *                    has been reached
      *
      * @throws IOException If an I/O error occurs
@@ -122,7 +121,7 @@ class BaseFilterReader extends FilterReader
      * Reads a line of text ending with '\n' (or until the end of the stream).
      * The returned String retains the '\n'.
      *
-     * @return the line read, or <code>null</code> if the end of the
+     * @return string the line read, or <code>null</code> if the end of the
      *             stream has already been reached
      *
      * @throws IOException if the underlying reader throws one during
@@ -144,6 +143,7 @@ class BaseFilterReader extends FilterReader
 
     /**
      * Returns whether the end of file has been reached with input stream.
+     *
      * @return boolean
      */
     public function eof()
@@ -153,8 +153,11 @@ class BaseFilterReader extends FilterReader
 
     /**
      * Convenience method to support logging in filters.
+     *
      * @param string $msg   Message to log.
      * @param int    $level Priority level.
+     *
+     * @return void
      */
     public function log($msg, $level = Project::MSG_INFO)
     {

@@ -210,7 +210,8 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set the file encoding to use on the SQL files read in
      *
-     * @param encoding the encoding to use on the files
+     * @param the $encoding
+     * @internal param the $encoding encoding to use on the files
      */
     public function setEncoding($encoding)
     {
@@ -283,6 +284,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Gets a default output writer for this task.
+     *
      * @return Writer
      */
     private function getDefaultOutput()
@@ -291,7 +293,10 @@ class PDOSQLExecTask extends PDOTask
     }
 
     /**
-     * Load the sql file and then execute it
+     * Load the sql file and then execute it.
+     *
+     * {@inheritdoc}
+     *
      * @throws BuildException
      */
     public function main()
@@ -464,6 +469,7 @@ class PDOSQLExecTask extends PDOTask
      * 'select' (but not 'select into').
      *
      * @param  string  $sql
+     *
      * @return boolean Whether specified SQL looks like a SELECT query.
      */
     protected function isSelectSql($sql)
@@ -475,13 +481,14 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Exec the sql statement.
+     *
      * @param $sql
+     *
      * @throws BuildException
      * @throws Exception
      */
     protected function execSQL($sql)
     {
-
         // Check and ignore empty statements
         if (trim($sql) == "") {
             return;
@@ -514,7 +521,9 @@ class PDOSQLExecTask extends PDOTask
     }
 
     /**
-     * Returns configured PDOResultFormatter objects (which were created from PDOSQLExecFormatterElement objects).
+     * Returns configured PDOResultFormatter objects
+     * (which were created from PDOSQLExecFormatterElement objects).
+     *
      * @return array PDOResultFormatter[]
      */
     protected function getConfiguredFormatters()
@@ -552,6 +561,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Passes results from query to any formatters.
+     *
      * @throws PDOException
      */
     protected function processResults()

@@ -35,16 +35,22 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
 
     protected $project = null;
 
+    /** @var bool|array */
     private $timers = false;
 
+    /** @var bool|array */
     private $runCounts = false;
 
+    /** @var bool|array */
     private $failureCounts = false;
 
+    /** @var bool|array */
     private $errorCounts = false;
 
+    /** @var bool|array */
     private $incompleteCounts = false;
 
+    /** @var bool|array */
     private $skipCounts = false;
 
     /**

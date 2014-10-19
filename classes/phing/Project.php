@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,7 +33,7 @@ include_once 'phing/types/PropertyValue.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
+ *
  * @package   phing
  */
 class Project
@@ -329,12 +327,12 @@ class Project
      * Replaces ${} style constructions in the given value with the
      * string value of the corresponding data types.
      *
-     * @param value The string to be scanned for property references.
-     *              May be <code>null</code>.
+     * @param string $value The value string to be scanned for property references.
+     *                      May be <code>null</code>.
      *
-     * @return the given string with embedded property names replaced
-     *             by values, or <code>null</code> if the given string is
-     *             <code>null</code>.
+     * @return string the given string with embedded property names replaced
+     *                by values, or <code>null</code> if the given string is
+     *                <code>null</code>.
      *
      * @exception BuildException if the given value has an unclosed
      *                           property name, e.g. <code>${xxx</code>
@@ -374,7 +372,7 @@ class Project
 
     /**
      * Returns a copy of the user property hashtable
-     * @return a hashtable containing just the user properties
+     * @return array a hashtable containing just the user properties
      */
     public function getUserProperties()
     {
@@ -450,10 +448,9 @@ class Project
     /**
      * Sets the name of the current project
      *
-     * @param  string $name name of project
+     * @param string $name name of project
      * @return void
-     * @access   public
-     * @author   Andreas Aderhold, andi@binarycloud.com
+     * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setName($name)
     {
@@ -465,8 +462,7 @@ class Project
      * Returns the name of this project
      *
      * @return string projectname
-     * @access  public
-     * @author  Andreas Aderhold, andi@binarycloud.com
+     * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function getName()
     {
@@ -547,8 +543,9 @@ class Project
      * Returns the basedir of this project
      *
      * @return PhingFile      Basedir PhingFile object
-     * @access  public
+     *
      * @throws BuildException
+     *
      * @author  Andreas Aderhold, andi@binarycloud.com
      */
     public function getBasedir()
@@ -598,8 +595,6 @@ class Project
      */
     public function addTaskDefinition($name, $class, $classpath = null)
     {
-        $name = $name;
-        $class = $class;
         if ($class === "") {
             $this->log("Task $name has no class defined.", Project::MSG_ERR);
         } elseif (!isset($this->taskdefs[$name])) {
@@ -883,6 +878,10 @@ class Project
 
     /**
      * Helper function
+     * @param $fileName
+     * @param null $rootDir
+     * @throws IOException
+     * @return \PhingFile
      */
     public function resolveFile($fileName, $rootDir = null)
     {
@@ -901,8 +900,8 @@ class Project
      * @param  array $targets is a array representing a "name to Target" mapping
      * @throws BuildException
      * @throws Exception
-     * @return An     array of Strings with the names of the targets in
-     *                        sorted order.
+     * @return array of Strings with the names of the targets in
+     *               sorted order.
      */
     public function _topoSort($root, &$targets)
     {
@@ -1029,8 +1028,8 @@ class Project
     }
 
     /**
-     * @param $end
-     * @param $stk
+     * @param string $end
+     * @param array $stk
      * @return BuildException
      */
     public function _makeCircularException($end, $stk)
@@ -1142,7 +1141,7 @@ class Project
     }
 
     /**
-     * @param $exception
+     * @param Exception $exception
      */
     public function fireBuildFinished($exception)
     {

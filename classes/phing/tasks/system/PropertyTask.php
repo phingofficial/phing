@@ -172,7 +172,8 @@ class PropertyTask extends Task
      * Note also that properties are case sensitive, even if the
      * environment variables on your operating system are not, e.g. it
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
-     * @param env prefix
+     * @param prefix $env
+     * @internal param prefix $env
      */
     public function setEnvironment($env)
     {

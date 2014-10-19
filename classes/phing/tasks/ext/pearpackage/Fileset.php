@@ -148,9 +148,11 @@ class PEAR_PackageFileManager_Fileset
      * The contents of $struc have many indexes like 'dir/subdir/subdir2'.
      * This function converts them to
      * array('dir' => array('subdir' => array('subdir2')))
-     * @param array struc is array('dir' => array of files in dir,
+     * @param array $struc is array('dir' => array of files in dir,
      *              'dir/subdir' => array of files in dir/subdir,...)
-     * @param array array form of 'dir/subdir/subdir2' array('dir','subdir','subdir2')
+     * @param $dir
+     * @param $contents
+     * @internal param array $array form of 'dir/subdir/subdir2' array('dir','subdir','subdir2')
      * @return array same as struc but with array('dir' =>
      *               array(file1,file2,'subdir' => array(file1,...)))
      */

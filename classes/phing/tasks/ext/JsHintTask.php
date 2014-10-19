@@ -194,7 +194,8 @@ class JsHintTask extends Task
             $fileName = (string) $fileAttributes['name'];
             $fileError = $file->{$this->xmlAttributes['fileError']};
             foreach ($fileError as $error) {
-                $attrs = current((array) $error->attributes());
+                $errAttr = (array) $error->attributes();
+                $attrs = current($errAttr);
 
                 if ($attrs['severity'] === $this->xmlAttributes['severity']['error']) {
                     $errorsCount++;

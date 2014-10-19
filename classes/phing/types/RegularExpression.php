@@ -90,7 +90,7 @@ class RegularExpression extends DataType
     }
 
     /**
-     * @param $p
+     * @param Project $p
      * @return string
      * @throws BuildException
      */

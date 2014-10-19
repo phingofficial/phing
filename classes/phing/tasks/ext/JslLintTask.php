@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,33 +26,56 @@ require_once 'phing/util/DataStore.php';
  * This class is based on Knut Urdalen's PhpLintTask.
  *
  * @author Stefan Priebsch <stefan.priebsch@e-novative.de>
- * @version $Id$
+ *
  * @package phing.tasks.ext
  */
 class JslLintTask extends Task
 {
+    /** @var PhingFile */
     protected $file; // the source file (from xml attribute)
+
+    /** @var array */
     protected $filesets = array(); // all fileset objects assigned to this task
 
+    /** @var bool $showWarnings */
     protected $showWarnings = true;
+
+    /** @var bool */
     protected $haltOnFailure = false;
-    protected $haltOnWarning = false;
-    protected $hasErrors = false;
-    protected $hasWarnings = false;
-    private $badFiles = array();
-
-    private $cache = null;
-    private $conf = null;
-
-    private $executable = "jsl";
 
     /**
-     * @var PhingFile
+     * @var bool
      */
+    protected $haltOnWarning = false;
+
+    /**
+     * @var bool
+     */
+    protected $hasErrors = false;
+
+    /**
+     * @var bool
+     */
+    protected $hasWarnings = false;
+
+    /** @var array $badFiles */
+    private $badFiles = array();
+
+    /** @var DataStore */
+    private $cache = null;
+
+    /** @var PhingFile */
+    private $conf = null;
+
+    /** @var string */
+    private $executable = "jsl";
+
+    /** @var PhingFile */
     protected $tofile = null;
 
     /**
      * Sets the flag if warnings should be shown
+     *
      * @param boolean $show
      */
     public function setShowWarnings($show)
@@ -64,6 +85,7 @@ class JslLintTask extends Task
 
     /**
      * The haltonfailure property
+     *
      * @param boolean $aValue
      */
     public function setHaltOnFailure($aValue)
@@ -73,6 +95,7 @@ class JslLintTask extends Task
 
     /**
      * The haltonwarning property
+     *
      * @param boolean $aValue
      */
     public function setHaltOnWarning($aValue)
@@ -82,6 +105,7 @@ class JslLintTask extends Task
 
     /**
      * File to be performed syntax check on
+     *
      * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
@@ -110,7 +134,8 @@ class JslLintTask extends Task
     }
 
     /**
-     * @param $path
+     * @param string $path
+     *
      * @throws BuildException
      */
     public function setExecutable($path)
@@ -134,6 +159,7 @@ class JslLintTask extends Task
      * Nested adder, adds a set of files (nested fileset attribute).
      *
      * @param FileSet $fs
+     *
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -145,7 +171,6 @@ class JslLintTask extends Task
      * File to save error messages to
      *
      * @param PhingFile $tofile
-     * @internal param PhingFile $file
      */
     public function setToFile(PhingFile $tofile)
     {
@@ -210,8 +235,10 @@ class JslLintTask extends Task
      * Performs the actual syntax check
      *
      * @param  string $file
+     *
      * @throws BuildException
-     * @return void
+     *
+     * @return bool|void
      */
     protected function lint($file)
     {

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,12 +23,12 @@ require_once 'phing/input/InputRequest.php';
  * Encapsulates an input request.
  *
  * @author Stefan Bodewig <stefan.bodewig@epost.de>
- * @version $Id$
+ *
  * @package phing.input
  */
 class MultipleChoiceInputRequest extends InputRequest
 {
-
+    /** @var array $choises */
     protected $choices = array();
 
     /**
@@ -45,7 +43,7 @@ class MultipleChoiceInputRequest extends InputRequest
     }
 
     /**
-     * @return The possible values.
+     * @return array The possible values.
      */
     public function getChoices()
     {
@@ -53,7 +51,7 @@ class MultipleChoiceInputRequest extends InputRequest
     }
 
     /**
-     * @return true if the input is one of the allowed values.
+     * @return bool true if the input is one of the allowed values.
      */
     public function isInputValid()
     {

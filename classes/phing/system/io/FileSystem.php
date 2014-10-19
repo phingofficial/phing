@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,7 +32,7 @@
  *
  * @author Charlie Killian <charlie@tizac.com>
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
+ *
  * @package phing.system.io
  */
 abstract class FileSystem
@@ -499,6 +496,7 @@ abstract class FileSystem
      * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void
+     *
      * @throws IOException if file cannot be copied.
      */
     public function copy(PhingFile $src, PhingFile $dest)
@@ -533,8 +531,10 @@ abstract class FileSystem
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.1
      * @link        http://aidanlister.com/repos/v/function.copyr.php
+     *
      * @param  string $source Source path
      * @param  string $dest   Destination path
+     *
      * @return bool   Returns TRUE on success, FALSE on failure
      */
     public function copyr($source, $dest)
@@ -579,7 +579,8 @@ abstract class FileSystem
      * @param string $user     The user name or number of the file or directory. See http://us.php.net/chown
      *
      * @return void
-     * @throws Exception if operation failed.
+     *
+     * @throws IOException if operation failed.
      */
     public function chown($pathname, $user)
     {
@@ -731,12 +732,11 @@ abstract class FileSystem
     /**
      * Delete an empty directory OR a directory and all of its contents.
      *
-     * @param String $dir
-     * @param bool $children
+     * @param string $dir Path and/or name of directory to delete.
+     * @param bool $children     False: don't delete directory contents.
+     *                           True: delete directory contents.
+     *
      * @throws Exception
-     * @internal param String $dir . Path and/or name of directory to delete.
-     * @internal param bool $children .    False: don't delete directory contents.
-     *                                    True: delete directory contents.
      *
      * @return void
      */
@@ -824,11 +824,12 @@ abstract class FileSystem
     /**
      * Set the umask for file and directory creation.
      *
-     * @param    mode    Int. Permissions ususally in ocatal. Use leading 0 for
+     * @param Int $mode
+     * @throws Exception
+     * @internal param Int $mode . Permissions ususally in ocatal. Use leading 0 for
      *                    octal. Number between 0 and 0777.
      *
      * @return void
-     * @throws Exception if there is an error performing operation.
      */
     public function umask($mode)
     {
@@ -883,5 +884,4 @@ abstract class FileSystem
             } // end compare
         }
     }
-
 }

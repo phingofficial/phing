@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -38,13 +35,13 @@ require_once 'phing/filters/BaseParamFilterReader.php';
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
  * @copyright 2003 seasonfive. All rights reserved
- * @version   $Id$
+ *
  * @see       BaseParamFilterReader
+ *
  * @package   phing.filters
  */
 class TailFilter extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for the number of lines to be returned.
      * @var string
@@ -126,11 +123,11 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new TailFilter using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader.
+     * @return TailFilter A new filter based on this configuration, but filtering
+     *                    the specified reader.
      */
     public function chain(Reader $reader)
     {

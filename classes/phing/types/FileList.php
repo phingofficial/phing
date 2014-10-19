@@ -55,12 +55,12 @@ class FileList extends DataType
     /** Base directory for this file list. */
     public $dir;
 
-    /** PhingFile that contains a list of files (one per line). */
+    /** @var PhingFile that contains a list of files (one per line). */
     public $listfile;
 
     /**
      * Construct a new FileList.
-     * @param array $filelist ;
+     * @param FileList $filelist
      */
     public function __construct($filelist = null)
     {
@@ -198,8 +198,10 @@ class FileList extends DataType
      * Performs the check for circular references and returns the
      * referenced FileSet.
      * @param Project $p
+     *
      * @throws BuildException
-     * @return
+     *
+     * @return FileList
      */
     public function getRef(Project $p)
     {
@@ -219,7 +221,9 @@ class FileList extends DataType
 
     /**
      * Reads file names from a file and adds them to the files array.
+     *
      * @param Project $p
+     *
      * @throws BuildException
      */
     private function readListFile(Project $p)
@@ -247,5 +251,4 @@ class FileList extends DataType
 
         $listReader->close();
     }
-
 }

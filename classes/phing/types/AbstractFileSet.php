@@ -261,10 +261,10 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param $incl The file to fetch the include patterns from.
+     * @param PhingFile $incl The file to fetch the include patterns from.
      * @throws BuildException
      */
-    public function setIncludesfile($incl)
+    public function setIncludesfile(PhingFile $incl)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -386,9 +386,12 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Performs the check for circular references and returns the
      * referenced FileSet.
+     *
      * @param Project $p
+     *
      * @throws BuildException
-     * @return
+     *
+     * @return FileSet
      */
     public function getRef(Project $p)
     {
@@ -473,7 +476,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      *
      * @param Project $p
      * @throws BuildException
-     * @return an array of selectors in this container
+     * @return array of selectors in this container
      */
     public function getSelectors(Project $p)
     {
@@ -507,10 +510,11 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Add a new selector into this container.
      *
-     * @param FileSelector|the $selector
+     * @param FileSelector $selector new selector to add
+     *
      * @throws BuildException
-     * @return \the|void
-     * @internal param the $selector new selector to add
+     *
+     * @return void
      */
     public function appendSelector(FileSelector $selector)
     {
@@ -524,6 +528,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /**
      * add a "Select" selector entry on the selector list
+     *
+     * @return SelectSelector
      */
     public function createSelector()
     {
@@ -535,6 +541,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /**
      * add an "And" selector entry on the selector list
+     *
+     * @return AndSelector
      */
     public function createAnd()
     {
@@ -546,6 +554,8 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /**
      * add an "Or" selector entry on the selector list
+     *
+     * @return OrSelector
      */
     public function createOr()
     {

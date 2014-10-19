@@ -119,14 +119,17 @@ class ContainsSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile|the $basedir
-     * @param is $filename
-     * @param a|PhingFile $file
+     * @param PhingFile $basedir
+     * @param string $filename
+     * @param PhingFile $file
+     *
      * @throws BuildException
+     *
      * @internal param the $basedir base directory the scan is being done from
      * @internal param is $filename the name of the file to check
      * @internal param a $file PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
@@ -166,5 +169,4 @@ class ContainsSelector extends BaseExtendSelector
             throw new BuildException("Could not read file " . $filename);
         }
     }
-
 }

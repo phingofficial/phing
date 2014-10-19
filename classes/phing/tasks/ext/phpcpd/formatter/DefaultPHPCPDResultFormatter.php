@@ -33,7 +33,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
     /**
      * Processes a list of clones.
      *
-     * @param object         $clones
+     * @param CodeCloneMap   $clones
      * @param Project        $project
      * @param boolean        $useFile
      * @param PhingFile|null $outFile

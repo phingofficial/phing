@@ -447,7 +447,7 @@ class ApplyTask extends Task
     /**
      * Supports embedded <arg> element.
      *
-     * @return void
+     * @return CommandlineArgument
      */
     public function createArg()
     {
@@ -624,8 +624,6 @@ class ApplyTask extends Task
     /**
      * Builds the full command to execute and stores it in $realCommand.
      *
-     * @param  none
-     *
      * @return void
      */
     private function buildCommand()
@@ -693,8 +691,8 @@ class ApplyTask extends Task
     /**
      * Processes the files list with provided information for execution
      *
-     * @param $files File list for processing
-     * @param #basedir Base directory of the file list
+     * @param array $files File list for processing
+     * @param string $basedir Base directory of the file list
      *
      * @return void
      */
@@ -775,7 +773,8 @@ class ApplyTask extends Task
     /**
      * Executes the specified command and returns the return code & output.
      *
-     * @param $command
+     * @param string $command
+     *
      * @return array array(return code, array with output)
      */
     private function executeCommand($command)

@@ -193,7 +193,8 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set the file encoding to use on the SQL files read in
      *
-     * @param encoding the encoding to use on the files
+     * @param the $encoding
+     * @internal param the $encoding encoding to use on the files
      */
     public function setEncoding($encoding)
     {

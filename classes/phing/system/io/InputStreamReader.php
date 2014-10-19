@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -117,10 +115,9 @@ class InputStreamReader extends Reader
      * Reads a entire file and stores the data in the variable
      * passed by reference.
      *
-     * @param string $file     String. Path and/or name of file to read.
      * @param object &$rBuffer Reference. Variable of where to put contents.
      *
-     * @return TRUE on success. Err object on failure.
+     * @return bool TRUE on success. Err object on failure.
      * @author  Charlie Killian, charlie@tizac.com
      * @deprecated Use read() or BufferedReader instead.
      */
