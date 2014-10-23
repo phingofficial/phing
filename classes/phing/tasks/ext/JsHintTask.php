@@ -36,25 +36,32 @@ class JsHintTask extends Task
 
     /**
      * The source file (from xml attribute)
-     *
+     * 
      * @var string
      */
     protected $file;
 
     /**
      * All fileset objects assigned to this task
-     *
+     * 
      * @var unknown
      */
     protected $filesets = array();
 
     /**
+     * <path> arguments for full path
+     * Accepts one path only
+     * @var string
+     */
+    private $paths;
+
+    /**
      * Should the build fail on JSHint errors
-     *
+     * 
      * @var boolean
      */
     private $haltOnError = false;
-
+    
     /**
      * Should the build fail on JSHint warnings
      *
@@ -63,7 +70,11 @@ class JsHintTask extends Task
     private $haltOnWarning = false;
 
     /**
-     * reporter
+     * Exclude Path, allows addition of an exclude path.
+     */
+    private $excludePath = NULL;
+
+	 * reporter
      *
      * @var string
      */
@@ -78,18 +89,17 @@ class JsHintTask extends Task
 
     /**
      * Path where the the report in Checkstyle format should be saved
-     *
+     * 
      * @var string
      */
     private $checkstyleReportPath;
 
     /**
      * File to be performed syntax check on
-     *
+     * 
      * @param PhingFile $file
      */
-    public function setFile(PhingFile $file)
-    {
+    public function setFile(PhingFile $file) {
         $this->file = $file;
     }
 
@@ -98,76 +108,57 @@ class JsHintTask extends Task
      *
      * @return void
      */
-    public function addFileSet(FileSet $fs)
-    {
+    public function addFileSet(FileSet $fs) {
         $this->filesets[] = $fs;
     }
 
-    public function setHaltOnError($haltOnError)
+    public function setPaths($paths)
     {
+        $this->paths = $paths;
+    }
+
+    public function getPaths()
+    {
+        return $this->paths;
+    }
+
+    public function setHaltOnError($haltOnError) {
         $this->haltOnError = $haltOnError;
     }
 
-    public function setHaltOnWarning($haltOnWarning)
-    {
+    public function setHaltOnWarning($haltOnWarning) {
         $this->haltOnWarning = $haltOnWarning;
     }
 
-    public function setCheckstyleReportPath($checkstyleReportPath)
-    {
+    public function setCheckstyleReportPath($checkstyleReportPath) {
         $this->checkstyleReportPath = $checkstyleReportPath;
     }
 
-    public function setReporter($reporter)
-    {
-        $this->reporter = $reporter;
-
-        switch ($this->reporter) {
-            case 'jslint':
-                $this->xmlAttributes = array(
-                    'severity' => array('error' => 'E', 'warning' => 'W', 'info' => 'I'),
-                    'fileError' => 'issue',
-                    'line' => 'line',
-                    'column' => 'char',
-                    'message' => 'reason',
-                );
-                break;
-            default:
-                $this->xmlAttributes = array(
-                    'severity' => array('error' => 'error', 'warning' => 'warning', 'info' => 'info'),
-                    'fileError' => 'error',
-                    'line' => 'line',
-                    'column' => 'column',
-                    'message' => 'message',
-                );
-                break;
-        }
-    }
-
-    public function main()
-    {
+    public function main() {
         if (!isset($this->file) && count($this->filesets) === 0) {
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
-
+        
         if (!isset($this->file)) {
             $fileList = array();
             $project = $this->getProject();
-            foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
-                $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getAbsolutePath();
-                foreach ($files as $file) {
-                    $fileList[] = $dir . DIRECTORY_SEPARATOR . $file;
+            if ($this->filesets) {
+                foreach ($this->filesets as $fs) {
+                    $ds = $fs->getDirectoryScanner($project);
+                    $files = $ds->getIncludedFiles();
+                    $dir = $fs->getDir($this->project)->getAbsolutePath();
+                    foreach ($files as $file) {
+                        $fileList[] = $dir.DIRECTORY_SEPARATOR.$file;
+                    }
                 }
             }
         } else {
             $fileList = array($this->file);
         }
-
+        
         $this->_checkJsHintIsInstalled();
 
-        $command = 'jshint --reporter=' . $this->reporter . ' ' . implode(' ', $fileList);
+        $command = 'jshint --reporter=checkstyle ' . implode(' ', $fileList);
         $output = array();
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
@@ -179,28 +170,27 @@ class JsHintTask extends Task
         foreach ($xml->file as $file) {
             $fileAttributes = $file->attributes();
             $fileName = (string) $fileAttributes['name'];
-            $fileError = $file->{$this->xmlAttributes['fileError']};
-            foreach ($fileError as $error) {
+            foreach ($file->error as $error) {
                 $attrs = current((array) $error->attributes());
-
-                if ($attrs['severity'] === $this->xmlAttributes['severity']['error']) {
+                
+                if ($attrs['severity'] === 'error') {
                     $errorsCount++;
-                } elseif ($attrs['severity'] === $this->xmlAttributes['severity']['warning']) {
+                } elseif ($attrs['severity'] === 'warning') {
                     $warningsCount++;
-                } elseif ($attrs['severity'] !== $this->xmlAttributes['severity']['info']) {
+                } else {
                     throw new BuildException(sprintf('Unknown severity "%s"', $attrs['severity']));
                 }
                 $e = sprintf(
                     '%s: line %d, col %d, %s',
                     str_replace($projectBasedir, '', $fileName),
-                    $attrs[$this->xmlAttributes['line']],
-                    $attrs[$this->xmlAttributes['column']],
-                    $attrs[$this->xmlAttributes['message']]
+                    $attrs['line'],
+                    $attrs['column'],
+                    $attrs['message']
                 );
                 $this->log($e);
             }
         }
-
+        
         $message = sprintf(
             'JSHint detected %d errors and %d warnings.',
             $errorsCount,
@@ -214,27 +204,25 @@ class JsHintTask extends Task
             $this->log('');
             $this->log($message);
         }
-
+        
         if ($this->checkstyleReportPath) {
             file_put_contents($this->checkstyleReportPath, $output);
             $this->log('');
             $this->log('Checkstyle report saved to ' . $this->checkstyleReportPath);
         }
     }
-
+    
     /**
      * @return Path to the project basedir
      */
-    private function _getProjectBasedir()
-    {
+    private function _getProjectBasedir() {
         return $this->getProject()->getBaseDir()->getAbsolutePath() . DIRECTORY_SEPARATOR;
     }
 
     /**
      * Checks, wheter the JSHint can be executed
      */
-    private function _checkJsHintIsInstalled()
-    {
+    private function _checkJsHintIsInstalled() {
         exec('jshint -v', $output, $return);
         if ($return !== 0) {
             throw new BuildException('JSHint is not installed!');
