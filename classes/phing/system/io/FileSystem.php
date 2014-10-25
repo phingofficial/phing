@@ -632,7 +632,7 @@ abstract class FileSystem
      *
      * @param  PhingFile $f
      * @return void
-     * @throws Exception
+     * @throws IOException
      */
     public function lock(PhingFile $f)
     {
@@ -649,7 +649,7 @@ abstract class FileSystem
      * Unlocks a file and throws an IO Error if this is not possible.
      *
      * @param  PhingFile $f
-     * @throws Exception
+     * @throws IOException
      * @return void
      */
     public function unlock(PhingFile $f)
@@ -659,7 +659,7 @@ abstract class FileSystem
         $result = @flock($fp, LOCK_UN);
         fclose($fp);
         if (!$result) {
-            throw new Exception("Could not unlock file '$filename'");
+            throw new IOException("Could not unlock file '$filename'");
         }
     }
 
