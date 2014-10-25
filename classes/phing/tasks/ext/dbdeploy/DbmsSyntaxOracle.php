@@ -28,11 +28,17 @@
  */
 class DbmsSyntaxOracle extends DbmsSyntax
 {
+    /**
+     * @param $db
+     */
     public function applyAttributes($db)
     {
         $db->setAttribute(PDO::ATTR_CASE, PDO::CASE_LOWER);
     }
 
+    /**
+     * @return string
+     */
     public function generateTimestamp()
     {
         return "(sysdate - to_date('01-JAN-1970','DD-MON-YYYY')) * (86400)";

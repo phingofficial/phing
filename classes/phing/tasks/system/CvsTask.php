@@ -247,8 +247,8 @@ class CvsTask extends Task
 
     /**
      *
+     * @throws Exception
      * @return void
-     * @throws BuildException
      */
     public function main()
     {
@@ -355,7 +355,8 @@ class CvsTask extends Task
     /**
      * Password file to read passwords from.
      *
-     * @param passFile
+     * @param PhingFile $passFile
+     * @internal param $passFile
      */
     public function setPassfile(PhingFile $passFile)
     {
@@ -380,6 +381,9 @@ class CvsTask extends Task
         $this->dest = $dest;
     }
 
+    /**
+     * @return File
+     */
     public function getDest()
     {
         return $this->dest;
@@ -388,7 +392,8 @@ class CvsTask extends Task
     /**
      * The package/module to operate upon.
      *
-     * @param string $p
+     * @param $m
+     * @internal param string $p
      */
     public function setModule($m)
     {
@@ -416,6 +421,7 @@ class CvsTask extends Task
     /**
      * This needs to be public to allow configuration
      *      of commands externally.
+     * @param $arg
      */
     public function appendCommandArgument($arg)
     {
@@ -443,6 +449,9 @@ class CvsTask extends Task
         $this->command = $c;
     }
 
+    /**
+     * @return null
+     */
     public function getCommand()
     {
         return $this->command;
@@ -480,6 +489,7 @@ class CvsTask extends Task
 
     /**
      * Configure a commandline element for things like cvsRoot, quiet, etc.
+     * @param $c
      * @return string
      */
     protected function configureCommandline($c)
@@ -506,6 +516,10 @@ class CvsTask extends Task
         }
     }
 
+    /**
+     * @param Commandline $c
+     * @return bool
+     */
     protected function removeCommandline(Commandline $c)
     {
         $idx = array_search($c, $this->commandlines, true);
@@ -519,7 +533,9 @@ class CvsTask extends Task
 
     /**
      * Configures and adds the given Commandline.
-     * @param insertAtStart If true, c is
+     * @param Commandline $c
+     * @param bool|If $insertAtStart
+     * @internal param If $insertAtStart true, c is
      */
     public function addConfiguredCommandline(Commandline $c, $insertAtStart = false)
     {
@@ -560,7 +576,8 @@ class CvsTask extends Task
 
     /**
      * File to which output should be written.
-     * @param PhingFile $output
+     * @param PhingFile $f
+     * @internal param PhingFile $output
      */
     public function setOutput(PhingFile $f)
     {
@@ -569,7 +586,8 @@ class CvsTask extends Task
 
     /**
      * File to which error output should be written.
-     * @param PhingFile $output
+     * @param PhingFile $f
+     * @internal param PhingFile $output
      */
     public function setError(PhingFile $f)
     {

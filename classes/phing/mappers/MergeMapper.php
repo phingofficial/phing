@@ -38,7 +38,8 @@ class MergeMapper implements FileNameMapper
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param   mixed     The data the mapper works on
+     * @param mixed $sourceFileName The data the mapper works on
+     * @throws BuildException
      * @return mixed The data after the mapper has been applied
      * @access  public
      * @author  Andreas Aderhold, andi@binarycloud.com
@@ -67,6 +68,7 @@ class MergeMapper implements FileNameMapper
 
     /**
      * Ignored.
+     * @param string $from
      */
     public function setFrom($from)
     {

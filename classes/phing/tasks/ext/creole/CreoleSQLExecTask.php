@@ -140,6 +140,7 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
+     * @param PhingFile $srcFile
      */
     public function setSrc(PhingFile $srcFile)
     {
@@ -149,6 +150,7 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set an inline SQL command to execute.
      * NB: Properties are not expanded in this text.
+     * @param $sql
      */
     public function addText($sql)
     {
@@ -157,6 +159,7 @@ class CreoleSQLExecTask extends CreoleTask
 
     /**
      * Adds a set of files (nested fileset attribute).
+     * @param FileSet $set
      */
     public function addFileset(FileSet $set)
     {
@@ -190,7 +193,8 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set the file encoding to use on the SQL files read in
      *
-     * @param encoding the encoding to use on the files
+     * @param the $encoding
+     * @internal param the $encoding encoding to use on the files
      */
     public function setEncoding($encoding)
     {
@@ -267,6 +271,7 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Action to perform when statement fails: continue, stop, or abort
      * optional; default &quot;abort&quot;
+     * @param $action
      */
     public function setOnerror($action)
     {
@@ -393,7 +398,9 @@ class CreoleSQLExecTask extends CreoleTask
 
     /**
      * read in lines and execute them
-     * @throws SQLException, IOException
+     * @param Reader $reader
+     * @param null $out
+     * @throws BuildException
      */
     public function runStatements(Reader $reader, $out = null)
     {
@@ -470,7 +477,9 @@ class CreoleSQLExecTask extends CreoleTask
 
     /**
      * Exec the sql statement.
-     * @throws SQLException
+     * @param $sql
+     * @param null $out
+     * @throws BuildException
      */
     protected function execSQL($sql, $out = null)
     {
@@ -502,7 +511,7 @@ class CreoleSQLExecTask extends CreoleTask
 
     /**
      * print any results in the statement.
-     * @throws SQLException
+     * @param null $out
      */
     protected function printResults($out = null)
     {
@@ -590,24 +599,33 @@ class SQLExecTransaction
     private $tSqlCommand = "";
     private $parent;
 
+    /**
+     * @param $parent
+     */
     public function __construct($parent)
     {
         // Parent is required so that we can log things ...
         $this->parent = $parent;
     }
 
+    /**
+     * @param PhingFile $src
+     */
     public function setSrc(PhingFile $src)
     {
         $this->tSrcFile = $src;
     }
 
+    /**
+     * @param $sql
+     */
     public function addText($sql)
     {
         $this->tSqlCommand .= $sql;
     }
 
     /**
-     * @throws IOException, SQLException
+     * @param null $out
      */
     public function runTransaction($out = null)
     {

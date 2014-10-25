@@ -28,7 +28,10 @@ class EventObject
     /** The object on which the Event initially occurred. */
     protected $source;
 
-    /** Constructs a prototypical Event. */
+    /** Constructs a prototypical Event.
+     * @param $source
+     * @throws Exception
+     */
     public function __construct($source)
     {
         if ($source === null) {

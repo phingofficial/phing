@@ -36,6 +36,9 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
 class OrCondition extends ConditionBase implements Condition
 {
 
+    /**
+     * @return bool
+     */
     public function evaluate()
     {
         foreach ($this as $c) { // ConditionBase implements IteratorAggregator

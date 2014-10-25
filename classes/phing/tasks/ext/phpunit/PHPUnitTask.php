@@ -127,81 +127,129 @@ class PHPUnitTask extends Task
         $this->bootstrap = $bootstrap;
     }
 
+    /**
+     * @param $value
+     */
     public function setErrorproperty($value)
     {
         $this->errorproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setFailureproperty($value)
     {
         $this->failureproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setIncompleteproperty($value)
     {
         $this->incompleteproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonerror($value)
     {
         $this->haltonerror = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonfailure($value)
     {
         $this->haltonfailure = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function getHaltonfailure()
     {
         return $this->haltonfailure;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonincomplete($value)
     {
         $this->haltonincomplete = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function getHaltonincomplete()
     {
         return $this->haltonincomplete;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonskipped($value)
     {
         $this->haltonskipped = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function getHaltonskipped()
     {
         return $this->haltonskipped;
     }
 
+    /**
+     * @param $printsummary
+     */
     public function setPrintsummary($printsummary)
     {
         $this->printsummary = $printsummary;
     }
 
+    /**
+     * @param $codecoverage
+     */
     public function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
     }
 
+    /**
+     * @param $processIsolation
+     */
     public function setProcessIsolation($processIsolation)
     {
         $this->processIsolation = $processIsolation;
     }
 
+    /**
+     * @param $usecustomerrorhandler
+     */
     public function setUseCustomErrorHandler($usecustomerrorhandler)
     {
         $this->usecustomerrorhandler = $usecustomerrorhandler;
     }
 
+    /**
+     * @param $groups
+     */
     public function setGroups($groups)
     {
         $token = ' ,;';
@@ -213,6 +261,9 @@ class PHPUnitTask extends Task
         }
     }
 
+    /**
+     * @param $excludeGroups
+     */
     public function setExcludeGroups($excludeGroups)
     {
         $token = ' ,;';
@@ -253,6 +304,9 @@ class PHPUnitTask extends Task
 
     /**
      * Load and processes the PHPUnit configuration
+     * @param $configuration
+     * @throws BuildException
+     * @return array
      */
     protected function handlePHPUnitConfiguration($configuration)
     {
@@ -371,7 +425,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @throws BuildException
+     * @param $suite
      */
     protected function execute($suite)
     {
@@ -477,6 +531,9 @@ class PHPUnitTask extends Task
         }
     }
 
+    /**
+     * @return LogWriter
+     */
     protected function getDefaultOutput()
     {
         return new LogWriter($this);

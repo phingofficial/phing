@@ -299,11 +299,17 @@ class Target implements TaskContainer
         return $this->description;
     }
 
+    /**
+     * @param $log
+     */
     public function setLogSkipped($log)
     {
         $this->logSkipped = (bool) $log;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getLogSkipped()
     {
         if ($this->logSkipped === null) {

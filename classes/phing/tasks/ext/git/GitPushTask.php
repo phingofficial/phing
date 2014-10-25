@@ -143,111 +143,177 @@ class GitPushTask extends GitBaseTask
         $this->log('git-push output: ' . trim($output), Project::MSG_INFO);
     }
 
+    /**
+     * @param $flag
+     */
     public function setAll($flag)
     {
         $this->allRemotes = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getAll()
     {
         return $this->allRemotes;
     }
 
+    /**
+     * @return bool
+     */
     public function isAllRemotes()
     {
         return $this->getAll();
     }
 
+    /**
+     * @param $flag
+     */
     public function setMirror($flag)
     {
         $this->mirror = (boolean) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getMirror()
     {
         return $this->mirror;
     }
 
+    /**
+     * @return bool
+     */
     public function isMirror()
     {
         return $this->getMirror();
     }
 
+    /**
+     * @param $flag
+     */
     public function setDelete($flag)
     {
         $this->delete = (boolean) $flag;
     }
 
+    /**
+     * @return string
+     */
     public function getDelete()
     {
         return $this->delete;
     }
 
+    /**
+     * @return string
+     */
     public function isDelete()
     {
         return $this->getDelete();
     }
 
+    /**
+     * @param $flag
+     */
     public function setTags($flag)
     {
         $this->tags = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getTags()
     {
         return $this->tags;
     }
 
+    /**
+     * @return bool
+     */
     public function isTags()
     {
         return $this->getTags();
     }
 
+    /**
+     * @param $destination
+     */
     public function setDestination($destination)
     {
         $this->destination = $destination;
     }
 
+    /**
+     * @return string
+     */
     public function getDestination()
     {
         return $this->destination;
     }
 
+    /**
+     * @param $spec
+     */
     public function setRefspec($spec)
     {
         $this->refspec = $spec;
     }
 
+    /**
+     * @return string
+     */
     public function getRefspec()
     {
         return $this->refspec;
     }
 
+    /**
+     * @param $flag
+     */
     public function setForce($flag)
     {
         $this->force = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getForce()
     {
         return $this->force;
     }
 
+    /**
+     * @return bool
+     */
     public function isForce()
     {
         return $this->getForce();
     }
 
+    /**
+     * @param $flag
+     */
     public function setQuiet($flag)
     {
         $this->quiet = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getQuiet()
     {
         return $this->quiet;
     }
 
+    /**
+     * @return bool
+     */
     public function isQuiet()
     {
         return $this->getQuiet();

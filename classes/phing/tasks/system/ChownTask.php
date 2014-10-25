@@ -48,6 +48,7 @@ class ChownTask extends Task
     /**
      * This flag means 'note errors to the output, but keep going'
      * @see setQuiet()
+     * @param $bool
      */
     public function setFailonerror($bool)
     {
@@ -57,6 +58,7 @@ class ChownTask extends Task
     /**
      * Set quiet mode, which suppresses warnings if chown() fails.
      * @see setFailonerror()
+     * @param $bool
      */
     public function setQuiet($bool)
     {
@@ -69,6 +71,7 @@ class ChownTask extends Task
     /**
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
+     * @param $bool
      */
     public function setVerbose($bool)
     {
@@ -78,6 +81,7 @@ class ChownTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
     {
@@ -86,6 +90,7 @@ class ChownTask extends Task
 
     /**
      * Sets the user
+     * @param $user
      */
     public function setUser($user)
     {
@@ -94,6 +99,7 @@ class ChownTask extends Task
 
     /**
      * Sets the group
+     * @param $group
      */
     public function setGroup($group)
     {
@@ -102,6 +108,7 @@ class ChownTask extends Task
 
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
+     * @param FileSet $fs
      */
     public function addFileSet(FileSet $fs)
     {
@@ -121,6 +128,7 @@ class ChownTask extends Task
 
     /**
      * Ensure that correct parameters were passed in.
+     * @throws BuildException
      * @return void
      */
     private function checkParams()
@@ -193,8 +201,10 @@ class ChownTask extends Task
     /**
      * Actually change the mode for the file.
      * @param PhingFile $file
-     * @param string    $user
-     * @param string    $group
+     * @param string $user
+     * @param string $group
+     * @throws BuildException
+     * @throws Exception
      */
     private function chownFile(PhingFile $file, $user, $group = "")
     {

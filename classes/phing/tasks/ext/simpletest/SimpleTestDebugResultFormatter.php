@@ -42,6 +42,9 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         }
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseStart($test_name)
     {
         parent::paintCaseStart($test_name);
@@ -49,6 +52,9 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         $this->current_case = $test_name;
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintMethodStart($test_name)
     {
         parent::paintMethodStart($test_name);
@@ -58,6 +64,9 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         $this->paint($msg);
     }
 
+    /**
+     * @param $msg
+     */
     public function paint($msg)
     {
         if ($this->out == null) {
@@ -67,12 +76,18 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         }
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintMethodEnd($test_name)
     {
         parent::paintMethodEnd($test_name);
         $this->paint("\n");
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseEnd($test_name)
     {
         parent::paintCaseEnd($test_name);
@@ -91,6 +106,9 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
 
     }
 
+    /**
+     * @param string $message
+     */
     public function paintError($message)
     {
         parent::paintError($message);
@@ -98,6 +116,9 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         $this->failingTests[] = $this->current_case . "->" . $this->current_test;
     }
 
+    /**
+     * @param string $message
+     */
     public function paintFail($message)
     {
         parent::paintFail($message);
@@ -105,6 +126,9 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         $this->failingTests[] = $this->current_case . "->" . $this->current_test;
     }
 
+    /**
+     * @param Exception $message
+     */
     public function paintException($message)
     {
         parent::paintException($message);
@@ -112,6 +136,10 @@ class SimpleTestDebugResultFormatter extends SimpleTestResultFormatter
         $this->formatError("Exception", $message);
     }
 
+    /**
+     * @param $type
+     * @param $message
+     */
     private function formatError($type, $message)
     {
         $this->paint("ERROR: $type: $message");

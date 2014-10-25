@@ -50,6 +50,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @param string $descfile Name of package xml file
      *
+     * @throws BuildException
      * @return void
      */
     public function setDescFile($descfile)
@@ -92,6 +93,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @param string $config Configuration file
      *
+     * @throws BuildException
      * @return void
      */
     public function setConfig($config)
@@ -125,6 +127,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @param string $role PEAR file role
      *
+     * @throws BuildException
      * @return void
      *
      * @internal

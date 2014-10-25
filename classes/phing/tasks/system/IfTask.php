@@ -116,6 +116,7 @@ class IfTask extends ConditionBase
 
     /***
      * A nested Else if task
+     * @param ElseIfTask $ei
      */
     public function addElseIf(ElseIfTask $ei)
     {
@@ -127,6 +128,8 @@ class IfTask extends ConditionBase
      * be run if the condition holds true.
      *
      * <p>Not required.</p>
+     * @param SequentialTask $t
+     * @throws BuildException
      */
     public function addThen(SequentialTask $t)
     {
@@ -141,6 +144,8 @@ class IfTask extends ConditionBase
      * be run if the condition doesn't hold true.
      *
      * <p>Not required.</p>
+     * @param SequentialTask $e
+     * @throws BuildException
      */
     public function addElse(SequentialTask $e)
     {
@@ -195,6 +200,10 @@ class ElseIfTask extends ConditionBase
 
     private $thenTasks = null;
 
+    /**
+     * @param SequentialTask $t
+     * @throws BuildException
+     */
     public function addThen(SequentialTask $t)
     {
         if ($this->thenTasks != null) {
@@ -204,6 +213,7 @@ class ElseIfTask extends ConditionBase
     }
 
     /**
+     * @throws BuildException
      * @return boolean
      */
     public function evaluate()

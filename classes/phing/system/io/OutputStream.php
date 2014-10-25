@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,6 @@
  */
 class OutputStream
 {
-
     /**
      * @var resource The configured PHP stream.
      */
@@ -35,6 +32,7 @@ class OutputStream
     /**
      * Construct a new OutputStream.
      * @param resource $stream Configured PHP stream for writing.
+     * @throws IOException
      */
     public function __construct($stream)
     {

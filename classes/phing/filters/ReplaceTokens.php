@@ -155,6 +155,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
+     * @param null $len
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)
@@ -250,7 +251,9 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Sets the map of tokens to replace.
      * ; used by ReplaceTokens::chain()
      *
-     * @param array A map (String->String) of token keys to replacement
+     * @param $tokens
+     * @throws Exception
+     * @internal param A $array map (String->String) of token keys to replacement
      *              values. Must not be <code>null</code>.
      */
     public function setTokens($tokens)
@@ -277,7 +280,9 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
     /**
      * Sets the tokensources to use; used by ReplaceTokens::chain()
      *
-     * @param   array   An array of token sources.
+     * @param $sources
+     * @throws Exception
+     * @internal param An $array array of token sources.
      */
     public function setTokensources($sources)
     {
@@ -302,7 +307,9 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
      * Creates a new ReplaceTokens using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
+     * @param Reader $reader
+     * @throws Exception
+     * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return object A new filter based on this configuration, but filtering

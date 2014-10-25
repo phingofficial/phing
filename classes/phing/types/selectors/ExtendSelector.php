@@ -42,7 +42,7 @@ class ExtendSelector extends BaseSelector
     /**
      * Sets the classname of the custom selector.
      *
-     * @param classname is the class which implements this selector
+     * @param string $classname is the class which implements this selector
      */
     public function setClassname($classname)
     {
@@ -78,7 +78,8 @@ class ExtendSelector extends BaseSelector
     /**
      * Create new parameters to pass to custom selector.
      *
-     * @param p The new Parameter object
+     * @param Parameter $p The new Parameter object
+     * @return void
      */
     public function addParam(Parameter $p)
     {
@@ -115,6 +116,10 @@ class ExtendSelector extends BaseSelector
      * Allows the custom selector to choose whether to select a file. This
      * is also where the Parameters are passed to the custom selector.
      *
+     * @param PhingFile $basedir
+     * @param string $filename The filename
+     * @param PhingFile $file
+     * @return \whether
      * @throws BuildException
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)

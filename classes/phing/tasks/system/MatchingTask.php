@@ -60,6 +60,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * @see ProjectComponent::setProject()
+     * @param Project $project
      */
     public function setProject($project)
     {
@@ -149,6 +150,8 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * Returns the directory scanner needed to access the files to process.
+     * @param PhingFile $baseDir
+     * @throws BuildException
      * @return DirectoryScanner
      */
     protected function getDirectoryScanner(PhingFile $baseDir)
@@ -168,7 +171,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
      */
     public function setIncludesfile(PhingFile $includesfile)
     {
-        $this->fileset->setIncludesfile(includesfile);
+        $this->fileset->setIncludesfile($includesfile);
     }
 
     /**
@@ -229,6 +232,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns the set of selectors as an array.
      *
+     * @param Project $p
      * @return array FileSelector[] An array of selectors in this container
      */
     public function getSelectors(Project $p)
@@ -279,7 +283,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add an "Or" selector entry on the selector list
-     * @return void
+     * @return OrSelector
      */
     public function createOr()
     {

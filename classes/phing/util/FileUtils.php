@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -33,18 +31,17 @@ include_once 'phing/system/io/PhingFile.php';
  * - filter stuff
  *
  * @package  phing.util
- * @version  $Id$
  */
 class FileUtils
 {
-
     /**
      * Returns the default file/dir creation mask value
      * (The mask value is prepared w.r.t the current user's file-creation mask value)
      *
      * @param  boolean $dirmode     Directory creation mask to select
      * @param  boolean $returnoctal Whether the return value is in octal representation
-     * @return String  Creation Mask
+     *
+     * @return string  Creation Mask
      */
     public static function getDefaultFileCreationMask($dirmode = false, $returnoctal = false)
     {
@@ -88,11 +85,14 @@ class FileUtils
      *
      * @param  PhingFile $sourceFile
      * @param  PhingFile $destFile
-     * @param  boolean   $overwrite
-     * @param  boolean   $preserveLastModified
-     * @param  array     $filterChains
-     * @param  Project   $project
-     * @param  integer   $mode
+     * @param  boolean $overwrite
+     * @param  boolean $preserveLastModified
+     * @param  array $filterChains
+     * @param  Project $project
+     * @param  integer $mode
+     * @param bool $preservePermissions
+     * @throws Exception
+     * @throws IOException
      * @return void
      */
     public function copyFile(
@@ -168,10 +168,12 @@ class FileUtils
      * Interpret the filename as a file relative to the given file -
      * unless the filename already represents an absolute filename.
      *
-     * @param  $file the "reference" file for relative paths. This
+     * @param  PhingFile $file the "reference" file for relative paths. This
      *         instance must be an absolute file and must not contain
      *         ./ or ../ sequences (same for \ instead of /).
-     * @param  $filename a file name
+     * @param  string $filename a file name
+     *
+     * @throws IOException
      *
      * @return PhingFile A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
      *                   and uses the correct separator for the current platform.
@@ -229,7 +231,11 @@ class FileUtils
      *   - resolve all ./, .\, ../ and ..\ sequences.
      *   - DOS style paths that start with a drive letter will have
      *     \ as the separator.
+     *
      * @param  string $path Path to normalize.
+     *
+     * @throws IOException
+     *
      * @return string
      */
     public function normalize($path)
@@ -256,15 +262,14 @@ class FileUtils
             $dosWithDrive = true;
 
             $ca = str_replace('/', '\\', $path);
-            $ca = StringHelper::toCharArray($ca);
 
-            $path = strtoupper($ca[0]) . ':';
+            $path = strtoupper($ca{0}) . ':';
 
             for ($i = 2, $_i = count($ca); $i < $_i; $i++) {
-                if (($ca[$i] !== '\\') ||
-                    ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
+                if (($ca{$i} !== '\\') ||
+                    ($ca{$i} === '\\' && $ca{$i - 1} !== '\\')
                 ) {
-                    $path .= $ca[$i];
+                    $path .= $ca{$i};
                 }
             }
 
@@ -335,6 +340,9 @@ class FileUtils
     }
 
     /**
+     * @param PhingFile $file1
+     * @param PhingFile $file2
+     *
      * @return boolean Whether contents of two files is the same.
      */
     public function contentEquals(PhingFile $file1, PhingFile $file2)
@@ -353,5 +361,4 @@ class FileUtils
 
         return trim($c1) == trim($c2);
     }
-
 }

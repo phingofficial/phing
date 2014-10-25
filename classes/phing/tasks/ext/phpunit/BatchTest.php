@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,13 +24,18 @@ require_once 'phing/types/FileSet.php';
  * Scans a list of files given by the fileset attribute, extracts valid test cases
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
+ *
  * @package phing.tasks.ext.phpunit
+ *
  * @since 2.1.0
  */
 class BatchTest
 {
-    /** the list of filesets containing the testcase filename rules */
+    /**
+     * The list of filesets containing the testcase filename rules.
+     *
+     * @var array $filesets
+     */
     private $filesets = array();
 
     /** the reference to the project */
@@ -59,6 +62,7 @@ class BatchTest
 
     /**
      * Sets the name of the batchtest/suite
+     * @param $name
      */
     public function setName($name)
     {
@@ -66,7 +70,11 @@ class BatchTest
     }
 
     /**
-     * Sets the classes to exclude
+     * Sets the classes to exclude.
+     *
+     * @param string $exclude
+     *
+     * @return void
      */
     public function setExclude($exclude)
     {
@@ -74,7 +82,11 @@ class BatchTest
     }
 
     /**
-     * Sets the classpath
+     * Sets the classpath.
+     *
+     * @param Path $classpath
+     *
+     * @return void
      */
     public function setClasspath(Path $classpath)
     {
@@ -86,7 +98,9 @@ class BatchTest
     }
 
     /**
-     * Creates a new Path object
+     * Creates a new Path object.
+     *
+     * @return Path
      */
     public function createClasspath()
     {
@@ -96,7 +110,9 @@ class BatchTest
     }
 
     /**
-     * Returns the classpath
+     * Returns the classpath.
+     *
+     * @return Path
      */
     public function getClasspath()
     {
@@ -104,9 +120,11 @@ class BatchTest
     }
 
     /**
-     * Add a new fileset containing the XML results to aggregate
+     * Add a new fileset containing the XML results to aggregate.
      *
-     * @param FileSet the new fileset containing XML results.
+     * @param FileSet $fileset the new fileset containing XML results.
+     *
+     * @return void
      */
     public function addFileSet(FileSet $fileset)
     {
@@ -137,7 +155,11 @@ class BatchTest
     }
 
     /**
-     * Checks wheter $input is a PHPUnit Test
+     * Checks wheter $input is a PHPUnit Test.
+     *
+     * @param $input
+     *
+     * @return bool
      */
     private function isTestCase($input)
     {
@@ -149,7 +171,11 @@ class BatchTest
 
     /**
      * Filters an array of classes, removes all classes that are not test cases or test suites,
-     * or classes that are declared abstract
+     * or classes that are declared abstract.
+     *
+     * @param object $input
+     *
+     * @return bool
      */
     private function filterTests($input)
     {
@@ -184,5 +210,4 @@ class BatchTest
 
         return $elements;
     }
-
 }

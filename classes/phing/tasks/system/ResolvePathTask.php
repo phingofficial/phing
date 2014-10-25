@@ -104,6 +104,7 @@ class ResolvePathTask extends Task
      *
      * @param string $level Log level
      *
+     * @throws BuildException
      * @return void
      */
     public function setLevel($level)

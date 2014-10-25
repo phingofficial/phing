@@ -90,8 +90,9 @@ class ExpatParser extends AbstractSAXParser
     /**
      * Override PHP's parser default settings, created in the constructor.
      *
-     * @param  string  the option to set
-     * @throws mixed   the value to set
+     * @param $opt
+     * @param $val
+     * @internal param the $string option to set
      * @return boolean true if the option could be set, otherwise false
      * @access public
      */

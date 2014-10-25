@@ -71,7 +71,9 @@ class AppendTask extends Task
     /** Text to append. (cannot be used in conjunction w/ files or filesets) */
     private $text;
 
-    /** Sets specific file to append. */
+    /** Sets specific file to append.
+     * @param PhingFile $f
+     */
     public function setFile(PhingFile $f)
     {
         $this->file = $f;
@@ -79,7 +81,12 @@ class AppendTask extends Task
 
     /**
      * Set target file to append to.
+     *
      * @deprecated Will be removed with final release.
+     *
+     * @param PhingFile $f
+     *
+     * @return void
      */
     public function setTo(PhingFile $f)
     {
@@ -92,7 +99,10 @@ class AppendTask extends Task
 
     /**
      * The more conventional naming for method to set destination file.
+     *
      * @param PhingFile $f
+     *
+     * @return void
      */
     public function setDestFile(PhingFile $f)
     {
@@ -101,6 +111,7 @@ class AppendTask extends Task
 
     /**
      * Supports embedded <filelist> element.
+     *
      * @return FileList
      */
     public function createFileList()
@@ -112,6 +123,8 @@ class AppendTask extends Task
 
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
+     *
+     * @param FileSet $fs
      *
      * @return void
      */
@@ -134,7 +147,10 @@ class AppendTask extends Task
 
     /**
      * Sets text to append.  (cannot be used in conjunction w/ files or filesets).
+     *
      * @param string $txt
+     *
+     * @return void
      */
     public function setText($txt)
     {
@@ -143,17 +159,23 @@ class AppendTask extends Task
 
     /**
      * Sets text to append. Supports CDATA.
+     *
      * @param string $txt
+     *
+     * @return void
      */
     public function addText($txt)
     {
         $this->text = (string) $txt;
     }
 
-    /** Append the file(s). */
+    /**
+     * Append the file(s).
+     *
+     * {@inheritdoc}
+     */
     public function main()
     {
-
         if ($this->to === null) {
             throw new BuildException("You must specify the 'destFile' attribute");
         }
@@ -225,9 +247,12 @@ class AppendTask extends Task
 
     /**
      * Append an array of files in a directory.
+     *
      * @param FileWriter $writer The FileWriter that is appending to target file.
      * @param array      $files  array of files to delete; can be of zero length
      * @param PhingFile  $dir    directory to work from
+     *
+     * @return void
      */
     private function appendFiles(FileWriter $writer, $files, PhingFile $dir)
     {
@@ -255,6 +280,12 @@ class AppendTask extends Task
         } // if !empty
     }
 
+    /**
+     * @param FileWriter $writer
+     * @param PhingFile $f
+     *
+     * @return void
+     */
     private function appendFile(FileWriter $writer, PhingFile $f)
     {
         $in = FileUtils::getChainedReader(new FileReader($f), $this->filterChains, $this->project);

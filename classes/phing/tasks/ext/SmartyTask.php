@@ -199,8 +199,8 @@ class SmartyTask extends Task
      * [REQUIRED] Set the path where Velocity will look
      * for templates using the file template
      * loader.
+     * @param $templatePath
      * @return void
-     * @throws Exception
      */
     public function setTemplatePath($templatePath)
     {
@@ -272,6 +272,7 @@ class SmartyTask extends Task
     /**
      * [REQUIRED] Set the output file for the
      * generation process.
+     * @param $outputFile
      * @return void
      */
     public function setOutputFile($outputFile)
@@ -388,6 +389,7 @@ class SmartyTask extends Task
      * fed into the initial context be the
      * generating process starts.
      * @param  string $file
+     * @throws BuildException
      * @return void
      */
     public function setContextProperties($file)
@@ -628,12 +630,10 @@ class SmartyTask extends Task
      * <p><code>$generator</code> is not put into the context in this
      * method.</p>
      *
-     * @param context The context to populate, as retrieved from
+     * @param Smarty|The $context
+     * @internal param The $context context to populate, as retrieved from
      * {@link #initControlContext()}.
      * @return void
-     * @throws Exception Error while populating context.  The {@link
-     *                   #execute()} method will catch and rethrow as a
-     *                   <code>BuildException</code>.
      */
     protected function populateInitialContext(Smarty $context)
     {

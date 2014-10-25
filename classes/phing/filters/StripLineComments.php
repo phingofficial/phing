@@ -67,11 +67,10 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * lines from the original stream which don't start with any of the
      * specified comment prefixes.
      *
+     * @param null $len
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      *
-     * @throws IOException if the underlying stream throws an IOException
-     *                     during reading
      */
     public function read($len = null)
     {
@@ -129,6 +128,10 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      * @param comments A list of strings, each of which is a prefix
      *                 for a comment line. Must not be <code>null</code>.
     */
+    /**
+     * @param $lineBreaks
+     * @throws Exception
+     */
     public function setComments($lineBreaks)
     {
         if (!is_array($lineBreaks)) {
@@ -142,6 +145,9 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      *
      * @return array The list of comment prefixes to strip.
     */
+    /**
+     * @return array
+     */
     public function getComments()
     {
         return $this->_comments;
@@ -156,6 +162,11 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      *
      * @return a new filter based on this configuration, but filtering
      *           the specified reader
+     */
+    /**
+     * @param Reader $reader
+     * @return StripLineComments
+     * @throws Exception
      */
     public function chain(Reader $reader)
     {
@@ -201,6 +212,9 @@ class Comment
      *
      * @param string $value The prefix for a line comment of this type.
      *                      Must not be <code>null</code>.
+     */
+    /**
+     * @param $value
      */
     public function setValue($value)
     {

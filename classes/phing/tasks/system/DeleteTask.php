@@ -80,6 +80,8 @@ class DeleteTask extends Task
      * then no error is reported. This setting emulates the
      * -f option to the Unix rm command. Default is false
      * meaning things are verbose
+     * @param bool $bool
+     * @return void
      */
     public function setQuiet($bool)
     {
@@ -89,25 +91,39 @@ class DeleteTask extends Task
         }
     }
 
-    /** this flag means 'note errors to the output, but keep going' */
+    /** this flag means 'note errors to the output, but keep going'
+     * @param bool $bool
+     * @retujrn void
+     */
     public function setFailOnError($bool)
     {
         $this->failonerror = $bool;
     }
 
-    /** Used to delete empty directories.*/
+    /**
+     * Used to delete empty directories.
+     * @param bool $includeEmpty
+     * @return void
+     */
     public function setIncludeEmptyDirs($includeEmpty)
     {
         $this->includeEmpty = (boolean) $includeEmpty;
     }
 
-    /** Nested creator, adds a set of files (nested fileset attribute). */
+    /**
+     * Nested creator, adds a set of files (nested fileset attribute).
+     * @param FileSet $fs
+     * @return void
+     */
     public function addFileSet(FileSet $fs)
     {
         $this->filesets[] = $fs;
     }
 
-    /** Nested creator, adds a set of files (nested fileset attribute). */
+    /**
+     * Nested creator, adds a set of files (nested fileset attribute).
+     * @return FileList
+     */
     public function createFileList()
     {
         $num = array_push($this->filelists, new FileList());
@@ -115,7 +131,10 @@ class DeleteTask extends Task
         return $this->filelists[$num - 1];
     }
 
-    /** Delete the file(s). */
+    /**
+     * Delete the file(s).
+     * @throws BuildException
+     */
     public function main()
     {
         if ($this->file === null && $this->dir === null && count($this->filesets) === 0 && count(
@@ -215,6 +234,7 @@ class DeleteTask extends Task
     /**
      * Recursively removes a directory.
      * @param PhingFile $d The directory to remove.
+     * @throws BuildException
      */
     private function removeDir($d)
     {
@@ -257,9 +277,10 @@ class DeleteTask extends Task
     /**
      * remove an array of files in a directory, and a list of subdirectories
      * which will only be deleted if 'includeEmpty' is true
-     * @param PhingFile $d      directory to work from
-     * @param array     &$files array of files to delete; can be of zero length
-     * @param array     &$dirs  array of directories to delete; can of zero length
+     * @param PhingFile $d directory to work from
+     * @param array &$files array of files to delete; can be of zero length
+     * @param array &$dirs array of directories to delete; can of zero length
+     * @throws BuildException
      */
     private function removeFiles(PhingFile $d, &$files, &$dirs)
     {

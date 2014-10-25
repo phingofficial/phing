@@ -32,6 +32,9 @@ include_once 'phing/system/io/Reader.php';
 class ConsoleReader extends Reader
 {
 
+    /**
+     * @return string
+     */
     public function readLine()
     {
 

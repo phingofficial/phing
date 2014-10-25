@@ -138,6 +138,10 @@ class S3PutTask extends Service_Amazon_S3
      */
     protected $_fileNameOnly = false;
 
+    /**
+     * @param $source
+     * @throws BuildException
+     */
     public function setSource($source)
     {
         if (!is_readable($source)) {
@@ -147,6 +151,10 @@ class S3PutTask extends Service_Amazon_S3
         $this->_source = $source;
     }
 
+    /**
+     * @return string
+     * @throws BuildException
+     */
     public function getSource()
     {
         if ($this->_source === null) {
@@ -156,6 +164,10 @@ class S3PutTask extends Service_Amazon_S3
         return $this->_source;
     }
 
+    /**
+     * @param $content
+     * @throws BuildException
+     */
     public function setContent($content)
     {
         if (empty($content) || !is_string($content)) {
@@ -165,6 +177,10 @@ class S3PutTask extends Service_Amazon_S3
         $this->_content = $content;
     }
 
+    /**
+     * @return mixed
+     * @throws BuildException
+     */
     public function getContent()
     {
         if ($this->_content === null) {
@@ -174,6 +190,10 @@ class S3PutTask extends Service_Amazon_S3
         return $this->_content;
     }
 
+    /**
+     * @param $object
+     * @throws BuildException
+     */
     public function setObject($object)
     {
         if (empty($object) || !is_string($object)) {
@@ -192,6 +212,10 @@ class S3PutTask extends Service_Amazon_S3
         return $this->_object;
     }
 
+    /**
+     * @param $permission
+     * @throws BuildException
+     */
     public function setAcl($permission)
     {
         $valid_acl = array('private', 'public-read', 'public-read-write', 'authenticated-read');
@@ -201,16 +225,26 @@ class S3PutTask extends Service_Amazon_S3
         $this->_acl = $permission;
     }
 
+    /**
+     * @return string
+     */
     public function getAcl()
     {
         return $this->_acl;
     }
 
+    /**
+     * @param $contentType
+     */
     public function setContentType($contentType)
     {
         $this->_contentType = $contentType;
     }
 
+    /**
+     * @return string
+     * @throws BuildException
+     */
     public function getContentType()
     {
         if ($this->_contentType === 'auto') {
@@ -225,11 +259,17 @@ class S3PutTask extends Service_Amazon_S3
         }
     }
 
+    /**
+     * @param $createBuckets
+     */
     public function setCreateBuckets($createBuckets)
     {
         $this->_createBuckets = (bool) $createBuckets;
     }
 
+    /**
+     * @return bool
+     */
     public function getCreateBuckets()
     {
         return (bool) $this->_createBuckets;
@@ -296,6 +336,9 @@ class S3PutTask extends Service_Amazon_S3
         return $headers;
     }
 
+    /**
+     * @param $fileNameOnly
+     */
     public function setFileNameOnly($fileNameOnly)
     {
         $this->_fileNameOnly = (bool) $fileNameOnly;
@@ -332,6 +375,7 @@ class S3PutTask extends Service_Amazon_S3
      * otherwise, we read from _source
      *
      * @access public
+     * @throws BuildException
      * @return string
      */
     public function getObjectData()
@@ -355,6 +399,7 @@ class S3PutTask extends Service_Amazon_S3
      * Store the object on S3
      *
      * @access public
+     * @throws BuildException
      * @return void
      */
     public function execute()
@@ -405,6 +450,11 @@ class S3PutTask extends Service_Amazon_S3
         $this->saveObject($this->getObject(), $this->getObjectData());
     }
 
+    /**
+     * @param $object
+     * @param $data
+     * @throws BuildException
+     */
     protected function saveObject($object, $data)
     {
         $object = $this->getObjectInstance($object);

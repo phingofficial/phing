@@ -79,6 +79,7 @@ class ScpTask extends Task
 
     /**
      * Sets the remote host
+     * @param $h
      */
     public function setHost($h)
     {
@@ -95,6 +96,7 @@ class ScpTask extends Task
 
     /**
      * Sets the remote host port
+     * @param $p
      */
     public function setPort($p)
     {
@@ -111,6 +113,7 @@ class ScpTask extends Task
 
     /**
      * Sets the mode value
+     * @param $value
      */
     public function setMode($value)
     {
@@ -127,6 +130,7 @@ class ScpTask extends Task
 
     /**
      * Sets the username of the user to scp
+     * @param $username
      */
     public function setUsername($username)
     {
@@ -143,6 +147,7 @@ class ScpTask extends Task
 
     /**
      * Sets the password of the user to scp
+     * @param $password
      */
     public function setPassword($password)
     {
@@ -159,6 +164,7 @@ class ScpTask extends Task
 
     /**
      * Sets the public key file of the user to scp
+     * @param $pubkeyfile
      */
     public function setPubkeyfile($pubkeyfile)
     {
@@ -175,6 +181,7 @@ class ScpTask extends Task
 
     /**
      * Sets the private key file of the user to scp
+     * @param $privkeyfile
      */
     public function setPrivkeyfile($privkeyfile)
     {
@@ -191,6 +198,7 @@ class ScpTask extends Task
 
     /**
      * Sets the private key file passphrase of the user to scp
+     * @param $privkeyfilepassphrase
      */
     public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
     {
@@ -199,6 +207,8 @@ class ScpTask extends Task
 
     /**
      * Returns the private keyfile passphrase
+     * @param $privkeyfilepassphrase
+     * @return string
      */
     public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
     {
@@ -207,6 +217,7 @@ class ScpTask extends Task
 
     /**
      * Sets whether to autocreate remote directories
+     * @param $autocreate
      */
     public function setAutocreate($autocreate)
     {
@@ -223,6 +234,7 @@ class ScpTask extends Task
 
     /**
      * Set destination directory
+     * @param $todir
      */
     public function setTodir($todir)
     {
@@ -239,6 +251,7 @@ class ScpTask extends Task
 
     /**
      * Sets local filename
+     * @param $file
      */
     public function setFile($file)
     {
@@ -255,6 +268,7 @@ class ScpTask extends Task
 
     /**
      * Sets whether to send (default) or fetch files
+     * @param $fetch
      */
     public function setFetch($fetch)
     {
@@ -292,6 +306,7 @@ class ScpTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -410,6 +425,11 @@ class ScpTask extends Task
         @ssh2_exec($this->connection, 'exit');
     }
 
+    /**
+     * @param $local
+     * @param $remote
+     * @throws BuildException
+     */
     protected function copyFile($local, $remote)
     {
         $path = rtrim($this->todir, "/") . "/";

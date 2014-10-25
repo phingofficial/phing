@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -22,8 +20,9 @@
 require_once 'phing/Task.php';
 
 /**
- * ReplaceRegExp is a directory based task for replacing the occurrence of a given regular expression with a substitution
- * pattern in a selected file or set of files.
+ * ReplaceRegExp is a directory based task for replacing the occurrence of a
+ * given regular expression with a substitution pattern in a selected file or
+ * set of files.
  *
  * <code>
  * <replaceregexp file="${src}/build.properties"
@@ -33,17 +32,21 @@ require_once 'phing/Task.php';
  * </code>
  *
  * @author    Jonathan Bond-Caron <jbondc@openmv.com>
- * @version   $Id$
+ *
  * @package   phing.tasks.system
+ *
  * @link      http://ant.apache.org/manual/OptionalTasks/replaceregexp.html
  */
 class ReplaceRegexpTask extends Task
 {
-
     /** Single file to process. */
     private $file;
 
-    /** Any filesets that should be processed. */
+    /**
+     * Any filesets that should be processed.
+     *
+     * @var array $filesets
+     */
     private $filesets = array();
 
     /**
@@ -56,7 +59,9 @@ class ReplaceRegexpTask extends Task
     /**
      * File to apply regexp on
      *
-     * @param string $path
+     * @param PhingFile $path
+     *
+     * @return void
      */
     public function setFile(PhingFile $path)
     {
@@ -67,6 +72,8 @@ class ReplaceRegexpTask extends Task
      * Sets the regexp match pattern
      *
      * @param string $regexp
+     *
+     * @return void
      */
     public function setMatch($regexp)
     {
@@ -75,6 +82,10 @@ class ReplaceRegexpTask extends Task
 
     /**
      * @see setMatch()
+     *
+     * @param $regexp
+     *
+     * @return void
      */
     public function setPattern($regexp)
     {
@@ -85,6 +96,8 @@ class ReplaceRegexpTask extends Task
      * Sets the replacement string
      *
      * @param string $string
+     *
+     * @return void
      */
     public function setReplace($string)
     {
@@ -95,16 +108,21 @@ class ReplaceRegexpTask extends Task
      * Sets the regexp flags
      *
      * @param string $flags
+     *
+     * @return void
+     *
+     * todo ... `$this->_regexp->setFlags( $flags );`
      */
     public function setFlags($flags)
     {
-        // TODO... $this->_regexp->setFlags( $flags );
     }
 
     /**
      * Match only per line
      *
      * @param bool $yesNo
+     *
+     * @return void
      */
     public function setByline($yesNo)
     {
@@ -114,6 +132,8 @@ class ReplaceRegexpTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
+     *
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -121,11 +141,23 @@ class ReplaceRegexpTask extends Task
         $this->filesets[] = $fs;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return void
+     */
     public function init()
     {
         $this->_regexp = new RegularExpression();
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return void
+     *
+     * @throws BuildException
+     */
     public function main()
     {
         if ($this->file === null && empty($this->filesets)) {
@@ -208,5 +240,4 @@ class ReplaceRegexpTask extends Task
         }
 
     }
-
 }

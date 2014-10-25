@@ -118,6 +118,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets PEAR package.xml options, based on class properties.
+     * @throws BuildException
      * @return void
      */
     protected function setOptions()
@@ -165,6 +166,8 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Fixes the boolean in optional dependencies
+     * @param $deps
+     * @return
      */
     private function fixDeps($deps)
     {
@@ -219,6 +222,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Main entry point.
+     * @throws BuildException
      * @return void
      */
     public function main()
@@ -259,7 +263,8 @@ class PearPackageTask extends MatchingTask
     /**
      * Nested creator, creates a FileSet for this task
      *
-     * @param FileSet $fileset Set of files to add to the package
+     * @param FileSet $fs
+     * @internal param FileSet $fileset Set of files to add to the package
      *
      * @return void
      */
@@ -301,6 +306,7 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets the file to use for generated package.xml
+     * @param PhingFile $f
      */
     public function setDestFile(PhingFile $f)
     {
@@ -353,6 +359,9 @@ class PearPkgOption
     private $name;
     private $value;
 
+    /**
+     * @param $v
+     */
     public function setName($v)
     {
         $this->name = $v;
@@ -363,6 +372,9 @@ class PearPkgOption
         return $this->name;
     }
 
+    /**
+     * @param $v
+     */
     public function setValue($v)
     {
         $this->value = $v;
@@ -373,6 +385,9 @@ class PearPkgOption
         return $this->value;
     }
 
+    /**
+     * @param $txt
+     */
     public function addText($txt)
     {
         $this->value = trim($txt);
@@ -391,6 +406,9 @@ class PearPkgMapping
     private $name;
     private $elements = array();
 
+    /**
+     * @param $v
+     */
     public function setName($v)
     {
         $this->name = $v;
@@ -401,6 +419,9 @@ class PearPkgMapping
         return $this->name;
     }
 
+    /**
+     * @return PearPkgMappingElement
+     */
     public function createElement()
     {
         $e = new PearPkgMappingElement();
@@ -409,6 +430,9 @@ class PearPkgMapping
         return $e;
     }
 
+    /**
+     * @return array
+     */
     public function getElements()
     {
         return $this->elements;
@@ -445,6 +469,9 @@ class PearPkgMappingElement
     private $value;
     private $elements = array();
 
+    /**
+     * @param $v
+     */
     public function setKey($v)
     {
         $this->key = $v;
@@ -455,6 +482,9 @@ class PearPkgMappingElement
         return $this->key;
     }
 
+    /**
+     * @param $v
+     */
     public function setValue($v)
     {
         $this->value = $v;

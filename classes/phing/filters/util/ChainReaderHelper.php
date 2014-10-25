@@ -83,6 +83,9 @@ class ChainReaderHelper
     /*
      * Sets the primary reader
     */
+    /**
+     * @param Reader $reader
+     */
     public function setPrimaryReader(Reader $reader)
     {
         $this->primaryReader = $reader;
@@ -91,6 +94,9 @@ class ChainReaderHelper
     /*
      * Set the project to work with
     */
+    /**
+     * @param Project $project
+     */
     public function setProject(Project $project)
     {
         $this->project = $project;
@@ -108,6 +114,9 @@ class ChainReaderHelper
      * Sets the buffer size to be used.  Defaults to 8192,
      * if this method is not invoked.
     */
+    /**
+     * @param $size
+     */
     public function setBufferSize($size)
     {
         $this->bufferSize = $size;
@@ -116,6 +125,9 @@ class ChainReaderHelper
     /*
      * Sets the collection of filter reader sets
     */
+    /**
+     * @param $fchain
+     */
     public function setFilterChains(&$fchain)
     {
         $this->filterChains = & $fchain;
@@ -124,6 +136,10 @@ class ChainReaderHelper
     /*
      * Assemble the reader
     */
+    /**
+     * @return FilterReader|null|Parameterizable|Reader
+     * @throws Exception
+     */
     public function getAssembledReader()
     {
 

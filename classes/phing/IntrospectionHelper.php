@@ -125,6 +125,7 @@ class IntrospectionHelper
      * exists or it does not & a BuildException is thrown.
      *
      * @param string $class The classname for this IH.
+     * @throws BuildException
      */
     public function __construct($class)
     {
@@ -283,9 +284,10 @@ class IntrospectionHelper
     /**
      * Sets the named attribute.
      * @param Project $project
-     * @param string  $element
-     * @param string  $attributeName
-     * @param mixed   $value
+     * @param string $element
+     * @param string $attributeName
+     * @param mixed $value
+     * @throws BuildException
      */
     public function setAttribute(Project $project, $element, $attributeName, &$value)
     {
@@ -389,8 +391,9 @@ class IntrospectionHelper
      * Adds PCDATA areas.
      *
      * @param Project $project
-     * @param string  $element
-     * @param string  $text
+     * @param string $element
+     * @param string $text
+     * @throws BuildException
      */
     public function addText(Project $project, $element, $text)
     {

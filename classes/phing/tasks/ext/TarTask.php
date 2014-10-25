@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,7 +29,7 @@ include_once 'phing/util/StringHelper.php';
  * @author    Stefano Mazzocchi <stefano@apache.org> (Ant)
  * @author    Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
  * @author    Magesh Umasankar
- * @version   $Id$
+ *
  * @package   phing.tasks.ext
  */
 class TarTask extends MatchingTask
@@ -125,9 +123,10 @@ class TarTask extends MatchingTask
 
     /**
      * Set the include empty dirs flag.
-     * @param  boolean  Flag if empty dirs should be tarred too
+     *
+     * @param  boolean $bool Flag if empty dirs should be tarred too
+     *
      * @return void
-     * @access public
      */
     public function setIncludeEmptyDirs($bool)
     {
@@ -146,6 +145,7 @@ class TarTask extends MatchingTask
      * <li>  gnu - GNU extensions are used for any paths greater than the maximum.
      * <li>  omit - paths greater than the maximum are omitted from the archive
      * </ul>
+     * @param $mode
      */
     public function setLongfile($mode)
     {
@@ -160,6 +160,7 @@ class TarTask extends MatchingTask
      * <li>  gzip - Gzip compression
      * <li>  bzip2 - Bzip2 compression
      * </ul>
+     * @param string $mode
      */
     public function setCompression($mode)
     {
@@ -197,7 +198,6 @@ class TarTask extends MatchingTask
      */
     public function main()
     {
-
         if ($this->tarFile === null) {
             throw new BuildException("tarfile attribute must be set!", $this->getLocation());
         }
@@ -283,6 +283,7 @@ class TarTask extends MatchingTask
     /**
      * @param  array     $files array of filenames
      * @param  PhingFile $dir
+     *
      * @return boolean
      */
     protected function areFilesUpToDate($files, $dir)
@@ -313,7 +314,6 @@ class TarTask extends MatchingTask
         }
         return true;
     }
-
 }
 
 
@@ -339,7 +339,13 @@ class TarFileSet extends FileSet
     private $preserveLeadingSlashes = false;
 
     /**
-     *  Get a list of files and directories specified in the fileset.
+     * Get a list of files and directories specified in the fileset.
+     *
+     * @param Project $p
+     * @param bool $includeEmpty
+     *
+     * @throws BuildException
+     *
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      */
@@ -402,6 +408,9 @@ class TarFileSet extends FileSet
         $this->mode = 0100000 | $octal;
     }
 
+    /**
+     * @return int
+     */
     public function getMode()
     {
         return $this->mode;
@@ -411,12 +420,16 @@ class TarFileSet extends FileSet
      * The username for the tar entry
      * This is not the same as the UID, which is
      * not currently set by the task.
+     * @param $userName
      */
     public function setUserName($userName)
     {
         $this->userName = $userName;
     }
 
+    /**
+     * @return string
+     */
     public function getUserName()
     {
         return $this->userName;
@@ -426,12 +439,16 @@ class TarFileSet extends FileSet
      * The groupname for the tar entry; optional, default=""
      * This is not the same as the GID, which is
      * not currently set by the task.
+     * @param $groupName
      */
     public function setGroup($groupName)
     {
         $this->groupName = $groupName;
     }
 
+    /**
+     * @return string
+     */
     public function getGroup()
     {
         return $this->groupName;
@@ -441,12 +458,16 @@ class TarFileSet extends FileSet
      * If the prefix attribute is set, all files in the fileset
      * are prefixed with that path in the archive.
      * optional.
+     * @param bool $prefix
      */
     public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
     }
 
+    /**
+     * @return string
+     */
     public function getPrefix()
     {
         return $this->prefix;
@@ -457,21 +478,28 @@ class TarFileSet extends FileSet
      * is written with that path in the archive. The prefix attribute,
      * if specified, is ignored. It is an error to have more than one file specified in
      * such a fileset.
+     * @param $fullpath
      */
     public function setFullpath($fullpath)
     {
         $this->fullpath = $fullpath;
     }
 
+    /**
+     * @return string
+     */
     public function getFullpath()
     {
         return $this->fullpath;
     }
 
     /**
-     * Flag to indicates whether leading `/'s should
+     * Flag to indicates whether leading `/'s` should
      * be preserved in the file names.
      * Optional, default is <code>false</code>.
+     *
+     * @param bool $b
+     *
      * @return void
      */
     public function setPreserveLeadingSlashes($b)
@@ -479,6 +507,9 @@ class TarFileSet extends FileSet
         $this->preserveLeadingSlashes = (boolean) $b;
     }
 
+    /**
+     * @return bool
+     */
     public function getPreserveLeadingSlashes()
     {
         return $this->preserveLeadingSlashes;

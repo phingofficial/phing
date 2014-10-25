@@ -61,7 +61,8 @@ class LoadFileTask extends Task
 
     /**
      * Convenience setter to maintain Ant compatibility (@see setFile())
-     * @param PhingFile $file
+     * @param $srcFile
+     * @internal param PhingFile $file
      */
     public function setSrcFile($srcFile)
     {

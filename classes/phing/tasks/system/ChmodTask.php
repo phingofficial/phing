@@ -48,6 +48,7 @@ class ChmodTask extends Task
     /**
      * This flag means 'note errors to the output, but keep going'
      * @see setQuiet()
+     * @param $bool
      */
     public function setFailonerror($bool)
     {
@@ -57,6 +58,7 @@ class ChmodTask extends Task
     /**
      * Set quiet mode, which suppresses warnings if chmod() fails.
      * @see setFailonerror()
+     * @param $bool
      */
     public function setQuiet($bool)
     {
@@ -69,6 +71,7 @@ class ChmodTask extends Task
     /**
      * Set verbosity, which if set to false surpresses all but an overview
      * of what happened.
+     * @param $bool
      */
     public function setVerbose($bool)
     {
@@ -78,12 +81,16 @@ class ChmodTask extends Task
     /**
      * Sets a single source file to touch.  If the file does not exist
      * an empty file will be created.
+     * @param PhingFile $file
      */
     public function setFile(PhingFile $file)
     {
         $this->file = $file;
     }
 
+    /**
+     * @param $str
+     */
     public function setMode($str)
     {
         $this->mode = $str;
@@ -92,6 +99,7 @@ class ChmodTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -112,6 +120,7 @@ class ChmodTask extends Task
 
     /**
      * Ensure that correct parameters were passed in.
+     * @throws BuildException
      * @return void
      */
     private function checkParams()
@@ -188,7 +197,9 @@ class ChmodTask extends Task
     /**
      * Actually change the mode for the file.
      * @param PhingFile $file
-     * @param int       $mode
+     * @param int $mode
+     * @throws BuildException
+     * @throws Exception
      */
     private function chmodFile(PhingFile $file, $mode)
     {

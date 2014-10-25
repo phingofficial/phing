@@ -38,7 +38,7 @@ class SourceFileScanner
     private $task;
 
     /**
-     * @param task The task we should log messages through
+     * @param Task $task The task we should log messages through
      */
     public function __construct($task)
     {
@@ -50,14 +50,15 @@ class SourceFileScanner
      * Restrict the given set of files to those that are newer than
      * their corresponding target files.
      *
-     * @param files   the original set of files
-     * @param srcDir  all files are relative to this directory
-     * @param destDir target files live here. if null file names
+     * @param array $files   the original set of files
+     * @param PhingFile $srcDir  all files are relative to this directory
+     * @param PhingFile $destDir target files live here. if null file names
      *                returned by the mapper are assumed to be absolute.
-     * @param FilenameMapper  knows how to construct a target file names from
+     * @param FilenameMapper $mapper  knows how to construct a target file names from
      *                source file names.
-     * @param force   Boolean that determines if the files should be
+     * @param bool $force   Boolean that determines if the files should be
      *                forced to be copied.
+     * @return array
      */
     public function restrict(&$files, $srcDir, $destDir, $mapper, $force = false)
     {
@@ -168,6 +169,11 @@ class SourceFileScanner
      * Convenience layer on top of restrict that returns the source
      * files as PhingFile objects (containing absolute paths if srcDir is
      * absolute).
+     * @param $files
+     * @param $srcDir
+     * @param $destDir
+     * @param $mapper
+     * @return array
      */
     public function restrictAsFiles(&$files, &$srcDir, &$destDir, &$mapper)
     {

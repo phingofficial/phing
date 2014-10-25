@@ -216,191 +216,305 @@ class GitTagTask extends GitBaseTask
         $this->log('git-tag output: ' . trim($output), Project::MSG_INFO);
     }
 
+    /**
+     * @param $flag
+     */
     public function setAnnotate($flag)
     {
         $this->annotate = (bool) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getAnnotate()
     {
         return $this->annotate;
     }
 
+    /**
+     * @return bool
+     */
     public function isAnnotate()
     {
         return $this->getAnnotate();
     }
 
+    /**
+     * @param $flag
+     */
     public function setSign($flag)
     {
         $this->sign = (bool) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getSign()
     {
         return $this->sign;
     }
 
+    /**
+     * @return bool
+     */
     public function isSign()
     {
         return $this->getSign();
     }
 
+    /**
+     * @param $keyId
+     */
     public function setKeySign($keyId)
     {
         $this->keySign = $keyId;
     }
 
+    /**
+     * @return string
+     */
     public function getKeySign()
     {
         return $this->keySign;
     }
 
+    /**
+     * @param $flag
+     */
     public function setReplace($flag)
     {
         $this->replace = (bool) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getReplace()
     {
         return $this->replace;
     }
 
+    /**
+     * @return bool
+     */
     public function isReplace()
     {
         return $this->getReplace();
     }
 
+    /**
+     * @param $flag
+     */
     public function setForce($flag)
     {
         return $this->setReplace($flag);
     }
 
+    /**
+     * @param $flag
+     */
     public function setDelete($flag)
     {
         $this->delete = (bool) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getDelete()
     {
         return $this->delete;
     }
 
+    /**
+     * @return bool
+     */
     public function isDelete()
     {
         return $this->getDelete();
     }
 
+    /**
+     * @param $flag
+     */
     public function setVerify($flag)
     {
         $this->verify = (bool) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getVerify()
     {
         return $this->verify;
     }
 
+    /**
+     * @return bool
+     */
     public function isVerify()
     {
         return $this->getVerify();
     }
 
+    /**
+     * @param $flag
+     */
     public function setList($flag)
     {
         $this->list = (bool) $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getList()
     {
         return $this->list;
     }
 
+    /**
+     * @return bool
+     */
     public function isList()
     {
         return $this->getList();
     }
 
+    /**
+     * @param $num
+     */
     public function setNum($num)
     {
         $this->num = (int) $num;
     }
 
+    /**
+     * @return int
+     */
     public function getNum()
     {
         return $this->num;
     }
 
+    /**
+     * @param $commit
+     */
     public function setContains($commit)
     {
         $this->contains = $commit;
     }
 
+    /**
+     * @return string
+     */
     public function getContains()
     {
         return $this->contains;
     }
 
+    /**
+     * @param $msg
+     */
     public function setMessage($msg)
     {
         $this->message = $msg;
     }
 
+    /**
+     * @return string
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
+    /**
+     * @param $file
+     */
     public function setFile($file)
     {
         $this->file = $file;
     }
 
+    /**
+     * @return string
+     */
     public function getFile()
     {
         return $this->file;
     }
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $commit
+     */
     public function setCommit($commit)
     {
         $this->commit = $commit;
     }
 
+    /**
+     * @return string
+     */
     public function getCommit()
     {
         return $this->commit;
     }
 
+    /**
+     * @param $object
+     */
     public function setObject($object)
     {
         $this->object = $object;
     }
 
+    /**
+     * @return string
+     */
     public function getObject()
     {
         return $this->object;
     }
 
+    /**
+     * @param $pattern
+     */
     public function setPattern($pattern)
     {
         $this->pattern = $pattern;
     }
 
+    /**
+     * @return string
+     */
     public function getPattern()
     {
         return $this->pattern;
     }
 
+    /**
+     * @param $prop
+     */
     public function setOutputProperty($prop)
     {
         $this->outputProperty = $prop;

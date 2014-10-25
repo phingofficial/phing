@@ -202,6 +202,7 @@ class PhingTask extends Task
     /**
      * Execute phing file.
      *
+     * @throws BuildException
      * @return void
      */
     private function processFile()
@@ -472,6 +473,7 @@ class PhingTask extends Task
      *
      * @param  string $oldKey
      * @param  string $newKey
+     * @throws BuildException
      * @return void
      */
     private function copyReference($oldKey, $newKey)
@@ -509,6 +511,7 @@ class PhingTask extends Task
      * Defaults to true.
      *
      * @access      public
+     * @param $value
      */
     public function setInheritAll($value)
     {
@@ -520,6 +523,7 @@ class PhingTask extends Task
      * Defaults to false.
      *
      * @access      public
+     * @param $value
      */
     public function setInheritRefs($value)
     {
@@ -533,6 +537,7 @@ class PhingTask extends Task
      * value. This will override the basedir setting of the called project.
      *
      * @access      public
+     * @param $d
      */
     public function setDir($d)
     {
@@ -549,6 +554,7 @@ class PhingTask extends Task
      * to the dir attribute given.
      *
      * @access      public
+     * @param $s
      */
     public function setPhingfile($s)
     {
@@ -562,6 +568,7 @@ class PhingTask extends Task
      * Alias function for setPhingfile
      *
      * @access       public
+     * @param $s
      */
     public function setBuildfile($s)
     {
@@ -573,6 +580,7 @@ class PhingTask extends Task
      * Defaults to the new project's default target.
      *
      * @access      public
+     * @param $s
      */
     public function setTarget($s)
     {
@@ -582,6 +590,7 @@ class PhingTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -635,8 +644,10 @@ class PhingReference extends Reference
      * Set the id that this reference to be stored under in the
      * new project.
      *
-     * @param targetid the id under which this reference will be passed to
-     *        the new project */
+     * @param the $targetid
+     * @internal param the $targetid id under which this reference will be passed to
+     *        the new project
+     */
     public function setToRefid($targetid)
     {
         $this->targetid = $targetid;

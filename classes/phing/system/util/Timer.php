@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,21 +34,29 @@
  *
  * @author    Charles Killian
  * @author    Hans Lellelid <hans@xmpl.org>
+ *
  * @package    phing.system.util
- * @version    $Id$
  */
 class Timer
 {
-
-    /** start time */
+    /**
+     * start time
+     *
+     * @var float
+     */
     protected $stime;
 
-    /** end time */
+    /**
+     * end time
+     *
+     * @var float
+     */
     protected $etime;
 
     /**
      * This function sets the class variable $stime to the current time in
      * microseconds.
+     *
      * @return void
      */
     public function start()
@@ -61,6 +67,7 @@ class Timer
     /**
      * This function sets the class variable $etime to the current time in
      * microseconds.
+     *
      * @return void
      */
     public function stop()
@@ -75,7 +82,8 @@ class Timer
      * the end of script execution.  Then, call elapsed_time() to obtain the
      * difference between start_time() and end_time().
      *
-     * @param         $places decimal place precision of elapsed time (default is 5)
+     * @param  int $places decimal place precision of elapsed time (default is 5)
+     *
      * @return string Properly formatted time.
      */
     public function getElapsedTime($places = 5)
@@ -89,8 +97,9 @@ class Timer
     /**
      * This function returns the current time in microseconds.
      *
-     * @author    Everett Michaud, Zend.com
-     * @return current time in microseconds
+     * @author Everett Michaud, Zend.com
+     *
+     * @return float current time in microseconds
      */
     private function getMicrotime()
     {

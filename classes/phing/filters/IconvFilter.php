@@ -53,6 +53,7 @@ class IconvFilter
 
     /**
      * Returns first n lines of stream.
+     * @param null $len
      * @return the resulting stream, or -1
      *             if the end of the resulting stream has been reached
      *
@@ -122,7 +123,8 @@ class IconvFilter
     /**
      * Creates a new IconvFilter using the passed in Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream. Must not be <code>null</code>.
+     * @param Reader $reader
+     * @internal param A $object Reader object providing the underlying stream. Must not be <code>null</code>.
      *
      * @return object A new filter based on this configuration, but filtering the specified reader.
      */

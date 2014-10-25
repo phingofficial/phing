@@ -224,7 +224,8 @@ class PropertyPromptTask extends Task
     /**
      * Specifies the Phing Project Property
      * being set by this task.
-     * @param newPropertyname java.lang.String
+     * @param java $newPropertyname
+     * @internal param java $newPropertyname .lang.String
      */
     public function setPropertyName($newPropertyname)
     {

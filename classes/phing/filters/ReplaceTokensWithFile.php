@@ -121,7 +121,8 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
     /**
      * Sets the drectory where to look for the files to use for token replacement
      *
-     * @param string $dir
+     * @param $translate
+     * @internal param string $dir
      */
     public function setTranslateHTML($translate)
     {
@@ -170,6 +171,9 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Returns the prefix that is prepended to the token in order to create the file
      * name. For example if the token is 01 and the prefix is "example" then
      * the filename to look for will be "example01"
+     */
+    /**
+     * @return string
      */
     public function getPrefix()
     {
@@ -290,6 +294,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Returns stream with tokens having been replaced with appropriate values.
      * If a replacement value is not found for a token, the token is left in the stream.
      *
+     * @param null $len
      * @return mixed filtered stream, -1 on EOF.
      */
     public function read($len = null)
@@ -320,7 +325,8 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      * Creates a new ReplaceTokensWithFile using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
+     * @param Reader $reader
+     * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return object A new filter based on this configuration, but filtering

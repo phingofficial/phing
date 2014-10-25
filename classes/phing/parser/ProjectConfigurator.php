@@ -66,9 +66,8 @@ class ProjectConfigurator
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
      *
-     * @param  object  the Project instance this configurator should use
-     * @param  object  the buildfile object the parser should use
-     * @access public
+     * @param  Project $project  the Project instance this configurator should use
+     * @param  PhingFile $buildFile  the buildfile object the parser should use
      */
     public static function configureProject(Project $project, PhingFile $buildFile)
     {
@@ -81,8 +80,8 @@ class ProjectConfigurator
      * This constructor is private. Use a static call to
      * <code>configureProject</code> to configure a project.
      *
-     * @param  object  the Project instance this configurator should use
-     * @param  object  the buildfile object the parser should use
+     * @param  Project $project     the Project instance this configurator should use
+     * @param  PhingFile $buildFile the buildfile object the parser should use
      */
     public function __construct(Project $project, PhingFile $buildFile)
     {
@@ -94,7 +93,7 @@ class ProjectConfigurator
 
     /**
      * find out the build file
-     * @return the build file to which the xml context belongs
+     * @return PhingFile the build file to which the xml context belongs
      */
     public function getBuildFile()
     {
@@ -103,7 +102,7 @@ class ProjectConfigurator
 
     /**
      * find out the parent build file of this build file
-     * @return the parent build file of this build file
+     * @return PhingFile the parent build file of this build file
      */
     public function getBuildFileParent()
     {
@@ -112,7 +111,7 @@ class ProjectConfigurator
 
     /**
      * find out the current project name
-     * @return current project name
+     * @return string current project name
      */
     public function getCurrentProjectName()
     {
@@ -121,7 +120,7 @@ class ProjectConfigurator
 
     /**
      * set the name of the current project
-     * @param name name of the current project
+     * @param string $name name of the current project
      */
     public function setCurrentProjectName($name)
     {
@@ -130,7 +129,7 @@ class ProjectConfigurator
 
     /**
      * tells whether the project tag is being ignored
-     * @return whether the project tag is being ignored
+     * @return bool whether the project tag is being ignored
      */
     public function isIgnoringProjectTag()
     {
@@ -138,14 +137,17 @@ class ProjectConfigurator
     }
 
     /**
-     *  sets the flag to ignore the project tag
-     * @param flag to ignore the project tag
+     * sets the flag to ignore the project tag
+     * @param bool $flag flag to ignore the project tag
      */
     public function setIgnoreProjectTag($flag)
     {
         $this->ignoreProjectTag = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function isParsing()
     {
         return $this->isParsing;
@@ -202,6 +204,10 @@ class ProjectConfigurator
         }
     }
 
+    /**
+     * @param PhingXMLContext $ctx
+     * @throws ExpatParseException
+     */
     protected function _parse(PhingXMLContext $ctx)
     {
         // push action onto global stack
@@ -237,11 +243,14 @@ class ProjectConfigurator
     /**
      * Configures an element and resolves eventually given properties.
      *
-     * @param  object  the element to configure
-     * @param  array   the element's attributes
-     * @param  object  the project this element belongs to
-     * @throws Exception      if arguments are not valid
-     * @throws BuildException if attributes can not be configured
+     * @param $target
+     * @param $attrs
+     * @param Project $project
+     * @throws BuildException
+     * @throws Exception
+     * @internal param the $object element to configure
+     * @internal param the $array element's attributes
+     * @internal param the $object project this element belongs to
      * @access public
      */
     public static function configure($target, $attrs, Project $project)
@@ -330,10 +339,10 @@ class ProjectConfigurator
      * string value of the corresponding data types. This method is
      * static.
      *
-     * @param  object  $project  the project that should be used for property look-ups
-     * @param  string  $value    the string to be scanned for property references
-     * @param  array   $keys     property keys
-     * @param  integer $logLevel the level of generated log messages
+     * @param object|Project $project the project that should be used for property look-ups
+     * @param  string $value the string to be scanned for property references
+     * @param  array $keys property keys
+     * @param int $logLevel the level of generated log messages
      * @return string  the replaced string or <code>null</code> if the string
      *                          itself was null
      */
@@ -380,6 +389,8 @@ class ProjectConfigurator
     /**
      * Private [static] function for use by preg_replace_callback to replace a single param.
      * This method makes use of a static variable to hold the
+     * @param $matches
+     * @return string
      */
     private static function replacePropertyCallback($matches)
     {

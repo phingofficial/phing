@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,7 @@ require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
  * Prints plain text output of the test to a specified Writer.
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
+ *
  * @package phing.tasks.ext.simpletest
  * @since 2.2.0
  */
@@ -39,16 +37,25 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
 
     private $xmlData = "";
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->logger = new XmlReporter();
     }
 
+    /**
+     * @return string
+     */
     public function getExtension()
     {
         return ".xml";
     }
 
+    /**
+     * @return string
+     */
     public function getPreferredOutfile()
     {
         return "testsuites";
@@ -65,6 +72,10 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         ob_end_clean();
     }
 
+    /**
+     * @param string $test_name
+     * @param int $size
+     */
     public function paintGroupStart($test_name, $size)
     {
         parent::paintGroupStart($test_name, $size);
@@ -74,6 +85,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintGroupEnd($test_name)
     {
         parent::paintGroupEnd($test_name);
@@ -90,6 +104,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         }
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseStart($test_name)
     {
         $this->captureStart();
@@ -97,6 +114,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintCaseEnd($test_name)
     {
         $this->captureStart();
@@ -104,6 +124,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintMethodStart($test_name)
     {
         $this->captureStart();
@@ -111,6 +134,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $test_name
+     */
     public function paintMethodEnd($test_name)
     {
         $this->captureStart();
@@ -118,6 +144,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $message
+     */
     public function paintPass($message)
     {
         $this->captureStart();
@@ -125,6 +154,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $message
+     */
     public function paintError($message)
     {
         $this->captureStart();
@@ -132,6 +164,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $message
+     */
     public function paintFail($message)
     {
         $this->captureStart();
@@ -139,6 +174,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param Exception $exception
+     */
     public function paintException($exception)
     {
         $this->captureStart();
@@ -146,6 +184,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $message
+     */
     public function paintSkip($message)
     {
         $this->captureStart();
@@ -153,6 +194,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $message
+     */
     public function paintMessage($message)
     {
         $this->captureStart();
@@ -160,6 +204,9 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $message
+     */
     public function paintFormattedMessage($message)
     {
         $this->captureStart();
@@ -167,6 +214,10 @@ class SimpleTestXmlResultFormatter extends SimpleTestResultFormatter
         $this->captureStop();
     }
 
+    /**
+     * @param string $type
+     * @param mixed $payload
+     */
     public function paintSignal($type, $payload)
     {
         $this->captureStart();

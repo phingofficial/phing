@@ -30,6 +30,10 @@ class Character
     // in form of an object.
     // anyway just a thought
 
+    /**
+     * @param $char
+     * @return bool
+     */
     public static function isLetter($char)
     {
 

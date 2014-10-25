@@ -45,11 +45,17 @@ class Parameter extends DataType
     /** Nested parameters */
     protected $parameters = array();
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = (string) $name;
     }
 
+    /**
+     * @param $type
+     */
     public function setType($type)
     {
         $this->type = (string) $type;
@@ -64,6 +70,9 @@ class Parameter extends DataType
         $this->value = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setValue($value)
     {
         $this->value = (string) $value;
@@ -79,6 +88,9 @@ class Parameter extends DataType
         return $this->type;
     }
 
+    /**
+     * @return mixed
+     */
     public function getValue()
     {
         if ($this->value instanceof RegisterSlot) {

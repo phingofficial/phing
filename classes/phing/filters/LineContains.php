@@ -74,6 +74,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Returns all lines in a buffer that contain specified strings.
+     * @param null $len
      * @return mixed buffer, -1 on EOF
      */
     public function read($len = null)
@@ -178,6 +179,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * @param array $contains An array of words which must be contained
      *                        within a line in order for it to match in this filter.
      *                        Must not be <code>null</code>.
+     * @throws Exception
      */
     public function setContains($contains)
     {
@@ -207,11 +209,11 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Creates a new LineContains using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader
+     * @return LineContains A new filter based on this configuration, but filtering
+     *                      the specified reader
      */
     public function chain(Reader $reader)
     {

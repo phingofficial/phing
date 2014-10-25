@@ -36,6 +36,10 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
 class NotCondition extends ConditionBase implements Condition
 {
 
+    /**
+     * @return bool
+     * @throws BuildException
+     */
     public function evaluate()
     {
         if ($this->countConditions() > 1) {

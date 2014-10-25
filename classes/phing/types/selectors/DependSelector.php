@@ -41,6 +41,9 @@ class DependSelector extends BaseSelector
     private $map = null;
     private $granularity = 0;
 
+    /**
+     *
+     */
     public function __construct()
     {
         // not yet supported:
@@ -49,6 +52,9 @@ class DependSelector extends BaseSelector
         //}
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{dependselector targetdir: ";
@@ -75,7 +81,8 @@ class DependSelector extends BaseSelector
      * The name of the file or directory which is checked for out-of-date
      * files.
      *
-     * @param targetdir the directory to scan looking for files.
+     * @param PhingFile|the $targetdir
+     * @internal param the $targetdir directory to scan looking for files.
      */
     public function setTargetdir(PhingFile $targetdir)
     {
@@ -85,6 +92,7 @@ class DependSelector extends BaseSelector
     /**
      * Sets the number of milliseconds leeway we will give before we consider
      * a file out of date.
+     * @param $granularity
      */
     public function setGranularity($granularity)
     {
@@ -128,14 +136,16 @@ class DependSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename is the name of the file to check
-     * @param file is a PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     * @param PhingFile $basedir base directory the scan is being done from
+     * @param string $filename the name of the file to check
+     * @param PhingFile $file a PhingFile object the selector can use
+     *
+     * @throws BuildException
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         // Determine file whose out-of-dateness is to be checked
@@ -155,5 +165,4 @@ class DependSelector extends BaseSelector
 
         return SelectorUtils::isOutOfDate($file, $destfile, $this->granularity);
     }
-
 }

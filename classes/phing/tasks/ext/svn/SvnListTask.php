@@ -41,6 +41,7 @@ class SvnListTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     * @param $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -58,6 +59,7 @@ class SvnListTask extends SvnBaseTask
     /**
      * Sets whether to force compatibility with older SVN versions (< 1.2)
      * @deprecated
+     * @param $force
      */
     public function setForceCompatible($force)
     {
@@ -65,6 +67,7 @@ class SvnListTask extends SvnBaseTask
 
     /**
      * Sets the max num of tags to display
+     * @param $limit
      */
     public function setLimit($limit)
     {
@@ -73,6 +76,7 @@ class SvnListTask extends SvnBaseTask
 
     /**
      * Sets whether to sort tags in descending order
+     * @param $orderDescending
      */
     public function setOrderDescending($orderDescending)
     {

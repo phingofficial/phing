@@ -58,6 +58,10 @@ class Commandline
 
     const DISCLAIMER = "The ' characters around the executable and arguments are not part of the command.";
 
+    /**
+     * @param null $to_process
+     * @throws BuildException
+     */
     public function __construct($to_process = null)
     {
         if ($to_process !== null) {
@@ -95,6 +99,7 @@ class Commandline
 
     /**
      * Sets the executable to run.
+     * @param $executable
      */
     public function setExecutable($executable)
     {
@@ -106,11 +111,17 @@ class Commandline
         $this->executable = strtr($this->executable, '\\', DIRECTORY_SEPARATOR);
     }
 
+    /**
+     * @return string
+     */
     public function getExecutable()
     {
         return $this->executable;
     }
 
+    /**
+     * @param $line
+     */
     public function addArguments($line)
     {
         foreach ($line as $arg) {
@@ -151,6 +162,9 @@ class Commandline
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return self::toString($this->getCommandline());
@@ -165,6 +179,10 @@ class Commandline
      *
      * @exception BuildException if the argument contains both, single
      *                           and double quotes.
+     * @param $argument
+     * @param bool $escape
+     * @throws BuildException
+     * @return string
      */
     public static function quoteArgument($argument, $escape = false)
     {
@@ -187,6 +205,10 @@ class Commandline
     /**
      * Quotes the parts of the given array in way that makes them
      * usable as command line arguments.
+     * @param $lines
+     * @param bool $escape
+     * @throws BuildException
+     * @return string
      */
     public static function toString($lines, $escape = false)
     {
@@ -210,6 +232,7 @@ class Commandline
     /**
      *
      * @param  string $to_process
+     * @throws BuildException
      * @return array
      */
     public static function translateCommandline($to_process)
@@ -287,6 +310,9 @@ class Commandline
         return count($this->getCommandline());
     }
 
+    /**
+     * @return Commandline
+     */
     public function __copy()
     {
         $c = new Commandline();
@@ -365,7 +391,7 @@ class Commandline
      * verbose output before a call to
      * <code>Runtime.exec(String[])</code>
      * @param $args arguments to use (default is to use current class args)
-     * @param $offset ignore entries before this index
+     * @param ignore|int $offset ignore entries before this index
      * @return string
      */
     protected function describeArguments($args = null, $offset = 0)
@@ -403,6 +429,9 @@ class CommandlineArgument
     private $parts = array();
     private $outer;
 
+    /**
+     * @param Commandline $outer
+     */
     public function __construct(Commandline $outer)
     {
         $this->outer = $outer;
@@ -436,7 +465,8 @@ class CommandlineArgument
      * PATH - ensures the right separator for the local platform
      * is used.
      *
-     * @param value a single commandline argument.
+     * @param a $value
+     * @internal param a $value single commandline argument.
      */
     public function setPath($value)
     {
@@ -447,7 +477,8 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param value a single commandline argument.
+     * @param a|PhingFile $value
+     * @internal param a $value single commandline argument.
      */
     public function setFile(PhingFile $value)
     {
@@ -480,6 +511,10 @@ class CommandlineMarker
     private $realPos = -1;
     private $outer;
 
+    /**
+     * @param Comandline $outer
+     * @param $position
+     */
     public function __construct(Comandline $outer, $position)
     {
         $this->outer = $outer;

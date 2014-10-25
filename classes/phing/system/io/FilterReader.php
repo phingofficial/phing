@@ -33,16 +33,25 @@ class FilterReader extends Reader
      */
     protected $in;
 
+    /**
+     * @param Reader $in
+     */
     public function __construct(Reader $in = null)
     {
         $this->in = $in;
     }
 
+    /**
+     * @param Reader $in
+     */
     public function setReader(Reader $in)
     {
         $this->in = $in;
     }
 
+    /**
+     * @param int $n
+     */
     public function skip($n)
     {
         return $this->in->skip($n);
@@ -52,6 +61,8 @@ class FilterReader extends Reader
      * Read data from source.
      * FIXME: Clean up this function signature, as it a) params aren't being used
      * and b) it doesn't make much sense.
+     * @param null $len
+     * @return
      */
     public function read($len = null)
     {
@@ -68,6 +79,9 @@ class FilterReader extends Reader
         return $this->in->close();
     }
 
+    /**
+     * @return string
+     */
     public function getResource()
     {
         return $this->in->getResource();

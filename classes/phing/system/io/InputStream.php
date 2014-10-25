@@ -45,6 +45,7 @@ class InputStream
     /**
      * Construct a new InputStream.
      * @param resource $stream Configured PHP stream for writing.
+     * @throws IOException
      */
     public function __construct($stream)
     {
@@ -57,6 +58,7 @@ class InputStream
     /**
      * Skip over $n bytes.
      * @param int $n
+     * @return int
      */
     public function skip($n)
     {

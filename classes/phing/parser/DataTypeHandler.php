@@ -109,7 +109,9 @@ class DataTypeHandler extends AbstractHandler
     /**
      * Handles character data.
      *
-     * @param  string  the CDATA that comes in
+     * @param $data
+     * @throws ExpatParseException
+     * @internal param the $string CDATA that comes in
      * @access public
      */
     public function characters($data)

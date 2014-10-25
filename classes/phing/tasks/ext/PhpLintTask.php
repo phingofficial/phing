@@ -113,7 +113,8 @@ class PhpLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param PhingFile $file
+     * @param PhingFile $tofile
+     * @internal param PhingFile $file
      */
     public function setToFile(PhingFile $tofile)
     {
@@ -123,6 +124,7 @@ class PhpLintTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -225,6 +227,7 @@ class PhpLintTask extends Task
      * Performs the actual syntax check
      *
      * @param  string $file
+     * @throws BuildException
      * @return void
      */
     protected function lint($file)

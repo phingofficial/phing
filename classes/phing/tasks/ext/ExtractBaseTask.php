@@ -50,7 +50,7 @@ abstract class ExtractBaseTask extends MatchingTask
 
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
-     *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -61,6 +61,7 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * Set the name of the zip file to extract.
      * @param PhingFile $file zip file to extract
+     * @return void
      */
     public function setFile(PhingFile $file)
     {
@@ -69,13 +70,18 @@ abstract class ExtractBaseTask extends MatchingTask
 
     /**
      * This is the base directory to look in for things to zip.
-     * @param PhingFile $baseDir
+     * @param PhingFile $todir
+     * @return void
      */
     public function setToDir(PhingFile $todir)
     {
         $this->todir = $todir;
     }
 
+    /**
+     * @param $removepath
+     * @return void
+     */
     public function setRemovePath($removepath)
     {
         $this->removepath = $removepath;
@@ -84,6 +90,7 @@ abstract class ExtractBaseTask extends MatchingTask
     /**
      * Sets the forceExtract attribute
      * @param boolean $forceExtract
+     * @return void
      */
     public function setForceExtract($forceExtract)
     {
@@ -141,11 +148,17 @@ abstract class ExtractBaseTask extends MatchingTask
         }
     }
 
+    /**
+     * @param PhingFile $compressedArchiveFile
+     * @return mixed
+     */
     abstract protected function extractArchive(PhingFile $compressedArchiveFile);
 
     /**
-     * @param  array     $files array of filenames
-     * @param  PhingFile $dir
+     * @param PhingFile $compressedArchiveFile
+     * @throws BuildException
+     * @internal param array $files array of filenames
+     * @internal param PhingFile $dir
      * @return boolean
      */
     protected function isDestinationUpToDate(PhingFile $compressedArchiveFile)
@@ -184,6 +197,10 @@ abstract class ExtractBaseTask extends MatchingTask
         return true;
     }
 
+    /**
+     * @param PhingFile $compressedArchiveFile
+     * @return mixed
+     */
     abstract protected function listArchiveContent(PhingFile $compressedArchiveFile);
 
     /**

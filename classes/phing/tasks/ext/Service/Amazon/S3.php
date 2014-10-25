@@ -27,11 +27,9 @@ require_once dirname(dirname(__FILE__)) . "/Amazon.php";
  *
  * Provides common methods and properties to all of the S3 tasks
  *
- * @extends Service_Amazon
  * @version $ID$
  * @package phing.tasks.ext
  * @author Andrei Serdeliuc <andrei@serdeliuc.ro>
- * @abstract
  */
 abstract class Service_Amazon_S3 extends Service_Amazon
 {
@@ -42,14 +40,12 @@ abstract class Service_Amazon_S3 extends Service_Amazon
      *
      * @var Services_Amazon_S3
      * @see Services_Amazon_S3
-     * @access protected
      */
     protected $_client = null;
 
     /**
      * We only instantiate the client once per task call
      *
-     * @access public
      * @return Services_Amazon_S3
      */
     public function getClient()
@@ -63,6 +59,10 @@ abstract class Service_Amazon_S3 extends Service_Amazon
         return $this->_client;
     }
 
+    /**
+     * @param $bucket
+     * @throws BuildException
+     */
     public function setBucket($bucket)
     {
         if (empty($bucket) || !is_string($bucket)) {
@@ -72,6 +72,9 @@ abstract class Service_Amazon_S3 extends Service_Amazon
         $this->bucket = (string) $bucket;
     }
 
+    /**
+     * @throws BuildException
+     */
     public function getBucket()
     {
         if (!($bucket = $this->bucket)) {
@@ -84,7 +87,6 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Returns an instance of Services_Amazon_S3_Resource_Object
      *
-     * @access public
      * @param  mixed                              $object
      * @return Services_Amazon_S3_Resource_Object
      */
@@ -96,7 +98,6 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Check if the object already exists in the current bucket
      *
-     * @access public
      * @param  mixed $object
      * @return bool
      */
@@ -108,7 +109,6 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Returns an instance of Services_Amazon_S3_Resource_Bucket
      *
-     * @access public
      * @return Services_Amazon_S3_Resource_Bucket
      */
     public function getBucketInstance()
@@ -119,7 +119,6 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Check if the current bucket is available
      *
-     * @access public
      * @return bool
      */
     public function isBucketAvailable()
@@ -130,8 +129,8 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Get the contents of an object (by it's name)
      *
-     * @access public
      * @param  string $object
+     * @throws BuildException
      * @return mixed
      */
     public function getObjectContents($object)
@@ -154,8 +153,7 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Create a bucket
      *
-     * @access public
-     * @return void
+     * @return bool
      */
     public function createBucket()
     {
@@ -169,8 +167,6 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Main entry point, doesn't do anything
      *
-     * @access public
-     * @final
      * @return void
      */
     final public function main()
@@ -181,8 +177,6 @@ abstract class Service_Amazon_S3 extends Service_Amazon
     /**
      * Entry point to children tasks
      *
-     * @access public
-     * @abstract
      * @return void
      */
     abstract public function execute();

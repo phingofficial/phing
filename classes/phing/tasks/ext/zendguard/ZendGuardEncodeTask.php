@@ -189,92 +189,144 @@ class ZendGuardEncodeTask extends MatchingTask
 
     /**
      * TASK PROPERTIES SETTERS
+     * @param $value
      */
     public function setZendEncoderPath($value)
     {
         $this->zendEncoderPath = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setPrivateKeyPath($value)
     {
         $this->privateKeyPath = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setShortTags($value)
     {
         $this->shortTags = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setAspTags($value)
     {
         $this->aspTags = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setDeleteSource($value)
     {
         $this->shortTags = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setUseCrypto($value)
     {
         $this->useCrypto = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setObfuscationLevel($value)
     {
         $this->obfuscationLevel = (int) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setLicenseProduct($value)
     {
         $this->licenseProduct = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setPrologFile($value)
     {
         $this->prologFile = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setSignProduct($value)
     {
         $this->signProduct = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setForceEncode($value)
     {
         $this->forceEncode = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setEncodedOnly($value)
     {
         $this->encodedOnly = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setIgnoreFileModes($value)
     {
         $this->ignoreFileModes = (bool) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setExpires($value)
     {
         $this->expires = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setProductName($value)
     {
         $this->productName = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setOptMask($value)
     {
         $this->optMask = (int) $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setRenameSourceExt($value)
     {
         $this->renameSourceExt = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setNoHeader($value)
     {
         $this->noHeader = (bool) $value;
@@ -461,6 +513,8 @@ class ZendGuardEncodeTask extends MatchingTask
      * Encodes a file using currently defined Zend Guard settings
      *
      * @param string $filePath Path to the encoded file
+     * @throws BuildException
+     * @return bool
      */
     protected function encodeFile($filePath)
     {
@@ -492,6 +546,9 @@ class ZendGuardFileSet extends FileSet
 
     /**
      *  Get a list of files and directories specified in the fileset.
+     * @param Project $p
+     * @param bool $includeEmpty
+     * @throws BuildException
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      */

@@ -22,7 +22,7 @@
 include_once 'phing/mappers/FileNameMapper.php';
 
 /**
- * description here
+ * Uses glob patterns to perform filename transformations.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
  * @version  $Id$
@@ -30,51 +30,66 @@ include_once 'phing/mappers/FileNameMapper.php';
  */
 class GlobMapper implements FileNameMapper
 {
-
     /**
-     * Part of &quot;from&quot; pattern before the *.
+     * Part of &quot;from&quot; pattern before the <code>.*</code>.
+     * @var string $fromPrefix
      */
     private $fromPrefix = null;
 
     /**
-     * Part of &quot;from&quot; pattern after the *.
+     * Part of &quot;from&quot; pattern after the <code>.*</code>.
+     * @var string $fromPostfix
      */
     private $fromPostfix = null;
 
     /**
      * Length of the prefix (&quot;from&quot; pattern).
+     * @var int $prefixLength
      */
     private $prefixLength;
 
     /**
      * Length of the postfix (&quot;from&quot; pattern).
+     * @var int $postfixLength
      */
     private $postfixLength;
 
     /**
-     * Part of &quot;to&quot; pattern before the *.
+     * Part of &quot;to&quot; pattern before the <code>*.</code>.
+     * @var string $toPrefix
      */
     private $toPrefix = null;
 
     /**
-     * Part of &quot;to&quot; pattern after the *.
+     * Part of &quot;to&quot; pattern after the <code>*.</code>.
+     * @var string $toPostfix
      */
     private $toPostfix = null;
 
-    public function main($_sourceFileName)
+    /**
+     * {@inheritdoc}
+     * @param mixed $sourceFileName
+     * @return array|null
+     */
+    public function main($sourceFileName)
     {
         if (($this->fromPrefix === null)
-            || !StringHelper::startsWith($this->fromPrefix, $_sourceFileName)
-            || !StringHelper::endsWith($this->fromPostfix, $_sourceFileName)
+            || !StringHelper::startsWith($this->fromPrefix, $sourceFileName)
+            || !StringHelper::endsWith($this->fromPostfix, $sourceFileName)
         ) {
             return null;
         }
-        $varpart = $this->_extractVariablePart($_sourceFileName);
+        $varpart = $this->extractVariablePart($sourceFileName);
         $substitution = $this->toPrefix . $varpart . $this->toPostfix;
 
         return array($substitution);
     }
 
+    /**
+     * {@inheritdoc}
+     * @param string $from
+     * @return void
+     */
     public function setFrom($from)
     {
         $index = strrpos($from, '*');
@@ -92,6 +107,9 @@ class GlobMapper implements FileNameMapper
 
     /**
      * Sets the &quot;to&quot; pattern. Required.
+     * {@inheritdoc}
+     * @param string $to
+     * @return void
      */
     public function setTo($to)
     {
@@ -105,14 +123,18 @@ class GlobMapper implements FileNameMapper
         }
     }
 
-    private function _extractVariablePart($_name)
+    /**
+     * Extracts the variable part.
+     * @param string $name
+     * @return string
+     */
+    private function extractVariablePart($name)
     {
         // ergh, i really hate php's string functions .... all but natural
         $start = ($this->prefixLength === 0) ? 0 : $this->prefixLength;
-        $end = ($this->postfixLength === 0) ? strlen($_name) : strlen($_name) - $this->postfixLength;
+        $end = ($this->postfixLength === 0) ? strlen($name) : strlen($name) - $this->postfixLength;
         $len = $end - $start;
 
-        return substr($_name, $start, $len);
+        return substr($name, $start, $len);
     }
-
 }

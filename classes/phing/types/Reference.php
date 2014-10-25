@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -19,14 +17,19 @@
  * <http://phing.info>.
  */
 
-/** Class to hold a reference to another object in the project.
+/**
+ * Class to hold a reference to another object in the project.
+ *
  * @package phing.types
  */
 class Reference
 {
-
+    /** @var string $refid */
     protected $refid;
 
+    /**
+     * @param string $id
+     */
     public function __construct($id = null)
     {
         if ($id !== null) {
@@ -34,18 +37,32 @@ class Reference
         }
     }
 
+    /**
+     * @param $id
+     */
     public function setRefId($id)
     {
         $this->refid = (string) $id;
     }
 
+    /**
+     * @return string
+     */
     public function getRefId()
     {
         return $this->refid;
     }
 
-    /** returns reference to object in references container of project */
-    public function getReferencedObject($project)
+    /**
+     * returns reference to object in references container of project
+     *
+     * @param Project $project
+     *
+     * @throws BuildException
+     *
+     * @return Reference
+     */
+    public function getReferencedObject(Project $project)
     {
         if ($this->refid === null) {
             throw new BuildException("No reference specified");

@@ -96,6 +96,10 @@ class GitCommitTask extends GitBaseTask
         $this->logCommand($options, $arguments);
     }
 
+    /**
+     * @param array $options
+     * @param array $arguments
+     */
     protected function logCommand(array $options, array $arguments)
     {
         $msg = 'git-commit: Executed git commit ';
@@ -110,21 +114,33 @@ class GitCommitTask extends GitBaseTask
         $this->log($msg, Project::MSG_INFO);
     }
 
+    /**
+     * @return bool
+     */
     public function getAllFiles()
     {
         return $this->allFiles;
     }
 
+    /**
+     * @param $flag
+     */
     public function setAllFiles($flag)
     {
         $this->allFiles = (bool) $flag;
     }
 
+    /**
+     * @return string
+     */
     public function getMessage()
     {
         return $this->message;
     }
 
+    /**
+     * @param $message
+     */
     public function setMessage($message)
     {
         $this->message = $message;
@@ -133,6 +149,7 @@ class GitCommitTask extends GitBaseTask
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)

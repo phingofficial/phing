@@ -64,37 +64,58 @@ class FtpDeployTask extends Task
 
     protected $logLevel = Project::MSG_VERBOSE;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->filesets = array();
         $this->completeDirMap = array();
     }
 
+    /**
+     * @param $host
+     */
     public function setHost($host)
     {
         $this->host = $host;
     }
 
+    /**
+     * @param $port
+     */
     public function setPort($port)
     {
         $this->port = (int) $port;
     }
 
+    /**
+     * @param $username
+     */
     public function setUsername($username)
     {
         $this->username = $username;
     }
 
+    /**
+     * @param $password
+     */
     public function setPassword($password)
     {
         $this->password = $password;
     }
 
+    /**
+     * @param $dir
+     */
     public function setDir($dir)
     {
         $this->dir = $dir;
     }
 
+    /**
+     * @param $mode
+     */
     public function setMode($mode)
     {
         switch (strtolower($mode)) {
@@ -108,31 +129,49 @@ class FtpDeployTask extends Task
         }
     }
 
+    /**
+     * @param $passive
+     */
     public function setPassive($passive)
     {
         $this->passive = (bool) $passive;
     }
 
+    /**
+     * @param $clearFirst
+     */
     public function setClearFirst($clearFirst)
     {
         $this->clearFirst = (bool) $clearFirst;
     }
 
+    /**
+     * @param $depends
+     */
     public function setDepends($depends)
     {
         $this->depends = (bool) $depends;
     }
 
+    /**
+     * @param $filemode
+     */
     public function setFilemode($filemode)
     {
         $this->filemode = octdec(str_pad($filemode, 4, '0', STR_PAD_LEFT));
     }
 
+    /**
+     * @param $dirmode
+     */
     public function setDirmode($dirmode)
     {
         $this->dirmode = octdec(str_pad($dirmode, 4, '0', STR_PAD_LEFT));
     }
 
+    /**
+     * @param $fallback
+     */
     public function setRawdatafallback($fallback)
     {
         $this->rawDataFallback = (bool) $fallback;
@@ -141,6 +180,7 @@ class FtpDeployTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -321,6 +361,12 @@ class FtpDeployTask extends Task
         $this->log('Disconnected from FTP server', $this->logLevel);
     }
 
+    /**
+     * @param Net_FTP $ftp
+     * @param $remoteFileInformations
+     * @param $directory
+     * @return bool
+     */
     private function _directoryInformations(Net_FTP $ftp, &$remoteFileInformations, $directory)
     {
         $content = $ftp->ls($directory);
@@ -350,6 +396,11 @@ class FtpDeployTask extends Task
         }
     }
 
+    /**
+     * @param $content
+     * @param null $directory
+     * @return array
+     */
     private function parseRawFtpContent($content, $directory = null)
     {
         if (!is_array($content)) {

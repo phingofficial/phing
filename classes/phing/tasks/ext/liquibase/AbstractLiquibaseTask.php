@@ -159,7 +159,8 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Whether to check the liquibase return code.
      *
-     * @param boolean $checkreturn
+     * @param $passthru
+     * @internal param bool $checkreturn
      */
     public function setPassthru($passthru)
     {
@@ -207,6 +208,7 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Ensure that correct parameters were passed in.
      *
+     * @throws BuildException
      * @return void
      */
     protected function checkParams()
@@ -249,8 +251,9 @@ abstract class AbstractLiquibaseTask extends Task
     /**
      * Executes the given command and returns the output.
      *
-     * @param string the command to execute
-     * @param string additional parameters
+     * @param $lbcommand
+     * @param string $lbparams the command to execute
+     * @throws BuildException
      * @return string the output of the executed command
      */
     protected function execute($lbcommand, $lbparams = '')
@@ -314,16 +317,27 @@ class LiquibaseParameter extends DataType
     private $name;
     private $value;
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @param $value
+     */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * @param Project $p
+     * @return string
+     * @throws BuildException
+     */
     public function getCommandline(Project $p)
     {
         if ($this->isReference()) {
@@ -333,6 +347,11 @@ class LiquibaseParameter extends DataType
         return sprintf("--%s=%s", $this->name, escapeshellarg($this->value));
     }
 
+    /**
+     * @param Project $p
+     * @return mixed
+     * @throws BuildException
+     */
     public function getRef(Project $p)
     {
         if (!$this->checked) {
@@ -362,16 +381,27 @@ class LiquibaseProperty extends DataType
     private $name;
     private $value;
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @param $value
+     */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * @param Project $p
+     * @return string
+     * @throws BuildException
+     */
     public function getCommandline(Project $p)
     {
         if ($this->isReference()) {
@@ -381,6 +411,11 @@ class LiquibaseProperty extends DataType
         return sprintf("-D%s=%s", $this->name, escapeshellarg($this->value));
     }
 
+    /**
+     * @param Project $p
+     * @return mixed
+     * @throws BuildException
+     */
     public function getRef(Project $p)
     {
         if (!$this->checked) {

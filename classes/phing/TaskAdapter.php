@@ -38,6 +38,8 @@ class TaskAdapter extends Task
 
     /**
      * Main entry point.
+     * @throws BuildException
+     * @throws Exception
      * @return void
      */
     public function main()

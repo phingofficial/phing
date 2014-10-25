@@ -128,10 +128,7 @@ class rSTTask extends Task
     protected $uptodate = false;
 
     /**
-     * Sets up this object internal stuff. i.e. the default mode
-     *
-     * @return object The rSTTask instance
-     * @access public
+     * Sets up this object internal stuff. i.e. the default mode.
      */
     public function __construct()
     {
@@ -149,6 +146,7 @@ class rSTTask extends Task
     /**
      * The main entry point method.
      *
+     * @throws BuildException
      * @return void
      */
     public function main()
@@ -395,11 +393,12 @@ class rSTTask extends Task
     /**
      * The setter for the attribute "toolpath"
      *
-     * @param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
+     * @param $path
+     * @throws BuildException
+     * @internal param string $param Full path to tool path, i.e. /usr/local/bin/rst2html
      *
      * @return void
      *
-     * @throws BuildException When the tool does not exist or is not executable
      */
     public function setToolpath($path)
     {

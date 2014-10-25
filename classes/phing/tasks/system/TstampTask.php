@@ -41,7 +41,7 @@ class TstampTask extends Task
     /**
      * Set a prefix for the properties. If the prefix does not end with a "."
      * one is automatically added.
-     * @param prefix the prefix to use.
+     * @param string $prefix the prefix to use.
      */
     public function setPrefix($prefix)
     {
@@ -87,6 +87,8 @@ class TstampTask extends Task
     /**
      * helper that encapsulates prefix logic and property setting
      * policy (i.e. we use setNewProperty instead of setProperty).
+     * @param $name
+     * @param $value
      */
     public function prefixProperty($name, $value)
     {
@@ -106,7 +108,7 @@ class TstampCustomFormat
     /**
      * The property to receive the date/time string in the given pattern
      *
-     * @param propertyName the name of the property.
+     * @param string $propertyName the name of the property.
      */
     public function setProperty($propertyName)
     {
@@ -127,7 +129,7 @@ class TstampCustomFormat
     /**
      * The locale used to create date/time string.
      *
-     * @param locale
+     * @param string $locale
      */
     public function setLocale($locale)
     {
@@ -137,7 +139,8 @@ class TstampCustomFormat
     /**
      * validate parameter and execute the format.
      *
-     * @param TstampTask reference to task
+     * @param TstampTask $tstamp reference to task
+     * @throws BuildException
      */
     public function execute(TstampTask $tstamp)
     {

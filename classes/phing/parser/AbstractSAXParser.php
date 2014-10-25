@@ -47,6 +47,9 @@ abstract class AbstractSAXParser
     /**
      * Sets options for PHP interal parser. Must be implemented by the parser
      * class if it should be used.
+     * @param $opt
+     * @param $val
+     * @return
      */
     abstract public function parserSetOption($opt, $val);
 

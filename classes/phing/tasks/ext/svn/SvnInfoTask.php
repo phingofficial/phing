@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,8 +24,9 @@ require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
  * Parses the output of 'svn info --xml' and
  *
  * @author Michiel Rook <mrook@php.net>
- * @version $Id$
+ *
  * @package phing.tasks.ext.svn
+ *
  * @see VersionControl_SVN
  * @since 2.4.9
  */
@@ -40,6 +39,7 @@ class SvnInfoTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     * @param $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -55,7 +55,11 @@ class SvnInfoTask extends SvnBaseTask
     }
 
     /**
-     * Sets the name of the xml element to use
+     * Sets the name of the xml element to use.
+     *
+     * @param string $element
+     *
+     * @return void
      */
     public function setElement($element)
     {
@@ -63,7 +67,9 @@ class SvnInfoTask extends SvnBaseTask
     }
 
     /**
-     * Returns the name of the xml element to use
+     * Returns the name of the xml element to use.
+     *
+     * @return string
      */
     public function getElement()
     {
@@ -71,7 +77,11 @@ class SvnInfoTask extends SvnBaseTask
     }
 
     /**
-     * Sets the name of the xml sub element to use
+     * Sets the name of the xml sub element to use.
+     *
+     * @param $subElement
+     *
+     * @return void
      */
     public function setSubElement($subElement)
     {
@@ -79,7 +89,9 @@ class SvnInfoTask extends SvnBaseTask
     }
 
     /**
-     * Returns the name of the xml sub element to use
+     * Returns the name of the xml sub element to use.
+     *
+     * @return string
      */
     public function getSubElement()
     {
@@ -87,7 +99,9 @@ class SvnInfoTask extends SvnBaseTask
     }
 
     /**
-     * The main entry point
+     * The main entry point.
+     *
+     * @return void
      *
      * @throws BuildException
      */

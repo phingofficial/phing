@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -31,7 +31,6 @@ require_once 'phing/mappers/FileNameMapper.php';
  */
 class IdentityMapper implements FileNameMapper
 {
-
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
@@ -45,6 +44,9 @@ class IdentityMapper implements FileNameMapper
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $to
+     * @return void
      */
     public function setTo($to)
     {
@@ -52,9 +54,11 @@ class IdentityMapper implements FileNameMapper
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $from
+     * @return void
      */
     public function setFrom($from)
     {
     }
-
 }

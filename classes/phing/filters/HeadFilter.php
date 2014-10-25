@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -36,14 +33,13 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @version   $Id$
- * @access    public
+ *
  * @see       FilterReader
+ *
  * @package   phing.filters
  */
 class HeadFilter extends BaseParamFilterReader implements ChainableReader
 {
-
     /**
      * Parameter name for the number of lines to be returned.
      */
@@ -51,23 +47,25 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Number of lines currently read in.
+     *
      * @var integer
      */
     private $_linesRead = 0;
 
     /**
      * Number of lines to be returned in the filtered stream.
+     *
      * @var integer
      */
     private $_lines = 10;
 
     /**
      * Returns first n lines of stream.
-     * @return the resulting stream, or -1
-     *             if the end of the resulting stream has been reached
      *
-     * @exception IOException if the underlying stream throws an IOException
-     * during reading
+     * @param null $len
+     * @return string|int the resulting stream, or -1
+     *                    if the end of the resulting stream has been reached
+     *
      */
     public function read($len = null)
     {
@@ -111,6 +109,8 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * Sets the number of lines to be returned in the filtered stream.
      *
      * @param integer $lines the number of lines to be returned in the filtered stream.
+     *
+     * @return void
      */
     public function setLines($lines)
     {
@@ -131,11 +131,11 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new HeadFilter using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
-     *            Must not be <code>null</code>.
+     * @param Reader $reader A Reader object providing the underlying stream.
+     *                       Must not be <code>null</code>.
      *
-     * @return object A new filter based on this configuration, but filtering
-     *                the specified reader.
+     * @return HeadFilter A new filter based on this configuration, but filtering
+     *                    the specified reader.
      */
     public function chain(Reader $reader)
     {
@@ -150,6 +150,8 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Scans the parameters list for the "lines" parameter and uses
      * it to set the number of lines to be returned in the filtered stream.
+     *
+     * @return void
      */
     private function _initialize()
     {

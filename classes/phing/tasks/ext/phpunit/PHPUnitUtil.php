@@ -98,8 +98,11 @@ class PHPUnitUtil
     }
 
     /**
-     * @param string the filename
-     * @param Path optional classpath
+     * @param $filename
+     * @param null $classpath
+     * @throws Exception
+     * @internal param the $string filename
+     * @internal param optional $Path classpath
      * @return array list of classes defined in the file
      */
     public static function getDefinedClasses($filename, $classpath = null)

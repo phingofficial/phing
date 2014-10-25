@@ -54,16 +54,26 @@ class VersionCompareCondition implements Condition
 
     private $debug = false;
 
+    /**
+     * @param $version
+     */
     public function setVersion($version)
     {
         $this->version = $version;
     }
 
+    /**
+     * @param $desiredVersion
+     */
     public function setDesiredVersion($desiredVersion)
     {
         $this->desiredVersion = $desiredVersion;
     }
 
+    /**
+     * @param $operator
+     * @throws BuildException
+     */
     public function setOperator($operator)
     {
         $allowed = array('<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne');
@@ -78,11 +88,18 @@ class VersionCompareCondition implements Condition
         $this->operator = $operator;
     }
 
+    /**
+     * @param $debug
+     */
     public function setDebug($debug)
     {
         $this->debug = (bool) $debug;
     }
 
+    /**
+     * @return mixed
+     * @throws BuildException
+     */
     public function evaluate()
     {
         if ($this->version === null || $this->desiredVersion === null) {

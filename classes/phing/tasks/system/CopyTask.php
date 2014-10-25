@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -33,12 +31,11 @@ include_once 'phing/mappers/FlattenMapper.php';
  * exist. It is possible to explictly overwrite existing files.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id$
+ *
  * @package  phing.tasks.system
  */
 class CopyTask extends Task
 {
-
     protected $file = null; // the source file (from xml attribute)
     protected $destFile = null; // the destiantion file (from xml attribute)
     protected $destDir = null; // the destination dir (from xml attribute)
@@ -59,15 +56,15 @@ class CopyTask extends Task
 
     protected $verbosity = Project::MSG_VERBOSE;
 
+    /** @var int $mode */
     protected $mode = 0; // mode to create directories with
 
+    /** @var bool $haltonerror */
     protected $haltonerror = true; // stop build on errors
 
     /**
-     * Sets up this object internal stuff. i.e. the Fileutils instance and default mode
-     *
-     * @return object The CopyTask instance
-     * @access public
+     * Sets up this object internal stuff.
+     * i.e. the Fileutils instance and default mode.
      */
     public function __construct()
     {
@@ -80,9 +77,9 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean  Overwrite the destination file(s) if it/they already exist
+     * @param  boolean $bool Overwrite the destination file(s) if it/they already exist
+     *
      * @return void
-     * @access public
      */
     public function setOverwrite($bool)
     {
@@ -104,6 +101,7 @@ class CopyTask extends Task
 
     /**
      * @see CopyTask::setPreserveLastModified
+     * @param $bool
      */
     public function setTstamp($bool)
     {
@@ -129,15 +127,17 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean  Preserve the timestamp on the destination file
+     * @param  boolean $bool Preserve the timestamp on the destination file
      * @return void
-     * @access public
      */
     public function setPreservepermissions($bool)
     {
         $this->preservePermissions = (boolean) $bool;
     }
 
+    /**
+     * @param $bool
+     */
     public function setPreservemode($bool)
     {
         $this->setPreservepermissions($bool);
@@ -148,9 +148,8 @@ class CopyTask extends Task
      * booleans in set* methods so we can assume that the right
      * value (boolean primitive) is coming in here.
      *
-     * @param  boolean  Flag if empty dirs should be cpoied too
+     * @param  boolean $bool Flag if empty dirs should be cpoied too
      * @return void
-     * @access public
      */
     public function setIncludeEmptyDirs($bool)
     {
@@ -162,9 +161,9 @@ class CopyTask extends Task
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string /object  The source file. Either a string or an PhingFile object
+     * @param PhingFile $file The source file. Either a string or an PhingFile object
+     *
      * @return void
-     * @access public
      */
     public function setFile(PhingFile $file)
     {
@@ -176,9 +175,9 @@ class CopyTask extends Task
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string /object  The dest file. Either a string or an PhingFile object
+     * @param PhingFile $file The dest file. Either a string or an PhingFile object
+     *
      * @return void
-     * @access public
      */
     public function setTofile(PhingFile $file)
     {
@@ -189,9 +188,9 @@ class CopyTask extends Task
      * Sets the mode to create destination directories with (ignored on Windows).
      * Default mode is taken from umask()
      *
-     * @param  integer  Octal mode
+     * @param integer $mode Octal mode
+     *
      * @return void
-     * @access public
      */
     public function setMode($mode)
     {
@@ -203,9 +202,9 @@ class CopyTask extends Task
      * type that is coming due to limited type support in php
      * in and convert it manually if neccessary.
      *
-     * @param  string /object  The directory, either a string or an PhingFile object
+     * @param PhingFile $dir The directory, either a string or an PhingFile object
+     *
      * @return void
-     * @access public
      */
     public function setTodir(PhingFile $dir)
     {
@@ -216,9 +215,9 @@ class CopyTask extends Task
      * Set the haltonerror attribute - when true, will
      * make the build fail when errors are detected.
      *
-     * @param  boolean  Flag if the build should be stopped on errors
+     * @param boolean $haltonerror Flag if the build should be stopped on errors
+     *
      * @return void
-     * @access public
      */
     public function setHaltonerror($haltonerror)
     {
@@ -228,7 +227,7 @@ class CopyTask extends Task
     /**
      * Nested creator, creates a FileSet for this task
      *
-     * @param FileSet $fileset Set of files to copy
+     * @param FileSet $fs Set of files to copy
      *
      * @return void
      */
@@ -240,8 +239,7 @@ class CopyTask extends Task
     /**
      * Nested creator, adds a set of files (nested fileset attribute).
      *
-     * @access  public
-     * @return object The created filelist object
+     * @return FileList The created filelist object
      */
     public function createFileList()
     {
@@ -253,8 +251,7 @@ class CopyTask extends Task
     /**
      * Creates a filterchain
      *
-     * @access public
-     * @return object The created filterchain object
+     * @return FilterChain The created filterchain object
      */
     public function createFilterChain()
     {
@@ -266,8 +263,7 @@ class CopyTask extends Task
     /**
      * Nested creator, creates one Mapper for this task
      *
-     * @access  public
-     * @return object         The created Mapper type object
+     * @return Mapper         The created Mapper type object
      * @throws BuildException
      */
     public function createMapper()
@@ -283,7 +279,6 @@ class CopyTask extends Task
     /**
      * The main entry point where everything gets in motion.
      *
-     * @access  public
      * @return true           on success
      * @throws BuildException
      */
@@ -393,6 +388,11 @@ class CopyTask extends Task
      * Compares source files to destination files to see if they
      * should be copied.
      *
+     * @param $fromDir
+     * @param $toDir
+     * @param $files
+     * @param $dirs
+     *
      * @return void
      */
     private function _scan(&$fromDir, &$toDir, &$files, &$dirs)
@@ -415,6 +415,12 @@ class CopyTask extends Task
 
     /**
      * Builds a map of filenames (from->to) that should be copied
+     *
+     * @param $fromDir
+     * @param $toDir
+     * @param $names
+     * @param $mapper
+     * @param $map
      *
      * @return void
      */
@@ -542,6 +548,12 @@ class CopyTask extends Task
         }
     }
 
+    /**
+     * @param string $message
+     * @param null $location
+     *
+     * @throws BuildException
+     */
     protected function logError($message, $location = null)
     {
         if ($this->haltonerror) {
@@ -550,5 +562,4 @@ class CopyTask extends Task
             $this->log($message, Project::MSG_ERR);
         }
     }
-
 }

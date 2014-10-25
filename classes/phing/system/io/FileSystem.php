@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,7 +32,7 @@
  *
  * @author Charlie Killian <charlie@tizac.com>
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
+ *
  * @package phing.system.io
  */
 abstract class FileSystem
@@ -188,6 +185,7 @@ abstract class FileSystem
      * other I/O error occurs.
      *
      * @param PhingFile $f
+     * @throws IOException
      */
     public function getBooleanAttributes($f)
     {
@@ -203,7 +201,8 @@ abstract class FileSystem
      * occurs.
      *
      * @param PhingFile $f
-     * @param boolean   $write
+     * @param boolean $write
+     * @return bool
      */
     public function checkAccess(PhingFile $f, $write = false)
     {
@@ -372,6 +371,7 @@ abstract class FileSystem
      * directory if successful; otherwise, return <code>null</code>.
      *
      * @param PhingFile $f
+     * @return array
      */
     public function listDir(PhingFile $f)
     {
@@ -482,6 +482,7 @@ abstract class FileSystem
      *
      * @param PhingFile $f1
      * @param PhingFile $f2
+     * @throws IOException
      */
     public function compare(PhingFile $f1, PhingFile $f2)
     {
@@ -495,6 +496,7 @@ abstract class FileSystem
      * @param PhingFile $dest Destination path and name of new file.
      *
      * @return void
+     *
      * @throws IOException if file cannot be copied.
      */
     public function copy(PhingFile $src, PhingFile $dest)
@@ -529,8 +531,10 @@ abstract class FileSystem
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.1
      * @link        http://aidanlister.com/repos/v/function.copyr.php
+     *
      * @param  string $source Source path
      * @param  string $dest   Destination path
+     *
      * @return bool   Returns TRUE on success, FALSE on failure
      */
     public function copyr($source, $dest)
@@ -575,7 +579,8 @@ abstract class FileSystem
      * @param string $user     The user name or number of the file or directory. See http://us.php.net/chown
      *
      * @return void
-     * @throws Exception if operation failed.
+     *
+     * @throws IOException if operation failed.
      */
     public function chown($pathname, $user)
     {
@@ -643,8 +648,8 @@ abstract class FileSystem
     /**
      * Unlocks a file and throws an IO Error if this is not possible.
      *
-     * @param  PhingFile   $f
-     * @throws IOException
+     * @param  PhingFile $f
+     * @throws Exception
      * @return void
      */
     public function unlock(PhingFile $f)
@@ -681,7 +686,8 @@ abstract class FileSystem
      * Currently symlink is not implemented on Windows. Don't use if the application is to be portable.
      *
      * @param  string $target Path and/or name of file to link.
-     * @param  string $link   Path and/or name of link to be created.
+     * @param  string $link Path and/or name of link to be created.
+     * @throws IOException
      * @return void
      */
     public function symlink($target, $link)
@@ -702,7 +708,8 @@ abstract class FileSystem
      * Set the modification and access time on a file to the present time.
      *
      * @param  string $file Path and/or name of file to touch.
-     * @param  int    $time
+     * @param  int $time
+     * @throws Exception
      * @return void
      */
     public function touch($file, $time = null)
@@ -725,9 +732,11 @@ abstract class FileSystem
     /**
      * Delete an empty directory OR a directory and all of its contents.
      *
-     * @param    dir    String. Path and/or name of directory to delete.
-     * @param    children    Boolean.    False: don't delete directory contents.
-     *                                    True: delete directory contents.
+     * @param string $dir Path and/or name of directory to delete.
+     * @param bool $children     False: don't delete directory contents.
+     *                           True: delete directory contents.
+     *
+     * @throws Exception
      *
      * @return void
      */
@@ -815,11 +824,12 @@ abstract class FileSystem
     /**
      * Set the umask for file and directory creation.
      *
-     * @param    mode    Int. Permissions ususally in ocatal. Use leading 0 for
+     * @param Int $mode
+     * @throws Exception
+     * @internal param Int $mode . Permissions ususally in ocatal. Use leading 0 for
      *                    octal. Number between 0 and 0777.
      *
      * @return void
-     * @throws Exception if there is an error performing operation.
      */
     public function umask($mode)
     {
@@ -841,10 +851,10 @@ abstract class FileSystem
     /**
      * Compare the modified time of two files.
      *
-     * @param    file1    String. Path and name of file1.
-     * @param    file2    String. Path and name of file2.
+     * @param string $file1 Path and name of file1.
+     * @param string $file2 Path and name of file2.
      *
-     * @return Int. 1 if file1 is newer.
+     * @return int  1 if file1 is newer.
      *              -1 if file2 is newer.
      *              0 if files have the same time.
      *              Err object on failure.
@@ -874,5 +884,4 @@ abstract class FileSystem
             } // end compare
         }
     }
-
 }

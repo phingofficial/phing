@@ -35,11 +35,18 @@ class OsCondition implements Condition
 
     private $family;
 
+    /**
+     * @param $f
+     */
     public function setFamily($f)
     {
         $this->family = strtolower($f);
     }
 
+    /**
+     * @return bool
+     * @throws BuildException
+     */
     public function evaluate()
     {
         $osName = strtolower(Phing::getProperty("os.name"));

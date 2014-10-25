@@ -41,15 +41,25 @@ class StringReader extends Reader
      */
     private $currPos = 0;
 
+    /**
+     * @param $string
+     */
     public function __construct($string)
     {
         $this->_string = $string;
     }
 
+    /**
+     * @param int $n
+     */
     public function skip($n)
     {
     }
 
+    /**
+     * @param null $len
+     * @return int|string
+     */
     public function read($len = null)
     {
         if ($len === null) {
@@ -87,11 +97,17 @@ class StringReader extends Reader
     {
     }
 
+    /**
+     * @return bool
+     */
     public function markSupported()
     {
         return true;
     }
 
+    /**
+     * @return string
+     */
     public function getResource()
     {
         return '(string) "' . $this->_string . '"';

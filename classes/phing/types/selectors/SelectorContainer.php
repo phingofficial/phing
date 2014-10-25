@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,29 +21,31 @@
  * This is the interface for selectors that can contain other selectors.
  *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
+ *
  * @package phing.types.selectors
  */
 interface SelectorContainer
 {
-
     /**
      * Indicates whether there are any selectors here.
      *
-     * @return whether any selectors are in this container
+     * @return bool whether any selectors are in this container
      */
     public function hasSelectors();
 
     /**
      * Gives the count of the number of selectors in this container
      *
-     * @return the number of selectors in this container
+     * @return int the number of selectors in this container
      */
     public function selectorCount();
 
     /**
      * Returns a *copy* of the set of selectors as an array.
      *
-     * @return an array of selectors in this container
+     * @param Project $p
+     *
+     * @return array an array of selectors in this container
      */
     public function getSelectors(Project $p);
 
@@ -60,8 +59,9 @@ interface SelectorContainer
     /**
      * Add a new selector into this container.
      *
-     * @param selector the new selector to add
-     * @return the selector that was added
+     * @param FileSelector $selector the new selector to add
+     *
+     * @return FileSelector the selector that was added
      */
     public function appendSelector(FileSelector $selector);
 

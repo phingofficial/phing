@@ -146,6 +146,7 @@ abstract class Task extends ProjectComponent
     /**
      * Returns a name
      * @param string $slotName
+     * @return \RegisterSlot
      */
     protected function getRegisterSlot($slotName)
     {
@@ -155,8 +156,8 @@ abstract class Task extends ProjectComponent
     /**
      * Provides a project level log event to the task.
      *
-     * @param string  The message to log
-     * @param integer The priority of the message
+     * @param string $msg The message to log
+     * @param integer $level The priority of the message
      * @see BuildEvent
      * @see BuildListener
      */
@@ -270,6 +271,8 @@ abstract class Task extends ProjectComponent
 
     /**
      * Perfrom this task
+     *
+     * @throws BuildException
      */
     public function perform()
     {

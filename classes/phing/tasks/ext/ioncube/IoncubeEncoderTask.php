@@ -58,6 +58,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets whether to show command line before it is executed
+     * @param $value
      */
     public function setShowCommandLine($value)
     {
@@ -66,6 +67,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Adds a comment to be used in encoded files
+     * @param IoncubeComment $comment
      */
     public function addComment(IoncubeComment $comment)
     {
@@ -74,6 +76,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the allowed server
+     * @param $value
      */
     public function setAllowedServer($value)
     {
@@ -90,6 +93,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the binary option
+     * @param $value
      */
     public function setBinary($value)
     {
@@ -106,6 +110,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets files or folders to copy (separated by space)
+     * @param $value
      */
     public function setCopy($value)
     {
@@ -123,6 +128,7 @@ class IoncubeEncoderTask extends Task
     /**
      * Sets additional file patterns, files or directories to encode,
      * or to reverse the effect of copy (separated by space)
+     * @param $value
      */
     public function setEncode($value)
     {
@@ -139,6 +145,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets regexps of additional files to encrypt (separated by space)
+     * @param $value
      */
     public function setEncrypt($value)
     {
@@ -155,6 +162,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets a period after which the files expire
+     * @param $value
      */
     public function setExpirein($value)
     {
@@ -171,6 +179,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets a YYYY-MM-DD date to expire the files
+     * @param $value
      */
     public function setExpireon($value)
     {
@@ -187,6 +196,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the source directory
+     * @param $value
      */
     public function setFromDir($value)
     {
@@ -204,6 +214,7 @@ class IoncubeEncoderTask extends Task
     /**
      * Set files and directories to ignore entirely and exclude from the target directory
      * (separated by space).
+     * @param $value
      */
     public function setIgnore($value)
     {
@@ -220,6 +231,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the path to the ionCube encoder
+     * @param $value
      */
     public function setIoncubePath($value)
     {
@@ -236,6 +248,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Set files and directories not to be ignored (separated by space).
+     * @param $value
      */
     public function setKeep($value)
     {
@@ -252,6 +265,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the path to the license file to use
+     * @param $value
      */
     public function setLicensePath($value)
     {
@@ -268,6 +282,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the no-doc-comments option
+     * @param $value
      */
     public function setNoDocComments($value)
     {
@@ -284,6 +299,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the obfuscate option
+     * @param $value
      */
     public function setObfuscate($value)
     {
@@ -300,6 +316,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the obfuscation key (required if using the obfuscate option)
+     * @param $value
      */
     public function setObfuscationKey($value)
     {
@@ -316,6 +333,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the optimize option
+     * @param $value
      */
     public function setOptimize($value)
     {
@@ -332,6 +350,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the passphrase to use when encoding files
+     * @param $value
      */
     public function setPassPhrase($value)
     {
@@ -348,6 +367,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the version of PHP to use (defaults to 5)
+     * @param $value
      */
     public function setPhpVersion($value)
     {
@@ -364,6 +384,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the target directory
+     * @param $value
      */
     public function setToDir($value)
     {
@@ -380,6 +401,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the without-runtime-loader-support option
+     * @param $value
      */
     public function setWithoutRuntimeLoaderSupport($value)
     {
@@ -396,6 +418,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the no-short-open-tags option
+     * @param $value
      */
     public function setNoShortOpenTags($value)
     {
@@ -412,6 +435,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the ignore-deprecated-warnings option
+     * @param $value
      */
     public function setIgnoreDeprecatedWarnings($value)
     {
@@ -428,6 +452,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the ignore-strict-warnings option
+     * @param $value
      */
     public function setIgnoreStrictWarnings($value)
     {
@@ -444,6 +469,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the allow-encoding-into-source option
+     * @param $value
      */
     public function setAllowEncodingIntoSource($value)
     {
@@ -460,6 +486,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the message-if-no-loader option
+     * @param $value
      */
     public function setMessageIfNoLoader($value)
     {
@@ -476,6 +503,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the action-if-no-loader option
+     * @param $value
      */
     public function setActionIfNoLoader($value)
     {
@@ -492,6 +520,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the option to use when encoding target directory already exists (defaults to none)
+     * @param $targetOption
      */
     public function setTargetOption($targetOption)
     {
@@ -508,6 +537,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the callback-file option
+     * @param $value
      */
     public function setCallbackFile($value)
     {
@@ -524,6 +554,7 @@ class IoncubeEncoderTask extends Task
 
     /**
      * Sets the obfuscation-exclusions-file option
+     * @param $value
      */
     public function setObfuscationExclusionFile($value)
     {

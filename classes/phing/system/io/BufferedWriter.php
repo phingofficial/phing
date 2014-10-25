@@ -41,12 +41,22 @@ class BufferedWriter extends Writer
      */
     private $out;
 
+    /**
+     * @param Writer $writer
+     * @param int $buffsize
+     */
     public function __construct(Writer $writer, $buffsize = 8192)
     {
         $this->out = $writer;
         $this->bufferSize = $buffsize;
     }
 
+    /**
+     * @param string $buf
+     * @param null $off
+     * @param null $len
+     * @return mixed
+     */
     public function write($buf, $off = null, $len = null)
     {
         return $this->out->write($buf, $off, $len);
@@ -57,6 +67,9 @@ class BufferedWriter extends Writer
         $this->write(PHP_EOL);
     }
 
+    /**
+     * @return string
+     */
     public function getResource()
     {
         return $this->out->getResource();

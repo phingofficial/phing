@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,21 +25,22 @@ include_once 'phing/filters/ReplaceTokens.php'; // For class Token
  * Abstract class for TokenReaders.
  *
  * @author    Manuel Holtgewe
- * @version   $Id$
+ *
  * @package   phing.filters.util
  */
 abstract class TokenReader
 {
-
     /**
      * Reference to the Project the TokenReader is used in.
+     *
      * @var Project
      */
     protected $project;
 
     /**
-     * Constructor
-     * @param   object  Reference to the project the TokenReader is used in.
+     * Constructor.
+     *
+     * @param Project $project Reference to the project the TokenReader is used in.
      */
     public function __construct(Project $project)
     {
@@ -49,7 +48,12 @@ abstract class TokenReader
     }
 
     /**
-     * Utility function for logging
+     * Utility function for logging.
+     *
+     * @param $level
+     * @param $msg
+     *
+     * @return void
      */
     public function log($level, $msg)
     {
@@ -57,9 +61,10 @@ abstract class TokenReader
     }
 
     /**
-     * Reads the next token from the Reader
+     * Reads the next token from the Reader.
      *
      * @throws IOException - On error
+     *
      * @return string
      */
     abstract public function readToken();

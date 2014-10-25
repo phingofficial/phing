@@ -52,6 +52,8 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
 
     /**
      * Returns a copy of the selectors as an array.
+     * @param Project $p
+     * @return array
      */
     public function getSelectors(Project $p)
     {
@@ -76,7 +78,7 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
      * just be a helper class for the subclasses that put their own name
      * around the contents listed here.
      *
-     * @return comma separated list of Selectors contained in this one
+     * @return string comma separated list of Selectors contained in this one
      */
     public function toString()
     {
@@ -92,7 +94,8 @@ abstract class BaseSelectorContainer extends BaseSelector implements SelectorCon
     /**
      * Add a new selector into this container.
      *
-     * @param selector the new selector to add
+     * @param FileSelector|the $selector
+     * @internal param the $selector new selector to add
      * @return the selector that was added
      */
     public function appendSelector(FileSelector $selector)

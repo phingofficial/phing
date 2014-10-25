@@ -95,6 +95,7 @@ class MailTask extends Task
 
     /**
      * Setter for message
+     * @param $msg
      */
     public function setMsg($msg)
     {
@@ -103,6 +104,7 @@ class MailTask extends Task
 
     /**
      * Alias setter
+     * @param $msg
      */
     public function setMessage($msg)
     {
@@ -111,6 +113,7 @@ class MailTask extends Task
 
     /**
      * Setter for subject
+     * @param $subject
      */
     public function setSubject($subject)
     {
@@ -119,6 +122,7 @@ class MailTask extends Task
 
     /**
      * Setter for tolist
+     * @param $tolist
      */
     public function setToList($tolist)
     {
@@ -127,6 +131,7 @@ class MailTask extends Task
 
     /**
      * Alias for (deprecated) recipient
+     * @param $recipient
      */
     public function setRecipient($recipient)
     {
@@ -135,6 +140,7 @@ class MailTask extends Task
 
     /**
      * Alias for to
+     * @param $to
      */
     public function setTo($to)
     {
@@ -143,6 +149,7 @@ class MailTask extends Task
 
     /**
      * Supports the <mail>Message</mail> syntax.
+     * @param $msg
      */
     public function addText($msg)
     {
@@ -151,6 +158,7 @@ class MailTask extends Task
 
     /**
      * Sets email address of sender
+     * @param $from
      */
     public function setFrom($from)
     {
@@ -159,6 +167,7 @@ class MailTask extends Task
 
     /**
      * Sets PEAR Mail backend to use
+     * @param $backend
      */
     public function setBackend($backend)
     {
@@ -167,6 +176,7 @@ class MailTask extends Task
 
     /**
      * Sets PEAR Mail backend params to use
+     * @param $backendParams
      */
     public function setBackendParams($backendParams)
     {
@@ -192,6 +202,7 @@ class MailTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)

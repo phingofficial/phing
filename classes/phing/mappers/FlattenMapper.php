@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -30,7 +30,6 @@ require_once 'phing/mappers/FileNameMapper.php';
  */
 class FlattenMapper implements FileNameMapper
 {
-
     /**
      * The mapper implementation. Returns string with source filename
      * but without leading directory information
@@ -47,6 +46,9 @@ class FlattenMapper implements FileNameMapper
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $to
+     * @return void
      */
     public function setTo($to)
     {
@@ -54,9 +56,11 @@ class FlattenMapper implements FileNameMapper
 
     /**
      * Ignored here.
+     * {@inheritdoc}
+     * @param string $from
+     * @return void
      */
     public function setFrom($from)
     {
     }
-
 }

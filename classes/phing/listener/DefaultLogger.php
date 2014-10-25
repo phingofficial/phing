@@ -125,7 +125,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Sets the start-time when the build started. Used for calculating
      *  the build-time.
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @access public
      */
     public function buildStarted(BuildEvent $event)
@@ -144,7 +145,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Prints whether the build succeeded or failed, and any errors that
      *  occured during the build. Also outputs the total build-time.
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
@@ -190,7 +192,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Prints the current target name
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @access public
      * @see    BuildEvent::getTarget()
      */
@@ -210,7 +213,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a target has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function targetFinished(BuildEvent $event)
@@ -221,7 +225,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task is started. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @access public
      * @see    BuildEvent::getTask()
      */
@@ -233,8 +238,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  object  The BuildEvent
-     * @access public
+     * @param  BuildEvent $event  The BuildEvent
      * @see    BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
@@ -244,7 +248,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Print a message to the stdout.
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @access public
      * @see    BuildEvent::getMessage()
      */
@@ -273,6 +278,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Formats a time micro integer to human readable format.
      *
      * @param  integer The time stamp
+     * @return string
      */
     public static function formatTime($micros)
     {
@@ -294,11 +300,12 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Prints a message to console.
      *
-     * @param  string   $message  The message to print.
+     * @param  string $message The message to print.
      *                            Should not be <code>null</code>.
-     * @param  resource $stream   The stream to use for message printing.
-     * @param  int      $priority The priority of the message.
+     * @param OutputStream|resource $stream The stream to use for message printing.
+     * @param  int $priority The priority of the message.
      *                            (Ignored in this implementation.)
+     * @throws IOException
      * @return void
      */
     protected function printMessage($message, OutputStream $stream, $priority)

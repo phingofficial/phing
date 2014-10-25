@@ -38,6 +38,7 @@ class SvnLastRevisionTask extends SvnBaseTask
 
     /**
      * Sets the name of the property to use
+     * @param string $propertyName
      */
     public function setPropertyName($propertyName)
     {
@@ -46,6 +47,7 @@ class SvnLastRevisionTask extends SvnBaseTask
 
     /**
      * Returns the name of the property to use
+     * @return string
      */
     public function getPropertyName()
     {
@@ -57,6 +59,7 @@ class SvnLastRevisionTask extends SvnBaseTask
      *
      * Retained for legacy reasons
      * @deprecated
+     * @param $force
      */
     public function setForceCompatible($force)
     {
@@ -64,6 +67,7 @@ class SvnLastRevisionTask extends SvnBaseTask
 
     /**
      * Sets whether to retrieve the last changed revision
+     * @param $lastChanged
      */
     public function setLastChanged($lastChanged)
     {

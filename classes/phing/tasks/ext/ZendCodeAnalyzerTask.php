@@ -125,6 +125,7 @@ class ZendCodeAnalyzerTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -168,6 +169,7 @@ class ZendCodeAnalyzerTask extends Task
      * Analyze file
      *
      * @param  string $file
+     * @throws BuildException
      * @return void
      */
     protected function analyze($file)

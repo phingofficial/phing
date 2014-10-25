@@ -63,6 +63,7 @@ class PropertyTask extends Task
 
     /**
      * Sets a the name of current property component
+     * @param $name
      */
     public function setName($name)
     {
@@ -86,7 +87,8 @@ class PropertyTask extends Task
 
     /**
      * Sets value of property to CDATA tag contents.
-     * @param string $values
+     * @param $value
+     * @internal param string $values
      * @since 2.2.0
      */
     public function addText($value)
@@ -100,7 +102,9 @@ class PropertyTask extends Task
         return $this->value;
     }
 
-    /** Set a file to use as the source for properties. */
+    /** Set a file to use as the source for properties.
+     * @param $file
+     */
     public function setFile($file)
     {
         if (is_string($file)) {
@@ -115,6 +119,9 @@ class PropertyTask extends Task
         return $this->file;
     }
 
+    /**
+     * @param Reference $ref
+     */
     public function setRefid(Reference $ref)
     {
         $this->reference = $ref;
@@ -165,7 +172,8 @@ class PropertyTask extends Task
      * Note also that properties are case sensitive, even if the
      * environment variables on your operating system are not, e.g. it
      * will be ${env.Path} not ${env.PATH} on Windows 2000.
-     * @param env prefix
+     * @param prefix $env
+     * @internal param prefix $env
      */
     public function setEnvironment($env)
     {
@@ -189,21 +197,33 @@ class PropertyTask extends Task
         $this->userProperty = (boolean) $v;
     }
 
+    /**
+     * @return bool
+     */
     public function getUserProperty()
     {
         return $this->userProperty;
     }
 
+    /**
+     * @param $v
+     */
     public function setOverride($v)
     {
         $this->override = (boolean) $v;
     }
 
+    /**
+     * @return bool
+     */
     public function getOverride()
     {
         return $this->override;
     }
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         return (string) $this->value;
@@ -235,11 +255,17 @@ class PropertyTask extends Task
         return $this->filterChains[$num - 1];
     }
 
+    /**
+     * @param $logOutput
+     */
     public function setLogoutput($logOutput)
     {
         $this->logOutput = (bool) $logOutput;
     }
 
+    /**
+     * @return bool
+     */
     public function getLogoutput()
     {
         return $this->logOutput;
@@ -315,6 +341,8 @@ class PropertyTask extends Task
     /**
      * iterate through a set of properties,
      * resolve them then assign them
+     * @param $props
+     * @throws BuildException
      */
     protected function addProperties($props)
     {
@@ -359,6 +387,7 @@ class PropertyTask extends Task
     /**
      * load properties from a file.
      * @param PhingFile $file
+     * @throws BuildException
      */
     protected function loadFile(PhingFile $file)
     {
@@ -384,6 +413,7 @@ class PropertyTask extends Task
      * any references to properties within the object.
      *
      * @param  Properties $props The collection of Properties that need to be resolved.
+     * @throws BuildException
      * @return void
      */
     protected function resolveAllProperties(Properties $props)
@@ -467,9 +497,10 @@ class PropertyTask extends Task
      * This is slower than regex, but useful for this class, which has to handle
      * multiple parsing passes for properties.
      *
-     * @param string $value         The string to be scanned for property references
-     * @param array  &$fragments    The found fragments
-     * @param array  &$propertyRefs The found refs
+     * @param string $value The string to be scanned for property references
+     * @param array &$fragments The found fragments
+     * @param array &$propertyRefs The found refs
+     * @throws BuildException
      */
     protected function parsePropertyString($value, &$fragments, &$propertyRefs)
     {
