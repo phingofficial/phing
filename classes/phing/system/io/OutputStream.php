@@ -54,7 +54,9 @@ class OutputStream
         }
         $this->flush();
         if (false === @fclose($this->stream)) {
-            $msg = "Cannot close " . $this->getResource() . ": $php_errormsg";
+            $metaData = stream_get_meta_data($this->stream);
+            $resource = $metaData["uri"];
+            $msg = "Cannot close " . $resource . ": $php_errormsg";
             throw new IOException($msg);
         }
         $this->stream = null;
