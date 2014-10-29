@@ -1,7 +1,7 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.7 ChownTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="apb.html" title="Appendix B. Core tasks"><link rel="prev" href="apbs06.html" title="B.6 ChmodTask"><link rel="next" href="apbs08.html" title="B.8 ConditionTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.7 ChownTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apbs06.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="apbs08.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ChownTask"></a>B.7 ChownTask </h2></div></div></div>
         
         <p>Changes the owner of a file or directory.</p>
-        <div class="table"><a name="idp61570128"></a><p class="formal-object-title"><span class="label">Table B.8: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp73572528"></a><p class="formal-object-title"><span class="label">Table B.8: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The name of the file or directory. You either have to specify this
                             attribute, or use a fileset.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">user</code></td><td><code class="literal">String</code></td><td>The new owner of the file. Can contain a username and a groupname,
@@ -9,14 +9,14 @@
                                 <code class="literal">chmod()</code> fails</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">failonerror</code></td><td><code class="literal">Boolean</code></td><td>This flag means 'note errors to the output, but keep going'</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">verbose</code></td><td><code class="literal">Boolean</code></td><td>Give more information in error message in case of a
                             failure</td><td><code class="literal">true</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp61602096"></a>B.7.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp73604240"></a>B.7.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;chown file="my-file.txt" user="foo" /&gt;
 &lt;chown file="my-file.txt" user="username.groupname" /&gt;
 &lt;chown file="/home/test/my-directory" user="bar" /&gt;
 &lt;chown file="/home/test/my-file.txt" user="foo" verbose="true" failonerror="false" /&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp61604032"></a>B.7.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp73606224"></a>B.7.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code></p>

@@ -2,10 +2,14 @@
         
         <p> This task runs testcases using the <a class="ulink" href="http://www.phpunit.de/" target="_top">PHPUnit</a> framework. It is a functional port of the Ant <a class="ulink" href="http://ant.apache.org/manual/OptionalTasks/junit.html" target="_top">JUnit</a> task.</p>
         <p>
+            <span class="bold"><strong>NB:</strong></span> if you have installed the
+            PHPUnit PHAR, make sure you set the
+            <code class="literal">pharlocation</code> attribute!</p>
+        <p>
             <span class="bold"><strong>NB:</strong></span> the identifiers <code class="literal">phpunit2</code>
             (PHPUnit2Task) and <code class="literal">phpunit3</code> (PHPUnit3Task) have been deprecated! </p>
 
-        <div class="table"><a name="idp66315712"></a><p class="formal-object-title"><span class="label">Table C.83: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp78318080"></a><p class="formal-object-title"><span class="label">Table C.83: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">printsummary</code></td><td><code class="literal">Boolean</code></td><td>Print one-line statistics for each testcase.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">bootstrap</code></td><td><code class="literal">String</code></td><td>The name of a bootstrap file that is run before executing the
                             tests.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">codecoverage</code></td><td><code class="literal">Boolean</code></td><td>Gather code coverage information while running tests (requires
@@ -23,7 +27,7 @@
                         <code class="literal">stopOnSkipped</code>. Values provided
                         <span class="bold"><strong>overwrite</strong></span> other attributes!</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">groups</code></td><td><code class="literal">String</code></td><td>Only run tests from the specified group(s).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">excludeGroups</code></td><td><code class="literal">String</code></td><td>Exclude tests from the specified group(s).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">pharlocation</code></td><td><code class="literal">String</code></td><td>Location of the PHPUnit PHAR package.</td><td>n/a</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp66388256"></a>C.59.1 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp78330224"></a>C.59.1 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">formatter</code>
@@ -40,7 +44,7 @@
                         phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be
                         specified.</p>
 
-                    <div class="table"><a name="idp66395056"></a><p class="formal-object-title"><span class="label">Table C.84: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp78399456"></a><p class="formal-object-title"><span class="label">Table C.84: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either
                                         <code class="literal">xml</code>, <code class="literal">plain</code>,
@@ -56,7 +60,7 @@
                         of nested &lt;fileset&gt;s. It then generates a lists of classes that are
                         (in)directly defined by each PHP file.</p>
 
-                    <div class="table"><a name="idp66427184"></a><p class="formal-object-title"><span class="label">Table C.85: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp78431648"></a><p class="formal-object-title"><span class="label">Table C.85: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">exclude</code></td><td><code class="literal">String</code></td><td>A list of classes to exclude from the pattern matching.
                                         For example, when you have two baseclasses
@@ -71,7 +75,7 @@
                     </div></div><br class="table-break">
                 </li></ul></div>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp66451488"></a>C.59.2 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp78455376"></a>C.59.2 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;phpunit&gt;
   &lt;formatter todir="reports" type="xml"/&gt;
@@ -112,7 +116,7 @@
                 reporting and counting, and could possibly lead to strange results. Instead, use one
                 of more fileset's to provide a list of testcases to execute.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp66460608"></a>C.59.3 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp78464368"></a>C.59.3 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code></p>

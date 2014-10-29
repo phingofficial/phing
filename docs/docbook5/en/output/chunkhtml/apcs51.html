@@ -3,12 +3,12 @@
         <p> This task runs <a class="ulink" href="http://github.com/sebastianbergmann/phpcpd/" target="_top">phpcpd</a>, a Copy/Paste Detector (CPD) for PHP Code. You need an
             installed version of this software to use this task.</p>
 
-        <div class="table"><a name="idp65835552"></a><p class="formal-object-title"><span class="label">Table C.70: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp77837936"></a><p class="formal-object-title"><span class="label">Table C.70: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file or path</td><td>n/a</td><td>Only when there are <span class="emphasis"><em>no</em></span> nested
                         <code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code> elements</td></tr><tr><td><code class="literal">minTokens</code></td><td><code class="literal">Integer</code></td><td>Sets the minimum number of identical tokens (default: 70)</td><td>70</td><td>No</td></tr><tr><td><code class="literal">minLines</code></td><td><code class="literal">Integer</code></td><td>Sets the minimum number of identical lines (default: 5)</td><td>5</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The format for the report when no nested formatter is used.</td><td>default</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp65860416"></a>C.51.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77863296"></a>C.51.1 Examples</h3></div></div></div>
             
             <pre class="programlisting">&lt;phpcpd file="path/to/source.php"/&gt;</pre>
 
@@ -31,7 +31,7 @@
  &lt;/phpcpd&gt;</pre>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp65864976"></a>C.51.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77867904"></a>C.51.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code>
@@ -45,7 +45,7 @@
                         Output will always be sent to a file, unless you set the
                             <code class="literal">usefile</code> attribute to <code class="literal">false</code>.</p>
 
-                    <div class="table"><a name="idp65871648"></a><p class="formal-object-title"><span class="label">Table C.71: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp77874480"></a><p class="formal-object-title"><span class="label">Table C.71: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                             <code class="literal">format</code> attribute

@@ -4,7 +4,7 @@
             Project Mess Detector (PMD) for PHP Code. You need an installed version of this software
             to use this task.</p>
 
-        <div class="table"><a name="idp65939680"></a><p class="formal-object-title"><span class="label">Table C.73: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp77941808"></a><p class="formal-object-title"><span class="label">Table C.73: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file or path</td><td>n/a</td><td>Only when there are <span class="emphasis"><em>no</em></span> nested
                         <code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code> elements</td></tr><tr><td><code class="literal">rulesets</code></td><td><code class="literal">String</code></td><td>Sets the rulesets used for analyzing the source code</td><td>codesize, unusedcode</td><td>No</td></tr><tr><td><code class="literal">minimumPriority</code></td><td><code class="literal">Integer</code></td><td>The minimum priority for rules to load.</td><td>5</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>Comma-separated list of valid file extensions (without dot) for
@@ -12,7 +12,7 @@
                                 <code class="literal">CVS</code>, <code class="literal">.bzr</code>,
                                 <code class="literal">.hg</code></td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The format for the report when no nested formatter is used.</td><td>text</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp65973472"></a>C.53.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77975760"></a>C.53.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;phpmd file="path/to/source.php"/&gt;</pre>
 
@@ -31,7 +31,7 @@
  &lt;/phpmd&gt;</pre>
             <p>Checking syntax of source files in the fileset pathes.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp65977968"></a>C.53.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77980656"></a>C.53.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal"><a class="link" href="apds03.html" title="D.3 FileSet">fileset</a></code>
@@ -46,7 +46,7 @@
                         attribute to <code class="literal">true</code> and set an filename in the
                             <code class="literal">outfile</code> attribute.</p>
 
-                    <div class="table"><a name="idp65985056"></a><p class="formal-object-title"><span class="label">Table C.74: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp77987936"></a><p class="formal-object-title"><span class="label">Table C.74: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
                                             <code class="literal">format</code> attribute

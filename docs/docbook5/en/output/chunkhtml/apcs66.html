@@ -2,13 +2,13 @@
         
         <p> This task runs testcases using the <a class="ulink" href="http://www.simpletest.org/" target="_top">SimpleTest</a> framework.</p>
 
-        <div class="table"><a name="idp66853664"></a><p class="formal-object-title"><span class="label">Table C.94: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp78858224"></a><p class="formal-object-title"><span class="label">Table C.94: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">printsummary</code></td><td><code class="literal">Boolean</code></td><td>Print one-line statistics for each testcase.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonerror</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if an error occurs during the test
                             run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if a test fails (errors are considered
                             failures as well).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">failureproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on failure.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">errorproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on error.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">debug</code></td><td><code class="literal">Boolean</code></td><td>Switch debugging on/off</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp66885280"></a>C.66.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp78889424"></a>C.66.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;simpletest&gt;
   &lt;formatter type="plain"/&gt;
@@ -30,7 +30,7 @@
                 plain text results to the console. The build process is aborted if a test fails.
             </p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp66890064"></a>C.66.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp78894064"></a>C.66.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">formatter</code>
@@ -47,7 +47,7 @@
                         tests have written as some characters are illegal in XML documents and will
                         be dropped.</p>
 
-                    <div class="table"><a name="idp66896080"></a><p class="formal-object-title"><span class="label">Table C.95: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp78900128"></a><p class="formal-object-title"><span class="label">Table C.95: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either
                                         <code class="literal">xml</code>, <code class="literal">plain</code>, or

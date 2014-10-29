@@ -1,11 +1,11 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.78 SymfonyConsoleTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="apc.html" title="Appendix C. Optional tasks"><link rel="prev" href="apcs77.html" title="C.77 StopwatchTask"><link rel="next" href="apcs79.html" title="C.79 SymlinkTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.78 SymfonyConsoleTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apcs77.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="apcs79.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SymfonyConsoleTask"></a>C.78 SymfonyConsoleTask</h2></div></div></div>
         
         <p>Executes Symfony2 console commands</p>
-        <div class="table"><a name="idp67423248"></a><p class="formal-object-title"><span class="label">Table C.107: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp79427200"></a><p class="formal-object-title"><span class="label">Table C.107: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td>command</td><td>String</td><td>The Symfony Console command to execute</td><td>n/a</td><td>Yes</td></tr><tr><td>console</td><td>String</td><td>The path to symfony console application</td><td>app/console</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp67439648"></a>C.78.1 Examples</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp79443664"></a>C.78.1 Examples</h3></div></div></div>
             
             <p>Simple example</p>
             <pre class="programlisting">&lt;SymfonyConsole command="cache:clear"/&gt;
@@ -16,11 +16,11 @@
   &lt;arg value="some/path/or/single/value" quotes="true"&gt;
 &lt;/SymfonyConsole&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp67443168"></a>C.78.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp79447248"></a>C.78.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">arg</code></p>
-                    <div class="table"><a name="idp67445488"></a><p class="formal-object-title"><span class="label">Table C.108: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idp79449664"></a><p class="formal-object-title"><span class="label">Table C.108: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>String</td><td>the name for this argument, -- will be appended</td><td>n/a</td><td>No</td></tr><tr><td>value</td><td>String</td><td>the value for the argument</td><td>n/a</td><td>No</td></tr><tr><td>quotes</td><td>String</td><td>set to true if the value should be enclosed in double quotes</td><td>false</td><td>No</td></tr></tbody></table>
                     </div></div><br class="table-break">
