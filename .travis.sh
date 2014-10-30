@@ -67,7 +67,7 @@
     if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
         phpenv config-add .travis.php.ini
     else
-        sudo echo "hhvm.libxml.ext_entity_whitelist = file" >> /etc/hhvm/php.ini
+        echo "hhvm.libxml.ext_entity_whitelist = file" >> /etc/hhvm/php.ini
     fi
     
     phpenv rehash
