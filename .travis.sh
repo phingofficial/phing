@@ -68,6 +68,8 @@
         phpenv config-add .travis.php.ini
     else
         echo "hhvm.libxml.ext_entity_whitelist = file" >> /etc/hhvm/php.ini
+        phpenv rehash
+        echo "hhvm.libxml.ext_entity_whitelist = file" >> /etc/hhvm/php.ini
     fi
     
     phpenv rehash
