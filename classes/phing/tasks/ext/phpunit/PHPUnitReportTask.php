@@ -164,7 +164,7 @@ class PHPUnitReportTask extends Task
         }
 
         $proc->importStyleSheet($xsl);
-        $proc->setParameter('', 'output.sorttable', $this->useSortTable);
+        $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
         if ($this->format == "noframes") {
             $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));

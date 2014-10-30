@@ -66,8 +66,11 @@
 
     if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
         phpenv config-add .travis.php.ini
-        phpenv rehash
+    else
+        sudo echo "hhvm.libxml.ext_entity_whitelist = file" >> /etc/hhvm/php.ini
     fi
+    
+    phpenv rehash
 
     echo "=== SETTING GIT IDENTITY ==="
     git config --global user.email "travis-ci-build@phing.info"
