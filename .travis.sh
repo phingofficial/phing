@@ -6,15 +6,14 @@
 # Target system: travis-ci
 #-----------------------------------------------------------
 
-    sudo apt-get update -qq
+    if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
+        echo -e "\nAuto-discover pear channels and upgrade ..."
+        pear config-set auto_discover 1
+        pear -qq channel-update pear.php.net
+        pear -qq channel-discover pear.phing.info
+        echo "... OK"
+    fi
     
-    echo -e "\nAuto-discover pear channels and upgrade ..."
-    pear config-set auto_discover 1
-    pear -qq channel-update pear.php.net
-    pear -qq channel-discover pear.phing.info
-    echo "... OK"
-
-
     sudo apt-get install python-docutils
 
     if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
@@ -65,8 +64,10 @@
         composer install -o --no-progress
     fi
 
-    phpenv config-add .travis.php.ini
-    phpenv rehash
+    if [[ $TRAVIS_PHP_VERSION != 'hhvm-nightly' && $TRAVIS_PHP_VERSION != 'hhvm' ]]; then
+        phpenv config-add .travis.php.ini
+        phpenv rehash
+    fi
 
     echo "=== SETTING GIT IDENTITY ==="
     git config --global user.email "travis-ci-build@phing.info"
