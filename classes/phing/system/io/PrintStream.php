@@ -17,8 +17,8 @@
  * <http://phing.info>.
  */
 
-include 'phing/system/io/BufferedWriter.php';
-include 'phing/system/io/OutputStreamWriter.php';
+include_once 'phing/system/io/BufferedWriter.php';
+include_once 'phing/system/io/OutputStreamWriter.php';
 
 class PrintStream
 {
