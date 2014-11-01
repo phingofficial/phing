@@ -53,8 +53,8 @@ class BufferedWriter extends Writer
 
     /**
      * @param string $buf
-     * @param null $off
-     * @param null $len
+     * @param int $off
+     * @param int $len
      * @return mixed
      */
     public function write($buf, $off = null, $len = null)
