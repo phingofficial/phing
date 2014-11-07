@@ -363,12 +363,12 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                             if ($type === "tokensource") {
                                 // Store data from nested tags in local array
                                 $arr = array();
-                                $subparams = $params[$i]->getParams();
-                                $count = count($subparams);
-                                for ($i = 0; $i < $count; $i++) {
-                                    $arr[$subparams[$i]->getName()] = $subparams[$i]->getValue();
-                                }
 
+                                $subparams = $params[$i]->getParams();
+                                foreach ($subparams as $subparam) {
+                                    $arr[$subparam->getName()] = $subparam->getValue();
+                                }
+                                
                                 // Create TokenSource
                                 $tokensource = new TokenSource();
                                 if (isset($arr["classname"])) {
