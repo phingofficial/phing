@@ -179,6 +179,14 @@ class PHPMDTask extends Task
     }
 
     /**
+     * @param string $format
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
+    }
+
+    /**
      * Executes PHPMD against PhingFile or a FileSet
      *
      * @throws BuildException - if the phpmd classes can't be loaded.
