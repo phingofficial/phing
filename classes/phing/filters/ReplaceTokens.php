@@ -368,7 +368,7 @@ class ReplaceTokens extends BaseParamFilterReader implements ChainableReader
                                 foreach ($subparams as $subparam) {
                                     $arr[$subparam->getName()] = $subparam->getValue();
                                 }
-                                
+
                                 // Create TokenSource
                                 $tokensource = new TokenSource();
                                 if (isset($arr["classname"])) {
