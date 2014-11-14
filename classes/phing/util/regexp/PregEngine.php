@@ -129,8 +129,29 @@ class PregEngine implements RegexpEngine
      */
     private function preparePattern($pattern)
     {
-        // Use backquotes since hardly ever found in a regexp pattern, avoids using preg_quote
-        return '`' . $pattern . '`' . $this->getModifiers();
+        $delimiter = '/';
+        $delimiterPattern = <<<'REGEXP'
+/\\*\//
+REGEXP;
+
+        // The following block escapes usages of the delimiter in the pattern.
+        // The code seems excessive, but it needs escape the delimiter only if it is not already effectively escaped.
+        if (preg_match_all($delimiterPattern, $pattern, $matches, PREG_OFFSET_CAPTURE)) {
+            $diffOffset = 0;
+
+            foreach ($matches[0] as $match) {
+                $str = $match[0];
+                $offset = $match[1]+$diffOffset;
+
+                $escStr = (strlen($str) % 2) ? '\\'.$str : $str; // This will increase an even number of backslashes, before a forward slash, to an odd number.  I.e. '\\/' becomes '\\\/'.
+
+                $diffOffset += strlen($escStr)-strlen($str);
+
+                $pattern = substr_replace($pattern, $escStr, $offset, strlen($str));
+            }
+        }
+
+        return $delimiter . $pattern . $delimiter . $this->getModifiers();
     }
 
     /**
