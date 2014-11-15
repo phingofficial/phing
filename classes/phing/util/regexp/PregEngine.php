@@ -129,13 +129,10 @@ class PregEngine implements RegexpEngine
      */
     private function preparePattern($pattern)
     {
-        $delimiter = '/';
-        $delimiterPattern = <<<'REGEXP'
-/\\*\//
-REGEXP;
+        $delimiter = '`'; // Use an uncommon delimiter so the following block is avoided more often.
+        $delimiterPattern = '/\\\\*`/';
 
-        // The following block escapes usages of the delimiter in the pattern.
-        // The code seems excessive, but it needs escape the delimiter only if it is not already effectively escaped.
+        // The following block escapes usages of the delimiter in the pattern if it's not already escaped.
         if (preg_match_all($delimiterPattern, $pattern, $matches, PREG_OFFSET_CAPTURE)) {
             $diffOffset = 0;
 
