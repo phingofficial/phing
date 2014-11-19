@@ -2,6 +2,46 @@ P     H     I     N     G
 =========================
 
 
+Nov. xx, 2014 - Phing 2.9.0
+---------------------------
+
+New or improved functionality:
+
+ * Phing now supports HHVM
+ * Stopwatch task added
+ * Unit test coverage increased
+ * Source code formatted to PSR-2
+ * Various bugs and documentation errors fixed
+
+Additionally, the following Trac tickets (see www.phing.info) were fixed in this release:
+
+ * [1151] PHPMD Task does not support the format tag
+ * [1144] Reduce PhingCall/Foreach log messages
+ * [1140] DefaultLogger is not default logger
+ * [1138] ParallelTask - error in subtask should fail build
+ * [1135] obfuscation-key option for IoncubeEncoderTask does not work
+ * [1133] copytask haltonerror = "false" function failure when source dir not exists
+ * [1130] Add documentation for Manifest task
+ * [1129] ManifestTask md5 hash vs FileHashTask md5 hash not the same
+ * [1128] Imported target won't run until there is one with the same name in main build.xml
+ * [1123] ApplyTask outputProperty doesn't append
+ * [1122] Untar task does not preserve file permissions
+ * [1121] Please fix the syntax error in PHP Lint
+ * [1104] ArchiveComment Parameter for ZipTask
+ * [1095] ReferenceExistsCondition returns true for all UnknownElements
+ * [1089] phing -l is listing imported targets twice
+ * [1086] Support for running on HHVM
+ * [1084] pdepend task does not find dependencies when installed by composer
+ * [1069] PHPUnitTask formatter does not create directory if specified "todir" does not exist
+ * [1068] Phingcall and Import issues
+ * [1040] Composer task has no documentation
+ * [1012] SymlinkTaks overwrite fails if target doesn't exist
+ * [965] includePathTask: Allow appending and replacing
+ * [945] several phpunit task problems
+ * [930] Attribute logoutput to property task
+ * [796] Can't delete all subdirectories without directory itself
+ * [441] Reformat Phing source code to PSR-2
+
 Jul. 18, 2014 - Phing 2.8.2
 ---------------------------
 
