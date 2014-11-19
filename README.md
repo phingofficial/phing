@@ -109,6 +109,20 @@ Contact
   * GitHub:  [https://www.github.com/phingofficial/phing](https://www.github.com/phingofficial/phing)
   * E-mail:  [dev-subscribe@phing.tigris.org](mailto:dev-subscribe@phing.tigris.org) (mailing list)
 
+Contributing
+------------
+
+We welcome contributions! Please keep your pull requests clean and concise: squash commits,
+don't introduce unnecessary (whitespace) changes, use verbose commit messages.
+
+Phing's source code is formatted according to the PSR-2 standard.
+
+Donations
+---------
+
+If you like Phing, we accept donations through [Flattr](http://flattr.com/thing/1350991/The-Phing-Project).
+All donations will be used to help cover the costs for hosting the Phing site.
+
 PhpStorm License
 ----------------
 
