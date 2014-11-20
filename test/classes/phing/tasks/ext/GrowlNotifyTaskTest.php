@@ -131,7 +131,7 @@ class GrowlNotifyTaskTest extends BuildFileTest
     public function testSingleStickyNotification()
     {
         $this->mockTask->setMessage('Sticky message !!!');
-        $this->mockTask->setSticky(true);
+        $this->mockTask->setSticky('true');
 
         $this->executeTarget('test');
         $this->assertInLogs('Notification-Sticky: 1', Project::MSG_DEBUG);

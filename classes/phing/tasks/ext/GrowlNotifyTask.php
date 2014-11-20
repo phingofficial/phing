@@ -145,18 +145,10 @@ class GrowlNotifyTask extends Task
      * @param bool $sticky (optional) Notification should be sticky
      *
      * @return void
-     * @throws BuildException
      */
     public function setSticky($sticky = true)
     {
-        if (!is_bool($sticky)) {
-            throw new BuildException(
-                '"sticky" attribute is invalid.' .
-                ' Expect to be a boolean, actual is ' . gettype($sticky)
-            );
-        }
-
-        $this->sticky = $sticky;
+        $this->sticky = (bool) $sticky;
     }
 
     /**
