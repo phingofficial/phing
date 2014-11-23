@@ -30,7 +30,6 @@ require_once 'phing/util/regexp/RegexpEngine.php';
  */
 class PregEngine implements RegexpEngine
 {
-
     /**
      * Set to null by default to distinguish between false and not set
      * @var boolean
@@ -49,6 +48,11 @@ class PregEngine implements RegexpEngine
      * @var string
      */
     private $modifiers = null;
+
+    /**
+     * Pattern delimiter.
+     */
+    const DELIMITER = '`';
 
     /**
      * Sets pattern modifiers for regex engine
@@ -129,8 +133,7 @@ class PregEngine implements RegexpEngine
      */
     private function preparePattern($pattern)
     {
-        $delimiter = '`'; // Use an uncommon delimiter so the following block is avoided more often.
-        $delimiterPattern = '/\\\\*`/';
+        $delimiterPattern = '/\\\\*' . self::DELIMITER . '/';
 
         // The following block escapes usages of the delimiter in the pattern if it's not already escaped.
         if (preg_match_all($delimiterPattern, $pattern, $matches, PREG_OFFSET_CAPTURE)) {
@@ -148,7 +151,7 @@ class PregEngine implements RegexpEngine
             }
         }
 
-        return $delimiter . $pattern . $delimiter . $this->getModifiers();
+        return self::DELIMITER . $pattern . self::DELIMITER . $this->getModifiers();
     }
 
     /**
