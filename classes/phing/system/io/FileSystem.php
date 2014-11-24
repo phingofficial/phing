@@ -517,12 +517,7 @@ abstract class FileSystem
             throw new IOException($msg);
         }
 
-        try {
-            $dest->setMode($src->getMode());
-        } catch (Exception $exc) {
-            // [MA] does chmod returns an error on systems that do not support it ?
-            // eat it up for now.
-        }
+        $dest->setMode($src->getMode());
     }
 
     /**
