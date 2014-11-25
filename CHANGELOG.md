@@ -2,10 +2,10 @@ P     H     I     N     G
 =========================
 
 
-Nov. xx, 2014 - Phing 2.9.0
+Nov. 25, 2014 - Phing 2.9.0
 ---------------------------
 
-New or improved functionality:
+This release contains the following new or improved functionality:
 
  * Phing now supports HHVM
  * Stopwatch task added
@@ -16,6 +16,7 @@ New or improved functionality:
 Additionally, the following Trac tickets (see www.phing.info) were fixed in this release:
 
  * [1151] PHPMD Task does not support the format tag
+ * [1149] Exclude extra files from composer package
  * [1144] Reduce PhingCall/Foreach log messages
  * [1140] DefaultLogger is not default logger
  * [1138] ParallelTask - error in subtask should fail build
