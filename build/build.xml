@@ -30,10 +30,8 @@
         <include name="classes/**"/>
         <include name="docs/api/**"/>
         <include name="docs/example/**"/>
-        <include name="docs/docbook5/en/hlhtml/**"/>
+        <include name="docs/docbook5/en/output/hlhtml/**"/>
         <include name="etc/**"/>
-        
-
         <include name="CHANGELOG.md"/>
         <include name="CREDITS.md"/>
         <include name="LICENSE"/>
