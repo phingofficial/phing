@@ -24,24 +24,20 @@
     <property name="build.full.dir" value="${buildfile.dir}/full"/>
 
     <fileset dir="${phingpkg.home}" id="all">
-        <include name="**/**"/>
-        <exclude name="bin/pear-phing"/>
-        <exclude name="bin/pear-phing.bat"/>
-        <exclude name="build/**"/>
-        <exclude name=".settings/**"/>
-        <exclude name=".buildpath"/>
-        <exclude name=".project"/>
-        <exclude name="test/performance/**"/>
-        <exclude name="test/reports/**"/>
-        <exclude name="docs/docbook5/en/scripts/**"/>
-        <exclude name="docs/docbook5/en/source/**"/>
-        <exclude name="docs/docbook5/en/stylesheets/**"/>
-        <exclude name="docs/docbook5/en/output/chunkhtml/**"/>
-        <exclude name="docs/docbook5/en/output/hlpdf/**"/>
-        <exclude name="docs/docbook5/en/output/epub/**"/>
-        <exclude name="docs/docbook5/en/output/webhelp/**"/>
-        <exclude name="docs/docbook5/en/*"/>
-        <exclude name="docs/docsystem/**"/>
+    	<include name="bin/phing"/>
+    	<include name="bin/phing.bat"/>
+    	<include name="bin/phing.php"/>
+        <include name="classes/**"/>
+        <include name="docs/api/**"/>
+        <include name="docs/example/**"/>
+        <include name="docs/docbook5/en/hlhtml/**"/>
+        <include name="etc/**"/>
+        
+
+        <include name="CHANGELOG.md"/>
+        <include name="CREDITS.md"/>
+        <include name="LICENSE"/>
+        <include name="README.md"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}/classes/phing" id="classes">
@@ -51,7 +47,6 @@
     <fileset dir="${phingpkg.home}/docs" id="docs">
         <include name="api/docs/**"/>
         <include name="example/**"/>
-        <include name="phing_guide/book/**"/>
         <include name="docbook5/en/output/hlhtml/**"/>
     </fileset>
 
