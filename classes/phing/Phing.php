@@ -1636,6 +1636,7 @@ class Phing
      */
     public static function shutdown()
     {
+        self::$msgOutputLevel = Project::MSG_INFO;
         self::restoreIni();
         self::getTimer()->stop();
     }
