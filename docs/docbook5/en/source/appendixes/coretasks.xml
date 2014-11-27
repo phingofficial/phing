@@ -2841,6 +2841,114 @@
 &lt;echo>Resolved [absolute] path: ${absolute_path}&lt;/echo></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="SwitchPathTask">
+        <title>SwitchTask </title>
+        <para>Task definition for the phing task to switch on a particular value.</para>
+
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>value</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The value to switch on.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>caseinsensitive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Should we do case insensitive comparisons?</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para>At least one <literal>&lt;case></literal> or <literal>&lt;default></literal> is required.</para>
+                </listitem>
+            </itemizedlist>
+
+            <title>case</title>
+            <itemizedlist>
+                <listitem>
+                    <para>An individual case to consider, if the value that is being switched on matches to value attribute
+                        of the case, then the nested tasks will be executed.</para>
+                </listitem>
+            </itemizedlist>
+
+            <table>
+                <title>Attributes</title>
+                <tgroup cols="5">
+                    <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                    <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                    <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                    <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                    <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                    <thead>
+                        <row>
+                            <entry>Name</entry>
+                            <entry>Type</entry>
+                            <entry>Description</entry>
+                            <entry>Default</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>value</literal></entry>
+                            <entry><literal role="type">String</literal></entry>
+                            <entry>The value to match against the tasks value attribute.</entry>
+                            <entry>n/a</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <title>default</title>
+            <itemizedlist>
+                <listitem>
+                    <para>The default case for when no match is found. Must not appear more than once per task.</para>
+                </listitem>
+            </itemizedlist>
+
+        </sect2>
+        <sect2>
+            <title>Examples</title>
+            <programlisting language="xml">&lt;switch value="${foo}">
+    &lt;case value="bar">
+        &lt;echo message="The value of property foo is bar" />
+    &lt;/case>
+    &lt;case value="baz">
+        &lt;echo message="The value of property foo is baz" />
+    &lt;/case>
+    &lt;default>
+        &lt;echo message="The value of property foo is not sensible" />
+    &lt;/default>
+&lt;/switch></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="TaskdefTask">
         <title>TaskdefTask </title>
         <para>With the <literal>TaskdefTask</literal> you can import a user task into your
