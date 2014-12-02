@@ -262,14 +262,15 @@ class FileUtils
             $dosWithDrive = true;
 
             $ca = str_replace('/', '\\', $path);
+            $ca = StringHelper::toCharArray($ca);
 
-            $path = strtoupper($ca{0}) . ':';
+            $path = strtoupper($ca[0]) . ':';
 
             for ($i = 2, $_i = count($ca); $i < $_i; $i++) {
-                if (($ca{$i} !== '\\') ||
-                    ($ca{$i} === '\\' && $ca{$i - 1} !== '\\')
+                if (($ca[$i] !== '\\') ||
+                    ($ca[$i] === '\\' && $ca[$i - 1] !== '\\')
                 ) {
-                    $path .= $ca{$i};
+                    $path .= $ca[$i];
                 }
             }
 
