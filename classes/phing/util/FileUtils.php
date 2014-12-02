@@ -265,7 +265,7 @@ class FileUtils
 
             $path = strtoupper($ca{0}) . ':';
 
-            for ($i = 2, $_i = count($ca); $i < $_i; $i++) {
+            for ($i = 2, $_i = strlen($ca); $i < $_i; $i++) {
                 if (($ca{$i} !== '\\') ||
                     ($ca{$i} === '\\' && $ca{$i - 1} !== '\\')
                 ) {
