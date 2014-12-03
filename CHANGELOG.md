@@ -2,6 +2,24 @@ P     H     I     N     G
 =========================
 
 
+Dec. 3, 2014 - Phing 2.9.1
+--------------------------
+
+This releases fixes a Windows regression and adds the following new functionality:
+
+ * Http condition
+ * Switch task
+ * Throw task
+
+The following tickets were closed in this release:
+
+ * [1158] Phing fails to call itself with Exec task
+ * [1157] ZIP task ignores ${phing.dir}
+ * [1156] phing+windows copy file path
+ * [1155] Add http condition
+ * [1154] Can't read version information file
+ * [1147] Resetting Phing::$msgOutputLevel
+
 Nov. 25, 2014 - Phing 2.9.0
 ---------------------------
 
