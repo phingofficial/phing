@@ -28,7 +28,8 @@ P     H     I     N     G
   * Easily extendable via PHP classes
   * Platform-independent: works on UNIX, Windows, Mac OSX
   * No required external dependencies
-  * Built for PHP5
+  
+  Phing requires PHP 5.4 or higher.
 
 The Latest Version
 ------------------
