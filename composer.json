@@ -47,7 +47,10 @@
 	"ext-pdo_sqlite": "*"
     },
     "autoload": {
-        "classmap": ["classes/phing/"]
+        "classmap": ["classes/phing/"],
+        "psr-4": {
+            "Phing\\": "src/Phing"
+        }
     },
     "include-path": ["classes"],
     "bin": [
