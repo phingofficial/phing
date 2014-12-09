@@ -1,7 +1,9 @@
 P     H     I     N     G
 =========================
 
-  Master: [![Build Status](https://travis-ci.org/phingofficial/phing.png?branch=master)](https://travis-ci.org/phingofficial/phing)
+  3.0: [![Build Status](https://travis-ci.org/phingofficial/phing.png?branch=3.0)](https://travis-ci.org/phingofficial/phing)
+
+  NOTE: This is an unstable branch, code may break / move without warning :)
 
   (PH)ing (I)s (N)ot (G)NU make; it's a PHP project build system or build
   tool based on Apache Ant. You can do anything with it that you could do
