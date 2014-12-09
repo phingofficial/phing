@@ -24,7 +24,6 @@
  *
  * @author    Bryan Davis <bpd@keynetics.com>
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
 class PhingXMLContext

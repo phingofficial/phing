@@ -40,7 +40,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org>
  * @version   $Id$
- * @access    public
  * @see       BaseFilterReader
  * @package   phing.filters
  */

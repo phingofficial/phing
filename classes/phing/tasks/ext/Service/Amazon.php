@@ -43,7 +43,6 @@ abstract class Service_Amazon extends Task
      * (default value: array())
      *
      * @var array
-     * @access protected
      */
     protected $_options = array();
 
@@ -64,7 +63,6 @@ abstract class Service_Amazon extends Task
      *
      * This way, we can define global properties for the "Amazon" service, like key and secret
      *
-     * @access public
      * @param  mixed $var
      * @return mixed
      */

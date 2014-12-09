@@ -45,7 +45,6 @@ class UnknownElement extends Task
      * Constructs a UnknownElement object
      *
      * @param    string  The XML element name that is unknown
-     * @access   public
      */
     public function __construct($elementName)
     {

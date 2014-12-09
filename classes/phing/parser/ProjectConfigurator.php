@@ -36,7 +36,6 @@ include_once 'phing/IntrospectionHelper.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
 class ProjectConfigurator
@@ -251,7 +250,6 @@ class ProjectConfigurator
      * @internal param the $object element to configure
      * @internal param the $array element's attributes
      * @internal param the $object project this element belongs to
-     * @access public
      */
     public static function configure($target, $attrs, Project $project)
     {
@@ -297,7 +295,6 @@ class ProjectConfigurator
      * @param  object  the project this element belongs to
      * @param  object  the element to configure
      * @param  string  the element's #CDATA
-     * @access public
      */
     public static function addText($project, $target, $text = null)
     {
@@ -316,7 +313,6 @@ class ProjectConfigurator
      * @param  object  the parent element
      * @param  object  the child element
      * @param  string  the XML tagname
-     * @access public
      */
     public static function storeChild($project, $parent, $child, $tag)
     {

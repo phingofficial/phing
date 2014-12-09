@@ -169,7 +169,6 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Creates a filterchain
      *
-     * @access public
      * @return object The created filterchain object
      */
     public function createFilterChain()

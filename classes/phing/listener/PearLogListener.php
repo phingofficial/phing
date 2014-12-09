@@ -173,7 +173,6 @@ class PearLogListener implements BuildListener
      *  event. So the methods are empty.
      *
      * @param  BuildEvent  The BuildEvent
-     * @access public
      * @see    BuildEvent::getException()
      */
     public function targetFinished(BuildEvent $event)
@@ -185,7 +184,6 @@ class PearLogListener implements BuildListener
      *  event. So the methods are empty.
      *
      * @param  BuildEvent  The BuildEvent
-     * @access public
      * @see    BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)

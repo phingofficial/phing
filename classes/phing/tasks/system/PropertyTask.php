@@ -245,7 +245,6 @@ class PropertyTask extends Task
     /**
      * Creates a filterchain
      *
-     * @access public
      * @return object The created filterchain object
      */
     public function createFilterChain()

@@ -438,7 +438,6 @@ class DirectoryScanner implements SelectorScanner
      *
      * @param   src String. Source path and name file to copy.
      *
-     * @access  public
      * @return array directory entries
      * @author  Albert Lash, alash@plateauinnovation.com
      */

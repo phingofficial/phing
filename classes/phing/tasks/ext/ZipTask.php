@@ -113,7 +113,6 @@ class ZipTask extends MatchingTask
      * Set the include empty dirs flag.
      * @param  boolean  Flag if empty dirs should be tarred too
      * @return void
-     * @access public
      */
     public function setIncludeEmptyDirs($bool)
     {

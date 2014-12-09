@@ -122,7 +122,6 @@ class PhingPhpDocumentorSetup extends phpDocumentor_setup
         foreach ($ignoretags as $tag) {
             if (!in_array(
                 $tag,
-                array('@global', '@access', '@package', '@ignore', '@name', '@param', '@return', '@staticvar', '@var')
             )
             ) {
                 $tags[] = $tag;

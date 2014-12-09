@@ -32,7 +32,6 @@ include_once 'phing/RuntimeConfigurable.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
 
@@ -77,7 +76,6 @@ class DataTypeHandler extends AbstractHandler
      * @param  string  the tag that comes in
      * @param  array   attributes the tag carries
      * @throws ExpatParseException if attributes are incomplete or invalid
-     * @access public
      */
     public function init($propType, $attrs)
     {
@@ -112,7 +110,6 @@ class DataTypeHandler extends AbstractHandler
      * @param $data
      * @throws ExpatParseException
      * @internal param the $string CDATA that comes in
-     * @access public
      */
     public function characters($data)
     {
@@ -130,7 +127,6 @@ class DataTypeHandler extends AbstractHandler
      *
      * @param  string  the tag that comes in
      * @param  array   attributes the tag carries
-     * @access public
      */
     public function startElement($name, $attrs)
     {

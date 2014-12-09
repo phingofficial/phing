@@ -337,7 +337,6 @@ class ForeachTask extends Task
     /**
      * Nested creator, creates one Mapper for this task
      *
-     * @access  public
      * @return object         The created Mapper type object
      * @throws BuildException
      */

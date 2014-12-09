@@ -32,7 +32,6 @@ include_once 'phing/util/regexp/Regexp.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @version   $Id$
- * @access    public
  * @see       phing.util.regex.RegexMatcher
  * @package   phing.types
  */
