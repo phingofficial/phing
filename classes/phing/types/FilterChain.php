@@ -125,9 +125,9 @@ class FilterChain extends DataType
     }
 
     /**
-     * @param LineContainsRegExp $o
+     * @param LineContainsRegexp $o
      */
-    public function addLineContainsRegExp(LineContainsRegExp $o)
+    public function addLineContainsRegExp(LineContainsRegexp $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;
