@@ -1,4 +1,7 @@
 <?php
+
+require_once '../vendor/autoload.php';
+
 use Phing\Phing;
 
 defined('PHING_TEST_BASE') || define('PHING_TEST_BASE', dirname(__FILE__));
@@ -7,8 +10,6 @@ set_include_path(
     realpath(dirname(__FILE__) . '/classes') . PATH_SEPARATOR .
     get_include_path()  // trunk version of phing classes should take precedence
 );
-
-require_once(dirname(__FILE__) . '/classes/phing/BuildFileTest.php');
 
 Phing::setProperty('phing.home', realpath(dirname(__FILE__) . '/../'));
 Phing::startup();
