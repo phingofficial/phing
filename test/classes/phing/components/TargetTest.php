@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -29,7 +31,7 @@ require_once 'phing/BuildFileTest.php';
  * @author Daniel Holmes
  * @package phing.system
  */
-class TargetTest extends BuildFileTest
+class TargetTest extends AbstractBuildFileTest
 {
     /** @var Target */
     private $target;

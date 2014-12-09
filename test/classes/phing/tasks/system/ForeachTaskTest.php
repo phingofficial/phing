@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Unit test for ForeachTask.
@@ -25,7 +26,7 @@
  * @author  Laurent Laville <pear@laurent-laville.org>
  * @package phing.tasks.system
  */
-class ForeachTaskTest extends BuildFileTest
+class ForeachTaskTest extends AbstractBuildFileTest
 {
     /**
      * Sets up the fixture.

@@ -1,4 +1,5 @@
 <?php
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  *  $Id$
@@ -33,7 +34,7 @@ require_once 'phing/BuildFileTest.php';
  * @author  Michiel Rook <mrook@php.net>
  * @package phing.util
  */
-class DirectoryScannerTest extends BuildFileTest
+class DirectoryScannerTest extends AbstractBuildFileTest
 {
     private $_basedir = "";
 

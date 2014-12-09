@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class SymlinkTaskTest extends BuildFileTest
+class SymlinkTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -31,7 +33,7 @@ require_once 'phing/BuildFileTest.php';
  * TODO: fix these tests on windows. Windows symlink command is mklink. I am not sure why these tests
  *       are throwing errors.
  */
-class AvailableTaskTest extends BuildFileTest
+class AvailableTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class PearStyleNamingTest extends BuildFileTest
+class PearStyleNamingTest extends AbstractBuildFileTest
 {
 
     public function setUp()

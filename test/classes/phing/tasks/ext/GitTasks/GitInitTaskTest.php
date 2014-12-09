@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitInitTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
@@ -28,7 +30,7 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitInitTaskTest extends BuildFileTest
+class GitInitTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

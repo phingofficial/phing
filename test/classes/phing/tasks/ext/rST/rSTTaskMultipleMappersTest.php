@@ -1,4 +1,5 @@
 <?php
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -26,7 +27,7 @@ require_once 'phing/BuildFileTest.php';
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
  */
-class rSTTaskMultipleMappersTest extends BuildFileTest
+class rSTTaskMultipleMappersTest extends AbstractBuildFileTest
 {
     /**
      * @expectedException BuildException

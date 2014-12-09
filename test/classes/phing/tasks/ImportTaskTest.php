@@ -20,13 +20,15 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Bryan Davis <bpd@keynetics.com>
  * @package phing.tasks.system
  */
-class ImportTaskTest extends BuildFileTest
+class ImportTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

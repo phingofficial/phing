@@ -18,6 +18,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -27,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @package phing.tasks.system
  * @requires PHP 5.3.2
  */
-class ApplyTaskTest extends BuildFileTest
+class ApplyTaskTest extends AbstractBuildFileTest
 {
     /**
      * Whether test is being run on windows

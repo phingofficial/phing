@@ -1,5 +1,7 @@
 <?php
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -9,7 +11,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class EchoTaskTest extends BuildFileTest
+class EchoTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

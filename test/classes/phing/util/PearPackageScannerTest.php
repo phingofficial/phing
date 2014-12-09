@@ -1,4 +1,5 @@
 <?php
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  *  $Id$
@@ -30,7 +31,7 @@ require_once 'phing/util/PearPackageScanner.php';
  * @author  Christian Weiske <cweiske@cweiske.de>
  * @package phing.util
  */
-class PearPackageScannerTest extends BuildFileTest
+class PearPackageScannerTest extends AbstractBuildFileTest
 {
     protected $backupGlobals = false;
 

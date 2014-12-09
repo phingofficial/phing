@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -28,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class ExecTaskTest extends BuildFileTest
+class ExecTaskTest extends AbstractBuildFileTest
 {
     /**
      * Whether test is being run on windows

@@ -50,10 +50,14 @@
     "autoload": {
         "classmap": ["classes/phing/"],
         "psr-4": {
-            "Phing\\": "src/Phing"
+            "Phing\\": "src"
         }
     },
-    "include-path": ["classes"],
+    "autoload-dev": {
+        "psr-4": {
+            "Phing\\Test\\": "test"
+        }
+    },
     "bin": [
         "bin/phing"
     ],

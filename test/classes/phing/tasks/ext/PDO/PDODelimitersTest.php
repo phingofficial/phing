@@ -1,4 +1,5 @@
 <?php
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -28,7 +29,7 @@ require_once 'phing/tasks/ext/pdo/PDOSQLExecTask.php';
  * @author Alexey Borzov <avb@php.net>
  * @package phing.tasks.ext
  */
-class PDODelimitersTest extends BuildFileTest
+class PDODelimitersTest extends AbstractBuildFileTest
 {
     protected $queries = array();
 

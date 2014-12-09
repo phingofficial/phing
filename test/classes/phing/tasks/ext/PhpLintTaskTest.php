@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -27,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.tasks.ext
  */
-class PhpLintTaskTest extends BuildFileTest
+class PhpLintTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

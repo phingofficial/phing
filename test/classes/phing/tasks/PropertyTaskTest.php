@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/system/PropertyTask.php';
 
@@ -28,7 +30,7 @@ require_once 'phing/tasks/system/PropertyTask.php';
  * @author Conor MacNeill (Ant)
  * @package phing.tasks.system
  */
-class PropertyTaskTest extends BuildFileTest
+class PropertyTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

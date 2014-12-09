@@ -1,4 +1,5 @@
 <?php
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -27,7 +28,7 @@ require_once 'phing/BuildFileTest.php';
  * @link       http://www.phing.info/
  * TODO: skip these tests when requirements are not met. (Like when running on windows?)
  */
-class rSTTaskTest extends BuildFileTest
+class rSTTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

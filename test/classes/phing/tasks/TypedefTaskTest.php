@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 
 /**
@@ -27,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class TypedefTaskTest extends BuildFileTest
+class TypedefTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

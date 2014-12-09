@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
 
@@ -27,7 +29,7 @@ require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class SvnSwitchTaskTest extends BuildFileTest
+class SvnSwitchTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

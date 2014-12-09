@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/FileSyncTask.php';
 
@@ -29,7 +31,7 @@ require_once '../classes/phing/tasks/ext/FileSyncTask.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class FileSyncTaskTest extends BuildFileTest
+class FileSyncTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

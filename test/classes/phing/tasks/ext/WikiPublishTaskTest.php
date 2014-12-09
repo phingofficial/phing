@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/WikiPublishTask.php';
 
@@ -27,7 +29,7 @@ require_once 'phing/tasks/ext/WikiPublishTask.php';
  * @author  Piotr Lewandowski <piotr@cassis.pl>
  * @package phing.tasks.ext
  */
-class WikiPublishTaskTest extends BuildFileTest
+class WikiPublishTaskTest extends AbstractBuildFileTest
 {
 
     /**

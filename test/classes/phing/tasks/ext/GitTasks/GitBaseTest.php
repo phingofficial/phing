@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Test\AbstractBuildFileTest;
+
 require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitBaseTask.php';
 
@@ -27,7 +29,7 @@ require_once '../classes/phing/tasks/ext/git/GitBaseTask.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class GitBaseTest extends BuildFileTest
+class GitBaseTest extends AbstractBuildFileTest
 {
 
     protected $mock;

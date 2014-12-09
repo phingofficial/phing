@@ -1,4 +1,5 @@
 <?php
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  *  $Id$
@@ -30,7 +31,7 @@ require_once 'phing/types/PearPackageFileSet.php';
  * @author  Christian Weiske <cweiske@cweiske.de>
  * @package phing.types
  */
-class PearPackageFileSetTest extends BuildFileTest
+class PearPackageFileSetTest extends AbstractBuildFileTest
 {
     public function setUp()
     {
