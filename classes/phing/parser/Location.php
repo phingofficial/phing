@@ -25,7 +25,6 @@
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
 
@@ -42,7 +41,6 @@ class Location
      * @param  string  the filename
      * @param  integer the line number
      * @param  integer the column number
-     * @access public
      */
     public function Location($fileName = null, $lineNumber = null, $columnNumber = null)
     {
@@ -58,7 +56,6 @@ class Location
      * returns empty string.
      *
      * @return string the string representation of this Location object
-     * @access public
      */
     public function toString()
     {

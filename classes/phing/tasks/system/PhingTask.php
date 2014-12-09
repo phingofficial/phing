@@ -328,7 +328,6 @@ class PhingTask extends Task
      * This function replaces the old methods "init", "_reinit" and
      * "_initializeProject".
      *
-     * @access      protected
      */
     private function initializeProject()
     {
@@ -510,7 +509,6 @@ class PhingTask extends Task
      * If true, pass all properties to the new phing project.
      * Defaults to true.
      *
-     * @access      public
      * @param $value
      */
     public function setInheritAll($value)
@@ -522,7 +520,6 @@ class PhingTask extends Task
      * If true, pass all references to the new phing project.
      * Defaults to false.
      *
-     * @access      public
      * @param $value
      */
     public function setInheritRefs($value)
@@ -536,7 +533,6 @@ class PhingTask extends Task
      * has been set to false, in which case it doesn't have a default
      * value. This will override the basedir setting of the called project.
      *
-     * @access      public
      * @param $d
      */
     public function setDir($d)
@@ -553,7 +549,6 @@ class PhingTask extends Task
      * Defaults to "build.xml". This file is expected to be a filename relative
      * to the dir attribute given.
      *
-     * @access      public
      * @param $s
      */
     public function setPhingfile($s)
@@ -567,7 +562,6 @@ class PhingTask extends Task
     /**
      * Alias function for setPhingfile
      *
-     * @access       public
      * @param $s
      */
     public function setBuildfile($s)
@@ -579,7 +573,6 @@ class PhingTask extends Task
      * The target of the new Phing project to execute.
      * Defaults to the new project's default target.
      *
-     * @access      public
      * @param $s
      */
     public function setTarget($s)
@@ -602,7 +595,6 @@ class PhingTask extends Task
      * Property to pass to the new project.
      * The property is passed as a 'user property'
      *
-     * @access      public
      */
     public function createProperty()
     {
@@ -618,7 +610,6 @@ class PhingTask extends Task
      * Reference element identifying a data type to carry
      * over to the new project.
      *
-     * @access      public
      */
     public function createReference()
     {

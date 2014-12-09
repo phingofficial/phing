@@ -28,7 +28,6 @@ include_once 'phing/TaskContainer.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @see       TaskContainer
  * @package   phing
  */
@@ -134,7 +133,6 @@ class Target implements TaskContainer
      * Adds a singular dependent target name to the list
      *
      * @param string $dependency The dependency target to add
-     * @access  public
      */
     public function addDependency($dependency)
     {
@@ -165,7 +163,6 @@ class Target implements TaskContainer
      * Returns name of this target.
      *
      * @return string The name of the target
-     * @access   public
      */
     public function getName()
     {
@@ -209,7 +206,6 @@ class Target implements TaskContainer
      * Adds a task element to the list of this targets child elements
      *
      * @param Task $task The task object to add
-     * @access  public
      */
     public function addTask(Task $task)
     {
@@ -221,7 +217,6 @@ class Target implements TaskContainer
      * elements.
      *
      * @param RuntimeConfigurable $rtc The RuntimeConfigurable object
-     * @access  public
      */
     public function addDataType($rtc)
     {
@@ -255,7 +250,6 @@ class Target implements TaskContainer
      * as parameter must be present so the if condition evaluates to true
      *
      * @param string $property The property name that has to be present
-     * @access  public
      */
     public function setIf($property)
     {
@@ -268,7 +262,6 @@ class Target implements TaskContainer
      * to true
      *
      * @param string $property The property name that has to be present
-     * @access  public
      */
     public function setUnless($property)
     {

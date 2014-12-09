@@ -115,7 +115,6 @@ class CopyTask extends Task
      *
      * @param  boolean  Preserve the timestamp on the destination file
      * @return void
-     * @access public
      */
     public function setPreserveLastModified($bool)
     {

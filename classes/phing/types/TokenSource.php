@@ -105,7 +105,6 @@ class TokenSource extends DataType
      * This function uses the wrapper to read the tokens and then
      * returns them.
      *
-     * @access  public
      */
     public function getTokens()
     {

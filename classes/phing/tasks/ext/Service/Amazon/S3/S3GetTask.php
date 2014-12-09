@@ -38,7 +38,6 @@ class S3GetTask extends Service_Amazon_S3
      * (default value: null)
      *
      * @var mixed
-     * @access protected
      */
     protected $_target = null;
 
@@ -48,7 +47,6 @@ class S3GetTask extends Service_Amazon_S3
      * (default value: null)
      *
      * @var mixed
-     * @access protected
      */
     protected $_object = null;
 

@@ -97,7 +97,6 @@ abstract class AbstractHandler
      * @throws ExpatParseException
      * @exception ExpatParserException if there is no CDATA but method
      *            was called
-     * @access    public
      */
     public function characters($data)
     {

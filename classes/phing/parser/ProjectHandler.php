@@ -30,7 +30,6 @@ require_once 'phing/parser/ElementHandler.php';
  * @author      Andreas Aderhold <andi@binarycloud.com>
  * @copyright (c) 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
 class ProjectHandler extends AbstractHandler
@@ -166,7 +165,6 @@ class ProjectHandler extends AbstractHandler
      * @param  string  the tag that comes in
      * @param  array   attributes the tag carries
      * @throws ExpatParseException if a unxepected element occurs
-     * @access public
      */
     public function startElement($name, $attrs)
     {

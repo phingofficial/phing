@@ -25,7 +25,6 @@ require_once "phing/tasks/system/condition/Condition.php";
  * Condition that compare versions
  *
  * @author    Tomáš Fejfar (tomas.fejfar@gmail.com)
- * @access    public
  * @package   phing.tasks.system.condition
  */
 class VersionCompareCondition implements Condition

@@ -37,7 +37,6 @@ class S3PutTask extends Service_Amazon_S3
      * (default value: null)
      *
      * @var string
-     * @access protected
      */
     protected $_source = null;
 
@@ -49,7 +48,6 @@ class S3PutTask extends Service_Amazon_S3
      * (default value: null)
      *
      * @var mixed
-     * @access protected
      */
     protected $_content = null;
 
@@ -60,7 +58,6 @@ class S3PutTask extends Service_Amazon_S3
      * (default value: array())
      *
      * @var array
-     * @access protected
      */
     protected $_filesets = array();
 
@@ -70,7 +67,6 @@ class S3PutTask extends Service_Amazon_S3
      * (default value: false)
      *
      * @var bool
-     * @access protected
      */
     protected $_createBuckets = false;
 
@@ -81,7 +77,6 @@ class S3PutTask extends Service_Amazon_S3
      * (default value: 'private')
      *
      * @var string
-     * @access protected
      */
     protected $_acl = 'private';
 
@@ -93,7 +88,6 @@ class S3PutTask extends Service_Amazon_S3
      * (default value: 'binary/octet-stream')
      *
      * @var string
-     * @access protected
      */
     protected $_contentType = 'binary/octet-stream';
 
@@ -115,7 +109,6 @@ class S3PutTask extends Service_Amazon_S3
      * Extension content type mapper
      *
      * @var array
-     * @access protected
      */
     protected $_extensionContentTypeMapper = array(
         'js' => 'application/x-javascript',
@@ -134,7 +127,6 @@ class S3PutTask extends Service_Amazon_S3
      * (default value: false)
      *
      * @var bool
-     * @access protected
      */
     protected $_fileNameOnly = false;
 
@@ -347,7 +339,6 @@ class S3PutTask extends Service_Amazon_S3
     /**
      * creator for _filesets
      *
-     * @access public
      * @return FileSet
      */
     public function createFileset()
@@ -360,7 +351,6 @@ class S3PutTask extends Service_Amazon_S3
     /**
      * getter for _filesets
      *
-     * @access public
      * @return array
      */
     public function getFilesets()
@@ -374,7 +364,6 @@ class S3PutTask extends Service_Amazon_S3
      * If _content has been set, this will get stored,
      * otherwise, we read from _source
      *
-     * @access public
      * @throws BuildException
      * @return string
      */
@@ -398,7 +387,6 @@ class S3PutTask extends Service_Amazon_S3
     /**
      * Store the object on S3
      *
-     * @access public
      * @throws BuildException
      * @return void
      */

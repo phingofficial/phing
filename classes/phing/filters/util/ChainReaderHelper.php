@@ -62,7 +62,6 @@ include_once 'phing/filters/ChainableReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @version   $Id$
- * @access    public
  * @package   phing.filters.util
  */
 class ChainReaderHelper

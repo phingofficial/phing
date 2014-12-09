@@ -28,7 +28,6 @@ include_once 'phing/system/io/StringReader.php';
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @version   $Id$
- * @access    public
  * @see       FilterReader
  * @package   phing.filters
  */

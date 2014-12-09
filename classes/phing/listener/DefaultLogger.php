@@ -127,7 +127,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @param BuildEvent $event
      * @internal param The $object BuildEvent
-     * @access public
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -194,7 +193,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @param BuildEvent $event
      * @internal param The $object BuildEvent
-     * @access public
      * @see    BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
@@ -227,7 +225,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @param BuildEvent $event
      * @internal param The $object BuildEvent
-     * @access public
      * @see    BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
@@ -250,7 +247,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *
      * @param BuildEvent $event
      * @internal param The $object BuildEvent
-     * @access public
      * @see    BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event)
