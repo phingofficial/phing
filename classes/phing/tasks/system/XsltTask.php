@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/CopyTask.php';
 include_once 'phing/system/io/FileReader.php';
 include_once 'phing/system/io/FileWriter.php';
 include_once 'phing/filters/XsltFilter.php';

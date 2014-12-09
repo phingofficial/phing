@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
 
 /**
  * XML formatter for PDO results.

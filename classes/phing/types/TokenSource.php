@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-require_once 'phing/types/DataType.php';
 include_once 'phing/util/StringHelper.php';
 
 /**

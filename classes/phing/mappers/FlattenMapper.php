@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/mappers/FileNameMapper.php';
 
 /**
  * Removes any directory information from the passed path.

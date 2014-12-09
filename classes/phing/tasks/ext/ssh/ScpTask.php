@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Copy files to and from a remote host using scp.

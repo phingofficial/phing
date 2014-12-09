@@ -20,8 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
 
 /**
  * An abstract representation of file and directory pathnames.

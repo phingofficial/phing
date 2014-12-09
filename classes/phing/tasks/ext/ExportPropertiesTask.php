@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
 
 /**
  * Saves currently defined properties into a specified file

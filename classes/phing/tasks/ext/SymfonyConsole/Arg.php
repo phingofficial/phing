@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/types/DataType.php";
 
 /**
  * Implementation of console argument

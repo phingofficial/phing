@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/DataType.php';
 include_once 'phing/util/PathTokenizer.php';
 include_once 'phing/types/FileSet.php';
 

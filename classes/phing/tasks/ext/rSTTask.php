@@ -13,8 +13,6 @@
  * @version    SVN: $Id$
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/util/FileUtils.php';
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.

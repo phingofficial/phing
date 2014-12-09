@@ -22,7 +22,6 @@
  *  limitations under the License.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Patches a file by applying a 'diff' file to it

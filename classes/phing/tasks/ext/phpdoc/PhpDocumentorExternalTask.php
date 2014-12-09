@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpdoc/PhpDocumentorTask.php';
 
 /**
  * Task to run phpDocumentor with an external process

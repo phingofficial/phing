@@ -21,9 +21,6 @@ use Phing\Phing;
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-require_once 'phing/listener/DefaultLogger.php';
-require_once 'phing/system/util/Timer.php';
 
 /**
  * Generates a file in the current directory with

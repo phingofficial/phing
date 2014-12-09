@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/util/DataStore.php';
 
 /**
  * A Javascript lint task. Checks syntax of Javascript files.

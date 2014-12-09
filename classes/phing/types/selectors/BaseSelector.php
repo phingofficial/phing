@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/FileSelector.php';
 
 /**
  * A convenience base class that you can subclass Selectors from. It

@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/CopyTask.php';
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/IOException.php';
 

@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-require_once 'phing/Task.php';
 include_once 'phing/util/DirectoryScanner.php';
 include_once 'phing/types/FileSet.php';
 include_once 'phing/util/FileUtils.php';

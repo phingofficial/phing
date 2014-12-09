@@ -20,7 +20,6 @@
  */
 
 include_once 'phing/Task.php';
-require_once 'phing/tasks/system/SequentialTask.php';
 
 /**
  * Task definition for the phing task to switch on a particular value.

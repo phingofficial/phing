@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
 
 /**
  * Runs PHP Copy & Paste Detector. Checking PHP files for duplicated code.

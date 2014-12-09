@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Deletes a file or directory, or set of files defined by a fileset.

@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/input/MultipleChoiceInputRequest.php';
 
 /**
  * Encapsulates an input request that returns a boolean (yes/no).

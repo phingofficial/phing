@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * A PHP code sniffer task. Checking the style of one or more PHP source files.

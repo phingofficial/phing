@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/DataType.php';
 include_once 'phing/system/io/PhingFile.php';
 
 /**

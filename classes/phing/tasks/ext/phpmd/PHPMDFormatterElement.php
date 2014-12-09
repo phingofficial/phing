@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * A wrapper for the implementations of PHPMDResultFormatter.

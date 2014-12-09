@@ -22,7 +22,6 @@
 
 use Phing\Phing;
 
-require_once 'phing/Task.php';
 include_once 'phing/types/Path.php';
 
 /**

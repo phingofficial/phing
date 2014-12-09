@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
 
 /**
  * Prints plain text output of phpcpd run

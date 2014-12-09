@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * ReplaceRegExp is a directory based task for replacing the occurrence of a

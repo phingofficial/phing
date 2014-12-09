@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/AndSelector.php';
 
 /**
  * This selector just holds one other selector and forwards all

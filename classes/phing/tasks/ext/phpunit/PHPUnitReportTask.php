@@ -21,10 +21,6 @@ use Phing\Phing;
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
 
 /**
  * Transform a PHPUnit xml report using XSLT.

@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelector.php';
 
 /**
  * Selector that filters files based on whether they are newer than

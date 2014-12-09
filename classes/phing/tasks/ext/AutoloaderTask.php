@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>

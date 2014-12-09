@@ -16,7 +16,6 @@
  * the License.
  */
 
-require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
 
 /**
  * Rollbacks the database changes.

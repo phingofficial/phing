@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/types/selectors/SelectorContainer.php';
 include_once 'phing/types/FileSet.php';
 include_once 'phing/types/PatternSet.php';
 include_once 'phing/util/DirectoryScanner.php';

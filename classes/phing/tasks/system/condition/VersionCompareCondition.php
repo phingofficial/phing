@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/tasks/system/condition/Condition.php";
 
 /**
  * Condition that compare versions

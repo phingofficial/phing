@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
 
 /**
  * Generates symlinks based on a target / link combination.

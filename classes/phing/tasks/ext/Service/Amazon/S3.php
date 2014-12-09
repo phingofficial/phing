@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once dirname(dirname(__FILE__)) . "/Amazon.php";
 
 /**
  * Abstract Service_Amazon_S3 class.

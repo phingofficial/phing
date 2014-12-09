@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/input/InputHandler.php';
 include_once 'phing/system/io/ConsoleReader.php';
 
 /**

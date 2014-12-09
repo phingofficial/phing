@@ -19,10 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/FileSystem.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/parser/ProjectConfigurator.php';
 
 /**
  * Imports another build file into the current project.

@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-require_once 'phing/BuildListener.php';
 
 /**
  * Writes build messages to PEAR Log.

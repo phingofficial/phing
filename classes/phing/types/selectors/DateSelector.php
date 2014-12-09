@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that chooses files based on their last modified date. Ant uses

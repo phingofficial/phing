@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-require_once 'phing/listener/AnsiColorLogger.php';
 
 /**
  * Extends AnsiColorLogger to display times for each target

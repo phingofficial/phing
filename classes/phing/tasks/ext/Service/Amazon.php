@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
 
 /**
  * Abstract Service_Amazon class.

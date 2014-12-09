@@ -20,7 +20,6 @@
 
 use Phing\Phing;
 
-require_once 'phing/Task.php';
 include_once 'phing/types/FileList.php';
 include_once 'phing/types/FileSet.php';
 

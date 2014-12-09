@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/Reader.php';
 
 /**
  * Wrapper class for readers, which can be used to apply filters.

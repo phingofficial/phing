@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
 
 /**
  * This selector has a collection of other selectors. All of those selectors

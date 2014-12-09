@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Stores the output of a log command on a workingcopy or repositoryurl in a property.

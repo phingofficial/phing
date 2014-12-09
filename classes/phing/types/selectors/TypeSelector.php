@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that selects a certain kind of file: directory or regular file.

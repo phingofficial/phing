@@ -19,7 +19,6 @@
  * <http://phing.info>.
 */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  * <condition> task as a generalization of <available>

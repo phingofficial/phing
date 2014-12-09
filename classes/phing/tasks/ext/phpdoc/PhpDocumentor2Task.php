@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * PhpDocumentor2 Task (http://www.phpdoc.org)

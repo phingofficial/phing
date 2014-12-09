@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/util/regexp/RegexpEngine.php';
 
 /**
  * PREG Regexp Engine.

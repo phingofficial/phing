@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
 include_once 'phing/BuildException.php';
 
 /**

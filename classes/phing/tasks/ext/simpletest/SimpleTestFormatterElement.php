@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
 /**
  * Child class of "FormatterElement", overrides setType to provide other

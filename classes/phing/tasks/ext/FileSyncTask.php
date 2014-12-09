@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once "phing/Task.php";
 
 /**
  * The FileSyncTask class copies files either to or from a remote host, or locally

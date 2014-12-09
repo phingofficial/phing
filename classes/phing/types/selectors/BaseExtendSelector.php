@@ -20,8 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/ExtendFileSelector.php';
-require_once 'phing/types/selectors/BaseSelector.php';
 include_once 'phing/types/Parameter.php';
 
 /**

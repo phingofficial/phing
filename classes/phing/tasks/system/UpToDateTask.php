@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 include_once 'phing/tasks/system/condition/Condition.php';
 include_once 'phing/tasks/system/PropertyTask.php';
 include_once 'phing/util/DirectoryScanner.php';

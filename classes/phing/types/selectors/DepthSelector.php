@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that filters files based on the how deep in the directory

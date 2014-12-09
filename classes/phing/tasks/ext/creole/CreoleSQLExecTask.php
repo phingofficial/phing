@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/creole/CreoleTask.php';
 include_once 'phing/system/io/StringReader.php';
 
 /**

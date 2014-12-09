@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/Writer.php';
 
 /**
  * This abstract class describes classes that format the results of a PHPUnit testrun.

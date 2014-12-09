@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Convert dot-notation packages to relative paths.

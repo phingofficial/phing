@@ -11,7 +11,6 @@
  * @version  SVN: $Id$
  * @link     http://www.phing.info/
  */
-require_once 'phing/util/DirectoryScanner.php';
 
 /**
  * Scans for files in a PEAR package.

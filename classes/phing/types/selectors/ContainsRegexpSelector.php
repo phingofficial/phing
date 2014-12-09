@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/BaseExtendSelector.php';
 include_once 'phing/types/RegularExpression.php';
 
 /**

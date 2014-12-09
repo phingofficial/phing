@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildListener.php';
 
 /**
  * Interface for build loggers.

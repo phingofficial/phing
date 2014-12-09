@@ -21,7 +21,6 @@ use Phing\Phing;
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Task to run PhpDocumentor.

@@ -16,7 +16,6 @@
  * the License.
  */
 
-require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
 
 /**
  * Task to create a javadoc-like documentation based on current database and

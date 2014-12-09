@@ -21,7 +21,6 @@
  * @package phing.tasks.ext.pdo
  */
 
-require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
 
 /**
  * Splits SQL source into queries using simple regular expressions

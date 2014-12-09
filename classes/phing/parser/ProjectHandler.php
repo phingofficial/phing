@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/parser/AbstractHandler.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/parser/ElementHandler.php';
 
 /**
  * Handler class for the <project> XML element This class handles all elements

@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
-require_once 'phing/types/FileSet.php';
 
 /**
  * Scans a list of files given by the fileset attribute, extracts valid test cases

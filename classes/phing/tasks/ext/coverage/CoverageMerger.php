@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/util/Properties.php';
 
 /**
  * Saves coverage output of the test to a specified database
