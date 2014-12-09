@@ -21,7 +21,6 @@
 
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/BuildFileTest.php';
 require_once '../classes/phing/tasks/ext/git/GitGcTask.php';
 require_once dirname(__FILE__) . '/GitTestsHelper.php';
 

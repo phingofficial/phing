@@ -22,7 +22,6 @@
 
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>

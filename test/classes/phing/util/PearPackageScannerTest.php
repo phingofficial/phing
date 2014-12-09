@@ -22,7 +22,6 @@ use Phing\Test\AbstractBuildFileTest;
  *
  * @package phing.util
  */
-require_once 'phing/BuildFileTest.php';
 require_once 'phing/util/PearPackageScanner.php';
 
 /**

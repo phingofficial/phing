@@ -22,7 +22,6 @@
 
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/BuildFileTest.php';
 
 /**
  * @author Bryan Davis <bpd@keynetics.com>

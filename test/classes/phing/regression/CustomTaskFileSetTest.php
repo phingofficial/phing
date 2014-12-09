@@ -22,7 +22,6 @@
 
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/337

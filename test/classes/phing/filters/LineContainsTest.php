@@ -22,7 +22,6 @@
 
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/BuildFileTest.php';
 include_once 'phing/util/FileUtils.php';
 
 /**

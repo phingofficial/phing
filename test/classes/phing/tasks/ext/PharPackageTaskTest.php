@@ -20,7 +20,6 @@
 
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Tests for PharPackageTask

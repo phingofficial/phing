@@ -22,7 +22,6 @@ use Phing\Test\AbstractBuildFileTest;
  * @package phing.tasks.ext
  */
 
-require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/pdo/PDOSQLExecTask.php';
 
 /**

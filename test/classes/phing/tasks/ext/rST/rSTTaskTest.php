@@ -14,7 +14,6 @@ use Phing\Test\AbstractBuildFileTest;
  * @version    SVN: $Id$
  */
 
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Unit test for reStructuredText rendering task.

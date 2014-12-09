@@ -20,13 +20,10 @@
  * <http://phing.info>.
  */
 
-if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-    define('E_DEPRECATED', 8192);
-}
+namespace Phing\Test;
 
-require_once 'phing/BuildListener.php';
-require_once 'phing/system/io/PhingFile.php';
-
+use BuildEvent;
+use BuildListener;
 
 /**
  * our own personal build listener

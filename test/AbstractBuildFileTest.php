@@ -6,7 +6,6 @@ use PHPUnit_Framework_TestCase;
 use Project;
 use PhingFile;
 use AssertionFailureException;
-use PhingTestListener;
 use Description;
 use BuildException;
 use ProjectConfigurator;
