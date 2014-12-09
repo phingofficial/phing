@@ -18,6 +18,12 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing;
+
+use Exception;
+use Location;
+use Reference;
+use Register;
 
 
 /**
@@ -117,7 +123,7 @@ abstract class Task extends ProjectComponent
      */
     public function setTaskName($name)
     {
-        $this->taskName = (string) $name;
+        $this->taskName = (string)$name;
     }
 
     /**
@@ -138,7 +144,7 @@ abstract class Task extends ProjectComponent
      */
     public function setTaskType($name)
     {
-        $this->taskType = (string) $name;
+        $this->taskType = (string)$name;
     }
 
     /**

@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
+
 include_once 'phing/types/Commandline.php';
 
 /**

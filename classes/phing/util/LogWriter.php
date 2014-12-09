@@ -1,4 +1,6 @@
 <?php
+use Phing\Project;
+use Phing\Task;
 
 /**
  * $Id$

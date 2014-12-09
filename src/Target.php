@@ -18,6 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing;
+
+use ProjectConfigurator;
 
 
 /**
@@ -30,7 +33,7 @@
  * @see       TaskContainer
  * @package   phing
  */
-class Target implements TaskContainer
+class Target implements TaskContainerInterface
 {
 
     /**
@@ -110,7 +113,7 @@ class Target implements TaskContainer
     /**
      * Sets the target dependencies from xml
      *
-     * @param  string         $depends Comma separated list of targetnames that depend on
+     * @param  string $depends Comma separated list of targetnames that depend on
      *                                 this target
      * @throws BuildException
      */
@@ -135,7 +138,7 @@ class Target implements TaskContainer
      */
     public function addDependency($dependency)
     {
-        $this->dependencies[] = (string) $dependency;
+        $this->dependencies[] = (string)$dependency;
     }
 
     /**
@@ -155,7 +158,7 @@ class Target implements TaskContainer
      */
     public function setName($name)
     {
-        $this->name = (string) $name;
+        $this->name = (string)$name;
     }
 
     /**
@@ -165,7 +168,7 @@ class Target implements TaskContainer
      */
     public function getName()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     /**
@@ -176,7 +179,7 @@ class Target implements TaskContainer
      */
     public function setHidden($flag)
     {
-        $this->hidden = (boolean) $flag;
+        $this->hidden = (boolean)$flag;
 
         return $this;
     }
@@ -260,7 +263,8 @@ class Target implements TaskContainer
      *
      * @return string The current if-condition.
      */
-    public function getIf() {
+    public function getIf()
+    {
         return $this->ifCondition;
     }
 
@@ -294,7 +298,7 @@ class Target implements TaskContainer
     public function setDescription($description)
     {
         if ($description !== null && strcmp($description, "") !== 0) {
-            $this->description = (string) $description;
+            $this->description = (string)$description;
         } else {
             $this->description = null;
         }
@@ -315,7 +319,7 @@ class Target implements TaskContainer
      */
     public function setLogSkipped($log)
     {
-        $this->logSkipped = (bool) $log;
+        $this->logSkipped = (bool)$log;
     }
 
     /**
@@ -338,7 +342,7 @@ class Target implements TaskContainer
      */
     public function toString()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     /**

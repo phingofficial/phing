@@ -3,11 +3,11 @@
 namespace Phing\Test;
 
 use PHPUnit_Framework_TestCase;
-use Project;
+use Phing\Project;
 use PhingFile;
 use AssertionFailureException;
 use Description;
-use BuildException;
+use Phing\BuildException;
 use ProjectConfigurator;
 
 /**

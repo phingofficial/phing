@@ -1,4 +1,6 @@
 <?php
+use Phing\BuildException;
+use Phing\Project;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -120,7 +122,7 @@ class PearPackageFileSetTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      * @expectedExceptionMessage Invalid package name
      */
     public function testSetPackageInvalid()

@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
 require_once 'phing/tasks/ext/WikiPublishTask.php';

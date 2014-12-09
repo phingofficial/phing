@@ -1,4 +1,6 @@
 <?php
+use Phing\BuildException;
+
 require_once "phing/tasks/system/condition/VersionCompareCondition.php";
 
 class VersionCompareConditionTest extends PHPUnit_Framework_TestCase {
@@ -47,7 +49,7 @@ class VersionCompareConditionTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      */
     public function testCanNotUseUnsupportedOperator()
     {

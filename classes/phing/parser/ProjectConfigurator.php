@@ -18,6 +18,13 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\BuildException;
+use Phing\IntrospectionHelper;
+use Phing\Project;
+use Phing\Target;
+use Phing\Task;
+use Phing\TaskAdapter;
+use Phing\UnknownElement;
 
 
 /**

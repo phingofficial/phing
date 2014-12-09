@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 use Phing\Phing;
+use Phing\Project;
+use Phing\Task;
 
 /**
  *  Utility class that collects the functionality of the various

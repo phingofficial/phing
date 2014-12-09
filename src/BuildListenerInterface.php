@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
 /**
  * Interface for build listeners.
  *
@@ -32,7 +34,7 @@
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface BuildListener
+interface BuildListenerInterface
 {
 
     /**

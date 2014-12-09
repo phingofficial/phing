@@ -18,7 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing;
 
+use Exception;
 
 /**
  * Use introspection to "adapt" an arbitrary ( not extending Task, but with

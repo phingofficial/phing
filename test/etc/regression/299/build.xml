@@ -11,7 +11,7 @@
   </target>
 
   <adhoc-task name="bar"><![CDATA[
-      class BarTask extends Task {
+      class BarTask extends \Phing\Task {
           function main() {
               print("BarTask: success!\n");
           }

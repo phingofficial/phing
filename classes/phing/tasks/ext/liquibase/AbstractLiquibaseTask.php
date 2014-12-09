@@ -1,4 +1,7 @@
 <?php
+use Phing\BuildException;
+use Phing\Project;
+use Phing\Task;
 
 /**
  * Copyright (c) 2007-2011 bitExpert AG

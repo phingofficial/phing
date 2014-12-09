@@ -1,4 +1,7 @@
 <?php
+use Phing\BuildException;
+use Phing\Project;
+use Phing\Task;
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.

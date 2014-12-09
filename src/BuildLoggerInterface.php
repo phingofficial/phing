@@ -20,6 +20,11 @@
  */
 
 
+namespace Phing;
+
+use OutputStream;
+use Phing\BuildListenerInterface;
+
 /**
  * Interface for build loggers.
  *
@@ -35,7 +40,7 @@
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface BuildLogger extends BuildListener
+interface BuildLoggerInterface extends BuildListenerInterface
 {
 
     /**

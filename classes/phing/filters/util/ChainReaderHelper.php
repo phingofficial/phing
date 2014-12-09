@@ -20,6 +20,7 @@
 */
 
 use Phing\Phing;
+use Phing\Project;
 
 
 /**

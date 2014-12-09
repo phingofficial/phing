@@ -19,9 +19,9 @@
 
 namespace Phing;
 
-use BuildException;
-use BuildLogger;
-use ConfigurationException;
+use Phing\BuildException;
+use Phing\BuildLoggerInterface;
+use Phing\ConfigurationException;
 use DefaultInputHandler;
 use DefaultLogger;
 use Exception;
@@ -30,7 +30,7 @@ use FileReader;
 use IOException;
 use OutputStream;
 use PhingFile;
-use Project;
+use Phing\Project;
 use ProjectConfigurator;
 use Properties;
 use SebastianBergmann\Version;
@@ -766,7 +766,7 @@ class Phing
     /**
      * Creates the default build logger for sending build events to the log.
      * @throws BuildException
-     * @return BuildLogger The created Logger
+     * @return BuildLoggerInterface The created Logger
      */
     private function createLogger()
     {
@@ -775,7 +775,7 @@ class Phing
             // get class name part
             $classname = self::import($this->loggerClassname);
             $logger = new $classname();
-            if (!($logger instanceof BuildLogger)) {
+            if (!($logger instanceof BuildLoggerInterface)) {
                 throw new BuildException($classname . ' does not implement the BuildLogger interface.');
             }
         } else {

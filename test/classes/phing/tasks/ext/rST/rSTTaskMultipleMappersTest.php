@@ -1,4 +1,5 @@
 <?php
+use Phing\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -29,7 +30,7 @@ use Phing\Test\AbstractBuildFileTest;
 class rSTTaskMultipleMappersTest extends AbstractBuildFileTest
 {
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      * @expectedExceptionMessage Cannot define more than one mapper
      */
     public function testMultipleMappers()

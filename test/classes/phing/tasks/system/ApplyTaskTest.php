@@ -18,7 +18,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Target;
+use Phing\Task;
 use Phing\Test\AbstractBuildFileTest;
+use Phing\UnknownElement;
 
 
 /**

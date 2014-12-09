@@ -1,4 +1,8 @@
 <?php
+use Phing\BuildException;
+use Phing\Project;
+use Phing\Task;
+
 /**
  *  Patches a file by applying a 'diff' file to it
  *

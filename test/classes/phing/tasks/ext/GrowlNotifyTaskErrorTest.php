@@ -1,4 +1,5 @@
 <?php
+use Phing\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
 /**

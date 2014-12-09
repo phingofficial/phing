@@ -18,6 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing;
+
+use Exception;
+use ProjectConfigurator;
 
 /**
  *  Wrapper class that holds the attributes of a Task (or elements
@@ -126,7 +130,7 @@ class RuntimeConfigurable
      */
     public function getChild($index)
     {
-        return $this->children[(int) $index];
+        return $this->children[(int)$index];
     }
 
     /**
@@ -138,7 +142,7 @@ class RuntimeConfigurable
      */
     public function addText($data)
     {
-        $this->characters .= (string) $data;
+        $this->characters .= (string)$data;
     }
 
     public function getElementTag()
@@ -176,7 +180,7 @@ class RuntimeConfigurable
             }
 
             if ($this->characters) {
-                ProjectConfigurator::addText($project, $this->wrappedObject, (string) $this->characters);
+                ProjectConfigurator::addText($project, $this->wrappedObject, (string)$this->characters);
             }
             if ($id !== null) {
                 $project->addReference($id, $this->wrappedObject);

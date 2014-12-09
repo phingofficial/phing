@@ -1,4 +1,5 @@
 <?php
+use Phing\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -63,7 +64,7 @@ class PearPackageScannerTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      * @expectedExceptionMessage PEAR package pear.php.net/this_package_does_not_exist does not exist
      */
     public function testLoadPackageInfoNonexistingPackage()
@@ -82,7 +83,7 @@ class PearPackageScannerTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      */
     public function testSetRoleEmpty()
     {
@@ -112,7 +113,7 @@ class PearPackageScannerTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      */
     public function testSetConfigNonexistingFile()
     {
@@ -141,7 +142,7 @@ class PearPackageScannerTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      */
     public function testSetDescFileNonexistingFile()
     {

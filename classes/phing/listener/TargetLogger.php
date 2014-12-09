@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildEvent;
 use Phing\Phing;
+use Phing\Project;
 
 
 /**

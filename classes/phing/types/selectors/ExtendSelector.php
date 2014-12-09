@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
 use Phing\Phing;
 
 

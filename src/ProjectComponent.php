@@ -1,4 +1,6 @@
 <?php
+namespace Phing;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -61,7 +63,7 @@ abstract class ProjectComponent
     /**
      * Logs a message with the given priority.
      *
-     * @param string  $msg   The message to be logged.
+     * @param string $msg The message to be logged.
      * @param integer $level The message's priority at this message should have
      *
      * @return void

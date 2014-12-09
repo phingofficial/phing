@@ -20,7 +20,10 @@
  * <http://phing.info>.
  */
 
-use Phing\Test\AbstractBuildFileTest;
+namespace Phing\Test;
+
+use EchoTask;
+use Phing\Target;
 
 
 /**
@@ -61,7 +64,7 @@ class TargetTest extends AbstractBuildFileTest
 
     /**
      * @dataProvider setDependsValidDataProvider
-     * @param array  $expectedDepends
+     * @param array $expectedDepends
      * @param string $depends
      */
     public function testSetDependsValid(array $expectedDepends, $depends)
@@ -86,7 +89,7 @@ class TargetTest extends AbstractBuildFileTest
     public function testSetDependsInvalid($depends)
     {
         $this->setExpectedException(
-            'BuildException',
+            'Phing\BuildException',
             'Syntax Error: Depend attribute for target MyTarget is malformed.'
         );
 
@@ -165,7 +168,7 @@ class TargetTest extends AbstractBuildFileTest
 
     public function testMainPerformsTasks()
     {
-        $task = $this->getMock('Task');
+        $task = $this->getMock('Phing\Task');
         $task->expects($this->once())->method('perform');
         $this->target->addTask($task);
 
@@ -177,7 +180,7 @@ class TargetTest extends AbstractBuildFileTest
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
 
-        $task = $this->getMock('Task');
+        $task = $this->getMock('Phing\Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 
@@ -189,7 +192,7 @@ class TargetTest extends AbstractBuildFileTest
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
 
-        $task = $this->getMock('Task');
+        $task = $this->getMock('Phing\Task');
         $task->expects($this->never())->method('perform');
         $this->target->addTask($task);
 

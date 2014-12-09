@@ -1,5 +1,23 @@
 <?php
-use Phing\Phing;
+namespace Phing;
+
+use Phing\BuildEvent;
+use Phing\BuildException;
+use Phing\BuildListenerInterface;
+use Condition;
+use DataType;
+use DefaultInputHandler;
+use Exception;
+use FileSystem;
+use FileUtils;
+use InputHandler;
+use IOException;
+use PhingFile;
+use ProjectConfigurator;
+use Properties;
+use PropertyValue;
+use StringHelper;
+use Phing\TaskAdapter;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -140,7 +158,7 @@ class Project
 
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new PhingFile((string) $taskdefs);
+            $in = new PhingFile((string)$taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -161,7 +179,7 @@ class Project
 
         try { // try to load typedefs
             $props = new Properties();
-            $in = new PhingFile((string) $typedefs);
+            $in = new PhingFile((string)$typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }
@@ -190,7 +208,7 @@ class Project
     /**
      * Sets a property. Any existing property of the same name
      * is overwritten, unless it is a user property.
-     * @param  string $name  The name of property to set.
+     * @param  string $name The name of property to set.
      *                       Must not be <code>null</code>.
      * @param  string $value The new value of the property.
      *                       Must not be <code>null</code>.
@@ -220,7 +238,7 @@ class Project
      * exists already, a message is logged and the method returns with
      * no other effect.
      *
-     * @param string $name  The name of property to set.
+     * @param string $name The name of property to set.
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
@@ -241,7 +259,7 @@ class Project
     /**
      * Sets a user property, which cannot be overwritten by
      * set/unset property calls. Any previous value is overwritten.
-     * @param string $name  The name of property to set.
+     * @param string $name The name of property to set.
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
@@ -261,7 +279,7 @@ class Project
      * these properties as properties that have not come from the
      * command line.
      *
-     * @param string $name  The name of property to set.
+     * @param string $name The name of property to set.
      *                      Must not be <code>null</code>.
      * @param string $value The new value of the property.
      *                      Must not be <code>null</code>.
@@ -428,7 +446,7 @@ class Project
      */
     public function setDefaultTarget($targetName)
     {
-        $this->defaultTarget = (string) trim($targetName);
+        $this->defaultTarget = (string)trim($targetName);
     }
 
     /**
@@ -437,7 +455,7 @@ class Project
      */
     public function getDefaultTarget()
     {
-        return (string) $this->defaultTarget;
+        return (string)$this->defaultTarget;
     }
 
     /**
@@ -449,7 +467,7 @@ class Project
      */
     public function setName($name)
     {
-        $this->name = (string) trim($name);
+        $this->name = (string)trim($name);
         $this->setProperty("phing.project.name", $this->name);
     }
 
@@ -461,7 +479,7 @@ class Project
      */
     public function getName()
     {
-        return (string) $this->name;
+        return (string)$this->name;
     }
 
     /**
@@ -470,7 +488,7 @@ class Project
      */
     public function setDescription($description)
     {
-        $this->description = (string) trim($description);
+        $this->description = (string)trim($description);
     }
 
     /**
@@ -489,7 +507,7 @@ class Project
     public function setPhingVersion($version)
     {
         $version = str_replace('phing', '', strtolower($version));
-        $this->phingVersion = (string) trim($version);
+        $this->phingVersion = (string)trim($version);
     }
 
     /**
@@ -519,7 +537,7 @@ class Project
         $dir = $this->fileUtils->normalize($dir);
         $dir = FileSystem::getFilesystem()->canonicalize($dir);
 
-        $dir = new PhingFile((string) $dir);
+        $dir = new PhingFile((string)$dir);
         if (!$dir->exists()) {
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
         }
@@ -584,8 +602,8 @@ class Project
 
     /**
      * Adds a task definition.
-     * @param string $name      Name of tag.
-     * @param string $class     The class path to use.
+     * @param string $name Name of tag.
+     * @param string $class The class path to use.
      * @param string $classpath The classpat to use.
      */
     public function addTaskDefinition($name, $class, $classpath = null)
@@ -612,7 +630,7 @@ class Project
 
     /**
      * Adds a data type definition.
-     * @param string $typeName  Name of the type.
+     * @param string $typeName Name of the type.
      * @param string $typeClass The class to use.
      * @param string $classpath The classpath to use.
      */
@@ -687,7 +705,7 @@ class Project
      * [HL] Well, ZE2 is here now, and this is  still working. We'll leave this alone
      * unless there's any good reason not to.
      *
-     * @param  string         $taskType Task name
+     * @param  string $taskType Task name
      * @return Task           A task object
      * @throws BuildException
      *                                 Exception
@@ -740,7 +758,7 @@ class Project
     /**
      * Creates a new condition and returns the reference to it
      *
-     * @param  string         $conditionType
+     * @param  string $conditionType
      * @return Condition
      * @throws BuildException
      */
@@ -781,7 +799,7 @@ class Project
      * Create a datatype instance and return reference to it
      * See createTask() for explanation how this works
      *
-     * @param  string         $typeName Type name
+     * @param  string $typeName Type name
      * @return object         A datatype object
      * @throws BuildException
      *                                 Exception
@@ -824,7 +842,7 @@ class Project
     /**
      * Executes a list of targets
      *
-     * @param  array          $targetNames List of target names to execute
+     * @param  array $targetNames List of target names to execute
      * @return void
      * @throws BuildException
      */
@@ -838,7 +856,7 @@ class Project
     /**
      * Executes a target
      *
-     * @param  string         $targetName Name of Target to execute
+     * @param  string $targetName Name of Target to execute
      * @return void
      * @throws BuildException
      */
@@ -854,7 +872,7 @@ class Project
         // until targetName occurs.
         $sortedTargets = $this->_topoSort($targetName, $this->targets);
 
-        $curIndex = (int) 0;
+        $curIndex = (int)0;
         $curTarget = null;
         do {
             try {
@@ -901,7 +919,7 @@ class Project
     public function _topoSort($root, &$targets)
     {
 
-        $root = (string) $root;
+        $root = (string)$root;
         $ret = array();
         $state = array();
         $visiting = array();
@@ -924,11 +942,11 @@ class Project
 
         $keys = array_keys($targets);
         while ($keys) {
-            $curTargetName = (string) array_shift($keys);
+            $curTargetName = (string)array_shift($keys);
             if (!isset($state[$curTargetName])) {
                 $st = null;
             } else {
-                $st = (string) $state[$curTargetName];
+                $st = (string)$state[$curTargetName];
             }
 
             if ($st === null) {
@@ -989,7 +1007,7 @@ class Project
             $sb = "Target '$root' does not exist in this project.";
             array_pop($visiting);
             if (!empty($visiting)) {
-                $parent = (string) $visiting[count($visiting) - 1];
+                $parent = (string)$visiting[count($visiting) - 1];
                 $sb .= " It is a dependency of target '$parent'.";
             }
             throw new BuildException($sb);
@@ -998,11 +1016,11 @@ class Project
         $deps = $target->getDependencies();
 
         while ($deps) {
-            $cur = (string) array_shift($deps);
+            $cur = (string)array_shift($deps);
             if (!isset($state[$cur])) {
                 $m = null;
             } else {
-                $m = (string) $state[$cur];
+                $m = (string)$state[$cur];
             }
             if ($m === null) {
                 // not been visited
@@ -1013,7 +1031,7 @@ class Project
             }
         }
 
-        $p = (string) array_pop($visiting);
+        $p = (string)array_pop($visiting);
         if ($root !== $p) {
             throw new Exception("Unexpected internal error: expected to pop $root but got $p");
         }
@@ -1031,7 +1049,7 @@ class Project
     {
         $sb = "Circular dependency: $end";
         do {
-            $c = (string) array_pop($stk);
+            $c = (string)array_pop($stk);
             $sb .= " <- " . $c;
         } while ($c != $end);
 
@@ -1080,7 +1098,7 @@ class Project
     /**
      * Abstracting and simplifyling Logger calls for project messages
      * @param string $msg
-     * @param int    $level
+     * @param int $level
      */
     public function log($msg, $level = Project::MSG_INFO)
     {
@@ -1098,17 +1116,17 @@ class Project
     }
 
     /**
-     * @param BuildListener $listener
+     * @param BuildListenerInterface $listener
      */
-    public function addBuildListener(BuildListener $listener)
+    public function addBuildListener(BuildListenerInterface $listener)
     {
         $this->listeners[] = $listener;
     }
 
     /**
-     * @param BuildListener $listener
+     * @param BuildListenerInterface $listener
      */
-    public function removeBuildListener(BuildListener $listener)
+    public function removeBuildListener(BuildListenerInterface $listener)
     {
         $newarray = array();
         for ($i = 0, $size = count($this->listeners); $i < $size; $i++) {

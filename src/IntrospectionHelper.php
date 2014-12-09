@@ -20,7 +20,16 @@
  * <http://phing.info>.
  */
 
-use Phing\Phing;
+namespace Phing;
+
+use Exception;
+use Path;
+use Phing\ProjectComponent;
+use Reference;
+use ReflectionClass;
+use Register;
+use string;
+use StringHelper;
 
 
 /**
@@ -412,10 +421,10 @@ class IntrospectionHelper
      *
      * Valid creators can be in the form createFoo() or addFoo(Bar).
      *
-     * @param  Project        $project
-     * @param  object         $element     Object the XML tag is child of.
+     * @param  Project $project
+     * @param  object $element Object the XML tag is child of.
      *                                     Often a task object.
-     * @param  string         $elementName XML tag name
+     * @param  string $elementName XML tag name
      * @return object         Returns the nested element.
      * @throws BuildException
      */
@@ -517,10 +526,10 @@ class IntrospectionHelper
     /**
      * Creates a named nested element.
      *
-     * @param  Project        $project
-     * @param  string         $element
-     * @param  string         $child
-     * @param  string|null    $elementName
+     * @param  Project $project
+     * @param  string $element
+     * @param  string $child
+     * @param  string|null $elementName
      * @return void
      * @throws BuildException
      */
@@ -589,7 +598,7 @@ class IntrospectionHelper
      * XML element name will be returned.
      *
      * @param  Project $project
-     * @param  object  $element The Task or type element.
+     * @param  object $element The Task or type element.
      * @return string  Fully qualified class name of element when possible.
      */
     public function getElementName(Project $project, $element)

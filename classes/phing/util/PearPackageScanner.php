@@ -1,4 +1,6 @@
 <?php
+use Phing\BuildException;
+
 /**
  * Part of phing, the PHP build tool
  *

@@ -1,4 +1,8 @@
 <?php
+use Phing\BuildException;
+use Phing\Project;
+use Phing\Task;
+
 /**
  * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
  *

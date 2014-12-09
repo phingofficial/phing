@@ -19,6 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\BuildException;
+use Phing\Task;
+use Phing\TaskContainerInterface;
 
 
 /**
@@ -31,7 +34,7 @@
  * @since 2.1.2
  * @package phing.tasks.system
  */
-class SequentialTask extends Task implements TaskContainer
+class SequentialTask extends Task implements TaskContainerInterface
 {
 
     /** Optional Vector holding the nested tasks */

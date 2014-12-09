@@ -1,5 +1,9 @@
 <?php
+use Phing\BuildEvent;
+use Phing\BuildException;
+use Phing\BuildLoggerInterface;
 use Phing\Phing;
+use Phing\Project;
 
 /**
  * $Id$
@@ -32,7 +36,7 @@ use Phing\Phing;
  * @version $Id$
  * @package phing.listener
  */
-class XmlLogger implements BuildLogger
+class XmlLogger implements BuildLoggerInterface
 {
 
     /** XML element name for a build. */

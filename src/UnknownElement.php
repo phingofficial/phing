@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
+namespace Phing;
 
 /**
  * Wrapper class that holds all information necessary to create a task
@@ -47,7 +47,7 @@ class UnknownElement extends Task
      */
     public function __construct($elementName)
     {
-        $this->elementName = (string) $elementName;
+        $this->elementName = (string)$elementName;
     }
 
     /**
@@ -58,7 +58,7 @@ class UnknownElement extends Task
      */
     public function getTag()
     {
-        return (string) $this->elementName;
+        return (string)$this->elementName;
     }
 
     /**
@@ -115,7 +115,7 @@ class UnknownElement extends Task
     /**
      *  Handle child elemets of the unknown element, if any.
      *
-     * @param object $parent        The parent object the unkown element belongs to
+     * @param object $parent The parent object the unkown element belongs to
      * @param object $parentWrapper The parent wrapper object
      */
     public function handleChildren($parent, $parentWrapper)
@@ -134,7 +134,7 @@ class UnknownElement extends Task
             $child = $this->children[$i];
 
             $realChild = null;
-            if ($parent instanceof TaskContainer) {
+            if ($parent instanceof TaskContainerInterface) {
                 $parent->addTask($child);
                 continue;
             }

@@ -20,6 +20,9 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
+use Phing\Project;
+
 include_once 'phing/types/FileSet.php';
 
 /**

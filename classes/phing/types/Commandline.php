@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\BuildException;
 
 /**
  * Commandline objects help handling command lines specifying processes to

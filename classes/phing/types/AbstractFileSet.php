@@ -22,7 +22,8 @@
 
 // Load all of the selectors (not really necessary but
 // helps reveal parse errors right away)
-
+use Phing\BuildException;
+use Phing\Project;
 
 
 /**

@@ -1,4 +1,6 @@
 <?php
+namespace Phing;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -26,7 +28,7 @@
  *
  * @package   phing
  */
-interface TaskContainer
+interface TaskContainerInterface
 {
     /**
      * Adds a task to this task container. Must be implemented

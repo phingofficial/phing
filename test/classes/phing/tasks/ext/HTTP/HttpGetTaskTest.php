@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
+
 require_once dirname(__FILE__) . '/BaseHttpTaskTest.php';
 
 /**
@@ -33,7 +35,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      * @expectedExceptionMessage Required attribute 'dir' is missing
      */
     public function testMissingDir()
@@ -42,7 +44,7 @@ class HttpGetTaskTest extends BaseHttpTaskTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      * @expectedExceptionMessage Response from server: 404 Not Found
      */
     public function testError404()

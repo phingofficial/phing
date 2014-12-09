@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\BuildLoggerInterface;
 
 
 /**
@@ -33,7 +34,7 @@
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface StreamRequiredBuildLogger extends BuildLogger
+interface StreamRequiredBuildLogger extends BuildLoggerInterface
 {
 
 }

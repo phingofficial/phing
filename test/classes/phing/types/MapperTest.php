@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
+use Phing\Project;
 use Phing\Test\AbstractBuildFileTest;
 
 include_once 'phing/types/Mapper.php';

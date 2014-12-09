@@ -18,6 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Project;
+use Phing\Target;
 
 /**
  * Track the current state of the Xml parse operation.

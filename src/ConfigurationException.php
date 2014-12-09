@@ -19,6 +19,11 @@
  * <http://phing.info>.
  */
 
+namespace Phing;
+
+use Location;
+use Exception;
+
 /**
  * ConfigurationException is thrown by Phing during the configuration and setup phase of the project.
  *
@@ -48,7 +53,7 @@ class ConfigurationException extends Exception
      *         throw new BuildException($msg);
      *         throw new BuildException($msg, $causeExc);
      * @param Exception|string $p1
-     * @param Exception|null   $p2
+     * @param Exception|null $p2
      */
     public function __construct($p1, $p2 = null)
     {

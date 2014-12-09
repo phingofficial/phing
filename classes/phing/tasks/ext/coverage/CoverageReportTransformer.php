@@ -1,5 +1,7 @@
 <?php
+use Phing\BuildException;
 use Phing\Phing;
+use Phing\Task;
 
 /**
  * $Id$

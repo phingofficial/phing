@@ -19,7 +19,11 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildEvent;
+use Phing\BuildException;
+use Phing\BuildListenerInterface;
 use Phing\Phing;
+use Phing\Project;
 
 
 /**
@@ -41,7 +45,7 @@ use Phing\Phing;
  * @see       BuildEvent
  * @package   phing.listener
  */
-class PearLogListener implements BuildListener
+class PearLogListener implements BuildListenerInterface
 {
 
     /**

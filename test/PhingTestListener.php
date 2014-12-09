@@ -22,13 +22,13 @@
 
 namespace Phing\Test;
 
-use BuildEvent;
-use BuildListener;
+use Phing\BuildEvent;
+use Phing\BuildListenerInterface;
 
 /**
  * our own personal build listener
  */
-class PhingTestListener implements BuildListener
+class PhingTestListener implements BuildListenerInterface
 {
 
     private $parent;

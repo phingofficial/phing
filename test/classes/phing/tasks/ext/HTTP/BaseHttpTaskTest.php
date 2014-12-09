@@ -19,7 +19,10 @@
  * <http://phing.info>.
  */
 
+use Phing\BuildException;
+use Phing\Target;
 use Phing\Test\AbstractBuildFileTest;
+use Phing\UnknownElement;
 
 require_once 'HTTP/Request2.php';
 require_once dirname(__FILE__) . '/TraceHttpAdapter.php';
@@ -65,7 +68,7 @@ abstract class BaseHttpTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException Phing\BuildException
      * @expectedExceptionMessage Required attribute 'url' is missing
      */
     public function testMissingUrl()
