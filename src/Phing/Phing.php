@@ -33,6 +33,7 @@ use PhingFile;
 use Project;
 use ProjectConfigurator;
 use Properties;
+use SebastianBergmann\Version;
 use StreamRequiredBuildLogger;
 use StringHelper;
 use Timer;
@@ -955,26 +956,6 @@ class Phing
     }
 
     /**
-     * Copied from https://github.com/sebastianbergmann/version/blob/master/src/Version.php
-     * @param string $path
-     * @return bool|string
-     */
-    private static function getGitInformation($path)
-    {
-        if (!is_dir($path . DIRECTORY_SEPARATOR . '.git')) {
-            return false;
-        }
-        $dir = getcwd();
-        chdir($path);
-        $result = @exec('git describe --tags 2>&1', $output, $returnCode);
-        chdir($dir);
-        if ($returnCode !== 0) {
-            return false;
-        }
-        return $result;
-    }
-
-    /**
      * Gets the current Phing version based on VERSION.TXT file.
      *
      * @throws ConfigurationException
@@ -983,14 +964,6 @@ class Phing
      */
     public static function getPhingVersion()
     {
-        $path = dirname(dirname(dirname(__FILE__)));
-
-        $gitInformation = self::getGitInformation($path);
-
-        if ($gitInformation) {
-            return "Phing " . $gitInformation;
-        }
-
         $versionPath = self::getResourcePath("phing/etc/VERSION.TXT");
         if ($versionPath === null) {
             $versionPath = self::getResourcePath("etc/VERSION.TXT");
@@ -1006,7 +979,11 @@ class Phing
             throw new ConfigurationException("Can't read version information file");
         }
 
-        return "Phing " . $phingVersion;
+        $basePath = dirname(dirname(dirname(__FILE__)));
+
+        $version = new Version($phingVersion, $basePath);
+
+        return "Phing " . $version->getVersion();
     }
 
     /**
