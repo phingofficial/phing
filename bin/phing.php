@@ -25,8 +25,6 @@ set_include_path(
             get_include_path()
         );
 
-require_once 'phing/Phing.php';
-
 try {
 
     /* Setup Phing environment */
