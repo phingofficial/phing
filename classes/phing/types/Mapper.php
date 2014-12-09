@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 include_once 'phing/types/DataType.php';
 include_once 'phing/types/Path.php';
 

@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once dirname(__FILE__) . '/../../../classes/phing/Phing.php';
+use Phing\Phing;
 
 /**
  * Core Phing class test

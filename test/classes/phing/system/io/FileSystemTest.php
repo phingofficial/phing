@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 include_once 'phing/system/io/FileSystem.php';
 
 /**

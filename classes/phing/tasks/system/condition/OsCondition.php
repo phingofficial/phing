@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**

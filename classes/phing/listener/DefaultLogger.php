@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 require_once 'phing/listener/StreamRequiredBuildLogger.php';
 include_once 'phing/BuildEvent.php';
 

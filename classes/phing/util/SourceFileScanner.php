@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Phing;
 
 /**
  *  Utility class that collects the functionality of the various

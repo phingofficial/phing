@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 include_once 'phing/types/Reference.php';
 include_once 'phing/types/Path.php';
 include_once 'phing/util/StringHelper.php';

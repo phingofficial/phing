@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 require_once 'phing/listener/DefaultLogger.php';
 include_once 'phing/system/util/Properties.php';
 

@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+use Phing\Phing;
+
 require_once 'phing/Task.php';
 include_once 'phing/system/io/BufferedReader.php';
 include_once 'phing/system/io/BufferedWriter.php';

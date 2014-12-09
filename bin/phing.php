@@ -1,4 +1,5 @@
 <?php
+use Phing\Phing;
 
 /**
  * This is the Phing command line launcher. It starts up the system evironment

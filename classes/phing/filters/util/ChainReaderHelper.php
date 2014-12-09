@@ -19,6 +19,8 @@
  * <http://phing.info>.
 */
 
+use Phing\Phing;
+
 include_once 'phing/Project.php';
 include_once 'phing/filters/BaseFilterReader.php';
 include_once 'phing/types/PhingFilterReader.php';

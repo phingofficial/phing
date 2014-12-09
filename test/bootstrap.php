@@ -1,4 +1,6 @@
 <?php
+use Phing\Phing;
+
 defined('PHING_TEST_BASE') || define('PHING_TEST_BASE', dirname(__FILE__));
 set_include_path(
     realpath(dirname(__FILE__) . '/../classes') . PATH_SEPARATOR . 
@@ -7,7 +9,6 @@ set_include_path(
 );
 
 require_once(dirname(__FILE__) . '/classes/phing/BuildFileTest.php');
-require_once('phing/Phing.php');
 
 Phing::setProperty('phing.home', realpath(dirname(__FILE__) . '/../'));
 Phing::startup();
