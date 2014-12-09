@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/parser/ExpatParseException.php';
-include_once 'phing/system/io/IOException.php';
-include_once 'phing/system/io/FileReader.php';
 
 /**
  * This class is a wrapper for the PHP's internal expat parser.

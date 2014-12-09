@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/util/regexp/Regexp.php';
 
 /**
  * Uses regular expressions to perform filename transformations.

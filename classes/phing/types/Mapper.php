@@ -21,8 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/Path.php';
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).

@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
 
 /**
  * A wrapper task that lets you run tasks(s) when another set

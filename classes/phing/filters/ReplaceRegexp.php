@@ -20,8 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/ChainableReader.php';
-include_once 'phing/types/RegularExpression.php';
 
 /**
  * Performs a regexp find/replace on stream.

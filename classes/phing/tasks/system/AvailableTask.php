@@ -21,8 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/system/io/FileSystem.php';
-include_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  * <available> task.

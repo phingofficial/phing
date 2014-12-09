@@ -17,11 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/IdentityMapper.php';
-include_once 'phing/mappers/FlattenMapper.php';
 
 /**
  * A phing copy task.  Copies a file or directory to a new file

@@ -19,11 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/tasks/system/PropertyTask.php';
-include_once 'phing/util/DirectoryScanner.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
 
 /**
  * Sets the given property if the specified target has a timestamp

@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/BuildEvent.php';
 
 /**
  * Writes a build event to the console.

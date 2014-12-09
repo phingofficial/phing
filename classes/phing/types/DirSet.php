@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/AbstractFileSet.php';
 
 /**
  * Subclass as hint for supporting tasks that the included directories

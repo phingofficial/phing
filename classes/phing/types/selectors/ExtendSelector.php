@@ -22,7 +22,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/util/StringHelper.php';
 
 /**
  * Selector that selects files by forwarding the request on to other classes.

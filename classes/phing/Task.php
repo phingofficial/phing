@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/RuntimeConfigurable.php';
 
 /**
  * The base class for all Tasks.

@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/types/DataType.php';
 
 /**
  * The patternset storage component. Carries all necessary data and methods

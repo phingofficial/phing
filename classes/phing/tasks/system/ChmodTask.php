@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/FileSet.php';
 
 /**
  * Task that changes the permissions on a file/directory.

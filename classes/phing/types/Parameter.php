@@ -19,7 +19,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/types/DataType.php';
 
 /**
  * A parameter is composed of a name, type and value. Nested

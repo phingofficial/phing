@@ -18,8 +18,6 @@
 */
 
 // include_once 'phing/system/io/Reader.php'; // really this is unrelated to Reader
-include_once 'phing/system/io/IOException.php';
-include_once 'phing/filters/ReplaceTokens.php'; // For class Token
 
 /**
  * Abstract class for TokenReaders.

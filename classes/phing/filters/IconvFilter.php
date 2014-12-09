@@ -20,8 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Encode data from <code>in</code> encoding to <code>out</code> encoding.

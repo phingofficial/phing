@@ -1,6 +1,5 @@
 <?php
 
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * $Id$

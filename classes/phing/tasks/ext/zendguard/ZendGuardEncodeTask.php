@@ -20,9 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
 
 /**
  * Encodes files using Zeng Guard Encoder

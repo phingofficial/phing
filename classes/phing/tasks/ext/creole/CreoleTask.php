@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Reference.php';
 
 /**
  * Handles Creole configuration needed by SQL type tasks.

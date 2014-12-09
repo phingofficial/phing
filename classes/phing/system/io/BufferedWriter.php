@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/Writer.php';
 
 /**
  * Convenience class for writing files.

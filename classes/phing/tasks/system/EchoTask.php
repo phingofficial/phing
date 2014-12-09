@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
 
 /**
  * Echos a message to the logging system or to a file

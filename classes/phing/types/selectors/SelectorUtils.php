@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/StringHelper.php';
 
 /**
  * <p>This is a utility class used by selectors and DirectoryScanner. The

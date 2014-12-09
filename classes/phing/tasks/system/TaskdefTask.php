@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Register a task for use within a buildfile.

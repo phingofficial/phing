@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/RuntimeConfigurable.php';
 
 /**
  * Configures a Project (complete with Targets and Tasks) based on

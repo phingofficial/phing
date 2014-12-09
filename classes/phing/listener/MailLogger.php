@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/system/util/Properties.php';
 
 /**
  * Uses PEAR Mail package to send the build log to one or

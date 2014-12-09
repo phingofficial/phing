@@ -20,7 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Expands Phing Properties, if any, in the data.

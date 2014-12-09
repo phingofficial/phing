@@ -20,8 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/FileWriter.php';
 
 /**
  * Convenience class for reading and writing property files.

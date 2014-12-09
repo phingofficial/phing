@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/input/InputRequest.php';
 
 /**
  * Deprecated task that uses console to prompt user for property values.

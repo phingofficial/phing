@@ -21,8 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/tasks/system/ExecTask.php';
-include_once 'phing/types/Commandline.php';
 
 /**
  * Task for performing CVS operations.

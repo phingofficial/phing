@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/util/StringHelper.php';
 
 /**
  * A parameter is composed of a name, type and value.

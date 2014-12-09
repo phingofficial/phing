@@ -21,11 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/util/DirectoryScanner.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/IOException.php';
 
 /**
  * Touch a file and/or fileset(s); corresponds to the Unix touch command.

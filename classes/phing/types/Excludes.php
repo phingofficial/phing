@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/FileSet.php';
 
 /**
  * Datatype which handles excluded files, classes and methods.

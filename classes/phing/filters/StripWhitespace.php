@@ -20,8 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.

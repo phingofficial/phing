@@ -19,13 +19,6 @@ use Phing\Phing;
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/TaskAdapter.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/BuildEvent.php';
-include_once 'phing/input/DefaultInputHandler.php';
-include_once 'phing/types/PropertyValue.php';
 
 /**
  *  The Phing project class. Represents a completely configured Phing project.

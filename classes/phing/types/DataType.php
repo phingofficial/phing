@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
 
 /**
  * Base class for those classes that can appear inside the build file

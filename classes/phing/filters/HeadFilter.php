@@ -17,8 +17,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Reads the first <code>n</code> lines of a stream.

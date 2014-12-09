@@ -20,8 +20,6 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/filters/BaseParamFilterReader.php';
-include_once 'phing/filters/ChainableReader.php';
 
 /**
  * Replaces tokens in the original input with the contents of a file.

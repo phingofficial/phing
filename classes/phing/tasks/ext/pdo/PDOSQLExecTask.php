@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/StringReader.php';
-include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
 
 /**
  * Executes a series of SQL statements on a database using PDO.

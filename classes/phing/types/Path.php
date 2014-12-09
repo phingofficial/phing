@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/util/PathTokenizer.php';
-include_once 'phing/types/FileSet.php';
 
 /**
  * This object represents a path as used by include_path or PATH

@@ -19,8 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/mappers/FileNameMapper.php';
-include_once 'phing/tasks/system/PhingTask.php';
 
 /**
  * <foreach> task

@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/StringReader.php';
 
 /**
  * Executes a series of SQL statements on a database using Creole.

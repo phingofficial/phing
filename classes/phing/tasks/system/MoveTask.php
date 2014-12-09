@@ -17,8 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/IOException.php';
 
 /**
  * Moves a file or directory to a new file or directory.

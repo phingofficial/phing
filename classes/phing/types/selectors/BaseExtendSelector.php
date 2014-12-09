@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Parameter.php';
 
 /**
  * Convenience base class for all selectors accessed through ExtendSelector.

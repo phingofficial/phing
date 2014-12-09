@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/FileSet.php';
 
 /**
  * A task to create PEAR package.xml file.

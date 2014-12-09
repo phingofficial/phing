@@ -21,7 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/system/util/Properties.php';
 
 /**
  * Uses ANSI Color Code Sequences to colorize messages

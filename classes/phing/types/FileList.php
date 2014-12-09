@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * FileList represents an explicitly named list of files. FileLists

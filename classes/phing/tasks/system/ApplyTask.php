@@ -20,8 +20,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/types/FileList.php';
-include_once 'phing/types/FileSet.php';
 
 /**
  * Executes a command on the (filtered) file list/set.

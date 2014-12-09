@@ -22,10 +22,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/types/Reference.php';
-include_once 'phing/types/Path.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/parser/CustomChildCreator.php';
 
 /**
  * Helper class that collects the methods that a task or nested element

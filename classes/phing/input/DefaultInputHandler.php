@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/ConsoleReader.php';
 
 /**
  * Prompts using print(); reads input from Console.

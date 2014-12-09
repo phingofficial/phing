@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/io/FileWriter.php';
-include_once 'phing/filters/XsltFilter.php';
 
 /**
  * Implements an XSLT processing filter while copying files.

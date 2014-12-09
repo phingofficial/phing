@@ -21,9 +21,6 @@
 
 use Phing\Phing;
 
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/BufferedWriter.php';
-include_once 'phing/util/StringHelper.php';
 
 /**
  * Adds an new entry to a CVS password file.

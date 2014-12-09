@@ -19,9 +19,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/input/InputRequest.php';
-include_once 'phing/input/YesNoInputRequest.php';
-include_once 'phing/input/MultipleChoiceInputRequest.php';
 
 /**
  * Reads input from the InputHandler.
