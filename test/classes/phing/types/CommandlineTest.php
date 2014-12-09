@@ -22,8 +22,6 @@
 
 use Phing\BuildException;
 
-include_once 'phing/types/Commandline.php';
-
 /**
  * Unit test for mappers.
  *

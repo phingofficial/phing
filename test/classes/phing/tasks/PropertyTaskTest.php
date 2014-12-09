@@ -23,8 +23,6 @@
 use Phing\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/tasks/system/PropertyTask.php';
-
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)

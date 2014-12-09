@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/ComposerTask.php';
 /**
  * Test class for the ComposerTask.
  *

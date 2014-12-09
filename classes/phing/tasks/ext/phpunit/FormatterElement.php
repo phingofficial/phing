@@ -158,16 +158,12 @@ class FormatterElement
         }
 
         if ($this->type == "summary") {
-            require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
             $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
         } elseif ($this->type == "clover") {
-            require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
             $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
         } elseif ($this->type == "xml") {
-            require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
             $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
         } elseif ($this->type == "plain") {
-            require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
             $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");

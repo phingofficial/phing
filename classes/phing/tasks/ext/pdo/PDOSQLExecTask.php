@@ -441,13 +441,10 @@ class PDOSQLExecTask extends PDOTask
     {
 
         if (self::DELIM_NONE == $this->delimiterType) {
-            require_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
             $splitter = new DummyPDOQuerySplitter($this, $reader);
         } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
-            require_once 'phing/tasks/ext/pdo/PgsqlPDOQuerySplitter.php';
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
-            require_once 'phing/tasks/ext/pdo/DefaultPDOQuerySplitter.php';
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
         }
 

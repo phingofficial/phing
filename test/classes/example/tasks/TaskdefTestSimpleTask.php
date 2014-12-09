@@ -23,7 +23,6 @@
 use Phing\Project;
 use Phing\Task;
 
-require_once 'phing/Task.php';
 
 class TaskdefTestSimpleTask extends Task
 {

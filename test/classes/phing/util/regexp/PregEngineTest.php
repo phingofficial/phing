@@ -22,8 +22,6 @@
  * @package phing.util
  */
 
-require_once 'phing/util/regexp/PregEngine.php';
-
 /**
  * Class PregEngineTest
  *

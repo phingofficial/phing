@@ -24,7 +24,6 @@ use Phing\Test\AbstractBuildFileTest;
  *
  * @package phing.util
  */
-require_once 'phing/types/PearPackageFileSet.php';
 
 /**
  * Testcases for phing.types.PearPackageFileSet

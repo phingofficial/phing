@@ -1,5 +1,4 @@
 <?php
-use Phing\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -23,7 +22,6 @@ use Phing\Test\AbstractBuildFileTest;
  *
  * @package phing.util
  */
-require_once 'phing/util/PearPackageScanner.php';
 
 /**
  * Testcases for phing.util.PearPackageScanner

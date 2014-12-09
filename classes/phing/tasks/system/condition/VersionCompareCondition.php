@@ -77,7 +77,6 @@ class VersionCompareCondition implements Condition
     {
         $allowed = array('<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne');
         if (!in_array($operator, $allowed)) { // allowed operators for php's version_comapare()
-            require_once 'phing/BuildException.php';
             throw new BuildException(sprintf(
                 'Operator "%s" is not supported. Supported operators: %s',
                 $operator,
@@ -102,7 +101,6 @@ class VersionCompareCondition implements Condition
     public function evaluate()
     {
         if ($this->version === null || $this->desiredVersion === null) {
-            require_once 'phing/BuildException.php';
             throw new BuildException("Missing one version parameter for version compare");
         }
         $isValid = version_compare($this->version, $this->desiredVersion, $this->operator);

@@ -22,8 +22,6 @@
 use Phing\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
-require_once 'phing/tasks/ext/WikiPublishTask.php';
-
 /**
  * WikiPublish task test
  * @author  Piotr Lewandowski <piotr@cassis.pl>

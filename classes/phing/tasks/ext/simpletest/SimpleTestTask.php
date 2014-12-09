@@ -60,9 +60,6 @@ class SimpleTestTask extends Task
         require_once 'simpletest/reporter.php';
         require_once 'simpletest/xml.php';
         require_once 'simpletest/test_case.php';
-        require_once 'phing/tasks/ext/simpletest/SimpleTestCountResultFormatter.php';
-        require_once 'phing/tasks/ext/simpletest/SimpleTestDebugResultFormatter.php';
-        require_once 'phing/tasks/ext/simpletest/SimpleTestFormatterElement.php';
     }
 
     /**

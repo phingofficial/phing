@@ -148,8 +148,6 @@ class PhpDocumentor2Task extends Task
             throw new BuildException("The phpdocumentor2 task requires PHP 5.3+");
         }
 
-        require_once 'phing/tasks/ext/phpdoc/PhpDocumentor2Wrapper.php';
-
         $wrapper = new PhpDocumentor2Wrapper();
         $wrapper->setProject($this->project);
         $wrapper->setFilesets($this->filesets);

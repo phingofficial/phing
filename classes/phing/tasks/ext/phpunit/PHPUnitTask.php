@@ -101,11 +101,6 @@ class PHPUnitTask extends Task
         }
 
         /**
-         * Other dependencies that should only be loaded when class is actually used.
-         */
-        require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
-
-        /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
          */
         if (!defined('PHPUnit_MAIN_METHOD')) {
