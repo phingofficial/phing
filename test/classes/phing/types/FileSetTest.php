@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+require_once 'phing/types/AbstractFileSetTest.php';
+
 /**
  * Unit tests for FileSet -- including Selectors.
  *
