@@ -38,15 +38,6 @@ use StreamRequiredBuildLogger;
 use StringHelper;
 use Timer;
 
-require_once 'phing/Project.php';
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/Target.php';
-require_once 'phing/Task.php';
-
-include_once 'phing/BuildException.php';
-include_once 'phing/ConfigurationException.php';
-include_once 'phing/BuildEvent.php';
-
 include_once 'phing/parser/Location.php';
 include_once 'phing/parser/ExpatParser.php';
 include_once 'phing/parser/AbstractHandler.php';
