@@ -96,9 +96,6 @@ class ComposerTaskTest extends PHPUnit_Framework_TestCase
 
     public function testMultipleCalls()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped('At least PHP 5.3.2 is required');
-        }
         $o = $this->object;
         $o->setPhp('php');
         $o->setCommand('install');

@@ -36,21 +36,11 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped(
-                'Need at least PHP version 5.3.2 to run this unit test'
-            );
-        }
-
         $this->oldFsType = Phing::getProperty('host.fstype');
     }
 
     public function tearDown()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            return;
-        }
-
         Phing::setProperty('host.fstype', $this->oldFsType);
         $this->_resetFileSystem();
     }

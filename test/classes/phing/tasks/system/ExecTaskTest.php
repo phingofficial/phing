@@ -105,19 +105,11 @@ class ExecTaskTest extends AbstractBuildFileTest
 
     public function testPropertySetCommand()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('command', "echo 'foo'");
     }
 
     public function testPropertySetDir()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo(
             'dir',
             new PhingFile(
@@ -128,82 +120,46 @@ class ExecTaskTest extends AbstractBuildFileTest
 
     public function testPropertySetOs()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('os', "linux");
     }
 
     public function testPropertySetEscape()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('escape', true);
     }
 
     public function testPropertySetLogoutput()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('logoutput', true, 'logOutput');
     }
 
     public function testPropertySetPassthru()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('passthru', true);
     }
 
     public function testPropertySetSpawn()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('spawn', true);
     }
 
     public function testPropertySetReturnProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('returnProperty', 'retval');
     }
 
     public function testPropertySetOutputProperty()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('outputProperty', 'outval');
     }
 
     public function testPropertySetCheckReturn()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('checkreturn', true);
     }
 
     public function testPropertySetOutput()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo(
             'output',
             new PhingFile(
@@ -215,10 +171,6 @@ class ExecTaskTest extends AbstractBuildFileTest
 
     public function testPropertySetError()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo(
             'error',
             new PhingFile(
@@ -230,46 +182,26 @@ class ExecTaskTest extends AbstractBuildFileTest
 
     public function testPropertySetLevelError()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelError', Project::MSG_ERR, 'logLevel');
     }
 
     public function testPropertySetLevelWarning()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelWarning', Project::MSG_WARN, 'logLevel');
     }
 
     public function testPropertySetLevelInfo()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelInfo', Project::MSG_INFO, 'logLevel');
     }
 
     public function testPropertySetLevelVerbose()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelVerbose', Project::MSG_VERBOSE, 'logLevel');
     }
 
     public function testPropertySetLevelDebug()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->assertAttributeIsSetTo('levelDebug', Project::MSG_DEBUG, 'logLevel');
     }
 
@@ -279,10 +211,6 @@ class ExecTaskTest extends AbstractBuildFileTest
      */
     public function testPropertySetLevelUnknown()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $this->getConfiguredTask('testPropertySetLevelUnknown', 'ExecTask');
     }
 

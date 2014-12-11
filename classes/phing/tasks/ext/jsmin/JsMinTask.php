@@ -127,10 +127,6 @@ class JsMinTask extends Task
             );
         }
 
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            throw new BuildException('JsMinTask requires PHP 5.3+');
-        }
-
         if (empty($this->targetDir)) {
             throw new BuildException('Attribute "targetDir" is required');
         }

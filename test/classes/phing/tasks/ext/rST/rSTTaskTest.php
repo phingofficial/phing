@@ -67,7 +67,6 @@ class rSTTaskTest extends AbstractBuildFileTest
     /**
      * @expectedException Phing\BuildException
      * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathFail()
     {
@@ -81,7 +80,6 @@ class rSTTaskTest extends AbstractBuildFileTest
 
     /**
      * Get the tool path previously set with setToolpath()
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathCustom()
     {

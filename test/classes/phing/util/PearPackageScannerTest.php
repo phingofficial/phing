@@ -45,10 +45,6 @@ class PearPackageScannerTest extends AbstractBuildFileTest
 
     public function testLoadPackageInfo()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('console_getopt');
 
@@ -67,10 +63,6 @@ class PearPackageScannerTest extends AbstractBuildFileTest
      */
     public function testLoadPackageInfoNonexistingPackage()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
-
         $ppfs = new PearPackageScanner();
         $ppfs->setPackage('this_package_does_not_exist');
 

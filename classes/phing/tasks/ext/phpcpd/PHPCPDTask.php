@@ -204,10 +204,6 @@ class PHPCPDTask extends Task
             fclose($handler);
             @include_once 'SebastianBergmann/PHPCPD/autoload.php';
 
-            if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-                throw new BuildException('The PHPCPD task now requires PHP 5.3+');
-            }
-
             $oldVersion = false;
         } elseif ($handler = @fopen('PHPCPD/Autoload.php', 'r', true)) {
             fclose($handler);
