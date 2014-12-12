@@ -148,6 +148,7 @@ class TargetHandler extends AbstractHandler
         }
 
         $this->target = new Target();
+        $this->target->setName($name);
         $this->target->setHidden($isHidden);
         $this->target->setIf($ifCond);
         $this->target->setUnless($unlessCond);
@@ -158,38 +159,40 @@ class TargetHandler extends AbstractHandler
             $this->target->setDepends($depends);
         }
 
+        $usedTarget = false;
         // check to see if target with same name is already defined
         $projectTargets = $project->getTargets();
         if (isset($projectTargets[$name])) {
-            if ($this->configurator->isIgnoringProjectTag() &&
-                $this->configurator->getCurrentProjectName() != null &&
-                strlen($this->configurator->getCurrentProjectName()) != 0
-            ) {
-                // In an impored file (and not completely
-                // ignoring the project tag)
-                $newName = $this->configurator->getCurrentProjectName() . "." . $name;
-                $project->log(
-                    "Already defined in main or a previous import, " .
-                    "define {$name} as {$newName}",
-                    Project::MSG_VERBOSE
-                );
-                $name = $newName;
-            } else {
-                $project->log(
-                    "Already defined in main or a previous import, " .
-                    "ignore {$name}",
-                    Project::MSG_VERBOSE
-                );
-                $name = null;
-            }
-        }
-
-        if ($name != null) {
-            $this->target->setName($name);
+            $project->log(
+                "Already defined in main or a previous import, " .
+                "ignore {$name}",
+                Project::MSG_VERBOSE
+            );
+        } else {
             $project->addOrReplaceTarget($name, $this->target);
             if ($id !== null && $id !== "") {
                 $project->addReference($id, $this->target);
             }
+            $usedTarget = true;
+        }
+
+        if ($this->configurator->isIgnoringProjectTag() &&
+            $this->configurator->getCurrentProjectName() != null &&
+            strlen($this->configurator->getCurrentProjectName()) != 0
+        ) {
+            // In an impored file (and not completely
+            // ignoring the project tag)
+            $newName = $this->configurator->getCurrentProjectName() . "." . $name;
+            if ($usedTarget) {
+                // clone needs to make target->children a shared reference
+                $newTarget = clone $this->target;
+            } else {
+                $newTarget = $this->target;
+            }
+            $newTarget->setName($newName);
+            $ct = & $this->context->getCurrentTargets();
+            $ct[$newName] = $newTarget;
+            $project->addOrReplaceTarget($newName, $newTarget);
         }
     }
 
