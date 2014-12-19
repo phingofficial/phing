@@ -56,6 +56,7 @@ class PHPUnitTask extends Task
     private $excludeGroups = array();
     private $processIsolation = false;
     private $usecustomerrorhandler = true;
+    private $listeners = array();
 
     /**
      * @var string
@@ -287,6 +288,16 @@ class PHPUnitTask extends Task
     }
 
     /**
+     * Add a new listener to all tests of this taks
+     *
+     * @param PHPUnit_Framework_TestListener $listener
+     */
+    public function addListener(PHPUnit_Framework_TestListener $listener)
+    {
+        $this->listeners[] = $listener;
+    }
+
+    /**
      * @param PhingFile $configuration
      */
     public function setConfiguration(PhingFile $configuration)
@@ -350,6 +361,30 @@ class PHPUnitTask extends Task
 
         if (isset($phpunit['processIsolation'])) {
             $this->setProcessIsolation($phpunit['processIsolation']);
+        }
+
+        foreach ($config->getListenerConfiguration() as $listener) {
+            if (!class_exists($listener['class'], false) &&
+                $listener['file'] !== '') {
+                require_once $listener['file'];
+            }
+
+            if (class_exists($listener['class'])) {
+                if (count($listener['arguments']) == 0) {
+                    $listener = new $listener['class'];
+                } else {
+                    $listenerClass = new ReflectionClass(
+                                       $listener['class']
+                                     );
+                    $listener      = $listenerClass->newInstanceArgs(
+                                       $listener['arguments']
+                                     );
+                }
+
+                if ($listener instanceof PHPUnit_Framework_TestListener) {
+                    $this->addListener($listener);
+                }
+            }
         }
 
         $browsers = $config->getSeleniumBrowserConfiguration();
@@ -444,6 +479,10 @@ class PHPUnitTask extends Task
         }
 
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
+
+        foreach ($this->listeners as $listener) {
+            $runner->addListener($listener);
+        }
 
         foreach ($this->formatters as $fe) {
             $formatter = $fe->getFormatter();

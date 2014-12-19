@@ -58,6 +58,7 @@
 	<target name="reports" depends="configure">
 		<delete dir="tmp"/>
 		<mkdir dir="tmp"/>
+		<adhoc><![CDATA[ @include_once 'PHPUnit/Autoload.php';  ]]></adhoc>
 		<if>
 		    <equals arg1="${tests.codecoverage}" arg2="true"/>
 			<then>

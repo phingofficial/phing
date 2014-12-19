@@ -41,6 +41,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     private $lastIncompleteMessage = '';
     private $lastSkippedMessage = '';
     private $formatters = array();
+    private $listeners = array();
 
     private $codecoverage = null;
 
@@ -92,6 +93,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      */
     public function addFormatter($formatter)
     {
+        $this->addListener($formatter);
         $this->formatters[] = $formatter;
     }
 
@@ -104,6 +106,11 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     public function handleError($level, $message, $file, $line)
     {
         return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
+    }
+
+    public function addListener($listener)
+    {
+        $this->listeners[] = $listener;
     }
 
     /**
