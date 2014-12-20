@@ -1339,6 +1339,18 @@
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Diagnostics">
+        <title>Diagnostics</title>
+        <para> Runs phing's -diagnostics code inside phing itself.
+            This is good for debugging phing's configuration under an IDE.
+        </para>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;target name="diagnostics" description="diagnostics">
+                &lt;diagnostics/>
+                &lt;/target></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="EchoTask">
         <title>EchoTask </title>
         <para>Echoes a message to the current loggers and listeners which means standard out unless
