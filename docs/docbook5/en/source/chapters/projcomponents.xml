@@ -557,6 +557,34 @@
 
             <programlisting language="xml">&lt;http url="http://url.to.test" errorsBeginAt="404" /&gt;</programlisting>
         </sect2>
+        <sect2 xml:id="conditions.socket">
+            <title><literal>socket</literal></title>
+            <para>Condition to test for a (tcp) listener on a specified host and port.</para>
+            <table>
+                <title>socket Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry><literal>server</literal></entry>
+                            <entry>The hostname or ip address of the server.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>port</literal></entry>
+                            <entry>The port number of the server.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <programlisting language="xml">&lt;socket server="localhost" port="80" /&gt;</programlisting>
+        </sect2>
         <sect2 xml:id="conditions.hasfreespace">
             <title><literal>hasfreespace</literal></title>
             <para>Condition returns true if selected partition has the requested space, false otherwise.</para>
