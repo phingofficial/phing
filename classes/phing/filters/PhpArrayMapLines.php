@@ -15,7 +15,7 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 include_once 'phing/BuildException.php';
 include_once 'phing/filters/BaseParamFilterReader.php';
