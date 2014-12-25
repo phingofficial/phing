@@ -91,6 +91,13 @@ class Phing
     /** The class to handle input (can be only one). */
     private $inputHandlerClassname;
 
+    /**
+     * Whether or not log output should be reduced to the minimum.
+     *
+     * @var bool $silent
+     */
+    private $silent = false;
+
     /** Indicates if this phing should be run */
     private $readyToRun = false;
 
@@ -353,6 +360,15 @@ class Phing
 
         if (false !== ($key = array_search('-debug', $args, true))) {
             self::$msgOutputLevel = Project::MSG_DEBUG;
+            unset($args[$key]);
+        }
+
+        if (
+            false !== ($key = array_search('-silent', $args, true))
+            ||
+            false !== ($key = array_search('-S', $args, true))
+        ) {
+            $this->silent = true;
             unset($args[$key]);
         }
 
@@ -760,7 +776,11 @@ class Phing
      */
     private function createLogger()
     {
-        if ($this->loggerClassname !== null) {
+        if ($this->silent) {
+            require_once 'phing/listener/SilentLogger.php';
+            $logger = new SilentLogger();
+            self::$msgOutputLevel = Project::MSG_WARN;
+        } elseif ($this->loggerClassname !== null) {
             self::import($this->loggerClassname);
             // get class name part
             $classname = self::import($this->loggerClassname);
@@ -920,6 +940,7 @@ class Phing
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
+        $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
         $msg .= "  -verbose               be extra verbose" . PHP_EOL;
         $msg .= "  -debug                 print debugging information" . PHP_EOL;
         $msg .= "  -diagnostics           print diagnostics information" . PHP_EOL;
