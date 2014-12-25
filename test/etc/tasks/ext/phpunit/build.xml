@@ -56,4 +56,14 @@
 			</batchtest>
 		</phpunit>
 	</target>
+	
+	<target name="testExcludeGroups">
+		<phpunit haltonfailure="true" excludeGroups="shouldBeExcluded">
+			<batchtest>
+				<fileset dir="tests">
+					<include name="ExcludedTest.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
 </project>
