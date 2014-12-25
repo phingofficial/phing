@@ -530,8 +530,8 @@
                                     <entry><literal>styledir</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>The directory where the stylesheets are located.</entry>
-                                    <entry>n/a</entry>
-                                    <entry>Yes</entry>
+                                    <entry>The <literal>etc</literal> directory in the Phing installation</entry>
+                                    <entry>No</entry>
                                 </row>
                                 <row>
                                     <entry><literal>todir</literal></entry>
