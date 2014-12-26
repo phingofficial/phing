@@ -24,7 +24,7 @@ include_once 'phing/tasks/system/condition/Condition.php';
 /**
  * An phing version condition/task.
  *
- * @author    Siad Ardroumli <siad.ardroumli@gmail.org>
+ * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.tasks.system
  */
 class PhingVersion extends Task implements Condition
