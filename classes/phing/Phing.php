@@ -139,13 +139,16 @@ class Phing
      */
     private static $origIniSettings = array();
 
+    /** Whether or not output to the log is to be unadorned. */
+    private $emacsMode = false;
+
     /**
      * Entry point allowing for more options from other front ends.
      *
      * This method encapsulates the complete build lifecycle.
      *
-     * @param  array     $args                     The commandline args passed to phing shell script.
-     * @param  array     $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
+     * @param  array $args The commandline args passed to phing shell script.
+     * @param  array $additionalUserProperties Any additional properties to be passed to Phing (alternative front-end might implement this).
      *                                             These additional properties will be available using the getDefinedProperty() method and will
      *                                             be added to the project's "user" properties
      * @see execute()
@@ -346,6 +349,15 @@ class Phing
             unset($args[$key]);
         }
 
+        if (
+            false !== ($key = array_search('-emacs', $args, true))
+            ||
+            false !== ($key = array_search('-e', $args, true))
+        ) {
+            $this->emacsMode = true;
+            unset($args[$key]);
+        }
+
         if (false !== ($key = array_search('-verbose', $args, true))) {
             self::$msgOutputLevel = Project::MSG_VERBOSE;
             unset($args[$key]);
@@ -484,8 +496,7 @@ class Phing
             if (!$this->buildFile->exists()) {
                 $distFile = new PhingFile($this->buildFile->getAbsolutePath() . ".dist");
                 if (!$distFile->exists()) {
-                    throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString(
-                        ) . " does not exist!");
+                    throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " does not exist!");
                 }
                 $this->buildFile = $distFile;
             }
@@ -597,8 +608,8 @@ class Phing
 
         $e = self::$definedProps->keys();
         while (count($e)) {
-            $arg = (string) array_shift($e);
-            $value = (string) self::$definedProps->getProperty($arg);
+            $arg = (string)array_shift($e);
+            $value = (string)self::$definedProps->getProperty($arg);
             $project->setUserProperty($arg, $value);
         }
         unset($e);
@@ -775,6 +786,7 @@ class Phing
         $logger->setMessageOutputLevel(self::$msgOutputLevel);
         $logger->setOutputStream(self::$out);
         $logger->setErrorStream(self::$err);
+        $logger->setEmacsMode($this->emacsMode);
 
         return $logger;
     }
@@ -809,7 +821,7 @@ class Phing
      * A static convenience method to send a log to the current (last-setup) Project.
      * If there is no currently-configured Project, then this will do nothing.
      * @param string $message
-     * @param int    $priority Project::MSG_INFO, etc.
+     * @param int $priority Project::MSG_INFO, etc.
      */
     public static function log($message, $priority = Project::MSG_INFO)
     {
@@ -1084,16 +1096,16 @@ class Phing
     /**
      * Writes a formatted list of target names with an optional description.
      *
-     * @param array  $names        The names to be printed.
+     * @param array $names The names to be printed.
      *                             Must not be <code>null</code>.
-     * @param array  $descriptions The associated target descriptions.
+     * @param array $descriptions The associated target descriptions.
      *                             May be <code>null</code>, in which case
      *                             no descriptions are displayed.
      *                             If non-<code>null</code>, this should have
      *                             as many elements as <code>names</code>.
-     * @param string $heading      The heading to display.
+     * @param string $heading The heading to display.
      *                             Should not be <code>null</code>.
-     * @param int    $maxlen       The maximum length of the names of the targets.
+     * @param int $maxlen The maximum length of the names of the targets.
      *                             If descriptions are given, they are padded to this
      *                             position so they line up (so long as the names really
      *                             <i>are</i> shorter than this).
@@ -1130,8 +1142,8 @@ class Phing
      * - PSR-0 (@link https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md)
      * - dot-path
      *
-     * @param string         $dotPath   Path
-     * @param mixed          $classpath String or object supporting __toString()
+     * @param string $dotPath Path
+     * @param mixed $classpath String or object supporting __toString()
      *
      * @return string         The unqualified classname (which can be instantiated).
      *
@@ -1485,7 +1497,7 @@ class Phing
      */
     public static function setProperty($propName, $propValue)
     {
-        $propName = (string) $propName;
+        $propName = (string)$propName;
         $oldValue = self::getProperty($propName);
         self::$properties[$propName] = $propValue;
 
@@ -1499,7 +1511,7 @@ class Phing
     {
         list($usec, $sec) = explode(" ", microtime());
 
-        return ((float) $usec + (float) $sec);
+        return ((float)$usec + (float)$sec);
     }
 
     /**
@@ -1565,7 +1577,7 @@ class Phing
         self::$origIniSettings['allow_call_time_pass_reference'] = ini_set('allow_call_time_pass_reference', 'on');
         self::$origIniSettings['track_errors'] = ini_set('track_errors', 1);
 
-        $mem_limit = (int) self::convertShorthand(ini_get('memory_limit'));
+        $mem_limit = (int)self::convertShorthand(ini_get('memory_limit'));
         if ($mem_limit < (32 * 1024 * 1024) && $mem_limit > -1) {
             // We do *not* need to save the original value here, since we don't plan to restore
             // this after shutdown (we don't trust the effectiveness of PHP's garbage collection).

@@ -66,6 +66,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     protected $err;
 
+    protected $emacsMode = false;
+
     /**
      *  Construct a new default logger.
      */
@@ -98,7 +100,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function setMessageOutputLevel($level)
     {
-        $this->msgOutputLevel = (int) $level;
+        $this->msgOutputLevel = (int)$level;
     }
 
     /**
@@ -119,6 +121,17 @@ class DefaultLogger implements StreamRequiredBuildLogger
     public function setErrorStream(OutputStream $err)
     {
         $this->err = $err;
+    }
+
+    /**
+     * Sets this logger to produce emacs (and other editor) friendly output.
+     *
+     * @param bool $emacsMode <code>true</code> if output is to be unadorned so that
+     *                  emacs and other editors can parse files names, etc.
+     */
+    public function setEmacsMode($emacsMode)
+    {
+        $this->emacsMode = $emacsMode;
     }
 
     /**
@@ -201,8 +214,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
             && $event->getTarget()->getName() != ''
         ) {
             $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
-            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName(
-                ) . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
+            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
@@ -235,7 +247,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  BuildEvent $event  The BuildEvent
+     * @param  BuildEvent $event The BuildEvent
      * @see    BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
@@ -246,7 +258,6 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Print a message to the stdout.
      *
      * @param BuildEvent $event
-     * @internal param The $object BuildEvent
      * @see    BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event)
@@ -254,7 +265,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
             $msg = "";
-            if ($event->getTask() !== null) {
+            if ($event->getTask() !== null && !$this->emacsMode) {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
                 $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
