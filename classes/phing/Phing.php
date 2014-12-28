@@ -934,6 +934,7 @@ class Phing
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -verbose               be extra verbose" . PHP_EOL;
         $msg .= "  -debug                 print debugging information" . PHP_EOL;
+        $msg .= "  -emacs, -e             produce logging information without adornments" . PHP_EOL;
         $msg .= "  -diagnostics           print diagnostics information" . PHP_EOL;
         $msg .= "  -longtargets           show target descriptions during build" . PHP_EOL;
         $msg .= "  -logfile <file>        use given file for log" . PHP_EOL;
