@@ -1351,6 +1351,59 @@
                 &lt;/target></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Dirname">
+        <title>Dirname</title>
+        <para> Task to determine the directory path of a specified file.
+        </para>
+        <para> When this task executes, it will set the specified property to the value of the specified file
+            (or directory) up to, but not including, the last path element. If the specified file is a path that
+            ends in a filename, the filename will be dropped. If the specified file is just a filename, the
+            directory will be the current directory.
+        </para>
+        <para> Note: This is not the same as the UNIX dirname command, which is defined as "strip non-directory suffix
+            from filename". &lt;dirname> determines the full directory path of the specified file.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The path to take the dirname of.</entry>
+                        <entry>n/a</entry>
+                        <entry>yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>n/a</entry>
+                        <entry>yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;dirname property="foo.dirname" file="foo.txt"/></programlisting>
+            <para>will set <literal>foo.dirname</literal> to the project's basedir.</para>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="EchoTask">
         <title>EchoTask </title>
         <para>Echoes a message to the current loggers and listeners which means standard out unless
