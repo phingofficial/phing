@@ -88,6 +88,12 @@ class Phing
     /** Names of classes to add as listeners to project */
     private $listeners = array();
 
+    /**
+     * keep going mode
+     * @var bool $keepGoingMode
+     */
+    private $keepGoingMode = false;
+
     private $loggerClassname = null;
 
     /** The class to handle input (can be only one). */
@@ -476,6 +482,8 @@ class Phing
                         $this->setProperty($prop, $value);
                     }
                 }
+            } elseif ($arg == "-keep-going" || $arg == "-k") {
+                $this->keepGoingMode = true;
             } elseif ($arg == "-longtargets") {
                 self::$definedProps->setProperty('phing.showlongtargets', 1);
             } elseif ($arg == "-projecthelp" || $arg == "-targets" || $arg == "-list" || $arg == "-l" || $arg == "-p") {
@@ -622,6 +630,8 @@ class Phing
             $project->fireBuildFinished($exc);
             throw $exc;
         }
+
+        $project->setKeepGoingMode($this->keepGoingMode);
 
         $project->setUserProperty("phing.version", $this->getPhingVersion());
 
@@ -965,6 +975,7 @@ class Phing
         $msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
         $msg .= "  -f -buildfile <file>   use given buildfile" . PHP_EOL;
         $msg .= "  -D<property>=<value>   use value for given property" . PHP_EOL;
+        $msg .= "  -keep-going, -k        execute all targets that do not depend" . PHP_EOL;
         $msg .= "  -propertyfile <file>   load all properties from file" . PHP_EOL;
         $msg .= "  -find <file>           search for buildfile towards the root of the" . PHP_EOL;
         $msg .= "                         filesystem and use it" . PHP_EOL;
