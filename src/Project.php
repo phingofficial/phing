@@ -678,10 +678,6 @@ class Project
         $this->log("  +Target: $targetName", Project::MSG_DEBUG);
         $target->setProject($this);
         $this->targets[$targetName] = $target;
-
-        $ctx = $this->getReference("phing.parsing.context");
-        $current = $ctx->getCurrentTargets();
-        $current[$targetName] = $target;
     }
 
     /**
@@ -918,7 +914,6 @@ class Project
      */
     public function _topoSort($root)
     {
-
         $root = (string)$root;
         $ret = array();
         $state = array();
@@ -984,25 +979,21 @@ class Project
      */
     public function _tsort($root, &$state, &$visiting, &$ret)
     {
-        $state[$root] = "VISITING";
-        $visiting[] = $root;
-
-        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
-            $target = null;
-        } else {
-            $target = $this->targets[$root];
-        }
-
         // make sure we exist
-        if ($target === null) {
+        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
             $sb = "Target '$root' does not exist in this project.";
-            array_pop($visiting);
             if (!empty($visiting)) {
-                $parent = (string)$visiting[count($visiting) - 1];
+                $parent = end($visiting);
                 $sb .= " It is a dependency of target '$parent'.";
             }
             throw new BuildException($sb);
         }
+
+        $target = $this->targets[$root];
+        $name = $target->getName();
+
+        $state[$name] = "VISITING";
+        $visiting[] = $name;
 
         foreach ($target->getDependencies() as $dep) {
             $depname = $this->targets[$dep]->getName();
@@ -1016,12 +1007,11 @@ class Project
             }
         }
 
-        $p = (string)array_pop($visiting);
-        if ($root !== $p) {
+        if ($name !== array_pop($visiting)) {
             throw new Exception("Unexpected internal error: expected to pop $root but got $p");
         }
 
-        $state[$root] = "VISITED";
+        $state[$name] = "VISITED";
         $ret[] = $target;
     }
 

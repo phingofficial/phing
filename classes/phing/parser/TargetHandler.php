@@ -140,12 +140,10 @@ class TargetHandler extends AbstractHandler
 
         // shorthand
         $project = $this->configurator->project;
-
-        // check to see if this target is a dup within the same file
-        if (isset($this->context->getCurrentTargets[$name])) {
-            throw new BuildException("Duplicate target: $targetName",
-                $this->parser->getLocation());
-        }
+        $projectTargets = $project->getTargets();
+        $currentProjectName = $this->configurator->getCurrentProjectName();
+        $importedFile = $this->configurator->isIgnoringProjectTag();
+        $targetAdded = false;
 
         $this->target = new Target();
         $this->target->setName($name);
@@ -159,40 +157,40 @@ class TargetHandler extends AbstractHandler
             $this->target->setDepends($depends);
         }
 
-        $usedTarget = false;
-        // check to see if target with same name is already defined
-        $projectTargets = $project->getTargets();
         if (isset($projectTargets[$name])) {
-            $project->log(
-                "Already defined in main or a previous import, " .
-                "ignore {$name}",
-                Project::MSG_VERBOSE
-            );
-        } else {
-            $project->addOrReplaceTarget($name, $this->target);
-            if ($id !== null && $id !== "") {
-                $project->addReference($id, $this->target);
+            if (!$importedFile) {
+                throw new BuildException("Duplicate target: $name", $this->parser->getLocation());
+            } else {
+                $project->log(
+                    "Already defined in main or a previous import, " .
+                    "ignore {$name}",
+                    Project::MSG_VERBOSE
+                );
             }
-            $usedTarget = true;
+        } else {
+            $project->addTarget($name, $this->target);
+            $targetAdded = true;
         }
 
-        if ($this->configurator->isIgnoringProjectTag() &&
-            $this->configurator->getCurrentProjectName() != null &&
-            strlen($this->configurator->getCurrentProjectName()) != 0
-        ) {
-            // In an impored file (and not completely
-            // ignoring the project tag)
-            $newName = $this->configurator->getCurrentProjectName() . "." . $name;
-            if ($usedTarget) {
-                // clone needs to make target->children a shared reference
-                $newTarget = clone $this->target;
-            } else {
-                $newTarget = $this->target;
-            }
-            $newTarget->setName($newName);
-            $ct = & $this->context->getCurrentTargets();
-            $ct[$newName] = $newTarget;
-            $project->addOrReplaceTarget($newName, $newTarget);
+        // If we're in an imported file and the project name is set,
+        // we can namespace the target. If we're imported but have no
+        // project name and the target name is taken, silently ignore the new (imported) target.
+        if ($importedFile && $currentProjectName) {
+            $namespacedName = "$currentProjectName.$name";
+
+            if (!isset($projectTargets[$namespacedName])) {
+                if (!$targetAdded) {
+                    $this->target->setName($namespacedName);
+                }
+
+                $project->log("Adding $name as $namespacedName.", Project::MSG_DEBUG);
+                $project->addTarget($namespacedName, $this->target);
+                $targetAdded = true;
+           }
+        }
+
+        if ($targetAdded && $id) {
+            $project->addReference($id, $this->target);
         }
     }
 
