@@ -1,9 +1,6 @@
 <?php
 namespace Phing;
 
-use Phing\BuildEvent;
-use Phing\BuildException;
-use Phing\BuildListenerInterface;
 use Condition;
 use DataType;
 use DefaultInputHandler;
@@ -17,7 +14,6 @@ use ProjectConfigurator;
 use Properties;
 use PropertyValue;
 use StringHelper;
-use Phing\TaskAdapter;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -59,8 +55,12 @@ class Project
     const MSG_WARN = 1;
     const MSG_ERR = 0;
 
-    /** contains the targets */
+    /**
+     * contains the targets
+     * @var Target[]
+     */
     private $targets = array();
+
     /** global filterset (future use) */
     private $globalFilterSet = array();
     /**  all globals filters (future use) */
@@ -870,13 +870,10 @@ class Project
 
         // invoke topological sort of the target tree and run all targets
         // until targetName occurs.
-        $sortedTargets = $this->_topoSort($targetName, $this->targets);
+        $sortedTargets = $this->_topoSort($targetName);
 
-        $curIndex = (int)0;
-        $curTarget = null;
-        do {
+        foreach ($sortedTargets as $curTarget) {
             try {
-                $curTarget = $sortedTargets[$curIndex++];
                 $curTarget->performTasks();
             } catch (BuildException $exc) {
                 $this->log(
@@ -886,7 +883,11 @@ class Project
                 );
                 throw $exc;
             }
-        } while ($curTarget->getName() !== $targetName);
+
+            if ($curTarget === $this->targets[$targetName]) {
+                return;
+            }
+        }
     }
 
     /**
@@ -910,13 +911,12 @@ class Project
      * @param  string $root is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @param  array $targets is a array representing a "name to Target" mapping
      * @throws BuildException
      * @throws Exception
      * @return array of Strings with the names of the targets in
      *               sorted order.
      */
-    public function _topoSort($root, &$targets)
+    public function _topoSort($root)
     {
 
         $root = (string)$root;
@@ -932,35 +932,27 @@ class Project
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
-        $this->_tsort($root, $targets, $state, $visiting, $ret);
+        $this->_tsort($root, $state, $visiting, $ret);
 
-        $retHuman = "";
-        for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
-        }
-        $this->log("Build sequence for target '$root' is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Build sequence for target '$root' is: " . $this->targetSequenceToString($ret), Project::MSG_VERBOSE);
 
-        $keys = array_keys($targets);
-        while ($keys) {
-            $curTargetName = (string)array_shift($keys);
-            if (!isset($state[$curTargetName])) {
+        foreach ($this->targets as $target) {
+            $name = $target->getName();
+
+            if (!isset($state[$name])) {
                 $st = null;
             } else {
-                $st = (string)$state[$curTargetName];
+                $st = (string)$state[$name];
             }
 
             if ($st === null) {
-                $this->_tsort($curTargetName, $targets, $state, $visiting, $ret);
+                $this->_tsort($name, $state, $visiting, $ret);
             } elseif ($st === "VISITING") {
-                throw new Exception("Unexpected node in visiting state: $curTargetName");
+                throw new Exception("Unexpected node in visiting state: $name");
             }
         }
 
-        $retHuman = "";
-        for ($i = 0, $_i = count($ret); $i < $_i; $i++) {
-            $retHuman .= $ret[$i]->toString() . " ";
-        }
-        $this->log("Complete build sequence is: $retHuman", Project::MSG_VERBOSE);
+        $this->log("Complete build sequence is: " . $this->targetSequenceToString($ret), Project::MSG_VERBOSE);
 
         return $ret;
     }
@@ -984,22 +976,21 @@ class Project
 
     /**
      * @param $root
-     * @param $targets
      * @param $state
      * @param $visiting
      * @param $ret
      * @throws BuildException
      * @throws Exception
      */
-    public function _tsort($root, &$targets, &$state, &$visiting, &$ret)
+    public function _tsort($root, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
         $visiting[] = $root;
 
-        if (!isset($targets[$root]) || !($targets[$root] instanceof Target)) {
+        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
             $target = null;
         } else {
-            $target = $targets[$root];
+            $target = $this->targets[$root];
         }
 
         // make sure we exist
@@ -1013,21 +1004,15 @@ class Project
             throw new BuildException($sb);
         }
 
-        $deps = $target->getDependencies();
+        foreach ($target->getDependencies() as $dep) {
+            $depname = $this->targets[$dep]->getName();
 
-        while ($deps) {
-            $cur = (string)array_shift($deps);
-            if (!isset($state[$cur])) {
-                $m = null;
-            } else {
-                $m = (string)$state[$cur];
-            }
-            if ($m === null) {
+            if (!isset($state[$depname])) {
                 // not been visited
-                $this->_tsort($cur, $targets, $state, $visiting, $ret);
-            } elseif ($m == "VISITING") {
+                $this->_tsort($depname, $state, $visiting, $ret);
+            } elseif ($state[$depname] == "VISITING") {
                 // currently visiting this node, so have a cycle
-                throw $this->_makeCircularException($cur, $visiting);
+                throw $this->_makeCircularException($depname, $visiting);
             }
         }
 
@@ -1234,5 +1219,20 @@ class Project
     public function fireMessageLogged($object, $message, $priority)
     {
         $this->fireMessageLoggedEvent(new BuildEvent($object), $message, $priority);
+    }
+
+    /**
+     * @param $seq
+     * @return string
+     */
+    private function targetSequenceToString($seq)
+    {
+        $r = "";
+
+        foreach ($seq as $t) {
+            $r .= $t->toString() . " ";
+        }
+
+        return $r;
     }
 }
