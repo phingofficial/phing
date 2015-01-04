@@ -72,4 +72,12 @@ class PHPUnitTaskTest extends AbstractBuildFileTest
     {
         $this->expectBuildException(__FUNCTION__, "Fail");
     }
+
+    /**
+     * Regression test for ticket http://www.phing.info/trac/ticket/1159
+     */
+    public function testExcludeGroups()
+    {
+        $this->executeTarget(__FUNCTION__);
+    }
 }

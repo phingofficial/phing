@@ -530,8 +530,8 @@
                                     <entry><literal>styledir</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>The directory where the stylesheets are located.</entry>
-                                    <entry>n/a</entry>
-                                    <entry>Yes</entry>
+                                    <entry>The <literal>etc</literal> directory in the Phing installation</entry>
+                                    <entry>No</entry>
                                 </row>
                                 <row>
                                     <entry><literal>todir</literal></entry>
@@ -12212,6 +12212,149 @@ a2.a3.a4=false</programlisting>
                     <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="ZSTDPackTask">
+        <title>ZSDTPackTask</title>
+        <para> The <literal>zsdtPackTask</literal> Create a package with the help of the ZendServer Deployment Tool.
+            The pack options should contain pointers to the application data directory, the package descriptor file,
+            and the package scripts directory.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>package</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A directory containing the data and the script directories, in addition to
+                            the package descriptor file.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>scripts</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory which contains the package deployment scripts. The Deployment Tool will
+                            search this directory for the expected files (as described in section 2.2.1) and then packs
+                            them.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>descriptor</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The package descriptor file.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>source</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory that contains the application resources (PHP sources, JavaScript, etc.).
+                            The directory's internal structure must match the necessary structure for the application
+                            to be functional.</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>output</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory in which the package is created. The package name will be created as
+                            <literal>app-name</literal>-<literal>app-version</literal>.zpk".</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>lint</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Performs a PHP lint test on the deployment scripts before creating the package.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>phpbin</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The PHP executable to use for lint.</entry>
+                        <entry>none</entry>
+                        <entry>No (Yes if option lint is set to true)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>schema</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The path to the package descriptor schema used for validation.</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;zsdtpack lint="true"
+          schema="file/to/schema.xsl"
+          descriptor="file/to/descriptor.xml"
+          scripts="path/to/scripts/"
+          package="path/to/package/"
+          source="path/to/source/"
+          output="path/to/output/"
+          phpbin="path/to/php" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="ZSTDValidateTask">
+        <title>ZSDTValidateTask</title>
+        <para> The <literal>zsdtValidateTask</literal> validates a given Zend package descriptor against the schema file.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>descriptor</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The package descriptor file.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>schema</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The path to the package descriptor schema used for validation.</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;zsdtvalidate schema="/path/to/schema.xsl" descriptor="/path/to/descriptor.xml" /></programlisting>
         </sect2>
     </sect1>
 </appendix>

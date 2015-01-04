@@ -128,13 +128,25 @@ class PhpDependTask extends Task
     protected $haltonerror = false;
 
     /**
+     * @var bool
+     */
+    private $oldVersion = false;
+
+    /**
      * Load the necessary environment for running PHP_Depend
      *
      * @throws BuildException
      */
     protected function requireDependencies()
     {
-        // check composer autoloader
+        // check 2.x version (composer)
+        if (class_exists('PDepend\\TextUI\\Runner')) {
+            return;
+        }
+
+        $this->oldVersion = true;
+
+        // check 1.x version (composer)
         if (class_exists('PHP_Depend_TextUI_Runner')) {
             // include_path hack for PHP_Depend 1.1.3
             $rc = new ReflectionClass('PHP_Depend');
@@ -328,42 +340,29 @@ class PhpDependTask extends Task
         $this->validateLoggers();
         $this->validateAnalyzers();
 
-        $filesToParse = array();
+        $filesToParse = $this->getFilesToParse();
 
-        if ($this->file instanceof PhingFile) {
-            $filesToParse[] = $this->file->__toString();
-        } else {
-            // append any files in filesets
-            foreach ($this->filesets as $fs) {
-                $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
-
-                foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
-                    $filesToParse[] = $f->getAbsolutePath();
-                }
-            }
-        }
-
-        $this->runner = new PHP_Depend_TextUI_Runner();
-        $this->runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
-
-        $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
-        $configuration = $configurationFactory->createDefault();
-
-        $this->runner->setConfiguration($configuration);
-        $this->runner->setSourceArguments($filesToParse);
+        $runner = $this->createRunner();
+        $runner->setSourceArguments($filesToParse);
 
         foreach ($this->loggers as $logger) {
             // Register logger
-            $this->runner->addLogger(
-                $logger->getType(),
-                $logger->getOutfile()->__toString()
-            );
+            if ($this->oldVersion) {
+                $runner->addLogger(
+                    $logger->getType(),
+                    $logger->getOutfile()->__toString()
+                );
+            } else {
+                $runner->addReportGenerator(
+                    $logger->getType(),
+                    $logger->getOutfile()->__toString()
+                );
+            }
         }
 
         foreach ($this->analyzers as $analyzer) {
             // Register additional analyzer
-            $this->runner->addOption(
+            $runner->addOption(
                 $analyzer->getType(),
                 $analyzer->getValue()
             );
@@ -371,60 +370,35 @@ class PhpDependTask extends Task
 
         // Disable annotation parsing
         if ($this->withoutAnnotations) {
-            $this->runner->setWithoutAnnotations();
+            $runner->setWithoutAnnotations();
         }
 
         // Enable bad documentation support
         if ($this->supportBadDocumentation) {
-            $this->runner->setSupportBadDocumentation();
+            $runner->setSupportBadDocumentation();
         }
 
         // Check for suffix
         if (count($this->allowedFileExtensions) > 0) {
-            $this->runner->setFileExtensions($this->allowedFileExtensions);
+            $runner->setFileExtensions($this->allowedFileExtensions);
         }
 
         // Check for ignore directories
         if (count($this->excludeDirectories) > 0) {
-            $this->runner->setExcludeDirectories($this->excludeDirectories);
+            $runner->setExcludeDirectories($this->excludeDirectories);
         }
 
         // Check for exclude packages
         if (count($this->excludePackages) > 0) {
-            $this->runner->setExcludePackages($this->excludePackages);
+            $runner->setExcludePackages($this->excludePackages);
         }
 
-        // Check for configuration option
-        if ($this->configFile instanceof PhingFile) {
-            if (file_exists($this->configFile->__toString()) === false) {
-                throw new BuildException(
-                    'The configuration file "' . $this->configFile->__toString() . '" doesn\'t exist.'
-                );
-            }
+        $runner->run();
 
-            // Load configuration file
-            $config = new PHP_Depend_Util_Configuration(
-                $this->configFile->__toString(),
-                null,
-                true
-            );
-
-            // Store in config registry
-            PHP_Depend_Util_ConfigurationInstance::set($config);
-        }
-
-        if ($this->debug) {
-            require_once 'PHP/Depend/Util/Log.php';
-            // Enable debug logging
-            PHP_Depend_Util_Log::setSeverity(PHP_Depend_Util_Log::DEBUG);
-        }
-
-        $this->runner->run();
-
-        if ($this->runner->hasParseErrors() === true) {
+        if ($runner->hasParseErrors() === true) {
             $this->log('Following errors occurred:');
 
-            foreach ($this->runner->getParseErrors() as $error) {
+            foreach ($runner->getParseErrors() as $error) {
                 $this->log($error);
             }
 
@@ -468,5 +442,117 @@ class PhpDependTask extends Task
                 throw new BuildException('Analyzer missing required "value" attribute');
             }
         }
+    }
+
+    /**
+     * @return array
+     */
+    private function getFilesToParse()
+    {
+        $filesToParse = array();
+
+        if ($this->file instanceof PhingFile) {
+            $filesToParse[] = $this->file->__toString();
+            return $filesToParse;
+        } else {
+            // append any files in filesets
+            foreach ($this->filesets as $fs) {
+                $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+
+                foreach ($files as $filename) {
+                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $filesToParse[] = $f->getAbsolutePath();
+                }
+            }
+            return $filesToParse;
+        }
+    }
+
+    /**
+     * @return object
+     */
+    private function createRunner()
+    {
+        if ($this->oldVersion) {
+            return $this->createLegacyRunner();
+        }
+
+        $applicationClassName = 'PDepend\\Application';
+        $application = new $applicationClassName();
+
+        $runner = $application->getRunner();
+
+        $configuration = $this->getConfiguration();
+
+        if ($configuration === null) {
+            $configuration = $application->getConfiguration();
+        }
+
+        if ($this->debug) {
+            // Enable debug logging
+            call_user_func('PDepend\\Util\\Log::setSeverity', 1);
+        }
+
+        call_user_func('PDepend\\Util\\ConfigurationInstance::set', $configuration);
+
+        return $runner;
+    }
+
+    /**
+     * @return PHP_Depend_TextUI_Runner
+     */
+    private function createLegacyRunner()
+    {
+        $runner = new PHP_Depend_TextUI_Runner();
+        $runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
+
+        if ($this->debug) {
+            require_once 'PHP/Depend/Util/Log.php';
+            // Enable debug logging
+            PHP_Depend_Util_Log::setSeverity(PHP_Depend_Util_Log::DEBUG);
+        }
+
+        $configuration = $this->getConfiguration();
+
+        if ($configuration === null) {
+            $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
+            $configuration = $configurationFactory->createDefault();
+        }
+
+        PHP_Depend_Util_ConfigurationInstance::set($configuration);
+        $runner->setConfiguration($configuration);
+
+        return $runner;
+    }
+
+    /**
+     * Loads configuration file
+     * @return null|PHP_Depend_Util_Configuration
+     * @throws BuildException
+     */
+    private function getConfiguration()
+    {
+        // Check for configuration option
+        if ($this->configFile == null || ! ($this->configFile instanceof PhingFile)) {
+            return null;
+        }
+
+        if (file_exists($this->configFile->__toString()) === false) {
+            throw new BuildException(
+                'The configuration file "' . $this->configFile->__toString() . '" doesn\'t exist.'
+            );
+        }
+
+        if ($this->oldVersion) {
+            $configurationClassName = 'PHP_Depend_Util_Configuration';
+        } else {
+            $configurationClassName = 'PDepend\\Util\\Configuration';
+        }
+
+        return new $configurationClassName(
+            $this->configFile->__toString(),
+            null,
+            true
+        );
     }
 }

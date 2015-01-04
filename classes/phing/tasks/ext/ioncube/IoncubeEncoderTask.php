@@ -579,7 +579,7 @@ class IoncubeEncoderTask extends Task
     {
         $arguments = $this->constructArguments();
 
-        if (in_array($this->phpVersion, array(5, 53, 54))) {
+        if (in_array($this->phpVersion, array(5, 53, 54, 55))) {
             $encoderName = $this->encoderName . $this->phpVersion;
         } else {
             $encoderName = $this->encoderName;

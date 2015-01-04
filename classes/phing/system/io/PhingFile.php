@@ -591,7 +591,7 @@ class PhingFile
      *
      * @throws IOException
      * @return int An integer value representing the time the file was
-     *             last modified, measured in milliseconds since the epoch
+     *             last modified, measured in seconds since the epoch
      *             (00:00:00 GMT, January 1, 1970), or 0 if the
      *             file does not exist or if an I/O error occurs
      */

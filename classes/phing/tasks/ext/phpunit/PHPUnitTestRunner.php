@@ -42,6 +42,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     private $lastIncompleteMessage = '';
     private $lastSkippedMessage = '';
     private $formatters = array();
+    private $listeners = array();
 
     private $codecoverage = null;
 
@@ -93,6 +94,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      */
     public function addFormatter($formatter)
     {
+        $this->addListener($formatter);
         $this->formatters[] = $formatter;
     }
 
@@ -105,6 +107,11 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
     public function handleError($level, $message, $file, $line)
     {
         return PHPUnit_Util_ErrorHandler::handleError($level, $message, $file, $line);
+    }
+
+    public function addListener($listener)
+    {
+        $this->listeners[] = $listener;
     }
 
     /**
@@ -134,7 +141,13 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
             $oldErrorHandler = set_error_handler(array($this, 'handleError'), E_ALL | E_STRICT);
         }
 
-        $suite->run($res, false, $this->groups, $this->excludeGroups, $this->processIsolation);
+        $version = PHPUnit_Runner_Version::id();
+        if (version_compare($version, '4.0.0') >= 0) {
+            $this->injectFilters($suite);
+            $suite->run($res);
+        } else {
+            $suite->run($res, false, $this->groups, $this->excludeGroups, $this->processIsolation);
+        }
 
         foreach ($this->formatters as $formatter) {
             $formatter->processResult($res);
@@ -395,5 +408,29 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
                 echo $test->getActualOutput();
             }
         }
+    }
+
+    /**
+     * @param PHPUnit_Framework_TestSuite $suite
+     */
+    private function injectFilters(PHPUnit_Framework_TestSuite $suite)
+    {
+        $filterFactory = new PHPUnit_Runner_Filter_Factory();
+
+        if (!empty($this->excludeGroups)) {
+            $filterFactory->addFilter(
+                new ReflectionClass('PHPUnit_Runner_Filter_Group_Exclude'),
+                $this->excludeGroups
+            );
+        }
+
+        if (!empty($this->groups)) {
+            $filterFactory->addFilter(
+                new ReflectionClass('PHPUnit_Runner_Filter_Group_Include'),
+                $this->groups
+            );
+        }
+
+        $suite->injectFilter($filterFactory);
     }
 }

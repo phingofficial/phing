@@ -37,7 +37,7 @@
 	"pear/pear_exception": "@dev",
 	"pear/versioncontrol_svn": "@dev",
 	"pear/versioncontrol_git": "@dev",
-	"pdepend/pdepend": "1.x",
+	"pdepend/pdepend": "2.x",
         "pear-pear.php.net/HTTP_Request2": "2.2.x",
         "pear-pear.php.net/Net_Growl": "2.7.x",
 	"pear-pear.php.net/PEAR_PackageFileManager": "1.7.x",
