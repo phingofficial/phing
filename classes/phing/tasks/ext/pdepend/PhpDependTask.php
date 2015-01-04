@@ -135,26 +135,14 @@ class PhpDependTask extends Task
     protected function requireDependencies()
     {
         // check composer autoloader
-        if (class_exists('PHP_Depend_TextUI_Runner')) {
-            // include_path hack for PHP_Depend 1.1.3
-            $rc = new ReflectionClass('PHP_Depend');
-            set_include_path(get_include_path() . ":" . realpath(dirname($rc->getFileName()) . "/../"));
-
+        if (class_exists('PDepend\\TextUI\\Runner')) {
             return;
         }
 
-        @include_once 'PHP/Depend/Autoload.php';
-
-        if (!class_exists('PHP_Depend_Autoload')) {
-            throw new BuildException(
-                'PhpDependTask depends on PHP_Depend being installed and on include_path',
-                $this->getLocation()
-            );
-        }
-
-        // register PHP_Depend autoloader
-        $autoload = new PHP_Depend_Autoload();
-        $autoload->register();
+        throw new BuildException(
+            'PhpDependTask depends on PDepend 2.x being installed and on include_path',
+            $this->getLocation()
+        );
     }
 
     /**
@@ -328,34 +316,14 @@ class PhpDependTask extends Task
         $this->validateLoggers();
         $this->validateAnalyzers();
 
-        $filesToParse = array();
+        $filesToParse = $this->getFilesToParse();
 
-        if ($this->file instanceof PhingFile) {
-            $filesToParse[] = $this->file->__toString();
-        } else {
-            // append any files in filesets
-            foreach ($this->filesets as $fs) {
-                $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
-
-                foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
-                    $filesToParse[] = $f->getAbsolutePath();
-                }
-            }
-        }
-
-        $this->runner = new PHP_Depend_TextUI_Runner();
-        $this->runner->addProcessListener(new PHP_Depend_TextUI_ResultPrinter());
-
-        $configurationFactory = new PHP_Depend_Util_Configuration_Factory();
-        $configuration = $configurationFactory->createDefault();
-
-        $this->runner->setConfiguration($configuration);
-        $this->runner->setSourceArguments($filesToParse);
+        $runner = $this->createRunner();
+        $runner->setSourceArguments($filesToParse);
 
         foreach ($this->loggers as $logger) {
             // Register logger
-            $this->runner->addLogger(
+            $runner->addReportGenerator(
                 $logger->getType(),
                 $logger->getOutfile()->__toString()
             );
@@ -363,7 +331,7 @@ class PhpDependTask extends Task
 
         foreach ($this->analyzers as $analyzer) {
             // Register additional analyzer
-            $this->runner->addOption(
+            $runner->addOption(
                 $analyzer->getType(),
                 $analyzer->getValue()
             );
@@ -371,27 +339,27 @@ class PhpDependTask extends Task
 
         // Disable annotation parsing
         if ($this->withoutAnnotations) {
-            $this->runner->setWithoutAnnotations();
+            $runner->setWithoutAnnotations();
         }
 
         // Enable bad documentation support
         if ($this->supportBadDocumentation) {
-            $this->runner->setSupportBadDocumentation();
+            $runner->setSupportBadDocumentation();
         }
 
         // Check for suffix
         if (count($this->allowedFileExtensions) > 0) {
-            $this->runner->setFileExtensions($this->allowedFileExtensions);
+            $runner->setFileExtensions($this->allowedFileExtensions);
         }
 
         // Check for ignore directories
         if (count($this->excludeDirectories) > 0) {
-            $this->runner->setExcludeDirectories($this->excludeDirectories);
+            $runner->setExcludeDirectories($this->excludeDirectories);
         }
 
         // Check for exclude packages
         if (count($this->excludePackages) > 0) {
-            $this->runner->setExcludePackages($this->excludePackages);
+            $runner->setExcludePackages($this->excludePackages);
         }
 
         // Check for configuration option
@@ -402,29 +370,32 @@ class PhpDependTask extends Task
                 );
             }
 
+            $configurationClassName = 'PDepend\\Util\\Configuration';
+            $configurationInstanceClassName = 'PDepend\\Util\\ConfigurationInstance';
+
             // Load configuration file
-            $config = new PHP_Depend_Util_Configuration(
+            $config = new $configurationClassName(
                 $this->configFile->__toString(),
                 null,
                 true
             );
 
             // Store in config registry
-            PHP_Depend_Util_ConfigurationInstance::set($config);
+            $configurationInstanceClassName::set($config);
         }
 
         if ($this->debug) {
-            require_once 'PHP/Depend/Util/Log.php';
             // Enable debug logging
-            PHP_Depend_Util_Log::setSeverity(PHP_Depend_Util_Log::DEBUG);
+            $logClassName = 'PDepend\\Util\\Log';
+            $logClassName::setSeverity($logClassName::DEBUG);
         }
 
-        $this->runner->run();
+        $runner->run();
 
-        if ($this->runner->hasParseErrors() === true) {
+        if ($runner->hasParseErrors() === true) {
             $this->log('Following errors occurred:');
 
-            foreach ($this->runner->getParseErrors() as $error) {
+            foreach ($runner->getParseErrors() as $error) {
                 $this->log($error);
             }
 
@@ -467,6 +438,42 @@ class PhpDependTask extends Task
             if (count($analyzer->getValue()) === 0) {
                 throw new BuildException('Analyzer missing required "value" attribute');
             }
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    private function createRunner()
+    {
+        $applicationClassName = 'PDepend\\Application';
+
+        $application = new $applicationClassName();
+
+        return $application->getRunner();
+    }
+
+    /**
+     * @return array
+     */
+    private function getFilesToParse()
+    {
+        $filesToParse = array();
+
+        if ($this->file instanceof PhingFile) {
+            $filesToParse[] = $this->file->__toString();
+            return $filesToParse;
+        } else {
+            // append any files in filesets
+            foreach ($this->filesets as $fs) {
+                $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
+
+                foreach ($files as $filename) {
+                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $filesToParse[] = $f->getAbsolutePath();
+                }
+            }
+            return $filesToParse;
         }
     }
 }
