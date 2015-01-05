@@ -778,6 +778,43 @@
                 supported, the property and value attributes are redundant and will be
                 ignored.</para>
         </sect2>
+        <sect2 xml:id="conditions.filesmatch">
+            <title><literal>filesmatch</literal></title>
+            <para>Test two files for matching. Nonexistence of one file results in "false",
+                although if neither exists they are considered equal in terms of content.
+                This test does a byte for byte comparison, so test time scales with byte size.
+                NB: if the files are different sizes, one of them is missing or the filenames match
+                the answer is so obvious the detailed test is omitted. </para>
+            <table>
+                <title>filesmatch Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>file1</literal></entry>
+                            <entry>First file to test.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>file2</literal></entry>
+                            <entry>Second file to test.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;filesmatch file1="${file1}" file2="${file2}"/></programlisting>
+
+        </sect2>
     </sect1>
 
 </chapter>
