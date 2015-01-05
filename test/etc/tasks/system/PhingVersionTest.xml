@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PhingVersionTest" default="testPhingVersion">
+    <target name="testPhingVersion">
+        <phingversion property="version1"/>
+    </target>
+    <target name="testPhingVersionAtLeastPos">
+        <phingversion property="version2" atleast="1.9"/>
+    </target>
+    <target name="testPhingVersionAtLeastNeg">
+        <phingversion property="version3" atleast="10.9"/>
+    </target>
+    <target name="testPhingVersionIsNotExact">
+        <phingversion property="version4" exactly="1.9.2"/>
+    </target>
+    <target name="testPhingVersionAsCondition">
+        <condition property="isTrue">
+            <and>
+                <phingversion property="version5" atleast="1.9"/>
+                <not>
+                    <phingversion property="version6" atleast="10.9"/>
+                </not>
+            </and>
+        </condition>
+    </target>
+</project>
