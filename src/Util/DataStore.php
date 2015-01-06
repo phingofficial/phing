@@ -19,7 +19,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Util;
+
+use FileWriter;
 use Phing\BuildException;
+use PhingFile;
 
 
 /**
@@ -75,8 +79,8 @@ class DataStore
     /**
      * Adds a value to the data store
      *
-     * @param string  $key        the key
-     * @param mixed   $value      the value
+     * @param string $key the key
+     * @param mixed $value the value
      * @param boolean $autocommit whether to auto-commit (write)
      *                            the data store to disk
      *

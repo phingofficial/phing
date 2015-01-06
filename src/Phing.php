@@ -35,8 +35,8 @@ use ProjectConfigurator;
 use Properties;
 use SebastianBergmann\Version;
 use StreamRequiredBuildLogger;
-use StringHelper;
-use Timer;
+use Phing\Util\StringHelper;
+use Phing\Util\Timer;
 
 include_once 'phing/parser/Location.php';
 include_once 'phing/parser/ExpatParser.php';
@@ -48,13 +48,11 @@ include_once 'phing/parser/TargetHandler.php';
 include_once 'phing/parser/DataTypeHandler.php';
 
 include_once 'phing/system/util/Properties.php';
-include_once 'phing/util/StringHelper.php';
 include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/OutputStream.php';
 include_once 'phing/system/io/PrintStream.php';
 include_once 'phing/system/io/FileOutputStream.php';
 include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/util/Register.php';
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -1586,7 +1584,6 @@ class Phing
     public static function getTimer()
     {
         if (self::$timer === null) {
-            include_once 'phing/system/util/Timer.php';
             self::$timer = new Timer();
         }
 

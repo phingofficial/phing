@@ -1,5 +1,6 @@
 <?php
 use Phing\Project;
+use Phing\Util\Timer;
 
 /**
  * $Id$

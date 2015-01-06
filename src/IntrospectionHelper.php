@@ -27,9 +27,9 @@ use Path;
 use Phing\ProjectComponent;
 use Reference;
 use ReflectionClass;
-use Register;
+use Phing\Util\Register;
 use string;
-use StringHelper;
+use Phing\Util\StringHelper;
 
 
 /**

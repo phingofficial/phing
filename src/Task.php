@@ -23,7 +23,7 @@ namespace Phing;
 use Exception;
 use Location;
 use Reference;
-use Register;
+use Phing\Util\Register;
 
 
 /**
@@ -150,7 +150,7 @@ abstract class Task extends ProjectComponent
     /**
      * Returns a name
      * @param string $slotName
-     * @return \RegisterSlot
+     * @return \Phing\Util\RegisterSlot
      */
     protected function getRegisterSlot($slotName)
     {

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * This class can be used to obtain the execution time of all of the scripts
  * that are executed in the process of building a page.
@@ -105,6 +107,6 @@ class Timer
     {
         list($usec, $sec) = explode(" ", microtime());
 
-        return ((float) $usec + (float) $sec);
+        return ((float)$usec + (float)$sec);
     }
 }

@@ -21,9 +21,9 @@
 
 use Phing\BuildException;
 use Phing\Task;
+use Phing\Util\StringHelper;
 
 include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/util/StringHelper.php';
 
 /**
  * Task that changes the permissions on a file/directory.

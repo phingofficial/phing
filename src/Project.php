@@ -13,7 +13,7 @@ use PhingFile;
 use ProjectConfigurator;
 use Properties;
 use PropertyValue;
-use StringHelper;
+use Phing\Util\StringHelper;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

@@ -17,6 +17,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * String helper utility class.
  *
@@ -39,15 +41,15 @@ class StringHelper
     /**
      * Replaces identifier tokens with corresponding text values in passed string.
      *
-     * @param  array  $strings      Array of strings to multiply. (If string is passed, will convert to array)
-     * @param  array  $tokens       The tokens to search for.
-     * @param  array  $replacements The values with which to replace found tokens.
+     * @param  array $strings Array of strings to multiply. (If string is passed, will convert to array)
+     * @param  array $tokens The tokens to search for.
+     * @param  array $replacements The values with which to replace found tokens.
      *
      * @return string
      */
     public static function multiply($strings, $tokens, $replacements)
     {
-        $strings = (array) $strings;
+        $strings = (array)$strings;
         $results = array();
         foreach ($strings as $string) {
             $results[] = str_replace($tokens, $replacements, $string);
@@ -118,7 +120,7 @@ class StringHelper
     }
 
     /**
-     * @param  array  $columns String[]
+     * @param  array $columns String[]
      * @param  string $prefix
      *
      * @return array  String[]
@@ -172,7 +174,7 @@ class StringHelper
         // otherwise assume it's something like "true" or "t"
         $trimmed = strtolower(trim($s));
 
-        return (boolean) in_array($trimmed, self::$TRUE_VALUES);
+        return (boolean)in_array($trimmed, self::$TRUE_VALUES);
     }
 
     /**
@@ -195,7 +197,7 @@ class StringHelper
 
         $test = trim(strtolower($s));
 
-        return (boolean) in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES));
+        return (boolean)in_array($test, array_merge(self::$FALSE_VALUES, self::$TRUE_VALUES));
     }
 
     /**
@@ -257,7 +259,7 @@ class StringHelper
     public static function substring($string, $startpos, $endpos = -1)
     {
         $len = strlen($string);
-        $endpos = (int) (($endpos === -1) ? $len - 1 : $endpos);
+        $endpos = (int)(($endpos === -1) ? $len - 1 : $endpos);
         if ($startpos > $len - 1 || $startpos < 0) {
             trigger_error("substring(), Startindex out of bounds must be 0<n<$len", E_USER_ERROR);
         }
@@ -265,7 +267,7 @@ class StringHelper
             trigger_error("substring(), Endindex out of bounds must be $startpos<n<" . ($len - 1), E_USER_ERROR);
         }
         if ($startpos === $endpos) {
-            return (string) $string{$startpos};
+            return (string)$string{$startpos};
         } else {
             $len = $endpos - $startpos;
         }

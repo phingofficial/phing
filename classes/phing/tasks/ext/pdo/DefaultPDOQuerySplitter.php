@@ -1,4 +1,5 @@
 <?php
+use Phing\Util\StringHelper;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

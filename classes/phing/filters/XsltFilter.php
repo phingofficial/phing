@@ -1,6 +1,7 @@
 <?php
 use Phing\BuildException;
 use Phing\Project;
+use Phing\Util\RegisterSlot;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

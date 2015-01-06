@@ -20,6 +20,7 @@
  */
 use Phing\BuildException;
 use Phing\Task;
+use Phing\Util\StringHelper;
 
 
 /**
