@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util\RegExp;
+
 /**
  * Contains some shared attributes and methods -- and some abstract methods with
  * engine-specific implementations that sub-classes must override.
@@ -27,7 +29,7 @@
  * @package phing.util.regexp
  * @version $Id$
  */
-interface RegexpEngine
+interface RegExpEngine
 {
 
     /**
@@ -45,18 +47,18 @@ interface RegexpEngine
 
     /**
      * Matches pattern against source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function match($pattern, $source, &$matches);
 
     /**
      * Matches all patterns in source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches);
@@ -65,7 +67,7 @@ interface RegexpEngine
      * Replaces $pattern with $replace in $source string.
      * @param  string $pattern The regex pattern to match.
      * @param  string $replace The string with which to replace matches.
-     * @param  string $source  The source string.
+     * @param  string $source The source string.
      * @return string The replaced source string.
      */
     public function replace($pattern, $replace, $source);

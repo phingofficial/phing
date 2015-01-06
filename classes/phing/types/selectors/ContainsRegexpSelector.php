@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Util\RegExp\RegExp;
 
 
 /**
@@ -40,7 +41,7 @@ class ContainsRegexpSelector extends BaseExtendSelector
      */
     private $userProvidedExpression;
 
-    /** @var Regexp $myExpression */
+    /** @var RegExp $myExpression */
     private $myExpression;
 
     /** @var bool $casesensitive */

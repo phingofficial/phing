@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util\RegExp;
 
 /**
  * PREG Regexp Engine.
@@ -27,7 +28,7 @@
  * @author hans lellelid, hans@velum.net
  * @package phing.util.regexp
  */
-class PregEngine implements RegexpEngine
+class PregEngine implements RegExpEngine
 {
     /**
      * Set to null by default to distinguish between false and not set
@@ -61,7 +62,7 @@ class PregEngine implements RegexpEngine
      */
     public function setModifiers($mods)
     {
-        $this->modifiers = (string) $mods;
+        $this->modifiers = (string)$mods;
     }
 
     /**
@@ -95,7 +96,7 @@ class PregEngine implements RegexpEngine
      */
     public function setIgnoreCase($bit)
     {
-        $this->ignoreCase = (boolean) $bit;
+        $this->ignoreCase = (boolean)$bit;
     }
 
     /**
@@ -140,11 +141,13 @@ class PregEngine implements RegexpEngine
 
             foreach ($matches[0] as $match) {
                 $str = $match[0];
-                $offset = $match[1]+$diffOffset;
+                $offset = $match[1] + $diffOffset;
 
-                $escStr = (strlen($str) % 2) ? '\\'.$str : $str; // This will increase an even number of backslashes, before a forward slash, to an odd number.  I.e. '\\/' becomes '\\\/'.
+                $escStr = (strlen(
+                        $str
+                    ) % 2) ? '\\' . $str : $str; // This will increase an even number of backslashes, before a forward slash, to an odd number.  I.e. '\\/' becomes '\\\/'.
 
-                $diffOffset += strlen($escStr)-strlen($str);
+                $diffOffset += strlen($escStr) - strlen($str);
 
                 $pattern = substr_replace($pattern, $escStr, $offset, strlen($str));
             }
@@ -155,9 +158,9 @@ class PregEngine implements RegexpEngine
 
     /**
      * Matches pattern against source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function match($pattern, $source, &$matches)
@@ -167,9 +170,9 @@ class PregEngine implements RegexpEngine
 
     /**
      * Matches all patterns in source string and sets the matches array.
-     * @param  string  $pattern The regex pattern to match.
-     * @param  string  $source  The source string.
-     * @param  array   $matches The array in which to store matches.
+     * @param  string $pattern The regex pattern to match.
+     * @param  string $source The source string.
+     * @param  array $matches The array in which to store matches.
      * @return boolean Success of matching operation.
      */
     public function matchAll($pattern, $source, &$matches)
@@ -183,7 +186,7 @@ class PregEngine implements RegexpEngine
      * $1.
      * @param  string $pattern The regex pattern to match.
      * @param  string $replace The string with which to replace matches.
-     * @param  string $source  The source string.
+     * @param  string $source The source string.
      * @return string The replaced source string.
      */
     public function replace($pattern, $replace, $source)

@@ -20,6 +20,7 @@
 */
 use Phing\Exception\BuildException;
 use Phing\Project;
+use Phing\Util\RegExp\RegExp;
 
 
 /**
@@ -52,7 +53,7 @@ class RegularExpression extends DataType
      */
     public function __construct()
     {
-        $this->regexp = new Regexp();
+        $this->regexp = new RegExp();
     }
 
     /**
@@ -153,7 +154,7 @@ class RegularExpression extends DataType
 
     /**
      * @param Project $p
-     * @return null|Regexp
+     * @return null|RegExp
      * @throws BuildException
      */
     public function getRegexp(Project $p)

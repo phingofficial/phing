@@ -1,4 +1,6 @@
 <?php
+use Phing\Util\RegExp\RegExp;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -36,7 +38,7 @@ class RegexpMapper implements FileNameMapper
     /**
      * The Regexp engine.
      *
-     * @var Regexp $reg
+     * @var RegExp $reg
      */
     private $reg;
 
@@ -45,7 +47,7 @@ class RegexpMapper implements FileNameMapper
      */
     public function __construct()
     {
-        $this->reg = new Regexp();
+        $this->reg = new RegExp();
     }
 
     /**

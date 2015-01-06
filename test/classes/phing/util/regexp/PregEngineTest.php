@@ -21,6 +21,7 @@
  *
  * @package phing.util
  */
+use Phing\Util\RegExp\PregEngine;
 
 /**
  * Class PregEngineTest

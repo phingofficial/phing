@@ -18,6 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Util\RegExp;
+
+use Exception;
 use Phing\Exception\BuildException;
 
 /**
@@ -26,7 +29,7 @@ use Phing\Exception\BuildException;
  * @package  phing.util.regexp
  * @version $Id$
  */
-class Regexp
+class RegExp
 {
 
     /**
@@ -49,7 +52,7 @@ class Regexp
 
     /**
      * The regex engine -- e.g. 'preg' or 'ereg';
-     * @var RegexpEngine
+     * @var RegExpEngine
      */
     private $engine;
 
@@ -62,7 +65,6 @@ class Regexp
     public function __construct($engineType = 'preg')
     {
         if ($engineType == 'preg') {
-            include_once 'phing/util/regexp/PregEngine.php';
             $this->engine = new PregEngine();
         } else {
             throw new BuildException("Invalid engine type for Regexp: " . $engineType);
@@ -76,7 +78,7 @@ class Regexp
      */
     public function setPattern($pat)
     {
-        $this->pattern = (string) $pat;
+        $this->pattern = (string)$pat;
     }
 
     /**
@@ -95,7 +97,7 @@ class Regexp
      */
     public function setReplace($rep)
     {
-        $this->replace = (string) $rep;
+        $this->replace = (string)$rep;
     }
 
     /**
