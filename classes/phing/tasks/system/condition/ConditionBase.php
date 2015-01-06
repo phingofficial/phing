@@ -217,6 +217,14 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createFilesMatch()
+    {
+        include_once 'phing/tasks/system/condition/FilesMatch.php';
+        $num = array_push($this->conditions, new FilesMatch());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project
