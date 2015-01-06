@@ -396,6 +396,14 @@
                 the nested conditions is true, no other condition will be evaluated.</para>
 
         </sect2>
+        <sect2 xml:id="conditions.xor">
+            <title><literal>xor</literal></title>
+            <para> The <code>&lt;xor></code> element performs an exclusive or on all nested elements,
+                similar to the ^ operator in PHP. It only evaluates to true if an odd number of nested
+                conditions are true. There is no shortcutting of evaluation, unlike the &lt;and> and &lt;or> tests.
+                It doesn't have any attributes and accepts all nested elements of the condition task as nested elements
+                as well.</para>
+        </sect2>
         <sect2 xml:id="conditions.os">
             <title><literal>os</literal></title>
             <para>Test whether the current operating system is of a given type.</para>

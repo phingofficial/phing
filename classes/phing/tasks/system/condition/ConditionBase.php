@@ -59,7 +59,7 @@ abstract class ConditionBase extends ProjectComponent
     }
 
     /**
-     * @return array
+     * @return Condition[]
      */
     public function getConditions()
     {
@@ -104,6 +104,17 @@ abstract class ConditionBase extends ProjectComponent
     {
         include_once 'phing/tasks/system/condition/OrCondition.php';
         $num = array_push($this->conditions, new OrCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    /**
+     * @return XorCondition
+     */
+    public function createXor()
+    {
+        include_once 'phing/tasks/system/condition/XorCondition.php';
+        $num = array_push($this->conditions, new XorCondition());
 
         return $this->conditions[$num - 1];
     }
