@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -85,14 +86,14 @@ class Path extends DataType
     /**
      * Adds a element definition to the path.
      *
-     * @param PhingFile $location the location of the element to add (must not be
+     * @param File $location the location of the element to add (must not be
      *                            <code>null</code> nor empty.
      *
      * @return void
      *
      * @throws BuildException
      */
-    public function setDir(PhingFile $location)
+    public function setDir(File $location)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -247,7 +248,7 @@ class Path extends DataType
             if ($this->project !== null) {
                 $f = $this->project->resolveFile($el);
             } else {
-                $f = new PhingFile($el);
+                $f = new File($el);
             }
 
             if ($f->exists()) {
@@ -315,7 +316,7 @@ class Path extends DataType
                 $dirstrs = $ds->getIncludedDirectories();
                 $dir = $dset->getDir($this->project);
                 foreach ($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d = new File($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
             } elseif ($o instanceof FileList) {
@@ -323,7 +324,7 @@ class Path extends DataType
                 $dirstrs = $fl->getFiles($this->project);
                 $dir = $fl->getDir($this->project);
                 foreach ($dirstrs as $dstr) {
-                    $d = new PhingFile($dir, $dstr);
+                    $d = new File($dir, $dstr);
                     $result[] = $d->getAbsolutePath();
                 }
             }
@@ -539,11 +540,11 @@ class PathElement
     }
 
     /**
-     * @param PhingFile $loc
+     * @param File $loc
      *
      * @return void
      */
-    public function setDir(PhingFile $loc)
+    public function setDir(File $loc)
     {
         $this->parts = array(Path::translateFile($loc->getAbsolutePath()));
     }

@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Project;
 use Phing\Task;
 
@@ -73,9 +75,9 @@ class ResolvePathTask extends Task
 
     /**
      * Sets a base dir to use for resolution.
-     * @param PhingFile $d
+     * @param File $d
      */
-    public function setDir(PhingFile $d)
+    public function setDir(File $d)
     {
         $this->dir = $d;
     }
@@ -149,13 +151,13 @@ class ResolvePathTask extends Task
             throw new BuildException("You must specify a path to resolve", $this->getLocation());
         }
 
-        $fs = FileSystem::getFileSystem();
+        $fs = AbstractFileSystem::getFileSystem();
 
         // if dir attribute was specified then we should
         // use that as basedir to which file was relative.
         // -- unless the file specified is an absolute path
-        if ($this->dir !== null && !$fs->isAbsolute(new PhingFile($this->file))) {
-            $resolved = new PhingFile($this->dir->getPath(), $this->file);
+        if ($this->dir !== null && !$fs->isAbsolute(new File($this->file))) {
+            $resolved = new File($this->dir->getPath(), $this->file);
         } else {
             // otherwise just resolve it relative to project basedir
             $resolved = $this->project->resolveFile($this->file);

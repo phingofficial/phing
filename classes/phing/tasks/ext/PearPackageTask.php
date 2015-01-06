@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -192,7 +193,7 @@ class PearPackageTask extends MatchingTask
 
         if ($this->packageFile !== null) {
             // create one w/ full path
-            $f = new PhingFile($this->packageFile->getAbsolutePath());
+            $f = new File($this->packageFile->getAbsolutePath());
             $this->preparedOptions['packagefile'] = $f->getName();
             // must end in trailing slash
             $this->preparedOptions['outputdirectory'] = $f->getParent() . DIRECTORY_SEPARATOR;
@@ -286,10 +287,10 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets "dir" property from XML.
-     * @param  PhingFile $f
+     * @param  File $f
      * @return void
      */
-    public function setDir(PhingFile $f)
+    public function setDir(File $f)
     {
         $this->dir = $f;
     }
@@ -306,9 +307,9 @@ class PearPackageTask extends MatchingTask
 
     /**
      * Sets the file to use for generated package.xml
-     * @param PhingFile $f
+     * @param File $f
      */
-    public function setDestFile(PhingFile $f)
+    public function setDestFile(File $f)
     {
         $this->packageFile = $f;
     }

@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -61,7 +62,7 @@ class PHPUnitTask extends Task
     private $pharLocation = "";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $configuration = null;
 
@@ -290,9 +291,9 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param PhingFile $configuration
+     * @param File $configuration
      */
-    public function setConfiguration(PhingFile $configuration)
+    public function setConfiguration(File $configuration)
     {
         $this->configuration = $configuration;
     }
@@ -480,7 +481,7 @@ class PHPUnitTask extends Task
             $formatter = $fe->getFormatter();
 
             if ($fe->getUseFile()) {
-                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                $destFile = new File($fe->getToDir(), $fe->getOutfile());
 
                 $writer = new FileWriter($destFile->getAbsolutePath());
 

@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 
@@ -113,11 +114,11 @@ class ManifestTask extends Task
      * The setter for the attribute "file".
      * This is where the manifest will be written to/read from
      *
-     * @param PhingFile $file Path to readable file
+     * @param File $file Path to readable file
      *
      * @return void
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }

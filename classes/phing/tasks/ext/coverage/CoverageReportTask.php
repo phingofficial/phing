@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -562,7 +563,7 @@ class CoverageReportTask extends Task
             throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
 
-        $database = new PhingFile($coverageDatabase);
+        $database = new File($coverageDatabase);
 
         $this->log("Transforming coverage report");
 

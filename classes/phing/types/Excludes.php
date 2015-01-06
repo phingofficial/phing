@@ -1,4 +1,5 @@
 <?php
+use Phing\Io\Scanner\DirectoryScanner;
 use Phing\Project;
 
 /**

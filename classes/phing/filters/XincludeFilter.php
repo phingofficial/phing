@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -75,9 +76,9 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    public function setBasedir(PhingFile $dir)
+    public function setBasedir(File $dir)
     {
         $this->basedir = $dir;
     }

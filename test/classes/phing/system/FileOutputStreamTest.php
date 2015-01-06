@@ -20,6 +20,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
+
 include_once 'phing/system/io/FileOutputStream.php';
 
 /**
@@ -38,14 +41,14 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->tmpFile = new PhingFile(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
+        $this->tmpFile = new File(PHING_TEST_BASE . "/tmp/" . get_class($this) . ".txt");
         $this->outStream = new FileOutputStream($this->tmpFile);
     }
 
     public function tearDown()
     {
         $this->outStream->close();
-        FileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
+        AbstractFileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
     }
 
     public function assertFileContents($contents)

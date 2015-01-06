@@ -19,6 +19,7 @@
  * <http://phing.info>.
 */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 
 /**
@@ -116,18 +117,18 @@ class IniFileTokenReader extends TokenReader
     }
 
     /**
-     * @param string|PhingFile $file
+     * @param string|File $file
      * @throws BuildException
      */
     public function setFile($file)
     {
         if (is_string($file)) {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
 
             return;
         }
 
-        if (is_object($file) && $file instanceof PhingFile) {
+        if (is_object($file) && $file instanceof File) {
             $this->file = $file;
 
             return;

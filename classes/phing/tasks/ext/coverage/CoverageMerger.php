@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 /**
@@ -93,7 +94,7 @@ class CoverageMerger
             throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
 
-        $database = new PhingFile($coverageDatabase);
+        $database = new File($coverageDatabase);
 
         $props = new Properties();
         $props->load($database);

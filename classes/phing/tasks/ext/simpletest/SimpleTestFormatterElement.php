@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -40,7 +41,7 @@ class SimpleTestFormatterElement extends FormatterElement
         $this->type = $type;
 
         if ($this->type == "xml") {
-            $destFile = new PhingFile($this->toDir, 'testsuites.xml');
+            $destFile = new File($this->toDir, 'testsuites.xml');
             $this->formatter = new SimpleTestXmlResultFormatter();
         } elseif ($this->type == "plain") {
             $this->formatter = new SimpleTestPlainResultFormatter();

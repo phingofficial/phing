@@ -20,6 +20,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 use Phing\Test\AbstractBuildFileTest;
@@ -112,7 +113,7 @@ class ExecTaskTest extends AbstractBuildFileTest
     {
         $this->assertAttributeIsSetTo(
             'dir',
-            new PhingFile(
+            new File(
                 realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
             )
         );
@@ -162,7 +163,7 @@ class ExecTaskTest extends AbstractBuildFileTest
     {
         $this->assertAttributeIsSetTo(
             'output',
-            new PhingFile(
+            new File(
                 realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
                 . '/outputfilename'
             )
@@ -173,7 +174,7 @@ class ExecTaskTest extends AbstractBuildFileTest
     {
         $this->assertAttributeIsSetTo(
             'error',
-            new PhingFile(
+            new File(
                 realpath(dirname(__FILE__) . '/../../../../etc/tasks/system')
                 . '/errorfilename'
             )

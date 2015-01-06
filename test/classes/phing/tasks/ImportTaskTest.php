@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Test\AbstractBuildFileTest;
 
 
@@ -37,7 +38,7 @@ class ImportTaskTest extends AbstractBuildFileTest
 
     public function testOverloadedTarget()
     {
-        $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/importing.xml");
+        $f1 = new File(PHING_TEST_BASE . "/etc/tasks/importing.xml");
 
         $this->executeTarget("main");
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " main target.");
@@ -45,8 +46,8 @@ class ImportTaskTest extends AbstractBuildFileTest
 
     public function testImportedTarget()
     {
-        $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
-        $f2 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports");
+        $f1 = new File(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
+        $f2 = new File(PHING_TEST_BASE . "/etc/tasks/imports");
 
         $this->executeTarget("imported");
         $this->assertInLogs("phing.file.imported=" . $f1->getAbsolutePath());
@@ -55,7 +56,7 @@ class ImportTaskTest extends AbstractBuildFileTest
 
     public function testImported2Target()
     {
-        $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/importedImport.xml");
+        $f1 = new File(PHING_TEST_BASE . "/etc/tasks/imports/importedImport.xml");
 
         $this->executeTarget("imported2");
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " imported2 target.");
@@ -63,8 +64,8 @@ class ImportTaskTest extends AbstractBuildFileTest
 
     public function testCascadeTarget()
     {
-        $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
-        $f2 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/importing.xml");
+        $f1 = new File(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
+        $f2 = new File(PHING_TEST_BASE . "/etc/tasks/importing.xml");
 
         $this->executeTarget("cascade");
         $this->assertInLogs("This comes from the imported.properties file");
@@ -77,8 +78,8 @@ class ImportTaskTest extends AbstractBuildFileTest
         // calls target in main that depends on target in import that depends on
         // target orverridden in main
         $this->executeTarget("flipflop");
-        $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/importing.xml");
-        $f2 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
+        $f1 = new File(PHING_TEST_BASE . "/etc/tasks/importing.xml");
+        $f2 = new File(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " flop target.");
         $this->assertInLogs("This is " . $f2->getAbsolutePath() . " flip target.");
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " flipflop target.");

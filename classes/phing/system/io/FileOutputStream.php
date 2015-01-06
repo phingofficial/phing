@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\File;
 
 
 /**
@@ -29,7 +30,7 @@ class FileOutputStream extends OutputStream
 {
 
     /**
-     * @var PhingFile The associated file.
+     * @var File The associated file.
      */
     protected $file;
 
@@ -43,10 +44,10 @@ class FileOutputStream extends OutputStream
     public function __construct($file, $append = false)
     {
         global $php_errormsg;
-        if ($file instanceof PhingFile) {
+        if ($file instanceof File) {
             $this->file = $file;
         } elseif (is_string($file)) {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }

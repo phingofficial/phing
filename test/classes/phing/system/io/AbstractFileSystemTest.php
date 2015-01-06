@@ -20,16 +20,15 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Phing;
-
-include_once 'phing/system/io/FileSystem.php';
 
 /**
  * Unit test for FileSystem
  *
  * @package phing.system.io
  */
-class FileSystemTest extends PHPUnit_Framework_TestCase
+class AbstractFileSystemTest extends PHPUnit_Framework_TestCase
 {
 
     private $oldFsType = "";
@@ -47,7 +46,7 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
     protected function _resetFileSystem()
     {
-        $refClass = new ReflectionClass('FileSystem');
+        $refClass = new ReflectionClass('Phing\\Io\\FileSystem\\AbstractFileSystem');
         $refProperty = $refClass->getProperty('fs');
         $refProperty->setAccessible(true);
         $refProperty->setValue(null);
@@ -61,7 +60,7 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
         Phing::setProperty('host.fstype', 'UNRECOGNISED');
 
-        FileSystem::getFileSystem();
+        AbstractFileSystem::getFileSystem();
     }
 
     /**
@@ -73,7 +72,7 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
         Phing::setProperty('host.fstype', $fsTypeKey);
 
-        $system = FileSystem::getFileSystem();
+        $system = AbstractFileSystem::getFileSystem();
 
         $this->assertInstanceOf($expectedFileSystemClass, $system);
     }
@@ -81,9 +80,9 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
     public function fileSystemMappingsDataProvider()
     {
         return array(
-            array('UnixFileSystem', 'UNIX'),
-            array('Win32FileSystem', 'WIN32'),
-            array('WinNTFileSystem', 'WINNT')
+            array('Phing\\Io\\FileSystem\\UnixFileSystem', 'UNIX'),
+            array('Phing\\Io\\FileSystem\\Win32FileSystem', 'WIN32'),
+            array('Phing\\Io\\FileSystem\\WinNTFileSystem', 'WINNT')
         );
     }
 }

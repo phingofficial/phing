@@ -5,12 +5,12 @@ use Condition;
 use DataType;
 use DefaultInputHandler;
 use Exception;
-use FileSystem;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use FileUtils;
 use InputHandler;
 use IOException;
 use Phing\Exception\BuildException;
-use PhingFile;
+use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
 use Properties;
 use PropertyValue;
@@ -159,7 +159,7 @@ class Project
 
         try { // try to load taskdefs
             $props = new Properties();
-            $in = new PhingFile((string)$taskdefs);
+            $in = new File((string)$taskdefs);
 
             if ($in === null) {
                 throw new BuildException("Can't load default task list");
@@ -180,7 +180,7 @@ class Project
 
         try { // try to load typedefs
             $props = new Properties();
-            $in = new PhingFile((string)$typedefs);
+            $in = new File((string)$typedefs);
             if ($in === null) {
                 throw new BuildException("Can't load default datatype list");
             }
@@ -526,19 +526,19 @@ class Project
 
     /**
      * Set basedir object from xm
-     * @param PhingFile|string $dir
+     * @param \Phing\Io\File|string $dir
      * @throws BuildException
      */
     public function setBasedir($dir)
     {
-        if ($dir instanceof PhingFile) {
+        if ($dir instanceof File) {
             $dir = $dir->getAbsolutePath();
         }
 
         $dir = $this->fileUtils->normalize($dir);
-        $dir = FileSystem::getFilesystem()->canonicalize($dir);
+        $dir = AbstractFileSystem::getFilesystem()->canonicalize($dir);
 
-        $dir = new PhingFile((string)$dir);
+        $dir = new File((string)$dir);
         if (!$dir->exists()) {
             throw new BuildException("Basedir " . $dir->getAbsolutePath() . " does not exist");
         }
@@ -556,7 +556,7 @@ class Project
     /**
      * Returns the basedir of this project
      *
-     * @return PhingFile      Basedir PhingFile object
+     * @return \Phing\Io\File      Basedir PhingFile object
      *
      * @throws BuildException
      *
@@ -892,7 +892,7 @@ class Project
      * @param $fileName
      * @param null $rootDir
      * @throws IOException
-     * @return \PhingFile
+     * @return \Phing\Io\File
      */
     public function resolveFile($fileName, $rootDir = null)
     {

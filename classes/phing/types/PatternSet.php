@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -176,7 +177,7 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param File|PhingFile $includesFile file to fetch the include patterns from.
+     * @param File|File $includesFile file to fetch the include patterns from.
      *
      * @throws \Phing\Exception\BuildException
      */
@@ -195,7 +196,7 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the excludes patterns.
      *
-     * @param PhingFile $excludesFile file to fetch the exclude patterns from.
+     * @param File $excludesFile file to fetch the exclude patterns from.
      * @throws BuildException
      */
     public function setExcludesFile($excludesFile)
@@ -214,13 +215,13 @@ class PatternSet extends DataType
      * Reads path matching patterns from a file and adds them to the
      * includes or excludes list
      *
-     * @param PhingFile $patternfile
+     * @param File $patternfile
      * @param $patternlist
      * @param Project $p
      *
      * @throws \Phing\Exception\BuildException
      */
-    private function readPatterns(PhingFile $patternfile, &$patternlist, Project $p)
+    private function readPatterns(File $patternfile, &$patternlist, Project $p)
     {
         $patternReader = null;
         try {

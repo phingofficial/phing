@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\Scanner\SourceFileScanner;
 use Phing\Project;
 use Phing\Task;
 
@@ -96,7 +98,7 @@ class UpToDateTask extends Task implements Condition
     public function setTargetFile($file)
     {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->_targetFile = $file;
     }
@@ -111,7 +113,7 @@ class UpToDateTask extends Task implements Condition
     public function setSrcfile($file)
     {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->_sourceFile = $file;
     }
@@ -274,11 +276,11 @@ class UpToDateTask extends Task implements Condition
     }
 
     /**
-     * @param PhingFile $srcDir
+     * @param File $srcDir
      * @param $files
      * @return bool
      */
-    protected function scanDir(PhingFile $srcDir, $files)
+    protected function scanDir(File $srcDir, $files)
     {
         $sfs = new SourceFileScanner($this);
         $mapper = null;

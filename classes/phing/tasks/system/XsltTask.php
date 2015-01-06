@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -64,9 +65,9 @@ class XsltTask extends CopyTask
 
     /**
      * Set the stylesheet to use.
-     * @param PhingFile $style
+     * @param File $style
      */
-    public function setStyle(PhingFile $style)
+    public function setStyle(File $style)
     {
         $this->xsltFilter->setStyle($style);
     }

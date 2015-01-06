@@ -20,7 +20,9 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/UnixFileSystem.php';
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\UnixFileSystem;
 
 /**
  * Unit test for UnixFileSystem
@@ -32,7 +34,7 @@ class UnixFileSystemTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var FileSystem
+     * @var AbstractFileSystem
      */
     private $fs;
 
@@ -47,8 +49,8 @@ class UnixFileSystemTest extends PHPUnit_Framework_TestCase
 
     public function testCompare()
     {
-        $f1 = new PhingFile(__FILE__);
-        $f2 = new PhingFile(__FILE__);
+        $f1 = new File(__FILE__);
+        $f2 = new File(__FILE__);
 
         $this->assertEquals($this->fs->compare($f1, $f2), 0);
     }

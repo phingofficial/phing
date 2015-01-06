@@ -1,4 +1,5 @@
 <?php
+use Phing\Io\File;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -94,7 +95,7 @@ SQL
             $query = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
         }
 
-        $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-normal.sql"));
+        $this->mockTask->setSrc(new File(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-normal.sql"));
         $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_NORMAL);
         $this->project->setProperty('bar.value', "some value");
         $this->project->executeTarget('test');
@@ -124,7 +125,7 @@ SQL
             $query = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
         }
 
-        $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-row.sql"));
+        $this->mockTask->setSrc(new File(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-row.sql"));
         $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_ROW);
         $this->mockTask->setDelimiter('duh');
         $this->project->setProperty('foo.value', "some value");
@@ -210,7 +211,7 @@ SQL
             $query = str_replace(array("\n\n", "\r"), array("\n", ''), $query);
         }
 
-        $this->mockTask->setSrc(new PhingFile(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-pgsql.sql"));
+        $this->mockTask->setSrc(new File(PHING_TEST_BASE . "/etc/tasks/ext/pdo/delimiters-pgsql.sql"));
         $this->mockTask->setUrl('pgsql:host=localhost;dbname=phing');
         $this->mockTask->setDelimiterType(PDOSQLExecTask::DELIM_NORMAL);
         $this->project->setProperty('bar.value', "some value");

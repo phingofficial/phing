@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
 use Phing\Util\StringHelper;
@@ -142,9 +143,9 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
-     * @param PhingFile $srcFile
+     * @param File $srcFile
      */
-    public function setSrc(PhingFile $srcFile)
+    public function setSrc(File $srcFile)
     {
         $this->srcFile = $srcFile;
     }
@@ -251,9 +252,9 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set the output file;
      * optional, defaults to the console.
-     * @param PhingFile $output
+     * @param File $output
      */
-    public function setOutput(PhingFile $output)
+    public function setOutput(File $output)
     {
         $this->output = $output;
     }
@@ -321,7 +322,7 @@ class CreoleSQLExecTask extends CreoleTask
                 // Make a transaction for each file
                 for ($j = 0, $size = count($srcFiles); $j < $size; $j++) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFiles[$j]));
+                    $t->setSrc(new File($srcDir, $srcFiles[$j]));
                 }
             }
 
@@ -610,9 +611,9 @@ class SQLExecTransaction
     }
 
     /**
-     * @param PhingFile $src
+     * @param File $src
      */
-    public function setSrc(PhingFile $src)
+    public function setSrc(File $src)
     {
         $this->tSrcFile = $src;
     }

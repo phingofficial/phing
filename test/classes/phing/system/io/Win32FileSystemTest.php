@@ -19,8 +19,9 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\FileSystem\Win32FileSystem;
+
 include_once 'phing/system/io/AbstractWinFileSystemTestCase.php';
-include_once 'phing/system/io/Win32FileSystem.php';
 
 /**
  * Unit test for Win32FileSystem

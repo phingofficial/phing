@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Test\AbstractBuildFileTest;
 
 
@@ -39,7 +40,7 @@ class ForeachFileSetTest extends AbstractBuildFileTest
 
     public function testCustomTask()
     {
-        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/252/build.xml");
+        $f = new File(PHING_TEST_BASE . "/etc/regression/252/build.xml");
         $this->executeTarget("main");
         $this->assertInLogs("Calling Buildfile '" . $f->getAbsolutePath() . "' with target 'subtask'");
     }

@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -273,13 +274,13 @@ class SizeSelector extends BaseExtendSelector
      *
      * {@inheritdoc}
      *
-     * @param PhingFile $basedir A PhingFile object for the base directory
+     * @param File $basedir A PhingFile object for the base directory
      * @param string $filename The name of the file to check
-     * @param PhingFile $file A PhingFile object for this filename
+     * @param File $file A PhingFile object for this filename
      *
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
 

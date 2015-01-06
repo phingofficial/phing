@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -198,7 +199,7 @@ class SimpleTestTask extends Task
             $formatter->setProject($this->getProject());
 
             if ($fe->getUseFile()) {
-                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                $destFile = new File($fe->getToDir(), $fe->getOutfile());
 
                 $writer = new FileWriter($destFile->getAbsolutePath());
 

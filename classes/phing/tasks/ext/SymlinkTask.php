@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Project;
 use Phing\Task;
 
@@ -273,7 +274,7 @@ class SymlinkTask extends Task
      */
     protected function symlink($target, $link)
     {
-        $fs = FileSystem::getFileSystem();
+        $fs = AbstractFileSystem::getFileSystem();
 
         if (is_link($link) && @readlink($link) == $target) {
             $this->log('Link exists: ' . $link, Project::MSG_INFO);

@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -37,7 +38,7 @@ class PHPMDTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -93,9 +94,9 @@ class PHPMDTask extends Task
     /**
      * Set the input source file or directory.
      *
-     * @param PhingFile $file The input source file or directory.
+     * @param File $file The input source file or directory.
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -273,13 +274,13 @@ class PHPMDTask extends Task
 
         $filesToParse = array();
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $filesToParse[] = $this->file->getPath();
         } else {
             // append any files in filesets
             foreach ($this->filesets as $fs) {
                 foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $f = new File($fs->getDir($this->project), $filename);
                     $filesToParse[] = $f->getAbsolutePath();
                 }
             }

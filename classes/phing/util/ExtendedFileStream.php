@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 
 
 /**
@@ -49,7 +51,7 @@ class ExtendedFileStream
      */
     private function createDirectories($path)
     {
-        $f = new PhingFile($path);
+        $f = new File($path);
         if (!$f->exists()) {
             $f->mkdirs();
         }
@@ -66,7 +68,7 @@ class ExtendedFileStream
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         // if we're on Windows, urldecode() the path again
-        if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+        if (AbstractFileSystem::getFileSystem()->getSeparator() == '\\') {
             $path = urldecode($path);
         }
 

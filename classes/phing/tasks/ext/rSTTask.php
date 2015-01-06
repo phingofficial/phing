@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 
@@ -184,7 +185,7 @@ class rSTTask extends Task
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $src) {
-                $file = new PhingFile($fromDir, $src);
+                $file = new File($fromDir, $src);
                 if ($mapper !== null) {
                     $results = $mapper->main($file);
                     if ($results === null) {
@@ -223,8 +224,8 @@ class rSTTask extends Task
         $this->renderFile($tool, $source, $tmpTarget);
 
         $this->fileUtils->copyFile(
-            new PhingFile($tmpTarget),
-            new PhingFile($targetFile),
+            new File($tmpTarget),
+            new File($targetFile),
             true,
             false,
             $this->filterChains,

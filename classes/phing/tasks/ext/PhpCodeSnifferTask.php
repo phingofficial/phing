@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
@@ -67,7 +68,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Holds the outfile for the documentation
      *
-     * @var PhingFile
+     * @var File
      */
     protected $docFile = null;
 
@@ -86,9 +87,9 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * File to be performed syntax check on
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -145,11 +146,11 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the outfile for the documentation
      *
-     * @param PhingFile $file The outfile for the doc
+     * @param File $file The outfile for the doc
      *
      * @return void
      */
-    public function setDocFile(PhingFile $file)
+    public function setDocFile(File $file)
     {
         $this->docFile = $file;
     }

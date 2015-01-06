@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -63,7 +64,7 @@ class MoveTask extends CopyTask
             }
 
             if ($this->destFile === null) {
-                $this->destFile = new PhingFile($this->destDir, $this->file->getName());
+                $this->destFile = new File($this->destDir, $this->file->getName());
             }
 
             if ($this->destDir === null) {
@@ -82,8 +83,8 @@ class MoveTask extends CopyTask
     {
         if (count($this->completeDirMap) > 0) {
             foreach ($this->completeDirMap as $from => $to) {
-                $f = new PhingFile($from);
-                $d = new PhingFile($to);
+                $f = new File($from);
+                $d = new File($to);
 
                 $moved = false;
                 try { // try to rename
@@ -117,8 +118,8 @@ class MoveTask extends CopyTask
                     continue;
                 }
 
-                $f = new PhingFile($from);
-                $d = new PhingFile($to);
+                $f = new File($from);
+                $d = new File($to);
 
                 try { // try to move
                     $this->log("Moving $from to $to", $this->verbosity);
@@ -144,7 +145,7 @@ class MoveTask extends CopyTask
         if ($this->includeEmpty) {
             $count = 0;
             foreach ($this->dirCopyMap as $srcDir => $destDir) {
-                $d = new PhingFile((string) $destDir);
+                $d = new File((string) $destDir);
                 if (!$d->exists()) {
                     if (!$d->mkdirs()) {
                         $this->logError("Unable to create directory " . $d->getAbsolutePath());
@@ -189,7 +190,7 @@ class MoveTask extends CopyTask
         }
 
         foreach ($list as $s) {
-            $f = new PhingFile($d, $s);
+            $f = new File($d, $s);
             if ($f->isDirectory()) {
                 if (!$this->okToDelete($f)) {
                     return false;
@@ -220,7 +221,7 @@ class MoveTask extends CopyTask
         }
 
         foreach ($list as $fname) {
-            $f = new PhingFile($d, $fname);
+            $f = new File($d, $fname);
             if ($f->isDirectory()) {
                 $this->deleteDir($f);
             } else {

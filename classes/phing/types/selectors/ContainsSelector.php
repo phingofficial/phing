@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 
 /**
@@ -119,9 +120,9 @@ class ContainsSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir
+     * @param File $basedir
      * @param string $filename
-     * @param PhingFile $file
+     * @param File $file
      *
      * @throws \Phing\Exception\BuildException
      *
@@ -131,7 +132,7 @@ class ContainsSelector extends BaseExtendSelector
      *
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
 
         $this->validate();

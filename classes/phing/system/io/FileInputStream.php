@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\File;
 
 
 /**
@@ -30,24 +31,24 @@ class FileInputStream extends InputStream
 
     /**
      * The associated file.
-     * @var PhingFile
+     * @var File
      */
     protected $file;
 
     /**
      * Construct a new FileInputStream.
      *
-     * @param  PhingFile|string $file   Path to the file
+     * @param  File|string $file   Path to the file
      * @param  boolean          $append Whether to append (ignored)
      * @throws Exception        - if invalid argument specified.
      * @throws IOException      - if unable to open file.
      */
     public function __construct($file, $append = false)
     {
-        if ($file instanceof PhingFile) {
+        if ($file instanceof File) {
             $this->file = $file;
         } elseif (is_string($file)) {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }

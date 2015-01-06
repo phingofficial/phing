@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -33,7 +34,7 @@ class PharPackageTask
     extends MatchingTask
 {
     /**
-     * @var PhingFile
+     * @var File
      */
     private $destinationFile;
 
@@ -45,17 +46,17 @@ class PharPackageTask
     /**
      * Base directory, from where local package paths will be calculated.
      *
-     * @var PhingFile
+     * @var File
      */
     private $baseDirectory;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $cliStubFile;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $webStubFile;
 
@@ -67,7 +68,7 @@ class PharPackageTask
     /**
      * Private key the Phar will be signed with.
      *
-     * @var PhingFile
+     * @var File
      */
     private $key;
 
@@ -174,9 +175,9 @@ class PharPackageTask
     /**
      * Destination (output) file.
      *
-     * @param PhingFile $destinationFile
+     * @param File $destinationFile
      */
-    public function setDestFile(PhingFile $destinationFile)
+    public function setDestFile(File $destinationFile)
     {
         $this->destinationFile = $destinationFile;
     }
@@ -185,9 +186,9 @@ class PharPackageTask
      * Base directory, which will be deleted from each included file (from path).
      * Paths with deleted basedir part are local paths in package.
      *
-     * @param PhingFile $baseDirectory
+     * @param File $baseDirectory
      */
-    public function setBaseDir(PhingFile $baseDirectory)
+    public function setBaseDir(File $baseDirectory)
     {
         $this->baseDirectory = $baseDirectory;
     }
@@ -196,9 +197,9 @@ class PharPackageTask
      * Relative path within the phar package to run,
      * if accessed on the command line.
      *
-     * @param PhingFile $stubFile
+     * @param File $stubFile
      */
-    public function setCliStub(PhingFile $stubFile)
+    public function setCliStub(File $stubFile)
     {
         $this->cliStubFile = $stubFile;
     }
@@ -207,9 +208,9 @@ class PharPackageTask
      * Relative path within the phar package to run,
      * if accessed through a web browser.
      *
-     * @param PhingFile $stubFile
+     * @param File $stubFile
      */
-    public function setWebStub(PhingFile $stubFile)
+    public function setWebStub(File $stubFile)
     {
         $this->webStubFile = $stubFile;
     }
@@ -237,9 +238,9 @@ class PharPackageTask
     /**
      * Sets the private key to use to sign the Phar with.
      *
-     * @param PhingFile $key Private key to sign the Phar with.
+     * @param File $key Private key to sign the Phar with.
      */
-    public function setKey(PhingFile $key)
+    public function setKey(File $key)
     {
         $this->key = $key;
     }

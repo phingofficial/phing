@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 use Phing\Util\StringHelper;
 
@@ -62,7 +63,7 @@ class PHPLocTask extends Task
     protected $countTests = false;
 
     /**
-     * @var null|PhingFile
+     * @var null|File
      */
     protected $fileToCheck = null;
 
@@ -102,9 +103,9 @@ class PHPLocTask extends Task
     }
 
     /**
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->fileToCheck = trim($file);
     }
@@ -182,7 +183,7 @@ class PHPLocTask extends Task
         $this->validateProperties();
 
         if ($this->reportDirectory !== null && !is_dir($this->reportDirectory)) {
-            $reportOutputDir = new PhingFile($this->reportDirectory);
+            $reportOutputDir = new File($this->reportDirectory);
 
             $logMessage = "Report output directory doesn't exist, creating: "
                 . $reportOutputDir->getAbsolutePath() . '.';

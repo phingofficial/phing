@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -35,7 +36,7 @@ class LoadFileTask extends Task
 {
     /**
      * File to read
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -53,7 +54,7 @@ class LoadFileTask extends Task
 
     /**
      * Set file to read
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file)
     {

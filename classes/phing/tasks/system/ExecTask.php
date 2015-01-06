@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -58,7 +59,7 @@ class ExecTask extends Task
 
     /**
      * Working directory.
-     * @var PhingFile
+     * @var File
      */
     protected $dir;
 
@@ -377,11 +378,11 @@ class ExecTask extends Task
     /**
      * Specify the working directory for executing this command.
      *
-     * @param PhingFile $dir Working directory
+     * @param File $dir Working directory
      *
      * @return void
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         $this->dir = $dir;
     }
@@ -401,11 +402,11 @@ class ExecTask extends Task
     /**
      * File to which output should be written.
      *
-     * @param PhingFile $f Output log file
+     * @param File $f Output log file
      *
      * @return void
      */
-    public function setOutput(PhingFile $f)
+    public function setOutput(File $f)
     {
         $this->output = $f;
     }
@@ -413,11 +414,11 @@ class ExecTask extends Task
     /**
      * File to which error output should be written.
      *
-     * @param PhingFile $f Error log file
+     * @param File $f Error log file
      *
      * @return void
      */
-    public function setError(PhingFile $f)
+    public function setError(File $f)
     {
         $this->error = $f;
     }

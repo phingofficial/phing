@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Test\AbstractBuildFileTest;
 
 
@@ -39,7 +40,7 @@ class FilesetFoldersTest extends AbstractBuildFileTest
 
     public function testFilesetNotSelectingFolders()
     {
-        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/654/build.xml");
+        $f = new File(PHING_TEST_BASE . "/etc/regression/654/build.xml");
         $this->executeTarget("main");
         $this->assertInLogs("Property \${test.msg} => data");
         $this->assertInLogs("Property \${test.msg} => files");

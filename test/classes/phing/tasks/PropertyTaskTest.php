@@ -21,6 +21,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -119,7 +120,7 @@ class PropertyTaskTest extends AbstractBuildFileTest
 class HangDetectorPropertyTask extends PropertyTask
 {
 
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(File $file)
     {
         $props = new HangDetectorProperties();
         $props->load($file);

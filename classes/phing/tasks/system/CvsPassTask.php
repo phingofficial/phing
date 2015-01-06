@@ -20,6 +20,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -309,7 +310,7 @@ class CvsPassTask extends Task
      */
     public function __construct()
     {
-        $this->passFile = new PhingFile(
+        $this->passFile = new File(
             Phing::getProperty(
                 "cygwin.user.home",
                 Phing::getProperty("user.home")
@@ -410,9 +411,9 @@ class CvsPassTask extends Task
 
     /**
      * Password file to add the entry to.
-     * @param PhingFile $passFile
+     * @param File $passFile
      */
-    public function setPassfile(PhingFile $passFile)
+    public function setPassfile(File $passFile)
     {
         $this->passFile = $passFile;
     }

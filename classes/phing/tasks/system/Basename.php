@@ -20,10 +20,9 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 use Phing\Util\StringHelper;
-
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Task that changes the permissions on a file/directory.
@@ -33,7 +32,7 @@ include_once 'phing/system/io/PhingFile.php';
  */
 class Basename extends Task
 {
-    /** @var PhingFile $file */
+    /** @var File $file */
     private $file;
 
     /** @var string $property */
@@ -44,12 +43,12 @@ class Basename extends Task
 
     /**
      * file or directory to get base name from
-     * @param PhingFile $file file or directory to get base name from
+     * @param File $file file or directory to get base name from
      */
     public function setFile($file)
     {
         if (is_string($file)) {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
         } else {
             $this->file = $file;
         }

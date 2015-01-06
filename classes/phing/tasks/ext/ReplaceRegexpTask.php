@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 
@@ -62,11 +63,11 @@ class ReplaceRegexpTask extends Task
     /**
      * File to apply regexp on
      *
-     * @param PhingFile $path
+     * @param File $path
      *
      * @return void
      */
-    public function setFile(PhingFile $path)
+    public function setFile(File $path)
     {
         $this->file = $path;
     }
@@ -183,7 +184,7 @@ class ReplaceRegexpTask extends Task
                     $filenames = $ds->getIncludedFiles(); // get included filenames
                     $dir = $fs->getDir($this->project);
                     foreach ($filenames as $fname) {
-                        $files[] = new PhingFile($dir, $fname);
+                        $files[] = new File($dir, $fname);
                     }
                 } catch (BuildException $be) {
                     $this->log($be->getMessage(), Project::MSG_WARN);

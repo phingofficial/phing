@@ -23,7 +23,7 @@ namespace Phing\Parser;
 use Exception;
 use Phing\Parser\ExpatParseException;
 use IOException;
-use PhingFile;
+use Phing\Io\File;
 use Reader;
 
 /**
@@ -77,7 +77,7 @@ class ExpatParser extends AbstractSaxParser
 
         $this->reader = $reader;
         if ($filename !== null) {
-            $this->file = new PhingFile($filename);
+            $this->file = new File($filename);
         }
         $this->parser = xml_parser_create();
         $this->buffer = 4096;

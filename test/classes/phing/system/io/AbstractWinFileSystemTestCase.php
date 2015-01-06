@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\FileSystem\AbstractFileSystem;
 
 /**
  * @author Daniel Holmes
@@ -28,7 +29,7 @@ abstract class AbstractWinFileSystemTestCase extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var FileSystem
+     * @var AbstractFileSystem
      */
     private $fs;
 

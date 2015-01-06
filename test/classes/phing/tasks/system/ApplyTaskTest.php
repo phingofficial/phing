@@ -18,6 +18,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Target;
 use Phing\Task;
 use Phing\Test\AbstractBuildFileTest;
@@ -67,7 +68,7 @@ class ApplyTaskTest extends AbstractBuildFileTest
      */
     public function testPropertySetDir()
     {
-        $this->assertAttributeIsSetTo('dir', new PhingFile('/tmp/'));
+        $this->assertAttributeIsSetTo('dir', new File('/tmp/'));
     }
 
     /**
@@ -123,7 +124,7 @@ class ApplyTaskTest extends AbstractBuildFileTest
      */
     public function testPropertySetOutput()
     {
-        $this->assertAttributeIsSetTo('output', new PhingFile('/tmp/outputfilename'));
+        $this->assertAttributeIsSetTo('output', new File('/tmp/outputfilename'));
     }
 
     /**
@@ -131,7 +132,7 @@ class ApplyTaskTest extends AbstractBuildFileTest
      */
     public function testPropertySetError()
     {
-        $this->assertAttributeIsSetTo('error', new PhingFile('/tmp/errorfilename'));
+        $this->assertAttributeIsSetTo('error', new File('/tmp/errorfilename'));
     }
 
     /**

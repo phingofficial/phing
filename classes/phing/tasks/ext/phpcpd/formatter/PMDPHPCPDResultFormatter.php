@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 /**
@@ -36,7 +37,7 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param PHPCPD_CloneMap|CodeCloneMap $clones
      * @param Project                      $project
      * @param boolean                      $useFile
-     * @param PhingFile|null               $outFile
+     * @param File|null               $outFile
      *
      * @throws BuildException
      */

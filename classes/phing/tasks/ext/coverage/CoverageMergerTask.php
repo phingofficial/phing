@@ -1,4 +1,5 @@
 <?php
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -61,7 +62,7 @@ class CoverageMergerTask extends Task
             $includedFiles = $ds->getIncludedFiles();
 
             foreach ($includedFiles as $file) {
-                $fs = new PhingFile(basename($ds->getBaseDir()), $file);
+                $fs = new File(basename($ds->getBaseDir()), $file);
 
                 $files[] = $fs->getAbsolutePath();
             }

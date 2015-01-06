@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Project;
 use Phing\Util\StringHelper;
 
@@ -80,8 +82,8 @@ class FileUtils
     /**
      * Copies a file using filter chains.
      *
-     * @param  PhingFile $sourceFile
-     * @param  PhingFile $destFile
+     * @param  File $sourceFile
+     * @param  File $destFile
      * @param  boolean $overwrite
      * @param  boolean $preserveLastModified
      * @param  array $filterChains
@@ -93,8 +95,8 @@ class FileUtils
      * @return void
      */
     public function copyFile(
-        PhingFile $sourceFile,
-        PhingFile $destFile,
+        File $sourceFile,
+        File $destFile,
         $overwrite = false,
         $preserveLastModified = true,
         &$filterChains = null,
@@ -165,21 +167,21 @@ class FileUtils
      * Interpret the filename as a file relative to the given file -
      * unless the filename already represents an absolute filename.
      *
-     * @param  PhingFile $file the "reference" file for relative paths. This
+     * @param  File $file the "reference" file for relative paths. This
      *         instance must be an absolute file and must not contain
      *         ./ or ../ sequences (same for \ instead of /).
      * @param  string $filename a file name
      *
      * @throws IOException
      *
-     * @return PhingFile A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
+     * @return File A PhingFile object pointing to an absolute file that doesn't contain ./ or ../ sequences
      *                   and uses the correct separator for the current platform.
      */
     public function resolveFile($file, $filename)
     {
         // remove this and use the static class constant File::seperator
         // as soon as ZE2 is ready
-        $fs = FileSystem::getFileSystem();
+        $fs = AbstractFileSystem::getFileSystem();
 
         $filename = str_replace('/', $fs->getSeparator(), str_replace('\\', $fs->getSeparator(), $filename));
 
@@ -187,14 +189,14 @@ class FileUtils
         if (StringHelper::startsWith($fs->getSeparator(), $filename) ||
             (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':')
         ) {
-            return new PhingFile($this->normalize($filename));
+            return new File($this->normalize($filename));
         }
 
         if (strlen($filename) >= 2 && Character::isLetter($filename{0}) && $filename{1} === ':') {
-            return new PhingFile($this->normalize($filename));
+            return new File($this->normalize($filename));
         }
 
-        $helpFile = new PhingFile($file->getAbsolutePath());
+        $helpFile = new File($file->getAbsolutePath());
 
         $tok = strtok($filename, $fs->getSeparator());
         while ($tok !== false) {
@@ -205,18 +207,18 @@ class FileUtils
                     $msg = "The file or path you specified ($filename) is invalid relative to " . $file->getPath();
                     throw new IOException($msg);
                 }
-                $helpFile = new PhingFile($parentFile);
+                $helpFile = new File($parentFile);
             } else {
                 if ($part === '.') {
                     // Do nothing here
                 } else {
-                    $helpFile = new PhingFile($helpFile, $part);
+                    $helpFile = new File($helpFile, $part);
                 }
             }
             $tok = strtok($fs->getSeparator());
         }
 
-        return new PhingFile($helpFile->getAbsolutePath());
+        return new File($helpFile->getAbsolutePath());
     }
 
     /**
@@ -338,12 +340,12 @@ class FileUtils
     }
 
     /**
-     * @param PhingFile $file1
-     * @param PhingFile $file2
+     * @param File $file1
+     * @param File $file2
      *
      * @return boolean Whether contents of two files is the same.
      */
-    public function contentEquals(PhingFile $file1, PhingFile $file2)
+    public function contentEquals(File $file1, File $file2)
     {
 
         if (!($file1->exists() || $file2->exists())) {

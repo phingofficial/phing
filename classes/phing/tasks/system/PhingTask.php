@@ -21,6 +21,7 @@
 */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
 use Phing\Project;
@@ -177,7 +178,7 @@ class PhingTask extends Task
                 $srcFiles = $ds->getIncludedFiles();
 
                 foreach ($srcFiles as $fname) {
-                    $f = new PhingFile($ds->getbasedir(), $fname);
+                    $f = new File($ds->getbasedir(), $fname);
                     $f = $f->getAbsoluteFile();
                     $this->phingFile = $f->getAbsolutePath();
                     $this->dir = $f->getParentFile();
@@ -242,7 +243,7 @@ class PhingTask extends Task
 
                 // Now we must reset $this->dir so that it continues to resolve to the same
                 // path.
-                $this->dir = new PhingFile($dirAbsPath);
+                $this->dir = new File($dirAbsPath);
 
                 if ($savedDir !== null) { // has been set explicitly
                     $this->newProject->setInheritedProperty("project.basedir", $this->dir->getAbsolutePath());
@@ -268,7 +269,7 @@ class PhingTask extends Task
 
             $this->newProject->setUserProperty("phing.file", $this->phingFile);
 
-            ProjectConfigurator::configureProject($this->newProject, new PhingFile($this->phingFile));
+            ProjectConfigurator::configureProject($this->newProject, new File($this->phingFile));
 
             if ($this->newTarget === null) {
                 $this->newTarget = $this->newProject->getDefaultTarget();
@@ -541,7 +542,7 @@ class PhingTask extends Task
     public function setDir($d)
     {
         if (is_string($d)) {
-            $this->dir = new PhingFile($d);
+            $this->dir = new File($d);
         } else {
             $this->dir = $d;
         }

@@ -20,6 +20,7 @@
  * <http://phing.info>.
 */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -87,16 +88,16 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Sets the root locale directory.
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         $this->dir = $dir;
     }
 
     /**
      * Gets the root locale directory.
-     * @return PhingFile
+     * @return File
      */
     public function getDir()
     {

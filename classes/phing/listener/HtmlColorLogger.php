@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
 
@@ -92,7 +93,7 @@ class HtmlColorLogger extends DefaultLogger
     final private function setColors()
     {
 
-        $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $systemColorFile = new File(Phing::getResourcePath("phing/listener/defaults.properties"));
 
         try {
             $prop = new Properties();

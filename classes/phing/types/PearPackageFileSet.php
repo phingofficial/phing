@@ -1,5 +1,7 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\Scanner\PearPackageScanner;
 use Phing\Project;
 
 /**
@@ -110,7 +112,7 @@ class PearPackageFileSet extends FileSet
      *
      * @param Project $p Current phing project
      *
-     * @return PhingFile Base directory
+     * @return File Base directory
      */
     public function getDir(Project $p)
     {
@@ -118,7 +120,7 @@ class PearPackageFileSet extends FileSet
             $this->loadPearPackageScanner($p);
         }
 
-        return new PhingFile((string) $this->pps->getBaseDir());
+        return new File((string) $this->pps->getBaseDir());
     }
 
     /**

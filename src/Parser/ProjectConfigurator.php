@@ -32,7 +32,7 @@ use Phing\Target;
 use Phing\Task;
 use Phing\TaskAdapter;
 use Phing\UnknownElement;
-use PhingFile;
+use Phing\Io\File;
 
 /**
  * The datatype handler class.
@@ -73,9 +73,9 @@ class ProjectConfigurator
      * project. Do not use the new operator.
      *
      * @param  Project $project the Project instance this configurator should use
-     * @param  PhingFile $buildFile the buildfile object the parser should use
+     * @param  File $buildFile the buildfile object the parser should use
      */
-    public static function configureProject(Project $project, PhingFile $buildFile)
+    public static function configureProject(Project $project, File $buildFile)
     {
         $pc = new ProjectConfigurator($project, $buildFile);
         $pc->parse();
@@ -87,19 +87,19 @@ class ProjectConfigurator
      * <code>configureProject</code> to configure a project.
      *
      * @param  Project $project the Project instance this configurator should use
-     * @param  PhingFile $buildFile the buildfile object the parser should use
+     * @param  File $buildFile the buildfile object the parser should use
      */
-    public function __construct(Project $project, PhingFile $buildFile)
+    public function __construct(Project $project, File $buildFile)
     {
         $this->project = $project;
-        $this->buildFile = new PhingFile($buildFile->getAbsolutePath());
-        $this->buildFileParent = new PhingFile($this->buildFile->getParent());
+        $this->buildFile = new File($buildFile->getAbsolutePath());
+        $this->buildFileParent = new File($this->buildFile->getParent());
         $this->parseEndTarget = new Target();
     }
 
     /**
      * find out the build file
-     * @return PhingFile the build file to which the xml context belongs
+     * @return \Phing\Io\File the build file to which the xml context belongs
      */
     public function getBuildFile()
     {
@@ -108,7 +108,7 @@ class ProjectConfigurator
 
     /**
      * find out the parent build file of this build file
-     * @return PhingFile the parent build file of this build file
+     * @return File the parent build file of this build file
      */
     public function getBuildFileParent()
     {

@@ -20,6 +20,8 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -75,9 +77,9 @@ class AvailableTask extends Task
     }
 
     /**
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -208,7 +210,7 @@ class AvailableTask extends Task
             $paths = $this->filepath->listPaths();
             foreach ($paths as $path) {
                 $this->log("Searching " . $path, Project::MSG_VERBOSE);
-                $tmp = new PhingFile($path, $this->file->getName());
+                $tmp = new File($path, $this->file->getName());
                 if ($tmp->isFile()) {
                     return true;
                 }
@@ -219,20 +221,20 @@ class AvailableTask extends Task
     }
 
     /**
-     * @param PhingFile $file
+     * @param File $file
      * @return bool
      * @throws IOException
      */
-    private function _checkFile1(PhingFile $file)
+    private function _checkFile1(File $file)
     {
         // Resolve symbolic links
         if ($this->followSymlinks && $file->isLink()) {
-            $linkTarget = new PhingFile($file->getLinkTarget());
+            $linkTarget = new File($file->getLinkTarget());
             if ($linkTarget->isAbsolute()) {
                 $file = $linkTarget;
             } else {
-                $fs = FileSystem::getFileSystem();
-                $file = new PhingFile(
+                $fs = AbstractFileSystem::getFileSystem();
+                $file = new File(
                     $fs->resolve(
                         $fs->normalize($file->getParent()),
                         $fs->normalize($file->getLinkTarget())
@@ -261,7 +263,7 @@ class AvailableTask extends Task
     private function _checkResource($resource)
     {
         if (null != ($resourcePath = Phing::getResourcePath($resource))) {
-            return $this->_checkFile1(new PhingFile($resourcePath));
+            return $this->_checkFile1(new File($resourcePath));
         } else {
             return false;
         }

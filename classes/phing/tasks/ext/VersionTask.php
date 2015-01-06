@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -44,7 +45,7 @@ class VersionTask extends Task
 
     /**
      * Property for File
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -70,7 +71,7 @@ class VersionTask extends Task
 
     /**
      * Set Property for File containing versioninformation
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file)
     {

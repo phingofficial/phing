@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -102,7 +103,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * SQL input file
-     * @var PhingFile
+     * @var File
      */
     private $srcFile;
 
@@ -148,9 +149,9 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
-     * @param PhingFile $srcFile
+     * @param File $srcFile
      */
-    public function setSrc(PhingFile $srcFile)
+    public function setSrc(File $srcFile)
     {
         $this->srcFile = $srcFile;
     }
@@ -344,7 +345,7 @@ class PDOSQLExecTask extends PDOTask
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFile));
+                    $t->setSrc(new File($srcDir, $srcFile));
                 }
             }
 
@@ -355,7 +356,7 @@ class PDOSQLExecTask extends PDOTask
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFile));
+                    $t->setSrc(new File($srcDir, $srcFile));
                 }
             }
 
@@ -622,9 +623,9 @@ class PDOSQLExecTransaction
     }
 
     /**
-     * @param PhingFile $src
+     * @param File $src
      */
-    public function setSrc(PhingFile $src)
+    public function setSrc(File $src)
     {
         $this->tSrcFile = $src;
     }

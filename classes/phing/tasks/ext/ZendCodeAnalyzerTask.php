@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 
@@ -78,9 +79,9 @@ class ZendCodeAnalyzerTask extends Task
     /**
      * File to be analyzed
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -148,7 +149,7 @@ class ZendCodeAnalyzerTask extends Task
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $this->analyze($this->file->getPath());
         } else { // process filesets
             $project = $this->getProject();

@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
@@ -180,11 +181,11 @@ class CapsuleTask extends Task
     /**
      * [REQUIRED] Set the output directory. It will be
      * created if it doesn't exist.
-     * @param  PhingFile $outputDirectory
+     * @param  File $outputDirectory
      * @return void
      * @throws Exception
      */
-    public function setOutputDirectory(PhingFile $outputDirectory)
+    public function setOutputDirectory(File $outputDirectory)
     {
         try {
             if (!$outputDirectory->exists()) {
@@ -367,7 +368,7 @@ class CapsuleTask extends Task
 
         // Make sure the output directory exists, if it doesn't
         // then create it.
-        $outputDir = new PhingFile($this->outputDirectory);
+        $outputDir = new File($this->outputDirectory);
         if (!$outputDir->exists()) {
             $this->log("Output directory does not exist, creating: " . $outputDir->getAbsolutePath());
             $outputDir->mkdirs();
@@ -410,7 +411,7 @@ class CapsuleTask extends Task
                     // reset value, and then
                     // read in the contents of the file into that var
                     $value = "";
-                    $f = new PhingFile($this->project->resolveFile($value)->getCanonicalPath());
+                    $f = new File($this->project->resolveFile($value)->getCanonicalPath());
                     if ($f->exists()) {
                         $fr = new FileReader($f);
                         $fr->readInto($value);

@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Phing;
 use Phing\Project;
 
@@ -47,7 +49,7 @@ class PhpDocumentor2Wrapper
 
     /**
      * Destination/target directory
-     * @var PhingFile
+     * @var File
      */
     private $destDir = null;
 
@@ -102,9 +104,9 @@ class PhpDocumentor2Wrapper
 
     /**
      * Sets destination/target directory
-     * @param PhingFile $destDir
+     * @param File $destDir
      */
-    public function setDestDir(PhingFile $destDir)
+    public function setDestDir(File $destDir)
     {
         $this->destDir = $destDir;
     }
@@ -187,7 +189,7 @@ class PhpDocumentor2Wrapper
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $file) {
-                $paths[] = $dir . FileSystem::getFileSystem()->getSeparator() . $file;
+                $paths[] = $dir . AbstractFileSystem::getFileSystem()->getSeparator() . $file;
             }
         }
 

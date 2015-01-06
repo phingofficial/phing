@@ -18,7 +18,13 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Io\Scanner;
+
 use Phing\Util\StringHelper;
+use Phing\Io\File;
+use SelectorUtils;
+use specifies;
+use the;
 
 
 /**
@@ -111,7 +117,7 @@ use Phing\Util\StringHelper;
  * @version   $Id$
  * @package   phing.util
  */
-class DirectoryScanner implements SelectorScanner
+class DirectoryScanner implements SelectorScannerInterface
 {
 
     /** default set of excludes */
@@ -221,9 +227,9 @@ class DirectoryScanner implements SelectorScanner
     /**
      * Matches a path against a pattern.
      *
-     * @param string $pattern        the (non-null) pattern to match against
-     * @param string $str            the (non-null) string (path) to match
-     * @param bool $isCaseSensitive  must a case sensitive match be done?
+     * @param string $pattern the (non-null) pattern to match against
+     * @param string $str the (non-null) string (path) to match
+     * @param bool $isCaseSensitive must a case sensitive match be done?
      *
      * @return bool true when the pattern matches against the string.
      *              false otherwise.
@@ -772,16 +778,16 @@ class DirectoryScanner implements SelectorScanner
     /**
      * Tests whether a name should be selected.
      *
-     * @param  string  $name The filename to check for selecting.
-     * @param  string  $file The full file path.
+     * @param  string $name The filename to check for selecting.
+     * @param  string $file The full file path.
      * @return boolean False when the selectors says that the file
      *                      should not be selected, True otherwise.
      */
     protected function isSelected($name, $file)
     {
         if ($this->selectors !== null) {
-            $basedir = new PhingFile($this->basedir);
-            $file = new PhingFile($file);
+            $basedir = new File($this->basedir);
+            $file = new File($file);
             if (!$file->canRead()) {
                 return false;
             }

@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\File;
 use Phing\Util\StringHelper;
 
 
@@ -195,13 +196,13 @@ class SelectorUtils
      * false if the src file doesn't even exist, since how could the
      * target then be out of date.
      *
-     * @param  PhingFile $src         the original file
-     * @param  PhingFile $target      the file being compared against
+     * @param  File $src         the original file
+     * @param  File $target      the file being compared against
      * @param  int       $granularity the amount in seconds of slack we will give in
      *                                determining out of dateness
      * @return bool whether   the target is out of date
      */
-    public static function isOutOfDate(PhingFile $src, PhingFile $target, $granularity)
+    public static function isOutOfDate(File $src, File $target, $granularity)
     {
         if (!$src->exists()) {
             return false;

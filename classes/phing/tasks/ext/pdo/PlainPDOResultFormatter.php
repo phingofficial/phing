@@ -1,4 +1,5 @@
 <?php
+use Phing\Io\File;
 use Phing\Util\StringHelper;
 
 /**
@@ -131,11 +132,11 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     }
 
     /**
-     * @return PhingFile
+     * @return File
      */
     public function getPreferredOutfile()
     {
-        return new PhingFile('results.txt');
+        return new File('results.txt');
     }
 
 }

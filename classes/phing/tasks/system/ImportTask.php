@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
 use Phing\Task;
@@ -46,12 +48,12 @@ class ImportTask extends Task
 {
 
     /**
-     * @var FileSystem
+     * @var AbstractFileSystem
      */
     protected $fs;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -66,7 +68,7 @@ class ImportTask extends Task
      */
     public function init()
     {
-        $this->fs = FileSystem::getFileSystem();
+        $this->fs = AbstractFileSystem::getFileSystem();
     } //end init
 
     /**
@@ -107,9 +109,9 @@ class ImportTask extends Task
             throw new BuildException("import only allowed as a top-level task");
         }
 
-        $file = new PhingFile($this->file);
+        $file = new File($this->file);
         if (!$file->isAbsolute()) {
-            $file = new PhingFile($this->project->getBasedir(), $this->file);
+            $file = new File($this->project->getBasedir(), $this->file);
         }
         if (!$file->exists()) {
             $msg = "Unable to find build file: {$file->getPath()}";

@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Task;
 
@@ -42,7 +43,7 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Destination/target directory
-     * @var PhingFile
+     * @var File
      */
     private $destDir = null;
 
@@ -77,18 +78,18 @@ class PhpDocumentor2Task extends Task
 
     /**
      * Sets destination/target directory
-     * @param PhingFile $destDir
+     * @param File $destDir
      */
-    public function setDestDir(PhingFile $destDir)
+    public function setDestDir(File $destDir)
     {
         $this->destDir = $destDir;
     }
 
     /**
      * Convenience setter (@see setDestDir)
-     * @param PhingFile $output
+     * @param File $output
      */
-    public function setOutput(PhingFile $output)
+    public function setOutput(File $output)
     {
         $this->destDir = $output;
     }

@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Util\RegisterSlot;
 
@@ -115,7 +116,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Set the XSLT stylesheet.
      * @param mixed $file PhingFile object or path.
      */
-    public function setStyle(PhingFile $file)
+    public function setStyle(File $file)
     {
         $this->xslFile = $file;
     }

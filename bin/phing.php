@@ -1,5 +1,5 @@
 <?php
-use Phing\ConfigurationException;
+use Phing\Exception\ConfigurationException;
 use Phing\Phing;
 
 /**

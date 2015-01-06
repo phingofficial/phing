@@ -363,14 +363,14 @@ class IntrospectionHelper
 
                 // there should only be one param; we'll just assume ....
                 if ($classname !== null) {
-                    switch (strtolower($classname)) {
-                        case "phingfile":
+                    switch ($classname) {
+                        case 'Phing\\Io\\File':
                             $value = $project->resolveFile($value);
                             break;
-                        case "path":
+                        case 'Path':
                             $value = new Path($project, $value);
                             break;
-                        case "reference":
+                        case 'Reference':
                             $value = new Reference($value);
                             break;
                         // any other object params we want to support should go here ...

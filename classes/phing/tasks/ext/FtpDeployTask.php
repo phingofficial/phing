@@ -1,5 +1,7 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -291,7 +293,7 @@ class FtpDeployTask extends Task
             $this->log('Changed directory ' . $dir, $this->logLevel);
         }
 
-        $fs = FileSystem::getFileSystem();
+        $fs = AbstractFileSystem::getFileSystem();
         $convert = $fs->getSeparator() == '\\';
 
         foreach ($this->filesets as $fs) {
@@ -329,7 +331,7 @@ class FtpDeployTask extends Task
             }
 
             foreach ($srcFiles as $filename) {
-                $file = new PhingFile($fromDir->getAbsolutePath(), $filename);
+                $file = new File($fromDir->getAbsolutePath(), $filename);
                 if ($convert) {
                     $filename = str_replace('\\', '/', $filename);
                 }

@@ -23,7 +23,7 @@ namespace Phing\Util;
 
 use FileWriter;
 use Phing\Exception\BuildException;
-use PhingFile;
+use Phing\Io\File;
 
 
 /**
@@ -41,9 +41,9 @@ class DataStore
     /**
      * Constructs a new data store
      *
-     * @param PhingFile $file object pointing to the data store on disk
+     * @param File $file object pointing to the data store on disk
      */
-    public function __construct(PhingFile $file)
+    public function __construct(File $file)
     {
         $this->file = $file;
 

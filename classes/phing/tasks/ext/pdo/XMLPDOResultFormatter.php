@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\File;
+
 /**
  * $Id$
  *
@@ -129,7 +131,7 @@ class XMLPDOResultFormatter extends PDOResultFormatter
      */
     public function getPreferredOutfile()
     {
-        return new PhingFile('results.xml');
+        return new File('results.xml');
     }
 
     /**

@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Project;
 use Phing\Task;
 
@@ -195,11 +197,11 @@ class ForeachTask extends Task
      * Processes a list of files & directories
      *
      * @param Task      $callee
-     * @param PhingFile $fromDir
+     * @param File $fromDir
      * @param array     $srcFiles
      * @param array     $srcDirs
      */
-    protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
+    protected function process(Task $callee, File $fromDir, $srcFiles, $srcDirs)
     {
         $mapper = null;
 
@@ -218,7 +220,7 @@ class ForeachTask extends Task
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
-                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+                $prop->setValue($fromDir . AbstractFileSystem::getFileSystem()->getSeparator() . $value);
             }
 
             if ($mapper !== null) {
@@ -255,7 +257,7 @@ class ForeachTask extends Task
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
-                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+                $prop->setValue($fromDir . AbstractFileSystem::getFileSystem()->getSeparator() . $value);
             }
 
             if ($mapper !== null) {

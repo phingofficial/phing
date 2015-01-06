@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Util\StringHelper;
 
@@ -47,7 +48,7 @@ class XmlPropertyTask extends PropertyTask
     public function setFile($file)
     {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->file = $file;
     }
@@ -172,11 +173,11 @@ class XmlPropertyTask extends PropertyTask
 
     /**
      * load properties from an XML file.
-     * @param PhingFile $file
+     * @param File $file
      * @throws \Phing\Exception\BuildException
      * @return Properties
      */
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(File $file)
     {
         $props = new Properties();
         $this->log("Loading " . $file->getAbsolutePath(), Project::MSG_INFO);

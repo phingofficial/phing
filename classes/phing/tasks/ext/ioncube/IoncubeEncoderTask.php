@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -584,7 +585,7 @@ class IoncubeEncoderTask extends Task
         } else {
             $encoderName = $this->encoderName;
         }
-        $encoder = new PhingFile($this->ioncubePath, $encoderName);
+        $encoder = new File($this->ioncubePath, $encoderName);
 
         $this->log("Running ionCube Encoder...");
 

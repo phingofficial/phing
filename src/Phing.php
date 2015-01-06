@@ -21,7 +21,7 @@ namespace Phing;
 
 use Phing\Exception\BuildException;
 use Phing\BuildLoggerInterface;
-use Phing\ConfigurationException;
+use Phing\Exception\ConfigurationException;
 use DefaultInputHandler;
 use DefaultLogger;
 use Exception;
@@ -29,7 +29,7 @@ use FileOutputStream;
 use FileReader;
 use IOException;
 use OutputStream;
-use PhingFile;
+use Phing\Io\File;
 use Phing\Project;
 use Phing\Parser\ProjectConfigurator;
 use Properties;
@@ -39,7 +39,6 @@ use Phing\Util\StringHelper;
 use Phing\Util\Timer;
 
 include_once 'phing/system/util/Properties.php';
-include_once 'phing/system/io/PhingFile.php';
 include_once 'phing/system/io/OutputStream.php';
 include_once 'phing/system/io/PrintStream.php';
 include_once 'phing/system/io/FileOutputStream.php';
@@ -371,9 +370,9 @@ class Phing
                     // see: http://phing.info/trac/ticket/65
                     if (!isset($args[$i + 1])) {
                         $msg = "You must specify a log file when using the -logfile argument\n";
-                        throw new ConfigurationException($msg);
+                        throw new Exception\ConfigurationException($msg);
                     } else {
-                        $logFile = new PhingFile($args[++$i]);
+                        $logFile = new File($args[++$i]);
                         $out = new FileOutputStream($logFile); // overwrite
                         self::setOutputStream($out);
                         self::setErrorStream($out);
@@ -386,9 +385,9 @@ class Phing
             } elseif ($arg == "-buildfile" || $arg == "-file" || $arg == "-f") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a buildfile when using the -buildfile argument.";
-                    throw new ConfigurationException($msg);
+                    throw new Exception\ConfigurationException($msg);
                 } else {
-                    $this->buildFile = new PhingFile($args[++$i]);
+                    $this->buildFile = new File($args[++$i]);
                 }
             } elseif ($arg == "-listener") {
                 if (!isset($args[$i + 1])) {
@@ -418,13 +417,13 @@ class Phing
             } elseif ($arg == "-logger") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a classname when using the -logger argument";
-                    throw new ConfigurationException($msg);
+                    throw new Exception\ConfigurationException($msg);
                 } else {
                     $this->loggerClassname = $args[++$i];
                 }
             } elseif ($arg == "-inputhandler") {
                 if ($this->inputHandlerClassname !== null) {
-                    throw new ConfigurationException("Only one input handler class may be specified.");
+                    throw new Exception\ConfigurationException("Only one input handler class may be specified.");
                 }
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a classname when using the -inputhandler argument";
@@ -435,10 +434,10 @@ class Phing
             } elseif ($arg == "-propertyfile") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a filename when using the -propertyfile argument";
-                    throw new ConfigurationException($msg);
+                    throw new Exception\ConfigurationException($msg);
                 } else {
                     $p = new Properties();
-                    $p->load(new PhingFile($args[++$i]));
+                    $p->load(new File($args[++$i]));
                     foreach ($p->getProperties() as $prop => $value) {
                         $this->setProperty($prop, $value);
                     }
@@ -459,7 +458,7 @@ class Phing
                 // we don't have any more args
                 self::printUsage();
                 self::$err->write(PHP_EOL);
-                throw new ConfigurationException("Unknown argument: " . $arg);
+                throw new Exception\ConfigurationException("Unknown argument: " . $arg);
             } else {
                 // if it's no other arg, it may be the target
                 array_push($this->targets, $arg);
@@ -472,14 +471,14 @@ class Phing
             if ($this->searchForThis !== null) {
                 $this->buildFile = $this->_findBuildFile(self::getProperty("user.dir"), $this->searchForThis);
             } else {
-                $this->buildFile = new PhingFile(self::DEFAULT_BUILD_FILENAME);
+                $this->buildFile = new File(self::DEFAULT_BUILD_FILENAME);
             }
         }
 
         try {
             // make sure buildfile (or buildfile.dist) exists
             if (!$this->buildFile->exists()) {
-                $distFile = new PhingFile($this->buildFile->getAbsolutePath() . ".dist");
+                $distFile = new File($this->buildFile->getAbsolutePath() . ".dist");
                 if (!$distFile->exists()) {
                     throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString(
                         ) . " does not exist!");
@@ -489,7 +488,7 @@ class Phing
 
             // make sure it's not a directory
             if ($this->buildFile->isDirectory()) {
-                throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
+                throw new Exception\ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
             }
         } catch (IOException $e) {
             // something else happened, buildfile probably not readable
@@ -502,17 +501,17 @@ class Phing
     /**
      * Helper to get the parent file for a given file.
      *
-     * @param  PhingFile $file
+     * @param  \Phing\Io\File $file
      *
-     * @return PhingFile Parent file or null if none
+     * @return File Parent file or null if none
      */
-    private function _getParentFile(PhingFile $file)
+    private function _getParentFile(File $file)
     {
         $filename = $file->getAbsolutePath();
-        $file = new PhingFile($filename);
+        $file = new File($filename);
         $filename = $file->getParent();
 
-        return ($filename === null) ? null : new PhingFile($filename);
+        return ($filename === null) ? null : new File($filename);
     }
 
     /**
@@ -528,13 +527,13 @@ class Phing
      *
      * @throws ConfigurationException
      *
-     * @return PhingFile A handle to the build file
+     * @return \Phing\Io\File A handle to the build file
      */
     private function _findBuildFile($start, $suffix)
     {
-        $startf = new PhingFile($start);
-        $parent = new PhingFile($startf->getAbsolutePath());
-        $file = new PhingFile($parent, $suffix);
+        $startf = new File($start);
+        $parent = new File($startf->getAbsolutePath());
+        $file = new File($parent, $suffix);
 
         // check if the target file exists in the current directory
         while (!$file->exists()) {
@@ -547,7 +546,7 @@ class Phing
                 throw new ConfigurationException("Could not locate a build file!");
             }
             // refresh our file handle
-            $file = new PhingFile($parent, $suffix);
+            $file = new File($parent, $suffix);
         }
 
         return $file;
@@ -556,7 +555,7 @@ class Phing
     /**
      * Executes the build.
      *
-     * @throws ConfigurationException
+     * @throws \Phing\Exception\ConfigurationException
      * @throws Exception
      *
      * @return void
@@ -669,7 +668,7 @@ class Phing
      * @return int|void
      *
      * @throws BuildException
-     * @throws ConfigurationException
+     * @throws \Phing\Exception\ConfigurationException
      */
     private function comparePhingVersion($version)
     {
@@ -695,7 +694,7 @@ class Phing
      *
      * @param  Project $project
      * @throws BuildException
-     * @throws ConfigurationException
+     * @throws \Phing\Exception\ConfigurationException
      * @return void
      */
     private function addBuildListeners(Project $project)
@@ -744,7 +743,7 @@ class Phing
                 $msg = "Unable to instantiate specified input handler "
                     . "class " . $this->inputHandlerClassname . " : "
                     . $e->getMessage();
-                throw new ConfigurationException($msg);
+                throw new Exception\ConfigurationException($msg);
             }
         }
         $project->setInputHandler($handler);
@@ -960,11 +959,11 @@ class Phing
             throw new ConfigurationException("No VERSION.TXT file found; try setting phing.home environment variable.");
         }
         try { // try to read file
-            $file = new PhingFile($versionPath);
+            $file = new File($versionPath);
             $reader = new FileReader($file);
             $phingVersion = trim($reader->read());
         } catch (IOException $iox) {
-            throw new ConfigurationException("Can't read version information file");
+            throw new Exception\ConfigurationException("Can't read version information file");
         }
 
         $basePath = dirname(dirname(dirname(__FILE__)));
@@ -1158,7 +1157,7 @@ class Phing
      * @param  string $path Path to the PHP file
      * @param  mixed $classpath String or object supporting __toString()
      *
-     * @throws ConfigurationException
+     * @throws \Phing\Exception\ConfigurationException
      */
     public static function __import($path, $classpath = null)
     {
@@ -1200,7 +1199,7 @@ class Phing
                 $x = new Exception("for-path-trace-only");
                 $msg .= $x->getTraceAsString();
             }
-            throw new ConfigurationException($msg);
+            throw new Exception\ConfigurationException($msg);
         }
     }
 
@@ -1478,7 +1477,7 @@ class Phing
     /**
      * Sets the include path to PHP_CLASSPATH constant (if this has been defined).
      * @return void
-     * @throws ConfigurationException - if the include_path could not be set (for some bizarre reason)
+     * @throws \Phing\Exception\ConfigurationException - if the include_path could not be set (for some bizarre reason)
      */
     private static function setIncludePaths()
     {

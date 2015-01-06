@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\File;
 use Phing\Project;
 
 
@@ -69,7 +70,7 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
         }
 
         // write buffer to a temporary file, since php_strip_whitespace() needs a filename
-        $file = new PhingFile(tempnam(PhingFile::getTempDir(), 'stripwhitespace'));
+        $file = new File(tempnam(File::getTempDir(), 'stripwhitespace'));
         file_put_contents($file->getAbsolutePath(), $php);
         $output = php_strip_whitespace($file->getAbsolutePath());
         unlink($file->getAbsolutePath());

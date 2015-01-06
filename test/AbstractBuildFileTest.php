@@ -4,7 +4,7 @@ namespace Phing\Test;
 
 use PHPUnit_Framework_TestCase;
 use Phing\Project;
-use PhingFile;
+use Phing\Io\File;
 use AssertionFailureException;
 use Description;
 use Phing\Exception\BuildException;
@@ -197,11 +197,11 @@ abstract class AbstractBuildFileTest extends PHPUnit_Framework_TestCase
         $this->fullLogBuffer = "";
         $this->project = new Project();
         $this->project->init();
-        $f = new PhingFile($filename);
+        $f = new File($filename);
         $this->project->setUserProperty("phing.file", $f->getAbsolutePath());
         $this->project->setUserProperty("phing.dir", dirname($f->getAbsolutePath()));
         $this->project->addBuildListener(new PhingTestListener($this));
-        ProjectConfigurator::configureProject($this->project, new PhingFile($filename));
+        ProjectConfigurator::configureProject($this->project, new File($filename));
     }
 
     /**

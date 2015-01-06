@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-namespace Phing;
+namespace Phing\Exception;
 
 use Phing\Parser\Location;
 use Exception;

@@ -20,6 +20,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -150,7 +151,7 @@ class CvsTask extends Task
         // use the same filename.
 
         if ($this->passFile === null) {
-            $defaultPassFile = new PhingFile(Phing::getProperty("cygwin.user.home", Phing::getProperty("user.home"))
+            $defaultPassFile = new File(Phing::getProperty("cygwin.user.home", Phing::getProperty("user.home"))
                 . DIRECTORY_SEPARATOR . ".cvspass");
             if ($defaultPassFile->exists()) {
                 $this->setPassfile($defaultPassFile);
@@ -357,10 +358,10 @@ class CvsTask extends Task
     /**
      * Password file to read passwords from.
      *
-     * @param PhingFile $passFile
+     * @param File $passFile
      * @internal param $passFile
      */
-    public function setPassfile(PhingFile $passFile)
+    public function setPassfile(File $passFile)
     {
         $this->passFile = $passFile;
     }
@@ -376,9 +377,9 @@ class CvsTask extends Task
     /**
      * The directory where the checked out files should be placed.
      *
-     * @param PhingFile $dest
+     * @param File $dest
      */
-    public function setDest(PhingFile $dest)
+    public function setDest(File $dest)
     {
         $this->dest = $dest;
     }
@@ -578,20 +579,20 @@ class CvsTask extends Task
 
     /**
      * File to which output should be written.
-     * @param PhingFile $f
+     * @param File $f
      * @internal param PhingFile $output
      */
-    public function setOutput(PhingFile $f)
+    public function setOutput(File $f)
     {
         $this->output = $f;
     }
 
     /**
      * File to which error output should be written.
-     * @param PhingFile $f
+     * @param File $f
      * @internal param PhingFile $output
      */
-    public function setError(PhingFile $f)
+    public function setError(File $f)
     {
         $this->error = $f;
     }

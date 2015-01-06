@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Phing;
 use Phing\Task;
 
@@ -41,7 +42,7 @@ class PhpDocumentorTask extends Task
     protected $title;
 
     /**
-     * @var PhingFile The target directory for output files.
+     * @var File The target directory for output files.
      */
     protected $destdir;
 
@@ -76,7 +77,7 @@ class PhpDocumentorTask extends Task
     protected $javadocDesc = false;
 
     /**
-     * @var PhingFile Base directory for locating template files.
+     * @var File Base directory for locating template files.
      */
     protected $templateBase;
 
@@ -106,12 +107,12 @@ class PhpDocumentorTask extends Task
     protected $defaultCategoryName;
 
     /**
-     * @var PhingFile Directory in which to look for examples.
+     * @var File Directory in which to look for examples.
      */
     protected $examplesDir;
 
     /**
-     * @var PhingFile Directory in which to look for configuration files.
+     * @var File Directory in which to look for configuration files.
      */
     protected $configDir;
 
@@ -149,9 +150,9 @@ class PhpDocumentorTask extends Task
 
     /**
      * Set the destination directory for the generated documentation
-     * @param PhingFile $destdir
+     * @param File $destdir
      */
-    public function setDestdir(PhingFile $destdir)
+    public function setDestdir(File $destdir)
     {
         $this->destdir = $destdir;
     }
@@ -159,9 +160,9 @@ class PhpDocumentorTask extends Task
     /**
      * Alias for {@link setDestdir()}.
      * @see setDestdir()
-     * @param PhingFile $destdir
+     * @param File $destdir
      */
-    public function setTarget(PhingFile $destdir)
+    public function setTarget(File $destdir)
     {
         $this->setDestdir($destdir);
     }
@@ -242,18 +243,18 @@ class PhpDocumentorTask extends Task
 
     /**
      * Set a directory to search for examples in.
-     * @param PhingFile $d
+     * @param File $d
      */
-    public function setExamplesdir(PhingFile $d)
+    public function setExamplesdir(File $d)
     {
         $this->examplesDir = $d;
     }
 
     /**
      * Set a directory to search for configuration files in.
-     * @param PhingFile $d
+     * @param File $d
      */
-    public function setConfigdir(PhingFile $d)
+    public function setConfigdir(File $d)
     {
         $this->configDir = $d;
     }
@@ -332,10 +333,10 @@ class PhpDocumentorTask extends Task
     /**
      * Set base location of all templates for this parse.
      *
-     * @param PhingFile $oTemplateBase
+     * @param File $oTemplateBase
      * @internal param PhingFile $destdir
      */
-    public function setTemplateBase(PhingFile $oTemplateBase)
+    public function setTemplateBase(File $oTemplateBase)
     {
         $this->templateBase = $oTemplateBase;
     }
@@ -483,7 +484,7 @@ class PhpDocumentorTask extends Task
         foreach ($this->filesets as $fs) {
             $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
             foreach ($files as $filename) {
-                $f = new PhingFile($fs->getDir($this->project), $filename);
+                $f = new File($fs->getDir($this->project), $filename);
                 $filesToParse[] = $f->getAbsolutePath();
             }
         }
@@ -495,7 +496,7 @@ class PhpDocumentorTask extends Task
         foreach ($this->projDocFilesets as $fs) {
             $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
             foreach ($files as $filename) {
-                $f = new PhingFile($fs->getDir($this->project), $filename);
+                $f = new File($fs->getDir($this->project), $filename);
                 $ricFiles[] = $f->getName();
             }
         }

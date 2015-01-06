@@ -20,6 +20,7 @@
  * <http://phing.info>.
  */
 
+use Phing\Io\File;
 use Phing\Test\AbstractBuildFileTest;
 
 
@@ -41,7 +42,7 @@ class MkdirTaskModeTest extends AbstractBuildFileTest
     {
         $this->executeTarget("test");
 
-        $dir = new PhingFile(PHING_TEST_BASE . "/etc/regression/745/testdir");
+        $dir = new File(PHING_TEST_BASE . "/etc/regression/745/testdir");
 
         $mode = $dir->getMode() & 511;
 

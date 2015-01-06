@@ -1,4 +1,10 @@
 <?php
+namespace Phing\Io\Scanner;
+
+use PEAR;
+use PEAR_Config;
+use PEAR_PackageFile;
+use PEAR_PackageFile_v2;
 use Phing\Exception\BuildException;
 
 /**

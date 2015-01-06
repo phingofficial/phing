@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 use Phing\Util\StringHelper;
 
@@ -51,7 +52,7 @@ class CoverageThresholdTask extends Task
     /**
      * Holds an optional database file
      *
-     * @var PhingFile
+     * @var File
      */
     private $_database = null;
 
@@ -130,7 +131,7 @@ class CoverageThresholdTask extends Task
      *
      * @param PhingFile The database file
      */
-    public function setDatabase(PhingFile $database)
+    public function setDatabase(File $database)
     {
         $this->_database = $database;
     }
@@ -405,7 +406,7 @@ class CoverageThresholdTask extends Task
                 );
             }
 
-            $database = new PhingFile($coverageDatabase);
+            $database = new File($coverageDatabase);
         } else {
             $database = $this->_database;
         }

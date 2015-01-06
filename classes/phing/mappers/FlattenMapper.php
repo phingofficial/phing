@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\File;
+
 /**
  *  $Id$
  *
@@ -38,7 +40,7 @@ class FlattenMapper implements FileNameMapper
      */
     public function main($sourceFileName)
     {
-        $f = new PhingFile($sourceFileName);
+        $f = new File($sourceFileName);
 
         return array($f->getName());
     }

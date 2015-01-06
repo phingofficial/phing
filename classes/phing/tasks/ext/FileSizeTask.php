@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\File;
 use Phing\Task;
 
 /**
@@ -35,7 +36,7 @@ class FileSizeTask extends Task
 {
     /**
      * Property for File
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -47,7 +48,7 @@ class FileSizeTask extends Task
 
     /**
      * Which file to calculate the file size of
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file)
     {

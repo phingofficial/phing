@@ -1,4 +1,5 @@
 <?php
+use Phing\Io\Scanner\PearPackageScanner;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -179,7 +180,8 @@ class PearPackageScannerTest extends AbstractBuildFileTest
             . 'packageInfo_Services_Linkback-0.2.0.ser.dat';
 
         $pps = new PearPackageScanner();
-        $prop = new ReflectionProperty('PearPackageScanner', 'packageInfo');
+        $refl = new ReflectionObject($pps);
+        $prop = $refl->getProperty('packageInfo');
         $prop->setAccessible(true);
         $prop->setValue($pps, unserialize(file_get_contents($pkgInfoFile)));
         $pps->setRole('php');

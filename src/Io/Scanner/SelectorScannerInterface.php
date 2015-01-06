@@ -1,6 +1,7 @@
 <?php
+
 /*
- *  $Id$
+ * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,14 +20,34 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Io\Scanner;
 
 /**
- * FileSystem for Windows NT/2000.
- * @package phing.system.io
+ * An interface used to describe the actions required by any type of
+ * directory scanner that supports Selecters.
+ *
+ * @author Hans Lellelid <hans@xmpl.org> (Phing)
+ * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ * @package phing.types.selectors
  */
-class WinNTFileSystem extends Win32FileSystem
+interface SelectorScannerInterface
 {
 
-    /* -- class only for convenience and future use everything is inherinted --*/
+    /**
+     * Sets the selectors the scanner should use.
+     *
+     * @param array $selectors the list of selectors
+     */
+    public function setSelectors($selectors);
+
+    /**
+     * Directories which were selected out of a scan.
+     */
+    public function getDeselectedDirectories();
+
+    /**
+     * Files which were selected out of a scan.
+     */
+    public function getDeselectedFiles();
 
 }
