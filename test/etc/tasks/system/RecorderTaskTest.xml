@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RecorderTaskTest" default="testRecordtoFiles">
+    <target name="testRecordtoFiles">
+        <record name="record.info.log.txt" action="start"/>
+        <echo message="recorder test"/>
+        <record name="record.info.log.txt" action="stop"/>
+        <loadfile property="file.content" file="record.info.log.txt">
+        	<filterchain>
+        		<expandproperties/>
+        	</filterchain>
+        </loadfile>
+        <echo message="${file.info}"/>
+    </target>
+    <target name="cleanup">
+        <delete file="record.info.log.txt"/>
+    </target>
+</project>
