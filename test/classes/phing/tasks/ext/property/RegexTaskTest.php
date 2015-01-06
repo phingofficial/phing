@@ -14,7 +14,7 @@ class RegexTaskTest extends BuildFileTest
     public function setUp()
     {
         $this->configureProject(
-            PHING_TEST_BASE . '/etc/tasks/ext/property/RegexTaskTest.xml'
+            PHING_TEST_BASE . '/etc/tasks/ext/property/RegExTaskTest.xml'
         );
     }
 
