@@ -18,6 +18,13 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
+
+use BufferedReader;
+use Exception;
+use Phing\Parser\ExpatParseException;
+use Phing\Parser\ExpatParser;
+use FileReader;
 use Phing\Exception\BuildException;
 use Phing\IntrospectionHelper;
 use Phing\Project;
@@ -25,7 +32,7 @@ use Phing\Target;
 use Phing\Task;
 use Phing\TaskAdapter;
 use Phing\UnknownElement;
-
+use PhingFile;
 
 /**
  * The datatype handler class.
@@ -65,8 +72,8 @@ class ProjectConfigurator
      * Static call to ProjectConfigurator. Use this to configure a
      * project. Do not use the new operator.
      *
-     * @param  Project $project  the Project instance this configurator should use
-     * @param  PhingFile $buildFile  the buildfile object the parser should use
+     * @param  Project $project the Project instance this configurator should use
+     * @param  PhingFile $buildFile the buildfile object the parser should use
      */
     public static function configureProject(Project $project, PhingFile $buildFile)
     {
@@ -79,7 +86,7 @@ class ProjectConfigurator
      * This constructor is private. Use a static call to
      * <code>configureProject</code> to configure a project.
      *
-     * @param  Project $project     the Project instance this configurator should use
+     * @param  Project $project the Project instance this configurator should use
      * @param  PhingFile $buildFile the buildfile object the parser should use
      */
     public function __construct(Project $project, PhingFile $buildFile)
@@ -166,7 +173,7 @@ class ProjectConfigurator
             $ctx = $this->project->getReference("phing.parsing.context");
             if (null == $ctx) {
                 // make a new context and register it with project
-                $ctx = new PhingXMLContext($this->project);
+                $ctx = new XmlContext($this->project);
                 $this->project->addReference("phing.parsing.context", $ctx);
             }
 
@@ -204,10 +211,10 @@ class ProjectConfigurator
     }
 
     /**
-     * @param PhingXMLContext $ctx
+     * @param XmlContext $ctx
      * @throws ExpatParseException
      */
-    protected function _parse(PhingXMLContext $ctx)
+    protected function _parse(XmlContext $ctx)
     {
         // push action onto global stack
         $ctx->startConfigure($this);
@@ -368,7 +375,7 @@ class ProjectConfigurator
         while (strpos($sb, '${') !== false) {
             $sb = preg_replace_callback(
                 '/\$\{([^\$}]+)\}/',
-                array('ProjectConfigurator', 'replacePropertyCallback'),
+                array('Phing\Parser\ProjectConfigurator', 'replacePropertyCallback'),
                 $sb
             );
 

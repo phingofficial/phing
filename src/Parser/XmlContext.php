@@ -18,6 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
+
 use Phing\Project;
 use Phing\Target;
 
@@ -28,7 +30,7 @@ use Phing\Target;
  * @version   $Id$
  * @package   phing.parser
  */
-class PhingXMLContext
+class XmlContext
 {
 
     /**

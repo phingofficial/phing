@@ -18,7 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
 
+use Phing\Parser\ExpatParseException;
+use PhingFile;
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * Handler class for the <project> XML element This class handles all elements
@@ -39,7 +43,7 @@ class ProjectHandler extends AbstractHandler
     private $configurator;
 
     /**
-     * @var PhingXMLContext
+     * @var XmlContext
      */
     private $context;
 
@@ -49,9 +53,9 @@ class ProjectHandler extends AbstractHandler
      * @param  object  the ExpatParser object
      * @param  object  the parent handler that invoked this handler
      * @param  ProjectConfigurator $configurator the ProjectConfigurator object
-     * @param PhingXMLContext $context
+     * @param XmlContext $context
      */
-    public function __construct($parser, $parentHandler, $configurator, PhingXMLContext $context)
+    public function __construct($parser, $parentHandler, $configurator, XmlContext $context)
     {
         parent::__construct($parser, $parentHandler);
 
@@ -64,7 +68,7 @@ class ProjectHandler extends AbstractHandler
      * this method handles the attributes of a tag.
      *
      * @param  string $tag the tag that comes in
-     * @param  array  $attrs attributes the tag carries
+     * @param  array $attrs attributes the tag carries
      * @throws ExpatParseException if attributes are incomplete or invalid
      */
     public function init($tag, $attrs)
@@ -104,7 +108,7 @@ class ProjectHandler extends AbstractHandler
 
         $canonicalName = self::canonicalName($name);
         $this->configurator->setCurrentProjectName($canonicalName);
-        $path = (string) $this->configurator->getBuildFile();
+        $path = (string)$this->configurator->getBuildFile();
         $project->setUserProperty("phing.file.{$canonicalName}", $path);
         $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
 

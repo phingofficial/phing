@@ -22,7 +22,7 @@ namespace Phing;
 
 use Exception;
 use Phing\Exception\BuildException;
-use ProjectConfigurator;
+use Phing\Parser\ProjectConfigurator;
 
 /**
  *  Wrapper class that holds the attributes of a Task (or elements

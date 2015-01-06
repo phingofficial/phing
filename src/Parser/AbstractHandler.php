@@ -21,6 +21,11 @@
  */
 
 
+namespace Phing\Parser;
+
+use Phing\Parser\ExpatParseException;
+use the;
+
 /**
  * This is an abstract class all SAX handler classes must extend
  *

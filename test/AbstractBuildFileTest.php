@@ -8,7 +8,7 @@ use PhingFile;
 use AssertionFailureException;
 use Description;
 use Phing\Exception\BuildException;
-use ProjectConfigurator;
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * A BuildFileTest is a TestCase which executes targets from a Phing buildfile

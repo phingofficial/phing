@@ -18,10 +18,14 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
+
+use Phing\Parser\ExpatParseException;
+use NestedElementHandler;
 use Phing\Exception\BuildException;
 use Phing\RuntimeConfigurable;
 use Phing\Target;
-
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * Configures a Project (complete with Targets and Tasks) based on
@@ -36,7 +40,6 @@ use Phing\Target;
  * @version   $Id$
  * @package   phing.parser
  */
-
 class DataTypeHandler extends AbstractHandler
 {
 
@@ -47,13 +50,13 @@ class DataTypeHandler extends AbstractHandler
     /**
      * Constructs a new DataTypeHandler and sets up everything.
      *
-     * @param AbstractSAXParser   $parser        The XML parser (default: ExpatParser)
-     * @param AbstractHandler     $parentHandler The parent handler that invoked this handler.
-     * @param ProjectConfigurator $configurator  The ProjectConfigurator object
-     * @param Target              $target        The target object this datatype is contained in (null for top-level datatypes).
+     * @param AbstractSaxParser $parser The XML parser (default: ExpatParser)
+     * @param AbstractHandler $parentHandler The parent handler that invoked this handler.
+     * @param ProjectConfigurator $configurator The ProjectConfigurator object
+     * @param Target $target The target object this datatype is contained in (null for top-level datatypes).
      */
     public function __construct(
-        AbstractSAXParser $parser,
+        AbstractSaxParser $parser,
         AbstractHandler $parentHandler,
         ProjectConfigurator $configurator,
         $target = null

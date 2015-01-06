@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Parser\Location;
 use Phing\Project;
 use Phing\Task;
 

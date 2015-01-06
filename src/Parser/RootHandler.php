@@ -18,7 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
 
+use Phing\Parser\ExpatParseException;
+use Phing\Parser\ProjectConfigurator;
+use Phing\Parser\ProjectHandler;
 
 /**
  * Root filter class for a phing buildfile.
@@ -40,7 +44,7 @@ class RootHandler extends AbstractHandler
     private $configurator;
 
     /**
-     * @var PhingXMLContext
+     * @var XmlContext
      */
     private $context;
 
@@ -53,11 +57,11 @@ class RootHandler extends AbstractHandler
      * It recieves the expat parse object ref and a reference to the
      * configurator
      *
-     * @param AbstractSAXParser $parser The ExpatParser object.
+     * @param AbstractSaxParser $parser The ExpatParser object.
      * @param ProjectConfigurator $configurator The ProjectConfigurator object.
-     * @param PhingXMLContext $context
+     * @param XmlContext $context
      */
-    public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, PhingXMLContext $context)
+    public function __construct(AbstractSaxParser $parser, ProjectConfigurator $configurator, XmlContext $context)
     {
         $this->configurator = $configurator;
         $this->context = $context;
@@ -73,8 +77,8 @@ class RootHandler extends AbstractHandler
      * to handle any nested tags & attributes of the &lt;project&gt; tag,
      * and calls init.
      *
-     * @param  string              $tag   The xml tagname
-     * @param  array               $attrs The attributes of the tag
+     * @param  string $tag The xml tagname
+     * @param  array $attrs The attributes of the tag
      * @throws ExpatParseException if the first element within our build file
      *                                   is not the &gt;project&lt; element
      */

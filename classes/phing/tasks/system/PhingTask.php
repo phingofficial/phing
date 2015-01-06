@@ -21,6 +21,7 @@
 */
 
 use Phing\Exception\BuildException;
+use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
 use Phing\Project;
 use Phing\ProjectComponent;

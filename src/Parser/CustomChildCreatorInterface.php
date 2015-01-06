@@ -1,5 +1,9 @@
 <?php
-/*
+namespace Phing\Parser;
+
+use Phing\Project;
+
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,16 +22,22 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\Exception\BuildException;
-
 
 /**
- * This class throws errors for Expat, the XML processor.
+ * Interface for elements that want to be able to create custom child elements
+ * at runtime.
  *
- * @author   Andreas Aderhold, andi@binarycloud.com
- * @version  $Id$
- * @package  phing.parser
+ * @author keith.rogers@unit4.com
+ * @package phing.parser
  */
-class ExpatParseException extends BuildException
+interface CustomChildCreatorInterface
 {
+    /**
+     * Creates the object for the child element
+     *
+     * @param  string $elementName the name of the element that has been requested
+     * @param  Project $project The project the element is in
+     * @return object  Returns the nested element
+     */
+    public function customChildCreator($elementName, Project $project);
 }

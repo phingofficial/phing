@@ -21,7 +21,7 @@
 
 namespace Phing;
 
-use Location;
+use Phing\Parser\Location;
 use Exception;
 
 /**

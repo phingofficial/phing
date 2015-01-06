@@ -21,7 +21,7 @@
 
 namespace Phing\Exception;
 
-use Location;
+use Phing\Parser\Location;
 use Exception;
 
 /**
@@ -36,7 +36,7 @@ class BuildException extends Exception
 
     /**
      * Location in the xml file.
-     * @var Location
+     * @var \Phing\Parser\Location
      */
     protected $location;
 
@@ -57,7 +57,7 @@ class BuildException extends Exception
      *         throw new BuildException($msg, $causeExc, $loc);
      * @param Exception|string $p1
      * @param Location|Exception|null $p2
-     * @param Location|null $p3
+     * @param \Phing\Parser\Location|null $p3
      */
     public function __construct($p1, $p2 = null, $p3 = null)
     {
@@ -124,7 +124,7 @@ class BuildException extends Exception
     /**
      * Sets the location of error in XML file.
      *
-     * @param Location $loc
+     * @param \Phing\Parser\Location $loc
      */
     public function setLocation(Location $loc)
     {

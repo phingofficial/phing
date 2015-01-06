@@ -21,7 +21,7 @@
 namespace Phing;
 
 use Exception;
-use Location;
+use Phing\Parser\Location;
 use Phing\Exception\BuildException;
 use Reference;
 use Phing\Util\Register;
@@ -67,7 +67,7 @@ abstract class Task extends ProjectComponent
 
     /**
      * Stored buildfile location
-     * @var Location
+     * @var \Phing\Parser\Location
      */
     protected $location;
 
@@ -219,7 +219,7 @@ abstract class Task extends ProjectComponent
      * Returns the location within the buildfile this task occurs. Used
      * by {@link BuildException} to give detailed error messages.
      *
-     * @return Location The location object describing the position of this
+     * @return \Phing\Parser\Location The location object describing the position of this
      *                  task within the buildfile.
      */
     public function getLocation()

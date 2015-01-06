@@ -18,6 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
+
+use Phing\Parser\ExpatParseException;
 use Phing\Exception\BuildException;
 use Phing\RuntimeConfigurable;
 use Phing\UnknownElement;

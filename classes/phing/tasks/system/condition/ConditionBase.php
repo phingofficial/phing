@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Parser\CustomChildCreatorInterface;
 use Phing\Project;
 use Phing\ProjectComponent;
 
@@ -35,7 +36,7 @@ use Phing\ProjectComponent;
  * @package   phing.tasks.system.condition
  */
 abstract class ConditionBase extends ProjectComponent
-    implements IteratorAggregate, CustomChildCreator
+    implements IteratorAggregate, CustomChildCreatorInterface
 {
 
     public $conditions = array(); // needs to be public for "inner" class access

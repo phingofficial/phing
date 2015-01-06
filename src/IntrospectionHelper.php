@@ -29,9 +29,8 @@ use Phing\ProjectComponent;
 use Reference;
 use ReflectionClass;
 use Phing\Util\Register;
-use string;
 use Phing\Util\StringHelper;
-
+use Phing\Parser\CustomChildCreatorInterface;
 
 /**
  * Helper class that collects the methods that a task or nested element
@@ -480,7 +479,7 @@ class IntrospectionHelper
             } catch (Exception $exc) {
                 throw new BuildException($exc);
             }
-        } elseif ($this->bean->implementsInterface("CustomChildCreator")) {
+        } elseif ($this->bean->implementsInterface(CustomChildCreatorInterface::class)) {
             $method = $this->bean->getMethod('customChildCreator');
 
             try {

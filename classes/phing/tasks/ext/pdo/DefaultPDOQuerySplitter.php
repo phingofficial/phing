@@ -1,4 +1,5 @@
 <?php
+use Phing\Parser\ProjectConfigurator;
 use Phing\Util\StringHelper;
 
 /**

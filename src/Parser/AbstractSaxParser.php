@@ -18,6 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
+
+use Exception;
 
 /**
  * The abstract SAX parser class.
@@ -31,7 +34,7 @@
  * @version   $Id$
  * @package   phing.parser
  */
-abstract class AbstractSAXParser
+abstract class AbstractSaxParser
 {
 
     /** The AbstractHandler object. */
@@ -109,8 +112,8 @@ abstract class AbstractSAXParser
      * It gives control to the current active handler object by calling the
      * <code>characters()</code> method. That processes the given CDATA.
      *
-     * @param  resource  $parser php's internal parser handle.
-     * @param  string    $data   the CDATA
+     * @param  resource $parser php's internal parser handle.
+     * @param  string $data the CDATA
      * @throws Exception - Exceptions may be thrown by the Handler
      */
     public function characters($parser, $data)

@@ -31,21 +31,12 @@ use IOException;
 use OutputStream;
 use PhingFile;
 use Phing\Project;
-use ProjectConfigurator;
+use Phing\Parser\ProjectConfigurator;
 use Properties;
 use SebastianBergmann\Version;
 use StreamRequiredBuildLogger;
 use Phing\Util\StringHelper;
 use Phing\Util\Timer;
-
-include_once 'phing/parser/Location.php';
-include_once 'phing/parser/ExpatParser.php';
-include_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/parser/ProjectConfigurator.php';
-include_once 'phing/parser/RootHandler.php';
-include_once 'phing/parser/ProjectHandler.php';
-include_once 'phing/parser/TargetHandler.php';
-include_once 'phing/parser/DataTypeHandler.php';
 
 include_once 'phing/system/util/Properties.php';
 include_once 'phing/system/io/PhingFile.php';

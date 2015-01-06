@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Parser;
+
 /**
  * Stores the file name and line number of a XML file
  *
@@ -27,7 +29,6 @@
  * @version   $Id$
  * @package   phing.parser
  */
-
 class Location
 {
 
@@ -68,7 +69,7 @@ class Location
             $buf .= ":" . $this->columnNumber;
         }
 
-        return (string) $buf;
+        return (string)$buf;
     }
 
     /**

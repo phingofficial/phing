@@ -18,11 +18,14 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Parser;
+
+use Phing\Parser\ExpatParseException;
 use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Target;
 use Phing\Util\StringHelper;
-
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * The target handler class.
@@ -54,19 +57,19 @@ class TargetHandler extends AbstractHandler
     /**
      * Constructs a new TargetHandler
      *
-     * @param AbstractSAXParser $parser
+     * @param AbstractSaxParser $parser
      * @param AbstractHandler $parentHandler
      * @param ProjectConfigurator $configurator
-     * @param PhingXMLContext $context
+     * @param XmlContext $context
      * @internal param the $object ExpatParser object
      * @internal param the $object parent handler that invoked this handler
      * @internal param the $object ProjectConfigurator object
      */
     public function __construct(
-        AbstractSAXParser $parser,
+        AbstractSaxParser $parser,
         AbstractHandler $parentHandler,
         ProjectConfigurator $configurator,
-        PhingXMLContext $context
+        XmlContext $context
     ) {
         parent::__construct($parser, $parentHandler);
         $this->configurator = $configurator;
@@ -106,25 +109,25 @@ class TargetHandler extends AbstractHandler
         foreach ($attrs as $key => $value) {
             switch ($key) {
                 case "name":
-                    $name = (string) $value;
+                    $name = (string)$value;
                     break;
                 case "depends":
-                    $depends = (string) $value;
+                    $depends = (string)$value;
                     break;
                 case "if":
-                    $ifCond = (string) $value;
+                    $ifCond = (string)$value;
                     break;
                 case "unless":
-                    $unlessCond = (string) $value;
+                    $unlessCond = (string)$value;
                     break;
                 case "id":
-                    $id = (string) $value;
+                    $id = (string)$value;
                     break;
                 case "hidden":
                     $isHidden = ($value == 'true' || $value == '1') ? true : false;
                     break;
                 case "description":
-                    $description = (string) $value;
+                    $description = (string)$value;
                     break;
                 case "logskipped":
                     $logskipped = $value;
@@ -187,7 +190,7 @@ class TargetHandler extends AbstractHandler
                 $project->log("Adding $name as $namespacedName.", Project::MSG_DEBUG);
                 $project->addTarget($namespacedName, $this->target);
                 $targetAdded = true;
-           }
+            }
         }
 
         if ($targetAdded && $id) {

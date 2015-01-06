@@ -11,7 +11,7 @@ use InputHandler;
 use IOException;
 use Phing\Exception\BuildException;
 use PhingFile;
-use ProjectConfigurator;
+use Phing\Parser\ProjectConfigurator;
 use Properties;
 use PropertyValue;
 use Phing\Util\StringHelper;
