@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * Encapsulates an input request.
@@ -39,7 +39,7 @@ class InputRequest
 
     /**
      * @param string $prompt The prompt to show to the user.  Must not be null.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function __construct($prompt)
     {

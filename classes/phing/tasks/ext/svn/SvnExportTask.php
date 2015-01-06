@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * $Id$
@@ -46,7 +46,7 @@ class SvnExportTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

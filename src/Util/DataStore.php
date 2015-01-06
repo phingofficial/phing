@@ -22,7 +22,7 @@
 namespace Phing\Util;
 
 use FileWriter;
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use PhingFile;
 
 
@@ -108,7 +108,7 @@ class DataStore
     /**
      * Internal function to read data store from file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return none
      */
     private function read()
@@ -126,7 +126,7 @@ class DataStore
     /**
      * Internal function to write data store to file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return none
      */
     private function write()

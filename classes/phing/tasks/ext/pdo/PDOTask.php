@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -143,7 +143,7 @@ abstract class PDOTask extends Task
      * Creates a new Connection as using the driver, url, userid and password specified.
      * The calling method is responsible for closing the connection.
      * @return Connection     the newly created connection.
-     * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
+     * @throws \Phing\Exception\BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
      */
     protected function getConnection()
     {

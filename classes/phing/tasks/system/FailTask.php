@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 
 /**
@@ -91,7 +91,7 @@ class FailTask extends Task
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

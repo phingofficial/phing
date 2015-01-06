@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * $Id$
@@ -51,7 +51,7 @@ class PhpDependAnalyzerElement
      *
      * @param string $type Type of the analyzer
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setType($type)
     {

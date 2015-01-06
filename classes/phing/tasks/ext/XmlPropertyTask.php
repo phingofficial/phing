@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Util\StringHelper;
 
@@ -173,7 +173,7 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      * @param PhingFile $file
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return Properties
      */
     protected function loadFile(PhingFile $file)

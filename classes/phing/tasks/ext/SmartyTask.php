@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
@@ -465,7 +465,7 @@ class SmartyTask extends Task
     /**
      * Execute the input script with Velocity
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *                        BuildExceptions are thrown when required attributes are missing.
      *                        Exceptions thrown by Velocity are rethrown as BuildExceptions.
      */

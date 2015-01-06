@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -450,7 +450,7 @@ class CopyTask extends Task
      * Actually copies the files
      *
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function doWork()
     {

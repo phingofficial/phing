@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Target;
 use Phing\Util\StringHelper;
@@ -87,7 +87,7 @@ class TargetHandler extends AbstractHandler
      *
      * @param $tag
      * @param $attrs
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws ExpatParseException
      * @internal param the $string tag that comes in
      * @internal param attributes $array the tag carries

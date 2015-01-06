@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -109,7 +109,7 @@ class ForeachTask extends Task
 
     /**
      * This method does the work.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function main()
@@ -337,7 +337,7 @@ class ForeachTask extends Task
      * Nested creator, creates one Mapper for this task
      *
      * @return object         The created Mapper type object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createMapper()
     {

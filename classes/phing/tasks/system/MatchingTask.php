@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -149,7 +149,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Returns the directory scanner needed to access the files to process.
      * @param PhingFile $baseDir
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return DirectoryScanner
      */
     protected function getDirectoryScanner(PhingFile $baseDir)

@@ -1,4 +1,5 @@
 <?php
+use Phing\Exception\NullPointerException;
 use Phing\Phing;
 use Phing\Util\StringHelper;
 

@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Task;
 
@@ -351,7 +351,7 @@ class PhpDocumentorTask extends Task
 
     /**
      * Searches include_path for PhpDocumentor install and adjusts include_path appropriately.
-     * @throws BuildException - if unable to find PhpDocumentor on include_path
+     * @throws \Phing\Exception\BuildException - if unable to find PhpDocumentor on include_path
      */
     protected function findPhpDocumentorInstall()
     {
@@ -379,7 +379,7 @@ class PhpDocumentorTask extends Task
      * Main entrypoint of the task
      * Loads the necessary environment for running PhpDoc, then runs PhpDoc
      *
-     * @throws BuildException - if the phpdoc classes can't be loaded.
+     * @throws \Phing\Exception\BuildException - if the phpdoc classes can't be loaded.
      */
     public function main()
     {
@@ -397,7 +397,7 @@ class PhpDocumentorTask extends Task
 
     /**
      * Validates that necessary minimum options have been set.
-     * @throws BuildException if validation doesn't pass
+     * @throws \Phing\Exception\BuildException if validation doesn't pass
      */
     protected function validate()
     {

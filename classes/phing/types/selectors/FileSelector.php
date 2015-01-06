@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * This is the interface to be used by all selectors.
@@ -41,7 +41,7 @@ interface FileSelector
      * @param string $filename The name of the file to check
      * @param PhingFile $file A PhingFile object for this filename
      * @return whether        the file should be selected or not
-     * @throws BuildException if the selector was not configured correctly
+     * @throws \Phing\Exception\BuildException if the selector was not configured correctly
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file);
 

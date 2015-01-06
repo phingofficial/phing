@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 use Phing\Util\StringHelper;
 
@@ -104,7 +104,7 @@ class InputTask extends Task
 
     /**
      * Actual method executed by phing.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

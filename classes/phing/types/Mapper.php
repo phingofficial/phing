@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
 
@@ -120,7 +120,7 @@ class Mapper extends DataType
 
     /** Set the class name of the FileNameMapper to use.
      * @param $classname
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setClassname($classname)
     {
@@ -146,7 +146,7 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setTo
      * @param $to
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setTo($to)
     {
@@ -161,7 +161,7 @@ class Mapper extends DataType
      *
      * You must not set any other attribute if you make it a reference.
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setRefid(Reference $r)
     {

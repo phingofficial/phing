@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -302,7 +302,7 @@ class SshTask extends Task
      * command, stores output data, checks for errors and
      * closes the streams properly.
      * @param $stream
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function handleStream($stream)
     {

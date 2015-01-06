@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 
 
@@ -122,7 +122,7 @@ class ExtendSelector extends BaseSelector
      * @param string $filename The filename
      * @param PhingFile $file
      * @return \whether
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {

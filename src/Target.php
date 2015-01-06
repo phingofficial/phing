@@ -20,6 +20,7 @@
  */
 namespace Phing;
 
+use Phing\Exception\BuildException;
 use ProjectConfigurator;
 
 

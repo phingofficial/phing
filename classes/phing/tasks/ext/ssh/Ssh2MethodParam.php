@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -64,7 +64,7 @@ class Ssh2MethodParam extends DataType
 
     /**
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return string
      */
     public function getHostkey(Project $p)
@@ -86,7 +86,7 @@ class Ssh2MethodParam extends DataType
 
     /**
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return string
      */
     public function getKex(Project $p)
@@ -100,7 +100,7 @@ class Ssh2MethodParam extends DataType
 
     /**
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return \Ssh2MethodConnectionParam
      */
     public function getClientToServer(Project $p)
@@ -184,7 +184,7 @@ class Ssh2MethodParam extends DataType
     /**
      *
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return Ssh2MethodParam
      */
     public function getRef(Project $p)

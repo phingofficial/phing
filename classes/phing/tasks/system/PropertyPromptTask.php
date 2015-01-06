@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -76,7 +76,7 @@ class PropertyPromptTask extends Task
 
     /**
      * Run the PropertyPrompt task.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

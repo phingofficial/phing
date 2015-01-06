@@ -9,6 +9,7 @@ use FileSystem;
 use FileUtils;
 use InputHandler;
 use IOException;
+use Phing\Exception\BuildException;
 use PhingFile;
 use ProjectConfigurator;
 use Properties;

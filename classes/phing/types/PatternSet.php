@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -44,7 +44,7 @@ class PatternSet extends DataType
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setRefid(Reference $r)
     {
@@ -58,7 +58,7 @@ class PatternSet extends DataType
      * Add a name entry on the include list
      *
      * @return PatternSetNameEntry Reference to object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createInclude()
     {
@@ -88,7 +88,7 @@ class PatternSet extends DataType
      * Add a name entry on the exclude list
      *
      * @return PatternSetNameEntry Reference to object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createExclude()
     {
@@ -103,7 +103,7 @@ class PatternSet extends DataType
      * add a name entry on the exclude files list
      *
      * @return PatternSetNameEntry Reference to object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createExcludesFile()
     {
@@ -120,7 +120,7 @@ class PatternSet extends DataType
      *
      * @param  string $includes the string containing the include patterns
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setIncludes($includes)
     {
@@ -143,7 +143,7 @@ class PatternSet extends DataType
      *
      * @param  string the string containing the exclude patterns
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setExcludes($excludes)
     {
@@ -178,7 +178,7 @@ class PatternSet extends DataType
      *
      * @param File|PhingFile $includesFile file to fetch the include patterns from.
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setIncludesFile($includesFile)
     {
@@ -218,7 +218,7 @@ class PatternSet extends DataType
      * @param $patternlist
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function readPatterns(PhingFile $patternfile, &$patternlist, Project $p)
     {
@@ -255,7 +255,7 @@ class PatternSet extends DataType
      * @param $other
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function append($other, $p)
     {
@@ -285,7 +285,7 @@ class PatternSet extends DataType
      *
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return array
      */
@@ -307,7 +307,7 @@ class PatternSet extends DataType
      *
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return array
      */
@@ -341,7 +341,7 @@ class PatternSet extends DataType
      *
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return Reference
      */
@@ -392,7 +392,7 @@ class PatternSet extends DataType
      *
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function readFiles(Project $p)
     {

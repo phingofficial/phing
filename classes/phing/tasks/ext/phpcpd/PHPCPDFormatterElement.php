@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Util\StringHelper;
 
 /**
@@ -82,7 +82,7 @@ class PHPCPDFormatterElement
      *
      * @param string $type Type of the formatter
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setType($type)
     {

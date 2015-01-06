@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -129,7 +129,7 @@ class ChownTask extends Task
 
     /**
      * Ensure that correct parameters were passed in.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     private function checkParams()
@@ -204,7 +204,7 @@ class ChownTask extends Task
      * @param PhingFile $file
      * @param string $user
      * @param string $group
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws Exception
      */
     private function chownFile(PhingFile $file, $user, $group = "")

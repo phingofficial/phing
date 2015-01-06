@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -350,7 +350,7 @@ class rSTTask extends Task
      *
      * @return void
      *
-     * @throws BuildException When the format is not supported
+     * @throws \Phing\Exception\BuildException When the format is not supported
      */
     public function setFormat($format)
     {

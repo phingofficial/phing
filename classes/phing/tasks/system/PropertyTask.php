@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
@@ -358,7 +358,7 @@ class PropertyTask extends Task
      * iterate through a set of properties,
      * resolve them then assign them
      * @param $props
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function addProperties($props)
     {
@@ -403,7 +403,7 @@ class PropertyTask extends Task
     /**
      * load properties from a file.
      * @param PhingFile $file
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function loadFile(PhingFile $file)
     {

@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -93,7 +93,7 @@ class ImportTask extends Task
      * Parse a Phing build file and copy the properties, tasks, data types and
      * targets it defines into the current project.
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function main()

@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * Part of phing, the PHP build tool
@@ -51,7 +51,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @param string $descfile Name of package xml file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function setDescFile($descfile)
@@ -94,7 +94,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @param string $config Configuration file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function setConfig($config)
@@ -163,7 +163,7 @@ class PearPackageScanner extends DirectoryScanner
      *
      * @return PEAR_PackageFile_v2 Package information object
      *
-     * @throws BuildException When the package does not exist
+     * @throws \Phing\Exception\BuildException When the package does not exist
      */
     protected function loadPackageInfo()
     {

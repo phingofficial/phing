@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 
 /**
@@ -53,7 +53,7 @@ class PhingFilterReader extends DataType
     /**
      * Set the classpath to load the FilterReader through (attribute).
      * @param Path $classpath
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setClasspath(Path $classpath)
     {
@@ -72,7 +72,7 @@ class PhingFilterReader extends DataType
     */
     /**
      * @return Path
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createClasspath()
     {
@@ -93,7 +93,7 @@ class PhingFilterReader extends DataType
 
     /**
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setClasspathRef(Reference $r)
     {

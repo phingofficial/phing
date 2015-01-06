@@ -19,9 +19,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Exception;
+
+use Exception;
+
 /**
  * @package phing.system.lang
  */
-class NullPointerException extends Exception
+class SecurityException extends Exception
 {
 }

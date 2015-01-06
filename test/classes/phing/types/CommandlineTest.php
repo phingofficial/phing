@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * Unit test for mappers.

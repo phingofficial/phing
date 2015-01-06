@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Task;
 
@@ -108,7 +108,7 @@ class PHPUnitReportTask extends Task
 
     /**
      * Returns the path to the XSL stylesheet
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function getStyleSheet()
     {
@@ -140,7 +140,7 @@ class PHPUnitReportTask extends Task
     /**
      * Transforms the DOM document
      * @param DOMDocument $document
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws IOException
      */
     protected function transform(DOMDocument $document)
@@ -242,7 +242,7 @@ class PHPUnitReportTask extends Task
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

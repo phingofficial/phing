@@ -18,7 +18,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -473,7 +473,7 @@ class ApplyTask extends Task
 
     /**
      * Do work
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

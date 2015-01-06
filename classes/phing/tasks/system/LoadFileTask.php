@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 
 /**
@@ -96,7 +96,7 @@ class LoadFileTask extends Task
      * Main method
      *
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

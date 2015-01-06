@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * Condition interface specification:
@@ -34,7 +34,7 @@ interface Condition
 {
     /**
      * @return boolean
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function evaluate();
 }

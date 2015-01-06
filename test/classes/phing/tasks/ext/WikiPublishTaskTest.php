@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
 /**

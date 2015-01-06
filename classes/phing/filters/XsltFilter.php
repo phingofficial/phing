@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Util\RegisterSlot;
 
@@ -195,7 +195,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      * @param null $len
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return string         transformed buffer.
      */
     public function read($len = null)
@@ -261,7 +261,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      *
      * @return string
      *
-     * @throws BuildException On XSLT errors
+     * @throws \Phing\Exception\BuildException On XSLT errors
      */
     protected function process($xml, $xsl)
     {

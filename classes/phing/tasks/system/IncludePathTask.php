@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -97,7 +97,7 @@ class IncludePathTask extends Task
     /**
      * Reference to a classpath to use when loading the files.
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setClasspathRef(Reference $r)
     {
@@ -107,7 +107,7 @@ class IncludePathTask extends Task
 
     /**
      * @param $mode
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setMode($mode)
     {

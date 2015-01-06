@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 
 /**
@@ -184,7 +184,7 @@ class S3PutTask extends Service_Amazon_S3
 
     /**
      * @param $object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setObject($object)
     {
@@ -387,7 +387,7 @@ class S3PutTask extends Service_Amazon_S3
     /**
      * Store the object on S3
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function execute()

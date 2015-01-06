@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -99,7 +99,7 @@ class XmlLintTask extends Task
      *
      * {@inheritdoc}
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return void
      */
@@ -134,7 +134,7 @@ class XmlLintTask extends Task
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function logError($message)
     {

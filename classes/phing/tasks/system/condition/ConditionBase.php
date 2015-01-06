@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\ProjectComponent;
 
@@ -210,7 +210,7 @@ abstract class ConditionBase extends ProjectComponent
     /**
      * @param  string         $elementName
      * @param  Project        $project
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return Condition
      */
     public function customChildCreator($elementName, Project $project)

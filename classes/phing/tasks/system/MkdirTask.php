@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 
 
@@ -55,7 +55,7 @@ class MkdirTask extends Task
     /**
      * create the directory and all parents
      *
-     * @throws BuildException if dir is somehow invalid, or creation failed.
+     * @throws \Phing\Exception\BuildException if dir is somehow invalid, or creation failed.
      */
     public function main()
     {

@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\ProjectComponent;
 
 
@@ -48,7 +48,7 @@ class IsTrueCondition extends ProjectComponent implements Condition
 
     /**
      * return the inverted value;
-     * @throws BuildException if someone forgot to spec a value
+     * @throws \Phing\Exception\BuildException if someone forgot to spec a value
      */
     public function evaluate()
     {

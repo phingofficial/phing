@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Test\AbstractBuildFileTest;
 
@@ -105,7 +105,7 @@ class GrowlNotifyTaskTest extends AbstractBuildFileTest
     /**
      * Test for required message attribute
      *
-     * @expectedException        Phing\BuildException
+     * @expectedException        \Phing\Exception\BuildException
      * @expectedExceptionMessage "message" attribute cannot be empty
      * @return void
      */

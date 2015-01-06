@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -220,7 +220,7 @@ class ZipTask extends MatchingTask
 
     /**
      * @return array
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function areFilesetsUpToDate()
     {

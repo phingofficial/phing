@@ -22,6 +22,7 @@ namespace Phing;
 
 use Exception;
 use Location;
+use Phing\Exception\BuildException;
 use Reference;
 use Phing\Util\Register;
 

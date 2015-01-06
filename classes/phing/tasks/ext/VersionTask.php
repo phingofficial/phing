@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 
 /**
@@ -91,7 +91,7 @@ class VersionTask extends Task
      * Main-Method for the Task
      *
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -164,7 +164,7 @@ class VersionTask extends Task
     /**
      * checks releasetype attribute
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function checkReleasetype()
     {
@@ -190,7 +190,7 @@ class VersionTask extends Task
     /**
      * checks file attribute
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function checkFile()
     {
@@ -217,7 +217,7 @@ class VersionTask extends Task
     /**
      * checks property attribute
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function checkProperty()
     {

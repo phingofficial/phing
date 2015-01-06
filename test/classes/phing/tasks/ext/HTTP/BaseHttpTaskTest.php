@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Target;
 use Phing\Test\AbstractBuildFileTest;
 use Phing\UnknownElement;
@@ -68,7 +68,7 @@ abstract class BaseHttpTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Required attribute 'url' is missing
      */
     public function testMissingUrl()

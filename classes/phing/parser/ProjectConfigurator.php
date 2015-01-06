@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\IntrospectionHelper;
 use Phing\Project;
 use Phing\Target;
@@ -156,7 +156,7 @@ class ProjectConfigurator
      * Creates the ExpatParser, sets root handler and kick off parsing
      * process.
      *
-     * @throws BuildException if there is any kind of execption during
+     * @throws \Phing\Exception\BuildException if there is any kind of execption during
      *                        the parsing process
      */
     protected function parse()

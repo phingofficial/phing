@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 
 /**
@@ -71,7 +71,7 @@ class VersionCompareCondition implements Condition
 
     /**
      * @param $operator
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setOperator($operator)
     {
@@ -96,7 +96,7 @@ class VersionCompareCondition implements Condition
 
     /**
      * @return mixed
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function evaluate()
     {

@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;
@@ -133,7 +133,7 @@ class CvsTask extends Task
     /**
      * Sets up the environment for toExecute and then runs it.
      * @param  Commandline    $toExecute
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function runCommand(Commandline $toExecute)
     {

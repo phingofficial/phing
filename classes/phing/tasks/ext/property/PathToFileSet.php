@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 
 include_once 'phing/system/io/PhingFile.php';

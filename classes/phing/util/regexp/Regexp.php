@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 /**
  * A factory class for regex functions.
@@ -56,7 +56,7 @@ class Regexp
     /**
      * Constructor sets the regex engine to use (preg by default).
      * @param string $engineType
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @internal param string $_engineType The regex engine to use.
      */
     public function __construct($engineType = 'preg')

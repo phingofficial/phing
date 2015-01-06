@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -88,7 +88,7 @@ class FileList extends DataType
     /**
      * Base directory for files in list.
      * @param PhingFile $dir
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setDir(PhingFile $dir)
     {
@@ -121,7 +121,7 @@ class FileList extends DataType
     /**
      * Set the array of files in list.
      * @param array $filenames
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setFiles($filenames)
     {

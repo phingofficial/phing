@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 /**
@@ -104,7 +104,7 @@ class CoverageMerger
     /**
      * @param $project
      * @return array
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public static function getWhiteList($project)
     {

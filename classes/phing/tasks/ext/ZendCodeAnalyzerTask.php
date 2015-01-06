@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -171,7 +171,7 @@ class ZendCodeAnalyzerTask extends Task
      * Analyze file
      *
      * @param  string $file
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     protected function analyze($file)

@@ -19,7 +19,7 @@
 
 namespace Phing;
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\BuildLoggerInterface;
 use Phing\ConfigurationException;
 use DefaultInputHandler;
@@ -1117,7 +1117,7 @@ class Phing
      *
      * @return string         The unqualified classname (which can be instantiated).
      *
-     * @throws BuildException - if cannot find the specified file
+     * @throws \Phing\Exception\BuildException - if cannot find the specified file
      */
     public static function import($dotPath, $classpath = null)
     {

@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 /**
@@ -359,7 +359,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      * a test suite.
      *
      * @param string $message
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function runFailed($message)
     {

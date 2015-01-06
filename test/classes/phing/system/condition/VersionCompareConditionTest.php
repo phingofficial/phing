@@ -46,7 +46,7 @@ class VersionCompareConditionTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      */
     public function testCanNotUseUnsupportedOperator()
     {

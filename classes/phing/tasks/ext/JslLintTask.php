@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\DataStore;
@@ -140,7 +140,7 @@ class JslLintTask extends Task
     /**
      * @param string $path
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setExecutable($path)
     {
@@ -240,7 +240,7 @@ class JslLintTask extends Task
      *
      * @param  string $file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return bool|void
      */

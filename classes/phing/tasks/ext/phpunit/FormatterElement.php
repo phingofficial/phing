@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Task;
 
@@ -148,7 +148,7 @@ class FormatterElement
 
     /**
      * Returns formatter object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return PHPUnitResultFormatter
      */
     public function getFormatter()

@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -266,7 +266,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Sets the fetch mode to use for the PDO resultset.
      * @param mixed $mode The PDO fetchmode integer or constant name.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setFetchmode($mode)
     {
@@ -435,7 +435,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * read in lines and execute them
      * @param Reader $reader
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function runStatements(Reader $reader)
     {
@@ -480,7 +480,7 @@ class PDOSQLExecTask extends PDOTask
      *
      * @param $sql
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws Exception
      */
     protected function execSQL($sql)

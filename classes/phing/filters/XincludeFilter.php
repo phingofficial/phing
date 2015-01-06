@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -93,7 +93,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Reads stream, applies XSLT and returns resulting stream.
      * @param null $len
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return string         transformed buffer.
      */
     public function read($len = null)
@@ -143,7 +143,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      * @param   string  XML to process.
      *
      * @return string
-     * @throws BuildException On errors
+     * @throws \Phing\Exception\BuildException On errors
      */
     protected function process($xml)
     {

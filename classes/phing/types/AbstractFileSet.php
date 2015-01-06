@@ -22,7 +22,7 @@
 
 // Load all of the selectors (not really necessary but
 // helps reveal parse errors right away)
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -102,7 +102,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setRefid(Reference $r)
     {
@@ -120,7 +120,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /**
      * @param $dir
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setDir($dir)
     {
@@ -213,7 +213,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      * @param $includes
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setIncludes($includes)
     {
@@ -255,7 +255,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the name of the file containing the includes patterns.
      *
      * @param $excl The file to fetch the exclude patterns from.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setExcludesfile($excl)
     {
@@ -293,7 +293,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /** returns a reference to the dirscanner object belonging to this fileset
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws Exception
      * @return \DirectoryScanner
      */
@@ -368,7 +368,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      *
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return FileSet
      */
@@ -454,7 +454,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Returns the set of selectors as an array.
      *
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return array of selectors in this container
      */
     public function getSelectors(Project $p)
@@ -491,7 +491,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      *
      * @param FileSelector $selector new selector to add
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return void
      */

@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 
 /**
@@ -128,7 +128,7 @@ class IfTask extends ConditionBase
      *
      * <p>Not required.</p>
      * @param SequentialTask $t
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function addThen(SequentialTask $t)
     {
@@ -144,7 +144,7 @@ class IfTask extends ConditionBase
      *
      * <p>Not required.</p>
      * @param SequentialTask $e
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function addElse(SequentialTask $e)
     {
@@ -212,7 +212,7 @@ class ElseIfTask extends ConditionBase
     }
 
     /**
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return boolean
      */
     public function evaluate()

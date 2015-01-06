@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 
@@ -135,7 +135,7 @@ class DeleteTask extends Task
 
     /**
      * Delete the file(s).
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -236,7 +236,7 @@ class DeleteTask extends Task
     /**
      * Recursively removes a directory.
      * @param PhingFile $d The directory to remove.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function removeDir($d)
     {
@@ -282,7 +282,7 @@ class DeleteTask extends Task
      * @param PhingFile $d directory to work from
      * @param array &$files array of files to delete; can be of zero length
      * @param array &$dirs array of directories to delete; can of zero length
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function removeFiles(PhingFile $d, &$files, &$dirs)
     {

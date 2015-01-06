@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 
 /**
@@ -123,7 +123,7 @@ class ContainsSelector extends BaseExtendSelector
      * @param string $filename
      * @param PhingFile $file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @internal param the $basedir base directory the scan is being done from
      * @internal param is $filename the name of the file to check

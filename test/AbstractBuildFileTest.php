@@ -7,7 +7,7 @@ use Phing\Project;
 use PhingFile;
 use AssertionFailureException;
 use Description;
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use ProjectConfigurator;
 
 /**
@@ -189,7 +189,7 @@ abstract class AbstractBuildFileTest extends PHPUnit_Framework_TestCase
      *  set up to run the named project
      *
      * @param  filename name of project file to run
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function configureProject($filename)
     {

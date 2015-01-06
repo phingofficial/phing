@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 use Phing\Util\StringHelper;
 
@@ -136,7 +136,7 @@ class PhpDependTask extends Task
     /**
      * Load the necessary environment for running PHP_Depend
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function requireDependencies()
     {
@@ -430,7 +430,7 @@ class PhpDependTask extends Task
     /**
      * Validates the available analyzers
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function validateAnalyzers()
     {
@@ -529,7 +529,7 @@ class PhpDependTask extends Task
     /**
      * Loads configuration file
      * @return null|PHP_Depend_Util_Configuration
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function getConfiguration()
     {

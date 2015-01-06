@@ -1,6 +1,6 @@
 <?php
 use Phing\BuildEvent;
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\BuildLoggerInterface;
 use Phing\Phing;
 use Phing\Project;
@@ -143,7 +143,7 @@ class XmlLogger implements BuildLoggerInterface
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function buildFinished(BuildEvent $event)
     {

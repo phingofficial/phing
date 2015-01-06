@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 /**
@@ -61,7 +61,7 @@ class Reference
      *
      * @param Project $project
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return Reference
      */

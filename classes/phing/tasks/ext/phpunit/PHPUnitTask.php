@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Task;
 
 /**
@@ -308,7 +308,7 @@ class PHPUnitTask extends Task
     /**
      * Load and processes the PHPUnit configuration
      * @param $configuration
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return array
      */
     protected function handlePHPUnitConfiguration($configuration)
@@ -393,7 +393,7 @@ class PHPUnitTask extends Task
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

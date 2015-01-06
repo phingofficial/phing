@@ -20,7 +20,7 @@
  * <http://phing.info>.
 */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Phing;
 use Phing\Project;
 use Phing\ProjectComponent;
@@ -204,7 +204,7 @@ class PhingTask extends Task
     /**
      * Execute phing file.
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     private function processFile()
@@ -389,7 +389,7 @@ class PhingTask extends Task
      * Override the properties in the new project with the one
      * explicitly defined as nested elements here.
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function overrideProperties()
     {
@@ -408,7 +408,7 @@ class PhingTask extends Task
      * requested.
      *
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function addReferences()
     {
@@ -474,7 +474,7 @@ class PhingTask extends Task
      *
      * @param  string $oldKey
      * @param  string $newKey
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     private function copyReference($oldKey, $newKey)

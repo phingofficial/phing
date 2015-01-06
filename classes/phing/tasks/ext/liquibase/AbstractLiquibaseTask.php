@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
@@ -338,7 +338,7 @@ class LiquibaseParameter extends DataType
     /**
      * @param Project $p
      * @return string
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function getCommandline(Project $p)
     {

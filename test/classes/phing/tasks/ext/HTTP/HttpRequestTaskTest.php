@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 require_once dirname(__FILE__) . '/BaseHttpTaskTest.php';
 
@@ -56,7 +56,7 @@ class HttpRequestTaskTest extends BaseHttpTaskTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage The received response body did not match the given regular expression
      */
     public function testDoesntMatchRegexp()

@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Test\AbstractBuildFileTest;
@@ -206,7 +206,7 @@ class ExecTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Unknown log level "unknown"
      */
     public function testPropertySetLevelUnknown()
@@ -262,7 +262,7 @@ class ExecTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Task exited with code 1
      */
     public function testCheckreturnFalse()
@@ -343,7 +343,7 @@ class ExecTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage ExecTask: Either use "command" OR "executable"
      */
     public function testExecutableAndCommand()
@@ -352,7 +352,7 @@ class ExecTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage ExecTask: Please provide "command" OR "executable"
      */
     public function testMissingExecutableAndCommand()

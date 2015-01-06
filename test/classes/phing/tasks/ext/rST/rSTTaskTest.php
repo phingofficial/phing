@@ -1,5 +1,5 @@
 <?php
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -65,7 +65,7 @@ class rSTTaskTest extends AbstractBuildFileTest
 
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
      */
     public function testGetToolPathFail()
@@ -93,7 +93,7 @@ class rSTTaskTest extends AbstractBuildFileTest
 
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Tool does not exist. Path:
      */
     public function testSetToolpathNotExisting()
@@ -103,7 +103,7 @@ class rSTTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Tool not executable. Path:
      */
     public function testSetToolpathNonExecutable()
@@ -247,7 +247,7 @@ class rSTTaskTest extends AbstractBuildFileTest
     }
 
     /**
-     * @expectedException Phing\BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage No filename mapper found for "./files/single.rst"
      */
     public function testNotMatchingMapper()

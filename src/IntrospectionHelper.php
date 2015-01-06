@@ -24,6 +24,7 @@ namespace Phing;
 
 use Exception;
 use Path;
+use Phing\Exception\BuildException;
 use Phing\ProjectComponent;
 use Reference;
 use ReflectionClass;

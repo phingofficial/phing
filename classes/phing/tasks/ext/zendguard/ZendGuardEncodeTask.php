@@ -19,7 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 use Phing\Project;
 
 
@@ -346,7 +346,7 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Verifies that the configuration is correct
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function verifyConfiguration()
     {
@@ -385,7 +385,7 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Do the work
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -511,7 +511,7 @@ class ZendGuardEncodeTask extends MatchingTask
      * Encodes a file using currently defined Zend Guard settings
      *
      * @param string $filePath Path to the encoded file
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return bool
      */
     protected function encodeFile($filePath)
@@ -546,7 +546,7 @@ class ZendGuardFileSet extends FileSet
      *  Get a list of files and directories specified in the fileset.
      * @param Project $p
      * @param bool $includeEmpty
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      */

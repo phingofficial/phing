@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\BuildException;
+use Phing\Exception\BuildException;
 
 
 /**
@@ -39,7 +39,7 @@ class MergeMapper implements FileNameMapper
      * The mapper implementation. Basically does nothing in this case.
      *
      * @param mixed $sourceFileName The data the mapper works on
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return mixed The data after the mapper has been applied
      * @author  Andreas Aderhold, andi@binarycloud.com
      */
