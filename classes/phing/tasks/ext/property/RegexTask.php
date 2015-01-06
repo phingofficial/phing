@@ -27,7 +27,7 @@ include_once 'phing/tasks/ext/property/AbstractPropertySetterTask.php';
  * <pre>
  *   <propertyregex property="pack.name"
  *                  subject="package.ABC.name"
- *                  pattern="package\\.([^.]*)\\.name"
+ *                  pattern="package\.([^.]*)\.name"
  *                  match="$1"
  *                  casesensitive="false"
  *                  defaultvalue="test1"/>
@@ -37,7 +37,7 @@ include_once 'phing/tasks/ext/property/AbstractPropertySetterTask.php';
  *   <propertyregex property="pack.name"
  *                  override="true"
  *                  subject="package.ABC.name"
- *                  pattern="(package)\\.[^.]*\\.(name)"
+ *                  pattern="(package)\.[^.]*\.(name)"
  *                  replace="$1.DEF.$2"
  *                  casesensitive="false"
  *                  defaultvalue="test2"/>
