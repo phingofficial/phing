@@ -17,9 +17,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+use Phing\Exception\BuildException;
+use Phing\Task;
+
 require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/BuildException.php';
 
 /**
  * Determines the directory name of the specified file.
