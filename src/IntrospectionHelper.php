@@ -479,7 +479,7 @@ class IntrospectionHelper
             } catch (Exception $exc) {
                 throw new BuildException($exc);
             }
-        } elseif ($this->bean->implementsInterface(CustomChildCreatorInterface::class)) {
+        } elseif ($this->bean->implementsInterface('Phing\\Parser\\CustomChildCreatorInterface')) {
             $method = $this->bean->getMethod('customChildCreator');
 
             try {
