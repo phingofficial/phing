@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,7 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Testcase for the PhingVersion task/condition.
@@ -25,7 +26,7 @@ include_once 'phing/BuildFileTest.php';
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system.condition
  */
-class PhingVersionTest extends BuildFileTest
+class PhingVersionTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Tests the FilesMatch Condition
@@ -8,7 +8,7 @@ require_once 'phing/BuildFileTest.php';
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
-class FilesMatchTest extends BuildFileTest
+class FilesMatchTest extends AbstractBuildFileTest
 {
 
     public function setUp()
