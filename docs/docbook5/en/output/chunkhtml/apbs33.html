@@ -1,47 +1,19 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.33 SwitchTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="apb.html" title="Appendix B. Core tasks"><link rel="prev" href="apbs32.html" title="B.32 ResolvePathTask"><link rel="next" href="apbs34.html" title="B.34 TaskdefTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.33 SwitchTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apbs32.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="apbs34.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SwitchPathTask"></a>B.33 SwitchTask </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.33 PropertyPromptTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="apb.html" title="Appendix B. Core tasks"><link rel="prev" href="apbs32.html" title="B.32 PropertyTask"><link rel="next" href="apbs34.html" title="B.34 ReflexiveTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.33 PropertyPromptTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="apbs32.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="apbs34.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PropertyPromptTask"></a>B.33 PropertyPromptTask </h2></div></div></div>
         
-        <p>Task definition for the phing task to switch on a particular value.</p>
+        <p><code class="literal">PropertyPromptTask</code> is a simple task to read in user input into a
+            property. If you need something more advanced, see the <a class="xref" href="apbs23.html" title="B.23 InputTask">Section B.23, “InputTask ”</a>.</p>
 
 
-        <div class="table"><a name="idp77282256"></a><p class="formal-object-title"><span class="label">Table B.34: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idp48446608"></a><p class="formal-object-title"><span class="label">Table B.33: </span><span class="title">Attributes</span></p><div class="table-contents">
             
-            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The value to switch on.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">caseinsensitive</code></td><td><code class="literal">Boolean</code></td><td>Should we do case insensitive comparisons?</td><td>false</td><td>No</td></tr></tbody></table>
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">propertyName</code></td><td><code class="literal">String</code></td><td>The name of the Property to set.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">promptText</code></td><td><code class="literal">String</code></td><td>The text to use for the prompt.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">promptCharacter</code></td><td><code class="literal">String</code></td><td>The character to use after the prompt.</td><td>?</td><td>No</td></tr><tr><td><code class="literal">defaultValue</code></td><td><code class="literal">String</code></td><td>A default value to use (if user just hits enter).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">useExistingValue</code></td><td><code class="literal">String</code></td><td>Whether existing property should be used if available. (This will
+                            result in user only being prompted if the propertyName property is not
+                            already set.)</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77299872"></a>B.33.1 Supported Nested Tags</h3></div><div><h3 class="title"><a name="idp77299872"></a>B.33.1 Supported Nested Tags</h3></div><div><h3 class="title"><a name="idp77299872"></a>B.33.1 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp48475888"></a>B.33.1 Examples</h3></div></div></div>
             
-            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-                    <p>At least one <code class="literal">&lt;case&gt;</code> or <code class="literal">&lt;default&gt;</code> is required.</p>
-                </li></ul></div>
-
-            
-            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-                    <p>An individual case to consider, if the value that is being switched on matches to value attribute
-                        of the case, then the nested tasks will be executed.</p>
-                </li></ul></div>
-
-            <div class="table"><a name="idp77305312"></a><p class="formal-object-title"><span class="label">Table B.35: </span><span class="title">Attributes</span></p><div class="table-contents">
-                
-                <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The value to match against the tasks value attribute.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
-            </div></div><br class="table-break">
-
-            
-            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
-                    <p>The default case for when no match is found. Must not appear more than once per task.</p>
-                </li></ul></div>
-
+            <pre class="programlisting">&lt;propertyprompt propertyName="someprop" defaultValue="/var/www"
+        promptText="Enter your web root" /&gt;
+&lt;echo&gt;${someprop}&lt;/echo&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp77321456"></a>B.33.2 Examples</h3></div></div></div>
-            
-            <pre class="programlisting">&lt;switch value="${foo}"&gt;
-    &lt;case value="bar"&gt;
-        &lt;echo message="The value of property foo is bar" /&gt;
-    &lt;/case&gt;
-    &lt;case value="baz"&gt;
-        &lt;echo message="The value of property foo is baz" /&gt;
-    &lt;/case&gt;
-    &lt;default&gt;
-        &lt;echo message="The value of property foo is not sensible" /&gt;
-    &lt;/default&gt;
-&lt;/switch&gt;</pre>
-        </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apbs32.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="apb.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apbs34.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.32 ResolvePathTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.34 TaskdefTask </td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="apbs32.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="apb.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="apbs34.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.32 PropertyTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.34 ReflexiveTask </td></tr></table></div></body></html>

@@ -396,6 +396,14 @@
                 the nested conditions is true, no other condition will be evaluated.</para>
 
         </sect2>
+        <sect2 xml:id="conditions.xor">
+            <title><literal>xor</literal></title>
+            <para> The <code>&lt;xor></code> element performs an exclusive or on all nested elements,
+                similar to the ^ operator in PHP. It only evaluates to true if an odd number of nested
+                conditions are true. There is no shortcutting of evaluation, unlike the &lt;and> and &lt;or> tests.
+                It doesn't have any attributes and accepts all nested elements of the condition task as nested elements
+                as well.</para>
+        </sect2>
         <sect2 xml:id="conditions.os">
             <title><literal>os</literal></title>
             <para>Test whether the current operating system is of a given type.</para>
@@ -777,6 +785,43 @@
                     >Available</link> task, all attributes and nested elements of that task are
                 supported, the property and value attributes are redundant and will be
                 ignored.</para>
+        </sect2>
+        <sect2 xml:id="conditions.filesmatch">
+            <title><literal>filesmatch</literal></title>
+            <para>Test two files for matching. Nonexistence of one file results in "false",
+                although if neither exists they are considered equal in terms of content.
+                This test does a byte for byte comparison, so test time scales with byte size.
+                NB: if the files are different sizes, one of them is missing or the filenames match
+                the answer is so obvious the detailed test is omitted. </para>
+            <table>
+                <title>filesmatch Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>file1</literal></entry>
+                            <entry>First file to test.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>file2</literal></entry>
+                            <entry>Second file to test.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;filesmatch file1="${file1}" file2="${file2}"/></programlisting>
+
         </sect2>
     </sect1>
 

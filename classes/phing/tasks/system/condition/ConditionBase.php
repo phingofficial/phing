@@ -58,7 +58,7 @@ abstract class ConditionBase extends ProjectComponent
     }
 
     /**
-     * @return array
+     * @return Condition[]
      */
     public function getConditions()
     {
@@ -103,6 +103,17 @@ abstract class ConditionBase extends ProjectComponent
     {
         include_once 'phing/tasks/system/condition/OrCondition.php';
         $num = array_push($this->conditions, new OrCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    /**
+     * @return XorCondition
+     */
+    public function createXor()
+    {
+        include_once 'phing/tasks/system/condition/XorCondition.php';
+        $num = array_push($this->conditions, new XorCondition());
 
         return $this->conditions[$num - 1];
     }
@@ -200,10 +211,26 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createPhingVersion()
+    {
+        include_once 'phing/tasks/system/condition/PhingVersion.php';
+        $num = array_push($this->conditions, new PhingVersion());
+
+        return $this->conditions[$num - 1];
+    }
+
     public function createHasFreeSpace()
     {
         include_once 'phing/tasks/system/condition/HasFreeSpaceCondition.php';
         $num = array_push($this->conditions, new HasFreeSpaceCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    public function createFilesMatch()
+    {
+        include_once 'phing/tasks/system/condition/FilesMatch.php';
+        $num = array_push($this->conditions, new FilesMatch());
 
         return $this->conditions[$num - 1];
     }

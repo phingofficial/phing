@@ -320,7 +320,7 @@ class PhingFile
      * Returns the absolute form of this abstract pathname.  Equivalent to
      * getAbsolutePath.
      *
-     * @return string The absolute abstract pathname denoting the same file or
+     * @return PhingFile The absolute abstract pathname denoting the same file or
      *                directory as this abstract pathname
      */
     public function getAbsoluteFile()

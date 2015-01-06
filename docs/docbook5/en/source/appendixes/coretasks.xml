@@ -1351,6 +1351,59 @@
                 &lt;/target></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Dirname">
+        <title>Dirname</title>
+        <para> Task to determine the directory path of a specified file.
+        </para>
+        <para> When this task executes, it will set the specified property to the value of the specified file
+            (or directory) up to, but not including, the last path element. If the specified file is a path that
+            ends in a filename, the filename will be dropped. If the specified file is just a filename, the
+            directory will be the current directory.
+        </para>
+        <para> Note: This is not the same as the UNIX dirname command, which is defined as "strip non-directory suffix
+            from filename". &lt;dirname> determines the full directory path of the specified file.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>file</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The path to take the dirname of.</entry>
+                        <entry>n/a</entry>
+                        <entry>yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>n/a</entry>
+                        <entry>yes</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;dirname property="foo.dirname" file="foo.txt"/></programlisting>
+            <para>will set <literal>foo.dirname</literal> to the project's basedir.</para>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="EchoTask">
         <title>EchoTask </title>
         <para>Echoes a message to the current loggers and listeners which means standard out unless
@@ -2577,6 +2630,64 @@
                     <para><literal>param</literal> (alias for property)</para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="Phingversion">
+        <title>Phingversion</title>
+        <para> Stores the Phing version (when used as task) or checks for a specific Phing version
+            (when used as condition).
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="requiredtask" colnum="4" colwidth="1.0*"/>
+                <colspec colname="requiredcond" colnum="5" colwidth="1.0*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Required (Task)</entry>
+                        <entry>Required (Condition)</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>atleast</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The version that this at least. The format is <literal>major.minor.point</literal>.</entry>
+                        <entry>No</entry>
+                        <entry morerows="1" valign="middle"><para>One of these.</para></entry>
+                    </row>
+                    <row>
+                        <entry><literal>exactly</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The version that this phing is exactly. The format is <literal>major.minor.point</literal>.</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>Yes</entry>
+                        <entry>No (ignored)</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;phingversion property="phingversion"/></programlisting>
+            <para>Stores the current Phing version in the property <literal>phingversion</literal>.</para>
+            <programlisting language="xml">&lt;phingversion property="phingversion" atleast="2.9"/></programlisting>
+            <para>Stores the Phing version in the property <literal>phingversion</literal>
+                if the current Phing version is 2.9.0 or higher. Otherwise the property remains unset.</para>
+            <programlisting language="xml">&lt;phingversion property="phing-is-exact-292" exactly="2.9.2"/></programlisting>
+            <para>Sets the property <literal>phing-is-exact-292</literal> if Phing 2.9.2 is running. Neither 2.8.2 nor 2.9.1
+                would match.</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="PhpEvalTask">
