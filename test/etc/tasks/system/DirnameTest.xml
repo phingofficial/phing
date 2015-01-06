@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="DirnameTest" default="testDirnameSetToPhingRoot">
+    <target name="testDirnameSetToPhingRoot">
+        <dirname property="dirname" file="${phing.home}/README.md"/>
+    </target>
+
+</project>
