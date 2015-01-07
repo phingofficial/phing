@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="RegexTaskTest" default="testPropertyRegex">
+    <target name="testPropertyRegex">
+        <propertyregex property="test.name"
+                       subject="test.ABC.name"
+                       pattern="test\.([^.]*)\.name"
+                       match="$1"
+                       casesensitive="false"
+                       defaultvalue="test1"/>
+    </target>
+    <target name="testPropertyRegexReplace">
+        <propertyregex property="test.name"
+                       override="true"
+                       subject="test.ABC.name"
+                       pattern="(test)\.[^.]*\.(name)"
+                       replace="$1.DEF.$2"
+                       casesensitive="false"
+                       defaultvalue="test2"/>
+    </target>
+</project>
