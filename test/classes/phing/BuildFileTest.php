@@ -241,7 +241,7 @@ abstract class BuildFileTest extends PHPUnit_Framework_TestCase
     /**
      * Get the project which has been configured for a test.
      *
-     * @return the Project instance for this test.
+     * @return Project the Project instance for this test.
      */
     protected function getProject()
     {

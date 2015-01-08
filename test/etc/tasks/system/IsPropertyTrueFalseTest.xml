@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="IsPropertyTrueFalseConditionTest" default="testIsPropertyTrue">
+    <target name="testIsPropertyTrue">
+        <property name="test.property.true" value="true"/>
+        <condition property="IsTrue">
+            <ispropertytrue property="test.property.true"/>
+        </condition>
+    </target>
+    <target name="testIsPropertyNotTrue">
+        <property name="test.property.true" value="false"/>
+        <condition property="IsNotTrue">
+            <ispropertytrue property="test.property.true"/>
+        </condition>
+    </target>
+
+    <target name="testIsPropertyFalse">
+        <property name="test.property.false" value="false"/>
+        <condition property="IsFalse">
+            <ispropertyfalse property="test.property.false"/>
+        </condition>
+    </target>
+    <target name="testIsPropertyNotFalse">
+        <property name="test2.property.false" value="true"/>
+        <condition property="IsNotFalse">
+            <ispropertyfalse property="test2.property.false"/>
+        </condition>
+    </target>
+
+</project>
