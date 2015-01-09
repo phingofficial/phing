@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="EchoPropertiesTest" default="testEchoProperties">
+    <property name="property.file" value="props.txt"/>
+    <target name="testEchoProperties">
+        <echoproperties destfile="${property.file}" format="xml" prefix="phing." failonerror="false"/>
+    </target>
+    <target name="cleanup">
+        <delete file="${property.file}"/>
+    </target>
+</project>
