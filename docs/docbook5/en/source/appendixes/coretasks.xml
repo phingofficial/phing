@@ -1520,8 +1520,15 @@
                         <entry><literal>destfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>If specified, the value indicates the name of the file to send the output of the statement to.
-                            The generated output file is compatible for loading by any Java application as a property file.
                             If not specified, then the output will go to the Phing log.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>srcfile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>If specified, the value indicates the name of the property file to read from.
+                            If not specified, then the system properties will be taken.</entry>
                         <entry>n/a</entry>
                         <entry>no</entry>
                     </row>
