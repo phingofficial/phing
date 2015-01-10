@@ -176,7 +176,7 @@ class PatternSet extends DataType
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param File|PhingFile $includesFile file to fetch the include patterns from.
+     * @param PhingFile $includesFile file to fetch the include patterns from.
      *
      * @throws BuildException
      */
@@ -185,7 +185,7 @@ class PatternSet extends DataType
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($includesFile instanceof File) {
+        if ($includesFile instanceof PhingFile) {
             $includesFile = $includesFile->getPath();
         }
         $o = $this->createIncludesFile();
@@ -203,7 +203,7 @@ class PatternSet extends DataType
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($excludesFile instanceof File) {
+        if ($excludesFile instanceof PhingFile) {
             $excludesFile = $excludesFile->getPath();
         }
         $o = $this->createExcludesFile();
