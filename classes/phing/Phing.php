@@ -917,7 +917,6 @@ class Phing
         $msg .= "phing [options] [target [target2 [target3] ...]]" . PHP_EOL;
         $msg .= "Options: " . PHP_EOL;
         $msg .= "  -h -help               print this message" . PHP_EOL;
-        $msg .= "  -p -projecthelp        print project help information" . PHP_EOL;
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
