@@ -21,6 +21,8 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Io\Util\FileUtils;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;

@@ -19,6 +19,7 @@
  * <http://phing.info>.
 */
 use Phing\Exception\BuildException;
+use Phing\Io\AbstractReader;
 
 
 /**
@@ -128,14 +129,14 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Creates a new TidyFilter using the passed in Reader for instantiation.
      *
-     * @param A|Reader $reader
+     * @param A|AbstractReader $reader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return a new filter based on this configuration, but filtering
      *           the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new TidyFilter($reader);
         $newFilter->setConfigParameters($this->configParameters);

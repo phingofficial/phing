@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
 
 
 /**
@@ -114,13 +115,13 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      * Creates a new TabsToSpaces using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader A Reader object providing the underlying stream.
+     * @param AbstractReader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
-     * @return Reader A new filter based on this configuration, but filtering
+     * @return AbstractReader A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new TabToSpaces($reader);
         $newFilter->setTablength($this->getTablength());

@@ -18,39 +18,24 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Io;
 
 /**
- * Abstract class for writing character streams.
+ * Convenience class for performing file write operations.
  *
  * @package   phing.system.io
  */
-abstract class Writer
+class FileWriter extends OutputStreamWriter
 {
 
     /**
-     * Writes data to output stream.
-     * @param string $buf
-     * @param int    $off
-     * @param int    $len
+     * Construct a new FileWriter.
+     * @param mixed $file PhingFile or string pathname.
+     * @param boolean $append Append to existing file?
      */
-    abstract public function write($buf, $off = null, $len = null);
-
-    /**
-     * Close the stream.
-     * @throws IOException - if there is an error closing stream.
-     */
-    abstract public function close();
-
-    /**
-     * Flush the stream, if supported by the stream.
-     */
-    public function flush()
+    public function __construct($file, $append = false)
     {
+        $out = new FileOutputStream($file, $append);
+        parent::__construct($out);
     }
-
-    /**
-     * Returns a string representation of resource filename, url, etc. that is being written to.
-     * @return string
-     */
-    abstract public function getResource();
 }

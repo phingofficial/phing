@@ -19,7 +19,13 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\AbstractWriter;
 use Phing\Io\File;
+use Phing\Io\AbstractReader;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
+use Phing\Io\LogWriter;
+use Phing\Io\StringReader;
 use Phing\Project;
 
 
@@ -285,7 +291,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Gets a default output writer for this task.
      *
-     * @return Writer
+     * @return AbstractWriter
      */
     private function getDefaultOutput()
     {
@@ -435,10 +441,10 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * read in lines and execute them
-     * @param Reader $reader
+     * @param \Phing\Io\AbstractReader $reader
      * @throws \Phing\Exception\BuildException
      */
-    public function runStatements(Reader $reader)
+    public function runStatements(AbstractReader $reader)
     {
 
         if (self::DELIM_NONE == $this->delimiterType) {

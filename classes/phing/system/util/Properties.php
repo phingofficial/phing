@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
 
 
 /**

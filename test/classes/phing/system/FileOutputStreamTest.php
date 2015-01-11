@@ -21,9 +21,9 @@
  */
 
 use Phing\Io\File;
+use Phing\Io\FileOutputStream;
 use Phing\Io\FileSystem\AbstractFileSystem;
-
-include_once 'phing/system/io/FileOutputStream.php';
+use Phing\Io\IOException;
 
 /**
  * Unit test for FileOutputStream.

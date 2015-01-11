@@ -20,11 +20,11 @@
  */
 namespace Phing\Parser;
 
-use BufferedReader;
+use Phing\Io\BufferedReader;
 use Exception;
 use Phing\Parser\ExpatParseException;
 use Phing\Parser\ExpatParser;
-use FileReader;
+use Phing\Io\FileReader;
 use Phing\Exception\BuildException;
 use Phing\IntrospectionHelper;
 use Phing\Project;

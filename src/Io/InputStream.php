@@ -19,6 +19,10 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Io;
+
+use Phing\Io\IOException;
+
 /**
  * Wrapper class for PHP stream that supports read operations.
  *
@@ -82,7 +86,7 @@ class InputStream
 
     /**
      * Read data from stream until $len chars or EOF.
-     * @param  int    $len Num chars to read.  If not specified this stream will read until EOF.
+     * @param  int $len Num chars to read.  If not specified this stream will read until EOF.
      * @return string chars read or -1 if eof.
      */
     public function read($len = null)
@@ -170,7 +174,7 @@ class InputStream
     /**
      * Reads a entire until EOF and places contents in passed-in variable.  Stream is closed after read.
      *
-     * @param  string      &$rBuffer String variable where read contents will be put.
+     * @param  string &$rBuffer String variable where read contents will be put.
      * @return TRUE        on success.
      * @author  Charlie Killian, charlie@tizac.com
      * @throws IOException - if there is an error reading from stream.
@@ -188,6 +192,6 @@ class InputStream
      */
     public function __toString()
     {
-        return (string) $this->stream;
+        return (string)$this->stream;
     }
 }

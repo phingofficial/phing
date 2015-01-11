@@ -20,7 +20,12 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\BufferedWriter;
 use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;

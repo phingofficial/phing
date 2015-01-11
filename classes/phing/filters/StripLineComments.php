@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
 use Phing\Util\StringHelper;
 
 
@@ -162,11 +163,11 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
      *           the specified reader
      */
     /**
-     * @param Reader $reader
+     * @param \Phing\Io\AbstractReader $reader
      * @return StripLineComments
      * @throws Exception
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new StripLineComments($reader);
         $newFilter->setComments($this->getComments());

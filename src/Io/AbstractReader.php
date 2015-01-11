@@ -19,6 +19,10 @@
  * <http://phing.info>.
 */
 
+namespace Phing\Io;
+
+use Phing\Io\IOException;
+
 /**
  * Abstract class for reading character streams.
  *
@@ -27,7 +31,7 @@
  * @version $Id$
  * @package phing.system.io
  */
-abstract class Reader
+abstract class AbstractReader
 {
 
     /**

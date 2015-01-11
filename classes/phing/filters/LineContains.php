@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\AbstractReader;
 
 
 /**
@@ -206,13 +207,13 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
      * Creates a new LineContains using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader A Reader object providing the underlying stream.
+     * @param AbstractReader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
      * @return LineContains A new filter based on this configuration, but filtering
      *                      the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new LineContains($reader);
         $newFilter->setContains($this->getContains());

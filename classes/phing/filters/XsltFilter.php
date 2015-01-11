@@ -1,6 +1,9 @@
 <?php
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\AbstractReader;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Util\RegisterSlot;
 
@@ -325,7 +328,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * @return XsltFilter A new filter based on this configuration, but filtering
      *                    the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new XsltFilter($reader);
         $newFilter->setProject($this->getProject());

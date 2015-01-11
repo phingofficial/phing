@@ -1,4 +1,5 @@
 <?php
+use Phing\Io\AbstractWriter;
 use Phing\Project;
 use Phing\Util\Timer;
 
@@ -51,9 +52,9 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
 
     /**
      * Sets the writer the formatter is supposed to write its results to.
-     * @param Writer $out
+     * @param AbstractWriter $out
      */
-    public function setOutput(Writer $out)
+    public function setOutput(AbstractWriter $out)
     {
         $this->out = $out;
     }

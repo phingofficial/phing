@@ -1,4 +1,6 @@
 <?php
+namespace Phing\Io;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -77,9 +79,9 @@ class OutputStream
     /**
      * Writes data to stream.
      *
-     * @param  string      $buf Binary/character data to write.
-     * @param  int         $off (Optional) offset.
-     * @param  int         $len (Optional) number of bytes/chars to write.
+     * @param  string $buf Binary/character data to write.
+     * @param  int $off (Optional) offset.
+     * @param  int $len (Optional) number of bytes/chars to write.
      * @return void
      * @throws IOException - if there is an error writing to stream
      */
@@ -108,6 +110,6 @@ class OutputStream
      */
     public function __toString()
     {
-        return (string) $this->stream;
+        return (string)$this->stream;
     }
 }

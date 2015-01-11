@@ -1,4 +1,6 @@
 <?php
+namespace Phing\Io;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -16,9 +18,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-include_once 'phing/system/io/BufferedWriter.php';
-include_once 'phing/system/io/OutputStreamWriter.php';
 
 class PrintStream
 {
@@ -67,7 +66,7 @@ class PrintStream
             $value = $value === true ? 'true' : 'false';
         }
 
-        $this->write((string) $value);
+        $this->write((string)$value);
     }
 
     /**

@@ -19,7 +19,15 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\BufferedWriter;
 use Phing\Io\File;
+use Phing\Io\AbstractReader;
+use Phing\Io\FileReader;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
+use Phing\Io\StringReader;
+use Phing\Io\Util\FileUtils;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
 use Phing\Util\StringHelper;
@@ -400,11 +408,11 @@ class CreoleSQLExecTask extends CreoleTask
 
     /**
      * read in lines and execute them
-     * @param Reader $reader
+     * @param AbstractReader $reader
      * @param null $out
      * @throws BuildException
      */
-    public function runStatements(Reader $reader, $out = null)
+    public function runStatements(AbstractReader $reader, $out = null)
     {
         $sql = "";
         $line = "";

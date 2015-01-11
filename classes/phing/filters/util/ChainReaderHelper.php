@@ -19,6 +19,8 @@
  * <http://phing.info>.
 */
 
+use Phing\Io\AbstractReader;
+use Phing\Io\FilterReader;
 use Phing\Phing;
 use Phing\Project;
 
@@ -78,9 +80,9 @@ class ChainReaderHelper
      * Sets the primary reader
     */
     /**
-     * @param Reader $reader
+     * @param \Phing\Io\AbstractReader $reader
      */
-    public function setPrimaryReader(Reader $reader)
+    public function setPrimaryReader(AbstractReader $reader)
     {
         $this->primaryReader = $reader;
     }
@@ -131,7 +133,7 @@ class ChainReaderHelper
      * Assemble the reader
     */
     /**
-     * @return FilterReader|null|Parameterizable|Reader
+     * @return FilterReader|null|Parameterizable|\Phing\Io\AbstractReader
      * @throws Exception
      */
     public function getAssembledReader()
@@ -182,7 +184,7 @@ class ChainReaderHelper
 
                     $instream = $impl; // now that it's been chained
 
-                } elseif (($filter instanceof ChainableReader) && ($filter instanceof Reader)) {
+                } elseif (($filter instanceof ChainableReader) && ($filter instanceof AbstractReader)) {
                     if ($this->getProject() !== null && ($filter instanceof BaseFilterReader)) {
                         $filter->setProject($this->getProject());
                     }

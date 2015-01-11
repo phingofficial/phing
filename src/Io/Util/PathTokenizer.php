@@ -1,4 +1,8 @@
 <?php
+namespace Phing\Io\Util;
+
+use Character;
+use Exception;
 use Phing\Util\StringHelper;
 
 /**
@@ -155,7 +159,7 @@ class PathTokenizer
      * Non StringTokenizer function, that indicates whether the specified path is contained in loaded tokens.
      * We can do this easily because in PHP implimentation we're using arrays.
      *
-     * @param  string  $path path to search for.
+     * @param  string $path path to search for.
      *
      * @return boolean
      */

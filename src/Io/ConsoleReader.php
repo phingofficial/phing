@@ -18,98 +18,74 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Io;
 
 /**
- * Dummy class for reading from string of characters.
+ * Convenience class for reading console input.
+ *
+ * @author Hans Lellelid <hans@xmpl.org>
+ * @author Matthew Hershberger <matthewh@lightsp.com>
+ * @version $Id$
  * @package phing.system.io
  */
-class StringReader extends Reader
+class ConsoleReader extends AbstractReader
 {
-
-    /**
-     * @var string
-     */
-    private $_string;
-
-    /**
-     * @var int
-     */
-    private $mark = 0;
-
-    /**
-     * @var int
-     */
-    private $currPos = 0;
-
-    /**
-     * @param $string
-     */
-    public function __construct($string)
-    {
-        $this->_string = $string;
-    }
-
-    /**
-     * @param int $n
-     */
-    public function skip($n)
-    {
-    }
-
-    /**
-     * @param null $len
-     * @return int|string
-     */
-    public function read($len = null)
-    {
-        if ($len === null) {
-            return $this->_string;
-        } else {
-            if ($this->currPos >= strlen($this->_string)) {
-                return -1;
-            }
-            $out = substr($this->_string, $this->currPos, $len);
-            $this->currPos += $len;
-
-            return $out;
-        }
-    }
-
-    public function mark()
-    {
-        $this->mark = $this->currPos;
-    }
-
-    public function reset()
-    {
-        $this->currPos = $this->mark;
-    }
-
-    public function close()
-    {
-    }
-
-    public function open()
-    {
-    }
-
-    public function ready()
-    {
-    }
-
-    /**
-     * @return bool
-     */
-    public function markSupported()
-    {
-        return true;
-    }
 
     /**
      * @return string
      */
+    public function readLine()
+    {
+
+        $out = fgets(STDIN); // note: default maxlen is 1kb
+        $out = rtrim($out);
+
+        return $out;
+    }
+
+    /**
+     *
+     * @param  int $len Num chars to read.
+     * @return string chars read or -1 if eof.
+     */
+    public function read($len = null)
+    {
+
+        $out = fread(STDIN, $len);
+
+        return $out;
+        // FIXME
+        // read by chars doesn't work (yet?) with PHP stdin.  Maybe
+        // this is just a language feature, maybe there's a way to get
+        // ability to read chars w/o <enter> ?
+
+    }
+
+    public function close()
+    {
+        // STDIN is always open
+    }
+
+    public function open()
+    {
+        // STDIN is always open
+    }
+
+    /**
+     * Whether eof has been reached with stream.
+     * @return boolean
+     */
+    public function eof()
+    {
+        return feof(STDIN);
+    }
+
+    /**
+     * Returns path to file we are reading.
+     * @return string
+     */
     public function getResource()
     {
-        return '(string) "' . $this->_string . '"';
+        return "console";
     }
 }

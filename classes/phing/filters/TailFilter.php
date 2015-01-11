@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\AbstractReader;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -122,13 +124,13 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new TailFilter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader A Reader object providing the underlying stream.
+     * @param \Phing\Io\AbstractReader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
      * @return TailFilter A new filter based on this configuration, but filtering
      *                    the specified reader.
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new TailFilter($reader);
         $newFilter->setLines($this->getLines());

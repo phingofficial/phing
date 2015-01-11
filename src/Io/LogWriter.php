@@ -1,4 +1,6 @@
 <?php
+namespace Phing\Io;
+
 use Phing\Project;
 use Phing\Task;
 
@@ -30,7 +32,7 @@ use Phing\Task;
  * @version $Id$
  * @package phing.util
  */
-class LogWriter extends Writer
+class LogWriter extends AbstractWriter
 {
     private $task = null;
 

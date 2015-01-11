@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
 use Phing\Project;
 
 
@@ -119,13 +120,13 @@ class ReplaceRegexp extends BaseFilterReader implements ChainableReader
      * Creates a new ReplaceRegExp filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader A Reader object providing the underlying stream.
+     * @param \Phing\Io\AbstractReader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
      * @return ReplaceRegExp A new filter based on this configuration, but filtering
      *                       the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new ReplaceRegExp($reader);
         $newFilter->setProject($this->getProject());

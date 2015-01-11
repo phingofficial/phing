@@ -19,6 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
+use Phing\Io\FilterReader;
+use Phing\Io\IOException;
+use Phing\Io\StringReader;
 use Phing\Project;
 
 
@@ -47,7 +51,7 @@ class BaseFilterReader extends FilterReader
      * no real data to filter). ChainedReaderHelper uses
      * this placeholder instance to create a chain of real filters.
      *
-     * @param Reader $in
+     * @param \Phing\Io\AbstractReader $in
      */
     public function __construct($in = null)
     {

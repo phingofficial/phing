@@ -18,33 +18,35 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\Io\File;
+namespace Phing\Io;
 
+use Exception;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
 
 /**
- * Input stream subclass for file streams.
+ * Output stream subclass for file streams.
  *
  * @package   phing.system.io
  */
-class FileInputStream extends InputStream
+class FileOutputStream extends OutputStream
 {
 
     /**
-     * The associated file.
-     * @var File
+     * @var File The associated file.
      */
     protected $file;
 
     /**
-     * Construct a new FileInputStream.
-     *
-     * @param  File|string $file   Path to the file
-     * @param  boolean          $append Whether to append (ignored)
-     * @throws Exception        - if invalid argument specified.
-     * @throws IOException      - if unable to open file.
+     * Construct a new FileOutputStream.
+     * @param  mixed $file
+     * @param  boolean $append Whether to append bytes to end of file rather than beginning.
+     * @throws Exception   - if invalid argument specified.
+     * @throws IOException - if unable to open file.
      */
     public function __construct($file, $append = false)
     {
+        global $php_errormsg;
         if ($file instanceof File) {
             $this->file = $file;
         } elseif (is_string($file)) {
@@ -52,12 +54,14 @@ class FileInputStream extends InputStream
         } else {
             throw new Exception("Invalid argument type for \$file.");
         }
-
-        $stream = @fopen($this->file->getAbsolutePath(), "rb");
-        if ($stream === false) {
-            throw new IOException("Unable to open " . $this->file->__toString() . " for reading: " . $php_errormsg);
+        if ($append) {
+            $stream = @fopen($this->file->getAbsolutePath(), "ab");
+        } else {
+            $stream = @fopen($this->file->getAbsolutePath(), "wb");
         }
-
+        if ($stream === false) {
+            throw new IOException("Unable to open " . $this->file->__toString() . " for writing: " . $php_errormsg);
+        }
         parent::__construct($stream);
     }
 
@@ -68,14 +72,5 @@ class FileInputStream extends InputStream
     public function __toString()
     {
         return $this->file->getPath();
-    }
-
-    /**
-     * Mark is supported by FileInputStream.
-     * @return boolean TRUE
-     */
-    public function markSupported()
-    {
-        return true;
     }
 }

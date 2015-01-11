@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\AbstractWriter;
+
 /**
  * $Id$
  *
@@ -63,9 +65,9 @@ abstract class PHPUnitResultFormatter implements PHPUnit_Framework_TestListener
 
     /**
      * Sets the writer the formatter is supposed to write its results to.
-     * @param Writer $out
+     * @param AbstractWriter $out
      */
-    public function setOutput(Writer $out)
+    public function setOutput(AbstractWriter $out)
     {
         $this->out = $out;
     }

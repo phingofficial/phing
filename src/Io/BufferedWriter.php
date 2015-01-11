@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
+namespace Phing\Io;
 
 /**
  * Convenience class for writing files.
@@ -27,7 +27,7 @@
  * @version   $Id$
  * @package   phing.system.io
  */
-class BufferedWriter extends Writer
+class BufferedWriter extends AbstractWriter
 {
 
     /**
@@ -36,15 +36,15 @@ class BufferedWriter extends Writer
     private $bufferSize = 0;
 
     /**
-     * @var Writer The Writer we are buffering output to.
+     * @var AbstractWriter The Writer we are buffering output to.
      */
     private $out;
 
     /**
-     * @param Writer $writer
+     * @param AbstractWriter $writer
      * @param int $buffsize
      */
-    public function __construct(Writer $writer, $buffsize = 8192)
+    public function __construct(AbstractWriter $writer, $buffsize = 8192)
     {
         $this->out = $writer;
         $this->bufferSize = $buffsize;

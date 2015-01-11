@@ -2,6 +2,8 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
 use Phing\Phing;
 use Phing\Task;
 

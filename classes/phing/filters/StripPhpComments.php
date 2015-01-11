@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
 
 
 /**
@@ -179,14 +180,14 @@ class StripPhpComments extends BaseFilterReader implements ChainableReader
      * Creates a new StripPhpComments using the passed in
      * Reader for instantiation.
      *
-     * @param A|Reader $reader
+     * @param A|AbstractReader $reader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return a new filter based on this configuration, but filtering
      *           the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new StripPhpComments($reader);
         $newFilter->setProject($this->getProject());

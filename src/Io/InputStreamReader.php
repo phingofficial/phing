@@ -1,4 +1,8 @@
 <?php
+namespace Phing\Io;
+
+use Phing\Io\IOException;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -27,7 +31,7 @@
  *
  * @package   phing.system.io
  */
-class InputStreamReader extends Reader
+class InputStreamReader extends AbstractReader
 {
 
     /**
@@ -65,7 +69,7 @@ class InputStreamReader extends Reader
 
     /**
      * Read data from file.
-     * @param  int    $len Num chars to read.
+     * @param  int $len Num chars to read.
      * @return string chars read or -1 if eof.
      */
     public function read($len = null)

@@ -18,32 +18,32 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
+namespace Phing\Io;
 
 /**
  * Wrapper class for readers, which can be used to apply filters.
  * @package phing.system.io
  */
-class FilterReader extends Reader
+class FilterReader extends AbstractReader
 {
 
     /**
-     * @var Reader
+     * @var AbstractReader
      */
     protected $in;
 
     /**
-     * @param Reader $in
+     * @param \Phing\Io\AbstractReader $in
      */
-    public function __construct(Reader $in = null)
+    public function __construct(AbstractReader $in = null)
     {
         $this->in = $in;
     }
 
     /**
-     * @param Reader $in
+     * @param \Phing\Io\AbstractReader $in
      */
-    public function setReader(Reader $in)
+    public function setReader(AbstractReader $in)
     {
         $this->in = $in;
     }

@@ -52,11 +52,12 @@ class AbstractFileSystemTest extends PHPUnit_Framework_TestCase
         $refProperty->setValue(null);
     }
 
+    /**
+     * @expectedException Phing\Io\IOException
+     */
     public function testGetFileSystemWithUnknownTypeKeyThrowsException()
     {
         $this->_resetFileSystem();
-
-        $this->setExpectedException('IOException');
 
         Phing::setProperty('host.fstype', 'UNRECOGNISED');
 

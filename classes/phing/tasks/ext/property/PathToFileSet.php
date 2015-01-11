@@ -19,10 +19,11 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Io\Util\FileUtils;
 use Phing\Task;
 
 include_once 'phing/types/FileSet.php';
-include_once 'phing/util/FileUtils.php';
 
 /**
  * Coverts a path to a fileset.

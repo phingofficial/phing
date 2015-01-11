@@ -21,7 +21,7 @@
  */
 namespace Phing\Util;
 
-use FileWriter;
+use Phing\Io\FileWriter;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 

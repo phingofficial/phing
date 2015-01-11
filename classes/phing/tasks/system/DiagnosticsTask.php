@@ -18,10 +18,9 @@
  */
 
 use Phing\Diagnostics;
+use Phing\Io\PrintStream;
 use Phing\Phing;
 use Phing\Task;
-
-require_once 'phing/system/io/PrintStream.php';
 
 /**
  * This is a task that hands off work to the Diagnostics module.

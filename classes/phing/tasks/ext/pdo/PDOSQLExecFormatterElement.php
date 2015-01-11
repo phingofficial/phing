@@ -1,6 +1,9 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\AbstractWriter;
 use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
 use Phing\Phing;
 use Phing\Project;
 
@@ -130,7 +133,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Gets a configured output writer.
-     * @return Writer
+     * @return AbstractWriter
      */
     private function getOutputWriter()
     {
@@ -318,7 +321,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Gets a default output writer for this task.
-     * @return Writer
+     * @return AbstractWriter
      */
     private function getDefaultOutput()
     {

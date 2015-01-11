@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\AbstractReader;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -129,13 +131,13 @@ class HeadFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new HeadFilter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader A Reader object providing the underlying stream.
+     * @param \Phing\Io\AbstractReader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
      * @return HeadFilter A new filter based on this configuration, but filtering
      *                    the specified reader.
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new HeadFilter($reader);
         $newFilter->setLines($this->getLines());

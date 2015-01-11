@@ -2,7 +2,7 @@
 namespace Phing\Io\FileSystem;
 
 use Exception;
-use IOException;
+use Phing\Io\IOException;
 use Phar;
 use Phing\Io\File;
 use Phing\Phing;
@@ -272,7 +272,7 @@ class UnixFileSystem extends AbstractFileSystem
      * set file readonly on unix
      * @param File $f
      * @throws Exception
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      */
     public function setReadOnly($f)
     {

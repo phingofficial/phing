@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
 
 
 /**
@@ -112,14 +113,14 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Creates a new StripLineBreaks using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader
+     * @param \Phing\Io\AbstractReader $reader
      * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return object A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new StripLineBreaks($reader);
         $newFilter->setLineBreaks($this->getLineBreaks());

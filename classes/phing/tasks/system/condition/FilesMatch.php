@@ -1,5 +1,6 @@
 <?php
 use Phing\Io\File;
+use Phing\Io\Util\FileUtils;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\AbstractReader;
+use Phing\Io\BufferedReader;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -46,9 +48,9 @@ abstract class PDOQuerySplitter
      * Constructor, sets the parent task and reader with SQL source
      *
      * @param PDOSQLExecTask $parent
-     * @param Reader         $reader
+     * @param \Phing\Io\AbstractReader         $reader
      */
-    public function __construct(PDOSQLExecTask $parent, Reader $reader)
+    public function __construct(PDOSQLExecTask $parent, AbstractReader $reader)
     {
         $this->parent = $parent;
         $this->sqlReader = new BufferedReader($reader);

@@ -3,7 +3,7 @@ namespace Phing\Io;
 
 use Exception;
 use Phing\Io\FileSystem\AbstractFileSystem;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Exception\NullPointerException;
 use Phing\Phing;
 use Phing\Util\StringHelper;

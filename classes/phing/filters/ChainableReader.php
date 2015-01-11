@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
 
 /**
  * Interface indicating that a reader may be chained to another one.
@@ -33,10 +34,10 @@ interface ChainableReader
      * Returns a reader with the same configuration as this one,
      * but filtering input from the specified reader.
      *
-     * @param Reader $rdr the reader which the returned reader should be filtering
+     * @param AbstractReader $rdr the reader which the returned reader should be filtering
      *
-     * @return Reader A reader with the same configuration as this one, but
+     * @return AbstractReader A reader with the same configuration as this one, but
      *                filtering input from the specified reader
      */
-    public function chain(Reader $rdr);
+    public function chain(AbstractReader $rdr);
 }

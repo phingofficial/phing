@@ -18,74 +18,99 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
+namespace Phing\Io;
 
 /**
- * Convenience class for reading console input.
- *
- * @author Hans Lellelid <hans@xmpl.org>
- * @author Matthew Hershberger <matthewh@lightsp.com>
- * @version $Id$
+ * Dummy class for reading from string of characters.
  * @package phing.system.io
  */
-class ConsoleReader extends Reader
+class StringReader extends AbstractReader
 {
 
     /**
-     * @return string
+     * @var string
      */
-    public function readLine()
+    private $_string;
+
+    /**
+     * @var int
+     */
+    private $mark = 0;
+
+    /**
+     * @var int
+     */
+    private $currPos = 0;
+
+    /**
+     * @param $string
+     */
+    public function __construct($string)
     {
-
-        $out = fgets(STDIN); // note: default maxlen is 1kb
-        $out = rtrim($out);
-
-        return $out;
+        $this->_string = $string;
     }
 
     /**
-     *
-     * @param  int    $len Num chars to read.
-     * @return string chars read or -1 if eof.
+     * @param int $n
+     */
+    public function skip($n)
+    {
+    }
+
+    /**
+     * @param null $len
+     * @return int|string
      */
     public function read($len = null)
     {
+        if ($len === null) {
+            return $this->_string;
+        } else {
+            if ($this->currPos >= strlen($this->_string)) {
+                return -1;
+            }
+            $out = substr($this->_string, $this->currPos, $len);
+            $this->currPos += $len;
 
-        $out = fread(STDIN, $len);
+            return $out;
+        }
+    }
 
-        return $out;
-        // FIXME
-        // read by chars doesn't work (yet?) with PHP stdin.  Maybe
-        // this is just a language feature, maybe there's a way to get
-        // ability to read chars w/o <enter> ?
+    public function mark()
+    {
+        $this->mark = $this->currPos;
+    }
 
+    public function reset()
+    {
+        $this->currPos = $this->mark;
     }
 
     public function close()
     {
-        // STDIN is always open
     }
 
     public function open()
     {
-        // STDIN is always open
     }
 
-    /**
-     * Whether eof has been reached with stream.
-     * @return boolean
-     */
-    public function eof()
+    public function ready()
     {
-        return feof(STDIN);
     }
 
     /**
-     * Returns path to file we are reading.
+     * @return bool
+     */
+    public function markSupported()
+    {
+        return true;
+    }
+
+    /**
      * @return string
      */
     public function getResource()
     {
-        return "console";
+        return '(string) "' . $this->_string . '"';
     }
 }

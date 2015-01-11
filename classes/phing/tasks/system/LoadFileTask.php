@@ -20,6 +20,8 @@
  */
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\Util\FileUtils;
 use Phing\Task;
 
 /**

@@ -20,6 +20,7 @@
  * <http://phing.info>.
 */
 use Phing\Io\File;
+use Phing\Io\AbstractReader;
 use Phing\Project;
 
 
@@ -84,14 +85,14 @@ class StripWhitespace extends BaseFilterReader implements ChainableReader
      * Creates a new StripWhitespace using the passed in
      * Reader for instantiation.
      *
-     * @param A|Reader $reader
+     * @param A|\Phing\Io\AbstractReader $reader
      * @internal param A $reader Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return a new filter based on this configuration, but filtering
      *           the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new StripWhitespace($reader);
         $newFilter->setProject($this->getProject());

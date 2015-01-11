@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Io\ConsoleReader;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS

@@ -1,6 +1,7 @@
 <?php
 use Phing\Io\File;
 use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\IOException;
 
 
 /**

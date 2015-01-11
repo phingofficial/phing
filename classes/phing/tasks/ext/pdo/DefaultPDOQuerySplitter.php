@@ -1,4 +1,5 @@
 <?php
+use Phing\Io\AbstractReader;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Util\StringHelper;
 
@@ -52,10 +53,10 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
      * Constructor, sets the parent task, reader with SQL source and delimiter type
      *
      * @param PDOSQLExecTask $parent
-     * @param Reader         $reader
+     * @param AbstractReader         $reader
      * @param string         $delimiterType
      */
-    public function __construct(PDOSQLExecTask $parent, Reader $reader, $delimiterType = PDOSQLExecTask::DELIM_NORMAL)
+    public function __construct(PDOSQLExecTask $parent, AbstractReader $reader, $delimiterType = PDOSQLExecTask::DELIM_NORMAL)
     {
         parent::__construct($parent, $reader);
         $this->delimiterType = $delimiterType;

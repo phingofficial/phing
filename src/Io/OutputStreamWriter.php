@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
+namespace Phing\Io;
 
 /**
  * Writer class for OutputStream objects.
@@ -29,7 +29,7 @@
  *
  * @package   phing.system.io
  */
-class OutputStreamWriter extends Writer
+class OutputStreamWriter extends AbstractWriter
 {
 
     /**

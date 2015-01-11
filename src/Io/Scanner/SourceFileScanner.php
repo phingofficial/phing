@@ -22,8 +22,8 @@
 namespace Phing\Io\Scanner;
 
 use FilenameMapper;
-use FileUtils;
-use IOException;
+use Phing\Io\Util\FileUtils;
+use Phing\Io\IOException;
 use Phing\Phing;
 use Phing\Project;
 use Phing\Task;

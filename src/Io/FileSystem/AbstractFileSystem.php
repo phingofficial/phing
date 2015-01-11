@@ -2,7 +2,7 @@
 namespace Phing\Io\FileSystem;
 
 use Exception;
-use IOException;
+use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
 
@@ -78,7 +78,7 @@ abstract class AbstractFileSystem
      * @todo This should move to a factory class
      *
      * @return AbstractFileSystem
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      */
     public static function getFileSystem()
     {
@@ -260,7 +260,7 @@ abstract class AbstractFileSystem
      *
      * @param  File $f
      * @return int
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      */
     public function getLastModifiedTime(File $f)
     {
@@ -322,7 +322,7 @@ abstract class AbstractFileSystem
      * IOException if an I/O error occurs.
      *
      * @param  string $strPathname Path of the file to be created.
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      * @return boolean
      */
     public function createNewFile($strPathname)
@@ -364,7 +364,7 @@ abstract class AbstractFileSystem
      * true if and only if the operation succeeds.
      *
      * @param  File $f
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      */
     public function deleteOnExit($f)
     {
@@ -488,7 +488,7 @@ abstract class AbstractFileSystem
      *
      * @param File $f1
      * @param File $f2
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      */
     public function compare(File $f1, File $f2)
     {
@@ -503,7 +503,7 @@ abstract class AbstractFileSystem
      *
      * @return void
      *
-     * @throws IOException if file cannot be copied.
+     * @throws \Phing\Io\IOException if file cannot be copied.
      */
     public function copy(File $src, File $dest)
     {
@@ -581,7 +581,7 @@ abstract class AbstractFileSystem
      *
      * @return void
      *
-     * @throws IOException if operation failed.
+     * @throws \Phing\Io\IOException if operation failed.
      */
     public function chown($pathname, $user)
     {
@@ -598,7 +598,7 @@ abstract class AbstractFileSystem
      * @param string $group The group of the file or directory. See http://us.php.net/chgrp
      *
      * @return void
-     * @throws IOException if operation failed.
+     * @throws \Phing\Io\IOException if operation failed.
      */
     public function chgrp($pathname, $group)
     {
@@ -617,7 +617,7 @@ abstract class AbstractFileSystem
      *                         Mode is affected by the umask system setting.
      *
      * @return void
-     * @throws IOException if operation failed.
+     * @throws \Phing\Io\IOException if operation failed.
      */
     public function chmod($pathname, $mode)
     {
@@ -633,7 +633,7 @@ abstract class AbstractFileSystem
      *
      * @param  File $f
      * @return void
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      */
     public function lock(File $f)
     {
@@ -650,7 +650,7 @@ abstract class AbstractFileSystem
      * Unlocks a file and throws an IO Error if this is not possible.
      *
      * @param  File $f
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      * @return void
      */
     public function unlock(File $f)
@@ -688,7 +688,7 @@ abstract class AbstractFileSystem
      *
      * @param  string $target Path and/or name of file to link.
      * @param  string $link Path and/or name of link to be created.
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      * @return void
      */
     public function symlink($target, $link)

@@ -1,6 +1,8 @@
 <?php
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
 use Phing\Task;
 
 /**

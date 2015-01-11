@@ -18,12 +18,23 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Io;
 
 /**
- * Extends Exception to take advantage of methods therein.
- *
+ * Convenience class for reading files.
  * @package   phing.system.io
  */
-class IOException extends Exception
+class FileReader extends InputStreamReader
 {
+
+    /**
+     * Construct a new FileReader.
+     * @param mixed $file PhingFile or string pathname.
+     */
+    public function __construct($file)
+    {
+        $in = new FileInputStream($file);
+        parent::__construct($in);
+    }
+
 }

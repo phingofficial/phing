@@ -22,6 +22,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\Util\FileUtils;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
 use Phing\Project;

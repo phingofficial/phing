@@ -1,6 +1,8 @@
 <?php
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;

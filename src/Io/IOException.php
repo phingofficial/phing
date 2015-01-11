@@ -19,22 +19,15 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Io;
+
+use Exception;
 
 /**
- * Convenience class for reading files.
+ * Extends Exception to take advantage of methods therein.
+ *
  * @package   phing.system.io
  */
-class FileReader extends InputStreamReader
+class IOException extends Exception
 {
-
-    /**
-     * Construct a new FileReader.
-     * @param mixed $file PhingFile or string pathname.
-     */
-    public function __construct($file)
-    {
-        $in = new FileInputStream($file);
-        parent::__construct($in);
-    }
-
 }

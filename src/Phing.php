@@ -25,10 +25,10 @@ use Phing\Exception\ConfigurationException;
 use DefaultInputHandler;
 use DefaultLogger;
 use Exception;
-use FileOutputStream;
-use FileReader;
-use IOException;
-use OutputStream;
+use Phing\Io\FileOutputStream;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
 use Phing\Io\File;
 use Phing\Project;
 use Phing\Parser\ProjectConfigurator;
@@ -39,10 +39,6 @@ use Phing\Util\StringHelper;
 use Phing\Util\Timer;
 
 include_once 'phing/system/util/Properties.php';
-include_once 'phing/system/io/OutputStream.php';
-include_once 'phing/system/io/PrintStream.php';
-include_once 'phing/system/io/FileOutputStream.php';
-include_once 'phing/system/io/FileReader.php';
 
 /**
  * Entry point into Phing.  This class handles the full lifecycle of a build -- from
@@ -117,7 +113,7 @@ class Phing
     private static $out;
 
     /**
-     * @var OutputStream Stream for error output.
+     * @var \Phing\Io\OutputStream Stream for error output.
      */
     private static $err;
 
@@ -236,7 +232,7 @@ class Phing
     /**
      * Sets the stream to use for error output.
      *
-     * @param OutputStream $stream The stream to use for error output.
+     * @param \Phing\Io\OutputStream $stream The stream to use for error output.
      */
     public static function setErrorStream(OutputStream $stream)
     {
@@ -978,7 +974,7 @@ class Phing
      *
      * @param Project $project
      *
-     * @throws IOException
+     * @throws \Phing\Io\IOException
      */
     public static function printDescription(Project $project)
     {

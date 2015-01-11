@@ -18,7 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-
+namespace Phing\Io;
 
 /**
  * Convenience class for reading files.
@@ -29,7 +29,7 @@
  *
  * @package   phing.system.io
  */
-class BufferedReader extends Reader
+class BufferedReader extends AbstractReader
 {
 
     private $bufferSize = 0;
@@ -43,11 +43,11 @@ class BufferedReader extends Reader
 
     /**
      *
-     * @param Reader  $reader   The reader (e.g. FileReader).
+     * @param \Phing\Io\AbstractReader $reader The reader (e.g. FileReader).
      * @param integer $buffsize The size of the buffer we should use for reading files.
      *                          A large buffer ensures that most files (all scripts?) are parsed in 1 buffer.
      */
-    public function __construct(Reader $reader, $buffsize = 65536)
+    public function __construct(AbstractReader $reader, $buffsize = 65536)
     {
         $this->in = $reader;
         $this->bufferSize = $buffsize;
@@ -55,7 +55,7 @@ class BufferedReader extends Reader
 
     /**
      * Reads and returns a chunk of data.
-     * @param  int   $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
+     * @param  int $len Number of bytes to read.  Default is to read configured buffer size number of bytes.
      * @return mixed buffer or -1 if EOF.
      */
     public function read($len = null)

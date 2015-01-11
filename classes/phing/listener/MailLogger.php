@@ -21,6 +21,7 @@
 
 use Phing\BuildEvent;
 use Phing\Exception\BuildException;
+use Phing\Io\OutputStream;
 use Phing\Phing;
 
 

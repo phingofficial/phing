@@ -2,6 +2,10 @@
 use Phing\BuildEvent;
 use Phing\Exception\BuildException;
 use Phing\BuildLoggerInterface;
+use Phing\Io\FileOutputStream;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Io\OutputStreamWriter;
 use Phing\Phing;
 use Phing\Project;
 

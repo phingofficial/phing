@@ -1,6 +1,17 @@
 <?php
+namespace Phing\Io\Util;
+
+use ChainReaderHelper;
+use Character;
+use Exception;
+use Phing\Io\BufferedReader;
+use Phing\Io\BufferedWriter;
 use Phing\Io\File;
+use Phing\Io\FileReader;
 use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\AbstractReader;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Util\StringHelper;
 
@@ -37,7 +48,7 @@ class FileUtils
      * Returns the default file/dir creation mask value
      * (The mask value is prepared w.r.t the current user's file-creation mask value)
      *
-     * @param  boolean $dirmode     Directory creation mask to select
+     * @param  boolean $dirmode Directory creation mask to select
      * @param  boolean $returnoctal Whether the return value is in octal representation
      *
      * @return string  Creation Mask
@@ -49,7 +60,7 @@ class FileUtils
         $permission = ($dirmode === true) ? 0777 : 0666;
 
         // Default mask information
-        $defaultmask = sprintf('%03o', ($permission & ($permission - (int) sprintf('%04o', umask()))));
+        $defaultmask = sprintf('%03o', ($permission & ($permission - (int)sprintf('%04o', umask()))));
 
         return ($returnoctal ? octdec($defaultmask) : $defaultmask);
     }
@@ -58,12 +69,12 @@ class FileUtils
      * Returns a new Reader with filterchains applied.  If filterchains are empty,
      * simply returns passed reader.
      *
-     * @param  Reader  $in            Reader to modify (if appropriate).
-     * @param  array   &$filterChains filter chains to apply.
+     * @param  \Phing\Io\AbstractReader $in Reader to modify (if appropriate).
+     * @param  array &$filterChains filter chains to apply.
      * @param  Project $project
-     * @return Reader  Assembled Reader (w/ filter chains).
+     * @return \Phing\Io\AbstractReader  Assembled Reader (w/ filter chains).
      */
-    public static function getChainedReader(Reader $in, &$filterChains, Project $project)
+    public static function getChainedReader(AbstractReader $in, &$filterChains, Project $project)
     {
         if (!empty($filterChains)) {
             $crh = new ChainReaderHelper();
@@ -240,7 +251,7 @@ class FileUtils
     public function normalize($path)
     {
 
-        $path = (string) $path;
+        $path = (string)$path;
         $orig = $path;
 
         $path = str_replace('/', DIRECTORY_SEPARATOR, str_replace('\\', DIRECTORY_SEPARATOR, $path));
@@ -327,11 +338,11 @@ class FileUtils
                 // already contains one
                 $sb .= DIRECTORY_SEPARATOR;
             }
-            $sb .= (string) $s[$i];
+            $sb .= (string)$s[$i];
         }
 
 
-        $path = (string) $sb;
+        $path = (string)$sb;
         if ($dosWithDrive === true) {
             $path = str_replace('/', '\\', $path);
         }

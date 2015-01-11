@@ -21,6 +21,7 @@
 */
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\AbstractReader;
 use Phing\Project;
 
 
@@ -264,13 +265,13 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * Creates a new TranslateGettext filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader A Reader object providing the underlying stream.
+     * @param AbstractReader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
      * @return TranslateGettext A new filter based on this configuration, but filtering
      *                          the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new TranslateGettext($reader);
         $newFilter->setProject($this->getProject());

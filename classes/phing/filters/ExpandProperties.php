@@ -19,6 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Io\AbstractReader;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
 
@@ -95,13 +96,13 @@ class ExpandProperties extends BaseFilterReader implements ChainableReader
      * Creates a new ExpandProperties filter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader $reader A Reader object providing the underlying stream.
+     * @param \Phing\Io\AbstractReader $reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return ExpandProperties A new filter based on this configuration, but filtering
      *                the specified reader
      */
-    public function chain(Reader $reader)
+    public function chain(AbstractReader $reader)
     {
         $newFilter = new ExpandProperties($reader);
         $newFilter->setProject($this->getProject());

@@ -22,7 +22,7 @@
 
 namespace Phing;
 
-use OutputStream;
+use Phing\Io\OutputStream;
 use Phing\BuildListenerInterface;
 
 /**
