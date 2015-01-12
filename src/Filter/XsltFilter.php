@@ -1,11 +1,14 @@
 <?php
+namespace Phing\Filter;
+
+use DOMDocument;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\AbstractReader;
 use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Project;
-use Phing\Util\RegisterSlot;
+use XSLTProcessor;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -23,7 +26,7 @@ use Phing\Util\RegisterSlot;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 
 /**
@@ -38,7 +41,7 @@ use Phing\Util\RegisterSlot;
  * @see       FilterReader
  * @package   phing.filters
  */
-class XsltFilter extends BaseParamFilterReader implements ChainableReader
+class XsltFilter extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /**
@@ -85,12 +88,12 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     private $resolveStylesheetExternals = false;
 
     /**
-     * Create new XSLT Param object, to handle the <param/> nested element.
-     * @return XSLTParam
+     * Create new XsltParam object, to handle the <param/> nested element.
+     * @return XsltParam
      */
     public function createParam()
     {
-        $num = array_push($this->xsltParams, new XSLTParam());
+        $num = array_push($this->xsltParams, new XsltParam());
 
         return $this->xsltParams[$num - 1];
     }
@@ -140,7 +143,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setHtml($b)
     {
-        $this->html = (boolean) $b;
+        $this->html = (boolean)$b;
     }
 
     /**
@@ -161,7 +164,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setResolveDocumentExternals($resolveExternals)
     {
-        $this->resolveDocumentExternals = (bool) $resolveExternals;
+        $this->resolveDocumentExternals = (bool)$resolveExternals;
     }
 
     /**
@@ -183,7 +186,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setResolveStylesheetExternals($resolveExternals)
     {
-        $this->resolveStylesheetExternals = (bool) $resolveExternals;
+        $this->resolveStylesheetExternals = (bool)$resolveExternals;
     }
 
     /**
@@ -322,8 +325,7 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * Creates a new XsltFilter using the passed in
      * Reader for instantiation.
      *
-     * @param Reader A Reader object providing the underlying stream.
-     *               Must not be <code>null</code>.
+     * @param \Phing\Io\AbstractReader $reader
      *
      * @return XsltFilter A new filter based on this configuration, but filtering
      *                    the specified reader
@@ -353,98 +355,12 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
                         $this->setStyle($params[$i]->getValue());
                     }
                 } elseif ($params[$i]->getType() == "param") {
-                    $xp = new XSLTParam();
+                    $xp = new XsltParam();
                     $xp->setName($params[$i]->getName());
                     $xp->setExpression($params[$i]->getValue());
                     $this->xsltParams[] = $xp;
                 }
             }
-        }
-    }
-}
-
-/**
- * Class that holds an XSLT parameter.
- *
- * @package   phing.filters
- */
-class XSLTParam
-{
-
-    private $name;
-
-    /** @var RegisterSlot */
-    private $expr;
-
-    /**
-     * Sets param name.
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get param name.
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Sets expression value (alias to the setExpression()) method.
-     *
-     * @param string $v
-     * @see setExpression()
-     */
-    public function setValue($v)
-    {
-        $this->setExpression($v);
-    }
-
-    /**
-     * Gets expression value (alias to the getExpression()) method.
-     *
-     * @return string
-     * @see getExpression()
-     */
-    public function getValue()
-    {
-        return $this->getExpression();
-    }
-
-    /**
-     * Sets expression value.
-     * @param string $expr
-     */
-    public function setExpression($expr)
-    {
-        $this->expr = $expr;
-    }
-
-    /**
-     * Sets expression to dynamic register slot.
-     * @param RegisterSlot $expr
-     */
-    public function setListeningExpression(RegisterSlot $expr)
-    {
-        $this->expr = $expr;
-    }
-
-    /**
-     * Returns expression value -- performs lookup if expr is registerslot.
-     *
-     * @return string
-     */
-    public function getExpression()
-    {
-        if ($this->expr instanceof RegisterSlot) {
-            return $this->expr->getValue();
-        } else {
-            return $this->expr;
         }
     }
 }

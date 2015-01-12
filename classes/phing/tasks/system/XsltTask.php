@@ -18,6 +18,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Filter\XsltFilter;
 use Phing\Io\File;
 use Phing\Project;
 

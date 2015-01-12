@@ -19,8 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
-use Phing\Io\AbstractReader;
+namespace Phing\Filter;
 
+use Phing\Io\AbstractReader;
 
 /**
  * Converts tabs to spaces.
@@ -41,7 +42,7 @@ use Phing\Io\AbstractReader;
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class TabToSpaces extends BaseParamFilterReader implements ChainableReader
+class TabToSpaces extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /**
@@ -98,7 +99,7 @@ class TabToSpaces extends BaseParamFilterReader implements ChainableReader
      */
     public function setTablength($tabLength)
     {
-        $this->tabLength = (int) $tabLength;
+        $this->tabLength = (int)$tabLength;
     }
 
     /**

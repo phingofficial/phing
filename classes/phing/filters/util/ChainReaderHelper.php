@@ -19,6 +19,8 @@
  * <http://phing.info>.
 */
 
+use Phing\Filter\BaseFilterReader;
+use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
 use Phing\Io\FilterReader;
 use Phing\Phing;
@@ -184,7 +186,7 @@ class ChainReaderHelper
 
                     $instream = $impl; // now that it's been chained
 
-                } elseif (($filter instanceof ChainableReader) && ($filter instanceof AbstractReader)) {
+                } elseif (($filter instanceof ChainableReaderInterface) && ($filter instanceof AbstractReader)) {
                     if ($this->getProject() !== null && ($filter instanceof BaseFilterReader)) {
                         $filter->setProject($this->getProject());
                     }

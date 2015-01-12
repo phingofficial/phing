@@ -19,6 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
 use Phing\Io\AbstractReader;
 
 /**
@@ -27,7 +29,7 @@ use Phing\Io\AbstractReader;
  * @author Magesh Umasankar
  * @package phing.filters
  */
-interface ChainableReader
+interface ChainableReaderInterface
 {
 
     /**

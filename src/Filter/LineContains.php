@@ -1,26 +1,9 @@
 <?php
 
-/*
- *  $Id$
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://phing.info>.
- */
-use Phing\Io\AbstractReader;
+namespace Phing\Filter;
 
+use Exception;
+use Phing\Io\AbstractReader;
 
 /**
  * Filter which includes only those lines that contain all the user-specified
@@ -49,7 +32,7 @@ use Phing\Io\AbstractReader;
  * @see       PhingFilterReader
  * @package   phing.filters
  */
-class LineContains extends BaseParamFilterReader implements ChainableReader
+class LineContains extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /**
@@ -231,7 +214,7 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
         $params = $this->getParameters();
         if ($params !== null) {
             foreach ($params as $param) {
-                if (self::CONTAINS_KEY == $param->getType()) {
+                if (LineContains::CONTAINS_KEY == $param->getType()) {
                     $cont = new Contains();
                     $cont->setValue($param->getValue());
                     array_push($this->_contains, $cont);
@@ -239,37 +222,5 @@ class LineContains extends BaseParamFilterReader implements ChainableReader
                 }
             }
         }
-    }
-}
-
-/**
- * Holds a contains element.
- *
- * @package phing.filters
- */
-class Contains
-{
-
-    /**
-     * @var string
-     */
-    private $_value;
-
-    /**
-     * Set 'contains' value.
-     * @param string $contains
-     */
-    public function setValue($contains)
-    {
-        $this->_value = (string) $contains;
-    }
-
-    /**
-     * Returns 'contains' value.
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->_value;
     }
 }

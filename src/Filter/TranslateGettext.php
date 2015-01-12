@@ -19,6 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\AbstractReader;
@@ -45,7 +47,7 @@ use Phing\Project;
  * @see       BaseFilterReader
  * @package   phing.filters
  */
-class TranslateGettext extends BaseParamFilterReader implements ChainableReader
+class TranslateGettext extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     // constants for specifying keys to expect
@@ -185,7 +187,7 @@ class TranslateGettext extends BaseParamFilterReader implements ChainableReader
      * string replacements.  (alternative would be using preg_replace with /e which
      * would probably be faster, but no ability to debug/log.)
      *
-     * @param  array  $matches Array of matches; we're interested in $matches[2].
+     * @param  array $matches Array of matches; we're interested in $matches[2].
      * @return string Translated text
      */
     private function xlateStringCallback($matches)

@@ -19,6 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
+use Phing\Filter\BaseParamFilterReader;
+use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
 
 
@@ -40,7 +44,7 @@ use Phing\Io\AbstractReader;
  * @see       FilterReader
  * @package   phing.filters
  */
-class PrefixLines extends BaseParamFilterReader implements ChainableReader
+class PrefixLines extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /**
@@ -96,7 +100,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
      */
     public function setPrefix($prefix)
     {
-        $this->_prefix = (string) $prefix;
+        $this->_prefix = (string)$prefix;
     }
 
     /**
@@ -139,7 +143,7 @@ class PrefixLines extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if (self::PREFIX_KEY == $params[$i]->getName()) {
-                    $this->_prefix = (string) $params[$i]->getValue();
+                    $this->_prefix = (string)$params[$i]->getValue();
                     break;
                 }
             }

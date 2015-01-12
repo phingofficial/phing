@@ -19,6 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Filter;
+
+use DOMDocument;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\AbstractReader;
@@ -36,7 +39,7 @@ use Phing\Project;
  * @see       FilterReader
  * @package   phing.filters
  */
-class XincludeFilter extends BaseParamFilterReader implements ChainableReader
+class XincludeFilter extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     private $basedir = null;
@@ -64,7 +67,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
      */
     public function setResolveExternals($resolveExternals)
     {
-        $this->resolveExternals = (bool) $resolveExternals;
+        $this->resolveExternals = (bool)$resolveExternals;
     }
 
     /**
@@ -157,7 +160,7 @@ class XincludeFilter extends BaseParamFilterReader implements ChainableReader
         }
 
         // Create and setup document.
-        $xmlDom = new DomDocument();
+        $xmlDom = new DOMDocument();
         $xmlDom->resolveExternals = $this->resolveExternals;
 
         $xmlDom->loadXML($xml);

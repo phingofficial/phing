@@ -19,8 +19,13 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
+use Phing\Filter\BaseParamFilterReader;
+use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
 use Phing\Project;
+use the;
 
 
 /**
@@ -44,7 +49,7 @@ use Phing\Project;
  */
 class IconvFilter
     extends BaseParamFilterReader
-    implements ChainableReader
+    implements ChainableReaderInterface
 {
 
     private $_inputEncoding;

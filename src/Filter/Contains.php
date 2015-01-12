@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -20,29 +20,34 @@
  * <http://phing.info>.
  */
 
-use Phing\Test\AbstractBuildFileTest;
-
+namespace Phing\Filter;
 
 /**
- * @author Michiel Rook <mrook@php.net>
- * @package phing.filters
+ * Holds a contains element.
  */
-class ReplaceTokensWithFileTest extends AbstractBuildFileTest
+class Contains
 {
-    public function setUp()
+
+    /**
+     * @var string
+     */
+    private $_value;
+
+    /**
+     * Set 'contains' value.
+     * @param string $contains
+     */
+    public function setValue($contains)
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/ReplaceTokensWithFile/build.xml");
+        $this->_value = (string)$contains;
     }
 
     /**
-     * Inspired by ticket #798 - http://www.phing.info/trac/ticket/798
+     * Returns 'contains' value.
+     * @return string
      */
-    public function testPostfix()
+    public function getValue()
     {
-        $this->executeTarget(__FUNCTION__);
-
-        $this->assertInLogs(
-            '[filter:ReplaceTokensWithFile] Replaced "#!testReplace##" with content from file "testReplace.tpl"'
-        );
+        return $this->_value;
     }
 }

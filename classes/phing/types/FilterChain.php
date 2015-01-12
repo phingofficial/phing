@@ -19,6 +19,25 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Filter\ExpandProperties;
+use Phing\Filter\HeadFilter;
+use Phing\Filter\IconvFilter;
+use Phing\Filter\LineContains;
+use Phing\Filter\LineContainsRegexp;
+use Phing\Filter\PrefixLines;
+use Phing\Filter\ReplaceRegexp;
+use Phing\Filter\ReplaceTokens;
+use Phing\Filter\ReplaceTokensWithFile;
+use Phing\Filter\StripLineBreaks;
+use Phing\Filter\StripLineComments;
+use Phing\Filter\StripPhpComments;
+use Phing\Filter\StripWhitespace;
+use Phing\Filter\TabToSpaces;
+use Phing\Filter\TailFilter;
+use Phing\Filter\TidyFilter;
+use Phing\Filter\TranslateGettext;
+use Phing\Filter\XincludeFilter;
+use Phing\Filter\XsltFilter;
 
 
 /**

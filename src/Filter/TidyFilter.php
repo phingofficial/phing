@@ -18,9 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
+use Parameter;
 use Phing\Exception\BuildException;
 use Phing\Io\AbstractReader;
-
 
 /**
  * This filter uses the bundled-with-PHP Tidy extension to filter input.
@@ -38,7 +40,7 @@ use Phing\Io\AbstractReader;
  * @version   $Id$
  * @package   phing.filters
  */
-class TidyFilter extends BaseParamFilterReader implements ChainableReader
+class TidyFilter extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /** @var string Encoding of resulting document. */
@@ -118,7 +120,7 @@ class TidyFilter extends BaseParamFilterReader implements ChainableReader
 
         $config = $this->getDistilledConfig();
 
-        $tidy = new Tidy();
+        $tidy = new \Tidy();
         $tidy->parseString($buffer, $config, $this->encoding);
         $tidy->cleanRepair();
 

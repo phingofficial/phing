@@ -18,7 +18,14 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
+use An;
+use Exception;
+use Phing\Filter\BaseParamFilterReader;
+use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
+use RegularExpression;
 
 
 /**
@@ -44,7 +51,7 @@ use Phing\Io\AbstractReader;
  * @see       FilterReader
  * @package   phing.filters
  */
-class LineContainsRegexp extends BaseParamFilterReader implements ChainableReader
+class LineContainsRegexp extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /**

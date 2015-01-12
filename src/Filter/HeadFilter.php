@@ -1,4 +1,8 @@
 <?php
+namespace Phing\Filter;
+
+use Phing\Filter\BaseParamFilterReader;
+use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
 
 /**
@@ -17,97 +21,104 @@ use Phing\Io\AbstractReader;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 
 /**
- * Reads the last <code>n</code> lines of a stream. (Default is last10 lines.)
- *
+ * Reads the first <code>n</code> lines of a stream.
+ * (Default is first 10 lines.)
+ * <p>
  * Example:
- *
- * <pre><tailfilter lines="3" /></pre>
- *
+ * <pre><headfilter lines="3"/></pre>
  * Or:
- *
- * <pre><filterreader classname="phing.filters.TailFilter">
- *   <param name="lines" value="3">
+ * <pre><filterreader classname="phing.filters.HeadFilter">
+ *    <param name="lines" value="3"/>
  * </filterreader></pre>
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
- * @copyright 2003 seasonfive. All rights reserved
  *
- * @see       BaseParamFilterReader
+ * @see       FilterReader
  *
  * @package   phing.filters
  */
-class TailFilter extends BaseParamFilterReader implements ChainableReader
+class HeadFilter extends BaseParamFilterReader implements ChainableReaderInterface
 {
     /**
      * Parameter name for the number of lines to be returned.
-     * @var string
      */
     const LINES_KEY = "lines";
 
     /**
+     * Number of lines currently read in.
+     *
+     * @var integer
+     */
+    private $_linesRead = 0;
+
+    /**
      * Number of lines to be returned in the filtered stream.
+     *
      * @var integer
      */
     private $_lines = 10;
 
     /**
-     * Array to hold lines.
-     * @var array
-     */
-    private $_lineBuffer = array();
-
-    /**
-     * Returns the last n lines of a file.
-     * @param  int   $len Num chars to read.
-     * @return mixed The filtered buffer or -1 if EOF.
+     * Returns first n lines of stream.
+     *
+     * @param null $len
+     * @return string|int the resulting stream, or -1
+     *                    if the end of the resulting stream has been reached
+     *
      */
     public function read($len = null)
     {
 
-        while (($buffer = $this->in->read($len)) !== -1) {
-            // Remove the last "\n" from buffer for
-            // prevent explode to add an empty cell at
-            // the end of array
-            $buffer = trim($buffer, "\n");
+        if (!$this->getInitialized()) {
+            $this->_initialize();
+            $this->setInitialized(true);
+        }
+
+        // note, if buffer contains fewer lines than
+        // $this->_lines this code will not work.
+
+        if ($this->_linesRead < $this->_lines) {
+
+            $buffer = $this->in->read($len);
+
+            if ($buffer === -1) {
+                return -1;
+            }
+
+            // now grab first X lines from buffer
 
             $lines = explode("\n", $buffer);
 
-            if (count($lines) >= $this->_lines) {
-                // Buffer have more (or same) number of lines than needed.
-                // Fill lineBuffer with the last "$this->_lines" lasts ones.
-                $off = count($lines) - $this->_lines;
-                $this->_lineBuffer = array_slice($lines, $off);
-            } else {
-                // Some new lines ...
-                // Prepare space for insert these new ones
-                $this->_lineBuffer = array_slice($this->_lineBuffer, count($lines) - 1);
-                $this->_lineBuffer = array_merge($this->_lineBuffer, $lines);
-            }
+            $linesCount = count($lines);
+
+            // must account for possibility that the num lines requested could
+            // involve more than one buffer read.
+            $len = ($linesCount > $this->_lines ? $this->_lines - $this->_linesRead : $linesCount);
+            $filtered_buffer = implode("\n", array_slice($lines, 0, $len));
+            $this->_linesRead += $len;
+
+            return $filtered_buffer;
+
         }
 
-        if (empty($this->_lineBuffer)) {
-            $ret = -1;
-        } else {
-            $ret = implode("\n", $this->_lineBuffer);
-            $this->_lineBuffer = array();
-        }
-
-        return $ret;
+        return -1; // EOF, since the file is "finished" as far as subsequent filters are concerned.
     }
 
     /**
      * Sets the number of lines to be returned in the filtered stream.
      *
      * @param integer $lines the number of lines to be returned in the filtered stream.
+     *
+     * @return void
      */
     public function setLines($lines)
     {
-        $this->_lines = (int) $lines;
+        $this->_lines = (int)$lines;
     }
 
     /**
@@ -121,18 +132,18 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
     }
 
     /**
-     * Creates a new TailFilter using the passed in
+     * Creates a new HeadFilter using the passed in
      * Reader for instantiation.
      *
      * @param \Phing\Io\AbstractReader $reader A Reader object providing the underlying stream.
      *                       Must not be <code>null</code>.
      *
-     * @return TailFilter A new filter based on this configuration, but filtering
+     * @return HeadFilter A new filter based on this configuration, but filtering
      *                    the specified reader.
      */
     public function chain(AbstractReader $reader)
     {
-        $newFilter = new TailFilter($reader);
+        $newFilter = new HeadFilter($reader);
         $newFilter->setLines($this->getLines());
         $newFilter->setInitialized(true);
         $newFilter->setProject($this->getProject());
@@ -143,6 +154,8 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Scans the parameters list for the "lines" parameter and uses
      * it to set the number of lines to be returned in the filtered stream.
+     *
+     * @return void
      */
     private function _initialize()
     {
@@ -150,7 +163,7 @@ class TailFilter extends BaseParamFilterReader implements ChainableReader
         if ($params !== null) {
             for ($i = 0, $_i = count($params); $i < $_i; $i++) {
                 if (self::LINES_KEY == $params[$i]->getName()) {
-                    $this->_lines = (int) $params[$i]->getValue();
+                    $this->_lines = (int)$params[$i]->getValue();
                     break;
                 }
             }

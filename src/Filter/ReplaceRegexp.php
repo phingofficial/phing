@@ -19,8 +19,14 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
+use Exception;
+use Phing\Filter\BaseFilterReader;
+use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
 use Phing\Project;
+use RegularExpression;
 
 
 /**
@@ -38,7 +44,7 @@ use Phing\Project;
  * @version   $Id$
  * @package   phing.filters
  */
-class ReplaceRegexp extends BaseFilterReader implements ChainableReader
+class ReplaceRegexp extends BaseFilterReader implements ChainableReaderInterface
 {
 
     /**

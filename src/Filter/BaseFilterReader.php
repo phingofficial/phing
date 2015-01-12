@@ -19,6 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
 use Phing\Io\AbstractReader;
 use Phing\Io\FilterReader;
 use Phing\Io\IOException;
@@ -79,7 +81,7 @@ class BaseFilterReader extends FilterReader
      */
     public function setInitialized($initialized)
     {
-        $this->initialized = (boolean) $initialized;
+        $this->initialized = (boolean)$initialized;
     }
 
     /**
@@ -107,7 +109,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Reads characters.
      *
-     * @param  int $len  Maximum number of characters to read.
+     * @param  int $len Maximum number of characters to read.
      *
      * @return string Characters read, or -1 if the end of the stream
      *                    has been reached
@@ -156,8 +158,8 @@ class BaseFilterReader extends FilterReader
     /**
      * Convenience method to support logging in filters.
      *
-     * @param string $msg   Message to log.
-     * @param int    $level Priority level.
+     * @param string $msg Message to log.
+     * @param int $level Priority level.
      *
      * @return void
      */

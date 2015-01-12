@@ -19,6 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
 use Phing\Io\AbstractReader;
 
 
@@ -39,7 +41,7 @@ use Phing\Io\AbstractReader;
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
+class StripLineBreaks extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /**
@@ -96,7 +98,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      */
     public function setLineBreaks($lineBreaks)
     {
-        $this->_lineBreaks = (string) $lineBreaks;
+        $this->_lineBreaks = (string)$lineBreaks;
     }
 
     /**

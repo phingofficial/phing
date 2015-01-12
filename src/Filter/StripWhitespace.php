@@ -19,10 +19,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
 use Phing\Io\File;
 use Phing\Io\AbstractReader;
 use Phing\Project;
-
 
 /**
  * Strips whitespace from [php] files using PHP stripwhitespace() method.
@@ -33,7 +34,7 @@ use Phing\Project;
  * @package   phing.filters
  * @todo -c use new PHP functions to perform this instead of regex.
  */
-class StripWhitespace extends BaseFilterReader implements ChainableReader
+class StripWhitespace extends BaseFilterReader implements ChainableReaderInterface
 {
 
     private $processed = false;

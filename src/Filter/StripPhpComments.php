@@ -19,6 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
 use Phing\Io\AbstractReader;
 
 
@@ -35,7 +37,7 @@ use Phing\Io\AbstractReader;
  * @see       FilterReader
  * @package   phing.filters
  */
-class StripPhpComments extends BaseFilterReader implements ChainableReader
+class StripPhpComments extends BaseFilterReader implements ChainableReaderInterface
 {
     /**
      * The read-ahead character, used for effectively pushing a single

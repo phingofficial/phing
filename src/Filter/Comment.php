@@ -1,8 +1,6 @@
 <?php
 
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -20,36 +18,38 @@
  * <http://phing.info>.
  */
 
-use Phing\Io\Util\FileUtils;
-use Phing\Test\AbstractBuildFileTest;
+namespace Phing\Filter;
 
 /**
- * @author <a href="mailto:stefan.bodewig@epost.de">Stefan Bodewig</a>
- * @package phing.filters
+ * The class that holds a comment representation.
  */
-class LineContainsTest extends AbstractBuildFileTest
+class Comment
 {
 
-    protected $fu;
+    /** The prefix for a line comment. */
+    private $_value;
 
-    public function setUp()
+    /*
+     * Sets the prefix for this type of line comment.
+     *
+     * @param string $value The prefix for a line comment of this type.
+     *                      Must not be <code>null</code>.
+     */
+    /**
+     * @param $value
+     */
+    public function setValue($value)
     {
-        $this->configureProject(PHING_TEST_BASE . "/etc/filters/linecontains.xml");
-        $this->fu = new FileUtils();
+        $this->_value = (string)$value;
     }
 
-    public function tearDown()
+    /*
+     * Returns the prefix for this type of line comment.
+     *
+     * @return string The prefix for this type of line comment.
+    */
+    public function getValue()
     {
-        $this->executeTarget("cleanup");
+        return $this->_value;
     }
-
-    public function testLineContains()
-    {
-        $this->executeTarget("testLineContains");
-
-        $expected = $this->getProject()->resolveFile("expected/linecontains.test");
-        $result = $this->getProject()->resolveFile("result/linecontains.test");
-        $this->assertTrue($this->fu->contentEquals($expected, $result), "Files don't match!");
-    }
-
 }

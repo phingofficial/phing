@@ -19,9 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
 use Phing\Io\AbstractReader;
 use Phing\Project;
-
 
 /**
  * Replaces tokens in the original input with the contents of a file.
@@ -52,7 +53,7 @@ use Phing\Project;
  * @see       ReplaceTokensWithFile
  * @package   phing.filters
  */
-class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableReader
+class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /**
@@ -125,7 +126,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setTranslateHTML($translate)
     {
-        $this->_translatehtml = (bool) $translate;
+        $this->_translatehtml = (bool)$translate;
     }
 
     /**
@@ -143,7 +144,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setDir($dir)
     {
-        $this->_dir = (string) $dir;
+        $this->_dir = (string)$dir;
     }
 
     /**
@@ -163,7 +164,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setPrefix($prefix)
     {
-        $this->_prefix = (string) $prefix;
+        $this->_prefix = (string)$prefix;
     }
 
     /*
@@ -188,7 +189,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setPostfix($postfix)
     {
-        $this->_postfix = (string) $postfix;
+        $this->_postfix = (string)$postfix;
     }
 
     /**
@@ -208,7 +209,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setBeginToken($beginToken)
     {
-        $this->_beginToken = (string) $beginToken;
+        $this->_beginToken = (string)$beginToken;
     }
 
     /**
@@ -228,7 +229,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
      */
     public function setEndToken($endToken)
     {
-        $this->_endToken = (string) $endToken;
+        $this->_endToken = (string)$endToken;
     }
 
     /**
@@ -243,7 +244,7 @@ class ReplaceTokensWithFile extends BaseParamFilterReader implements ChainableRe
 
     /**
      * Replace the token found with the appropriate file contents
-     * @param  array  $matches Array of 1 el containing key to search for.
+     * @param  array $matches Array of 1 el containing key to search for.
      * @return string Text with which to replace key or value of key if none is found.
      */
     private function replaceTokenCallback($matches)

@@ -19,6 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter;
+
+use Phing\Filter\BaseFilterReader;
+use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
@@ -38,7 +42,7 @@ use Phing\Project;
  * @see       BaseFilterReader
  * @package   phing.filters
  */
-class ExpandProperties extends BaseFilterReader implements ChainableReader
+class ExpandProperties extends BaseFilterReader implements ChainableReaderInterface
 {
     protected $logLevel = Project::MSG_VERBOSE;
 

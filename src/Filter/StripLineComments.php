@@ -19,9 +19,13 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+
+namespace Phing\Filter;
+
+use Exception;
+use Phing\Filter\Comment;
 use Phing\Io\AbstractReader;
 use Phing\Util\StringHelper;
-
 
 /**
  * This filter strips line comments.
@@ -52,7 +56,7 @@ use Phing\Util\StringHelper;
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
-class StripLineComments extends BaseParamFilterReader implements ChainableReader
+class StripLineComments extends BaseParamFilterReader implements ChainableReaderInterface
 {
 
     /** Parameter name for the comment prefix. */
@@ -192,41 +196,5 @@ class StripLineComments extends BaseParamFilterReader implements ChainableReader
                 }
             }
         }
-    }
-}
-
-/**
- * The class that holds a comment representation.
- *
- * @package phing.filters
- */
-class Comment
-{
-
-    /** The prefix for a line comment. */
-    private $_value;
-
-    /*
-     * Sets the prefix for this type of line comment.
-     *
-     * @param string $value The prefix for a line comment of this type.
-     *                      Must not be <code>null</code>.
-     */
-    /**
-     * @param $value
-     */
-    public function setValue($value)
-    {
-        $this->_value = (string) $value;
-    }
-
-    /*
-     * Returns the prefix for this type of line comment.
-     *
-     * @return string The prefix for this type of line comment.
-    */
-    public function getValue()
-    {
-        return $this->_value;
     }
 }

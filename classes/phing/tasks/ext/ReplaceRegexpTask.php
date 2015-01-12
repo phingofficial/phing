@@ -1,5 +1,6 @@
 <?php
 use Phing\Exception\BuildException;
+use Phing\Filter\ReplaceRegexp;
 use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\FileWriter;
