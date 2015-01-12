@@ -22,6 +22,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Io\Scanner\SourceFileScanner;
+use Phing\Mapper\MergeMapper;
 use Phing\Project;
 
 

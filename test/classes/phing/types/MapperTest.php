@@ -21,6 +21,7 @@
  */
 
 use Phing\Exception\BuildException;
+use Phing\Mapper\GlobMapper;
 use Phing\Project;
 use Phing\Test\AbstractBuildFileTest;
 

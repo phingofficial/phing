@@ -18,6 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Mapper;
+
+use Phing\Mapper\FileNameMapperInterface;
 use Phing\Util\StringHelper;
 
 
@@ -28,7 +31,7 @@ use Phing\Util\StringHelper;
  * @version  $Id$
  * @package   phing.mappers
  */
-class GlobMapper implements FileNameMapper
+class GlobMapper implements FileNameMapperInterface
 {
     /**
      * Part of &quot;from&quot; pattern before the <code>.*</code>.

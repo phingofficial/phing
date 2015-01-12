@@ -1,5 +1,7 @@
 <?php
-use Phing\Io\File;
+namespace Phing\Mapper;
+
+use Phing\Mapper\FileNameMapperInterface;
 
 /**
  *  $Id$
@@ -23,26 +25,24 @@ use Phing\Io\File;
 
 
 /**
- * Removes any directory information from the passed path.
+ * This mapper does nothing ;)
  *
- * @author   Andreas Aderhold <andi@binarycloud.com>
- * @version  $Id$
- * @package  phing.mappers
+ * @author    Andreas Aderhold <andi@binarycloud.com>
+ * @author    Hans Lellelid <hans@xmpl.org>
+ * @version   $Id$
+ * @package   phing.mappers
  */
-class FlattenMapper implements FileNameMapper
+class IdentityMapper implements FileNameMapperInterface
 {
     /**
-     * The mapper implementation. Returns string with source filename
-     * but without leading directory information
+     * The mapper implementation. Basically does nothing in this case.
      *
-     * @param  string $sourceFileName The data the mapper works on
+     * @param  string $sourceFileName The data the mapper works on.
      * @return array  The data after the mapper has been applied
      */
     public function main($sourceFileName)
     {
-        $f = new File($sourceFileName);
-
-        return array($f->getName());
+        return array($sourceFileName);
     }
 
     /**

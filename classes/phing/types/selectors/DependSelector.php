@@ -21,6 +21,7 @@
  */
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Mapper\IdentityMapper;
 
 
 /**

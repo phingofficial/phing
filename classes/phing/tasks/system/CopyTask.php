@@ -4,6 +4,8 @@ use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Io\Scanner\SourceFileScanner;
 use Phing\Io\Util\FileUtils;
+use Phing\Mapper\FlattenMapper;
+use Phing\Mapper\IdentityMapper;
 use Phing\Project;
 use Phing\Task;
 

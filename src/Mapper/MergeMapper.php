@@ -1,5 +1,5 @@
 <?php
-/**
+/*
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,46 +18,62 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Mapper;
+
+use Phing\Exception\BuildException;
+use Phing\Mapper\FileNameMapperInterface;
+use To;
 
 
 /**
- * This mapper does nothing ;)
+ * For merging files into a single file.  In practice just returns whatever value
+ * was set for "to".
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @author    Hans Lellelid <hans@xmpl.org>
  * @version   $Id$
  * @package   phing.mappers
  */
-class IdentityMapper implements FileNameMapper
+class MergeMapper implements FileNameMapperInterface
 {
+
+    /** the merge */
+    private $mergedFile;
+
     /**
      * The mapper implementation. Basically does nothing in this case.
      *
-     * @param  string $sourceFileName The data the mapper works on.
-     * @return array  The data after the mapper has been applied
+     * @param mixed $sourceFileName The data the mapper works on
+     * @throws \Phing\Exception\BuildException
+     * @return mixed The data after the mapper has been applied
+     * @author  Andreas Aderhold, andi@binarycloud.com
      */
     public function main($sourceFileName)
     {
-        return array($sourceFileName);
+        if ($this->mergedFile === null) {
+            throw new BuildException("MergeMapper error, to attribute not set");
+        }
+
+        return array($this->mergedFile);
     }
 
     /**
-     * Ignored here.
-     * {@inheritdoc}
-     * @param string $to
-     * @return void
+     * Accessor. Sets the to property
+     *
+     * @param   string     To what this mapper should convert the from string
+     * @return boolean True
+     * @author  Andreas Aderhold, andi@binarycloud.com
      */
     public function setTo($to)
     {
+        $this->mergedFile = $to;
     }
 
     /**
-     * Ignored here.
-     * {@inheritdoc}
+     * Ignored.
      * @param string $from
-     * @return void
      */
     public function setFrom($from)
     {
     }
+
 }

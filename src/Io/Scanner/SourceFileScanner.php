@@ -21,7 +21,7 @@
 
 namespace Phing\Io\Scanner;
 
-use FilenameMapper;
+use Phing\Mapper\FileNameMapperInterface;
 use Phing\Io\Util\FileUtils;
 use Phing\Io\IOException;
 use Phing\Phing;
@@ -64,7 +64,7 @@ class SourceFileScanner
      * @param \Phing\Io\File $srcDir all files are relative to this directory
      * @param \Phing\Io\File $destDir target files live here. if null file names
      *                returned by the mapper are assumed to be absolute.
-     * @param FilenameMapper $mapper knows how to construct a target file names from
+     * @param \Phing\Mapper\FileNameMapperInterface $mapper knows how to construct a target file names from
      *                source file names.
      * @param bool $force Boolean that determines if the files should be
      *                forced to be copied.

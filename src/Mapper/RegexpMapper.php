@@ -1,4 +1,7 @@
 <?php
+namespace Phing\Mapper;
+
+use Phing\Mapper\FileNameMapperInterface;
 use Phing\Util\RegExp\RegExp;
 
 /**
@@ -28,7 +31,7 @@ use Phing\Util\RegExp\RegExp;
  *
  * @package phing.mappers
  */
-class RegexpMapper implements FileNameMapper
+class RegexpMapper implements FileNameMapperInterface
 {
     /**
      * @var string $to
@@ -89,7 +92,7 @@ class RegexpMapper implements FileNameMapper
      */
     public function main($sourceFileName)
     {
-        if ($this->reg === null || $this->to === null || !$this->reg->matches((string) $sourceFileName)) {
+        if ($this->reg === null || $this->to === null || !$this->reg->matches((string)$sourceFileName)) {
             return null;
         }
 
@@ -124,6 +127,6 @@ class RegexpMapper implements FileNameMapper
      */
     private function replaceReferencesCallback($matches)
     {
-        return (string) $this->reg->getGroup($matches[1]);
+        return (string)$this->reg->getGroup($matches[1]);
     }
 }

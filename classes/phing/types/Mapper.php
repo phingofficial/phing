@@ -187,20 +187,20 @@ class Mapper extends DataType
         if ($this->type !== null) {
             switch ($this->type) {
                 case 'identity':
-                    $this->classname = 'phing.mappers.IdentityMapper';
+                    $this->classname = 'Phing\\Mapper\\IdentityMapper';
                     break;
                 case 'flatten':
-                    $this->classname = 'phing.mappers.FlattenMapper';
+                    $this->classname = 'Phing\\Mapper\\FlattenMapper';
                     break;
                 case 'glob':
-                    $this->classname = 'phing.mappers.GlobMapper';
+                    $this->classname = 'Phing\\Mapper\\GlobMapper';
                     break;
                 case 'regexp':
                 case 'regex':
-                    $this->classname = 'phing.mappers.RegexpMapper';
+                    $this->classname = 'Phing\\Mapper\\RegexpMapper';
                     break;
                 case 'merge':
-                    $this->classname = 'phing.mappers.MergeMapper';
+                    $this->classname = 'Phing\\Mapper\\MergeMapper';
                     break;
                 default:
                     throw new BuildException("Mapper type {$this->type} not known");
@@ -208,10 +208,7 @@ class Mapper extends DataType
             }
         }
 
-        // get the implementing class
-        $cls = Phing::import($this->classname, $this->classpath);
-
-        $m = new $cls();
+        $m = new $this->classname();
         $m->setFrom($this->from);
         $m->setTo($this->to);
 

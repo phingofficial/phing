@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Mapper;
+
 /**
  * Interface for filename mapper classes.
  *
@@ -27,7 +29,7 @@
  * @version $Id$
  * @package phing.mappers
  */
-interface FileNameMapper
+interface FileNameMapperInterface
 {
 
     /**

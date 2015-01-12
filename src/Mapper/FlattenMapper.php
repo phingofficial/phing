@@ -1,5 +1,10 @@
 <?php
-/*
+namespace Phing\Mapper;
+
+use Phing\Io\File;
+use Phing\Mapper\FileNameMapperInterface;
+
+/**
  *  $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -18,58 +23,48 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\Exception\BuildException;
 
 
 /**
- * For merging files into a single file.  In practice just returns whatever value
- * was set for "to".
+ * Removes any directory information from the passed path.
  *
- * @author    Andreas Aderhold <andi@binarycloud.com>
- * @version   $Id$
- * @package   phing.mappers
+ * @author   Andreas Aderhold <andi@binarycloud.com>
+ * @version  $Id$
+ * @package  phing.mappers
  */
-class MergeMapper implements FileNameMapper
+class FlattenMapper implements FileNameMapperInterface
 {
-
-    /** the merge */
-    private $mergedFile;
-
     /**
-     * The mapper implementation. Basically does nothing in this case.
+     * The mapper implementation. Returns string with source filename
+     * but without leading directory information
      *
-     * @param mixed $sourceFileName The data the mapper works on
-     * @throws \Phing\Exception\BuildException
-     * @return mixed The data after the mapper has been applied
-     * @author  Andreas Aderhold, andi@binarycloud.com
+     * @param  string $sourceFileName The data the mapper works on
+     * @return array  The data after the mapper has been applied
      */
     public function main($sourceFileName)
     {
-        if ($this->mergedFile === null) {
-            throw new BuildException("MergeMapper error, to attribute not set");
-        }
+        $f = new File($sourceFileName);
 
-        return array($this->mergedFile);
+        return array($f->getName());
     }
 
     /**
-     * Accessor. Sets the to property
-     *
-     * @param   string     To what this mapper should convert the from string
-     * @return boolean True
-     * @author  Andreas Aderhold, andi@binarycloud.com
+     * Ignored here.
+     * {@inheritdoc}
+     * @param string $to
+     * @return void
      */
     public function setTo($to)
     {
-        $this->mergedFile = $to;
     }
 
     /**
-     * Ignored.
+     * Ignored here.
+     * {@inheritdoc}
      * @param string $from
+     * @return void
      */
     public function setFrom($from)
     {
     }
-
 }
