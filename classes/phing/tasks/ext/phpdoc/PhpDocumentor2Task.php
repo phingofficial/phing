@@ -20,6 +20,7 @@
  */
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Project;
 use Phing\Task;
 
@@ -64,6 +65,17 @@ class PhpDocumentor2Task extends Task
      * @var string
      */
     private $defaultPackageName = "Default";
+
+    /**
+     * Path to the phpDocumentor 2 source
+     * @var string
+     */
+    private $phpDocumentorPath = "";
+
+    /**
+     * @var \phpDocumentor\Application
+     */
+    private $app = null;
 
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
@@ -145,17 +157,128 @@ class PhpDocumentor2Task extends Task
             throw new BuildException("You have not specified any files to include (<fileset>)", $this->getLocation());
         }
 
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            throw new BuildException("The phpdocumentor2 task requires PHP 5.3+");
+        $this->initializePhpDocumentor();
+
+        $cache = $this->app['descriptor.cache'];
+        $cache->getOptions()->setCacheDir($this->destDir->getAbsolutePath());
+
+        $this->parseFiles();
+
+        $this->project->log("Transforming...", Project::MSG_VERBOSE);
+
+        $this->transformFiles();
+    }
+
+    /**
+     * Finds and initializes the phpDocumentor installation
+     */
+    private function initializePhpDocumentor()
+    {
+        if (class_exists('Composer\\Autoload\\ClassLoader', false)) {
+            if (!class_exists('phpDocumentor\\Bootstrap')) {
+                throw new BuildException('You need to install PhpDocumentor 2 or add your include path to your composer installation.');
+            }
+            $phpDocumentorPath = '';
+        } else {
+            $phpDocumentorPath = $this->findPhpDocumentorPath();
+
+            if (empty($phpDocumentorPath)) {
+                throw new BuildException("Please make sure PhpDocumentor 2 is installed and on the include_path.");
+            }
+
+            set_include_path($phpDocumentorPath . PATH_SEPARATOR . get_include_path());
+
+            require_once $phpDocumentorPath . '/phpDocumentor/Bootstrap.php';
         }
 
-        $wrapper = new PhpDocumentor2Wrapper();
-        $wrapper->setProject($this->project);
-        $wrapper->setFilesets($this->filesets);
-        $wrapper->setDestDir($this->destDir);
-        $wrapper->setTemplate($this->template);
-        $wrapper->setTitle($this->title);
-        $wrapper->setDefaultPackageName($this->defaultPackageName);
-        $wrapper->run();
+        $this->app = \phpDocumentor\Bootstrap::createInstance()->initialize();
+
+        $this->phpDocumentorPath = $phpDocumentorPath;
+    }
+
+    /**
+     * Find the correct php documentor path
+     *
+     * @return null|string
+     */
+    private function findPhpDocumentorPath()
+    {
+        $phpDocumentorPath = null;
+        $directories = array('phpDocumentor', 'phpdocumentor');
+        foreach ($directories as $directory) {
+            foreach (Phing::explodeIncludePath() as $path) {
+                $testPhpDocumentorPath = $path . DIRECTORY_SEPARATOR . $directory . DIRECTORY_SEPARATOR . 'src';
+                if (file_exists($testPhpDocumentorPath)) {
+                    $phpDocumentorPath = $testPhpDocumentorPath;
+                }
+            }
+        }
+
+        return $phpDocumentorPath;
+    }
+
+    /**
+     * Build a list of files (from the fileset elements)
+     * and call the phpDocumentor parser
+     *
+     * @return string
+     */
+    private function parseFiles()
+    {
+        $parser = $this->app['parser'];
+        $builder = $this->app['descriptor.builder'];
+
+        $builder->createProjectDescriptor();
+        $projectDescriptor = $builder->getProjectDescriptor();
+        $projectDescriptor->setName($this->title);
+
+        $paths = array();
+
+        // filesets
+        foreach ($this->filesets as $fs) {
+            $ds = $fs->getDirectoryScanner($this->project);
+            $dir = $fs->getDir($this->project);
+            $srcFiles = $ds->getIncludedFiles();
+
+            foreach ($srcFiles as $file) {
+                $paths[] = $dir . FileSystemFactory::getFileSystem()->getSeparator() . $file;
+            }
+        }
+
+        $this->project->log("Will parse " . count($paths) . " file(s)", Project::MSG_VERBOSE);
+
+        $files = new \phpDocumentor\Fileset\Collection();
+        $files->addFiles($paths);
+
+        $mapper = new \phpDocumentor\Descriptor\Cache\ProjectDescriptorMapper($this->app['descriptor.cache']);
+        $mapper->garbageCollect($files);
+        $mapper->populate($projectDescriptor);
+
+        $parser->setPath($files->getProjectRoot());
+        $parser->setDefaultPackageName($this->defaultPackageName);
+
+        $parser->parse($builder, $files);
+
+        $mapper->save($projectDescriptor);
+
+        return $mapper;
+    }
+
+    /**
+     * Transforms the parsed files
+     */
+    private function transformFiles()
+    {
+        $transformer = $this->app['transformer'];
+        $compiler = $this->app['compiler'];
+        $builder = $this->app['descriptor.builder'];
+        $projectDescriptor = $builder->getProjectDescriptor();
+
+        $transformer->getTemplates()->load($this->template, $transformer);
+        $transformer->setTarget($this->destDir->getAbsolutePath());
+
+        foreach ($compiler as $pass) {
+            $pass->execute($projectDescriptor);
+        }
     }
 }
