@@ -20,6 +20,7 @@
 */
 
 use Phing\Exception\BuildException;
+use Phing\Filter\Util\AbstractTokenReader;
 use Phing\Io\IOException;
 use Phing\Phing;
 use Phing\Project;
@@ -66,7 +67,7 @@ class TokenSource extends DataType
 
     /**
      * Reference to the TokenReader used by this TokenSource
-     * @var TokenReader
+     * @var AbstractTokenReader
      */
     protected $reader;
 
@@ -121,9 +122,9 @@ class TokenSource extends DataType
     /**
      * Configures a TokenReader with the parameters passed to the
      * TokenSource.
-     * @param TokenReader $reader
+     * @param AbstractTokenReader $reader
      */
-    private function configureTokenReader(TokenReader $reader)
+    private function configureTokenReader(AbstractTokenReader $reader)
     {
         $count = count($this->parameters);
         for ($i = 0; $i < $count; $i++) {

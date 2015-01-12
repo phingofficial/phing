@@ -19,12 +19,17 @@
  * <http://phing.info>.
 */
 
+namespace Phing\Filter\Util;
+
+use Exception;
+use Parameterizable;
 use Phing\Filter\BaseFilterReader;
 use Phing\Filter\ChainableReaderInterface;
 use Phing\Io\AbstractReader;
 use Phing\Io\FilterReader;
 use Phing\Phing;
 use Phing\Project;
+use PhingFilterReader;
 
 
 /**

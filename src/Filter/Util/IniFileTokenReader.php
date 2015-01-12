@@ -18,8 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+namespace Phing\Filter\Util;
+
 use Phing\Exception\BuildException;
 use Phing\Io\File;
+use Phing\Filter\Token;
 
 
 /**
@@ -29,7 +32,7 @@ use Phing\Io\File;
  * @version   $Id$
  * @package   phing.filters.util
  */
-class IniFileTokenReader extends TokenReader
+class IniFileTokenReader extends AbstractTokenReader
 {
 
     /**
@@ -54,7 +57,7 @@ class IniFileTokenReader extends TokenReader
      * Reads the next token from the INI file
      *
      * @throws BuildException
-     * @return Token
+     * @return \Phing\Filter\Token
      */
     public function readToken()
     {
@@ -134,7 +137,7 @@ class IniFileTokenReader extends TokenReader
             return;
         }
 
-        throw new BuildException("Unsupported value " . (string) $file);
+        throw new BuildException("Unsupported value " . (string)$file);
     }
 
     /**
@@ -142,6 +145,6 @@ class IniFileTokenReader extends TokenReader
      */
     public function setSection($str)
     {
-        $this->section = (string) $str;
+        $this->section = (string)$str;
     }
 }

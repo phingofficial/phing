@@ -1,4 +1,6 @@
 <?php
+namespace Phing\Filter\Util;
+
 use Phing\Io\IOException;
 use Phing\Project;
 
@@ -18,7 +20,7 @@ use Phing\Project;
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
-*/
+ */
 
 // include_once 'phing/system/io/Reader.php'; // really this is unrelated to Reader
 
@@ -29,7 +31,7 @@ use Phing\Project;
  *
  * @package   phing.filters.util
  */
-abstract class TokenReader
+abstract class AbstractTokenReader
 {
     /**
      * Reference to the Project the TokenReader is used in.

@@ -1,7 +1,7 @@
 <?php
 namespace Phing\Io\Util;
 
-use ChainReaderHelper;
+use Phing\Filter\Util\ChainReaderHelper;
 use Character;
 use Exception;
 use Phing\Io\BufferedReader;
