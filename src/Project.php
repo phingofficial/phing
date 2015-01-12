@@ -6,6 +6,7 @@ use DataType;
 use DefaultInputHandler;
 use Exception;
 use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\Util\FileUtils;
 use InputHandler;
 use Phing\Io\IOException;
@@ -536,7 +537,7 @@ class Project
         }
 
         $dir = $this->fileUtils->normalize($dir);
-        $dir = AbstractFileSystem::getFilesystem()->canonicalize($dir);
+        $dir = FileSystemFactory::getFilesystem()->canonicalize($dir);
 
         $dir = new File((string)$dir);
         if (!$dir->exists()) {

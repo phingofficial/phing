@@ -22,7 +22,7 @@
 
 use Phing\Io\File;
 use Phing\Io\FileOutputStream;
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\IOException;
 
 /**
@@ -48,7 +48,7 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->outStream->close();
-        AbstractFileSystem::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
+        FileSystemFactory::getFileSystem()->unlink($this->tmpFile->getAbsolutePath());
     }
 
     public function assertFileContents($contents)

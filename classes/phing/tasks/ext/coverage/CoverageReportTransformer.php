@@ -1,7 +1,7 @@
 <?php
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Phing;
 use Phing\Task;
 
@@ -137,7 +137,7 @@ class CoverageReportTransformer
         $toDir = (string) $this->toDir;
 
         // urlencode() the path if we're on Windows
-        if (AbstractFileSystem::getFileSystem()->getSeparator() == '\\') {
+        if (FileSystemFactory::getFileSystem()->getSeparator() == '\\') {
             $toDir = urlencode($toDir);
         }
 

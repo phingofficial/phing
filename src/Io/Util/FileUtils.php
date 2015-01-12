@@ -10,6 +10,7 @@ use Phing\Io\File;
 use Phing\Io\FileReader;
 use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Io\AbstractReader;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\FileWriter;
 use Phing\Io\IOException;
 use Phing\Project;
@@ -192,7 +193,7 @@ class FileUtils
     {
         // remove this and use the static class constant File::seperator
         // as soon as ZE2 is ready
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         $filename = str_replace('/', $fs->getSeparator(), str_replace('\\', $fs->getSeparator(), $filename));
 

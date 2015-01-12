@@ -3,6 +3,7 @@ namespace Phing\Io;
 
 use Exception;
 use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\IOException;
 use Phing\Exception\NullPointerException;
 use Phing\Phing;
@@ -66,7 +67,7 @@ class File
     {
 
         if (self::$separator === null || self::$pathSeparator === null) {
-            $fs = AbstractFileSystem::getFileSystem();
+            $fs = FileSystemFactory::getFileSystem();
             self::$separator = $fs->getSeparator();
             self::$pathSeparator = $fs->getPathSeparator();
         }
@@ -107,7 +108,7 @@ class File
     protected function _constructPathname($pathname)
     {
         // obtain ref to the filesystem layer
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         if ($pathname === null) {
             throw new NullPointerException("Argument to function must not be null");
@@ -127,7 +128,7 @@ class File
     protected function _constructStringParentStringChild($parent, $child = null)
     {
         // obtain ref to the filesystem layer
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         if ($child === null) {
             throw new NullPointerException("Argument to function must not be null");
@@ -154,7 +155,7 @@ class File
     protected function _constructFileParentStringChild($parent, $child = null)
     {
         // obtain ref to the filesystem layer
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         if ($child === null) {
             throw new NullPointerException("Argument to function must not be null");
@@ -316,7 +317,7 @@ class File
      */
     public function getAbsolutePath()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->resolveFile($this);
     }
@@ -360,7 +361,7 @@ class File
      */
     public function getCanonicalPath()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->canonicalize($this->path);
     }
@@ -457,7 +458,7 @@ class File
      */
     public function canRead()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         if ($fs->checkAccess($this)) {
             return (boolean)@is_link($this->getAbsolutePath()) || @is_readable($this->getAbsolutePath());
@@ -477,7 +478,7 @@ class File
      */
     public function canWrite()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->checkAccess($this, true);
     }
@@ -515,7 +516,7 @@ class File
     public function isDirectory()
     {
         clearstatcache();
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to " . $this->path);
         }
@@ -555,7 +556,7 @@ class File
      */
     public function isHidden()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to " . $this->path);
         }
@@ -574,7 +575,7 @@ class File
     public function isLink()
     {
         clearstatcache();
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to " . $this->path);
         }
@@ -604,7 +605,7 @@ class File
      */
     public function lastModified()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to " . $this->path);
         }
@@ -622,7 +623,7 @@ class File
      */
     public function length()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to " . $this->path . "\n");
         }
@@ -663,7 +664,7 @@ class File
      */
     public function createNewFile($parents = true, $mode = 0777)
     {
-        $file = AbstractFileSystem::getFileSystem()->createNewFile($this->path);
+        $file = FileSystemFactory::getFileSystem()->createNewFile($this->path);
 
         return $file;
     }
@@ -680,7 +681,7 @@ class File
      */
     public function delete($recursive = false)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->canDelete($this) !== true) {
             throw new IOException("Cannot delete " . $this->path . "\n");
         }
@@ -700,7 +701,7 @@ class File
      */
     public function deleteOnExit()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         $fs->deleteOnExit($this);
     }
 
@@ -728,7 +729,7 @@ class File
      */
     public function listDir($filter = null)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->lister($this, $filter);
     }
@@ -791,7 +792,7 @@ class File
      */
     public function mkdir($mode = 0755)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         if ($fs->checkAccess(new File($this->path), true) !== true) {
             throw new IOException("No write access to " . $this->getPath());
@@ -809,7 +810,7 @@ class File
      */
     public function renameTo(File $destFile)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No write access to " . $this->getPath());
         }
@@ -827,7 +828,7 @@ class File
      */
     public function copyTo(File $destFile)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         if ($fs->checkAccess($this) !== true) {
             throw new IOException("No read access to " . $this->getPath() . "\n");
@@ -863,7 +864,7 @@ class File
             throw new Exception("IllegalArgumentException, Negative $time\n");
         }
 
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->setLastModifiedTime($this, $time);
     }
@@ -880,7 +881,7 @@ class File
      */
     public function setReadOnly()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         if ($fs->checkAccess($this, true) !== true) {
             // Error, no write access
             throw new IOException("No write access to " . $this->getPath());
@@ -898,7 +899,7 @@ class File
      */
     public function setUser($user)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->chown($this->getPath(), $user);
     }
@@ -922,7 +923,7 @@ class File
      */
     public function setGroup($group)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->chgrp($this->getPath(), $group);
     }
@@ -944,7 +945,7 @@ class File
      */
     public function setMode($mode)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->chmod($this->getPath(), $mode);
     }
@@ -996,7 +997,7 @@ class File
      */
     public function listRoots()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return (array)$fs->listRoots();
     }
@@ -1036,7 +1037,7 @@ class File
             $result = new File($directory, $prefix . substr(md5(time()), 0, 8) . $suffix);
         } while (file_exists($result->getPath()));
 
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         $fs->createNewFile($result->getPath());
         $fs->lock($result);
 
@@ -1049,7 +1050,7 @@ class File
      */
     public function removeTempFile()
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
         // catch IO Exception
         $fs->unlock($this);
         $this->delete();
@@ -1073,7 +1074,7 @@ class File
      */
     public function compareTo(File $file)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return $fs->compare($this, $file);
     }

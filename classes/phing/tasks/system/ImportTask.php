@@ -21,6 +21,7 @@
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Project;
 use Phing\Task;
@@ -68,7 +69,7 @@ class ImportTask extends Task
      */
     public function init()
     {
-        $this->fs = AbstractFileSystem::getFileSystem();
+        $this->fs = FileSystemFactory::getFileSystem();
     } //end init
 
     /**

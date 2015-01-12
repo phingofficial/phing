@@ -2,6 +2,7 @@
 namespace Phing\Io\FileSystem;
 
 use Exception;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\IOException;
 use Phing\Io\File;
 use Phing\Phing;
@@ -65,41 +66,6 @@ abstract class AbstractFileSystem
      */
     const BA_HIDDEN = 0x08;
 
-    /**
-     * Instance for getFileSystem() method.
-     * @var AbstractFileSystem
-     */
-    private static $fs;
-
-    /**
-     * Static method to return the FileSystem singelton representing
-     * this platform's local filesystem driver.
-     *
-     * @todo This should move to a factory class
-     *
-     * @return AbstractFileSystem
-     * @throws \Phing\Io\IOException
-     */
-    public static function getFileSystem()
-    {
-        if (self::$fs === null) {
-            switch (Phing::getProperty('host.fstype')) {
-                case 'UNIX':
-                    self::$fs = new UnixFileSystem();
-                    break;
-                case 'WIN32':
-                    self::$fs = new Win32FileSystem();
-                    break;
-                case 'WINNT':
-                    self::$fs = new WinNTFileSystem();
-                    break;
-                default:
-                    throw new IOException("Host uses unsupported filesystem, unable to proceed");
-            }
-        }
-
-        return self::$fs;
-    }
 
     /* -- Normalization and construction -- */
 

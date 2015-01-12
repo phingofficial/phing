@@ -1,6 +1,6 @@
 <?php
 use Phing\Io\File;
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\IOException;
 
 
@@ -69,7 +69,7 @@ class ExtendedFileStream
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         // if we're on Windows, urldecode() the path again
-        if (AbstractFileSystem::getFileSystem()->getSeparator() == '\\') {
+        if (FileSystemFactory::getFileSystem()->getSeparator() == '\\') {
             $path = urldecode($path);
         }
 

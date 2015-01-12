@@ -21,7 +21,7 @@
 
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\IOException;
 use Phing\Phing;
 use Phing\Project;
@@ -234,7 +234,7 @@ class AvailableTask extends Task
             if ($linkTarget->isAbsolute()) {
                 $file = $linkTarget;
             } else {
-                $fs = AbstractFileSystem::getFileSystem();
+                $fs = FileSystemFactory::getFileSystem();
                 $file = new File(
                     $fs->resolve(
                         $fs->normalize($file->getParent()),

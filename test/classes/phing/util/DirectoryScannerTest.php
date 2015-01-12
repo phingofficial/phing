@@ -1,5 +1,5 @@
 <?php
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\Scanner\DirectoryScanner;
 use Phing\Test\AbstractBuildFileTest;
 
@@ -336,7 +336,7 @@ class DirectoryScannerTest extends AbstractBuildFileTest
 
     protected function replaceSeparator($item)
     {
-        $fs = AbstractFileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         return str_replace($fs->getSeparator(), '/', $item);
     }

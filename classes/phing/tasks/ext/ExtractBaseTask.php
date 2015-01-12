@@ -19,7 +19,7 @@
  */
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Project;
 
 
@@ -173,7 +173,7 @@ abstract class ExtractBaseTask extends MatchingTask
         $compressedArchiveContent = $this->listArchiveContent($compressedArchiveFile);
         if (is_array($compressedArchiveContent)) {
 
-            $fileSystem = AbstractFileSystem::getFileSystem();
+            $fileSystem = FileSystemFactory::getFileSystem();
             foreach ($compressedArchiveContent as $compressArchivePathInfo) {
                 $compressArchiveFilename = $compressArchivePathInfo['filename'];
                 if (!empty($this->removepath) && strlen($compressArchiveFilename) >= strlen($this->removepath)) {

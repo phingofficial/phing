@@ -20,7 +20,7 @@
  */
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Phing;
 use Phing\Project;
 
@@ -189,7 +189,7 @@ class PhpDocumentor2Wrapper
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $file) {
-                $paths[] = $dir . AbstractFileSystem::getFileSystem()->getSeparator() . $file;
+                $paths[] = $dir . FileSystemFactory::getFileSystem()->getSeparator() . $file;
             }
         }
 

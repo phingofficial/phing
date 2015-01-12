@@ -20,7 +20,7 @@
  */
 use Phing\Exception\BuildException;
 use Phing\Io\File;
-use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Project;
 use Phing\Task;
 
@@ -220,7 +220,7 @@ class ForeachTask extends Task
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
-                $prop->setValue($fromDir . AbstractFileSystem::getFileSystem()->getSeparator() . $value);
+                $prop->setValue($fromDir . FileSystemFactory::getFileSystem()->getSeparator() . $value);
             }
 
             if ($mapper !== null) {
@@ -257,7 +257,7 @@ class ForeachTask extends Task
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
-                $prop->setValue($fromDir . AbstractFileSystem::getFileSystem()->getSeparator() . $value);
+                $prop->setValue($fromDir . FileSystemFactory::getFileSystem()->getSeparator() . $value);
             }
 
             if ($mapper !== null) {
