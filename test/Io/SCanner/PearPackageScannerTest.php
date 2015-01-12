@@ -1,6 +1,10 @@
 <?php
+namespace Phing\Tests\Io\Scanner;
+
 use Phing\Io\Scanner\PearPackageScanner;
 use Phing\Test\AbstractBuildFileTest;
+use ReflectionClass;
+use ReflectionObject;
 
 /**
  *  $Id$
@@ -176,7 +180,7 @@ class PearPackageScannerTest extends AbstractBuildFileTest
             return $this->markTestSkipped('Test works on PHP 5.3 only');
         }
 
-        $pkgInfoFile = __DIR__ . '/../../../etc/types/'
+        $pkgInfoFile = __DIR__ . '/../../etc/types/'
             . 'packageInfo_Services_Linkback-0.2.0.ser.dat';
 
         $pps = new PearPackageScanner();

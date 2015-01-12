@@ -19,7 +19,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Tests\Io;
+
 use Phing\Io\FileSystem\AbstractFileSystem;
+use PHPUnit_Framework_TestCase;
+use Win32FileSystem;
 
 /**
  * @author Daniel Holmes
@@ -217,8 +221,8 @@ class Win32FileSystemTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider isAbsoluteDataProvider
      * @param boolean $expected
-     * @param string  $path
-     * @param int     $prefix
+     * @param string $path
+     * @param int $prefix
      */
     public function testIsAbsolute($expected, $path, $prefix)
     {

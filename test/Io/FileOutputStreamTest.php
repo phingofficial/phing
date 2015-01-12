@@ -20,10 +20,13 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Tests\Io;
+
 use Phing\Io\File;
 use Phing\Io\FileOutputStream;
 use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\IOException;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Unit test for FileOutputStream.

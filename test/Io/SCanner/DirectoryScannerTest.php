@@ -1,4 +1,6 @@
 <?php
+namespace Phing\Tests\Io\Scanner;
+
 use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\Scanner\DirectoryScanner;
 use Phing\Test\AbstractBuildFileTest;

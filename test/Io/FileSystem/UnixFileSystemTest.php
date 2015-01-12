@@ -19,46 +19,57 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\Util\RegisterSlot;
+
+namespace Phing\Tests\Io;
+
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\UnixFileSystem;
+use PHPUnit_Framework_TestCase;
 
 /**
- * Unit test for RegisterSlot
+ * Unit test for UnixFileSystem
  *
  * @author Michiel Rook <mrook@php.net>
- * @package phing.system.util
+ * @package phing.system.io
  */
-class RegisterSlotTest extends PHPUnit_Framework_TestCase
+class UnixFileSystemTest extends PHPUnit_Framework_TestCase
 {
-    private $slot = null;
+
+    /**
+     * @var AbstractFileSystem
+     */
+    private $fs;
 
     public function setUp()
     {
-        $this->slot = new RegisterSlot('key123');
+        $this->fs = new UnixFileSystem();
     }
 
     public function tearDown()
     {
-        unset($this->slot);
     }
 
-    public function testToString()
+    public function testCompare()
     {
-        $this->slot->setValue('test123');
+        $f1 = new File(__FILE__);
+        $f2 = new File(__FILE__);
 
-        $this->assertEquals((string) $this->slot, 'test123');
+        $this->assertEquals($this->fs->compare($f1, $f2), 0);
     }
 
-    public function testArrayToString()
+    public function testHomeDirectory1()
     {
-        $this->slot->setValue(array('test1', 'test2', 'test3'));
-
-        $this->assertEquals((string) $this->slot, '{test1,test2,test3}');
+        $this->assertEquals($this->fs->normalize('~/test'), '~/test');
     }
 
-    public function testMultiArrayToString()
+    public function testHomeDirectory2()
     {
-        $this->slot->setValue(array('test1', 'test2', array('test4', 'test5', array('test6', 'test7')), 'test3'));
+        $this->assertEquals($this->fs->normalize('/var/~test'), '/var/~test');
+    }
 
-        $this->assertEquals((string) $this->slot, '{test1,test2,{test4,test5,{test6,test7}},test3}');
+    public function testHomeDirectory3()
+    {
+        $this->assertEquals($this->fs->normalize('~test'), '~test');
     }
 }

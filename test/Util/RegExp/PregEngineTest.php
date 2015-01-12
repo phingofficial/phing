@@ -21,7 +21,10 @@
  *
  * @package phing.util
  */
+namespace Phing\Tests\Util\RegExp;
+
 use Phing\Util\RegExp\PregEngine;
+use PHPUnit_Framework_TestCase;
 
 /**
  * Class PregEngineTest
@@ -120,8 +123,8 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
     {
         $pregEngine = new PregEngine();
         $pregEngine->setModifiers('gu');
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'u'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'g'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'u'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'g'));
     }
 
     /**
@@ -156,10 +159,10 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $pregEngine = new PregEngine();
 
         $pregEngine->setModifiers('guummmii');
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'u'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'g'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'i'));
-        $this->assertEquals(1, substr_count($pregEngine->getModifiers() , 'm'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'u'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'g'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'i'));
+        $this->assertEquals(1, substr_count($pregEngine->getModifiers(), 'm'));
     }
 
     /**
@@ -218,7 +221,11 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $source = '\\\\' . PregEngine::DELIMITER . 'abc\\' . PregEngine::DELIMITER . '123\\' . PregEngine::DELIMITER . 'efg' . PregEngine::DELIMITER . '456' . PregEngine::DELIMITER;
         $pregEngine->match($pattern, $source, $matches);
 
-        $this->assertEquals(array($source), $matches, 'The match method did not properly escape uses of the delimiter in the regular expression.');
+        $this->assertEquals(
+            array($source),
+            $matches,
+            'The match method did not properly escape uses of the delimiter in the regular expression.'
+        );
     }
 
     /**
@@ -231,7 +238,7 @@ class PregEngineTest extends PHPUnit_Framework_TestCase
         $source = '1234';
         $pregEngine->matchAll($pattern, $source, $matches);
 
-        $this->assertEquals(array(array('12','34')), $matches);
+        $this->assertEquals(array(array('12', '34')), $matches);
     }
 
     /**
