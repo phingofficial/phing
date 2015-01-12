@@ -73,6 +73,6 @@ class PhingTest extends PHPUnit_Framework_TestCase
      */
     protected static function getClassPath()
     {
-        return dirname(__FILE__) . '/../../etc/importclasses';
+        return dirname(__FILE__) . '/etc/importclasses';
     }
 }
