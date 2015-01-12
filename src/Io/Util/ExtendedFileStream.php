@@ -1,8 +1,9 @@
 <?php
+namespace Phing\Io\Util;
+
 use Phing\Io\File;
 use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\IOException;
-
 
 /**
  * $Id$
@@ -38,7 +39,7 @@ class ExtendedFileStream
     public static function registerStream()
     {
         if (!in_array("efile", stream_get_wrappers())) {
-            stream_wrapper_register("efile", "ExtendedFileStream");
+            stream_wrapper_register("efile", "Phing\\Io\\Util\\ExtendedFileStream");
         }
     }
 

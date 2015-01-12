@@ -4,6 +4,7 @@ use Phing\Io\File;
 use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\FileWriter;
 use Phing\Io\IOException;
+use Phing\Io\Util\ExtendedFileStream;
 use Phing\Phing;
 use Phing\Task;
 
