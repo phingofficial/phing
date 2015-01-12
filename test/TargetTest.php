@@ -89,7 +89,7 @@ class TargetTest extends AbstractBuildFileTest
     public function testSetDependsInvalid($depends)
     {
         $this->setExpectedException(
-            'Phing\BuildException',
+            'Phing\Exception\BuildException',
             'Syntax Error: Depend attribute for target MyTarget is malformed.'
         );
 
@@ -129,7 +129,7 @@ class TargetTest extends AbstractBuildFileTest
 
     public function testMainAppliesConfigurables()
     {
-        $configurable = $this->getMockBuilder('RuntimeConfigurable')
+        $configurable = $this->getMockBuilder('Phing\\RuntimeConfigurable')
             ->disableOriginalConstructor()
             ->getMock();
         $configurable->expects($this->once())->method('maybeConfigure')->with($this->project);
@@ -143,7 +143,7 @@ class TargetTest extends AbstractBuildFileTest
         $this->project->setProperty('ifProperty', null);
         $this->target->setIf('ifProperty');
 
-        $configurable = $this->getMockBuilder('RuntimeConfigurable')
+        $configurable = $this->getMockBuilder('Phing\\RuntimeConfigurable')
             ->disableOriginalConstructor()
             ->getMock();
         $configurable->expects($this->never())->method('maybeConfigure');
@@ -157,7 +157,7 @@ class TargetTest extends AbstractBuildFileTest
         $this->project->setProperty('unlessProperty', 'someValue');
         $this->target->setUnless('unlessProperty');
 
-        $configurable = $this->getMockBuilder('RuntimeConfigurable')
+        $configurable = $this->getMockBuilder('Phing\\RuntimeConfigurable')
             ->disableOriginalConstructor()
             ->getMock();
         $configurable->expects($this->never())->method('maybeConfigure');
