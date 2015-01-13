@@ -1,4 +1,5 @@
 <?php
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/MagicNames.php';
 include_once 'phing/Phing.php';
 include_once 'phing/Project.php';
 include_once 'phing/util/StringHelper.php';
@@ -47,7 +47,7 @@ class Diagnostics
      */
     public static function listLibraries($type)
     {
-        $home = Phing::getProperty(MagicNames::PHING_HOME);
+        $home = Phing::getProperty(Phing::PHING_HOME);
         if ($home == null) {
             return null;
         }
