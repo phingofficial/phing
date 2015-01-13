@@ -22,7 +22,7 @@ namespace Phing;
 use Phing\Exception\BuildException;
 use Phing\BuildLoggerInterface;
 use Phing\Exception\ConfigurationException;
-use DefaultInputHandler;
+use Phing\Input\DefaultInputHandler;
 use DefaultLogger;
 use Exception;
 use Phing\Io\FileOutputStream;

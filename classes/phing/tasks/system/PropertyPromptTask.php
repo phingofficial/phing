@@ -19,6 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
+use Phing\Input\InputRequest;
 use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Task;

@@ -1,7 +1,7 @@
 <?php
-/*
- *  $Id$
- *
+namespace Phing\Input;
+
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -18,33 +18,44 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-use Phing\Util\StringHelper;
 
 
 /**
- * Encapsulates an input request that returns a boolean (yes/no).
+ * Encapsulates an input request.
  *
- * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
+ * @author Stefan Bodewig <stefan.bodewig@epost.de>
+ *
  * @package phing.input
  */
-class YesNoInputRequest extends MultipleChoiceInputRequest
+class MultipleChoiceInputRequest extends InputRequest
 {
+    /** @var array $choises */
+    protected $choices = array();
 
     /**
-     * @return true if the input is one of the allowed values.
+     * @param string $prompt The prompt to show to the user.  Must not be null.
+     * @param array $choices holds all input values that are allowed.
+     *                        Must not be null.
      */
-    public function isInputValid()
+    public function __construct($prompt, $choices)
     {
-        return StringHelper::isBoolean($this->input);
+        parent::__construct($prompt);
+        $this->choices = $choices;
     }
 
     /**
-     * Converts input to boolean.
-     * @return boolean
+     * @return array The possible values.
      */
-    public function getInput()
+    public function getChoices()
     {
-        return StringHelper::booleanValue($this->input);
+        return $this->choices;
+    }
+
+    /**
+     * @return bool true if the input is one of the allowed values.
+     */
+    public function isInputValid()
+    {
+        return in_array($this->getInput(), $this->choices); // not strict (?)
     }
 }

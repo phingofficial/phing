@@ -1,4 +1,7 @@
 <?php
+namespace Phing\Input;
+
+use Exception;
 use Phing\Exception\BuildException;
 use Phing\Io\ConsoleReader;
 
@@ -29,7 +32,7 @@ use Phing\Io\ConsoleReader;
  *
  * @package phing.input
  */
-class DefaultInputHandler implements InputHandler
+class DefaultInputHandler implements InputHandlerInterface
 {
     /**
      * Prompts and requests input.
@@ -77,7 +80,7 @@ class DefaultInputHandler implements InputHandler
 
         if ($request instanceof YesNoInputRequest) {
             $choices = $request->getChoices();
-            $defaultValue = $choices[(int) !$request->getDefaultValue()];
+            $defaultValue = $choices[(int)!$request->getDefaultValue()];
             $prompt .= '(' . implode('/', $request->getChoices()) . ')';
         } elseif ($request instanceof MultipleChoiceInputRequest) { // (a,b,c,d)
             $prompt .= '(' . implode(',', $request->getChoices()) . ')';

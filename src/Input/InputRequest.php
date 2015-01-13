@@ -19,6 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+namespace Phing\Input;
+
 use Phing\Exception\BuildException;
 
 /**

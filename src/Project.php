@@ -3,12 +3,12 @@ namespace Phing;
 
 use Condition;
 use DataType;
-use DefaultInputHandler;
+use Phing\Input\DefaultInputHandler;
 use Exception;
 use Phing\Io\FileSystem\AbstractFileSystem;
 use Phing\Io\FileSystem\FileSystemFactory;
 use Phing\Io\Util\FileUtils;
-use InputHandler;
+use Phing\Input\InputHandlerInterface;
 use Phing\Io\IOException;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
@@ -133,16 +133,16 @@ class Project
 
     /**
      * Sets the input handler
-     * @param InputHandler $handler
+     * @param \Phing\Input\InputHandlerInterface $handler
      */
-    public function setInputHandler(InputHandler $handler)
+    public function setInputHandler(InputHandlerInterface $handler)
     {
         $this->inputHandler = $handler;
     }
 
     /**
      * Retrieves the current input handler.
-     * @return InputHandler
+     * @return \Phing\Input\InputHandlerInterface
      */
     public function getInputHandler()
     {

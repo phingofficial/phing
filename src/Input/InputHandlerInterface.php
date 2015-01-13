@@ -20,6 +20,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Input;
+
 /**
  * Plugin to Phing to handle requests for user input.
  *
@@ -27,7 +29,7 @@
  * @version $Id$
  * @package phing.input
  */
-interface InputHandler
+interface InputHandlerInterface
 {
 
     /**
