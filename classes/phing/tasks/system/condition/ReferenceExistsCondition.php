@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 use Phing\UnknownElement;
 
 
@@ -30,7 +30,7 @@ use Phing\UnknownElement;
  * @version $Id$
  * @package phing.tasks.system.condition
  */
-class ReferenceExistsCondition extends ProjectComponent implements Condition
+class ReferenceExistsCondition extends AbstractProjectComponent implements Condition
 {
 
     private $refid;

@@ -21,7 +21,7 @@
  */
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 
 
 /**
@@ -66,7 +66,7 @@ class AdhocTypedefTask extends AdhocTask
 
         // instantiate it to make sure it is an instance of ProjectComponent
         $t = new $classname();
-        if (!($t instanceof ProjectComponent)) {
+        if (!($t instanceof AbstractProjectComponent)) {
             throw new BuildException("The adhoc class you defined must be an instance of phing.ProjectComponent", $this->location);
         }
 

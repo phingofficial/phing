@@ -1,7 +1,7 @@
 <?php
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -32,7 +32,7 @@ use Phing\ProjectComponent;
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.tasks.system.condition
  */
-class HttpCondition extends ProjectComponent implements Condition
+class HttpCondition extends AbstractProjectComponent implements Condition
 {
     private $errorsBeginAt;
     private $url;

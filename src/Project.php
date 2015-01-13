@@ -827,7 +827,7 @@ class Project
             if (!($type instanceof DataType)) {
                 throw new Exception("$class is not an instance of phing.types.DataType");
             }
-            if ($type instanceof ProjectComponent) {
+            if ($type instanceof AbstractProjectComponent) {
                 $type->setProject($this);
             }
         } catch (Exception $t) {

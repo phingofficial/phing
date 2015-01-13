@@ -1,7 +1,7 @@
 <?php
 use Phing\Exception\BuildException;
 use Phing\Project;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -35,7 +35,7 @@ use Phing\ProjectComponent;
  *
  * @package   phing.types
  */
-class DataType extends ProjectComponent
+class DataType extends AbstractProjectComponent
 {
     /**
      * The descriptin the user has set.

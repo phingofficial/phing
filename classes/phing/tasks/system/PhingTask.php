@@ -26,7 +26,7 @@ use Phing\Io\Util\FileUtils;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Phing;
 use Phing\Project;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 use Phing\Task;
 
 
@@ -495,7 +495,7 @@ class PhingTask extends Task
 
         $copy = clone $orig;
 
-        if ($copy instanceof ProjectComponent) {
+        if ($copy instanceof AbstractProjectComponent) {
             $copy->setProject($this->newProject);
         } elseif (in_array('setProject', get_class_methods(get_class($copy)))) {
             $copy->setProject($this->newProject);

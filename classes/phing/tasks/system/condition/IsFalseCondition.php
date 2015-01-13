@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 
 
 /**
@@ -30,7 +30,7 @@ use Phing\ProjectComponent;
  * @version $Id$
  * @package phing.tasks.system.condition
  */
-class IsFalseCondition extends ProjectComponent implements Condition
+class IsFalseCondition extends AbstractProjectComponent implements Condition
 {
 
     /**

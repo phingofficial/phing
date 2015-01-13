@@ -38,7 +38,7 @@ use Phing\Util\Register;
  * @see       Project#createTask()
  * @package   phing
  */
-abstract class Task extends ProjectComponent
+abstract class Task extends AbstractProjectComponent
 {
 
     /**

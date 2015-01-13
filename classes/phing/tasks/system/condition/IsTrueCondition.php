@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 use Phing\Exception\BuildException;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 
 
 /**
@@ -29,7 +29,7 @@ use Phing\ProjectComponent;
  * @author Steve Loughran (Ant)
  * @package phing.tasks.system.condition
  */
-class IsTrueCondition extends ProjectComponent implements Condition
+class IsTrueCondition extends AbstractProjectComponent implements Condition
 {
 
     /**

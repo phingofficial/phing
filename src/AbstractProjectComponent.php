@@ -28,7 +28,7 @@ namespace Phing;
  *
  * @package   phing
  */
-abstract class ProjectComponent
+abstract class AbstractProjectComponent
 {
     /**
      * Holds a reference to the project that a project component

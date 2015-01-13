@@ -21,7 +21,7 @@
 use Phing\Exception\BuildException;
 use Phing\Parser\CustomChildCreatorInterface;
 use Phing\Project;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 
 
 /**
@@ -35,7 +35,7 @@ use Phing\ProjectComponent;
  * @version   $Id$
  * @package   phing.tasks.system.condition
  */
-abstract class ConditionBase extends ProjectComponent
+abstract class ConditionBase extends AbstractProjectComponent
     implements IteratorAggregate, CustomChildCreatorInterface
 {
 
@@ -285,7 +285,7 @@ class ConditionEnumeration implements Iterator
     public function current()
     {
         $o = $this->outer->conditions[$this->num];
-        if ($o instanceof ProjectComponent) {
+        if ($o instanceof AbstractProjectComponent) {
             $o->setProject($this->outer->getProject());
         }
 
