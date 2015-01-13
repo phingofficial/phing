@@ -22,8 +22,6 @@ use Phing\Project;
  * <http://phing.info>.
  */
 
-// include_once 'phing/system/io/Reader.php'; // really this is unrelated to Reader
-
 /**
  * Abstract class for TokenReaders.
  *

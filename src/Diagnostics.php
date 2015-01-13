@@ -19,10 +19,6 @@
 
 namespace Phing;
 
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/PrintStream.php';
-
 /**
  * A little diagnostic helper that output some information that may help
  * in support. It should quickly give correct information about the
