@@ -54,9 +54,8 @@
                         <row>
                             <entry><literal>basedir</literal></entry>
                             <entry><literal role="type">String</literal></entry>
-                            <entry>The base directory of the project, i.e. the directory all paths
-                                are relative to.</entry>
-                            <entry>n/a</entry>
+                            <entry>A relative path from the buildfile to the project's base directory. The resulting directory is stored in the <literal>project.basedir</literal> property as an absolute path.</entry>
+                            <entry><literal>.</literal></entry>
                             <entry>No</entry>
                         </row>
                         <row>
