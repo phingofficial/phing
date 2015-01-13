@@ -20,7 +20,7 @@
  */
 namespace Phing;
 
-use EventObject;
+use Phing\EventObject;
 use Exception;
 
 

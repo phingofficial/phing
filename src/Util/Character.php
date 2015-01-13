@@ -19,6 +19,8 @@
  * <http://phing.info>.
  */
 
+namespace Phing\Util;
+
 /**
  * @package phing.system.lang
  */
@@ -41,7 +43,7 @@ class Character
             $char = 0;
         }
 
-        $char = (int) ord($char);
+        $char = (int)ord($char);
 
         if ($char >= ord('A') && $char <= ord('Z')) {
             return true;

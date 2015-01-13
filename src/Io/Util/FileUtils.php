@@ -2,7 +2,7 @@
 namespace Phing\Io\Util;
 
 use Phing\Filter\Util\ChainReaderHelper;
-use Character;
+use Phing\Util\Character;
 use Exception;
 use Phing\Io\BufferedReader;
 use Phing\Io\BufferedWriter;

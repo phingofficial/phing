@@ -1,7 +1,7 @@
 <?php
 namespace Phing\Io\Util;
 
-use Character;
+use Phing\Util\Character;
 use Exception;
 use Phing\Util\StringHelper;
 
