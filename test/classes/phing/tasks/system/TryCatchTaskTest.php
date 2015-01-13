@@ -4,7 +4,7 @@ use Phing\Test\AbstractBuildFileTest;
 
 
 /**
- * Tests the Echo Task
+ * Tests the TryCatch Task
  *
  * @author  Christian Weiske <cweiske@cweiske.de>
  * @version $Id$
