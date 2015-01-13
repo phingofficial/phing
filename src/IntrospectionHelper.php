@@ -25,7 +25,7 @@ namespace Phing;
 use Exception;
 use Path;
 use Phing\Exception\BuildException;
-use Phing\ProjectComponent;
+use Phing\AbstractProjectComponent;
 use Reference;
 use ReflectionClass;
 use Phing\Util\Register;
@@ -516,7 +516,7 @@ class IntrospectionHelper
             }
         }
 
-        if ($nestedElement instanceof ProjectComponent) {
+        if ($nestedElement instanceof AbstractProjectComponent) {
             $nestedElement->setProject($project);
         }
 
