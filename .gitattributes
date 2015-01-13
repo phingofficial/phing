@@ -8,3 +8,4 @@ docs/api export-ignore
 docs/docbook5/en/source export-ignore
 test export-ignore
 .travis.* export-ignore
+composer.lock export-ignore
