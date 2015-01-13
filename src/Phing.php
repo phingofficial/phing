@@ -59,6 +59,9 @@ class Phing
 
     /** The default build file name */
     const DEFAULT_BUILD_FILENAME = "build.xml";
+    const PHING_HOME = 'phing.home';
+    const PHP_VERSION = 'php.version';
+    const PHP_INTERPRETER = 'php.interpreter';
 
     /** Our current message output status. Follows Project::MSG_XXX */
     private static $msgOutputLevel = Project::MSG_INFO;
@@ -1224,7 +1227,7 @@ class Phing
         }
 
         // Check for the property phing.home
-        $homeDir = self::getProperty(MagicNames::PHING_HOME);
+        $homeDir = self::getProperty(self::PHING_HOME);
         if ($homeDir) {
             $testPath = $homeDir . DIRECTORY_SEPARATOR . $path;
             if (file_exists($testPath)) {

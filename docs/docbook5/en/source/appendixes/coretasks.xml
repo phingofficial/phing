@@ -2982,6 +2982,103 @@
 &lt;echo>${someprop}&lt;/echo></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Record">
+        <title>Record</title>
+        <para> A recorder is a listener to the current build process that records the output to a file.
+        </para>
+        <para>
+            Several recorders can exist at the same time. Each recorder is associated with a file.
+            The filename is used as a unique identifier for the recorders. The first call to the recorder task with
+            an unused filename will create a recorder (using the parameters provided) and add it to the listeners
+            of the build. All subsequent calls to the recorder task using this filename will modify that recorders state
+            (recording or not) or other properties (like logging level).
+        </para>
+        <para>
+            Some technical issues: the file's output stream is flushed for "finished" events
+            (buildFinished, targetFinished and taskFinished), and is closed on a buildFinished event.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>name</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the file this logger is associated with.</entry>
+                        <entry>n/a</entry>
+                        <entry>yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>action</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>This tells the logger what to do: should it start recording or stop?
+                            The first time that the recorder task is called for this logfile, and if this attribute is not
+                            provided, then the default for this attribute is "start".
+                            If this attribute is not provided on subsequent calls, then the state remains as previous.
+                            [Values = {start|stop}, Default = no state change]</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>append</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Should the recorder append to a file, or create a new one? This is only applicable the first
+                            time this task is called for this file. [Values = {yes|no}, Default=no]</entry>
+                        <entry><literal>no</literal></entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>emacsmode</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Removes [task] banners like Phings's -emacs command line switch
+                            if set to <literal>true</literal>.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>loglevel</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>At what logging level should this recorder instance record to? This is not a once only
+                            parameter (like append is) -- you can increase or decrease the logging level as the build
+                            process continues. [Values= {error|warn|info|verbose|debug}, Default = no change]</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>no</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <para>The following build.xml snippet is an example of how to use the recorder to record just the
+                <literal>&lt;echo></literal> task:</para>
+            <programlisting language="xml">...
+                &lt;record name="log.txt" action="start"/>
+                &lt;echo ...
+                &lt;record name="log.txt" action="stop"/>
+                ...</programlisting>
+            <para>The following two calls to <literal>&lt;record></literal> set up two recorders:
+                one to file "records-simple.log" at logging level info (the default) and one to file
+                "ISO.log" using logging level of verbose.</para>
+            <programlisting language="xml">...
+                &lt;record name="records-simple.log"/>
+                &lt;record name="ISO.log" loglevel="verbose"/>
+                ...</programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="ReflexiveTask">
         <title>ReflexiveTask </title>
         <para>The <literal>ReflexiveTask</literal> performs operations on files. It is essentially a

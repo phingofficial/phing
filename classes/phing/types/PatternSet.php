@@ -189,7 +189,7 @@ class PatternSet extends DataType
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($includesFile instanceof File) {
+        if ($includesFile instanceof PhingFile) {
             $includesFile = $includesFile->getPath();
         }
         $o = $this->createIncludesFile();
@@ -207,7 +207,7 @@ class PatternSet extends DataType
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($excludesFile instanceof File) {
+        if ($excludesFile instanceof PhingFile) {
             $excludesFile = $excludesFile->getPath();
         }
         $o = $this->createExcludesFile();
