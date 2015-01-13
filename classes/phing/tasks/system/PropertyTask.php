@@ -19,9 +19,15 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Io\StringReader;
+use Phing\Io\Util\FileUtils;
+use Phing\Project;
+use Phing\Task;
+use Phing\Util\StringHelper;
 
-include_once 'phing/Task.php';
-include_once 'phing/system/util/Properties.php';
 
 /**
  * Task for setting properties in buildfiles.
@@ -108,7 +114,7 @@ class PropertyTask extends Task
     public function setFile($file)
     {
         if (is_string($file)) {
-            $file = new PhingFile($file);
+            $file = new File($file);
         }
         $this->file = $file;
     }
@@ -356,7 +362,7 @@ class PropertyTask extends Task
      * iterate through a set of properties,
      * resolve them then assign them
      * @param $props
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function addProperties($props)
     {
@@ -400,10 +406,10 @@ class PropertyTask extends Task
 
     /**
      * load properties from a file.
-     * @param PhingFile $file
-     * @throws BuildException
+     * @param File $file
+     * @throws \Phing\Exception\BuildException
      */
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(File $file)
     {
         $props = new Properties();
         $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);

@@ -1,4 +1,6 @@
 <?php
+use Phing\Parser\ProjectConfigurator;
+use Phing\Util\StringHelper;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -21,7 +23,6 @@
  * @package phing.tasks.ext.pdo
  */
 
-require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
 
 /**
  * Dummy query splitter: converts entire input into single

@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+
 /**
  *  Patches a file by applying a 'diff' file to it
  *
@@ -22,7 +26,6 @@
  *  limitations under the License.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Patches a file by applying a 'diff' file to it
@@ -251,7 +254,7 @@ class PatchTask extends Task
      * Main task method
      *
      * @return void
-     * @throws BuildException when it all goes a bit pear shaped
+     * @throws \Phing\Exception\BuildException when it all goes a bit pear shaped
      */
     public function main()
     {

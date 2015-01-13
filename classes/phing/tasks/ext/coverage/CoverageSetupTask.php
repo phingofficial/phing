@@ -1,4 +1,9 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Project;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,11 +24,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 
 /**
  * Initializes a code coverage database
@@ -113,7 +113,7 @@ class CoverageSetupTask extends Task
             try {
                 $list = $fl->getFiles($this->project);
                 foreach ($list as $file) {
-                    $fs = new PhingFile(strval($fl->getDir($this->project)), $file);
+                    $fs = new File(strval($fl->getDir($this->project)), $file);
                     $files[] = array('key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath());
                 }
             } catch (BuildException $be) {
@@ -128,7 +128,7 @@ class CoverageSetupTask extends Task
             $includedFiles = $ds->getIncludedFiles();
 
             foreach ($includedFiles as $file) {
-                $fs = new PhingFile(realpath($ds->getBaseDir()), $file);
+                $fs = new File(realpath($ds->getBaseDir()), $file);
 
                 $files[] = array('key' => strtolower($fs->getAbsolutePath()), 'fullname' => $fs->getAbsolutePath());
             }
@@ -156,7 +156,7 @@ class CoverageSetupTask extends Task
             $props->setProperty($filename, serialize(array('fullname' => $fullname, 'coverage' => array())));
         }
 
-        $dbfile = new PhingFile($this->database);
+        $dbfile = new File($this->database);
 
         $props->store($dbfile);
 

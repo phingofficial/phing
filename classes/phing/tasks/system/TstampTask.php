@@ -18,8 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * Sets properties to the current time, or offsets from the current time.
@@ -66,7 +67,7 @@ class TstampTask extends Task
      * Create the timestamps. Custom ones are done before
      * the standard ones.
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -140,7 +141,7 @@ class TstampCustomFormat
      * validate parameter and execute the format.
      *
      * @param TstampTask $tstamp reference to task
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function execute(TstampTask $tstamp)
     {

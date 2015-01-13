@@ -1,4 +1,9 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\Util\FileUtils;
+use Phing\Project;
+use Phing\Task;
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
@@ -13,8 +18,6 @@
  * @version    SVN: $Id$
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/util/FileUtils.php';
 
 /**
  * reStructuredText rendering task for Phing, the PHP build tool.
@@ -183,7 +186,7 @@ class rSTTask extends Task
             $srcFiles = $ds->getIncludedFiles();
 
             foreach ($srcFiles as $src) {
-                $file = new PhingFile($fromDir, $src);
+                $file = new File($fromDir, $src);
                 if ($mapper !== null) {
                     $results = $mapper->main($file);
                     if ($results === null) {
@@ -222,8 +225,8 @@ class rSTTask extends Task
         $this->renderFile($tool, $source, $tmpTarget);
 
         $this->fileUtils->copyFile(
-            new PhingFile($tmpTarget),
-            new PhingFile($targetFile),
+            new File($tmpTarget),
+            new File($targetFile),
             true,
             false,
             $this->filterChains,
@@ -349,7 +352,7 @@ class rSTTask extends Task
      *
      * @return void
      *
-     * @throws BuildException When the format is not supported
+     * @throws \Phing\Exception\BuildException When the format is not supported
      */
     public function setFormat($format)
     {

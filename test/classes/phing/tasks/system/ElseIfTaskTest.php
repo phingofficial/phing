@@ -1,6 +1,7 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Tests the ElseIf Task
@@ -9,7 +10,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class ElseIfTaskTest extends BuildFileTest
+class ElseIfTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

@@ -17,9 +17,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/BuildException.php';
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
 
 /**
  * Determines the directory name of the specified file.
@@ -41,20 +41,20 @@ require_once 'phing/BuildException.php';
  */
 class Dirname extends Task
 {
-    /** @var PhingFile $file */
+    /** @var File $file */
     private $file;
     private $property;
 
     /**
      * Path to take the dirname of.
-     * @param string|PhingFile file a <code>File</code> value
+     * @param string|File file a <code>File</code> value
      */
     public function setFile($file)
     {
-        if ($file instanceof PhingFile) {
+        if ($file instanceof File) {
             $this->file = $file;
         } else {
-            $this->file = new PhingFile($file);
+            $this->file = new File($file);
         }
     }
 

@@ -17,11 +17,13 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Io\Util\FileUtils;
+use Phing\Task;
+
 include_once 'phing/types/FileSet.php';
-include_once 'phing/util/FileUtils.php';
 
 /**
  * Coverts a path to a fileset.
@@ -47,7 +49,7 @@ include_once 'phing/util/FileUtils.php';
  */
 class PathToFileSet extends Task
 {
-    /** @var PhingFile $dir */
+    /** @var File $dir */
     private $dir;
 
     /** @var string $name */
@@ -60,9 +62,9 @@ class PathToFileSet extends Task
     private $ignoreNonRelative = false;
 
     /**
-     * @param PhingFile $dir
+     * @param File $dir
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         $this->dir = $dir;
     }
@@ -125,11 +127,11 @@ class PathToFileSet extends Task
         $fileSet->setDir($this->dir);
         $fileUtils = new FileUtils();
         $dirNormal = $fileUtils->normalize($this->dir->getAbsolutePath());
-        $dirNormal = rtrim($dirNormal, PhingFile::$separator) . PhingFile::$separator;
+        $dirNormal = rtrim($dirNormal, File::$separator) . File::$separator;
 
         $atLeastOne = false;
         for ($i = 0; $i < count($sources); ++$i) {
-            $sourceFile = new PhingFile($sources[$i]);
+            $sourceFile = new File($sources[$i]);
             if (!$sourceFile->exists()) {
                 continue;
             }
@@ -152,11 +154,11 @@ class PathToFileSet extends Task
 
     /**
      * @param string $dirNormal
-     * @param PhingFile $file
+     * @param File $file
      * @return string|false
      * @throws IOException
      */
-    private function getIncludePattern($dirNormal, PhingFile $file)
+    private function getIncludePattern($dirNormal, File $file)
     {
         $fileUtils = new FileUtils();
         $fileNormal = $fileUtils->normalize($file->getAbsolutePath());

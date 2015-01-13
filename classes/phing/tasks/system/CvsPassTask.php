@@ -19,10 +19,18 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/BufferedReader.php';
-include_once 'phing/system/io/BufferedWriter.php';
-include_once 'phing/util/StringHelper.php';
+use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\BufferedWriter;
+use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
+use Phing\Phing;
+use Phing\Project;
+use Phing\Task;
+use Phing\Util\StringHelper;
+
 
 /**
  * Adds an new entry to a CVS password file.
@@ -307,7 +315,7 @@ class CvsPassTask extends Task
      */
     public function __construct()
     {
-        $this->passFile = new PhingFile(
+        $this->passFile = new File(
             Phing::getProperty(
                 "cygwin.user.home",
                 Phing::getProperty("user.home")
@@ -408,9 +416,9 @@ class CvsPassTask extends Task
 
     /**
      * Password file to add the entry to.
-     * @param PhingFile $passFile
+     * @param File $passFile
      */
-    public function setPassfile(PhingFile $passFile)
+    public function setPassfile(File $passFile)
     {
         $this->passFile = $passFile;
     }

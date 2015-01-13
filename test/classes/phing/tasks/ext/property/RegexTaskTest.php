@@ -1,6 +1,5 @@
 <?php
-
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Tests the PropertyRegexTask Task
@@ -8,7 +7,7 @@ require_once 'phing/BuildFileTest.php';
  * @author  SiadArdroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.ext.property
  */
-class RegexTaskTest extends BuildFileTest
+class RegexTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

@@ -18,8 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Parser\Location;
+use Phing\Project;
+use Phing\Task;
 
-require_once "phing/Task.php";
 
 /**
  * The FileSyncTask class copies files either to or from a remote host, or locally

@@ -18,9 +18,20 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\BufferedWriter;
+use Phing\Io\File;
+use Phing\Io\AbstractReader;
+use Phing\Io\FileReader;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
+use Phing\Io\StringReader;
+use Phing\Io\Util\FileUtils;
+use Phing\Parser\ProjectConfigurator;
+use Phing\Project;
+use Phing\Util\StringHelper;
 
-require_once 'phing/tasks/ext/creole/CreoleTask.php';
-include_once 'phing/system/io/StringReader.php';
 
 /**
  * Executes a series of SQL statements on a database using Creole.
@@ -140,9 +151,9 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
-     * @param PhingFile $srcFile
+     * @param File $srcFile
      */
-    public function setSrc(PhingFile $srcFile)
+    public function setSrc(File $srcFile)
     {
         $this->srcFile = $srcFile;
     }
@@ -249,9 +260,9 @@ class CreoleSQLExecTask extends CreoleTask
     /**
      * Set the output file;
      * optional, defaults to the console.
-     * @param PhingFile $output
+     * @param File $output
      */
-    public function setOutput(PhingFile $output)
+    public function setOutput(File $output)
     {
         $this->output = $output;
     }
@@ -319,7 +330,7 @@ class CreoleSQLExecTask extends CreoleTask
                 // Make a transaction for each file
                 for ($j = 0, $size = count($srcFiles); $j < $size; $j++) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFiles[$j]));
+                    $t->setSrc(new File($srcDir, $srcFiles[$j]));
                 }
             }
 
@@ -397,11 +408,11 @@ class CreoleSQLExecTask extends CreoleTask
 
     /**
      * read in lines and execute them
-     * @param Reader $reader
+     * @param AbstractReader $reader
      * @param null $out
      * @throws BuildException
      */
-    public function runStatements(Reader $reader, $out = null)
+    public function runStatements(AbstractReader $reader, $out = null)
     {
         $sql = "";
         $line = "";
@@ -608,9 +619,9 @@ class SQLExecTransaction
     }
 
     /**
-     * @param PhingFile $src
+     * @param File $src
      */
-    public function setSrc(PhingFile $src)
+    public function setSrc(File $src)
     {
         $this->tSrcFile = $src;
     }

@@ -18,9 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-require_once 'Ssh2MethodParam.php';
 
 /**
  * Execute commands on a remote host using ssh.
@@ -301,7 +302,7 @@ class SshTask extends Task
      * command, stores output data, checks for errors and
      * closes the streams properly.
      * @param $stream
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function handleStream($stream)
     {

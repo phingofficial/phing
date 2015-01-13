@@ -18,11 +18,14 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\AbstractFileSystem;
+use Phing\Io\FileSystem\FileSystemFactory;
+use Phing\Parser\ProjectConfigurator;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/FileSystem.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/parser/ProjectConfigurator.php';
 
 /**
  * Imports another build file into the current project.
@@ -46,12 +49,12 @@ class ImportTask extends Task
 {
 
     /**
-     * @var FileSystem
+     * @var AbstractFileSystem
      */
     protected $fs;
 
     /**
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -66,7 +69,7 @@ class ImportTask extends Task
      */
     public function init()
     {
-        $this->fs = FileSystem::getFileSystem();
+        $this->fs = FileSystemFactory::getFileSystem();
     } //end init
 
     /**
@@ -94,7 +97,7 @@ class ImportTask extends Task
      * Parse a Phing build file and copy the properties, tasks, data types and
      * targets it defines into the current project.
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function main()
@@ -107,9 +110,9 @@ class ImportTask extends Task
             throw new BuildException("import only allowed as a top-level task");
         }
 
-        $file = new PhingFile($this->file);
+        $file = new File($this->file);
         if (!$file->isAbsolute()) {
-            $file = new PhingFile($this->project->getBasedir(), $this->file);
+            $file = new File($this->project->getBasedir(), $this->file);
         }
         if (!$file->exists()) {
             $msg = "Unable to find build file: {$file->getPath()}";

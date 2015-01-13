@@ -1,4 +1,7 @@
 <?php
+use Phing\Io\Scanner\DirectoryScanner;
+use Phing\Project;
+
 /**
  *  $Id$
  *
@@ -19,9 +22,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/FileSet.php';
-require_once 'phing/types/ExcludesNameEntry.php';
 
 /**
  * Datatype which handles excluded files, classes and methods.

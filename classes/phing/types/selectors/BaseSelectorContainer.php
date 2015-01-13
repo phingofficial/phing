@@ -19,9 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
 
-require_once 'phing/types/selectors/SelectorContainer.php';
-require_once 'phing/types/selectors/BaseSelector.php';
 
 /**
  * This is the base class for selectors that can contain other selectors.

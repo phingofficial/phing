@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+
 /**
  * $Id$
  *

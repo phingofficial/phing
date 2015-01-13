@@ -19,6 +19,10 @@
  * <http://phing.info>.
  */
 
+use Phing\Exception\BuildException;
+use Phing\IntrospectionHelper;
+use Phing\Project;
+
 include_once 'phing/tasks/system/condition/OsCondition.php';
 
 /**

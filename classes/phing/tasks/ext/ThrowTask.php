@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
 
-require_once 'phing/tasks/system/FailTask.php';
 
 /**
  * Exits the active build, giving an additional message

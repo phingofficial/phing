@@ -18,11 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
+use Phing\Util\StringHelper;
 
-require_once 'phing/Task.php';
-include_once 'phing/input/InputRequest.php';
-include_once 'phing/input/YesNoInputRequest.php';
-include_once 'phing/input/MultipleChoiceInputRequest.php';
 
 /**
  * Reads input from the InputHandler.
@@ -105,7 +104,7 @@ class InputTask extends Task
 
     /**
      * Actual method executed by phing.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

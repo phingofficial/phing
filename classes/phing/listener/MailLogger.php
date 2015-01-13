@@ -19,8 +19,11 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
+use Phing\BuildEvent;
+use Phing\Exception\BuildException;
+use Phing\Io\OutputStream;
+use Phing\Phing;
+
 
 /**
  * Uses PEAR Mail package to send the build log to one or

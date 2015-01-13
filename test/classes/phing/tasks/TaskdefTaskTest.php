@@ -19,13 +19,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Exception\ConfigurationException;
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * @version $Id$
  * @package phing.tasks.system
  */
-class TaskdefTaskTest extends BuildFileTest
+class TaskdefTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

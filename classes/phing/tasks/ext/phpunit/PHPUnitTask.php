@@ -1,4 +1,10 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,12 +25,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/util/LogWriter.php';
-require_once 'phing/tasks/ext/phpunit/BatchTest.php';
-require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
 /**
  * Runs PHPUnit tests.
@@ -64,7 +64,7 @@ class PHPUnitTask extends Task
     private $pharLocation = "";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $configuration = null;
 
@@ -103,11 +103,6 @@ class PHPUnitTask extends Task
         if (version_compare($version, '3.6.0') < 0) {
             throw new BuildException("PHPUnitTask requires PHPUnit version >= 3.6.0", $this->getLocation());
         }
-
-        /**
-         * Other dependencies that should only be loaded when class is actually used.
-         */
-        require_once 'phing/tasks/ext/phpunit/PHPUnitTestRunner.php';
 
         /**
          * point PHPUnit_MAIN_METHOD define to non-existing method
@@ -298,9 +293,9 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @param PhingFile $configuration
+     * @param File $configuration
      */
-    public function setConfiguration(PhingFile $configuration)
+    public function setConfiguration(File $configuration)
     {
         $this->configuration = $configuration;
     }
@@ -316,7 +311,7 @@ class PHPUnitTask extends Task
     /**
      * Load and processes the PHPUnit configuration
      * @param $configuration
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return array
      */
     protected function handlePHPUnitConfiguration($configuration)
@@ -401,7 +396,7 @@ class PHPUnitTask extends Task
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -488,7 +483,7 @@ class PHPUnitTask extends Task
             $formatter = $fe->getFormatter();
 
             if ($fe->getUseFile()) {
-                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                $destFile = new File($fe->getToDir(), $fe->getOutfile());
 
                 $writer = new FileWriter($destFile->getAbsolutePath());
 

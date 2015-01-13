@@ -17,8 +17,10 @@
 * and is licensed under the LGPL. For more information please see
 * <http://phing.info>.
 */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * JsHintTask
@@ -86,9 +88,9 @@ class JsHintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }

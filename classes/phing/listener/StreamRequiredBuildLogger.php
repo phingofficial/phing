@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\BuildLoggerInterface;
 
-require_once 'phing/BuildLogger.php';
 
 /**
  * Interface for build loggers that require that out/err streams be set in order to function.
@@ -34,7 +34,7 @@ require_once 'phing/BuildLogger.php';
  * @see       Project::addBuildListener()
  * @package   phing
  */
-interface StreamRequiredBuildLogger extends BuildLogger
+interface StreamRequiredBuildLogger extends BuildLoggerInterface
 {
 
 }

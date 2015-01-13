@@ -19,8 +19,12 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\BufferedReader;
+use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
 
-include_once 'phing/types/selectors/BaseExtendSelector.php';
 
 /**
  * Selector that filters files based on whether they contain a
@@ -119,11 +123,11 @@ class ContainsSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param PhingFile $basedir
+     * @param File $basedir
      * @param string $filename
-     * @param PhingFile $file
+     * @param File $file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @internal param the $basedir base directory the scan is being done from
      * @internal param is $filename the name of the file to check
@@ -131,7 +135,7 @@ class ContainsSelector extends BaseExtendSelector
      *
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
 
         $this->validate();

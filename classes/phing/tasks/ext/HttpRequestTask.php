@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Util\StringHelper;
+
 /**
  * $Id$
  *
@@ -19,7 +22,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/HttpTask.php';
 
 /**
  * A HTTP request task.

@@ -20,7 +20,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Io\File;
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/745
@@ -28,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class MkdirTaskModeTest extends BuildFileTest
+class MkdirTaskModeTest extends AbstractBuildFileTest
 {
 
     public function setUp()
@@ -40,7 +42,7 @@ class MkdirTaskModeTest extends BuildFileTest
     {
         $this->executeTarget("test");
 
-        $dir = new PhingFile(PHING_TEST_BASE . "/etc/regression/745/testdir");
+        $dir = new File(PHING_TEST_BASE . "/etc/regression/745/testdir");
 
         $mode = $dir->getMode() & 511;
 

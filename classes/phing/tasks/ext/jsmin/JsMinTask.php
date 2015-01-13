@@ -18,8 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * Task to minify javascript files.
@@ -123,10 +125,6 @@ class JsMinTask extends Task
                 'JsMinTask depends on JShrink being installed and on include_path.',
                 $this->getLocation()
             );
-        }
-
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            throw new BuildException('JsMinTask requires PHP 5.3+');
         }
 
         if (empty($this->targetDir)) {

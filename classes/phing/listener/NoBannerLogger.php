@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\BuildEvent;
 
-require_once 'phing/listener/DefaultLogger.php';
 
 /**
  * Extends DefaultLogger to strip out empty targets.

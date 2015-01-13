@@ -19,8 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
 
-require_once 'phing/types/selectors/AndSelector.php';
 
 /**
  * This selector just holds one other selector and forwards all

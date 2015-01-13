@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\ConsoleReader;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/input/InputHandler.php';
-include_once 'phing/system/io/ConsoleReader.php';
 
 /**
  * Prompts using print(); reads input from Console.
@@ -38,7 +39,7 @@ class DefaultInputHandler implements InputHandler
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function handleInput(InputRequest $request)
     {

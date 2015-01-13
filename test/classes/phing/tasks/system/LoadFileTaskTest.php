@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Tests the LoadFile Task
@@ -28,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class LoadFileTaskTest extends BuildFileTest
+class LoadFileTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

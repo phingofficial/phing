@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -18,8 +21,6 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/Task.php';
 
 abstract class AbstractPropertySetterTask extends Task
 {

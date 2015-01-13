@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Project;
 
 /**
  * $Id$
@@ -20,7 +23,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpdoc/PhpDocumentorTask.php';
 
 /**
  * Task to run phpDocumentor with an external process
@@ -150,7 +152,7 @@ class PhpDocumentorExternalTask extends PhpDocumentorTask
         foreach ($this->filesets as $fs) {
             $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
             foreach ($files as $filename) {
-                $f = new PhingFile($fs->getDir($this->project), $filename);
+                $f = new File($fs->getDir($this->project), $filename);
                 $filesToParse[] = $f->getAbsolutePath();
             }
         }
@@ -163,7 +165,7 @@ class PhpDocumentorExternalTask extends PhpDocumentorTask
         foreach ($this->projDocFilesets as $fs) {
             $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
             foreach ($files as $filename) {
-                $f = new PhingFile($fs->getDir($this->project), $filename);
+                $f = new File($fs->getDir($this->project), $filename);
                 $ricFiles[] = $f->getAbsolutePath();
             }
         }

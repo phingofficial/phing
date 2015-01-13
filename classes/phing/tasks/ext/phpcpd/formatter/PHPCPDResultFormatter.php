@@ -1,4 +1,7 @@
 <?php
+use Phing\Io\File;
+use Phing\Project;
+
 /**
  * $Id$
  *
@@ -34,7 +37,7 @@ abstract class PHPCPDResultFormatter
      * @param object         $clones
      * @param Project        $project
      * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      */
     abstract public function processClones($clones, Project $project, $useFile = false, $outFile = null);
 }

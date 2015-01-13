@@ -20,15 +20,16 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/system/PropertyTask.php';
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
  * @package phing.tasks.system
  */
-class PropertyTaskTest extends BuildFileTest
+class PropertyTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()
@@ -119,7 +120,7 @@ class PropertyTaskTest extends BuildFileTest
 class HangDetectorPropertyTask extends PropertyTask
 {
 
-    protected function loadFile(PhingFile $file)
+    protected function loadFile(File $file)
     {
         $props = new HangDetectorProperties();
         $props->load($file);

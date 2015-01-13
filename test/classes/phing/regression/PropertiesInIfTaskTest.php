@@ -20,7 +20,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/1041
@@ -28,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class PropertiesInIfTaskTest extends BuildFileTest
+class PropertiesInIfTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

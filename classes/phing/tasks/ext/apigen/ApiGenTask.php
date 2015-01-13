@@ -16,8 +16,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * ApiGen task (http://apigen.org).

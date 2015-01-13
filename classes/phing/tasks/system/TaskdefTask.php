@@ -19,9 +19,12 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Register a task for use within a buildfile.
@@ -156,7 +159,7 @@ class TaskdefTask extends Task
         } else {
             try { // try to load taskdefs given in file
                 $props = new Properties();
-                $in = new PhingFile((string) $this->typeFile);
+                $in = new File((string) $this->typeFile);
 
                 if ($in === null) {
                     throw new BuildException("Can't load task list {$this->typeFile}");

@@ -1,4 +1,6 @@
 <?php
+use Phing\Exception\BuildException;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Copies a repository from the repository url to another
@@ -51,7 +51,7 @@ class SvnCopyTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

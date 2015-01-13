@@ -19,7 +19,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
+use Phing\Exception\BuildException;
+use Phing\Phing;
+use Phing\Util\StringHelper;
+
 
 /**
  * Condition that tests the OS type.

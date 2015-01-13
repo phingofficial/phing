@@ -19,7 +19,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+use Phing\Exception\BuildException;
+use Phing\Phing;
+use Phing\Project;
+use Phing\Task;
+use Phing\Util\StringHelper;
+
 
 /**
  * Executes PHP function or evaluates expression and sets return value to a property.

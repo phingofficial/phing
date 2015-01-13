@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
 require_once 'phing/tasks/ext/svn/AbstractSvnTaskTest.php';
 
 /**

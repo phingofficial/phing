@@ -1,6 +1,6 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Tests the Recorder Task
@@ -8,7 +8,7 @@ require_once 'phing/BuildFileTest.php';
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
-class RecorderTaskTest extends BuildFileTest
+class RecorderTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

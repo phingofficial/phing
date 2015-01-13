@@ -19,8 +19,13 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/StreamRequiredBuildLogger.php';
-include_once 'phing/BuildEvent.php';
+use Phing\BuildEvent;
+use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Phing;
+use Phing\Project;
+
 
 /**
  * Writes a build event to the console.

@@ -18,7 +18,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Tests for PharPackageTask
@@ -27,7 +28,7 @@ require_once 'phing/BuildFileTest.php';
  * @package phing.tasks.ext
  * @requires extension phar
  */
-class PharPackageTaskTest extends BuildFileTest
+class PharPackageTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

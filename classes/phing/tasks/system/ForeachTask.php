@@ -18,11 +18,12 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\FileSystemFactory;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/FileSystem.php';
-include_once 'phing/mappers/FileNameMapper.php';
-include_once 'phing/tasks/system/PhingTask.php';
 
 /**
  * <foreach> task
@@ -110,7 +111,7 @@ class ForeachTask extends Task
 
     /**
      * This method does the work.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function main()
@@ -196,11 +197,11 @@ class ForeachTask extends Task
      * Processes a list of files & directories
      *
      * @param Task      $callee
-     * @param PhingFile $fromDir
+     * @param File $fromDir
      * @param array     $srcFiles
      * @param array     $srcDirs
      */
-    protected function process(Task $callee, PhingFile $fromDir, $srcFiles, $srcDirs)
+    protected function process(Task $callee, File $fromDir, $srcFiles, $srcDirs)
     {
         $mapper = null;
 
@@ -219,7 +220,7 @@ class ForeachTask extends Task
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
-                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+                $prop->setValue($fromDir . FileSystemFactory::getFileSystem()->getSeparator() . $value);
             }
 
             if ($mapper !== null) {
@@ -256,7 +257,7 @@ class ForeachTask extends Task
                 $prop = $callee->createProperty();
                 $prop->setOverride(true);
                 $prop->setName($this->absparam);
-                $prop->setValue($fromDir . FileSystem::getFileSystem()->getSeparator() . $value);
+                $prop->setValue($fromDir . FileSystemFactory::getFileSystem()->getSeparator() . $value);
             }
 
             if ($mapper !== null) {
@@ -338,7 +339,7 @@ class ForeachTask extends Task
      * Nested creator, creates one Mapper for this task
      *
      * @return object         The created Mapper type object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function createMapper()
     {

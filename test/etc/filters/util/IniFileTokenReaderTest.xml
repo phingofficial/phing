@@ -15,7 +15,7 @@
         <copy file="${tmp.dir}/_test.txt" tofile="${tmp.dir}/test.txt" overwrite="true">
             <filterchain>
                 <replacetokens begintoken="%" endtoken="%">
-                    <tokensource classname="phing.filters.util.IniFileTokenReader">
+                    <tokensource classname="Phing\Filter\Util\IniFileTokenReader">
                         <param name="file" value="${tmp.dir}/tokens.ini" />
                     </tokensource>
                 </replacetokens>

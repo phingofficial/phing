@@ -1,4 +1,5 @@
 <?php
+use Phing\Parser\ProjectConfigurator;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -21,7 +22,6 @@
  * @package phing.tasks.ext.pdo
  */
 
-require_once 'phing/tasks/ext/pdo/PDOQuerySplitter.php';
 
 /**
  * Splits PostgreSQL's dialect of SQL into separate queries

@@ -18,27 +18,27 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Filter\ExpandProperties;
+use Phing\Filter\HeadFilter;
+use Phing\Filter\IconvFilter;
+use Phing\Filter\LineContains;
+use Phing\Filter\LineContainsRegexp;
+use Phing\Filter\PrefixLines;
+use Phing\Filter\ReplaceRegexp;
+use Phing\Filter\ReplaceTokens;
+use Phing\Filter\ReplaceTokensWithFile;
+use Phing\Filter\StripLineBreaks;
+use Phing\Filter\StripLineComments;
+use Phing\Filter\StripPhpComments;
+use Phing\Filter\StripWhitespace;
+use Phing\Filter\TabToSpaces;
+use Phing\Filter\TailFilter;
+use Phing\Filter\TidyFilter;
+use Phing\Filter\TranslateGettext;
+use Phing\Filter\XincludeFilter;
+use Phing\Filter\XsltFilter;
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/filters/HeadFilter.php';
-include_once 'phing/filters/IconvFilter.php';
-include_once 'phing/filters/TailFilter.php';
-include_once 'phing/filters/LineContains.php';
-include_once 'phing/filters/LineContainsRegexp.php';
-include_once 'phing/filters/ExpandProperties.php';
-include_once 'phing/filters/PrefixLines.php';
-include_once 'phing/filters/ReplaceRegexp.php';
-include_once 'phing/filters/ReplaceTokens.php';
-include_once 'phing/filters/ReplaceTokensWithFile.php';
-include_once 'phing/filters/StripPhpComments.php';
-include_once 'phing/filters/StripLineBreaks.php';
-include_once 'phing/filters/StripLineComments.php';
-include_once 'phing/filters/StripWhitespace.php';
-include_once 'phing/filters/TabToSpaces.php';
-include_once 'phing/filters/TidyFilter.php';
-include_once 'phing/filters/TranslateGettext.php';
-include_once 'phing/filters/XincludeFilter.php';
-include_once 'phing/filters/XsltFilter.php';
 
 /**
  * FilterChain may contain a chained set of filter readers.
@@ -262,7 +262,7 @@ class FilterChain extends DataType
     */
     /**
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setRefid(Reference $r)
     {

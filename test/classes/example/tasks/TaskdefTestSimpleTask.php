@@ -20,7 +20,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+use Phing\Project;
+use Phing\Task;
+
 
 class TaskdefTestSimpleTask extends Task
 {

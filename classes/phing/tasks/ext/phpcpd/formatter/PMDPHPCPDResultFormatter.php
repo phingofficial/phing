@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Project;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +21,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
 
 /**
  * Prints PMD-XML output of phpcpd run
@@ -34,7 +37,7 @@ class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param PHPCPD_CloneMap|CodeCloneMap $clones
      * @param Project                      $project
      * @param boolean                      $useFile
-     * @param PhingFile|null               $outFile
+     * @param File|null               $outFile
      *
      * @throws BuildException
      */

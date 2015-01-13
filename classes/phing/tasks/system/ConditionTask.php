@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Exception\BuildException;
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
 
 /**
  * <condition> task as a generalization of <available>

@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/formatter/PHPUnitResultFormatter.php';
 
 /**
  * Prints Clover XML output of the test

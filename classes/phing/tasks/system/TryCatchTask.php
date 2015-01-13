@@ -18,8 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
 
-include_once 'phing/Task.php';
 
 /**
  * A wrapper task that lets you run tasks(s) when another set

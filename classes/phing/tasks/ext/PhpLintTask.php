@@ -18,10 +18,13 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Project;
+use Phing\Task;
+use Phing\Util\DataStore;
 
-require_once 'phing/Task.php';
-require_once 'phing/util/DataStore.php';
-require_once 'phing/system/io/FileWriter.php';
 
 /**
  * A PHP lint task. Checking syntax of one or more PHP source file.
@@ -84,9 +87,9 @@ class PhpLintTask extends Task
 
     /**
      * File to be performed syntax check on
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -103,9 +106,9 @@ class PhpLintTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setCacheFile(PhingFile $file)
+    public function setCacheFile(File $file)
     {
         $this->cache = new DataStore($file);
     }
@@ -113,10 +116,10 @@ class PhpLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param PhingFile $tofile
+     * @param File $tofile
      * @internal param PhingFile $file
      */
-    public function setToFile(PhingFile $tofile)
+    public function setToFile(File $tofile)
     {
         $this->tofile = $tofile;
     }
@@ -175,7 +178,7 @@ class PhpLintTask extends Task
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $this->lint($this->file->getPath());
         } else { // process filesets
             $project = $this->getProject();

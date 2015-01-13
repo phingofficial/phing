@@ -1,4 +1,6 @@
 <?php
+use Phing\Exception\BuildException;
+
 /**
  * $Id$
  *
@@ -19,8 +21,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Checks out a repository to a local directory
@@ -44,7 +44,7 @@ class SvnCheckoutTask extends SvnBaseTask
     /**
      * The main entry point
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

@@ -18,10 +18,16 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\AbstractWriter;
+use Phing\Io\File;
+use Phing\Io\AbstractReader;
+use Phing\Io\FileReader;
+use Phing\Io\IOException;
+use Phing\Io\LogWriter;
+use Phing\Io\StringReader;
+use Phing\Project;
 
-require_once 'phing/tasks/ext/pdo/PDOTask.php';
-include_once 'phing/system/io/StringReader.php';
-include_once 'phing/tasks/ext/pdo/PDOSQLExecFormatterElement.php';
 
 /**
  * Executes a series of SQL statements on a database using PDO.
@@ -103,7 +109,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * SQL input file
-     * @var PhingFile
+     * @var File
      */
     private $srcFile;
 
@@ -149,9 +155,9 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Set the name of the SQL file to be run.
      * Required unless statements are enclosed in the build file
-     * @param PhingFile $srcFile
+     * @param File $srcFile
      */
-    public function setSrc(PhingFile $srcFile)
+    public function setSrc(File $srcFile)
     {
         $this->srcFile = $srcFile;
     }
@@ -267,7 +273,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Sets the fetch mode to use for the PDO resultset.
      * @param mixed $mode The PDO fetchmode integer or constant name.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setFetchmode($mode)
     {
@@ -285,7 +291,7 @@ class PDOSQLExecTask extends PDOTask
     /**
      * Gets a default output writer for this task.
      *
-     * @return Writer
+     * @return AbstractWriter
      */
     private function getDefaultOutput()
     {
@@ -345,7 +351,7 @@ class PDOSQLExecTask extends PDOTask
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFile));
+                    $t->setSrc(new File($srcDir, $srcFile));
                 }
             }
 
@@ -356,7 +362,7 @@ class PDOSQLExecTask extends PDOTask
                 // Make a transaction for each file
                 foreach ($srcFiles as $srcFile) {
                     $t = $this->createTransaction();
-                    $t->setSrc(new PhingFile($srcDir, $srcFile));
+                    $t->setSrc(new File($srcDir, $srcFile));
                 }
             }
 
@@ -435,20 +441,17 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * read in lines and execute them
-     * @param Reader $reader
-     * @throws BuildException
+     * @param \Phing\Io\AbstractReader $reader
+     * @throws \Phing\Exception\BuildException
      */
-    public function runStatements(Reader $reader)
+    public function runStatements(AbstractReader $reader)
     {
 
         if (self::DELIM_NONE == $this->delimiterType) {
-            require_once 'phing/tasks/ext/pdo/DummyPDOQuerySplitter.php';
             $splitter = new DummyPDOQuerySplitter($this, $reader);
         } elseif (self::DELIM_NORMAL == $this->delimiterType && 0 === strpos($this->getUrl(), 'pgsql:')) {
-            require_once 'phing/tasks/ext/pdo/PgsqlPDOQuerySplitter.php';
             $splitter = new PgsqlPDOQuerySplitter($this, $reader);
         } else {
-            require_once 'phing/tasks/ext/pdo/DefaultPDOQuerySplitter.php';
             $splitter = new DefaultPDOQuerySplitter($this, $reader, $this->delimiterType);
         }
 
@@ -484,7 +487,7 @@ class PDOSQLExecTask extends PDOTask
      *
      * @param $sql
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws Exception
      */
     protected function execSQL($sql)
@@ -626,9 +629,9 @@ class PDOSQLExecTransaction
     }
 
     /**
-     * @param PhingFile $src
+     * @param File $src
      */
-    public function setSrc(PhingFile $src)
+    public function setSrc(File $src)
     {
         $this->tSrcFile = $src;
     }

@@ -19,8 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
 
-require_once dirname(dirname(__FILE__)) . "/Amazon.php";
 
 /**
  * Abstract Service_Amazon_S3 class.

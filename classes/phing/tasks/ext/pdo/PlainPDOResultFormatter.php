@@ -1,4 +1,7 @@
 <?php
+use Phing\Io\File;
+use Phing\Util\StringHelper;
+
 /**
  * $Id$
  *
@@ -19,8 +22,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PDOResultFormatter.php';
 
 /**
  * Plain text formatter for PDO results.
@@ -131,11 +132,11 @@ class PlainPDOResultFormatter extends PDOResultFormatter
     }
 
     /**
-     * @return PhingFile
+     * @return File
      */
     public function getPreferredOutfile()
     {
-        return new PhingFile('results.txt');
+        return new File('results.txt');
     }
 
 }

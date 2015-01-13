@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Tests the Zip and Unzip tasks
@@ -28,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class ZipUnzipTaskTest extends BuildFileTest
+class ZipUnzipTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {

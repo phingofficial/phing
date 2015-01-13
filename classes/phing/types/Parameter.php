@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Util\RegisterSlot;
 
-include_once 'phing/types/DataType.php';
 
 /**
  * A parameter is composed of a name, type and value. Nested

@@ -18,9 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\AbstractProjectComponent;
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
  * Condition that tests whether a given string evals to false.
@@ -30,7 +30,7 @@ require_once 'phing/tasks/system/condition/Condition.php';
  * @version $Id$
  * @package phing.tasks.system.condition
  */
-class IsFalseCondition extends ProjectComponent implements Condition
+class IsFalseCondition extends AbstractProjectComponent implements Condition
 {
 
     /**
@@ -49,7 +49,7 @@ class IsFalseCondition extends ProjectComponent implements Condition
 
     /**
      * return the inverted value;
-     * @throws BuildException if someone forgot to spec a value
+     * @throws \Phing\Exception\BuildException if someone forgot to spec a value
      */
     public function evaluate()
     {

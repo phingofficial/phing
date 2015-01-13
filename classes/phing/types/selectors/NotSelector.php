@@ -20,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/NoneSelector.php';
 
 /**
  * This selector has one other selectors whose meaning it inverts. It

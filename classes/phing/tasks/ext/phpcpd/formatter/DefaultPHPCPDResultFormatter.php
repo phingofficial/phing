@@ -1,4 +1,7 @@
 <?php
+use Phing\Io\File;
+use Phing\Project;
+
 /**
  * $Id$
  *
@@ -19,7 +22,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
 
 /**
  * Prints plain text output of phpcpd run
@@ -36,7 +38,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      * @param CodeCloneMap   $clones
      * @param Project        $project
      * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      */
     public function processClones($clones, Project $project, $useFile = false, $outFile = null)
     {
@@ -70,7 +72,7 @@ class DefaultPHPCPDResultFormatter extends PHPCPDResultFormatter
      *
      * @param CodeCloneMap   $clones
      * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param File|null $outFile
      */
     private function processClonesNew($clones, $useFile = false, $outFile = null)
     {

@@ -20,7 +20,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Tests for PhpDependTask
@@ -28,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext.pdepend
  */
-class PhpDependTaskTest extends BuildFileTest
+class PhpDependTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

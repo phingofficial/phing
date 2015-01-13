@@ -17,10 +17,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/Diagnostics.php';
-require_once 'phing/system/io/PrintStream.php';
-require_once 'phing/Phing.php';
+use Phing\Diagnostics;
+use Phing\Io\PrintStream;
+use Phing\Phing;
+use Phing\Task;
 
 /**
  * This is a task that hands off work to the Diagnostics module.

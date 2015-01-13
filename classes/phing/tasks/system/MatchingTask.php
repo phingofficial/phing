@@ -18,12 +18,12 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\Scanner\DirectoryScanner;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-require_once 'phing/types/selectors/SelectorContainer.php';
-include_once 'phing/types/FileSet.php';
-include_once 'phing/types/PatternSet.php';
-include_once 'phing/util/DirectoryScanner.php';
 
 /**
  * This is an abstract task that should be used by all those tasks that
@@ -150,11 +150,11 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * Returns the directory scanner needed to access the files to process.
-     * @param PhingFile $baseDir
-     * @throws BuildException
+     * @param File $baseDir
+     * @throws \Phing\Exception\BuildException
      * @return DirectoryScanner
      */
-    protected function getDirectoryScanner(PhingFile $baseDir)
+    protected function getDirectoryScanner(File $baseDir)
     {
         $this->fileset->setDir($baseDir);
         $this->fileset->setDefaultexcludes($this->useDefaultExcludes);
@@ -165,11 +165,11 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $includesfile A string containing the filename to fetch
+     * @param  File $includesfile A string containing the filename to fetch
      *                                 the include patterns from.
      * @return void
      */
-    public function setIncludesfile(PhingFile $includesfile)
+    public function setIncludesfile(File $includesfile)
     {
         $this->fileset->setIncludesfile($includesfile);
     }
@@ -177,11 +177,11 @@ abstract class MatchingTask extends Task implements SelectorContainer
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param  PhingFile $excludesfile A string containing the filename to fetch
+     * @param  File $excludesfile A string containing the filename to fetch
      *                                 the include patterns from.
      * @return void
      */
-    public function setExcludesfile(PhingFile $excludesfile)
+    public function setExcludesfile(File $excludesfile)
     {
         $this->fileset->setExcludesfile($excludesfile);
     }

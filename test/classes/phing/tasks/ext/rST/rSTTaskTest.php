@@ -1,4 +1,6 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -13,7 +15,6 @@
  * @version    SVN: $Id$
  */
 
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -27,7 +28,7 @@ require_once 'phing/BuildFileTest.php';
  * @link       http://www.phing.info/
  * TODO: skip these tests when requirements are not met. (Like when running on windows?)
  */
-class rSTTaskTest extends BuildFileTest
+class rSTTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {
@@ -64,9 +65,8 @@ class rSTTaskTest extends BuildFileTest
 
 
     /**
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage "rst2doesnotexist" not found. Install python-docutils.
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathFail()
     {
@@ -80,7 +80,6 @@ class rSTTaskTest extends BuildFileTest
 
     /**
      * Get the tool path previously set with setToolpath()
-     * @requires PHP 5.3.2
      */
     public function testGetToolPathCustom()
     {
@@ -94,7 +93,7 @@ class rSTTaskTest extends BuildFileTest
 
 
     /**
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Tool does not exist. Path:
      */
     public function testSetToolpathNotExisting()
@@ -104,7 +103,7 @@ class rSTTaskTest extends BuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Tool not executable. Path:
      */
     public function testSetToolpathNonExecutable()
@@ -248,7 +247,7 @@ class rSTTaskTest extends BuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage No filename mapper found for "./files/single.rst"
      */
     public function testNotMatchingMapper()

@@ -18,9 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Task to create a directory.
@@ -34,7 +35,7 @@ class MkdirTask extends Task
 
     /**
      * Directory to create.
-     * @var PhingFile $dir
+     * @var File $dir
      */
     private $dir;
 
@@ -55,7 +56,7 @@ class MkdirTask extends Task
     /**
      * create the directory and all parents
      *
-     * @throws BuildException if dir is somehow invalid, or creation failed.
+     * @throws \Phing\Exception\BuildException if dir is somehow invalid, or creation failed.
      */
     public function main()
     {
@@ -84,10 +85,10 @@ class MkdirTask extends Task
 
     /**
      * The directory to create; required.
-     * @param PhingFile $dir
+     * @param File $dir
      * @return void
      */
-    public function setDir(PhingFile $dir)
+    public function setDir(File $dir)
     {
         $this->dir = $dir;
     }

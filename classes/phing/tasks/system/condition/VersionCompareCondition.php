@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
 
-require_once "phing/tasks/system/condition/Condition.php";
 
 /**
  * Condition that compare versions
@@ -71,13 +71,12 @@ class VersionCompareCondition implements Condition
 
     /**
      * @param $operator
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setOperator($operator)
     {
         $allowed = array('<', 'lt', '<=', 'le', '>', 'gt', '>=', 'ge', '==', '=', 'eq', '!=', '<>', 'ne');
         if (!in_array($operator, $allowed)) { // allowed operators for php's version_comapare()
-            require_once 'phing/BuildException.php';
             throw new BuildException(sprintf(
                 'Operator "%s" is not supported. Supported operators: %s',
                 $operator,
@@ -97,12 +96,11 @@ class VersionCompareCondition implements Condition
 
     /**
      * @return mixed
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function evaluate()
     {
         if ($this->version === null || $this->desiredVersion === null) {
-            require_once 'phing/BuildException.php';
             throw new BuildException("Missing one version parameter for version compare");
         }
         $isValid = version_compare($this->version, $this->desiredVersion, $this->operator);

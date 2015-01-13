@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Task;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Exits the active build, giving an additional message
@@ -89,7 +91,7 @@ class FailTask extends Task
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

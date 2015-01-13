@@ -1,4 +1,9 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
+use Phing\Util\StringHelper;
+
 /**
  *  $Id$
  *
@@ -19,9 +24,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/pdepend/PhpDependLoggerElement.php';
-require_once 'phing/tasks/ext/pdepend/PhpDependAnalyzerElement.php';
 
 /**
  * Runs the PHP_Depend software analyzer and metric tool.
@@ -37,7 +39,7 @@ class PhpDependTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -95,7 +97,7 @@ class PhpDependTask extends Task
     /**
      * PHP_Depend configuration file
      *
-     * @var PhingFile
+     * @var File
      */
     protected $configFile = null;
 
@@ -135,7 +137,7 @@ class PhpDependTask extends Task
     /**
      * Load the necessary environment for running PHP_Depend
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function requireDependencies()
     {
@@ -172,9 +174,9 @@ class PhpDependTask extends Task
     /**
      * Set the input source file or directory
      *
-     * @param PhingFile $file The input source file or directory
+     * @param File $file The input source file or directory
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -289,9 +291,9 @@ class PhpDependTask extends Task
     /**
      * Set the configuration file
      *
-     * @param PhingFile $configFile The configuration file
+     * @param File $configFile The configuration file
      */
-    public function setConfigFile(PhingFile $configFile)
+    public function setConfigFile(File $configFile)
     {
         $this->configFile = $configFile;
     }
@@ -429,7 +431,7 @@ class PhpDependTask extends Task
     /**
      * Validates the available analyzers
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function validateAnalyzers()
     {
@@ -451,7 +453,7 @@ class PhpDependTask extends Task
     {
         $filesToParse = array();
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $filesToParse[] = $this->file->__toString();
             return $filesToParse;
         } else {
@@ -460,7 +462,7 @@ class PhpDependTask extends Task
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $f = new File($fs->getDir($this->project), $filename);
                     $filesToParse[] = $f->getAbsolutePath();
                 }
             }
@@ -528,12 +530,12 @@ class PhpDependTask extends Task
     /**
      * Loads configuration file
      * @return null|PHP_Depend_Util_Configuration
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function getConfiguration()
     {
         // Check for configuration option
-        if ($this->configFile == null || ! ($this->configFile instanceof PhingFile)) {
+        if ($this->configFile == null || ! ($this->configFile instanceof File)) {
             return null;
         }
 

@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Util\StringHelper;
+
 /**
  * $Id$
  *
@@ -19,7 +23,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * A wrapper for the implementations of PHPMDResultFormatter.
@@ -53,7 +56,7 @@ class PHPMDFormatterElement
     /**
      * Output file for formatter.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $outfile = null;
 
@@ -119,9 +122,9 @@ class PHPMDFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @param PhingFile $outfile The output file
+     * @param File $outfile The output file
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(File $outfile)
     {
         $this->outfile = $outfile;
     }
@@ -129,7 +132,7 @@ class PHPMDFormatterElement
     /**
      * Get the output file.
      *
-     * @return PhingFile
+     * @return File
      */
     public function getOutfile()
     {

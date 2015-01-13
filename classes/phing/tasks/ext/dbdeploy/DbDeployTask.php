@@ -18,9 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/dbdeploy/DbmsSyntaxFactory.php';
 
 /**
  * Generate SQL script for db using dbdeploy schema version table
@@ -137,7 +137,7 @@ class DbDeployTask extends Task
     /**
      * The main function for the task
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     public function main()

@@ -19,8 +19,7 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-
-require_once 'phing/system/util/Properties.php';
+use Phing\Io\File;
 
 /**
  * Unit test for Properties class
@@ -48,7 +47,7 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
 
     public function testComments()
     {
-        $file = new PhingFile(PHING_TEST_BASE . "/etc/system/util/comments.properties");
+        $file = new File(PHING_TEST_BASE . "/etc/system/util/comments.properties");
         $this->props->load($file);
 
         $this->assertEquals(
@@ -80,7 +79,7 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
 
     public function testStore()
     {
-        $file = new PhingFile(PHING_TEST_BASE . "/tmp/props");
+        $file = new File(PHING_TEST_BASE . "/tmp/props");
         $this->props->put('t', 'a');
         $this->props->store($file, 'header');
         $this->assertFileExists($file->getPath());

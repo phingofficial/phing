@@ -18,8 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * ZendCodeAnalyzerTask analyze PHP source code using the ZendCodeAnalyzer included in Zend Studio 5.1
@@ -76,9 +79,9 @@ class ZendCodeAnalyzerTask extends Task
     /**
      * File to be analyzed
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -146,7 +149,7 @@ class ZendCodeAnalyzerTask extends Task
             throw new BuildException("Missing either a nested fileset or attribute 'file' set");
         }
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $this->analyze($this->file->getPath());
         } else { // process filesets
             $project = $this->getProject();
@@ -169,7 +172,7 @@ class ZendCodeAnalyzerTask extends Task
      * Analyze file
      *
      * @param  string $file
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     protected function analyze($file)

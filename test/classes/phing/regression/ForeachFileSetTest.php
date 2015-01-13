@@ -20,7 +20,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Io\File;
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/252
@@ -28,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class ForeachFileSetTest extends BuildFileTest
+class ForeachFileSetTest extends AbstractBuildFileTest
 {
 
     public function setUp()
@@ -38,7 +40,7 @@ class ForeachFileSetTest extends BuildFileTest
 
     public function testCustomTask()
     {
-        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/252/build.xml");
+        $f = new File(PHING_TEST_BASE . "/etc/regression/252/build.xml");
         $this->executeTarget("main");
         $this->assertInLogs("Calling Buildfile '" . $f->getAbsolutePath() . "' with target 'subtask'");
     }

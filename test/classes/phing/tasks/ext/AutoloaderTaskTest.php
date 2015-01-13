@@ -20,13 +20,14 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * @author Max Romanovsky <max.romanovsky@gmail.com>
  * @package phing.tasks.ext
  */
-class AutoloaderTaskTest extends BuildFileTest
+class AutoloaderTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

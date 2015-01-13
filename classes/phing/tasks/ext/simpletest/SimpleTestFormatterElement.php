@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/FormatterElement.php';
 
 /**
  * Child class of "FormatterElement", overrides setType to provide other
@@ -39,26 +41,16 @@ class SimpleTestFormatterElement extends FormatterElement
         $this->type = $type;
 
         if ($this->type == "xml") {
-            require_once 'phing/tasks/ext/simpletest/SimpleTestXmlResultFormatter.php';
-            $destFile = new PhingFile($this->toDir, 'testsuites.xml');
+            $destFile = new File($this->toDir, 'testsuites.xml');
             $this->formatter = new SimpleTestXmlResultFormatter();
+        } elseif ($this->type == "plain") {
+            $this->formatter = new SimpleTestPlainResultFormatter();
+        } elseif ($this->type == "summary") {
+            $this->formatter = new SimpleTestSummaryResultFormatter();
+        } elseif ($this->type == "debug") {
+            $this->formatter = new SimpleTestDebugResultFormatter();
         } else {
-            if ($this->type == "plain") {
-                require_once 'phing/tasks/ext/simpletest/SimpleTestPlainResultFormatter.php';
-                $this->formatter = new SimpleTestPlainResultFormatter();
-            } else {
-                if ($this->type == "summary") {
-                    require_once 'phing/tasks/ext/simpletest/SimpleTestSummaryResultFormatter.php';
-                    $this->formatter = new SimpleTestSummaryResultFormatter();
-                } else {
-                    if ($this->type == "debug") {
-                        require_once 'phing/tasks/ext/simpletest/SimpleTestDebugResultFormatter.php';
-                        $this->formatter = new SimpleTestDebugResultFormatter();
-                    } else {
-                        throw new BuildException("Formatter '" . $this->type . "' not implemented");
-                    }
-                }
-            }
+            throw new BuildException("Formatter '" . $this->type . "' not implemented");
         }
     }
 }

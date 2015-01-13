@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,8 +23,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/ioncube/IoncubeComment.php';
 
 /**
  * Invokes the ionCube Encoder (PHP4 or PHP5)
@@ -583,7 +585,7 @@ class IoncubeEncoderTask extends Task
         } else {
             $encoderName = $this->encoderName;
         }
-        $encoder = new PhingFile($this->ioncubePath, $encoderName);
+        $encoder = new File($this->ioncubePath, $encoderName);
 
         $this->log("Running ionCube Encoder...");
 

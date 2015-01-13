@@ -18,7 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'phing/Task.php';
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileReader;
+use Phing\Io\Util\FileUtils;
+use Phing\Task;
 
 /**
  * LoadFileTask
@@ -34,7 +38,7 @@ class LoadFileTask extends Task
 {
     /**
      * File to read
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -52,7 +56,7 @@ class LoadFileTask extends Task
 
     /**
      * Set file to read
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file)
     {
@@ -95,7 +99,7 @@ class LoadFileTask extends Task
      * Main method
      *
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

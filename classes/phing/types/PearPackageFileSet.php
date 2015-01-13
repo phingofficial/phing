@@ -1,4 +1,9 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\Scanner\PearPackageScanner;
+use Phing\Project;
+
 /**
  * Part of phing, the PHP build tool
  *
@@ -11,8 +16,6 @@
  * @version  SVN: $Id$
  * @link     http://www.phing.info/
  */
-require_once 'phing/types/FileSet.php';
-require_once 'phing/util/PearPackageScanner.php';
 
 /**
  * Fileset that contains files of an installed PEAR package.
@@ -109,7 +112,7 @@ class PearPackageFileSet extends FileSet
      *
      * @param Project $p Current phing project
      *
-     * @return PhingFile Base directory
+     * @return File Base directory
      */
     public function getDir(Project $p)
     {
@@ -117,7 +120,7 @@ class PearPackageFileSet extends FileSet
             $this->loadPearPackageScanner($p);
         }
 
-        return new PhingFile((string) $this->pps->getBaseDir());
+        return new File((string) $this->pps->getBaseDir());
     }
 
     /**

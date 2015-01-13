@@ -18,7 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'phing/Task.php';
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
 
 /**
  * VersionTask
@@ -43,7 +45,7 @@ class VersionTask extends Task
 
     /**
      * Property for File
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -69,7 +71,7 @@ class VersionTask extends Task
 
     /**
      * Set Property for File containing versioninformation
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file)
     {
@@ -90,7 +92,7 @@ class VersionTask extends Task
      * Main-Method for the Task
      *
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -163,7 +165,7 @@ class VersionTask extends Task
     /**
      * checks releasetype attribute
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function checkReleasetype()
     {
@@ -189,7 +191,7 @@ class VersionTask extends Task
     /**
      * checks file attribute
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function checkFile()
     {
@@ -216,7 +218,7 @@ class VersionTask extends Task
     /**
      * checks property attribute
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function checkProperty()
     {

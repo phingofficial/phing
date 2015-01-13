@@ -1,4 +1,6 @@
 <?php
+use Phing\Exception\BuildException;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/svn/SvnBaseTask.php';
 
 /**
  * Parses the output of 'svn info --xml' and
@@ -103,7 +103,7 @@ class SvnInfoTask extends SvnBaseTask
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

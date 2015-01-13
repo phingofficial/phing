@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\File;
 
-require_once 'phing/types/selectors/BaseSelectorContainer.php';
 
 /**
  * This selector has a collection of other selectors, all of which have to
@@ -51,13 +51,13 @@ class AndSelector extends BaseSelectorContainer
      * Returns true (the file is selected) only if all other selectors
      * agree that the file should be selected.
      *
-     * @param PhingFile $basedir the base directory the scan is being done from
+     * @param File $basedir the base directory the scan is being done from
      * @param string $filename the name of the file to check
-     * @param PhingFile $file a PhingFile object for the filename that the selector
+     * @param File $file a PhingFile object for the filename that the selector
      * can use
      * @return bool whether the file should be selected or not
      */
-    public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
+    public function isSelected(File $basedir, $filename, File $file)
     {
         $this->validate();
         $selectors = $this->selectorElements();

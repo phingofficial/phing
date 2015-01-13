@@ -28,6 +28,7 @@
     <resolvepath propertyName="tests.reports.dir.resolved" file="${tests.phpunit.dir}/reports"/>
 	<resolvepath propertyName="tests.classes.dir.resolved" file="${tests.phpunit.dir}/classes"/>
 	<resolvepath propertyName="phing.classes.dir.resolved" file="../classes"/>
+    <resolvepath propertyName="phing.src.dir.resolved" file="../src"/>
 	<resolvepath propertyName="phing.etc.dir.resolved" file="../etc"/>
 	
 	<path id="incthis">
@@ -50,8 +51,9 @@
 		<mkdir dir="${tests.reports.dir.resolved}/tests"/>
 		<mkdir dir="${tests.reports.dir.resolved}/coverage"/>
 			
-		<fileset dir="${tests.classes.dir.resolved}" id="relevant-tests">
+		<fileset dir="${tests.dir.resolved}" id="relevant-tests">
 			<include name="**/*${test.class}.php"/>
+            <exclude name="etc/**"/>
 		</fileset>
 	</target>
 
@@ -64,6 +66,9 @@
 			<then>
         		<coverage-setup database="reports/coverage.db">
                     <fileset dir="${phing.classes.dir.resolved}">
+                        <include name="**/*.php"/>
+                    </fileset>
+                    <fileset dir="${phing.src.dir.resolved}">
                         <include name="**/*.php"/>
                     </fileset>
         		</coverage-setup>
@@ -97,7 +102,7 @@
 		<!--
 		<phing phingFile="build.xml" target="insert-sql"/>
 		-->
-		<property name="test.class" value="" override="true"/>
+		<property name="test.class" value="Test" override="true"/>
 	</target>
 	
 	<target name="phpunit"

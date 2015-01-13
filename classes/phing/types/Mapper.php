@@ -19,8 +19,10 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/Path.php';
+use Phing\Exception\BuildException;
+use Phing\Phing;
+use Phing\Project;
+
 
 /**
  * Filename Mapper maps source file name(s) to target file name(s).
@@ -118,7 +120,7 @@ class Mapper extends DataType
 
     /** Set the class name of the FileNameMapper to use.
      * @param $classname
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setClassname($classname)
     {
@@ -144,7 +146,7 @@ class Mapper extends DataType
     /**
      * Set the argument to FileNameMapper.setTo
      * @param $to
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setTo($to)
     {
@@ -159,7 +161,7 @@ class Mapper extends DataType
      *
      * You must not set any other attribute if you make it a reference.
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setRefid(Reference $r)
     {
@@ -185,20 +187,20 @@ class Mapper extends DataType
         if ($this->type !== null) {
             switch ($this->type) {
                 case 'identity':
-                    $this->classname = 'phing.mappers.IdentityMapper';
+                    $this->classname = 'Phing\\Mapper\\IdentityMapper';
                     break;
                 case 'flatten':
-                    $this->classname = 'phing.mappers.FlattenMapper';
+                    $this->classname = 'Phing\\Mapper\\FlattenMapper';
                     break;
                 case 'glob':
-                    $this->classname = 'phing.mappers.GlobMapper';
+                    $this->classname = 'Phing\\Mapper\\GlobMapper';
                     break;
                 case 'regexp':
                 case 'regex':
-                    $this->classname = 'phing.mappers.RegexpMapper';
+                    $this->classname = 'Phing\\Mapper\\RegexpMapper';
                     break;
                 case 'merge':
-                    $this->classname = 'phing.mappers.MergeMapper';
+                    $this->classname = 'Phing\\Mapper\\MergeMapper';
                     break;
                 default:
                     throw new BuildException("Mapper type {$this->type} not known");
@@ -206,10 +208,7 @@ class Mapper extends DataType
             }
         }
 
-        // get the implementing class
-        $cls = Phing::import($this->classname, $this->classpath);
-
-        $m = new $cls();
+        $m = new $this->classname();
         $m->setFrom($this->from);
         $m->setTo($this->to);
 

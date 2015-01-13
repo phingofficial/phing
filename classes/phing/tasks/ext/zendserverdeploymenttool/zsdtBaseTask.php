@@ -19,7 +19,7 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
+use Phing\Task;
 
 /**
  * Class ZendServerDeploymentToolTask

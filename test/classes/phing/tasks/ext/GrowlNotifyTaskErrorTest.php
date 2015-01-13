@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Test\AbstractBuildFileTest;
+
 /**
  * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
  *
@@ -49,7 +52,7 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
  */
-class GrowlNotifyTaskErrorTest extends BuildFileTest
+class GrowlNotifyTaskErrorTest extends AbstractBuildFileTest
 {
     /**
      * Mock task's instance.

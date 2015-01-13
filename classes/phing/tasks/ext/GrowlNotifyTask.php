@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+
 /**
  * Copyright (c) 2012-2013, Laurent Laville <pear@laurent-laville.org>
  *
@@ -39,7 +43,6 @@
  * @link       https://github.com/llaville/phing-GrowlNotifyTask
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Growl notification task for Phing, the PHP build tool.

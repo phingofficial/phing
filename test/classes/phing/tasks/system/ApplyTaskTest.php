@@ -18,16 +18,20 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Io\File;
+use Phing\Target;
+use Phing\Task;
+use Phing\Test\AbstractBuildFileTest;
+use Phing\UnknownElement;
+
 
 /**
  * Tests the Apply Task
  *
  * @author  Utsav Handa <handautsav at hotmail dot com>
  * @package phing.tasks.system
- * @requires PHP 5.3.2
  */
-class ApplyTaskTest extends BuildFileTest
+class ApplyTaskTest extends AbstractBuildFileTest
 {
     /**
      * Whether test is being run on windows
@@ -40,12 +44,6 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function setUp()
     {
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped(
-                'Need at least PHP version 5.3.2 to run this unit test'
-            );
-        }
-
         // Tests definitions
         $this->configureProject(PHING_TEST_BASE . '/etc/tasks/system/ApplyTest.xml');
 
@@ -70,7 +68,7 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetDir()
     {
-        $this->assertAttributeIsSetTo('dir', new PhingFile('/tmp/'));
+        $this->assertAttributeIsSetTo('dir', new File('/tmp/'));
     }
 
     /**
@@ -126,7 +124,7 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetOutput()
     {
-        $this->assertAttributeIsSetTo('output', new PhingFile('/tmp/outputfilename'));
+        $this->assertAttributeIsSetTo('output', new File('/tmp/outputfilename'));
     }
 
     /**
@@ -134,7 +132,7 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testPropertySetError()
     {
-        $this->assertAttributeIsSetTo('error', new PhingFile('/tmp/errorfilename'));
+        $this->assertAttributeIsSetTo('error', new File('/tmp/errorfilename'));
     }
 
     /**

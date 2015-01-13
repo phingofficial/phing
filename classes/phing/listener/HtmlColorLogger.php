@@ -19,8 +19,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
+use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Phing;
+use Phing\Project;
+
 
 /**
  * Uses CSS class that must be defined in the HTML page
@@ -91,7 +95,7 @@ class HtmlColorLogger extends DefaultLogger
     final private function setColors()
     {
 
-        $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $systemColorFile = new File(Phing::getResourcePath("phing/listener/defaults.properties"));
 
         try {
             $prop = new Properties();

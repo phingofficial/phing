@@ -1,4 +1,5 @@
 <?php
+use Phing\Exception\BuildException;
 
 /**
  * Copyright (c) 2007-2011 bitExpert AG
@@ -16,7 +17,6 @@
  * the License.
  */
 
-require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
 
 /**
  * Rollbacks the database changes.

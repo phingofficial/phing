@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
 
 /**
@@ -27,7 +28,7 @@ require_once dirname(__FILE__) . '/../GitTasks/GitTestsHelper.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-abstract class AbstractSvnTaskTest extends BuildFileTest
+abstract class AbstractSvnTaskTest extends AbstractBuildFileTest
 {
     protected $backupGlobals = false;
 

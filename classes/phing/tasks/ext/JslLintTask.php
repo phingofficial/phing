@@ -1,4 +1,12 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Project;
+use Phing\Task;
+use Phing\Util\DataStore;
+use Phing\Util\StringHelper;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +25,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/util/DataStore.php';
 
 /**
  * A Javascript lint task. Checks syntax of Javascript files.
@@ -31,7 +37,7 @@ require_once 'phing/util/DataStore.php';
  */
 class JslLintTask extends Task
 {
-    /** @var PhingFile */
+    /** @var File */
     protected $file; // the source file (from xml attribute)
 
     /** @var array */
@@ -64,13 +70,13 @@ class JslLintTask extends Task
     /** @var DataStore */
     private $cache = null;
 
-    /** @var PhingFile */
+    /** @var File */
     private $conf = null;
 
     /** @var string */
     private $executable = "jsl";
 
-    /** @var PhingFile */
+    /** @var File */
     protected $tofile = null;
 
     /**
@@ -106,9 +112,9 @@ class JslLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -116,9 +122,9 @@ class JslLintTask extends Task
     /**
      * Whether to store last-modified times in cache
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setCacheFile(PhingFile $file)
+    public function setCacheFile(File $file)
     {
         $this->cache = new DataStore($file);
     }
@@ -126,9 +132,9 @@ class JslLintTask extends Task
     /**
      * jsl config file
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setConfFile(PhingFile $file)
+    public function setConfFile(File $file)
     {
         $this->conf = $file;
     }
@@ -136,7 +142,7 @@ class JslLintTask extends Task
     /**
      * @param string $path
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setExecutable($path)
     {
@@ -170,9 +176,9 @@ class JslLintTask extends Task
     /**
      * File to save error messages to
      *
-     * @param PhingFile $tofile
+     * @param File $tofile
      */
-    public function setToFile(PhingFile $tofile)
+    public function setToFile(File $tofile)
     {
         $this->tofile = $tofile;
     }
@@ -190,7 +196,7 @@ class JslLintTask extends Task
             throw new BuildException("Missing the 'executable' attribute");
         }
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $this->lint($this->file->getPath());
         } else { // process filesets
             $project = $this->getProject();
@@ -236,7 +242,7 @@ class JslLintTask extends Task
      *
      * @param  string $file
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return bool|void
      */

@@ -17,8 +17,10 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildException.php';
-include_once 'phing/Task.php';
+use Phing\Exception\BuildException;
+use Phing\Task;
+use Phing\Project;
+
 include_once 'phing/tasks/system/condition/Condition.php';
 
 /**

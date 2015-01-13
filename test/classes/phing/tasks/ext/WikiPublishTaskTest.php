@@ -19,15 +19,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/tasks/ext/WikiPublishTask.php';
+use Phing\Exception\BuildException;
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * WikiPublish task test
  * @author  Piotr Lewandowski <piotr@cassis.pl>
  * @package phing.tasks.ext
  */
-class WikiPublishTaskTest extends BuildFileTest
+class WikiPublishTaskTest extends AbstractBuildFileTest
 {
 
     /**

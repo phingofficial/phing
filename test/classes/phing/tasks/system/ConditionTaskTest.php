@@ -1,6 +1,7 @@
 <?php
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Tests the Condition Task
@@ -9,7 +10,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class ConditionTaskTest extends BuildFileTest
+class ConditionTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

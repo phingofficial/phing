@@ -20,14 +20,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Unit tests for PhpLintTask
  *
  * @package phing.tasks.ext
  */
-class PhpLintTaskTest extends BuildFileTest
+class PhpLintTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

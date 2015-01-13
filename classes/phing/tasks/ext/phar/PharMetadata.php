@@ -19,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phar/PharMetadataElement.php';
 
 /**
  * @package phing.tasks.ext.phar

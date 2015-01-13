@@ -1,4 +1,6 @@
 <?php
+use Phing\Project;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
-require_once 'phing/types/FileSet.php';
 
 /**
  * Scans a list of files given by the fileset attribute, extracts valid test cases

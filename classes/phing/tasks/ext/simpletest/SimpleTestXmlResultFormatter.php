@@ -17,7 +17,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/simpletest/SimpleTestResultFormatter.php';
 @include_once 'simpletest/xml.php';
 
 /**

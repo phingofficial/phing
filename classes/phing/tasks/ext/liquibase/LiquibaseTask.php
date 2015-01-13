@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
 
-require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
 
 /**
  * Task for running liquibase commands that doesn't have their own

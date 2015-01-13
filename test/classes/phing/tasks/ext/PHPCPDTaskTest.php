@@ -20,7 +20,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Tests for PHPCPDTask
@@ -28,16 +29,12 @@ require_once 'phing/BuildFileTest.php';
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class PHPCPDTaskTest extends BuildFileTest
+class PHPCPDTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()
     {
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/ext/phpcpd/build.xml");
-
-        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
-            $this->markTestSkipped("Need PHP 5.3.2+ for this test");
-        }
     }
 
     public function testFormatterOutfile()

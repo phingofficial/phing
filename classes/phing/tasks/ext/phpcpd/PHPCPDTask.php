@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
+
 /**
  *  $Id$
  *
@@ -19,8 +23,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/ext/phpcpd/PHPCPDFormatterElement.php';
 
 /**
  * Runs PHP Copy & Paste Detector. Checking PHP files for duplicated code.
@@ -36,7 +38,7 @@ class PHPCPDTask extends Task
     /**
      * A php source code filename or directory
      *
-     * @var PhingFile
+     * @var File
      */
     protected $file = null;
 
@@ -92,9 +94,9 @@ class PHPCPDTask extends Task
     /**
      * Set the input source file or directory.
      *
-     * @param PhingFile $file The input source file or directory.
+     * @param File $file The input source file or directory.
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -203,10 +205,6 @@ class PHPCPDTask extends Task
             fclose($handler);
             @include_once 'SebastianBergmann/PHPCPD/autoload.php';
 
-            if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-                throw new BuildException('The PHPCPD task now requires PHP 5.3+');
-            }
-
             $oldVersion = false;
         } elseif ($handler = @fopen('PHPCPD/Autoload.php', 'r', true)) {
             fclose($handler);
@@ -237,7 +235,7 @@ class PHPCPDTask extends Task
 
         $filesToParse = array();
 
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $filesToParse[] = $this->file->getPath();
         } else {
             // append any files in filesets
@@ -245,7 +243,7 @@ class PHPCPDTask extends Task
                 $files = $fs->getDirectoryScanner($this->project)->getIncludedFiles();
 
                 foreach ($files as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
+                    $f = new File($fs->getDir($this->project), $filename);
                     $filesToParse[] = $f->getAbsolutePath();
                 }
             }

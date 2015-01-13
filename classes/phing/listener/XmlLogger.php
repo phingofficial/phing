@@ -1,4 +1,14 @@
 <?php
+use Phing\BuildEvent;
+use Phing\Exception\BuildException;
+use Phing\BuildLoggerInterface;
+use Phing\Io\FileOutputStream;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Io\OutputStreamWriter;
+use Phing\Phing;
+use Phing\Project;
+
 /**
  * $Id$
  *
@@ -19,9 +29,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildLogger.php';
-require_once 'phing/listener/DefaultLogger.php';
-require_once 'phing/system/util/Timer.php';
 
 /**
  * Generates a file in the current directory with
@@ -33,7 +40,7 @@ require_once 'phing/system/util/Timer.php';
  * @version $Id$
  * @package phing.listener
  */
-class XmlLogger implements BuildLogger
+class XmlLogger implements BuildLoggerInterface
 {
 
     /** XML element name for a build. */
@@ -140,7 +147,7 @@ class XmlLogger implements BuildLogger
      *
      * @param BuildEvent $event An event with any relevant extra information.
      *                          Will not be <code>null</code>.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function buildFinished(BuildEvent $event)
     {

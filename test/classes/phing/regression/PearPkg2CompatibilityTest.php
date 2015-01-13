@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Regression test for tickets
@@ -29,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
  * TODO: skip when user doesn't have pear installed (you cannot check for the class name, because
  *       it is included via composer)
  */
-class PearPkg2CompatibilityTest extends BuildFileTest
+class PearPkg2CompatibilityTest extends AbstractBuildFileTest
 {
     private $savedErrorLevel;
     protected $backupGlobals = false;

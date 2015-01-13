@@ -19,33 +19,15 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/types/DataType.php';
-include_once 'phing/types/PatternSet.php';
-include_once 'phing/types/selectors/BaseSelector.php';
-include_once 'phing/types/selectors/SelectorContainer.php';
-include_once 'phing/types/selectors/BaseSelectorContainer.php';
 
 // Load all of the selectors (not really necessary but
 // helps reveal parse errors right away)
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\Scanner\DirectoryScanner;
+use Phing\Io\Scanner\SelectorScannerInterface;
+use Phing\Project;
 
-include_once 'phing/types/selectors/AndSelector.php';
-include_once 'phing/types/selectors/ContainsSelector.php';
-include_once 'phing/types/selectors/ContainsRegexpSelector.php';
-include_once 'phing/types/selectors/DateSelector.php';
-include_once 'phing/types/selectors/DependSelector.php';
-include_once 'phing/types/selectors/DepthSelector.php';
-include_once 'phing/types/selectors/ExtendSelector.php';
-include_once 'phing/types/selectors/FilenameSelector.php';
-include_once 'phing/types/selectors/MajoritySelector.php';
-include_once 'phing/types/selectors/NoneSelector.php';
-include_once 'phing/types/selectors/NotSelector.php';
-include_once 'phing/types/selectors/OrSelector.php';
-include_once 'phing/types/selectors/PresentSelector.php';
-include_once 'phing/types/selectors/SizeSelector.php';
-include_once 'phing/types/selectors/TypeSelector.php';
-
-include_once 'phing/util/DirectoryScanner.php';
 
 /**
  * The FileSet class provides methods and properties for accessing
@@ -123,7 +105,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * You must not set another attribute or nest elements inside
      * this element if you make it a reference.
      * @param Reference $r
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setRefid(Reference $r)
     {
@@ -141,17 +123,17 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /**
      * @param $dir
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setDir($dir)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
         }
-        if ($dir instanceof PhingFile) {
+        if ($dir instanceof File) {
             $dir = $dir->getPath();
         }
-        $this->dir = new PhingFile((string) $dir);
+        $this->dir = new File((string) $dir);
     }
 
     /**
@@ -234,7 +216,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the set of include patterns. Patterns may be separated by a comma
      * or a space.
      * @param $includes
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setIncludes($includes)
     {
@@ -261,10 +243,10 @@ class AbstractFileSet extends DataType implements SelectorContainer
     /**
      * Sets the name of the file containing the includes patterns.
      *
-     * @param PhingFile $incl The file to fetch the include patterns from.
+     * @param File $incl The file to fetch the include patterns from.
      * @throws BuildException
      */
-    public function setIncludesfile(PhingFile $incl)
+    public function setIncludesfile(File $incl)
     {
         if ($this->isReference()) {
             throw $this->tooManyAttributes();
@@ -276,7 +258,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Sets the name of the file containing the includes patterns.
      *
      * @param $excl The file to fetch the exclude patterns from.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setExcludesfile($excl)
     {
@@ -314,9 +296,9 @@ class AbstractFileSet extends DataType implements SelectorContainer
 
     /** returns a reference to the dirscanner object belonging to this fileset
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @throws Exception
-     * @return \DirectoryScanner
+     * @return \Phing\Io\Scanner\DirectoryScanner
      */
     public function getDirectoryScanner(Project $p)
     {
@@ -372,7 +354,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
             Project::MSG_DEBUG
         );
 
-        if ($ds instanceof SelectorScanner) {
+        if ($ds instanceof SelectorScannerInterface) {
             $ds->setSelectors($this->getSelectors($p));
         }
 
@@ -389,7 +371,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      *
      * @param Project $p
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return FileSet
      */
@@ -475,7 +457,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      * Returns the set of selectors as an array.
      *
      * @param Project $p
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return array of selectors in this container
      */
     public function getSelectors(Project $p)
@@ -512,7 +494,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
      *
      * @param FileSelector $selector new selector to add
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return void
      */

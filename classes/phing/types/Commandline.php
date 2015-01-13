@@ -18,6 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
 
 /**
  * Commandline objects help handling command lines specifying processes to
@@ -477,10 +479,10 @@ class CommandlineArgument
      * Sets a single commandline argument to the absolute filename
      * of the given file.
      *
-     * @param a|PhingFile $value
+     * @param a|File $value
      * @internal param a $value single commandline argument.
      */
-    public function setFile(PhingFile $value)
+    public function setFile(File $value)
     {
         $this->parts = array($value->getAbsolutePath());
     }

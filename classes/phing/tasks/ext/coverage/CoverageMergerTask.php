@@ -1,4 +1,7 @@
 <?php
+use Phing\Io\File;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,11 +22,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
 
 /**
  * Merges code coverage snippets into a code coverage database
@@ -64,7 +62,7 @@ class CoverageMergerTask extends Task
             $includedFiles = $ds->getIncludedFiles();
 
             foreach ($includedFiles as $file) {
-                $fs = new PhingFile(basename($ds->getBaseDir()), $file);
+                $fs = new File(basename($ds->getBaseDir()), $file);
 
                 $files[] = $fs->getAbsolutePath();
             }

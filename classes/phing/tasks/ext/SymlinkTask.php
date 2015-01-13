@@ -19,8 +19,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\FileSystem\FileSystemFactory;
+use Phing\Project;
+use Phing\Task;
 
-require_once "phing/Task.php";
 
 /**
  * Generates symlinks based on a target / link combination.
@@ -271,7 +274,7 @@ class SymlinkTask extends Task
      */
     protected function symlink($target, $link)
     {
-        $fs = FileSystem::getFileSystem();
+        $fs = FileSystemFactory::getFileSystem();
 
         if (is_link($link) && @readlink($link) == $target) {
             $this->log('Link exists: ' . $link, Project::MSG_INFO);

@@ -18,9 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\IOException;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-include_once 'phing/input/InputRequest.php';
 
 /**
  * Deprecated task that uses console to prompt user for property values.
@@ -75,7 +77,7 @@ class PropertyPromptTask extends Task
 
     /**
      * Run the PropertyPrompt task.
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {

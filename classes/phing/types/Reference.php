@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -58,7 +61,7 @@ class Reference
      *
      * @param Project $project
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return Reference
      */

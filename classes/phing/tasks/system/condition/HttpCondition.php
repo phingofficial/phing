@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\AbstractProjectComponent;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +21,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-require_once 'phing/tasks/system/condition/Condition.php';
 
 /**
  * Condition to wait for a HTTP request to succeed.
@@ -30,7 +32,7 @@ require_once 'phing/tasks/system/condition/Condition.php';
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.tasks.system.condition
  */
-class HttpCondition extends ProjectComponent implements Condition
+class HttpCondition extends AbstractProjectComponent implements Condition
 {
     private $errorsBeginAt;
     private $url;

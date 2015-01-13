@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+
 /**
  * $Id$
  *
@@ -19,7 +22,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Logger element for the PhpDependTask.
@@ -41,7 +43,7 @@ class PhpDependLoggerElement
     /**
      * Output file for logger.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $outfile = null;
 
@@ -82,9 +84,9 @@ class PhpDependLoggerElement
     /**
      * Sets the output file for the logger results.
      *
-     * @param PhingFile $outfile The output file
+     * @param File $outfile The output file
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(File $outfile)
     {
         $this->outfile = $outfile;
     }
@@ -92,7 +94,7 @@ class PhpDependLoggerElement
     /**
      * Get the output file.
      *
-     * @return PhingFile
+     * @return File
      */
     public function getOutfile()
     {

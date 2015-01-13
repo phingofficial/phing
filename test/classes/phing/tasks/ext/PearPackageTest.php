@@ -19,7 +19,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Test cases for the pearpkg/pearpkg2 tasks
@@ -28,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.ext
  */
-class PearPackageTest extends BuildFileTest
+class PearPackageTest extends AbstractBuildFileTest
 {
     protected $backupGlobals = false;
 

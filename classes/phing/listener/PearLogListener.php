@@ -19,7 +19,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildListener.php';
+use Phing\BuildEvent;
+use Phing\Exception\BuildException;
+use Phing\BuildListenerInterface;
+use Phing\Phing;
+use Phing\Project;
+
 
 /**
  * Writes build messages to PEAR Log.
@@ -40,7 +45,7 @@ require_once 'phing/BuildListener.php';
  * @see       BuildEvent
  * @package   phing.listener
  */
-class PearLogListener implements BuildListener
+class PearLogListener implements BuildListenerInterface
 {
 
     /**

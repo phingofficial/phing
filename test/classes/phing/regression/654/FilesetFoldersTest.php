@@ -20,7 +20,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Io\File;
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Regression test for ticket http://www.phing.info/trac/ticket/654
@@ -28,7 +30,7 @@ require_once 'phing/BuildFileTest.php';
  *
  * @package phing.regression
  */
-class FilesetFoldersTest extends BuildFileTest
+class FilesetFoldersTest extends AbstractBuildFileTest
 {
 
     public function setUp()
@@ -38,7 +40,7 @@ class FilesetFoldersTest extends BuildFileTest
 
     public function testFilesetNotSelectingFolders()
     {
-        $f = new PhingFile(PHING_TEST_BASE . "/etc/regression/654/build.xml");
+        $f = new File(PHING_TEST_BASE . "/etc/regression/654/build.xml");
         $this->executeTarget("main");
         $this->assertInLogs("Property \${test.msg} => data");
         $this->assertInLogs("Property \${test.msg} => files");

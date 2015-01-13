@@ -19,6 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
 
 /**
  * Produce license files using Zeng Guard.
@@ -207,7 +210,7 @@ class ZendGuardLicenseTask extends Task
      *
      * @param mixed $expires
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return string
      */
     public function setExpires($expires)
@@ -291,7 +294,7 @@ class ZendGuardLicenseTask extends Task
     /**
      * Verifies that the configuration is correct
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function verifyConfiguration()
     {
@@ -360,7 +363,7 @@ class ZendGuardLicenseTask extends Task
     /**
      * Do the work
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -437,7 +440,7 @@ class ZendGuardLicenseTask extends Task
     /**
      * Creates the signed license at the defined output path
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     protected function generateLicense()
@@ -460,7 +463,7 @@ class ZendGuardLicenseTask extends Task
      * It will generate a temporary license template
      * based on the properties defined.
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return string Path of the temporary license template file
      */
     protected function generateLicenseTemplate()

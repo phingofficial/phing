@@ -20,10 +20,10 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildFileTest.php';
-include_once 'phing/types/Mapper.php';
-include_once 'phing/Project.php';
-include_once 'phing/types/Reference.php';
+use Phing\Exception\BuildException;
+use Phing\Mapper\GlobMapper;
+use Phing\Project;
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Unit test for mappers.
@@ -150,7 +150,7 @@ class MapperTest extends PHPUnit_Framework_TestCase
 /**
  * @package phing.mappers
  */
-class TaskdefForCopyTest extends BuildFileTest
+class TaskdefForCopyTest extends AbstractBuildFileTest
 {
 
     public function setUp()

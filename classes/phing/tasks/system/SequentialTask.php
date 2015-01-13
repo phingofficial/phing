@@ -19,9 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
+use Phing\TaskContainerInterface;
 
-require_once 'phing/Task.php';
-require_once 'phing/TaskContainer.php';
 
 /**
  * Sequential is a container task that contains other Phing Task objects.
@@ -33,7 +34,7 @@ require_once 'phing/TaskContainer.php';
  * @since 2.1.2
  * @package phing.tasks.system
  */
-class SequentialTask extends Task implements TaskContainer
+class SequentialTask extends Task implements TaskContainerInterface
 {
 
     /** Optional Vector holding the nested tasks */

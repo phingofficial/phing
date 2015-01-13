@@ -1,4 +1,12 @@
 <?php
+
+use Phing\BuildEvent;
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+use Phing\SubBuildListenerInterface;
+use Phing\Util\StringHelper;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +25,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/Task.php';
-include_once 'phing/SubBuildListener.php';
 include_once 'phing/tasks/system/RecorderEntry.php';
 
 /**
@@ -38,7 +44,7 @@ include_once 'phing/tasks/system/RecorderEntry.php';
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.tasks.system
  */
-class RecorderTask extends Task implements SubBuildListener
+class RecorderTask extends Task implements SubBuildListenerInterface
 {
     /** The name of the file to record to. */
     private $filename = null;

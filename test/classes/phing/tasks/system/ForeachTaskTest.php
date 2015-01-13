@@ -18,6 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Unit test for ForeachTask.
@@ -25,7 +28,7 @@
  * @author  Laurent Laville <pear@laurent-laville.org>
  * @package phing.tasks.system
  */
-class ForeachTaskTest extends BuildFileTest
+class ForeachTaskTest extends AbstractBuildFileTest
 {
     /**
      * Sets up the fixture.
@@ -41,7 +44,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test for required attributes
      *
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @return void
      */
     public function testRequiredParameters()
@@ -52,7 +55,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test list of values to process without the 'param' attribute
      *
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @return void
      */
     public function testListWithoutParam()
@@ -63,7 +66,7 @@ class ForeachTaskTest extends BuildFileTest
     /**
      * Test list of values to process without the 'target' attribute
      *
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @return void
      */
     public function testListWithoutCalleeTarget()

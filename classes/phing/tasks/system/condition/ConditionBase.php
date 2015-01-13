@@ -18,12 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Parser\CustomChildCreatorInterface;
+use Phing\Project;
+use Phing\AbstractProjectComponent;
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/Project.php';
-include_once 'phing/tasks/system/AvailableTask.php';
-include_once 'phing/tasks/system/condition/Condition.php';
-include_once 'phing/parser/CustomChildCreator.php';
 
 /**
  * Abstract baseclass for the <condition> task as well as several
@@ -36,8 +35,8 @@ include_once 'phing/parser/CustomChildCreator.php';
  * @version   $Id$
  * @package   phing.tasks.system.condition
  */
-abstract class ConditionBase extends ProjectComponent
-    implements IteratorAggregate, CustomChildCreator
+abstract class ConditionBase extends AbstractProjectComponent
+    implements IteratorAggregate, CustomChildCreatorInterface
 {
 
     public $conditions = array(); // needs to be public for "inner" class access
@@ -239,7 +238,7 @@ abstract class ConditionBase extends ProjectComponent
     /**
      * @param  string         $elementName
      * @param  Project        $project
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return Condition
      */
     public function customChildCreator($elementName, Project $project)
@@ -286,7 +285,7 @@ class ConditionEnumeration implements Iterator
     public function current()
     {
         $o = $this->outer->conditions[$this->num];
-        if ($o instanceof ProjectComponent) {
+        if ($o instanceof AbstractProjectComponent) {
             $o->setProject($this->outer->getProject());
         }
 

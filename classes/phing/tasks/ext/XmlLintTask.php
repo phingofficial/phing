@@ -18,8 +18,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * A XML lint task. Checking syntax of one or more XML files against an XML Schema using the DOM extension.
@@ -41,9 +44,9 @@ class XmlLintTask extends Task
     /**
      * File to be performed syntax check on
      *
-     * @param PhingFile $file
+     * @param File $file
      */
-    public function setFile(PhingFile $file)
+    public function setFile(File $file)
     {
         $this->file = $file;
     }
@@ -51,9 +54,9 @@ class XmlLintTask extends Task
     /**
      * XML Schema Description file to validate against
      *
-     * @param PhingFile $schema
+     * @param File $schema
      */
-    public function setSchema(PhingFile $schema)
+    public function setSchema(File $schema)
     {
         $this->schema = $schema;
     }
@@ -97,7 +100,7 @@ class XmlLintTask extends Task
      *
      * {@inheritdoc}
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      *
      * @return void
      */
@@ -111,7 +114,7 @@ class XmlLintTask extends Task
         }
 
         set_error_handler(array($this, 'errorHandler'));
-        if ($this->file instanceof PhingFile) {
+        if ($this->file instanceof File) {
             $this->lint($this->file->getPath());
         } else { // process filesets
             $project = $this->getProject();
@@ -132,7 +135,7 @@ class XmlLintTask extends Task
      *
      * @return void
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function logError($message)
     {

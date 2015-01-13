@@ -19,8 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * Convert dot-notation packages to relative paths.

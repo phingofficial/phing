@@ -19,11 +19,11 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Project;
 
-require_once 'phing/tasks/system/MatchingTask.php';
-include_once 'phing/util/SourceFileScanner.php';
-include_once 'phing/mappers/MergeMapper.php';
-include_once 'phing/util/StringHelper.php';
 
 /**
  * Encodes files using Zeng Guard Encoder
@@ -348,7 +348,7 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Verifies that the configuration is correct
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function verifyConfiguration()
     {
@@ -387,7 +387,7 @@ class ZendGuardEncodeTask extends MatchingTask
     /**
      * Do the work
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function main()
     {
@@ -405,13 +405,13 @@ class ZendGuardEncodeTask extends MatchingTask
             foreach ($this->filesets as $fs) {
                 /* @var $fs FileSet */
 
-                /* @var $fsBasedir PhingFile */
+                /* @var $fsBasedir File */
                 $fsBasedir = $fs->getDir($this->project)->getAbsolutePath();
 
                 $files = $fs->getFiles($this->project, false);
 
                 foreach ($files as $file) {
-                    $f = new PhingFile($fsBasedir, $file);
+                    $f = new File($fsBasedir, $file);
 
                     if ($f->isFile()) {
                         $path = $f->getAbsolutePath();
@@ -513,7 +513,7 @@ class ZendGuardEncodeTask extends MatchingTask
      * Encodes a file using currently defined Zend Guard settings
      *
      * @param string $filePath Path to the encoded file
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return bool
      */
     protected function encodeFile($filePath)
@@ -548,7 +548,7 @@ class ZendGuardFileSet extends FileSet
      *  Get a list of files and directories specified in the fileset.
      * @param Project $p
      * @param bool $includeEmpty
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      */

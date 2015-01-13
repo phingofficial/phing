@@ -1,4 +1,6 @@
 <?php
+use Phing\Exception\BuildException;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +19,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/selectors/FileSelector.php';
 
 /**
  * A convenience base class that you can subclass Selectors from. It

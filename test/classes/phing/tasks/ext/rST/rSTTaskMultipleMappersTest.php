@@ -1,4 +1,6 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -13,7 +15,6 @@
  * @version    SVN: $Id$
  */
 
-require_once 'phing/BuildFileTest.php';
 
 /**
  * Unit test for reStructuredText rendering task.
@@ -26,10 +27,10 @@ require_once 'phing/BuildFileTest.php';
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
  */
-class rSTTaskMultipleMappersTest extends BuildFileTest
+class rSTTaskMultipleMappersTest extends AbstractBuildFileTest
 {
     /**
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Cannot define more than one mapper
      */
     public function testMultipleMappers()

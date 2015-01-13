@@ -1,4 +1,10 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,10 +25,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/util/LogWriter.php';
 
 /**
  * Runs SimpleTest tests.
@@ -61,9 +63,6 @@ class SimpleTestTask extends Task
         require_once 'simpletest/reporter.php';
         require_once 'simpletest/xml.php';
         require_once 'simpletest/test_case.php';
-        require_once 'phing/tasks/ext/simpletest/SimpleTestCountResultFormatter.php';
-        require_once 'phing/tasks/ext/simpletest/SimpleTestDebugResultFormatter.php';
-        require_once 'phing/tasks/ext/simpletest/SimpleTestFormatterElement.php';
     }
 
     /**
@@ -202,7 +201,7 @@ class SimpleTestTask extends Task
             $formatter->setProject($this->getProject());
 
             if ($fe->getUseFile()) {
-                $destFile = new PhingFile($fe->getToDir(), $fe->getOutfile());
+                $destFile = new File($fe->getToDir(), $fe->getOutfile());
 
                 $writer = new FileWriter($destFile->getAbsolutePath());
 

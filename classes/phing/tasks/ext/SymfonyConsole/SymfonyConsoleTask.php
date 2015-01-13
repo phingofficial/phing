@@ -19,9 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
 
-require_once "phing/Task.php";
-require_once dirname(__FILE__) . "/Arg.php";
 
 /**
  * Symfony Console Task

@@ -1,4 +1,12 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\AbstractWriter;
+use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\LogWriter;
+use Phing\Phing;
+use Phing\Project;
+
 /**
  * $Id$
  *
@@ -19,10 +27,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/tasks/ext/pdo/PlainPDOResultFormatter.php';
-require_once 'phing/tasks/ext/pdo/XMLPDOResultFormatter.php';
-require_once 'phing/util/LogWriter.php';
 
 /**
  * A class to represent the nested <formatter> element for PDO SQL results.
@@ -54,7 +58,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Output file for formatter.
-     * @var PhingFile
+     * @var File
      */
     private $outfile;
 
@@ -129,14 +133,14 @@ class PDOSQLExecFormatterElement
 
     /**
      * Gets a configured output writer.
-     * @return Writer
+     * @return AbstractWriter
      */
     private function getOutputWriter()
     {
         if ($this->useFile) {
             $of = $this->getOutfile();
             if (!$of) {
-                $of = new PhingFile($this->formatter->getPreferredOutfile());
+                $of = new File($this->formatter->getPreferredOutfile());
             }
 
             return new FileWriter($of, $this->append);
@@ -230,17 +234,17 @@ class PDOSQLExecFormatterElement
 
     /**
      * Sets the output file for the formatter results.
-     * @param PhingFile $outfile
+     * @param File $outfile
      * @internal param PhingFile $outFile
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(File $outfile)
     {
         $this->outfile = $outfile;
     }
 
     /**
      * Get the output file.
-     * @return PhingFile
+     * @return File
      */
     public function getOutfile()
     {
@@ -317,7 +321,7 @@ class PDOSQLExecFormatterElement
 
     /**
      * Gets a default output writer for this task.
-     * @return Writer
+     * @return AbstractWriter
      */
     private function getDefaultOutput()
     {

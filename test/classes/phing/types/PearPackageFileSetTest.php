@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Test\AbstractBuildFileTest;
 
 /**
  *  $Id$
@@ -21,8 +24,6 @@
  *
  * @package phing.util
  */
-require_once 'phing/BuildFileTest.php';
-require_once 'phing/types/PearPackageFileSet.php';
 
 /**
  * Testcases for phing.types.PearPackageFileSet
@@ -30,7 +31,7 @@ require_once 'phing/types/PearPackageFileSet.php';
  * @author  Christian Weiske <cweiske@cweiske.de>
  * @package phing.types
  */
-class PearPackageFileSetTest extends BuildFileTest
+class PearPackageFileSetTest extends AbstractBuildFileTest
 {
     public function setUp()
     {
@@ -120,7 +121,7 @@ class PearPackageFileSetTest extends BuildFileTest
     }
 
     /**
-     * @expectedException BuildException
+     * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Invalid package name
      */
     public function testSetPackageInvalid()

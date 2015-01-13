@@ -19,8 +19,12 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/DefaultLogger.php';
-include_once 'phing/system/util/Properties.php';
+use Phing\Io\File;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Phing;
+use Phing\Project;
+
 
 /**
  * Uses ANSI Color Code Sequences to colorize messages
@@ -161,7 +165,7 @@ class AnsiColorLogger extends DefaultLogger
     {
 
         $userColorFile = Phing::getProperty("phing.logger.defaults");
-        $systemColorFile = new PhingFile(Phing::getResourcePath("phing/listener/defaults.properties"));
+        $systemColorFile = new File(Phing::getResourcePath("phing/listener/defaults.properties"));
 
         $in = null;
 

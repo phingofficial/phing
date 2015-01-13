@@ -1,4 +1,6 @@
 <?php
+use Phing\Io\AbstractWriter;
+
 /**
  * $Id$
  *
@@ -19,7 +21,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * Abstract
@@ -33,16 +34,16 @@ abstract class PDOResultFormatter
     /**
      * Output writer.
      *
-     * @var Writer
+     * @var AbstractWriter
      */
     protected $out;
 
     /**
      * Sets the output writer.
      *
-     * @param Writer $out
+     * @param AbstractWriter $out
      */
-    public function setOutput(Writer $out)
+    public function setOutput(AbstractWriter $out)
     {
         $this->out = $out;
     }
@@ -50,7 +51,7 @@ abstract class PDOResultFormatter
     /**
      * Gets the output writer.
      *
-     * @return Writer
+     * @return AbstractWriter
      */
     public function getOutput()
     {

@@ -18,8 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\File;
+use Phing\Project;
 
-include_once 'phing/system/io/PhingFile.php';
 
 /**
  * Builds list of files for PEAR_PackageFileManager using a Phing FileSet.
@@ -111,7 +112,7 @@ class PEAR_PackageFileManager_Fileset
                     $ext = '';
                 }
 
-                $f = new PhingFile($basedir, $file);
+                $f = new File($basedir, $file);
 
                 $struc[$path][] = array(
                     'file' => basename($file),

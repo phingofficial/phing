@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Util\StringHelper;
+
 /**
  * $Id$
  *
@@ -19,7 +23,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * A wrapper for the implementations of PHPCPDResultFormatter.
@@ -54,7 +57,7 @@ class PHPCPDFormatterElement
     /**
      * Output file for formatter.
      *
-     * @var PhingFile
+     * @var File
      */
     protected $outfile = null;
 
@@ -80,7 +83,7 @@ class PHPCPDFormatterElement
      *
      * @param string $type Type of the formatter
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setType($type)
     {
@@ -141,9 +144,9 @@ class PHPCPDFormatterElement
     /**
      * Sets the output file for the formatter results.
      *
-     * @param PhingFile $outfile The output file
+     * @param File $outfile The output file
      */
-    public function setOutfile(PhingFile $outfile)
+    public function setOutfile(File $outfile)
     {
         $this->outfile = $outfile;
     }
@@ -151,7 +154,7 @@ class PHPCPDFormatterElement
     /**
      * Get the output file.
      *
-     * @return PhingFile
+     * @return File
      */
     public function getOutfile()
     {

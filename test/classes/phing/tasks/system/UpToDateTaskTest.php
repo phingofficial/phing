@@ -19,14 +19,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
  * @version $Id$
  * @package phing.tasks.ext
  */
-class UpToDateTaskTest extends BuildFileTest
+class UpToDateTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

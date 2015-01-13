@@ -18,8 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * Abstract class for creating adhoc Phing components in buildfile.
@@ -72,7 +74,7 @@ class AdhocTask extends Task
     /**
      * Load the adhoc class, and perform any core validation.
      * @return string         The classname of the ProjectComponent class.
-     * @throws BuildException - if more than one class is defined.
+     * @throws \Phing\Exception\BuildException - if more than one class is defined.
      */
     protected function execute()
     {

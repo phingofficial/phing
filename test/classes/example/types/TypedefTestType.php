@@ -20,8 +20,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/types/DataType.php';
-
 class TypedefTestType extends DataType
 {
 

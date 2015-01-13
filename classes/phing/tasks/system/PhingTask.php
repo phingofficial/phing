@@ -20,10 +20,15 @@
  * <http://phing.info>.
 */
 
-include_once 'phing/Task.php';
-include_once 'phing/util/FileUtils.php';
-include_once 'phing/types/Reference.php';
-include_once 'phing/tasks/system/PropertyTask.php';
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\Util\FileUtils;
+use Phing\Parser\ProjectConfigurator;
+use Phing\Phing;
+use Phing\Project;
+use Phing\AbstractProjectComponent;
+use Phing\Task;
+
 
 /**
  * Task that invokes phing on another build file.
@@ -174,7 +179,7 @@ class PhingTask extends Task
                 $srcFiles = $ds->getIncludedFiles();
 
                 foreach ($srcFiles as $fname) {
-                    $f = new PhingFile($ds->getbasedir(), $fname);
+                    $f = new File($ds->getbasedir(), $fname);
                     $f = $f->getAbsoluteFile();
                     $this->phingFile = $f->getAbsolutePath();
                     $this->dir = $f->getParentFile();
@@ -202,7 +207,7 @@ class PhingTask extends Task
     /**
      * Execute phing file.
      *
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     private function processFile()
@@ -239,7 +244,7 @@ class PhingTask extends Task
 
                 // Now we must reset $this->dir so that it continues to resolve to the same
                 // path.
-                $this->dir = new PhingFile($dirAbsPath);
+                $this->dir = new File($dirAbsPath);
 
                 if ($savedDir !== null) { // has been set explicitly
                     $this->newProject->setInheritedProperty("project.basedir", $this->dir->getAbsolutePath());
@@ -265,7 +270,7 @@ class PhingTask extends Task
 
             $this->newProject->setUserProperty("phing.file", $this->phingFile);
 
-            ProjectConfigurator::configureProject($this->newProject, new PhingFile($this->phingFile));
+            ProjectConfigurator::configureProject($this->newProject, new File($this->phingFile));
 
             if ($this->newTarget === null) {
                 $this->newTarget = $this->newProject->getDefaultTarget();
@@ -387,7 +392,7 @@ class PhingTask extends Task
      * Override the properties in the new project with the one
      * explicitly defined as nested elements here.
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function overrideProperties()
     {
@@ -406,7 +411,7 @@ class PhingTask extends Task
      * requested.
      *
      * @return void
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     private function addReferences()
     {
@@ -472,7 +477,7 @@ class PhingTask extends Task
      *
      * @param  string $oldKey
      * @param  string $newKey
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return void
      */
     private function copyReference($oldKey, $newKey)
@@ -490,7 +495,7 @@ class PhingTask extends Task
 
         $copy = clone $orig;
 
-        if ($copy instanceof ProjectComponent) {
+        if ($copy instanceof AbstractProjectComponent) {
             $copy->setProject($this->newProject);
         } elseif (in_array('setProject', get_class_methods(get_class($copy)))) {
             $copy->setProject($this->newProject);
@@ -538,7 +543,7 @@ class PhingTask extends Task
     public function setDir($d)
     {
         if (is_string($d)) {
-            $this->dir = new PhingFile($d);
+            $this->dir = new File($d);
         } else {
             $this->dir = $d;
         }

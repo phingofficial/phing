@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\AbstractProjectComponent;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,8 +21,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/ProjectComponent.php';
-include_once 'phing/BuildException.php';
 
 /**
  * Base class for those classes that can appear inside the build file
@@ -33,7 +35,7 @@ include_once 'phing/BuildException.php';
  *
  * @package   phing.types
  */
-class DataType extends ProjectComponent
+class DataType extends AbstractProjectComponent
 {
     /**
      * The descriptin the user has set.

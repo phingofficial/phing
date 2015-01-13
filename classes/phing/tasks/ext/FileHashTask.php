@@ -18,7 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-require_once 'phing/Task.php';
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
 
 /**
  * fileHash
@@ -34,7 +36,7 @@ class FileHashTask extends Task
 {
     /**
      * Property for File
-     * @var PhingFile file
+     * @var File file
      */
     private $file;
 
@@ -64,7 +66,7 @@ class FileHashTask extends Task
 
     /**
      * Which file to calculate the hash value of
-     * @param PhingFile $file
+     * @param File $file
      */
     public function setFile($file)
     {

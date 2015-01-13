@@ -1,4 +1,8 @@
 <?php
+use Phing\Io\AbstractWriter;
+use Phing\Project;
+use Phing\Util\Timer;
+
 /**
  * $Id$
  *
@@ -21,7 +25,6 @@
 
 @include_once 'simpletest/scorer.php';
 
-require_once 'phing/system/io/Writer.php';
 
 /**
  * This abstract class describes classes that format the results of a SimpleTest testrun.
@@ -49,9 +52,9 @@ abstract class SimpleTestResultFormatter extends SimpleReporter
 
     /**
      * Sets the writer the formatter is supposed to write its results to.
-     * @param Writer $out
+     * @param AbstractWriter $out
      */
-    public function setOutput(Writer $out)
+    public function setOutput(AbstractWriter $out)
     {
         $this->out = $out;
     }

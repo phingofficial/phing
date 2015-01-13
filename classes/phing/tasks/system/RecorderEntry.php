@@ -1,4 +1,15 @@
 <?php
+use Phing\BuildEvent;
+use Phing\BuildLoggerInterface;
+use Phing\Exception\BuildException;
+use Phing\Io\FileOutputStream;
+use Phing\Io\IOException;
+use Phing\Io\OutputStream;
+use Phing\Phing;
+use Phing\Project;
+use Phing\SubBuildListenerInterface;
+use Phing\Util\StringHelper;
+
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,16 +28,6 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/BuildEvent.php';
-include_once 'phing/BuildLogger.php';
-include_once 'phing/Phing.php';
-include_once 'phing/Project.php';
-include_once 'phing/SubBuildListener.php';
-include_once 'phing/util/StringHelper.php';
-include_once 'phing/system/io/FileOutputStream.php';
-include_once 'phing/system/io/IOException.php';
-include_once 'phing/BuildException.php';
-
 /**
  * This is a class that represents a recorder. This is the listener to the
  * build process.
@@ -34,7 +35,7 @@ include_once 'phing/BuildException.php';
  * @author    Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package   phing.tasks.system
  */
-class RecorderEntry implements BuildLogger, SubBuildListener
+class RecorderEntry implements BuildLoggerInterface, SubBuildListenerInterface
 {
     /**
      * The name of the file associated with this recorder entry.

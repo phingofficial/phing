@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+use Phing\Util\StringHelper;
 
 /**
  * Copyright (c) 2007-2011 bitExpert AG
@@ -16,8 +20,6 @@
  * the License.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/tasks/system/ExecTask.php';
 
 /**
  * Abstract Liquibase task. Base class for all Liquibase Phing tasks.
@@ -336,7 +338,7 @@ class LiquibaseParameter extends DataType
     /**
      * @param Project $p
      * @return string
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function getCommandline(Project $p)
     {

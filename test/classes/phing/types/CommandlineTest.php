@@ -20,7 +20,7 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/types/Commandline.php';
+use Phing\Exception\BuildException;
 
 /**
  * Unit test for mappers.

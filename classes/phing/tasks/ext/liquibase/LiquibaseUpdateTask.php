@@ -16,7 +16,6 @@
  * the License.
  */
 
-require_once 'phing/tasks/ext/liquibase/AbstractLiquibaseTask.php';
 
 /**
  * Task to update the database to latest version of the changelog file.

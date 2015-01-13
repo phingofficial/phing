@@ -1,4 +1,6 @@
 <?php
+use Phing\Exception\ConfigurationException;
+use Phing\Phing;
 
 /**
  * This is the Phing command line launcher. It starts up the system evironment
@@ -23,8 +25,6 @@ set_include_path(
             PATH_SEPARATOR .
             get_include_path()
         );
-
-require_once 'phing/Phing.php';
 
 try {
 

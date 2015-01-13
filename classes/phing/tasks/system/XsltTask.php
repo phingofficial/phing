@@ -18,11 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Filter\XsltFilter;
+use Phing\Io\File;
+use Phing\Project;
 
-require_once 'phing/tasks/system/CopyTask.php';
-include_once 'phing/system/io/FileReader.php';
-include_once 'phing/system/io/FileWriter.php';
-include_once 'phing/filters/XsltFilter.php';
 
 /**
  * Implements an XSLT processing filter while copying files.
@@ -67,9 +66,9 @@ class XsltTask extends CopyTask
 
     /**
      * Set the stylesheet to use.
-     * @param PhingFile $style
+     * @param File $style
      */
-    public function setStyle(PhingFile $style)
+    public function setStyle(File $style)
     {
         $this->xsltFilter->setStyle($style);
     }

@@ -18,8 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
 
-require_once 'phing/Task.php';
 
 /**
  * Copy files to and from a remote host using scp.
@@ -428,7 +430,7 @@ class ScpTask extends Task
     /**
      * @param $local
      * @param $remote
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function copyFile($local, $remote)
     {

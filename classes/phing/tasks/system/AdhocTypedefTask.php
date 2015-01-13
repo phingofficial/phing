@@ -19,8 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\AbstractProjectComponent;
 
-require_once 'phing/tasks/system/AdhocTask.php';
 
 /**
  * A class for creating adhoc datatypes in build file.
@@ -64,7 +66,7 @@ class AdhocTypedefTask extends AdhocTask
 
         // instantiate it to make sure it is an instance of ProjectComponent
         $t = new $classname();
-        if (!($t instanceof ProjectComponent)) {
+        if (!($t instanceof AbstractProjectComponent)) {
             throw new BuildException("The adhoc class you defined must be an instance of phing.ProjectComponent", $this->location);
         }
 

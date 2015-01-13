@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,7 +23,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
 
 /**
  * Stopwatch.
@@ -76,10 +79,6 @@ class StopwatchTask extends Task
      */
     private function loadStopwatch()
     {
-        if (version_compare(PHP_VERSION, '5.3.3', '<')) {
-            throw new BuildException("StopwatchTask requires at least PHP 5.3.3 installed.");
-        }
-
         @include_once 'Symfony/Component/Stopwatch/autoload.php';
         @include_once 'vendor/autoload.php';
 

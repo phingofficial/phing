@@ -19,7 +19,9 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Exception\ConfigurationException;
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
@@ -27,7 +29,7 @@ require_once 'phing/BuildFileTest.php';
  * @version $Id$
  * @package phing.tasks.system
  */
-class TypedefTaskTest extends BuildFileTest
+class TypedefTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

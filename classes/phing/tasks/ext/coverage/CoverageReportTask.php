@@ -1,4 +1,8 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,12 +23,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/Writer.php';
-require_once 'phing/system/util/Properties.php';
-require_once 'phing/tasks/ext/phpunit/PHPUnitUtil.php';
-require_once 'phing/tasks/ext/coverage/CoverageReportTransformer.php';
 
 /**
  * Transforms information in a code coverage database to XML
@@ -565,7 +563,7 @@ class CoverageReportTask extends Task
             throw new BuildException("Property coverage.database is not set - please include coverage-setup in your build file");
         }
 
-        $database = new PhingFile($coverageDatabase);
+        $database = new File($coverageDatabase);
 
         $this->log("Transforming coverage report");
 

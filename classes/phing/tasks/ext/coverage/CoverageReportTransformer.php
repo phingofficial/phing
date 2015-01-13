@@ -1,4 +1,11 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Io\FileSystem\FileSystemFactory;
+use Phing\Io\Util\ExtendedFileStream;
+use Phing\Phing;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,10 +26,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/Task.php';
-require_once 'phing/system/io/PhingFile.php';
-require_once 'phing/system/io/FileWriter.php';
-require_once 'phing/util/ExtendedFileStream.php';
 
 /**
  * Transform a Phing/Xdebug code coverage xml report.
@@ -39,7 +42,7 @@ class CoverageReportTransformer
     private $styleDir = "";
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $toDir = "";
 
@@ -73,9 +76,9 @@ class CoverageReportTransformer
     }
 
     /**
-     * @param PhingFile $toDir
+     * @param File $toDir
      */
-    public function setToDir(PhingFile $toDir)
+    public function setToDir(File $toDir)
     {
         $this->toDir = $toDir;
     }
@@ -135,7 +138,7 @@ class CoverageReportTransformer
         $toDir = (string) $this->toDir;
 
         // urlencode() the path if we're on Windows
-        if (FileSystem::getFileSystem()->getSeparator() == '\\') {
+        if (FileSystemFactory::getFileSystem()->getSeparator() == '\\') {
             $toDir = urlencode($toDir);
         }
 
@@ -151,7 +154,7 @@ class CoverageReportTransformer
     }
 
     /**
-     * @return PhingFile
+     * @return File
      * @throws BuildException
      */
     private function getStyleSheet()
@@ -159,7 +162,7 @@ class CoverageReportTransformer
         $xslname = "coverage-frames.xsl";
 
         if ($this->styleDir) {
-            $file = new PhingFile($this->styleDir, $xslname);
+            $file = new File($this->styleDir, $xslname);
         } else {
             $path = Phing::getResourcePath("phing/etc/$xslname");
 
@@ -171,7 +174,7 @@ class CoverageReportTransformer
                 }
             }
 
-            $file = new PhingFile($path);
+            $file = new File($path);
         }
 
         if (!$file->exists()) {

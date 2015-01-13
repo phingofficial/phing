@@ -19,8 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
 
-require_once "phing/Task.php";
 
 /**
  * Abstract Service_Amazon class.
@@ -90,7 +91,7 @@ abstract class Service_Amazon extends Task
 
     /**
      * @param $key
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setKey($key)
     {
@@ -112,7 +113,7 @@ abstract class Service_Amazon extends Task
 
     /**
      * @param $secret
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function setSecret($secret)
     {

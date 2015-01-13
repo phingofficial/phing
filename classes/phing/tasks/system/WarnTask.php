@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Project;
 
-require_once 'phing/tasks/system/EchoTask.php';
 
 /**
  * Simple task to echo a warning message (Project::MSG_WARN) to all output devices.

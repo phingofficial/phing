@@ -19,7 +19,10 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/listener/AnsiColorLogger.php';
+use Phing\BuildEvent;
+use Phing\Phing;
+use Phing\Project;
+
 
 /**
  * Extends AnsiColorLogger to display times for each target

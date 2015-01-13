@@ -20,14 +20,15 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * Unit tests for PHPUnit task
  *
  * @package phing.tasks.ext
  */
-class PHPUnitTaskTest extends BuildFileTest
+class PHPUnitTaskTest extends AbstractBuildFileTest
 {
     protected $backupGlobals = false;
 

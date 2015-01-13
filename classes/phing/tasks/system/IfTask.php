@@ -19,9 +19,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
 
-require_once 'phing/tasks/system/condition/ConditionBase.php';
-require_once 'phing/tasks/system/SequentialTask.php';
 
 /**
  * Perform some tasks based on whether a given condition holds true or
@@ -129,7 +128,7 @@ class IfTask extends ConditionBase
      *
      * <p>Not required.</p>
      * @param SequentialTask $t
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function addThen(SequentialTask $t)
     {
@@ -145,7 +144,7 @@ class IfTask extends ConditionBase
      *
      * <p>Not required.</p>
      * @param SequentialTask $e
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     public function addElse(SequentialTask $e)
     {
@@ -213,7 +212,7 @@ class ElseIfTask extends ConditionBase
     }
 
     /**
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return boolean
      */
     public function evaluate()

@@ -18,9 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
 
-require_once 'phing/Task.php';
-require_once 'phing/BuildException.php';
 
 /**
  * Base class for Git tasks
@@ -113,7 +113,7 @@ abstract class GitBaseTask extends Task
      * @param bool $reset
      * @param null $repository
      * @return null|VersionControl_Git
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function getGitClient($reset = false, $repository = null)
     {

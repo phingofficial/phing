@@ -18,8 +18,8 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Util\StringHelper;
 
-require_once 'phing/input/MultipleChoiceInputRequest.php';
 
 /**
  * Encapsulates an input request that returns a boolean (yes/no).

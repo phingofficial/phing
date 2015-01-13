@@ -19,9 +19,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\IOException;
 
-include_once 'phing/system/io/PhingFile.php';
-include_once 'phing/system/io/FileWriter.php';
 
 /**
  * Convenience class for reading and writing property files.
@@ -38,7 +39,7 @@ class Properties
     private $properties = array();
 
     /**
-     * @var PhingFile
+     * @var File
      */
     private $file = null;
 
@@ -59,11 +60,11 @@ class Properties
     /**
      * Load properties from a file.
      *
-     * @param  PhingFile   $file
+     * @param  File   $file
      * @return void
      * @throws IOException - if unable to read file.
      */
-    public function load(PhingFile $file)
+    public function load(File $file)
     {
         if ($file->canRead()) {
             $this->parse($file->getPath(), false);
@@ -179,12 +180,12 @@ class Properties
     /**
      * Stores current properties to specified file.
      *
-     * @param  PhingFile   $file   File to create/overwrite with properties.
+     * @param  File   $file   File to create/overwrite with properties.
      * @param  string      $header Header text that will be placed (within comments) at the top of properties file.
      * @return void
      * @throws IOException - on error writing properties file.
      */
-    public function store(PhingFile $file = null, $header = null)
+    public function store(File $file = null, $header = null)
     {
         if ($file == null) {
             $file = $this->file;

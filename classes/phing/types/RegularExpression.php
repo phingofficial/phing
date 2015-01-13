@@ -18,10 +18,10 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
 */
+use Phing\Exception\BuildException;
+use Phing\Project;
+use Phing\Util\RegExp\RegExp;
 
-include_once 'phing/types/DataType.php';
-include_once 'phing/Project.php';
-include_once 'phing/util/regexp/Regexp.php';
 
 /**
  * A regular expression datatype.  Keeps an instance of the
@@ -53,7 +53,7 @@ class RegularExpression extends DataType
      */
     public function __construct()
     {
-        $this->regexp = new Regexp();
+        $this->regexp = new RegExp();
     }
 
     /**
@@ -154,7 +154,7 @@ class RegularExpression extends DataType
 
     /**
      * @param Project $p
-     * @return null|Regexp
+     * @return null|RegExp
      * @throws BuildException
      */
     public function getRegexp(Project $p)

@@ -1,4 +1,7 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Project;
+
 /**
  * $Id$
  *
@@ -19,8 +22,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/ext/coverage/CoverageMerger.php';
-require_once 'phing/system/util/Timer.php';
 
 /**
  * Simple Testrunner for PHPUnit that runs all tests of a testsuite.
@@ -358,7 +359,7 @@ class PHPUnitTestRunner extends PHPUnit_Runner_BaseTestRunner implements PHPUnit
      * a test suite.
      *
      * @param string $message
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      */
     protected function runFailed($message)
     {

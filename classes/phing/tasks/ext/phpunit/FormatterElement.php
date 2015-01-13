@@ -1,4 +1,9 @@
 <?php
+use Phing\Exception\BuildException;
+use Phing\Io\File;
+use Phing\Phing;
+use Phing\Task;
+
 /**
  * $Id$
  *
@@ -19,7 +24,6 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/system/io/PhingFile.php';
 
 /**
  * A wrapper for the implementations of PHPUnit2ResultFormatter.
@@ -96,7 +100,7 @@ class FormatterElement
     public function setToDir($toDir)
     {
         if (!is_dir($toDir)) {
-            $toDir = new PhingFile($toDir);
+            $toDir = new File($toDir);
             $toDir->mkdirs();
         }
 
@@ -145,7 +149,7 @@ class FormatterElement
 
     /**
      * Returns formatter object
-     * @throws BuildException
+     * @throws \Phing\Exception\BuildException
      * @return PHPUnitResultFormatter
      */
     public function getFormatter()
@@ -155,16 +159,12 @@ class FormatterElement
         }
 
         if ($this->type == "summary") {
-            require_once 'phing/tasks/ext/phpunit/formatter/SummaryPHPUnitResultFormatter.php';
             $this->formatter = new SummaryPHPUnitResultFormatter($this->parent);
         } elseif ($this->type == "clover") {
-            require_once 'phing/tasks/ext/phpunit/formatter/CloverPHPUnitResultFormatter.php';
             $this->formatter = new CloverPHPUnitResultFormatter($this->parent);
         } elseif ($this->type == "xml") {
-            require_once 'phing/tasks/ext/phpunit/formatter/XMLPHPUnitResultFormatter.php';
             $this->formatter = new XMLPHPUnitResultFormatter($this->parent);
         } elseif ($this->type == "plain") {
-            require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
             $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");

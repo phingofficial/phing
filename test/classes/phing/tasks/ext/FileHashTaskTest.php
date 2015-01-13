@@ -20,13 +20,14 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/BuildFileTest.php';
+use Phing\Test\AbstractBuildFileTest;
+
 
 /**
  * @author Michiel Rook <mrook@php.net>
  * @package phing.tasks.ext
  */
-class FileHashTaskTest extends BuildFileTest
+class FileHashTaskTest extends AbstractBuildFileTest
 {
 
     public function setUp()

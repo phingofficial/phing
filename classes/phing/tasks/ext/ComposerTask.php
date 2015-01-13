@@ -19,9 +19,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
+use Phing\Task;
 
-require_once "phing/Task.php";
-require_once "phing/types/Commandline.php";
 
 /**
  * Composer Task

@@ -1,6 +1,6 @@
 <?php
 
-    require_once "src/HelloWorld.php";
+    require_once "etc/tasks/ext/phpunit/src/HelloWorld.php";
 
     /**
     * Test class for HelloWorld
