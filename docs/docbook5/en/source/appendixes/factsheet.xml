@@ -77,6 +77,11 @@
                         <entry>Full path to current buildfile.</entry>
                     </row>
                     <row>
+                        <entry><literal>phing.file</literal><emphasis>.projectname</emphasis></entry>
+                        <entry>Full path to an imported buildfile containing the project named
+                            <emphasis>projectname</emphasis>.</entry>
+                    </row>
+                    <row>
                         <entry><literal>phing.dir</literal></entry>
                         <entry>Path that contains the current buildfile.</entry>
                     </row>
@@ -107,6 +112,11 @@
                     <row>
                         <entry><literal>project.basedir</literal></entry>
                         <entry>The current project basedir.</entry>
+                    </row>
+                    <row>
+                        <entry><literal>project.basedir</literal><emphasis>.projectname</emphasis></entry>
+                        <entry>For an imported project named <emphasis>projectname</emphasis>, the directory
+                            qualified by the imported file's basedir attribute.</entry>
                     </row>
                     <row>
                         <entry><literal>user.home</literal></entry>

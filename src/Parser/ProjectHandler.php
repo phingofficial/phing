@@ -106,11 +106,26 @@ class ProjectHandler extends AbstractHandler
             $name = basename($this->configurator->getBuildFile());
         }
 
+        $resolvedBasedir = null;
+
+        if ($baseDir === null) {
+            $resolvedBasedir = $buildFileParent->getAbsolutePath();
+        } else {
+            // check whether the user has specified an absolute path
+            $f = new File($baseDir);
+            if ($f->isAbsolute()) {
+                $resolvedBasedir = $baseDir;
+            } else {
+                $resolvedBasedir = $buildFileParent;
+            }
+        }
+
         $canonicalName = self::canonicalName($name);
         $this->configurator->setCurrentProjectName($canonicalName);
         $path = (string)$this->configurator->getBuildFile();
         $project->setUserProperty("phing.file.{$canonicalName}", $path);
         $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
+        $project->setUserProperty("phing.basedir.{$canonicalName}", $resolvedBasedir);
 
         if ($this->configurator->isIgnoringProjectTag()) {
             return;
@@ -143,17 +158,7 @@ class ProjectHandler extends AbstractHandler
         if ($project->getProperty("project.basedir") !== null) {
             $project->setBasedir($project->getProperty("project.basedir"));
         } else {
-            if ($baseDir === null) {
-                $project->setBasedir($buildFileParent->getAbsolutePath());
-            } else {
-                // check whether the user has specified an absolute path
-                $f = new File($baseDir);
-                if ($f->isAbsolute()) {
-                    $project->setBasedir($baseDir);
-                } else {
-                    $project->setBaseDir($project->resolveFile($baseDir, $buildFileParent));
-                }
-            }
+            $project->setBasedir($resolvedBasedir);
         }
 
         $project->addTarget("", $this->context->getImplicitTarget());
