@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="importing" default="test">
+
+    <import file="subdir/imported.xml" />
+
+    <!-- The "test" target is contained in the imported buildfile only. -->
+
+    <target name="some-target">
+        <echo>Target "some-target" in the importing.xml buildfile.</echo>
+        <echo>importing.xml::some-target</echo>
+    </target>
+
+    <target name="use-aliased-target" depends="imported.some-target">
+        <echo>
+            This target depends on "imported.some-target". This aliased
+            name is created for "some-target" imported from imported.xml
+            and allows to call this target explicitly. Remember, the "some-target"
+            has been overridden/hidden by "some-target" in this buildfile.
+        </echo>
+    </target>
+
+    <target name="dump-properties">
+        <echo>project.basedir = ${project.basedir}</echo>
+        <echo>phing.file = ${phing.file}</echo>
+        <echo>phing.dir = ${phing.dir}</echo>
+        <echo>project.basedir.importing = ${project.basedir.importing}</echo>
+        <echo>phing.file.importing = ${phing.file.importing}</echo>
+        <echo>phing.dir.importing = ${phing.dir.importing}</echo>
+        <echo>project.basedir.imported = ${project.basedir.imported}</echo>
+        <echo>phing.file.imported = ${phing.file.imported}</echo>
+        <echo>phing.dir.imported = ${phing.dir.imported}</echo>
+    </target>
+
+</project>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<project name="imported" default="test" basedir="..">
+
+    <target name="some-target">
+        <echo>Target "some-target" in the imported.xml buildfile.</echo>
+        <echo>imported.xml::some-target</echo>
+    </target>
+
+    <target name="test" depends="some-target">
+        <echo>
+            This target depends on "some-target". When this buildfile is
+            called directly, "some-target" in imported.xml will be run.
+
+            When this buildfile is imported from another buildfile that
+            overrides "some-target", the other implementation will be called
+            instead.
+        </echo>
+    </target>
+
+</project>
