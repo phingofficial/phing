@@ -151,7 +151,7 @@ class ProjectHandler extends AbstractHandler
                 if ($f->isAbsolute()) {
                     $project->setBasedir($baseDir);
                 } else {
-                    $project->setBaseDir($project->resolveFile($baseDir, new File(getcwd())));
+                    $project->setBaseDir($project->resolveFile($baseDir, $buildFileParent));
                 }
             }
         }
