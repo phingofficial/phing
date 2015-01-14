@@ -125,7 +125,7 @@ class ProjectHandler extends AbstractHandler
         $path = (string)$this->configurator->getBuildFile();
         $project->setUserProperty("phing.file.{$canonicalName}", $path);
         $project->setUserProperty("phing.dir.{$canonicalName}", dirname($path));
-        $project->setUserProperty("phing.basedir.{$canonicalName}", $resolvedBasedir);
+        $project->setUserProperty("project.basedir.{$canonicalName}", $resolvedBasedir);
 
         if ($this->configurator->isIgnoringProjectTag()) {
             return;
