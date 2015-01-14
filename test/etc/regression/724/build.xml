@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<project name="FileSet" default="test">
+
+    <target name="test-include">
+        <echo>
+            This is supposed to include only the basedir but none of
+            the files below.
+        </echo>
+
+        <foreach param="ignored" absparam="file" target="print">
+            <fileset dir="${project.basedir}">
+                <include name="."/>
+            </fileset>
+        </foreach>
+    </target>
+
+    <target name="test-exclude">
+        <echo>
+            This is supposed to show all files and directories below
+            the basedir, but should not include the basedir itself.
+        </echo>
+
+        <foreach param="ignored" absparam="file" target="print">
+            <fileset dir="${project.basedir}">
+                <exclude name="."/>
+            </fileset>
+        </foreach>
+    </target>
+
+    <target name="print">
+        <echo>-${file}-</echo>
+    </target>
+
+</project>

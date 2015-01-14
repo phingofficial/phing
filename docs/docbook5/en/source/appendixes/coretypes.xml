@@ -137,10 +137,17 @@
             <link linkend="app.selectors">Selectors</link> and
             <link linkend="PatternSet">PatternSets</link>. Additionally, you can include/exclude
             files in/from a fileset using the
-                <literal>&lt;include></literal>/<literal>&lt;exclude></literal> tags. In patterns,
+                <literal>&lt;include></literal>/<literal>&lt;exclude></literal> tags.
+            </para>
+
+        <para>In patterns,
             one asterisk (<literal>*</literal>) maps to a part of a file/directory name within a
-            directory level. Two asterisks (<literal>**</literal>) may include above the "border" of
+            directory level. </para>
+
+        <para>Two asterisks (<literal>**</literal>) may include above the "border" of
             the directory separator.</para>
+
+        <para>The dot (<literal>.</literal>) matches only the root directory of the fileset.</para>
         <table>
             <title> Attributes for the <literal>&lt;fileset></literal> tag </title>
             <tgroup cols="5">
