@@ -914,7 +914,7 @@ class Project
      * @return array of Strings with the names of the targets in
      *               sorted order.
      */
-    proected function _topoSort($root)
+    protected function _topoSort($root)
     {
         $root = (string)$root;
         $ret = array();
