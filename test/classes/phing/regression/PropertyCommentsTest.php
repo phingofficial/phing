@@ -41,5 +41,6 @@ class PropertyCommentsTest extends AbstractBuildFileTest
     {
         $this->executeTarget("main");
         $this->assertPropertyEquals('setting', 'value');
+        $this->assertPropertyEquals('setting2', 'value');
     }
 }

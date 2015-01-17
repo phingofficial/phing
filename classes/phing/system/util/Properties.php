@@ -121,11 +121,10 @@ class Properties
         $depends = array();
 
         foreach ($lines as $l) {
-            if (!($l = trim($l))) {
-                continue;
-            }
 
-            if ($l[0] == '#' || $l[0] == ';') {
+            $l = preg_replace('/(#|;).*$/', '', $l);
+
+            if (!($l = trim($l))) {
                 continue;
             }
 

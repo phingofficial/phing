@@ -2,5 +2,6 @@
 	<target name="main">
 		<property file="test.properties"/>
 		<echo>${setting}</echo>
+        <echo>${setting2}</echo>
 	</target>
 </project>

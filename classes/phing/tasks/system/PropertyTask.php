@@ -53,7 +53,7 @@ class PropertyTask extends Task
     protected $value;
 
     protected $reference;
-    
+
     protected $env; // Environment
     protected $file;
     protected $ref;
