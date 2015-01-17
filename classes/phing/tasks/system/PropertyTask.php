@@ -28,12 +28,18 @@ use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
 
+/*
+  TODO:
+    Create a better base class for PropertyTask and XmlPropertyTask that
+    only contains common functionality (instead of inheriting from PropertyTask).
+*/
 
 /**
  * Task for setting properties in buildfiles.
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
+ * @author    Matthias Pigulla <mp@webfactory.de>
  * @version   $Id$
  * @package   phing.tasks.system
  */
@@ -47,10 +53,12 @@ class PropertyTask extends Task
     protected $value;
 
     protected $reference;
+    
     protected $env; // Environment
     protected $file;
     protected $ref;
     protected $prefix;
+    protected $section;
     protected $fallback;
 
     /** Whether to force overwrite of existing property. */
@@ -160,6 +168,29 @@ class PropertyTask extends Task
     public function getPrefix()
     {
         return $this->prefix;
+    }
+
+    /**
+     * Section to load when using <code>file</code>.
+     *
+     * Only properties from this section and inherited sections will be
+     * loaded.
+     *
+     * @param string $sectionName Name of the section to load.
+     */
+    public function setSection($sectionName)
+    {
+        $this->section = $sectionName;
+    }
+
+    /**
+     * Get the name of the section to load.
+     *
+     * @return string
+     */
+    public function getSection()
+    {
+        return $this->section;
     }
 
     /**
@@ -299,6 +330,10 @@ class PropertyTask extends Task
             throw new BuildException("Prefix is only valid when loading from a file.", $this->getLocation());
         }
 
+        if ($this->file === null && $this->section !== null) {
+            throw new BuildException("Section is only valid when loading from a file.", $this->getLocation());
+        }
+
         if (($this->name !== null) && ($this->value !== null)) {
             $this->addProperty($this->name, $this->value);
         }
@@ -366,14 +401,11 @@ class PropertyTask extends Task
      */
     protected function addProperties($props)
     {
-        $this->resolveAllProperties($props);
-        foreach ($props->keys() as $name) {
-            $value = $props->getProperty($name);
-            $v = $this->project->replaceProperties($value);
-            if ($this->prefix !== null) {
-                $name = $this->prefix . $name;
+        foreach ($props as $key => $value) {
+            if ($this->prefix) {
+                $key = "{$this->prefix}$key";
             }
-            $this->addProperty($name, $v);
+            $this->addProperty($key, $value);
         }
     }
 
@@ -411,12 +443,10 @@ class PropertyTask extends Task
      */
     protected function loadFile(File $file)
     {
-        $props = new Properties();
         $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
-                $props->load($file);
-                $this->addProperties($props);
+                $this->addProperties($this->fetchPropertiesFromFile($file));
             } else {
                 $this->log(
                     "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
@@ -428,135 +458,11 @@ class PropertyTask extends Task
         }
     }
 
-    /**
-     * Given a Properties object, this method goes through and resolves
-     * any references to properties within the object.
-     *
-     * @param  Properties $props The collection of Properties that need to be resolved.
-     * @throws BuildException
-     * @return void
-     */
-    protected function resolveAllProperties(Properties $props)
+    protected function fetchPropertiesFromFile(File $f)
     {
+        $p = new Properties();
+        $p->load($f, $this->section);
 
-        foreach ($props->keys() as $name) {
-            // There may be a nice regex/callback way to handle this
-            // replacement, but at the moment it is pretty complex, and
-            // would probably be a lot uglier to work into a preg_replace_callback()
-            // system.  The biggest problem is the fact that a resolution may require
-            // multiple passes.
-
-            $value = $props->getProperty($name);
-            $resolved = false;
-            $resolveStack = array();
-
-            while (!$resolved) {
-
-                $fragments = array();
-                $propertyRefs = array();
-
-                // [HL] this was ::parsePropertyString($this->value ...) ... this seems wrong
-                self::parsePropertyString($value, $fragments, $propertyRefs);
-
-                $resolved = true;
-                if (count($propertyRefs) == 0) {
-                    continue;
-                }
-
-                $sb = "";
-
-                $j = $propertyRefs;
-
-                foreach ($fragments as $fragment) {
-                    if ($fragment !== null) {
-                        $sb .= $fragment;
-                        continue;
-                    }
-
-                    $propertyName = array_shift($j);
-                    if (in_array($propertyName, $resolveStack)) {
-                        // Should we maybe just log this as an error & move on?
-                        // $this->log("Property ".$name." was circularly defined.", Project::MSG_ERR);
-                        throw new BuildException("Property " . $propertyName . " was circularly defined.");
-                    }
-
-                    $fragment = $this->getProject()->getProperty($propertyName);
-                    if ($fragment !== null) {
-                        $sb .= $fragment;
-                        continue;
-                    }
-
-                    if ($props->containsKey($propertyName)) {
-                        $fragment = $props->getProperty($propertyName);
-                        if (strpos($fragment, '${') !== false) {
-                            $resolveStack[] = $propertyName;
-                            $resolved = false; // parse again (could have been replaced w/ another var)
-                        }
-                    } else {
-                        $fragment = "\${" . $propertyName . "}";
-                    }
-
-                    $sb .= $fragment;
-                }
-
-                $this->log("Resolved Property \"$value\" to \"$sb\"", Project::MSG_DEBUG);
-                $value = $sb;
-                $props->setProperty($name, $value);
-            } // while (!$resolved)
-
-        } // while (count($keys)
+        return $p->getProperties();
     }
-
-    /**
-     * This method will parse a string containing ${value} style
-     * property values into two lists. The first list is a collection
-     * of text fragments, while the other is a set of string property names
-     * null entries in the first list indicate a property reference from the
-     * second list.
-     *
-     * This is slower than regex, but useful for this class, which has to handle
-     * multiple parsing passes for properties.
-     *
-     * @param string $value The string to be scanned for property references
-     * @param array &$fragments The found fragments
-     * @param array &$propertyRefs The found refs
-     * @throws BuildException
-     */
-    protected function parsePropertyString($value, &$fragments, &$propertyRefs)
-    {
-
-        $prev = 0;
-        $pos = 0;
-
-        while (($pos = strpos($value, '$', $prev)) !== false) {
-
-            if ($pos > $prev) {
-                array_push($fragments, StringHelper::substring($value, $prev, $pos - 1));
-            }
-            if ($pos === (strlen($value) - 1)) {
-                array_push($fragments, '$');
-                $prev = $pos + 1;
-            } elseif ($value{$pos + 1} !== '{') {
-
-                // the string positions were changed to value-1 to correct
-                // a fatal error coming from function substring()
-                array_push($fragments, StringHelper::substring($value, $pos, $pos + 1));
-                $prev = $pos + 2;
-            } else {
-                $endName = strpos($value, '}', $pos);
-                if ($endName === false) {
-                    throw new BuildException("Syntax error in property: $value");
-                }
-                $propertyName = StringHelper::substring($value, $pos + 2, $endName - 1);
-                array_push($fragments, null);
-                array_push($propertyRefs, $propertyName);
-                $prev = $endName + 1;
-            }
-        }
-
-        if ($prev < strlen($value)) {
-            array_push($fragments, StringHelper::substring($value, $prev));
-        }
-    }
-
 }

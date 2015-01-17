@@ -69,7 +69,7 @@ class Project
     private $globalFilters = array();
 
     /** Project properties map (usually String to String). */
-    private $properties = array();
+    private $properties;
 
     /**
      * Map of "user" properties (as created in the Ant task, for example).
@@ -77,7 +77,7 @@ class Project
      * project properties, so only the project properties need to be queried.
      * Mapping is String to String.
      */
-    private $userProperties = array();
+    private $userProperties;
 
     /**
      * Map of inherited "user" properties - that are those "user"
@@ -85,7 +85,7 @@ class Project
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties = array();
+    private $inheritedProperties;
 
     /** task definitions for this project*/
     private $taskdefs = array();
@@ -129,6 +129,9 @@ class Project
     {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
+        $this->properties = new PropertySet();
+        $this->inheritedProperties = new PropertySet();
+        $this->userProperties = new PropertySet();
     }
 
     /**
@@ -167,9 +170,7 @@ class Project
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
+            foreach ($props->getProperties() as $key => $value) {
                 $this->addTaskDefinition($key, $value);
             }
         } catch (IOException $ioe) {
@@ -187,9 +188,7 @@ class Project
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
+            foreach ($props->getProperties() as $key => $value) {
                 $this->addDataTypeDefinition($key, $value);
             }
         } catch (IOException $ioe) {
@@ -326,35 +325,90 @@ class Project
         if (!isset($this->properties[$name])) {
             return null;
         }
-        $found = $this->properties[$name];
-        // check to see if there are unresolved property references
-        if (false !== strpos($found, '${')) {
-            // attempt to resolve properties
-            $found = $this->replaceProperties($found);
-            // save resolved value
-            $this->properties[$name] = $found;
-        }
-
-        return $found;
+        return $this->properties[$name];
     }
 
     /**
-     * Replaces ${} style constructions in the given value with the
-     * string value of the corresponding data types.
+     * Replaces ${} style constructions in the given value with the string value of the corresponding data types.
      *
-     * @param string $value The value string to be scanned for property references.
-     *                      May be <code>null</code>.
+     * @param string  $value    The value string to be scanned for property references. May be <code>null</code>.
+     * @param integer $logLevel the level of generated log messages
      *
-     * @return string the given string with embedded property names replaced
-     *                by values, or <code>null</code> if the given string is
-     *                <code>null</code>.
+     * @return string the given string with embedded property names replaced by values, or <code>null</code> if the given string is <code>null</code>.
      *
-     * @exception BuildException if the given value has an unclosed
-     *                           property name, e.g. <code>${xxx</code>
+     * @exception BuildException if the given value has an unclosed property name, e.g. <code>${xxx</code>
      */
-    public function replaceProperties($value)
+    public function replaceProperties($buffer, $logLevel = self::MSG_VERBOSE)
     {
-        return ProjectConfigurator::replaceProperties($this, $value, $this->properties);
+        if ($buffer === null) {
+            return null;
+        }
+
+        // Because we're not doing anything special (like multiple passes),
+        // regex is the simplest / fastest.  PropertyTask, though, uses
+        // the old parsePropertyString() method, since it has more stringent
+        // requirements.
+
+        $sb = $buffer;
+        $iteration = 0;
+
+        $self = $this; // cannot use "$this" in anonymouse functions prior to PHP 5.4
+
+        // loop to recursively replace tokens
+        while (strpos($sb, '${') !== false) {
+            $sb = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($self, $logLevel) {
+
+                $propertyName = $matches[1];
+
+                if (($propertyValue = $self->getProperty($propertyName)) === null) {
+                    $self->log('Property ${' . $propertyName . '} has not been set.', $logLevel);
+                    return $matches[0];
+                }
+
+                if (is_bool($propertyValue)) {
+                    $propertyValue = $propertyValue ? "true" : "false";
+                } else if (is_array($propertyValue)) {
+                    $propertyValue = implode(',', $propertyValue);
+                }
+
+                $self->log('Property ${' . $propertyName . '} => ' . $propertyValue, $logLevel);
+
+                return $propertyValue;
+
+            }, $sb);
+
+            // keep track of iterations so we can break out of otherwise infinite loops.
+            $iteration++;
+            if ($iteration == 5) {
+                return $sb;
+            }
+        }
+
+        return $sb;
+    }
+
+    /**
+     * Returns the value of a property, if it is set. Property references in the property's
+     * value will be expanded.
+     *
+     * @param string The property value with references to other properties expanded.
+     * @return string|null The property value with references to other properties expanded. Null if the property is not set.
+     */
+    public function getExpandedProperty($name)
+    {
+        $p = $this->getProperty($name);
+
+        if ($p === null) {
+            return null;
+        }
+
+        if (is_array($p)) {
+            foreach ($p as $key => $value)
+                $p[$key] = $this->replaceProperties($value);
+            return $p;
+        }
+
+        return $this->replaceProperties($p);
     }
 
     /**
@@ -585,8 +639,11 @@ class Project
     {
 
         // first get system properties
-        $systemP = array_merge(self::getProperties(), Phing::getProperties());
-        foreach ($systemP as $name => $value) {
+        foreach (self::getProperties() as $name => $value) {
+            $this->setPropertyInternal($name, $value);
+        }
+
+        foreach (Phing::getProperties() as $name => $value) {
             $this->setPropertyInternal($name, $value);
         }
 

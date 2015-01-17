@@ -24,7 +24,7 @@ use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Util\StringHelper;
-
+use Phing\PropertySet;
 
 /**
  * Task for setting properties from an XML file in buildfiles.
@@ -43,47 +43,6 @@ class XmlPropertyTask extends PropertyTask
     private $_delimiter = ',';
     private $_required = false;
 
-    /** Set a file to use as the source for properties.
-     * @param $file
-     */
-    public function setFile($file)
-    {
-        if (is_string($file)) {
-            $file = new File($file);
-        }
-        $this->file = $file;
-    }
-
-    /** Get the PhingFile that is being used as property source. */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Prefix to apply to properties loaded using <code>file</code>.
-     * A "." is appended to the prefix if not specified.
-     * @param  string $prefix prefix string
-     * @return void
-     * @since 2.0
-     */
-    public function setPrefix($prefix)
-    {
-        $this->prefix = $prefix;
-        if (!StringHelper::endsWith(".", $prefix)) {
-            $this->prefix .= ".";
-        }
-    }
-
-    /**
-     * @return string
-     * @since 2.0
-     */
-    public function getPrefix()
-    {
-        return $this->prefix;
-    }
-
     /**
      * Keep the xml root tag as the first value in the property name
      *
@@ -91,7 +50,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function setKeepRoot($yesNo)
     {
-        $this->_keepRoot = (bool) $yesNo;
+        $this->_keepRoot = (bool)$yesNo;
     }
 
     /**
@@ -109,7 +68,7 @@ class XmlPropertyTask extends PropertyTask
      */
     public function setCollapseAttributes($yesNo)
     {
-        $this->_collapseAttr = (bool) $yesNo;
+        $this->_collapseAttr = (bool)$yesNo;
     }
 
     /**
@@ -163,93 +122,36 @@ class XmlPropertyTask extends PropertyTask
      */
     public function main()
     {
-
         if ($this->file === null) {
             throw new BuildException("You must specify file to load properties from", $this->getLocation());
         }
 
-        $props = $this->loadFile($this->file);
-        $this->addProperties($props);
-    }
-
-    /**
-     * load properties from an XML file.
-     * @param File $file
-     * @throws \Phing\Exception\BuildException
-     * @return Properties
-     */
-    protected function loadFile(File $file)
-    {
-        $props = new Properties();
-        $this->log("Loading " . $file->getAbsolutePath(), Project::MSG_INFO);
-        try { // try to load file
-            if ($file->exists()) {
-                return $this->_getProperties($file);
-
-            } else {
-                if ($this->getRequired()) {
-                    throw new BuildException("Could not load required properties file.", $ioe);
-                } else {
-                    $this->log(
-                        "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
-                        Project::MSG_WARN
-                    );
-                }
-            }
-        } catch (IOException $ioe) {
-            throw new BuildException("Could not load properties from file.", $ioe);
-        }
+        $this->loadFile($this->file);
     }
 
     /**
      * Parses an XML file and returns properties
      *
-     * @param string $filePath
+     * @param File $file The file to parse
      *
      * @throws IOException
-     * @return Properties
+     * @return PropertySet
      */
-    protected function _getProperties($filePath)
+    protected function fetchPropertiesFromFile(File $file)
     {
-
-        // load() already made sure that file is readable
-        // but we'll double check that when reading the file into
-        // an array
-
-        if (($lines = @file($filePath)) === false) {
-            throw new IOException("Unable to parse contents of $filePath");
+        if (($xml = simplexml_load_file($file)) === false) {
+            throw new IOException("Unable to parse XML file $file");
         }
 
-        $prop = new Properties();
-
-        $xml = simplexml_load_file($filePath);
-
-        if ($xml === false) {
-            throw new IOException("Unable to parse XML file $filePath");
-        }
-
+        $prop = new PropertySet();
         $path = array();
 
         if ($this->_keepRoot) {
-            $path[] = dom_import_simplexml($xml)->tagName;
-
-            $prefix = implode('.', $path);
-
-            if (!empty($prefix)) {
-                $prefix .= '.';
-            }
-
-            // Check for attributes
-            foreach ($xml->attributes() as $attribute => $val) {
-                if ($this->_collapseAttr) {
-                    $prop->setProperty($prefix . "$attribute", (string) $val);
-                } else {
-                    $prop->setProperty($prefix . "($attribute)", (string) $val);
-                }
-            }
+            $this->addNode($xml, $this->prefix, $prop);
+        } else {
+            foreach ($xml as $tag => $node)
+                $this->addNode($node, "{$this->prefix}$tag.", $prop);
         }
-
-        $this->_addNode($xml, $path, $prop);
 
         return $prop;
     }
@@ -263,44 +165,48 @@ class XmlPropertyTask extends PropertyTask
      *
      * @return void
      */
-    protected function _addNode($node, $path, $prop)
+    protected function addNode($node, $prefix, PropertySet $prop)
     {
-        foreach ($node as $tag => $value) {
+        $pre = $prefix . $node->getName();
+        $index = null;
+        // Check for attributes
+        foreach ($node->attributes() as $attribute => $val) {
 
-            $prefix = implode('.', $path);
-
-            if (!empty($prefix) > 0) {
-                $prefix .= '.';
+            if ($attribute == '_index') {
+                $index = (string)$val;
+                continue;
             }
 
-            // Check for attributes
-            foreach ($value->attributes() as $attribute => $val) {
-                if ($this->_collapseAttr) {
-                    $prop->setProperty($prefix . "$tag.$attribute", (string) $val);
-                } else {
-                    $prop->setProperty($prefix . "$tag($attribute)", (string) $val);
-                }
-            }
-
-            // Add tag
-            if (count($value->children())) {
-                $this->_addNode($value, array_merge($path, array($tag)), $prop);
+            if ($this->_collapseAttr) {
+                $prop["$pre.$attribute"] = (string)$val;
             } else {
-                $val = (string) $value;
+                $prop["$pre($attribute)"] = (string)$val;
+            }
+        }
 
-                /* Check for * and ** on 'exclude' and 'include' tag / ant seems to do this? could use FileSet here
-                if ($tag == 'exclude') {
-                }*/
+        if (count($node->children())) {
+            foreach ($node as $tag => $child)
+                $this->addNode($child, "$pre.", $prop);
+        } else {
+            $val = (string)$node;
+            if (isset($prop[$pre])) {
+                if (!is_array($prop[$pre])) {
+                    $a = array($prop[$pre]);
+                } else {
+                    $a = $prop[$pre];
+                }
 
-                // When property already exists, i.e. multiple xml tag
-                // <project>
-                //    <exclude>file/a.php</exclude>
-                //    <exclude>file/a.php</exclude>
-                // </project>
-                //
-                // Would be come project.exclude = file/a.php,file/a.php
-                $p = empty($prefix) ? $tag : $prefix . $tag;
-                $prop->append($p, (string) $val, $this->_delimiter);
+                if ($index) {
+                    $a[$index] = $val;
+                } else {
+                    $a[] = $val;
+                }
+
+                $prop[$pre] = $a;
+            } else if ($index) {
+                $prop[$pre] = array($index => $val);
+            } else {
+                $prop[$pre] = $val;
             }
         }
     }

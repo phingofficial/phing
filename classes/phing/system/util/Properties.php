@@ -22,6 +22,7 @@
 use Phing\Io\File;
 use Phing\Io\FileWriter;
 use Phing\Io\IOException;
+use Phing\PropertySet;
 
 
 /**
@@ -36,7 +37,7 @@ use Phing\Io\IOException;
 class Properties
 {
 
-    private $properties = array();
+    private $properties;
 
     /**
      * @var File
@@ -50,6 +51,8 @@ class Properties
      */
     public function __construct($properties = null)
     {
+        $this->properties = new PropertySet();
+
         if (is_array($properties)) {
             foreach ($properties as $key => $value) {
                 $this->setProperty($key, $value);
@@ -62,14 +65,16 @@ class Properties
      *
      * Does not try to expand ${}-style property references in any way.
      *
-     * @param  File   $file
+     * @param  File  $file
+     * @param string $section (Optional) The property file section to read.
+     *
      * @return void
      * @throws IOException - if unable to read file.
      */
-    public function load(File $file)
+    public function load(File $file, $section = null)
     {
         if ($file->canRead()) {
-            $this->parse($file->getPath(), false);
+            $this->parse($file->getPath(), $section);
 
             $this->file = $file;
         } else {
@@ -83,13 +88,16 @@ class Properties
      * Saves a step since we don't have to parse and then check return value
      * before throwing an error or setting class properties.
      *
-     * @param  string $filePath
+     * @param string $filePath
+     * @param string  $section The property file section to parse
+     *
      * @throws IOException
      * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
      * @return array   Properties loaded from file (no prop replacements done yet).
      */
-    protected function parse($filePath)
+    protected function parse($filePath, $section = null)
     {
+        $section = (string) $section;
 
         // load() already made sure that file is readable
         // but we'll double check that when reading the file into
@@ -108,23 +116,53 @@ class Properties
             }
         }
 
-        $this->properties = array();
-        $sec_name = "";
+        $currentSection = '';
+        $sect = array($currentSection => array(), $section => array());
+        $depends = array();
 
-        foreach ($lines as $line) {
-            // strip comments and leading/trailing spaces
-            $line = trim(preg_replace("/\s+[;#]\s.+$/", "", $line));
-
-            if (empty($line) || $line[0] == ';' || $line[0] == '#') {
+        foreach ($lines as $l) {
+            if (!($l = trim($l))) {
                 continue;
             }
 
-            $pos = strpos($line, '=');
-            $property = trim(substr($line, 0, $pos));
-            $value = trim(substr($line, $pos + 1));
-            $this->properties[$property] = $this->inVal($value);
+            if ($l[0] == '#' || $l[0] == ';') {
+                continue;
+            }
 
-        } // for each line
+            if (preg_match('/^\[(\w+)(?:\s*:\s*(\w+))?\]$/', $l, $matches)) {
+                $currentSection = $matches[1];
+                $sect[$currentSection] = array();
+                if (isset($matches[2])) {
+                    $depends[$currentSection] = $matches[2];
+                }
+                continue;
+            }
+
+            $pos = strpos($l, '=');
+            $name = trim(substr($l, 0, $pos));
+            $value = $this->inVal(trim(substr($l, $pos + 1)));
+
+            /*
+             * Take care: Property file may contain identical keys like
+             * a[] = first
+             * a[] = second
+             */
+            $sect[$currentSection][] = array($name, $value);
+        }
+
+        $dependencyOrder = array();
+        while ($section) {
+            array_unshift($dependencyOrder, $section);
+            $section = isset($depends[$section]) ? $depends[$section] : '';
+        }
+        array_unshift($dependencyOrder, '');
+
+        foreach ($dependencyOrder as $section) {
+            foreach ($sect[$section] as $def) {
+                list ($name, $value) = $def;
+                $this->setProperty($name, $value);
+            }
+        }
     }
 
     /**
@@ -213,13 +251,11 @@ class Properties
     }
 
     /**
-     * Returns copy of internal properties hash.
-     * Mostly for performance reasons, property hashes are often
-     * preferable to passing around objects.
+     * Returns the internal PropertySet.
      *
      * ${}-style property references are not expanded.
      *
-     * @return array
+     * @return PropertySet
      */
     public function getProperties()
     {
@@ -237,11 +273,7 @@ class Properties
      */
     public function getProperty($prop)
     {
-        if (!isset($this->properties[$prop])) {
-            return null;
-        }
-
-        return $this->properties[$prop];
+        return $this->get($prop);
     }
 
     /**
@@ -336,7 +368,7 @@ class Properties
      */
     public function keys()
     {
-        return array_keys($this->properties);
+        return $this->properties->keys();
     }
 
     /**

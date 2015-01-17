@@ -396,7 +396,7 @@ class Target implements TaskContainerInterface
     }
 
     /**
-     * Tests if the property set in ifConfiditon exists.
+     * Tests if all the properties named in ifCondition exist.
      *
      * @return boolean <code>true</code> if the property specified
      *                 in <code>$this->ifCondition</code> exists;
@@ -404,27 +404,21 @@ class Target implements TaskContainerInterface
      */
     private function testIfCondition()
     {
-        if ($this->ifCondition === "") {
-            return true;
+        // Targets won't be runtime configured, so we have to (possibly) expand properties
+        // in our attributes ourselves.
+        if ($this->ifCondition) {
+            foreach (explode(",", $this->ifCondition) as $property) {
+                $test = $this->getProject()->replaceProperties($property);
+                if ($this->project->getProperty($test) === null)
+                    return false;
+            }
         }
 
-        $properties = explode(",", $this->ifCondition);
-
-        $result = true;
-        foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
-            $result = $result && ($this->project->getProperty($test) !== null);
-        }
-
-        return $result;
+        return true;
     }
 
     /**
-     * Tests if the property set in unlessCondition exists.
+     * Tests if none of the properties named in unlessCondition exist.
      *
      * @return boolean <code>true</code> if the property specified
      *                 in <code>$this->unlessCondition</code> exists;
@@ -432,23 +426,17 @@ class Target implements TaskContainerInterface
      */
     private function testUnlessCondition()
     {
-        if ($this->unlessCondition === "") {
-            return true;
+        // Targets won't be runtime configured, so we have to (possibly) expand properties
+        // in our attributes ourselves.
+        if ($this->unlessCondition) {
+            foreach (explode(",", $this->ifCondition) as $property) {
+                $test = $this->getProject()->replaceProperties($property);
+                if ($this->project->getProperty($test) !== null)
+                    return false;
+            }
         }
 
-        $properties = explode(",", $this->unlessCondition);
-
-        $result = true;
-        foreach ($properties as $property) {
-            $test = ProjectConfigurator::replaceProperties(
-                $this->getProject(),
-                $property,
-                $this->project->getProperties()
-            );
-            $result = $result && ($this->project->getProperty($test) === null);
-        }
-
-        return $result;
+        return true;
     }
 
 }

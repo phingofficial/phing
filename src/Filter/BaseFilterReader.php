@@ -99,7 +99,7 @@ class BaseFilterReader extends FilterReader
     /**
      * Returns the project this filter is part of.
      *
-     * @return object The project this filter is part of
+     * @return Project The project this filter is part of
      */
     public function getProject()
     {
