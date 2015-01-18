@@ -429,7 +429,7 @@ class Target implements TaskContainerInterface
         // Targets won't be runtime configured, so we have to (possibly) expand properties
         // in our attributes ourselves.
         if ($this->unlessCondition) {
-            foreach (explode(",", $this->ifCondition) as $property) {
+            foreach (explode(",", $this->unlessCondition) as $property) {
                 $test = $this->getProject()->replaceProperties($property);
                 if ($this->project->getProperty($test) !== null)
                     return false;
