@@ -1393,7 +1393,11 @@ class Phing
         self::setProperty('line.separator', PHP_EOL);
         self::setProperty('php.version', PHP_VERSION);
         self::setProperty('php.tmpdir', sys_get_temp_dir());
-        self::setProperty('user.home', getenv('HOME'));
+        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+            self::setProperty('user.home', getenv('HOME'));
+        } else {
+            self::setProperty('user.home', getenv('HOMEDRIVE') . getenv('HOMEPATH'));
+        }
         self::setProperty('application.startdir', getcwd());
         self::setProperty('phing.startTime', gmdate('D, d M Y H:i:s', time()) . ' GMT');
         self::setProperty('php.tmpdir', sys_get_temp_dir());
