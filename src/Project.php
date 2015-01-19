@@ -914,7 +914,7 @@ class Project
      * @return array of Strings with the names of the targets in
      *               sorted order.
      */
-    public function _topoSort($root)
+    protected function _topoSort($root)
     {
         $root = (string)$root;
         $ret = array();
@@ -929,6 +929,7 @@ class Project
         // dependency tree, not just on the Targets that depend on the
         // build Target.
 
+        $this->checkTargetValid($root);
         $this->_tsort($root, $state, $visiting, $ret);
 
         $this->log("Build sequence for target '$root' is: " . $this->targetSequenceToString($ret), Project::MSG_VERBOSE);
@@ -943,6 +944,7 @@ class Project
             }
 
             if ($st === null) {
+                $this->checkTargetValid($name);
                 $this->_tsort($name, $state, $visiting, $ret);
             } elseif ($st === "VISITING") {
                 throw new Exception("Unexpected node in visiting state: $name");
@@ -979,18 +981,8 @@ class Project
      * @throws BuildException
      * @throws Exception
      */
-    public function _tsort($root, &$state, &$visiting, &$ret)
+    protected function _tsort($root, &$state, &$visiting, &$ret)
     {
-        // make sure we exist
-        if (!isset($this->targets[$root]) || !($this->targets[$root] instanceof Target)) {
-            $sb = "Target '$root' does not exist in this project.";
-            if (!empty($visiting)) {
-                $parent = end($visiting);
-                $sb .= " It is a dependency of target '$parent'.";
-            }
-            throw new BuildException($sb);
-        }
-
         $target = $this->targets[$root];
         $name = $target->getName();
 
@@ -998,6 +990,7 @@ class Project
         $visiting[] = $name;
 
         foreach ($target->getDependencies() as $dep) {
+            $this->checkTargetValid($dep, $visiting);
             $depname = $this->targets[$dep]->getName();
 
             if (!isset($state[$depname])) {
@@ -1017,12 +1010,23 @@ class Project
         $ret[] = $target;
     }
 
+    protected function checkTargetValid($name, $parent = null)
+    {
+        if (!isset($this->targets[$name]) || !($this->targets[$name] instanceof Target)) {
+            $sb = "Target '$name' does not exist in this project.";
+            if ($parent) {
+                $sb .= " It is a dependency of target '" . end($parent) . "'.";
+            }
+            throw new BuildException($sb);
+        }
+    }
+
     /**
      * @param string $end
      * @param array $stk
      * @return BuildException
      */
-    public function _makeCircularException($end, $stk)
+    protected function _makeCircularException($end, $stk)
     {
         $sb = "Circular dependency: $end";
         do {
