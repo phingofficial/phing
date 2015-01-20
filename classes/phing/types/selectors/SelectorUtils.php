@@ -126,23 +126,21 @@ class SelectorUtils
     /**
      * Tests whether or not a given path matches a given pattern.
      *
-     * @param The $pattern
-     * @param The $str
-     * @param bool|Whether $isCaseSensitive
-     * @internal param The $pattern pattern to match against. Must not be
-     *                <code>null</code>.
-     * @internal param The $str path to match, as a String. Must not be
-     *                <code>null</code>.
-     * @internal param Whether $isCaseSensitive or not matching should be performed
-     *                        case sensitively.
-     *
-     * @return bool <code>true</code> if the pattern matches against the string,
+     * @param string $pattern The pattern pattern to match against. Must not be <code>null</code>.
+     * @param string $str The path to match. Must not be <code>null</code>.
+     * @param bool $isCaseSensitive Whether or not matching should be performed case sensitively.
+     * @return bool <code>true</code> if the pattern matches against the string, <code>false</code> otherwise
      */
     public static function matchPath($pattern, $str, $isCaseSensitive = true)
     {
         // explicitly exclude directory itself
         if ($str == '' && $pattern == '**/*') {
             return false;
+        }
+
+        // "." can be used to include the directory
+        if ($str == '' && $pattern == '.') {
+            return true;
         }
 
         $rePattern = preg_quote($pattern, '/');
