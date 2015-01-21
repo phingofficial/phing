@@ -27,6 +27,9 @@ use Phing\Io\Util\FileUtils;
 use Phing\Project;
 use Phing\Task;
 use Phing\Util\StringHelper;
+use Phing\Util\Properties\PropertySetImpl;
+use Phing\Util\Properties\PropertySet;
+use Phing\Util\Properties\PropertyFileReader;
 
 /*
   TODO:
@@ -382,13 +385,13 @@ class PropertyTask extends Task
     protected function loadEnvironment($prefix)
     {
 
-        $props = new Properties();
+        $props = new PropertySetImpl();
         if (substr($prefix, strlen($prefix) - 1) == '.') {
             $prefix .= ".";
         }
         $this->log("Loading Environment $prefix", Project::MSG_VERBOSE);
         foreach ($_ENV as $key => $value) {
-            $props->setProperty($prefix . '.' . $key, $value);
+            $props["$prefix.$key"] = $value;
         }
         $this->addProperties($props);
     }
@@ -399,7 +402,7 @@ class PropertyTask extends Task
      * @param $props
      * @throws \Phing\Exception\BuildException
      */
-    protected function addProperties($props)
+    protected function addProperties(PropertySet $props)
     {
         foreach ($props as $key => $value) {
             if ($this->prefix) {
@@ -458,11 +461,14 @@ class PropertyTask extends Task
         }
     }
 
-    protected function fetchPropertiesFromFile(File $f)
+    protected function fetchPropertiesFromFile(File $file)
     {
-        $p = new Properties();
-        $p->load($f, $this->section);
+        // do not use the "Properties" facade to defer property expansion
+        // (the Project will take care of it)
+        $properties = new PropertySetImpl();
+        $reader = new PropertyFileReader($properties);
+        $reader->load($file, $this->section);
 
-        return $p->getProperties();
+        return $properties;
     }
 }

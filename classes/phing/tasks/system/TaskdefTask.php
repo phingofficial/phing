@@ -166,9 +166,7 @@ class TaskdefTask extends Task
                 }
                 $props->load($in);
 
-                $enum = $props->propertyNames();
-                foreach ($enum as $key) {
-                    $value = $props->getProperty($key);
+                foreach ($props as $key => $value) {
                     $this->project->addTaskDefinition($key, $value, $this->classpath);
                 }
             } catch (IOException $ioe) {

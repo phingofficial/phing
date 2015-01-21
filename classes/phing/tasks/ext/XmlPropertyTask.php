@@ -24,7 +24,8 @@ use Phing\Io\File;
 use Phing\Io\IOException;
 use Phing\Project;
 use Phing\Util\StringHelper;
-use Phing\PropertySet;
+use Phing\Util\Properties\PropertySetImpl;
+use Phing\Util\Properties\PropertySet;
 
 /**
  * Task for setting properties from an XML file in buildfiles.
@@ -143,7 +144,7 @@ class XmlPropertyTask extends PropertyTask
             throw new IOException("Unable to parse XML file $file");
         }
 
-        $prop = new PropertySet();
+        $prop = new PropertySetImpl();
         $path = array();
 
         if ($this->_keepRoot) {

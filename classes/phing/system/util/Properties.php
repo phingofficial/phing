@@ -23,18 +23,29 @@ use Phing\Io\File;
 use Phing\Io\FileWriter;
 use Phing\Io\IOException;
 use Phing\PropertySet;
-
+use Phing\Util\Properties\PropertyExpansionHelper;
+use Phing\Util\Properties\PropertySetImpl;
+use Phing\Util\Properties\PropertyFileReader;
+use Phing\Util\Properties\PropertyFileWriter;
 
 /**
- * Convenience class for reading and writing property files.
+ * A class for reading and writing property files.
  *
- * FIXME
- *        - Add support for arrays (separated by ',')
+ * This class has been used in the past by various clients (not only
+ * within Phing) to read (and in rare cases write) property files. It
+ * is now implemented as a facade that exhibits the "old" behaviour,
+ * most notably early and transparent ${} placeholder expansion.
+ *
+ * As it is often used stand-alone, it has no notion of "projects" or other
+ * things that might provide property values for expansion. So it might
+ * happen that property values returned from this class still contain
+ * ${} placeholders that can only be meaningfully resolved at a later
+ * stage.
  *
  * @package    phing.system.util
- * @version $Id$
+ * @version    $Id$
  */
-class Properties
+class Properties implements IteratorAggregate
 {
 
     private $properties;
@@ -51,7 +62,7 @@ class Properties
      */
     public function __construct($properties = null)
     {
-        $this->properties = new PropertySet();
+        $this->properties = new PropertyExpansionHelper(new PropertySetImpl());
 
         if (is_array($properties)) {
             foreach ($properties as $key => $value) {
@@ -73,147 +84,9 @@ class Properties
      */
     public function load(File $file, $section = null)
     {
-        if ($file->canRead()) {
-            $this->parse($file->getPath(), $section);
 
-            $this->file = $file;
-        } else {
-            throw new IOException("Can not read file " . $file->getPath());
-        }
-
-    }
-
-    /**
-     * Replaces parse_ini_file() or better_parse_ini_file().
-     * Saves a step since we don't have to parse and then check return value
-     * before throwing an error or setting class properties.
-     *
-     * @param string $filePath
-     * @param string  $section The property file section to parse
-     *
-     * @throws IOException
-     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
-     * @return array   Properties loaded from file (no prop replacements done yet).
-     */
-    protected function parse($filePath, $section = null)
-    {
-        $section = (string) $section;
-
-        // load() already made sure that file is readable
-        // but we'll double check that when reading the file into
-        // an array
-
-        if (($lines = @file($filePath)) === false) {
-            throw new IOException("Unable to parse contents of $filePath");
-        }
-
-        // concatenate lines ending with backslash
-        $linesCount = count($lines);
-        for ($i = 0; $i < $linesCount; $i++) {
-            if (substr($lines[$i], -2, 1) === '\\') {
-                $lines[$i + 1] = substr($lines[$i], 0, -2) . ltrim($lines[$i + 1]);
-                $lines[$i] = '';
-            }
-        }
-
-        $currentSection = '';
-        $sect = array($currentSection => array(), $section => array());
-        $depends = array();
-
-        foreach ($lines as $l) {
-
-            $l = preg_replace('/(#|;).*$/', '', $l);
-
-            if (!($l = trim($l))) {
-                continue;
-            }
-
-            if (preg_match('/^\[(\w+)(?:\s*:\s*(\w+))?\]$/', $l, $matches)) {
-                $currentSection = $matches[1];
-                $sect[$currentSection] = array();
-                if (isset($matches[2])) {
-                    $depends[$currentSection] = $matches[2];
-                }
-                continue;
-            }
-
-            $pos = strpos($l, '=');
-            $name = trim(substr($l, 0, $pos));
-            $value = $this->inVal(trim(substr($l, $pos + 1)));
-
-            /*
-             * Take care: Property file may contain identical keys like
-             * a[] = first
-             * a[] = second
-             */
-            $sect[$currentSection][] = array($name, $value);
-        }
-
-        $dependencyOrder = array();
-        while ($section) {
-            array_unshift($dependencyOrder, $section);
-            $section = isset($depends[$section]) ? $depends[$section] : '';
-        }
-        array_unshift($dependencyOrder, '');
-
-        foreach ($dependencyOrder as $section) {
-            foreach ($sect[$section] as $def) {
-                list ($name, $value) = $def;
-                $this->setProperty($name, $value);
-            }
-        }
-    }
-
-    /**
-     * Process values when being read in from properties file.
-     * does things like convert "true" => true
-     * @param  string $val Trimmed value.
-     * @return mixed  The new property value (may be boolean, etc.)
-     */
-    protected function inVal($val)
-    {
-        if ($val === "true") {
-            $val = true;
-        } elseif ($val === "false") {
-            $val = false;
-        }
-
-        return $val;
-    }
-
-    /**
-     * Process values when being written out to properties file.
-     * does things like convert true => "true"
-     * @param  mixed  $val The property value (may be boolean, etc.)
-     * @return string
-     */
-    protected function outVal($val)
-    {
-        if ($val === true) {
-            $val = "true";
-        } elseif ($val === false) {
-            $val = "false";
-        }
-
-        return $val;
-    }
-
-    /**
-     * Create string representation that can be written to file and would be loadable using load() method.
-     *
-     * Essentially this function creates a string representation of properties that is ready to
-     * write back out to a properties file.  This is used by store() method.
-     *
-     * @return string
-     */
-    public function toString()
-    {
-        $buf = "";
-        foreach ($this->properties as $key => $item) {
-            $buf .= $key . "=" . $this->outVal($item) . PHP_EOL;
-        }
-
-        return $buf;
+        $r = new PropertyFileReader($this->properties);
+        $r->load($file, $section);
     }
 
     /**
@@ -234,19 +107,8 @@ class Properties
             throw new IOException("Unable to write to empty filename");
         }
 
-        // stores the properties in this object in the file denoted
-        // if file is not given and the properties were loaded from a
-        // file prior, this method stores them in the file used by load()
-        try {
-            $fw = new FileWriter($file);
-            if ($header !== null) {
-                $fw->write("# " . $header . PHP_EOL);
-            }
-            $fw->write($this->toString());
-            $fw->close();
-        } catch (IOException $e) {
-            throw new IOException("Error writing property file: " . $e->getMessage());
-        }
+        $w = new PropertyFileWriter($this->properties);
+        $w->store($file, $header);
     }
 
     /**
@@ -299,13 +161,7 @@ class Properties
      */
     public function setProperty($key, $value)
     {
-        $oldValue = null;
-        if (isset($this->properties[$key])) {
-            $oldValue = $this->properties[$key];
-        }
-        $this->properties[$key] = $value;
-
-        return $oldValue;
+        return $this->put($key, $value);
     }
 
     /**
@@ -319,7 +175,9 @@ class Properties
      */
     public function put($key, $value)
     {
-        return $this->setProperty($key, $value);
+        $oldValue = $this->get($key);
+        $this->properties[$key] = $value;
+        return $oldValue;
     }
 
     /**
@@ -334,10 +192,10 @@ class Properties
     public function append($key, $value, $delimiter = ',')
     {
         $newValue = $value;
-        if (isset($this->properties[$key]) && !empty($this->properties[$key])) {
-            $newValue = $this->properties[$key] . $delimiter . $value;
+        if (($oldValue = $this->get($key)) !== null) {
+            $newValue = $oldValue . $delimiter . $value;
         }
-        $this->properties[$key] = $newValue;
+        $this->put($key, $newValue);
     }
 
     /**
@@ -376,6 +234,11 @@ class Properties
      */
     public function isEmpty()
     {
-        return empty($this->properties);
+        return $this->properties->isEmpty();
+    }
+
+    public function getIterator()
+    {
+        return $this->properties->getIterator();
     }
 }

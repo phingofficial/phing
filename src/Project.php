@@ -16,6 +16,8 @@ use Phing\Parser\ProjectConfigurator;
 use Properties;
 use PropertyValue;
 use Phing\Util\StringHelper;
+use Phing\Util\Properties\PropertySetImpl;
+use Phing\Util\Properties\PropertyExpansionHelper;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -129,9 +131,10 @@ class Project
     {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
-        $this->properties = new PropertySet();
-        $this->inheritedProperties = new PropertySet();
-        $this->userProperties = new PropertySet();
+        $this->properties = new PropertySetImpl();
+        $this->inheritedProperties = new PropertySetImpl();
+        $this->userProperties = new PropertySetImpl();
+        $this->propertyExpansionHelper = new PropertyExpansionHelper($this->properties);
     }
 
     /**
@@ -170,7 +173,7 @@ class Project
             }
             $props->load($in);
 
-            foreach ($props->getProperties() as $key => $value) {
+            foreach ($props as $key => $value) {
                 $this->addTaskDefinition($key, $value);
             }
         } catch (IOException $ioe) {
@@ -188,7 +191,7 @@ class Project
             }
             $props->load($in);
 
-            foreach ($props->getProperties() as $key => $value) {
+            foreach ($props as $key => $value) {
                 $this->addDataTypeDefinition($key, $value);
             }
         } catch (IOException $ioe) {
@@ -322,93 +325,36 @@ class Project
      */
     public function getProperty($name)
     {
-        if (!isset($this->properties[$name])) {
+        if (!isset($this->propertyExpansionHelper[$name])) {
             return null;
         }
-        return $this->properties[$name];
+        return $this->propertyExpansionHelper[$name];
+    }
+
+    /**
+     * Returns a copy of the properties table in which all property
+     * references are being expanded.
+     *
+     * @return array A hashtable containing all properties
+     *         (including user properties).
+     */
+    public function getProperties()
+    {
+        return $this->propertyExpansionHelper;
     }
 
     /**
      * Replaces ${} style constructions in the given value with the string value of the corresponding data types.
      *
      * @param string  $value    The value string to be scanned for property references. May be <code>null</code>.
-     * @param integer $logLevel the level of generated log messages
      *
      * @return string the given string with embedded property names replaced by values, or <code>null</code> if the given string is <code>null</code>.
      *
      * @exception BuildException if the given value has an unclosed property name, e.g. <code>${xxx</code>
      */
-    public function replaceProperties($buffer, $logLevel = self::MSG_VERBOSE)
+    public function replaceProperties($value)
     {
-        if ($buffer === null) {
-            return null;
-        }
-
-        // Because we're not doing anything special (like multiple passes),
-        // regex is the simplest / fastest.  PropertyTask, though, uses
-        // the old parsePropertyString() method, since it has more stringent
-        // requirements.
-
-        $sb = $buffer;
-        $iteration = 0;
-
-        $self = $this; // cannot use "$this" in anonymouse functions prior to PHP 5.4
-
-        // loop to recursively replace tokens
-        while (strpos($sb, '${') !== false) {
-            $sb = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($self, $logLevel) {
-
-                $propertyName = $matches[1];
-
-                if (($propertyValue = $self->getProperty($propertyName)) === null) {
-                    $self->log('Property ${' . $propertyName . '} has not been set.', $logLevel);
-                    return $matches[0];
-                }
-
-                if (is_bool($propertyValue)) {
-                    $propertyValue = $propertyValue ? "true" : "false";
-                } else if (is_array($propertyValue)) {
-                    $propertyValue = implode(',', $propertyValue);
-                }
-
-                $self->log('Property ${' . $propertyName . '} => ' . $propertyValue, $logLevel);
-
-                return $propertyValue;
-
-            }, $sb);
-
-            // keep track of iterations so we can break out of otherwise infinite loops.
-            $iteration++;
-            if ($iteration == 5) {
-                return $sb;
-            }
-        }
-
-        return $sb;
-    }
-
-    /**
-     * Returns the value of a property, if it is set. Property references in the property's
-     * value will be expanded.
-     *
-     * @param string The property value with references to other properties expanded.
-     * @return string|null The property value with references to other properties expanded. Null if the property is not set.
-     */
-    public function getExpandedProperty($name)
-    {
-        $p = $this->getProperty($name);
-
-        if ($p === null) {
-            return null;
-        }
-
-        if (is_array($p)) {
-            foreach ($p as $key => $value)
-                $p[$key] = $this->replaceProperties($value);
-            return $p;
-        }
-
-        return $this->replaceProperties($p);
+        return $this->propertyExpansionHelper->expand($value);
     }
 
     /**
@@ -425,18 +371,7 @@ class Project
         if (!isset($this->userProperties[$name])) {
             return null;
         }
-
-        return $this->userProperties[$name];
-    }
-
-    /**
-     * Returns a copy of the properties table.
-     * @return array A hashtable containing all properties
-     *               (including user properties).
-     */
-    public function getProperties()
-    {
-        return $this->properties;
+        return $this->getProperty($name);
     }
 
     /**
@@ -1059,8 +994,9 @@ class Project
             }
         }
 
-        if ($name !== array_pop($visiting)) {
-            throw new Exception("Unexpected internal error: expected to pop $root but got $p");
+        $p = (string) array_pop($visiting);
+        if ($name !== $p) {
+            throw new Exception("Unexpected internal error: expected to pop $name but got $p");
         }
 
         $state[$name] = "VISITED";
