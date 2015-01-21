@@ -42,7 +42,7 @@ class FilesetFoldersTest extends AbstractBuildFileTest
     {
         $f = new File(PHING_TEST_BASE . "/etc/regression/654/build.xml");
         $this->executeTarget("main");
-        $this->assertInLogs("Property \${test.msg} => data");
-        $this->assertInLogs("Property \${test.msg} => files");
+        $this->assertInLogs("test.msg = data");
+        $this->assertInLogs("test.msg = files");
     }
 }
