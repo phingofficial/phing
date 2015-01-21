@@ -260,16 +260,13 @@ class DirectoryScanner implements SelectorScannerInterface
 
     /**
      * Sets the basedir for scanning. This is the directory that is scanned
-     * recursively. All '/' and '\' characters are replaced by
-     * DIRECTORY_SEPARATOR
+     * recursively.
      *
      * @param basedir the (non-null) basedir for scanning
      */
     public function setBasedir($_basedir)
     {
-        $_basedir = str_replace('\\', DIRECTORY_SEPARATOR, $_basedir);
-        $_basedir = str_replace('/', DIRECTORY_SEPARATOR, $_basedir);
-        $this->basedir = $_basedir;
+        $this->basedir = $this->normalizePath($_basedir);
     }
 
     /**
@@ -303,21 +300,10 @@ class DirectoryScanner implements SelectorScannerInterface
      * @param array $_includes
      * @internal param list $includes of include patterns
      */
-    public function setIncludes($_includes = array())
+    public function setIncludes($patterns = array())
     {
-        if (empty($_includes) || is_null($_includes)) {
-            $this->includes = null;
-        } else {
-            for ($i = 0; $i < count($_includes); $i++) {
-                $pattern = null;
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_includes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-                if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-                    $pattern .= "**";
-                }
-                $this->includes[] = $pattern;
-            }
-        }
+        $this->includes = null;
+        $this->appendPatterns($this->includes, $patterns);
     }
 
     /**
@@ -331,21 +317,10 @@ class DirectoryScanner implements SelectorScannerInterface
      * @internal param list $excludes of exclude patterns
      */
 
-    public function setExcludes($_excludes = array())
+    public function setExcludes($patterns = array())
     {
-        if (empty($_excludes) || is_null($_excludes)) {
-            $this->excludes = null;
-        } else {
-            for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = null;
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_excludes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-                if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-                    $pattern .= "**";
-                }
-                $this->excludes[] = $pattern;
-            }
-        }
+        $this->excludes = null;
+        $this->appendPatterns($this->excludes, $patterns);
     }
 
     /**
@@ -577,13 +552,7 @@ class DirectoryScanner implements SelectorScannerInterface
      */
     protected function isIncluded($_name)
     {
-        for ($i = 0, $_i = count($this->includes); $i < $_i; $i++) {
-            if (DirectoryScanner::matchPath($this->includes[$i], $_name, $this->isCaseSensitive)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->isNameMatched($_name, $this->includes);
     }
 
     /**
@@ -595,8 +564,8 @@ class DirectoryScanner implements SelectorScannerInterface
      */
     protected function couldHoldIncluded($_name)
     {
-        for ($i = 0; $i < count($this->includes); $i++) {
-            if (DirectoryScanner::matchPatternStart($this->includes[$i], $_name, $this->isCaseSensitive)) {
+        foreach ($this->includes as $p) {
+            if (DirectoryScanner::matchPatternStart($p, $_name, $this->isCaseSensitive)) {
                 return true;
             }
         }
@@ -613,8 +582,21 @@ class DirectoryScanner implements SelectorScannerInterface
      */
     protected function isExcluded($_name)
     {
-        for ($i = 0; $i < count($this->excludes); $i++) {
-            if (DirectoryScanner::matchPath($this->excludes[$i], $_name, $this->isCaseSensitive)) {
+        return $this->isNameMatched($_name, $this->excludes);
+    }
+
+    /**
+     * Checks whether the name is matched by one of the given patterns.
+     *
+     * @param       $_name    A name to check
+     * @param array $patterns An array of patterns
+     *
+     * @return bool Whether or not the name is matched by one of the patterns.
+     */
+    protected function isNameMatched($_name, array $patterns)
+    {
+        foreach ($patterns as $pattern) {
+            if (DirectoryScanner::matchPath($pattern, $_name, $this->isCaseSensitive)) {
                 return true;
             }
         }
@@ -745,12 +727,7 @@ class DirectoryScanner implements SelectorScannerInterface
      */
     public function addDefaultExcludes()
     {
-        //$excludesLength = ($this->excludes == null) ? 0 : count($this->excludes);
-        foreach ($this->DEFAULTEXCLUDES as $pattern) {
-            $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-            $this->excludes[] = $pattern;
-        }
+        $this->appendPatterns($this->excludes, $this->DEFAULTEXCLUDES);
     }
 
     /**
@@ -800,6 +777,49 @@ class DirectoryScanner implements SelectorScannerInterface
         }
 
         return true;
+    }
+
+    /**
+     * Normalizes a path by allowing '/' and '\' as the directory separator
+     * and mapping them to DIRECTORY_SEPARATOR.
+     *
+     * @param string $p The path to normalize
+     *
+     * @return The normalized path
+     */
+    protected function normalizePath($p)
+    {
+        return str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $p);
+    }
+
+    /**
+     * Normalizes a set of given patterns.
+     * Patterns ending with a DIRECTORY_SEPARATOR
+     * qualify all files and subdirectories within the given path.
+     */
+    protected function normalizePatterns(array $patterns)
+    {
+        $r = array();
+
+        foreach ($patterns as $p) {
+            $p = $this->normalizePath($p);
+            if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $p)) {
+                $p .= '**';
+            }
+            $r[] = $p;
+        }
+
+        return $r;
+    }
+
+    protected function appendPatterns(&$where, $what)
+    {
+        if ($what) {
+            if (!$where) {
+                $where = array();
+            }
+            $where = array_merge($where, $this->normalizePatterns($what));
+        }
     }
 
 }
