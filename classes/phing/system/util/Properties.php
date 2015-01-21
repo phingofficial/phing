@@ -72,6 +72,20 @@ class Properties implements IteratorAggregate
     }
 
     /**
+     * Create string representation that can be written to file and would be loadable using load() method.
+     *
+     * Essentially this function creates a string representation of properties that is ready to
+     * write back out to a properties file.  This is used by store() method.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        $w = new PropertyFileWriter($this->properties);
+        return $w->toString();
+    }
+
+    /**
      * Load properties from a file.
      *
      * Does not try to expand ${}-style property references in any way.
