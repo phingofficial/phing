@@ -56,9 +56,9 @@ class PropertyFileReader
 
         foreach ($lines as $l) {
 
-            $l = preg_replace('/(#|;).*$/', '', $l);
+            $l = trim(preg_replace("/\s+[;#]\s.+$/", "", $l));
 
-            if (!($l = trim($l))) {
+            if (!$l) {
                 continue;
             }
 
