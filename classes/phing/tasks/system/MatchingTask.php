@@ -400,7 +400,7 @@ abstract class MatchingTask extends Task implements SelectorContainer
 
     /**
      * add a writable selector entry on the selector list
-     * @return ReadableSelector
+     * @return WritableSelector
      */
     public function createWritable()
     {
