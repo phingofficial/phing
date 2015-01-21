@@ -20,6 +20,7 @@ namespace Phing\Util\Properties;
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
+use Phing\Exception\BuildException;
 
 /**
  * A class that can expand ${}-style references in arbitrary strings with the
@@ -32,6 +33,7 @@ namespace Phing\Util\Properties;
 class PropertyExpansionHelper implements PropertySet
 {
     protected $props;
+    protected $refStack;
 
     public function __construct(PropertySet $props)
     {
@@ -97,21 +99,21 @@ class PropertyExpansionHelper implements PropertySet
             return $this->expandArray($buffer);
         }
 
-        // Because we're not doing anything special (like multiple passes),
-        // regex is the simplest / fastest.  PropertyTask, though, uses
-        // the old parsePropertyString() method, since it has more stringent
-        // requirements.
+        return $this->match($buffer, array());
+    }
 
-        $sb = $buffer;
-        $iteration = 0;
-
-        $properties = $this->props;
-
-        // loop to recursively replace tokens
-        while (strpos($sb, '${') !== false) {
-            $sb = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($properties) {
+    public function match($buffer, $refStack)
+    {
+        if (strpos($buffer, '${') !== false) {
+            $properties = $this->props;
+            $self = $this;
+            $buffer = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($properties, $refStack, $self) {
 
                 $propertyName = $matches[1];
+
+                if (in_array($propertyName, $refStack)) {
+                    throw new BuildException("Property $propertyName was circularly defined: " . implode(" => ", $refStack));
+                }
 
                 if (!isset($properties[$propertyName])) {
                     return $matches[0];
@@ -123,20 +125,17 @@ class PropertyExpansionHelper implements PropertySet
                     $propertyValue = $propertyValue ? "true" : "false";
                 } else if (is_array($propertyValue)) {
                     $propertyValue = implode(',', $propertyValue);
+                } else {
+                    $refStack[] = $propertyName;
+                    $propertyValue = $self->match($propertyValue, $refStack);
                 }
 
                 return $propertyValue;
 
-            }, $sb);
-
-            // keep track of iterations so we can break out of otherwise infinite loops.
-            $iteration++;
-            if ($iteration == 5) {
-                return $sb;
-            }
+            }, $buffer);
         }
 
-        return $sb;
+        return $buffer;
     }
 
     protected function expandArray(array $a)
