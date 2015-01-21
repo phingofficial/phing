@@ -40,8 +40,6 @@ class PropertiesInIfTaskTest extends AbstractBuildFileTest
     public function testCopyTask()
     {
         $this->executeTarget("test");
-
-        $this->assertNotInLogs('Property ${outp} has not been set.');
-        $this->assertInLogs('Property ${outp} => test');
+        $this->assertInLogs('test == test');
     }
 }
