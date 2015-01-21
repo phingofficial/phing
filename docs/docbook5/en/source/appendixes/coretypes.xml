@@ -147,7 +147,9 @@
         <para>Two asterisks (<literal>**</literal>) may include above the "border" of
             the directory separator.</para>
 
-        <para>The dot (<literal>.</literal>) matches only the root directory of the fileset.</para>
+        <para>The dot (<literal>.</literal>) matches only the root directory of the fileset. If a pattern ends with
+            <literal>/</literal> or <literal>\</literal>, then <literal>**</literal> is appended, effectively
+            matching all files and directories under the directory provided.</para>
         <table>
             <title> Attributes for the <literal>&lt;fileset></literal> tag </title>
             <tgroup cols="5">
@@ -263,6 +265,11 @@
                         specified with the <literal>dir</literal> attribute of the
                             <literal>&lt;fileset></literal> tag. However, it will not include any
                         files that are directly in the base directory of the file set.</para>
+                </listitem>
+                <listitem>
+                    <para><literal>test/</literal> is interpreted as <literal>test/**</literal>,
+                    matching a file <literal>test/foo.html</literal>, a directory <literal>test/sub</literal>
+                    and also a file <literal>test/sub/bar.html</literal>.</para>
                 </listitem>
             </itemizedlist>
         </sect2>
