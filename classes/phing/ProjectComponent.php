@@ -112,7 +112,7 @@ abstract class ProjectComponent
     /**
      * Logs a message with the given priority.
      *
-     * @param string $msg The message to be logged.
+     * @param string  $msg   The message to be logged.
      * @param integer $level The message's priority at this message should have
      *
      * @return void
