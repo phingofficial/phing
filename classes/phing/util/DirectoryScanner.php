@@ -799,11 +799,9 @@ class DirectoryScanner implements SelectorScanner
     public function addDefaultExcludes()
     {
         $defaultExcludesTemp = self::getDefaultExcludes();
-        $newExcludes = array();
         foreach ($defaultExcludesTemp as $temp) {
-            $newExcludes[] = str_replace('\\', PhingFile::$separator, str_replace('/', PhingFile::$separator, $temp));
+            $this->excludes[] = str_replace(array('/', '\\'), PhingFile::$separator, $temp);
         }
-        $this->excludes[] = $newExcludes;
     }
 
     /**
