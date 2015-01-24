@@ -22,6 +22,7 @@
 require_once 'phing/types/selectors/SelectorScanner.php';
 include_once 'phing/util/StringHelper.php';
 include_once 'phing/types/selectors/SelectorUtils.php';
+include_once 'phing/util/DefaultExcludesContainer.php';
 
 /**
  * Class for scanning a directory for files/directories that match a certain
@@ -115,33 +116,11 @@ include_once 'phing/types/selectors/SelectorUtils.php';
  */
 class DirectoryScanner implements SelectorScanner
 {
-
-    /** default set of excludes */
-    protected static $DEFAULTEXCLUDES = array(
-        "**/*~",
-        "**/#*#",
-        "**/.#*",
-        "**/%*%",
-        "**/CVS",
-        "**/CVS/**",
-        "**/.cvsignore",
-        "**/SCCS",
-        "**/SCCS/**",
-        "**/vssver.scc",
-        "**/.svn",
-        "**/.svn/**",
-        "**/._*",
-        "**/.DS_Store",
-        "**/.darcs",
-        "**/.darcs/**",
-        "**/.git",
-        "**/.git/**",
-        "**/.gitattributes",
-        "**/.gitignore",
-        "**/.gitmodules",
-    );
-
-    private static $defaultExcludeList = array();
+    /**
+     * default set of excludes
+     * @var DefaultPatternContainer $defaultExcludes
+     */
+    protected $defaultExcludes = null;
 
     /** The base directory which should be scanned. */
     protected $basedir;
@@ -209,12 +188,9 @@ class DirectoryScanner implements SelectorScanner
      *
      * pattern=**\a and str=b will yield true.
      *
-     * @param string $pattern
-     * @param string $str
-     * @param bool $isCaseSensitive
-     * @internal param the $pattern pattern to match against
-     * @internal param the $str string (path) to match
-     * @internal param must $isCaseSensitive matches be case sensitive?
+     * @param string $pattern pattern to match against
+     * @param string $str string (path) to match
+     * @param bool $isCaseSensitive matches be case sensitive?
      * @return boolean true if matches, otherwise false
      */
     public function matchPatternStart($pattern, $str, $isCaseSensitive = true)
@@ -254,61 +230,6 @@ class DirectoryScanner implements SelectorScanner
     public function match($pattern, $str, $isCaseSensitive = true)
     {
         return SelectorUtils::match($pattern, $str, $isCaseSensitive);
-    }
-
-    /**
-     * Get the list of patterns that should be excluded by default.
-     *
-     * @return string[] An array of <code>String</code> based on the current
-     *         contents of the <code>defaultExcludes</code>
-     *         <code>Set</code>.
-     */
-    public static function getDefaultExcludes()
-    {
-        return self::$defaultExcludeList;
-    }
-
-    /**
-     * Add a pattern to the default excludes unless it is already a
-     * default exclude.
-     *
-     * @param string $s   A string to add as an exclude pattern.
-     * @return boolean   <code>true</code> if the string was added;
-     *                   <code>false</code> if it already existed.
-     */
-    public static function addDefaultExclude($s)
-    {
-            return self::$defaultExcludeList[] = $s;
-    }
-
-    /**
-     * Remove a string if it is a default exclude.
-     *
-     * @param string $s   The string to attempt to remove.
-     * @return boolean    <code>true</code> if <code>s</code> was a default
-     *                    exclude (and thus was removed);
-     *                    <code>false</code> if <code>s</code> was not
-     *                    in the default excludes list to begin with.
-     */
-    public static function removeDefaultExclude($s)
-    {
-        $key = array_search($s, self::$defaultExcludeList);
-
-        if ($key !== false) {
-            unset(self::$defaultExcludeList[$key]);
-            return true;
-        }
-
-        return  false;
-    }
-
-    /**
-     * Go back to the hardwired default exclude patterns.
-     */
-    public static function resetDefaultExcludes()
-    {
-        self::$defaultExcludeList = array();
-        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
     }
 
     /**
@@ -353,8 +274,7 @@ class DirectoryScanner implements SelectorScanner
      *
      * When a pattern ends with a '/' or '\', "**" is appended.
      *
-     * @param array $_includes
-     * @internal param list $includes of include patterns
+     * @param array $_includes includes of include patterns
      */
     public function setIncludes($_includes = array())
     {
@@ -380,25 +300,16 @@ class DirectoryScanner implements SelectorScanner
      *
      * When a pattern ends with a '/' or '\', "**" is appended.
      *
-     * @param array $_excludes
-     * @internal param list $excludes of exclude patterns
+     * @param array $excludes excludes of exclude patterns
      */
-
-    public function setExcludes($_excludes = array())
+    public function setExcludes($excludes = array())
     {
-        if (empty($_excludes) || is_null($_excludes)) {
-            $this->excludes = null;
+        if (!empty($excludes)) {
+            $this->excludes[] = $this->defaultExcludes->normalizePatternList($excludes);
         } else {
-            for ($i = 0; $i < count($_excludes); $i++) {
-                $pattern = null;
-                $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $_excludes[$i]);
-                $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-                if (StringHelper::endsWith(DIRECTORY_SEPARATOR, $pattern)) {
-                    $pattern .= "**";
-                }
-                $this->excludes[] = $pattern;
-            }
+            $this->excludes = null;
         }
+
     }
 
     /**
@@ -795,13 +706,11 @@ class DirectoryScanner implements SelectorScanner
     /**
      * Adds the array with default exclusions to the current exclusions set.
      *
+     * @param DefaultPatternContainer $defaultExcludes
      */
-    public function addDefaultExcludes()
+    public function addDefaultExcludes(DefaultPatternContainer $defaultExcludes)
     {
-        $defaultExcludesTemp = self::getDefaultExcludes();
-        foreach ($defaultExcludesTemp as $temp) {
-            $this->excludes[] = str_replace(array('/', '\\'), PhingFile::$separator, $temp);
-        }
+        $this->excludes[] = $defaultExcludes->getArrayCopy();
     }
 
     /**

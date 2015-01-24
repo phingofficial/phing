@@ -377,7 +377,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
         }
 
         if ($this->useDefaultExcludes) {
-            $ds->addDefaultExcludes();
+            $ds->addDefaultExcludes($p->getGlobalExcludes());
         }
         $ds->setCaseSensitive($this->isCaseSensitive);
     }

@@ -107,13 +107,33 @@ class Project
     /**  Build listeneers */
     private $listeners = array();
 
+    /** @var DefaultExcludesContainer $globalExcludes */
+    private $globalExcludes;
+
     /**
      *  Constructor, sets any default vars.
      */
     public function __construct()
     {
-        $this->fileUtils = new FileUtils();
-        $this->inputHandler = new DefaultInputHandler();
+        $this->globalExcludes = new DefaultExcludesContainer();
+        $this->fileUtils      = new FileUtils();
+        $this->inputHandler   = new DefaultInputHandler();
+    }
+
+    /**
+     * @return DefaultExcludesContainer
+     */
+    public function getGlobalExcludes()
+    {
+        return $this->globalExcludes;
+    }
+
+    /**
+     * @param DefaultPatternContainer $excludes
+     */
+    public function setGlobalExcludes(DefaultPatternContainer $excludes)
+    {
+        $this->globalExcludes = $excludes;
     }
 
     /**

@@ -18,6 +18,7 @@
  */
 
 include_once 'phing/Task.php';
+include_once 'phing/util/DefaultExcludesContainer.php';
 include_once 'phing/util/DirectoryScanner.php';
 
 /**
@@ -29,7 +30,7 @@ include_once 'phing/util/DirectoryScanner.php';
 class DefaultExcludes extends Task
 {
     /** @var string $add */
-    private $add = "";
+    private $append = "";
 
     /** @var string $remove */
     private $remove = "";
@@ -53,27 +54,29 @@ class DefaultExcludes extends Task
      */
     public function main()
     {
-        if (!$this->defaultrequested && $this->add === "" && $this->remove === "" && !$this->echo) {
+        if (!$this->defaultrequested && $this->append === "" && $this->remove === "" && !$this->echo) {
             throw new BuildException(
                 "<defaultexcludes> task must set at least one attribute (echo=\"false\")"
                 . " doesn't count since that is the default");
         }
+
+        $excludes = new DefaultExcludesContainer();
+        $excludes->clear();
         if ($this->defaultrequested) {
-            DirectoryScanner::resetDefaultExcludes();
+            $excludes->reset();
         }
-        if (!$this->add === "") {
-            DirectoryScanner::addDefaultExclude($this->add);
+        if ($this->append !== "") {
+            $excludes->append($this->append);
         }
-        if (!$this->remove === "") {
-            DirectoryScanner::removeDefaultExclude($this->remove);
+        if ($this->remove !== "") {
+            $excludes->remove($this->remove);
         }
+        $this->getProject()->setGlobalExcludes($excludes);
         if ($this->echo) {
             $lineSep = Phing::getProperty('line.separator');
             $message = "Current Default Excludes:";
-            $message .= $lineSep;
-            $excludes = DirectoryScanner::getDefaultExcludes();
-            $message .= "  ";
-            $message .= implode($lineSep . "  ", $excludes);
+            $message .= $lineSep . "  ";
+            $message .= implode($lineSep . "  ", $this->getProject()->getGlobalExcludes()->getArrayCopy());
             $this->log($message, $this->logLevel);
         }
     }
@@ -89,13 +92,13 @@ class DefaultExcludes extends Task
     }
 
     /**
-     * Pattern to add to the default excludes
+     * Pattern to append to the default excludes
      *
-     * @param string $add Sets the value for the pattern to exclude.
+     * @param string $append Sets the value for the pattern to exclude.
      */
-    public function setAdd($add)
+    public function setAppend($append)
     {
-        $this->add = $add;
+        $this->append = $append;
     }
 
     /**
