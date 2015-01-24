@@ -306,7 +306,10 @@ class DirectoryScanner implements SelectorScanner
     {
         if (!empty($excludes)) {
             $container = new DefaultExcludesContainer();
-            $this->excludes = array_merge($this->excludes, $container->normalizePatternList($excludes));
+            $this->excludes = array_merge(
+                $this->excludes === null ? array() : $this->excludes,
+                $container->normalizePatternList($excludes)
+            );
         } else {
             $this->excludes = null;
         }
@@ -711,7 +714,7 @@ class DirectoryScanner implements SelectorScanner
      */
     public function addDefaultExcludes(DefaultPatternContainer $defaultExcludes)
     {
-        $this->excludes[] = $defaultExcludes->getArrayCopy();
+        $this->excludes = array_merge($this->excludes === null ? array() : $defaultExcludes->getArrayCopy());
     }
 
     /**
