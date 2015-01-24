@@ -1275,7 +1275,7 @@
                         <entry>attribute "true" required if no other attribute specified</entry>
                     </row>
                     <row>
-                        <entry><literal>add</literal></entry>
+                        <entry><literal>append</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>the pattern to add to the default excludes</entry>
                         <entry>n/a</entry>
