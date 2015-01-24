@@ -117,7 +117,7 @@ class DirectoryScanner implements SelectorScanner
 {
 
     /** default set of excludes */
-    protected $DEFAULTEXCLUDES = array(
+    protected static $DEFAULTEXCLUDES = array(
         "**/*~",
         "**/#*#",
         "**/.#*",
@@ -140,6 +140,8 @@ class DirectoryScanner implements SelectorScanner
         "**/.gitignore",
         "**/.gitmodules",
     );
+
+    private static $defaultExcludeList = array();
 
     /** The base directory which should be scanned. */
     protected $basedir;
@@ -255,11 +257,66 @@ class DirectoryScanner implements SelectorScanner
     }
 
     /**
+     * Get the list of patterns that should be excluded by default.
+     *
+     * @return string[] An array of <code>String</code> based on the current
+     *         contents of the <code>defaultExcludes</code>
+     *         <code>Set</code>.
+     */
+    public static function getDefaultExcludes()
+    {
+        return self::$defaultExcludeList;
+    }
+
+    /**
+     * Add a pattern to the default excludes unless it is already a
+     * default exclude.
+     *
+     * @param string $s   A string to add as an exclude pattern.
+     * @return boolean   <code>true</code> if the string was added;
+     *                   <code>false</code> if it already existed.
+     */
+    public static function addDefaultExclude($s)
+    {
+            return self::$defaultExcludeList[] = $s;
+    }
+
+    /**
+     * Remove a string if it is a default exclude.
+     *
+     * @param string $s   The string to attempt to remove.
+     * @return boolean    <code>true</code> if <code>s</code> was a default
+     *                    exclude (and thus was removed);
+     *                    <code>false</code> if <code>s</code> was not
+     *                    in the default excludes list to begin with.
+     */
+    public static function removeDefaultExclude($s)
+    {
+        $key = array_search($s, self::$defaultExcludeList);
+
+        if ($key !== false) {
+            unset(self::$defaultExcludeList[$key]);
+            return true;
+        }
+
+        return  false;
+    }
+
+    /**
+     * Go back to the hardwired default exclude patterns.
+     */
+    public static function resetDefaultExcludes()
+    {
+        self::$defaultExcludeList = array();
+        self::$defaultExcludeList = self::$DEFAULTEXCLUDES;
+    }
+
+    /**
      * Sets the basedir for scanning. This is the directory that is scanned
      * recursively. All '/' and '\' characters are replaced by
      * DIRECTORY_SEPARATOR
      *
-     * @param basedir the (non-null) basedir for scanning
+     * @param string $basedir the (non-null) basedir for scanning
      */
     public function setBasedir($_basedir)
     {
@@ -741,12 +798,12 @@ class DirectoryScanner implements SelectorScanner
      */
     public function addDefaultExcludes()
     {
-        //$excludesLength = ($this->excludes == null) ? 0 : count($this->excludes);
-        foreach ($this->DEFAULTEXCLUDES as $pattern) {
-            $pattern = str_replace('\\', DIRECTORY_SEPARATOR, $pattern);
-            $pattern = str_replace('/', DIRECTORY_SEPARATOR, $pattern);
-            $this->excludes[] = $pattern;
+        $defaultExcludesTemp = self::getDefaultExcludes();
+        $newExcludes = array();
+        foreach ($defaultExcludesTemp as $temp) {
+            $newExcludes[] = str_replace('\\', PhingFile::$separator, str_replace('/', PhingFile::$separator, $temp));
         }
+        $this->excludes = array_merge($this->excludes, $newExcludes);
     }
 
     /**
