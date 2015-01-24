@@ -305,7 +305,8 @@ class DirectoryScanner implements SelectorScanner
     public function setExcludes($excludes = array())
     {
         if (!empty($excludes)) {
-            $this->excludes[] = $this->defaultExcludes->normalizePatternList($excludes);
+            $container = new DefaultExcludesContainer();
+            $this->excludes[] = $container->normalizePatternList($excludes);
         } else {
             $this->excludes = null;
         }
