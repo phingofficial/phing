@@ -803,7 +803,7 @@ class DirectoryScanner implements SelectorScanner
         foreach ($defaultExcludesTemp as $temp) {
             $newExcludes[] = str_replace('\\', PhingFile::$separator, str_replace('/', PhingFile::$separator, $temp));
         }
-        $this->excludes = array_merge($this->excludes, $newExcludes);
+        $this->excludes[] = $newExcludes;
     }
 
     /**
