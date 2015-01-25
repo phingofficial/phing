@@ -60,6 +60,8 @@ class Properties
     /**
      * Load properties from a file.
      *
+     * Does not try to expand ${}-style property references in any way.
+     *
      * @param  File   $file
      * @return void
      * @throws IOException - if unable to read file.
@@ -215,6 +217,8 @@ class Properties
      * Mostly for performance reasons, property hashes are often
      * preferable to passing around objects.
      *
+     * ${}-style property references are not expanded.
+     *
      * @return array
      */
     public function getProperties()
@@ -223,7 +227,8 @@ class Properties
     }
 
     /**
-     * Get value for specified property.
+     * Get value for specified property. ${}-style property references are not expanded.
+     *
      * This is the same as get() method.
      *
      * @param  string $prop The property name (key).
@@ -240,7 +245,8 @@ class Properties
     }
 
     /**
-     * Get value for specified property.
+     * Get value for specified property. ${}-style property references are not expanded.
+     *
      * This function exists to provide a hashtable-like interface for
      * properties.
      *
@@ -250,11 +256,7 @@ class Properties
      */
     public function get($prop)
     {
-        if (!isset($this->properties[$prop])) {
-            return null;
-        }
-
-        return $this->properties[$prop];
+        return $this->getProperty($prop);
     }
 
     /**

@@ -24,7 +24,8 @@
 
     <filter>
         <whitelist>
-            <directory suffix=".php">../classes/phing/tasks/</directory>
+            <directory suffix=".php">../classes/phing</directory>
+            <directory suffix=".php">../src</directory>
         </whitelist>
     </filter>
 </phpunit>

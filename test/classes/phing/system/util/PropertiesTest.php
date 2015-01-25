@@ -27,6 +27,8 @@ use Phing\Io\File;
  * @author Michiel Rook <mrook@php.net>
  * @package phing.system.util
  * @version $Id$
+ *
+ * @covers Properties
  */
 class PropertiesTest extends PHPUnit_Framework_TestCase
 {
@@ -45,9 +47,9 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         unset($this->props);
     }
 
-    public function testComments()
+    public function testCommentsAreStripped()
     {
-        $file = new File(PHING_TEST_BASE . "/etc/system/util/comments.properties");
+        $file = new File(PHING_TEST_BASE . "/etc/system/util/test.properties");
         $this->props->load($file);
 
         $this->assertEquals(
@@ -58,9 +60,19 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
     }
 
+    public function testMultilinePropertyFiles()
+    {
+        $file = new File(PHING_TEST_BASE . "/etc/system/util/test.properties");
+        $this->props->load($file);
+
+        $this->assertEquals('This is a multiline value.', $this->props->getProperty('multiline'));
+    }
+
     public function testEmpty()
     {
         $this->assertTrue($this->props->isEmpty());
+        $this->props->append('foo', 'bar');
+        $this->assertFalse($this->props->isEmpty());
     }
 
     public function testAppendPropertyValues()
@@ -86,5 +98,27 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
         unlink($file->getPath());
     }
+
+    public function testCanBeInitializedWithProperties()
+    {
+        $this->props = new Properties(array('foo' => 'bar', 'baz' => 'qux'));
+        $this->assertEquals('bar', $this->props->getProperty('foo'));
+        $this->assertEquals('qux', $this->props->getProperty('baz'));
+    }
+
+    public function testReadUnknownPropertyReturnsNull()
+    {
+        $this->assertNull($this->props->getProperty('foo'));
+    }
+
+    /**
+     * @ expectedException Phing\Io\IOException
+     */
+    public function testLoadNonexistentFileThrowsException()
+    {
+        $file = new File(PHING_TEST_BASE . "/etc/system/util/nonexistent.properties");
+        new Properties($file);
+    }
+
 
 }
