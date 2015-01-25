@@ -7,6 +7,7 @@ use Phing\Io\IOException;
 
 class PropertyFileWriter
 {
+    /** @var PropertySet */
     protected $properties;
 
     public function __construct(PropertySet $s)

@@ -129,7 +129,7 @@ class Properties implements IteratorAggregate
      *
      * ${}-style property references are not expanded.
      *
-     * @return PropertySet
+     * @return \ArrayAccess
      */
     public function getProperties()
     {
