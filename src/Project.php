@@ -332,18 +332,6 @@ class Project
     }
 
     /**
-     * Returns a copy of the properties table in which all property
-     * references are being expanded.
-     *
-     * @return array A hashtable containing all properties
-     *         (including user properties).
-     */
-    public function getProperties()
-    {
-        return $this->propertyExpansionHelper;
-    }
-
-    /**
      * Replaces ${} style constructions in the given value with the string value of the corresponding data types.
      *
      * @param string  $value    The value string to be scanned for property references. May be <code>null</code>.
@@ -372,6 +360,18 @@ class Project
             return null;
         }
         return $this->getProperty($name);
+    }
+
+    /**
+     * Returns a copy of the properties table in which all property
+     * references are being expanded.
+     *
+     * @return array A hashtable containing all properties
+     *         (including user properties).
+     */
+    public function getProperties()
+    {
+        return $this->propertyExpansionHelper;
     }
 
     /**
