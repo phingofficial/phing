@@ -315,7 +315,7 @@ class Project
     }
 
     /**
-     * Returns the value of a property, if it is set.
+     * Returns the value of a property, if it is set. ${}-style references to other properties will be resolved.
      *
      * @param  string $name The name of the property.
      *                      May be <code>null</code>, in which case
