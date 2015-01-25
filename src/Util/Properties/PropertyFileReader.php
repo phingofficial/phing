@@ -2,6 +2,7 @@
 namespace Phing\Util\Properties;
 
 use Phing\Io\IOException;
+use Phing\Io\File;
 
 /**
  * Reads property files into a PropertySet.
@@ -9,7 +10,7 @@ use Phing\Io\IOException;
  */
 class PropertyFileReader
 {
-
+    /** @var PropertySet */
     protected $properties;
 
     public function __construct(PropertySet $s)
@@ -29,17 +30,19 @@ class PropertyFileReader
      * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
      * @return array   Properties loaded from file (no prop replacements done yet).
      */
-    public function load($filePath, $section = null)
+    public function load(File $file, $section = null)
     {
+        if (!$file->canRead()) {
+            throw new IOException("Can not read file " . $file->getPath());
+        }
+
         $section = (string) $section;
 
         // load() already made sure that file is readable
         // but we'll double check that when reading the file into
         // an array
 
-        if (($lines = @file($filePath)) === false) {
-            throw new IOException("Unable to parse contents of $filePath");
-        }
+        $lines = file($file->getPath());
 
         // concatenate lines ending with backslash
         $linesCount = count($lines);
@@ -115,4 +118,3 @@ class PropertyFileReader
         return $val;
     }
 }
-
