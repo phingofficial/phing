@@ -79,6 +79,15 @@ class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo,bar', $this->helper['expanded']);
     }
 
+    public function testArrayKeys()
+    {
+        $this->properties['a[f]'] = 'foo';
+        $this->properties['a[b]'] = 'bar';
+
+        $this->assertEquals('foo', $this->helper['a[f]']);
+        $this->assertEquals('bar', $this->helper['a[b]']);
+    }
+
     public function testBooleanExpansion()
     {
         $this->properties['t'] = true;
@@ -101,4 +110,29 @@ class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('false', $this->helper['false']);
     }
 
+    public function testUnknownPropertiesAreLeftUntouched()
+    {
+        $this->properties['test'] = 'something ${unknown}';
+        $this->assertEquals('something ${unknown}', $this->helper['test']);
+    }
+
+    public function testExpansionOfArrayKeys()
+    {
+        $this->properties['test[a]'] = 'foobar';
+        $this->properties['test[b]'] = 'barbaz';
+        $this->properties['choice'] = 'a';
+        $this->properties['result'] = '${test[${choice}]}';
+
+        $this->assertEquals('foobar', $this->helper['result']);
+    }
+
+    public function testNestedExpansion()
+    {
+        $this->properties['options.first'] = 'foobar';
+        $this->properties['options.second'] = 'barbaz';
+        $this->properties['choice'] = 'first';
+        $this->properties['result'] = '${options.${choice}}';
+
+        $this->assertEquals('foobar', $this->helper['result']);
+    }
 }

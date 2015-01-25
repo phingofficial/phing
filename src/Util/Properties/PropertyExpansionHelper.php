@@ -104,10 +104,10 @@ class PropertyExpansionHelper implements PropertySet
 
     public function match($buffer, $refStack)
     {
-        if (strpos($buffer, '${') !== false) {
+        while (true) {
             $properties = $this->props;
             $self = $this;
-            $buffer = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($properties, $refStack, $self) {
+            $expandedBuffer = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($properties, $refStack, $self) {
 
                 $propertyName = $matches[1];
 
@@ -133,9 +133,13 @@ class PropertyExpansionHelper implements PropertySet
                 return $propertyValue;
 
             }, $buffer);
-        }
 
-        return $buffer;
+            if ($expandedBuffer == $buffer) {
+                return $buffer;
+            }
+
+            $buffer = $expandedBuffer;
+        }
     }
 
     protected function expandArray(array $a)
