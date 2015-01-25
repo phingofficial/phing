@@ -48,8 +48,8 @@ class ManifestTaskTest extends BuildFileTest
     {
         $this->executeTarget(__FUNCTION__);
         $hash = md5("salty" . "File1");
-        $manifestFile = PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest";
+        $manifestFile = realpath(PHING_TEST_BASE . "/etc/tasks/ext/tmp/manifest");
         $this->assertInLogs("Writing to " . $manifestFile);
-        $this->assertEquals("file1\t" . $hash . PHP_EOL, file_get_contents($manifestFile));
+        $this->assertEquals("file1\t" . $hash . "\n", file_get_contents($manifestFile));
     }
 }
