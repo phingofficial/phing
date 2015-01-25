@@ -76,15 +76,14 @@ class Properties implements IteratorAggregate
      *
      * Does not try to expand ${}-style property references in any way.
      *
-     * @param  File  $file
-     * @param string $section (Optional) The property file section to read.
+     * @param File   $file    The property file to read.
+     * @param string $section (Optional) The section to process.
      *
      * @return void
      * @throws IOException - if unable to read file.
      */
     public function load(File $file, $section = null)
     {
-
         $r = new PropertyFileReader($this->properties);
         $r->load($file, $section);
     }
@@ -163,7 +162,11 @@ class Properties implements IteratorAggregate
      */
     public function get($prop)
     {
-        return $this->getProperty($prop);
+        if (!isset($this->properties[$prop])) {
+            return null;
+        }
+
+        return $this->properties[$prop];
     }
 
     /**
