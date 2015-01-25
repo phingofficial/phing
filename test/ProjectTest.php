@@ -44,6 +44,7 @@ class ProjectTest extends \PHPUnit_Framework_TestCase
 
     public function testGetPropertiesWillExpandPropertyValues()
     {
+        $this->markTestSkipped('This is currently not supported in Phing but might change with https://github.com/phingofficial/phing/pull/363');
         $this->project->setProperty('foo', 'foo');
         $this->project->setProperty('bar', '${foo}bar');
 
