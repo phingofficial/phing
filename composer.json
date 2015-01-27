@@ -42,7 +42,7 @@
 	"pear-pear.php.net/PEAR_PackageFileManager": "1.7.x",
 	"pear-pear.php.net/PEAR_PackageFileManager2": "1.0.x",
 	"pear-pear.php.net/XML_Serializer": "0.20.x",
-	"squizlabs/php_codesniffer": "1.5.x",
+	"squizlabs/php_codesniffer": "2.2.*",
 	"lastcraft/simpletest": "@dev",
 	"ext-pdo_sqlite": "*"
     },

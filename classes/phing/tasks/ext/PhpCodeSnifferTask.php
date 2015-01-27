@@ -532,6 +532,9 @@ class PhpCodeSnifferTask extends Task
             $reporting->printReport(
                 $fe->getType(),
                 $this->showSources,
+				array(
+					'colors' => false,
+				),
                 $reportFile,
                 $this->reportWidth
             );
