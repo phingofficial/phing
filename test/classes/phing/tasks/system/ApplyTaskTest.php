@@ -234,6 +234,8 @@ class ApplyTaskTest extends AbstractBuildFileTest
 
     /**
      * Tests the failonerror/checkreturn value for 'true'
+     *
+     * @requires OS Linux
      */
     public function testCheckreturnTrue()
     {
@@ -249,6 +251,8 @@ class ApplyTaskTest extends AbstractBuildFileTest
 
     /**
      * Tests the failonerror/checkreturn value for 'false'
+     *
+     * @requires OS Linux
      */
     public function testCheckreturnFalse()
     {
@@ -272,6 +276,8 @@ class ApplyTaskTest extends AbstractBuildFileTest
 
     /**
      * Tests the returnProperty setting
+     *
+     * @requires OS Linux
      */
     public function testReturnProperty()
     {

@@ -1,7 +1,5 @@
 <?php
 /*
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,7 +29,6 @@ use Phing\UnknownElement;
  * Tests the Exec Task
  *
  * @author  Michiel Rook <mrook@php.net>
- * @version $Id$
  * @package phing.tasks.system
  */
 class ExecTaskTest extends AbstractBuildFileTest
@@ -253,6 +250,9 @@ class ExecTaskTest extends AbstractBuildFileTest
         $this->assertInLogs('ExecTaskTest.php');
     }
 
+    /**
+     * @requires OS Linux
+     */
     public function testCheckreturnTrue()
     {
         if ($this->windows) {
@@ -265,6 +265,8 @@ class ExecTaskTest extends AbstractBuildFileTest
     /**
      * @expectedException \Phing\Exception\BuildException
      * @expectedExceptionMessage Task exited with code 1
+     *
+     * @requires OS Linux
      */
     public function testCheckreturnFalse()
     {
@@ -280,6 +282,9 @@ class ExecTaskTest extends AbstractBuildFileTest
         $this->assertInLogs('The output property\'s value is: "foo"');
     }
 
+    /**
+     * @requires OS Linux
+     */
     public function testReturnProperty()
     {
         $this->executeTarget(__FUNCTION__);

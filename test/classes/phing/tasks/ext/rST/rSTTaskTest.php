@@ -1,5 +1,5 @@
 <?php
-use Phing\Exception\BuildException;
+
 use Phing\Test\AbstractBuildFileTest;
 
 /**
@@ -7,19 +7,7 @@ use Phing\Test\AbstractBuildFileTest;
  *
  * PHP version 5
  *
- * @category   Tasks
- * @package    phing.tasks.ext
- * @author     Christian Weiske <cweiske@cweiske.de>
- * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
- * @link       http://www.phing.info/
- * @version    SVN: $Id$
- */
-
-
-/**
- * Unit test for reStructuredText rendering task.
- *
- * PHP version 5
+ * @group rst
  *
  * @category   Tasks
  * @package    phing.tasks.ext

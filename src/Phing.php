@@ -20,7 +20,6 @@
 namespace Phing;
 
 use Phing\Exception\BuildException;
-use Phing\BuildLoggerInterface;
 use Phing\Exception\ConfigurationException;
 use Phing\Input\DefaultInputHandler;
 use DefaultLogger;
@@ -30,13 +29,13 @@ use Phing\Io\FileReader;
 use Phing\Io\IOException;
 use Phing\Io\OutputStream;
 use Phing\Io\File;
-use Phing\Project;
+use Phing\Io\PrintStream;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Util\StringHelper;
+use Phing\Util\Timer;
 use Properties;
 use SebastianBergmann\Version;
 use StreamRequiredBuildLogger;
-use Phing\Util\StringHelper;
-use Phing\Util\Timer;
 
 include_once 'phing/system/util/Properties.php';
 
@@ -111,12 +110,12 @@ class Phing
     private static $capturedPhpErrors = array();
 
     /**
-     * @var OUtputStream Stream for standard output.
+     * @var OutputStream Stream for standard output.
      */
     private static $out;
 
     /**
-     * @var \Phing\Io\OutputStream Stream for error output.
+     * @var OutputStream Stream for error output.
      */
     private static $err;
 
@@ -149,7 +148,6 @@ class Phing
      */
     public static function start($args, array $additionalUserProperties = null)
     {
-
         try {
             $m = new Phing();
             $m->execute($args);
@@ -235,7 +233,7 @@ class Phing
     /**
      * Sets the stream to use for error output.
      *
-     * @param \Phing\Io\OutputStream $stream The stream to use for error output.
+     * @param OutputStream $stream The stream to use for error output.
      */
     public static function setErrorStream(OutputStream $stream)
     {
@@ -298,8 +296,7 @@ class Phing
      * @param  array $args commandline args passed to phing shell.
      *
      * @throws ConfigurationException
-     *
-     * @return void
+     * @throws IOException
      */
     public function execute($args)
     {
@@ -369,7 +366,7 @@ class Phing
                     // see: http://phing.info/trac/ticket/65
                     if (!isset($args[$i + 1])) {
                         $msg = "You must specify a log file when using the -logfile argument\n";
-                        throw new Exception\ConfigurationException($msg);
+                        throw new ConfigurationException($msg);
                     } else {
                         $logFile = new File($args[++$i]);
                         $out = new FileOutputStream($logFile); // overwrite
@@ -384,7 +381,7 @@ class Phing
             } elseif ($arg == "-buildfile" || $arg == "-file" || $arg == "-f") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a buildfile when using the -buildfile argument.";
-                    throw new Exception\ConfigurationException($msg);
+                    throw new ConfigurationException($msg);
                 } else {
                     $this->buildFile = new File($args[++$i]);
                 }
@@ -416,13 +413,13 @@ class Phing
             } elseif ($arg == "-logger") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a classname when using the -logger argument";
-                    throw new Exception\ConfigurationException($msg);
+                    throw new ConfigurationException($msg);
                 } else {
                     $this->loggerClassname = $args[++$i];
                 }
             } elseif ($arg == "-inputhandler") {
                 if ($this->inputHandlerClassname !== null) {
-                    throw new Exception\ConfigurationException("Only one input handler class may be specified.");
+                    throw new ConfigurationException("Only one input handler class may be specified.");
                 }
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a classname when using the -inputhandler argument";
@@ -433,7 +430,7 @@ class Phing
             } elseif ($arg == "-propertyfile") {
                 if (!isset($args[$i + 1])) {
                     $msg = "You must specify a filename when using the -propertyfile argument";
-                    throw new Exception\ConfigurationException($msg);
+                    throw new ConfigurationException($msg);
                 } else {
                     $p = new Properties();
                     $p->load(new File($args[++$i]));
@@ -457,7 +454,7 @@ class Phing
                 // we don't have any more args
                 self::printUsage();
                 self::$err->write(PHP_EOL);
-                throw new Exception\ConfigurationException("Unknown argument: " . $arg);
+                throw new ConfigurationException("Unknown argument: " . $arg);
             } else {
                 // if it's no other arg, it may be the target
                 array_push($this->targets, $arg);
@@ -487,7 +484,7 @@ class Phing
 
             // make sure it's not a directory
             if ($this->buildFile->isDirectory()) {
-                throw new Exception\ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
+                throw new ConfigurationException("Buildfile: " . $this->buildFile->__toString() . " is a dir!");
             }
         } catch (IOException $e) {
             // something else happened, buildfile probably not readable
@@ -742,7 +739,7 @@ class Phing
                 $msg = "Unable to instantiate specified input handler "
                     . "class " . $this->inputHandlerClassname . " : "
                     . $e->getMessage();
-                throw new Exception\ConfigurationException($msg);
+                throw new ConfigurationException($msg);
             }
         }
         $project->setInputHandler($handler);
@@ -825,8 +822,7 @@ class Phing
      */
     public static function handlePhpError($level, $message, $file, $line)
     {
-
-        // don't want to print supressed errors
+        // don't want to print suppressed errors
         if (error_reporting() > 0) {
 
             if (self::$phpErrorCapture) {
@@ -962,7 +958,7 @@ class Phing
             $reader = new FileReader($file);
             $phingVersion = trim($reader->read());
         } catch (IOException $iox) {
-            throw new Exception\ConfigurationException("Can't read version information file");
+            throw new ConfigurationException("Can't read version information file");
         }
 
         $basePath = dirname(dirname(dirname(__FILE__)));
@@ -987,9 +983,9 @@ class Phing
     }
 
     /** Print out a list of all targets in the current buildfile
-     * @param $project
+     * @param Project $project
      */
-    public function printTargets($project)
+    public function printTargets(Project $project)
     {
         // find the target with the longest name
         $maxLength = 0;
@@ -1156,13 +1152,11 @@ class Phing
      * @param  string $path Path to the PHP file
      * @param  mixed $classpath String or object supporting __toString()
      *
-     * @throws \Phing\Exception\ConfigurationException
+     * @throws ConfigurationException
      */
     public static function __import($path, $classpath = null)
     {
-
         if ($classpath) {
-
             // Apparently casting to (string) no longer invokes __toString() automatically.
             if (is_object($classpath)) {
                 $classpath = $classpath->__toString();
@@ -1198,7 +1192,7 @@ class Phing
                 $x = new Exception("for-path-trace-only");
                 $msg .= $x->getTraceAsString();
             }
-            throw new Exception\ConfigurationException($msg);
+            throw new ConfigurationException($msg);
         }
     }
 
@@ -1211,7 +1205,6 @@ class Phing
      */
     public static function getResourcePath($path)
     {
-
         if (self::$importPaths === null) {
             self::$importPaths = self::explodeIncludePath();
         }
@@ -1313,7 +1306,6 @@ class Phing
      */
     private static function setSystemConstants()
     {
-
         /*
          * PHP_OS returns on
          *   WindowsNT4.0sp6  => WINNT
@@ -1426,8 +1418,7 @@ class Phing
      */
     public static function getProperty($propName)
     {
-
-        // some properties are detemined on each access
+        // some properties are determined on each access
         // some are cached, see below
 
         // default is the cached value:
@@ -1519,7 +1510,6 @@ class Phing
      */
     private static function setIni()
     {
-
         self::$origIniSettings['error_reporting'] = error_reporting(E_ALL);
 
         // We won't bother storing original max_execution_time, since 1) the value in
@@ -1587,7 +1577,6 @@ class Phing
      */
     public static function startup()
     {
-
         // setup STDOUT and STDERR defaults
         self::initializeOutputStreams();
 
