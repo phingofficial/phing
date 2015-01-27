@@ -20,6 +20,10 @@
 
 namespace Phing;
 
+use Phing\Io\File;
+use Phing\Io\FileWriter;
+use Phing\Io\PrintStream;
+
 /**
  * A little diagnostic helper that output some information that may help
  * in support. It should quickly give correct information about the
@@ -192,13 +196,13 @@ class Diagnostics
      */
     private static function doReportTempDir(PrintStream $out)
     {
-        $tempdir = PhingFile::getTempDir();
+        $tempdir = File::getTempDir();
         if ($tempdir == null) {
             $out->println("Warning: php.tmpdir is undefined");
             return;
         }
         $out->println("Temp dir is " . $tempdir);
-        $tempDirectory = new PhingFile($tempdir);
+        $tempDirectory = new File($tempdir);
 
         if (!$tempDirectory->exists()) {
             $out->println("Warning, php.tmpdir directory does not exist: " . $tempdir);
@@ -207,7 +211,7 @@ class Diagnostics
         }
 
         $now = time();
-        $tempFile = PhingFile::createTempFile('diag', 'txt', $tempDirectory);
+        $tempFile = File::createTempFile('diag', 'txt', $tempDirectory);
         $fileWriter = new FileWriter($tempFile);
         $fileWriter->write('some test text');
         $fileWriter->close();
