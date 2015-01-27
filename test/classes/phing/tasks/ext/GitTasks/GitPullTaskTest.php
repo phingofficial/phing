@@ -26,7 +26,6 @@ require_once dirname(__FILE__) . '/GitTestsHelper.php';
 
 /**
  * @author Victor Farazdagi <simple.square@gmail.com>
- * @version $Id$
  * @package phing.tasks.ext
  */
 class GitPullTaskTest extends AbstractBuildFileTest
@@ -107,7 +106,16 @@ class GitPullTaskTest extends AbstractBuildFileTest
         $this->executeTarget('appendSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');
-        $this->assertInLogs('git-pull output: Already up-to-date.');
+
+        $lastLogLine = array_pop($this->logBuffer);
+
+        if (strpos($lastLogLine, 'up-to-date') !== false ||
+            strpos($lastLogLine, 'up to date') !== false
+        ) {
+            $this->assertTrue(true);
+        } else {
+            $this->assertTrue(false, 'Last log line: ' . $lastLogLine);
+        }
     }
 
     public function testNoTagsSet()
