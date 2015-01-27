@@ -31,7 +31,7 @@ P     H     I     N     G
   * Platform-independent: works on UNIX, Windows, Mac OSX
   * No required external dependencies
   
-  Phing requires PHP 5.4 or higher.
+  Phing requires PHP 5.5 or higher.
 
 The Latest Version
 ------------------

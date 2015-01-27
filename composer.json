@@ -19,7 +19,7 @@
         "irc": "irc://irc.freenode.net/phing"
     },
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "sebastian/version": "1.x"
     },
     "repositories": [
