@@ -2,6 +2,37 @@ P     H     I     N     G
 =========================
 
 
+Jan. , 2015 - Phing 2.10.0
+--------------------------
+
+This release contains the following new or improved functionality:
+
+ * 'user.home' property on Windows fixed
+ * Various documentation updates
+ * Added support for listeners configured via phpunit.xml config
+ * Basename task
+ * Dirname task
+ * Diagnostics task
+ * FilesMatch condition
+ * HasFreeSpace condition
+ * PathToFileSet task
+ * PhingVersion task/condition
+ * PropertyRegex task
+ * Recorder task
+ * Socket condition
+ * Xor condition
+
+The following tickets were closed in this release:
+
+ * [1167] include task can't really have mode
+ * [1160] Documentation lists covereage-report styledir as required.
+ * [1159] phpunit task ignores excludeGroups, groups attributes
+ * [1152] Add socket condition
+ * [1127] Removing .phar from the phar file makes it crash
+ * [1120] Phing 2.8.1 does not support PDepend 2.0
+ * [856]  ZPK Packaging for zend server
+ * [250]  recorder task
+
 Dec. 3, 2014 - Phing 2.9.1
 --------------------------
 
