@@ -346,7 +346,7 @@ class Project
     }
 
     /**
-     * Returns the value of a user property, if it is set.
+     * Returns the value of a user property, if it is set. ${}-style references to other properties will be resolved.
      *
      * @param  string $name The name of the property.
      *                      May be <code>null</code>, in which case
@@ -359,19 +359,18 @@ class Project
         if (!isset($this->userProperties[$name])) {
             return null;
         }
+
         return $this->getProperty($name);
     }
 
     /**
-     * Returns a copy of the properties table in which all property
-     * references are being expanded.
+     * Returns a copy of the properties table. All ${}-style references to other properties will be resolved.
      *
-     * @return array A hashtable containing all properties
-     *         (including user properties).
+     * @return array An array containing all properties, including user properties.
      */
     public function getProperties()
     {
-        return $this->propertyExpansionHelper;
+        return iterator_to_array($this->propertyExpansionHelper);
     }
 
     /**
