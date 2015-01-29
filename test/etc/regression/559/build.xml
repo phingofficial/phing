@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<project name="UpToDateTaskTest" default="test">
+
+    <target name="test" depends="test-no-property-set, test-property-overwritten"/>
+
+    <target name="test-no-property-set">
+        <touch file="${project.basedir}/target.txt" />
+        <uptodate
+            property="prop" 
+            value="updated"
+            srcfile="${project.basedir}/source.txt"
+            targetfile="${project.basedir}/target.txt" >
+        </uptodate>
+        <echo>assert updated == ${prop}</echo>
+	</target>
+
+    <target name="test-property-overwritten">
+        <property name="prop2" value="some value"/>
+
+        <touch file="${project.basedir}/target.txt" />
+        <uptodate
+            property="prop2"
+            value="updated"
+            srcfile="${project.basedir}/source.txt"
+            targetfile="${project.basedir}/target.txt" >
+        </uptodate>
+        <echo>assert updated == ${prop2}</echo>
+	</target>
+
+</project>
