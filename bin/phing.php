@@ -49,6 +49,11 @@ try {
     Phing::printMessage($x);
     exit(-1); // This was convention previously for configuration errors.
 
+} catch (RuntimeException $x) {
+
+    echo (string) $x;
+    exit(-1); // This was convention previously for configuration errors.
+
 } catch (Exception $x) {
 
     // Assume the message was already printed as part of the build and
