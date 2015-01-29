@@ -255,11 +255,7 @@ class UpToDateTask extends Task implements Condition
         }
         $upToDate = $this->evaluate();
         if ($upToDate) {
-            $property = $this->project->createTask('property');
-            $property->setName($this->getProperty());
-            $property->setValue($this->getValue());
-            $property->setOverride(true);
-            $property->main(); // execute
+            $this->project->setProperty($this->getProperty(), $this->getValue());
 
             if ($this->mapperElement === null) {
                 $this->log(
