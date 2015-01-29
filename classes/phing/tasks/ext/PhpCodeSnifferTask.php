@@ -531,7 +531,7 @@ class PhpCodeSnifferTask extends Task
 
             // Crude check, but they broke backwards compatibility
             // with a minor version release.
-            if ($phpcs::VERSION >= '2.2.0') {
+            if (PHP_CodeSniffer::VERSION >= '2.2.0') {
                 $cliValues = array('colors' => false);
                 $reporting->printReport($fe->getType(),
                                         $this->showSources,
