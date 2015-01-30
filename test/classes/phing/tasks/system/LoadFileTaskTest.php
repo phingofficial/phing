@@ -33,21 +33,18 @@ class LoadFileTaskTest extends AbstractBuildFileTest
 {
     public function setUp()
     {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/system/LoadFileTest.xml"
-        );
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/system/LoadFileTest.xml");
     }
 
     public function testVersionPropertySet()
     {
-        $this->executeTarget("test-version");
-        $this->assertInLogs('Property ${version} => 1.0.1');
+        $this->executeTarget("test-plain");
+        $this->assertInLogs('foobar == foobar');
     }
 
     public function testFilterChain()
     {
         $this->executeTarget("test-filterchain");
-        $this->assertInLogs('<property>filterchain-test-123</property');
+        $this->assertInLogs('foobar == foobar');
     }
 }

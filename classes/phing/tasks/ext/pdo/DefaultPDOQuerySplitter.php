@@ -79,11 +79,7 @@ class DefaultPDOQuerySplitter extends PDOQuerySplitter
         while (($line = $this->sqlReader->readLine()) !== null) {
             $delimiter = $this->parent->getDelimiter();
             $project = $this->parent->getOwningTarget()->getProject();
-            $line = ProjectConfigurator::replaceProperties(
-                $project,
-                trim($line),
-                $project->getProperties()
-            );
+            $line = $project->replaceProperties(trim($line));
 
             if (($line != $delimiter) && (
                     StringHelper::startsWith("//", $line) ||

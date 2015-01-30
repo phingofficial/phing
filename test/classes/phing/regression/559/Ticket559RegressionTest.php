@@ -27,40 +27,30 @@ use Phing\Test\AbstractBuildFileTest;
  * @version $Id$
  * @package phing.tasks.ext
  */
-class UpToDateTaskTest extends AbstractBuildFileTest
+class Ticket559RegressionTest extends AbstractBuildFileTest
 {
 
     public function setUp()
     {
-        $this->configureProject(
-            PHING_TEST_BASE
-            . "/etc/tasks/system/UpToDateTest.xml"
-        );
+        $this->configureProject(PHING_TEST_BASE . "/etc/regression/559/build.xml");
     }
 
     /**
      * @group ticket-559
      */
-    public function testOverrideNoPropertySet()
+    public function testUpToDateTaskAssignsPropertyValue()
     {
-        $this->executeTarget("overrideNoPropertySet");
-        $this->assertInLogs('Property ${prop} has not been set.');
-        $this->assertInLogs('Property ${prop} => updated');
-        $this->assertInLogs('echo = ${prop}');
-        $this->assertInLogs('echo = updated');
+        $this->executeTarget("test-no-property-set");
+        $this->assertInLogs('assert updated == updated');
     }
 
     /**
      * @group ticket-559
      */
-    public function testOverridePropertySet()
+    public function testUpToDateTaskUpdatesExistingPropertyValue()
     {
-        $this->executeTarget("overridePropertySet");
-        $this->assertInLogs('Setting project property: prop -> value exists');
-        $this->assertInLogs('Property ${prop} => value exists');
-        $this->assertInLogs('Property ${prop} => updated');
-        $this->assertInLogs('echo = value exists');
-        $this->assertInLogs('echo = updated');
+        $this->executeTarget("test-property-overwritten");
+        $this->assertInLogs('assert updated == updated');
     }
 
 }

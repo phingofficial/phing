@@ -1,12 +1,12 @@
 <project name="ticket1041" default="test">
     <target name="test" description="Tests Wrong Property Output in If task">
-    <property name="arg1" value="arg2"/>
-    <if>
-        <equals arg1="${arg1}" arg2="arg2" />
-        <then>
-            <property name="outp" value="test"/>
-            <echo msg="${outp}"></echo>
-        </then>
-    </if>
+        <property name="some.property" value="foo"/>
+        <if>
+            <equals arg1="${some.property}" arg2="foo"/>
+            <then>
+                <property name="output" value="test"/>
+                <echo msg="test == ${output}"></echo>
+            </then>
+        </if>
     </target>
 </project>

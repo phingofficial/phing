@@ -16,6 +16,8 @@ use Phing\Parser\ProjectConfigurator;
 use Properties;
 use PropertyValue;
 use Phing\Util\StringHelper;
+use Phing\Util\Properties\PropertySetImpl;
+use Phing\Util\Properties\PropertyExpansionHelper;
 
 /**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -69,7 +71,7 @@ class Project
     private $globalFilters = array();
 
     /** Project properties map (usually String to String). */
-    private $properties = array();
+    private $properties;
 
     /**
      * Map of "user" properties (as created in the Ant task, for example).
@@ -77,7 +79,7 @@ class Project
      * project properties, so only the project properties need to be queried.
      * Mapping is String to String.
      */
-    private $userProperties = array();
+    private $userProperties;
 
     /**
      * Map of inherited "user" properties - that are those "user"
@@ -85,7 +87,7 @@ class Project
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties = array();
+    private $inheritedProperties;
 
     /** task definitions for this project*/
     private $taskdefs = array();
@@ -129,6 +131,10 @@ class Project
     {
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
+        $this->properties = new PropertySetImpl();
+        $this->inheritedProperties = new PropertySetImpl();
+        $this->userProperties = new PropertySetImpl();
+        $this->propertyExpansionHelper = new PropertyExpansionHelper($this->properties);
     }
 
     /**
@@ -167,9 +173,7 @@ class Project
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
+            foreach ($props as $key => $value) {
                 $this->addTaskDefinition($key, $value);
             }
         } catch (IOException $ioe) {
@@ -187,9 +191,7 @@ class Project
             }
             $props->load($in);
 
-            $enum = $props->propertyNames();
-            foreach ($enum as $key) {
-                $value = $props->getProperty($key);
+            foreach ($props as $key => $value) {
                 $this->addDataTypeDefinition($key, $value);
             }
         } catch (IOException $ioe) {
@@ -313,7 +315,7 @@ class Project
     }
 
     /**
-     * Returns the value of a property, if it is set.
+     * Returns the value of a property, if it is set. ${}-style references to other properties will be resolved.
      *
      * @param  string $name The name of the property.
      *                      May be <code>null</code>, in which case
@@ -323,42 +325,28 @@ class Project
      */
     public function getProperty($name)
     {
-        if (!isset($this->properties[$name])) {
+        if (!isset($this->propertyExpansionHelper[$name])) {
             return null;
         }
-        $found = $this->properties[$name];
-        // check to see if there are unresolved property references
-        if (false !== strpos($found, '${')) {
-            // attempt to resolve properties
-            $found = $this->replaceProperties($found);
-            // save resolved value
-            $this->properties[$name] = $found;
-        }
-
-        return $found;
+        return $this->propertyExpansionHelper[$name];
     }
 
     /**
-     * Replaces ${} style constructions in the given value with the
-     * string value of the corresponding data types.
+     * Replaces ${} style constructions in the given value with the string value of the corresponding data types.
      *
-     * @param string $value The value string to be scanned for property references.
-     *                      May be <code>null</code>.
+     * @param string  $value    The value string to be scanned for property references. May be <code>null</code>.
      *
-     * @return string the given string with embedded property names replaced
-     *                by values, or <code>null</code> if the given string is
-     *                <code>null</code>.
+     * @return string the given string with embedded property names replaced by values, or <code>null</code> if the given string is <code>null</code>.
      *
-     * @exception BuildException if the given value has an unclosed
-     *                           property name, e.g. <code>${xxx</code>
+     * @exception BuildException if the given value has an unclosed property name, e.g. <code>${xxx</code>
      */
     public function replaceProperties($value)
     {
-        return ProjectConfigurator::replaceProperties($this, $value, $this->properties);
+        return $this->propertyExpansionHelper->expand($value);
     }
 
     /**
-     * Returns the value of a user property, if it is set.
+     * Returns the value of a user property, if it is set. ${}-style references to other properties will be resolved.
      *
      * @param  string $name The name of the property.
      *                      May be <code>null</code>, in which case
@@ -372,17 +360,17 @@ class Project
             return null;
         }
 
-        return $this->userProperties[$name];
+        return $this->getProperty($name);
     }
 
     /**
-     * Returns a copy of the properties table.
-     * @return array A hashtable containing all properties
-     *               (including user properties).
+     * Returns a copy of the properties table. All ${}-style references to other properties will be resolved.
+     *
+     * @return array An array containing all properties, including user properties.
      */
     public function getProperties()
     {
-        return $this->properties;
+        return iterator_to_array($this->propertyExpansionHelper);
     }
 
     /**
@@ -585,8 +573,11 @@ class Project
     {
 
         // first get system properties
-        $systemP = array_merge(self::getProperties(), Phing::getProperties());
-        foreach ($systemP as $name => $value) {
+        foreach (self::getProperties() as $name => $value) {
+            $this->setPropertyInternal($name, $value);
+        }
+
+        foreach (Phing::getProperties() as $name => $value) {
             $this->setPropertyInternal($name, $value);
         }
 
@@ -1002,8 +993,9 @@ class Project
             }
         }
 
-        if ($name !== array_pop($visiting)) {
-            throw new Exception("Unexpected internal error: expected to pop $root but got $p");
+        $p = (string) array_pop($visiting);
+        if ($name !== $p) {
+            throw new Exception("Unexpected internal error: expected to pop $name but got $p");
         }
 
         $state[$name] = "VISITED";

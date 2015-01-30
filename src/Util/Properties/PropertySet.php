@@ -1,4 +1,5 @@
 <?php
+namespace Phing\Util\Properties;
 
 /*
  *  $Id$
@@ -20,26 +21,7 @@
  * <http://phing.info>.
  */
 
-use Phing\Test\AbstractBuildFileTest;
-
-
-/**
- * Regression test for ticket http://www.phing.info/trac/ticket/585
- * - Same line comments in property files are included in the property value
- *
- * @package phing.regression
- */
-class PropertyCommentsTest extends AbstractBuildFileTest
-{
-
-    public function setUp()
-    {
-        $this->configureProject(PHING_TEST_BASE . "/etc/regression/585/build.xml");
-    }
-
-    public function testPhingCallTask()
-    {
-        $this->executeTarget("main");
-        $this->assertPropertyEquals('setting', 'value');
-    }
-}
+interface PropertySet extends \ArrayAccess, \IteratorAggregate {
+	public function isEmpty();
+	public function keys();
+} 

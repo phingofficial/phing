@@ -8,8 +8,8 @@
     </fileset>
 
     <target name="test">
-        <echo>${test.msg}</echo>
-        <echo>${test.absmsg}</echo>
+        <echo>test.msg = ${test.msg}</echo>
+        <echo>test.absmsg = ${test.absmsg}</echo>
     </target>
 
     <target name="main">

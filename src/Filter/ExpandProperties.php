@@ -90,10 +90,7 @@ class ExpandProperties extends BaseFilterReader implements ChainableReaderInterf
             return -1;
         }
 
-        $project = $this->getProject();
-        $buffer = ProjectConfigurator::replaceProperties($project, $buffer, $project->getProperties(), $this->logLevel);
-
-        return $buffer;
+        return $this->getProject()->replaceProperties($buffer, $this->logLevel);
     }
 
     /**

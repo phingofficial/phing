@@ -52,12 +52,10 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $file = new File(PHING_TEST_BASE . "/etc/system/util/test.properties");
         $this->props->load($file);
 
-        $this->assertEquals(
-            $this->props->getProperty('useragent'),
-            'Mozilla/5.0 (Windows NT 5.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1'
-        );
         $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
         $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
+        $this->assertEquals($this->props->getProperty('testline3'), 'ThisIs#NotAComment');
+        $this->assertEquals($this->props->getProperty('testline4'), 'ThisIs;NotAComment');
     }
 
     public function testMultilinePropertyFiles()
