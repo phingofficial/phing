@@ -529,12 +529,21 @@ class PhpCodeSnifferTask extends Task
                 //ob_start();
             }
 
-            $reporting->printReport(
-                $fe->getType(),
-                $this->showSources,
-                $reportFile,
-                $this->reportWidth
-            );
+            // Crude check, but they broke backwards compatibility
+            // with a minor version release.
+            if (PHP_CodeSniffer::VERSION >= '2.2.0') {
+                $cliValues = array('colors' => false);
+                $reporting->printReport($fe->getType(),
+                                        $this->showSources,
+                                        $cliValues,
+                                        $reportFile,
+                                        $this->reportWidth);
+            } else {
+                $reporting->printReport($fe->getType(),
+                                        $this->showSources,
+                                        $reportFile,
+                                        $this->reportWidth);
+            }
 
             // reporting class uses ob_end_flush(), but we don't want
             // an output if we use a file
