@@ -90,6 +90,11 @@ class PHPMDTask extends Task
     protected $formatters = array();
 
     /**
+     * @var bool
+     */
+    protected $newVersion = true;
+
+    /**
      * Set the input source file or directory.
      *
      * @param PhingFile $file The input source file or directory.
@@ -187,35 +192,29 @@ class PHPMDTask extends Task
     }
 
     /**
-     * Executes PHPMD against PhingFile or a FileSet
+     * Find PHPMD
      *
-     * @throws BuildException - if the phpmd classes can't be loaded.
+     * @return string
+     * @throws BuildException
      */
-    public function main()
+    protected function loadDependencies()
     {
-        /**
-         * Find PHPMD
-         */
-        if (false === stream_resolve_include_path("PHP/PMD.php")) {
-            @include_once 'PHPMD/PHPMD.php';
-            $class_name = '\PHPMD\PHPMD';
-            $new = true;
-        } else {
+        $className = '\PHPMD\PHPMD';
+
+        if (!class_exists($className)) {
             @include_once 'PHP/PMD.php';
-            $class_name = "PHP_PMD";
-            $new = false;
+            $className = "PHP_PMD";
+            $this->newVersion = false;
         }
 
-
-        if (!class_exists($class_name)) {
+        if (!class_exists($className)) {
             throw new BuildException(
                 'PHPMDTask depends on PHPMD being installed and on include_path.',
                 $this->getLocation()
             );
         }
 
-        if ($new) {
-            require_once 'PHPMD/AbstractRule.php';
+        if ($this->newVersion) {
             //weird syntax to allow 5.2 parser compatability
             $minPriority = constant('\PHPMD\AbstractRule::LOWEST_PRIORITY');
         } else {
@@ -226,6 +225,18 @@ class PHPMDTask extends Task
         if (!$this->minimumPriority) {
             $this->minimumPriority = $minPriority;
         }
+
+        return $className;
+    }
+
+    /**
+     * Executes PHPMD against PhingFile or a FileSet
+     *
+     * @throws BuildException - if the phpmd classes can't be loaded.
+     */
+    public function main()
+    {
+        $className = $this->loadDependencies();
 
         if (!isset($this->file) and count($this->filesets) == 0) {
             throw new BuildException('Missing either a nested fileset or attribute "file" set');
@@ -255,18 +266,17 @@ class PHPMDTask extends Task
         }
 
         // Create a rule set factory
-        if ($new) {
-            @require_once "PHPMD/RuleSetFactory.php";
+        if ($this->newVersion) {
             $ruleSetClass = '\PHPMD\RuleSetFactory';
             $ruleSetFactory = new $ruleSetClass(); //php 5.2 parser compatability
 
         } else {
+            @include 'PHP/PMD/RuleSetFactory.php';
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();
-
         }
         $ruleSetFactory->setMinimumPriority($this->minimumPriority);
 
-        $phpmd = new $class_name();
+        $phpmd = new $className();
         $phpmd->setFileExtensions($this->allowedFileExtensions);
         $phpmd->setIgnorePattern($this->ignorePatterns);
 

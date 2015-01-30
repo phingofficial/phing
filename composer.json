@@ -44,7 +44,8 @@
 	"pear-pear.php.net/XML_Serializer": "0.20.x",
 	"squizlabs/php_codesniffer": "~2.2",
 	"lastcraft/simpletest": "@dev",
-	"ext-pdo_sqlite": "*"
+	"ext-pdo_sqlite": "*",
+        "phpmd/phpmd": "~2.2"
     },
     "autoload": {
         "classmap": ["classes/phing/"]

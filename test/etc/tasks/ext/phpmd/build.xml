@@ -1,0 +1,26 @@
+<project name="PHPLOC" default="test">
+	<target name="testReportText">
+		<phpmd>
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+            <formatter type="text" outfile="phpmd-report.txt" />
+		</phpmd>
+	</target>
+	<target name="testReportHtml">
+		<phpmd>
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+            <formatter type="html" outfile="phpmd-report.html" />
+		</phpmd>
+	</target>
+	<target name="testReportXml">
+		<phpmd>
+			<fileset dir=".">
+				<include name="*.php" />
+			</fileset>
+            <formatter type="xml" outfile="phpmd-report.xml" />
+		</phpmd>
+	</target>
+</project>
