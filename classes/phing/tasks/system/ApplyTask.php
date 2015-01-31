@@ -672,7 +672,7 @@ class ApplyTask extends Task
 
             // Validating the O.S. variant
             if ('WIN' == $this->osvariant) {
-                $this->realCommand = 'start /b ' . $this->realcommand; // MS Windows background process forking
+                $this->realCommand = 'start /b ' . $this->realCommand; // MS Windows background process forking
             } else {
                 $this->realCommand .= ' &'; // GNU/Linux background process forking
             }
