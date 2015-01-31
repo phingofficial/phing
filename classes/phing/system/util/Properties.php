@@ -21,7 +21,7 @@
  */
 use Phing\Io\File;
 use Phing\Io\IOException;
-use Phing\Util\Properties\PropertyExpansionHelper;
+use Phing\Util\Properties\PropertySet;
 use Phing\Util\Properties\PropertySetImpl;
 use Phing\Util\Properties\PropertyFileReader;
 use Phing\Util\Properties\PropertyFileWriter;
@@ -45,7 +45,7 @@ use Phing\Util\Properties\PropertyFileWriter;
  */
 class Properties implements IteratorAggregate
 {
-
+    /** @var PropertySet */
     private $properties;
 
     /**
@@ -60,7 +60,7 @@ class Properties implements IteratorAggregate
      */
     public function __construct($properties = null)
     {
-        $this->properties = new PropertyExpansionHelper(new PropertySetImpl());
+        $this->properties = new PropertySetImpl();
 
         if (is_array($properties)) {
             foreach ($properties as $key => $value) {
@@ -123,13 +123,23 @@ class Properties implements IteratorAggregate
     }
 
     /**
-     * Returns the internal PropertySet.
+     * Returns a copy of the internal PropertySet.
      *
-     * ${}-style property references are not expanded.
+     * This method exists for BC reasons. ${}-style property references are not expanded.
      *
-     * @return \ArrayAccess
+     * @return array
      */
     public function getProperties()
+    {
+        return iterator_to_array($this->properties);
+    }
+
+    /**
+     * Returns the PropertySet used internally.
+     *
+     * @return PropertySet
+     */
+    public function getPropertySet()
     {
         return $this->properties;
     }
