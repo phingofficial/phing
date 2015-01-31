@@ -342,7 +342,7 @@ class PropertyTask extends Task
         }
 
         if ($this->file !== null) {
-            $this->loadFile($this->file);
+            $this->loadFile();
         }
 
         if ($this->env !== null) {
@@ -441,18 +441,17 @@ class PropertyTask extends Task
 
     /**
      * load properties from a file.
-     * @param File $file
      * @throws \Phing\Exception\BuildException
      */
-    protected function loadFile(File $file)
+    protected function loadFile()
     {
-        $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
+        $this->log("Loading " . $this->file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
-            if ($file->exists()) {
-                $this->addProperties($this->fetchPropertiesFromFile($file));
+            if ($this->file->exists()) {
+                $this->addProperties($this->fetchPropertiesFromFile());
             } else {
                 $this->log(
-                    "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
+                    "Unable to find property file: " . $this->file->getAbsolutePath() . "... skipped",
                     Project::MSG_WARN
                 );
             }
@@ -461,13 +460,13 @@ class PropertyTask extends Task
         }
     }
 
-    protected function fetchPropertiesFromFile(File $file)
+    protected function fetchPropertiesFromFile()
     {
         // do not use the "Properties" facade to defer property expansion
         // (the Project will take care of it)
         $properties = new PropertySetImpl();
         $reader = new PropertyFileReader($properties);
-        $reader->load($file, $this->section);
+        $reader->load($this->file, $this->section);
 
         return $properties;
     }

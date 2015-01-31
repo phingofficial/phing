@@ -127,7 +127,7 @@ class XmlPropertyTask extends PropertyTask
             throw new BuildException("You must specify file to load properties from", $this->getLocation());
         }
 
-        $this->loadFile($this->file);
+        $this->loadFile();
     }
 
     /**
