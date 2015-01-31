@@ -74,6 +74,30 @@ abstract class AbstractBuildFileTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Scan the log buffer for all lines matching the pattern
+     * "assert [value1] == [value2]" and assert that value1 and
+     * value2 are equal.
+     *
+     * That way, simple test buildfiles can be
+     * written that can easily be interpreted when run alone,
+     * but are also easier to understand because everything
+     * is kept together in the buildfile. Of course, that only works
+     * for simple cases like checking the value, but does not guarantee
+     * that a particular line occurs at all.
+     *
+     * @param $target Optional name of a target that is to be executed before scanning the log.
+     */
+    protected function scanAssertionsInLogs($target = null)
+    {
+        if ($target) $this->executeTarget($target);
+        foreach ($this->logBuffer as $log) {
+            if (preg_match('/assert\s*(.*)==(.*)/i', $log, $m)) {
+                $this->assertEquals(trim($m[1]), trim($m[2]), $log);
+            }
+        }
+    }
+
+    /**
      *  run a target, expect for any build exception
      *
      * @param  target target to run
