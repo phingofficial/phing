@@ -14,7 +14,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Util\Properties\PropertySet;
-use Properties;
+use Phing\Util\Properties\PropertyFileReader;
 use PropertyValue;
 use Phing\Util\StringHelper;
 use Phing\Util\Properties\PropertySetImpl;
@@ -174,13 +174,9 @@ class Project
         $taskdefs = Phing::getResourcePath("phing/tasks/defaults.properties");
 
         try { // try to load taskdefs
-            $props = new Properties();
-            $in = new File((string)$taskdefs);
-
-            if ($in === null) {
-                throw new BuildException("Can't load default task list");
-            }
-            $props->load($in);
+            $props = new PropertySetImpl();
+            $reader = new PropertyFileReader($props);
+            $reader->load(new File((string)$taskdefs));
 
             foreach ($props as $key => $value) {
                 $this->addTaskDefinition($key, $value);
@@ -193,12 +189,9 @@ class Project
         $typedefs = Phing::getResourcePath("phing/types/defaults.properties");
 
         try { // try to load typedefs
-            $props = new Properties();
-            $in = new File((string)$typedefs);
-            if ($in === null) {
-                throw new BuildException("Can't load default datatype list");
-            }
-            $props->load($in);
+            $props = new PropertySetImpl();
+            $reader = new PropertyFileReader($props);
+            $reader->load(new File((string)$typedefs));
 
             foreach ($props as $key => $value) {
                 $this->addDataTypeDefinition($key, $value);
