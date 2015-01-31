@@ -439,19 +439,30 @@ class PropertyTask extends Task
         }
     }
 
-    /**
-     * load properties from a file.
-     * @throws \Phing\Exception\BuildException
-     */
     protected function loadFile()
     {
-        $this->log("Loading " . $this->file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
+        $properties = new PropertySetImpl();
+        $this->processFile($this->file, $properties);
+        $this->addProperties($properties);
+    }
+
+    /**
+     * Try to load properties from a given file into a given PropertySet.
+     *
+     * @param File        $file       The file to read.
+     * @param PropertySet $properties The PropertySet to add properties to.
+     *
+     * @throws BuildException When the file cannot be read.
+     */
+    protected function processFile(File $file, PropertySet $properties)
+    {
+        $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
-            if ($this->file->exists()) {
-                $this->addProperties($this->fetchPropertiesFromFile());
+            if ($file->exists()) {
+                $this->fetchPropertiesFromFile($file, $properties);
             } else {
                 $this->log(
-                    "Unable to find property file: " . $this->file->getAbsolutePath() . "... skipped",
+                    "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
                     Project::MSG_WARN
                 );
             }
@@ -460,14 +471,11 @@ class PropertyTask extends Task
         }
     }
 
-    protected function fetchPropertiesFromFile()
+    protected function fetchPropertiesFromFile(File $file, PropertySet $properties)
     {
         // do not use the "Properties" facade to defer property expansion
         // (the Project will take care of it)
-        $properties = new PropertySetImpl();
         $reader = new PropertyFileReader($properties);
-        $reader->load($this->file, $this->section);
-
-        return $properties;
+        $reader->load($file, $this->section);
     }
 }
