@@ -25,54 +25,19 @@ use Phing\Exception\BuildException;
 /**
  * A class that can expand ${}-style references in arbitrary strings with the
  * corresponding values from a PropertySet.
- *
- * As this class already "contains" a property set, it also acts as a decorator
- * for it and takes care of expanding propery references in the property values
- * themselves.
  */
-class PropertyExpansionHelper implements PropertySet
+class PropertyExpansionHelper
 {
-    protected $props;
-    protected $refStack;
+    protected $properties;
 
-    public function __construct(PropertySet $props)
+    /**
+     * Constructor.
+     *
+     * @param PropertySet $propertySet The PropertySet that will be used for all expansions.
+     */
+    public function __construct(PropertySet $propertySet)
     {
-        $this->props = $props;
-    }
-
-    public function offsetGet($key)
-    {
-        return $this->expand($this->props->offsetGet($key));
-    }
-
-    public function offsetSet($key, $value)
-    {
-        $this->props->offsetSet($key, $value);
-    }
-
-    public function offsetExists($key)
-    {
-        return $this->props->offsetExists($key);
-    }
-
-    public function offsetUnset($key)
-    {
-        $this->props->offsetUnset($key);
-    }
-
-    public function getIterator()
-    {
-        return new PropertyExpansionIterator($this, $this->props->getIterator());
-    }
-
-    public function isEmpty()
-    {
-        return $this->props->isEmpty();
-    }
-
-    public function keys()
-    {
-        return $this->props->keys();
+        $this->properties = $propertySet;
     }
 
     /**
@@ -86,13 +51,16 @@ class PropertyExpansionHelper implements PropertySet
      *         by values, or <code>null</code> if the given string is
      *         <code>null</code>.
      *
-     * @exception BuildException if the given value has an unclosed
-     *                           property name, e.g. <code>${xxx</code>
+     * @exception BuildException Then circularly defined properties are found.
      */
     public function expand($buffer)
     {
         if ($buffer === null) {
             return null;
+        }
+
+        if ($buffer instanceof \Traversable) {
+            return $this->expandTraversable($buffer);
         }
 
         if (is_array($buffer)) {
@@ -102,12 +70,46 @@ class PropertyExpansionHelper implements PropertySet
         return $this->match($buffer, array());
     }
 
+    /**
+     * Traverses each element and expands ${} style property references.
+     *
+     * @param \Traversable $traversable The \Traversable to process
+     *
+     * @return array An array that maintains keys from $traversable and has ${}-style property references in all values expanded.
+     *
+     * @exception BuildException Then circularly defined properties are found.
+     */
+    public function expandTraversable(\Traversable $traversable)
+    {
+        return $this->expandArray(iterator_to_array($traversable));
+    }
+
+    /**
+     * Expands ${} style property references in all array entries
+     *
+     * @param array $array The array to process
+     *
+     * @return array An array with identical keys that has ${}-style property references in all values expanded.
+     *
+     * @exception BuildException Then circularly defined properties are found.
+     */
+    public function expandArray(array $array)
+    {
+        return array_map(array($this, 'expand'), $array);
+    }
+
+    /**
+     * This method is public only to be callable from a closure inside itself.
+     * Do not use it directly.
+     */
     public function match($buffer, $refStack)
     {
-        while (true) {
-            $properties = $this->props;
+        do {
+            $old = $buffer;
+
+            $properties = $this->properties;
             $self = $this;
-            $expandedBuffer = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($properties, $refStack, $self) {
+            $buffer = preg_replace_callback('/\$\{([^\$}]+)\}/', function ($matches) use ($properties, $refStack, $self) {
 
                 $propertyName = $matches[1];
 
@@ -134,20 +136,8 @@ class PropertyExpansionHelper implements PropertySet
 
             }, $buffer);
 
-            if ($expandedBuffer == $buffer) {
-                return $buffer;
-            }
+        } while ($old != $buffer);
 
-            $buffer = $expandedBuffer;
-        }
-    }
-
-    protected function expandArray(array $a)
-    {
-        $r = array();
-        foreach ($a as $key => $value) {
-            $r[$key] = $this->expand($value);
-        }
-        return $r;
+        return $buffer;
     }
 }

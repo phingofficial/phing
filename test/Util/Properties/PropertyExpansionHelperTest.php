@@ -5,10 +5,15 @@ use Phing\Util\Properties\PropertyExpansionHelper;
 use Phing\Util\Properties\PropertySet;
 use Phing\Util\Properties\PropertySetImpl;
 
+/**
+ * @covers \Phing\Util\Properties\PropertyExpansionHelper
+ */
 class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
 {
     /** @var PropertySet */
     protected $properties;
+
+    /** @var PropertyExpansionHelper */
     protected $helper;
 
     protected function setUp()
@@ -20,9 +25,29 @@ class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
     public function testSimpleExpansion()
     {
         $this->properties['a'] = 'foo';
-        $this->properties['b'] = '${a}bar';
+        $this->assertEquals('foobar', $this->helper->expand('${a}bar'));
+    }
 
-        $this->assertEquals('foobar', $this->helper['b']);
+    public function testArrayExpansion()
+    {
+        $this->properties['a'] = 'foo';
+        $this->properties['b'] = 'bar';
+
+        $this->assertEquals(array('first' => 'foo', 'second' => 'bar'), $this->helper->expand(array('first' => '${a}', 'second' => '${b}')));
+    }
+
+    public function testTraversableExpansion()
+    {
+        $this->properties['a'] = 'foo';
+        $this->properties['b'] = 'bar';
+        $this->properties['foobar'] = '${a}${b}';
+
+        $this->assertEquals(array('a' => 'foo', 'b' => 'bar', 'foobar' => 'foobar'), $this->helper->expand($this->properties));
+    }
+
+    public function testNullExpansion()
+    {
+        $this->assertNull($this->helper->expand(null));
     }
 
     /**
@@ -32,7 +57,7 @@ class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
     {
         $this->properties['a'] = 'foo${b}';
         $this->properties['b'] = 'bar${a}';
-        $this->helper['a'];
+        $this->helper->expand('${a}');
     }
 
     /**
@@ -44,74 +69,36 @@ class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
         $this->properties['a'] = 'foo${b}';
         $this->properties['b'] = 'bar${c}';
         $this->properties['c'] = 'baz${b}';
-        $this->helper['a'];
-    }
-
-    public function testCircleDoesNotMatterUnlessExpanded()
-    {
-        $this->properties['a'] = 'foo${b}';
-        $this->properties['b'] = 'bar${a}';
-
-        // no problem to reach here, since no expansion takes place
-        $this->properties['b'] = 'baz';
-
-        $this->assertEquals('foobaz', $this->helper['a']);
+        $this->helper->expand('${a}');
     }
 
     public function testPropertyCanBeReferencedMultipleTimes()
     {
         // See http://www.phing.info/trac/ticket/1118
         $this->properties['a'] = 'foo';
-        $this->properties['b'] = '${a}bar${a}';
-
-        $this->assertEquals('foobarfoo', $this->helper['b']);
+        $this->assertEquals('foobarfoo', $this->helper->expand('${a}bar${a}'));
     }
 
-    public function testArrayExpansion()
+    public function testArrayPropertyExpansionImplodesToString()
     {
         $this->properties['a[]'] = 'foo';
         $this->properties['a[]'] = 'bar';
-        $this->properties['expanded'] = '${a}';
 
-        $this->assertEquals(array('foo', 'bar'), $this->helper['a']);
-        $this->assertEquals('foo,bar', $this->helper['expanded']);
-    }
-
-    public function testArrayKeys()
-    {
-        $this->properties['a[f]'] = 'foo';
-        $this->properties['a[b]'] = 'bar';
-
-        $this->assertEquals('foo', $this->helper['a[f]']);
-        $this->assertEquals('bar', $this->helper['a[b]']);
+        $this->assertEquals('foo,bar', $this->helper->expand('${a}'));
     }
 
     public function testBooleanExpansion()
     {
         $this->properties['t'] = true;
         $this->properties['f'] = false;
-        $this->properties['true'] = '${t}';
-        $this->properties['false'] = '${f}';
 
-        /*
-         * If properties are not expanded, PropertyExpansionHelper
-         * feels like a regular PropertySet and does not change anything.
-         */
-        $this->assertTrue($this->helper['t']);
-        $this->assertFalse($this->helper['f']);
-
-        /*
-         * However, when expanding boolean props they will be converted
-         * to "true"/"false" strings.
-         */
-        $this->assertEquals('true', $this->helper['true']);
-        $this->assertEquals('false', $this->helper['false']);
+        $this->assertEquals('true', $this->helper->expand('${t}')); // converted to string
+        $this->assertEquals('false', $this->helper->expand('${f}')); // converted to string
     }
 
     public function testUnknownPropertiesAreLeftUntouched()
     {
-        $this->properties['test'] = 'something ${unknown}';
-        $this->assertEquals('something ${unknown}', $this->helper['test']);
+        $this->assertEquals('something ${unknown}', $this->helper->expand('something ${unknown}'));
     }
 
     public function testExpansionOfArrayKeys()
@@ -119,9 +106,8 @@ class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
         $this->properties['test[a]'] = 'foobar';
         $this->properties['test[b]'] = 'barbaz';
         $this->properties['choice'] = 'a';
-        $this->properties['result'] = '${test[${choice}]}';
 
-        $this->assertEquals('foobar', $this->helper['result']);
+        $this->assertEquals('foobar', $this->helper->expand('${test[${choice}]}'));
     }
 
     public function testNestedExpansion()
@@ -129,8 +115,7 @@ class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
         $this->properties['options.first'] = 'foobar';
         $this->properties['options.second'] = 'barbaz';
         $this->properties['choice'] = 'first';
-        $this->properties['result'] = '${options.${choice}}';
 
-        $this->assertEquals('foobar', $this->helper['result']);
+        $this->assertEquals('foobar', $this->helper->expand('${options.${choice}}'));
     }
 }
