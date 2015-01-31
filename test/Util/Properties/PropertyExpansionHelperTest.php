@@ -1,14 +1,12 @@
 <?php
 namespace Phing\Tests\Util\Properties;
 
-use Phing\Exception\BuildException;
-use Phing\PropertySet;
 use Phing\Util\Properties\PropertyExpansionHelper;
+use Phing\Util\Properties\PropertySet;
 use Phing\Util\Properties\PropertySetImpl;
 
 class PropertyExpansionHelperTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var PropertySet */
     protected $properties;
     protected $helper;

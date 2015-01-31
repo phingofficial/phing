@@ -20,9 +20,7 @@
  * <http://phing.info>.
  */
 use Phing\Io\File;
-use Phing\Io\FileWriter;
 use Phing\Io\IOException;
-use Phing\PropertySet;
 use Phing\Util\Properties\PropertyExpansionHelper;
 use Phing\Util\Properties\PropertySetImpl;
 use Phing\Util\Properties\PropertyFileReader;
