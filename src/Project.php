@@ -91,12 +91,14 @@ class Project
     private $userProperties;
 
     /**
-     * Map of inherited "user" properties - that are those "user"
+     * Array that contains the names of inherited properties as keys.
+     *
+     * Inherited properties are those "user"
      * properties that have been created by tasks and not been set
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties;
+    private $inheritedProperties = array();
 
     /** task definitions for this project*/
     private $taskdefs = array();
@@ -141,7 +143,6 @@ class Project
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
         $this->properties = new PropertySetImpl();
-        $this->inheritedProperties = new PropertySetImpl();
         $this->userProperties = new PropertySetImpl();
         $this->propertyExpansionHelper = new PropertyExpansionHelper($this->properties);
     }
@@ -293,7 +294,7 @@ class Project
      */
     public function setInheritedProperty($name, $value)
     {
-        $this->inheritedProperties[$name] = $value;
+        $this->inheritedProperties[$name] = true;
         $this->setUserProperty($name, $value);
     }
 
