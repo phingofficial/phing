@@ -257,7 +257,7 @@ class UnixFileSystem extends FileSystem
         $name = $f->getName();
         $hidden = (strlen($name) > 0) && ($name{0} == '.');
 
-        return ($hidden ? $this->BA_HIDDEN : 0);
+        return ($hidden ? FileSystem::BA_HIDDEN : 0);
     }
 
     /**
@@ -268,11 +268,11 @@ class UnixFileSystem extends FileSystem
      */
     public function setReadOnly($f)
     {
-        if ($f instanceof File) {
+        if ($f instanceof PhingFile) {
             $strPath = (string) $f->getPath();
             $perms = (int) (@fileperms($strPath) & 0444);
 
-            return FileSystem::Chmod($strPath, $perms);
+            return FileSystem::getFileSystem()->chmod($strPath, $perms);
         } else {
             throw new Exception("IllegalArgumentType: Argument is not File");
         }
