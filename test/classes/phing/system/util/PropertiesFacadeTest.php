@@ -60,9 +60,10 @@ class PropertiesFacadeTest extends PHPUnit_Framework_TestCase
 
     public function testStore()
     {
+        $this->markTestIncomplete('The actual test/assertion is missing...?');
         $p = new Properties();
         $p->load(new File(PHING_TEST_BASE . "/etc/system/util/keys.properties"));
-        $w = new PropertyFileWriter($p->getProperties());
+        $w = new PropertyFileWriter($p->getPropertySet());
     }
 
     public function testBehaviourAsContainer()
