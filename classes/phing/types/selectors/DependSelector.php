@@ -96,7 +96,7 @@ class DependSelector extends BaseSelector
      */
     public function setGranularity($granularity)
     {
-        $this->granularity = (int) granularity;
+        $this->granularity = (int) $granularity;
     }
 
     /**
