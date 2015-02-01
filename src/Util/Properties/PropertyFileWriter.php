@@ -10,9 +10,23 @@ class PropertyFileWriter
     /** @var PropertySet */
     protected $properties;
 
-    public function __construct(PropertySet $s)
+    public function __construct(PropertySet $s = null)
     {
+        if (null === $s) {
+            $s = new PropertySetImpl();
+        }
+
         $this->properties = $s;
+    }
+
+    /**
+     * Returns the PropertySet used.
+     *
+     * @return PropertySet
+     */
+    public function getPropertySet()
+    {
+        return $this->properties;
     }
 
     /**
