@@ -30,7 +30,7 @@ use Phing\Test\AbstractBuildFileTest;
  *
  * @package phing.regression
  */
-class ForeachFileSetTest extends AbstractBuildFileTest
+class Ticket252RegressionTest extends AbstractBuildFileTest
 {
 
     public function setUp()
@@ -42,6 +42,7 @@ class ForeachFileSetTest extends AbstractBuildFileTest
     {
         $f = new File(PHING_TEST_BASE . "/etc/regression/252/build.xml");
         $this->executeTarget("main");
-        $this->assertInLogs("Calling Buildfile '" . $f->getAbsolutePath() . "' with target 'subtask'");
+        $this->assertInLogs("Found file a.");
+        $this->assertInLogs("Found file b.");
     }
 }
