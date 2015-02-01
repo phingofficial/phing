@@ -102,4 +102,22 @@ class PropertySetImpl implements PropertySet
     {
         return empty($this->p);
     }
+
+    public function prefix($prefix)
+    {
+        if (substr($prefix, -1) !== '.') {
+            $prefix .= '.';
+        }
+
+        $propertySet = new self();
+        $len = strlen($prefix);
+
+        foreach ($this->p as $key => $value) {
+            if (strpos($key, $prefix) === 0) {
+                $propertySet->p[substr($key, $len)] = $value;
+            }
+        }
+
+        return $propertySet;
+    }
 }
