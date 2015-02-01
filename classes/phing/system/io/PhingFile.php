@@ -553,10 +553,7 @@ class PhingFile
             throw new IOException("No read access to " . $this->path);
         }
 
-        // for php 5.2 $fs::BA_HIDDEN would not work, so we get it with reflection
-        $obj = new ReflectionClass($fs);
-        $bahidden = $obj->getconstant('BA_HIDDEN');
-        return (($fs->getBooleanAttributes($this) & $bahidden) !== 0);
+        return (($fs->getBooleanAttributes($this) & FileSystem::BA_HIDDEN) !== 0);
     }
 
     /**
