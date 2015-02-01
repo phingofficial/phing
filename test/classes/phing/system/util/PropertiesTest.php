@@ -93,6 +93,7 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
 
     public function testNoExpansionIsPerformedWhenReading()
     {
+        // This asserts BC for the 2.x series
         $file = new File(PHING_TEST_BASE . "/etc/system/util/expansion.properties");
         $this->props->load($file);
 
