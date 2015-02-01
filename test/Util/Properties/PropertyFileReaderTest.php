@@ -28,8 +28,8 @@ class PropertyFileReaderTest extends \PHPUnit_Framework_TestCase {
         $file = new File(PHING_TEST_BASE . "/etc/system/util/test.properties");
         $this->reader->load($file);
 
-        $this->assertEquals('Testline1', $this->props['testline1']);
-        $this->assertEquals('Testline2', $this->props['testline2']);
+        $this->assertEquals('Testline1', $this->props['testline1']); // http://www.phing.info/trac/ticket/585
+        $this->assertEquals('Testline2', $this->props['testline2']); // http://www.phing.info/trac/ticket/585
         $this->assertEquals('ThisIs#NotAComment', $this->props['testline3']);
         $this->assertEquals('ThisIs;NotAComment', $this->props['testline4']);
         $this->assertEquals('This is a multiline value.', $this->props['multiline']);
