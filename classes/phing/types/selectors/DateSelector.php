@@ -149,7 +149,7 @@ class DateSelector extends BaseExtendSelector
     {
         $idx = array_search($cmp, self::$timeComparisons, true);
         if ($idx === null) {
-            $this->setError("Invalid value for " . WHEN_KEY . ": " . $cmp);
+            $this->setError("Invalid value for " . self::WHEN_KEY . ": " . $cmp);
         } else {
             $this->cmp = $idx;
         }
