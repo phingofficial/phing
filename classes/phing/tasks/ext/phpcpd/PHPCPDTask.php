@@ -95,6 +95,11 @@ class PHPCPDTask extends Task
     protected $oldVersion = false;
 
     /**
+     * @var string
+     */
+    private $pharLocation = "";
+
+    /**
      * Set the input source file or directory.
      *
      * @param PhingFile $file The input source file or directory.
@@ -193,6 +198,14 @@ class PHPCPDTask extends Task
     }
 
     /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
+    }
+
+    /**
      * @throws BuildException if the phpcpd classes can't be loaded
      */
     private function loadDependencies()
@@ -202,6 +215,13 @@ class PHPCPDTask extends Task
             )
         ) {
             return;
+        }
+
+        if (!empty($this->pharLocation)) {
+            $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+            ob_start();
+            @include $this->pharLocation;
+            ob_end_clean();
         }
 
         if ($handler = @fopen('SebastianBergmann/PHPCPD/autoload.php', 'r', true)) {
