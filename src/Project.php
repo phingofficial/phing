@@ -14,7 +14,7 @@ use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
 use Phing\Util\Properties\PropertySet;
-use Properties;
+use Phing\Util\Properties\PropertyFileReader;
 use PropertyValue;
 use Phing\Util\StringHelper;
 use Phing\Util\Properties\PropertySetImpl;
@@ -91,12 +91,14 @@ class Project
     private $userProperties;
 
     /**
-     * Map of inherited "user" properties - that are those "user"
+     * Array that contains the names of inherited properties as keys.
+     *
+     * Inherited properties are those "user"
      * properties that have been created by tasks and not been set
      * from the command line or a GUI tool.
      * Mapping is String to String.
      */
-    private $inheritedProperties;
+    private $inheritedProperties = array();
 
     /** task definitions for this project*/
     private $taskdefs = array();
@@ -141,7 +143,6 @@ class Project
         $this->fileUtils = new FileUtils();
         $this->inputHandler = new DefaultInputHandler();
         $this->properties = new PropertySetImpl();
-        $this->inheritedProperties = new PropertySetImpl();
         $this->userProperties = new PropertySetImpl();
         $this->propertyExpansionHelper = new PropertyExpansionHelper($this->properties);
     }
@@ -174,13 +175,9 @@ class Project
         $taskdefs = Phing::getResourcePath("phing/tasks/defaults.properties");
 
         try { // try to load taskdefs
-            $props = new Properties();
-            $in = new File((string)$taskdefs);
-
-            if ($in === null) {
-                throw new BuildException("Can't load default task list");
-            }
-            $props->load($in);
+            $props = new PropertySetImpl();
+            $reader = new PropertyFileReader($props);
+            $reader->load(new File((string)$taskdefs));
 
             foreach ($props as $key => $value) {
                 $this->addTaskDefinition($key, $value);
@@ -193,12 +190,9 @@ class Project
         $typedefs = Phing::getResourcePath("phing/types/defaults.properties");
 
         try { // try to load typedefs
-            $props = new Properties();
-            $in = new File((string)$typedefs);
-            if ($in === null) {
-                throw new BuildException("Can't load default datatype list");
-            }
-            $props->load($in);
+            $props = new PropertySetImpl();
+            $reader = new PropertyFileReader($props);
+            $reader->load(new File((string)$typedefs));
 
             foreach ($props as $key => $value) {
                 $this->addDataTypeDefinition($key, $value);
@@ -300,7 +294,7 @@ class Project
      */
     public function setInheritedProperty($name, $value)
     {
-        $this->inheritedProperties[$name] = $value;
+        $this->inheritedProperties[$name] = true;
         $this->setUserProperty($name, $value);
     }
 
