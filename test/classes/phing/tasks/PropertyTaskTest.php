@@ -28,6 +28,7 @@ use Phing\Test\AbstractBuildFileTest;
  * @author Hans Lellelid (Phing)
  * @author Conor MacNeill (Ant)
  * @package phing.tasks.system
+ * @covers \PropertyTask
  */
 class PropertyTaskTest extends AbstractBuildFileTest
 {

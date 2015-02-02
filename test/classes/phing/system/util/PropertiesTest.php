@@ -42,30 +42,6 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $this->props = new Properties();
     }
 
-    public function tearDown()
-    {
-        unset($this->props);
-    }
-
-    public function testCommentsAreStripped()
-    {
-        $file = new File(PHING_TEST_BASE . "/etc/system/util/test.properties");
-        $this->props->load($file);
-
-        $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
-        $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
-        $this->assertEquals($this->props->getProperty('testline3'), 'ThisIs#NotAComment');
-        $this->assertEquals($this->props->getProperty('testline4'), 'ThisIs;NotAComment');
-    }
-
-    public function testMultilinePropertyFiles()
-    {
-        $file = new File(PHING_TEST_BASE . "/etc/system/util/test.properties");
-        $this->props->load($file);
-
-        $this->assertEquals('This is a multiline value.', $this->props->getProperty('multiline'));
-    }
-
     public function testEmpty()
     {
         $this->assertTrue($this->props->isEmpty());
@@ -104,18 +80,38 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('qux', $this->props->getProperty('baz'));
     }
 
+    public function testKeys()
+    {
+        $this->props = new Properties(array('foo' => 'bar', 'baz' => 'qux'));
+        $this->assertEquals(array('foo', 'baz'), $this->props->keys());
+    }
+
     public function testReadUnknownPropertyReturnsNull()
     {
         $this->assertNull($this->props->getProperty('foo'));
     }
 
-    /**
-     * @ expectedException Phing\Io\IOException
-     */
-    public function testLoadNonexistentFileThrowsException()
+    public function testNoExpansionIsPerformedWhenReading()
     {
-        $file = new File(PHING_TEST_BASE . "/etc/system/util/nonexistent.properties");
-        new Properties($file);
+        // This asserts BC for the 2.x series
+        $file = new File(PHING_TEST_BASE . "/etc/system/util/expansion.properties");
+        $this->props->load($file);
+
+        $this->assertEquals('${a}bar', $this->props->getProperty('b'));
+    }
+
+    public function testReadingInheritedSection()
+    {
+        /*
+            In-depth testing of section loading happens in PropertyFileReaderTest. This
+            just makes sure we're taking care of the section parameter at all.
+        */
+        $file = new File(PHING_TEST_BASE . "/etc/system/util/sections.properties");
+        $this->props->load($file, 'inherited');
+
+        $this->assertEquals('global', $this->props->getProperty('global'));
+        $this->assertEquals('inherited', $this->props->getProperty('section'));
+        $this->assertEquals('from-top', $this->props->getProperty('inherited'));
     }
 
 

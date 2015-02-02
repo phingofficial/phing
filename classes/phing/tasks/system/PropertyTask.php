@@ -342,7 +342,7 @@ class PropertyTask extends Task
         }
 
         if ($this->file !== null) {
-            $this->loadFile($this->file);
+            $this->loadFile();
         }
 
         if ($this->env !== null) {
@@ -439,17 +439,27 @@ class PropertyTask extends Task
         }
     }
 
+    protected function loadFile()
+    {
+        $properties = new PropertySetImpl();
+        $this->processFile($this->file, $properties);
+        $this->addProperties($properties);
+    }
+
     /**
-     * load properties from a file.
-     * @param File $file
-     * @throws \Phing\Exception\BuildException
+     * Try to load properties from a given file into a given PropertySet.
+     *
+     * @param File        $file       The file to read.
+     * @param PropertySet $properties The PropertySet to add properties to.
+     *
+     * @throws BuildException When the file cannot be read.
      */
-    protected function loadFile(File $file)
+    protected function processFile(File $file, PropertySet $properties)
     {
         $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
-                $this->addProperties($this->fetchPropertiesFromFile($file));
+                $this->fetchPropertiesFromFile($file, $properties);
             } else {
                 $this->log(
                     "Unable to find property file: " . $file->getAbsolutePath() . "... skipped",
@@ -461,14 +471,11 @@ class PropertyTask extends Task
         }
     }
 
-    protected function fetchPropertiesFromFile(File $file)
+    protected function fetchPropertiesFromFile(File $file, PropertySet $properties)
     {
         // do not use the "Properties" facade to defer property expansion
         // (the Project will take care of it)
-        $properties = new PropertySetImpl();
         $reader = new PropertyFileReader($properties);
         $reader->load($file, $this->section);
-
-        return $properties;
     }
 }

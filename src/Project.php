@@ -13,6 +13,7 @@ use Phing\Io\IOException;
 use Phing\Exception\BuildException;
 use Phing\Io\File;
 use Phing\Parser\ProjectConfigurator;
+use Phing\Util\Properties\PropertySet;
 use Properties;
 use PropertyValue;
 use Phing\Util\StringHelper;
@@ -70,8 +71,16 @@ class Project
     /**  all globals filters (future use) */
     private $globalFilters = array();
 
-    /** Project properties map (usually String to String). */
+    /**
+     * Project properties map (usually String to String).
+     * @var PropertySet
+     */
     private $properties;
+
+    /**
+     * @var PropertyExpansionHelper
+     */
+    private $propertyExpansionHelper;
 
     /**
      * Map of "user" properties (as created in the Ant task, for example).
@@ -325,10 +334,10 @@ class Project
      */
     public function getProperty($name)
     {
-        if (!isset($this->propertyExpansionHelper[$name])) {
+        if (!isset($this->properties[$name])) {
             return null;
         }
-        return $this->propertyExpansionHelper[$name];
+        return $this->propertyExpansionHelper->expand($this->properties[$name]);
     }
 
     /**
@@ -370,7 +379,7 @@ class Project
      */
     public function getProperties()
     {
-        return iterator_to_array($this->propertyExpansionHelper);
+        return $this->propertyExpansionHelper->expandTraversable($this->properties);
     }
 
     /**
