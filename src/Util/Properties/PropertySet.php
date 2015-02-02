@@ -24,4 +24,14 @@ namespace Phing\Util\Properties;
 interface PropertySet extends \ArrayAccess, \IteratorAggregate {
 	public function isEmpty();
 	public function keys();
+
+    /**
+     * Finds all properties that start with a given prefix, strips it
+     * and returns a new PropertySet instance.
+     *
+     * @param $prefix The prefix to find. A "." will be appended if not already present.
+     *
+     * @return PropertySet A PropertySet that contains the matching properties, with the prefix removed.
+     */
+    public function prefix($prefix);
 } 
