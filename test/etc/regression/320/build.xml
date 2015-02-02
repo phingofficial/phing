@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="regression-320" default="late-expansion">
+
+  <target name="late-expansion">
+       <!--  check late expansion/forward references -->
+       <property name="test2" value="${test}2" />
+       <property name="test">foo</property>
+       <echo>assert foo2 == ${test2}</echo>
+       <property name="test" override="true">bar</property>
+       <echo>assert bar2 == ${test2}</echo>
+  </target>
+</project>
