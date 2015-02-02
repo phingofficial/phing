@@ -1051,6 +1051,13 @@
                         <entry>Yes</entry>
                     </row>
                     <row>
+                        <entry><literal>exclude</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Excluded file matching pattern</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>excludeFile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Excluded patterns file</entry>
