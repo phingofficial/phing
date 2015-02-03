@@ -547,4 +547,15 @@ class FileSyncTask extends Task
     {
         $this->identityFile = $identity;
     }
+
+    /**
+     * Sets exclude matching pattern.
+     *
+     * @param string $exclude
+     * @return void
+     */
+    public function setExclude($exclude)
+    {
+        $this->exclude = $exclude;
+    }
 }
