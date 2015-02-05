@@ -84,6 +84,8 @@ class Properties implements IteratorAggregate
     {
         $r = new PropertyFileReader($this->properties);
         $r->load($file, $section);
+
+        $this->file = $file;
     }
 
     /**
