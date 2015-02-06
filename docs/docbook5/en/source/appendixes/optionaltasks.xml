@@ -7162,10 +7162,6 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This task runs <link xlink:href="http://github.com/sebastianbergmann/phpcpd/"
                 role="extern">phpcpd</link>, a Copy/Paste Detector (CPD) for PHP Code. You need an
             installed version of this software to use this task.</para>
-        <para>
-            <emphasis role="bold">NB:</emphasis> if you have installed the
-            PHPCPD PHAR, make sure you set the
-            <literal>pharlocation</literal> attribute!</para>
 
         <table>
             <title>Attributes</title>
@@ -7212,13 +7208,6 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>The format for the report when no nested formatter is used.</entry>
                         <entry>default</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>pharlocation</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Location of the PHPUnit PHAR package.</entry>
-                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -7317,10 +7306,6 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="PHPLocTask">
         <title>PHPLocTask</title>
         <para>This task runs <link xlink:href="http://github.com/sebastianbergmann/phploc/" role="extern">phploc</link>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</para>
-        <para>
-            <emphasis role="bold">NB:</emphasis> if you have installed the
-            PHPLOC PHAR, make sure you set the
-            <literal>pharlocation</literal> attribute!</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7379,13 +7364,6 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>A comma-separated list of file suffixes to check.</entry>
                         <entry>php</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>pharlocation</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Location of the PHPUnit PHAR package.</entry>
-                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
