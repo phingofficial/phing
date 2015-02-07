@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<project default="test1" name="regression-571">
+
+    <!--
+            Make sure that file name patterns can be a comma-separated list of
+            patterns, regardless of using include/exclude as an attribute or a
+            nested element, with the "shortcut" directly underneath a fileset
+            or through a patternset.
+     -->
+
+    <target name="echo">
+        <echo>match ${file}</echo>
+    </target>
+
+    <target name="test1">
+        <foreach param="file" target="echo">
+            <fileset dir="." includes="a, b" excludes="b, c"/>
+        </foreach>
+    </target>
+
+    <target name="test2">
+        <foreach param="file" target="echo">
+            <fileset dir=".">
+                <include name="a, b"/>
+                <exclude name="b, c"/>
+            </fileset>
+        </foreach>
+    </target>
+
+    <target name="test3">
+
+        <foreach param="file" target="echo">
+            <fileset dir=".">
+                <patternset includes="a, b" excludes="b, c"/>
+            </fileset>
+        </foreach>
+    </target>
+
+    <target name="test4">
+
+        <foreach param="file" target="echo">
+            <fileset dir=".">
+                <patternset>
+                    <include name="a, b"/>
+                    <exclude name="b, c"/>
+                </patternset>
+            </fileset>
+        </foreach>
+    </target>
+
+</project>
