@@ -153,7 +153,7 @@ class PatternSet extends DataType
      * add a name entry to the given list
      *
      * @param  array List onto which the nameentry should be added
-     * @return PatternSetNameEntry Reference to the created PsetNameEntry instance
+     * @return PatternSetNameEntry Reference to the created PatternSetNameEntry instance
      */
     private function creatorValue(&$list)
     {

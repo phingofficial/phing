@@ -86,7 +86,7 @@ abstract class AbstractFileSetTest extends PHPUnit_Framework_TestCase
         }
 
         $f = $this->getInstance();
-        $f->createInclude();
+        $f->createInclude()->setName("**/*.php");
         try {
             $f->setRefid(new Reference("dummyref"));
             $this->fail(
