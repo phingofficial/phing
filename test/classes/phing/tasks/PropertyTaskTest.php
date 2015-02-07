@@ -25,8 +25,8 @@ use Phing\Io\File;
 use Phing\Test\AbstractBuildFileTest;
 
 /**
- * @author Hans Lellelid (Phing)
- * @author Conor MacNeill (Ant)
+ * @author  Hans Lellelid (Phing)
+ * @author  Conor MacNeill (Ant)
  * @package phing.tasks.system
  * @covers \PropertyTask
  */
@@ -38,6 +38,7 @@ class PropertyTaskTest extends AbstractBuildFileTest
         $this->configureProject(PHING_TEST_BASE . "/etc/tasks/property.xml");
     }
 
+
     public function test1()
     {
         // should get no output at all
@@ -46,38 +47,122 @@ class PropertyTaskTest extends AbstractBuildFileTest
 
     public function test2()
     {
-        $this->expectLog("test2", "testprop1=aa, testprop3=xxyy, testprop4=aazz");
+        $this->scanAssertionsInLogs("test2");
     }
+
+    /**
+     * @expectedException \Phing\Exception\BuildException
+     */
+    public function test3()
+    {
+        $this->executeTarget("test3");
+    }
+
 
     public function test4()
     {
-        $this->expectLog("test4", "http.url is http://localhost:999");
+        $this->scanAssertionsInLogs("test4");
     }
 
-    public function testPrefixSuccess()
+    public function testLoadingPropertiesFromAFileList()
     {
-        $this->executeTarget("prefix.success");
-        $this->assertEquals("80", $this->project->getProperty("server1.http.port"));
+        $this->scanAssertionsInLogs("test-filelist-loading");
     }
 
-    public function testPrefixFailure()
+    public function test7()
     {
-        try {
-            $this->executeTarget("prefix.fail");
-        } catch (BuildException $e) {
-            $this->assertTrue(
-                strpos($e->getMessage(), "Prefix is only valid") !== false,
-                "Prefix allowed on non-resource/file load - "
-            );
-
-            return;
-        }
-        $this->fail("Did not throw exception on invalid use of prefix");
+        $this->scanAssertionsInLogs("test7");
     }
 
-    public function testFilterChain()
+    public function testPropertyArrays()
     {
-        $this->executeTarget(__FUNCTION__);
-        $this->assertEquals("World", $this->project->getProperty("filterchain.test"));
+        $this->scanAssertionsInLogs("property-arrays");
+
+        $ps = $this->project->getPropertySet();
+        $this->assertTrue(is_array($ps['array']));
+        $this->assertTrue(is_array($ps['direct']));
     }
+
+    public function testPropertyFileSections1()
+    {
+        $this->scanAssertionsInLogs("property-file-sections-1");
+    }
+
+    public function testPropertyFileSections2()
+    {
+        $this->scanAssertionsInLogs("property-file-sections-2");
+    }
+
+    public function testPropertyFileSections3()
+    {
+        $this->scanAssertionsInLogs("property-file-sections-3");
+    }
+
+    public function testSettingMixedCdataContent()
+    {
+        $this->scanAssertionsInLogs('test-setting-mixed-CDATA-content');
+    }
+
+    public function testReadingFileWithPrefix()
+    {
+        $this->scanAssertionsInLogs('test-read-file-with-prefix');
+    }
+
+    public function testReadingFileListWithPrefix()
+    {
+        $this->scanAssertionsInLogs('test-read-filelist-with-prefix');
+    }
+
+    /**
+     * @expectedException Phing\Exception\BuildException
+     */
+    public function testPrefixWithNameFails()
+    {
+        $task = new PropertyTask();
+        $task->setName('foo');
+        $task->setPrefix('bar');
+        $task->main();
+    }
+
+    /**
+     * @expectedException Phing\Exception\BuildException
+     */
+    public function testPrefixWithEnvFails()
+    {
+        $task = new PropertyTask();
+        $task->setEnvironment('env');
+        $task->setPrefix('bar');
+        $task->main();
+    }
+
+    /**
+     * @expectedException Phing\Exception\BuildException
+     */
+    public function testUsingNameOnlyFails()
+    {
+        $task = new PropertyTask();
+        $task->setName("foo");
+        $task->main();
+    }
+
+    /**
+     * @expectedException Phing\Exception\BuildException
+     */
+    public function testUsingNoNameFileEnvironmentOrFilelistFails()
+    {
+        $task = new PropertyTask();
+        $task->main();
+    }
+
+    /**
+     * @expectedException Phing\Exception\BuildException
+     */
+    public function testUsingSectionWithNameFails()
+    {
+        $task = new PropertyTask();
+        $task->setName("foo");
+        $task->setSection("bar");
+        $task->main();
+    }
+
 }

@@ -75,6 +75,11 @@ class PropertyTask extends Task
      */
     protected $filterChains = array();
 
+    /**
+     * @var FileList[] FileList objects assigned to this task
+     */
+    protected $filelists = array();
+
     /** Whether to log messages as INFO or VERBOSE  */
     protected $logOutput = true;
 
@@ -283,6 +288,18 @@ class PropertyTask extends Task
     }
 
     /**
+     * Creates a new FileList and sets it up for this task.
+     *
+     * @return FileList
+     */
+    public function createFileList()
+    {
+        $fl = new FileList();
+        $this->filelists[] = $fl;
+        return $fl;
+    }
+
+    /**
      * Creates a filterchain
      *
      * @return object The created filterchain object
@@ -317,65 +334,67 @@ class PropertyTask extends Task
      */
     public function main()
     {
+        if ($this->name !== null || $this->env !== null) {
+            if ($this->prefix !== null) {
+                $this->fail("Prefix is only valid when loading from a file.");
+            }
+            if ($this->section !== null) {
+                $this->fail("Section is only valid when loading from a file.");
+            }
+        }
+
         if ($this->name !== null) {
-            if ($this->value === null && $this->reference === null) {
-                throw new BuildException("You must specify value or refid with the name attribute", $this->getLocation(
-                ));
+            // Set a single property value with a given name
+
+            if ($this->value !== null) {
+                $this->addProperty($this->name, $this->value);
+                return;
             }
-        } else {
-            if ($this->file === null && $this->env === null) {
-                throw new BuildException("You must specify file or environment when not using the name attribute", $this->getLocation(
-                ));
-            }
-        }
 
-        if ($this->file === null && $this->prefix !== null) {
-            throw new BuildException("Prefix is only valid when loading from a file.", $this->getLocation());
-        }
-
-        if ($this->file === null && $this->section !== null) {
-            throw new BuildException("Section is only valid when loading from a file.", $this->getLocation());
-        }
-
-        if (($this->name !== null) && ($this->value !== null)) {
-            $this->addProperty($this->name, $this->value);
-        }
-
-        if ($this->file !== null) {
-            $this->loadFile();
-        }
-
-        if ($this->env !== null) {
-            $this->loadEnvironment($this->env);
-        }
-
-        if (($this->name !== null) && ($this->reference !== null)) {
-            // get the refereced property
-            try {
-                $referencedObject = $this->reference->getReferencedObject($this->project);
-
-                if ($referencedObject instanceof Exception) {
-                    $reference = $referencedObject->getMessage();
-                } else {
-                    $reference = $referencedObject->toString();
-                }
-
-                $this->addProperty($this->name, $reference);
-            } catch (BuildException $be) {
-                if ($this->fallback !== null) {
-                    $referencedObject = $this->reference->getReferencedObject($this->fallback);
+            if ($this->reference !== null) {
+                // get the refereced property
+                try {
+                    $referencedObject = $this->reference->getReferencedObject($this->project);
 
                     if ($referencedObject instanceof Exception) {
                         $reference = $referencedObject->getMessage();
                     } else {
                         $reference = $referencedObject->toString();
                     }
+
                     $this->addProperty($this->name, $reference);
-                } else {
-                    throw $be;
+                } catch (BuildException $be) {
+                    if ($this->fallback !== null) {
+                        $referencedObject = $this->reference->getReferencedObject($this->fallback);
+
+                        if ($referencedObject instanceof Exception) {
+                            $reference = $referencedObject->getMessage();
+                        } else {
+                            $reference = $referencedObject->toString();
+                        }
+                        $this->addProperty($this->name, $reference);
+                    } else {
+                        throw $be;
+                    }
                 }
+                return;
             }
+
+            $this->fail("You must specify value or refid with the name attribute");
         }
+
+
+        if ($this->env !== null) {
+            // Load environment variables
+            $this->loadEnvironment($this->env);
+            return;
+        }
+
+        if ($this->file === null && !$this->filelists) {
+            $this->fail("You must specify name and value, environment, file or provide a FileList.");
+        }
+
+        $this->loadFile();
     }
 
     /**
@@ -384,7 +403,6 @@ class PropertyTask extends Task
      */
     protected function loadEnvironment($prefix)
     {
-
         $props = new PropertySetImpl();
         if (substr($prefix, strlen($prefix) - 1) == '.') {
             $prefix .= ".";
@@ -442,7 +460,19 @@ class PropertyTask extends Task
     protected function loadFile()
     {
         $properties = new PropertySetImpl();
-        $this->processFile($this->file, $properties);
+
+        if ($this->file) {
+            $this->processFile($this->file, $properties);
+        }
+
+        if ($this->filelists) {
+            foreach ($this->filelists as $fileList) {
+                $fromDir = $fileList->getDir($this->project);
+                foreach ($fileList->getFiles($this->project) as $srcFile)
+                    $this->processFile(new File("$fromDir/$srcFile"), $properties);
+            }
+        }
+
         $this->addProperties($properties);
     }
 
@@ -456,7 +486,7 @@ class PropertyTask extends Task
      */
     protected function processFile(File $file, PropertySet $properties)
     {
-        $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
+        $this->log("Loading properties from " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
                 $this->fetchPropertiesFromFile($file, $properties);
@@ -473,9 +503,13 @@ class PropertyTask extends Task
 
     protected function fetchPropertiesFromFile(File $file, PropertySet $properties)
     {
-        // do not use the "Properties" facade to defer property expansion
-        // (the Project will take care of it)
         $reader = new PropertyFileReader($properties);
         $reader->load($file, $this->section);
     }
+
+    protected function fail($msg)
+    {
+        throw new BuildException($msg, $this->getLocation());
+    }
+
 }

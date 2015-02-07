@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="property-test" default="test1">
+<project name="property-test" default="ignored">
 
   <target name="test1">
     <property environment="testenv"/>
@@ -9,30 +9,98 @@
   <target name="test2">
     <property name="testprop1" value="aa"/>
     <property file="property1.properties"/>
-    <echo message="testprop1=${testprop1}, testprop3=${testprop3}, testprop4=${testprop4}"/>
+    <echo>assert aa == ${testprop1}</echo>
+    <echo>assert xxyy == ${testprop3}</echo>
+    <echo>assert aazz == ${testprop4}</echo>
+  </target>
+
+  <target name="test3">
+    <property file="property2.properties"/>
+    <echo>${testprop1}</echo>
   </target>
 
   <target name="test4">
+	<!-- This test also relies on late expansion, see regression 320 -->    
+    <!-- port is 999 because property3.properties did not override! -->
     <property name="http.port" value="999" />
     <property file="property3.properties"/>
-    <echo message="http.url is ${http.url}"/>
+    <echo>assert http://localhost:999 == ${http.url}</echo>
+    
+    <property file="property3.properties" override="true" />
+    <echo>assert http://localhost:80 == ${http.url}</echo>
   </target>
   
-  <target name="prefix.success">
-    <property file="property3.properties" prefix="server1"/>
+  <target name="test-filelist-loading">
+  	<!-- 
+  		Test loading property files from a filelist, where latter definitions of a property
+  		override former ones. Only the final set of properties is copied to the project.
+  	-->
+  	<property>
+		<filelist dir="../system/util" files="filelist-1.properties, filelist-2.properties" />
+  	</property>
+    <echo>assert second == ${test}</echo>
+    <echo>assert first,second == ${array}</echo>
+  </target>
+  
+  <target name="test7">
+	<property name="inner" value="outer" />
+	<property name="outer" value="variable-variables" />
+	<echo>assert variable-variables == ${${inner}}</echo>
+  </target>
+  
+  <target name="property-arrays">
+	<property file="../system/util/array.properties" />
+
+	<echo>assert first == ${array[0]}</echo>
+	<echo>assert second == ${array[1]}</echo>
+	<echo>assert third == ${array[test]}</echo>
+
+	<!-- Using properties that are arrays in XML should inline the values: -->
+	<echo>assert first,second,third == ${array}</echo>
+	<!-- Also works for xml attributes -->
+	<echo msg="assert first,second,third == ${array}" />
+	
+	<!-- Set array property directly from XML, not reading files -->
+	<property name="direct[first]" value="direct1" />
+	<property name="direct[]" value="direct2" />
+	<echo>assert direct1 == ${direct[first]}</echo>
+	<echo>assert direct2 == ${direct[0]}</echo>
+  </target>
+  
+  <target name="property-file-sections-1">
+  	<property file="../system/util/sections.properties" />
+  	<echo>assert global == ${global}</echo>
+    <echo>assert global == ${section}</echo>
   </target>
 
-  <target name="prefix.fail">
-    <property name="someprop" value="value" prefix="prefix"/>
+  <target name="property-file-sections-2">
+  	<property file="../system/util/sections.properties" section="top" />
+  	<!-- The "global" section is always available -->
+  	<echo>assert global == ${global}</echo>
+  	<echo>assert top == ${section}</echo>
   </target>
-  
-  <target name="testFilterChain">
-    <property name="filterchain.test" value="Hello">
-      <filterchain>
-        <replaceregexp>
-           <regexp pattern="Hello" replace="World" ignoreCase="true"/>
-         </replaceregexp>
-      </filterchain>
+
+  <target name="property-file-sections-3">
+  	<property file="../system/util/sections.properties" section="inherited" />
+  	<echo>assert global == ${global}</echo>
+  	<echo>assert inherited == ${section}</echo>
+  </target>
+
+  <target name="test-setting-mixed-CDATA-content">
+    <property name="test">This <![CDATA[is]]> a test.</property>
+    <echo>assert This is a test. == This is a test.</echo>
+  </target>
+
+  <target name="test-read-filelist-with-prefix">
+    <property prefix="prefix">
+      <filelist dir="../system/util" files="filelist-1.properties, filelist-2.properties" />
     </property>
+    <echo>assert second == ${prefix.test}</echo>
   </target>
+
+  <target name="test-read-file-with-prefix">
+    <property file="../system/util/test.properties" prefix="prefix"/>
+    <echo>assert Testline1 == ${prefix.testline1}</echo>
+  </target>
+
 </project>

@@ -33,16 +33,12 @@ class PropertyFileReader
     }
 
     /**
-     * Replaces parse_ini_file() or better_parse_ini_file().
-     * Saves a step since we don't have to parse and then check return value
-     * before throwing an error or setting class properties.
+     * Read properties from a file, possibly from a particular section.
      *
-     * @param string $filePath
-     * @param string  $section The property file section to parse
+     * @param File   $file    The property file to load
+     * @param string $section The property file section to parse. May be omitted or <code>null</code>, in which case only the global section will be read.
      *
-     * @throws IOException
-     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
-     * @return array   Properties loaded from file (no prop replacements done yet).
+     * @throws IOException When the file cannot be read
      */
     public function load(File $file, $section = null)
     {

@@ -392,6 +392,16 @@ class Project
     }
 
     /**
+     * Returns the PropertySet used internally. This allows access to raw properties without ${}-expansion.
+     *
+     * @return PropertySet The PropertySet instance used for regular properties.
+     */
+    public function getPropertySet()
+    {
+        return $this->properties;
+    }
+
+    /**
      * Copies all user properties that have been set on the command
      * line or a GUI tool from this instance to the Project instance
      * given as the argument.

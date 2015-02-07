@@ -24,6 +24,7 @@ use Phing\Parser\ProjectConfigurator;
 abstract class AbstractBuildFileTest extends PHPUnit_Framework_TestCase
 {
 
+    /** @var Project */
     protected $project;
 
     /**
