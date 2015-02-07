@@ -53,7 +53,7 @@ class TargetTest extends AbstractBuildFileTest
     public function testHiddenTargets()
     {
         $phingExecutable = '"' . PHING_TEST_BASE . '/../bin/phing"';
-        $buildFile = '"' . PHING_TEST_BASE . '/etc/components/Target/HiddenTargets.xml"';
+        $buildFile = '"' . PHING_TEST_BASE . '/etc/components/Target/Target.xml"';
         $cmd = $phingExecutable . ' -l -f ' . $buildFile;
         exec($cmd, $out);
         $out = implode("\n", $out);
@@ -198,4 +198,27 @@ class TargetTest extends AbstractBuildFileTest
 
         $this->target->main();
     }
+
+    public function testIfConditionWithPropertySet()
+    {
+        $this->expectLogContaining('run-if-condition', 'if-condition!');
+    }
+
+    public function testIfConditionWithPropertyNotSet()
+    {
+        $this->executeTarget('if-condition');
+        $this->assertNotInLogs('if-condition!');
+    }
+
+    public function testUnlessConditionWithPropertyNotSet()
+    {
+        $this->expectLogContaining('unless-condition', 'unless-condition!');
+    }
+
+    public function testUnlessConditionWithPropertySet()
+    {
+        $this->executeTarget('fail-unless-condition');
+        $this->assertNotInLogs('unless-condition!');
+    }
+
 }

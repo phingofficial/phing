@@ -1,10 +1,22 @@
 <?xml version="1.0"?>
-<project name="TargetTest" default="invalid">
-    <property name="cur.dir" value="." />
-    <resolvepath propertyName="cur.dir.resolved" file="${cur.dir}" />
-	
-    <target name="invalid">
-        <fail>This file should only be run via a testcase</fail>
+<project name="TargetTest" default="test">
+
+    <target name="ShowInListTarget" hidden="false"></target>
+    <target name="HideInListTarget" hidden="true"></target>
+
+    <target name="set-condition">
+        <property name="condition" value="true"/>
     </target>
+
+    <target name="if-condition" if="condition">
+        <echo>if-condition!</echo>
+    </target>
+
+    <target name="unless-condition" unless="condition">
+        <echo>unless-condition!</echo>
+    </target>
+
+    <target name="run-if-condition" depends="set-condition, if-condition"/>
+    <target name="fail-unless-condition" depends="set-condition, unless-condition"/>
 
 </project>
