@@ -2399,7 +2399,10 @@
         <para>This task calls another build file. You may specify the target that is to be called
             within the build file. Additionally, the <literal>&lt;phing></literal> Tag may contain
                 <literal>&lt;property></literal> Tags (see <xref xlink:href="#PropertyTask"
-            />).</para>
+            />) to set <emphasis role="bold">user properties</emphasis> for the
+            called buildfile. As user properties are also created when setting property values on the
+            command line during Phing invocation, the <literal>&lt;phing&gt;</literal> call and a direct
+            invocation of Phing on the command line behave the same way.</para>
 
         <table>
             <title>Attributes</title>
