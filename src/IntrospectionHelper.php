@@ -374,6 +374,8 @@ class IntrospectionHelper
                             $value = new Reference($value);
                             break;
                         // any other object params we want to support should go here ...
+                        default:
+                            throw new BuildException("Method {$method->name} in {$this->getElementName($project, $element)} expects its parameter to be of type $classname, but that is not supported.");
                     }
 
                 } // if hint !== null
