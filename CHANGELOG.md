@@ -2,7 +2,7 @@ P     H     I     N     G
 =========================
 
 
-Feb. , 2015 - Phing 2.10.0
+Feb. 9, 2015 - Phing 2.10.0
 --------------------------
 
 This release contains the following new or improved functionality:
@@ -27,7 +27,6 @@ The following tickets were closed in this release:
  * [1168] PhpCodeSnifferTask incompatible with PHP_CS 2.2.0
  * [1167] include task can't really have mode
  * [1163] Phing and PHPMD via composer both
- * [1161] Update phpcpd & phploc tasks to work with phar versions
  * [1160] Documentation lists covereage-report styledir as required.
  * [1159] phpunit task ignores excludeGroups, groups attributes
  * [1152] Add socket condition
