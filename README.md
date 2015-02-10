@@ -36,6 +36,13 @@ The Latest Version
   Details of the latest version can be found on the Phing homepage
   <http://www.phing.info/>.
 
+Supported PHP versions
+----------------------
+
+  We aim to keep Phing 2.x compatible with PHP 5.2 and higher. However,
+  as this is getting increasingly hard to test, we encourage users to
+  upgrade to PHP 5.3 or higher.
+
 Installation
 ------------
 
