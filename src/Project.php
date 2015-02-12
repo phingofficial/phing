@@ -241,7 +241,7 @@ class Project
             $this->log("Overriding previous definition of property " . $name, Project::MSG_VERBOSE);
         }
 
-        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->log("Setting project property: " . $name . " -> " . (is_array($value) ? implode(',', $value) : $value), Project::MSG_DEBUG);
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
     }
@@ -264,7 +264,7 @@ class Project
 
             return;
         }
-        $this->log("Setting project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->log("Setting project property: " . $name . " -> " . (is_array($value) ? implode(',', $value) : $value), Project::MSG_DEBUG);
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
     }
@@ -280,7 +280,7 @@ class Project
      */
     public function setUserProperty($name, $value)
     {
-        $this->log("Setting user project property: " . $name . " -> " . $value, Project::MSG_DEBUG);
+        $this->log("Setting user project property: " . $name . " -> " . (is_array($value) ? implode(',', $value) : $value), Project::MSG_DEBUG);
         $this->userProperties[$name] = $value;
         $this->properties[$name] = $value;
         $this->addReference($name, new PropertyValue($value));
