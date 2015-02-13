@@ -28,4 +28,10 @@
             <include name="build.xml"/>
         </patternset>
     </target>
+
+    <target name="testSocketCondition">
+        <condition property="socket">
+            <socket server="localhost" port="1337" />
+        </condition>
+    </target>
 </project>

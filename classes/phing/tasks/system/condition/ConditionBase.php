@@ -236,6 +236,14 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createSocket()
+    {
+        include_once 'phing/tasks/system/condition/SocketCondition.php';
+        $num = array_push($this->conditions, new SocketCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project
