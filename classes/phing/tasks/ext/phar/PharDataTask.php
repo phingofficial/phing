@@ -48,7 +48,7 @@ class PharDataTask extends MatchingTask
     private $baseDirectory;
 
     /**
-     * @var array
+     * @var IterableFileSet[]
      */
     private $filesets = array();
 
@@ -122,13 +122,13 @@ class PharDataTask extends MatchingTask
              * Delete old archive, if exists.
              */
             if ($this->destinationFile->exists()) {
-                /**
-                 * TODO Check operation for errors...
-                 */
-                $this->destinationFile->delete();
+                $isDeleted = $this->destinationFile->delete();
+                if (!$isDeleted) {
+                    $this->log("Could not delete destination file $this->destinationFile", Project::MSG_WARN);
+                }
             }
 
-            $pharData = new PharData($this->destinationFile);
+            $pharData = new PharData($this->baseDirectory->getPath() . '/' . $this->destinationFile->getName());
 
             foreach ($this->filesets as $fileset) {
                 $this->log(
@@ -136,14 +136,17 @@ class PharDataTask extends MatchingTask
                     Project::MSG_VERBOSE
                 );
 
-                $pharData->buildFromIterator($fileset, realpath($this->baseDirectory->getPath()));
+                $pharData->buildFromIterator($fileset->getIterator(), $fileset->getDir($this->project));
             }
 
             if ($this->compression !== PHAR::NONE && $pharData->canCompress($this->compression)) {
-                $pharData->compress($this->compression);
-                unset($pharData);
+                try {
+                    $pharData->compress($this->compression);
+                } catch(UnexpectedValueException $uve) {
+                    $pharData->compressFiles($this->compression);
+                }
 
-                unlink($this->destinationFile);
+                unset($pharData);
             }
         } catch (Exception $e) {
             throw new BuildException(
