@@ -100,7 +100,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     public function setMessageOutputLevel($level)
     {
-        $this->msgOutputLevel = (int)$level;
+        $this->msgOutputLevel = (int) $level;
     }
 
     /**
@@ -214,7 +214,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
             && $event->getTarget()->getName() != ''
         ) {
             $showLongTargets = $event->getProject()->getProperty("phing.showlongtargets");
-            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName() . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
+            $msg = PHP_EOL . $event->getProject()->getName() . ' > ' . $event->getTarget()->getName(
+                ) . ($showLongTargets ? ' [' . $event->getTarget()->getDescription() . ']' : '') . ':' . PHP_EOL;
             $this->printMessage($msg, $this->out, $event->getPriority());
         }
     }
@@ -247,7 +248,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  BuildEvent $event The BuildEvent
+     * @param  BuildEvent $event  The BuildEvent
      * @see    BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
