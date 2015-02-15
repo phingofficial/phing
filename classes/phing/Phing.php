@@ -141,6 +141,9 @@ class Phing
      */
     private static $origIniSettings = array();
 
+    /** Whether or not output to the log is to be unadorned. */
+    private $emacsMode = false;
+
     /**
      * Entry point allowing for more options from other front ends.
      *
@@ -345,6 +348,15 @@ class Phing
             ))
         ) {
             self::$msgOutputLevel = Project::MSG_WARN;
+            unset($args[$key]);
+        }
+
+        if (
+            false !== ($key = array_search('-emacs', $args, true))
+            ||
+            false !== ($key = array_search('-e', $args, true))
+        ) {
+            $this->emacsMode = true;
             unset($args[$key]);
         }
 
@@ -777,6 +789,7 @@ class Phing
         $logger->setMessageOutputLevel(self::$msgOutputLevel);
         $logger->setOutputStream(self::$out);
         $logger->setErrorStream(self::$err);
+        $logger->setEmacsMode($this->emacsMode);
 
         return $logger;
     }
@@ -924,6 +937,7 @@ class Phing
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
         $msg .= "  -verbose               be extra verbose" . PHP_EOL;
         $msg .= "  -debug                 print debugging information" . PHP_EOL;
+        $msg .= "  -emacs, -e             produce logging information without adornments" . PHP_EOL;
         $msg .= "  -diagnostics           print diagnostics information" . PHP_EOL;
         $msg .= "  -longtargets           show target descriptions during build" . PHP_EOL;
         $msg .= "  -logfile <file>        use given file for log" . PHP_EOL;
