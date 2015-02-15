@@ -907,6 +907,8 @@
         <title>FileHashTask</title>
         <para>Calculates either MD5 or SHA1 hash value of a file and stores the value as a hex
             string in a property.</para>
+        <para>Other popular <link xlink:href="http://php.net/manual/en/function.hash-algos.php">algorithms</link>
+            like "crc32" or "sha512" may be used with help of the <literal>algorithm</literal> attribute.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -937,6 +939,15 @@
                         <entry><literal role="type">Integer</literal></entry>
                         <entry>Specifies what hash algorithm to use. 0=MD5, 1=SHA1</entry>
                         <entry>0</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>algorithm</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Specifies what hash algorithm to use. Supported
+                            <link xlink:href="http://php.net/manual/en/function.hash-algos.php">algorithms</link>.
+                        </entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
