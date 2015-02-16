@@ -2,7 +2,7 @@
 <?php
 
 /**
- * Code form Symfony/Component/Console/Output/StreamOutput.php
+ * Code from Symfony/Component/Console/Output/StreamOutput.php
  */
 function hasColorSupport() {
     if (DIRECTORY_SEPARATOR == '\\') {
