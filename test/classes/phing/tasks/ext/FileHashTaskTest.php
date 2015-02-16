@@ -43,4 +43,9 @@ class FileHashTaskTest extends BuildFileTest
     {
         $this->expectLog("testSHA1", "dadd0aafb79d9fb8299a928efb23c112874bbda3");
     }
+
+    public function testCRC32()
+    {
+        $this->expectLog("testCRC32", "d34c2e86");
+    }
 }

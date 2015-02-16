@@ -11,6 +11,12 @@
     	hashtype="1"/>
    	<echo>${filehash.sha1}</echo>
     </target>
+
+	<target name="testCRC32">
+		<filehash file="filehash.bin" propertyName="filehash.crc32"
+				  algorithm="crc32"/>
+		<echo>${filehash.crc32}</echo>
+	</target>
     
-    <target name="build" depends="testMD5,testSHA1"/>
+    <target name="build" depends="testMD5,testSHA1,testCRC32"/>
 </project>
