@@ -151,7 +151,7 @@ class PHPMDFormatterElement
         if (!class_exists('\\PHPMD\\Writer\\StreamWriter')) {
             $renderClass = 'PHP_PMD_RENDERER_' . $this->className;
             $writerClass = 'PHP_PMD_Writer_Stream';
-            include_once 'PHP/PPMD/Renderer/' . $this->className . '.php';
+            include_once 'PHP/PMD/Renderer/' . $this->className . '.php';
             include_once 'PHP/PMD/Writer/Stream.php';
         } else {
             $renderClass = 'PHPMD\Renderer\\' . $this->className;
