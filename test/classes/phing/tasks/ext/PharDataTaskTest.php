@@ -44,6 +44,11 @@ class PharDataTaskTest extends BuildFileTest
         $this->executeTarget("clean");
     }
 
+    public function testGenerateWithoutBasedir()
+    {
+        $this->expectBuildException(__FUNCTION__, 'basedir attribute must be set');
+    }
+
     public function testGenerateTar()
     {
         $this->executeTarget(__FUNCTION__);

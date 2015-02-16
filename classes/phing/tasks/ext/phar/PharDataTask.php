@@ -179,11 +179,14 @@ class PharDataTask extends MatchingTask
         if (!$this->destinationFile->canWrite()) {
             throw new BuildException("Can not write to the specified destfile!", $this->getLocation());
         }
-        if (!is_null($this->baseDirectory)) {
-            if (!$this->baseDirectory->exists()) {
-                throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!",
-                    $this->getLocation());
-            }
+
+        if (is_null($this->baseDirectory)) {
+            throw new BuildException("basedir cattribute must be set", $this->getLocation());
+        }
+
+        if (!$this->baseDirectory->exists()) {
+            throw new BuildException("basedir '" . (string) $this->baseDirectory . "' does not exist!",
+                $this->getLocation());
         }
     }
 }

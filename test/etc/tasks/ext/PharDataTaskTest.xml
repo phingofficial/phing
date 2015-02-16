@@ -4,7 +4,9 @@
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}"/>
 
     <target name="setup">
+        <echo>${tmp.dir}</echo>
         <mkdir dir="${tmp.dir}"/>
+        <touch file="${tmp.dir}/testfile"/>
     </target>
 
     <target name="clean">
@@ -13,9 +15,8 @@
 
     <target name="testGenerateWithoutBasedir">
         <phardata
-                destfile="archive.tar"
-                basedir="${tmp.dir.resolved}">
-            <fileset dir="${project.basedir}">
+                destfile="archive.tar">
+            <fileset dir="${tmp.dir.resolved}">
                 <include name="**/**"/>
             </fileset>
         </phardata>
@@ -25,7 +26,7 @@
         <phardata
                 destfile="archive.tar"
                 basedir="${tmp.dir.resolved}">
-            <fileset dir="${project.basedir}">
+            <fileset dir="${tmp.dir.resolved}">
                 <include name="**/**"/>
             </fileset>
         </phardata>
@@ -36,7 +37,7 @@
                 destfile="archive.tar"
                 basedir="${tmp.dir.resolved}"
                 compression="gzip">
-            <fileset dir="${project.basedir}">
+            <fileset dir="${tmp.dir.resolved}">
                 <include name="**/**"/>
             </fileset>
         </phardata>
@@ -47,7 +48,7 @@
                 destfile="archive.tar"
                 basedir="${tmp.dir.resolved}"
                 compression="bzip2">
-            <fileset dir="${project.basedir}">
+            <fileset dir="${tmp.dir.resolved}">
                 <include name="**/**"/>
             </fileset>
         </phardata>
@@ -57,7 +58,7 @@
         <phardata
                 destfile="archive.zip"
                 basedir="${tmp.dir.resolved}">
-            <fileset dir="${project.basedir}">
+            <fileset dir="${tmp.dir.resolved}">
                 <include name="**/**"/>
             </fileset>
         </phardata>
@@ -68,7 +69,7 @@
                 destfile="archive.zip"
                 basedir="${tmp.dir.resolved}"
                 compression="gzip">
-            <fileset dir="${project.basedir}">
+            <fileset dir="${tmp.dir.resolved}">
                 <include name="**/**"/>
             </fileset>
         </phardata>
@@ -79,7 +80,7 @@
                 destfile="archive.zip"
                 basedir="${tmp.dir.resolved}"
                 compression="bzip2">
-            <fileset dir="${project.basedir}">
+            <fileset dir="${tmp.dir.resolved}">
                 <include name="**/**"/>
             </fileset>
         </phardata>
