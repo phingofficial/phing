@@ -26,6 +26,23 @@ set_include_path(
 
 require_once 'phing/Phing.php';
 
+/**
+* Code from Symfony/Component/Console/Output/StreamOutput.php
+*/
+function hasColorSupport()
+{
+    if (DIRECTORY_SEPARATOR == '\\') {
+        return false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI');
+    }
+    return function_exists('posix_isatty') && @posix_isatty(STDOUT);
+}
+
+// default logger
+if (!in_array('-logger', $argv) && hasColorSupport()) {
+    $argv[] = '-logger';
+    $argv[] = 'phing.listener.AnsiColorLogger';
+}
+
 try {
 
     /* Setup Phing environment */
