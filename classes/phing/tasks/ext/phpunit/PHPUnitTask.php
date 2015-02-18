@@ -290,9 +290,9 @@ class PHPUnitTask extends Task
     /**
      * Add a new listener to all tests of this taks
      *
-     * @param PHPUnit_Framework_TestListener $listener
+     * @param $listener
      */
-    public function addListener(PHPUnit_Framework_TestListener $listener)
+    private function addListener($listener)
     {
         $this->listeners[] = $listener;
     }
