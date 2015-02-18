@@ -56,42 +56,42 @@ class PharDataTaskTest extends BuildFileTest
     public function testGenerateTar()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/archive.tar");
+        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.tar");
         $this->assertNotFalse($manifestFile);
     }
 
     public function testGenerateTarGz()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/archive.tar.gz");
+        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.tar.gz");
         $this->assertNotFalse($manifestFile);
     }
 
     public function testGenerateTarBz2()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/archive.tar.bz2");
+        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.tar.bz2");
         $this->assertNotFalse($manifestFile);
     }
 
     public function testGenerateZip()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
     }
 
     public function testGenerateZipGz()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
     }
 
     public function testGenerateZipBz2()
     {
         $this->executeTarget(__FUNCTION__);
-        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/archive.zip");
+        $manifestFile = realpath(PHING_TEST_BASE . "/tmp/phar/archive.zip");
         $this->assertNotFalse($manifestFile);
     }
 }
