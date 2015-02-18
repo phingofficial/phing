@@ -9,12 +9,6 @@
 // turn off html errors
 ini_set('html_errors', 'off');
 
-// default logger
-if (!in_array('-logger', $argv)) {
-    $argv[] = '-logger';
-    $argv[] = 'phing.listener.AnsiColorLogger';
-}
-
 putenv("PHING_HOME=" . realpath(dirname(__FILE__) . '/../'));
 
 require_once dirname(__FILE__) . '/phing.php';
