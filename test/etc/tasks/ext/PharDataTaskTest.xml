@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="PharDataTaskTest" basedir="." default="main">
-    <property name="tmp.dir" value="tmp"/>
+    <property name="tmp.dir" value="tmp/phar"/>
     <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}"/>
 
     <target name="setup">
-        <echo>${tmp.dir}</echo>
         <mkdir dir="${tmp.dir}"/>
         <touch file="${tmp.dir}/testfile"/>
     </target>
