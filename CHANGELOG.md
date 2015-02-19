@@ -2,6 +2,15 @@ P     H     I     N     G
 =========================
 
 
+Feb. 19, 2015 - Phing 2.10.1
+----------------------------
+
+This release fixes the following tickets:
+
+ * [1174] Phing can't work PHPUnit(PHAR)
+ * [1173] [PHP Error] include_once(PHP/PPMD/Renderer/XMLRenderer.php): failed to open stream: No such file or directory
+ * [1171] Socket condition does not work
+
 Feb. 9, 2015 - Phing 2.10.0
 --------------------------
 
