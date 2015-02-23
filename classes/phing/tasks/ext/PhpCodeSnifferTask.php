@@ -110,13 +110,7 @@ class PhpCodeSnifferTask extends Task
      */
     public function setStandard($standards)
     {
-        $this->standards = array();
-        $token = ' ,;';
-        $ext = strtok($standards, $token);
-        while ($ext !== false) {
-            $this->standards[] = $ext;
-            $ext = strtok($token);
-        }
+        $this->standards = array_map('trim', explode(',', $standards));
     }
 
     /**
