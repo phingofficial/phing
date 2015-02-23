@@ -7295,6 +7295,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>default</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>fuzzy</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If fuzzy is set to true, the task will perform a fuzzy match.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
