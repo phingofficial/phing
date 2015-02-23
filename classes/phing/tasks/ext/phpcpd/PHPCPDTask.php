@@ -62,6 +62,13 @@ class PHPCPDTask extends Task
     protected $minTokens = 70;
 
     /**
+     * Allow for fuzzy matches.
+     *
+     * @var boolean
+     */
+    protected $fuzzy = false;
+
+    /**
      * List of valid file extensions for analyzed files.
      *
      * @var array
@@ -132,6 +139,16 @@ class PHPCPDTask extends Task
     public function setMinTokens($minTokens)
     {
         $this->minTokens = $minTokens;
+    }
+
+    /**
+     * Sets the fuzzy match (default: false).
+     *
+     * @param boolean $fuzzy fuzzy match
+     */
+    public function setFuzzy($fuzzy)
+    {
+        $this->fuzzy = $fuzzy;
     }
 
     /**
@@ -284,7 +301,8 @@ class PHPCPDTask extends Task
         $clones = $detector->copyPasteDetection(
             $filesToParse,
             $this->minLines,
-            $this->minTokens
+            $this->minTokens,
+            $this->fuzzy
         );
 
         $this->log('Finished copy/paste detection');
