@@ -6923,7 +6923,8 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>standard</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The name of the standard to check for.</entry>
+                        <entry>The list of coding standards to test against.
+                            Separated by space, comma or semicolon.</entry>
                         <entry>Generic</entry>
                         <entry>No</entry>
                     </row>
