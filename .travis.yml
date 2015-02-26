@@ -10,9 +10,8 @@ php:
  
 matrix:
   allow_failures:
-    - php:
-      - 7.0
-      - hhvm-nightly
+    - php: hhvm-nightly
+    - php: 7.0
 
 script: ./.travis.sh
 
