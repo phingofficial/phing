@@ -36,6 +36,12 @@ class PharDataTaskTest extends BuildFileTest
             $this->markTestSkipped("PHAR tests do not run on HHVM");
         }
 
+        if (version_compare(PHP_VERSION, '5.3.2') < 0) {
+            $this->markTestSkipped(
+                'Need at least PHP version 5.3.2 to run this unit test'
+            );
+        }
+
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/ext/PharDataTaskTest.xml"
