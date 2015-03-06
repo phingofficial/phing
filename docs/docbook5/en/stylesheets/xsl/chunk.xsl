@@ -12,4 +12,5 @@
     <xsl:import href="common.xsl"/>
     <xsl:import href="html-common.xsl"/>
 
+    <xsl:param name="use.id.as.filename" select="1"/>
 </xsl:stylesheet>
