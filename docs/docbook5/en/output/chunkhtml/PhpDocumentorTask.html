@@ -1,0 +1,48 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.56 PhpDocumentorTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PhpDependTask.html" title="C.55 PhpDependTask"><link rel="next" href="PhpDocumentor2Task.html" title="C.57 PhpDocumentor2Task"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.56 PhpDocumentorTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PhpDependTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PhpDocumentor2Task.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhpDocumentorTask"></a>C.56 PhpDocumentorTask</h2></div></div></div>
+        
+        <p> <span class="bold"><strong>This task is now deprecated in favor of the
+            <a class="xref" href="PhpDocumentor2Task.html" title="C.57 PhpDocumentor2Task">Section C.57, “PhpDocumentor2Task”</a>.</strong></span></p>
+        <p> This task runs <a class="ulink" href="http://www.phpdoc.org/" target="_top">phpDocumentor</a>, an auto-documentation tool for PHP similar to Javadoc.</p>
+
+        <div class="table"><a name="idp54371552"></a><p class="formal-object-title"><span class="label">Table C.79: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">title</code></td><td><code class="literal">String</code></td><td>Title for browser window / package index.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">destdir</code></td><td><code class="literal">String</code></td><td>Destination directory for output files.</td><td>n/a</td><td rowspan="2">Yes</td></tr><tr><td><code class="literal">target</code></td><td><code class="literal">String</code></td><td>Alias of <code class="literal">destdir</code> ("target" is config param used by
+                            PhpDocumentor)</td><td>n/a</td></tr><tr><td><code class="literal">output</code></td><td><code class="literal">String</code></td><td>Output format (such as <code class="literal">HTML:Smarty:PHP</code>).</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">sourcecode</code></td><td><code class="literal">Boolean</code></td><td>Generate syntax-highlighted sourcecode file for each file
+                            parsed?</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">examplesdir</code></td><td><code class="literal">String</code></td><td>Path to directory in which to look for example documentation.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">parseprivate</code></td><td><code class="literal">Boolean</code></td><td>Parse @internal and elements marked private.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">javadocdesc</code></td><td><code class="literal">Boolean</code></td><td>JavaDoc-compliant description parsing. Use on/off, default off (more
+                            flexibility)</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>Suppress output to STDOUT.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">packageoutput</code></td><td><code class="literal">String</code></td><td>Output documentation only for selected packages. Use a
+                            comma-delimited list</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">ignoretags</code></td><td><code class="literal">String</code></td><td>Comma-separated list of tags to ignore (@package, @subpackage,
+                            @access and @ignore may not be ignored).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">defaultpackagename</code></td><td><code class="literal">String</code></td><td>name to use for the default package. If not specified, uses
+                            'default'</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">defaultcategoryname</code></td><td><code class="literal">String</code></td><td>name to use for the default category. If not specified, uses
+                            'default'</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">pear</code></td><td><code class="literal">Boolean</code></td><td>Treat parse dirs as PEAR repository? (package is directory, _members
+                            are @access private)</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">templatebase</code></td><td><code class="literal">String</code></td><td>Set base dirctory of all templates for this parse.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">undocumentedelements</code></td><td><code class="literal">Boolean</code></td><td>Control whether or not warnings will be shown for undocumented
+                            elements. Useful for identifying classes and methods that haven't yet
+                            been documented.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">customtags</code></td><td><code class="literal">Boolean</code></td><td>Custom tags, will be recognized and put in tags[] instead of
+                            unknowntags[].</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">ignore</code></td><td><code class="literal">String</code></td><td>List of files to ignore, separated by ','.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54381984"></a>C.56.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;phpdoc title="API Documentation"
+  destdir="apidocs"
+  sourcecode="false"
+  output="HTML:Smarty:PHP"&gt;
+   &lt;fileset dir="./classes"&gt;
+      &lt;include name="**/*.php" /&gt;
+   &lt;/fileset&gt;
+   &lt;projdocfileset dir="."&gt;
+      &lt;include name="README" /&gt;
+      &lt;include name="INSTALL" /&gt;
+      &lt;include name="CHANGELOG" /&gt;
+   &lt;/projdocfileset&gt;
+&lt;/phpdoc&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54446576"></a>C.56.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code> - Files that should be included for
+                        parsing</p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">projdocfileset</a></code> - Files that should be treated as
+                        README/INSTALL/CHANGELOG files</p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PhpDependTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PhpDocumentor2Task.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.55 PhpDependTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.57 PhpDocumentor2Task</td></tr></table></div></body></html>

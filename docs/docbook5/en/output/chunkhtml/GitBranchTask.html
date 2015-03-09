@@ -1,0 +1,63 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.17 GitBranchTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="GitGcTask.html" title="C.16 GitGcTask"><link rel="next" href="GitFetchTask.html" title="C.18 GitFetchTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.17 GitBranchTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GitGcTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="GitFetchTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="GitBranchTask"></a>C.17 GitBranchTask</h2></div></div></div>
+        
+        <p> Create, move or delete repository branches. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html" target="_top">documentation</a> (branch listing functionality is omitted in current
+            implementation).</p>
+
+        <div class="table"><a name="idp51674944"></a><p class="formal-object-title"><span class="label">Table C.18: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">branchname</code></td><td><code class="literal">String</code></td><td>The name of the branch to create or delete.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">newbranch</code></td><td><code class="literal">String</code></td><td>The new name for an existing branch.</td><td>n/a</td><td>Yes, if branch move invoked</td></tr><tr><td><code class="literal">startpoint</code></td><td><code class="literal">String</code></td><td>The new branch head will point to this commit. It may be given as a
+                            branch name, a commit-id, or a tag. If this option is omitted, the
+                            current HEAD will be used instead. See &lt;start-point&gt; argument of
+                                <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html" target="_top">git-branch</a>.</td><td> </td><td>No</td></tr><tr><td><code class="literal">setupstream</code></td><td><code class="literal">String</code></td><td>If specified branch does not exist yet or if --force has been given,
+                            acts exactly like --track. Otherwise sets up configuration like --track
+                            would when creating the branch, except that where branch points to is
+                            not changed. See --set-upstream option of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html" target="_top">git-branch</a>.</td><td> </td><td>No</td></tr><tr><td><code class="literal">track</code></td><td><code class="literal">Boolean</code></td><td>See --track option of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html" target="_top">git-branch</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">notrack</code></td><td><code class="literal">Boolean</code></td><td>See --no-track option of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-branch.html" target="_top">git-branch</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">force</code></td><td><code class="literal">Boolean</code></td><td>Reset &lt;branchname&gt; to &lt;startpoint&gt; if &lt;branchname&gt; exists
+                            already. Without -f git branch refuses to change an existing
+                            branch.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">move</code></td><td><code class="literal">Boolean</code></td><td>Move/rename a branch and the corresponding reflog.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">forcemove</code></td><td><code class="literal">Boolean</code></td><td>Move/rename a branch even if the new branch name already
+                            exists.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">delete</code></td><td><code class="literal">Boolean</code></td><td>Delete a branch. The branch must be fully merged in its upstream
+                            branch, or in HEAD if no upstream was set with --track or
+                            --set-upstream.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">forcedelete</code></td><td><code class="literal">Boolean</code></td><td>Delete a branch irrespective of its merged status.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51733728"></a>C.17.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- Initialize normal repository --&gt;
+&lt;gitinit repository="${repo.dir.resolved}" /&gt;
+
+&lt;!-- Create branch "sample-branch" tracking current HEAD --&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch" /&gt;
+
+&lt;!--
+Create branch "sample-branch" tracking origin/master
+Note that you can omit both startpoint and track attributes in this case
+--&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch"
+    startpoint="origin/master"
+    track="true" /&gt;
+
+&lt;!-- Delete fully merged branch "sample-branch" --&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch"
+    delete="true" /&gt;
+
+&lt;!-- Force delete even unmerged branch "sample-branch" --&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="sample-branch"
+    forcedelete="true" /&gt;
+
+&lt;!-- Renabe "branch1" to "branch2" --&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="branch1"
+    newbranch="branch2"
+    move="true" /&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GitGcTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="GitFetchTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.16 GitGcTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.18 GitFetchTask</td></tr></table></div></body></html>

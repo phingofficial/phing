@@ -1,0 +1,67 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.92 ZendGuardLicenseTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="ZendGuardEncodeTask.html" title="C.91 ZendGuardEncodeTask"><link rel="next" href="ZipTask.html" title="C.93 ZipTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.92 ZendGuardLicenseTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ZendGuardEncodeTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="ZipTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ZendGuardLicenseTask"></a>C.92 ZendGuardLicenseTask</h2></div></div></div>
+        
+        <p> The <code class="literal">ZendGuardLicenseTask</code> is a wrapper for ZendGuard
+                <code class="literal">zendenc_sign</code> executable. It generates ZendGuard license either
+            from a license template file or from the defined properties.</p>
+        <p> For more information about ZendGuard sign parameters see the <a class="ulink" href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf" target="_top">ZendGuard
+                documentation</a>.</p>
+
+        <div class="table"><a name="idp56220592"></a><p class="formal-object-title"><span class="label">Table C.122: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">zendsignPath</code></td><td><code class="literal">String</code></td><td>Path to zendenc_sign binary.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">privateKeyPath</code></td><td><code class="literal">String</code></td><td>Path to the company private key. </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">outputFile</code></td><td><code class="literal">String</code></td><td>Path where should the license be generated.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">licenseTemplate</code></td><td><code class="literal">String</code></td><td>Path to a license template file. If defined all other licensing
+                            properties will be ignored (even if they are otherwise
+                            required).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">productName</code></td><td><code class="literal">String</code></td><td>Name of the product. This has to match the product name that was used
+                            to encode the files (see ZendGuardEncodeTask).</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">registeredTo</code></td><td><code class="literal">String</code></td><td>Name to which the product will be registered to.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">expires</code></td><td>Mixed</td><td>This allows to define when the license will expire. The license can
+                            be issued so it either never expires or expires at a specified data.
+                            Use: <code class="literal">'Never'</code>, 0 or false to set expiry data to Never.
+                            Date in yyyy-mm-dd format to set the expiry date to a specific date.
+                            Relative format supported by strtotime function (e.g. '+6 months' to
+                            generate a license that will expire in half a year). </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">ipRange</code></td><td><code class="literal">String</code></td><td>Limits the use of the license to IP addresses that fall within
+                            specification. Supports wildcards for any of the IP place holders, as
+                            well as the two types of the net masks (e.g. 10.1.0.0/16 or
+                            10.1.0.0./255.255.0.0).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">hardwareLocked</code></td><td><code class="literal">Boolean</code></td><td>Option that indicates if the license will be locked to a specific
+                            machine using the Zend Host ID code(s). If set to true the Host-ID
+                            property is required.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">hostID</code></td><td><code class="literal">String</code></td><td>Coded string (Zend Host ID) used to lock the license to a specific
+                            hardware. The Zend Host Id obtained from the machine where the encoded
+                            files and license are to be installed. Can be obtained by using the
+                            zendid utility. This is REQUIRED if the Hardware-Locked property is set
+                            to true. You can define multiple Host IDs separated by
+                            semicolon.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">userDefinedValues</code></td><td><code class="literal">String</code></td><td>Optional user defined values in format key=value. Multiple key-value
+                            pairs can be defined and separated by semicolon. These values then will
+                            be part of the license and can be obtained using the zend guard api
+                            (provided by Zend Optimizer). These values CANNOT be modified after the
+                            license is generated. Their modification would invalidate the license.
+                            Example: Drink=Tea;Material=Wood</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">xUserDefinedValues</code></td><td><code class="literal">String</code></td><td>Optional user defined values in format key=value. Multiple key-value
+                            pairs can be defined and separated by semicolon. These values then will
+                            be part of the license and can be obtained using the zend guard api
+                            (provided by Zend Optimizer). These values CAN be modified after the
+                            license is generated. Their modification won't invalidate the license.
+                            Example: Drink=Tea;Material=Wood</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56273552"></a>C.92.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;zendguardlicense
+            privateKeyPath="/var/data/phing.key"
+            zendsignPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc_sign"
+            outputFile="./data/license/license.zl"
+            productName="Phing"
+            registeredTo="YourCustomerName"
+            hardwareLocked="true"
+            expires="+6 months"
+            HostID="H:MFM43-Q9CXC-B9EDX-GWYSU;H:MFM43-Q9CXC-B9EDX-GWYTY"
+            ipRange="10.1.*.*"
+            userDefinedValues="Drink=Tea;Material=Wood"
+            xUserDefinedValues="Drink=Tea;Material=Wood"
+/&gt;</pre>
+            <p>Creates a license using the given properties.</p>
+            <pre class="programlisting">&lt;zendguardlicense
+            privateKeyPath="/var/data/phing.key"
+            zendsignPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc_sign"
+            outputFile="./data/license/license.zl"
+            licenseTemplate="./data/license/license.template.zl"
+/&gt;</pre>
+            <p>Creates a license using a license template file.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ZendGuardEncodeTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ZipTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.91 ZendGuardEncodeTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.93 ZipTask</td></tr></table></div></body></html>

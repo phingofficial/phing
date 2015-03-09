@@ -1,0 +1,26 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.44 PatchTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="ParallelTask.html" title="C.43 ParallelTask"><link rel="next" href="PDOSQLExecTask.html" title="C.45 PDOSQLExecTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.44 PatchTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ParallelTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PDOSQLExecTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PatchTask"></a>C.44 PatchTask</h2></div></div></div>
+        
+        <p> The <code class="literal">PatchTask</code> uses the <a class="ulink" href="http://savannah.gnu.org/projects/patch" target="_top">patch</a>
+            program to apply diff file to originals.</p>
+        <p>
+            <span class="bold"><strong>NB:</strong></span> the <code class="literal">patch</code> program must be in the
+            system path! </p>
+
+        <div class="table"><a name="idp53357024"></a><p class="formal-object-title"><span class="label">Table C.52: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">patchfile</code></td><td><code class="literal">String</code></td><td>File that includes the diff output</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">originalfile</code></td><td><code class="literal">String</code></td><td>File to patch. If not specified Task tries to guess it from the diff
+                            file</td><td>none</td><td>No</td></tr><tr><td><code class="literal">destfile</code></td><td><code class="literal">String</code></td><td>File to send the output to instead of patching the file in
+                            place</td><td>none</td><td>No</td></tr><tr><td><code class="literal">backups</code></td><td><code class="literal">Boolean</code></td><td>Keep backups of the unpatched files</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>Work silently unless an error occurs</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">reverse</code></td><td><code class="literal">Boolean</code></td><td>Assume patch was created with old and new files swapped</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">ignorewhitespace</code></td><td><code class="literal">Boolean</code></td><td>Ignore whitespace differences</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">strip</code></td><td><code class="literal">Integer</code></td><td>Strip the smallest prefix containing specified number of leading
+                            slashes from filenames</td><td>none</td><td>No</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory in which to run the patch command</td><td>none</td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if the patching process encounters an
+                            error.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53401712"></a>C.44.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;patch
+  patchfile="/path/to/patches/file.ext.patch"
+  dir="/path/to/original"
+/&gt;</pre>
+            <p>Apply "file.ext.path" to original file locataed in "/path/to/original"
+                folder.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ParallelTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PDOSQLExecTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.43 ParallelTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.45 PDOSQLExecTask</td></tr></table></div></body></html>

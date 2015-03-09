@@ -1,0 +1,35 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.90 ZendCodeAnalyzerTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="XmlPropertyTask.html" title="C.89 XmlPropertyTask"><link rel="next" href="ZendGuardEncodeTask.html" title="C.91 ZendGuardEncodeTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.90 ZendCodeAnalyzerTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="XmlPropertyTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="ZendGuardEncodeTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ZendCodeAnalyzerTask"></a>C.90 ZendCodeAnalyzerTask</h2></div></div></div>
+        
+        <p> The <code class="literal">ZendCodeAnalyzerTask</code> analyze PHP source files using the Zend
+            Code Analyzer tool that ships with all versions of Zend Studio.</p>
+
+        <div class="table"><a name="idp56099456"></a><p class="formal-object-title"><span class="label">Table C.120: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">analyzerPath</code></td><td><code class="literal">String</code></td><td>Path to Zend Code Analyzer binary</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to PHP source file</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">disable</code></td><td><code class="literal">String</code></td><td>Disable warnings separated by comma</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">enable</code></td><td><code class="literal">String</code></td><td>Enable warnings separated by comma</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">haltonwarning</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if warnings occurred during the run. </td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56126352"></a>C.90.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;zendcodeanalyzer
+  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer"
+  file="SomeClass.php"/&gt;</pre>
+
+            <p>Analyze one PHP source file with all default warnings enabled.</p>
+            <pre class="programlisting">&lt;zendcodeanalyzer
+  analyzerPath="/usr/local/Zend/ZendStudioClient-5.1.0/bin/ZendCodeAnalyzer"
+  disable="var-ref-notmodified,if-if-else"&gt;
+  &lt;fileset dir="."&gt;
+    &lt;include name="**/*.php"/&gt;
+  &lt;/fileset&gt;
+&lt;/zendcodeanalyzer&gt;</pre>
+            <p>Analyze a set of PHP source files and disable a few warnings.</p>
+            <p>
+                <span class="bold"><strong>NOTE:</strong></span> the <code class="literal">analyze</code> tag has been
+                deprecated as of Phing 2.4.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56132016"></a>C.90.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="XmlPropertyTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ZendGuardEncodeTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.89 XmlPropertyTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.91 ZendGuardEncodeTask</td></tr></table></div></body></html>

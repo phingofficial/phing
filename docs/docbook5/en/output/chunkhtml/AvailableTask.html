@@ -1,0 +1,37 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.5 AvailableTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="ApplyTask.html" title="B.4 ApplyTask"><link rel="next" href="Basename.html" title="B.6 Basename"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.5 AvailableTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ApplyTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="Basename.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="AvailableTask"></a>B.5 AvailableTask </h2></div></div></div>
+        
+        <p>Available Task tests if a resource/file is set and sets a certain property to a
+            certain value if it exists.</p>
+        <p>Here, <code class="literal">AvailableTask</code> first checks for the existance of either file
+            or directory named <code class="literal">test.txt</code> in <code class="literal">/tmp</code>. Then, it
+            checks for the directory <code class="literal">foo</code> in <code class="literal">/home</code> and then for
+            the file or directory <code class="literal">bar</code> in <code class="literal">/home/foo</code>. If
+                <code class="literal">/tmp/test.txt</code> is found, the property
+                <code class="literal">test_txt_exists</code> is set to <code class="literal">"Yes"</code>, if
+                <code class="literal">/home/foo</code> is found and a directory,
+                <code class="literal">properties.yetanother</code> is set to <code class="literal">"true"</code>
+            (default). If <code class="literal">/home/foo/bar</code> exists, <code class="literal">AvailableTask</code>
+            will set <code class="literal">foo.bar</code> to <code class="literal">"Well, yes"</code>.
+            And last it checks if extension <code class="literal">foo</code> is loaded,
+                so the property <code class="literal">foo.ext.loaded</code> is set to <code class="literal">"true"</code> (default).
+        </p>
+        <p><span class="bold"><strong>NB:</strong></span> the Available task can also be used as a
+            condition, see <a class="link" href="conditions.html" title="5.8 Conditions">conditions</a>.</p>
+
+        <div class="table"><a name="idp49516192"></a><p class="formal-object-title"><span class="label">Table B.6: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Name of the property that is to be set.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The value the property is to be set to.</td><td><code class="literal">"true"</code></td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>File/directory to check existence.</td><td>n/a</td><td>Yes (or <code class="literal">resource</code> or <code class="literal">extension</code>)</td></tr><tr><td><code class="literal">resource</code></td><td><code class="literal">String</code></td><td>Path of the resource to look for.</td><td>n/a</td><td>Yes (or <code class="literal">file</code> or <code class="literal">extension</code>)</td></tr><tr><td><code class="literal">extension</code></td><td><code class="literal">String</code></td><td>Name of the extension to look for.</td><td>n/a</td><td>Yes (or <code class="literal">file</code> or <code class="literal">resource</code>)</td></tr><tr><td><code class="literal">type</code></td><td><code class="literal">String</code> (file|dir)</td><td>Determines if <code class="literal">AvailableTask</code> should look for a file
+                            or a directory at the position set by <code class="literal">file</code>. If empty,
+                            it checks for either file or directory.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">filepath</code></td><td><code class="literal">String</code></td><td>The path to use when looking up <code class="literal">file</code>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">followSymlinks</code></td><td><code class="literal">Boolean</code></td><td>Whether to dereference symbolic links when looking up
+                                <code class="literal">file</code>.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp49555696"></a>B.5.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;available file="/tmp/test.txt" property="test_txt_exists" value="Yes"/&gt;
+
+&lt;available file="/home/foo" type="dir" property="properties.yetanother" /&gt;
+
+&lt;available file="/home/foo/bar" property="foo.bar" value="Well, yes" /&gt;</pre>
+        </div>
+
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ApplyTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="Basename.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.4 ApplyTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.6 Basename </td></tr></table></div></body></html>

@@ -1,0 +1,21 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.77 SvnUpdateTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SvnLogTask.html" title="C.76 SvnLogTask"><link rel="next" href="SvnSwitchTask.html" title="C.78 SvnSwitchTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.77 SvnUpdateTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SvnLogTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SvnSwitchTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SvnUpdateTask"></a>C.77 SvnUpdateTask</h2></div></div></div>
+        
+        <p> The <code class="literal">SvnUpdateTask</code> updates a local directory.</p>
+        <div class="table"><a name="idp55631056"></a><p class="formal-object-title"><span class="label">Table C.106: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">svnpath</code></td><td><code class="literal">String</code></td><td>Path to Subversion binary</td><td>/usr/bin/svn</td><td>No</td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>A username used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>A password used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">nocache</code></td><td><code class="literal">Boolean</code></td><td>Connection credentials will not be cached</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>Path to the working copy</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">revision</code></td><td><code class="literal">Integer</code></td><td>Specific revision to update the working copy to</td><td>none</td><td>No</td></tr><tr><td><code class="literal">ignoreexternals</code></td><td><code class="literal">Boolean</code></td><td>Ignore externals definitions</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">trustServerCert</code></td><td><code class="literal">Boolean</code></td><td>Trust self-signed certificates</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55668880"></a>C.77.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;svnupdate
+   svnpath="/usr/bin/svn"
+   username="anony"
+   password="anony"
+   nocache="true"
+   todir="/home/user/svnwc"/&gt;</pre>
+
+            <pre class="programlisting">&lt;svnupdate
+   svnpath="C:/Subversion/bin/svn.exe"
+   todir="C:/projects/svnwc"/&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SvnLogTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SvnSwitchTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.76 SvnLogTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.78 SvnSwitchTask</td></tr></table></div></body></html>

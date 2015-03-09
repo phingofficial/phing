@@ -1,0 +1,17 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.86 VersionTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="UnzipTask.html" title="C.85 UnzipTask"><link rel="next" href="WikiPublishTask.html" title="C.87 WikiPublishTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.86 VersionTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="UnzipTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="WikiPublishTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="VersionTask"></a>C.86 VersionTask</h2></div></div></div>
+        
+        <p> The <code class="literal">VersionTask</code> increments a three-part version number from a
+            given file and writes it back to the file. The resulting version number is also
+            published under supplied property.</p>
+        <p>The version number in the text file is expected in the format of Major.Minor.Bugfix
+            (e.g. 1.3.2).</p>
+        <div class="table"><a name="idp55954416"></a><p class="formal-object-title"><span class="label">Table C.116: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">releasetype</code></td><td><code class="literal">String</code></td><td>Specifies desired version release (Major, Minor or Bugfix)</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>File containing three-part version number to increment</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Property which contains the resulting version number</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55974464"></a>C.86.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;version releasetype="Major" file="version.txt" property="version.number"/&gt;</pre>
+        </div>
+
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="UnzipTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="WikiPublishTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.85 UnzipTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.87 WikiPublishTask</td></tr></table></div></body></html>

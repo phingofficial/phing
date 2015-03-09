@@ -1,0 +1,82 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.21 ImportTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="IfTask.html" title="B.20 IfTask"><link rel="next" href="IncludePathTask.html" title="B.22 IncludePathTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.21 ImportTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="IfTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="IncludePathTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ImportTask"></a>B.21 ImportTask </h2></div></div></div>
+        
+        <p>Imports another build file into the current project.</p>
+        <p>On execution it will read another Phing file into the same Project. Functionally it is
+            nearly the same as copy and pasting the imported file onto the end of the importing
+            file.</p>
+        <p>The import task may only be used as a top-level task. This means that it may not be used in a target.</p>
+        <div class="table"><a name="idp50141040"></a><p class="formal-object-title"><span class="label">Table B.21: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file to import.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">optional</code></td><td><code class="literal">Boolean</code></td><td>If true, do not stop the build if the file does not exist.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50158000"></a>B.21.1 Target Overriding</h3></div></div></div>
+            
+            <p>If a target in the main file is also present in at least one of the imported
+                files, the one from the main file takes precedence.</p>
+            <p>So if I import for example a <code class="literal">docs/build.xml</code> file named
+                    <code class="filename">builddocs</code>, that contains a "<code class="literal">docs</code>"
+                target, I can redefine it in my main buildfile and that is the one that will be
+                called. This makes it easy to keep the same target name, so that the overriding
+                target is still called by any other targets--in either the main or imported
+                buildfile(s)--for which it is a dependency, with a different implementation. The
+                target from <code class="literal">docs/build.xml</code> is made available by the name
+                    "<code class="literal">builddocs.docs</code>". This enables the new implementation to call
+                the old target, thus enhancing it with tasks called before or after it.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50162576"></a>B.21.2 Special Properties</h3></div></div></div>
+            
+            <p>Imported files are treated as they are present in the main buildfile. This makes
+                it easy to understand, but it makes it impossible for them to reference files and
+                resources relative to their path. Because of this, for every imported file, Phing
+                adds a property that contains the path to the imported buildfile. With this path,
+                the imported buildfile can keep resources and be able to reference them relative to
+                its position.</p>
+            <p>So if I import for example a <code class="literal">docs/build.xml</code> file named
+                    <code class="filename">builddocs</code>, I can get its path as
+                    <code class="literal">phing.file.builddocs</code>, similarly to the
+                    <code class="literal">phing.file</code> property of the main buildfile. Additionally,
+                    the directory will be stored in <code class="literal">phing.dir.builddocs</code>.</p>
+            <p>Note that "builddocs" is not the filename, but the name attribute present in the
+                imported project tag.</p>
+            <p>If import file does not have a name attribute, the
+                    <code class="literal">phing.file.projectname</code> and <code class="literal">phing.dir.projectname</code>
+                    properties will not be set.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50169248"></a>B.21.3 Resolving Files Against the Imported File</h3></div></div></div>
+            
+            <p>Suppose your main build file called <code class="literal">importing.xml</code> imports a
+                build file <code class="filename">imported.xml</code> , located anywhere on the file system,
+                and <code class="literal">imported.xml</code> reads a set of properties from
+                    <code class="literal">imported.properties</code> :</p>
+            <pre class="programlisting">&lt;!-- importing.xml --&gt;
+&lt;project name="importing" basedir="." default="..."&gt;
+  &lt;import file="${path_to_imported}/imported.xml"/&gt;
+&lt;/project&gt;
+
+&lt;!-- imported.xml --&gt;
+&lt;project name="imported" basedir="." default="..."&gt;
+  &lt;property file="imported.properties"/&gt;
+&lt;/project&gt;</pre>
+            <p>This snippet however will resolve <code class="literal">imported.properties</code> against
+                the basedir of <code class="literal">importing.xml</code> , because the basedir of
+                    <code class="literal">imported.xml</code> is ignored by Phing. The right way to use
+                    <code class="literal">imported.properties</code> is:</p>
+            <pre class="programlisting">&lt;!-- imported.xml --&gt;
+&lt;project name="imported" basedir="." default="..."&gt;
+  &lt;property file="${phing.file.imported}/imported.properties"/&gt;
+&lt;/project&gt;</pre>
+            <p>As explained above <code class="literal">${phing.file.imported}</code> stores the full path of the build
+                script, that defines the project called <span class="emphasis"><em>imported</em></span>, (in short it
+                stores the path to <code class="literal">imported.xml</code>) and <code class="literal">${phing.dir.imported}</code>
+                stores its directory. This technique also allows
+                    <code class="literal">imported.xml</code> to be used as a standalone file (without being
+                imported in other project).</p>
+
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50179856"></a>B.21.4 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;import file="path/to/build.xml"/&gt;
+&lt;import file="path/to/build.xml" optional="true"/&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="IfTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="IncludePathTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.20 IfTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.22 IncludePathTask </td></tr></table></div></body></html>

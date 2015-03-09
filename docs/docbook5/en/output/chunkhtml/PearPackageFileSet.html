@@ -1,0 +1,67 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>D.6 PearPackageFileSet</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretypes.html" title="Appendix D. Core Types"><link rel="prev" href="path.html" title="D.5 Path / Classpath"><link rel="next" href="app.corefilters.html" title="Appendix E. Core filters"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">D.6 PearPackageFileSet</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="path.html">Prev</a> </td><th width="60%" align="center">Appendix D. Core Types</th><td width="20%" align="right"> <a accesskey="n" href="app.corefilters.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PearPackageFileSet"></a>D.6 PearPackageFileSet</h2></div></div></div>
+        
+
+        <p>
+            Specialized <a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a> that represents
+            files of a <a class="ulink" href="http://pear.php.net/" target="_top">PEAR</a>
+            package installed on the system.
+            It is useful for collecting dependencies, for example when packing up
+            a <a class="link" href="PharPackageTask.html" title="C.49 PharPackageTask">phar</a> file with all dependencies.
+        </p>
+        <div class="table"><a name="idp56578272"></a><p class="formal-object-title"><span class="label">Table D.6: </span><span class="title">Attributes for the <code class="literal">&lt;pearpackagefileset&gt;</code> tag</span></p><div class="table-contents">
+            
+            <table summary="Attributes for the &lt;pearpackagefileset&gt; tag" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">package</code></td><td><code class="literal">String</code></td><td>
+                            Package name, or <code class="literal">$channel/$package</code>
+                            combination.
+                            If only a package name is given,
+                            <code class="literal">pear.php.net</code> is used as channel.
+                        </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">config</code></td><td><code class="literal">String</code></td><td>
+                            Path to PEAR configuration file.
+                            If none is given, the system default is used.
+                        </td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">descfile</code></td><td><code class="literal">String</code></td><td>
+                            <code class="literal">package.xml</code> file path.
+                            If not given, the local PEAR installation is queried
+                            for the package.
+                        </td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">role</code></td><td><code class="literal">String</code></td><td>
+                            PEAR file role/category.
+                            PEAR supports the following
+                            <a class="ulink" href="http://pear.php.net/manual/en/guide.developers.package2.file.php#guide.developers.package2.file.roles" target="_top">roles</a>:
+                            php, doc, data, www, test, script, cfg.
+                            You probably want to use <code class="literal">php</code>.
+                        </td><td><code class="literal">php</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <p>
+         In addition, all attributes of <a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a>
+         are supported.
+        </p>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56607568"></a>D.6.1 Usage Examples</h3></div></div></div>
+            
+            <pre class="programlisting">
+&lt;copy todir="lib/"&gt;
+    &lt;pearPackageFileset package="pear.php.net/Console_Table"/&gt;
+&lt;/copy&gt;
+</pre>
+            <p>
+                Copy all PHP files of package
+                <a class="ulink" href="http://pear.php.net/package/Console_Table" target="_top">Console_Table</a>
+                to
+                <code class="literal">lib/</code>
+            </p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56610896"></a>D.6.2 Nested tags</h3></div></div></div>
+            
+            <p>
+                The tags that are supported by <code class="literal">PearPackageFileset</code>
+                are:
+            </p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html#patterns" title="D.3.1 Using wildcards">include</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html#patterns" title="D.3.1 Using wildcards">exclude</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="PatternSet.html" title="D.4 PatternSet">patternset</a></code></p>
+                </li><li class="listitem">
+                    <p>any of the <a class="link" href="app.selectors.html" title="Appendix G. Core selectors">selectors</a></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="path.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretypes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="app.corefilters.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">D.5 Path / Classpath </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix E. Core filters</td></tr></table></div></body></html>

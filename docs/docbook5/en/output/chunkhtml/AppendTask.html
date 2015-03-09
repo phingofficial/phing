@@ -1,0 +1,36 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.3 AppendTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="AdhocTypedefTask.html" title="B.2 AdhocTypedefTask"><link rel="next" href="ApplyTask.html" title="B.4 ApplyTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.3 AppendTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="AdhocTypedefTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="ApplyTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="AppendTask"></a>B.3 AppendTask </h2></div></div></div>
+        
+        <p>The Append Task appends text or contents of files to a specified file.</p>
+        <p>In the example above, AppendTask is reading a filename from
+                <code class="literal">book/PhingGuide.book</code>, processing the file contents with XSLT, and
+            then appending the result to the file located at
+                <code class="literal">${process.outputfile}</code>. This is a real example from the build file
+            used to generate this book!</p>
+
+        <div class="table"><a name="idp49379024"></a><p class="formal-object-title"><span class="label">Table B.3: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">destFile</code></td><td><code class="literal">File</code></td><td>Path of file to which text should be appended.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">File</code></td><td>Path to file that should be appended to destFile.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">text</code></td><td><code class="literal">String</code></td><td>Some literal text to append to file.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp49397008"></a>B.3.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;append destFile="${process.outputfile}"&gt;
+  &lt;filterchain&gt;
+    &lt;xsltfilter style="${process.stylesheet}"&gt;
+         &lt;param name="mode" expression="${process.xslt.mode}"/&gt;
+    &lt;/xsltfilter&gt;
+  &lt;/filterchain&gt;
+  &lt;filelist dir="book/" listfile="book/PhingGuide.book"/&gt;
+&lt;/append&gt;</pre>
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp49398688"></a>B.3.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileList.html" title="D.2 FileList">filelist</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="app.corefilters.html" title="Appendix E. Core filters">filterchain</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="AdhocTypedefTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ApplyTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.2 AdhocTypedefTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.4 ApplyTask </td></tr></table></div></body></html>

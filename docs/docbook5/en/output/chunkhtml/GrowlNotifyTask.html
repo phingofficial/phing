@@ -1,0 +1,143 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.26 GrowlNotifyTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="GitLogTask.html" title="C.25 GitLogTask"><link rel="next" href="HttpGetTask.html" title="C.27 HttpGetTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.26 GrowlNotifyTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GitLogTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="HttpGetTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="GrowlNotifyTask"></a>C.26 GrowlNotifyTask</h2></div></div></div>
+        
+        <p>When you have a long process and want to be notified when it is finished, without to stay
+            focused on the console windows. Then use the GrowlNotify task.
+        </p>
+        <p>This task requires the PEAR
+            <a class="ulink" href="http://pear.php.net/package/Net_Growl" target="_top">Net_Growl</a>
+            package installed (version  2.6.0).
+        </p>
+            <p><span class="bold"><strong>Features</strong></span></p>
+            <p>
+            </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p>Compatible Windows and Mac/OSX</p>
+                </li><li class="listitem">
+                    <p>Do not forget notification with sticky option</p>
+                </li><li class="listitem">
+                    <p>Define priority of messages</p>
+                </li><li class="listitem">
+                    <p>Send notification on private or public network</p>
+                </li></ul></div><p>
+            </p>
+        <div class="table"><a name="idp52233632"></a><p class="formal-object-title"><span class="label">Table C.27: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of application to be register</td><td>Growl for Phing</td><td>No</td></tr><tr><td><code class="literal">sticky</code></td><td><code class="literal">Boolean</code></td><td>Indicates if the notification should be sticky on desktop</td><td>false</td><td>No</td></tr><tr><td><code class="literal">message</code></td><td><code class="literal">String</code></td><td>Text of notification. Use \n to specify a line break</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">title</code></td><td><code class="literal">String</code></td><td>Title of notification</td><td>GrowlNotify</td><td>No</td></tr><tr><td><code class="literal">notification</code></td><td><code class="literal">String</code></td><td>The notification name/type</td><td>General Notification</td><td>No</td></tr><tr><td><code class="literal">appicon</code></td><td><code class="literal">String</code></td><td>
+                            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                                    <p>absolute url (http://domain/image.png)</p>
+                                </li><li class="listitem">
+                                    <p>absolute file path (c:\temp\image.png)</p>
+                                </li><li class="listitem">
+                                    <p>relative file path (.\folder\image.png)</p>
+                                </li></ul></div>
+                        </td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">host</code></td><td><code class="literal">String</code></td><td>The host address where to send the notification</td><td>127.0.0.1</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>The password required to send notifications over network</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">priority</code></td><td><code class="literal">String</code></td><td>
+                            <p>The notification priority. Valid values are :</p>
+                            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                                    <p>low</p>
+                                </li><li class="listitem">
+                                    <p>moderate</p>
+                                </li><li class="listitem">
+                                    <p>normal</p>
+                                </li><li class="listitem">
+                                    <p>high</p>
+                                </li><li class="listitem">
+                                    <p>emergency</p>
+                                </li></ul></div>
+                        </td><td>normal</td><td>No</td></tr><tr><td><code class="literal">protocol</code></td><td><code class="literal">String</code></td><td>The protocol used to send the notification. May be either gntp or udp.</td><td>gntp</td><td>No</td></tr><tr><td><code class="literal">icon</code></td><td><code class="literal">String</code></td><td>
+                            <p>The icon to show for the notification.</p>
+                            <p>Must be a valid file type (png, jpg, gif, ico). Can be any of the following:</p>
+                            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                                    <p>absolute url (http://domain/image.png)</p>
+                                </li><li class="listitem">
+                                    <p>absolute file path (c:\temp\image.png)</p>
+                                </li><li class="listitem">
+                                    <p>relative file path (.\folder\image.png)</p>
+                                </li></ul></div>
+                        </td><td>embeded growl icon v2</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52295008"></a>C.26.1 Examples</h3></div></div></div>
+            
+            <p>Send a single notification on a remote host</p>
+            <p>
+                Both sender and Growl client (Mac or Windows) should share the same password.
+            </p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl gntp over network"
+    &gt;
+        &lt;growlnotify message="Deployment of project LAMBDA is finished."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</pre>
+            <p>Send a single notification with UDP protocol</p>
+            <p>
+                When you don't have a Macintosh, OS compatible with Growl GNTP, you
+                should use the basic UDP protocol.
+            </p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a single message with growl udp over network"
+    &gt;
+        &lt;growlnotify message="Notify my MAC that does not accept GNTP."
+            host="192.168.1.2"
+            password="seCretPa$$word"
+            protocol="udp"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</pre>
+            <p>Send an important notification</p>
+            <p>
+                If you want to send a notification that is so important that you don't want to missed it,
+                even if you are away from your computer. Use the sticky attribute.
+            </p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a sticky message on desktop"
+    &gt;
+        &lt;growlnotify message="Project LAMDBA, unit tests FAILED."
+            priority="high"
+            sticky="true"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</pre>
+            <p>Use your icons to identify an application</p>
+            <p>
+                You may customize the Growl notification system, with different icons
+                and more.
+            </p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="phing-GrowlNotifyTask" basedir="." default="notification"&gt;
+
+    &lt;taskdef name="growlnotify" classname="phing.tasks.ext.GrowlNotifyTask" /&gt;
+
+    &lt;target name="notification"
+        description="display a custom icon message"
+    &gt;
+        &lt;growlnotify message="Have a look on my beautiful message!"
+            name="phing Notifier"
+            title="phing notification"
+            priority="low"
+            sticky="false"
+            appicon="../images/my_icon.png"
+        /&gt;
+    &lt;/target&gt;
+
+&lt;/project&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GitLogTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="HttpGetTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.25 GitLogTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.27 HttpGetTask</td></tr></table></div></body></html>

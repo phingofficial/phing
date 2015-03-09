@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.19 ForeachTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="FailTask.html" title="B.18 FailTask"><link rel="next" href="IfTask.html" title="B.20 IfTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.19 ForeachTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="FailTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="IfTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ForeachTask"></a>B.19 ForeachTask </h2></div></div></div>
+        
+        <p>The <code class="literal">foreach</code> task iterates over a list, a list of
+                <code class="literal">filesets</code>, or both. If both, <code class="literal">list</code> and
+                <code class="literal">filesets</code>, are specified, the list will be evaluated first. Nested
+                <code class="literal">filesets</code> are evaluated in the order they appear in the
+            task.</p>
+
+        <div class="table"><a name="idp50085792"></a><p class="formal-object-title"><span class="label">Table B.20: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">list</code></td><td><code class="literal">String</code></td><td>The list of values to process, with the delimiter character,
+                            indicated by the "delimiter" attribute, separating each value.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">target</code></td><td><code class="literal">String</code></td><td>The target to call for each token, passing the token as the parameter
+                            with the name indicated by the "param" attribute.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">param</code></td><td><code class="literal">String</code></td><td>The name of the parameter to pass the tokens in as to the
+                            target.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">absparam</code></td><td><code class="literal">String</code></td><td>The name of the absolute pathparameter to pass the tokens in as to
+                            the target (used while processing nested filesets).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimiter string that separates the values in the "list"
+                            parameter. The default is ",".</td><td>,</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50114048"></a>B.19.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;!-- loop through languages, and call buildlang task with setted param --&gt;
+&lt;property name="languages" value="en,fr,de" /&gt;
+&lt;foreach list="${languages}" param="lang" target="buildlang" /&gt;
+
+&lt;!-- loop through files, and call subtask task with set param and absparam --&gt;
+&lt;foreach param="filename" absparam="absfilename" target="subtask"&gt;
+  &lt;fileset dir="."&gt;
+    &lt;include name="*.php"/&gt;
+  &lt;/fileset&gt;
+&lt;/foreach&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50116080"></a>B.19.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileList.html" title="D.2 FileList">filelist</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="app.coremappers.html" title="Appendix F. Core mappers">mapper</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="FailTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="IfTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.18 FailTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.20 IfTask </td></tr></table></div></body></html>

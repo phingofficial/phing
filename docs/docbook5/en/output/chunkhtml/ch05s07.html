@@ -1,15 +1,15 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.7 Basic Types</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch05.html" title="Chapter 5 Project components"><link rel="prev" href="ch05s06.html" title="5.6 Types"><link rel="next" href="ch05s08.html" title="5.8 Conditions"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.7  Basic Types </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s06.html">Prev</a> </td><th width="60%" align="center">Chapter 5 Project components</th><td width="20%" align="right"> <a accesskey="n" href="ch05s08.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp63252192"></a>5.7  Basic Types </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.7 Basic Types</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.projcomponents.html" title="Chapter 5 Project components"><link rel="prev" href="sec.types.html" title="5.6 Types"><link rel="next" href="conditions.html" title="5.8 Conditions"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.7  Basic Types </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec.types.html">Prev</a> </td><th width="60%" align="center">Chapter 5 Project components</th><td width="20%" align="right"> <a accesskey="n" href="conditions.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp43081856"></a>5.7  Basic Types </h2></div></div></div>
         
 
         <p> The following section gives you a quick introduction into the basic Phing types. For
-            a complete reference see <a class="xref" href="apd.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>.</p>
+            a complete reference see <a class="xref" href="app.coretypes.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>.</p>
 
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp63254336"></a>5.7.1 
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp43084000"></a>5.7.1 
                 <code class="literal">FileSet</code>
             </h3></div></div></div>
             
 
-            <p><a class="link" href="apds03.html" title="D.3 FileSet">FileSets</a> are groups of files. You can include or exclude specific files and
+            <p><a class="link" href="FileSet.html" title="D.3 FileSet">FileSets</a> are groups of files. You can include or exclude specific files and
                 patterns to/from a FileSet. The use of patterns is explained below. For a start,
                 look at the following example:</p>
 
@@ -31,11 +31,11 @@
                 filesets provide an easy but powerful way to include files.</p>
 
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp63259680"></a>5.7.2 
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp43089344"></a>5.7.2 
                 <code class="literal">FileList</code>
             </h3></div></div></div>
             
-            <p><a class="link" href="apds02.html" title="D.2 FileList">FileLists</a>, like FileSets, are collections of files; however, a FileList is an
+            <p><a class="link" href="FileList.html" title="D.2 FileList">FileLists</a>, like FileSets, are collections of files; however, a FileList is an
                 explicitly defined list of files -- and the files don't necessarily have to exist on
                 the filesystem.</p>
             <p>Besides being able to refer to nonexistent files, another thing that
@@ -49,11 +49,11 @@
 &lt;!-- OR: --&gt;
 &lt;filelist dir="basedir/" listfile="files_to_process.txt"/&gt;</pre>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp63266144"></a>5.7.3 
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp43095808"></a>5.7.3 
                 <code class="literal">FilterChains</code> and Filters </h3></div></div></div>
             
 
-            <p><code class="literal"><a class="link" href="ape.html" title="Appendix E. Core filters">FilterChains</a></code> can be compared to Unix pipes. Unix pipes add a
+            <p><code class="literal"><a class="link" href="app.corefilters.html" title="Appendix E. Core filters">FilterChains</a></code> can be compared to Unix pipes. Unix pipes add a
                 great deal of flexibility to command line operations; for example, if you wanted to
                 copy just those lines that contained the string <code class="literal">blee</code> from the
                 first 10 lines of a file called <code class="literal">foo</code> to a file called
@@ -84,7 +84,7 @@
   &lt;/filterreader&gt;
 &lt;/filterchain&gt;</pre>
             <p>The code listing above shows you some example of how to use filter chains. For a
-                complete reference see <a class="xref" href="apd.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>. This filter chain would
+                complete reference see <a class="xref" href="app.coretypes.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>. This filter chain would
                 replace all occurrences of <code class="literal">BC_PATH</code> and
                     <code class="literal">BC_PATH_USER</code> with the values assigned to them in lines 4 and
                 5. Additionally, it will only return the last 10 lines of the files.</p>
@@ -105,13 +105,13 @@
             <p> As the pipe concept in Unix, the filter concept is quite complex but powerful. To
                 get a better understanding of different filters and how they can be used, take a
                 look at any of the many uses of FilterChains in the build files for the binarycloud
-                    <a class="xref" href="bi01.html" title="Bibliography">Bibliography</a> project.</p>
+                    <a class="xref" href="app.bibliography.html" title="Bibliography">Bibliography</a> project.</p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp63266272"></a>5.7.4  File Mappers </h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp43095936"></a>5.7.4  File Mappers </h3></div></div></div>
             
 
             <p>With <code class="literal">FilterChains</code> and filters provide a powerful tool for
-                changing contents of files, <code class="literal"><a class="link" href="apf.html" title="Appendix F. Core mappers">mappers</a></code>
+                changing contents of files, <code class="literal"><a class="link" href="app.coremappers.html" title="Appendix F. Core mappers">mappers</a></code>
                                 provide a powerful tool for changing the names
                 of files.</p>
 
@@ -147,7 +147,7 @@
   &lt;/filterchain&gt;
 &lt;/copy&gt;</pre>
 
-            <p> For a complete reference, see <a class="xref" href="apd.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>
+            <p> For a complete reference, see <a class="xref" href="app.coretypes.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>
             </p>
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s06.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch05.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05s08.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.6  Types  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.8  Conditions </td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec.types.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch.projcomponents.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="conditions.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.6  Types  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.8  Conditions </td></tr></table></div></body></html>

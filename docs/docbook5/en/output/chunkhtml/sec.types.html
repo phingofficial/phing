@@ -1,0 +1,55 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.6 Types</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.projcomponents.html" title="Chapter 5 Project components"><link rel="prev" href="ch05s05.html" title="5.5 Tasks"><link rel="next" href="ch05s07.html" title="5.7 Basic Types"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.6  Types </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s05.html">Prev</a> </td><th width="60%" align="center">Chapter 5 Project components</th><td width="20%" align="right"> <a accesskey="n" href="ch05s07.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="sec.types"></a>5.6  Types </h2></div></div></div>
+        
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp43072560"></a>5.6.1  Basics </h3></div></div></div>
+            
+
+            <p>Besides the simple types (strings, integer, booleans) you can use in the
+                parameters of tasks, there are more complex Phing <code class="literal">Types</code>. As
+                mentioned above, they are passed to a task by using nesting tags: </p>
+
+            <pre class="programlisting">&lt;task&gt;
+  &lt;type /&gt;
+&lt;/task&gt;
+
+&lt;!-- or: --&gt;
+
+&lt;task&gt;
+  &lt;type1&gt;
+    &lt;subtype1&gt;
+      &lt;!-- etc. --&gt;
+    &lt;/subtype1&gt;
+  &lt;/type1&gt;
+&lt;/task&gt;</pre>
+
+            <p>Note that types may consist of multiple nested tags -- and multiple levels of
+                nested tags, as you can see in the second task call above.</p>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp43076160"></a>5.6.2  Referencing Types </h3></div></div></div>
+            
+
+            <p>An additional fact about types you should notice is the possibility of
+                    <code class="literal">referencing</code> type instances, i.e. you define your type
+                somewhere in your build file and assign an id to it. Later, you can refer to that
+                type by the id you assigned. Example: </p>
+
+            <pre class="programlisting">&lt;project&gt;
+  &lt;fileset id="foo"&gt;
+    &lt;include name="*.php" /&gt;
+  &lt;/fileset&gt;
+
+  &lt;!-- Target that uses the type --&gt;
+  &lt;target name="foo" &gt;
+    &lt;copy todir="/tmp"&gt;
+      &lt;fileset refid="foo" /&gt;
+    &lt;/copy&gt;
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+
+            <p>As you can see, the type instance is assigned an id with the <code class="literal">id</code>
+                attribute and later on called by passing a plain <code class="literal">fileset</code> tag to
+                    <code class="literal">CopyTask</code> that only contains the <code class="literal">refid</code>
+                attribute.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch.projcomponents.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch05s07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.5  Tasks  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 5.7  Basic Types </td></tr></table></div></body></html>

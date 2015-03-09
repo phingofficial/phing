@@ -1,0 +1,23 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>E.17 TidyFilter</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.corefilters.html" title="Appendix E. Core filters"><link rel="prev" href="TailFilter.html" title="E.16 TailFilter"><link rel="next" href="XincludeFilter.html" title="E.18 XincludeFilter"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">E.17 TidyFilter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="TailFilter.html">Prev</a> </td><th width="60%" align="center">Appendix E. Core filters</th><td width="20%" align="right"> <a accesskey="n" href="XincludeFilter.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="TidyFilter"></a>E.17 TidyFilter</h2></div></div></div>
+        
+        <p>The <code class="literal">TidyFilter</code> allows you to use the <a class="ulink" href="http://php.net/tidy" target="_top">PHP tidy extension</a> to clean up and repair
+            HTML documents. Usage example:</p>
+        <pre class="programlisting">&lt;filterchain&gt;
+  &lt;tidyfilter encoding="utf8"&gt;
+    &lt;config name="indent" value="true" /&gt;
+    &lt;config name="output-xhtml" value="true" /&gt;
+  &lt;/tidyfilter&gt;
+&lt;/filterchain&gt;</pre>
+
+        <div class="table"><a name="idp56914400"></a><p class="formal-object-title"><span class="label">Table E.11: </span><span class="title"> Attributes for the <code class="literal">&lt;tidyfilter&gt;</code> tag </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for the &lt;tidyfilter&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">encoding</code></td><td><code class="literal">String</code></td><td>The expected input encoding of the file.</td><td>utf8</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56928672"></a>E.17.1 Nested tags</h3></div></div></div>
+            
+            <p>The <code class="literal">TidyFilter</code> supports nested &lt;config&gt; tags to configure
+                how Tidy should manipulate the documents. For a complete list of configuration
+                options see the offical <a class="ulink" href="http://tidy.sourceforge.net/docs/quickref.html" target="_top">Quick
+                    Reference</a>.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="TailFilter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.corefilters.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="XincludeFilter.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">E.16 TailFilter </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> E.18 XincludeFilter</td></tr></table></div></body></html>

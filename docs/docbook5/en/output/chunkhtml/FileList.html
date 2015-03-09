@@ -1,0 +1,25 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>D.2 FileList</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretypes.html" title="Appendix D. Core Types"><link rel="prev" href="app.coretypes.html" title="Appendix D. Core Types"><link rel="next" href="FileSet.html" title="D.3 FileSet"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">D.2 FileList</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="app.coretypes.html">Prev</a> </td><th width="60%" align="center">Appendix D. Core Types</th><td width="20%" align="right"> <a accesskey="n" href="FileSet.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="FileList"></a>D.2 FileList</h2></div></div></div>
+        
+        <p>FileLists offer a way to represent a specific list of files. Unlike
+            <a class="link" href="FileSet.html" title="D.3 FileSet">FileSets</a>,
+            FileLists may contain files that do not exist on the filesystem. Also, FileLists can
+            represent files in a specific order -- whereas FileSets represent files in whichever
+            order they are returned by the filesystem.</p>
+        <div class="table"><a name="idp56409184"></a><p class="formal-object-title"><span class="label">Table D.2: </span><span class="title"> Attributes for the <code class="literal">&lt;filelist&gt;</code> tag </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for the &lt;filelist&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory, to which the paths given in <code class="literal">files
+                            </code>or <code class="literal">listfile</code> are relative.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">files</code></td><td><code class="literal">String</code></td><td>Comma or space-separated list of files.</td><td>n/a</td><td>Yes (or <code class="literal">listfile)</code>
+                        </td></tr><tr><td><code class="literal">listfile</code></td><td><code class="literal">String</code></td><td>A text file with one filename per line.</td><td>n/a</td><td>Yes (or <code class="literal">files)</code>
+                        </td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56432288"></a>D.2.1 Usage Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;filelist dir="/etc" files="httpd/conf/httpd.conf,php.ini"/&gt;</pre>
+            <p> Or you can use a <code class="literal">listfile</code>, which is expected to contain one
+                filename per line: </p>
+            <pre class="programlisting">&lt;filelist dir="conf/" listfile="ini_files.txt"/&gt;</pre>
+            <p> This will grab each file as listed in <code class="literal">ini_files.txt</code>. This can
+                be useful if one task compiles a list of files to process and another task needs to
+                read in that list and perform some action to those files.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="app.coretypes.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretypes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="FileSet.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Appendix D. Core Types </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> D.3 FileSet</td></tr></table></div></body></html>

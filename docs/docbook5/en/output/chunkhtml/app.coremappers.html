@@ -1,0 +1,25 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Appendix F. Core mappers</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="XsltFilter.html" title="E.19 XsltFilter"><link rel="next" href="FlattenMapper.html" title="F.2 FlattenMapper"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix F. Core mappers</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="XsltFilter.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="FlattenMapper.html">Next</a></td></tr></table><hr></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a name="app.coremappers"></a>Appendix F. Core mappers</h1></div></div></div>
+    
+
+    <p>While filters are applied to the <code class="literal">content</code> of files, Mappers are applied
+        to the <code class="literal">filenames</code>. All mappers have the same API, i.e. the way you use
+        them is the same:</p>
+    <pre class="programlisting">&lt;mapper type="<code class="literal">mappername</code>" from="<code class="literal">frompattern</code>" to="<code class="literal">topattern</code>" /&gt;</pre>
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp56994976"></a>F.1 Common Attributes</h2></div></div></div>
+        
+        <div class="table"><a name="idp56995680"></a><p class="formal-object-title"><span class="label">Table F.1: </span><span class="title"> Attributes for the <code class="literal">&lt;mapper&gt;</code> tag </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for the &lt;mapper&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Type of the mapper.</td><td>n/a</td><td rowspan="2">One of these is required.</td></tr><tr><td><code class="literal">classname</code></td><td><code class="literal">String</code></td><td>Dot-path to a custom mapper class to use.</td><td>n/a</td></tr><tr><td><code class="literal">from</code></td><td><code class="literal">String</code></td><td>The pattern the filename is to be matched to. The exact meaning is
+                            dependent on the implementation of the mapper.</td><td>n/a</td><td>depends on the implementation of the mapper</td></tr><tr><td><code class="literal">to</code></td><td><code class="literal">String</code></td><td>The pattern according to which the filename is to be changed to.
+                            Here, the usage is dependent on the implementation of the mapper,
+                            too.</td><td>n/a</td><td>depends on the implementation of the mapper</td></tr></tbody></table>
+        </div></div><br class="table-break">
+
+    </div>
+    
+    
+    
+    
+    
+
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="XsltFilter.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="FlattenMapper.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">E.19 XsltFilter </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> F.2 FlattenMapper </td></tr></table></div></body></html>

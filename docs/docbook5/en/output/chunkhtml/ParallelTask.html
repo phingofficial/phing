@@ -1,0 +1,35 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.43 ParallelTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="ManifestTask.html" title="C.42 ManifestTask"><link rel="next" href="PatchTask.html" title="C.44 PatchTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.43 ParallelTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ManifestTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PatchTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ParallelTask"></a>C.43 ParallelTask</h2></div></div></div>
+        
+        <p>Executes nested tasks in parallel.</p>
+        <p>Parallel tasks have a number of uses in a Phing build file including:
+            </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p>Taking advantage of available processing resources to execute external programs simultaneously.</p>
+                </li><li class="listitem">
+                    <p>Testing servers, where the server can be run in one thread and the test harness is run in another thread.</p>
+                </li></ul></div><p>
+        </p>
+        <p>Any valid Phing task may be embedded within a parallel task, including other parallel tasks.</p>
+        <p>While the tasks within the parallel task are being run, the main thread will be blocked waiting for all the child threads to complete.
+        If one of the tasks within the <code class="literal">parallel</code> task fails, the remaining tasks will continue to run until all tasks have completed.
+        In this situation, the parallel task will also fail.</p>
+        <p>The threadCount attribute can be used to place a maximum number of available threads for the execution.
+        When not present the value is based on the number of processors present. When present then the maximum number of concurrently executing tasks
+        will not exceed the number of threads specified. Furthermore, each task will be started in the order they are given.
+        But no guarantee is made as to the speed of execution or the order of completion of the tasks, only that each will be started before the next.
+        </p>
+        <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3><p>This task is highly experimental, and will only work on *nix machines
+            that have the PHP <code class="literal">pcntl</code> extension installed.</p></div>
+        <div class="table"><a name="idp53336144"></a><p class="formal-object-title"><span class="label">Table C.51: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">threadCount</code></td><td><code class="literal">Integer</code></td><td>Maximum number of threads / processes to use.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53350144"></a>C.43.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;parallel threadCount="4"&gt;
+    &lt;echo&gt;Job 1&lt;/echo&gt;
+    &lt;echo&gt;Job 2&lt;/echo&gt;
+    &lt;echo&gt;Job 3&lt;/echo&gt;
+    &lt;echo&gt;Job 4&lt;/echo&gt;
+&lt;/parallel&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ManifestTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PatchTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.42 ManifestTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.44 PatchTask</td></tr></table></div></body></html>

@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>4.3 More Complex Buildfile</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch04.html" title="Chapter 4 Getting started"><link rel="prev" href="ch04s02.html" title="4.2 Writing A Simple Buildfile"><link rel="next" href="ch04s04.html" title="4.4 Relax NG Grammar"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.3  More Complex Buildfile </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><th width="60%" align="center">Chapter 4 Getting started</th><td width="20%" align="right"> <a accesskey="n" href="ch04s04.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp58740864"></a>4.3  More Complex Buildfile </h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>4.3 More Complex Buildfile</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.gettingstarted.html" title="Chapter 4 Getting started"><link rel="prev" href="ch04s02.html" title="4.2 Writing A Simple Buildfile"><link rel="next" href="ch04s04.html" title="4.4 Relax NG Grammar"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">4.3  More Complex Buildfile </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><th width="60%" align="center">Chapter 4 Getting started</th><td width="20%" align="right"> <a accesskey="n" href="ch04s04.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp40880544"></a>4.3  More Complex Buildfile </h2></div></div></div>
         
 
         <pre class="programlisting">&lt;?xml version="1.0"  encoding="UTF-8" ?&gt;
@@ -34,8 +34,8 @@
 &lt;/project&gt;</pre>
 
         <p>This build file first defines some properties with the
-                <code class="literal"><a class="link" href="apbs32.html" title="B.32 PropertyTask">&lt;property&gt;</a></code> task call to <code class="literal">PropertyTask</code>. Then,
-            it defines a <a class="link" href="apds03.html" title="D.3 FileSet">fileset</a> and two <a class="link" href="aphs02.html" title="H.2 Targets">targets</a>.
+                <code class="literal"><a class="link" href="PropertyTask.html" title="B.32 PropertyTask">&lt;property&gt;</a></code> task call to <code class="literal">PropertyTask</code>. Then,
+            it defines a <a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a> and two <a class="link" href="Target.html" title="H.2 Targets">targets</a>.
             Let us have a quick rundown of this build file.</p>
 
         <p> The first five four within the <code class="literal">project</code> tag define properties. They
@@ -43,7 +43,7 @@
         <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                 <p>The second <code class="literal">property</code> tag contains only the
                         <code class="literal">file</code> attribute. The value has to be a relative or
-                    absolute path to a property file (for the format, see <a class="xref" href="api.html" title="Appendix I. File Formats">Appendix I, <i>File Formats</i></a>).</p>
+                    absolute path to a property file (for the format, see <a class="xref" href="app.fileformats.html" title="Appendix I. File Formats">Appendix I, <i>File Formats</i></a>).</p>
             </li><li class="listitem">
                 <p>The other times, the tag has a <code class="literal">name</code> and a
                         <code class="literal">value</code> attribute. After the call, the value defined in the
@@ -54,7 +54,7 @@
             tag. It defines a <code class="literal">fileset</code>, i.e. a set of multiple files. You can
             include and exclude files with the <code class="literal">include</code> and
                 <code class="literal">exclude</code> tags within the <code class="literal">fileset</code> tag. For more
-            information concerning Filesets (i.e. Patterns) see <a class="xref" href="apd.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>.
+            information concerning Filesets (i.e. Patterns) see <a class="xref" href="app.coretypes.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>.
             The <code class="literal">fileset</code> is given an <code class="literal">id</code> attribute, so it can be
             referenced later on.</p>
         <p>One thing is worth noting here though and that is the use of double star expression,
@@ -73,7 +73,7 @@
 
         <p>The only noticeable thing in the second target is the call to
                 <code class="literal">PhingTask</code> with the <code class="literal">&lt;phingcall&gt;</code> tag (see
-                <a class="xref" href="apb.html" title="Appendix B. Core tasks">Appendix B, <i>Core tasks</i></a> for more information). The task executes a
+                <a class="xref" href="app.coretasks.html" title="Appendix B. Core tasks">Appendix B, <i>Core tasks</i></a> for more information). The task executes a
             specified target within the same build file. So, the second target removes the build
             directory and calls <code class="literal">main</code> again, thus rebuilding the project.</p>
 
@@ -82,13 +82,13 @@
             override the <code class="filename">builddir</code> in the build file above one could call Phing
             as </p>
         <pre class="screen">$ phing -Dbuilddir=/tmp/system-test  </pre>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp58849968"></a>4.3.1 Handling source dependencies</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp43007568"></a>4.3.1 Handling source dependencies</h3></div></div></div>
             
             <p>A common task required in many build files is to keep some target which has a
                 number of dependencies up to date. In traditional make files this could for example
                 be an executable that needs to be recompiled if any of the source files have been
                 updated. In Phing such a condition is handled by the <code class="literal">UpToDateTask</code>
-                , see <a class="xref" href="apbs43.html" title="B.43 UpToDateTask">Section B.43, “UpToDateTask ”</a> for examples on how this task us
+                , see <a class="xref" href="UpToDateTask.html" title="B.43 UpToDateTask">Section B.43, “UpToDateTask ”</a> for examples on how this task us
                 used.</p>
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch04.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.2  Writing A Simple Buildfile  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.4  Relax NG Grammar </td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04s02.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch.gettingstarted.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch04s04.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">4.2  Writing A Simple Buildfile  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 4.4  Relax NG Grammar </td></tr></table></div></body></html>

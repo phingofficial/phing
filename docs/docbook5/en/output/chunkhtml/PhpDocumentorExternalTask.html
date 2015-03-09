@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.58 PhpDocumentorExternalTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PhpDocumentor2Task.html" title="C.57 PhpDocumentor2Task"><link rel="next" href="PhpLintTask.html" title="C.59 PhpLintTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.58 PhpDocumentorExternalTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PhpDocumentor2Task.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PhpLintTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhpDocumentorExternalTask"></a>C.58 PhpDocumentorExternalTask</h2></div></div></div>
+        
+        <p> <span class="bold"><strong>This task is now deprecated in favor of the
+            <a class="xref" href="PhpDocumentor2Task.html" title="C.57 PhpDocumentor2Task">Section C.57, “PhpDocumentor2Task”</a>.</strong></span></p>
+        <p> This is the same as the <a class="xref" href="PhpDocumentorTask.html" title="C.56 PhpDocumentorTask">Section C.56, “PhpDocumentorTask”</a> but uses the command
+            line application. Use this as a fallback in case you're running into troubles when using
+            the phpDocumentor-library with the PhpDocumentorTask directly, e.g. when you're using
+            Smarty and have Smarty in your library path too.</p>
+        <p>This task supports everything the PhpDocumentorTask supports, differences are
+            documented below.</p>
+
+        <div class="table"><a name="idp54492256"></a><p class="formal-object-title"><span class="label">Table C.81: </span><span class="title">Parameters</span></p><div class="table-contents">
+            
+            <table summary="Parameters" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">programpath</code></td><td><code class="literal">String</code></td><td>Path to the phpdoc executable (relative or absolute).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">sourcepath</code></td><td><code class="literal">String</code></td><td>A directory to scan for parsable files. Supports multiple directories
+                            separated with a comma.</td><td>n/a</td><td>Yes, if no <code class="literal">&lt;fileset&gt;</code> is given</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="table"><a name="idp54510528"></a><p class="formal-object-title"><span class="label">Table C.82: </span><span class="title">Unsupported Parameters</span></p><div class="table-contents">
+            
+            <table summary="Unsupported Parameters" border="1"><colgroup><col class="c1"><col class="c2"></colgroup><thead><tr><th>Name</th><th>Description</th></tr></thead><tbody><tr><td><code class="literal">configdir</code></td><td>Currently not supported. The attribute will be ignored and a warning
+                            messag will be generated. The build continues (to ease when changing an
+                            existing phpdoc task) however this may have unexpected side
+                            effects.</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54518256"></a>C.58.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;phpdocext title="API Documentation"
+  programpath="/usr/bin/phpdoc"
+  destdir="apidocs"
+  sourcecode="false"
+  output="HTML:Smarty:PHP"&gt;
+   &lt;fileset dir="./classes"&gt;
+      &lt;include name="**/*.php" /&gt;
+   &lt;/fileset&gt;
+   &lt;projdocfileset dir="."&gt;
+      &lt;include name="README" /&gt;
+      &lt;include name="INSTALL" /&gt;
+      &lt;include name="CHANGELOG" /&gt;
+   &lt;/projdocfileset&gt;
+&lt;/phpdocext&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PhpDocumentor2Task.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PhpLintTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.57 PhpDocumentor2Task </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.59 PhpLintTask</td></tr></table></div></body></html>

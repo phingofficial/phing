@@ -1,0 +1,64 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.91 ZendGuardEncodeTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="ZendCodeAnalyzerTask.html" title="C.90 ZendCodeAnalyzerTask"><link rel="next" href="ZendGuardLicenseTask.html" title="C.92 ZendGuardLicenseTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.91 ZendGuardEncodeTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ZendCodeAnalyzerTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="ZendGuardLicenseTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ZendGuardEncodeTask"></a>C.91 ZendGuardEncodeTask</h2></div></div></div>
+        
+        <p> The <code class="literal">ZendGuardEncodeTask</code> is a wrapper for ZendGuard zendenc
+            executable. It pre-compiles the PHP code which improves speed and can prevent
+            unauthorized code modification. Additionally it allows signing or licensing the code so
+            it can only be used with a valid license.</p>
+        <p> For more information about ZendGuard encode parameters see the <a class="ulink" href="http://static.zend.com/topics/Zend-Guard-User-Guidev5x.pdf" target="_top">ZendGuard
+                documentation</a>.</p>
+
+        <div class="table"><a name="idp56138832"></a><p class="formal-object-title"><span class="label">Table C.121: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">zendEncoderPath</code></td><td><code class="literal">String</code></td><td>Path to zendenc or zendenc5 binary.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">deleteSource</code></td><td><code class="literal">Boolean</code></td><td>Whether to delete the original file and replace with encoded.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">renameSourceExt</code></td><td><code class="literal">String</code></td><td>If defined the original file will be copied to
+                            originalfile.renameSourceExt before encoding. This property overrides
+                            the deleteSource property.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">shortTags</code></td><td><code class="literal">Boolean</code></td><td>Turns on/off support for PHP short tags (&lt;?). True to enable
+                            support.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">aspTags</code></td><td><code class="literal">Boolean</code></td><td>Turns on/off support for ASP tags (&lt;%). True to enable
+                            support.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">noHeader</code></td><td><code class="literal">Boolean</code></td><td>Disables the PHP-compatible header that is added to the top of every
+                            encoded file by default and is displayed if the Zend Optimizer is not
+                            properly installed.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">useCrypto</code></td><td><code class="literal">Boolean</code></td><td>Enables cryptography support.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">encodedOnly</code></td><td><code class="literal">Boolean</code></td><td>If enabled the encoded files will only work with other encoded files
+                            ( I.e. encoded and not-encoded files cannot be used together).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">forceEncode</code></td><td><code class="literal">Boolean</code></td><td>Allow encoding previously encoded files. Not recommended.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">expires</code></td><td><code class="literal">String</code></td><td>Make an encoded file to expire on the given data. Date is in
+                            yyyy-mm-dd format.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">obfuscationLevel</code></td><td><code class="literal">Integer</code></td><td>Level of obfuscation. Defaults to 0 (no obfuscation). </td><td>0</td><td>No</td></tr><tr><td><code class="literal">optMask</code></td><td><code class="literal">Integer</code></td><td>Optimization mask. Integer representing a bit mask.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">privateKeyPath</code></td><td><code class="literal">String</code></td><td>Path to the company private key. This is required when either
+                            signProduct or licenseProduct is enabled.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">licenseProduct</code></td><td><code class="literal">Boolean</code></td><td>Enabled product licensing. The encoded files won't work without a
+                            valid license. If enabled privateKeyPath property also needs to be
+                            defined.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">signProduct</code></td><td><code class="literal">Boolean</code></td><td>Enabled product signing. If signing is enabled the files will be
+                            encoded with license support. However valid license won't be required
+                            for the files to work. If enabled privatKeyPath property also needs to
+                            be defined.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">productName</code></td><td><code class="literal">String</code></td><td>Name of the product. This must match the product name in the license
+                            and is required when either licenseProduct or signProduct is
+                            enabled.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">prologFile</code></td><td><code class="literal">String</code></td><td>Path to a file containing a text that will be prepended to each
+                            encoded file and displayed in case the Zend Optimizer is not
+                            installed.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56149392"></a>C.91.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;zendguardencode
+ shortTags="false"
+ productName="Phing"
+ privateKeyPath="/var/data/phing.key"
+ licenseProduct="true"
+ zendEncoderPath="/usr/local/Zend/ZendGuard-5_0_1/bin/zendenc5"
+ &gt;
+
+ &lt;fileset dir="src"&gt;
+   &lt;include name="**/*.php" /&gt;
+   &lt;exclude name="cache/**" /&gt;
+   &lt;exclude name="plugins/**" /&gt;
+ &lt;/fileset&gt;
+
+ &lt;fileset dir="src"&gt;
+   &lt;include name="plugins/cs*/**/*.php" /&gt;
+   &lt;include name="plugins/cs*/*.php" /&gt;
+ &lt;/fileset&gt;
+&lt;/zendguardencode&gt;</pre>
+
+            <p>Encode all php files in the current directory and subdirectories. Exlude
+                everything in <code class="filename">cache/</code> and <code class="filename">plugins/</code> but include everything in plugins that starts with
+                cs.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56212992"></a>C.91.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ZendCodeAnalyzerTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ZendGuardLicenseTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.90 ZendCodeAnalyzerTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.92 ZendGuardLicenseTask</td></tr></table></div></body></html>

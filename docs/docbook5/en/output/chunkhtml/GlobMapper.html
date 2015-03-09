@@ -1,0 +1,22 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>F.3 GlobMapper</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coremappers.html" title="Appendix F. Core mappers"><link rel="prev" href="FlattenMapper.html" title="F.2 FlattenMapper"><link rel="next" href="IdentityMapper.html" title="F.4 IdentityMapper"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">F.3 GlobMapper </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="FlattenMapper.html">Prev</a> </td><th width="60%" align="center">Appendix F. Core mappers</th><td width="20%" align="right"> <a accesskey="n" href="IdentityMapper.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="GlobMapper"></a>F.3 GlobMapper </h2></div></div></div>
+        
+        <p>The <code class="literal">GlobMapper</code> works like the <code class="literal">copy</code> command in
+            DOS:</p>
+        <pre class="programlisting">&lt;copy todir="/tmp"&gt;
+  &lt;mapper type="glob" from="*.php" to="*.php.bak"/&gt;
+
+  &lt;fileset refid="someid" /&gt;
+&lt;/copy&gt;</pre>
+        <p>This will change the extension of all files matching the pattern
+                <code class="literal">*.php</code> to <code class="literal">.php.bak</code>.</p>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp57040832"></a>F.3.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;mapper type="glob" from="*txt" to="*txt.bak"/&gt;</pre>
+            <p>Applying the mapper, you will get the following results from the following
+                filenames:</p>
+            <div class="table"><a name="idp57043008"></a><p class="formal-object-title"><span class="label">Table F.3: </span><span class="title">Result of mapping</span></p><div class="table-contents">
+                
+                <table summary="Result of mapping" border="1"><colgroup><col class="name"><col class="name"></colgroup><thead><tr><th>From</th><th>To</th></tr></thead><tbody><tr><td><code class="filename">test.txt</code></td><td><code class="filename">test.txt.bak</code></td></tr><tr><td><code class="filename">./foo/bar/test.txt</code></td><td><code class="filename">./foo/bar/test.txt.bak</code></td></tr><tr><td><code class="filename">mytxt</code></td><td><code class="filename">mytxt.bak</code></td></tr><tr><td><code class="filename">SomeClass.php</code></td><td><code class="literal">ignored</code>, SomeClass.php</td></tr></tbody></table>
+            </div></div><br class="table-break">
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="FlattenMapper.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coremappers.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="IdentityMapper.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">F.2 FlattenMapper  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> F.4 IdentityMapper </td></tr></table></div></body></html>

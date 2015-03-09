@@ -1,0 +1,22 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.79 StopwatchTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SvnSwitchTask.html" title="C.78 SvnSwitchTask"><link rel="next" href="SymfonyConsoleTask.html" title="C.80 SymfonyConsoleTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.79 StopwatchTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SvnSwitchTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SymfonyConsoleTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="StopwatchTask"></a>C.79 StopwatchTask</h2></div></div></div>
+        
+        <p>
+            The StopwatchTask provides an easy way to measure execution time of phing tasks.
+        </p>
+        <div class="table"><a name="idp55720976"></a><p class="formal-object-title"><span class="label">Table C.108: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of the timer.</td><td> </td><td>Yes</td></tr><tr><td><code class="literal">category</code></td><td><code class="literal">String</code></td><td>Set a category for the timer.</td><td> </td><td>No</td></tr><tr><td><code class="literal">action</code></td><td><code class="literal">String</code></td><td>Action could be one of start, stop or lap</td><td>start</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55741312"></a>C.79.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;stopwatch name="test" /&gt;
+&lt;!-- some other task... --&gt;
+&lt;stopwatch name="test" action="lap" /&gt;
+&lt;!-- some other task... --&gt;
+&lt;stopwatch name="test" action="lap" /&gt;
+&lt;!-- some other task... --&gt;
+&lt;stopwatch name="test" action="lap" /&gt;
+&lt;!-- some other task... --&gt;
+&lt;stopwatch name="test" action="stop" /&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SvnSwitchTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SymfonyConsoleTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.78 SvnSwitchTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.80 SymfonyConsoleTask</td></tr></table></div></body></html>

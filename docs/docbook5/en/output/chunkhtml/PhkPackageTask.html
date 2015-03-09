@@ -1,0 +1,39 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.50 PhkPackageTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PharPackageTask.html" title="C.49 PharPackageTask"><link rel="next" href="PhpCodeSnifferTask.html" title="C.51 PhpCodeSnifferTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.50 PhkPackageTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PharPackageTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PhpCodeSnifferTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhkPackageTask"></a>C.50 PhkPackageTask</h2></div></div></div>
+        
+        <p> This task runs PHK_Creator.phk to build PHK-package. Learn more about build process
+            in <a class="ulink" href="http://phk.tekwire.net/joomla/support/doc/builders_guide.htm" target="_top">PHK Builder's Guide</a>.</p>
+
+        <div class="table"><a name="idp53891312"></a><p class="formal-object-title"><span class="label">Table C.67: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">phkcreatorpath</code></td><td><code class="literal">String</code></td><td>Path to PHK_Creator.phk.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">inputdirectory</code></td><td><code class="literal">String</code></td><td>Path to directory, that will be packed.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">outputfile</code></td><td><code class="literal">String</code></td><td>Output PHK-file. Directory, where file will be stored, must
+                            exist!</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">compress</code></td><td><code class="literal">String</code></td><td>Compression type (gzip, bzip2, none) to apply to the packed
+                            files.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">strip</code></td><td><code class="literal">Boolean</code></td><td>When true, PHP source file(s) are stripped (filtered through
+                            php_strip_whitespace()) before being stored into the archive.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>The package's name (Information only).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">webrunscript</code></td><td><code class="literal">String</code></td><td>The script to run in web direct access mode. Subfile path.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">crccheck</code></td><td><code class="literal">Boolean</code></td><td>If true, a CRC check will be forced every time the package is
+                            mounted.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53929040"></a>C.50.1 Example</h3></div></div></div>
+            
+            <p>Sample build command:</p>
+            <pre class="programlisting">&lt;phkpackage
+    phkcreatorpath="/path/to/PHK_Creator.phk"
+    inputdirectory="src"
+    outputfile="build/sample-project.phk"
+    compress="gzip"
+    strip="true"
+    name="Sample Project"
+    webrunscript="index.php"&gt;
+    &lt;webaccess&gt;
+        &lt;paentry&gt;/&lt;/paentry&gt;
+    &lt;/webaccess&gt;
+&lt;/phkpackage&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53931408"></a>C.50.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">webaccess</code>
+                    </p>
+                    <p> Collection of <code class="literal">path</code> tags (see example below), that will
+                        be visible outside package in web mode.</p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PharPackageTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PhpCodeSnifferTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.49 PharPackageTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.51 PhpCodeSnifferTask</td></tr></table></div></body></html>

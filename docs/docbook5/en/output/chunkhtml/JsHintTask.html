@@ -1,0 +1,24 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.31 JsHintTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="IoncubeLicenseTask.html" title="C.30 IoncubeLicenseTask"><link rel="next" href="JslLintTask.html" title="C.32 JslLintTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.31 JsHintTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="IoncubeLicenseTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="JslLintTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="JsHintTask"></a>C.31 JsHintTask</h2></div></div></div>
+        
+        <p>This task runs <a class="ulink" href="http://www.jshint.com/" target="_top">JSHint</a>,
+            a tool that helps to detect errors and potential problems in JavaScript code.</p>
+
+        <div class="table"><a name="idp52681360"></a><p class="formal-object-title"><span class="label">Table C.37: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Single file to perform check on.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">haltOnError</code></td><td><code class="literal">boolean</code></td><td>Should the build fail when there are errors in the JS code?</td><td>false</td><td>No</td></tr><tr><td><code class="literal">haltOnWarning</code></td><td><code class="literal">boolean</code></td><td>Should the build fail when there are warnings in the JS code?</td><td>false</td><td>No</td></tr><tr><td><code class="literal">reporter</code></td><td><code class="literal">String</code></td><td>JSHint reporter.</td><td>checkstyle</td><td>No</td></tr><tr><td><code class="literal">checkstyleReportPath</code></td><td><code class="literal">String</code></td><td>Path where the the report in Checkstyle format should be saved.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52708736"></a>C.31.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">
+        &lt;jshint
+            haltonerror="false"
+            haltOnWarning="false"
+            reporter="jslint"
+            checkstyleReportPath="${project.basedir}/build/checkstyle-jshint.xml"&gt;
+            &lt;fileset dir="${project.basedir}/public_html/www/js"&gt;
+                &lt;include name="**/**.js"/&gt;
+                &lt;exclude name="js-cache/**"/&gt;
+            &lt;/fileset&gt;
+        &lt;/jshint&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="IoncubeLicenseTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="JslLintTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.30 IoncubeLicenseTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.32 JslLintTask</td></tr></table></div></body></html>

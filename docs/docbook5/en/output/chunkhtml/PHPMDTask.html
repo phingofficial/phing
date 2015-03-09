@@ -1,0 +1,59 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.54 PHPMDTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PHPLocTask.html" title="C.53 PHPLocTask"><link rel="next" href="PhpDependTask.html" title="C.55 PhpDependTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.54 PHPMDTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PHPLocTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PhpDependTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PHPMDTask"></a>C.54 PHPMDTask</h2></div></div></div>
+        
+        <p> This task runs <a class="ulink" href="http://phpmd.org" target="_top">phpmd</a>, a
+            Project Mess Detector (PMD) for PHP Code. You need an installed version of this software
+            to use this task.</p>
+
+        <div class="table"><a name="idp54200496"></a><p class="formal-object-title"><span class="label">Table C.74: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file or path</td><td>n/a</td><td>Only when there are <span class="emphasis"><em>no</em></span> nested
+                        <code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code> elements</td></tr><tr><td><code class="literal">rulesets</code></td><td><code class="literal">String</code></td><td>Sets the rulesets used for analyzing the source code</td><td>codesize, unusedcode</td><td>No</td></tr><tr><td><code class="literal">minimumPriority</code></td><td><code class="literal">Integer</code></td><td>The minimum priority for rules to load.</td><td>5</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>Comma-separated list of valid file extensions (without dot) for
+                            analyzed files.</td><td>php</td><td>No</td></tr><tr><td><code class="literal">ignorePatterns</code></td><td><code class="literal">String</code></td><td>Comma-separated list of directory patterns to ignore.</td><td><code class="literal">.git</code>, <code class="literal">.svn</code>,
+                                <code class="literal">CVS</code>, <code class="literal">.bzr</code>,
+                                <code class="literal">.hg</code></td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The format for the report when no nested formatter is used.</td><td>text</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54233824"></a>C.54.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;phpmd file="path/to/source.php"/&gt;</pre>
+
+            <p>Checking syntax of one particular source file. Sending Text-Report to
+                STDOUT.</p>
+            <pre class="programlisting">&lt;phpmd file="path/to/source"&gt;
+   &lt;formatter type="html" outfile="reports/pmd.html"/&gt;
+ &lt;/phpmd&gt;</pre>
+            <p>Checking syntax of source files in the given path.</p>
+            <pre class="programlisting">&lt;phpmd&gt;
+   &lt;fileset dir="${builddir}"&gt;
+     &lt;include name="apps/**/*.php" /&gt;
+     &lt;include name="lib/de/**/*.php" /&gt;
+   &lt;/fileset&gt;
+   &lt;formatter type="xml" outfile="reports/pmd.xml"/&gt;
+ &lt;/phpmd&gt;</pre>
+            <p>Checking syntax of source files in the fileset pathes.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54238608"></a>C.54.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code>
+                    </p>
+                    <p> This nested tag is required when the <code class="literal">file</code> attribute is
+                        not set.</p>
+                </li><li class="listitem">
+                    <p><code class="literal">formatter</code>
+                    </p>
+                    <p> The results of the analysis can be printed in different formats. Output
+                        will always be sent to STDOUT, unless you set the <code class="literal">usefile</code>
+                        attribute to <code class="literal">true</code> and set an filename in the
+                            <code class="literal">outfile</code> attribute.</p>
+
+                    <div class="table"><a name="idp54245776"></a><p class="formal-object-title"><span class="label">Table C.75: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
+                                            <code class="literal">format</code> attribute
+                                            (<code class="literal">xml</code>, <code class="literal">html</code>,
+                                            <code class="literal">text</code>).</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">usefile</code></td><td><code class="literal">Boolean</code></td><td>Boolean that determines whether output should be sent to
+                                        a file.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">outfile</code></td><td><code class="literal">String</code></td><td>Path to write output file to.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PHPLocTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PhpDependTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.53 PHPLocTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.55 PhpDependTask</td></tr></table></div></body></html>

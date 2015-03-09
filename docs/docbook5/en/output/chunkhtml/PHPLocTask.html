@@ -1,0 +1,39 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.53 PHPLocTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PHPCPDTask.html" title="C.52 PHPCPDTask"><link rel="next" href="PHPMDTask.html" title="C.54 PHPMDTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.53 PHPLocTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PHPCPDTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PHPMDTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PHPLocTask"></a>C.53 PHPLocTask</h2></div></div></div>
+        
+        <p>This task runs <a class="ulink" href="http://github.com/sebastianbergmann/phploc/" target="_top">phploc</a>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</p>
+        <div class="table"><a name="idp54158960"></a><p class="formal-object-title"><span class="label">Table C.73: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">reportType</code></td><td><code class="literal">String</code></td><td>The type of the report. Available types are cli|csv|txt|xml.</td><td>cli</td><td>No</td></tr><tr><td><code class="literal">reportName</code></td><td><code class="literal">String</code></td><td>The name of the report type without a file extension.</td><td>phploc-report</td><td>No</td></tr><tr><td><code class="literal">reportDirectory</code></td><td><code class="literal">String</code></td><td>The directory to write the report file to.</td><td>false</td><td>Yes, when report type csv, txt or xml is defined.</td></tr><tr><td><code class="literal">countTests</code></td><td><code class="literal">Boolean</code></td><td>Flag to count the projects tests or not.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The name of the file to check.</td><td>n/a</td><td>Yes, when no nested fileset is defined.</td></tr><tr><td><code class="literal">suffixes</code></td><td><code class="literal">String</code></td><td>A comma-separated list of file suffixes to check.</td><td>php</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54189824"></a>C.53.1 Examples</h3></div></div></div>
+            
+                <pre class="programlisting">&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true"&gt;
+                  &lt;tstamp&gt;
+                    &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/&gt;
+                  &lt;/tstamp&gt;
+                  &lt;phploc reportType="txt" reportName="${check.date.time}-report"
+                          reportDirectory="phploc-reports"&gt;
+                    &lt;fileset dir="."&gt;
+                      &lt;include name="**/*.php" /&gt;
+                      &lt;include name="*.php" /&gt;
+                    &lt;/fileset&gt;
+                  &lt;/phploc&gt;
+                &lt;/target&gt;</pre>
+                <p>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</p>
+                <pre class="programlisting">&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests"&gt;
+                  &lt;phploc countTests="true"&gt;
+                    &lt;fileset dir="."&gt;
+                      &lt;include name="**/*.php" /&gt;
+                      &lt;include name="*.php" /&gt;
+                    &lt;/fileset&gt;
+                  &lt;/phploc&gt;
+                &lt;/target&gt;</pre>
+                <p>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54194384"></a>C.53.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PHPCPDTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PHPMDTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.52 PHPCPDTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.54 PHPMDTask</td></tr></table></div></body></html>

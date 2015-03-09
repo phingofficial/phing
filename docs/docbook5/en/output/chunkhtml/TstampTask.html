@@ -1,0 +1,50 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.41 TstampTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="TryCatchTask.html" title="B.40 TryCatchTask"><link rel="next" href="TypedefTask.html" title="B.42 TypedefTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.41 TstampTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="TryCatchTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="TypedefTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="TstampTask"></a>B.41 TstampTask </h2></div></div></div>
+        
+        <p>Sets the <code class="literal">DSTAMP</code>, <code class="literal">TSTAMP</code>, and <code class="literal">TODAY</code>
+            properties in the current project. By default, the <code class="literal">DSTAMP</code> property is
+            in the format <code class="literal">"%Y%m%d"</code>, <code class="literal">TSTAMP</code> is in the format
+                <code class="literal">"%H%M"</code>, and <code class="literal">TODAY</code> is in the format
+                <code class="literal">"%B %d %Y"</code>. Use the nested <code class="literal">&lt;format&gt;</code> element
+            to specify a different format.</p>
+        <p>These properties can be used in the build-file, for instance, to create time-stamped
+            filenames, or used to replace placeholder tags inside documents to indicate, for
+            example, the release date. The best place for this task is probably in an initialization
+            target.</p>
+
+        <div class="table"><a name="idp50811280"></a><p class="formal-object-title"><span class="label">Table B.42: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">prefix</code></td><td><code class="literal">String</code></td><td>Prefix used for all properties set.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50825232"></a>B.41.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;tstamp/&gt;</pre>
+            <p>sets the standard DSTAMP, TSTAMP, and TODAY properties according to the default
+                formats.</p>
+            <pre class="programlisting">&lt;tstamp&gt;
+  &lt;format property="DATE" pattern="%c" locale="nl_NL"/&gt;
+&lt;/tstamp&gt;</pre>
+            <p>sets the standard properties as well as the property DATE with the date/time
+                pattern "%c" using the Dutch locale.</p>
+            <pre class="programlisting">&lt;tstamp prefix="start"/&gt;</pre>
+            <p>sets three properties with the standard formats, prefixed with "start.":
+                start.DSTAMP, start.TSTAMP, and start.TODAY.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50829968"></a>B.41.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">format</code></p>
+                    <p>The <code class="literal">Tstamp</code> task supports a <code class="literal">&lt;format&gt;</code> nested
+                        element that allows a property to be set to the current date and time in a
+                        given format. The date/time patterns are as defined in the PHP
+                            <code class="literal">strftime()</code> function.</p>
+                </li></ul></div>
+
+            <div class="table"><a name="idp50834512"></a><p class="formal-object-title"><span class="label">Table B.43: </span><span class="title">Attributes</span></p><div class="table-contents">
+                
+                <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>The property to receive the date/time string in the given
+                                pattern.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">pattern</code></td><td><code class="literal">String</code></td><td>The date/time pattern to be used. The values are as defined by
+                                the PHP strftime() function.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">locale</code></td><td><code class="literal">String</code></td><td>The locale used to create date/time string. For more information
+                                see the PHP setlocale() function.</td><td>n/a</td><td>No</td></tr></tbody></table>
+            </div></div><br class="table-break">
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="TryCatchTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="TypedefTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.40 TryCatchTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.42 TypedefTask </td></tr></table></div></body></html>

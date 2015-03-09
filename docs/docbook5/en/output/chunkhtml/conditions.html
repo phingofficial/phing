@@ -1,0 +1,193 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>5.8 Conditions</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.projcomponents.html" title="Chapter 5 Project components"><link rel="prev" href="ch05s07.html" title="5.7 Basic Types"><link rel="next" href="ch.extending.html" title="Chapter 6 Extending Phing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">5.8  Conditions </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05s07.html">Prev</a> </td><th width="60%" align="center">Chapter 5 Project components</th><td width="20%" align="right"> <a accesskey="n" href="ch.extending.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="conditions"></a>5.8  Conditions </h2></div></div></div>
+        
+
+        <p> Conditions are nested elements of the <a class="link" href="ConditionTask.html" title="B.9 ConditionTask">condition</a>,
+                <a class="link" href="IfTask.html" title="B.20 IfTask">if</a> and
+                <a class="link" href="WaitForTask.html" title="B.44 WaitForTask">waitfor</a> tasks.</p>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.not"></a>5.8.1 <code class="literal">not</code></h3></div></div></div>
+            
+            <p> The <code class="code">&lt;not&gt;</code> element expects exactly one other condition to be
+                nested into this element, negating the result of the condition. It doesn't have any
+                attributes and accepts all nested elements of the condition task as nested elements
+                as well.</p>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.and"></a>5.8.2 <code class="literal">and</code></h3></div></div></div>
+            
+            <p> The <code class="code">&lt;and&gt;</code> element doesn't have any attributes and accepts an
+                arbitrary number of conditions as nested elements. This condition is true if all of
+                its contained conditions are, conditions will be evaluated in the order they have
+                been specified in the build file.</p>
+
+            <p> The <code class="code">&lt;and&gt;</code> condition has the same shortcut semantics as the
+                    <code class="literal">&amp;&amp;</code> operator in some programming languages, as soon as
+                one of the nested conditions is false, no other condition will be evaluated.</p>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.or"></a>5.8.3 <code class="literal">or</code></h3></div></div></div>
+            
+            <p> The <code class="code">&lt;or&gt;</code> element doesn't have any attributes and accepts an
+                arbitrary number of conditions as nested elements. This condition is true if at
+                least one of its contained conditions is, conditions will be evaluated in the order
+                they have been specified in the build file.</p>
+
+            <p> The <code class="code">&lt;or&gt;</code> condition has the same shortcut semantics as the
+                    <code class="literal">||</code> operator in some programming languages, as soon as one of
+                the nested conditions is true, no other condition will be evaluated.</p>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.xor"></a>5.8.4 <code class="literal">xor</code></h3></div></div></div>
+            
+            <p> The <code class="code">&lt;xor&gt;</code> element performs an exclusive or on all nested elements,
+                similar to the ^ operator in PHP. It only evaluates to true if an odd number of nested
+                conditions are true. There is no shortcutting of evaluation, unlike the &lt;and&gt; and &lt;or&gt; tests.
+                It doesn't have any attributes and accepts all nested elements of the condition task as nested elements
+                as well.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.os"></a>5.8.5 <code class="literal">os</code></h3></div></div></div>
+            
+            <p>Test whether the current operating system is of a given type.</p>
+
+            <div class="table"><a name="idp43141840"></a><p class="formal-object-title"><span class="label">Table 5.1: </span><span class="title">OS Attributes</span></p><div class="table-contents">
+                
+                <table summary="OS Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">family</code></td><td>The name of the operating system family to expect.</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <p>Supported values for the family attribute are:</p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p>windows (for all versions of Microsoft Windows)</p>
+                </li><li class="listitem">
+                    <p>mac (for all Apple Macintosh systems)</p>
+                </li><li class="listitem">
+                    <p>unix (for all Unix and Unix-like operating systems)</p>
+                </li></ul></div>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.equals"></a>5.8.6 <code class="literal">equals</code></h3></div></div></div>
+            
+            <p>Tests whether the two given Strings are identical</p>
+            <div class="table"><a name="idp43157232"></a><p class="formal-object-title"><span class="label">Table 5.2: </span><span class="title">equals Attributes</span></p><div class="table-contents">
+                
+                <table summary="equals Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">arg1</code></td><td>First string to test.</td><td>Yes</td></tr><tr><td><code class="literal">arg2</code></td><td>Second string to test.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparision. Default is true.</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td>Trim whitespace from arguments before comparing them. Default is
+                                false.</td><td>No</td></tr></tbody></table>
+            </div></div><br class="table-break">
+
+        </div>
+        
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.versioncompare"></a>5.8.7 <code class="literal">version-compare</code></h3></div></div></div>
+            
+            <p>Compares two given versions</p>
+            <div class="table"><a name="idp43175376"></a><p class="formal-object-title"><span class="label">Table 5.3: </span><span class="title">version-compare Attributes</span></p><div class="table-contents">
+                
+                <table summary="version-compare Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">version</code></td><td>The version you want to compare</td><td>Yes</td></tr><tr><td><code class="literal">desiredVersion</code></td><td>The version you want to compare agains</td><td>Yes</td></tr><tr><td><code class="literal">operator</code></td><td>The operator to use for version comparison. Default
+                                is <code class="literal">&gt;=</code>.</td><td>No</td></tr><tr><td>debug</td><td>Turns on debug mode, that echoes the comparion message. Default is false.</td><td>No</td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <pre class="programlisting">&lt;version-compare version="${someproperty}" desiredVersion="1.3" operator="gt" /&gt;</pre>
+            <p>This condition internally uses PHP version_compare(). Operators and behavior are the same.</p> 
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.http"></a>5.8.8 <code class="literal">http</code></h3></div></div></div>
+            
+            <p>Condition to wait for a HTTP request to succeed.</p>
+            <p>Attributes are:</p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">url - the URL of the request.</li><li class="listitem">errorsBeginAt - number at which errors begin at.</li></ul></div>
+            <div class="table"><a name="idp43197088"></a><p class="formal-object-title"><span class="label">Table 5.4: </span><span class="title">http Attributes</span></p><div class="table-contents">
+                
+                <table summary="http Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th><code class="literal">url</code></th><th>The URL of the request.</th><th>Yes</th></tr></thead><tbody><tr><td><code class="literal">errorsBeginAt</code></td><td>Number at which errors begin at. - Default: 400</td><td>No</td></tr></tbody></table>
+            </div></div><br class="table-break">
+
+            <pre class="programlisting">&lt;http url="http://url.to.test" errorsBeginAt="404" /&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.socket"></a>5.8.9 <code class="literal">socket</code></h3></div></div></div>
+            
+            <p>Condition to test for a (tcp) listener on a specified host and port.</p>
+            <div class="table"><a name="idp43209600"></a><p class="formal-object-title"><span class="label">Table 5.5: </span><span class="title">socket Attributes</span></p><div class="table-contents">
+                
+                <table summary="socket Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th><code class="literal">server</code></th><th>The hostname or ip address of the server.</th><th>Yes</th></tr></thead><tbody><tr><td><code class="literal">port</code></td><td>The port number of the server.</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+
+            <pre class="programlisting">&lt;socket server="localhost" port="80" /&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.hasfreespace"></a>5.8.10 <code class="literal">hasfreespace</code></h3></div></div></div>
+            
+            <p>Condition returns true if selected partition has the requested space, false otherwise.</p>
+            <div class="table"><a name="idp43222448"></a><p class="formal-object-title"><span class="label">Table 5.6: </span><span class="title">hasfreespace Attributes</span></p><div class="table-contents">
+                
+                <table summary="hasfreespace Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">partition</code></td><td>The partition/device to check.</td><td>Yes</td></tr><tr><td><code class="literal">needed</code></td><td>The amount of free space required.</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+
+            <pre class="programlisting">&lt;hasfreespace partition="c:" needed="10M" /&gt;</pre>
+            <p>This condition internally uses PHP disk_free_space().</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.isset"></a>5.8.11 <code class="literal">isset</code></h3></div></div></div>
+            
+            <p>Test whether a given property has been set in this project.</p>
+            <div class="table"><a name="idp37513968"></a><p class="formal-object-title"><span class="label">Table 5.7: </span><span class="title">isset Attributes</span></p><div class="table-contents">
+                
+                <table summary="isset Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td>The name of the property to test.</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.contains"></a>5.8.12 <code class="literal">contains</code></h3></div></div></div>
+            
+            <p>Tests whether a string contains another one.</p>
+            <div class="table"><a name="idp37526096"></a><p class="formal-object-title"><span class="label">Table 5.8: </span><span class="title">contains Attributes</span></p><div class="table-contents">
+                
+                <table summary="contains Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">string</code></td><td>The string to search in.</td><td>Yes</td></tr><tr><td><code class="literal">substring</code></td><td>The string to search for.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparision. Default is true.</td><td>No</td></tr></tbody></table>
+            </div></div><br class="table-break">
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.istrue"></a>5.8.13 <code class="literal">istrue</code></h3></div></div></div>
+            
+            <p>Tests whether a string evaluates to true.</p>
+
+            <div class="table"><a name="idp37541952"></a><p class="formal-object-title"><span class="label">Table 5.9: </span><span class="title">istrue Attributes</span></p><div class="table-contents">
+                
+                <table summary="istrue Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td>value to test</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <pre class="programlisting">&lt;istrue value="${someproperty}"/&gt;
+&lt;istrue value="false"/&gt;</pre>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.isfalse"></a>5.8.14 <code class="literal">isfalse</code></h3></div></div></div>
+            
+            <p>Tests whether a string evaluates to not true, the negation of
+                    <code class="literal">&lt;istrue&gt;</code></p>
+            <div class="table"><a name="idp37554944"></a><p class="formal-object-title"><span class="label">Table 5.10: </span><span class="title">isfalse Attributes</span></p><div class="table-contents">
+                
+                <table summary="isfalse Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td>value to test</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <pre class="programlisting">&lt;isfalse value="${someproperty}"/&gt;
+&lt;isfalse value="false"/&gt;</pre>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.referenceexists"></a>5.8.15 <code class="literal">referenceexists</code></h3></div></div></div>
+            
+            <p>Tests whether a specified reference exists.</p>
+            <div class="table"><a name="idp37567552"></a><p class="formal-object-title"><span class="label">Table 5.11: </span><span class="title">referenceexists Attributes</span></p><div class="table-contents">
+                
+                <table summary="referenceexists Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">ref</code></td><td>reference to test for</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <pre class="programlisting">&lt;referenceexists ref="${someid}"/&gt;</pre>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.available"></a>5.8.16 <code class="literal">available</code></h3></div></div></div>
+            
+            <p>This condition is identical to the <a class="link" href="AvailableTask.html" title="B.5 AvailableTask">Available</a> task, all attributes and nested elements of that task are
+                supported, the property and value attributes are redundant and will be
+                ignored.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="conditions.filesmatch"></a>5.8.17 <code class="literal">filesmatch</code></h3></div></div></div>
+            
+            <p>Test two files for matching. Nonexistence of one file results in "false",
+                although if neither exists they are considered equal in terms of content.
+                This test does a byte for byte comparison, so test time scales with byte size.
+                NB: if the files are different sizes, one of them is missing or the filenames match
+                the answer is so obvious the detailed test is omitted. </p>
+            <div class="table"><a name="idp37582704"></a><p class="formal-object-title"><span class="label">Table 5.12: </span><span class="title">filesmatch Attributes</span></p><div class="table-contents">
+                
+                <table summary="filesmatch Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file1</code></td><td>First file to test.</td><td>Yes</td></tr><tr><td><code class="literal">file2</code></td><td>Second file to test.</td><td>Yes</td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <pre class="programlisting">&lt;filesmatch file1="${file1}" file2="${file2}"/&gt;</pre>
+
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05s07.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch.projcomponents.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch.extending.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.7  Basic Types  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 6 Extending Phing</td></tr></table></div></body></html>

@@ -1,0 +1,46 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.49 PharPackageTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PharDataTask.html" title="C.48 PharDataTask"><link rel="next" href="PhkPackageTask.html" title="C.50 PhkPackageTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.49 PharPackageTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PharDataTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PhkPackageTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PharPackageTask"></a>C.49 PharPackageTask</h2></div></div></div>
+        
+        <p>
+            <a class="ulink" href="http://www.php.net/manual/en/book.phar.php" target="_top">Phar</a>
+            packages generating with Phing. This task require <a class="ulink" href="http://pecl.php.net/package/phar" target="_top">PECL's Phar</a>
+            extension to be installed on your system. Phar is built-in in PHP from 5.3
+            version.</p>
+
+        <div class="table"><a name="idp53835984"></a><p class="formal-object-title"><span class="label">Table C.66: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">basedir</code></td><td><code class="literal">String</code></td><td>Base directory, which will be deleted from each included file (from
+                            path). Paths with deleted <code class="literal">basedir</code> part are local
+                            paths in package.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">destfile</code></td><td><code class="literal">String</code></td><td>Destination (output) file. Will be recreated, if exists!</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">compression</code></td><td><code class="literal">String</code></td><td>Compression type (gzip, bzip2, none) to apply to the packed
+                            files.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">webstub</code></td><td><code class="literal">String</code></td><td>Relative path within the phar package to run, if accessed through a
+                            web browser.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">clistub</code></td><td><code class="literal">String</code></td><td>Relative path within the phar package to run, if accessed on the
+                            command line.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">stub</code></td><td><code class="literal">String</code></td><td>A path to a php file that contains a custom stub</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">alias</code></td><td><code class="literal">String</code></td><td>An alias to assign to the phar package</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">signature</code></td><td><code class="literal">String</code></td><td>Signature algorithm (md5, sha1, sha256, sha512), used for this
+                            package.</td><td>sha1</td><td>No</td></tr><tr><td><code class="literal">key</code></td><td><code class="literal">String</code></td><td>The private key to sign the phar package with (PEM or PKCS#12 encoded)</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">keyPassword</code></td><td><code class="literal">String</code></td><td>The password to use for the private key</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53881072"></a>C.49.1 Example</h3></div></div></div>
+            
+            <p>Sample build command:</p>
+            <pre class="programlisting">&lt;pharpackage
+  destfile="./build/package.phar"
+  basedir="./"&gt;
+  &lt;fileset dir="./classes"&gt;
+    &lt;include name="**/**" /&gt;
+  &lt;/fileset&gt;
+  &lt;metadata&gt;
+    &lt;element name="version" value="1.0" /&gt;
+    &lt;element name="authors"&gt;
+      &lt;element name="John Doe"&gt;
+        &lt;element name="e-mail" value="john@example.com" /&gt;
+      &lt;/element&gt;
+    &lt;/element&gt;
+  &lt;/metadata&gt;
+&lt;/pharpackage&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53883568"></a>C.49.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">metadata</code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PharDataTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PhkPackageTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.48 PharDataTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.50 PhkPackageTask</td></tr></table></div></body></html>

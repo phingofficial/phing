@@ -1,0 +1,38 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.59 PhpLintTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PhpDocumentorExternalTask.html" title="C.58 PhpDocumentorExternalTask"><link rel="next" href="PHPUnitTask.html" title="C.60 PHPUnitTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.59 PhpLintTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PhpDocumentorExternalTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PHPUnitTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhpLintTask"></a>C.59 PhpLintTask</h2></div></div></div>
+        
+        <p> The <code class="literal">PhpLintTask</code> checks syntax (lint) on one or more PHP source
+            code files.</p>
+
+        <div class="table"><a name="idp54522384"></a><p class="formal-object-title"><span class="label">Table C.83: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if the linting process encounters an
+                            error.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">errorproperty</code></td><td><code class="literal">String</code></td><td>The name of a property that will be set to contain the error string
+                            (if any).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">interpreter</code></td><td><code class="literal">String</code></td><td>Path to alternative PHP interpreter</td><td>Defaults to the <code class="literal">${php.interpreter}</code> property which is
+                            the interpreter used to execute phing itself.</td><td>No</td></tr><tr><td><code class="literal">cachefile</code></td><td><code class="literal">String</code></td><td>If set, enables writing of last-modified times to
+                                <code class="literal">cachefile</code>, to speed up processing of files that
+                            rarely change</td><td>none</td><td>No</td></tr><tr><td><code class="literal">level</code></td><td><code class="literal">String</code></td><td>Control the level at which phplint reports status messages. One of
+                                <code class="literal">error</code>, <code class="literal">warning</code>,
+                                <code class="literal">info</code>, <code class="literal">verbose</code>,
+                                <code class="literal">debug</code>.</td><td><code class="literal">debug</code></td><td>No</td></tr><tr><td><code class="literal">tofile</code></td><td><code class="literal">String</code></td><td>File to write list of 'bad files' to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">deprecatedAsError</code></td><td><code class="literal">Boolean</code></td><td>Whether to treat deprecated warnings (introduced in PHP 5.3) as
+                            errors.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54563952"></a>C.59.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;phplint file="path/to/source.php"/&gt;</pre>
+
+            <p>Checking syntax of one particular source file.</p>
+            <pre class="programlisting">&lt;phplint&gt;
+  &lt;fileset dir="src"&gt;
+    &lt;include name="**/*.php"/&gt;
+  &lt;/fileset&gt;
+&lt;/phplint&gt;</pre>
+            <p>Check syntax of a fileset of source files.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54567200"></a>C.59.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PhpDocumentorExternalTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PHPUnitTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.58 PhpDocumentorExternalTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.60 PHPUnitTask</td></tr></table></div></body></html>

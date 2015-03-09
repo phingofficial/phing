@@ -1,0 +1,67 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.55 PhpDependTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PHPMDTask.html" title="C.54 PHPMDTask"><link rel="next" href="PhpDocumentorTask.html" title="C.56 PhpDocumentorTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.55 PhpDependTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PHPMDTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PhpDocumentorTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhpDependTask"></a>C.55 PhpDependTask</h2></div></div></div>
+        
+        <p> This task runs <a class="ulink" href="http://pdepend.org" target="_top">PHP_Depend</a>,
+            a software analyzer and metric tool for PHP Code. You need an installed version of this
+            software to use this task.</p>
+
+        <div class="table"><a name="idp54270160"></a><p class="formal-object-title"><span class="label">Table C.76: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to source file or path</td><td>n/a</td><td>Only when there are <span class="emphasis"><em>no</em></span> nested
+                                <code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code> elements</td></tr><tr><td><code class="literal">configFile</code></td><td><code class="literal">String</code></td><td>Path to PHP_Depend configuration file</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>Comma-separated list of valid file extensions (without dot) for
+                            analyzed files.</td><td>php,php5</td><td>No</td></tr><tr><td><code class="literal">excludeDirectories</code></td><td><code class="literal">String</code></td><td>Comma-separated list of directory patterns to ignore.</td><td><code class="literal">.git</code>, <code class="literal">.svn</code>,
+                                <code class="literal">CVS</code></td><td>No</td></tr><tr><td><code class="literal">excludePackages</code></td><td><code class="literal">String</code></td><td>Comma-separated list of packages to ignore.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">withoutAnnotations</code></td><td><code class="literal">Boolean</code></td><td>Should the parse ignore doc comment annotations?</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">supportBadDocumentation</code></td><td><code class="literal">Boolean</code></td><td>Should PHP_Depend treat <code class="literal">+global</code> as a regular
+                            project package?</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">debug</code></td><td><code class="literal">Boolean</code></td><td>Enable debug output?</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonerror</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if errors occurred during the run.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54316720"></a>C.55.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;phpdepend file="path/to/source"&gt;
+   &lt;logger type="phpunit-xml" outfile="reports/metrics.xml"/&gt;
+ &lt;/phpdepend&gt;</pre>
+
+            <p>Running code analysis for source files in the given path.</p>
+            <pre class="programlisting">&lt;phpdepend&gt;
+   &lt;fileset dir="${builddir}"&gt;
+     &lt;include name="apps/**/*.php" /&gt;
+     &lt;include name="lib/de/**/*.php" /&gt;
+   &lt;/fileset&gt;
+   &lt;logger type="jdepend-xml" outfile="reports/jdepend.xml"/&gt;
+   &lt;analyzer type="coderank-mode" value="method"/&gt;
+ &lt;/phpdepend&gt;</pre>
+            <p> Running code analysis for source files in the fileset pathes with CodeRank
+                strategy <code class="literal">method</code>.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54321136"></a>C.55.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code>
+                    </p>
+                    <p> This nested tag is required when the <code class="literal">file</code> attribute is
+                        not set.</p>
+                </li><li class="listitem">
+                    <p><code class="literal">logger</code>
+                    </p>
+                    <p>The results of the analysis can be parsed by differed loggers. At least
+                        one logger is required. Output will always be sent to a file.</p>
+
+                    <div class="table"><a name="idp54326832"></a><p class="formal-object-title"><span class="label">Table C.77: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The name of the logger. Valid loggers are:
+                                            <code class="literal">jdepend-chart</code>,
+                                            <code class="literal">jdepend-xml</code>,
+                                            <code class="literal">overview-pyramid</code>,
+                                            <code class="literal">phpunit-xml</code> and
+                                            <code class="literal">summary-xml</code>.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">outfile</code></td><td><code class="literal">String</code></td><td>Path to write output file to.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal">analyzer</code>
+                    </p>
+                    <p>Some additional analyzers can be added to the runner.</p>
+
+                    <div class="table"><a name="idp54348128"></a><p class="formal-object-title"><span class="label">Table C.78: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The name of the analyzer. Valid analyzers are:
+                                            <code class="literal">coderank-mode</code>.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>The value for the analyzer.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PHPMDTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PhpDocumentorTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.54 PHPMDTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.56 PhpDocumentorTask</td></tr></table></div></body></html>

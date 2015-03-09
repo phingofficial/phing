@@ -1,0 +1,25 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>E.8 ReplaceTokens</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.corefilters.html" title="Appendix E. Core filters"><link rel="prev" href="PrefixLines.html" title="E.7 PrefixLines"><link rel="next" href="ReplaceTokensWithFile.html" title="E.9 ReplaceTokensWithFile"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">E.8 ReplaceTokens</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PrefixLines.html">Prev</a> </td><th width="60%" align="center">Appendix E. Core filters</th><td width="20%" align="right"> <a accesskey="n" href="ReplaceTokensWithFile.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ReplaceTokens"></a>E.8 ReplaceTokens</h2></div></div></div>
+        
+        <p>The <code class="literal">ReplaceTokens</code> filter will replace certain tokens. Tokens are
+            strings enclosed in special characters. If you want to replace
+                <code class="literal">##BCHOME##</code> by the path to the directory set in the environment
+            variable <code class="literal">BCHOME</code>, you could do the following:</p>
+        <pre class="programlisting">&lt;property environment="env" /&gt;
+
+&lt;filterchain&gt;
+  &lt;replacetokens begintoken="##" endtoken="##"&gt;
+    &lt;token key="BCHOME" value="${env.BCHOME}" /&gt;
+  &lt;/replacetokens&gt;
+&lt;/filterchain&gt;</pre>
+
+        <div class="table"><a name="idp56755616"></a><p class="formal-object-title"><span class="label">Table E.6: </span><span class="title"> Attributes for the <code class="literal">&lt;replacetokens&gt;</code> tag </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for the &lt;replacetokens&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">begintoken</code></td><td><code class="literal">String</code></td><td>The string that marks the beginning of a token.</td><td>@</td><td>No</td></tr><tr><td><code class="literal">endtoken</code></td><td><code class="literal">String</code></td><td>The string that marks the end of a token.</td><td>@</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56773552"></a>E.8.1 Nested tags</h3></div></div></div>
+            
+            <p>The <code class="literal">ReplaceTokens</code> filter must contain one or more
+                    <code class="literal">token</code> tags. These must have a <code class="literal">key</code> and a
+                    <code class="literal">value</code> attribute.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PrefixLines.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.corefilters.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ReplaceTokensWithFile.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">E.7 PrefixLines </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> E.9 ReplaceTokensWithFile</td></tr></table></div></body></html>
