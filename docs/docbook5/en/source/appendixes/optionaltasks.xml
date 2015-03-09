@@ -8796,8 +8796,12 @@ Note that you can omit both startpoint and track attributes in this case
         <para> Performs regular expression operations on an subject string, and sets the results to a property.
             There are two different operations that can be performed:
             <itemizedlist>
-                <listitem>Replace - The matched regular expression is replaced with a substitition pattern</listitem>
-                <listitem>Match   - Groupings within the regular expression are matched via a selection expression.</listitem>
+                <listitem>
+                    <para>Replace - The matched regular expression is replaced with a substitution pattern</para>
+                </listitem>
+                <listitem>
+                    <para>Match   - Groupings within the regular expression are matched via a selection expression.</para>
+                </listitem>
             </itemizedlist>
         </para>
         <table>
@@ -8889,23 +8893,39 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Match expressions</title>
-            <param>Expressions are matched in a the same syntax as a regular expression substitution pattern.</param>
+            <para>Expressions are matched in a the same syntax as a regular expression substitution pattern.</para>
             <itemizedlist>
-                <listitem>$0 indicates the entire property name (default).</listitem>
-                <listitem>$1 indicates the first grouping</listitem>
-                <listitem>$2 indicates the second grouping</listitem>
-                <listitem>etc...</listitem>
+                <listitem>
+                    <para>$0 indicates the entire property name (default).</para>
+                </listitem>
+                <listitem>
+                    <para>$1 indicates the first grouping</para>
+                </listitem>
+                <listitem>
+                    <para>$2 indicates the second grouping</para>
+                </listitem>
+                <listitem>
+                    <para>etc...</para>
+                </listitem>
             </itemizedlist>
         </sect2><sect2>
         <title>Replace</title>
-        <param>It is important to note that when doing a "replace" operation, if the subject string does not match the
+        <para>It is important to note that when doing a "replace" operation, if the subject string does not match the
             regular expression, then the property is not set. You can change this behavior by supplying the "defaultValue"
-            attribute. This attribute should contain the value to set the property to in this case.</param>
+            attribute. This attribute should contain the value to set the property to in this case.</para>
         <itemizedlist>
-            <listitem>$0 indicates the entire property name (default).</listitem>
-            <listitem>$1 indicates the first grouping</listitem>
-            <listitem>$2 indicates the second grouping</listitem>
-            <listitem>etc...</listitem>
+            <listitem>
+                <para>$0 indicates the entire property name (default).</para>
+            </listitem>
+            <listitem>
+                <para>$1 indicates the first grouping</para>
+            </listitem>
+            <listitem>
+                <para>$2 indicates the second grouping</para>
+            </listitem>
+            <listitem>
+                <para>etc...</para>
+            </listitem>
         </itemizedlist>
     </sect2>
         <sect2>
