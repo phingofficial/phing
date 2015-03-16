@@ -22,6 +22,7 @@
 
 require_once 'phing/TaskContainer.php';
 require_once 'phing/Task.php';
+require_once 'phing/types/Commandline.php';
 
 /**
  * Run the build-in php web server.
@@ -75,6 +76,21 @@ class ServerTask extends Task
     private $tasks = array();
 
     /**
+     * Commandline manageing object
+     *
+     * @var Commandline
+     */
+    protected $commandline;
+
+    /**
+     * Constructs a new web server task instance
+     */
+    public function __construct()
+    {
+        $this->commandline = new Commandline();
+    }
+
+    /**
      * Load the necessary environment for running this task.
      *
      * @throws BuildException
@@ -89,33 +105,40 @@ class ServerTask extends Task
     }
 
     /**
-     * Starts the web server and runs the encapsulated tasks.
+     * Prepare task for running
      */
-    public function main()
+    private function prepare()
     {
         if (!isset($this->docroot)) {
             $this->docroot = $this->project->getProperty("project.basedir");
         }
 
-        $router = isset($this->router) ? escapeshellarg($this->router) : '';
+        $this->commandline->setExecutable(PHP_BINARY);
 
-        $ini_entries = $this->configData;
+        foreach ($this->configData as $config) {
+            $this->commandline->createArgument()->setValue('-d');
+            $this->commandline->createArgument()->setValue($config->getName().'='.$config->getValue());
+        }
 
-        array_walk($ini_entries, function (&$e) { $e = escapeshellarg('-d '.$e->getName().'='.$e->getValue()); });
+        $this->commandline->createArgument()->setValue('-S');
+        $this->commandline->createArgument()->setValue($this->address.':'.$this->port);
 
-        $ini_config = implode(' ', $ini_entries);
+        $this->commandline->createArgument()->setValue('-t');
+        $this->commandline->createArgument()->setValue($this->docroot);
 
-        $cmd = sprintf(
-            "%s %s -S %s:%d -t %s %s",
-            escapeshellarg(PHP_BINARY),
-            $ini_config,
-            $this->address,
-            $this->port,
-            escapeshellarg($this->docroot),
-            $router
-        );
+        if (isset($this->router)) {
+            $this->commandline->createArgument()->setValue($this->router);
+        }
+    }
 
-        $this->log("\$cmd: " . $cmd, Project::MSG_DEBUG);
+    /**
+     * Starts the web server and runs the encapsulated tasks.
+     */
+    public function main()
+    {
+        $this->prepare();
+
+        $cmd = Commandline::toString($this->commandline->getCommandline(), true);
 
         $streams = [
             ["file", "/dev/null", "r"],
