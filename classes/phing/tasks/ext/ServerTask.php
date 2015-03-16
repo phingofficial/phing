@@ -20,7 +20,8 @@
  * <http://phing.info>.
  */
 
-require_once 'phing/tasks/system/SequentialTask.php';
+require_once 'phing/TaskContainer.php';
+require_once 'phing/Task.php';
 
 /**
  * Run the build-in php web server.
@@ -29,7 +30,7 @@ require_once 'phing/tasks/system/SequentialTask.php';
  * @version   $Id$
  * @package   phing.tasks.ext
  */
-class ServerTask extends SequentialTask
+class ServerTask extends Task
 {
 
     /** The document root directory used by the server.
@@ -52,6 +53,26 @@ class ServerTask extends SequentialTask
 
     /** The path to the router script, which should displatch requests. */
     protected $router = null;
+
+    /** Additional configuration of the web server.
+     *
+     * This array of Parameter instances contains addtional
+     * configiration settings like ini values for the
+     * web server instance. */
+    protected $configData = array();
+
+    /** Forwarder for Tasks instance.
+     *
+     * The forwarder passes Task instances within the tasks node into
+     * this webserver instance.
+     */
+    private $tasksForwarder = null;
+
+    /** Tasks, that should be executed.
+     *
+     * The tasks contained within the tasks child node that should be
+     * executed during the lifetime of the webserver. */
+    private $tasks = array();
 
     /**
      * Load the necessary environment for running this task.
@@ -78,9 +99,16 @@ class ServerTask extends SequentialTask
 
         $router = isset($this->router) ? escapeshellarg($this->router) : '';
 
+        $ini_entries = $this->configData;
+
+        array_walk($ini_entries, function (&$e) { $e = escapeshellarg('-d '.$e->getName().'='.$e->getValue()); });
+
+        $ini_config = implode(' ', $ini_entries);
+
         $cmd = sprintf(
-            "%s -S %s:%d -t %s %s",
+            "%s %s -S %s:%d -t %s %s",
             escapeshellarg(PHP_BINARY),
+            $ini_config,
             $this->address,
             $this->port,
             escapeshellarg($this->docroot),
@@ -119,7 +147,7 @@ class ServerTask extends SequentialTask
         }
 
         try {
-            foreach ($this->nestedTasks as $task) {
+            foreach ($this->tasks as $task) {
                 $task->perform();
             }
         } finally {
@@ -162,5 +190,69 @@ class ServerTask extends SequentialTask
     public function setRouter($router)
     {
         $this->router = $router;
+    }
+
+    /**
+     * creates a nested tasks forwarder
+     *
+     * @return ServerTaskForwarder A server task forwarder
+     */
+    public function createTasks()
+    {
+        return ($this->tasksForwarder = new ServerTaskForwarder($this));
+    }
+
+    /**
+     * Creates a configuration
+     *
+     * @return Parameter A parameter containing the given configuration.
+     */
+    public function createConfig()
+    {
+        $num = array_push($this->configData, new Parameter());
+
+        return $this->configData[$num - 1];
+    }
+
+    /** Add an encapsulated task to the webserver.
+     *
+     * @param Task A Task instance
+     */
+    public function addTask(Task $task)
+    {
+        $this->tasks[] = $task;
+    }
+}
+
+/** A utility class to forward Tasks to the ServerTask
+ *
+ * This class forwards Task instances from the tasks node into the owning
+ * TaskServer instance.
+ *
+ * @author Marcel Metz <mmetz@adrian-broher.net>
+ * @package phing.tasks.ext
+ */
+class ServerTaskForwarder implements TaskContainer
+{
+    /** The instance of the owning ServerTask. */
+    private $outer;
+
+    /** Creates a new ServerTaskForwarder instance
+     *
+     * @param ServerTask $outer The server instance, that owns this
+     * forwarder.
+     */
+    public function __construct(ServerTask $outer)
+    {
+        $this->outer = $outer;
+    }
+
+    /** Adds a Task to this forwarder.
+     *
+     * @param Task $task The Task instance to add.
+     */
+    public function addTask(Task $task)
+    {
+        $this->outer->addTask($task);
     }
 }
