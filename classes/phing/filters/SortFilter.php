@@ -85,13 +85,6 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
     private $lines;
 
     /**
-     * Remaining line to be read from this filter, or <code>null</code> if the
-     * next call to <code>read()</code> should read the original stream to
-     * find the next matching line.
-     */
-    private $line = null;
-
-    /**
      * Creates a new filtered reader.
      *
      * @param Reader $in
@@ -124,44 +117,25 @@ class SortFilter extends BaseParamFilterReader implements ChainableReader
             $this->setInitialized(true);
         }
 
-        $ch = -1;
-        if ($this->line !== null) {
-            /*
-             * We are on the state: "reading the current line", lines are
-             * already sorted
-             */
-            $ch = $this->line{0};
-            if (strlen($this->line) === 1) {
-                $this->line = null;
-            } else {
-                $this->line = StringHelper::substring($this->line, 1);
-            }
-        } else {
-            if ($this->lines === null) {
-                // We read all lines and sort them
-                $this->lines = array();
-                for ($this->line = $this->readLine(); $this->line != null; $this->line = $this->readLine()) {
-                    $this->lines[] = $this->line;
-                }
-                $this->sort();
-            }
+        $buffer = $this->in->read($len);
 
-            $this->line = next($this->lines);
-            if ($this->line === false) {
-                $this->line = null;
-                $this->lines = null;
-            }
-            if ($this->line !== null) {
-                return $this->read();
-            }
+        if ($buffer === -1) {
+            return -1;
         }
-        return $ch;
+
+        $this->lines = explode("\n", $buffer);
+
+        $this->sort();
+
+        $filtered_buffer = implode("\n", $this->lines);
+
+        return $filtered_buffer;
     }
 
     /**
      * Creates a new SortReader using the passed in Reader for instantiation.
      *
-     * @param rdr
+     * @param Reader $rdr
      *            A Reader object providing the underlying stream. Must not be
      *            <code>null</code>.
      *
