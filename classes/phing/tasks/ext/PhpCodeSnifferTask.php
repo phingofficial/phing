@@ -457,6 +457,10 @@ class PhpCodeSnifferTask extends Task
             }
         }
 
+        if (!$this->showWarnings) {
+            $codeSniffer->cli->warningSeverity = 0;
+        }
+
         // nasty integration hack
         $values = $codeSniffer->cli->getDefaults();
         $_SERVER['argv'] = array('t');
