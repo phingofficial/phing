@@ -479,6 +479,38 @@
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="AstroTask">
+        <title>AstroTask</title>
+        <para> Inspired by <link xlink:href="https://github.com/lhartikk/AstroBuild">Astrobuild</link>
+        </para>
+        <para> Calculates the geocentric apparent longitude in degrees of each planet (+ sun)
+            and rounds to the nearest integer.</para>
+        <para>
+            If any of the planets align, the build will fail with an error message.
+        </para>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;astro/></programlisting>
+            <para>Assume we are at 2015/1/4, then we would have an output similar to:</para>
+            <programlisting language="bash">
+                Execution of target "astro_test" failed for the following reason: XXX/build.xml:5:15:
+                PLANETS ALIGNED: Jupiter, Saturn
+                ALIGNMENT: 245 degrees
+
+
+                BUILD FAILED
+                XXX/build.xml:5:15:
+                PLANETS ALIGNED: Jupiter, Saturn
+                ALIGNMENT: 245 degrees
+
+                Total time: 0.6072 seconds
+
+
+
+                Build finished at 22.03.2015 21:33 with exit code 0.
+            </programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="AvailableTask">
         <title>AvailableTask </title>
         <para>Available Task tests if a resource/file is set and sets a certain property to a
