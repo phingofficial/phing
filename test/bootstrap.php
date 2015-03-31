@@ -6,6 +6,24 @@ set_include_path(
     get_include_path()  // trunk version of phing classes should take precedence
 );
 
+/**
+ * Load composer autoload. This ubication is only related to test purposes.
+ */
+$autoloadFile = dirname(__FILE__) . '/../vendor/autoload.php';
+if (is_readable($autoloadFile))
+{
+	require_once ($autoloadFile);
+}
+unset($autoloadFile);
+
+/**
+ * create tmp folder for test pourposes
+ */
+if (!file_exists(PHING_TEST_BASE . '/tmp'))
+{
+	mkdir(PHING_TEST_BASE . '/tmp');
+}
+
 require_once(dirname(__FILE__) . '/classes/phing/BuildFileTest.php');
 require_once('phing/Phing.php');
 

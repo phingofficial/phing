@@ -78,6 +78,15 @@ class TaskdefTask extends Task
     private $typeFile;
 
     /**
+	 * Flag to know if could be ignored the first time that composer is not installed
+	 * in example when there is a phing task in composer pre-install-cmd
+	 * and autoloader don't exists yet.
+	 * 
+	 * @var bool
+	 */
+	private $requiredWithoutComposer = true;
+
+    /**
      * Set the classpath to be used when searching for component being defined
      *
      * @param Path $classpath A Path object containing the classpath.
@@ -142,6 +151,11 @@ class TaskdefTask extends Task
         $this->typeFile = $file;
     }
 
+	public function setRequiredWithoutComposer($require)
+	{
+		$this->requiredWithoutComposer = $require;
+	}
+
     /** Main entry point */
     public function main()
     {
@@ -150,9 +164,32 @@ class TaskdefTask extends Task
         ) {
             throw new BuildException("You must specify name and class attributes for <taskdef>.");
         }
-        if ($this->typeFile == null) {
-            $this->log("Task " . $this->name . " will be handled by class " . $this->classname, Project::MSG_VERBOSE);
-            $this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
+        if ($this->typeFile == null)
+		{
+			$this->log("Task {$this->name} will be handled by class {$this->classname}", 
+				Project::MSG_VERBOSE);
+			try {
+				$this->project->addTaskDefinition($this->name, $this->classname, $this->classpath);
+			} catch (ConfigurationException $ce) {
+				/**
+				 * If the class can't be loaded but requiredWithoutComposer = false 
+				 * and there isn't a composer autoloader file, we silent it. It
+				 * happens when a phing task is executed in composer pre-install-cmd
+				 * 
+				 * Handle if the exception should be throwed when...
+				 * 
+				 * the value for argument requiredWithoutComposer is true (default)
+				 */
+				if ($this->requiredWithoutComposer) {
+					throw new BuildException("Can't load task {$this->name} at {$this->classname}");
+				} elseif (defined('PHING_COMPOSER_AUTOLOAD_FILE')) {
+					/**
+					 * It's not mandatory if doesn't exists composer autoloader
+					 * but yes if it exists.
+					 */
+					throw new BuildException("Can't autoload task {$this->name} at {$this->classname}. Try with composer update.");
+				}
+			}
         } else {
             try { // try to load taskdefs given in file
                 $props = new Properties();
