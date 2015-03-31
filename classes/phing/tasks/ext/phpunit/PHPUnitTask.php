@@ -83,18 +83,23 @@ class PHPUnitTask extends Task
         /**
          * Determine PHPUnit version number, try
          * PEAR old-style, then composer, then PHAR
+		 * 
+		 * @todo try first composer autoloader. check if_readable before to ignore errors loading it.
          */
-        @include_once 'PHPUnit/Runner/Version.php';
-        @include_once 'phpunit/Runner/Version.php';
-        if (!empty($this->pharLocation)) {
-            $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
-            ob_start();
-            @include $this->pharLocation;
-            ob_end_clean();
-        }
-        @include_once 'PHPUnit/Autoload.php';
-
-        if (!class_exists('PHPUnit_Runner_Version')) {
+		if (!defined('PHING_COMPOSER_VENDOR_DIR'))
+		{
+			@include_once 'PHPUnit/Runner/Version.php';
+			@include_once 'phpunit/Runner/Version.php';
+			if (!empty($this->pharLocation))
+			{
+				$GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
+				ob_start();
+				@include $this->pharLocation;
+				ob_end_clean();
+			}
+			@include_once 'PHPUnit/Autoload.php';
+		}
+		if (!class_exists('PHPUnit_Runner_Version')) {
             throw new BuildException("PHPUnitTask requires PHPUnit to be installed", $this->getLocation());
         }
 

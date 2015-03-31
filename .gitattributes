@@ -4,8 +4,10 @@ bin/* ident
 *.css ident
 *.xsl ident
 *.rng ident
-docs/api export-ignore
-docs/docbook5/en/source export-ignore
-test export-ignore
-.travis.* export-ignore
-composer.lock export-ignore
+
+# merge strategy ours
+# git config merge.ours.driver true
+README.md merge=ours
+.travis.sh merge=ours
+.travis.yml merge=ours
+.gitattributes merge=ours

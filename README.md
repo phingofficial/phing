@@ -34,14 +34,7 @@ The Latest Version
 ------------------
 
   Details of the latest version can be found on the Phing homepage
-  <https://www.phing.info/>.
-
-Supported PHP versions
-----------------------
-
-  We aim to keep Phing 2.x compatible with PHP 5.2 and higher. However,
-  as this is getting increasingly hard to test, we encourage users to
-  upgrade to PHP 5.3 or higher.
+  <http://www.phing.info/>.
 
 Installation
 ------------
@@ -71,7 +64,7 @@ Installation
 
   3. **Phar**
   
-  Download the [Phar archive](https://www.phing.info/get/phing-latest.phar).
+  Download the [Phar archive](http://www.phing.info/get/phing-latest.phar).
   The archive can then be executed by running:
 
          $ php phing-latest.phar
@@ -97,7 +90,7 @@ Documentation
   Documentation is available in various formats in the *docs/docbook5/en/output*
   directory (generated from DocBook sources located in *docs/docbook5/en/source*).
 
-  For online documentation, you can also visit the Phing website: https://www.phing.info/
+  For online documentation, you can also visit the Phing website: http://www.phing.info/
 
 Licensing
 ---------
@@ -110,25 +103,11 @@ Licensing
 Contact
 -------
 
-  * Twitter: [@phingofficial](https://twitter.com/phingofficial)
-  * Website: [https://www.phing.info](https://www.phing.info)
+  * Twitter: [@phingofficial](http://twitter.com/phingofficial)
+  * Website: [http://www.phing.info](http://www.phing.info)
   * IRC:     Freenode, #phing
   * GitHub:  [https://www.github.com/phingofficial/phing](https://www.github.com/phingofficial/phing)
   * E-mail:  [dev-subscribe@phing.tigris.org](mailto:dev-subscribe@phing.tigris.org) (mailing list)
-
-Contributing
-------------
-
-We welcome contributions! Please keep your pull requests clean and concise: squash commits,
-don't introduce unnecessary (whitespace) changes, use verbose commit messages.
-
-Phing's source code is formatted according to the PSR-2 standard.
-
-Donations
----------
-
-If you like Phing, we accept donations through [Flattr](http://flattr.com/thing/1350991/The-Phing-Project).
-All donations will be used to help cover the costs for hosting the Phing site.
 
 PhpStorm License
 ----------------
@@ -141,3 +120,21 @@ PhpStorm License
   [![PhpStorm Logo](http://www.jetbrains.com/phpstorm/documentation/phpstorm_banners/phpstorm1/phpstorm468x60_violet.gif "Proud to use")](http://www.jetbrains.com/phpstorm)
 
   Intelligent PHP IDE for coding, testing and debugging with pleasure
+
+Synch your fork
+---------------
+
+  After clone your fork, execute this command only once:
+
+      https://github.com/phingofficial/phing.git
+
+
+  Everytime that you need to synch your fork with the official repo, execute
+
+      git fetch upstream
+      git merge upstream/master
+
+  Set the merge ours driver to true to avoid to merge files in .gitattributes marked as ours, as 
+.travis.yml, .travis.sh, .gitattributes and this file
+
+      git config merge.ours.driver true
