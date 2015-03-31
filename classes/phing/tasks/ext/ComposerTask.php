@@ -56,6 +56,9 @@ class ComposerTask extends Task
      */
     private $composer = 'composer.phar';
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->commandLine = new Commandline();

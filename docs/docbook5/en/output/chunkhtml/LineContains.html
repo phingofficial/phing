@@ -1,0 +1,20 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>E.5 Line Contains</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.corefilters.html" title="Appendix E. Core filters"><link rel="prev" href="IconvFilter.html" title="E.4 IconvFilter"><link rel="next" href="LineContainsRegexp.html" title="E.6 LineContainsRegexp"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">E.5 Line Contains </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="IconvFilter.html">Prev</a> </td><th width="60%" align="center">Appendix E. Core filters</th><td width="20%" align="right"> <a accesskey="n" href="LineContainsRegexp.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="LineContains"></a>E.5 Line Contains </h2></div></div></div>
+        
+        <p>This filter is only "permeable" for lines that contain the expression given as
+            parameter. For example, the following filterchain would only let all the lines pass that
+            contain <code class="literal">class</code>:</p>
+        <pre class="programlisting">&lt;filterchain&gt;
+  &lt;linecontains&gt;
+    &lt;contains value="class" /&gt;
+  &lt;/linecontains&gt;
+&lt;/filterchain&gt;</pre>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56724288"></a>E.5.1 Nested tags</h3></div></div></div>
+            
+
+            <p>The <code class="literal">linecontains</code> tag must contain one or more
+                    <code class="literal">contains</code> tags. Latter must have a <code class="literal">value</code>
+                attribute that has to be set to the string the line has to contain to be let
+                through.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="IconvFilter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.corefilters.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="LineContainsRegexp.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">E.4 IconvFilter </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> E.6 LineContainsRegexp</td></tr></table></div></body></html>

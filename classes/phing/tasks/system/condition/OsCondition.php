@@ -27,7 +27,6 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.tasks.system.condition
  */
 class OsCondition implements Condition
@@ -35,11 +34,18 @@ class OsCondition implements Condition
 
     private $family;
 
+    /**
+     * @param $f
+     */
     public function setFamily($f)
     {
         $this->family = strtolower($f);
     }
 
+    /**
+     * @return bool
+     * @throws BuildException
+     */
     public function evaluate()
     {
         $osName = strtolower(Phing::getProperty("os.name"));

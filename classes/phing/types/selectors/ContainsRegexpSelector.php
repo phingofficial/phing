@@ -34,22 +34,28 @@ include_once 'phing/types/RegularExpression.php';
  */
 class ContainsRegexpSelector extends BaseExtendSelector
 {
-
-    /** @var string The expression set from XML. */
+    /**
+     * The expression set from XML.
+     *
+     * @var string $userProvidedExpression
+     */
     private $userProvidedExpression;
 
-    /** @var Regexp */
+    /** @var Regexp $myExpression */
     private $myExpression;
 
+    /** @var bool $casesensitive */
     private $casesensitive = true;
 
-    /** @var RegularExpression */
+    /** @var RegularExpression $myRegExp */
     private $myRegExp;
 
     const EXPRESSION_KEY = "expression";
-
     const CASE_KEY = "casesensitive";
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{containsregexpselector expression: ";
@@ -90,6 +96,8 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * It translates each parameter into the appropriate setXXX() call.
      *
      * @param array $parameters the complete set of parameters for this selector
+     *
+     * @return void
      */
     public function setParameters($parameters)
     {
@@ -127,10 +135,13 @@ class ContainsRegexpSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename is the name of the file to check
-     * @param file a PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     * @param PhingFile $basedir base directory the scan is being done from
+     * @param string $filename the name of the file to check
+     * @param PhingFile $file PhingFile object the selector can use
+     *
+     * @throws BuildException
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
@@ -161,6 +172,8 @@ class ContainsRegexpSelector extends BaseExtendSelector
                 $teststr = $in->readLine();
             }
 
+            $in->close();
+
             return false;
         } catch (IOException $ioe) {
             if ($in) {
@@ -168,7 +181,6 @@ class ContainsRegexpSelector extends BaseExtendSelector
             }
             throw new BuildException("Could not read file " . $filename);
         }
-        $in->close();
     }
 
 }

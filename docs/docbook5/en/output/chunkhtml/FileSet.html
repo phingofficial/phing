@@ -1,0 +1,91 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>D.3 FileSet</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretypes.html" title="Appendix D. Core Types"><link rel="prev" href="FileList.html" title="D.2 FileList"><link rel="next" href="PatternSet.html" title="D.4 PatternSet"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">D.3 FileSet</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="FileList.html">Prev</a> </td><th width="60%" align="center">Appendix D. Core Types</th><td width="20%" align="right"> <a accesskey="n" href="PatternSet.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="FileSet"></a>D.3 FileSet</h2></div></div></div>
+        
+
+        <p> FileSets offer an easy and straightforward way to include files. The tag supports
+            <a class="link" href="app.selectors.html" title="Appendix G. Core selectors">Selectors</a> and
+            <a class="link" href="PatternSet.html" title="D.4 PatternSet">PatternSets</a>. Additionally, you can include/exclude
+            files in/from a fileset using the
+                <code class="literal">&lt;include&gt;</code>/<code class="literal">&lt;exclude&gt;</code> tags. In patterns,
+            one asterisk (<code class="literal">*</code>) maps to a part of a file/directory name within a
+            directory level. Two asterisks (<code class="literal">**</code>) may include above the "border" of
+            the directory separator.</p>
+        <div class="table"><a name="idp56441984"></a><p class="formal-object-title"><span class="label">Table D.3: </span><span class="title"> Attributes for the <code class="literal">&lt;fileset&gt;</code> tag </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for the &lt;fileset&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory, the paths given in
+                                <code class="literal">include</code>/<code class="literal">exclude</code> are relative
+                            to.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">defaultexcludes</code></td><td><code class="literal">Boolean</code></td><td>Whether default exclusions should be used or not. Default excludes
+                            are: <code class="literal">*~</code>, <code class="literal">#*#</code>,
+                                <code class="literal">.#*</code>, <code class="literal">%*%</code>,
+                                <code class="literal">CVS</code>, <code class="literal">CVS/**</code>,
+                                <code class="literal">.cvsignore</code>, <code class="literal">SCCS</code>,
+                                <code class="literal">SCCS/**</code>, <code class="literal">vssver.scc</code>,
+                                <code class="literal">.svn</code>, <code class="literal">.svn/**</code>,
+                                <code class="literal">._*</code>, <code class="literal">.DS_Store</code>,
+                                <code class="literal">.darcs</code>, <code class="literal">.darcs/**</code>,
+                                <code class="literal">.git</code>, <code class="literal">.git/**</code>,
+                                <code class="literal">.gitattributes</code>,
+                                <code class="literal">.gitignore</code>,
+                                <code class="literal">.gitmodules</code>
+                        </td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">casesensitive</code></td><td><code class="literal">Boolean</code></td><td>The case sensitivity of the file system.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">expandsymboliclinks</code></td><td><code class="literal">Boolean</code></td><td>Whether to expand/dereference (follow) symbolic links - set to 'true'
+                            to emulate old Phing behavior.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">includes</code></td><td><code class="literal">String</code></td><td>Comma- or space-separated list of patterns of files that must be
+                            included; all files are included when omitted.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">includesfile</code></td><td><code class="literal">String</code></td><td>The name of a file; each line of this file is taken to be an include
+                            pattern.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">excludes</code></td><td><code class="literal">String</code></td><td>comma- or space-separated list of patterns of files that must be
+                            excluded; no files (except default excludes) are excluded when
+                            omitted.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">excludesfile</code></td><td><code class="literal">String</code></td><td>The name of a file; each line of this file is taken to be an exclude
+                            pattern.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="patterns"></a>D.3.1 Using wildcards</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">test*.xml</code> will include <code class="literal">test_42.xml</code>,
+                        but it will not include <code class="literal">test/some.xml</code>.</p>
+                </li><li class="listitem">
+                    <p><code class="literal">test**.xml</code> fits to <code class="literal">test_42.xml</code> as
+                        well as to <code class="literal">test/bla.xml</code>, for example.</p>
+                </li><li class="listitem">
+                    <p><code class="literal">**/*.ent.xml</code> fits to all files that end with
+                            <code class="literal">ent.xml</code> in all subdirectories of the directory
+                        specified with the <code class="literal">dir</code> attribute of the
+                            <code class="literal">&lt;fileset&gt;</code> tag. However, it will not include any
+                        files that are directly in the base directory of the file set.</p>
+                </li></ul></div>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56500448"></a>D.3.2 Usage Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;fileset dir="/etc" &gt;
+  &lt;include name="httpd/**" /&gt;
+  &lt;include name="php.ini" /&gt;
+&lt;/fileset&gt;
+
+&lt;fileset dir="/etc" &gt;
+  &lt;patternset&gt;
+    &lt;include name="**/*.php"/&gt;
+    &lt;exclude name="**/*Test*"/&gt;
+  &lt;/patternset&gt;
+&lt;/fileset&gt;</pre>
+            <p> This will include the apache configuration and PHP configuration file from
+                    <code class="literal">/etc</code>.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56503328"></a>D.3.3 Nested tags</h3></div></div></div>
+            
+            <p> The tags that are supported by <code class="literal">Fileset</code> are:</p>
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">include</code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">exclude</code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="PatternSet.html" title="D.4 PatternSet">patternset</a></code></p>
+                </li><li class="listitem">
+                    <p>any of the <a class="link" href="app.selectors.html" title="Appendix G. Core selectors">selectors</a></p>
+                </li></ul></div>
+            <p>The <code class="literal">&lt;include&gt;</code> and the <code class="literal">&lt;exclude&gt;</code> tags
+                must have a <code class="literal">name</code> attribute that contains the pattern to
+                include/exclude.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56512288"></a>D.3.4 Related types</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                      <a class="link" href="PearPackageFileSet.html" title="D.6 PearPackageFileSet">pearpackagefileset</a>
+                 </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="FileList.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretypes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PatternSet.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">D.2 FileList </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> D.4 PatternSet </td></tr></table></div></body></html>

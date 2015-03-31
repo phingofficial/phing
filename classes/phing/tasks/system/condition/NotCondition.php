@@ -30,12 +30,15 @@ require_once 'phing/tasks/system/condition/ConditionBase.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.tasks.system.condition
  */
 class NotCondition extends ConditionBase implements Condition
 {
 
+    /**
+     * @return bool
+     * @throws BuildException
+     */
     public function evaluate()
     {
         if ($this->countConditions() > 1) {

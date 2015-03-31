@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PharDataTaskTest" basedir="." default="main">
+    <property name="tmp.dir" value="tmp/phar"/>
+    <resolvepath propertyName="tmp.dir.resolved" file="${tmp.dir}"/>
+
+    <target name="setup">
+        <mkdir dir="${tmp.dir}"/>
+        <touch file="${tmp.dir}/testfile"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="testGenerateWithoutBasedir">
+        <phardata
+                destfile="archive.tar">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="**/**"/>
+            </fileset>
+        </phardata>
+    </target>
+
+    <target name="testGenerateTar">
+        <phardata
+                destfile="archive.tar"
+                basedir="${tmp.dir.resolved}">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="**/**"/>
+            </fileset>
+        </phardata>
+    </target>
+
+    <target name="testGenerateTarGz">
+        <phardata
+                destfile="archive.tar"
+                basedir="${tmp.dir.resolved}"
+                compression="gzip">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="**/**"/>
+            </fileset>
+        </phardata>
+    </target>
+
+    <target name="testGenerateTarBz2">
+        <phardata
+                destfile="archive.tar"
+                basedir="${tmp.dir.resolved}"
+                compression="bzip2">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="**/**"/>
+            </fileset>
+        </phardata>
+    </target>
+
+    <target name="testGenerateZip">
+        <phardata
+                destfile="archive.zip"
+                basedir="${tmp.dir.resolved}">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="**/**"/>
+            </fileset>
+        </phardata>
+    </target>
+
+    <target name="testGenerateZipGz">
+        <phardata
+                destfile="archive.zip"
+                basedir="${tmp.dir.resolved}"
+                compression="gzip">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="**/**"/>
+            </fileset>
+        </phardata>
+    </target>
+
+    <target name="testGenerateZipBz2">
+        <phardata
+                destfile="archive.zip"
+                basedir="${tmp.dir.resolved}"
+                compression="bzip2">
+            <fileset dir="${tmp.dir.resolved}">
+                <include name="**/**"/>
+            </fileset>
+        </phardata>
+    </target>
+
+    <target name="main"/>
+</project>

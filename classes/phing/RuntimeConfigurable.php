@@ -33,15 +33,27 @@
  */
 class RuntimeConfigurable
 {
-
     private $elementTag = null;
+
+    /** @var array $children */
     private $children = array();
+
+    /** @var object|Task $wrappedObject */
     private $wrappedObject = null;
+
+    /** @var array $attributes */
     private $attributes = array();
+
+    /** @var string $characters */
     private $characters = "";
+
+    /** @var bool $proxyConfigured */
     private $proxyConfigured = false;
 
-    /** @param proxy The element to wrap. */
+    /**
+     * @param Task|object $proxy
+     * @param mixed $elementTag The element to wrap.
+     */
     public function __construct($proxy, $elementTag)
     {
         $this->wrappedObject = $proxy;
@@ -52,42 +64,78 @@ class RuntimeConfigurable
         }
     }
 
+    /**
+     * @return object|Task
+     */
     public function getProxy()
     {
         return $this->wrappedObject;
     }
 
+    /**
+     * @param object|Task $proxy
+     *
+     * @return void
+     */
     public function setProxy($proxy)
     {
         $this->wrappedObject = $proxy;
         $this->proxyConfigured = false;
     }
 
-    /** Set's the attributes for the wrapped element. */
+    /**
+     * Set's the attributes for the wrapped element.
+     *
+     * @param array $attributes
+     *
+     * @return void
+     */
     public function setAttributes($attributes)
     {
         $this->attributes = $attributes;
     }
 
-    /** Returns the AttributeList of the wrapped element. */
+    /**
+     * Returns the AttributeList of the wrapped element.
+     *
+     * @return array
+     */
     public function getAttributes()
     {
         return $this->attributes;
     }
 
-    /** Adds child elements to the wrapped element. */
+    /**
+     * Adds child elements to the wrapped element.
+     *
+     * @param RuntimeConfigurable $child
+     *
+     * @return void
+     */
     public function addChild(RuntimeConfigurable $child)
     {
         $this->children[] = $child;
     }
 
-    /** Returns the child with index */
+    /**
+     * Returns the child with index
+     *
+     * @param int $index
+     *
+     * @return RuntimeConfigurable
+     */
     public function getChild($index)
     {
         return $this->children[(int) $index];
     }
 
-    /** Add characters from #PCDATA areas to the wrapped element. */
+    /**
+     * Add characters from #PCDATA areas to the wrapped element.
+     *
+     * @param string $data
+     *
+     * @return void
+     */
     public function addText($data)
     {
         $this->characters .= (string) $data;
@@ -98,7 +146,16 @@ class RuntimeConfigurable
         return $this->elementTag;
     }
 
-    /** Configure the wrapped element and all children. */
+    /**
+     * Configure the wrapped element and all children.
+     *
+     * @param Project $project
+     *
+     * @return void
+     *
+     * @throws BuildException
+     * @throws Exception
+     */
     public function maybeConfigure(Project $project)
     {
         if ($this->proxyConfigured) {

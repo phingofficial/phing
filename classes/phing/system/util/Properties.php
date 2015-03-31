@@ -80,8 +80,9 @@ class Properties
      * Saves a step since we don't have to parse and then check return value
      * before throwing an error or setting class properties.
      *
-     * @param  string  $filePath
-     * @param  boolean $processSections Whether to honor [SectionName] sections in INI file.
+     * @param  string $filePath
+     * @throws IOException
+     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
      * @return array   Properties loaded from file (no prop replacements done yet).
      */
     protected function parse($filePath)
@@ -279,7 +280,8 @@ class Properties
      * interface for properties.
      *
      * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
+     * @return mixed
      */
     public function put($key, $value)
     {
@@ -315,6 +317,7 @@ class Properties
 
     /**
      * Whether loaded properties array contains specified property name.
+     * @param $key
      * @return boolean
      */
     public function containsKey($key)
@@ -341,5 +344,4 @@ class Properties
     {
         return empty($this->properties);
     }
-
 }

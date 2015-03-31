@@ -105,13 +105,14 @@ class DataStore
     /**
      * Internal function to read data store from file
      *
+     * @throws BuildException
      * @return none
      */
     private function read()
     {
         if (!$this->file->canRead()) {
             throw new BuildException("Can't read data store from '" .
-                $file->getPath() . "'");
+                $this->file->getPath() . "'");
         } else {
             $serializedData = $this->file->contents();
 
@@ -122,13 +123,14 @@ class DataStore
     /**
      * Internal function to write data store to file
      *
+     * @throws BuildException
      * @return none
      */
     private function write()
     {
         if (!$this->file->canWrite()) {
             throw new BuildException("Can't write data store to '" .
-                $file->getPath() . "'");
+                $this->file->getPath() . "'");
         } else {
             $serializedData = serialize($this->data);
 

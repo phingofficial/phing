@@ -202,6 +202,7 @@ class PhingTask extends Task
     /**
      * Execute phing file.
      *
+     * @throws BuildException
      * @return void
      */
     private function processFile()
@@ -327,7 +328,6 @@ class PhingTask extends Task
      * This function replaces the old methods "init", "_reinit" and
      * "_initializeProject".
      *
-     * @access      protected
      */
     private function initializeProject()
     {
@@ -472,6 +472,7 @@ class PhingTask extends Task
      *
      * @param  string $oldKey
      * @param  string $newKey
+     * @throws BuildException
      * @return void
      */
     private function copyReference($oldKey, $newKey)
@@ -508,7 +509,7 @@ class PhingTask extends Task
      * If true, pass all properties to the new phing project.
      * Defaults to true.
      *
-     * @access      public
+     * @param $value
      */
     public function setInheritAll($value)
     {
@@ -519,7 +520,7 @@ class PhingTask extends Task
      * If true, pass all references to the new phing project.
      * Defaults to false.
      *
-     * @access      public
+     * @param $value
      */
     public function setInheritRefs($value)
     {
@@ -532,7 +533,7 @@ class PhingTask extends Task
      * has been set to false, in which case it doesn't have a default
      * value. This will override the basedir setting of the called project.
      *
-     * @access      public
+     * @param $d
      */
     public function setDir($d)
     {
@@ -548,7 +549,7 @@ class PhingTask extends Task
      * Defaults to "build.xml". This file is expected to be a filename relative
      * to the dir attribute given.
      *
-     * @access      public
+     * @param $s
      */
     public function setPhingfile($s)
     {
@@ -561,7 +562,7 @@ class PhingTask extends Task
     /**
      * Alias function for setPhingfile
      *
-     * @access       public
+     * @param $s
      */
     public function setBuildfile($s)
     {
@@ -572,7 +573,7 @@ class PhingTask extends Task
      * The target of the new Phing project to execute.
      * Defaults to the new project's default target.
      *
-     * @access      public
+     * @param $s
      */
     public function setTarget($s)
     {
@@ -582,6 +583,7 @@ class PhingTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -593,7 +595,6 @@ class PhingTask extends Task
      * Property to pass to the new project.
      * The property is passed as a 'user property'
      *
-     * @access      public
      */
     public function createProperty()
     {
@@ -609,7 +610,6 @@ class PhingTask extends Task
      * Reference element identifying a data type to carry
      * over to the new project.
      *
-     * @access      public
      */
     public function createReference()
     {
@@ -635,8 +635,10 @@ class PhingReference extends Reference
      * Set the id that this reference to be stored under in the
      * new project.
      *
-     * @param targetid the id under which this reference will be passed to
-     *        the new project */
+     * @param the $targetid
+     * @internal param the $targetid id under which this reference will be passed to
+     *        the new project
+     */
     public function setToRefid($targetid)
     {
         $this->targetid = $targetid;

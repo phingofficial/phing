@@ -33,6 +33,9 @@ class DbmsSyntaxFactory
 {
     private $dbms;
 
+    /**
+     * @param $dbms
+     */
     public function __construct($dbms)
     {
         $this->dbms = $dbms;

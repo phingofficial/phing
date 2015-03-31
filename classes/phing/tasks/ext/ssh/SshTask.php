@@ -56,41 +56,65 @@ class SshTask extends Task
      */
     private $display = true;
 
+    /**
+     * @param $host
+     */
     public function setHost($host)
     {
         $this->host = $host;
     }
 
+    /**
+     * @return string
+     */
     public function getHost()
     {
         return $this->host;
     }
 
+    /**
+     * @param $port
+     */
     public function setPort($port)
     {
         $this->port = $port;
     }
 
+    /**
+     * @return int
+     */
     public function getPort()
     {
         return $this->port;
     }
 
+    /**
+     * @param $username
+     */
     public function setUsername($username)
     {
         $this->username = $username;
     }
 
+    /**
+     * @return string
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
+    /**
+     * @param $password
+     */
     public function setPassword($password)
     {
         $this->password = $password;
     }
 
+    /**
+     * @return string
+     */
     public function getPassword()
     {
         return $this->password;
@@ -98,6 +122,7 @@ class SshTask extends Task
 
     /**
      * Sets the public key file of the user to scp
+     * @param $pubkeyfile
      */
     public function setPubkeyfile($pubkeyfile)
     {
@@ -114,6 +139,7 @@ class SshTask extends Task
 
     /**
      * Sets the private key file of the user to scp
+     * @param $privkeyfile
      */
     public function setPrivkeyfile($privkeyfile)
     {
@@ -130,6 +156,7 @@ class SshTask extends Task
 
     /**
      * Sets the private key file passphrase of the user to scp
+     * @param $privkeyfilepassphrase
      */
     public function setPrivkeyfilepassphrase($privkeyfilepassphrase)
     {
@@ -138,27 +165,41 @@ class SshTask extends Task
 
     /**
      * Returns the private keyfile passphrase
+     * @param $privkeyfilepassphrase
+     * @return string
      */
     public function getPrivkeyfilepassphrase($privkeyfilepassphrase)
     {
         return $this->privkeyfilepassphrase;
     }
 
+    /**
+     * @param $command
+     */
     public function setCommand($command)
     {
         $this->command = $command;
     }
 
+    /**
+     * @return string
+     */
     public function getCommand()
     {
         return $this->command;
     }
 
+    /**
+     * @param $pty
+     */
     public function setPty($pty)
     {
         $this->pty = $pty;
     }
 
+    /**
+     * @return string
+     */
     public function getPty()
     {
         return $this->pty;
@@ -184,7 +225,8 @@ class SshTask extends Task
 
     /**
      * Sets whether to fail the task on any error
-     * @param boolean $failOnError
+     * @param $failonerror
+     * @internal param bool $failOnError
      */
     public function setFailonerror($failonerror)
     {
@@ -258,6 +300,8 @@ class SshTask extends Task
      * This function reads the streams from the ssh2_exec
      * command, stores output data, checks for errors and
      * closes the streams properly.
+     * @param $stream
+     * @throws BuildException
      */
     protected function handleStream($stream)
     {

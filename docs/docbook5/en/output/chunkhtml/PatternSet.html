@@ -1,0 +1,30 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>D.4 PatternSet</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretypes.html" title="Appendix D. Core Types"><link rel="prev" href="FileSet.html" title="D.3 FileSet"><link rel="next" href="path.html" title="D.5 Path / Classpath"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">D.4 PatternSet </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="FileSet.html">Prev</a> </td><th width="60%" align="center">Appendix D. Core Types</th><td width="20%" align="right"> <a accesskey="n" href="path.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PatternSet"></a>D.4 PatternSet </h2></div></div></div>
+        
+        <p>The PatternSet data type defines patterns that can be grouped into sets and nested
+            into <a class="link" href="FileSet.html" title="D.3 FileSet">FileSets</a>. Patterns can be specified by nested
+            &lt;include&gt; or &lt;exclude&gt; elements.</p>
+        <div class="table"><a name="idp56518048"></a><p class="formal-object-title"><span class="label">Table D.4: </span><span class="title"> Attributes for <code class="literal">&lt;patternset&gt;</code> tag </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for &lt;patternset&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">includes</code></td><td><code class="literal">String</code></td><td>Comma- or space-separated list of patterns of files that must be
+                            included; all files are included when omitted.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">includesfile</code></td><td><code class="literal">String</code></td><td>The name of a file; each line of this file is taken to be an include
+                            pattern.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">excludes</code></td><td><code class="literal">String</code></td><td>comma- or space-separated list of patterns of files that must be
+                            excluded; no files (except default excludes) are excluded when
+                            omitted.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">excludesfile</code></td><td><code class="literal">String</code></td><td>The name of a file; each line of this file is taken to be an exclude
+                            pattern.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56542848"></a>D.4.1 Usage Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;patternset id="no.tests"&gt;
+  &lt;include name="**/*.php"/&gt;
+  &lt;exclude name="**/*Test*"/&gt;
+&lt;/patternset&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56544512"></a>D.4.2 Nested tags</h3></div></div></div>
+            
+            <p> The <code class="literal">&lt;patternset&gt;</code> tag only supports
+                    <code class="literal">&lt;include&gt;</code> and <code class="literal">&lt;exclude&gt;</code>. The
+                    <code class="literal">&lt;include&gt;</code> and the <code class="literal">&lt;exclude&gt;</code> tags
+                must have a <code class="literal">name</code> attribute that contains the <a class="link" href="FileSet.html#patterns" title="D.3.1 Using wildcards">pattern</a> to
+                include/exclude.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="FileSet.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretypes.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="path.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">D.3 FileSet </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> D.5 Path / Classpath</td></tr></table></div></body></html>

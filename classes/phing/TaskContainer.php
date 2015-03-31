@@ -1,7 +1,5 @@
 <?php
 /**
- *  $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -17,8 +15,6 @@
  * This software consists of voluntary contributions made by many individuals
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
- *
- * @package phing
  */
 
 /**
@@ -27,19 +23,16 @@
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
- * @version   $Id$
- * @access    public
+ *
  * @package   phing
  */
 interface TaskContainer
 {
-
     /**
-     *  Adds a task to this task container. Must be implemented
-     *  by derived class
+     * Adds a task to this task container. Must be implemented
+     * by derived class
      *
-     * @param  object  The task to be added to the container
-     * @access public
+     * @param Task $task The task to be added to the container.
      */
     public function addTask(Task $task);
 }

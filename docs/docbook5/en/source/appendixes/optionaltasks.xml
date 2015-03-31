@@ -530,8 +530,8 @@
                                     <entry><literal>styledir</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>The directory where the stylesheets are located.</entry>
-                                    <entry>n/a</entry>
-                                    <entry>Yes</entry>
+                                    <entry>The <literal>etc</literal> directory in the Phing installation</entry>
+                                    <entry>No</entry>
                                 </row>
                                 <row>
                                     <entry><literal>todir</literal></entry>
@@ -907,6 +907,8 @@
         <title>FileHashTask</title>
         <para>Calculates either MD5 or SHA1 hash value of a file and stores the value as a hex
             string in a property.</para>
+        <para>Other popular <link xlink:href="http://php.net/manual/en/function.hash-algos.php">algorithms</link>
+            like "crc32" or "sha512" may be used with help of the <literal>algorithm</literal> attribute.</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -937,6 +939,15 @@
                         <entry><literal role="type">Integer</literal></entry>
                         <entry>Specifies what hash algorithm to use. 0=MD5, 1=SHA1</entry>
                         <entry>0</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>algorithm</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Specifies what hash algorithm to use. Supported
+                            <link xlink:href="http://php.net/manual/en/function.hash-algos.php">algorithms</link>.
+                        </entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
@@ -1049,6 +1060,13 @@
                         directory.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>exclude</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Excluded file matching pattern</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>excludeFile</literal></entry>
@@ -6549,6 +6567,80 @@ Note that you can omit both startpoint and track attributes in this case
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="PharDataTask">
+        <title>PharDataTask</title>
+        <para>
+            <link xlink:href="http://php.net/manual/en/class.phardata.php" role="extern">PharData</link>
+            archives generating with Phing. This task require <link
+                xlink:href="http://pecl.php.net/package/phar" role="extern">PECL's Phar</link>
+            extension to be installed on your system. Phar is built-in in PHP from 5.3
+            version.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>basedir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Base directory, which will be deleted from each included file (from
+                            path). Paths with deleted <literal>basedir</literal> part are local
+                            paths in archive.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>destfile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Destination (output) file. Will be recreated, if exists!</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>compression</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Compression type (gzip, bzip2, none) to apply to the archive.</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <para>Sample build command:</para>
+            <programlisting language="xml">&lt;phardata
+  destfile="./build/archive.tar"
+  basedir="./"
+  compression="gzip">
+  &lt;fileset dir="./classes">
+    &lt;include name="**/**" />
+  &lt;/fileset>
+&lt;/phardata></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Supported Nested Tags</title>
+            <itemizedlist>
+                <listitem>
+                    <para><literal><link linkend="FileSet">fileset</link></literal></para>
+                </listitem>
+            </itemizedlist>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="PharPackageTask">
         <title>PharPackageTask</title>
         <para>
@@ -6831,7 +6923,8 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>standard</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The name of the standard to check for.</entry>
+                        <entry>The list of coding standards to test against.
+                            Separated by space, comma or semicolon.</entry>
                         <entry>Generic</entry>
                         <entry>No</entry>
                     </row>
@@ -7201,6 +7294,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>The format for the report when no nested formatter is used.</entry>
                         <entry>default</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>fuzzy</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If fuzzy is set to true, the task will perform a fuzzy match.</entry>
+                        <entry>false</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -8252,6 +8352,10 @@ Note that you can omit both startpoint and track attributes in this case
                 xlink:href="http://ant.apache.org/manual/OptionalTasks/junit.html" role="extern"
                 >JUnit</link> task.</para>
         <para>
+            <emphasis role="bold">NB:</emphasis> if you have installed the
+            PHPUnit PHAR, make sure you set the
+            <literal>pharlocation</literal> attribute!</para>
+        <para>
             <emphasis role="bold">NB:</emphasis> the identifiers <literal>phpunit2</literal>
             (PHPUnit2Task) and <literal>phpunit3</literal> (PHPUnit3Task) have been deprecated! </para>
 
@@ -8685,6 +8789,165 @@ Note that you can omit both startpoint and track attributes in this case
                 <emphasis role="bold">Important note:</emphasis> testclasses that are not explicitly
                 placed in a package (by using a '@package' tag in the class-level DocBlock) are
                 listed under the "default" package.</para>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="RegexTask">
+        <title>RegexTask</title>
+        <para> Performs regular expression operations on an subject string, and sets the results to a property.
+            There are two different operations that can be performed:
+            <itemizedlist>
+                <listitem>
+                    <para>Replace - The matched regular expression is replaced with a substitution pattern</para>
+                </listitem>
+                <listitem>
+                    <para>Match   - Groupings within the regular expression are matched via a selection expression.</para>
+                </listitem>
+            </itemizedlist>
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>override</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>If the property is already set, should we change it's value. Can be <literal>true</literal> or <literal>false</literal></entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>subject</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The subject to be processed</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pattern</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The regular expression pattern which is matched in the subject.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>match</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A pattern which indicates what match pattern you want in the returned value. This uses
+                            the substitution pattern syntax to indicate where to insert groupings created as a result of
+                            the regular expression match.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes (unless a replace is specified)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>replace</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A regular expression substitition pattern, which will be used to replace the given
+                            regular expression in the subject.</entry>
+                        <entry>n/a</entry>
+                        <entry>Yes (unless a match is specified)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>casesensitive</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Should the match be case sensitive</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>limit</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>The maximum possible replacements for each pattern in each subject string. Defaults to -1 (no limit).</entry>
+                        <entry>-1</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>defaultValue</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>The value to set the output property to, if the subject string does not match the specific regular expression.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Match expressions</title>
+            <para>Expressions are matched in a the same syntax as a regular expression substitution pattern.</para>
+            <itemizedlist>
+                <listitem>
+                    <para>$0 indicates the entire property name (default).</para>
+                </listitem>
+                <listitem>
+                    <para>$1 indicates the first grouping</para>
+                </listitem>
+                <listitem>
+                    <para>$2 indicates the second grouping</para>
+                </listitem>
+                <listitem>
+                    <para>etc...</para>
+                </listitem>
+            </itemizedlist>
+        </sect2><sect2>
+        <title>Replace</title>
+        <para>It is important to note that when doing a "replace" operation, if the subject string does not match the
+            regular expression, then the property is not set. You can change this behavior by supplying the "defaultValue"
+            attribute. This attribute should contain the value to set the property to in this case.</para>
+        <itemizedlist>
+            <listitem>
+                <para>$0 indicates the entire property name (default).</para>
+            </listitem>
+            <listitem>
+                <para>$1 indicates the first grouping</para>
+            </listitem>
+            <listitem>
+                <para>$2 indicates the second grouping</para>
+            </listitem>
+            <listitem>
+                <para>etc...</para>
+            </listitem>
+        </itemizedlist>
+    </sect2>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;propertyregex property="pack.name"
+    subject="package.ABC.name"
+    pattern="package\.([^.]*)\.name"
+    match="$1"
+    casesensitive="false"
+    defaultvalue="test1"/>
+
+&lt;echo message="${pack.name}"/>
+
+&lt;propertyregex property="pack.name"
+    override="true"
+    subject="package.ABC.name"
+    pattern="(package)\.[^.]*\.(name)"
+    replace="$1.DEF.$2"
+    casesensitive="false"
+    defaultvalue="test2"/>
+
+&lt;echo message="${pack.name}"/></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="rSTTask">
@@ -11121,6 +11384,70 @@ host="webserver" command="ls" /></programlisting>
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="ThrowTask">
+        <title>ThrowTask</title>
+        <para> Extension of build in <literal>FailTask</literal> that can throw an exception that is given by a reference.
+            This may be useful if you want to rethrow the exception that has been caught by a <literal>TryCatchTask</literal>
+            in the &lt;catch> block.</para>
+
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>refid</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Id of the referenced exception.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <note>
+            <para>In addition, all attributes of the <literal>FailTask</literal> are supported.</para>
+        </note>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;target name="tryCatchThrow">
+  &lt;trycatch property="foo" reference="bar">
+    &lt;try>
+      &lt;fail>Tada!&lt;/fail>
+    &lt;/try>
+
+    &lt;catch>
+      &lt;echo>In &lt;catch&gt;.&lt;/echo>
+    &lt;/catch>
+
+    &lt;finally>
+      &lt;echo>In &lt;finally&gt;.&lt;/echo>
+    &lt;/finally>
+  &lt;/trycatch>
+
+  &lt;echo>As property: ${foo}&lt;/echo>
+  &lt;property name="baz" refid="bar" />
+  &lt;echo>From reference: ${baz}&lt;/echo>
+
+  &lt;echo>Throw ...&lt;/echo>
+  &lt;throw refid="bar" />
+
+&lt;/target></programlisting>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="UntarTask">
         <title>UntarTask</title>
         <para> The <literal>UntarTask</literal> unpacks one or more tar archives.</para>
@@ -12144,6 +12471,149 @@ a2.a3.a4=false</programlisting>
                     <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="ZSTDPackTask">
+        <title>ZSDTPackTask</title>
+        <para> The <literal>zsdtPackTask</literal> Create a package with the help of the ZendServer Deployment Tool.
+            The pack options should contain pointers to the application data directory, the package descriptor file,
+            and the package scripts directory.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>package</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>A directory containing the data and the script directories, in addition to
+                            the package descriptor file.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>scripts</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory which contains the package deployment scripts. The Deployment Tool will
+                            search this directory for the expected files (as described in section 2.2.1) and then packs
+                            them.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>descriptor</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The package descriptor file.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>source</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory that contains the application resources (PHP sources, JavaScript, etc.).
+                            The directory's internal structure must match the necessary structure for the application
+                            to be functional.</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>output</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The directory in which the package is created. The package name will be created as
+                            <literal>app-name</literal>-<literal>app-version</literal>.zpk".</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>lint</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Performs a PHP lint test on the deployment scripts before creating the package.</entry>
+                        <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>phpbin</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The PHP executable to use for lint.</entry>
+                        <entry>none</entry>
+                        <entry>No (Yes if option lint is set to true)</entry>
+                    </row>
+                    <row>
+                        <entry><literal>schema</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The path to the package descriptor schema used for validation.</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;zsdtpack lint="true"
+          schema="file/to/schema.xsl"
+          descriptor="file/to/descriptor.xml"
+          scripts="path/to/scripts/"
+          package="path/to/package/"
+          source="path/to/source/"
+          output="path/to/output/"
+          phpbin="path/to/php" /></programlisting>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="ZSTDValidateTask">
+        <title>ZSDTValidateTask</title>
+        <para> The <literal>zsdtValidateTask</literal> validates a given Zend package descriptor against the schema file.</para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>descriptor</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The package descriptor file.</entry>
+                        <entry>none</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>schema</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The path to the package descriptor schema used for validation.</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;zsdtvalidate schema="/path/to/schema.xsl" descriptor="/path/to/descriptor.xml" /></programlisting>
         </sect2>
     </sect1>
 </appendix>

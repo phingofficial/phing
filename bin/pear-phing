@@ -15,4 +15,4 @@ if (test -z "$PHP_COMMAND") ; then
 	export PHP_COMMAND
 fi
 
-$PHP_COMMAND -d phar.readonly=off -d html_errors=off -qC @PEAR-DIR@/phing.php -logger phing.listener.AnsiColorLogger "$@"
+$PHP_COMMAND -d phar.readonly=off -d html_errors=off -qC @PEAR-DIR@/phing.php "$@"

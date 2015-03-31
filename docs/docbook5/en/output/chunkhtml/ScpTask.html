@@ -1,0 +1,56 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.66 ScpTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="S3GetTask.html" title="C.65 S3GetTask"><link rel="next" href="SshTask.html" title="C.67 SshTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.66 ScpTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="S3GetTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SshTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ScpTask"></a>C.66 ScpTask</h2></div></div></div>
+        
+        <p> The <code class="literal">ScpTask</code> copies files to and from a remote host using scp. This
+            task requires the <a class="ulink" href="http://pecl.php.net/package/ssh2" target="_top">PHP
+                SSH2 extension</a> to function.</p>
+
+        <div class="table"><a name="idp54996928"></a><p class="formal-object-title"><span class="label">Table C.92: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">host</code></td><td><code class="literal">String</code></td><td>Remote host</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">port</code></td><td><code class="literal">Integer</code></td><td>Remote port</td><td>22</td><td>No</td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>Username to use for the connection</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>Password to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">pubkeyfile</code></td><td><code class="literal">String</code></td><td>Public key file (OpenSSH format) to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">privkeyfile</code></td><td><code class="literal">String</code></td><td>Private key file (OpenSSH format) to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">privkeyfilepassphrase</code></td><td><code class="literal">String</code></td><td>Private key file passphrase to use for the connection</td><td>none</td><td>No</td></tr><tr><td><code class="literal">autocreate</code></td><td><code class="literal">Boolean</code></td><td>Whether to autocreate remote directories</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>Directory to put file(s) in</td><td>none</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Filename to use</td><td>none</td><td>No</td></tr><tr><td><code class="literal">fetch</code></td><td><code class="literal">Boolean</code></td><td>Whether to fetch (instead of copy to) the file</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">level</code></td><td><code class="literal">String</code></td><td>Control the level at which the task reports status messages. One of
+                                <code class="literal">error</code>, <code class="literal">warning</code>,
+                                <code class="literal">info</code>, <code class="literal">verbose</code>,
+                                <code class="literal">debug</code>.</td><td><code class="literal">verbose</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55049936"></a>C.66.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;scp username="john" password="smith"
+host="webserver" fetch="true"
+todir="/home/john/backup"
+file="/www/htdocs/test.html" /&gt;</pre>
+
+            <p>Fetches a single file from the remote server.</p>
+            <pre class="programlisting">&lt;scp username="john" password="smith"
+host="webserver"
+todir="/www/htdocs/"
+file="/home/john/dev/test.html" /&gt;</pre>
+            <p>Copies a single file to the remote server.</p>
+            <pre class="programlisting">&lt;scp username="john" password="smith"
+host="webserver" todir="/www/htdocs/project/"&gt;
+    &lt;fileset dir="test"&gt;
+        &lt;include name="*.html" /&gt;
+    &lt;/fileset&gt;
+&lt;/scp&gt;</pre>
+            <p>Copies multiple files to the remote server.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55055008"></a>C.66.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">sshconfig</code>
+                    </p>
+                    <p>Sometimes it is necessary to set specific configuration parameters on the ssh connection
+                        when connecting to a remote server.  You can set them with the sshconfig nested tag.  Set the parameters
+                        to specify connection and encryption options.  These are the parameters as specified by the $methods
+                        parameter of the ssh2_connect function. See <a class="ulink" href="http://us3.php.net/ssh2_connect" target="_top">ssh2_connect</a>
+                        for more information</p>
+                    <p>sshconfig can also be used as project level parameter with a refid so the same parameters can be re-used
+                        across a project easily.</p>
+
+                    <div class="table"><a name="idp55061312"></a><p class="formal-object-title"><span class="label">Table C.93: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">kex</code></td><td><code class="literal">String</code></td><td>List of key exchange methods to advertise, comma separated in order of preference.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">hostkey</code></td><td><code class="literal">String</code></td><td>List of hostkey methods to advertise, come separated in order of preference.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">client</code></td><td><code class="literal">Nested Tag</code></td><td>Element containing attributes crypt, comp, and mac method preferences for messages sent from client to server.  All attributes are optional.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">server</code></td><td><code class="literal">Nested Tag</code></td><td>Element containing attributes crypt, comp, and mac method preferences for messages sent from server to client.  All attributes are optional.</td><td>n/a</td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="S3GetTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SshTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.65 S3GetTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.67 SshTask</td></tr></table></div></body></html>

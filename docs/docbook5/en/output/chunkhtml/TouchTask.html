@@ -1,0 +1,26 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.39 TouchTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="TaskdefTask.html" title="B.38 TaskdefTask"><link rel="next" href="TryCatchTask.html" title="B.40 TryCatchTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.39 TouchTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="TaskdefTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="TryCatchTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="TouchTask"></a>B.39 TouchTask </h2></div></div></div>
+        
+        <p>The <code class="literal">TouchTask</code> works like the Unix <code class="literal">touch</code> command: It
+            sets the <code class="literal">modtime</code> of a file to a specific time. Default is the current
+            time.</p>
+
+
+        <div class="table"><a name="idp50750128"></a><p class="formal-object-title"><span class="label">Table B.40: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file which time is to be changed.</td><td>n/a</td><td>Yes, or nested <code class="literal">&lt;fileset&gt;</code> tag</td></tr><tr><td><code class="literal">datetime</code></td><td><code class="literal">DateTime</code></td><td>The date and time the mtime of the file is to be set to. The format
+                            is "MM/DD/YYYY HH:MM AM or PM"</td><td><code class="literal">now</code></td><td>No</td></tr><tr><td><code class="literal">millis</code></td><td><code class="literal">Integer</code></td><td>The number of milliseconds since Midnight Jan 1 1970 (Unix
+                            epoche).</td><td><code class="literal">now</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50771968"></a>B.39.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;touch file="README.txt" millis="102134111" /&gt;
+
+&lt;touch file="COPYING.lib" datetime="10/10/1999 09:31 AM" /&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50773680"></a>B.39.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="TaskdefTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="TryCatchTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.38 TaskdefTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.40 TryCatchTask</td></tr></table></div></body></html>

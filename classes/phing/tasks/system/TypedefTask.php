@@ -99,6 +99,7 @@ class TypedefTask extends Task
 
     /**
      * Reference to a classpath to use when loading the files.
+     * @param Reference $r
      */
     public function setClasspathRef(Reference $r)
     {

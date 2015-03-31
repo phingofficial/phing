@@ -458,6 +458,7 @@ class DbDeployTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)

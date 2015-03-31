@@ -91,7 +91,6 @@ class SymlinkTask extends Task
     /**
      * setter for _target
      *
-     * @access public
      * @param  string $target
      * @return void
      */
@@ -103,7 +102,6 @@ class SymlinkTask extends Task
     /**
      * setter for _link
      *
-     * @access public
      * @param  string $link
      * @return void
      */
@@ -115,7 +113,6 @@ class SymlinkTask extends Task
     /**
      * creator for _filesets
      *
-     * @access public
      * @return FileSet
      */
     public function createFileset()
@@ -128,7 +125,6 @@ class SymlinkTask extends Task
     /**
      * setter for _overwrite
      *
-     * @access public
      * @param  boolean $overwrite
      * @return void
      */
@@ -140,7 +136,7 @@ class SymlinkTask extends Task
     /**
      * getter for _target
      *
-     * @access public
+     * @throws BuildException
      * @return string
      */
     public function getTarget()
@@ -155,7 +151,7 @@ class SymlinkTask extends Task
     /**
      * getter for _link
      *
-     * @access public
+     * @throws BuildException
      * @return string
      */
     public function getLink()
@@ -170,7 +166,6 @@ class SymlinkTask extends Task
     /**
      * getter for _filesets
      *
-     * @access public
      * @return array
      */
     public function getFilesets()
@@ -181,7 +176,6 @@ class SymlinkTask extends Task
     /**
      * getter for _overwrite
      *
-     * @access public
      * @return boolean
      */
     public function getOverwrite()
@@ -193,7 +187,7 @@ class SymlinkTask extends Task
      * Generates an array of directories / files to be linked
      * If _filesets is empty, returns getTarget()
      *
-     * @access protected
+     * @throws BuildException
      * @return array|string
      */
     protected function getMap()
@@ -249,7 +243,6 @@ class SymlinkTask extends Task
     /**
      * Main entry point for task
      *
-     * @access public
      * @return bool
      */
     public function main()
@@ -272,7 +265,6 @@ class SymlinkTask extends Task
     /**
      * Create the actual link
      *
-     * @access protected
      * @param  string $target
      * @param  string $link
      * @return bool

@@ -1,0 +1,24 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.85 UnzipTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="UntarTask.html" title="C.84 UntarTask"><link rel="next" href="VersionTask.html" title="C.86 VersionTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.85 UnzipTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="UntarTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="VersionTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="UnzipTask"></a>C.85 UnzipTask</h2></div></div></div>
+        
+        <p> The <code class="literal">UnzipTask</code> unpacks one or more ZIP archives.</p>
+        <div class="table"><a name="idp55925552"></a><p class="formal-object-title"><span class="label">Table C.115: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Archive filename</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>Directory to unpack the archive(s) to</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">forceExtract</code></td><td><code class="literal">Boolean</code></td><td>When set to false, only extract files if the destination does not
+                            exist yet or is older than the archive. When set to true, always extract
+                            files.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55946496"></a>C.85.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;unzip file="testzip.zip" todir="dest"&gt;
+  &lt;fileset dir="."&gt;
+    &lt;include name="*.zip"/&gt;
+  &lt;/fileset&gt;
+&lt;/unzip&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55948144"></a>C.85.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="UntarTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="VersionTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.84 UntarTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.86 VersionTask</td></tr></table></div></body></html>

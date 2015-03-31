@@ -28,7 +28,6 @@ require_once 'phing/tasks/system/condition/Condition.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.tasks.system.condition
  */
 class EqualsCondition implements Condition
@@ -39,11 +38,17 @@ class EqualsCondition implements Condition
     private $trim = false;
     private $caseSensitive = true;
 
+    /**
+     * @param $a1
+     */
     public function setArg1($a1)
     {
         $this->arg1 = $a1;
     }
 
+    /**
+     * @param $a2
+     */
     public function setArg2($a2)
     {
         $this->arg2 = $a2;
@@ -67,6 +72,10 @@ class EqualsCondition implements Condition
         $this->caseSensitive = (boolean) $b;
     }
 
+    /**
+     * @return bool
+     * @throws BuildException
+     */
     public function evaluate()
     {
         if ($this->arg1 === null || $this->arg2 === null) {

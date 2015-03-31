@@ -1,0 +1,28 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>E.19 XsltFilter</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.corefilters.html" title="Appendix E. Core filters"><link rel="prev" href="XincludeFilter.html" title="E.18 XincludeFilter"><link rel="next" href="app.coremappers.html" title="Appendix F. Core mappers"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">E.19 XsltFilter</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="XincludeFilter.html">Prev</a> </td><th width="60%" align="center">Appendix E. Core filters</th><td width="20%" align="right"> <a accesskey="n" href="app.coremappers.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="XsltFilter"></a>E.19 XsltFilter</h2></div></div></div>
+        
+        <p>The <code class="literal">XsltFilter</code> applies a XSL template to the stream. Though you can
+            use this filter directly, you should use XslTask <a class="xref" href="app.coretasks.html" title="Appendix B. Core tasks">Appendix B, <i>Core tasks</i></a>
+            which is shortcut to the following lines:</p>
+        <pre class="programlisting">&lt;filterchain&gt;
+  &lt;xsltfilter style="somexslt.xsl" /&gt;
+&lt;/filterchain&gt;</pre>
+        <p>This filter relies on PHP5 XSL support via <code class="literal">libxslt</code> which must be
+            available for php5. Usually this means including the <code class="literal">php5_xsl</code> module
+            when configuring PHP5. In essence this uses the same core libraries as "xsltproc"
+            processor.</p>
+
+        <div class="table"><a name="idp56960384"></a><p class="formal-object-title"><span class="label">Table E.13: </span><span class="title"> Attributes for the <code class="literal">&lt;xsltfilter&gt;</code> tag </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for the &lt;xsltfilter&gt; tag " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">style</code></td><td><code class="literal">String</code></td><td>The XSLT stylesheet to use for transformation.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">html</code></td><td><code class="literal">Boolean</code></td><td>Whether to parse the input as HTML (using libxml2
+                            DOMDocument::loadHTML()).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">resolvedocumentexternals</code></td><td><code class="literal">Boolean</code></td><td>Whether to resolve entities in the XML document. (see <a class="ulink" href="http://www.php.net/manual/en/class.domdocument.php#domdocument.props.resolveexternals" target="_top">this link</a> for details)</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">resolvestylesheetexternals</code></td><td><code class="literal">Boolean</code></td><td>Whether to resolve entities in the stylesheet.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56986640"></a>E.19.1 Nested tags</h3></div></div></div>
+            
+            <p>The <code class="literal">XsltFilter</code> filter may contain one or more
+                    <code class="literal">param</code> tags to pass any XSLT parameters to the stylesheet.
+                These <code class="literal">param</code> tags must have <code class="literal">name</code> and
+                    <code class="literal">expression</code> attributes.</p>
+
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="XincludeFilter.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.corefilters.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="app.coremappers.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">E.18 XincludeFilter </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Appendix F. Core mappers</td></tr></table></div></body></html>

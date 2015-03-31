@@ -1,0 +1,100 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.45 PDOSQLExecTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PatchTask.html" title="C.44 PatchTask"><link rel="next" href="PearPackageTask.html" title="C.46 PearPackageTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.45 PDOSQLExecTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PatchTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PearPackageTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PDOSQLExecTask"></a>C.45 PDOSQLExecTask</h2></div></div></div>
+        
+        <p> The <code class="literal">PDOSQLExecTask</code> executes SQL statements using PDO.</p>
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
+            <p>The combination of large SQL files and
+            <code class="literal">delimitertype</code> set to <code class="literal">normal</code>
+            can trigger segmentation faults with large files.</p>
+        </div>
+        <div class="table"><a name="idp53408320"></a><p class="formal-object-title"><span class="label">Table C.53: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>PDO connection URL (DSN)</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">userid</code></td><td><code class="literal">String</code></td><td>Username for connection (if it cannot be specified in URL) </td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>The password to use for the connection (if it cannot be specified in
+                            URL)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">src</code></td><td>File</td><td>A single source file of SQL statements to execute.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">onerror</code></td><td><code class="literal">String</code></td><td>The action to perform on error (continue, stop, or abort)</td><td>abort</td><td>No</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimeter to separate SQL statements (e.g. "GO" in MSSQL)</td><td>;</td><td>No</td></tr><tr><td><code class="literal">delimitertype</code></td><td><code class="literal">String</code></td><td>The delimiter type ("normal", "row" or "none"). Normal means that any
+                            occurence of the delimiter terminate the SQL command whereas with row,
+                            only a line containing just the delimiter is recognized as the end of
+                            the command. None disables all delimiter detection.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">autocommit</code></td><td><code class="literal">Boolean</code></td><td>Whether to auto (implicitly) commit every single
+                        statement, disabling transactions.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">encoding</code></td><td><code class="literal">String</code></td><td>Encoding to use for read SQL files</td><td>none</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53449696"></a>C.45.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;pdosqlexec url="pgsql:host=localhost dbname=test"&gt;
+  &lt;fileset dir="sqlfiles"&gt;
+      &lt;include name="*.sql"/&gt;
+      &lt;/fileset&gt;
+&lt;/pdosqlexec&gt;</pre>
+
+            <pre class="programlisting">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password"&gt;
+  &lt;transaction src="path/to/sqlfile.sql"/&gt;
+  &lt;formatter type="plain" outfile="path/to/output.txt"/&gt;
+  &lt;/pdosqlexec&gt;</pre>
+            <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
+                <p>Because of backwards compatiblity, the PDOSQLExecTask can also be called using
+                    the <code class="literal">'pdo'</code> statement.</p>
+            </div>
+            <pre class="programlisting">&lt;pdo url="pgsql:host=localhost dbname=test"&gt;
+  &lt;fileset dir="sqlfiles"&gt;
+      &lt;include name="*.sql"/&gt;
+  &lt;/fileset&gt;
+
+  &lt;!-- xml formatter --&gt;
+  &lt;formatter type="xml" output="output.xml"/&gt;
+
+  &lt;!-- custom formatter --&gt;
+  &lt;formatter classname="path.to.CustomFormatterClass"&gt;
+    &lt;param name="someClassAttrib" value="some-value"/&gt;
+  &lt;/formatter&gt;
+
+  &lt;!-- No output file + usefile=false means it goes to phing log --&gt;
+  &lt;formatter type="plain" usefile="false" /&gt;
+&lt;/pdo&gt;</pre>
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53454976"></a>C.45.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">transaction</code>
+                    </p>
+                    <p>Wrapper for a single transaction. Transactions allow several files or
+                        blocks of statements to be executed using the same PDO connection and commit
+                        operation in between.</p>
+
+                    <div class="table"><a name="idp53458432"></a><p class="formal-object-title"><span class="label">Table C.54: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">src</code></td><td><code class="literal">String</code></td><td>File with statements to be run as one transaction</td><td>n/a</td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code>
+                    </p>
+                    <p>Files containing SQL statements.</p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileList.html" title="D.2 FileList">filelist</a></code>
+                    </p>
+                    <p>Files containing SQL statements.</p>
+                </li><li class="listitem">
+                    <p><code class="literal">formatter</code>
+                    </p>
+                    <p>The results of any queries that are executed can be printed in different
+                        formats. Output will always be sent to a file, unless you set the
+                            <code class="literal">usefile</code> attribute to <code class="literal">false</code>. The
+                        path to the output file can be specified by the
+                            <code class="literal">outfile</code> attribute; there is a default filename that
+                        will be returned by the formatter if no output file is specified.</p>
+                    <p>There are three predefined formatters - one prints the query results in
+                        XML format, the other emits plain text. Custom formatters that extend
+                        phing.tasks.pdo.PDOResultFormatter can be specified.</p>
+
+                    <div class="table"><a name="idp53480992"></a><p class="formal-object-title"><span class="label">Table C.55: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either <code class="literal">xml</code>
+                                        or <code class="literal">plain</code>). </td><td>n/a</td><td rowspan="2">One of these attributes is required.</td></tr><tr><td><code class="literal">classname</code></td><td><code class="literal">String</code></td><td>Name of a custom formatter class (must extend
+                                        phing.tasks.ext.pdo.PDOResultFormatter).</td><td>n/a</td></tr><tr><td><code class="literal">usefile</code></td><td><code class="literal">Boolean</code></td><td>Boolean that determines whether output should be sent to
+                                        a file.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">outfile</code></td><td>File</td><td>Path to file in which to store result.</td><td>Depends on formatter</td><td>No</td></tr><tr><td><code class="literal">showheaders</code></td><td><code class="literal">Boolean</code></td><td>(only applies to plain formatter) Whether to show column
+                                        headers.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">coldelim</code></td><td><code class="literal">String</code></td><td>(only applies to plain formatter) The column
+                                        delimiter.</td><td>,</td><td>No</td></tr><tr><td><code class="literal">rowdelim</code></td><td><code class="literal">String</code></td><td>(only applies to plain formatter) The row
+                                        delimiter.</td><td>\n</td><td>No</td></tr><tr><td><code class="literal">encoding</code></td><td><code class="literal">String</code></td><td>(only applies to XML formatter) The xml document
+                                        encoding.</td><td>(PHP default)</td><td>No</td></tr><tr><td><code class="literal">formatoutput</code></td><td><code class="literal">Boolean</code></td><td>(only applies to XML formatter) Whether to format XML
+                                        output.</td><td><code class="literal">true</code></td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PatchTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PearPackageTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.44 PatchTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.46 PearPackageTask</td></tr></table></div></body></html>

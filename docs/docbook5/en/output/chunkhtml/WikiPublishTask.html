@@ -1,0 +1,22 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.87 WikiPublishTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="VersionTask.html" title="C.86 VersionTask"><link rel="next" href="XmlLintTask.html" title="C.88 XmlLintTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.87 WikiPublishTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="VersionTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="XmlLintTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="WikiPublishTask"></a>C.87 WikiPublishTask</h2></div></div></div>
+        
+        <p>This task can publish Wiki document via Wiki WebAPI.
+            It supports only <a class="ulink" href="http://www.mediawiki.org/" target="_top">MediaWiki</a> engine for now.</p>
+        <p><a class="ulink" href="http://www.php.net/manual/en/book.curl.php" target="_top">cURL</a> extension is required.</p>
+        <div class="table"><a name="idp55980448"></a><p class="formal-object-title"><span class="label">Table C.117: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">apiUrl</code></td><td><code class="literal">String</code></td><td>Wiki API URL (eg. http://localhost/wiki/api.php)</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">apiUser</code></td><td><code class="literal">String</code></td><td>Wiki API user name</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">apiPassword</code></td><td><code class="literal">String</code></td><td>Wiki API user password</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">id</code></td><td><code class="literal">Integer</code></td><td>ID of page that will be changed</td><td>n/a</td><td rowspan="2">One of these attributes is required.</td></tr><tr><td><code class="literal">title</code></td><td><code class="literal">String</code></td><td>Title of page that will be changes. Can also be used as page identifier</td><td>n/a</td></tr><tr><td><code class="literal">content</code></td><td><code class="literal">String</code></td><td>Content of published page</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">mode</code></td><td><code class="literal">String</code></td><td>Edit mode (overwrite, prepend, append)</td><td>append</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56014288"></a>C.87.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;wikipublish
+                apiUrl="http://localhost/wiki/api.php"
+                apiUser="testUser"
+                apiPassword="testPassword"
+                title="Some Page"
+                content="Some content"
+                mode="prepend"/&gt;
+            </pre>
+        </div>
+
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="VersionTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="XmlLintTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.86 VersionTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.88 XmlLintTask</td></tr></table></div></body></html>

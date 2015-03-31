@@ -1,0 +1,25 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.44 WaitForTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="UpToDateTask.html" title="B.43 UpToDateTask"><link rel="next" href="XsltTask.html" title="B.45 XsltTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.44 WaitForTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="UpToDateTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="XsltTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="WaitForTask"></a>B.44 WaitForTask</h2></div></div></div>
+        
+        <p>Wait for a condition to become true or a timeout, whichever comes first.</p>
+        <div class="table"><a name="idp50928912"></a><p class="formal-object-title"><span class="label">Table B.46: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">MaxWait</code></td><td><code class="literal">Integer</code></td><td>Set the maximum length of time to wait in units</td><td>3min</td><td>Yes</td></tr><tr><td><code class="literal">WaitUnit</code></td><td><code class="literal">String</code></td><td>Set the max wait time unit. Must be one of
+                                "<code class="literal">week</code>","<code class="literal">day</code>", "<code class="literal">hour</code>",
+                            "<code class="literal">minute</code>", "<code class="literal">second</code>", "<code class="literal">millisecond</code>"</td><td>millisecond</td><td>No</td></tr><tr><td><code class="literal">CheckEvery</code></td><td><code class="literal">Integer</code></td><td>Set the time between each check</td><td>500ms</td><td>Yes</td></tr><tr><td><code class="literal">CheckEveryUnit</code></td><td><code class="literal">String</code></td><td>Set the check every time unit. Must be one of
+                            "<code class="literal">week</code>","<code class="literal">day</code>", "<code class="literal">hour</code>",
+                            "<code class="literal">minute</code>", "<code class="literal">second</code>", "<code class="literal">millisecond</code>"</td><td>milliseconds</td><td>No</td></tr><tr><td><code class="literal">TimeoutProperty</code></td><td><code class="literal">String</code></td><td>Name of the property to set after a timeout. </td><td>null</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50960144"></a>B.44.1 Examples</h3></div></div></div>
+            
+            <p>Wait for a maximum of ten seconds for the file "<code class="filename">ready</code>" to
+                appear.</p>
+            <pre class="programlisting">&lt;waitfor maxwaitunit="second" maxwait="10"&gt;
+  &lt;available file="ready"/&gt;
+&lt;/waitfor&gt;       </pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50962752"></a>B.44.2 Supported Nested Tags</h3></div></div></div>
+            
+            <p>All <a class="link" href="conditions.html" title="5.8 Conditions">conditionals</a> including <code class="literal">and</code>, <code class="literal">or</code>,
+                    <code class="literal">not</code> etc. </p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="UpToDateTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="XsltTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.43 UpToDateTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.45 XsltTask </td></tr></table></div></body></html>

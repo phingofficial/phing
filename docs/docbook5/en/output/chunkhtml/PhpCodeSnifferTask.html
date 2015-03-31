@@ -1,0 +1,116 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.51 PhpCodeSnifferTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PhkPackageTask.html" title="C.50 PhkPackageTask"><link rel="next" href="PHPCPDTask.html" title="C.52 PHPCPDTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.51 PhpCodeSnifferTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PhkPackageTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PHPCPDTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhpCodeSnifferTask"></a>C.51 PhpCodeSnifferTask</h2></div></div></div>
+        
+        <p> This task runs <a class="ulink" href="http://pear.php.net/package/PHP_CodeSniffer" target="_top">PHP_CodeSniffer</a> to detect violations of a defined set of coding
+            standards.</p>
+
+        <div class="table"><a name="idp53938176"></a><p class="formal-object-title"><span class="label">Table C.68: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">standard</code></td><td><code class="literal">String</code></td><td>The list of coding standards to test against.
+                            Separated by space, comma or semicolon.</td><td>Generic</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The output format. The <code class="literal">full</code> format is specified
+                            in the task itself. Additionally all report formats of PHP_CodeSniffer
+                            can be choosen (ex. <code class="literal">checkstyle</code>,
+                                <code class="literal">full</code>, <code class="literal">summary</code>, ...).</td><td>full</td><td>No Ignored if nested <code class="literal">formatter</code> elements are
+                            supplied.</td></tr><tr><td><code class="literal">showSniffs</code></td><td><code class="literal">Boolean</code></td><td>Print the list of used sniffs.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">showWarnings</code></td><td><code class="literal">Boolean</code></td><td>Print warnings.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">showSources</code></td><td><code class="literal">Boolean</code></td><td>Flag that determines whether to show sources or not.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">docGenerator</code></td><td><code class="literal">String</code></td><td>The name of the doc generator (HTML, Text).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">docFile</code></td><td><code class="literal">String</code></td><td>Path to write output file to. If not set documentation will be
+                            written to STDOUT when <code class="literal">docGenerator</code> is set.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file or folder to check (usually the nested tag
+                                <code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code> is used instead).</td><td><code class="literal">false</code></td><td>Either this attribute or the nested tag <code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code> is
+                            required.</td></tr><tr><td><code class="literal">sniffs</code></td><td><code class="literal">String</code></td><td>The list of allowed sniffs (separated by space, comma or semicolon).
+                            The sniffs must be part of the choosen standard.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">verbosity</code></td><td><code class="literal">Integer</code></td><td>The verbosity level of CodeSniffer where level 1 prints progress
+                            information and level 2 prints developer debug information.</td><td>0</td><td>No</td></tr><tr><td><code class="literal">encoding</code></td><td><code class="literal">String</code></td><td>The encoding of the files to check</td><td>iso-8859-1</td><td>No</td></tr><tr><td><code class="literal">tabWidth</code></td><td><code class="literal">Integer</code></td><td>Replaces tabs with the given number of spaces. If zero no replacing
+                            is done.</td><td>0</td><td>No</td></tr><tr><td><code class="literal">reportWidth</code></td><td><code class="literal">Integer</code></td><td>The max. width for the report.</td><td>80</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>The allowed file extensions / file types to process.
+                            Separated by space, comma or semicolon.</td><td>php, inc, js, css</td><td>No</td></tr><tr><td><code class="literal">allowedTypes</code></td><td><code class="literal">String</code></td><td>The allowed types used by PHP_CodeSniffer::suggestType() which is
+                            used internally by some PHPCS rules (e.g. Squiz.Commenting.FunctionComment
+                            uses it to check variables / parameter types).
+                            Separated by space, comma or semicolon.</td><td>n/a (PHP_CodeSniffer default is used)</td><td>No</td></tr><tr><td><code class="literal">ignorePatterns</code></td><td><code class="literal">String</code></td><td>The patterns to ignore files and folders (separated by space, comma
+                            or semicolon) when a directory is specified in the
+                                <code class="literal">file</code> attribute.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">noSubdirectories</code></td><td><code class="literal">Boolean</code></td><td>Do not recurse into subdirectories when a directory is specified in
+                            the <code class="literal">file</code> attribute.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonerror</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if errors occurred during the
+                            run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonwarning</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if warnings occurred during the run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">skipversioncheck</code></td><td><code class="literal">Boolean</code></td><td>Skips the version check when the task starts.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53948416"></a>C.51.1 Examples</h3></div></div></div>
+            
+            <p> Checks all files in the directory <code class="literal">file</code> matching the allowed
+                file extension with the <code class="literal">PEAR</code> standard and prints the
+                    <code class="literal">summary</code> report without warnings.</p>
+            <pre class="programlisting">&lt;phpcodesniffer
+  standard="PEAR"
+  format="summary"
+  file="/path/to/source-files"
+  allowedFileExtensions="php php5 inc"/&gt;</pre>
+            <p> Checks all matching files in the <code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code> with the
+                    <code class="literal">Zend</code> standard, sets the <code class="literal">zend_ca_path</code>
+                configuration which may be required by one of the sniffs, prints a list of used
+                sniffs and prints the <code class="literal">default</code> report with warnings and the
+                    <code class="literal">checkstyle</code> report to
+                    <code class="literal">/path/to/checkstyle.xml</code>.</p>
+            <pre class="programlisting">&lt;phpcodesniffer
+  standard="Zend"
+  showSniffs="true"
+  showWarnings="true"&gt;
+  &lt;fileset dir="/path/to/source-files"&gt;
+    &lt;include name="**/*.php"/&gt;
+  &lt;/fileset&gt;
+  &lt;config name="zend_ca_path" value="/path/to/ZendStudio/bin/ZendCodeAnalyzer"/&gt;
+  &lt;formatter type="full" usefile="false"/&gt;
+  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/&gt;
+&lt;/phpcodesniffer&gt;</pre>
+            <p> Checks all files in the directory <code class="literal">file</code> with the
+                    <code class="literal">PEAR</code> standard and prints the <code class="literal">checkstyle</code>
+                report without warnings. It also generates the documentation for the selected coding
+                standard and writes it to the given file.</p>
+            <pre class="programlisting">&lt;phpcodesniffer
+  standard="PEAR"
+  file="/path/to/source-files"
+  docGenerator="HTML"
+  docFile="/path/to/doc.html"&gt;
+  &lt;formatter type="checkstyle" outfile="/path/to/checkstyle.xml"/&gt;
+&lt;/phpcodesniffer&gt;</pre>
+            <p> Checks all files in the directory <code class="literal">file</code> matching the allowed
+                file extension with the custom <code class="literal">Foo</code> standard and prints the
+                <code class="literal">summary</code> report without warnings.</p>
+            <pre class="programlisting">&lt;phpcodesniffer
+  standard="Foo"
+  format="summary"
+  file="/path/to/source-files"
+  allowedFileExtensions="php php5 inc"&gt;
+    &lt;config name="installed_paths" value="/path/to/Standards/directory"/&gt;
+&lt;/phpcodesniffer&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54037008"></a>C.51.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code>
+                    </p>
+                    <p>Either this nested tag or the attribute <code class="literal">file</code> is
+                        required.</p>
+                </li><li class="listitem">
+                    <p><code class="literal">config</code>
+                    </p>
+                    <p>The configuration parameters which are usually loaded from the
+                        CodeSniffer.conf can be set.</p>
+
+                    <div class="table"><a name="idp54042928"></a><p class="formal-object-title"><span class="label">Table C.69: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of the configuration parameter.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Value of the configuration parameter.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal">formatter</code>
+                    </p>
+                    <p>The results of the tests can be printed in different formats. Output will
+                        always be sent to a file, unless you set the <code class="literal">usefile</code>
+                        attribute to <code class="literal">false.</code>
+                    </p>
+
+                    <div class="table"><a name="idp54063328"></a><p class="formal-object-title"><span class="label">Table C.70: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>The output format. Accepts the same values as the
+                                            <code class="literal">format</code> attribute
+                                            (<code class="literal">default</code>, <code class="literal">xml</code>,
+                                            <code class="literal">checkstyle</code>, <code class="literal">csv</code>,
+                                            <code class="literal">report</code>, <code class="literal">summary</code>
+                                        &amp; <code class="literal">doc</code>).</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">usefile</code></td><td><code class="literal">Boolean</code></td><td>Boolean that determines whether output should be sent to
+                                        a file.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">outfile</code></td><td><code class="literal">String</code></td><td>Path to write output file to.</td><td>n/a</td><td>Yes, if <code class="literal">usefile</code> is
+                                            <code class="literal">true</code>.</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PhkPackageTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PHPCPDTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.50 PhkPackageTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.52 PHPCPDTask</td></tr></table></div></body></html>

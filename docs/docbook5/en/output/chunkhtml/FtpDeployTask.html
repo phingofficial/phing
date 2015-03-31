@@ -1,0 +1,53 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.13 FtpDeployTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="FileSyncTask.html" title="C.12 FileSyncTask"><link rel="next" href="GitInitTask.html" title="C.14 GitInitTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.13 FtpDeployTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="FileSyncTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="GitInitTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="FtpDeployTask"></a>C.13 FtpDeployTask</h2></div></div></div>
+        
+        <p>Deploys a set of files to a remote FTP server.</p>
+        <div class="table"><a name="idp51515280"></a><p class="formal-object-title"><span class="label">Table C.14: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">host</code></td><td><code class="literal">String</code></td><td>The hostname of the remote server.</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">port</code></td><td><code class="literal">Integer</code></td><td>The port of the remote server.</td><td>21</td><td>No</td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>The username to use when logging in to the remote server.</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>The password to use when logging in to the remote server</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>Directory on the remote server.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">mode</code></td><td><code class="literal">String</code></td><td>The transfer mode to use, either <code class="literal">ascii</code> or
+                                <code class="literal">binary</code>.</td><td>binary</td><td>No</td></tr><tr><td><code class="literal">clearfirst</code></td><td><code class="literal">Boolean</code></td><td>Delete all files in the remote directory before uploading</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">passive</code></td><td><code class="literal">Boolean</code></td><td>Open connection in passive mode</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">dirmode</code></td><td><code class="literal">mixed</code></td><td>
+                            Permissions of the uploaded files, can either be 'inherit' or it can be a octal value
+                            without the leading zero. Settings the dirmode to 'inherit' will cause the uploaded files to
+                            have the same permissions as on the filesystem.
+                        </td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">filemode</code></td><td><code class="literal">mixed</code></td><td>This option does the same as dirmode, except it only affects regular files.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">depends</code></td><td><code class="literal">boolean</code></td><td>
+                            If depends is set to true, the task will only update files
+                            with a local modification timestamp that is newer
+                            than the corresponding timestamp on the server.
+                        </td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">level</code></td><td><code class="literal">String</code></td><td>Control the level at which the task reports status messages. One of
+                                <code class="literal">error</code>, <code class="literal">warning</code>,
+                                <code class="literal">info</code>, <code class="literal">verbose</code>,
+                                <code class="literal">debug</code>.</td><td><code class="literal">verbose</code></td><td>No</td></tr><tr><td><code class="literal">rawdatafallback</code></td><td><code class="literal">boolean</code></td><td>
+                If Net_FTP is not able to parse the raw ftp data, the depends option does not work at all.
+                Setting rawdatafallback will cause phing trying to parse the ftp data on its own, so the
+                depends option might work again.
+
+                If depends is set to false, rawdatafallback is ignored.
+            </td><td>No</td><td class="auto-generated"> </td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51573792"></a>C.13.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;ftpdeploy
+  host="${ftp.host}"
+  port="${ftp.port}"
+  username="${ftp.username}"
+  password="${ftp.password}"
+  dir="${ftp.dir}"
+  passive="false"
+  mode="${ftp.mode}"&gt;
+  &lt;fileset dir="."&gt;
+    &lt;include name="**"/&gt;
+    &lt;exclude name="phing"/&gt;
+    &lt;exclude name="build.xml"/&gt;
+    &lt;exclude name="images/**.png"/&gt;
+    &lt;exclude name="images/**.gif"/&gt;
+    &lt;exclude name="images/**.jpg"/&gt;
+  &lt;/fileset&gt;
+&lt;/ftpdeploy&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51575696"></a>C.13.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                    <p>The files to deploy</p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="FileSyncTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="GitInitTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.12 FileSyncTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.14 GitInitTask</td></tr></table></div></body></html>

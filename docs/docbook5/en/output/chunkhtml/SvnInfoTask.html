@@ -1,0 +1,24 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.73 SvnInfoTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SvnExportTask.html" title="C.72 SvnExportTask"><link rel="next" href="SvnLastRevisionTask.html" title="C.74 SvnLastRevisionTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.73 SvnInfoTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SvnExportTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SvnLastRevisionTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SvnInfoTask"></a>C.73 SvnInfoTask</h2></div></div></div>
+        
+        <p> The <code class="literal">SvnInfoTask</code> parses the output of the 'svn info --xml' command
+            and extracts one specified element (+ optional sub element) from that output.</p>
+        <div class="table"><a name="idp55451776"></a><p class="formal-object-title"><span class="label">Table C.102: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">svnpath</code></td><td><code class="literal">String</code></td><td>Path to Subversion binary</td><td>/usr/bin/svn</td><td>No</td></tr><tr><td><code class="literal">workingcopy</code></td><td><code class="literal">String</code></td><td>Working copy directory</td><td>none</td><td>Yes, or <code class="literal">repositoryurl</code></td></tr><tr><td><code class="literal">repositoryurl</code></td><td><code class="literal">String</code></td><td>URL of remote repository</td><td>none</td><td>Yes, or <code class="literal">workingcopy</code></td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>A username used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>A password used to connect to the SVN server</td><td>none</td><td>No</td></tr><tr><td><code class="literal">propertyname</code></td><td><code class="literal">String</code></td><td>Name of property to use</td><td>svn.info</td><td>No</td></tr><tr><td><code class="literal">element</code></td><td><code class="literal">String</code></td><td>Sets whether to store actual last changed revision of the
+                            directory/file mentioned</td><td>url</td><td>No</td></tr><tr><td><code class="literal">subelement</code></td><td><code class="literal">String</code></td><td>Sets whether to force compatibility with older SVN versions (&lt;
+                            1.2)</td><td>none</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55489824"></a>C.73.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;svninfo
+   svnpath="/usr/bin/svn"
+   workingcopy="/home/user/svnwc"
+   element="url"
+   propertyname="svn.url"/&gt;</pre>
+            <pre class="programlisting">&lt;svninfo
+   repositoryurl="http://svn.phing.info/"
+   element="commit"
+   subelement="author"
+   propertyname="svn.author"/&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SvnExportTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SvnLastRevisionTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.72 SvnExportTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.74 SvnLastRevisionTask</td></tr></table></div></body></html>

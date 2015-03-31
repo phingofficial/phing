@@ -63,6 +63,7 @@ class FormatterElement
 
     /**
      * Loads a specific formatter class
+     * @param $className
      */
     public function setClassName($className)
     {
@@ -73,6 +74,7 @@ class FormatterElement
 
     /**
      * Sets whether to store formatting results in a file
+     * @param $useFile
      */
     public function setUseFile($useFile)
     {
@@ -93,6 +95,11 @@ class FormatterElement
      */
     public function setToDir($toDir)
     {
+        if (!is_dir($toDir)) {
+            $toDir = new PhingFile($toDir);
+            $toDir->mkdirs();
+        }
+
         $this->toDir = $toDir;
     }
 
@@ -138,6 +145,7 @@ class FormatterElement
 
     /**
      * Returns formatter object
+     * @throws BuildException
      * @return PHPUnitResultFormatter
      */
     public function getFormatter()

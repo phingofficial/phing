@@ -39,7 +39,9 @@ class XmlPropertyTask extends PropertyTask
     private $_delimiter = ',';
     private $_required = false;
 
-    /** Set a file to use as the source for properties. */
+    /** Set a file to use as the source for properties.
+     * @param $file
+     */
     public function setFile($file)
     {
         if (is_string($file)) {
@@ -169,6 +171,8 @@ class XmlPropertyTask extends PropertyTask
     /**
      * load properties from an XML file.
      * @param PhingFile $file
+     * @throws BuildException
+     * @return Properties
      */
     protected function loadFile(PhingFile $file)
     {
@@ -198,6 +202,7 @@ class XmlPropertyTask extends PropertyTask
      *
      * @param string $filePath
      *
+     * @throws IOException
      * @return Properties
      */
     protected function _getProperties($filePath)

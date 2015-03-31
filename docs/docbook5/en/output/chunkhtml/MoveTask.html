@@ -1,0 +1,26 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.26 MoveTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="MkdirTask.html" title="B.25 MkdirTask"><link rel="next" href="PathToFileSetTask.html" title="B.27 PathToFileSetTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.26 MoveTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="MkdirTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="PathToFileSetTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="MoveTask"></a>B.26 MoveTask </h2></div></div></div>
+        
+        <p>Moves a file or directory to a new file or directory. By default, the destination file
+            is overwritten if it already exists. When overwrite is turned off, then files are only
+            moved if the source file is newer than the destination file, or when the destination
+            file does not exist.</p>
+        <p>Source files and directories are only deleted if the file or directory has been copied
+            to the destination successfully.</p>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50291472"></a>B.26.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;!-- The following will move the file "somefile.txt" to "/tmp" and
+    change its filename to "anotherfile.bak". It will overwrite
+    an existing file. --&gt;
+&lt;move file="somefile.txt" tofile="/tmp/anotherfile.bak" overwrite="true"/&gt;
+
+&lt;!-- This will move the "/tmp" directory to "/home/default/tmp",
+    preserving the directory name. So the final name is
+    "/home/default/tmp/tmp". Empty directories are also copied --&gt;
+&lt;move file="/tmp" todir="/home/default/tmp" includeemptydirs="true" /&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50293456"></a>B.26.2 Attributes and Nested Elements</h3></div></div></div>
+            
+            <p>For further documentation, see <a class="xref" href="CopyTask.html" title="B.10 CopyTask">Section B.10, “CopyTask ”</a>, since MoveTask only
+                is a child of CopyTask and inherits all attributes.</p>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="MkdirTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PathToFileSetTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.25 MkdirTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.27 PathToFileSetTask</td></tr></table></div></body></html>

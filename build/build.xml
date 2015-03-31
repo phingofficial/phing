@@ -24,24 +24,18 @@
     <property name="build.full.dir" value="${buildfile.dir}/full"/>
 
     <fileset dir="${phingpkg.home}" id="all">
-        <include name="**/**"/>
-        <exclude name="bin/pear-phing"/>
-        <exclude name="bin/pear-phing.bat"/>
-        <exclude name="build/**"/>
-        <exclude name=".settings/**"/>
-        <exclude name=".buildpath"/>
-        <exclude name=".project"/>
-        <exclude name="test/performance/**"/>
-        <exclude name="test/reports/**"/>
-        <exclude name="docs/docbook5/en/scripts/**"/>
-        <exclude name="docs/docbook5/en/source/**"/>
-        <exclude name="docs/docbook5/en/stylesheets/**"/>
-        <exclude name="docs/docbook5/en/output/chunkhtml/**"/>
-        <exclude name="docs/docbook5/en/output/hlpdf/**"/>
-        <exclude name="docs/docbook5/en/output/epub/**"/>
-        <exclude name="docs/docbook5/en/output/webhelp/**"/>
-        <exclude name="docs/docbook5/en/*"/>
-        <exclude name="docs/docsystem/**"/>
+    	<include name="bin/phing"/>
+    	<include name="bin/phing.bat"/>
+    	<include name="bin/phing.php"/>
+        <include name="classes/**"/>
+        <include name="docs/api/**"/>
+        <include name="docs/example/**"/>
+        <include name="docs/docbook5/en/output/hlhtml/**"/>
+        <include name="etc/**"/>
+        <include name="CHANGELOG.md"/>
+        <include name="CREDITS.md"/>
+        <include name="LICENSE"/>
+        <include name="README.md"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}/classes/phing" id="classes">
@@ -51,17 +45,11 @@
     <fileset dir="${phingpkg.home}/docs" id="docs">
         <include name="api/docs/**"/>
         <include name="example/**"/>
-        <include name="phing_guide/book/**"/>
         <include name="docbook5/en/output/hlhtml/**"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}" id="etc">
         <include name="etc/**"/>
-    </fileset>
-
-    <fileset dir="${phingpkg.home}" id="etc-no-version">
-        <include name="etc/**"/>
-        <exclude name="etc/VERSION.TXT"/>
     </fileset>
 
     <fileset dir="${phingpkg.home}" id="scripts">
@@ -83,35 +71,17 @@
         ==============================================
     -->
     <target name="main"
-        depends="versioncheck,clean,clean-external,create-api-docs,copy-files,create-package-xml,tar,phar"
+        depends="clean,clean-external,create-api-docs,copy-files,create-package-xml,tar,phar"
     />
-
-    <!--
-        ===================================================================
-        Retrieve version number from commandline if not set
-        ===================================================================
-    -->
-    <target name="versioncheck"
-        unless="version">
-
-        <echo message="====================================================="/>
-        <echo message="Version not specified. You must enter a version. In"/>
-        <echo message="the future you can add this to build.properties or"/>
-        <echo message="enter it on the command line: "/>
-        <echo message=" "/>
-        <echo message="-Dversion=2.0.0b1"/>
-        <echo message="====================================================="/>
-        <input propertyname="version" promptChar=":">Phing version for package</input>
-
-    </target>
 
     <!--
         ==============================================
         Sets some default properties
         ==============================================
     -->
-    <target name="setproperties"
-        if="version">
+    <target name="setproperties">
+        
+        <loadfile property="version" file="${phingpkg.home}/etc/VERSION.TXT"/>
 
         <property name="pkgname" value="phing-${version}"/>
         <property name="pkgname-docs" value="phingdocs-${version}" override="true"/>
@@ -153,7 +123,6 @@
         ==============================================
     -->
     <target name="copy-files"
-        if="version"
         depends="setproperties">
 
         <echo>-----------------------------</echo>
@@ -169,7 +138,7 @@
 
         <copy todir="${build.src.dir}">
             <fileset refid="classes"/>
-            <fileset refid="etc-no-version"/>
+            <fileset refid="etc"/>
             <fileset refid="scripts"/>
             <fileset refid="misc"/>
         </copy>
@@ -177,9 +146,6 @@
         <copy todir="${build.docs.dir}">
             <fileset refid="docs"/>
         </copy>
-
-        <echo append="false" file="${build.src.dir}/etc/VERSION.TXT">Phing ${version}</echo>
-        <echo append="false" file="${build.full.dir}/etc/VERSION.TXT">Phing ${version}</echo>
 
         <chmod file="${build.src.dir}/bin/pear-phing" mode="755"/>
         <chmod file="${build.full.dir}/bin/phing" mode="755"/>
@@ -193,7 +159,6 @@
         ==============================================
     -->
     <target name="create-api-docs"
-        if="version"
         depends="setproperties">
 
         <phing phingfile="build.xml" dir="${phingpkg.home}/docs/api"
@@ -264,7 +229,6 @@
         ==============================================
     -->
     <target name="tar"
-        if="version"
         depends="setproperties">
 
         <echo>-----------------------------</echo>
@@ -350,7 +314,6 @@
         ==============================================
     -->
     <target name="clean-external"
-        if="version"
         depends="setproperties">
 
         <phing phingfile="build.xml" dir="${phingpkg.home}/docs/example"

@@ -1,0 +1,68 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.29 IoncubeEncoderTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="HttpRequestTask.html" title="C.28 HttpRequestTask"><link rel="next" href="IoncubeLicenseTask.html" title="C.30 IoncubeLicenseTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.29 IoncubeEncoderTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="HttpRequestTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="IoncubeLicenseTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="IoncubeEncoderTask"></a>C.29 IoncubeEncoderTask</h2></div></div></div>
+        
+        <p> The <code class="literal">IoncubeEncoderTask</code> executes the <a class="ulink" href="http://www.ioncube.com" target="_top">ionCube</a> encoder (for either
+            PHP4 or PHP5 projects).</p>
+        <p> For more information on the meaning of the various options please consult the ionCube
+                <a class="ulink" href="http://www.ioncube.com/USER-GUIDE.pdf" target="_top">user
+                guide</a>.</p>
+        <div class="table"><a name="idp52512976"></a><p class="formal-object-title"><span class="label">Table C.35: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">allowedserver</code></td><td><code class="literal">String</code></td><td>Restricts the encoded files to particular servers and/or domains.
+                            Consult the IonCude documentation for more information.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">binary</code></td><td><code class="literal">Boolean</code></td><td>Whether to save encoded files in binary format (default is ASCII
+                            format)</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">copy</code></td><td><code class="literal">String</code></td><td>Specifies files or directories to exclude from being encoded or
+                            encrypted and copy them to the target directory (separated by
+                            space).</td><td>none</td><td>No</td></tr><tr><td><code class="literal">encode</code></td><td><code class="literal">String</code></td><td>Specifies additional file patterns, files or directories to encode,
+                            or to reverse the effect of <code class="literal">copy</code></td><td>none</td><td>No</td></tr><tr><td><code class="literal">encrypt</code></td><td><code class="literal">String</code></td><td>Specify files or directories (space separated list) that are to be
+                            encrypted.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">expirein</code></td><td><code class="literal">String</code></td><td>Sets a period in seconds (s), minutes (m), hours (h) or days (d)
+                            after which the files expire. Accepts: <code class="literal">500s</code> or
+                                <code class="literal">55m</code> or <code class="literal">24h</code> or
+                                <code class="literal">7d</code></td><td>none</td><td>No</td></tr><tr><td><code class="literal">expireon</code></td><td><code class="literal">String</code></td><td>Sets a YYYY-MM-DD date to expire the files.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">fromdir</code></td><td><code class="literal">String</code></td><td>Path containing source files</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">ignore</code></td><td><code class="literal">String</code></td><td>Set files and directories to ignore entirely and exclude from the
+                            target directory (separated by space).</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">ioncubepath</code></td><td><code class="literal">String</code></td><td>Path to the ionCube binaries</td><td>/usr/local/ioncube</td><td>No</td></tr><tr><td><code class="literal">keep</code></td><td><code class="literal">String</code></td><td>Set files and directories not to be ignored (separated by
+                            space).</td><td>none</td><td>No</td></tr><tr><td><code class="literal">licensepath</code></td><td><code class="literal">String</code></td><td>Path to the license file that will be used by the encoded
+                            files</td><td>none</td><td>No</td></tr><tr><td><code class="literal">nodoccomments</code></td><td><code class="literal">String</code></td><td>Omits documents comments ( /** ... */ ) from the encoded
+                            files.</td><td>none</td><td>No</td></tr><tr><td>obfuscationkey</td><td><code class="literal">String</code></td><td>The obfuscation key must be supplied when using the obfuscate
+                            option</td><td>none</td><td>No</td></tr><tr><td><code class="literal">obfuscate</code></td><td><code class="literal">String</code></td><td>The Encoder can obfuscate the names of global functions, the names of
+                            local variables in global functions, and line numbers. Use either
+                                <code class="literal">all</code> or any of <code class="literal">functions</code>,
+                                <code class="literal">locals</code> or <code class="literal">linenos</code> separated by
+                            a space.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">optimize</code></td><td><code class="literal">String</code></td><td>Controls the optimization of the encoded files, accepts either
+                                <code class="literal">more</code> or <code class="literal">max</code></td><td>none</td><td>No</td></tr><tr><td><code class="literal">passphrase</code></td><td><code class="literal">String</code></td><td>The passphrase to use when encoding with a license file</td><td>none</td><td>No</td></tr><tr><td><code class="literal">phpversion</code></td><td><code class="literal">Integer</code></td><td>The PHP version to use</td><td>5</td><td>No</td></tr><tr><td><code class="literal">targetoption</code></td><td><code class="literal">String</code></td><td>Option to use when target directory exists, accepts
+                                <code class="literal">replace</code>, <code class="literal">merge</code>,
+                                <code class="literal">update</code> and <code class="literal">rename</code></td><td>none</td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>Path to save encoded files to</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">withoutruntimeloadersupport</code></td><td><code class="literal">Boolean</code></td><td>Whether to disable support for runtime initialization of the ionCube
+                            Loader</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">noshortopentags</code></td><td><code class="literal">Boolean</code></td><td>Whether to disable support for short PHP tags</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">callbackfile</code></td><td><code class="literal">String</code></td><td>Path to callback file (.php)</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">obfuscationexclusionsfile</code></td><td><code class="literal">String</code></td><td>Path to obfuscation exclusions file</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">ignoredeprecatedwarnings</code></td><td><code class="literal">Boolean</code></td><td>Whether to ignore deprecated warnings</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">ignorestrictwarnings</code></td><td><code class="literal">Boolean</code></td><td>Whether to ignore strict warnings</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">allowencodingintosource</code></td><td><code class="literal">Boolean</code></td><td>Whether to allow encoding into the source tree</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">messageifnoloader</code></td><td><code class="literal">String</code></td><td>A valid PHP expression to customize the "no loader installed"
+                            message</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">actionifnoloader</code></td><td><code class="literal">String</code></td><td>A valid PHP expression to replace the "no loader installed"
+                            action</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">showcommandline</code></td><td><code class="literal">Boolean</code></td><td>whether to show command line before it is executed</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52524160"></a>C.29.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;ioncubeencoder
+   binary="true"
+   copy="*.ini config/*"
+   encode="*.inc licenses/license.key"
+   encrypt="*.tpl *.xml"
+   fromdir="files"
+   ignore="*.bak RCS/ *~ docs/"
+   ioncubepath="/usr/local/ioncube"
+   keep="docs/README"
+   licensepath="mylicense.txt"
+   optimize="max"
+   passphrase="mypassphrase"
+   phpversion="4"
+   noshortopentags="false"
+   targetoption="replace"
+   todir="encoded"
+   withoutruntimeloadersupport="true"
+   callbackfile="errhandler.php"
+   obfuscationexlusionsfile="obfex.txt"&gt;
+  &lt;comment&gt;A project encoded with the ionCube encoder.&lt;/comment&gt;
+&lt;/ioncubeencoder&gt;</pre>
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52634096"></a>C.29.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">comment</code></p>
+                    <p>Custom text that is added to the start of each encoded file.</p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="HttpRequestTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="IoncubeLicenseTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.28 HttpRequestTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.30 IoncubeLicenseTask</td></tr></table></div></body></html>

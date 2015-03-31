@@ -43,10 +43,13 @@ abstract class Service_Amazon extends Task
      * (default value: array())
      *
      * @var array
-     * @access protected
      */
     protected $_options = array();
 
+    /**
+     * @param $var
+     * @param $val
+     */
     public function __set($var, $val)
     {
         $this->_options[$var] = $val;
@@ -60,9 +63,8 @@ abstract class Service_Amazon extends Task
      *
      * This way, we can define global properties for the "Amazon" service, like key and secret
      *
-     * @access public
      * @param  mixed $var
-     * @return void
+     * @return mixed
      */
     public function __get($var)
     {
@@ -77,11 +79,19 @@ abstract class Service_Amazon extends Task
         return $this->_options[$var];
     }
 
+    /**
+     * @param $var
+     * @return bool
+     */
     public function __isset($var)
     {
         return array_key_exists($var, $this->_options);
     }
 
+    /**
+     * @param $key
+     * @throws BuildException
+     */
     public function setKey($key)
     {
         if (empty($key) || !is_string($key)) {
@@ -100,6 +110,10 @@ abstract class Service_Amazon extends Task
         return $key;
     }
 
+    /**
+     * @param $secret
+     * @throws BuildException
+     */
     public function setSecret($secret)
     {
         if (empty($secret) || !is_string($secret)) {

@@ -25,9 +25,9 @@ include_once 'phing/system/io/Reader.php';
  * Convenience class for reading files.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
- * @version   $Id$
- * @access    public
+ *
  * @see       FilterReader
+ *
  * @package   phing.system.io
  */
 class BufferedReader extends Reader
@@ -44,7 +44,7 @@ class BufferedReader extends Reader
 
     /**
      *
-     * @param object  $reader   The reader (e.g. FileReader).
+     * @param Reader  $reader   The reader (e.g. FileReader).
      * @param integer $buffsize The size of the buffer we should use for reading files.
      *                          A large buffer ensures that most files (all scripts?) are parsed in 1 buffer.
      */
@@ -93,6 +93,9 @@ class BufferedReader extends Reader
         return $data;
     }
 
+    /**
+     * @param int $n
+     */
     public function skip($n)
     {
         return $this->in->skip($n);
@@ -103,11 +106,17 @@ class BufferedReader extends Reader
         return $this->in->reset();
     }
 
+    /**
+     * @return mixed
+     */
     public function close()
     {
         return $this->in->close();
     }
 
+    /**
+     * @return mixed
+     */
     public function open()
     {
         return $this->in->open();
@@ -177,6 +186,9 @@ class BufferedReader extends Reader
         return $this->in->eof();
     }
 
+    /**
+     * @return string
+     */
     public function getResource()
     {
         return $this->in->getResource();

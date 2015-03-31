@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,7 +28,7 @@ include_once 'phing/filters/ChainableReader.php';
  * @author    Hans Lellelid <hans@velum.net>
  * @author    Yannick Lecaillez <yl@seasonfive.com>
  * @author    Andreas Aderhold <andi@binarycloud.com>
- * @version   $Id$
+ *
  * @see       FilterReader
  * @package   phing.filters
  */
@@ -195,8 +192,9 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
 
     /**
      * Reads stream, applies XSLT and returns resulting stream.
+     * @param null $len
+     * @throws BuildException
      * @return string         transformed buffer.
-     * @throws BuildException - if XSLT support missing, if error in xslt processing
      */
     public function read($len = null)
     {
@@ -256,8 +254,10 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
     /**
      * Try to process the XSLT transformation
      *
-     * @param   string  XML to process.
-     * @param   string  XSLT sheet to use for the processing.
+     * @param string $xml XML to process.
+     * @param string $xsl XSLT sheet to use for the processing.
+     *
+     * @return string
      *
      * @throws BuildException On XSLT errors
      */
@@ -319,8 +319,8 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
      * @param Reader A Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
-     * @return Reader A new filter based on this configuration, but filtering
-     *                the specified reader
+     * @return XsltFilter A new filter based on this configuration, but filtering
+     *                    the specified reader
      */
     public function chain(Reader $reader)
     {
@@ -355,7 +355,6 @@ class XsltFilter extends BaseParamFilterReader implements ChainableReader
             }
         }
     }
-
 }
 
 /**
@@ -368,6 +367,7 @@ class XSLTParam
 
     private $name;
 
+    /** @var RegisterSlot */
     private $expr;
 
     /**
@@ -402,7 +402,7 @@ class XSLTParam
     /**
      * Gets expression value (alias to the getExpression()) method.
      *
-     * @param string $v
+     * @return string
      * @see getExpression()
      */
     public function getValue()
@@ -430,6 +430,7 @@ class XSLTParam
 
     /**
      * Returns expression value -- performs lookup if expr is registerslot.
+     *
      * @return string
      */
     public function getExpression()

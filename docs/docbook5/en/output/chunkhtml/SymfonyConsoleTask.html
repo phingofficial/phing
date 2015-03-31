@@ -1,0 +1,29 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.80 SymfonyConsoleTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="StopwatchTask.html" title="C.79 StopwatchTask"><link rel="next" href="SymlinkTask.html" title="C.81 SymlinkTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.80 SymfonyConsoleTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="StopwatchTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SymlinkTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SymfonyConsoleTask"></a>C.80 SymfonyConsoleTask</h2></div></div></div>
+        
+        <p>Executes Symfony2 console commands</p>
+        <div class="table"><a name="idp55745104"></a><p class="formal-object-title"><span class="label">Table C.109: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td>command</td><td>String</td><td>The Symfony Console command to execute</td><td>n/a</td><td>Yes</td></tr><tr><td>console</td><td>String</td><td>The path to symfony console application</td><td>app/console</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55761568"></a>C.80.1 Examples</h3></div></div></div>
+            
+            <p>Simple example</p>
+            <pre class="programlisting">&lt;SymfonyConsole command="cache:clear"/&gt;
+            </pre>
+            <p>Complex example</p>
+            <pre class="programlisting">&lt;SymfonyConsole command="cache:warmup"&gt;
+  &lt;arg name="env" value="prod" /&gt;
+  &lt;arg value="some/path/or/single/value" quotes="true"&gt;
+&lt;/SymfonyConsole&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55764896"></a>C.80.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">arg</code></p>
+                    <div class="table"><a name="idp55767680"></a><p class="formal-object-title"><span class="label">Table C.110: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>String</td><td>the name for this argument, -- will be appended</td><td>n/a</td><td>No</td></tr><tr><td>value</td><td>String</td><td>the value for the argument</td><td>n/a</td><td>No</td></tr><tr><td>quotes</td><td>String</td><td>set to true if the value should be enclosed in double quotes</td><td>false</td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="StopwatchTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SymlinkTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.79 StopwatchTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.81 SymlinkTask</td></tr></table></div></body></html>

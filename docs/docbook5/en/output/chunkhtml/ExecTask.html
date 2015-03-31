@@ -1,0 +1,50 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.17 ExecTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="EchoTask.html" title="B.16 EchoTask"><link rel="next" href="FailTask.html" title="B.18 FailTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.17 ExecTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="EchoTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="FailTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ExecTask"></a>B.17 ExecTask </h2></div></div></div>
+        
+        <p>Executes a shell command. You can use this to quickly add a new command to Phing.
+            However, if you want to use this regularly, you should think about writing a Task for
+            it.</p>
+
+        <div class="table"><a name="idp49962944"></a><p class="formal-object-title"><span class="label">Table B.17: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">command</code></td><td><code class="literal">String</code></td><td>The command that is to be executed.</td><td>n/a</td><td rowspan="2">One of the two</td></tr><tr><td><code class="literal">executable</code></td><td><code class="literal">String</code></td><td>The command to execute without any command line arguments.</td><td>n/a</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory the command is to be executed in.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">output</code></td><td><code class="literal">String</code></td><td>Where to direct stdout.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">error</code></td><td><code class="literal">String</code></td><td>Where to direct stderr.</td><td>Redirected to stdout, unless
+                        <code class="literal">passthru</code> is set to true.</td><td>No</td></tr><tr><td><code class="literal">os</code></td><td><code class="literal">String</code></td><td>Only execute if the <a class="xref" href="app.factsheet.html" title="Appendix A. Fact Sheet">Appendix A, <i>Fact Sheet</i></a> property
+                            contains specified text.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">escape</code></td><td><code class="literal">Boolean</code></td><td>By default, we escape shell metacharacters before executing. Setting
+                            this to false will disable this precaution.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">passthru</code></td><td><code class="literal">Boolean</code></td><td>Whether to use PHP's passthru() function instead of exec().</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">logoutput</code></td><td><code class="literal">Boolean</code></td><td>Whether to log returned output as MSG_INFO instead of
+                            MSG_VERBOSE.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">spawn</code></td><td><code class="literal">Boolean</code></td><td>Whether to spawn unix programs to the background, redirecting
+                            stdout.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">returnProperty</code></td><td><code class="literal">String</code></td><td>Property name to set return value to from exec() call.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">outputProperty</code></td><td><code class="literal">String</code></td><td>Property name to set output value to from exec() call.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">checkreturn</code></td><td><code class="literal">Boolean</code></td><td>Whether to check the return code of the program, throws a
+                            BuildException when returncode != 0.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">level</code></td><td><code class="literal">String</code></td><td>Control the level at which status messages are reported. One of
+                                <code class="literal">error</code>, <code class="literal">warning</code>,
+                                <code class="literal">info</code>, <code class="literal">verbose</code>,
+                                <code class="literal">debug</code>.</td><td><code class="literal">verbose</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50024032"></a>B.17.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;!-- List the contents of "/home". --&gt;
+&lt;exec command="ls -l" dir="/home" /&gt;
+
+&lt;!-- Start the make process in "/usr/src/php-4.0". --&gt;
+&lt;exec command="make" dir="/usr/src/php-4.0" /&gt;
+
+&lt;!-- List the contents of "/tmp" out to a file. --&gt;
+&lt;exec command="ls -l /tmp &gt; foo.out" escape="false" /&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50026048"></a>B.17.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">arg</code>
+                        </p><div class="table"><a name="idp50027856"></a><p class="formal-object-title"><span class="label">Table B.18: </span><span class="title">Attributes</span></p><div class="table-contents">
+                            
+                            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>A single command-line argument; can contain space
+                                            characters. To pass an empty argument, enclose
+                                            two double quotes in single quotes ('""').</td><td>n/a</td><td rowspan="4">One of these</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The name of a file as a single command-line argument;
+                                            will be replaced with the absolute filename of the
+                                            file.</td><td>n/a</td></tr><tr><td><code class="literal">path</code></td><td><code class="literal">String</code></td><td>A string that will be treated as a path-like string
+                                            as a single command-line argument; you can use ; or : as
+                                            path separators and Phing will convert it to the
+                                            platform's local conventions.</td><td>n/a</td></tr><tr><td><code class="literal">line</code></td><td><code class="literal">String</code></td><td>A space-delimited list of command-line
+                                            arguments.</td><td>n/a</td></tr></tbody></table>
+                        </div></div><p><br class="table-break">
+                    </p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="EchoTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="FailTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.16 EchoTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.18 FailTask </td></tr></table></div></body></html>

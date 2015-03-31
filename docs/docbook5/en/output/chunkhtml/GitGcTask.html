@@ -1,0 +1,28 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.16 GitGcTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="GitCloneTask.html" title="C.15 GitCloneTask"><link rel="next" href="GitBranchTask.html" title="C.17 GitBranchTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.16 GitGcTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GitCloneTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="GitBranchTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="GitGcTask"></a>C.16 GitGcTask</h2></div></div></div>
+        
+        <p>Cleanup unnecessary files and optimize the local repository.</p>
+
+        <div class="table"><a name="idp51635968"></a><p class="formal-object-title"><span class="label">Table C.17: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>The repository to cleanup.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">aggressive</code></td><td><code class="literal">Boolean</code></td><td>This option will cause git gc to more aggressively optimize the
+                            repository at the expense of taking much more time. See --aggressive
+                            option of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html" target="_top">git-gc</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">auto</code></td><td><code class="literal">Boolean</code></td><td>With this option, git gc checks whether any housekeeping is required;
+                            if not, it exits without performing any work. See --auto option of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html" target="_top">git-gc</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">noprune</code></td><td><code class="literal">Boolean</code></td><td>Do not prune any loose objects. See --no-prune option of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html" target="_top">git-gc</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">prune</code></td><td><code class="literal">String</code></td><td>Prune loose objects older than date. See --prune option of <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-gc.html" target="_top">git-gc</a>.</td><td>2.weeks.ago</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51670112"></a>C.16.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- Clone repository --&gt;
+&lt;gitclone
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- Cleanup repository--&gt;
+&lt;gitgc
+    repository="${repo.dir.resolved}"
+    aggressive="true"
+    prune="1.week.ago" /&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GitCloneTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="GitBranchTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.15 GitCloneTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.17 GitBranchTask</td></tr></table></div></body></html>

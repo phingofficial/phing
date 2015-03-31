@@ -332,13 +332,19 @@ class ApplyTaskTest extends BuildFileTest
         // Getting a temp. file
         $tempfile = tempnam(sys_get_temp_dir(), 'phing-exectest-');
 
+        $scriptFile = getcwd() . "/error_output.sh";
+        file_put_contents($scriptFile, "echo errfoo 1>&2");
+        chmod($scriptFile, 0744);
+
         // Setting the property
+        $this->project->setProperty('executable', $scriptFile);
         $this->project->setProperty('execTmpFile', $tempfile);
         $this->executeTarget(__FUNCTION__);
 
         // Validating the output
         $output = @file_get_contents($tempfile);
         @unlink($tempfile);
+        @unlink($scriptFile);
         $this->assertEquals("errfoo", rtrim($output));
     }
 

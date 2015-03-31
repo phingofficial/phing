@@ -78,6 +78,9 @@ class CoverageSetupTask extends Task
         $this->database = $database;
     }
 
+    /**
+     * @param Path $classpath
+     */
     public function setClasspath(Path $classpath)
     {
         if ($this->classpath === null) {
@@ -87,6 +90,9 @@ class CoverageSetupTask extends Task
         }
     }
 
+    /**
+     * @return null|Path
+     */
     public function createClasspath()
     {
         $this->classpath = new Path();

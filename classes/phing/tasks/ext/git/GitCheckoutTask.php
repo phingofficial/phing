@@ -128,86 +128,137 @@ class GitCheckoutTask extends GitBaseTask
         $this->log('git-checkout output: ' . trim($output), Project::MSG_INFO);
     }
 
+    /**
+     * @param $branchname
+     */
     public function setBranchname($branchname)
     {
         $this->branchname = $branchname;
     }
 
+    /**
+     * @return string
+     */
     public function getBranchname()
     {
         return $this->branchname;
     }
 
+    /**
+     * @param $startPoint
+     */
     public function setStartPoint($startPoint)
     {
         $this->startPoint = $startPoint;
     }
 
+    /**
+     * @return string
+     */
     public function getStartPoint()
     {
         return $this->startPoint;
     }
 
+    /**
+     * @param $flag
+     */
     public function setForce($flag)
     {
         $this->force = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getForce()
     {
         return $this->force;
     }
 
+    /**
+     * @return bool
+     */
     public function isForce()
     {
         return $this->getForce();
     }
 
+    /**
+     * @param $flag
+     */
     public function setQuiet($flag)
     {
         $this->quiet = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getQuiet()
     {
         return $this->quiet;
     }
 
+    /**
+     * @return bool
+     */
     public function isQuiet()
     {
         return $this->getQuiet();
     }
 
+    /**
+     * @param $flag
+     */
     public function setTrack($flag)
     {
         $this->track = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getTrack()
     {
         return $this->track;
     }
 
+    /**
+     * @return bool
+     */
     public function isTrack()
     {
         return $this->getTrack();
     }
 
+    /**
+     * @param $flag
+     */
     public function setNoTrack($flag)
     {
         $this->noTrack = $flag;
     }
 
+    /**
+     * @return bool
+     */
     public function getNoTrack()
     {
         return $this->noTrack;
     }
 
+    /**
+     * @return bool
+     */
     public function isNoTrack()
     {
         return $this->getNoTrack();
     }
 
+    /**
+     * @param $flag
+     */
     public function setCreate($flag)
     {
         $this->extraOptions['b'] = $flag;
@@ -225,6 +276,9 @@ class GitCheckoutTask extends GitBaseTask
 
     // -B flag is not found in all versions of git
     // --force is present everywhere
+    /**
+     * @param $flag
+     */
     public function setForceCreate($flag)
     {
         $this->setForce($flag);
@@ -240,6 +294,9 @@ class GitCheckoutTask extends GitBaseTask
         return $this->getForceCreate();
     }
 
+    /**
+     * @param $flag
+     */
     public function setMerge($flag)
     {
         $this->extraOptions['m'] = $flag;

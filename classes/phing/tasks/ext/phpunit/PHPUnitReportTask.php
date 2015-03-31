@@ -55,6 +55,8 @@ class PHPUnitReportTask extends Task
 
     /**
      * Set the filename of the XML results file to use.
+     * @param PhingFile $inFile
+     * @return void
      */
     public function setInFile(PhingFile $inFile)
     {
@@ -63,6 +65,8 @@ class PHPUnitReportTask extends Task
 
     /**
      * Set the format of the generated report. Must be noframes or frames.
+     * @param $format
+     * @return void
      */
     public function setFormat($format)
     {
@@ -71,6 +75,8 @@ class PHPUnitReportTask extends Task
 
     /**
      * Set the directory where the stylesheets are located.
+     * @param $styleDir
+     * @return void
      */
     public function setStyleDir($styleDir)
     {
@@ -80,6 +86,8 @@ class PHPUnitReportTask extends Task
     /**
      * Set the directory where the files resulting from the
      * transformation should be written to.
+     * @param PhingFile $toDir
+     * @return void
      */
     public function setToDir(PhingFile $toDir)
     {
@@ -91,6 +99,7 @@ class PHPUnitReportTask extends Task
      * See {@link http://www.kryogenix.org/code/browser/sorttable/)}
      *
      * @param boolean $useSortTable
+     * @return void
      */
     public function setUseSortTable($useSortTable)
     {
@@ -99,6 +108,7 @@ class PHPUnitReportTask extends Task
 
     /**
      * Returns the path to the XSL stylesheet
+     * @throws BuildException
      */
     protected function getStyleSheet()
     {
@@ -129,6 +139,9 @@ class PHPUnitReportTask extends Task
 
     /**
      * Transforms the DOM document
+     * @param DOMDocument $document
+     * @throws BuildException
+     * @throws IOException
      */
     protected function transform(DOMDocument $document)
     {
@@ -151,7 +164,7 @@ class PHPUnitReportTask extends Task
         }
 
         $proc->importStyleSheet($xsl);
-        $proc->setParameter('', 'output.sorttable', $this->useSortTable);
+        $proc->setParameter('', 'output.sorttable', (string) $this->useSortTable);
 
         if ($this->format == "noframes") {
             $writer = new FileWriter(new PhingFile($this->toDir, "phpunit-noframes.html"));
@@ -181,6 +194,7 @@ class PHPUnitReportTask extends Task
      *   - adds package="default" to 'testsuite' elements without
      *     package attribute
      *   - removes outer 'testsuite' container(s)
+     * @param DOMDocument $document
      */
     protected function fixDocument(DOMDocument $document)
     {

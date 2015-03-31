@@ -56,21 +56,33 @@ class CoverageReportTransformer
      */
     private $useSortTable = false;
 
+    /**
+     * @param Task $task
+     */
     public function __construct(Task $task)
     {
         $this->task = $task;
     }
 
+    /**
+     * @param $styleDir
+     */
     public function setStyleDir($styleDir)
     {
         $this->styleDir = $styleDir;
     }
 
+    /**
+     * @param PhingFile $toDir
+     */
     public function setToDir(PhingFile $toDir)
     {
         $this->toDir = $toDir;
     }
 
+    /**
+     * @param $document
+     */
     public function setXmlDocument($document)
     {
         $this->document = $document;
@@ -78,6 +90,7 @@ class CoverageReportTransformer
 
     /**
      * Setter for title parameter
+     * @param $title
      */
     public function setTitle($title)
     {
@@ -137,6 +150,10 @@ class CoverageReportTransformer
         ExtendedFileStream::unregisterStream();
     }
 
+    /**
+     * @return PhingFile
+     * @throws BuildException
+     */
     private function getStyleSheet()
     {
         $xslname = "coverage-frames.xsl";

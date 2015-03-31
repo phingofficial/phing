@@ -1,0 +1,39 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.25 GitLogTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="GitTagTask.html" title="C.24 GitTagTask"><link rel="next" href="GrowlNotifyTask.html" title="C.26 GrowlNotifyTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.25 GitLogTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GitTagTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="GrowlNotifyTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="GitLogTask"></a>C.25 GitLogTask</h2></div></div></div>
+        
+        <p> Show commit logs. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-log.html" target="_top">documentation</a>.</p>
+
+        <div class="table"><a name="idp52167600"></a><p class="formal-object-title"><span class="label">Table C.26: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">paths</code></td><td><code class="literal">String</code></td><td>&lt;paentry&gt; arguments to git-log. Accepts one or more paths
+                            delimited by PATH_SEPARATOR</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">outputProperty</code></td><td><code class="literal">String</code></td><td>Property name to set with output value from git-log</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>Commit format. See --format of git-log. Can be one of
+                                <code class="literal">oneline</code>, <code class="literal">short</code>,
+                                <code class="literal">medium</code>, <code class="literal">full</code>,
+                                <code class="literal">fuller</code>, <code class="literal">email</code>,
+                                <code class="literal">raw</code> and
+                            <code class="literal">format:&lt;string&gt;</code></td><td>medium</td><td>No</td></tr><tr><td><code class="literal">date</code></td><td><code class="literal">String</code></td><td>Date format. See --date of git-log.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">since</code></td><td><code class="literal">String</code></td><td>&lt;since&gt; argument to git-log.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">until</code></td><td><code class="literal">String</code></td><td>&lt;until&gt; argument to git-log.</td><td>HEAD</td><td>No</td></tr><tr><td><code class="literal">stat</code></td><td><code class="literal">String</code></td><td>Generate a diffstat. See --stat of git-log</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">nameStatus</code></td><td><code class="literal">Boolean</code></td><td>Names + status of changed files. See --name-status of
+                            git-log.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">maxCount</code></td><td><code class="literal">Integer</code></td><td>Number of commits to show. See -&lt;n&gt;|-n|--max-count of
+                            git-log.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">noMerges</code></td><td><code class="literal">Boolean</code></td><td>Don't show commits with more than one parent. See --no-merges of
+                            git-log.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52222160"></a>C.25.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- clone repository --&gt;
+&lt;gitclone
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;gitlog
+    paths="${repo.dir.resolved}"
+    format="oneline"
+    maxCount="2"
+    stat="true"
+    noMerges="false"
+    since="Sun Jan 23 23:55:42 2011 +0300"
+    until="Mon Jan 24 09:59:33 2011 +0300"
+    outputProperty="logs"
+    repository="${repo.dir.resolved}" /&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GitTagTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="GrowlNotifyTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.24 GitTagTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.26 GrowlNotifyTask</td></tr></table></div></body></html>

@@ -63,6 +63,8 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
+     * @param Project $p
+     * @throws BuildException
      * @return string
      */
     public function getHostkey(Project $p)
@@ -83,6 +85,8 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
+     * @param Project $p
+     * @throws BuildException
      * @return string
      */
     public function getKex(Project $p)
@@ -95,6 +99,8 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
+     * @param Project $p
+     * @throws BuildException
      * @return \Ssh2MethodConnectionParam
      */
     public function getClientToServer(Project $p)
@@ -107,6 +113,8 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
+     * @param Project $p
+     * @throws BuildException
      * @return \Ssh2MethodConnectionParam
      */
     public function getServerToClient(Project $p)
@@ -142,6 +150,7 @@ class Ssh2MethodParam extends DataType
 
     /**
      * Convert the params to an array that is suitable to be passed in the ssh2_connect $methods parameter
+     * @param Project $p
      * @return array
      */
     public function toArray(Project $p)
@@ -160,6 +169,7 @@ class Ssh2MethodParam extends DataType
     }
 
     /**
+     * @param $var
      * @return boolean
      */
     protected function _filterParam($var)
@@ -173,6 +183,8 @@ class Ssh2MethodParam extends DataType
 
     /**
      *
+     * @param Project $p
+     * @throws BuildException
      * @return Ssh2MethodParam
      */
     public function getRef(Project $p)

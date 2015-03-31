@@ -97,7 +97,7 @@ abstract class CreoleTask extends Task
      * Caching loaders / driver. This is to avoid
      * getting an OutOfMemoryError when calling this task
      * multiple times in a row; default: true
-     * @param $enable
+     * @param bool $enable
      */
     public function setCaching($enable)
     {
@@ -106,7 +106,7 @@ abstract class CreoleTask extends Task
 
     /**
      * Sets the database connection URL; required.
-     * @param url The url to set
+     * @param string $url
      */
     public function setUrl($url)
     {
@@ -125,7 +125,7 @@ abstract class CreoleTask extends Task
 
     /**
      * Sets the password; required.
-     * @param password The password to set
+     * @param string $password The password to set
      */
     public function setPassword($password)
     {
@@ -135,7 +135,8 @@ abstract class CreoleTask extends Task
     /**
      * Auto commit flag for database connection;
      * optional, default false.
-     * @param autocommit The autocommit to set
+     *
+     * @param bool $autocommit The autocommit to set
      */
     public function setAutocommit($autocommit)
     {
@@ -145,13 +146,17 @@ abstract class CreoleTask extends Task
     /**
      * Sets the version string, execute task only if
      * rdbms version match; optional.
-     * @param version The version to set
+     *
+     * @param string $version
      */
     public function setVersion($version)
     {
         $this->version = $version;
     }
 
+    /**
+     * @return array
+     */
     protected function getLoaderMap()
     {
         return self::$loaderMap;
@@ -160,7 +165,9 @@ abstract class CreoleTask extends Task
     /**
      * Creates a new Connection as using the driver, url, userid and password specified.
      * The calling method is responsible for closing the connection.
+     *
      * @return Connection     the newly created connection.
+     *
      * @throws BuildException if the UserId/Password/Url is not set or there is no suitable driver or the driver fails to load.
      */
     protected function getConnection()
@@ -204,6 +211,9 @@ abstract class CreoleTask extends Task
 
     }
 
+    /**
+     * @param $value
+     */
     public function isCaching($value)
     {
         $this->caching = $value;
@@ -220,7 +230,8 @@ abstract class CreoleTask extends Task
 
     /**
      * Gets the url.
-     * @return Returns a String
+     *
+     * @return string
      */
     public function getUrl()
     {
@@ -229,7 +240,8 @@ abstract class CreoleTask extends Task
 
     /**
      * Gets the userId.
-     * @return Returns a String
+     *
+     * @return string
      */
     public function getUserId()
     {
@@ -238,7 +250,7 @@ abstract class CreoleTask extends Task
 
     /**
      * Set the user name for the connection; required.
-     * @param userId The userId to set
+     * @param string $userId
      */
     public function setUserid($userId)
     {
@@ -247,11 +259,10 @@ abstract class CreoleTask extends Task
 
     /**
      * Gets the password.
-     * @return Returns a String
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
-
 }

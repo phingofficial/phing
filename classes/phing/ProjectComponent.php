@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,17 +23,16 @@
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
+ *
  * @package   phing
  */
 abstract class ProjectComponent
 {
-
     /**
      * Holds a reference to the project that a project component
      * (a task, a target, etc.) belongs to
      *
-     * @var Project A reference to the current project instance
+     * @var Project $project A reference to the current project instance
      */
     protected $project = null;
 
@@ -43,6 +40,8 @@ abstract class ProjectComponent
      * References the project to the current component.
      *
      * @param Project $project The reference to the current project
+     *
+     * @return void
      */
     public function setProject($project)
     {
@@ -64,6 +63,8 @@ abstract class ProjectComponent
      *
      * @param string  $msg   The message to be logged.
      * @param integer $level The message's priority at this message should have
+     *
+     * @return void
      */
     public function log($msg, $level = Project::MSG_INFO)
     {

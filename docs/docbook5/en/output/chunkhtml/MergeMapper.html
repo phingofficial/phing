@@ -1,0 +1,15 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>F.5 MergeMapper</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coremappers.html" title="Appendix F. Core mappers"><link rel="prev" href="IdentityMapper.html" title="F.4 IdentityMapper"><link rel="next" href="RegexpMapper.html" title="F.6 RegexpMapper"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">F.5 MergeMapper </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="IdentityMapper.html">Prev</a> </td><th width="60%" align="center">Appendix F. Core mappers</th><td width="20%" align="right"> <a accesskey="n" href="RegexpMapper.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="MergeMapper"></a>F.5 MergeMapper </h2></div></div></div>
+        
+        <p>The <code class="literal">MergeMapper</code> changes all source filenames to the same
+            filename.</p>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp57059904"></a>F.5.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;mapper type="merge" to="test.tar"/&gt;</pre>
+            <p>Applying the mapper, you will get the following results from the following
+                filenames:</p>
+            <div class="table"><a name="idp57061936"></a><p class="formal-object-title"><span class="label">Table F.4: </span><span class="title">Result of mapping</span></p><div class="table-contents">
+                
+                <table summary="Result of mapping" border="1"><colgroup><col class="name"><col class="name"></colgroup><thead><tr><th>From</th><th>To</th></tr></thead><tbody><tr><td><code class="filename">test.txt</code></td><td><code class="filename">test.tar</code></td></tr><tr><td><code class="filename">./foo/bar/test.txt</code></td><td><code class="filename">test.tar</code></td></tr><tr><td><code class="filename">mytxt</code></td><td><code class="filename">test.tar</code></td></tr><tr><td><code class="filename">SomeClass.php</code></td><td><code class="filename">test.tar</code></td></tr></tbody></table>
+            </div></div><br class="table-break">
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="IdentityMapper.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coremappers.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="RegexpMapper.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">F.4 IdentityMapper  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> F.6 RegexpMapper </td></tr></table></div></body></html>

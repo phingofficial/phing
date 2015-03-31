@@ -158,6 +158,9 @@ class PgsqlPDOQuerySplitter extends PDOQuerySplitter
         }
     }
 
+    /**
+     * @return null|string
+     */
     public function nextQuery()
     {
         $sql = '';

@@ -35,6 +35,9 @@ require_once 'phing/types/selectors/NoneSelector.php';
 class NotSelector extends NoneSelector
 {
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "";

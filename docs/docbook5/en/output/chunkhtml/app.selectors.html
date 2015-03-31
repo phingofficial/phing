@@ -1,0 +1,99 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Appendix G. Core selectors</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="RegexpMapper.html" title="F.6 RegexpMapper"><link rel="next" href="Date.html" title="G.2 Date"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix G. Core selectors</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="RegexpMapper.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="Date.html">Next</a></td></tr></table><hr></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a name="app.selectors"></a>Appendix G. Core selectors</h1></div></div></div>
+    
+
+
+    <p>Selectors are a specific subset of Phing <code class="literal">data types</code> that allow you to
+        fine-tune matching in a <a class="xref" href="app.coretypes.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a>FileSet (or DirSet).</p>
+
+    <p>Phing supports the following core selectors, which typically match on both files and
+        directories in a<code class="literal"> &lt;fileset&gt;</code>:</p>
+
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p><a class="xref" href="app.selectors.html#Contains" title="G.1 Contains">&lt;Contains&gt;</a> - Select files that contain a specific
+                string</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Date.html" title="G.2 Date">&lt;date&gt;</a> - Select files/directories that have been
+                modified either before or after a specific date/time</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Depend.html" title="G.3 Depend">&lt;Depend&gt;</a> - Select files/directories that have been
+                modified more recently than equivalent items elsewhere</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Depth.html" title="G.4 Depth">&lt;Depth&gt;</a> - Select files/directories that appear at
+                a specific depth in a directory tree</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Filename.html" title="G.5 Filename">&lt;Filename&gt;</a> - Select files/directories whose name
+                matches a particular pattern. Equivalent to the include and exclude elements of a
+                patternset.</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Present.html" title="G.6 Present">&lt;Present&gt;</a> - Select files/directories that either
+                do or do not exist in some other location</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Containsregexp.html" title="G.7 Containsregexp">&lt;Containsregexp&gt;</a>&lt;containsregexp&gt; - Select files that
+                contain text matching a regular expression</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Size.html" title="G.8 Size">&lt;Size&gt;</a>&lt;size&gt; - Select files that are larger or smaller than
+                a particular number of bytes.</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Type.html" title="G.9 Type">&lt;Type&gt;</a>&lt;type&gt; - Select files/directories by type ('file' or
+                'dir')</p>
+        </li></ul></div>
+
+    <p>Additionally, to create more complex selections, a variety of selectors that contain other
+        selectors are available for your use. They combine the selections of their child selectors
+        in various ways.</p>
+
+    <p>Phing supports the following selector containers:</p>
+
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+            <p><a class="xref" href="And.html" title="G.10 And">&lt;And&gt;</a>&lt;and&gt; - Select a file only if all the contained
+                selectors select it.</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Majority.html" title="G.11 Majority">&lt;Majority&gt;</a>&lt;majority&gt; - Select a file only if all the
+                contained selectors select it.</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="None.html" title="G.12 None">&lt;None&gt;</a>&lt;none&gt; - Select a file only if none of the contained
+                selectors select it.</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Not.html" title="G.13 Not">&lt;Not&gt;</a>&lt;not&gt; - Can contain only one selector, and reverses
+                what it selects and doesn't select.</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Or.html" title="G.14 Or">&lt;Or&gt;</a>&lt;or&gt; - Select a file if any one of the contained
+                selectors selects it.</p>
+        </li><li class="listitem">
+            <p><a class="xref" href="Selector.html" title="G.15 Selector">&lt;Selector&gt;</a>&lt;selector&gt; - Contains only one selector and
+                forwards all requests to it without alteration. This is the selector to use if you
+                want to define a reference. It is usable as an element of
+                    <code class="literal">&lt;project&gt;</code>.</p>
+        </li></ul></div>
+
+
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="Contains"></a>G.1 Contains </h2></div></div></div>
+        
+
+        <p>The <code class="literal">&lt;contains&gt;</code> tag selects files that contain the string
+            specified by the <code class="literal">text</code> attribute.</p>
+
+        <pre class="programlisting">&lt;fileset dir="${src}" includes="**/*.php"&gt;
+  &lt;contains text="PHP"/&gt;
+&lt;/fileset&gt;</pre>
+        <div class="table"><a name="idp57124688"></a><p class="formal-object-title"><span class="label">Table G.1: </span><span class="title"> Attributes for the <code class="literal">&lt;contains&gt;</code> selector </span></p><div class="table-contents">
+            
+            <table summary=" Attributes for the &lt;contains&gt; selector " border="1"><colgroup><col class="name"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">text</code></td><td>Specifies the text that every file must contain</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Whether to pay attention to case when looking for the string in the
+                            text attribute.</td><td><code class="literal">true</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="RegexpMapper.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="Date.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">F.6 RegexpMapper  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> G.2 Date</td></tr></table></div></body></html>

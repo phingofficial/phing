@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,7 +33,7 @@ include_once 'phing/types/PropertyValue.php';
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
+ *
  * @package   phing
  */
 class Project
@@ -284,9 +282,9 @@ class Project
      * Sets a property unless it is already defined as a user property
      * (in which case the method returns silently).
      *
-     * @param name The name of the property.
+     * @param string $name The name of the property.
      *             Must not be <code>null</code>.
-     * @param value The property value. Must not be <code>null</code>.
+     * @param string $value The property value. Must not be <code>null</code>.
      */
     private function setPropertyInternal($name, $value)
     {
@@ -329,12 +327,12 @@ class Project
      * Replaces ${} style constructions in the given value with the
      * string value of the corresponding data types.
      *
-     * @param value The string to be scanned for property references.
-     *              May be <code>null</code>.
+     * @param string $value The value string to be scanned for property references.
+     *                      May be <code>null</code>.
      *
-     * @return the given string with embedded property names replaced
-     *             by values, or <code>null</code> if the given string is
-     *             <code>null</code>.
+     * @return string the given string with embedded property names replaced
+     *                by values, or <code>null</code> if the given string is
+     *                <code>null</code>.
      *
      * @exception BuildException if the given value has an unclosed
      *                           property name, e.g. <code>${xxx</code>
@@ -374,7 +372,7 @@ class Project
 
     /**
      * Returns a copy of the user property hashtable
-     * @return a hashtable containing just the user properties
+     * @return array a hashtable containing just the user properties
      */
     public function getUserProperties()
     {
@@ -450,10 +448,9 @@ class Project
     /**
      * Sets the name of the current project
      *
-     * @param  string $name name of project
+     * @param string $name name of project
      * @return void
-     * @access   public
-     * @author   Andreas Aderhold, andi@binarycloud.com
+     * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function setName($name)
     {
@@ -465,8 +462,7 @@ class Project
      * Returns the name of this project
      *
      * @return string projectname
-     * @access  public
-     * @author  Andreas Aderhold, andi@binarycloud.com
+     * @author Andreas Aderhold, andi@binarycloud.com
      */
     public function getName()
     {
@@ -517,6 +513,7 @@ class Project
     /**
      * Set basedir object from xm
      * @param PhingFile|string $dir
+     * @throws BuildException
      */
     public function setBasedir($dir)
     {
@@ -546,8 +543,9 @@ class Project
      * Returns the basedir of this project
      *
      * @return PhingFile      Basedir PhingFile object
-     * @access  public
+     *
      * @throws BuildException
+     *
      * @author  Andreas Aderhold, andi@binarycloud.com
      */
     public function getBasedir()
@@ -597,8 +595,6 @@ class Project
      */
     public function addTaskDefinition($name, $class, $classpath = null)
     {
-        $name = $name;
-        $class = $class;
         if ($class === "") {
             $this->log("Task $name has no class defined.", Project::MSG_ERR);
         } elseif (!isset($this->taskdefs[$name])) {
@@ -649,6 +645,7 @@ class Project
      * Add a new target to the project
      * @param string $targetName
      * @param Target $target
+     * @throws BuildException
      */
     public function addTarget($targetName, $target)
     {
@@ -881,6 +878,10 @@ class Project
 
     /**
      * Helper function
+     * @param $fileName
+     * @param null $rootDir
+     * @throws IOException
+     * @return \PhingFile
      */
     public function resolveFile($fileName, $rootDir = null)
     {
@@ -893,12 +894,14 @@ class Project
 
     /**
      * Topologically sort a set of Targets.
-     * @param  string $root    is the (String) name of the root Target. The sort is
+     * @param  string $root is the (String) name of the root Target. The sort is
      *                         created in such a way that the sequence of Targets until the root
      *                         target is the minimum possible such sequence.
-     * @param  array  $targets is a array representing a "name to Target" mapping
-     * @return An     array of Strings with the names of the targets in
-     *                        sorted order.
+     * @param  array $targets is a array representing a "name to Target" mapping
+     * @throws BuildException
+     * @throws Exception
+     * @return array of Strings with the names of the targets in
+     *               sorted order.
      */
     public function _topoSort($root, &$targets)
     {
@@ -966,6 +969,15 @@ class Project
     //    "ret" now contains the sorted sequence of Targets upto the current
     //    Target.
 
+    /**
+     * @param $root
+     * @param $targets
+     * @param $state
+     * @param $visiting
+     * @param $ret
+     * @throws BuildException
+     * @throws Exception
+     */
     public function _tsort($root, &$targets, &$state, &$visiting, &$ret)
     {
         $state[$root] = "VISITING";
@@ -1015,6 +1027,11 @@ class Project
         $ret[] = $target;
     }
 
+    /**
+     * @param string $end
+     * @param array $stk
+     * @return BuildException
+     */
     public function _makeCircularException($end, $stk)
     {
         $sb = "Circular dependency: $end";
@@ -1075,16 +1092,27 @@ class Project
         $this->logObject($this, $msg, $level);
     }
 
+    /**
+     * @param $obj
+     * @param $msg
+     * @param $level
+     */
     public function logObject($obj, $msg, $level)
     {
         $this->fireMessageLogged($obj, $msg, $level);
     }
 
+    /**
+     * @param BuildListener $listener
+     */
     public function addBuildListener(BuildListener $listener)
     {
         $this->listeners[] = $listener;
     }
 
+    /**
+     * @param BuildListener $listener
+     */
     public function removeBuildListener(BuildListener $listener)
     {
         $newarray = array();
@@ -1096,6 +1124,9 @@ class Project
         $this->listeners = $newarray;
     }
 
+    /**
+     * @return array
+     */
     public function getBuildListeners()
     {
         return $this->listeners;
@@ -1109,6 +1140,9 @@ class Project
         }
     }
 
+    /**
+     * @param Exception $exception
+     */
     public function fireBuildFinished($exception)
     {
         $event = new BuildEvent($this);
@@ -1118,6 +1152,9 @@ class Project
         }
     }
 
+    /**
+     * @param $target
+     */
     public function fireTargetStarted($target)
     {
         $event = new BuildEvent($target);
@@ -1126,6 +1163,10 @@ class Project
         }
     }
 
+    /**
+     * @param $target
+     * @param $exception
+     */
     public function fireTargetFinished($target, $exception)
     {
         $event = new BuildEvent($target);
@@ -1135,6 +1176,9 @@ class Project
         }
     }
 
+    /**
+     * @param $task
+     */
     public function fireTaskStarted($task)
     {
         $event = new BuildEvent($task);
@@ -1143,6 +1187,10 @@ class Project
         }
     }
 
+    /**
+     * @param $task
+     * @param $exception
+     */
     public function fireTaskFinished($task, $exception)
     {
         $event = new BuildEvent($task);
@@ -1152,6 +1200,11 @@ class Project
         }
     }
 
+    /**
+     * @param $event
+     * @param $message
+     * @param $priority
+     */
     public function fireMessageLoggedEvent($event, $message, $priority)
     {
         $event->setMessage($message, $priority);
@@ -1160,6 +1213,11 @@ class Project
         }
     }
 
+    /**
+     * @param $object
+     * @param $message
+     * @param $priority
+     */
     public function fireMessageLogged($object, $message, $priority)
     {
         $this->fireMessageLoggedEvent(new BuildEvent($object), $message, $priority);

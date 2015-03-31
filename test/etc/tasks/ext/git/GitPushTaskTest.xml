@@ -88,16 +88,4 @@
             refspec="newbranch" quiet="true" />
     </target>
 
-    <target name="deleteSet" description="git-push --tags">
-        <gitclone 
-            repository="${repo.dir.resolved}"
-            targetPath="${tmp.dir.resolved}" />
-        <gitpush
-            repository="${tmp.dir.resolved}" 
-            refspec="master:newbranch" quiet="true" />
-        <gitpush
-            repository="${tmp.dir.resolved}" 
-            delete="true"
-            refspec="newbranch" quiet="true" />
-    </target>
 </project>

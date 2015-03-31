@@ -46,8 +46,9 @@ require_once 'phing/system/io/PhingFile.php';
  *
  *
  * @author David Persson <davidpersson at qeweurope dot org>
+ *
  * @package phing.tasks.ext
- * @version $Id$
+ *
  * @since 2.3.1
  */
 class ManifestTask extends Task
@@ -88,7 +89,7 @@ class ManifestTask extends Task
      * string "md5,sha256,..." enables generation of multiple checksums
      * string "sha256" generates sha256 checksum only
      *
-     * @var mixed
+     * @var bool|string
      */
     private $checksum = false;
 
@@ -107,10 +108,11 @@ class ManifestTask extends Task
     private $meta = array('totalFileCount' => 0, 'totalFileSize' => 0);
 
     /**
-     * The setter for the attribute "file"
+     * The setter for the attribute "file".
      * This is where the manifest will be written to/read from
      *
-     * @param string Path to readable file
+     * @param PhingFile $file Path to readable file
+     *
      * @return void
      */
     public function setFile(PhingFile $file)
@@ -122,6 +124,7 @@ class ManifestTask extends Task
      * The setter for the attribute "checksum"
      *
      * @param  mixed $mixed
+     *
      * @return void
      */
     public function setChecksum($mixed)
@@ -137,7 +140,6 @@ class ManifestTask extends Task
 
         } elseif ($mixed === true) {
             $this->checksum = array('md5');
-
         }
     }
 
@@ -145,6 +147,7 @@ class ManifestTask extends Task
      * The setter for the optional attribute "salt"
      *
      * @param  string $string
+     *
      * @return void
      */
     public function setSalt($string)
@@ -155,6 +158,8 @@ class ManifestTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
+     *
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -164,14 +169,19 @@ class ManifestTask extends Task
 
     /**
      * The init method: Do init steps.
+     *
+     * {@inheritdoc}
+     *
+     * @internal nothing to do here
      */
     public function init()
     {
-        // nothing to do here
     }
 
     /**
-     * Delegate the work
+     * Delegate the work.
+     *
+     * {@inheritdoc}
      */
     public function main()
     {
@@ -261,6 +271,7 @@ class ManifestTask extends Task
      *
      * @param  string $msg  The string that should be hashed
      * @param  string $algo Algorithm
+     *
      * @return mixed  String on success, false if $algo is not available
      */
     private function hash($msg, $algo)
@@ -298,6 +309,7 @@ class ManifestTask extends Task
      *
      * @param  string $file
      * @param  string $algo
+     *
      * @return mixed  String on success, false if $algo is not available
      */
     private function hashFile($file, $algo)
@@ -315,6 +327,7 @@ class ManifestTask extends Task
      * Validates attributes coming in from XML
      *
      * @return void
+     *
      * @throws BuildException
      */
     protected function validateAttributes()
@@ -334,6 +347,5 @@ class ManifestTask extends Task
         if (!is_null($this->file) && $this->file->exists() && $this->file->isDirectory()) {
             throw new BuildException("Destination file cannot be a directory.");
         }
-
     }
 }

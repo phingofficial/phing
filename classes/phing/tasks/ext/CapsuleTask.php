@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,12 +28,11 @@ include_once 'phing/util/StringHelper.php';
  * This is based on the interface to TexenTask from Apache's Velocity engine.
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
+ *
  * @package   phing.tasks.ext
  */
 class CapsuleTask extends Task
 {
-
     /**
      * Capsule "template" engine.
      * @var Capsule
@@ -144,8 +140,8 @@ class CapsuleTask extends Task
      * [REQUIRED] Set the path where Velocity will look
      * for templates using the file template
      * loader.
+     * @param $templatePath
      * @return void
-     * @throws Exception
      */
     public function setTemplatePath($templatePath)
     {
@@ -240,6 +236,7 @@ class CapsuleTask extends Task
      * fed into the initial context be the
      * generating process starts.
      * @param  string $file
+     * @throws BuildException
      * @return void
      */
     public function setContextProperties($file)
@@ -310,7 +307,7 @@ class CapsuleTask extends Task
     /**
      * Creates a Smarty object.
      *
-     * @return Smarty    initialized (cleared) Smarty context.
+     * @return Capsule   initialized (cleared) Smarty context.
      * @throws Exception the execute method will catch
      *                   and rethrow as a <code>BuildException</code>
      */
@@ -410,7 +407,7 @@ class CapsuleTask extends Task
                     $property = substr($property, 0, strpos($property, "file.contents") - 1);
 
                     // reset value, and then
-                    // read in teh contents of the file into that var
+                    // read in the contents of the file into that var
                     $value = "";
                     $f = new PhingFile($this->project->resolveFile($value)->getCanonicalPath());
                     if ($f->exists()) {
@@ -462,8 +459,8 @@ class CapsuleTask extends Task
      * be overridden to perform any necessary cleanup activities (such
      * as the release of database connections, etc.).  By default,
      * does nothing.
+     *
      * @return void
-     * @throws Exception Problem cleaning up.
      */
     protected function cleanup()
     {
@@ -478,28 +475,38 @@ class CapsuleTask extends Task
  */
 class AssignedVar
 {
-
     private $name;
     private $value;
 
+    /**
+     * @param string $v
+     */
     public function setName($v)
     {
         $this->name = $v;
     }
 
+    /**
+     * @param mixed $v
+     */
     public function setValue($v)
     {
         $this->value = $v;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return mixed
+     */
     public function getValue()
     {
         return $this->value;
     }
-
 }

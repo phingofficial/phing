@@ -186,6 +186,7 @@ class PDOSQLExecFormatterElement
     /**
      * Sets the formatter type.
      * @param string $type
+     * @throws BuildException
      */
     public function setType($type)
     {
@@ -229,7 +230,8 @@ class PDOSQLExecFormatterElement
 
     /**
      * Sets the output file for the formatter results.
-     * @param PhingFile $outFile
+     * @param PhingFile $outfile
+     * @internal param PhingFile $outFile
      */
     public function setOutfile(PhingFile $outfile)
     {

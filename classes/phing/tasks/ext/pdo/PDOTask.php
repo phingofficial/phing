@@ -90,7 +90,8 @@ abstract class PDOTask extends Task
 
     /**
      * Sets the database connection URL; required.
-     * @param url The url to set
+     * @param The $url
+     * @internal param The $url url to set
      */
     public function setUrl($url)
     {
@@ -99,7 +100,8 @@ abstract class PDOTask extends Task
 
     /**
      * Sets the password; required.
-     * @param password The password to set
+     * @param The $password
+     * @internal param The $password password to set
      */
     public function setPassword($password)
     {
@@ -109,7 +111,8 @@ abstract class PDOTask extends Task
     /**
      * Auto commit flag for database connection;
      * optional, default false.
-     * @param autocommit The autocommit to set
+     * @param The $autocommit
+     * @internal param The $autocommit autocommit to set
      */
     public function setAutocommit($autocommit)
     {
@@ -119,13 +122,17 @@ abstract class PDOTask extends Task
     /**
      * Sets the version string, execute task only if
      * rdbms version match; optional.
-     * @param version The version to set
+     * @param The $version
+     * @internal param The $version version to set
      */
     public function setVersion($version)
     {
         $this->version = $version;
     }
 
+    /**
+     * @return mixed
+     */
     protected function getLoaderMap()
     {
         return self::$loaderMap;
@@ -179,6 +186,9 @@ abstract class PDOTask extends Task
 
     }
 
+    /**
+     * @param $value
+     */
     public function isCaching($value)
     {
         $this->caching = $value;
@@ -195,7 +205,7 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the url.
-     * @return Returns a String
+     * @return string
      */
     public function getUrl()
     {
@@ -204,7 +214,7 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the userId.
-     * @return Returns a String
+     * @return string
      */
     public function getUserId()
     {
@@ -213,7 +223,7 @@ abstract class PDOTask extends Task
 
     /**
      * Set the user name for the connection; required.
-     * @param userId The userId to set
+     * @param string $userId
      */
     public function setUserid($userId)
     {
@@ -222,11 +232,10 @@ abstract class PDOTask extends Task
 
     /**
      * Gets the password.
-     * @return Returns a String
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
-
 }

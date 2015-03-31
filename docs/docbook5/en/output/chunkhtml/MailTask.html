@@ -1,0 +1,24 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.41 MailTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="LiquibaseUpdateTask.html" title="C.40 LiquibaseUpdateTask"><link rel="next" href="ManifestTask.html" title="C.42 ManifestTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.41 MailTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="LiquibaseUpdateTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="ManifestTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="MailTask"></a>C.41 MailTask</h2></div></div></div>
+        
+        <p>A task to send email. Attachments are supported
+        if the <a class="ulink" href="http://pear.php.net/package/Mail" target="_top">PEAR Mail
+        package</a> is installed.</p>
+        <div class="table"><a name="idp53262448"></a><p class="formal-object-title"><span class="label">Table C.49: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">from</code></td><td><code class="literal">String</code></td><td>Email address of sender.</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">tolist</code></td><td><code class="literal">String</code></td><td>Comma-separated list of recipients.</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">message</code></td><td><code class="literal">String</code></td><td>Message to send in the body of the email.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">subject</code></td><td><code class="literal">String</code></td><td>Email subject line.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">backend</code></td><td><code class="literal">String</code></td><td>PEAR Mail backend (see <a class="ulink" href="http://pear.php.net/manual/en/package.mail.mail.factory.php" target="_top">here</a> for possible values).</td><td>mail</td><td>No</td></tr><tr><td><code class="literal">backendParams</code></td><td><code class="literal">String</code></td><td>Comma-separated key-value pairs
+                        with backend specific parameters (see <a class="ulink" href="http://pear.php.net/manual/en/package.mail.mail.factory.php" target="_top">here</a> for possible values).</td><td>none</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53293776"></a>C.41.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;mail tolist="user@example.org" subject="build complete""&gt;The build process is a success...&lt;/mail&gt;</pre>
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53295440"></a>C.41.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code>
+                    </p>
+                    <p>Files to be attached.</p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="LiquibaseUpdateTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ManifestTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.40 LiquibaseUpdateTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.42 ManifestTask</td></tr></table></div></body></html>

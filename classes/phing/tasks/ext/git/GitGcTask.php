@@ -100,11 +100,17 @@ class GitGcTask extends GitBaseTask
         return $this->getAggressive();
     }
 
+    /**
+     * @return bool
+     */
     public function getAggressive()
     {
         return $this->isAggressive;
     }
 
+    /**
+     * @param $flag
+     */
     public function setAggressive($flag)
     {
         $this->isAggressive = (bool) $flag;
@@ -118,11 +124,17 @@ class GitGcTask extends GitBaseTask
         return $this->getAuto();
     }
 
+    /**
+     * @return bool
+     */
     public function getAuto()
     {
         return $this->isAuto;
     }
 
+    /**
+     * @param $flag
+     */
     public function setAuto($flag)
     {
         $this->isAuto = (bool) $flag;
@@ -136,21 +148,33 @@ class GitGcTask extends GitBaseTask
         return $this->getNoPrune();
     }
 
+    /**
+     * @return bool
+     */
     public function getNoPrune()
     {
         return $this->noPrune;
     }
 
+    /**
+     * @param $flag
+     */
     public function setNoPrune($flag)
     {
         $this->noPrune = (bool) $flag;
     }
 
+    /**
+     * @return string
+     */
     public function getPrune()
     {
         return $this->prune;
     }
 
+    /**
+     * @param $date
+     */
     public function setPrune($date)
     {
         $this->prune = $date;

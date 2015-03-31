@@ -1,0 +1,40 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.13 DeleteTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="CvsPassTask.html" title="B.12 CvsPassTask"><link rel="next" href="Diagnostics.html" title="B.14 Diagnostics"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.13  DeleteTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="CvsPassTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="Diagnostics.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="DeleteTask"></a>B.13  DeleteTask </h2></div></div></div>
+        
+        <p>Deletes a file or directory, or set of files defined by a fileset. See <a class="xref" href="app.coretypes.html" title="Appendix D. Core Types">Appendix D, <i>Core Types</i></a> for information on Filesets.</p>
+        <div class="table"><a name="idp49854672"></a><p class="formal-object-title"><span class="label">Table B.14: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file that is to be deleted. You either have to specify this
+                            attribute, <code class="literal">dir</code>, or use a fileset.</td><td>n/a</td><td>Yes (or <code class="literal">dir</code>)</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory that is to be deleted. You either have to specify this
+                            attribute, <code class="literal">file</code>, or use a fileset.</td><td>n/a</td><td>Yes (or <code class="literal">file</code>)</td></tr><tr><td><code class="literal">verbose</code></td><td><code class="literal">Boolean</code></td><td>Used to force listing of all names of deleted files.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>
+                            <p>If the file does not exist, do not display a diagnostic message or
+                                modify the exit status to reflect an error. This means that if a
+                                file or directory cannot be deleted, then no error is
+                                reported.</p>
+                            <p>This setting emulates the -f option to the Unix
+                                    <code class="literal">rm</code> command. Default is false meaning things
+                                are verbose</p>
+                        </td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">failonerror</code></td><td><code class="literal">Boolean</code></td><td>If this attribute is set to <code class="literal">true</code>, DeleteTask will
+                            verbose on errors but the build process will not be stopped.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">includeemptydirs</code></td><td><code class="literal">Boolean</code></td><td>Determines if empty directories are also to be deleted.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp49889760"></a>B.13.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;!-- Delete a specific file --&gt;
+&lt;delete file="/tmp/foo.bar" /&gt;
+
+&lt;!-- Delete a directory --&gt;
+&lt;delete dir="/tmp/darl" includeemptydirs="true" verbose="true" failonerror="true" /&gt;
+
+&lt;!-- Delete using a fileset --&gt;
+&lt;delete&gt;
+  &lt;fileset dir="/tmp"&gt;
+    &lt;include name="*.bar" /&gt;
+  &lt;/fileset&gt;
+&lt;/delete&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp49891696"></a>B.13.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="CvsPassTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="Diagnostics.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.12 CvsPassTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.14 Diagnostics</td></tr></table></div></body></html>

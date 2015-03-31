@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.19 GitCheckoutTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="GitFetchTask.html" title="C.18 GitFetchTask"><link rel="next" href="GitCommitTask.html" title="C.20 GitCommitTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.19 GitCheckoutTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GitFetchTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="GitCommitTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="GitCheckoutTask"></a>C.19 GitCheckoutTask</h2></div></div></div>
+        
+        <p> Checkout a branch or paths to the working tree. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">documentation</a>.</p>
+
+        <div class="table"><a name="idp51803168"></a><p class="formal-object-title"><span class="label">Table C.20: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">branchname</code></td><td><code class="literal">String</code></td><td>Branch to checkout. See &lt;branch&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td>origin</td><td>No</td></tr><tr><td><code class="literal">startpoint</code></td><td><code class="literal">String</code></td><td>The name of a commit at which to start the new branch; Defaults to
+                            HEAD. See &lt;start_point&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td> </td><td>No</td></tr><tr><td><code class="literal">create</code></td><td><code class="literal">Boolean</code></td><td>Create a new branch named &lt;branchname&gt; and start it at
+                            &lt;startpoint&gt;</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">forcecreate</code></td><td><code class="literal">Boolean</code></td><td>Creates the branch &lt;branchname&gt; and start it at &lt;startpoint&gt;;
+                            if it already exists, then reset it to &lt;startpoint&gt;. This is
+                            equivalent to running "git branch" with "-f".</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">merge</code></td><td><code class="literal">Boolean</code></td><td>See --merge in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">track</code></td><td><code class="literal">Boolean</code></td><td>See --track in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">notrack</code></td><td><code class="literal">Boolean</code></td><td>See --no-track in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>Quiet, suppress feedback messages. See --quiet in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">force</code></td><td><code class="literal">Boolean</code></td><td>When switching branches, proceed even if the index or the working
+                            tree differs from HEAD. This is used to throw away local changes. See
+                            --force in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-checkout.html" target="_top">git-checkout</a>.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51857248"></a>C.19.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- clone repository --&gt;
+&lt;gitclone
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- create and switch to "mybranch" branch --&gt;
+&lt;gitcheckout
+    repository="${repo.dir.resolved}"
+    branchname="mybranch" quiet="true" create="true" /&gt;
+
+&lt;!-- get back to "master" branch --&gt;
+&lt;gitcheckout
+    repository="${repo.dir.resolved}"
+    branchname="master" quiet="true" /&gt;
+
+&lt;!-- create (force) already created branch --&gt;
+&lt;gitcheckout
+    repository="${repo.dir.resolved}"
+    branchname="mybranch" quiet="true"
+    forceCreate="true" /&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GitFetchTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="GitCommitTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.18 GitFetchTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.20 GitCommitTask</td></tr></table></div></body></html>

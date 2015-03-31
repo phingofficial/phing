@@ -1,0 +1,28 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.36 ResolvePathTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="ReflexiveTask.html" title="B.35 ReflexiveTask"><link rel="next" href="SwitchPathTask.html" title="B.37 SwitchTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.36 ResolvePathTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ReflexiveTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="SwitchPathTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ResolvePathTask"></a>B.36 ResolvePathTask </h2></div></div></div>
+        
+        <p>The <code class="literal">ResolvePathTask</code> turns a relative path into an absolute path, with
+            respect to specified directory or the project basedir (if no dir attribute
+            specified).</p>
+        <p>This task is useful for turning a user-defined relative path into an absolute path in
+            cases where buildfiles will be called in different directories. Without this task,
+            buildfiles lower in the directory tree would mis-interpret the user-defined relative
+            paths.</p>
+
+
+        <div class="table"><a name="idp50636240"></a><p class="formal-object-title"><span class="label">Table B.36: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file or directory path to resolve.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">File</code></td><td>The base directory to use when resolving "file".</td><td>project.basedir</td><td>No</td></tr><tr><td><code class="literal">propertyName</code></td><td><code class="literal">String</code></td><td>The name of the property to set with resolved (absolute)
+                            path.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">level</code></td><td><code class="literal">String</code></td><td>Control the level at which status messages are reported. One of
+                                <code class="literal">error</code>, <code class="literal">warning</code>,
+                                <code class="literal">info</code>, <code class="literal">verbose</code>,
+                                <code class="literal">debug</code>.</td><td><code class="literal">verbose</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50662608"></a>B.36.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;property name="relative_path" value="./dirname"/&gt;
+
+&lt;resolvepath propertyName="absolute_path" file="${relative_path}"/&gt;
+
+&lt;echo&gt;Resolved [absolute] path: ${absolute_path}&lt;/echo&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ReflexiveTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SwitchPathTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.35 ReflexiveTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.37 SwitchTask </td></tr></table></div></body></html>

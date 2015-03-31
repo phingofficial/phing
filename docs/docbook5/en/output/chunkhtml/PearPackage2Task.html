@@ -1,0 +1,108 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.47 PearPackage2Task</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PearPackageTask.html" title="C.46 PearPackageTask"><link rel="next" href="PharDataTask.html" title="C.48 PharDataTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.47 PearPackage2Task</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PearPackageTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PharDataTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PearPackage2Task"></a>C.47 PearPackage2Task</h2></div></div></div>
+        
+        <p> With the PearPackage2Task, you can create a <code class="literal">version 2</code> package.xml
+            which can be installed using the PEAR installer. Use this in conjunction with the <a class="ulink" href="#TarTask" target="_top">TarTask</a> to completely script the building of a PEAR
+            package.</p>
+        <p> This task uses the PEAR_PackageFileManager2 class. In order to be maximally flexible,
+            the majority of options are set generically (using <code class="literal">&lt;option&gt;</code> tag)
+            and are set using PEAR_PackageFileManager::setOptions(). Use the
+                <code class="literal">&lt;mapping&gt;</code> tag to represent complex values.</p>
+        <p> Note that Travis Swicegood has created a more complete implementation of this
+            functionality which can be found here: <a class="ulink" href="http://domain51.github.io/pear.domain51.com/" target="_top">pear.domain51.com</a>.</p>
+        <div class="table"><a name="idp53587408"></a><p class="formal-object-title"><span class="label">Table C.58: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>The name of the PEAR package.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The base directory of files to add to package.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53605248"></a>C.47.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;pearpkg2 name="phing" dir="${build.src.dir}"&gt;
+   &lt;option name="outputdirectory" value="./build"/&gt;
+   &lt;option name="packagefile" value="package2.xml"/&gt;
+   &lt;option name="packagedirectory" value="./${build.dist.dir}"/&gt;
+   &lt;option name="baseinstalldir" value="${pkg.prefix}"/&gt;
+   &lt;option name="channel" value="my.pear-channel.com"/&gt;
+   &lt;option name="summary" value="${pkg.summary}"/&gt;
+   &lt;option name="description" value="${pkg.description}"/&gt;
+   &lt;option name="apiversion" value="${pkg.version}"/&gt;
+   &lt;option name="apistability" value="beta"/&gt;
+   &lt;option name="releaseversion" value="${pkg.version}"/&gt;
+   &lt;option name="releasestability" value="beta"/&gt;
+   &lt;option name="license" value="none"/&gt;
+   &lt;option name="phpdep" value="5.0.0"/&gt;
+   &lt;option name="pearinstallerdep" value="1.4.6"/&gt;
+   &lt;option name="packagetype" value="php"/&gt;
+   &lt;option name="notes" value="${pkg.relnotes}"/&gt;
+   &lt;mapping name="maintainers"&gt;
+    &lt;element&gt;
+     &lt;element key="handle" value="hlellelid"/&gt;
+     &lt;element key="name" value="Hans"/&gt;
+     &lt;element key="email" value="hans@xmpl.org"/&gt;
+     &lt;element key="role" value="lead"/&gt;
+    &lt;/element&gt;
+   &lt;/mapping&gt;
+&lt;/pearpkg2&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53607920"></a>C.47.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal">option</code></p>
+                    <div class="table"><a name="idp53611856"></a><p class="formal-object-title"><span class="label">Table C.59: </span><span class="title">Available options</span></p><div class="table-contents">
+                        
+                        <table summary="Available options" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">summary</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">description</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">license</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">channel</code></td><td><code class="literal">String</code></td><td>Channel name (not alias!). Must be registered
+                                            (<code class="literal">pear channel-discover channel</code>) on
+                                        the machine, where the build will be.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">apiversion</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">releaseversion</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">releasestability</code></td><td><code class="literal">String</code></td><td>One from: snapshot, devel, alpha, beta or stable.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">apistability</code></td><td><code class="literal">String</code></td><td>One from: devel, alpha, beta or stable.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">note</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">packagetype</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">phpdep</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">pearinstallerdep</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal">mapping</code></p>
+                    <p>The <code class="literal">&lt;mapping&gt;</code> tag represents a complex data type.
+                        You can use nested <code class="literal">&lt;mapping&gt;</code> (and nested
+                            <code class="literal">&lt;element&gt;</code> with <code class="literal">&lt;element&gt;</code>
+                        tags) to represent the full complexity of the structure. Bear in mind that
+                        what you are creating will be mapped to an associative array that will be
+                        passed in via <code class="code">PEAR_PackageFileMaintainer::setOptions()</code> .</p>
+                    <pre class="programlisting">&lt;mapping name="option_name"&gt;
+    &lt;element key="key_name" value="key_val"/&gt;
+    &lt;element key="key_name" value="key_val"/&gt;
+&lt;/mapping&gt;</pre>
+                    <p>Available mappings and they structures:</p>
+                    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+                            <p><code class="literal">deps</code> (optional) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php" target="_top">PEAR_PackageFileManager::addDependency()</a> for more info </p><div class="table"><a name="idp53669648"></a><p class="formal-object-title"><span class="label">Table C.60: </span><span class="title">Parameters</span></p><div class="table-contents">
+                                    
+                                    <table summary="Parameters" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">channel</code></td><td><code class="literal">String</code></td><td>Channel name, from package is.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Package name in channel.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">version</code></td><td><code class="literal">String</code></td><td>Minimal version.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">max</code></td><td><code class="literal">String</code></td><td>Maximum version.</td><td>Same as version.</td><td>No</td></tr><tr><td><code class="literal">recommended</code></td><td><code class="literal">String</code></td><td>Recommended version.</td><td>Same as version.</td><td>No</td></tr></tbody></table>
+                                </div></div><p><br class="table-break">
+                            </p>
+                        </li><li class="listitem">
+                            <p><code class="literal">extdeps</code> (optional) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.adddependency.php" target="_top">PEAR_PackageFileManager::addDependency()</a> for more info </p><div class="table"><a name="idp53700496"></a><p class="formal-object-title"><span class="label">Table C.61: </span><span class="title">Parameters</span></p><div class="table-contents">
+                                    
+                                    <table summary="Parameters" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Package name.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">version</code></td><td><code class="literal">String</code></td><td>Minimal version.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">max</code></td><td><code class="literal">String</code></td><td>Maximum version.</td><td>Same as version.</td><td>No</td></tr><tr><td><code class="literal">recommended</code></td><td><code class="literal">String</code></td><td>Recommended version.</td><td>Same as version.</td><td>No</td></tr></tbody></table>
+                                </div></div><p><br class="table-break">
+                            </p>
+                        </li><li class="listitem">
+                            <p><code class="literal">maintainers</code> (required at least one) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addmaintainer.php" target="_top">PEAR_PackageFileManager::addMaintainer()</a> for more info </p><div class="table"><a name="idp53727904"></a><p class="formal-object-title"><span class="label">Table C.62: </span><span class="title">Parameters</span></p><div class="table-contents">
+                                    
+                                    <table summary="Parameters" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">handle</code></td><td><code class="literal">String</code></td><td>User identifier in channel.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Real name.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">email</code></td><td><code class="literal">String</code></td><td> </td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">role</code></td><td><code class="literal">String</code></td><td>One from: lead, developer, contributor or
+                                                  helper.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                                </div></div><p><br class="table-break">
+                            </p>
+                        </li><li class="listitem">
+                            <p><code class="literal">replacements</code> (optional) see <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addreplacement.php" target="_top">PEAR_PackageFileManager::addReplacement()</a> for more info </p><div class="table"><a name="idp53755488"></a><p class="formal-object-title"><span class="label">Table C.63: </span><span class="title">Parameters</span></p><div class="table-contents">
+                                    
+                                    <table summary="Parameters" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">path</code></td><td><code class="literal">String</code></td><td>Relative path of file.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Variable type, either php-const, pear-config
+                                                  or package-info.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">from</code></td><td><code class="literal">String</code></td><td>Text to replace in the source file.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">to</code></td><td><code class="literal">String</code></td><td>Variable name to use for replacement.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                                </div></div><p><br class="table-break">
+                            </p>
+                        </li></ul></div>
+                </li><li class="listitem">
+                    <p>
+                        <code class="literal">role</code> See <a class="ulink" href="http://pear.php.net/manual/en/package.pear.pear-packagefilemanager.pear-packagefilemanager.addrole.php" target="_top">PEAR_PackageFileManager::addRole</a> for more
+                        information.</p>
+                    <p>Available options:</p>
+                    <div class="table"><a name="idp53784080"></a><p class="formal-object-title"><span class="label">Table C.64: </span><span class="title">Parameters</span></p><div class="table-contents">
+                        
+                        <table summary="Parameters" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">extension</code></td><td><code class="literal">String</code></td><td>The file extension</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">role</code></td><td><code class="literal">String</code></td><td>The file extension</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PearPackageTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PharDataTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.46 PearPackageTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.48 PharDataTask</td></tr></table></div></body></html>

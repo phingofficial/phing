@@ -2,6 +2,107 @@ P     H     I     N     G
 =========================
 
 
+Feb. 19, 2015 - Phing 2.10.1
+----------------------------
+
+This release fixes the following tickets:
+
+ * [1174] Phing can't work PHPUnit(PHAR)
+ * [1173] [PHP Error] include_once(PHP/PPMD/Renderer/XMLRenderer.php): failed to open stream: No such file or directory
+ * [1171] Socket condition does not work
+
+Feb. 9, 2015 - Phing 2.10.0
+--------------------------
+
+This release contains the following new or improved functionality:
+
+ * 'user.home' property on Windows fixed
+ * Various documentation updates
+ * Added support for listeners configured via phpunit.xml config
+ * Basename task
+ * Dirname task
+ * Diagnostics task
+ * FilesMatch condition
+ * HasFreeSpace condition
+ * PathToFileSet task
+ * PhingVersion task/condition
+ * PropertyRegex task
+ * Recorder task
+ * Socket condition
+ * Xor condition
+
+The following tickets were closed in this release:
+
+ * [1168] PhpCodeSnifferTask incompatible with PHP_CS 2.2.0
+ * [1167] include task can't really have mode
+ * [1163] Phing and PHPMD via composer both
+ * [1160] Documentation lists covereage-report styledir as required.
+ * [1159] phpunit task ignores excludeGroups, groups attributes
+ * [1152] Add socket condition
+ * [1127] Removing .phar from the phar file makes it crash
+ * [1120] Phing 2.8.1 does not support PDepend 2.0
+ * [856]  ZPK Packaging for zend server
+ * [250]  recorder task
+
+Dec. 3, 2014 - Phing 2.9.1
+--------------------------
+
+This releases fixes a Windows regression and adds the following new functionality:
+
+ * Http condition
+ * Switch task
+ * Throw task
+
+The following tickets were closed in this release:
+
+ * [1158] Phing fails to call itself with Exec task
+ * [1157] ZIP task ignores ${phing.dir}
+ * [1156] phing+windows copy file path
+ * [1155] Add http condition
+ * [1154] Can't read version information file
+ * [1147] Resetting Phing::$msgOutputLevel
+
+Nov. 25, 2014 - Phing 2.9.0
+---------------------------
+
+This release contains the following new or improved functionality:
+
+ * Phing now supports HHVM
+ * Stopwatch task added
+ * Unit test coverage increased
+ * Source code formatted to PSR-2
+ * Various bugs and documentation errors fixed
+
+Additionally, the following Trac tickets (see www.phing.info) were fixed in this release:
+
+ * [1151] PHPMD Task does not support the format tag
+ * [1149] Exclude extra files from composer package
+ * [1144] Reduce PhingCall/Foreach log messages
+ * [1140] DefaultLogger is not default logger
+ * [1138] ParallelTask - error in subtask should fail build
+ * [1135] obfuscation-key option for IoncubeEncoderTask does not work
+ * [1133] copytask haltonerror = "false" function failure when source dir not exists
+ * [1130] Add documentation for Manifest task
+ * [1129] ManifestTask md5 hash vs FileHashTask md5 hash not the same
+ * [1128] Imported target won't run until there is one with the same name in main build.xml
+ * [1123] ApplyTask outputProperty doesn't append
+ * [1122] Untar task does not preserve file permissions
+ * [1121] Please fix the syntax error in PHP Lint
+ * [1104] ArchiveComment Parameter for ZipTask
+ * [1095] ReferenceExistsCondition returns true for all UnknownElements
+ * [1089] phing -l is listing imported targets twice
+ * [1086] Support for running on HHVM
+ * [1084] pdepend task does not find dependencies when installed by composer
+ * [1069] PHPUnitTask formatter does not create directory if specified "todir" does not exist
+ * [1068] Phingcall and Import issues
+ * [1040] Composer task has no documentation
+ * [1012] SymlinkTaks overwrite fails if target doesn't exist
+ * [965] includePathTask: Allow appending and replacing
+ * [945] several phpunit task problems
+ * [930] Attribute logoutput to property task
+ * [796] Can't delete all subdirectories without directory itself
+ * [441] Reformat Phing source code to PSR-2
+
 Jul. 18, 2014 - Phing 2.8.2
 ---------------------------
 

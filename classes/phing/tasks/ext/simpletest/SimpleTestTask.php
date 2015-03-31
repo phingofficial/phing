@@ -66,36 +66,57 @@ class SimpleTestTask extends Task
         require_once 'phing/tasks/ext/simpletest/SimpleTestFormatterElement.php';
     }
 
+    /**
+     * @param $value
+     */
     public function setFailureproperty($value)
     {
         $this->failureproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setErrorproperty($value)
     {
         $this->errorproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonerror($value)
     {
         $this->haltonerror = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonfailure($value)
     {
         $this->haltonfailure = $value;
     }
 
+    /**
+     * @param $printsummary
+     */
     public function setPrintsummary($printsummary)
     {
         $this->printsummary = $printsummary;
     }
 
+    /**
+     * @param $debug
+     */
     public function setDebug($debug)
     {
         $this->debug = $debug;
     }
 
+    /**
+     * @return bool
+     */
     public function getDebug()
     {
         return $this->debug;
@@ -203,6 +224,9 @@ class SimpleTestTask extends Task
         }
     }
 
+    /**
+     * @param $suite
+     */
     private function execute($suite)
     {
         $counter = new SimpleTestCountResultFormatter();
@@ -239,6 +263,9 @@ class SimpleTestTask extends Task
         }
     }
 
+    /**
+     * @return LogWriter
+     */
     private function getDefaultOutput()
     {
         return new LogWriter($this);

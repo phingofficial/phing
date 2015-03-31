@@ -1,0 +1,62 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.68 SimpleTestTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SshTask.html" title="C.67 SshTask"><link rel="next" href="SvnCheckoutTask.html" title="C.69 SvnCheckoutTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.68 SimpleTestTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SshTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SvnCheckoutTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SimpleTestTask"></a>C.68 SimpleTestTask</h2></div></div></div>
+        
+        <p> This task runs testcases using the <a class="ulink" href="http://www.simpletest.org/" target="_top">SimpleTest</a> framework.</p>
+
+        <div class="table"><a name="idp55176192"></a><p class="formal-object-title"><span class="label">Table C.96: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">printsummary</code></td><td><code class="literal">Boolean</code></td><td>Print one-line statistics for each testcase.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonerror</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if an error occurs during the test
+                            run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if a test fails (errors are considered
+                            failures as well).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">failureproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on failure.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">errorproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on error.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">debug</code></td><td><code class="literal">Boolean</code></td><td>Switch debugging on/off</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55207392"></a>C.68.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;simpletest&gt;
+  &lt;formatter type="plain"/&gt;
+  &lt;fileset dir="tests"&gt;
+    &lt;include name="**/*Test*.php"/&gt;
+    &lt;exclude name="**/Abstract*.php"/&gt;
+  &lt;/fileset&gt;
+&lt;/simpletest&gt;</pre>
+
+            <p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
+                plain text results to the console.</p>
+            <pre class="programlisting">&lt;simpletest haltonfailure="true" haltonerror="true"&gt;
+  &lt;formatter type="plain" usefile="false"/&gt;
+  &lt;fileset dir="tests"&gt;
+    &lt;include name="**/*Test*.php"/&gt;
+  &lt;/fileset&gt;
+&lt;/simpletest&gt;</pre>
+            <p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
+                plain text results to the console. The build process is aborted if a test fails.
+            </p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55212032"></a>C.68.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">formatter</code>
+                    </p>
+                    <p>The results of the tests can be printed in different formats. Output will
+                        always be sent to a file, unless you set the <code class="literal">usefile</code>
+                        attribute to <code class="literal">false</code>. The name of the file is predetermined
+                        by the formatter and can be changed by the <code class="literal">outfile</code>
+                        attribute.</p>
+                    <p>There are three predefined formatters - two print the test results in XML
+                        format, the other one prints plain text. Custom formatters that implement
+                        phing.tasks.ext.PHPUnitResultFormatter can be specified.</p>
+                    <p>If you use the XML formatter, it may not include the same output that your
+                        tests have written as some characters are illegal in XML documents and will
+                        be dropped.</p>
+
+                    <div class="table"><a name="idp55218096"></a><p class="formal-object-title"><span class="label">Table C.97: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either
+                                        <code class="literal">xml</code>, <code class="literal">plain</code>, or
+                                            <code class="literal">summary</code>).</td><td>n/a</td><td rowspan="2">One of these is required.</td></tr><tr><td><code class="literal">classname</code></td><td><code class="literal">String</code></td><td>Name of a custom formatter class.</td><td>n/a</td></tr><tr><td><code class="literal">usefile</code></td><td><code class="literal">Boolean</code></td><td>Boolean that determines whether output should be sent to
+                                        a file.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>Directory to write the file to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">outfile</code></td><td><code class="literal">String</code></td><td>Filename of the result.</td><td>Depends on formatter</td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SshTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SvnCheckoutTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.67 SshTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.69 SvnCheckoutTask</td></tr></table></div></body></html>

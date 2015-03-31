@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,49 +26,68 @@ include_once 'phing/util/regexp/Regexp.php';
  *
  * @author Andreas Aderhold <andi@binarycloud.com>
  * @author Hans Lellelid <hans@velum.net>
- * @version $Id$
+ *
  * @package phing.mappers
  */
 class RegexpMapper implements FileNameMapper
 {
-
     /**
-     * @var string
+     * @var string $to
      */
     private $to;
 
     /**
      * The Regexp engine.
-     * @var Regexp
+     *
+     * @var Regexp $reg
      */
     private $reg;
 
+    /**
+     * Instantiage regexp matcher here.
+     */
     public function __construct()
     {
-        // instantiage regexp matcher here
         $this->reg = new Regexp();
     }
 
     /**
      * Sets the &quot;from&quot; pattern. Required.
+     * {@inheritdoc}
+     *
+     * @param string $from
+     *
+     * @return void
      */
     public function setFrom($from)
     {
-        $this->reg->SetPattern($from);
+        $this->reg->setPattern($from);
     }
 
     /**
      * Sets the &quot;to&quot; pattern. Required.
+     *
+     * {@inheritdoc}
+     *
+     * @param string $to
+     *
+     * @return void
+     *
+     * @intern [HL] I'm changing the way this works for now to just use string
+     *              <code>$this->to = StringHelper::toCharArray($to);</code>
      */
     public function setTo($to)
     {
-
-        // [HL] I'm changing the way this works for now to just use string
-        //$this->to = StringHelper::toCharArray($to);
-
         $this->to = $to;
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @param mixed $sourceFileName
+     *
+     * @return array|null
+     */
     public function main($sourceFileName)
     {
         if ($this->reg === null || $this->to === null || !$this->reg->matches((string) $sourceFileName)) {
@@ -83,29 +100,31 @@ class RegexpMapper implements FileNameMapper
     /**
      * Replace all backreferences in the to pattern with the matched groups.
      * groups of the source.
+     *
      * @param string $source The source filename.
+     *
+     * @return array|null|string
+     *
+     * FIXME Can't we just use engine->replace() to handle this?  the Preg engine will automatically convert \1 references to $1
+     *
+     * @intern the expression has already been processed (when ->matches() was run in Main())
+     *         so no need to pass $source again to the engine.
+     *         Replaces \1 with value of reg->getGroup(1) and return the modified "to" string.
      */
     private function replaceReferences($source)
     {
-
-        // FIXME
-        // Can't we just use engine->replace() to handle this?  the Preg engine
-        // will automatically convert \1 references to $1
-
-        // the expression has already been processed (when ->matches() was run in Main())
-        // so no need to pass $source again to the engine.
-
-        // replace \1 with value of reg->getGroup(1) and return the modified "to" string
         return preg_replace_callback('/\\\([\d]+)/', array($this, 'replaceReferencesCallback'), $this->to);
     }
 
     /**
      * Gets the matched group from the Regexp engine.
+     *
      * @param array $matches Matched elements.
+     *
+     * @return string
      */
     private function replaceReferencesCallback($matches)
     {
         return (string) $this->reg->getGroup($matches[1]);
     }
-
 }

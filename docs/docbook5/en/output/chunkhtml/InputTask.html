@@ -1,0 +1,30 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.23 InputTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="IncludePathTask.html" title="B.22 IncludePathTask"><link rel="next" href="LoadFileTask.html" title="B.24 LoadFileTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.23 InputTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="IncludePathTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="LoadFileTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="InputTask"></a>B.23 InputTask </h2></div></div></div>
+        
+        <p>The <code class="literal">InputTask</code> can be used to interactively set property values
+            based on input from the console (or other Reader).</p>
+        <div class="table"><a name="idp50212384"></a><p class="formal-object-title"><span class="label">Table B.23: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">propertyName</code></td><td><code class="literal">String</code></td><td>The name of the property to set.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">defaultValue</code></td><td><code class="literal">String</code></td><td>The default value to be set if no new value is provided.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">message</code></td><td><code class="literal">String</code></td><td>Prompt text (same as CDATA).</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">promptChar</code></td><td><code class="literal">String</code></td><td>The prompt character to follow prompt text.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">validArgs</code></td><td><code class="literal">String</code></td><td>Comma-separated list of valid choices the user must supply. If used,
+                            one of these options must be chosen.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50240224"></a>B.23.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;!-- Getting string input --&gt;
+&lt;echo&gt;HTML pages installing to: ${documentRoot}&lt;/echo&gt;
+&lt;echo&gt;PHP classes installing to: ${servletDirectory}&lt;/echo&gt;
+
+&lt;input propertyname="documentRoot"&gt;Web application document root&lt;/input&gt;
+&lt;input propertyname="servletDirectory"
+  defaultValue="/usr/servlets" promptChar="?"&gt;PHP classes install dir&lt;/input&gt;
+
+&lt;echo&gt;HTML pages installed to ${documentRoot}&lt;/echo&gt;
+&lt;echo&gt;PHP classes installed to ${servletDirectory}&lt;/echo&gt;
+
+&lt;!-- Having the user choose from a set of valid choices --&gt;
+&lt;echo&gt;Choose a valid option:&lt;/echo&gt;
+
+&lt;input propertyname="optionsChoice" validargs="foo,bar,bob"&gt;
+  Which item would you like to use
+&lt;/input&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="IncludePathTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="LoadFileTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.22 IncludePathTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.24 LoadFileTask </td></tr></table></div></body></html>

@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,11 +25,12 @@ require_once 'phing/Task.php';
  *
  * @author    Hans Lellelid <hans@xmpl.org> (Phing)
  * @author    Nico Seessle <nico@seessle.de> (Ant)
- * @version   $Id$
+ *
  * @package   phing.tasks.system
  */
 class FailTask extends Task
 {
+    /** @var string $message */
     protected $message;
     protected $ifCondition;
     protected $unlessCondition;
@@ -40,6 +39,8 @@ class FailTask extends Task
      * A message giving further information on why the build exited.
      *
      * @param string $value message to output
+     *
+     * @return void
      */
     public function setMsg($value)
     {
@@ -49,7 +50,9 @@ class FailTask extends Task
     /**
      * A message giving further information on why the build exited.
      *
-     * @param value message to output
+     * @param string $value message to output
+     *
+     * @return void
      */
     public function setMessage($value)
     {
@@ -58,7 +61,10 @@ class FailTask extends Task
 
     /**
      * Only fail if a property of the given name exists in the current project.
-     * @param c property name
+     *
+     * @param $c property name
+     *
+     * @return void
      */
     public function setIf($c)
     {
@@ -68,7 +74,10 @@ class FailTask extends Task
     /**
      * Only fail if a property of the given name does not
      * exist in the current project.
-     * @param c property name
+     *
+     * @param $c property name
+     *
+     * @return void
      */
     public function setUnless($c)
     {
@@ -76,6 +85,10 @@ class FailTask extends Task
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function main()
@@ -91,6 +104,10 @@ class FailTask extends Task
 
     /**
      * Set a multiline message.
+     *
+     * @param string $msg
+     *
+     * @return void
      */
     public function addText($msg)
     {
@@ -123,5 +140,4 @@ class FailTask extends Task
 
         return $this->project->getProperty($this->unlessCondition) === null;
     }
-
 }

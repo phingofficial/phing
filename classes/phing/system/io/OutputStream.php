@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -26,7 +24,6 @@
  */
 class OutputStream
 {
-
     /**
      * @var resource The configured PHP stream.
      */
@@ -35,6 +32,7 @@ class OutputStream
     /**
      * Construct a new OutputStream.
      * @param resource $stream Configured PHP stream for writing.
+     * @throws IOException
      */
     public function __construct($stream)
     {
@@ -56,7 +54,9 @@ class OutputStream
         }
         $this->flush();
         if (false === @fclose($this->stream)) {
-            $msg = "Cannot close " . $this->getResource() . ": $php_errormsg";
+            $metaData = stream_get_meta_data($this->stream);
+            $resource = $metaData["uri"];
+            $msg = "Cannot close " . $resource . ": $php_errormsg";
             throw new IOException($msg);
         }
         $this->stream = null;

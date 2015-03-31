@@ -1,0 +1,125 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.60 PHPUnitTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="PhpLintTask.html" title="C.59 PhpLintTask"><link rel="next" href="PHPUnitReport.html" title="C.61 PHPUnitReport"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.60 PHPUnitTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PhpLintTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="PHPUnitReport.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PHPUnitTask"></a>C.60 PHPUnitTask</h2></div></div></div>
+        
+        <p> This task runs testcases using the <a class="ulink" href="http://www.phpunit.de/" target="_top">PHPUnit</a> framework. It is a functional port of the Ant <a class="ulink" href="http://ant.apache.org/manual/OptionalTasks/junit.html" target="_top">JUnit</a> task.</p>
+        <p>
+            <span class="bold"><strong>NB:</strong></span> if you have installed the
+            PHPUnit PHAR, make sure you set the
+            <code class="literal">pharlocation</code> attribute!</p>
+        <p>
+            <span class="bold"><strong>NB:</strong></span> the identifiers <code class="literal">phpunit2</code>
+            (PHPUnit2Task) and <code class="literal">phpunit3</code> (PHPUnit3Task) have been deprecated! </p>
+
+        <div class="table"><a name="idp54578368"></a><p class="formal-object-title"><span class="label">Table C.84: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">printsummary</code></td><td><code class="literal">Boolean</code></td><td>Print one-line statistics for each testcase.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">bootstrap</code></td><td><code class="literal">String</code></td><td>The name of a bootstrap file that is run before executing the
+                            tests.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">codecoverage</code></td><td><code class="literal">Boolean</code></td><td>Gather code coverage information while running tests (requires
+                            Xdebug).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonerror</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if an error occurs during the test
+                            run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if a test fails (errors are considered
+                            failures as well).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonincomplete</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if any incomplete tests are
+                            encountered.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonskipped</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if any skipped tests are encountered.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">failureproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on failure.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">errorproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on error.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">incompleteproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on incomplete tests.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">skippedproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on skipped tests.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">usecustomerrorhandler</code></td><td><code class="literal">Boolean</code></td><td>Use a custom Phing/PHPUnit error handler to process PHP
+                            errors.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">processisolation</code></td><td><code class="literal">Boolean</code></td><td>Enable process isolation when executing tests.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">configuration</code></td><td><code class="literal">String</code></td><td>Path to a PHPUnit configuration file (such as
+                        <code class="literal">phpunit.xml</code>). Supported elements are:
+                        <code class="literal">bootstrap</code>,
+                        <code class="literal">processIsolation</code>,
+                        <code class="literal">stopOnFailure</code>,
+                        <code class="literal">stopOnError</code>,
+                        <code class="literal">stopOnIncomplete</code> and
+                        <code class="literal">stopOnSkipped</code>. Values provided
+                        <span class="bold"><strong>overwrite</strong></span> other attributes!</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">groups</code></td><td><code class="literal">String</code></td><td>Only run tests from the specified group(s).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">excludeGroups</code></td><td><code class="literal">String</code></td><td>Exclude tests from the specified group(s).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">pharlocation</code></td><td><code class="literal">String</code></td><td>Location of the PHPUnit PHAR package.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54650736"></a>C.60.1 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">formatter</code>
+                    </p>
+                    <p>The results of the tests can be printed in different formats. Output will
+                        always be sent to a file, unless you set the <code class="literal">usefile</code>
+                        attribute to <code class="literal">false</code>. The name of the file is predetermined
+                        by the formatter and can be changed by the <code class="literal">outfile</code>
+                        attribute.</p>
+                    <p>There are three predefined formatters - <code class="literal">xml</code> and
+                            <code class="literal">clover</code> print the test results in the JUnit and Clover
+                        XML formats, the <code class="literal">plain</code> formatter emits a short
+                        statistics line for all test cases. Custom formatters that implement
+                        phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be
+                        specified.</p>
+
+                    <div class="table"><a name="idp54657504"></a><p class="formal-object-title"><span class="label">Table C.85: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either
+                                        <code class="literal">xml</code>, <code class="literal">plain</code>,
+                                            <code class="literal">clover</code>, or
+                                        <code class="literal">summary</code>).</td><td>n/a</td><td rowspan="2">One of these is required.</td></tr><tr><td><code class="literal">classname</code></td><td><code class="literal">String</code></td><td>Name of a custom formatter class.</td><td>n/a</td></tr><tr><td><code class="literal">usefile</code></td><td><code class="literal">Boolean</code></td><td>Boolean that determines whether output should be sent to
+                                        a file.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>Directory to write the file to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">outfile</code></td><td><code class="literal">String</code></td><td>Filename of the result.</td><td>Depends on formatter</td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal">batchtest</code>
+                    </p>
+                    <p>Define a number of tests based on pattern matching.
+                            <code class="literal">batchtest</code> collects the included files from any number
+                        of nested &lt;fileset&gt;s. It then generates a lists of classes that are
+                        (in)directly defined by each PHP file.</p>
+
+                    <div class="table"><a name="idp54689776"></a><p class="formal-object-title"><span class="label">Table C.86: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">exclude</code></td><td><code class="literal">String</code></td><td>A list of classes to exclude from the pattern matching.
+                                        For example, when you have two baseclasses
+                                            <code class="literal">BaseWebTest</code> and
+                                            <code class="literal">BaseMathTest</code>, which are included a
+                                        number of testcases (and thus added to the list of
+                                        testclasses), you can exclude those classes from the list by
+                                        typing <code class="literal">exclude="BaseWebTest
+                                        BaseMathTest"</code>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal"><a class="link" href="path.html" title="D.5 Path / Classpath">classpath</a></code></td><td><code class="literal">String</code></td><td>Used to define more paths on which - besides the PHP
+                                        include_path - to look for the test files.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>The name that is used to create a testsuite from this
+                                        batchtest.</td><td>Phing Batchtest</td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54714064"></a>C.60.2 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;phpunit&gt;
+  &lt;formatter todir="reports" type="xml"/&gt;
+  &lt;batchtest&gt;
+    &lt;fileset dir="tests"&gt;
+      &lt;include name="**/*Test*.php"/&gt;
+      &lt;exclude name="**/Abstract*.php"/&gt;
+    &lt;/fileset&gt;
+  &lt;/batchtest&gt;
+&lt;/phpunit&gt;</pre>
+            <p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
+                XML results to the directory <code class="literal">reports</code>.</p>
+            <pre class="programlisting">&lt;phpunit codecoverage="true" haltonfailure="true" haltonerror="true"&gt;
+  &lt;formatter type="plain" usefile="false"/&gt;
+  &lt;batchtest&gt;
+    &lt;fileset dir="tests"&gt;
+      &lt;include name="**/*Test*.php"/&gt;
+    &lt;/fileset&gt;
+  &lt;/batchtest&gt;
+&lt;/phpunit&gt;</pre>
+            <p> Runs all matching testcases in the directory <code class="literal">tests</code>, gathers
+                code coverage information, writing plain text results to the console. The build
+                process is aborted if a test fails.</p>
+            <pre class="programlisting">&lt;phpunit bootstrap="src/autoload.php"&gt;
+  &lt;formatter type="plain" usefile="false"/&gt;
+  &lt;batchtest&gt;
+    &lt;fileset dir="tests"&gt;
+      &lt;include name="**/*Test*.php"/&gt;
+    &lt;/fileset&gt;
+  &lt;/batchtest&gt;
+&lt;/phpunit&gt;</pre>
+            <p> Runs all matching testcases in the directory <code class="literal">tests</code>, writing
+                plain text results to the console. Additionally, before executing the tests, the
+                bootstrap file <code class="literal">src/autoload.php</code> is loaded.</p>
+            <p>
+                <span class="bold"><strong>Important note:</strong></span> using a mechanism such as an
+                "AllTests.php" file to execute testcases will bypass the Phing hooks used for
+                reporting and counting, and could possibly lead to strange results. Instead, use one
+                of more fileset's to provide a list of testcases to execute.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54723184"></a>C.60.3 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PhpLintTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="PHPUnitReport.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.59 PhpLintTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.61 PHPUnitReport</td></tr></table></div></body></html>

@@ -1,0 +1,41 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.88 XmlLintTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="WikiPublishTask.html" title="C.87 WikiPublishTask"><link rel="next" href="XmlPropertyTask.html" title="C.89 XmlPropertyTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.88 XmlLintTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="WikiPublishTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="XmlPropertyTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="XmlLintTask"></a>C.88 XmlLintTask</h2></div></div></div>
+        
+        <p>The <code class="literal">XmlLintTask</code> checks syntax (lint) one or more XML files against
+            an XML Schema Definition.</p>
+        <p><code class="literal">Note:</code> This assumes that the DOM extension is loaded in PHP5 since
+            this is used to drive the validation process.</p>
+
+        <div class="table"><a name="idp56019552"></a><p class="formal-object-title"><span class="label">Table C.118: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">schema</code></td><td><code class="literal">String</code></td><td>Path to XSD file</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>Path to XML file</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>Stops the build when validation fails</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">useRNG</code></td><td><code class="literal">Boolean</code></td><td>Set to Yes if the Schema is in the n Relax NG format</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56044048"></a>C.88.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;xmllint schema="schema.xsd" file="config.xml"/&gt;</pre>
+            <p>Validate one XML file against one XSD file.</p>
+            <pre class="programlisting">&lt;xmllint schema="schema.xsd"&gt;
+  &lt;fileset dir="."&gt;
+    &lt;include name="**/config.xml"/&gt;
+  &lt;/fileset&gt;
+&lt;/xmllint&gt;</pre>
+            <p>Validate more XML files against one XSD file.</p>
+
+            <pre class="programlisting">&lt;fileset dir="./sources" id="sources"&gt;
+  &lt;include name="main.xml"/&gt;
+  &lt;include name="chapter*.xml"/&gt;
+  &lt;include name="appendix*.xml"/&gt;
+&lt;/fileset&gt;
+&lt;property name="docbook.relaxng" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/&gt;
+
+&lt;xmllint schema="${docbook.relaxng}" useRNG="yes"&gt;
+  &lt;fileset refid="sources" /&gt;
+&lt;/xmllint&gt;</pre>
+            <p>Validate a set of DocBook files against the DocBook RNG grammar</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56048944"></a>C.88.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="WikiPublishTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="XmlPropertyTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.87 WikiPublishTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.89 XmlPropertyTask</td></tr></table></div></body></html>

@@ -1,0 +1,58 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.27 HttpGetTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="GrowlNotifyTask.html" title="C.26 GrowlNotifyTask"><link rel="next" href="HttpRequestTask.html" title="C.28 HttpRequestTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.27 HttpGetTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GrowlNotifyTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="HttpRequestTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="HttpGetTask"></a>C.27 HttpGetTask</h2></div></div></div>
+        
+        <p>This task will download a file through HTTP GET and save it to a specified directory.
+            You need an installed version of
+            <a class="ulink" href="http://pear.php.net/package/HTTP_Request2" target="_top">HTTP_Request2</a>
+            to use this task.
+        </p>
+
+        <div class="table"><a name="idp52307904"></a><p class="formal-object-title"><span class="label">Table C.28: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>The request URL</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">dir</code></td><td><code class="literal">String</code></td><td>The directory to save the file</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">filename</code></td><td><code class="literal">String</code></td><td>The filename for the downloaded file</td><td>The filename part of the URL</td><td>No</td></tr><tr><td><code class="literal">followRedirects</code></td><td><code class="literal">Boolean</code></td><td>Whether to follow HTTP redirects</td><td>false</td><td>No</td></tr><tr><td><code class="literal">sslVerifyPeer</code></td><td><code class="literal">Boolean</code></td><td>Whether to verify SSL certificates</td><td>true</td><td>No</td></tr><tr><td><code class="literal">authUser</code></td><td><code class="literal">String</code></td><td>The authentication user name</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authPassword</code></td><td><code class="literal">String</code></td><td>The authentication password</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authScheme</code></td><td><code class="literal">String</code></td><td>The authentication scheme</td><td>basic</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52344800"></a>C.27.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;httpget url="http://buildserver.com/builds/latest.stable.tar.bz2" dir="/usr/local/lib"/&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52346640"></a>C.27.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">config</code></p>
+                    <p>Holds additional config data. See
+                        <a class="ulink" href="http://pear.php.net/manual/en/package.http.http-request2.config.php" target="_top">HTTP_Request2  documentation</a>
+                        for supported values.
+                    </p>
+
+                    <div class="table"><a name="idp52350560"></a><p class="formal-object-title"><span class="label">Table C.29: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Config parameter name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td>Mixed</td><td>Config value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal">header</code></p>
+                    <p> Holds additional header <code class="literal">name</code> and
+                            <code class="literal">value</code>.</p>
+                    <div class="table"><a name="idp52370224"></a><p class="formal-object-title"><span class="label">Table C.30: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Header name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Header value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52388880"></a>C.27.3 Global configuration</h3></div></div></div>
+            
+            <p>
+                In addition to configuring a particular instance of <code class="literal">HTTP_Request2</code> via
+                nested <code class="literal">&lt;config&gt;</code> tags it is also possible to set default
+                configuration values for <code class="literal">HttpGetTask</code> / <code class="literal">HttpRequestTask</code>
+                by setting <code class="literal">phing.http.*</code> properties.
+            </p>
+            <pre class="programlisting">
+&lt;property name="phing.http.proxy" value="socks5://localhost:1080/"/&gt;
+&lt;!-- This request will go through the default proxy --&gt;
+&lt;httpget url="http://example.com/file.zip" dir="./"/&gt;
+&lt;httpget url="http://example.org/file.exe" dir="./"&gt;
+    &lt;!-- This proxy will be used instead of the default one --&gt;
+    &lt;config name="proxy" value="http://foo:bar@proxy.example.org:3128/"/&gt;
+&lt;/httpget&gt;
+            </pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GrowlNotifyTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="HttpRequestTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.26 GrowlNotifyTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.28 HttpRequestTask</td></tr></table></div></body></html>

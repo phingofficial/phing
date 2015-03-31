@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="XorCoditionTest" default="testEmpty">
+    <target name="testEmpty" >
+        <condition property="isEmpty">
+            <xor/>
+        </condition>
+    </target>
+
+    <target name="test1" >
+        <condition property="testTrue">
+            <not>
+                <xor>
+                    <istrue value="true" />
+                </xor>
+            </not>
+        </condition>
+    </target>
+
+    <target name="test0" >
+        <condition property="testFalse">
+            <xor>
+                <istrue value="" />
+            </xor>
+        </condition>
+    </target>
+
+    <target name="test10" >
+        <condition property="test10">
+            <not>
+                <xor>
+                    <istrue value="true" />
+                    <istrue value="" />
+                </xor>
+            </not>
+        </condition>
+    </target>
+
+    <target name="test01" >
+        <condition property="test01">
+            <not>
+                <xor>
+                    <istrue value="" />
+                    <istrue value="true" />
+                </xor>
+            </not>
+        </condition>
+    </target>
+
+    <target name="test00" >
+        <condition property="test00">
+            <xor>
+                <istrue value="" />
+                <istrue value="" />
+            </xor>
+        </condition>
+    </target>
+
+    <target name="test11" >
+        <condition property="test11">
+            <xor>
+                <istrue value="" />
+                <istrue value="" />
+            </xor>
+        </condition>
+    </target>
+
+</project>

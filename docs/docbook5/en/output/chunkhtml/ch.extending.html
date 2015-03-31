@@ -1,0 +1,64 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 6 Extending Phing</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="conditions.html" title="5.8 Conditions"><link rel="next" href="ch06s02.html" title="6.2 Source Layout"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 6 Extending Phing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="conditions.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="ch.extending"></a>Chapter 6 Extending Phing</h1></div></div></div>
+    
+    <p>Phing was designed to be flexible and easily extensible. Phing's existing core and
+        optional tasks do provide a great deal of flexibility in processing files, performing
+        database actions, and even getting user feedback during a build process. In some cases,
+        however, the existing tasks just won't suffice and because of Phing's open, modular
+        architecture adding exactly the functionality you need is often quite trivial.</p>
+    <p>In this chapter we'll look primarily at how to create your own tasks, since that is
+        probably the most useful way to extend Phing. We'll also give some more information about
+        Phing's design and inner workings.</p>
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp37598448"></a>6.1  Extension Possibilities </h2></div></div></div>
+        
+        <p>There are three main areas where Phing can be extended: <a class="xref" href="ch.extending.html#sect.ext.tasks" title="6.1.1 Tasks">Tasks</a>, <a class="xref" href="ch.extending.html#sect.ext.types" title="Types">Types</a>, <a class="xref" href="ch.extending.html#sect.ext.mappers" title="Mappers">Mappers</a>. The following sections discuss these
+            options.</p>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="sect.ext.tasks"></a>6.1.1  Tasks </h3></div></div></div>
+            
+
+            <p>Tasks are pieces of codes that perform an atomic action like installing a file.
+                Therefore a special worker class hast to be created and stored in a specific
+                location, that actually implements the job. The worker is just the interface to
+                Phing that must fulfill some requirements discussed later in this chapter, however
+                it can - but not necessarily must - use other classes, workers and libraries that
+                aid performing the operations needed.</p>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="sect.ext.types"></a>6.1.2  Types </h3></div></div></div>
+            
+
+            <p>Extending types is a rare need; nevertheless, you can do it. A possible type you
+                might implement is <code class="literal">urlset</code>, for example.</p>
+            <p>You may end up needing a new type for a task you write; for example, if you were
+                writing the XSLTTask you might discover that you needed a special type for
+                XSLTParams (even though in that case you could probably use the generic name/value
+                Parameter type). In cases where the type is really only for a single task, you may
+                want to just define the type class in the same file as the Task class, rather than
+                creating an official stand-alone <code class="literal">Type</code>.</p>
+
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="sect.ext.mappers"></a>6.1.3  Mappers </h3></div></div></div>
+            
+
+            <p>Creating new mappers is also a rare need, since most everything can be handled by
+                the <a class="xref" href="app.coremappers.html" title="Appendix F. Core mappers">Appendix F, <i>Core mappers</i></a>. The Mapper framework does provide a simple
+                way for defining your own mappers to use instead, however, and mappers implement a
+                very simple interface.</p>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="conditions.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch06s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">5.8  Conditions  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 6.2  Source Layout </td></tr></table></div></body></html>

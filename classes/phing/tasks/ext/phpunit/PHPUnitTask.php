@@ -56,6 +56,7 @@ class PHPUnitTask extends Task
     private $excludeGroups = array();
     private $processIsolation = false;
     private $usecustomerrorhandler = true;
+    private $listeners = array();
 
     /**
      * @var string
@@ -132,81 +133,129 @@ class PHPUnitTask extends Task
         $this->bootstrap = $bootstrap;
     }
 
+    /**
+     * @param $value
+     */
     public function setErrorproperty($value)
     {
         $this->errorproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setFailureproperty($value)
     {
         $this->failureproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setIncompleteproperty($value)
     {
         $this->incompleteproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setSkippedproperty($value)
     {
         $this->skippedproperty = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonerror($value)
     {
         $this->haltonerror = $value;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonfailure($value)
     {
         $this->haltonfailure = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function getHaltonfailure()
     {
         return $this->haltonfailure;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonincomplete($value)
     {
         $this->haltonincomplete = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function getHaltonincomplete()
     {
         return $this->haltonincomplete;
     }
 
+    /**
+     * @param $value
+     */
     public function setHaltonskipped($value)
     {
         $this->haltonskipped = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function getHaltonskipped()
     {
         return $this->haltonskipped;
     }
 
+    /**
+     * @param $printsummary
+     */
     public function setPrintsummary($printsummary)
     {
         $this->printsummary = $printsummary;
     }
 
+    /**
+     * @param $codecoverage
+     */
     public function setCodecoverage($codecoverage)
     {
         $this->codecoverage = $codecoverage;
     }
 
+    /**
+     * @param $processIsolation
+     */
     public function setProcessIsolation($processIsolation)
     {
         $this->processIsolation = $processIsolation;
     }
 
+    /**
+     * @param $usecustomerrorhandler
+     */
     public function setUseCustomErrorHandler($usecustomerrorhandler)
     {
         $this->usecustomerrorhandler = $usecustomerrorhandler;
     }
 
+    /**
+     * @param $groups
+     */
     public function setGroups($groups)
     {
         $token = ' ,;';
@@ -218,6 +267,9 @@ class PHPUnitTask extends Task
         }
     }
 
+    /**
+     * @param $excludeGroups
+     */
     public function setExcludeGroups($excludeGroups)
     {
         $token = ' ,;';
@@ -241,6 +293,16 @@ class PHPUnitTask extends Task
     }
 
     /**
+     * Add a new listener to all tests of this taks
+     *
+     * @param $listener
+     */
+    private function addListener($listener)
+    {
+        $this->listeners[] = $listener;
+    }
+
+    /**
      * @param PhingFile $configuration
      */
     public function setConfiguration(PhingFile $configuration)
@@ -258,6 +320,9 @@ class PHPUnitTask extends Task
 
     /**
      * Load and processes the PHPUnit configuration
+     * @param $configuration
+     * @throws BuildException
+     * @return array
      */
     protected function handlePHPUnitConfiguration($configuration)
     {
@@ -301,6 +366,30 @@ class PHPUnitTask extends Task
 
         if (isset($phpunit['processIsolation'])) {
             $this->setProcessIsolation($phpunit['processIsolation']);
+        }
+
+        foreach ($config->getListenerConfiguration() as $listener) {
+            if (!class_exists($listener['class'], false) &&
+                $listener['file'] !== '') {
+                require_once $listener['file'];
+            }
+
+            if (class_exists($listener['class'])) {
+                if (count($listener['arguments']) == 0) {
+                    $listener = new $listener['class'];
+                } else {
+                    $listenerClass = new ReflectionClass(
+                                       $listener['class']
+                                     );
+                    $listener      = $listenerClass->newInstanceArgs(
+                                       $listener['arguments']
+                                     );
+                }
+
+                if ($listener instanceof PHPUnit_Framework_TestListener) {
+                    $this->addListener($listener);
+                }
+            }
         }
 
         $browsers = $config->getSeleniumBrowserConfiguration();
@@ -376,7 +465,7 @@ class PHPUnitTask extends Task
     }
 
     /**
-     * @throws BuildException
+     * @param $suite
      */
     protected function execute($suite)
     {
@@ -395,6 +484,10 @@ class PHPUnitTask extends Task
         }
 
         $runner->setUseCustomErrorHandler($this->usecustomerrorhandler);
+
+        foreach ($this->listeners as $listener) {
+            $runner->addListener($listener);
+        }
 
         foreach ($this->formatters as $fe) {
             $formatter = $fe->getFormatter();
@@ -421,9 +514,7 @@ class PHPUnitTask extends Task
             $formatter->endTestRun();
         }
 
-        $retcode = $runner->getRetCode();
-
-        if ($retcode == PHPUnitTestRunner::ERRORS) {
+        if ($runner->hasErrors()) {
             if ($this->errorproperty) {
                 $this->project->setNewProperty($this->errorproperty, true);
             }
@@ -431,7 +522,9 @@ class PHPUnitTask extends Task
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastErrorMessage();
             }
-        } elseif ($retcode == PHPUnitTestRunner::FAILURES) {
+        }
+
+        if ($runner->hasFailures()) {
             if ($this->failureproperty) {
                 $this->project->setNewProperty($this->failureproperty, true);
             }
@@ -440,7 +533,9 @@ class PHPUnitTask extends Task
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastFailureMessage();
             }
-        } elseif ($retcode == PHPUnitTestRunner::INCOMPLETES) {
+        }
+
+        if ($runner->hasIncomplete()) {
             if ($this->incompleteproperty) {
                 $this->project->setNewProperty($this->incompleteproperty, true);
             }
@@ -449,7 +544,9 @@ class PHPUnitTask extends Task
                 $this->testfailed = true;
                 $this->testfailuremessage = $runner->getLastIncompleteMessage();
             }
-        } elseif ($retcode == PHPUnitTestRunner::SKIPPED) {
+        }
+
+        if ($runner->hasSkipped()) {
             if ($this->skippedproperty) {
                 $this->project->setNewProperty($this->skippedproperty, true);
             }
@@ -478,6 +575,9 @@ class PHPUnitTask extends Task
         }
     }
 
+    /**
+     * @return LogWriter
+     */
     protected function getDefaultOutput()
     {
         return new LogWriter($this);

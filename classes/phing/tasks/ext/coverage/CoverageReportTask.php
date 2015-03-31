@@ -49,6 +49,9 @@ class CoverageReportTask extends Task
     /** the path to the GeSHi language files (optional) */
     private $geshilanguagespath = "";
 
+    /**
+     * @param Path $classpath
+     */
     public function setClasspath(Path $classpath)
     {
         if ($this->classpath === null) {
@@ -58,6 +61,9 @@ class CoverageReportTask extends Task
         }
     }
 
+    /**
+     * @return null|Path
+     */
     public function createClasspath()
     {
         $this->classpath = new Path();
@@ -65,16 +71,25 @@ class CoverageReportTask extends Task
         return $this->classpath;
     }
 
+    /**
+     * @param $path
+     */
     public function setGeshiPath($path)
     {
         $this->geshipath = $path;
     }
 
+    /**
+     * @param $path
+     */
     public function setGeshiLanguagesPath($path)
     {
         $this->geshilanguagespath = $path;
     }
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->doc = new DOMDocument();
@@ -83,6 +98,9 @@ class CoverageReportTask extends Task
         $this->doc->appendChild($this->doc->createElement('snapshot'));
     }
 
+    /**
+     * @param $outfile
+     */
     public function setOutfile($outfile)
     {
         $this->outfile = $outfile;
@@ -99,6 +117,10 @@ class CoverageReportTask extends Task
         return $transformer;
     }
 
+    /**
+     * @param $packageName
+     * @return null
+     */
     protected function getPackageElement($packageName)
     {
         $packages = $this->doc->documentElement->getElementsByTagName('package');
@@ -112,6 +134,10 @@ class CoverageReportTask extends Task
         return null;
     }
 
+    /**
+     * @param $packageName
+     * @param $element
+     */
     protected function addClassToPackage($packageName, $element)
     {
         $package = $this->getPackageElement($packageName);
@@ -198,6 +224,10 @@ class CoverageReportTask extends Task
         $subpackage->appendChild($element);
     }
 
+    /**
+     * @param $source
+     * @return string
+     */
     protected function stripDiv($source)
     {
         $openpos = strpos($source, "<div");
@@ -212,6 +242,10 @@ class CoverageReportTask extends Task
         return $line;
     }
 
+    /**
+     * @param $filename
+     * @return array
+     */
     protected function highlightSourceFile($filename)
     {
         if ($this->geshipath) {
@@ -265,6 +299,12 @@ class CoverageReportTask extends Task
         }
     }
 
+    /**
+     * @param $filename
+     * @param $coverageInformation
+     * @param int $classStartLine
+     * @return DOMElement
+     */
     protected function transformSourceFile($filename, $coverageInformation, $classStartLine = 1)
     {
         $sourceElement = $this->doc->createElement('sourcefile');

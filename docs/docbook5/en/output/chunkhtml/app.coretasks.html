@@ -1,0 +1,89 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Appendix B. Core tasks</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="sec.gfdl.html" title="A.6 The GFDL License"><link rel="next" href="AdhocTypedefTask.html" title="B.2 AdhocTypedefTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix B. Core tasks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="sec.gfdl.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="AdhocTypedefTask.html">Next</a></td></tr></table><hr></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a name="app.coretasks"></a>Appendix B. Core tasks</h1></div></div></div>
+    
+
+    <p>This appendix contains a reference of all core tasks, i.e. all tasks that are needed to
+        build a basic project.</p>
+    <p>This reference lists the tasks alphabetically by the name of the classes that implement
+        the tasks. So if you are searching for the reference to the <code class="literal">&lt;copy&gt;</code>
+        tag, for example, you will want to look at the reference of
+        <code class="literal">CopyTask</code>.</p>
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="AdhocTaskdefTask"></a>B.1 AdhocTaskdefTask </h2></div></div></div>
+        
+        <p>The AdhocTaskdefTask allows you to define a task within your build file.</p>
+        <p>Note that you should use &lt;![CDATA[ ... ]]&gt; so that you don't have to quote
+            entities within your<code class="literal"> &lt;adhoc-task&gt;&lt;/adhoc-task&gt;</code> tags.</p>
+
+        <div class="table"><a name="idp49345024"></a><p class="formal-object-title"><span class="label">Table B.1: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of XML tag that will represent this task.</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp49357312"></a>B.1.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;target name="main"
+        description="==&gt;test AdhocTask "&gt;
+
+        &lt;adhoc-task name="foo"&gt;&lt;![CDATA[
+            class FooTest extends Task {
+                private $bar;
+
+                function setBar($bar) {
+                    $this-&gt;bar = $bar;
+                }
+
+                function main() {
+                    $this-&gt;log("In FooTest: " . $this-&gt;bar);
+                }
+            }
+        ]]&gt;&lt;/adhoc-task&gt;
+
+        &lt;foo bar="B.L.I.N.G"/&gt;
+&lt;/target&gt;</pre>
+        </div>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="sec.gfdl.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="AdhocTypedefTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">A.6 The GFDL License </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.2 AdhocTypedefTask </td></tr></table></div></body></html>

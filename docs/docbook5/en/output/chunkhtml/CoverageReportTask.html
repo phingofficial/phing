@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.5 CoverageReportTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="CoverageMergerTask.html" title="C.4 CoverageMergerTask"><link rel="next" href="CoverageSetupTask.html" title="C.6 CoverageSetupTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.5 CoverageReportTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="CoverageMergerTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="CoverageSetupTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="CoverageReportTask"></a>C.5 CoverageReportTask</h2></div></div></div>
+        
+        <p>The CoverageReportTask formats a coverage database into a framed HTML report using
+            XSLT. The report can optionally make use of the <span class="bold"><strong>Ge</strong></span>neric
+                <span class="bold"><strong>S</strong></span>yntax <span class="bold"><strong>Hi</strong></span>ghlighting library, <code class="literal">GeSHi</code> (See <a class="ulink" href="http://qbnz.com/highlighter/" target="_top">GeSHi Homepage</a>) library to mark up
+            source code. The path to the library (if not in the default path) can be specified as an
+            attribute.</p>
+        <div class="table"><a name="idp51207744"></a><p class="formal-object-title"><span class="label">Table C.5: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">outfile</code></td><td><code class="literal">String</code></td><td>The location for the intermediate XML file.</td><td>coverage.db</td><td>Yes</td></tr><tr><td><code class="literal"><a class="link" href="path.html" title="D.5 Path / Classpath">classpath</a></code></td><td><code class="literal">String</code></td><td>Additional classpath to locate source referenced in the
+                            report</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">geshipath</code></td><td><code class="literal">String</code></td><td>Path to GeSHi highlighting library</td><td>n/a</td><td>No/Yes* If syntax highlighting si to be enabled</td></tr><tr><td><code class="literal">geshilanguagespath</code></td><td><code class="literal">String</code></td><td>Language to use with GeSHi</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51232176"></a>C.5.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;coverage-report outfile="reports/coverage.xml"&gt;
+  &lt;report todir="reports/coverage" styledir="/home/phing/etc"/&gt;
+&lt;/coverage-report&gt;</pre>
+        </div>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51233968"></a>C.5.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p>report</p>
+                    <div class="table"><a name="idp51235952"></a><p class="formal-object-title"><span class="label">Table C.6: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">styledir</code></td><td><code class="literal">String</code></td><td>The directory where the stylesheets are located.</td><td>The <code class="literal">etc</code> directory in the Phing installation</td><td>No</td></tr><tr><td><code class="literal">todir</code></td><td><code class="literal">String</code></td><td>The directory where the files resulting from the
+                                        transformation should be written to.</td><td> </td><td>Yes</td></tr><tr><td><code class="literal">title</code></td><td><code class="literal">String</code></td><td>Title of the project (used in the generated
+                                        document(s))</td><td> </td><td>No</td></tr><tr><td><code class="literal">usesorttable</code></td><td><code class="literal">Boolean</code></td><td>Whether to use the sorttable JavaScript library (see
+                                            <a class="ulink" href="http://www.kryogenix.org/code/browser/sorttable/" target="_top">http://www.kryogenix.org/code/browser/sorttable/</a>)</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="CoverageMergerTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="CoverageSetupTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.4 CoverageMergerTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.6 CoverageSetupTask</td></tr></table></div></body></html>

@@ -113,7 +113,6 @@ class ZipTask extends MatchingTask
      * Set the include empty dirs flag.
      * @param  boolean  Flag if empty dirs should be tarred too
      * @return void
-     * @access public
      */
     public function setIncludeEmptyDirs($bool)
     {
@@ -289,6 +288,9 @@ class ZipFileSet extends FileSet
 
     /**
      *  Get a list of files and directories specified in the fileset.
+     * @param Project $p
+     * @param bool $includeEmpty
+     * @throws BuildException
      * @return array a list of file and directory names, relative to
      *               the baseDir for the project.
      */

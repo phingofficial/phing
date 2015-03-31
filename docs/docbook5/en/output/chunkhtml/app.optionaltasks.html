@@ -1,0 +1,161 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Appendix C. Optional tasks</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="XsltTask.html" title="B.45 XsltTask"><link rel="next" href="AutoloaderTask.html" title="C.2 AutoloaderTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix C. Optional tasks</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="XsltTask.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="AutoloaderTask.html">Next</a></td></tr></table><hr></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a name="app.optionaltasks"></a>Appendix C. Optional tasks</h1></div></div></div>
+    
+
+    <p>This appendix contains a reference of all optional tasks, i.e. tasks that are not directly
+        needed for building projects, but can assist in various aspects of development and
+        deployment.</p>
+    <p>This reference lists the tasks alphabetically by the name of the classes that implement
+        the tasks. So if you are searching for the reference to the <code class="code">&lt;phplint&gt;</code> tag,
+        for example, you will want to look at the reference of PhpLintTask.</p>
+
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="ApiGenTask"></a>C.1 ApiGenTask</h2></div></div></div>
+        
+        <p>This task runs <a class="ulink" href="http://apigen.org/" target="_top">ApiGen</a>, a
+            tool for creating professional API documentation from PHP source code, similar to
+            discontinued phpDocumentor/phpDoc.</p>
+
+        <div class="table"><a name="idp51014560"></a><p class="formal-object-title"><span class="label">Table C.1: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">executable</code></td><td><code class="literal">String</code></td><td>ApiGen executable name.</td><td>apigen</td><td>No</td></tr><tr><td><code class="literal">config</code></td><td><code class="literal">String</code></td><td>Config file name.</td><td>n/a</td><td rowspan="3">Source and destination are required - either set
+                            explicitly or using a config file. Attribute values set explicitly have
+                            precedence over values from a config file.</td></tr><tr><td><code class="literal">source</code></td><td><code class="literal">String</code></td><td>List of source files or directories.</td><td>n/a</td></tr><tr><td><code class="literal">destination</code></td><td><code class="literal">String</code></td><td>Destination directory.</td><td>n/a</td></tr><tr><td><code class="literal">exclude</code></td><td><code class="literal">String</code></td><td>List of masks (case sensitive) to exclude files or directories from
+                            processing.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">skipdocpath</code></td><td><code class="literal">String</code></td><td>List of masks (case sensitive) to exclude elements from documentation
+                            generating.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">skipdocprefix</code></td><td><code class="literal">String</code></td><td>Name prefix (case sensitive) to exclude elements from documentation
+                            generating.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">charset</code></td><td><code class="literal">String</code></td><td>Character set of source files.</td><td>UTF-8</td><td>No</td></tr><tr><td><code class="literal">main</code></td><td><code class="literal">String</code></td><td>Main project name prefix.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">title</code></td><td><code class="literal">String</code></td><td>Title of generated documentation.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">baseurl</code></td><td><code class="literal">String</code></td><td>Documentation base URL.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">googlecseid</code></td><td><code class="literal">String</code></td><td>Google Custom Search ID.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">googlecselabel</code></td><td><code class="literal">String</code></td><td>Google Custom Search label.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">googleanalytics</code></td><td><code class="literal">String</code></td><td>Google Analytics tracking code.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">templateconfig</code></td><td><code class="literal">String</code></td><td>Template config file name.</td><td>n/a</td><td>If not set the default template is used.</td></tr><tr><td><code class="literal">allowedhtml</code></td><td><code class="literal">String</code></td><td>List of HTML tags allowed in the documentation.</td><td>b, i, a, ul, ol, li, p, br, var, samp, kbd, tt</td><td>No</td></tr><tr><td><code class="literal">accesslevels</code></td><td><code class="literal">String</code></td><td>Element access levels. Documentation only for methods and properties
+                            with the given access level will be generated.</td><td>public, protected</td><td>No</td></tr><tr><td><code class="literal">internal</code></td><td><code class="literal">Boolean</code></td><td>Whether to generate documentation for elements marked as internal and
+                            internal documentation parts or not.</td><td>No</td><td>No</td></tr><tr><td><code class="literal">php</code></td><td><code class="literal">Boolean</code></td><td>Whether to generate documentation for PHP internal classes or
+                            not.</td><td>Yes</td><td>No</td></tr><tr><td><code class="literal">tree</code></td><td><code class="literal">Boolean</code></td><td>Whether to generate tree view of classes, interfaces, traits and
+                            exceptions or not.</td><td>Yes</td><td>No</td></tr><tr><td><code class="literal">deprecated</code></td><td><code class="literal">Boolean</code></td><td>Whether to generate documentation for deprecated elements or
+                            not.</td><td>No</td><td>No</td></tr><tr><td><code class="literal">todo</code></td><td><code class="literal">Boolean</code></td><td>Whether to generate documentation of tasks or not.</td><td>No</td><td>No</td></tr><tr><td><code class="literal">sourcecode</code></td><td><code class="literal">Boolean</code></td><td>Whether to generate highlighted source code files or not.</td><td>Yes</td><td>No</td></tr><tr><td><code class="literal">download</code></td><td><code class="literal">Boolean</code></td><td>Whether to generate a link to download documentation as a ZIP archive
+                            or not.</td><td>No</td><td>No</td></tr><tr><td><code class="literal">report</code></td><td><code class="literal">String</code></td><td>File name for checkstyle report of poorly documented
+                            elements.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">wipeout</code></td><td><code class="literal">Boolean</code></td><td>Whether to wipe out the destination directory first or not.</td><td>Yes</td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>Whether to enable scaning and generating messages or not.</td><td>No</td><td>No</td></tr><tr><td><code class="literal">updatecheck</code></td><td><code class="literal">Boolean</code></td><td>Whether to check for ApiGen updates or not.</td><td>No</td><td>No</td></tr><tr><td><code class="literal">debug</code></td><td><code class="literal">Boolean</code></td><td>Whether to enable the debug mode or not.</td><td>No</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51025168"></a>C.1.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;apigen
+  source="classes"
+  destination="api"
+  exclude="*/tests/*"
+  title="My Project API Documentation"
+  deprecated="true"
+  todo="true"/&gt;</pre>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="XsltTask.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="AutoloaderTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.45 XsltTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.2 AutoloaderTask</td></tr></table></div></body></html>

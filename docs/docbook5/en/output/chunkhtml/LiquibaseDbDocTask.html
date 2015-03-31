@@ -1,0 +1,35 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.36 LiquibaseDbDocTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="LiquibaseChangeLogTask.html" title="C.35 LiquibaseChangeLogTask"><link rel="next" href="LiquibaseDiffTask.html" title="C.37 LiquibaseDiffTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.36 LiquibaseDbDocTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="LiquibaseChangeLogTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="LiquibaseDiffTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="LiquibaseDbDocTask"></a>C.36 LiquibaseDbDocTask</h2></div></div></div>
+    
+    <p>The <code class="literal">LiquibaseDbDocTask</code> generates a Javadoc-like documentation based on
+            current database and the given changelog file.</p>
+    <div class="table"><a name="idp52950320"></a><p class="formal-object-title"><span class="label">Table C.44: </span><span class="title">Attributes</span></p><div class="table-contents">
+        
+        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">jar</code></td><td><code class="literal">String</code></td><td>Location of the Liquibase jar file.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal"><a class="link" href="path.html" title="D.5 Path / Classpath">classpath</a></code></td><td><code class="literal">String</code></td><td>Additional classpath entries.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">changeLogFile</code></td><td><code class="literal">String</code></td><td>Location of the changelog file in which the changes get written or read from.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">username</code></td><td><code class="literal">String</code></td><td>The username needed to connect to the database.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>The password needed to connect to the database.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>The JDBC URL representing the database data source, e.g <code class="literal">jdbc:mysql://localhost/mydatabase</code></td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">outputDir</code></td><td><code class="literal">String</code></td><td>Absolute path where the documentation gets written to.
+                        If the given directory does not exist, it get`s created automatically.</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">display</code></td><td><code class="literal">Boolean</code></td><td>Whether to display the output of the command. Only used if <code class="literal">passthru</code> isn't true.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">passthru</code></td><td><code class="literal">Boolean</code></td><td>Whether to use PHP's <code class="literal">passthru()</code> function instead of <code class="literal">exec()</code>. True by default for backwards compatibility. When true, the attributes <code class="literal">display</code>, <code class="literal">outputProperty</code> and <code class="literal">checkReturn</code>are ignored.</td><td>true</td><td>No</td></tr><tr><td><code class="literal">checkreturn</code></td><td><code class="literal">Boolean</code></td><td>Whether to check the return code of the execution, throws a BuildException when returncode != 0.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">outputProperty</code></td><td><code class="literal">String</code></td><td>Property name to set output value to from the execution. Ignored if <code class="literal">passthru</code> attribute is true.</td><td>n/a</td><td>No</td></tr></tbody></table>
+    </div></div><br class="table-break">
+    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53000720"></a>C.36.1 Example</h3></div></div></div>
+        
+        <pre class="programlisting">&lt;liquibase-dbdoc
+  jar="/usr/local/lib/liquibase/liquibase.jar"
+  classpathref="/usr/local/lib/liquibase/lib/mysql-connector-java-5.1.15-bin.jar"
+  changelogFile="./changelogTest.xml"
+  username="liquibase"
+  password="liquibase"
+  url="jdbc:mysql://localhost/mydatabase"
+  outputDir="/tmp/generateddocs"
+/&gt;</pre>
+    </div>
+    <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp53002576"></a>C.36.2 Supported Nested Tags</h3></div></div></div>
+        
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p><code class="literal">parameter</code>
+                </p>
+                <p>Same as for <a class="xref" href="LiquibaseTask.html" title="C.34 LiquibaseTask">Section C.34, “LiquibaseTask”</a>.</p>
+            </li><li class="listitem">
+                <p><code class="literal">property</code>
+                </p>
+                <p>Same as for <a class="xref" href="LiquibaseTask.html" title="C.34 LiquibaseTask">Section C.34, “LiquibaseTask”</a>.</p>
+            </li></ul></div>
+    </div>
+
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="LiquibaseChangeLogTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="LiquibaseDiffTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.35 LiquibaseChangeLogTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.37 LiquibaseDiffTask</td></tr></table></div></body></html>

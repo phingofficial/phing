@@ -1,8 +1,5 @@
 <?php
-
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,15 +25,19 @@ include_once 'phing/system/io/ConsoleReader.php';
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Stefan Bodewig <stefan.bodewig@epost.de> (Ant)
- * @version $Id$
+ *
  * @package phing.input
  */
 class DefaultInputHandler implements InputHandler
 {
-
     /**
-     * Prompts and requests input.  May loop until a valid input has
-     * been entered.
+     * Prompts and requests input.
+     * May loop until a valid input has been entered.
+     *
+     * @param InputRequest $request
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function handleInput(InputRequest $request)
@@ -63,8 +64,10 @@ class DefaultInputHandler implements InputHandler
      * <p>This implementation adds (choice1,choice2,choice3,...) to the
      * prompt for <code>MultipleChoiceInputRequest</code>s.</p>
      *
-     * @param $request the request to construct the prompt for.
-     *                Must not be <code>null</code>.
+     * @param InputRequest $request the request to construct the prompt for.
+     *                              Must not be <code>null</code>.
+     *
+     * @return string
      */
     protected function getPrompt(InputRequest $request)
     {

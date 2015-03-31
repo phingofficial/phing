@@ -96,6 +96,7 @@ class JsHintTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -103,21 +104,33 @@ class JsHintTask extends Task
         $this->filesets[] = $fs;
     }
 
+    /**
+     * @param $haltOnError
+     */
     public function setHaltOnError($haltOnError)
     {
         $this->haltOnError = $haltOnError;
     }
 
+    /**
+     * @param $haltOnWarning
+     */
     public function setHaltOnWarning($haltOnWarning)
     {
         $this->haltOnWarning = $haltOnWarning;
     }
 
+    /**
+     * @param $checkstyleReportPath
+     */
     public function setCheckstyleReportPath($checkstyleReportPath)
     {
         $this->checkstyleReportPath = $checkstyleReportPath;
     }
 
+    /**
+     * @param $reporter
+     */
     public function setReporter($reporter)
     {
         $this->reporter = $reporter;
@@ -181,7 +194,8 @@ class JsHintTask extends Task
             $fileName = (string) $fileAttributes['name'];
             $fileError = $file->{$this->xmlAttributes['fileError']};
             foreach ($fileError as $error) {
-                $attrs = current((array) $error->attributes());
+                $errAttr = (array) $error->attributes();
+                $attrs = current($errAttr);
 
                 if ($attrs['severity'] === $this->xmlAttributes['severity']['error']) {
                     $errorsCount++;

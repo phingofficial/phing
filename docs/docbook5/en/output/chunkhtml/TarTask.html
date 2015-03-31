@@ -1,0 +1,45 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.82 TarTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SymlinkTask.html" title="C.81 SymlinkTask"><link rel="next" href="ThrowTask.html" title="C.83 ThrowTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.82 TarTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SymlinkTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="ThrowTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="TarTask"></a>C.82 TarTask</h2></div></div></div>
+        
+        <p> The <code class="literal">TarTask</code> creates a tarball from a fileset or directory.</p>
+
+        <div class="table"><a name="idp55824944"></a><p class="formal-object-title"><span class="label">Table C.112: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">destfile</code></td><td><code class="literal">String</code></td><td>Tarball filename</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">basedir</code></td><td><code class="literal">String</code></td><td>Base directory to tar (if no fileset specified, entire directory
+                            contents will be included in tar)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">compression</code></td><td><code class="literal">String</code></td><td>Type of compression to use (gzip, bzip2, none)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">includeemptydirs</code></td><td><code class="literal">Boolean</code></td><td>If set to <code class="literal">true</code>, also empty directories are copied. </td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">longfile</code></td><td><code class="literal">String</code></td><td>How to handle long files, those with a path &gt; 100 chars. Allowable
+                            values are: <code class="literal">truncate</code> - paths are truncated to the
+                            maximum length, <code class="literal">fail</code> - paths greater than the maximim
+                            cause a build exception <code class="literal">warn</code> - paths greater than the
+                            maximum cause a warning and GNU is used, <code class="literal">gnu</code> - GNU
+                            extensions are used for any paths greater than the maximum,
+                                <code class="literal">omit</code> - paths greater than the maximum are omitted
+                            from the archive </td><td>warn</td><td>No</td></tr><tr><td><code class="literal">prefix</code></td><td><code class="literal">String</code></td><td>File path prefix to use when adding files to archive</td><td>none</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
+            <p>files are not replaced if they are already present in the archive.</p>
+        </div>
+        <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
+            <p>using basedir and fileset simultaneously can result in strange contents in the
+                archive.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55860384"></a>C.82.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;tar destfile="phing.tar"&gt;
+ &lt;fileset dir="."&gt;
+     &lt;include name="**/**" /&gt;
+ &lt;/fileset&gt;
+&lt;/tar&gt;</pre>
+
+            <p>The above example uses a fileset to determine which files to include in the
+                archive.</p>
+            <pre class="programlisting">&lt;tar destfile="phing.tar.gz" basedir="." compression="gzip"/&gt;</pre>
+            <p>The second example uses the basedir attribute to include the contents of that
+                directory (including subdirectories) in the archive,
+                compressing the archive using gzip.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp55861328"></a>C.82.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SymlinkTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ThrowTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.81 SymlinkTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.83 ThrowTask</td></tr></table></div></body></html>

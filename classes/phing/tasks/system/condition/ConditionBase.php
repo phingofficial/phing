@@ -42,6 +42,9 @@ abstract class ConditionBase extends ProjectComponent
 
     public $conditions = array(); // needs to be public for "inner" class access
 
+    /**
+     * @return int
+     */
     public function countConditions()
     {
         return count($this->conditions);
@@ -55,12 +58,16 @@ abstract class ConditionBase extends ProjectComponent
         return new ConditionEnumeration($this);
     }
 
+    /**
+     * @return Condition[]
+     */
     public function getConditions()
     {
         return $this->conditions;
     }
 
     /**
+     * @param AvailableTask $a
      * @return void
      */
     public function addAvailable(AvailableTask $a)
@@ -97,6 +104,17 @@ abstract class ConditionBase extends ProjectComponent
     {
         include_once 'phing/tasks/system/condition/OrCondition.php';
         $num = array_push($this->conditions, new OrCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    /**
+     * @return XorCondition
+     */
+    public function createXor()
+    {
+        include_once 'phing/tasks/system/condition/XorCondition.php';
+        $num = array_push($this->conditions, new XorCondition());
 
         return $this->conditions[$num - 1];
     }
@@ -186,6 +204,46 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createHttp()
+    {
+        include_once 'phing/tasks/system/condition/HttpCondition.php';
+        $num = array_push($this->conditions, new HttpCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    public function createPhingVersion()
+    {
+        include_once 'phing/tasks/system/condition/PhingVersion.php';
+        $num = array_push($this->conditions, new PhingVersion());
+
+        return $this->conditions[$num - 1];
+    }
+
+    public function createHasFreeSpace()
+    {
+        include_once 'phing/tasks/system/condition/HasFreeSpaceCondition.php';
+        $num = array_push($this->conditions, new HasFreeSpaceCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    public function createFilesMatch()
+    {
+        include_once 'phing/tasks/system/condition/FilesMatch.php';
+        $num = array_push($this->conditions, new FilesMatch());
+
+        return $this->conditions[$num - 1];
+    }
+
+    public function createSocket()
+    {
+        include_once 'phing/tasks/system/condition/SocketCondition.php';
+        $num = array_push($this->conditions, new SocketCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project
@@ -217,11 +275,17 @@ class ConditionEnumeration implements Iterator
     /** "Outer" ConditionBase class. */
     private $outer;
 
+    /**
+     * @param ConditionBase $outer
+     */
     public function __construct(ConditionBase $outer)
     {
         $this->outer = $outer;
     }
 
+    /**
+     * @return bool
+     */
     public function valid()
     {
         return $this->outer->countConditions() > $this->num;
@@ -242,6 +306,9 @@ class ConditionEnumeration implements Iterator
         $this->num++;
     }
 
+    /**
+     * @return int
+     */
     public function key()
     {
         return $this->num;

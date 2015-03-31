@@ -1,0 +1,42 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Appendix H. Project Components</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="Selector.html" title="G.15 Selector"><link rel="next" href="Target.html" title="H.2 Targets"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix H. Project Components</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="Selector.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="Target.html">Next</a></td></tr></table><hr></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a name="app.projcomponents"></a>Appendix H. Project Components</h1></div></div></div>
+    
+
+    <p>This file will give you a quick introduction and a reference of the things that you may
+        see in a build files besides <a class="link" href="app.coretasks.html" title="Appendix B. Core tasks">tasks</a> and
+            <a class="link" href="app.coretypes.html" title="Appendix D. Core Types">types</a>.</p>
+
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="Project"></a>H.1 Phing Projects</h2></div></div></div>
+        
+
+        <p>Projects are the outermost container for everything in build files. The
+                <code class="literal">&lt;project&gt;</code> tag also is the root tag in build files. It
+            contains the name, the directory, a short description and a default target.</p>
+        <p>Project may contain task calls and targets (see below).</p>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp57351824"></a>H.1.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;?xml version="1.0" ?&gt;
+
+&lt;project name="TestProject" basedir="." default="main"
+         description="This is a test project to show how to use projects ;-)"&gt;
+
+  &lt;!-- Everything else goes here --&gt;
+
+&lt;/project&gt;</pre>
+
+        </div>
+        <div class="sect2"><div class="titlepage"></div>
+        Phing allows declaring tasks outside targets. Note that these tasks
+        are evaluated before any targets are executed.</div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp57354384"></a>H.1.3 Attributes</h3></div></div></div>
+            
+            <div class="table"><a name="idp57355024"></a><p class="formal-object-title"><span class="label">Table H.1: </span><span class="title">Attributes</span></p><div class="table-contents">
+                
+                <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">basedir</code></td><td><code class="literal">String</code></td><td>The base directory of the project, i.e. the directory all paths
+                                are relative to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">default</code></td><td><code class="literal">String</code></td><td>The name of the target that is executed if none is explicitely
+                                specified when calling Phing</td><td>all</td><td>Yes</td></tr><tr><td><code class="literal">description</code></td><td><code class="literal">String</code></td><td>A free text description of the project</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of the project</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">phingVersion</code></td><td><code class="literal">String</code></td><td>The minimum Phing version required to execute the build file, in
+                                order to prevent compatibility issues.</td><td>n/a</td><td>No</td></tr></tbody></table>
+            </div></div><br class="table-break">
+        </div>
+    </div>
+    
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="Selector.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="Target.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">G.15 Selector  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> H.2 Targets</td></tr></table></div></body></html>

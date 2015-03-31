@@ -1,0 +1,178 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.63 rSTTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="RegexTask.html" title="C.62 RegexTask"><link rel="next" href="S3PutTask.html" title="C.64 S3PutTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.63 rSTTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="RegexTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="S3PutTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="rSTTask"></a>C.63 rSTTask</h2></div></div></div>
+        
+        <p> Renders rST (reStructuredText) files into different output formats.</p>
+        <p> This task requires the <code class="literal">python docutils</code> installed. They contain
+                <code class="literal">rst2html</code>, <code class="literal">rst2latex</code>,
+                <code class="literal">rst2man</code>, <code class="literal">rst2odt</code>, <code class="literal">rst2s5</code>,
+                <code class="literal">rst2xml</code>.</p>
+        <p> Homepage: <a class="ulink" href="https://gitorious.org/phing/rsttask" target="_top">https://gitorious.org/phing/rsttask</a>
+        </p>
+        <div class="table"><a name="idp54831200"></a><p class="formal-object-title"><span class="label">Table C.89: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>rST input file to render</td><td>n/a</td><td>Yes (or fileset)</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>
+                            <p>Output format:</p>
+                            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                                    <p>html</p>
+                                </li><li class="listitem">
+                                    <p>latex</p>
+                                </li><li class="listitem">
+                                    <p>man</p>
+                                </li><li class="listitem">
+                                    <p>odt</p>
+                                </li><li class="listitem">
+                                    <p>s5</p>
+                                </li><li class="listitem">
+                                    <p>xml</p>
+                                </li></ul></div>
+                        </td><td>html</td><td>No</td></tr><tr><td><code class="literal">destination</code></td><td><code class="literal">String</code></td><td>Path to store the rendered file to. Used as directory if it ends with
+                            a <code class="literal">/</code>.</td><td>magically determined from input file</td><td>No</td></tr><tr><td><code class="literal">uptodate</code></td><td><code class="literal">Boolean</code></td><td>Only render if the input file is newer than the target file</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">toolpath</code></td><td><code class="literal">String</code></td><td>Path to the rst2* tool</td><td>determined from <code class="literal">format</code></td><td>No</td></tr><tr><td><code class="literal">toolparam</code></td><td><code class="literal">String</code></td><td>Additional commandline parameters to the rst2* tool</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">mode</code></td><td><code class="literal">Integer</code></td><td>The mode to create directories with.</td><td>From umask</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54873040"></a>C.63.1 Features</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p>renders single files</p>
+                </li><li class="listitem">
+                    <p>render nested filesets</p>
+                </li><li class="listitem">
+                    <p>mappers to generate output file names based on the rst ones</p>
+                </li><li class="listitem">
+                    <p>multiple output formats</p>
+                </li><li class="listitem">
+                    <p>filter chains to e.g. replace variables after rendering</p>
+                </li><li class="listitem">
+                    <p>custom parameters to the rst2* tool</p>
+                </li><li class="listitem">
+                    <p>configurable rst tool path</p>
+                </li><li class="listitem">
+                    <p>uptodate check</p>
+                </li><li class="listitem">
+                    <p>automatically overwrites old files</p>
+                </li><li class="listitem">
+                    <p>automatically creates target directories</p>
+                </li></ul></div>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54883360"></a>C.63.2 Examples</h3></div></div></div>
+            
+            <p>Render a single rST file to HTML </p>
+            <p>By default, HTML is generated. If no target file is specified, the input file name
+                is taken, and its extension replaced with the correct one for the output
+                format.</p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="single"&gt;
+  &lt;target name="single" description="render a single rST file to HTML"&gt;
+
+    &lt;rST file="path/to/file.rst" /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+            <p> Render a single rST file to any supported format </p>
+            <p> The <code class="literal">format</code> attribute determines the output format: </p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="single"&gt;
+  &lt;target name="single" description="render a single rST file to S5 HTML"&gt;
+
+    &lt;rST file="path/to/file.rst" format="s5" /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+            <p> Specifying the output file name </p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="single"&gt;
+  &lt;target name="single" description="render a single rST file"&gt;
+
+    &lt;rST file="path/to/file.rst" destination="path/to/output/file.html" /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+            <p> Rendering multiple files </p>
+            <p> A nested <code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code> tag may be used to specify multiple
+                files.</p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="multiple"&gt;
+  &lt;target name="multiple" description="renders several rST files"&gt;
+
+    &lt;rST&gt;
+     &lt;fileset dir="."&gt;
+       &lt;include name="README.rst" /&gt;
+       &lt;include name="docs/*.rst" /&gt;
+     &lt;/fileset&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+            <p> Rendering multiple files to another directory </p>
+            <p> A nested <code class="literal"><a class="link" href="app.coremappers.html" title="Appendix F. Core mappers">mapper</a></code> may be used to determine the output file
+                names.</p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="multiple"&gt;
+  &lt;target name="multiple" description="renders several rST files"&gt;
+
+    &lt;rST&gt;
+     &lt;fileset dir="."&gt;
+       &lt;include name="README.rst" /&gt;
+       &lt;include name="docs/*.rst" /&gt;
+     &lt;/fileset&gt;
+     &lt;mapper type="glob" from="*.rst" to="path/to/my/*.xhtml"/&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+            <p> Modifying files after rendering </p>
+            <p>You may have variables in your rST code that can be replaced after rendering, i.e.
+                the version of your software.</p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="filterchain"&gt;
+  &lt;target name="filterchain" description="renders several rST files"&gt;
+
+    &lt;rST&gt;
+     &lt;fileset dir="."&gt;
+       &lt;include name="README.rst" /&gt;
+       &lt;include name="docs/*.rst" /&gt;
+     &lt;/fileset&gt;
+     &lt;filterchain&gt;
+       &lt;replacetokens begintoken="##" endtoken="##"&gt;
+         &lt;token key="VERSION" value="1.23.0" /&gt;
+       &lt;/replacetokens&gt;
+     &lt;/filterchain&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+            <p> Rendering changed files only </p>
+            <p> The <code class="literal">uptodate</code> attribute determines if only those files should
+                be rendered that are newer than their output file.</p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="multiple"&gt;
+  &lt;target name="multiple" description="renders several rST files"&gt;
+
+    &lt;rST uptodate="true"&gt;
+     &lt;fileset dir="."&gt;
+       &lt;include name="docs/*.rst" /&gt;
+     &lt;/fileset&gt;
+    &lt;/rST&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+            <p> Specify a custom CSS file </p>
+            <p> You may pass any additional parameters to the rst conversion tools with the
+                    <code class="literal">toolparam</code> attribute.</p>
+            <pre class="programlisting">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;project name="example" basedir="." default="single"&gt;
+  &lt;target name="single" description="render a single rST file to S5 HTML"&gt;
+
+    &lt;rST file="path/to/file.rst" toolparam="--stylesheet-path=custom.css" /&gt;
+
+  &lt;/target&gt;
+&lt;/project&gt;</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp54884192"></a>C.63.3 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal"><a class="link" href="FileSet.html" title="D.3 FileSet">fileset</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="app.coremappers.html" title="Appendix F. Core mappers">mapper</a></code></p>
+                </li><li class="listitem">
+                    <p><code class="literal"><a class="link" href="app.corefilters.html" title="Appendix E. Core filters">filterchain</a></code></p>
+                </li></ul></div>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="RegexTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="S3PutTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.62 RegexTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.64 S3PutTask</td></tr></table></div></body></html>

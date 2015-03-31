@@ -37,7 +37,6 @@ include_once 'phing/system/io/FileReader.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
 
@@ -90,10 +89,10 @@ class ExpatParser extends AbstractSAXParser
     /**
      * Override PHP's parser default settings, created in the constructor.
      *
-     * @param  string  the option to set
-     * @throws mixed   the value to set
+     * @param $opt
+     * @param $val
+     * @internal param the $string option to set
      * @return boolean true if the option could be set, otherwise false
-     * @access public
      */
     public function parserSetOption($opt, $val)
     {
@@ -105,7 +104,6 @@ class ExpatParser extends AbstractSAXParser
      * the location of the element within the XML file (line, char)
      *
      * @return object the location of the current parser
-     * @access public
      */
     public function getLocation()
     {
@@ -128,7 +126,6 @@ class ExpatParser extends AbstractSAXParser
      * @return int                 1 if the parsing succeeded
      * @throws ExpatParseException if something gone wrong during parsing
      * @throws IOException         if XML file can not be accessed
-     * @access public
      */
     public function parse()
     {

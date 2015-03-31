@@ -1,7 +1,5 @@
 <?php
 /**
- * $Id$
- *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -24,19 +22,19 @@ require_once 'phing/tasks/ext/phpcpd/formatter/PHPCPDResultFormatter.php';
 /**
  * Prints PMD-XML output of phpcpd run
  *
- * @package phing.tasks.ext.phpcpd.formatter
  * @author  Benjamin Schultz <bschultz@proqrent.de>
- * @version $Id$
+ *
+ * @package phing.tasks.ext.phpcpd.formatter
  */
 class PMDPHPCPDResultFormatter extends PHPCPDResultFormatter
 {
     /**
      * Processes a list of clones.
      *
-     * @param object         $clones
-     * @param Project        $project
-     * @param boolean        $useFile
-     * @param PhingFile|null $outFile
+     * @param PHPCPD_CloneMap|CodeCloneMap $clones
+     * @param Project                      $project
+     * @param boolean                      $useFile
+     * @param PhingFile|null               $outFile
      *
      * @throws BuildException
      */

@@ -55,6 +55,11 @@ class UntarTask extends ExtractBaseTask
         }
     }
 
+    /**
+     * @param PhingFile $tarfile
+     * @return mixed|void
+     * @throws BuildException
+     */
     protected function extractArchive(PhingFile $tarfile)
     {
         $this->log(
@@ -73,6 +78,10 @@ class UntarTask extends ExtractBaseTask
         }
     }
 
+    /**
+     * @param PhingFile $tarfile
+     * @return array|int
+     */
     protected function listArchiveContent(PhingFile $tarfile)
     {
         $tar = $this->initTar($tarfile);

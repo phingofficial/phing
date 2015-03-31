@@ -85,8 +85,12 @@ class Path extends DataType
 
     /**
      * Adds a element definition to the path.
-     * @param $location the location of the element to add (must not be
-     * <code>null</code> nor empty.
+     *
+     * @param PhingFile $location the location of the element to add (must not be
+     *                            <code>null</code> nor empty.
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function setDir(PhingFile $location)
@@ -99,7 +103,9 @@ class Path extends DataType
 
     /**
      * Parses a path definition and creates single PathElements.
-     * @param path the path definition.
+     *
+     * @param $path the path definition.
+     *
      * @throws BuildException
      */
     public function setPath($path)
@@ -115,6 +121,11 @@ class Path extends DataType
      *
      * <p>You must not set another attribute or nest elements inside
      * this element if you make it a reference.</p>
+     *
+     * @param Reference $r
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function setRefid(Reference $r)
@@ -128,6 +139,9 @@ class Path extends DataType
 
     /**
      * Creates the nested <code>&lt;pathelement&gt;</code> element.
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function createPathElement()
@@ -143,6 +157,11 @@ class Path extends DataType
 
     /**
      * Adds a nested <code>&lt;fileset&gt;</code> element.
+     *
+     * @param FileSet $fs
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function addFileset(FileSet $fs)
@@ -156,6 +175,11 @@ class Path extends DataType
 
     /**
      * Adds a nested <code>&lt;dirset&gt;</code> element.
+     *
+     * @param DirSet $dset
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function addDirset(DirSet $dset)
@@ -169,6 +193,9 @@ class Path extends DataType
 
     /**
      * Creates a nested <code>&lt;path&gt;</code> element.
+     *
+     * @return Path
+     *
      * @throws BuildException
      */
     public function createPath()
@@ -185,6 +212,12 @@ class Path extends DataType
 
     /**
      * Append the contents of the other Path instance to this.
+     *
+     * @param Path $other
+     *
+     * @return void
+     *
+     * @throws BuildException
      */
     public function append(Path $other)
     {
@@ -204,6 +237,8 @@ class Path extends DataType
      * Path. Components that don't exist, aren't added.
      *
      * @param Path $source - Source path whose components are examined for existence.
+     *
+     * @return void
      */
     public function addExisting(Path $source)
     {
@@ -229,6 +264,9 @@ class Path extends DataType
 
     /**
      * Returns all path elements defined by this and nested path objects.
+     *
+     * @throws BuildException
+     *
      * @return array List of path elements.
      */
     public function listPaths()
@@ -244,10 +282,11 @@ class Path extends DataType
         for ($i = 0, $elSize = count($this->elements); $i < $elSize; $i++) {
             $o = $this->elements[$i];
             if ($o instanceof Reference) {
+                $refId = $o->getRefId();
                 $o = $o->getReferencedObject($this->project);
                 // we only support references to paths right now
                 if (!($o instanceof Path)) {
-                    $msg = $r->getRefId() . " doesn't denote a path";
+                    $msg = $refId . " doesn't denote a path";
                     throw new BuildException($msg);
                 }
             }
@@ -299,6 +338,7 @@ class Path extends DataType
     /**
      * Returns a textual representation of the path, which can be used as
      * CLASSPATH or PATH environment variable definition.
+     *
      * @return string A textual representation of the path.
      */
     public function __toString()
@@ -316,8 +356,11 @@ class Path extends DataType
 
     /**
      * Splits a PATH (with : or ; as separators) into its parts.
+     *
      * @param Project $project
-     * @param string  $source
+     * @param string $source
+     *
+     * @return array
      */
     public static function translatePath(Project $project, $source)
     {
@@ -336,7 +379,7 @@ class Path extends DataType
                 }
                 $result[] = $element;
             } catch (BuildException $e) {
-                $this->project->log(
+                $project->log(
                     "Dropping path element " . $pathElement
                     . " as it is not valid relative to the project",
                     Project::MSG_VERBOSE
@@ -350,6 +393,10 @@ class Path extends DataType
     /**
      * Returns its argument with all file separator characters
      * replaced so that they match the local OS conventions.
+     *
+     * @param string $source
+     *
+     * @return string
      */
     public static function translateFile($source)
     {
@@ -369,6 +416,11 @@ class Path extends DataType
      * Translates all occurrences of / or \ to correct separator of the
      * current platform and returns whether it had to do any
      * replacements.
+     *
+     * @param string $buffer
+     * @param int $pos
+     *
+     * @return bool
      */
     protected static function translateFileSep(&$buffer, $pos)
     {
@@ -385,6 +437,7 @@ class Path extends DataType
      * How many parts does this Path instance consist of.
      * DEV NOTE: expensive call! list is generated, counted, and then
      * discareded.
+     *
      * @return int
      */
     public function size()
@@ -394,6 +447,8 @@ class Path extends DataType
 
     /**
      * Return a Path that holds the same elements as this instance.
+     *
+     * @return Path
      */
     public function __clone()
     {
@@ -406,6 +461,12 @@ class Path extends DataType
     /**
      * Overrides the version of DataType to recurse on all DataType
      * child elements that may have been added.
+     *
+     * @param $stk
+     * @param Project $p
+     *
+     * @return void
+     *
      * @throws BuildException
      */
     public function dieOnCircularReference(&$stk, Project $p)
@@ -440,6 +501,11 @@ class Path extends DataType
      * Resolve a filename with Project's help - if we know one that is.
      *
      * <p>Assume the filename is absolute if project is null.</p>
+     *
+     * @param Project $project
+     * @param $relativeName
+     *
+     * @return string
      */
     private static function resolveFile(Project $project, $relativeName)
     {
@@ -451,7 +517,6 @@ class Path extends DataType
 
         return $relativeName;
     }
-
 }
 
 /**
@@ -461,25 +526,43 @@ class Path extends DataType
  */
 class PathElement
 {
-
+    /** @var array $parts */
     private $parts = array();
+
+    /** @var Path $outer */
     private $outer;
 
+    /**
+     * @param Path $outer
+     */
     public function __construct(Path $outer)
     {
         $this->outer = $outer;
     }
 
+    /**
+     * @param PhingFile $loc
+     *
+     * @return void
+     */
     public function setDir(PhingFile $loc)
     {
         $this->parts = array(Path::translateFile($loc->getAbsolutePath()));
     }
 
+    /**
+     * @param $path
+     *
+     * @return void
+     */
     public function setPath($path)
     {
         $this->parts = Path::translatePath($this->outer->getProject(), $path);
     }
 
+    /**
+     * @return array
+     */
     public function getParts()
     {
         return $this->parts;

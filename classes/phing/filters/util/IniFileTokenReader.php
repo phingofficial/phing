@@ -54,7 +54,7 @@ class IniFileTokenReader extends TokenReader
     /**
      * Reads the next token from the INI file
      *
-     * @throws IOException On error
+     * @throws BuildException
      * @return Token
      */
     public function readToken()
@@ -119,6 +119,7 @@ class IniFileTokenReader extends TokenReader
 
     /**
      * @param string|PhingFile $file
+     * @throws BuildException
      */
     public function setFile($file)
     {
@@ -137,6 +138,9 @@ class IniFileTokenReader extends TokenReader
         throw new BuildException("Unsupported value " . (string) $file);
     }
 
+    /**
+     * @param $str
+     */
     public function setSection($str)
     {
         $this->section = (string) $str;

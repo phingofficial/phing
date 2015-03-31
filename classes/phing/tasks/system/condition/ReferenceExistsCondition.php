@@ -34,6 +34,9 @@ class ReferenceExistsCondition extends ProjectComponent implements Condition
 
     private $refid;
 
+    /**
+     * @param $id
+     */
     public function setRef($id)
     {
         $this->refid = (string) $id;

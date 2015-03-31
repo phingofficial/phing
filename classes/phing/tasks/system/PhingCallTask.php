@@ -42,7 +42,6 @@ require_once 'phing/Task.php';
  * @author    Andreas Aderhold <andi@binarycloud.com>
  * @copyright 2001,2002 THYRELL. All rights reserved
  * @version   $Id$
- * @access    public
  * @package   phing.tasks.system
  */
 class PhingCallTask extends Task
@@ -124,6 +123,7 @@ class PhingCallTask extends Task
 
     /**
      * Target to execute, required.
+     * @param $target
      */
     public function setTarget($target)
     {

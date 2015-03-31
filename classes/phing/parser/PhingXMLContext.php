@@ -24,7 +24,6 @@
  *
  * @author    Bryan Davis <bpd@keynetics.com>
  * @version   $Id$
- * @access    public
  * @package   phing.parser
  */
 class PhingXMLContext
@@ -53,9 +52,9 @@ class PhingXMLContext
 
     /**
      * Constructor
-     * @param $project the project to which this antxml context belongs to
+     * @param Project $project the project to which this antxml context belongs to
      */
-    public function __construct($project)
+    public function __construct(Project $project)
     {
         $this->project = $project;
         $this->implicitTarget = new Target();
@@ -68,6 +67,9 @@ class PhingXMLContext
 
     private $configurators = array();
 
+    /**
+     * @param $cfg
+     */
     public function startConfigure($cfg)
     {
         $this->configurators[] = $cfg;
@@ -78,6 +80,9 @@ class PhingXMLContext
         array_pop($this->configurators);
     }
 
+    /**
+     * @return null
+     */
     public function getConfigurator()
     {
         $l = count($this->configurators);
@@ -91,11 +96,17 @@ class PhingXMLContext
     /** Impoerted files */
     private $importStack = array();
 
+    /**
+     * @param $file
+     */
     public function addImport($file)
     {
         $this->importStack[] = $file;
     }
 
+    /**
+     * @return array
+     */
     public function getImportStack()
     {
         return $this->importStack;
@@ -110,11 +121,17 @@ class PhingXMLContext
         return $this->project;
     }
 
+    /**
+     * @return Target
+     */
     public function getImplicitTarget()
     {
         return $this->implicitTarget;
     }
 
+    /**
+     * @param Target $target
+     */
     public function setImplicitTarget(Target $target)
     {
         $this->implicitTarget = $target;

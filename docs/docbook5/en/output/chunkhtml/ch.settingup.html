@@ -1,0 +1,68 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 3 Setting-up Phing</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="ch02s04.html" title="2.4 Cool, so how can I help?"><link rel="next" href="ch03s02.html" title="3.2 Obtaining Phing"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 3 Setting-up Phing</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ch03s02.html">Next</a></td></tr></table><hr></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a name="ch.settingup"></a>Chapter 3 Setting-up Phing</h1></div></div></div>
+    
+
+
+    <p>The goal of this chapter is to help you obtain and correctly setup and execute Phing on
+        your operating system. Once you setup Phing properly you shouldn't need to revisit this
+        chapter, unless you're re-installing or moving your installation to another platform.</p>
+
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idp40746400"></a>3.1  System Requirements </h2></div></div></div>
+        
+
+        <p>To use Phing you must have installed PHP version 5.2 or above compiled
+                <code class="literal">--with-libxml2</code>, as well as <code class="literal">--with-xsl</code> if you
+            want to make use of advanced functionality.</p>
+
+        <p>For more information on PHP and the required modules see the PHP <a class="ulink" href="Bibliography.html#php" target="_top">[php]</a> website. For a brief list of
+            software dependencies see below.</p>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp40749904"></a>3.1.1  Operating Systems </h3></div></div></div>
+            
+
+            <p>Designed for portability from the get go, Phing runs on all platforms that run PHP. However
+                some advanced functionality may not work properly or is simply ignored on some
+                platforms (i.e. <code class="literal">chmod</code> on the Windows platform).</p>
+
+            <p>To get the most out of Phing, a Unix style platform is recommended. Namely: Linux,
+                FreeBSD, OpenBSD, etc.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp40752720"></a>3.1.2  Software Dependencies </h3></div></div></div>
+            
+
+            <p>For a detailed list of required and/or optional software and libraries, refer to the
+                following table of Software Dependencies.</p>
+
+            <p>NB: This list is not exhaustive, please refer to individual Phing tasks to find
+                out additional software requirements.</p>
+
+            <div class="table"><a name="idp40754960"></a><p class="formal-object-title"><span class="label">Table 3.1: </span><span class="title">Software Dependencies</span></p><div class="table-contents">
+                
+                <table summary="Software Dependencies" border="1"><colgroup><col class="c1"><col class="c2"><col class="c3"></colgroup><thead><tr><th>Software</th><th>Required for</th><th>Source</th></tr></thead><tbody><tr><td>PHP 5.2+</td><td>Execution</td><td><a class="ulink" href="http://www.php.net" target="_top">http://www.php.net</a>
+                            </td></tr><tr><td>PHPUnit 3.6.0+</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://www.phpunit.de" target="_top">http://www.phpunit.de</a>
+                            </td></tr><tr><td>Xdebug 2.0.5+</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://www.xdebug.org" target="_top">http://www.xdebug.org</a>
+                            </td></tr><tr><td>SimpleTest 1.0.1 beta+</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://simpletest.sourceforge.net" target="_top">http://simpletest.sourceforge.net</a>
+                            </td></tr><tr><td>phpDocumentor 2.0.0b7+ (PEAR package)</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.phpdoc.org" target="_top">http://pear.phpdoc.org</a>
+                            </td></tr><tr><td>VersionControl_SVN (PEAR package)</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.php.net/package/VersionControl_SVN" target="_top">http://pear.php.net/package/VersionControl_SVN</a>
+                            </td></tr><tr><td>VersionControl_Git (PEAR package)</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.php.net/package/VersionControl_Git" target="_top">http://pear.php.net/package/VersionControl_Git</a>
+                            </td></tr><tr><td>PHP_CodeSniffer (PEAR package)</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.php.net/package/PHP_CodeSniffer" target="_top">http://pear.php.net/package/PHP_CodeSniffer</a>
+                            </td></tr><tr><td>Archive_Tar (PEAR package)</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.php.net/package/Archive_Tar" target="_top">http://pear.php.net/package/Archive_Tar</a>
+                            </td></tr><tr><td>Services_Amazon_S3 (PEAR package)</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.php.net/package/Services_Amazon_S3" target="_top">http://pear.php.net/package/Services_Amazon_S3</a>
+                            </td></tr><tr><td>HTTP_Request2 (PEAR package)</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.php.net/package/HTTP_Request2" target="_top">http://pear.php.net/package/HTTP_Request2</a>
+                            </td></tr><tr><td>PHP Depend</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://www.pdepend.org" target="_top">http://www.pdepend.org</a>
+                            </td></tr><tr><td>PHP Mess Detector</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://www.phpmd.org" target="_top">http://www.phpmd.org</a>
+                            </td></tr><tr><td>PHP Copy/Paste Detector</td><td>Optional; enables additional task(s)</td><td><a class="ulink" href="http://pear.phpunit.de" target="_top">http://pear.phpunit.de</a>
+                            </td></tr></tbody></table>
+            </div></div><br class="table-break">
+
+            <div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Warning</h3>
+                <p>Phing does not work with safe mode enabled in PHP!</p>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    
+    
+
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s04.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ch03s02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.4 Cool, so how can I help? </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> 3.2  Obtaining Phing </td></tr></table></div></body></html>

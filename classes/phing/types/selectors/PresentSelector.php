@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,17 +25,20 @@
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ *
  * @package phing.types.selectors
  */
 class PresentSelector extends BaseSelector
 {
-
     private $targetdir = null;
     private $mapperElement = null;
     private $map = null;
     private $destmustexist = true;
     private static $filePresence = array("srconly", "both");
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{presentselector targetdir: ";
@@ -67,7 +67,9 @@ class PresentSelector extends BaseSelector
      * The name of the file or directory which is checked for matching
      * files.
      *
-     * @param targetdir the directory to scan looking for matching files.
+     * @param PhingFile $targetdir the directory to scan looking for matching files.
+     *
+     * @return void
      */
     public function setTargetdir(PhingFile $targetdir)
     {
@@ -76,6 +78,9 @@ class PresentSelector extends BaseSelector
 
     /**
      * Defines the FileNameMapper to use (nested mapper element).
+     *
+     * @return Mapper
+     *
      * @throws BuildException
      */
     public function createMapper()
@@ -99,6 +104,8 @@ class PresentSelector extends BaseSelector
      *
      * @param string $fp An attribute set to either <code>srconly</code> or
      *                   <code>both</code>.
+     *
+     * @return void
      */
     public function setPresent($fp)
     {
@@ -111,6 +118,8 @@ class PresentSelector extends BaseSelector
     /**
      * Checks to make sure all settings are kosher. In this case, it
      * means that the targetdir attribute has been set and we have a mapper.
+     *
+     * @return void
      */
     public function verifySettings()
     {
@@ -131,10 +140,13 @@ class PresentSelector extends BaseSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param basedir the base directory the scan is being done from
-     * @param filename is the name of the file to check
-     * @param file is a PhingFile object the selector can use
-     * @return whether the file should be selected or not
+     * @param PhingFile $basedir base directory the scan is being done from
+     * @param string $filename the name of the file to check
+     * @param PhingFile $file a PhingFile object the selector can use
+     *
+     * @throws BuildException
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
@@ -158,5 +170,4 @@ class PresentSelector extends BaseSelector
 
         return $destfile->exists() === $this->destmustexist;
     }
-
 }

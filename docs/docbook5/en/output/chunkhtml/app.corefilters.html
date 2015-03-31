@@ -1,0 +1,92 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Appendix E. Core filters</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="index.html" title="Phing User Guide"><link rel="prev" href="PearPackageFileSet.html" title="D.6 PearPackageFileSet"><link rel="next" href="ExpandProperties.html" title="E.2 ExpandProperties"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix E. Core filters</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PearPackageFileSet.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="ExpandProperties.html">Next</a></td></tr></table><hr></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a name="app.corefilters"></a>Appendix E. Core filters</h1></div></div></div>
+    
+
+
+    <p>Filters are a subset of Phing <code class="literal">data types</code> which provide for the
+        transformation of file contents during the operation of another task. For example, a filter
+        might replace tokens in a file as part of a copy task.</p>
+
+    <p>Filters have to be defined within a <code class="literal">&lt;filterchain&gt;</code> context to work.
+        Example:</p>
+
+    <pre class="programlisting">&lt;filterchain&gt;
+  &lt;expandproperties /&gt;
+&lt;/filterchain&gt;</pre>
+    <p>There are two ways to use a filter: System filters (the ones shipped with Phing) can be
+        used with their own tag name, such as <code class="literal">&lt;xsltfilter</code>&gt;,
+            &lt;<code class="literal">expandpropertyfilter</code>&gt; or <code class="literal">&lt;tabtospaces</code>&gt;.
+        User-defined filters can use the way is to use the <code class="literal">&lt;filterreader&gt;</code>
+        tag.</p>
+
+    <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PhingFilterReader"></a>E.1 PhingFilterReader</h2></div></div></div>
+        
+        <p>The PhingFilterReader is used when you want to use filters that are not directly
+            available through their own tag. Example:</p>
+        <pre class="programlisting">&lt;filterchain&gt;
+  &lt;filterreader classname="phing.filter.ReplaceTokens"&gt;
+    &lt;!-- other way to set attributes --&gt;
+    &lt;param name="begintoken" value="@@" /&gt;
+    &lt;param name="endtoken" value="@@" /&gt;
+
+    &lt;!-- other way to set nested tags --&gt;
+    &lt;param type="token" key="bar" value="foo" /&gt;
+  &lt;/filterreader&gt;
+&lt;/filterchain&gt;</pre>
+        <p>In the <code class="literal">filterreader</code> tag you have to specify the path the class is
+            in. The <code class="literal">FilterReader</code> will then load this class and pass the
+            parameters to the loaded filter. There are two types of parameters: First, you can pass
+            "normal" parameters to the loaded filter. That means, you can pass parameters as if they
+            were attributes. If you want to do this, you only specify the <code class="literal">name</code>
+            and <code class="literal">value</code> attributes in the <code class="literal">param</code> tag. You can
+            also pass nested elements to the filter. Then, you have to specify the
+                <code class="literal">type</code> attribute. This attribute specifies the name of the nested
+            tag.</p>
+        <p>The result of the example above is identical with the following code:</p>
+        <pre class="programlisting">&lt;filterchain&gt;
+  &lt;replacetokens begintoken="@@" endtoken="@@"&gt;
+    &lt;token key="bar" value="foo" /&gt;
+  &lt;/replacetokens&gt;
+&lt;/filterchain&gt;</pre>
+
+        <div class="table"><a name="idp56634832"></a><p class="formal-object-title"><span class="label">Table E.1: </span><span class="title">Attributes for <code class="literal">&lt;filterreader&gt;</code>
+            </span></p><div class="table-contents">
+            
+            <table summary="Attributes for &lt;filterreader&gt;
+            " border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">classname</code></td><td><code class="literal">String</code></td><td>Name of class to use (in dot-path notation).</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">classpath</code></td><td><code class="literal">String</code></td><td>The classpath to use when including classes. This is added to PHP's
+                            include_path.</td><td>n/a</td><td>No</td></tr><tr><td>classpatxlink:href</td><td><code class="literal">String</code></td><td>Reference to classpath to use when including classes. This is added
+                            to PHP's include_path.</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56655632"></a>E.1.1 Nested tags</h3></div></div></div>
+            
+            <p>The <code class="literal">PhingFilterReader</code> supports nested &lt;classpaentry&gt;.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp56657392"></a>E.1.2 Advanced</h3></div></div></div>
+            
+            <p>In order to support the <code class="literal">&lt;filterreader ... /&gt;</code> sytax, your
+                class must extend the BaseParamFilterReader class. Most of the filters that are
+                bundled with Phing can be invoked using this syntax. The noteable exception (at time
+                of writing) is the ReplaceRegexp filter, which expects find/replace parameters that
+                do not fit the name/value mold. For this reason, you must always use the shorthand
+                    <code class="literal">&lt;replaceregexp .../&gt;</code> to invoke this filter.</p>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+</div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PearPackageFileSet.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="ExpandProperties.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">D.6 PearPackageFileSet </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> E.2 ExpandProperties</td></tr></table></div></body></html>

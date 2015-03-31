@@ -1,0 +1,46 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.40 TryCatchTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="TouchTask.html" title="B.39 TouchTask"><link rel="next" href="TstampTask.html" title="B.41 TstampTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.40 TryCatchTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="TouchTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="TstampTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="TryCatchTask"></a>B.40 TryCatchTask</h2></div></div></div>
+        
+        <p>This task is a wrapper task that lets you run tasks(s) when another set of tasks fails,
+            mirroring PHP's <code class="literal">try/catch</code> functionality (with the addition of
+            <code class="literal">finally</code> block)</p>
+        <p>The tasks inside of the <code class="literal">try</code> block will always be run. If one of
+            them throws a BuildException, the following things can happen:</p>
+        <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                <p>If there is no <code class="literal">catch</code> block, the
+                    exception will be passed to Phing.</p>
+            </li><li class="listitem">
+                <p>If the <code class="literal">property</code> attribute has been set a property of that
+                    name will contain the message of the exception.</p>
+            </li><li class="listitem">
+                <p>If there is a <code class="literal">catch</code> block, the nested tasks will be
+                    run.</p>
+            </li></ul></div>
+        <p>If a <code class="literal">finally</code> block is present, the nested tasks will be run
+            regardless of whether the tasks in the <code class="literal">try</code> block have thrown an
+            exception or not.</p>
+        <p>This task was inspired by <a class="ulink" href="http://ant-contrib.sourceforge.net/tasks/tasks/trycatch.html" target="_top">http://ant-contrib.sourceforge.net/tasks/tasks/trycatch.html</a>.</p>
+        <div class="table"><a name="idp50788080"></a><p class="formal-object-title"><span class="label">Table B.41: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">property</code></td><td><code class="literal">String</code></td><td>Name of a property that will receive the message of the exception that has been caught
+                            (if any)</td><td>n/a</td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50802496"></a>B.40.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;trycatch property="foo"&gt;
+    &lt;try&gt;
+        &lt;fail&gt;Tada!&lt;/fail&gt;
+    &lt;/try&gt;
+
+    &lt;catch&gt;
+        &lt;echo&gt;In catch.&lt;/echo&gt;
+    &lt;/catch&gt;
+
+    &lt;finally&gt;
+        &lt;echo&gt;In finally.&lt;/echo&gt;
+    &lt;/finally&gt;
+&lt;/trycatch&gt;
+
+&lt;echo&gt;As property: ${foo}&lt;/echo&gt;</pre>
+        </div>
+
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="TouchTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="TstampTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.39 TouchTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.41 TstampTask </td></tr></table></div></body></html>

@@ -56,8 +56,9 @@ class RootHandler extends AbstractHandler
      * It recieves the expat parse object ref and a reference to the
      * configurator
      *
-     * @param AbstractSAXParser   $parser       The ExpatParser object.
+     * @param AbstractSAXParser $parser The ExpatParser object.
      * @param ProjectConfigurator $configurator The ProjectConfigurator object.
+     * @param PhingXMLContext $context
      */
     public function __construct(AbstractSAXParser $parser, ProjectConfigurator $configurator, PhingXMLContext $context)
     {

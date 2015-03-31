@@ -33,16 +33,25 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
 {
     private $inner = "";
 
+    /**
+     * @return string
+     */
     public function getExtension()
     {
         return ".txt";
     }
 
+    /**
+     * @return string
+     */
     public function getPreferredOutfile()
     {
         return "testresults";
     }
 
+    /**
+     * @param PHPUnit_Framework_TestSuite $suite
+     */
     public function startTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         parent::startTestSuite($suite);
@@ -50,6 +59,9 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         $this->inner = "";
     }
 
+    /**
+     * @param PHPUnit_Framework_TestSuite $suite
+     */
     public function endTestSuite(PHPUnit_Framework_TestSuite $suite)
     {
         if ($suite->getName() == 'AllTests') {
@@ -72,6 +84,11 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         parent::endTestSuite($suite);
     }
 
+    /**
+     * @param PHPUnit_Framework_Test $test
+     * @param Exception $e
+     * @param float $time
+     */
     public function addError(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addError($test, $e, $time);
@@ -79,12 +96,22 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         $this->formatError("ERROR", $test, $e);
     }
 
+    /**
+     * @param PHPUnit_Framework_Test $test
+     * @param PHPUnit_Framework_AssertionFailedError $e
+     * @param float $time
+     */
     public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time)
     {
         parent::addFailure($test, $e, $time);
         $this->formatError("FAILED", $test, $e);
     }
 
+    /**
+     * @param PHPUnit_Framework_Test $test
+     * @param Exception $e
+     * @param float $time
+     */
     public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addIncompleteTest($test, $e, $time);
@@ -92,12 +119,22 @@ class PlainPHPUnitResultFormatter extends PHPUnitResultFormatter
         $this->formatError("INCOMPLETE", $test);
     }
 
+    /**
+     * @param PHPUnit_Framework_Test $test
+     * @param Exception $e
+     * @param float $time
+     */
     public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time)
     {
         parent::addSkippedTest($test, $e, $time);
         $this->formatError("SKIPPED", $test);
     }
 
+    /**
+     * @param $type
+     * @param PHPUnit_Framework_Test $test
+     * @param Exception $e
+     */
     private function formatError($type, PHPUnit_Framework_Test $test, Exception $e = null)
     {
         if ($test != null) {

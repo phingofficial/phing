@@ -109,6 +109,12 @@ abstract class GitBaseTask extends Task
         return $this->gitPath;
     }
 
+    /**
+     * @param bool $reset
+     * @param null $repository
+     * @return null|VersionControl_Git
+     * @throws BuildException
+     */
     protected function getGitClient($reset = false, $repository = null)
     {
         $this->gitClient = ($reset === true) ? null : $this->gitClient;

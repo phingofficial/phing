@@ -45,6 +45,9 @@ class ExtendedFileStream
         stream_wrapper_unregister("efile");
     }
 
+    /**
+     * @param $path
+     */
     private function createDirectories($path)
     {
         $f = new PhingFile($path);
@@ -53,6 +56,14 @@ class ExtendedFileStream
         }
     }
 
+    /**
+     * @param $path
+     * @param $mode
+     * @param $options
+     * @param $opened_path
+     * @return bool
+     * @throws IOException
+     */
     public function stream_open($path, $mode, $options, &$opened_path)
     {
         // if we're on Windows, urldecode() the path again
@@ -75,56 +86,101 @@ class ExtendedFileStream
         $this->fp = null;
     }
 
+    /**
+     * @param $count
+     * @return string
+     */
     public function stream_read($count)
     {
         return fread($this->fp, $count);
     }
 
+    /**
+     * @param $data
+     * @return int
+     */
     public function stream_write($data)
     {
         return fwrite($this->fp, $data);
     }
 
+    /**
+     * @return bool
+     */
     public function stream_eof()
     {
         return feof($this->fp);
     }
 
+    /**
+     * @return int
+     */
     public function stream_tell()
     {
         return ftell($this->fp);
     }
 
+    /**
+     * @param $offset
+     * @param $whence
+     * @return int
+     */
     public function stream_seek($offset, $whence)
     {
         return fseek($this->fp, $offset, $whence);
     }
 
+    /**
+     * @return bool
+     */
     public function stream_flush()
     {
         return fflush($this->fp);
     }
 
+    /**
+     * @return array
+     */
     public function stream_stat()
     {
         return fstat($this->fp);
     }
 
+    /**
+     * @param $path
+     * @return bool
+     */
     public function unlink($path)
     {
         return false;
     }
 
+    /**
+     * @param $path_from
+     * @param $path_to
+     * @return bool
+     */
     public function rename($path_from, $path_to)
     {
         return false;
     }
 
+    /**
+     * @param $path
+     * @param $mode
+     * @param $options
+     * @return bool
+     */
     public function mkdir($path, $mode, $options)
     {
         return false;
     }
 
+    /**
+     * @param $path
+     * @param $options
+     * @return bool
+     */
     public function rmdir($path, $options)
     {
         return false;

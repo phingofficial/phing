@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -31,15 +29,24 @@ include_once 'phing/BuildException.php';
  * circular references that is appropriate for types that can not be
  * nested inside elements of the same type (i.e. patternset but not path)
  *
+ * {@inheritdoc}
+ *
  * @package   phing.types
  */
 class DataType extends ProjectComponent
 {
-
-    /** The descriptin the user has set. */
+    /**
+     * The descriptin the user has set.
+     *
+     * @var string $description
+     */
     public $description = null;
 
-    /** Value to the refid attribute. Type of Reference*/
+    /**
+     * Value to the refid attribute.
+     *
+     * @var Reference $ref
+     */
     public $ref = null;
 
     /**
@@ -48,6 +55,7 @@ class DataType extends ProjectComponent
      * Subclasses are responsible for setting this value to false
      * if we'd need to investigate this condition (usually because a
      * child element has been added that is a subclass of DataType).
+     *
      * @var boolean
      */
     protected $checked = true;
@@ -55,19 +63,31 @@ class DataType extends ProjectComponent
     /**
      * Sets a description of the current data type. It will be useful
      * in commenting what we are doing.
+     *
+     * @param string $desc
+     *
+     * @return void
      */
     public function setDescription($desc)
     {
         $this->description = (string) $desc;
     }
 
-    /** Return the description for the current data type. */
+    /**
+     * Return the description for the current data type.
+     *
+     * @retujrn string
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
-    /** Has the refid attribute of this element been set? */
+    /**
+     * Has the refid attribute of this element been set?
+     *
+     * @return bool
+     */
     public function isReference()
     {
         return ($this->ref !== null);
@@ -81,6 +101,7 @@ class DataType extends ProjectComponent
      * thus override this method. if they do they must call parent::setRefid()
      *
      * @param  Reference $r
+     *
      * @return void
      */
     public function setRefid(Reference $r)
@@ -102,6 +123,13 @@ class DataType extends ProjectComponent
      *
      * The general contract of this method is that it shouldn't do
      * anything if checked is true and set it to true on exit.
+     *
+     * @param $stk
+     * @param Project $p
+     *
+     * @return void
+     *
+     * @throws BuildException
      */
     public function dieOnCircularReference(&$stk, Project $p)
     {
@@ -136,10 +164,18 @@ class DataType extends ProjectComponent
         $this->checked = true;
     }
 
-    /** Performs the check for circular references and returns the referenced object. */
+    /**
+     * Performs the check for circular references and returns the referenced object.
+     *
+     * @param $requiredClass
+     * @param $dataTypeName
+     *
+     * @throws BuildException
+     *
+     * @return mixed
+     */
     public function getCheckedRef($requiredClass, $dataTypeName)
     {
-
         if (!$this->checked) {
             // should be in stack
             $stk = array();
@@ -158,6 +194,8 @@ class DataType extends ProjectComponent
     /**
      * Creates an exception that indicates that refid has to be the
      * only attribute if it is set.
+     *
+     * @return BuildException
      */
     public function tooManyAttributes()
     {
@@ -167,6 +205,8 @@ class DataType extends ProjectComponent
     /**
      * Creates an exception that indicates that this XML element must
      * not have child elements if the refid attribute is set.
+     *
+     * @return BuildException
      */
     public function noChildrenAllowed()
     {
@@ -176,6 +216,8 @@ class DataType extends ProjectComponent
     /**
      * Creates an exception that indicates the user has generated a
      * loop of data types referencing each other.
+     *
+     * @return BuildException
      */
     public function circularReference()
     {
@@ -185,6 +227,9 @@ class DataType extends ProjectComponent
     /**
      * Template method being called when the data type has been
      * parsed completely.
+     *
+     * {@inheritdoc}
+     *
      * @return void
      */
     public function parsingComplete()

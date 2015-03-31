@@ -1,8 +1,5 @@
 <?php
-
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -25,20 +22,31 @@
  *
  * @author Hans Lellelid <hans@xmpl.org> (Phing)
  * @author Bruce Atherton <bruce@callenish.com> (Ant)
+ *
  * @package phing.types.selectors
  */
 class SizeSelector extends BaseExtendSelector
 {
-
+    /** @var int $size */
     private $size = -1;
+
+    /** @var int $multiplier */
     private $multiplier = 1;
+
+    /** @var int $sizelimit */
     private $sizelimit = -1;
+
+    /** @var int $cmp */
     private $cmp = 2;
+
     const SIZE_KEY = "value";
     const UNITS_KEY = "units";
     const WHEN_KEY = "when";
 
+    /** @var array $sizeComparisons */
     private static $sizeComparisons = array("less", "more", "equal");
+
+    /** @var array $byteUnits */
     private static $byteUnits = array(
         "K",
         "k",
@@ -79,6 +87,9 @@ class SizeSelector extends BaseExtendSelector
         "TEBI"
     );
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "{sizeselector value: ";
@@ -101,7 +112,9 @@ class SizeSelector extends BaseExtendSelector
      * This will be further modified by the multiplier to get an
      * actual size limit.
      *
-     * @param size the size to select against expressed in units
+     * @param int $size the size to select against expressed in units
+     *
+     * @return void
      */
     public function setValue($size)
     {
@@ -134,7 +147,8 @@ class SizeSelector extends BaseExtendSelector
      * unit prefix can occur in and translates them into a single
      * multiplier.
      *
-     * @param $units The units to compare the size to.
+     * @param array $units The units to compare the size to.
+     *
      * @return void
      */
     public function setUnits($units)
@@ -172,7 +186,9 @@ class SizeSelector extends BaseExtendSelector
      * when the file matches a particular size, when it is smaller,
      * or whether it is larger.
      *
-     * @param cmp The comparison to perform, an EnumeratedAttribute
+     * @param array $cmp The comparison to perform, an EnumeratedAttribute
+     *
+     * @return void
      */
     public function setWhen($cmp)
     {
@@ -186,7 +202,13 @@ class SizeSelector extends BaseExtendSelector
      * When using this as a custom selector, this method will be called.
      * It translates each parameter into the appropriate setXXX() call.
      *
-     * @param parameters the complete set of parameters for this selector
+     * {@inheritdoc}
+     *
+     * @param array $parameters the complete set of parameters for this selector
+     *
+     * @return void
+     *
+     * @throws BuildException
      */
     public function setParameters($parameters)
     {
@@ -227,6 +249,10 @@ class SizeSelector extends BaseExtendSelector
      * </p>
      * <p>If a problem is detected, the setError() method is called.
      * </p>
+     *
+     * {@inheritdoc}
+     *
+     * @return void
      */
     public function verifySettings()
     {
@@ -243,14 +269,16 @@ class SizeSelector extends BaseExtendSelector
      * The heart of the matter. This is where the selector gets to decide
      * on the inclusion of a file in a particular fileset.
      *
-     * @param basedir A PhingFile object for the base directory
-     * @param filename The name of the file to check
-     * @param file A PhingFile object for this filename
-     * @return whether the file should be selected or not
+     * {@inheritdoc}
+     *
+     * @param PhingFile $basedir A PhingFile object for the base directory
+     * @param string $filename The name of the file to check
+     * @param PhingFile $file A PhingFile object for this filename
+     *
+     * @return bool whether the file should be selected or not
      */
     public function isSelected(PhingFile $basedir, $filename, PhingFile $file)
     {
-
         $this->validate();
 
         // Directory size never selected for
@@ -265,5 +293,4 @@ class SizeSelector extends BaseExtendSelector
             return ($file->length() === $this->sizelimit);
         }
     }
-
 }

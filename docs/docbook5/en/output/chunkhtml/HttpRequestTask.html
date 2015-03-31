@@ -1,0 +1,94 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.28 HttpRequestTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="HttpGetTask.html" title="C.27 HttpGetTask"><link rel="next" href="IoncubeEncoderTask.html" title="C.29 IoncubeEncoderTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.28 HttpRequestTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="HttpGetTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="IoncubeEncoderTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="HttpRequestTask"></a>C.28 HttpRequestTask</h2></div></div></div>
+        
+        <p>This task will make an HTTP request to the provided URL and match the response against
+            the provided regular expression. If an regular expression is provided and doesn't match
+            the build will fail. You need an installed version of
+            <a class="ulink" href="http://pear.php.net/package/HTTP_Request2" target="_top">HTTP_Request2</a>
+            to use this task.
+        </p>
+
+        <div class="table"><a name="idp52396768"></a><p class="formal-object-title"><span class="label">Table C.31: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>The request URL</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">responseRegex</code></td><td><code class="literal">String</code></td><td>The regular expression for matching the response</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authUser</code></td><td><code class="literal">String</code></td><td>The authentication user name</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authPassword</code></td><td><code class="literal">String</code></td><td>The authentication password</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">authScheme</code></td><td><code class="literal">String</code></td><td>The authentication scheme</td><td>basic</td><td>No</td></tr><tr><td><code class="literal">verbose</code></td><td><code class="literal">Boolean</code></td><td>Whether to enable detailed logging</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">observerEvents</code></td><td><code class="literal">String</code></td><td>Comma-separated list of events to log when <code class="literal">verbose</code>
+                            is set to <code class="literal">true</code></td><td>connect, sentHeaders, sentBodyPart, receivedHeaders, receivedBody,
+                            disconnect</td><td>No</td></tr><tr><td><code class="literal">method</code></td><td><code class="literal">String</code></td><td>The HTTP method of the request, currently only GET or POST supported</td><td><code class="literal">GET</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52435392"></a>C.28.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;http-request url="http://my-production.example.com/check-deployment.php"/&gt;</pre>
+
+            <p>Just perform a HTTP request to the given URL.</p>
+            <pre class="programlisting">&lt;http-request
+   url="http://my-production.example.com/check-deployment.php"
+   responseRegex="/Heartbeat/"
+   verbose"true"
+   observerEvents="connect, disconnect"/&gt;</pre>
+            <p>Perform a HTTP request to the given URL and matching the response against the
+                given regex pattern. Enable detailed logging and log only the specified
+                events.</p>
+            <pre class="programlisting">&lt;http-request url="http://my-production.example.com/check-deployment.php"&gt;
+   &lt;config name="adapter" value="HTTP_Request2_Adapter_Curl"/&gt;
+   &lt;header name="user-agent" value="Phing HttpRequestTask"/&gt;
+ &lt;/http-request&gt;</pre>
+            <p>Perform a HTTP request to the given URL. Setting request adapter to curl instead
+                of socket. Setting an additional header.</p>
+            <pre class="programlisting">&lt;http-request
+            url="http://my-production.example.com/check-deployment.php"
+            verbose"true"
+            method="POST"&gt;
+              &lt;postparameter name="param1" value="value1" /&gt;
+              &lt;postparameter name="param2" value="value2" /&gt;
+            &lt;/http-request&gt;
+          </pre>
+          <p>Perform an HTTP POST request to the given URL. Setting POST request parameters to emulate form submission.</p>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52442096"></a>C.28.2 Supported Nested Tags</h3></div></div></div>
+            
+            <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+                    <p><code class="literal">config</code></p>
+                    <p>Holds additional config data. See
+                        <a class="ulink" href="http://pear.php.net/manual/en/package.http.http-request2.config.php" target="_top">HTTP_Request2  documentation</a>
+                        for supported values.
+                    </p>
+
+                    <div class="table"><a name="idp52445856"></a><p class="formal-object-title"><span class="label">Table C.32: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Config parameter name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td>Mixed</td><td>Config value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal">header</code></p>
+                    <p> Holds additional header <code class="literal">name</code> and
+                            <code class="literal">value</code>.</p>
+                    <div class="table"><a name="idp52465008"></a><p class="formal-object-title"><span class="label">Table C.33: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Header name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Header value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li><li class="listitem">
+                    <p><code class="literal">postparameter</code></p>
+                    <p>Used when performing a POST request. Contains <code class="literal">name</code> and
+                            <code class="literal">value</code> of a form field.</p>
+                    <div class="table"><a name="idp52485312"></a><p class="formal-object-title"><span class="label">Table C.34: </span><span class="title">Attributes</span></p><div class="table-contents">
+                        
+                        <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Field name</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">value</code></td><td><code class="literal">String</code></td><td>Field value</td><td>n/a</td><td>Yes</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                </li></ul></div>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp52503600"></a>C.28.3 Global configuration</h3></div></div></div>
+            
+            <p>
+                In addition to configuring a particular instance of <code class="literal">HTTP_Request2</code> via
+                nested <code class="literal">&lt;config&gt;</code> tags it is also possible to set default
+                configuration values for <code class="literal">HttpGetTask</code> / <code class="literal">HttpRequestTask</code>
+                by setting <code class="literal">phing.http.*</code> properties.
+            </p>
+            <pre class="programlisting">
+&lt;property name="phing.http.proxy" value="socks5://localhost:1080/"/&gt;
+&lt;!-- This request will go through the default proxy --&gt;
+&lt;http-request url="http://example.com/foo"/&gt;
+&lt;http-request url="http://example.org/restricted" dir="./"&gt;
+    &lt;!-- This proxy will be used instead of the default one --&gt;
+    &lt;config name="proxy" value="http://foo:bar@proxy.example.org:3128/"/&gt;
+&lt;/http-request&gt;
+            </pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="HttpGetTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="IoncubeEncoderTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.27 HttpGetTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.29 IoncubeEncoderTask</td></tr></table></div></body></html>

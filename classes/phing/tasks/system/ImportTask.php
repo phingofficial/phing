@@ -94,6 +94,7 @@ class ImportTask extends Task
      * Parse a Phing build file and copy the properties, tasks, data types and
      * targets it defines into the current project.
      *
+     * @throws BuildException
      * @return void
      */
     public function main()

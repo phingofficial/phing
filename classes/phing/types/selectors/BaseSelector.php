@@ -1,7 +1,5 @@
 <?php
-/*
- * $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -27,19 +25,24 @@ require_once 'phing/types/selectors/FileSelector.php';
  * for Selectors to inherit from this class, it is only necessary that
  * they implement FileSelector.
  *
+ * {@inheritdoc}
+ *
  * @author <a href="mailto:bruce@callenish.com">Bruce Atherton</a>
+ *
  * @package phing.types.selectors
  */
 abstract class BaseSelector extends DataType implements FileSelector
 {
-
+    /** @var string $errmsg */
     private $errmsg = null;
 
     /**
      * Allows all selectors to indicate a setup error. Note that only
      * the first error message is recorded.
      *
-     * @param msg The error message any BuildException should throw.
+     * @param string $msg The error message any BuildException should throw.
+     *
+     * @return void
      */
     public function setError($msg)
     {
@@ -51,7 +54,7 @@ abstract class BaseSelector extends DataType implements FileSelector
     /**
      * Returns any error messages that have been set.
      *
-     * @return the error condition
+     * @return string the error condition
      */
     public function getError()
     {
@@ -72,6 +75,8 @@ abstract class BaseSelector extends DataType implements FileSelector
     /**
      * Subclasses can use this to throw the requisite exception
      * in isSelected() in the case of an error condition.
+     *
+     * @throws BuildException
      */
     public function validate()
     {
@@ -82,5 +87,4 @@ abstract class BaseSelector extends DataType implements FileSelector
             throw new BuildException($this->errmsg);
         }
     }
-
 }

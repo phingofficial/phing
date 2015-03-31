@@ -396,6 +396,14 @@
                 the nested conditions is true, no other condition will be evaluated.</para>
 
         </sect2>
+        <sect2 xml:id="conditions.xor">
+            <title><literal>xor</literal></title>
+            <para> The <code>&lt;xor></code> element performs an exclusive or on all nested elements,
+                similar to the ^ operator in PHP. It only evaluates to true if an odd number of nested
+                conditions are true. There is no shortcutting of evaluation, unlike the &lt;and> and &lt;or> tests.
+                It doesn't have any attributes and accepts all nested elements of the condition task as nested elements
+                as well.</para>
+        </sect2>
         <sect2 xml:id="conditions.os">
             <title><literal>os</literal></title>
             <para>Test whether the current operating system is of a given type.</para>
@@ -523,6 +531,101 @@
             </table>
             <programlisting language="xml">&lt;version-compare version="${someproperty}" desiredVersion="1.3" operator="gt" /&gt;</programlisting>
             <para>This condition internally uses PHP version_compare(). Operators and behavior are the same.</para> 
+        </sect2>
+        <sect2 xml:id="conditions.http">
+            <title><literal>http</literal></title>
+            <para>Condition to wait for a HTTP request to succeed.</para>
+            <para>Attributes are:</para>
+            <itemizedlist>
+                <listitem>url - the URL of the request.</listitem>
+                <listitem>errorsBeginAt - number at which errors begin at.</listitem>
+            </itemizedlist>
+            <table>
+                <title>http Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry><literal>url</literal></entry>
+                            <entry>The URL of the request.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>errorsBeginAt</literal></entry>
+                            <entry>Number at which errors begin at. - Default: 400</entry>
+                            <entry>No</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <programlisting language="xml">&lt;http url="http://url.to.test" errorsBeginAt="404" /&gt;</programlisting>
+        </sect2>
+        <sect2 xml:id="conditions.socket">
+            <title><literal>socket</literal></title>
+            <para>Condition to test for a (tcp) listener on a specified host and port.</para>
+            <table>
+                <title>socket Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry><literal>server</literal></entry>
+                            <entry>The hostname or ip address of the server.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>port</literal></entry>
+                            <entry>The port number of the server.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <programlisting language="xml">&lt;socket server="localhost" port="80" /&gt;</programlisting>
+        </sect2>
+        <sect2 xml:id="conditions.hasfreespace">
+            <title><literal>hasfreespace</literal></title>
+            <para>Condition returns true if selected partition has the requested space, false otherwise.</para>
+            <table>
+                <title>hasfreespace Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>partition</literal></entry>
+                            <entry>The partition/device to check.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>needed</literal></entry>
+                            <entry>The amount of free space required.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+
+            <programlisting language="xml">&lt;hasfreespace partition="c:" needed="10M" /&gt;</programlisting>
+            <para>This condition internally uses PHP disk_free_space().</para>
         </sect2>
         <sect2 xml:id="conditions.isset">
             <title><literal>isset</literal></title>
@@ -682,6 +785,43 @@
                     >Available</link> task, all attributes and nested elements of that task are
                 supported, the property and value attributes are redundant and will be
                 ignored.</para>
+        </sect2>
+        <sect2 xml:id="conditions.filesmatch">
+            <title><literal>filesmatch</literal></title>
+            <para>Test two files for matching. Nonexistence of one file results in "false",
+                although if neither exists they are considered equal in terms of content.
+                This test does a byte for byte comparison, so test time scales with byte size.
+                NB: if the files are different sizes, one of them is missing or the filenames match
+                the answer is so obvious the detailed test is omitted. </para>
+            <table>
+                <title>filesmatch Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>file1</literal></entry>
+                            <entry>First file to test.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                        <row>
+                            <entry><literal>file2</literal></entry>
+                            <entry>Second file to test.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;filesmatch file1="${file1}" file2="${file2}"/></programlisting>
+
         </sect2>
     </sect1>
 

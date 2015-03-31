@@ -1,0 +1,40 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.21 GitMergeTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="GitCommitTask.html" title="C.20 GitCommitTask"><link rel="next" href="GitPullTask.html" title="C.22 GitPullTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.21 GitMergeTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="GitCommitTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="GitPullTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="GitMergeTask"></a>C.21 GitMergeTask</h2></div></div></div>
+        
+        <p> Join two or more development histories together. See official <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">documentation</a>.</p>
+
+        <div class="table"><a name="idp51894912"></a><p class="formal-object-title"><span class="label">Table C.22: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">gitPath</code></td><td><code class="literal">String</code></td><td>Path to Git binary</td><td>/usr/bin/git</td><td>No</td></tr><tr><td><code class="literal">repository</code></td><td><code class="literal">String</code></td><td>Path to Git repository</td><td>n/a</td><td>Yes</td></tr><tr><td><code class="literal">remote</code></td><td><code class="literal">String</code></td><td>Space separated list of branches to merge into current HEAD. See
+                            &lt;commit&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">message</code></td><td><code class="literal">String</code></td><td>Commit message to be used for the merge commit (in case one is
+                            created). See &lt;msg&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">fastForwardCommit</code></td><td><code class="literal">Boolean</code></td><td>If set false (default), will not generate a merge commit if the merge
+                            resolved as a fast-forward, only update the branch pointer. If set true,
+                            will generate a merge commit even if the merge resolved as a
+                            fast-forward. See --ff/--no-ff options in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">strategy</code></td><td><code class="literal">String</code></td><td>Merge strategy. One of "resolve", "recursive", "octopus", "ours", or
+                            "subtree". See &lt;strategy&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">strategyOption</code></td><td><code class="literal">String</code></td><td>Pass merge strategy specific option through to the merge strategy.
+                            See &lt;strategy-option&gt; in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">commit</code></td><td><code class="literal">Boolean</code></td><td>See --commit in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">nocommit</code></td><td><code class="literal">Boolean</code></td><td>See --no-commit in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">quiet</code></td><td><code class="literal">Boolean</code></td><td>Quiet, suppress feedback messages. See --quiet in <a class="ulink" href="http://www.kernel.org/pub/software/scm/git/docs/git-merge.html" target="_top">git-merge</a>.</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp51945856"></a>C.21.1 Example</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;property name="repo.dir" value="./relative/path/to/repo" /&gt;
+&lt;resolvepath propertyName="repo.dir.resolved" file="${repo.dir}" /&gt;
+
+&lt;!-- clone repository --&gt;
+&lt;gitclone
+    repository="git://github.com/path/to/repo/repo.git"
+    targetPath="${repo.dir.resolved}" /&gt;
+
+&lt;!-- create couple of test branches --&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="merge-test-1" startpoint="origin/master" /&gt;
+&lt;gitbranch
+    repository="${repo.dir.resolved}"
+    branchname="merge-test-2" startpoint="origin/master" /&gt;
+
+&lt;!-- Merge those branches back into master --&gt;
+&lt;gitmerge
+    repository="${repo.dir.resolved}"
+    remote="merge-test-1 merge-test-2"
+    message="merging repos" commit="true" /&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="GitCommitTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="GitPullTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.20 GitCommitTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.22 GitPullTask</td></tr></table></div></body></html>

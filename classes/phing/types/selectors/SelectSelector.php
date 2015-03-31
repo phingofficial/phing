@@ -38,6 +38,9 @@ require_once 'phing/types/selectors/AndSelector.php';
 class SelectSelector extends AndSelector
 {
 
+    /**
+     * @return string
+     */
     public function toString()
     {
         $buf = "";
@@ -87,6 +90,8 @@ class SelectSelector extends AndSelector
 
     /**
      * Returns the set of selectors as an array.
+     * @param Project $p
+     * @return \an|array
      */
     public function getSelectors(Project $p)
     {
@@ -112,7 +117,9 @@ class SelectSelector extends AndSelector
     /**
      * Add a new selector into this container.
      *
-     * @param selector the new selector to add
+     * @param FileSelector|the $selector
+     * @throws BuildException
+     * @internal param the $selector new selector to add
      * @return the selector that was added
      */
     public function appendSelector(FileSelector $selector)

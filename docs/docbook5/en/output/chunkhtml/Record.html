@@ -1,0 +1,45 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.34 Record</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="PropertyPromptTask.html" title="B.33 PropertyPromptTask"><link rel="next" href="ReflexiveTask.html" title="B.35 ReflexiveTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.34 Record</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="PropertyPromptTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="ReflexiveTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="Record"></a>B.34 Record</h2></div></div></div>
+        
+        <p> A recorder is a listener to the current build process that records the output to a file.
+        </p>
+        <p>
+            Several recorders can exist at the same time. Each recorder is associated with a file.
+            The filename is used as a unique identifier for the recorders. The first call to the recorder task with
+            an unused filename will create a recorder (using the parameters provided) and add it to the listeners
+            of the build. All subsequent calls to the recorder task using this filename will modify that recorders state
+            (recording or not) or other properties (like logging level).
+        </p>
+        <p>
+            Some technical issues: the file's output stream is flushed for "finished" events
+            (buildFinished, targetFinished and taskFinished), and is closed on a buildFinished event.
+        </p>
+        <div class="table"><a name="idp50575648"></a><p class="formal-object-title"><span class="label">Table B.34: </span><span class="title">Attributes</span></p><div class="table-contents">
+            
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>The name of the file this logger is associated with.</td><td>n/a</td><td>yes</td></tr><tr><td><code class="literal">action</code></td><td><code class="literal">String</code></td><td>This tells the logger what to do: should it start recording or stop?
+                            The first time that the recorder task is called for this logfile, and if this attribute is not
+                            provided, then the default for this attribute is "start".
+                            If this attribute is not provided on subsequent calls, then the state remains as previous.
+                            [Values = {start|stop}, Default = no state change]</td><td>n/a</td><td>no</td></tr><tr><td><code class="literal">append</code></td><td><code class="literal">Boolean</code></td><td>Should the recorder append to a file, or create a new one? This is only applicable the first
+                            time this task is called for this file. [Values = {yes|no}, Default=no]</td><td><code class="literal">no</code></td><td>no</td></tr><tr><td><code class="literal">emacsmode</code></td><td><code class="literal">Boolean</code></td><td>Removes [task] banners like Phings's -emacs command line switch
+                            if set to <code class="literal">true</code>.</td><td><code class="literal">false</code></td><td>no</td></tr><tr><td><code class="literal">loglevel</code></td><td><code class="literal">Boolean</code></td><td>At what logging level should this recorder instance record to? This is not a once only
+                            parameter (like append is) -- you can increase or decrease the logging level as the build
+                            process continues. [Values= {error|warn|info|verbose|debug}, Default = no change]</td><td><code class="literal">false</code></td><td>no</td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50604672"></a>B.34.1 Example</h3></div></div></div>
+            
+            <p>The following build.xml snippet is an example of how to use the recorder to record just the
+                <code class="literal">&lt;echo&gt;</code> task:</p>
+            <pre class="programlisting">...
+                &lt;record name="log.txt" action="start"/&gt;
+                &lt;echo ...
+                &lt;record name="log.txt" action="stop"/&gt;
+                ...</pre>
+            <p>The following two calls to <code class="literal">&lt;record&gt;</code> set up two recorders:
+                one to file "records-simple.log" at logging level info (the default) and one to file
+                "ISO.log" using logging level of verbose.</p>
+            <pre class="programlisting">...
+                &lt;record name="records-simple.log"/&gt;
+                &lt;record name="ISO.log" loglevel="verbose"/&gt;
+                ...</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="PropertyPromptTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ReflexiveTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.33 PropertyPromptTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.35 ReflexiveTask </td></tr></table></div></body></html>

@@ -35,7 +35,7 @@ class PhpCodeSnifferTask extends Task
     protected $filesets = array(); // all fileset objects assigned to this task
 
     // parameters for php code sniffer
-    protected $standard = 'Generic';
+    protected $standards = array('Generic');
     protected $sniffs = array();
     protected $showWarnings = true;
     protected $showSources = false;
@@ -93,6 +93,7 @@ class PhpCodeSnifferTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -103,13 +104,19 @@ class PhpCodeSnifferTask extends Task
     /**
      * Sets the coding standard to test for
      *
-     * @param string $standard The coding standard
+     * @param string $standards The coding standards
      *
      * @return void
      */
-    public function setStandard($standard)
+    public function setStandard($standards)
     {
-        $this->standard = $standard;
+        $this->standards = array();
+        $token = ' ,;';
+        $ext = strtok($standards, $token);
+        while ($ext !== false) {
+            $this->standards[] = $ext;
+            $ext = strtok($token);
+        }
     }
 
     /**
@@ -242,7 +249,8 @@ class PhpCodeSnifferTask extends Task
 
     /**
      * Sets the ignore patterns to skip files when using directories instead of specific files
-     * @param array $extensions
+     * @param $patterns
+     * @internal param array $extensions
      */
     public function setIgnorePatterns($patterns)
     {
@@ -420,31 +428,37 @@ class PhpCodeSnifferTask extends Task
          * Verifying if standard is installed only after setting config data.
          * Custom standard paths could be provided via installed_paths config parameter.
          */
-        if (PHP_CodeSniffer::isInstalledStandard($this->standard) === false) {
-            // They didn't select a valid coding standard, so help them
-            // out by letting them know which standards are installed.
-            $installedStandards = PHP_CodeSniffer::getInstalledStandards();
-            $numStandards = count($installedStandards);
-            $errMsg = '';
+        foreach($this->standards as $standard) {
+            if (PHP_CodeSniffer::isInstalledStandard($standard) === false) {
+                // They didn't select a valid coding standard, so help them
+                // out by letting them know which standards are installed.
+                $installedStandards = PHP_CodeSniffer::getInstalledStandards();
+                $numStandards = count($installedStandards);
+                $errMsg = '';
 
-            if ($numStandards === 0) {
-                $errMsg = 'No coding standards are installed.';
-            } else {
-                $lastStandard = array_pop($installedStandards);
-
-                if ($numStandards === 1) {
-                    $errMsg = 'The only coding standard installed is ' . $lastStandard;
+                if ($numStandards === 0) {
+                    $errMsg = 'No coding standards are installed.';
                 } else {
-                    $standardList = implode(', ', $installedStandards);
-                    $standardList .= ' and ' . $lastStandard;
-                    $errMsg = 'The installed coding standards are ' . $standardList;
-                }
-            }
+                    $lastStandard = array_pop($installedStandards);
 
-            throw new BuildException(
-                'ERROR: the "' . $this->standard . '" coding standard is not installed. ' . $errMsg,
-                $this->getLocation()
-            );
+                    if ($numStandards === 1) {
+                        $errMsg = 'The only coding standard installed is ' . $lastStandard;
+                    } else {
+                        $standardList = implode(', ', $installedStandards);
+                        $standardList .= ' and ' . $lastStandard;
+                        $errMsg = 'The installed coding standards are ' . $standardList;
+                    }
+                }
+
+                throw new BuildException(
+                    'ERROR: the "' . $standard . '" coding standard is not installed. ' . $errMsg,
+                    $this->getLocation()
+                );
+            }
+        }
+
+        if (!$this->showWarnings) {
+            $codeSniffer->cli->warningSeverity = 0;
         }
 
         // nasty integration hack
@@ -457,7 +471,7 @@ class PhpCodeSnifferTask extends Task
             $_SERVER['argc']++;
         }
 
-        $codeSniffer->process($fileList, $this->standard, $this->sniffs, $this->noSubdirectories);
+        $codeSniffer->process($fileList, $this->standards, $this->sniffs, $this->noSubdirectories);
         $_SERVER['argv'] = array();
         $_SERVER['argc'] = 0;
 
@@ -467,7 +481,7 @@ class PhpCodeSnifferTask extends Task
         if ($this->docGenerator !== '' && $this->docFile !== null) {
             ob_start();
 
-            $codeSniffer->generateDocs($this->standard, $this->sniffs, $this->docGenerator);
+            $codeSniffer->generateDocs($this->standards, $this->sniffs, $this->docGenerator);
 
             $output = ob_get_contents();
             ob_end_clean();
@@ -480,7 +494,7 @@ class PhpCodeSnifferTask extends Task
                 throw new BuildException('Error writing doc to ' . $outputFile);
             }
         } elseif ($this->docGenerator !== '' && $this->docFile === null) {
-            $codeSniffer->generateDocs($this->standard, $this->sniffs, $this->docGenerator);
+            $codeSniffer->generateDocs($this->standards, $this->sniffs, $this->docGenerator);
         }
 
         if ($this->haltonerror && $codeSniffer->reporting->totalErrors > 0) {
@@ -527,12 +541,21 @@ class PhpCodeSnifferTask extends Task
                 //ob_start();
             }
 
-            $reporting->printReport(
-                $fe->getType(),
-                $this->showSources,
-                $reportFile,
-                $this->reportWidth
-            );
+            // Crude check, but they broke backwards compatibility
+            // with a minor version release.
+            if (PHP_CodeSniffer::VERSION >= '2.2.0') {
+                $cliValues = array('colors' => false);
+                $reporting->printReport($fe->getType(),
+                                        $this->showSources,
+                                        $cliValues,
+                                        $reportFile,
+                                        $this->reportWidth);
+            } else {
+                $reporting->printReport($fe->getType(),
+                                        $this->showSources,
+                                        $reportFile,
+                                        $this->reportWidth);
+            }
 
             // reporting class uses ob_end_flush(), but we don't want
             // an output if we use a file
@@ -654,31 +677,49 @@ class PhpCodeSnifferTask_FormatterElement extends DataType
 
     }
 
+    /**
+     * @param $type
+     */
     public function setType($type)
     {
         $this->type = $type;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @param $useFile
+     */
     public function setUseFile($useFile)
     {
         $this->useFile = $useFile;
     }
 
+    /**
+     * @return bool
+     */
     public function getUseFile()
     {
         return $this->useFile;
     }
 
+    /**
+     * @param $outfile
+     */
     public function setOutfile($outfile)
     {
         $this->outfile = $outfile;
     }
 
+    /**
+     * @return string
+     */
     public function getOutfile()
     {
         return $this->outfile;

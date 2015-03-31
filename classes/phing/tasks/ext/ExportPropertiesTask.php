@@ -68,8 +68,8 @@ class ExportPropertiesTask extends Task
     /**
      * setter for _targetFile
      *
-     * @access public
      * @param  string $file
+     * @throws BuildException
      * @return bool
      */
     public function setTargetFile($file)
@@ -90,8 +90,8 @@ class ExportPropertiesTask extends Task
     /**
      * setter for _disallowedPropertyPrefixes
      *
-     * @access public
-     * @param  string $file
+     * @param $prefixes
+     * @internal param string $file
      * @return bool
      */
     public function setDisallowedPropertyPrefixes($prefixes)
@@ -123,7 +123,6 @@ class ExportPropertiesTask extends Task
     /**
      * Checks if a property name is disallowed
      *
-     * @access protected
      * @param  string $propertyName
      * @return bool
      */

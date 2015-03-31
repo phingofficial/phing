@@ -29,5 +29,9 @@
  */
 interface Parameterizable
 {
+    /**
+     * @param $parameters
+     * @return mixed
+     */
     public function setParameters($parameters);
 }

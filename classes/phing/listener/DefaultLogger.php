@@ -66,6 +66,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      */
     protected $err;
 
+    protected $emacsMode = false;
+
     /**
      *  Construct a new default logger.
      */
@@ -122,11 +124,22 @@ class DefaultLogger implements StreamRequiredBuildLogger
     }
 
     /**
+     * Sets this logger to produce emacs (and other editor) friendly output.
+     *
+     * @param bool $emacsMode <code>true</code> if output is to be unadorned so that
+     *                  emacs and other editors can parse files names, etc.
+     */
+    public function setEmacsMode($emacsMode)
+    {
+        $this->emacsMode = $emacsMode;
+    }
+
+    /**
      *  Sets the start-time when the build started. Used for calculating
      *  the build-time.
      *
-     * @param  object  The BuildEvent
-     * @access public
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      */
     public function buildStarted(BuildEvent $event)
     {
@@ -144,7 +157,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Prints whether the build succeeded or failed, and any errors that
      *  occured during the build. Also outputs the total build-time.
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function buildFinished(BuildEvent $event)
@@ -190,8 +204,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Prints the current target name
      *
-     * @param  object  The BuildEvent
-     * @access public
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @see    BuildEvent::getTarget()
      */
     public function targetStarted(BuildEvent $event)
@@ -210,7 +224,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a target has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  object  The BuildEvent
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @see    BuildEvent::getException()
      */
     public function targetFinished(BuildEvent $event)
@@ -221,8 +236,8 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task is started. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  object  The BuildEvent
-     * @access public
+     * @param BuildEvent $event
+     * @internal param The $object BuildEvent
      * @see    BuildEvent::getTask()
      */
     public function taskStarted(BuildEvent $event)
@@ -233,8 +248,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Fired when a task has finished. We don't need specific action on this
      *  event. So the methods are empty.
      *
-     * @param  object  The BuildEvent
-     * @access public
+     * @param  BuildEvent $event  The BuildEvent
      * @see    BuildEvent::getException()
      */
     public function taskFinished(BuildEvent $event)
@@ -244,8 +258,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      *  Print a message to the stdout.
      *
-     * @param  object  The BuildEvent
-     * @access public
+     * @param BuildEvent $event
      * @see    BuildEvent::getMessage()
      */
     public function messageLogged(BuildEvent $event)
@@ -253,7 +266,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
         $priority = $event->getPriority();
         if ($priority <= $this->msgOutputLevel) {
             $msg = "";
-            if ($event->getTask() !== null) {
+            if ($event->getTask() !== null && !$this->emacsMode) {
                 $name = $event->getTask();
                 $name = $name->getTaskName();
                 $msg = str_pad("[$name] ", self::LEFT_COLUMN_SIZE, " ", STR_PAD_LEFT);
@@ -273,6 +286,7 @@ class DefaultLogger implements StreamRequiredBuildLogger
      *  Formats a time micro integer to human readable format.
      *
      * @param  integer The time stamp
+     * @return string
      */
     public static function formatTime($micros)
     {
@@ -294,11 +308,12 @@ class DefaultLogger implements StreamRequiredBuildLogger
     /**
      * Prints a message to console.
      *
-     * @param  string   $message  The message to print.
+     * @param  string $message The message to print.
      *                            Should not be <code>null</code>.
-     * @param  resource $stream   The stream to use for message printing.
-     * @param  int      $priority The priority of the message.
+     * @param OutputStream|resource $stream The stream to use for message printing.
+     * @param  int $priority The priority of the message.
      *                            (Ignored in this implementation.)
+     * @throws IOException
      * @return void
      */
     protected function printMessage($message, OutputStream $stream, $priority)

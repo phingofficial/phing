@@ -37,7 +37,6 @@ include_once 'phing/filters/ChainableReader.php';
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net
  * @version   $Id$
- * @access    public
  * @see       BaseParamFilterReader
  * @package   phing.filters
  */
@@ -66,6 +65,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Returns the filtered stream, only including
      * characters not in the set of line-breaking characters.
      *
+     * @param null $len
      * @return mixed the resulting stream, or -1
      *               if the end of the resulting stream has been reached.
      *
@@ -114,7 +114,8 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
      * Creates a new StripLineBreaks using the passed in
      * Reader for instantiation.
      *
-     * @param object A Reader object providing the underlying stream.
+     * @param Reader $reader
+     * @internal param A $object Reader object providing the underlying stream.
      *               Must not be <code>null</code>.
      *
      * @return object A new filter based on this configuration, but filtering
@@ -139,7 +140,7 @@ class StripLineBreaks extends BaseParamFilterReader implements ChainableReader
         $params = $this->getParameters();
         if ($params !== null) {
             for ($i = 0; $i < count($params); $i++) {
-                if (self::LINE_BREAKS_KEY === $params[$i]->getName()) {
+                if (self::LINES_BREAKS_KEY === $params[$i]->getName()) {
                     $userDefinedLineBreaks = $params[$i]->getValue();
                     break;
                 }

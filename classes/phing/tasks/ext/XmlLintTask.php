@@ -71,6 +71,8 @@ class XmlLintTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
+     *
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -82,6 +84,8 @@ class XmlLintTask extends Task
      * Sets the haltonfailure attribute
      *
      * @param bool $haltonfailure
+     *
+     * @return void
      */
     public function setHaltonfailure($haltonfailure)
     {
@@ -89,7 +93,13 @@ class XmlLintTask extends Task
     }
 
     /**
-     * Execute lint check against PhingFile or a FileSet
+     * Execute lint check against PhingFile or a FileSet.
+     *
+     * {@inheritdoc}
+     *
+     * @throws BuildException
+     *
+     * @return void
      */
     public function main()
     {
@@ -117,6 +127,13 @@ class XmlLintTask extends Task
         restore_error_handler();
     }
 
+    /**
+     * @param $message
+     *
+     * @return void
+     *
+     * @throws BuildException
+     */
     protected function logError($message)
     {
         if ($this->haltonfailure) {
@@ -130,6 +147,7 @@ class XmlLintTask extends Task
      * Performs validation
      *
      * @param  string $file
+     *
      * @return void
      */
     protected function lint($file)
@@ -173,10 +191,13 @@ class XmlLintTask extends Task
     /**
      * Local error handler to catch validation errors and log them through Phing
      *
-     * @param int    $level
+     * @param int $level
      * @param string $message
      * @param string $file
-     * @param int    $line
+     * @param int $line
+     * @param mixed $context
+     *
+     * @return void
      */
     public function errorHandler($level, $message, $file, $line, $context)
     {
@@ -184,5 +205,4 @@ class XmlLintTask extends Task
         preg_match('/^.*\(\): (.*)$/', $message, $matches);
         $this->log($matches[1], Project::MSG_ERR);
     }
-
 }

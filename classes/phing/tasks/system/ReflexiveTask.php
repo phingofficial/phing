@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -43,7 +41,7 @@ require_once 'phing/Task.php';
  * </code>
  *
  * @author    Hans Lellelid <hans@xmpl.org>
- * @version   $Id$
+ *
  * @package   phing.tasks.system
  */
 class ReflexiveTask extends Task
@@ -52,13 +50,23 @@ class ReflexiveTask extends Task
     /** Single file to process. */
     private $file;
 
-    /** Any filesets that should be processed. */
+    /**
+     * Any filesets that should be processed.
+     *
+     * @var FileSet[]
+     */
     private $filesets = array();
 
-    /** Any filters to be applied before append happens. */
+    /**
+     * Any filters to be applied before append happens.
+     *
+     * @var FilterChain[]
+     */
     private $filterChains = array();
 
-    /** Alias for setFrom() */
+    /** Alias for setFrom()
+     * @param PhingFile $f
+     */
     public function setFile(PhingFile $f)
     {
         $this->file = $f;
@@ -67,6 +75,7 @@ class ReflexiveTask extends Task
     /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
+     * @param FileSet $fs
      * @return void
      */
     public function addFileSet(FileSet $fs)
@@ -77,7 +86,7 @@ class ReflexiveTask extends Task
     /**
      * Creates a filterchain
      *
-     * @return object The created filterchain object
+     * @return FilterChain The created filterchain object
      */
     public function createFilterChain()
     {
@@ -104,7 +113,6 @@ class ReflexiveTask extends Task
         }
 
         if (!empty($this->filesets)) {
-            $filenames = array();
             foreach ($this->filesets as $fs) {
                 try {
                     $ds = $fs->getDirectoryScanner($this->project);
@@ -161,7 +169,5 @@ class ReflexiveTask extends Task
             }
 
         }
-
     }
-
 }

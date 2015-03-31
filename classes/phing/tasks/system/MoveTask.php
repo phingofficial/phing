@@ -1,7 +1,5 @@
 <?php
-/*
- *  $Id$
- *
+/**
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -35,12 +33,14 @@ include_once 'phing/system/io/IOException.php';
  * Source files and directories are only deleted when the file or
  * directory has been copied to the destination successfully.
  *
- * @version $Id$
  * @package phing.tasks.system
  */
 class MoveTask extends CopyTask
 {
 
+    /**
+     *
+     */
     public function __construct()
     {
         parent::__construct();
@@ -51,6 +51,7 @@ class MoveTask extends CopyTask
      * Validates attributes coming in from XML
      *
      * @return void
+     *
      * @throws BuildException
      */
     protected function validateAttributes()
@@ -172,7 +173,15 @@ class MoveTask extends CopyTask
         }
     }
 
-    /** Its only ok to delete a dir tree if there are no files in it. */
+    /**
+     * Its only ok to delete a dir tree if there are no files in it.
+     *
+     * @param $d
+     *
+     * @throws IOException
+     *
+     * @return bool
+     */
     private function okToDelete($d)
     {
         $list = $d->listDir();
@@ -195,7 +204,14 @@ class MoveTask extends CopyTask
         return true;
     }
 
-    /** Go and delete the directory tree. */
+    /**
+     * Go and delete the directory tree.
+     *
+     * @param $d
+     *
+     * @throws BuildException
+     * @throws IOException
+     */
     private function deleteDir($d)
     {
 

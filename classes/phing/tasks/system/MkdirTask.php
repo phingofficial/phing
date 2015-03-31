@@ -32,7 +32,10 @@ include_once 'phing/system/io/PhingFile.php';
 class MkdirTask extends Task
 {
 
-    /** directory to create*/
+    /**
+     * Directory to create.
+     * @var PhingFile $dir
+     */
     private $dir;
 
     /**
@@ -42,10 +45,7 @@ class MkdirTask extends Task
     private $mode = 0;
 
     /**
-     * Sets up this object internal stuff. i.e. the default mode
-     *
-     * @return object The MkdirTask instance
-     * @access public
+     * Sets up this object internal stuff. i.e. the default mode.
      */
     public function __construct()
     {
@@ -82,7 +82,11 @@ class MkdirTask extends Task
         }
     }
 
-    /** the directory to create; required. */
+    /**
+     * The directory to create; required.
+     * @param PhingFile $dir
+     * @return void
+     */
     public function setDir(PhingFile $dir)
     {
         $this->dir = $dir;
@@ -91,10 +95,10 @@ class MkdirTask extends Task
     /**
      * Sets mode to create directory with
      * @param mixed $mode
+     * @return void
      */
     public function setMode($mode)
     {
         $this->mode = base_convert((int) $mode, 8, 10);
     }
-
 }

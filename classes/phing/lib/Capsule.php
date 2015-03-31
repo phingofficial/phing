@@ -9,12 +9,11 @@
  * the business logic from display / output logic.
  *
  * @author Hans Lellelid <hans@xmpl.org>
- * @version $Id$
+ *
  * @package phing.lib
  */
 class Capsule
 {
-
     /**
      * Look for templates here (if relative path provided).
      * @var string
@@ -36,6 +35,8 @@ class Capsule
 
     /**
      * Has template been initialized.
+     *
+     * @var bool
      */
     protected $initialized = false;
 
@@ -45,6 +46,9 @@ class Capsule
      */
     private $old_include_path;
 
+    /**
+     *
+     */
     public function __construct()
     {
     }

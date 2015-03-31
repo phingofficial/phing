@@ -1,0 +1,52 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>B.20 IfTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.coretasks.html" title="Appendix B. Core tasks"><link rel="prev" href="ForeachTask.html" title="B.19 ForeachTask"><link rel="next" href="ImportTask.html" title="B.21 ImportTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">B.20 IfTask </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ForeachTask.html">Prev</a> </td><th width="60%" align="center">Appendix B. Core tasks</th><td width="20%" align="right"> <a accesskey="n" href="ImportTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="IfTask"></a>B.20 IfTask </h2></div></div></div>
+        
+        <p>Perform some tasks based on whether a given condition holds true or not.</p>
+        <p>This task doesn't have any attributes, the condition to test is specified by a nested
+            element - see the <a class="link" href="conditions.html" title="5.8 Conditions">conditions</a> for a complete list of nested
+            elements.</p>
+        <p>Just like the <code class="literal"><a class="link" href="ConditionTask.html" title="B.9 ConditionTask">&lt;condition&gt;</a></code> task, only a single condition can be
+            specified - you combine them using <code class="literal">&lt;and&gt;</code> or
+                <code class="literal">&lt;or&gt;</code> conditions.</p>
+        <p>In addition to the condition, you can specify three different child elements,
+                <code class="literal">&lt;elseif&gt;</code> , <code class="literal">&lt;then&gt;</code> and
+                <code class="literal">&lt;else&gt;</code> . All three subelements are optional. Both
+                <code class="literal">&lt;then&gt;</code> and <code class="literal">&lt;else&gt;</code> must not be used more
+            than once inside the if task. Both are containers for Phing tasks.</p>
+        <p>The <code class="literal">&lt;elseif&gt;</code> behaves exactly like an <code class="literal">&lt;if&gt;</code>
+            except that it cannot contain the <code class="literal">&lt;else&gt;</code> element inside of it. You
+            may specify as may of these as you like, and the order they are specified is the order
+            they are evaluated in. If the condition on the <code class="literal">&lt;if&gt;</code> is false, then
+            the first <code class="literal">&lt;elseif&gt;</code> who's conditional evaluates to true will be
+            executed. The <code class="literal">&lt;else&gt;</code> will be executed only if the
+                <code class="literal">&lt;if&gt;</code> and all <code class="literal">&lt;elseif&gt;</code> conditions are
+            false.</p>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp50134784"></a>B.20.1 Examples</h3></div></div></div>
+            
+            <pre class="programlisting">&lt;if&gt;
+ &lt;equals arg1="${foo}" arg2="bar" /&gt;
+ &lt;then&gt;
+   &lt;echo message="The value of property foo is bar" /&gt;
+ &lt;/then&gt;
+ &lt;else&gt;
+   &lt;echo message="The value of property foo is not bar" /&gt;
+ &lt;/else&gt;
+&lt;/if&gt;</pre>
+            <pre class="programlisting">&lt;if&gt;
+ &lt;equals arg1="${foo}" arg2="bar" /&gt;
+ &lt;then&gt;
+   &lt;echo message="The value of property foo is 'bar'" /&gt;
+ &lt;/then&gt;
+
+ &lt;elseif&gt;
+  &lt;equals arg1="${foo}" arg2="foo" /&gt;
+  &lt;then&gt;
+   &lt;echo message="The value of property foo is 'foo'" /&gt;
+  &lt;/then&gt;
+ &lt;/elseif&gt;
+
+ &lt;else&gt;
+   &lt;echo message="The value of property foo is not 'foo' or 'bar'" /&gt;
+ &lt;/else&gt;
+&lt;/if&gt;</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ForeachTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.coretasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ImportTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">B.19 ForeachTask  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> B.21 ImportTask </td></tr></table></div></body></html>
