@@ -1282,6 +1282,13 @@
             </entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>skiponsamesize</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Skip upload, if file of same size exists.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
