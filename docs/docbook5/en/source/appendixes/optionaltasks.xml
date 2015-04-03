@@ -1435,6 +1435,16 @@
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>depth</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Create a shallow clone with a history truncated to the specified number of revisions.
+                            See --depth option of <link
+                                xlink:href="http://www.kernel.org/pub/software/scm/git/docs/git-clone.html"
+                                >git-clone</link>.</entry>
+                        <entry><literal>0</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
