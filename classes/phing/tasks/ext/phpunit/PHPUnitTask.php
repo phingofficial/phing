@@ -86,7 +86,7 @@ class PHPUnitTask extends Task
 		 * 
 		 * @todo try first composer autoloader. check if_readable before to ignore errors loading it.
          */
-		if (!defined('PHING_COMPOSER_VENDOR_DIR')) {
+		if (!defined('PHING_COMPOSER_AUTOLOAD_FILE')) {
 			@include_once 'PHPUnit/Runner/Version.php';
 			@include_once 'phpunit/Runner/Version.php';
 			if (!empty($this->pharLocation)) {
