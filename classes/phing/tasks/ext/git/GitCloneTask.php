@@ -33,6 +33,12 @@ require_once 'phing/tasks/ext/git/GitBaseTask.php';
 class GitCloneTask extends GitBaseTask
 {
     /**
+     * Whether --depth key should be set for git-clone
+     * @var int
+     */
+    private $depth = 0;
+
+    /**
      * Whether --bare key should be set for git-init
      * @var string
      */
@@ -70,20 +76,83 @@ class GitCloneTask extends GitBaseTask
         $client = $this->getGitClient(false, getcwd());
 
         try {
-            $client->createClone(
-                $this->getRepository(),
-                $this->isBare(),
-                $this->getTargetPath()
-            );
+            if ($this->hasDepth()) {
+                $this->doShallowClone($client);
+            } else {
+                $client->createClone(
+                    $this->getRepository(),
+                    $this->isBare(),
+                    $this->getTargetPath()
+                );
+            }
         } catch (Exception $e) {
             throw new BuildException('The remote end hung up unexpectedly', $e);
         }
 
         $msg = 'git-clone: cloning '
             . ($this->isBare() ? '(bare) ' : '')
+            . ($this->hasDepth() ? ' (depth="' . $this->getDepth() . '") ' : '')
             . '"' . $this->getRepository() . '" repository'
             . ' to "' . $this->getTargetPath() . '" directory';
         $this->log($msg, Project::MSG_INFO);
+    }
+
+    /**
+     * Create a shallow clone with a history truncated to the specified number of revisions.
+     *
+     * @param VersionControl_Git $client
+     *
+     * @throws VersionControl_Git_Exception
+     */
+    protected function doShallowClone(VersionControl_Git $client)
+    {
+        $command = $client->getCommand('clone')
+            ->setOption('depth', $this->getDepth())
+            ->setOption('q')
+            ->addArgument($this->getRepository())
+            ->addArgument($this->getTargetPath());
+
+        if (is_dir($this->getTargetPath()) && version_compare('1.6.1.4', $client->getGitVersion(), '>=')) {
+            $isEmptyDir = true;
+            $entries = scandir($this->getTargetPath());
+            foreach ($entries as $entry) {
+                if ('.' !== $entry && '..' !== $entry) {
+                    $isEmptyDir = false;
+
+                    break;
+                }
+            }
+
+            if ($isEmptyDir) {
+                @rmdir($this->getTargetPath());
+            }
+        }
+
+        $command->execute();
+    }
+
+    /**
+     * @return int
+     */
+    public function getDepth()
+    {
+        return $this->depth;
+    }
+
+    /**
+     * @param int $depth
+     */
+    public function setDepth($depth)
+    {
+        $this->depth = $depth;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasDepth()
+    {
+        return (bool) $this->depth;
     }
 
     /**
