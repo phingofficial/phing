@@ -176,11 +176,17 @@ class TaskdefTask extends Task
 				 * and there isn't a composer autoloader file, we silent it. It
 				 * happens when a phing task is executed in composer pre-install-cmd
 				 * 
-				 * Handle if the exception should be throwed when...
 				 * 
-				 * the value for argument requiredWithoutComposer is true (default)
+				 * Handle if the exception should be throwed when...
+				 *
+				 * PHP version is <= 5.2, Composer requires 5.3 
 				 */
-				if ($this->requiredWithoutComposer) {
+				if (PHP_MAJOR_VERSION . PHP_MINOR_VERSION <= 52) {
+					throw new BuildException("Can't load task {$this->name} at {$this->classname}");
+				} elseif ($this->requiredWithoutComposer) {
+					/**
+				 	 * the value for argument requiredWithoutComposer is true (default)
+					 */
 					throw new BuildException("Can't load task {$this->name} at {$this->classname}");
 				} elseif (defined('PHING_COMPOSER_AUTOLOAD_FILE')) {
 					/**
