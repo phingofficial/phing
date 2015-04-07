@@ -89,14 +89,14 @@ try {
  */
 function phing_load_composer_autoload_file($composerFile)
 {
+	$dir = realpath(dirname($composerFile));
 	$composer = json_decode(file_get_contents($composerFile), true);
 	if (is_array($composer) and isset($composer['config']['vendor-dir']))
 	{
-		$autoloadDir = realpath($composer['config']['vendor-dir']);
+		$autoloadDir = $dir . '/' . $composer['config']['vendor-dir'];
 	}
 	else
 	{
-		$dir = realpath(dirname($composerFile));
 		$autoloadDir = $dir . '/vendor';
 	}
 	define ('PHING_COMPOSER_VENDOR_DIR', $autoloadDir);
