@@ -271,7 +271,9 @@ class PHPMDTask extends Task
             $ruleSetFactory = new $ruleSetClass(); //php 5.2 parser compatability
 
         } else {
-            @include 'PHP/PMD/RuleSetFactory.php';
+            if (!class_exists("PHP_PMD_RuleSetFactory")) {
+                @include 'PHP/PMD/RuleSetFactory.php';
+            }
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();
         }
         $ruleSetFactory->setMinimumPriority($this->minimumPriority);
