@@ -156,7 +156,10 @@ class IniFileConfig
             }
         } else {
             foreach ($this->lines as $linenum => $line) {
-                if (($line['section'] == $section) && ($line['key'] == $key)) {
+                if (($line['section'] == $section)
+                    && (isset($line['key']))
+                    && ($line['key'] == $key)
+                ) {
                     unset($this->lines[$linenum]);
                 }
             }
@@ -172,6 +175,9 @@ class IniFileConfig
      */
     public function write($file)
     {
+        if (file_exists($file) && !is_writable($file)) {
+            throw new RuntimeException("$file is not writable");
+        }
         $fp = fopen($file, 'w');
         foreach ($this->lines as $line) {
             fwrite($fp, $line['data']);
@@ -179,4 +185,3 @@ class IniFileConfig
         fclose($fp);
     }
 }
-?>
