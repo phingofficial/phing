@@ -139,5 +139,3 @@ class IniFileSet
         return $this->section;
     }
 }
-
-?>

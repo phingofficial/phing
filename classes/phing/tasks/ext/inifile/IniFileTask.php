@@ -103,7 +103,7 @@ class InifileTask extends Task
             if ($value !== null) {
                 try {
                     $this->ini->set($section, $key, $value);
-                } catch(Exception $ex) {
+                } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
                         "', key '" . $key ."'"
@@ -132,7 +132,7 @@ class InifileTask extends Task
                 }
                 try {
                     $this->ini->set($section, $key, $v);
-                } catch(Exception $ex) {
+                } catch (Exception $ex) {
                     $this->log(
                         "Error setting value for section '" . $section .
                         "', key '" . $key ."'"
@@ -207,4 +207,3 @@ class InifileTask extends Task
         return $remove;
     }
 }
-?>

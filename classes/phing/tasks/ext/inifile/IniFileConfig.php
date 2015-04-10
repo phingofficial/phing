@@ -179,4 +179,3 @@ class IniFileConfig
         fclose($fp);
     }
 }
-?>
