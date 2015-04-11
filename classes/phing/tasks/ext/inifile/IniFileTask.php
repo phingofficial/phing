@@ -74,6 +74,66 @@ class InifileTask extends Task
     protected $taskName = 'IniFile';
 
     /**
+     * Check file to be read from
+     *
+     * @param string $readFile Filename
+     *
+     * @return void
+     */
+    public function checkReadFile($readFile)
+    {
+        if ($readFile != '') {
+            if (!file_exists($readFile)) {
+                $msg = "$readFile does not exist.";
+                if ($this->haltonerror) {
+                    throw new BuildException($msg);
+                }
+                $this->log($msg, Project::MSG_ERR);
+                return false;
+            }
+            if (!is_readable($readFile)) {
+                $msg = "$readFile is not readable.";
+                if ($this->haltonerror) {
+                    throw new BuildException($msg);
+                }
+                $this->log($msg, Project::MSG_ERR);
+                return false;
+            }
+        }
+        $this->ini->read($readFile);
+        $this->log("Read from $readFile");
+        return true;
+    }
+
+    /**
+     * Check file to write to
+     *
+     * @param string $writeFile Filename
+     *
+     * @return void
+     */
+    public function checkWriteFile($writeFile)
+    {
+        if ($writeFile == '') {
+            $msg = "Neither source not dest is set";
+            if ($this->haltonerror) {
+                throw new BuildException($msg);
+            }
+            $this->log($msg, Project::MSG_ERR);
+            return false;
+        }
+        if (file_exists($writeFile) && !is_writable($writeFile)) {
+            $msg = "$writeFile is not writable";
+            if ($this->haltonerror) {
+                throw new BuildException($msg);
+            }
+            $this->log($msg, Project::MSG_ERR);
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * The main entry point method.
      *
      * @return void
@@ -81,34 +141,27 @@ class InifileTask extends Task
     public function main()
     {
         $this->ini = new IniFileConfig();
+        $readFile = '';
+        $writeFile = '';
+
         if (!is_null($this->source) && is_null($this->dest)) {
-            $this->ini->read($this->source);
-            $this->log("Read from $this->source");
+            $readFile = $this->source;
         } elseif (!is_null($this->dest)) {
-            $this->ini->read($this->dest);
-            $this->log("Read from $this->dest");
+            $readFile = $this->dest;
+        }
+        if (!$this->checkReadFile($readFile)) {
+            return;
         }
 
         if (!is_null($this->dest)) {
             $writeFile = $this->dest;
         } elseif (!is_null($this->source)) {
             $writeFile = $this->source;
-        } else {
-            $msg = "Neither source not dest is set";
-            if ($this->haltonerror) {
-                throw new BuildException($msg);
-            }
-            $this->log($msg, Project::MSG_ERR);
+        }
+        if (!$this->checkWriteFile($writeFile)) {
             return;
         }
-        if (!is_writable($writeFile)) {
-            $msg = "$writeFile is not writable";
-            if ($this->haltonerror) {
-                throw new BuildException($msg);
-            }
-            $this->log($msg, Project::MSG_ERR);
-            return;
-        }
+
         $this->enumerateSets();
         $this->enumerateRemoves();
         try {

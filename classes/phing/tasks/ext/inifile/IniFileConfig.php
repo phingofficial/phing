@@ -172,7 +172,7 @@ class IniFileConfig
      */
     public function write($file)
     {
-        if (!is_writable($file)) {
+        if (file_exists($file) && !is_writable($file)) {
             throw new RuntimeException("$file is not writable");
         }
         $fp = fopen($file, 'w');
