@@ -172,6 +172,9 @@ class IniFileConfig
      */
     public function write($file)
     {
+        if (!is_writable($file)) {
+            throw new RuntimeException("$file is not writable");
+        }
         $fp = fopen($file, 'w');
         foreach ($this->lines as $line) {
             fwrite($fp, $line['data']);
