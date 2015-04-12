@@ -82,23 +82,24 @@ class InifileTask extends Task
      */
     public function checkReadFile($readFile)
     {
-        if ($readFile != '') {
-            if (!file_exists($readFile)) {
-                $msg = "$readFile does not exist.";
-                if ($this->haltonerror) {
-                    throw new BuildException($msg);
-                }
-                $this->log($msg, Project::MSG_ERR);
-                return false;
+        if (is_null($readFile)) {
+            return false;
+        }
+        if (!file_exists($readFile)) {
+            $msg = "$readFile does not exist.";
+            if ($this->haltonerror) {
+                throw new BuildException($msg);
             }
-            if (!is_readable($readFile)) {
-                $msg = "$readFile is not readable.";
-                if ($this->haltonerror) {
-                    throw new BuildException($msg);
-                }
-                $this->log($msg, Project::MSG_ERR);
-                return false;
+            $this->log($msg, Project::MSG_ERR);
+            return false;
+        }
+        if (!is_readable($readFile)) {
+            $msg = "$readFile is not readable.";
+            if ($this->haltonerror) {
+                throw new BuildException($msg);
             }
+            $this->log($msg, Project::MSG_ERR);
+            return false;
         }
         $this->ini->read($readFile);
         $this->log("Read from $readFile");
@@ -114,14 +115,6 @@ class InifileTask extends Task
      */
     public function checkWriteFile($writeFile)
     {
-        if ($writeFile == '') {
-            $msg = "Neither source not dest is set";
-            if ($this->haltonerror) {
-                throw new BuildException($msg);
-            }
-            $this->log($msg, Project::MSG_ERR);
-            return false;
-        }
         if (file_exists($writeFile) && !is_writable($writeFile)) {
             $msg = "$writeFile is not writable";
             if ($this->haltonerror) {
@@ -141,23 +134,38 @@ class InifileTask extends Task
     public function main()
     {
         $this->ini = new IniFileConfig();
-        $readFile = '';
-        $writeFile = '';
+        $readFile = null;
+        $writeFile = null;
 
         if (!is_null($this->source) && is_null($this->dest)) {
             $readFile = $this->source;
-        } elseif (!is_null($this->dest)) {
+        } elseif (!is_null($this->dest) && is_null($this->source)) {
             $readFile = $this->dest;
-        }
-        if (!$this->checkReadFile($readFile)) {
-            return;
+        } else {
+            $readFile = $this->source;
         }
 
         if (!is_null($this->dest)) {
             $writeFile = $this->dest;
         } elseif (!is_null($this->source)) {
             $writeFile = $this->source;
+        } else {
+            $writeFile = $this->dest;
         }
+
+        if ($readFile === null && $writeFile === null) {
+            $msg = "Neither source nor dest is set";
+            if ($this->haltonerror) {
+                throw new BuildException($msg);
+            }
+            $this->log($msg, Project::MSG_ERR);
+            return;
+        }
+
+        if (!$this->checkReadFile($readFile)) {
+            return;
+        }
+
         if (!$this->checkWriteFile($writeFile)) {
             return;
         }
