@@ -156,7 +156,10 @@ class IniFileConfig
             }
         } else {
             foreach ($this->lines as $linenum => $line) {
-                if (($line['section'] == $section) && ($line['key'] == $key)) {
+                if (($line['section'] == $section)
+                    && (isset($like['key']))
+                    && ($line['key'] == $key)
+                ) {
                     unset($this->lines[$linenum]);
                 }
             }
