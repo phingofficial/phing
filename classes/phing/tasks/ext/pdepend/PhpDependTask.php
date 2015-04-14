@@ -133,13 +133,22 @@ class PhpDependTask extends Task
     private $oldVersion = false;
 
     /**
+     * @var string
+     */
+    protected $pharLocation = "";
+
+    /**
      * Load the necessary environment for running PHP_Depend
      *
      * @throws BuildException
      */
     protected function requireDependencies()
     {
-        // check 2.x version (composer)
+        if (!empty($this->pharLocation)) {
+            include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
+        }
+
+        // check 2.x version (composer/phar)
         if (class_exists('PDepend\\TextUI\\Runner')) {
             return;
         }
@@ -318,6 +327,14 @@ class PhpDependTask extends Task
         $num = array_push($this->analyzers, new PhpDependAnalyzerElement());
 
         return $this->analyzers[$num - 1];
+    }
+
+    /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
     }
 
     /**

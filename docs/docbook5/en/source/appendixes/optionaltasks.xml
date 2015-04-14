@@ -7846,6 +7846,10 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This task runs <link xlink:href="http://pdepend.org" role="extern">PHP_Depend</link>,
             a software analyzer and metric tool for PHP Code. You need an installed version of this
             software to use this task.</para>
+        <para>
+            <emphasis role="bold">NB:</emphasis> if you have installed the
+            PHP_Depend Phar file, make sure you set the
+            <literal>pharLocation</literal> attribute!</para>
 
         <table>
             <title>Attributes</title>
@@ -7930,6 +7934,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Stop the build process if errors occurred during the run.</entry>
                         <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pharlocation</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the PHP_Depend Phar file.</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
