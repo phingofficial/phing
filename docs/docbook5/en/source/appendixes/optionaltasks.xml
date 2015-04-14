@@ -7677,7 +7677,10 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This task runs <link xlink:href="http://phpmd.org" role="extern">phpmd</link>, a
             Project Mess Detector (PMD) for PHP Code. You need an installed version of this software
             to use this task.</para>
-
+        <para>
+            <emphasis role="bold">NB:</emphasis> if you have installed the
+            PHPMD Phar file, make sure you set the
+            <literal>pharLocation</literal> attribute!</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7740,6 +7743,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>The format for the report when no nested formatter is used.</entry>
                         <entry>text</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pharlocation</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the PHPMD Phar file.</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
