@@ -102,6 +102,11 @@ class PHPCPDTask extends Task
     protected $oldVersion = false;
 
     /**
+     * @var string
+     */
+    private $pharLocation = "";
+
+    /**
      * Set the input source file or directory.
      *
      * @param PhingFile $file The input source file or directory.
@@ -210,10 +215,35 @@ class PHPCPDTask extends Task
     }
 
     /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
+    }
+
+    /**
      * @throws BuildException if the phpcpd classes can't be loaded
      */
     private function loadDependencies()
     {
+        if (!empty($this->pharLocation)) {
+            // hack to prevent PHPCPD from starting in CLI mode and halting Phing
+            eval("namespace SebastianBergmann\PHPCPD\CLI;
+class Application
+{
+    public function run() {}
+}");
+
+            ob_start();
+            include $this->pharLocation;
+            ob_end_clean();
+
+            if (class_exists('\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy')) {
+                return;
+            }
+        }
+
         if (class_exists('Composer\\Autoload\\ClassLoader', false) && class_exists(
                 '\\SebastianBergmann\\PHPCPD\\Detector\\Strategy\\DefaultStrategy'
             )
