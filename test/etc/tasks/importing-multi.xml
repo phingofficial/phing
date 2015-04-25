@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<project name="importing-multi" default="">
+
+    <import optional="true">
+        <fileset dir="imports">
+            <patternset>
+                <include name="**/imported-multi-*.xml"/>
+            </patternset>
+        </fileset>
+    </import>
+
+</project>
