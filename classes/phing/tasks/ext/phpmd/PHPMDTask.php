@@ -95,6 +95,11 @@ class PHPMDTask extends Task
     protected $newVersion = true;
 
     /**
+     * @var string
+     */
+    protected $pharLocation = "";
+
+    /**
      * Set the input source file or directory.
      *
      * @param PhingFile $file The input source file or directory.
@@ -192,6 +197,14 @@ class PHPMDTask extends Task
     }
 
     /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
+    }
+
+    /**
      * Find PHPMD
      *
      * @return string
@@ -199,6 +212,10 @@ class PHPMDTask extends Task
      */
     protected function loadDependencies()
     {
+        if (!empty($this->pharLocation)) {
+            include_once 'phar://' . $this->pharLocation . '/vendor/autoload.php';
+        }
+
         $className = '\PHPMD\PHPMD';
 
         if (!class_exists($className)) {
@@ -209,7 +226,7 @@ class PHPMDTask extends Task
 
         if (!class_exists($className)) {
             throw new BuildException(
-                'PHPMDTask depends on PHPMD being installed and on include_path.',
+                'PHPMDTask depends on PHPMD being installed and on include_path or listed in pharLocation.',
                 $this->getLocation()
             );
         }

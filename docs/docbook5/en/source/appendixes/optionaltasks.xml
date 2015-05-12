@@ -7423,6 +7423,10 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This task runs <link xlink:href="http://github.com/sebastianbergmann/phpcpd/"
                 role="extern">phpcpd</link>, a Copy/Paste Detector (CPD) for PHP Code. You need an
             installed version of this software to use this task.</para>
+        <para>
+            <emphasis role="bold">NB:</emphasis> if you have installed the
+            PHPCPD PHAR, make sure you set the
+            <literal>pharlocation</literal> attribute!</para>
 
         <table>
             <title>Attributes</title>
@@ -7476,6 +7480,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>If fuzzy is set to true, the task will perform a fuzzy match.</entry>
                         <entry>false</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pharlocation</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the PHPUnit PHAR package.</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -7574,6 +7585,10 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="PHPLocTask">
         <title>PHPLocTask</title>
         <para>This task runs <link xlink:href="http://github.com/sebastianbergmann/phploc/" role="extern">phploc</link>, a tool for measuring the size of PHP projects. You need an installed version of this tool (installable via PEAR) to use this task.</para>
+        <para>
+            <emphasis role="bold">NB:</emphasis> if you have installed the
+            PHPLOC PHAR, make sure you set the
+            <literal>pharlocation</literal> attribute!</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7634,6 +7649,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>php</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>pharlocation</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the PHPUnit PHAR package.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -7677,7 +7699,10 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This task runs <link xlink:href="http://phpmd.org" role="extern">phpmd</link>, a
             Project Mess Detector (PMD) for PHP Code. You need an installed version of this software
             to use this task.</para>
-
+        <para>
+            <emphasis role="bold">NB:</emphasis> if you have installed the
+            PHPMD Phar file, make sure you set the
+            <literal>pharLocation</literal> attribute!</para>
         <table>
             <title>Attributes</title>
             <tgroup cols="5">
@@ -7740,6 +7765,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>The format for the report when no nested formatter is used.</entry>
                         <entry>text</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pharlocation</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the PHPMD Phar file.</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -7836,6 +7868,10 @@ Note that you can omit both startpoint and track attributes in this case
         <para> This task runs <link xlink:href="http://pdepend.org" role="extern">PHP_Depend</link>,
             a software analyzer and metric tool for PHP Code. You need an installed version of this
             software to use this task.</para>
+        <para>
+            <emphasis role="bold">NB:</emphasis> if you have installed the
+            PHP_Depend Phar file, make sure you set the
+            <literal>pharLocation</literal> attribute!</para>
 
         <table>
             <title>Attributes</title>
@@ -7920,6 +7956,13 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Stop the build process if errors occurred during the run.</entry>
                         <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>pharlocation</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Location of the PHP_Depend Phar file.</entry>
+                        <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
