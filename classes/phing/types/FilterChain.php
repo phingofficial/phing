@@ -30,6 +30,7 @@ include_once 'phing/filters/PrefixLines.php';
 include_once 'phing/filters/ReplaceRegexp.php';
 include_once 'phing/filters/ReplaceTokens.php';
 include_once 'phing/filters/ReplaceTokensWithFile.php';
+include_once 'phing/filters/SortFilter.php';
 include_once 'phing/filters/StripPhpComments.php';
 include_once 'phing/filters/StripLineBreaks.php';
 include_once 'phing/filters/StripLineComments.php';
@@ -260,6 +261,15 @@ class FilterChain extends DataType
         $this->filterReaders[] = $o;
     }
 
+    /**
+     * @param SortFilter $o
+     */
+    public function addSortFilter(SortFilter $o)
+    {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
     /*
      * Makes this instance in effect a reference to another FilterChain
      * instance.
@@ -290,5 +300,4 @@ class FilterChain extends DataType
         }
         parent::setRefid($r);
     }
-
 }

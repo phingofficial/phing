@@ -209,6 +209,37 @@ class Properties
         }
     }
 
+    public function storeOutputStream(OutputStream $os, $comments)
+    {
+        $this->_storeOutputStream(new BufferedWriter(new OutputStreamWriter($os)), $comments);
+    }
+
+    private function _storeOutputStream(BufferedWriter $bw, $comments)
+    {
+        if ($comments != null) {
+            self::writeComments($bw, $comments);
+        }
+        $bw->write("#" . gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        $bw->newLine();
+        foreach ($this->getProperties() as $key => $value) {
+                $bw->write($key . "=" . $value);
+                $bw->newLine();
+
+        }
+        $bw->flush();
+    }
+
+    private static function writeComments(BufferedWriter $bw, $comments)
+    {
+        $rows = explode("\n", $comments);
+        $bw->write("#" . PHP_EOL);
+        foreach ($rows as $row) {
+            $bw->write(sprintf("#%s%s", trim($row), PHP_EOL));
+        }
+        $bw->write("#");
+        $bw->newLine();
+    }
+
     /**
      * Returns copy of internal properties hash.
      * Mostly for performance reasons, property hashes are often
