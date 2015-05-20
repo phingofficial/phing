@@ -2,15 +2,15 @@ P     H     I     N     G
 =========================
 
 
-May .., 2015 - Phing 2.11
+May 20, 2015 - Phing 2.11
 -------------------------
 
 This release contains the following new or improved functionality:
 
- * PharData task
+ * PharData and EchoProperties tasks
  * 'silent' and 'emacs' command line modes
  * Improvements to FileHash and FtpDeploy tasks
- * SuffixLines filter
+ * SuffixLines and Sort filters
 
 The following tickets were closed in this release:
 
