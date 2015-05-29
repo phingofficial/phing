@@ -136,10 +136,6 @@
                         <entry>Display the help screen</entry>
                     </row>
                     <row>
-                        <entry><literal>-v -version</literal></entry>
-                        <entry>Print version information and exit</entry>
-                    </row>
-                    <row>
                         <entry><literal>-l -list</literal></entry>
                         <entry>List all available targets in buildfile
                         (excluding targets that have their
@@ -147,33 +143,40 @@
                         <literal>true</literal>)</entry>
                     </row>
                     <row>
+                        <entry><literal>-v -version</literal></entry>
+                        <entry>Print version information and exit</entry>
+                    </row>
+                    <row>
                         <entry><literal>-q -quiet</literal></entry>
                         <entry>Quiet operation, no output at all</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-S -silent</literal></entry>
+                        <entry>Print nothing but task outputs and build failures</entry>
                     </row>
                     <row>
                         <entry><literal>-verbose</literal></entry>
                         <entry>Verbose, give some more output</entry>
                     </row>
                     <row>
-                        <entry><literal>-debu</literal>g</entry>
+                        <entry><literal>-debug</literal></entry>
                         <entry>Output debug information</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-emacs -e</literal></entry>
+                        <entry>Produce logging information without adornments</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-diagnostics</literal></entry>
+                        <entry>Print diagnostics information</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-longtargets</literal></entry>
+                        <entry>Show target descriptions during build</entry>
                     </row>
                     <row>
                         <entry><literal>-logfile &lt;file></literal></entry>
                         <entry>Use given file for log</entry>
-                    </row>
-                    <row>
-                        <entry><literal>-D&lt;property>=&lt;value></literal></entry>
-                        <entry>Set the property to the specified value to be used in the
-                            buildfile</entry>
-                    </row>
-                    <row>
-                        <entry><literal>-find &lt;file></literal></entry>
-                        <entry/>
-                    </row>
-                    <row>
-                        <entry><literal>-buildfile &lt;file></literal></entry>
-                        <entry>Specify an alternate buildfile name. Default is build.xml </entry>
                     </row>
                     <row>
                         <entry><literal>-logger path.to.Logger</literal></entry>
@@ -183,8 +186,30 @@
                             phing.listener.TargetLogger and phing.listener.HtmlColorLogger.</entry>
                     </row>
                     <row>
+                        <entry><literal>-f -buildfile &lt;file></literal></entry>
+                        <entry>Specify an alternate buildfile name. Default is build.xml </entry>
+                    </row>
+                    <row>
+                        <entry><literal>-D&lt;property>=&lt;value></literal></entry>
+                        <entry>Set the property to the specified value to be used in the
+                            buildfile</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-keep-going -k</literal></entry>
+                        <entry>Execute all targets that to not depend on failed target(s)</entry>
+                    </row>
+                    <row>
                         <entry><literal>-propertyfile &lt;file></literal></entry>
                         <entry>Load properties from the specified file</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-find &lt;file></literal></entry>
+                        <entry>Search for a buildfile towards the root of the
+                            filesystem and use that</entry>
+                    </row>
+                    <row>
+                        <entry><literal>-inputhandler &lt;file></literal></entry>
+                        <entry>The class to use to handle user input</entry>
                     </row>
                 </tbody>
             </tgroup>
