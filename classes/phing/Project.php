@@ -108,6 +108,11 @@ class Project
     private $listeners = array();
 
     /**
+     * Keep going flag.
+     */
+    private $keepGoingMode = false;
+
+    /**
      *  Constructor, sets any default vars.
      */
     public function __construct()
@@ -562,6 +567,30 @@ class Project
     }
 
     /**
+     * Set &quot;keep-going&quot; mode. In this mode Ant will try to execute
+     * as many targets as possible. All targets that do not depend
+     * on failed target(s) will be executed.  If the keepGoing settor/getter
+     * methods are used in conjunction with the <code>ant.executor.class</code>
+     * property, they will have no effect.
+     * @param keepGoingMode &quot;keep-going&quot; mode
+     */
+    public function setKeepGoingMode($keepGoingMode)
+    {
+        $this->keepGoingMode = $keepGoingMode;
+    }
+
+    /**
+     * Return the keep-going mode.  If the keepGoing settor/getter
+     * methods are used in conjunction with the <code>phing.executor.class</code>
+     * property, they will have no effect.
+     * @return bool &quot;keep-going&quot; mode
+     */
+    public function isKeepGoingMode()
+    {
+        return $this->keepGoingMode;
+    }
+
+    /**
      * Sets system properties and the environment variables for this project.
      *
      * @return void
@@ -861,19 +890,45 @@ class Project
 
         $curIndex = (int) 0;
         $curTarget = null;
+        $thrownException = null;
+        $buildException = null;
         do {
             try {
                 $curTarget = $sortedTargets[$curIndex++];
                 $curTarget->performTasks();
             } catch (BuildException $exc) {
-                $this->log(
-                    "Execution of target \"" . $curTarget->getName(
-                    ) . "\" failed for the following reason: " . $exc->getMessage(),
-                    Project::MSG_ERR
-                );
-                throw $exc;
+                if (!($this->keepGoingMode)) {
+                    throw $exc;
+                }
+                $thrownException = $exc;
+            }
+            if ($thrownException != null) {
+                if ($thrownException instanceof BuildException) {
+                    $this->log(
+                        "Target '" . $curTarget->getName()
+                        . "' failed with message '"
+                        . $thrownException->getMessage() . "'.", Project::MSG_ERR);
+                    // only the first build exception is reported
+                    if ($buildException === null) {
+                        $buildException = $thrownException;
+                    }
+                } else {
+                    $this->log(
+                        "Target '" . $curTarget->getName()
+                        . "' failed with message '"
+                        . $thrownException->getMessage() . "'." . PHP_EOL
+                        . $thrownException->getTraceAsString(), Project::MSG_ERR
+                    );
+                    if ($buildException === null) {
+                        $buildException = new BuildException($thrownException);
+                    }
+                }
             }
         } while ($curTarget->getName() !== $targetName);
+
+        if ($buildException !== null) {
+            throw $buildException;
+        }
     }
 
     /**
