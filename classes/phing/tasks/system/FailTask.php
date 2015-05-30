@@ -19,6 +19,7 @@
 
 require_once 'phing/Task.php';
 require_once 'phing/ExitStatusException.php';
+require_once 'phing/tasks/system/condition/NestedCondition.php';
 
 /**
  * Exits the active build, giving an additional message
@@ -215,19 +216,5 @@ class FailTask extends Task
     private function nestedConditionPresent()
     {
         return (bool) $this->nestedCondition;
-    }
-}
-
-class NestedCondition extends ConditionBase implements Condition
-{
-    public function evaluate()
-    {
-        if ($this->countConditions() != 1) {
-            throw new BuildException(
-                "A single nested condition is required.");
-        }
-        $cond = $this->getConditions();
-
-        return $cond[0]->evaluate();
     }
 }
