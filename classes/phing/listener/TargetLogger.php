@@ -51,7 +51,7 @@ class TargetLogger extends AnsiColorLogger
      */
     public function targetFinished(BuildEvent $event)
     {
-        $msg .= PHP_EOL . "Target time: " . self::formatTime(
+        $msg = PHP_EOL . "Target time: " . self::formatTime(
                 Phing::currentTimeMillis() - $this->targetStartTime
             ) . PHP_EOL;
         $event->setMessage($msg, Project::MSG_INFO);
