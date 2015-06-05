@@ -1491,6 +1491,100 @@
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="echoproperties">
+        <title>echoproperties</title>
+        <para> Displays all the current properties in the project.
+            The output can be sent to a file if desired.
+            This task can be used as a somewhat contrived means of returning data from an <literal>&lt;phing></literal>
+            invocation, but is really for debugging build files.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>destfile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>If specified, the value indicates the name of the file to send the output of the statement to.
+                            If not specified, then the output will go to the Phing log.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>srcfile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>If specified, the value indicates the name of the property file to read from.
+                            If not specified, then the system properties will be taken.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>prefix</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>a prefix which is used to filter the properties only those properties starting
+                            with this prefix will be echoed.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>regex</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>a regular expression which is used to filter the properties only those properties
+                            whose names match it will be echoed.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>failonerror</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>By default, the "failonerror" attribute is enabled.
+                            If an error occurs while writing the properties to a file, and this attribute is enabled,
+                            then a BuildException will be thrown, causing the build to fail.
+                            If disabled, then IO errors will be reported as a log statement, and the build will
+                            continue without failure from this task.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>format</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>One of text or xml. Determines the output format. Defaults to text.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;echoproperties /></programlisting>
+            <para>Report the current properties to the log.</para>
+            <programlisting language="xml">&lt;echoproperties destfile="my.properties"/></programlisting>
+            <para>Report the current properties to the file "my.properties", and will fail the build if the file could
+                not be created or written to.</para>
+            <programlisting language="xml">&lt;echoproperties destfile="my.properties" failonerror="false"/></programlisting>
+            <para>Report the current properties to the file "my.properties", and will log a message if the file
+                could not be created or written to, but will still allow the build to continue.</para>
+            <programlisting language="xml">&lt;echoproperties prefix="phing."/></programlisting>
+            <para>List all properties beginning with "phing."</para>
+            <echoproperties regex="/.*phing.*/"/>
+            <para>Lists all properties that contain "phing" in their names.</para>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="ExecTask">
         <title>ExecTask </title>
         <para>Executes a shell command. You can use this to quickly add a new command to Phing.

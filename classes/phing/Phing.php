@@ -88,10 +88,23 @@ class Phing
     /** Names of classes to add as listeners to project */
     private $listeners = array();
 
+    /**
+     * keep going mode
+     * @var bool $keepGoingMode
+     */
+    private $keepGoingMode = false;
+
     private $loggerClassname = null;
 
     /** The class to handle input (can be only one). */
     private $inputHandlerClassname;
+
+    /**
+     * Whether or not log output should be reduced to the minimum.
+     *
+     * @var bool $silent
+     */
+    private $silent = false;
 
     /** Indicates if this phing should be run */
     private $readyToRun = false;
@@ -370,6 +383,15 @@ class Phing
             unset($args[$key]);
         }
 
+        if (
+            false !== ($key = array_search('-silent', $args, true))
+            ||
+            false !== ($key = array_search('-S', $args, true))
+        ) {
+            $this->silent = true;
+            unset($args[$key]);
+        }
+
         // 3) Finally, cycle through to parse remaining args
         //
         $keys = array_keys($args); // Use keys and iterate to max(keys) since there may be some gaps
@@ -460,6 +482,8 @@ class Phing
                         $this->setProperty($prop, $value);
                     }
                 }
+            } elseif ($arg == "-keep-going" || $arg == "-k") {
+                $this->keepGoingMode = true;
             } elseif ($arg == "-longtargets") {
                 self::$definedProps->setProperty('phing.showlongtargets', 1);
             } elseif ($arg == "-projecthelp" || $arg == "-targets" || $arg == "-list" || $arg == "-l" || $arg == "-p") {
@@ -606,6 +630,8 @@ class Phing
             $project->fireBuildFinished($exc);
             throw $exc;
         }
+
+        $project->setKeepGoingMode($this->keepGoingMode);
 
         $project->setUserProperty("phing.version", $this->getPhingVersion());
 
@@ -774,7 +800,11 @@ class Phing
      */
     private function createLogger()
     {
-        if ($this->loggerClassname !== null) {
+        if ($this->silent) {
+            require_once 'phing/listener/SilentLogger.php';
+            $logger = new SilentLogger();
+            self::$msgOutputLevel = Project::MSG_WARN;
+        } elseif ($this->loggerClassname !== null) {
             self::import($this->loggerClassname);
             // get class name part
             $classname = self::import($this->loggerClassname);
@@ -935,6 +965,7 @@ class Phing
         $msg .= "  -l -list               list available targets in this project" . PHP_EOL;
         $msg .= "  -v -version            print the version information and exit" . PHP_EOL;
         $msg .= "  -q -quiet              be extra quiet" . PHP_EOL;
+        $msg .= "  -S -silent             print nothing but task outputs and build failures" . PHP_EOL;
         $msg .= "  -verbose               be extra verbose" . PHP_EOL;
         $msg .= "  -debug                 print debugging information" . PHP_EOL;
         $msg .= "  -emacs, -e             produce logging information without adornments" . PHP_EOL;
@@ -944,6 +975,8 @@ class Phing
         $msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
         $msg .= "  -f -buildfile <file>   use given buildfile" . PHP_EOL;
         $msg .= "  -D<property>=<value>   use value for given property" . PHP_EOL;
+        $msg .= "  -keep-going, -k        execute all targets that do not depend" . PHP_EOL;
+        $msg .= "                         on failed target(s)" . PHP_EOL;
         $msg .= "  -propertyfile <file>   load all properties from file" . PHP_EOL;
         $msg .= "  -find <file>           search for buildfile towards the root of the" . PHP_EOL;
         $msg .= "                         filesystem and use it" . PHP_EOL;

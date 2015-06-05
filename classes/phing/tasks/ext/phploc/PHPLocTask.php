@@ -87,6 +87,11 @@ class PHPLocTask extends Task
     private $isOneSevenVersion = false;
 
     /**
+     * @var string
+     */
+    private $pharLocation = "";
+
+    /**
      * @param string $suffixListOrSingleSuffix
      */
     public function setSuffixes($suffixListOrSingleSuffix)
@@ -151,13 +156,31 @@ class PHPLocTask extends Task
     }
 
     /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
+    }
+
+    /**
      * @throws BuildException
      */
     protected function loadDependencies()
     {
-        /**
-         * Find PHPLoc
-         */
+        if (!empty($this->pharLocation)) {
+            // hack to prevent PHPLOC from starting in CLI mode and halting Phing
+            eval("namespace SebastianBergmann\PHPLOC\CLI;
+class Application
+{
+    public function run() {}
+}");
+
+            ob_start();
+            include $this->pharLocation;
+            ob_end_clean();
+        }
+
         if (!class_exists('\SebastianBergmann\PHPLOC\Analyser')) {
             if (!@include_once 'SebastianBergmann/PHPLOC/autoload.php') {
                 if (!@include_once 'PHPLOC/Analyser.php') {
@@ -184,7 +207,7 @@ class PHPLocTask extends Task
     public function main()
     {
         $this->loadDependencies();
-        
+
         $this->validateProperties();
 
         if ($this->reportDirectory !== null && !is_dir($this->reportDirectory)) {

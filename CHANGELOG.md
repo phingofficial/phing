@@ -2,6 +2,29 @@ P     H     I     N     G
 =========================
 
 
+May 20, 2015 - Phing 2.11
+-------------------------
+
+This release contains the following new or improved functionality:
+
+ * PharData and EchoProperties tasks
+ * 'silent' and 'emacs' command line modes
+ * Improvements to FileHash and FtpDeploy tasks
+ * SuffixLines and Sort filters
+
+The following tickets were closed in this release:
+
+ * [1186] Implement pharLocation attribute for PHP_Depend task
+ * [1185] Implement pharLocation attribute for PHPMD task
+ * [1183] Fatal error in PHPMDTask
+ * [1176] Showwarnings doesn't work
+ * [1170] Allow more than one code standard review for PHP_CodeSniffer.
+ * [1169] Allow for fuzzy parameter for phpcpdPHPCPD
+ * [1162] add depth param to GitCloneTask
+ * [1161] Update phpcpd & phploc tasks to work with phar versions
+ * [1134] Phar version did not provide colorized output
+ * [462] Incremental uploads in ftp deploy task
+
 Feb. 19, 2015 - Phing 2.10.1
 ----------------------------
 
