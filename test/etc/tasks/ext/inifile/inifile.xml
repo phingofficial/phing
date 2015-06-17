@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<project name="test for httpget task" default="recipient">
+    <property name="tmp.dir" value="./../../../../tmp/inifile" />
+
+    <target name="recipient" />
+
+    <target name="setup">
+    	<mkdir dir="${tmp.dir}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${tmp.dir}"/>
+    </target>
+
+    <target name="noSourceOrDestSet">
+        <inifile haltonerror="yes"/>
+    </target>
+
+    <target name="nonexistingSourceOnly">
+        <inifile source="doesnotexist.ini" haltonerror="yes"/>
+    </target>
+
+    <target name="nonexistingDestOnly">
+        <inifile dest="doesnotexist.ini" haltonerror="yes"/>
+    </target>
+
+    <target name="nonexistingDestAndSource">
+        <inifile source="sourcedoesnotexist.ini" dest="destination.ini" haltonerror="yes"/>
+    </target>
+
+    <target name="existingSource">
+        <inifile source="${tmp.dir}/source.ini" dest="${tmp.dir}/destination.ini" haltonerror="yes">
+        <set section="test" property="foo" value="qux"/>
+        </inifile>
+    </target>
+
+    <target name="removeKeyFromSectionInSourceFile">
+        <inifile source="${tmp.dir}/source.ini" dest="${tmp.dir}/destination.ini" haltonerror="yes">
+        <remove section="test" property="foo" />
+        </inifile>
+    </target>
+
+    <target name="removeSectionFromSourceFile">
+        <inifile source="${tmp.dir}/source.ini" dest="${tmp.dir}/destination.ini" haltonerror="yes">
+        <remove section="test"/>
+        </inifile>
+    </target>
+</project>
