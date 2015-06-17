@@ -3285,6 +3285,60 @@
 &lt;echo>Resolved [absolute] path: ${absolute_path}&lt;/echo></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Retry">
+        <title>Retry</title>
+        <para> Retry is a container which executes a single nested task until
+            either: there is no failure; or: its retrycount has been exceeded.
+            If this happens a BuildException is thrown..
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>retrycount</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>number of times to attempt to execute the nested task
+                        </entry>
+                        <entry>1</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>retrydelay</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>number of seconds to wait between retry attempts task.
+                        </entry>
+                        <entry>0</entry>
+                        <entry>No, defaults to no delay</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <para>Any valid Phing task may be embedded within the retry task.</para>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;retry retrycount="3">
+                $lt;httpget url="http://www.unreliable-server.com/unreliable.tar.gz" dir="/home/retry"/>
+                &lt;/retry></programlisting>
+            <para>This example shows how to use <literal>&lt;retry></literal> to
+                wrap a task which must interact with an unreliable network resource.
+            </para>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="SwitchPathTask">
         <title>SwitchTask </title>
         <para>Task definition for the phing task to switch on a particular value.</para>
