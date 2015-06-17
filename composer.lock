@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4e7b320372529aec03b04cb1f6894419",
+    "hash": "8a81b4a5f363893b3d973c6831fba2a0",
     "packages": [],
     "packages-dev": [
         {
@@ -1000,18 +1000,18 @@
         },
         {
             "name": "pear-pear.php.net/Console_Getopt",
-            "version": "1.4.0",
+            "version": "1.3.1",
             "dist": {
                 "type": "file",
-                "url": "http://pear.php.net/get/Console_Getopt-1.4.0.tgz",
+                "url": "http://pear.php.net/get/Console_Getopt-1.3.1.tgz",
                 "reference": null,
                 "shasum": null
             },
             "require": {
-                "php": ">=5.4.0.0"
+                "php": ">=4.3.0.0"
             },
             "replace": {
-                "pear-pear/console_getopt": "== 1.4.0.0"
+                "pear-pear/console_getopt": "== 1.3.1.0"
             },
             "type": "pear-library",
             "autoload": {
