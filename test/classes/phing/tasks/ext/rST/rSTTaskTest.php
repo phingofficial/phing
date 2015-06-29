@@ -25,7 +25,6 @@ require_once 'phing/BuildFileTest.php';
  * @author     Christian Weiske <cweiske@cweiske.de>
  * @license    LGPL v3 or later http://www.gnu.org/licenses/lgpl.html
  * @link       http://www.phing.info/
- * TODO: skip these tests when requirements are not met. (Like when running on windows?)
  */
 class rSTTaskTest extends BuildFileTest
 {
@@ -44,6 +43,15 @@ class rSTTaskTest extends BuildFileTest
     {
         // remove excess file if the test failed
         @unlink(PHING_TEST_BASE . '/etc/tasks/ext/rst/files/single.html');
+    }
+
+    protected function assertPreConditions()
+    {
+        try {
+            $this->testGetToolPathFail();
+        } catch (BuildException $be) {
+            $this->markTestSkipped($be->getMessage());
+        }
     }
 
     /**
