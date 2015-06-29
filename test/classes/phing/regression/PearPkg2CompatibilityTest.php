@@ -53,6 +53,17 @@ class PearPkg2CompatibilityTest extends BuildFileTest
         $this->executeTarget("teardown");
     }
 
+    protected function assertPreConditions()
+    {
+        try {
+            $this->executeTarget("inactive");
+        } catch (Exception $e) {
+            if (strpos($e->getMessage(), 'Unknown channel') !== false) {
+                $this->markTestSkipped($e->getMessage());
+            }
+        }
+    }
+
     public function testInactiveMaintainers()
     {
         $this->executeTarget("inactive");
