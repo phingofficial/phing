@@ -353,6 +353,10 @@ class ApplyTaskTest extends BuildFileTest
      */
     public function testSpawn()
     {
+        // Validating the OS platform
+        if ($this->windows) {
+            $this->markTestSkipped("Windows does not have /bin/sleep");
+        }
 
         // Process
         $start = time();
