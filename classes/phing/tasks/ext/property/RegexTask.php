@@ -20,6 +20,7 @@
  */
 
 include_once 'phing/tasks/ext/property/AbstractPropertySetterTask.php';
+include_once 'phing/util/regexp/Regexp.php';
 
 /**
  * Regular Expression Task for properties.
