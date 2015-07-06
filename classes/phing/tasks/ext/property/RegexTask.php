@@ -63,12 +63,6 @@ class RegexTask extends AbstractPropertySetterTask
     /** @var string $replace */
     private $replace;
 
-    /** @var string $delimiter */
-    private $delimiter = '/';
-
-    /** @var int $limit */
-    private $limit = -1;
-
     /** @var string $defaultValue */
     private $defaultValue;
 
@@ -76,30 +70,26 @@ class RegexTask extends AbstractPropertySetterTask
     private $caseSensitive = true;
 
     /** @var array $modifiers */
-    private $modifiers = array(
-        'PCRE_CASELESS'  => 'i'
-    );
+    private $modifiers = '';
+
+    /** @var Regexp $reg */
+    private $reg;
+
+    public function init()
+    {
+        $this->reg = new Regexp();
+    }
 
     /**
-     * @param $subject
+     * @param string $subject
      */
     public function setSubject($subject)
     {
-        $this->subject = preg_quote($subject, $this->delimiter);
+        $this->subject = $subject;
     }
 
     /**
-     * @param $limit
-     */
-    public function setLimit($limit)
-    {
-        $this->log('Set limit to ' . $limit, Project::MSG_DEBUG);
-
-        $this->limit = $limit;
-    }
-
-    /**
-     * @param $defaultValue
+     * @param string $defaultValue
      */
     public function setDefaultValue($defaultValue)
     {
@@ -109,16 +99,17 @@ class RegexTask extends AbstractPropertySetterTask
     }
 
     /**
-     * @param $pattern
+     * @param  string $pattern
      * @throws BuildException
      */
     public function setPattern($pattern)
     {
         if ($this->pattern !== null) {
-            throw new BuildException("Cannot specify more than one regular expression");
+            throw new BuildException(
+                'Cannot specify more than one regular expression'
+            );
         }
 
-        $pattern = addslashes($pattern);
         $this->log('Set pattern to ' . $pattern, Project::MSG_DEBUG);
 
         $this->pattern = $pattern;
@@ -131,10 +122,14 @@ class RegexTask extends AbstractPropertySetterTask
     public function setReplace($replace)
     {
         if ($this->replace !== null) {
-            throw new BuildException("Cannot specify more than one replace expression");
+            throw new BuildException(
+                'Cannot specify more than one replace expression'
+            );
         }
         if ($this->match !== null) {
-            throw new BuildException("You cannot specify both a select and replace expression");
+            throw new BuildException(
+                'You cannot specify both a select and replace expression'
+            );
         }
 
         $this->log('Set replace to ' . $replace, Project::MSG_DEBUG);
@@ -149,7 +144,9 @@ class RegexTask extends AbstractPropertySetterTask
     public function setMatch($match)
     {
         if ($this->match !== null) {
-            throw new BuildException("Cannot specify more than one match expression");
+            throw new BuildException(
+                'Cannot specify more than one match expression'
+            );
         }
 
         $this->log('Set match to ' . $match, Project::MSG_DEBUG);
@@ -163,7 +160,7 @@ class RegexTask extends AbstractPropertySetterTask
     public function setCaseSensitive($caseSensitive)
     {
 
-        $this->log('Set case-sensitive to ' . $caseSensitive, Project::MSG_DEBUG);
+        $this->log("Set case-sensitive to $caseSensitive", Project::MSG_DEBUG);
 
         $this->caseSensitive = $caseSensitive;
     }
@@ -175,17 +172,16 @@ class RegexTask extends AbstractPropertySetterTask
     protected function doReplace()
     {
         if ($this->replace === null) {
-            throw new BuildException("No replace expression specified.");
+            throw new BuildException('No replace expression specified.');
         }
-        $options = '';
-        if (!$this->caseSensitive) {
-            $options .= $this->modifiers['PCRE_CASELESS'];
-        }
+        $this->reg->setPattern($this->pattern);
+        $this->reg->setReplace($this->replace);
+        $this->reg->setModifiers($this->modifiers);
+        $this->reg->setIgnoreCase(!$this->caseSensitive);
 
-        $pattern = sprintf('%s%s%s%s', $this->delimiter, $this->pattern, $this->delimiter, $options);
-        $output = preg_replace($pattern, $this->replace, $this->subject, $this->limit);
-
-        if ($this->subject === $output || $output === null) {
+        try {
+            $output = $this->reg->replace($this->subject);
+        } catch (Exception $e) {
             $output = $this->defaultValue;
         }
 
@@ -197,18 +193,18 @@ class RegexTask extends AbstractPropertySetterTask
      */
     protected function doSelect()
     {
-        $options = '';
-        if (!$this->caseSensitive) {
-            $options .= $this->modifiers['PCRE_CASELESS'];
-        }
-
-        $pattern = sprintf('%s%s%s%s', $this->delimiter, $this->pattern, $this->delimiter, $options);
-        $group = ltrim($this->match, '$');
+        $this->reg->setPattern($this->pattern);
+        $this->reg->setModifiers($this->modifiers);
+        $this->reg->setIgnoreCase(!$this->caseSensitive);
 
         $output = $this->defaultValue;
 
-        if (preg_match($pattern, $this->subject, $matches)) {
-            $output = $matches[(int) $group];
+        try {
+            if ($this->reg->matches($this->subject)) {
+                $output = $this->reg->getGroup((int) ltrim($this->match, '$'));
+            }
+        } catch (Exception $e) {
+            throw new BuildException($e);
         }
 
         return $output;
@@ -220,10 +216,12 @@ class RegexTask extends AbstractPropertySetterTask
     protected function validate()
     {
         if ($this->pattern === null) {
-            throw new BuildException("No match expression specified.");
+            throw new BuildException('No match expression specified.');
         }
         if ($this->replace === null && $this->match === null) {
-            throw new BuildException("You must specify either a preg_replace or preg_match pattern");
+            throw new BuildException(
+                'You must specify either a preg_replace or preg_match pattern'
+            );
         }
     }
 
