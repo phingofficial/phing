@@ -79,14 +79,15 @@ class rSTTaskTest extends BuildFileTest
     public function testGetToolPathFail()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
+            $rt = new rSTTask();
+            $rt->init();
+            $ref = new ReflectionClass($rt);
+            $method = $ref->getMethod('getToolPath');
+            $method->setAccessible(true);
+            $method->invoke($rt, 'doesnotexist');
+        } else {
             $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
         }
-        $rt = new rSTTask();
-        $rt->init();
-        $ref = new ReflectionClass($rt);
-        $method = $ref->getMethod('getToolPath');
-        $method->setAccessible(true);
-        $method->invoke($rt, 'doesnotexist');
     }
 
     /**
@@ -96,14 +97,15 @@ class rSTTaskTest extends BuildFileTest
     public function testGetToolPathCustom()
     {
         if (method_exists('ReflectionMethod', 'setAccessible')) {
+            $rt = new rSTTask();
+            $rt->setToolpath('true'); //mostly /bin/true on unix
+            $ref = new ReflectionClass($rt);
+            $method = $ref->getMethod('getToolPath');
+            $method->setAccessible(true);
+            $this->assertContains('/true', $method->invoke($rt, 'foo'));
+        } else {
             $this->markTestSkipped('No ReflectionMethod::setAccessible available.');
         }
-        $rt = new rSTTask();
-        $rt->setToolpath('true'); //mostly /bin/true on unix
-        $ref = new ReflectionClass($rt);
-        $method = $ref->getMethod('getToolPath');
-        $method->setAccessible(true);
-        $this->assertContains('/true', $method->invoke($rt, 'foo'));
     }
 
 
