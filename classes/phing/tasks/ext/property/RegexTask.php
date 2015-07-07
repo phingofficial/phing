@@ -85,7 +85,7 @@ class RegexTask extends AbstractPropertySetterTask
      */
     public function setSubject($subject)
     {
-        $this->subject = preg_quote($subject, $this->delimiter);
+        $this->subject = $subject;
     }
 
     /**
