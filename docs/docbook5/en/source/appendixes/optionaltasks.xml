@@ -9093,13 +9093,6 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
-                        <entry><literal>limit</literal></entry>
-                        <entry><literal role="type">Integer</literal></entry>
-                        <entry>The maximum possible replacements for each pattern in each subject string. Defaults to -1 (no limit).</entry>
-                        <entry>-1</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
                         <entry><literal>defaultValue</literal></entry>
                         <entry><literal role="type">Integer</literal></entry>
                         <entry>The value to set the output property to, if the subject string does not match the specific regular expression.</entry>
