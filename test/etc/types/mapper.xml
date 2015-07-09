@@ -15,6 +15,18 @@
     </copy>
   </target>
 
+  <target name="test2">
+      <mkdir dir="copytest" />
+      <copy todir="copytest">
+          <fileset dir="../../../classes"/>
+          <mapper type="composite">
+              <mapper type="glob" from="*.xsl" to="*.from.xsl"/>
+              <mapper type="glob" from="*.xml" to="*.from.xml"/>
+              <mapper type="glob" from="*.php" to="*.from.php"/>
+          </mapper>
+      </copy>
+  </target>
+
   <target name="cleanup">
     <delete dir="copytest" />
   </target>
