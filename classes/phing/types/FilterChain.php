@@ -20,6 +20,7 @@
  */
 
 include_once 'phing/types/DataType.php';
+include_once 'phing/filters/ConcatFilter.php';
 include_once 'phing/filters/HeadFilter.php';
 include_once 'phing/filters/IconvFilter.php';
 include_once 'phing/filters/TailFilter.php';
@@ -70,6 +71,15 @@ class FilterChain extends DataType
     public function getFilterReaders()
     {
         return $this->filterReaders;
+    }
+
+    /**
+     * @param ConcatFilter $o
+     */
+    public function addConcatFilter(ConcatFilter $o)
+    {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
     }
 
     /**
