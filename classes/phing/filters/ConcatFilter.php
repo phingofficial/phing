@@ -19,6 +19,9 @@
 
 include_once 'phing/filters/BaseParamFilterReader.php';
 include_once 'phing/filters/ChainableReader.php';
+include_once 'phing/system/io/PhingFile.php';
+include_once 'phing/system/io/BufferedReader.php';
+include_once 'phing/system/io/FileReader.php';
 
 /**
  * Concats a file before and/or after the file.
