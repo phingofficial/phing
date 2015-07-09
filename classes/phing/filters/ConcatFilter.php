@@ -17,6 +17,9 @@
  * <http://phing.info>.
  */
 
+include_once 'phing/filters/BaseParamFilterReader.php';
+include_once 'phing/filters/ChainableReader.php';
+
 /**
  * Concats a file before and/or after the file.
  *
