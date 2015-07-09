@@ -217,8 +217,7 @@ class Mapper extends DataType
     public function getImplementation()
     {
         if ($this->isReference()) {
-            $r = $this->getRef();
-            $o = $r->getReferencedObject($this->getProject());
+            $o = $this->getRef();
             if ($o instanceof FileNameMapper) {
                 return $o;
             }
