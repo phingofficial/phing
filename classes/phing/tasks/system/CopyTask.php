@@ -443,8 +443,15 @@ class CopyTask extends Task
         for ($i = 0, $_i = count($toCopy); $i < $_i; $i++) {
             $src = new PhingFile($fromDir, $toCopy[$i]);
             $mapped = $mapper->main($toCopy[$i]);
-            $dest = new PhingFile($toDir, $mapped[0]);
-            $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+            if (count($mapped) === 1) {
+                $dest = new PhingFile($toDir, $mapped[0]);
+                $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+            } else {
+                foreach ($mapped as $mappedElem) {
+                    $dest = new PhingFile($toDir, $mappedElem[0]);
+                    $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+                }
+            }
         }
     }
 
