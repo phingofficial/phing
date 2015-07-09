@@ -170,7 +170,7 @@
             &lt;/filterchain></programlisting>
 
         <table>
-            <title> Attributes for the <literal>&lt;xsltfilter></literal> tag </title>
+            <title> Attributes for the <literal>&lt;concatfilter></literal> tag </title>
             <tgroup cols="5">
                 <colspec colname="name" colnum="1" colwidth="1.5*"/>
                 <colspec colname="type" colnum="2" colwidth="0.8*"/>
