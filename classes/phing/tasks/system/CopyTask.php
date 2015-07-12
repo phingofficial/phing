@@ -62,6 +62,8 @@ class CopyTask extends Task
     /** @var bool $haltonerror */
     protected $haltonerror = true; // stop build on errors
 
+    protected $enableMultipleMappings = false;
+
     /**
      * Sets up this object internal stuff.
      * i.e. the Fileutils instance and default mode.
@@ -208,6 +210,16 @@ class CopyTask extends Task
     public function setTodir(PhingFile $dir)
     {
         $this->destDir = $dir;
+    }
+
+    public function setEnableMultipleMappings($enableMultipleMappings)
+    {
+        $this->enableMultipleMappings = (boolean) $enableMultipleMappings;
+    }
+
+    public function isEnabledMultipleMappings()
+    {
+        return $this->enableMultipleMappings;
     }
 
     /**
@@ -443,12 +455,17 @@ class CopyTask extends Task
         for ($i = 0, $_i = count($toCopy); $i < $_i; $i++) {
             $src = new PhingFile($fromDir, $toCopy[$i]);
             $mapped = $mapper->main($toCopy[$i]);
-            foreach ($mapped as $mappedElem) {
-                if ($mappedElem === null) {
-                    continue;
-                }
-                $dest = new PhingFile($toDir, $mappedElem);
+            if (!$this->enableMultipleMappings) {
+                $dest = new PhingFile($toDir, $mapped[0]);
                 $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+            } else {
+                foreach ($mapped as $mappedFile) {
+                    if ($mappedFile === null) {
+                        continue;
+                    }
+                    $dest = new PhingFile($toDir, $mappedFile);
+                    $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+                }
             }
         }
     }
