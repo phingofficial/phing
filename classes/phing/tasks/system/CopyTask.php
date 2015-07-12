@@ -410,18 +410,26 @@ class CopyTask extends Task
     {
         /* mappers should be generic, so we get the mappers here and
         pass them on to builMap. This method is not redundan like it seems */
+        $mapper = $this->getMapper();
+        
+        $this->buildMap($fromDir, $toDir, $files, $mapper, $this->fileCopyMap);
+        
+        if ($this->includeEmpty) {
+            $this->buildMap($fromDir, $toDir, $dirs, $mapper, $this->dirCopyMap);
+        }
+    }
+
+    private function getMapper()
+    {
         $mapper = null;
         if ($this->mapperElement !== null) {
             $mapper = $this->mapperElement->getImplementation();
+        } elseif ($this->flatten) {
+            $mapper = new FlattenMapper();
         } else {
-            if ($this->flatten) {
-                $mapper = new FlattenMapper();
-            } else {
-                $mapper = new IdentityMapper();
-            }
+            $mapper = new IdentityMapper();
         }
-        $this->buildMap($fromDir, $toDir, $files, $mapper, $this->fileCopyMap);
-        $this->buildMap($fromDir, $toDir, $dirs, $mapper, $this->dirCopyMap);
+        return $mapper;
     }
 
     /**
@@ -464,8 +472,9 @@ class CopyTask extends Task
                         continue;
                     }
                     $dest = new PhingFile($toDir, $mappedFile);
-                    $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+                    $mappedFiles[] = $dest->getAbsolutePath();
                 }
+                $map[$src->getAbsolutePath()] = $mappedFiles;
             }
         }
     }
@@ -533,38 +542,40 @@ class CopyTask extends Task
         );
         // walks the map and actually copies the files
         $count = 0;
-        foreach ($this->fileCopyMap as $from => $to) {
-            if ($from === $to) {
-                $this->log("Skipping self-copy of " . $from, $this->verbosity);
-                $total--;
-                continue;
-            }
-            $this->log("From " . $from . " to " . $to, $this->verbosity);
-            try { // try to copy file
+        foreach ($this->fileCopyMap as $from => $toFiles) {
+            foreach ($toFiles as $to) {
+                if ($from === $to) {
+                    $this->log("Skipping self-copy of " . $from, $this->verbosity);
+                    $total--;
+                    continue;
+                }
+                $this->log("From " . $from . " to " . $to, $this->verbosity);
+                try { // try to copy file
 
-                $fromFile = new PhingFile($from);
-                $toFile = new PhingFile($to);
+                    $fromFile = new PhingFile($from);
+                    $toFile = new PhingFile($to);
 
-                $fromSlot->setValue($fromFile->getPath());
-                $fromBasenameSlot->setValue($fromFile->getName());
+                    $fromSlot->setValue($fromFile->getPath());
+                    $fromBasenameSlot->setValue($fromFile->getName());
 
-                $toSlot->setValue($toFile->getPath());
-                $toBasenameSlot->setValue($toFile->getName());
+                    $toSlot->setValue($toFile->getPath());
+                    $toBasenameSlot->setValue($toFile->getName());
 
-                $this->fileUtils->copyFile(
-                    $fromFile,
-                    $toFile,
-                    $this->overwrite,
-                    $this->preserveLMT,
-                    $this->filterChains,
-                    $this->getProject(),
-                    $this->mode,
-                    $this->preservePermissions
-                );
+                    $this->fileUtils->copyFile(
+                        $fromFile,
+                        $toFile,
+                        $this->overwrite,
+                        $this->preserveLMT,
+                        $this->filterChains,
+                        $this->getProject(),
+                        $this->mode,
+                        $this->preservePermissions
+                    );
 
-                $count++;
-            } catch (IOException $ioe) {
-                $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
+                    $count++;
+                } catch (IOException $ioe) {
+                    $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
+                }
             }
         }
     }
