@@ -27,6 +27,21 @@
       </copy>
   </target>
 
+  <target name="test3">
+      <mkdir dir="copytest" />
+      <copy todir="copytest" enableMultipleMappings="true">
+      <mapper type="chained">
+          <mapper type="flatten"/>
+          <mapper type="glob" from="*.php" to="test/path/*.php"/>
+          <mapper>
+              <mapper type="glob" from="*.php" to="*.php1"/>
+              <mapper type="glob" from="*.php" to="*.php2"/>
+          </mapper>
+      </mapper>
+      <fileset dir="../../../classes/phing/mappers"/>
+      </copy>
+  </target>
+
   <target name="cleanup">
     <delete dir="copytest" />
   </target>
