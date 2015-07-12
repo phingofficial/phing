@@ -239,6 +239,9 @@ class Mapper extends DataType
 
         if ($this->type !== null) {
             switch ($this->type) {
+                case 'chained':
+                    $this->classname = 'phing.mappers.ChainedMapper';
+                    break;
                 case 'composite':
                     $this->classname = 'phing.mappers.CompositeMapper';
                     break;
