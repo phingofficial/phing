@@ -172,4 +172,11 @@ class TaskdefForCopyTest extends BuildFileTest
     {
         $this->executeTarget("test2");
     }
+
+    public function test3()
+    {
+        $this->executeTarget("test3");
+        $this->assertInLogs('php1');
+        $this->assertInLogs('php2');
+    }
 }
