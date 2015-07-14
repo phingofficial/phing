@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<project name="imported-multi-1" default="">
+
+    <target name="main">
+        <echo>This is import task 1 main target.</echo>
+    </target>
+
+</project>

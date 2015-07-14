@@ -2121,6 +2121,15 @@
             <title>Examples</title>
             <programlisting language="xml">&lt;import file="path/to/build.xml"/>
 &lt;import file="path/to/build.xml" optional="true"/></programlisting>
+            <para>Additionally, <literal>ImportTask</literal> supports Filesets, i.e. you can easily
+                include/exclude one or more files. For more information, see <xref
+                    xlink:href="#app.coretypes"/>.</para>
+            <programlisting language="xml">&lt;import" >
+  &lt;fileset dir=".">
+    &lt;include name="path/to/build.xml" />
+  &lt;/fileset>
+  &lt;filelist dir="." files="path/to/build.xml"/>
+&lt;/import></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="IncludePathTask">
