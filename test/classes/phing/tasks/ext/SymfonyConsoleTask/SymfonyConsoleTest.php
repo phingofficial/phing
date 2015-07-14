@@ -77,6 +77,17 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers SymfonyConsoleTask::setDebug
+     * @covers SymfonyConsoleTask::getDebug
+     */
+    public function testSetGetDebug()
+    {
+        $o = $this->object;
+        $o->setDebug(false);
+        $this->assertEquals(false, $o->getDebug());
+    }
+
+    /**
      * @covers SymfonyConsoleTask::createArg
      */
     public function testCreateArg()
@@ -113,6 +124,43 @@ class SymfonyConsoleTest extends PHPUnit_Framework_TestCase
         $o->setConsole('console');
 
         $ret = "console command --name=value";
+
+        $this->assertEquals($ret, $o->getCmdString());
+    }
+
+    /**
+     * @covers SymfonyConsoleTask::getCmdString
+     */
+    public function testNoDebugGetCmdString()
+    {
+        $o = $this->object;
+        $arg = $o->createArg();
+        $arg->setName('name');
+        $arg->setValue('value');
+
+        $o->setCommand('command');
+        $o->setConsole('console');
+        $o->setDebug(false);
+
+        $ret = "console command --name=value --no-debug";
+
+        $this->assertEquals($ret, $o->getCmdString());
+    }
+
+    /**
+     * @covers SymfonyConsoleTask::getCmdString
+     */
+    public function testNoDebugOnlyOnce()
+    {
+        $o = $this->object;
+        $arg = $o->createArg();
+        $arg->setName('no-debug');
+
+        $o->setCommand('command');
+        $o->setConsole('console');
+        $o->setDebug(false);
+
+        $ret = "console command --no-debug";
 
         $this->assertEquals($ret, $o->getCmdString());
     }
