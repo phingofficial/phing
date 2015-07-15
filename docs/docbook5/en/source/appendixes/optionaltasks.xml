@@ -11344,6 +11344,13 @@ host="webserver" command="ls" /></programlisting>
                         <entry>app/console</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry>debug</entry>
+                        <entry>Boolean</entry>
+                        <entry>The symfony cli debug mode</entry>
+                        <entry>true</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
