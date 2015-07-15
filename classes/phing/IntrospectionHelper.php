@@ -465,7 +465,12 @@ class IntrospectionHelper
                 }
 
                 // create a new instance of the object and add it via $addMethod
-                $nestedElement = new $classname();
+                $clazz = new ReflectionClass($classname);
+                if ($clazz->getConstructor() !== null && $clazz->getConstructor()->getNumberOfRequiredParameters() === 1) {
+                    $nestedElement = new $classname(Phing::getCurrentProject());
+                } else {
+                    $nestedElement = new $classname();
+                }
 
                 $method->invoke($element, $nestedElement);
 
