@@ -40,7 +40,11 @@ class PHPUnitReportTask extends Task
 {
     private $format = "noframes";
     private $styleDir = "";
-    private $toDir = "";
+
+    /**
+     * @var PhingFile
+     */
+    private $toDir;
 
     /**
      * Whether to use the sorttable JavaScript library, defaults to false
