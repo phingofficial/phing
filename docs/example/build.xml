@@ -26,7 +26,7 @@
 		<phpunitreport infile="reports/testsuites.xml" format="frames" todir="reports/tests"
 			styledir="../../etc" usesorttable="true"/>
 		<coverage-report outfile="reports/coverage.xml">
-			<report todir="reports/coverage" styledir="../../etc" title="Demo Project"
+			<report toDir="reports/coverage" styleDir="../../etc" title="Demo Project"
 				usesorttable="true"/>
 		</coverage-report>
 	</target>
@@ -43,12 +43,11 @@
 	</target>
 	
 	<target name="docs">
-		<docblox title="Phing Example" destdir="docs"
-			quiet="true">
+		<phpdoc2 title="Phing Example" destdir="docs">
 			<fileset dir="src">
 				<include name="*.php"/>
 			</fileset>
-		</docblox>
+		</phpdoc2>
 	</target>
 	
 	<target name="build" depends="test,prepare,reports,docs">
