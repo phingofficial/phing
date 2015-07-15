@@ -219,13 +219,25 @@ class PHPUnitReportTask extends Task
                         continue;
                     }
 
-                    $namespace = $child->getAttribute('namespace');
-
-                    if ($namespace == '') {
-                        $namespace = 'default';
+                    if ($child->hasAttribute('namespace')) {
+                        $child->setAttribute('package', $child->getAttribute('namespace'));
+                        continue;
                     }
 
-                    $child->setAttribute('package', $namespace);
+                    $package = 'default';
+                    $refClass = new ReflectionClass($child->getAttribute('name'));
+
+                    if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
+                        $package = end($matches);
+                    } elseif (method_exists($refClass, 'getNamespaceName')) {
+                        $namespace = $refClass->getNamespaceName();
+
+                        if ($namespace !== '') {
+                            $package = $namespace;
+                        }
+                    }
+
+                    $child->setAttribute('package', $package);
                 }
 
                 $rootElement->removeChild($node);
