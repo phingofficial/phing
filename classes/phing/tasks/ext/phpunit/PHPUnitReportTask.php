@@ -237,7 +237,7 @@ class PHPUnitReportTask extends Task
                         }
                     }
 
-                    $child->setAttribute('package', $package);
+                    $child->setAttribute('package', trim($package));
                 }
 
                 $rootElement->removeChild($node);
