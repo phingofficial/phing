@@ -425,13 +425,6 @@ class Phing
                 } else {
                     $this->loggerClassname = $args[++$i];
                 }
-            } elseif ($arg == "-listener") {
-                if (!isset($args[$i + 1])) {
-                    $msg = "You must specify a classname when using the -listener argument";
-                    throw new ConfigurationException($msg);
-                } else {
-                    $this->listeners[] = $args[++$i];
-                }
             } elseif ($arg == "-inputhandler") {
                 if ($this->inputHandlerClassname !== null) {
                     throw new ConfigurationException("Only one input handler class may be specified.");
