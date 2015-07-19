@@ -76,11 +76,19 @@ class RegexTask extends AbstractPropertySetterTask
     /** @var Regexp $reg */
     private $reg;
 
+    /** @var int $limit */
+    private $limit = -1;
+    
     public function init()
     {
         $this->reg = new Regexp();
     }
 
+    public function setLimit($limit)
+    {
+        $this->log('Set limit is not in use any longer.', Project::MSG_INFO);
+    }
+    
     /**
      * @param string $subject
      */
