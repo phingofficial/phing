@@ -62,6 +62,8 @@ class CopyTask extends Task
     /** @var bool $haltonerror */
     protected $haltonerror = true; // stop build on errors
 
+    protected $enableMultipleMappings = false;
+
     /**
      * Sets up this object internal stuff.
      * i.e. the Fileutils instance and default mode.
@@ -208,6 +210,16 @@ class CopyTask extends Task
     public function setTodir(PhingFile $dir)
     {
         $this->destDir = $dir;
+    }
+
+    public function setEnableMultipleMappings($enableMultipleMappings)
+    {
+        $this->enableMultipleMappings = (boolean) $enableMultipleMappings;
+    }
+
+    public function isEnabledMultipleMappings()
+    {
+        return $this->enableMultipleMappings;
     }
 
     /**
@@ -398,18 +410,26 @@ class CopyTask extends Task
     {
         /* mappers should be generic, so we get the mappers here and
         pass them on to builMap. This method is not redundan like it seems */
+        $mapper = $this->getMapper();
+        
+        $this->buildMap($fromDir, $toDir, $files, $mapper, $this->fileCopyMap);
+        
+        if ($this->includeEmpty) {
+            $this->buildMap($fromDir, $toDir, $dirs, $mapper, $this->dirCopyMap);
+        }
+    }
+
+    private function getMapper()
+    {
         $mapper = null;
         if ($this->mapperElement !== null) {
             $mapper = $this->mapperElement->getImplementation();
+        } elseif ($this->flatten) {
+            $mapper = new FlattenMapper();
         } else {
-            if ($this->flatten) {
-                $mapper = new FlattenMapper();
-            } else {
-                $mapper = new IdentityMapper();
-            }
+            $mapper = new IdentityMapper();
         }
-        $this->buildMap($fromDir, $toDir, $files, $mapper, $this->fileCopyMap);
-        $this->buildMap($fromDir, $toDir, $dirs, $mapper, $this->dirCopyMap);
+        return $mapper;
     }
 
     /**
@@ -443,8 +463,19 @@ class CopyTask extends Task
         for ($i = 0, $_i = count($toCopy); $i < $_i; $i++) {
             $src = new PhingFile($fromDir, $toCopy[$i]);
             $mapped = $mapper->main($toCopy[$i]);
-            $dest = new PhingFile($toDir, $mapped[0]);
-            $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+            if (!$this->enableMultipleMappings) {
+                $dest = new PhingFile($toDir, $mapped[0]);
+                $map[$src->getAbsolutePath()] = $dest->getAbsolutePath();
+            } else {
+                foreach ($mapped as $mappedFile) {
+                    if ($mappedFile === null) {
+                        continue;
+                    }
+                    $dest = new PhingFile($toDir, $mappedFile);
+                    $mappedFiles[] = $dest->getAbsolutePath();
+                }
+                $map[$src->getAbsolutePath()] = $mappedFiles;
+            }
         }
     }
 
@@ -511,39 +542,50 @@ class CopyTask extends Task
         );
         // walks the map and actually copies the files
         $count = 0;
-        foreach ($this->fileCopyMap as $from => $to) {
-            if ($from === $to) {
-                $this->log("Skipping self-copy of " . $from, $this->verbosity);
-                $total--;
-                continue;
+        foreach ($this->fileCopyMap as $from => $toFiles) {
+            if (is_array($toFiles)) {
+                foreach ($toFiles as $to) {
+                    $this->copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total);
+                }
+            } else {
+                $this->copyToSingleDestination($from, $toFiles, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, $count, $total);
             }
-            $this->log("From " . $from . " to " . $to, $this->verbosity);
-            try { // try to copy file
+        }
+    }
 
-                $fromFile = new PhingFile($from);
-                $toFile = new PhingFile($to);
+    private function copyToSingleDestination($from, $to, $fromSlot, $fromBasenameSlot, $toSlot, $toBasenameSlot, &$count, &$total)
+    {
+        if ($from === $to) {
+            $this->log("Skipping self-copy of " . $from, $this->verbosity);
+            $total--;
+            return;
+        }
+        $this->log("From " . $from . " to " . $to, $this->verbosity);
+        try { // try to copy file
 
-                $fromSlot->setValue($fromFile->getPath());
-                $fromBasenameSlot->setValue($fromFile->getName());
+            $fromFile = new PhingFile($from);
+            $toFile = new PhingFile($to);
 
-                $toSlot->setValue($toFile->getPath());
-                $toBasenameSlot->setValue($toFile->getName());
+            $fromSlot->setValue($fromFile->getPath());
+            $fromBasenameSlot->setValue($fromFile->getName());
 
-                $this->fileUtils->copyFile(
-                    $fromFile,
-                    $toFile,
-                    $this->overwrite,
-                    $this->preserveLMT,
-                    $this->filterChains,
-                    $this->getProject(),
-                    $this->mode,
-                    $this->preservePermissions
-                );
+            $toSlot->setValue($toFile->getPath());
+            $toBasenameSlot->setValue($toFile->getName());
 
-                $count++;
-            } catch (IOException $ioe) {
-                $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
-            }
+            $this->fileUtils->copyFile(
+                $fromFile,
+                $toFile,
+                $this->overwrite,
+                $this->preserveLMT,
+                $this->filterChains,
+                $this->getProject(),
+                $this->mode,
+                $this->preservePermissions
+            );
+
+            $count++;
+        } catch (IOException $ioe) {
+            $this->logError("Failed to copy " . $from . " to " . $to . ": " . $ioe->getMessage());
         }
     }
 

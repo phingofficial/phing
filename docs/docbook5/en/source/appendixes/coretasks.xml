@@ -2121,6 +2121,15 @@
             <title>Examples</title>
             <programlisting language="xml">&lt;import file="path/to/build.xml"/>
 &lt;import file="path/to/build.xml" optional="true"/></programlisting>
+            <para>Additionally, <literal>ImportTask</literal> supports Filesets, i.e. you can easily
+                include/exclude one or more files. For more information, see <xref
+                    xlink:href="#app.coretypes"/>.</para>
+            <programlisting language="xml">&lt;import" >
+  &lt;fileset dir=".">
+    &lt;include name="path/to/build.xml" />
+  &lt;/fileset>
+  &lt;filelist dir="." files="path/to/build.xml"/>
+&lt;/import></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="IncludePathTask">
@@ -3285,6 +3294,60 @@
 &lt;echo>Resolved [absolute] path: ${absolute_path}&lt;/echo></programlisting>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="Retry">
+        <title>Retry</title>
+        <para> Retry is a container which executes a single nested task until
+            either: there is no failure; or: its retrycount has been exceeded.
+            If this happens a BuildException is thrown..
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>retrycount</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>number of times to attempt to execute the nested task
+                        </entry>
+                        <entry>1</entry>
+                        <entry>Yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>retrydelay</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>number of seconds to wait between retry attempts task.
+                        </entry>
+                        <entry>0</entry>
+                        <entry>No, defaults to no delay</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <para>Any valid Phing task may be embedded within the retry task.</para>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;retry retrycount="3">
+                $lt;httpget url="http://www.unreliable-server.com/unreliable.tar.gz" dir="/home/retry"/>
+                &lt;/retry></programlisting>
+            <para>This example shows how to use <literal>&lt;retry></literal> to
+                wrap a task which must interact with an unreliable network resource.
+            </para>
+        </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="SwitchPathTask">
         <title>SwitchTask </title>
         <para>Task definition for the phing task to switch on a particular value.</para>
@@ -3488,6 +3551,86 @@ file defines a task in the format: name=path.to.Task -->
                     <para><literal><link linkend="path">classpath</link></literal></para>
                 </listitem>
             </itemizedlist>
+        </sect2>
+    </sect1>
+    <sect1 role="taskdef" xml:id="Tempfile Task">
+        <title>Tempfile Task</title>
+        <para> This task sets a property to the name of a temporary file. Unlike PhingFile::createTempFile(),
+            this task does not actually create the temporary file, but it does guarantee that the file did not
+            exist when the task was executed.
+        </para>
+        <table>
+            <title>Attributes</title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>property</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sets the property you wish to assign the temporary file to.</entry>
+                        <entry>n/a</entry>
+                        <entry>yes</entry>
+                    </row>
+                    <row>
+                        <entry><literal>destdir</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sets the destination directory. If not set, the basedir directory is used instead.</entry>
+                        <entry>basedir</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>prefix</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sets the optional prefix string for the temp file.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>suffix</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Sets the optional suffix string for the temp file.</entry>
+                        <entry>n/a</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>deleteonexit</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether the temp file will be marked for deletion on normal exit
+                            (even though the file may never be created).</entry>
+                        <entry>false</entry>
+                        <entry>no</entry>
+                    </row>
+                    <row>
+                        <entry><literal>createfile</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether the temp file should be created by this task.</entry>
+                        <entry>false</entry>
+                        <entry>no</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+        <sect2>
+            <title>Example</title>
+            <programlisting language="xml">&lt;tempfile property="temp.file"/></programlisting>
+            <para>create a temporary file</para>
+            <programlisting language="xml">&lt;tempfile property="temp.file" suffix=".xml"/></programlisting>
+            <para>create a temporary file with the .xml suffix</para>
+            <programlisting language="xml">&lt;tempfile property="temp.file" destDir="build"/></programlisting>
+            <para>create a temporary file in the <literal>build</literal> subdirectory</para>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="TouchTask">

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TempFileTest" default="testTempFile">
+    <target name="testTempFile">
+        <tempfile property="test.temp" destdir="${php.tmpdir}" />
+    </target>
+
+</project>

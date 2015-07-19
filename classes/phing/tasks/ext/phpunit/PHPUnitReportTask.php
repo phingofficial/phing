@@ -40,7 +40,11 @@ class PHPUnitReportTask extends Task
 {
     private $format = "noframes";
     private $styleDir = "";
-    private $toDir = "";
+
+    /**
+     * @var PhingFile
+     */
+    private $toDir;
 
     /**
      * Whether to use the sorttable JavaScript library, defaults to false
@@ -215,13 +219,25 @@ class PHPUnitReportTask extends Task
                         continue;
                     }
 
-                    $namespace = $child->getAttribute('namespace');
-
-                    if ($namespace == '') {
-                        $namespace = 'default';
+                    if ($child->hasAttribute('namespace')) {
+                        $child->setAttribute('package', $child->getAttribute('namespace'));
+                        continue;
                     }
 
-                    $child->setAttribute('package', $namespace);
+                    $package = 'default';
+                    $refClass = new ReflectionClass($child->getAttribute('name'));
+
+                    if (preg_match('/@package\s+(.*)\r?\n/m', $refClass->getDocComment(), $matches)) {
+                        $package = end($matches);
+                    } elseif (method_exists($refClass, 'getNamespaceName')) {
+                        $namespace = $refClass->getNamespaceName();
+
+                        if ($namespace !== '') {
+                            $package = $namespace;
+                        }
+                    }
+
+                    $child->setAttribute('package', trim($package));
                 }
 
                 $rootElement->removeChild($node);

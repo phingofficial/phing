@@ -60,6 +60,14 @@ class ImportTaskTest extends BuildFileTest
         $this->assertInLogs("This is " . $f1->getAbsolutePath() . " imported2 target.");
     }
 
+    public function testImportedMultiTarget()
+    {
+        $this->configureProject(PHING_TEST_BASE . "/etc/tasks/importing-multi.xml");
+
+        $this->assertInLogs("parsing buildfile imported-multi-1.xml");
+        $this->assertInLogs("parsing buildfile imported-multi-2.xml");
+    }
+
     public function testCascadeTarget()
     {
         $f1 = new PhingFile(PHING_TEST_BASE . "/etc/tasks/imports/imported.xml");

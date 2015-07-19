@@ -77,6 +77,10 @@ class ExtendedFileStream
 
         $this->fp = fopen($filepath, $mode);
 
+        if (! $this->fp) {
+            throw new BuildException("Unable to open stream for path {$path}");
+        }
+
         return true;
     }
 
