@@ -38,7 +38,9 @@ class PhingCallAdhocTest extends BuildFileTest
 
     public function testPhingCallTask()
     {
+        ob_start();
         $this->executeTarget("main");
+        ob_end_clean();
         $this->assertInLogs("foo: success!");
     }
 }

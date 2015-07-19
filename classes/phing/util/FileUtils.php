@@ -341,6 +341,50 @@ class FileUtils
     }
 
     /**
+     * Create a temporary file in a given directory.
+     *
+     * <p>The file denoted by the returned abstract pathname did not
+     * exist before this method was invoked, any subsequent invocation
+     * of this method will yield a different file name.</p>
+     *
+     * @param string $prefix        prefix before the random number.
+     * @param string $suffix        file extension; include the '.'.
+     * @param PhingFile $parentDir  Directory to create the temporary file in;
+     *                              sys_get_temp_dir() used if not specified.
+     * @param boolean $deleteOnExit whether to set the tempfile for deletion on
+     *                              normal exit.
+     * @param boolean $createFile   true if the file must actually be created. If false
+     *                              chances exist that a file with the same name is created in the time
+     *                              between invoking this method and the moment the file is actually created.
+     *                              If possible set to true.
+     * @return PhingFile            a File reference to the new temporary file.
+     * @throws BuildException
+     */
+    public function createTempFile($prefix, $suffix, PhingFile $parentDir, $deleteOnExit = false, $createFile = false)
+    {
+        $result = null;
+        $parent = ($parentDir === null) ? sys_get_temp_dir() : $parentDir->getPath();
+
+        if ($createFile) {
+            try {
+                $result = PhingFile::createTempFile($prefix, $suffix, new PhingFile($parent));
+            } catch (IOException $e) {
+                throw new BuildException("Could not create tempfile in " . $parent, $e);
+            }
+        } else {
+            do {
+                $result = new PhingFile($parent, $prefix . substr(md5(time()), 0, 8) . $suffix);
+            } while ($result->exists());
+        }
+
+        if ($deleteOnExit) {
+            $result->deleteOnExit();
+        }
+
+        return $result;
+    }
+
+    /**
      * @param PhingFile $file1
      * @param PhingFile $file2
      *

@@ -27,15 +27,12 @@ require_once 'phing/BuildFileTest.php';
  * @author  Michiel Rook <mrook@php.net>
  * @version $Id$
  * @package phing.tasks.system
+ * @requires OS Linux
  */
 class SymlinkTaskTest extends BuildFileTest
 {
     public function setUp()
     {
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-            $this->markTestSkipped("Symlinks don't work on Windows");
-        }
-
         $this->configureProject(
             PHING_TEST_BASE
             . "/etc/tasks/ext/SymlinkTaskTest.xml"

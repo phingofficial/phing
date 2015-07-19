@@ -162,6 +162,49 @@
             </tgroup>
         </table>
     </sect1>
+    <sect1 role="filterdef" xml:id="ConcatFilter">
+        <title>ConcatFilter</title>
+        <para>This filter prepends or appends the content file to the filtered files.</para>
+        <programlisting language="xml">&lt;filterchain>
+            &lt;concatfilter prepend="license.txt"/>
+            &lt;/filterchain></programlisting>
+
+        <table>
+            <title> Attributes for the <literal>&lt;concatfilter></literal> tag </title>
+            <tgroup cols="5">
+                <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                <thead>
+                    <row>
+                        <entry>Name</entry>
+                        <entry>Type</entry>
+                        <entry>Description</entry>
+                        <entry>Default</entry>
+                        <entry>Required</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><literal>prepend</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the file which content should be prepended to the file.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>append</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the file which content should be appended to the file.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+    </sect1>
     <sect1 role="filterdef" xml:id="HeadFilter">
         <title>HeadFilter</title>
         <para>This filter reads the first <literal>n</literal> lines of a file; the others are not

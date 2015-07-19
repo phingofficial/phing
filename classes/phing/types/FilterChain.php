@@ -20,11 +20,13 @@
  */
 
 include_once 'phing/types/DataType.php';
+include_once 'phing/filters/ConcatFilter.php';
 include_once 'phing/filters/HeadFilter.php';
 include_once 'phing/filters/IconvFilter.php';
 include_once 'phing/filters/TailFilter.php';
 include_once 'phing/filters/LineContains.php';
 include_once 'phing/filters/LineContainsRegexp.php';
+include_once 'phing/filters/EscapeUnicode.php';
 include_once 'phing/filters/ExpandProperties.php';
 include_once 'phing/filters/PrefixLines.php';
 include_once 'phing/filters/ReplaceRegexp.php';
@@ -70,6 +72,15 @@ class FilterChain extends DataType
     public function getFilterReaders()
     {
         return $this->filterReaders;
+    }
+
+    /**
+     * @param ConcatFilter $o
+     */
+    public function addConcatFilter(ConcatFilter $o)
+    {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
     }
 
     /**
@@ -148,6 +159,15 @@ class FilterChain extends DataType
      * @param SuffixLines $o
      */
     public function addSuffixLines(SuffixLines $o)
+    {
+        $o->setProject($this->project);
+        $this->filterReaders[] = $o;
+    }
+
+    /**
+     * @param PrefixLines $o
+     */
+    public function addEscapeUnicode(EscapeUnicode $o)
     {
         $o->setProject($this->project);
         $this->filterReaders[] = $o;

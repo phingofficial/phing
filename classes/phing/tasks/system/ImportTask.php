@@ -56,6 +56,11 @@ class ImportTask extends Task
     protected $file = null;
 
     /**
+     * @var array
+     */
+    private $filesets = array();
+
+    /**
      * @var bool
      */
     protected $optional = false;
@@ -80,6 +85,17 @@ class ImportTask extends Task
     }
 
     /**
+     * Nested creator, adds a set of files (nested <fileset> attribute).
+     * This is for when you don't care what order files get appended.
+     * @return FileSet
+     */
+    public function createFileSet()
+    {
+        $num = array_push($this->filesets, new FileSet());
+        return $this->filesets[$num-1];
+    }
+
+    /**
      * Is this include optional?
      * @param  bool $opt If true, do not stop the build if the file does not
      *                   exist
@@ -99,29 +115,61 @@ class ImportTask extends Task
      */
     public function main()
     {
-        if (!isset($this->file)) {
-            throw new BuildException("Missing attribute 'file'");
-        }
-
         if ($this->getOwningTarget() == null || $this->getOwningTarget()->getName() != '') {
             throw new BuildException("import only allowed as a top-level task");
         }
 
-        $file = new PhingFile($this->file);
-        if (!$file->isAbsolute()) {
-            $file = new PhingFile($this->project->getBasedir(), $this->file);
+        // Single file.
+        if ($this->file !== null) {
+            $file = new PhingFile($this->file);
+            if (!$file->isAbsolute()) {
+                $file = new PhingFile($this->project->getBasedir(), $this->file);
+            }
+            if (!$file->exists()) {
+                $msg = "Unable to find build file: {$file->getPath()}";
+                if ($this->optional) {
+                    $this->log($msg . '... skipped');
+                    return;
+                } else {
+                    throw new BuildException($msg);
+                }
+            }
+            $this->importFile($file);
         }
-        if (!$file->exists()) {
-            $msg = "Unable to find build file: {$file->getPath()}";
-            if ($this->optional) {
-                $this->log($msg . '... skipped');
 
-                return;
-            } else {
-                throw new BuildException($msg);
+        // Filesets.
+        $total_files = 0;
+        $total_dirs = 0;
+        foreach ($this->filesets as $fs) {
+            $ds = $fs->getDirectoryScanner($this->project);
+            $fromDir = $fs->getDir($this->project);
+
+            $srcFiles = $ds->getIncludedFiles();
+            $srcDirs = $ds->getIncludedDirectories();
+
+            $filecount = count($srcFiles);
+            $total_files = $total_files + $filecount;
+            for ($j = 0; $j < $filecount; $j++) {
+                $this->importFile(new PhingFile($fromDir, $srcFiles[$j]));
+            }
+
+            $dircount = count($srcDirs);
+            $total_dirs = $total_dirs + $dircount;
+            for ($j = 0; $j < $dircount; $j++) {
+                $this->importFile(new PhingFile($fromDir, $srcDirs[$j]));
             }
         }
+    } //end main
 
+    /**
+     * Parse a Phing build file and copy the properties, tasks, data types and
+     * targets it defines into the current project.
+     *
+     * @throws BuildException
+     * @return void
+     */
+    protected function importFile(PhingFile $file)
+    {
         $ctx = $this->project->getReference("phing.parsing.context");
         $cfg = $ctx->getConfigurator();
         // Import xml file into current project scope
@@ -130,6 +178,6 @@ class ImportTask extends Task
         // effect if they have alreday been defined in the outer scope.
         $this->log("Importing file from {$file->getAbsolutePath()}", Project::MSG_VERBOSE);
         ProjectConfigurator::configureProject($this->project, $file);
-    } //end main
+    } //end importFile
 
 } //end ImportTask
