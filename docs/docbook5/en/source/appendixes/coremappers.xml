@@ -153,6 +153,7 @@
                             <entry><filename>test.xml</filename></entry>
                             <entry><filename>./tmp/test.from.xml</filename></entry>
                         </row>
+                        <row>
                             <entry><filename>test.xsl</filename></entry>
                             <entry><filename>./tmp/test.from.xsl</filename></entry>
                         </row>
