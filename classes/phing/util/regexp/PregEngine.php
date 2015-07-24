@@ -50,6 +50,12 @@ class PregEngine implements RegexpEngine
     private $modifiers = null;
 
     /**
+     * Set the limit.
+     * @var int
+     */
+    private $limit = -1;
+
+    /**
      * Pattern delimiter.
      */
     const DELIMITER = '`';
@@ -127,6 +133,24 @@ class PregEngine implements RegexpEngine
     }
 
     /**
+     * Sets limit.
+     * @param int $limit
+     */
+    public function setLimit($limit)
+    {
+        $this->limit = $limit;
+    }
+
+    /**
+     * Gets limit.
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
      * The pattern needs to be converted into PREG style -- which includes adding expression delims & any flags, etc.
      * @param  string $pattern
      * @return string prepared pattern.
@@ -193,7 +217,7 @@ class PregEngine implements RegexpEngine
         // but PREG prefers $1 syntax.
         $replace = preg_replace('/\\\(\d+)/', '\$$1', $replace);
 
-        return preg_replace($this->preparePattern($pattern), $replace, $source);
+        return preg_replace($this->preparePattern($pattern), $replace, $source, $this->limit);
     }
 
 }

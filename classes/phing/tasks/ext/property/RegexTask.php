@@ -84,9 +84,12 @@ class RegexTask extends AbstractPropertySetterTask
         $this->reg = new Regexp();
     }
 
+    /**
+     * @param int $limit
+     */
     public function setLimit($limit)
     {
-        $this->log('Set limit is not in use any longer.', Project::MSG_INFO);
+        $this->limit = $limit;
     }
     
     /**
@@ -188,6 +191,10 @@ class RegexTask extends AbstractPropertySetterTask
         $this->reg->setModifiers($this->modifiers);
         $this->reg->setIgnoreCase(!$this->caseSensitive);
 
+        if (method_exists($this->reg, 'setLimit')) {
+            $this->reg->setLimit($this->limit);
+        }
+
         try {
             $output = $this->reg->replace($this->subject);
         } catch (Exception $e) {
@@ -199,6 +206,8 @@ class RegexTask extends AbstractPropertySetterTask
 
     /**
      * @return string
+     *
+     * @throws BuildException
      */
     protected function doSelect()
     {
