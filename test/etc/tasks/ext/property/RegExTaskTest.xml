@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="RegexTaskTest" default="testPropertyRegex">
+    <target name="testBackslash">
+        <propertyregex property="pack.name"
+                       subject="package.123.name"
+                       pattern="package\.(\d*)\.name"
+                       match="$1"
+                       casesensitive="false"
+                       defaultvalue="test1"/>
+    </target>
     <target name="testPropertyRegex">
         <propertyregex property="test.name"
                        subject="test.ABC.name"
