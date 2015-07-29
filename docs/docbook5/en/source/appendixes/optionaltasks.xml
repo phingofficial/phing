@@ -7485,7 +7485,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>pharlocation</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Location of the PHPUnit PHAR package.</entry>
+                        <entry>Location of the PHPCPD PHAR package.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -7652,7 +7652,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>pharlocation</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Location of the PHPUnit PHAR package.</entry>
+                        <entry>Location of the PHPLOC PHAR package.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
