@@ -63,6 +63,12 @@ class PhpDocumentor2Task extends Task
     private $defaultPackageName = "Default";
 
     /**
+     * Path to the phpDocumentor .phar
+     * @var string
+     */
+    private $pharLocation = '';
+
+    /**
      * Nested adder, adds a set of files (nested fileset attribute).
      *
      * @param FileSet $fs
@@ -119,6 +125,14 @@ class PhpDocumentor2Task extends Task
     }
 
     /**
+     * @param string $pharLocation
+     */
+    public function setPharLocation($pharLocation)
+    {
+        $this->pharLocation = $pharLocation;
+    }
+
+    /**
      * Forces phpDocumentor to be quiet
      * @deprecated
      * @param boolean $quiet
@@ -155,6 +169,7 @@ class PhpDocumentor2Task extends Task
         $wrapper->setTemplate($this->template);
         $wrapper->setTitle($this->title);
         $wrapper->setDefaultPackageName($this->defaultPackageName);
+        $wrapper->setPharLocation($this->pharLocation);
         $wrapper->run();
     }
 }
