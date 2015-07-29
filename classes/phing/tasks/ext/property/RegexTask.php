@@ -190,10 +190,7 @@ class RegexTask extends AbstractPropertySetterTask
         $this->reg->setReplace($this->replace);
         $this->reg->setModifiers($this->modifiers);
         $this->reg->setIgnoreCase(!$this->caseSensitive);
-
-        if (method_exists($this->reg, 'setLimit')) {
-            $this->reg->setLimit($this->limit);
-        }
+        $this->reg->setLimit($this->limit);
 
         try {
             $output = $this->reg->replace($this->subject);

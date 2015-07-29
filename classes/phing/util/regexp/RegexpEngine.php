@@ -44,6 +44,30 @@ interface RegexpEngine
     public function getIgnoreCase();
 
     /**
+     * Sets whether regexp should be applied in multiline mode.
+     * @param boolean $bit
+     */
+    public function setMultiline($bit);
+
+    /**
+     * Gets whether regexp is to be applied in multiline mode.
+     * @return boolean
+     */
+    public function getMultiline();
+
+    /**
+     * Sets the maximum possible replacements for each pattern.
+     * @param int $limit
+     */
+    public function setLimit($limit);
+
+    /**
+     * Returns the maximum possible replacements for each pattern.
+     * @return int
+     */
+    public function getLimit();
+
+    /**
      * Matches pattern against source string and sets the matches array.
      * @param  string  $pattern The regex pattern to match.
      * @param  string  $source  The source string.

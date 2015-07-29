@@ -133,7 +133,7 @@ class PregEngine implements RegexpEngine
     }
 
     /**
-     * Sets limit.
+     * Sets the maximum possible replacements for each pattern.
      * @param int $limit
      */
     public function setLimit($limit)
@@ -142,7 +142,7 @@ class PregEngine implements RegexpEngine
     }
 
     /**
-     * Gets limit.
+     * Returns the maximum possible replacements for each pattern.
      * @return int
      */
     public function getLimit()
