@@ -14,8 +14,6 @@
         echo "... OK"
     fi
     
-    sudo apt-get install python-docutils
-
     if [[ $TRAVIS_PHP_VERSION < 5.3 ]]; then
         pear upgrade pecl.php.net/Phar ||
             pear install pecl.php.net/Phar

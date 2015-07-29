@@ -1,3 +1,10 @@
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - python-docutils
+
 language: php
 php:
   - 5.2
