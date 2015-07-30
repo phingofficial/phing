@@ -302,7 +302,7 @@ TD.srcLineClassStart {
                         <td nowrap="nowrap">
                             <a target="classFrame" href="{$link}">
                                 <xsl:if test="not($package.name='')">
-                                    <xsl:value-of select="$package.name"/><xsl:text>/</xsl:text>
+                                    <xsl:value-of select="$package.name"/><xsl:text>\</xsl:text>
                                 </xsl:if><xsl:value-of select="@name"/>
                             </a>
                             <xsl:choose>
