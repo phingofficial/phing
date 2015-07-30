@@ -109,7 +109,17 @@ class DocBlox_Parallel_WorkerPipe
      */
     protected function readPipeContents()
     {
-        $pipe = fopen($this->path, 'r+');
+        $pipe = @fopen($this->path, 'r+');
+
+        if (! $pipe) {
+            $arguments = $this->worker->getArguments();
+            return array(
+                '',
+                'Worker died unexpectedly',
+                255
+            );
+        }
+
         $result = unserialize(fread($pipe, filesize($this->path)));
         fclose($pipe);
 
@@ -123,6 +133,6 @@ class DocBlox_Parallel_WorkerPipe
      */
     protected function release()
     {
-        unlink($this->path);
+        @unlink($this->path);
     }
 }
