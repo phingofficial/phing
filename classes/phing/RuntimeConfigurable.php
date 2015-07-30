@@ -168,14 +168,14 @@ class RuntimeConfigurable
         //        if ( is_a($this->wrappedObject, "DataType") )
         //            return;
 
-        if ($this->attributes || $this->characters) {
+        if ($this->attributes || (isset($this->characters) && $this->characters != '')) {
             ProjectConfigurator::configure($this->wrappedObject, $this->attributes, $project);
 
             if (isset($this->attributes["id"])) {
                 $id = $this->attributes["id"];
             }
 
-            if ($this->characters) {
+            if (isset($this->characters) && $this->characters != '') {
                 ProjectConfigurator::addText($project, $this->wrappedObject, (string) $this->characters);
             }
             if ($id !== null) {
