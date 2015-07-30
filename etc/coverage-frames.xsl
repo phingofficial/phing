@@ -295,7 +295,7 @@ TD.srcLineClassStart {
                     <xsl:variable name="package.name" select="(ancestor::package)[last()]/@name"/>
                     <xsl:variable name="link">
                         <xsl:if test="not($package.name='')">
-                            <xsl:value-of select="translate($package.name,'._','//')"/><xsl:text>/</xsl:text>
+                            <xsl:value-of select="translate($package.name,'._\','///')"/><xsl:text>/</xsl:text>
                         </xsl:if><xsl:value-of select="@name"/><xsl:text>.html</xsl:text>
                     </xsl:variable>
                     <tr>
@@ -322,10 +322,10 @@ TD.srcLineClassStart {
                     <xsl:variable name="subpackage.name" select="(ancestor::subpackage)[last()]/@name"/>
                     <xsl:variable name="link">
                         <xsl:if test="not($package.name='')">
-                            <xsl:value-of select="translate($package.name,'._','//')"/><xsl:text>/</xsl:text>
+                            <xsl:value-of select="translate($package.name,'._\','///')"/><xsl:text>/</xsl:text>
                         </xsl:if>
                         <xsl:if test="not($subpackage.name='')">
-                            <xsl:value-of select="translate($subpackage.name,'._','//')"/><xsl:text>/</xsl:text>
+                            <xsl:value-of select="translate($subpackage.name,'._\','///')"/><xsl:text>/</xsl:text>
                         </xsl:if>
                         <xsl:value-of select="@name"/><xsl:text>.html</xsl:text>
                     </xsl:variable>
@@ -362,7 +362,7 @@ TD.srcLineClassStart {
                     <xsl:sort select="@name" order="ascending"/>
                     <tr>
                         <td nowrap="nowrap">
-                            <a href="{translate(@name,'._','//')}/package-summary.html" target="classFrame">
+                            <a href="{translate(@name,'._\','///')}/package-summary.html" target="classFrame">
                                 <xsl:value-of select="@name"/>
                             </a>
                         </td>
@@ -423,7 +423,7 @@ TD.srcLineClassStart {
                 <xsl:sort data-type="number" select="@totalcovered div @totalcount"/>
                 <tr>
                   <xsl:call-template name="alternate-row"/>
-                    <td><a href="{translate(@name,'._','//')}/package-summary.html"><xsl:value-of select="@name"/></a></td>
+                    <td><a href="{translate(@name,'._\','///')}/package-summary.html"><xsl:value-of select="@name"/></a></td>
                     <xsl:call-template name="stats.formatted"/>
                 </tr>
             </xsl:for-each>
@@ -439,7 +439,7 @@ TD.srcLineClassStart {
 -->
 <xsl:template match="package" mode="write">
     <xsl:variable name="package.dir">
-        <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._','//')"/></xsl:if>
+        <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._\','///')"/></xsl:if>
         <xsl:if test="@name = ''">.</xsl:if>
     </xsl:variable>
 
@@ -463,7 +463,7 @@ TD.srcLineClassStart {
     <!-- for each class in subpackage, creates a @name.html -->
     <xsl:for-each select="subpackage">
         <xsl:variable name="subpackage.dir">
-            <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._','//')"/></xsl:if>
+            <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._\','///')"/></xsl:if>
             <xsl:if test="@name = ''">.</xsl:if>
         </xsl:variable>
         <xsl:for-each select="./class">
@@ -481,12 +481,12 @@ TD.srcLineClassStart {
     <xsl:variable name="package.name" select="(ancestor::package)[last()]/@name"/>
 
     <xsl:variable name="package.dir">
-        <xsl:if test="not($package.name = '')"><xsl:value-of select="translate($package.name,'._','//')"/></xsl:if>
+        <xsl:if test="not($package.name = '')"><xsl:value-of select="translate($package.name,'._\','///')"/></xsl:if>
         <xsl:if test="$package.name = ''">.</xsl:if>
     </xsl:variable>
 
     <xsl:variable name="subpackage.dir">
-        <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._','//')"/></xsl:if>
+        <xsl:if test="not(@name = '')"><xsl:value-of select="translate(@name,'._\','///')"/></xsl:if>
         <xsl:if test="@name = ''">.</xsl:if>
     </xsl:variable>
 
@@ -524,7 +524,7 @@ TD.srcLineClassStart {
                     <xsl:sort select="@name"/>
                     <tr>
                         <td nowrap="nowrap">
-                            <a href="{translate(@name,'._','//')}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a>
+                            <a href="{translate(@name,'._\','///')}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a>
                             <xsl:choose>
                                 <xsl:when test="@totalcount=0">
                                     <i> (-)</i>
@@ -571,6 +571,9 @@ TD.srcLineClassStart {
                 <!-- determine path separator -->
                 <xsl:when test="contains((ancestor::package)[last()]/@name, '_') or contains(@name, '_')">
                     <xsl:text>_</xsl:text>
+                </xsl:when>
+                <xsl:when test="contains((ancestor::package)[last()]/@name, '\') or contains(@name, '\')">
+                    <xsl:text>\</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>.</xsl:text>
@@ -710,6 +713,9 @@ TD.srcLineClassStart {
                 <xsl:when test="contains((ancestor::package)[last()]/@name, '_') or contains(@name, '_')">
                     <xsl:text>_</xsl:text>
                 </xsl:when>
+                <xsl:when test="contains((ancestor::package)[last()]/@name, '\') or contains(@name, '\')">
+                    <xsl:text>\</xsl:text>
+                </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>.</xsl:text>
                 </xsl:otherwise>
@@ -778,6 +784,9 @@ TD.srcLineClassStart {
                 <!-- determine path/package separator -->
                 <xsl:when test="contains((ancestor::package)[last()]/@name, '_') or contains($subpackage.name, '_')">
                     <xsl:text>_</xsl:text>
+                </xsl:when>
+                <xsl:when test="contains((ancestor::package)[last()]/@name, '\') or contains($subpackage.name, '\')">
+                    <xsl:text>\</xsl:text>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>.</xsl:text>
@@ -878,7 +887,7 @@ TD.srcLineClassStart {
 <xsl:template match="subpackage" mode="stats">
     <tr>
         <xsl:call-template name="alternate-row"/>
-        <td><a href="{translate(@name,'._','//')}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a></td>
+        <td><a href="{translate(@name,'._\','///')}/subpackage-summary.html" target="classFrame"><xsl:value-of select="@name"/></a></td>
         <xsl:call-template name="stats.formatted"/>
     </tr>
 </xsl:template>
@@ -1021,6 +1030,12 @@ TD.srcLineClassStart {
 -->
 <xsl:template name="path">
     <xsl:param name="path"/>
+    <xsl:if test="contains($path,'\')">
+        <xsl:text>../</xsl:text>
+        <xsl:call-template name="path">
+            <xsl:with-param name="path"><xsl:value-of select="substring-after($path,'\')"/></xsl:with-param>
+        </xsl:call-template>
+    </xsl:if>
     <xsl:if test="contains($path,'.')">
         <xsl:text>../</xsl:text>
         <xsl:call-template name="path">
@@ -1033,7 +1048,7 @@ TD.srcLineClassStart {
             <xsl:with-param name="path"><xsl:value-of select="substring-after($path,'_')"/></xsl:with-param>
         </xsl:call-template>
     </xsl:if>
-    <xsl:if test="not(contains($path,'.')) and not(contains($path,'_')) and not($path = '')">
+    <xsl:if test="not(contains($path,'.')) and not(contains($path,'_')) and not(contains($path,'\')) and not($path = '')">
         <xsl:text>../</xsl:text>
     </xsl:if>
 </xsl:template>
@@ -1055,7 +1070,7 @@ TD.srcLineClassStart {
                     <xsl:with-param name="path" select="$fullpackage.name"/>
                 </xsl:call-template>
             </xsl:if>
-        <xsl:value-of select="translate($package.name,'._','//')"/>/package-summary.html</xsl:attribute>
+        <xsl:value-of select="translate($package.name,'._\','///')"/>/package-summary.html</xsl:attribute>
         <xsl:value-of select="$package.name"/>
     </a>
 </xsl:template>
