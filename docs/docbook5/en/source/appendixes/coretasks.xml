@@ -3135,7 +3135,7 @@
                     </row>
                     <row>
                         <entry><literal>loglevel</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
                         <entry>At what logging level should this recorder instance record to? This is not a once only
                             parameter (like append is) -- you can increase or decrease the logging level as the build
                             process continues. [Values= {error|warn|info|verbose|debug}, Default = no change]</entry>
