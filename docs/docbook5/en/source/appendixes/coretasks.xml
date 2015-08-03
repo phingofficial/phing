@@ -293,7 +293,8 @@
                     <row>
                         <entry><literal>spawn</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Whether to spawn unix programs to the background, redirecting stdout.</entry>
+                        <entry>Whether to spawn unix programs to the background, redirecting stdout (output will
+                            not be logged by Phing).</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                         <entry></entry>
@@ -348,15 +349,6 @@
                             If you need to place it somewhere different, use a nested &lt;srcfile&gt; element between
                             your &lt;arg&gt; elements to mark the insertion point.</entry>
                         <entry><literal>true</literal></entry>
-                        <entry>No</entry>
-                        <entry></entry>
-                    </row>
-                    <row>
-                        <entry><literal>spawn</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Whether the command(s) to be executed are spawned as background process.
-                            If a command is spawned, its output will not be logged by Phing.</entry>
-                        <entry><literal>false</literal></entry>
                         <entry>No</entry>
                         <entry></entry>
                     </row>
