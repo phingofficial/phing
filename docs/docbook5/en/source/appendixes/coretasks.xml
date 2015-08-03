@@ -3340,10 +3340,9 @@
             </para>
         </sect2>
     </sect1>
-    <sect1 role="taskdef" xml:id="SwitchPathTask">
+    <sect1 role="taskdef" xml:id="SwitchTask">
         <title>SwitchTask </title>
         <para>Task definition for the phing task to switch on a particular value.</para>
-
 
         <table>
             <title>Attributes</title>
@@ -3382,19 +3381,12 @@
         </table>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
-            <itemizedlist>
-                <listitem>
-                    <para>At least one <literal>&lt;case></literal> or <literal>&lt;default></literal> is required.</para>
-                </listitem>
-            </itemizedlist>
+            <para>At least one <literal>&lt;case></literal> or <literal>&lt;default></literal> is required.</para>
 
-            <title>case</title>
-            <itemizedlist>
-                <listitem>
-                    <para>An individual case to consider, if the value that is being switched on matches to value attribute
-                        of the case, then the nested tasks will be executed.</para>
-                </listitem>
-            </itemizedlist>
+            <para><literal>case</literal></para>
+
+            <para>An individual case to consider, if the value that is being switched on matches to value attribute
+                of the case, then the nested tasks will be executed.</para>
 
             <table>
                 <title>Attributes</title>
@@ -3425,13 +3417,9 @@
                 </tgroup>
             </table>
 
-            <title>default</title>
-            <itemizedlist>
-                <listitem>
-                    <para>The default case for when no match is found. Must not appear more than once per task.</para>
-                </listitem>
-            </itemizedlist>
+            <para><literal>default</literal></para>
 
+            <para>The default case for when no match is found. Must not appear more than once per task.</para>
         </sect2>
         <sect2>
             <title>Examples</title>
