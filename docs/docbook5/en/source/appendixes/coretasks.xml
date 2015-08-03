@@ -4068,7 +4068,7 @@ Includes the Type named "CustomProject" and makes it available by
                         <entry>Yes</entry>
                     </row>
                     <row>
-                        <entry><literal>WaitUnit</literal></entry>
+                        <entry><literal>MaxWaitUnit</literal></entry>
                         <entry><literal>String</literal></entry>
                         <entry>Set the max wait time unit. Must be one of
                                 "<literal>week</literal>","<literal>day</literal>", "<literal>hour</literal>",
