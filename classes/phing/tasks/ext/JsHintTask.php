@@ -192,8 +192,7 @@ class JsHintTask extends Task
         foreach ($xml->file as $file) {
             $fileAttributes = $file->attributes();
             $fileName = (string) $fileAttributes['name'];
-            $fileError = $file->{$this->xmlAttributes['fileError']};
-            foreach ($fileError as $error) {
+            foreach ($file->error as $error) {
                 $errAttr = (array) $error->attributes();
                 $attrs = current($errAttr);
 
