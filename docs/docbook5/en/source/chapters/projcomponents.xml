@@ -473,7 +473,7 @@
                         </row>
                         <row>
                             <entry><literal>casesensitive</literal></entry>
-                            <entry>Perform a case sensitive comparision. Default is true.</entry>
+                            <entry>Perform a case sensitive comparison. Default is true.</entry>
                             <entry>No</entry>
                         </row>
                         <row>
@@ -512,7 +512,7 @@
                         </row>
                         <row>
                             <entry><literal>desiredVersion</literal></entry>
-                            <entry>The version you want to compare agains</entry>
+                            <entry>The version you want to compare against</entry>
                             <entry>Yes</entry>
                         </row>
                         <row>
@@ -683,7 +683,7 @@
                         </row>
                         <row>
                             <entry><literal>casesensitive</literal></entry>
-                            <entry>Perform a case sensitive comparision. Default is true.</entry>
+                            <entry>Perform a case sensitive comparison. Default is true.</entry>
                             <entry>No</entry>
                         </row>
                     </tbody>

@@ -105,7 +105,7 @@
             <title>Advanced</title>
             <para>In order to support the <literal>&lt;filterreader ... /></literal> sytax, your
                 class must extend the BaseParamFilterReader class. Most of the filters that are
-                bundled with Phing can be invoked using this syntax. The noteable exception (at time
+                bundled with Phing can be invoked using this syntax. The notable exception (at time
                 of writing) is the ReplaceRegexp filter, which expects find/replace parameters that
                 do not fit the name/value mold. For this reason, you must always use the shorthand
                     <literal>&lt;replaceregexp .../></literal> to invoke this filter.</para>
@@ -822,7 +822,7 @@
             <title>Nested tags</title>
             <para>The <literal>TidyFilter</literal> supports nested &lt;config> tags to configure
                 how Tidy should manipulate the documents. For a complete list of configuration
-                options see the offical <link
+                options see the official <link
                     xlink:href="http://tidy.sourceforge.net/docs/quickref.html">Quick
                     Reference</link>.</para>
         </sect2>

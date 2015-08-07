@@ -239,7 +239,7 @@ class PatternSet extends DataType
             }
 
         } catch (IOException $ioe) {
-            $msg = "An error occured while reading from pattern file: " . $patternfile->__toString();
+            $msg = "An error occurred while reading from pattern file: " . $patternfile->__toString();
             if ($patternReader) {
                 $patternReader->close();
             }

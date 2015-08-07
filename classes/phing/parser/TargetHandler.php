@@ -24,7 +24,7 @@ require_once 'phing/parser/AbstractHandler.php';
 /**
  * The target handler class.
  *
- * This class handles the occurance of a <target> tag and it's possible
+ * This class handles the occurrence of a <target> tag and it's possible
  * nested tags (datatypes and tasks).
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>

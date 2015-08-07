@@ -475,7 +475,7 @@
         <title>AvailableTask </title>
         <para>Available Task tests if a resource/file is set and sets a certain property to a
             certain value if it exists.</para>
-        <para>Here, <literal>AvailableTask</literal> first checks for the existance of either file
+        <para>Here, <literal>AvailableTask</literal> first checks for the existence of either file
             or directory named <literal>test.txt</literal> in <literal>/tmp</literal>. Then, it
             checks for the directory <literal>foo</literal> in <literal>/home</literal> and then for
             the file or directory <literal>bar</literal> in <literal>/home/foo</literal>. If
@@ -876,7 +876,7 @@
         <title>CopyTask </title>
         <para>Copies files or directories. Files are only copied if the source file is newer than
             the destination file, or when the destination file does not exist. It is possible to
-            explictly overwrite existing files.</para>
+            explicitly overwrite existing files.</para>
         <para><literal>CopyTask</literal> does not allow self copying, i.e. copying a file to the
             same name for security reasons.</para>
         <table>
@@ -976,7 +976,7 @@
             </tgroup>
         </table>
         <note>
-            <para>No automatic exapnsion of symbolic links</para>
+            <para>No automatic expansion of symbolic links</para>
             <para>By default, <literal>CopyTask</literal> does not expand / dereference symbolic
                 links, and will simply copy the link itself. To enable dereferencing, set
                     <literal>expandsymboliclinks</literal> to <literal>true</literal> in the
@@ -2401,7 +2401,7 @@
     </sect1>
     <sect1 role="taskdef" xml:id="PathToFileSetTask">
         <title>PathToFileSetTask</title>
-        <para>Coverts a path to a fileset. This is usefull if you have a path but need to use a fileset as input
+        <para>Coverts a path to a fileset. This is useful if you have a path but need to use a fileset as input
             in a phing task.</para>
 
         <table>
@@ -2567,7 +2567,7 @@
         </sect2>
         <sect2>
             <title>Base directory of the new project</title>
-            <para>The base directory of the new project is set dependant on the <literal>dir</literal> and
+            <para>The base directory of the new project is set dependent on the <literal>dir</literal> and
                 the <literal>inheritAll</literal> attribute. This is important to keep in mind or
                 else you might run into bugs in your<filename> build.xml</filename>'s. The following
                 table shows when which value is used:</para>

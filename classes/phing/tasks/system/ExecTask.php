@@ -384,7 +384,7 @@ class ExecTask extends Task
     }
 
     /**
-     * Specify OS (or muliple OS) that must match in order to execute this command.
+     * Specify OS (or multiple OS) that must match in order to execute this command.
      *
      * @param string $os Operating system string (e.g. "Linux")
      *

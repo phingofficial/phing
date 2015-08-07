@@ -91,7 +91,7 @@ abstract class AbstractHandler
     }
 
     /**
-     * Invoked by occurance of #PCDATA.
+     * Invoked by occurrence of #PCDATA.
      *
      * @param     string  the name of the XML element
      * @throws ExpatParseException

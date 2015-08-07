@@ -195,7 +195,7 @@ Additionally, the following Trac tickets (see www.phing.info) were fixed in this
  * [1064] Formatter 'brief' not implemented when using Unittest task
  * [1063] PHPCPD 2.0 breaks PHPCPD Task
  * [1062] AvailableTask throws exception when filepath contains duplicates
- * [1059] phing exits with return code 0 when there is unkown argument
+ * [1059] phing exits with return code 0 when there is unknown argument
  * [1057] pdo exception thrown from pdosqlexec not properly handled
  * [1056] filesyncTask: problem (error?) with verbose (-v) option
  * [1054] Missing or erroneous definition in phing-grammar.rng
@@ -448,7 +448,7 @@ Nov. 2, 2011 - Phing 2.4.8
   * [799] DbDeploy does not support pdo-dblib
   * [798] ReplaceTokensWithFile - postfix attribute ignored
   * [797] PhpLintTask performance improvement
-  * [794] Fix rSTTask to avoid the need of PEAR everytime
+  * [794] Fix rSTTask to avoid the need of PEAR every time
   * [793] Corrected spelling of name
   * [792] EchoTask: Fileset support
   * [789] rSTTask unittests fix
@@ -553,7 +553,7 @@ and adds several new tasks (SVN log/list, DocBlox and LoadFile).
   * [668] Empty Default Value Behaves Like the Value is not set
   * [667] Document how symbolic links and hidden files are treated in copy task
   * [663] __toString for register slots
-  * [662] Hiding the command that is excecuted with "ExecTask"
+  * [662] Hiding the command that is executed with "ExecTask"
   * [659] optionally skip version check in codesniffer task
   * [654] fileset not selecting folders
   * [652] PDOSQLExec task doesn't close the DB connection before throw an exception or at the end of the task.
@@ -829,12 +829,12 @@ Sep. 14, 2009 - Phing 2.4.0 RC1
   * [246] Phing test brocken but no failure entry if test case class has no test method
   * [245] TAR task
   * [243] Delete task won't delete all files
-  * [240] phing test succesful while phpunit test is broken
+  * [240] phing test successful while phpunit test is broken
   * [233] Separate docs from phing package
   * [231] File::exists() returns false on *existing* but broken symlinks
   * [229] CopyTask shoul accept filelist subelement
   * [226] <move> task doesn't support filters
-  * [222] Terminal output dissapears and/or changes color
+  * [222] Terminal output disappears and/or changes color
   * [221] Support for copying symlinks as is
   * [212] Make file perms configurable in copy task
   * [209] Cache the results of PHPLintTask so as to not check unmodified files

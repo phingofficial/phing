@@ -62,7 +62,7 @@
                         <row>
                             <entry><literal>default</literal></entry>
                             <entry><literal role="type">String</literal></entry>
-                            <entry>The name of the target that is executed if none is explicitely
+                            <entry>The name of the target that is executed if none is explicitly
                                 specified when calling Phing</entry>
                             <entry>all</entry>
                             <entry>Yes</entry>

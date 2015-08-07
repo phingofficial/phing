@@ -30,7 +30,7 @@ include_once 'phing/IntrospectionHelper.php';
 /**
  * The datatype handler class.
  *
- * This class handles the occurance of registered datatype tags like
+ * This class handles the occurrence of registered datatype tags like
  * FileSet
  *
  * @author    Andreas Aderhold <andi@binarycloud.com>

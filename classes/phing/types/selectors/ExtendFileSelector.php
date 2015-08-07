@@ -26,7 +26,7 @@ require_once 'phing/types/selectors/FileSelector.php';
 /**
  * This is the interface to be used by all custom selectors, those that are
  * called through the &lt;custom&gt; tag. It is the amalgamation of two
- * interfaces, the FileSelector and the Paramterizable interface. Note that
+ * interfaces, the FileSelector and the Parameterizable interface. Note that
  * you will almost certainly want the default behaviour for handling
  * Parameters, so you probably want to use the BaseExtendSelector class
  * as the base class for your custom selector rather than implementing

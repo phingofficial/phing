@@ -53,7 +53,7 @@ class RootHandler extends AbstractHandler
      * The root filter is required so the parser knows what to do. It's
      * called by the ExpatParser that is instatiated in ProjectConfigurator.
      *
-     * It recieves the expat parse object ref and a reference to the
+     * It receives the expat parse object ref and a reference to the
      * configurator
      *
      * @param AbstractSAXParser $parser The ExpatParser object.

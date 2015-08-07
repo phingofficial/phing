@@ -97,7 +97,7 @@ class MailLogger extends DefaultLogger
 
         $hdrs = array(
             'From' => $this->_from,
-            'Subject' => $this->_subject . (empty($event) ? " (build succesful)" : " (build failed)")
+            'Subject' => $this->_subject . (empty($event) ? " (build successful)" : " (build failed)")
         );
 
         $mail = Mail::factory('mail');

@@ -180,7 +180,7 @@ class FileUtils
      */
     public function resolveFile($file, $filename)
     {
-        // remove this and use the static class constant File::seperator
+        // remove this and use the static class constant File::separator
         // as soon as ZE2 is ready
         $fs = FileSystem::getFileSystem();
 

@@ -39,7 +39,7 @@ class SvnCommitTask extends SvnBaseTask
 
     /**
      * Property name where we store the revision number of the just
-     * commited version.
+     * committed version.
      */
     private $propertyName = "svn.committedrevision";
 
@@ -91,7 +91,7 @@ class SvnCommitTask extends SvnBaseTask
         $this->setup('commit');
 
         $this->log(
-            "Commiting SVN working copy at '" . $this->getWorkingCopy() . "' with message '" . $this->GetMessage() . "'"
+            "Committing SVN working copy at '" . $this->getWorkingCopy() . "' with message '" . $this->GetMessage() . "'"
         );
 
         $output = $this->run(array(), array('message' => $this->GetMessage()));

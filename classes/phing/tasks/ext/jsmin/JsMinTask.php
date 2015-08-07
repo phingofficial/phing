@@ -42,7 +42,7 @@ class JsMinTask extends Task
     protected $filesets = array();
     /**
      * Whether the build should fail, if
-     * errors occured
+     * errors occurred
      *
      * @var boolean
      */
@@ -74,7 +74,7 @@ class JsMinTask extends Task
     }
 
     /**
-     * Whether the build should fail, if an error occured.
+     * Whether the build should fail, if an error occurred.
      *
      * @param boolean $value
      */
@@ -94,7 +94,7 @@ class JsMinTask extends Task
     }
 
     /**
-     * sets the directory where minified javascript files should be put inot
+     * sets the directory where minified javascript files should be put into
      *
      * @param string $targetDir
      */

@@ -149,7 +149,7 @@ class Capsule
     }
 
     /**
-     * Fetches the results of a tempalte parse and either returns
+     * Fetches the results of a template parse and either returns
      * the string or writes results to a specified output file.
      *
      * @param  string    $template   The template filename (relative to templatePath or absolute).

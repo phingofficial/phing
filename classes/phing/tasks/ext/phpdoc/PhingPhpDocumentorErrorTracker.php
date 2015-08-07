@@ -25,7 +25,7 @@ require_once 'PhpDocumentor/phpDocumentor/Errors.inc';
  * Phing subclass of the ErrorTracker class provided with PhpDocumentor to work around limitations in PhpDocumentor API.
  *
  * This class is necessary because PhpDocumentor does directly output errors and
- * warnings occured during testing for undocumented elements to stdout.
+ * warnings occurred during testing for undocumented elements to stdout.
  * This class is injected globally to force PhpDocumentor to use phing's logging
  * mechanism.
  *

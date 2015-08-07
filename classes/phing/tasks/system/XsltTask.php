@@ -99,7 +99,7 @@ class XsltTask extends CopyTask
     }
 
     /**
-     * Support nested <param> tags useing XSLTParam class.
+     * Support nested <param> tags using XSLTParam class.
      * @return XSLTParam
      */
     public function createParam()

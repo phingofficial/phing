@@ -44,7 +44,7 @@ class LiquibaseDiffTask extends AbstractLiquibaseTask
     }
 
     /**
-     * Sets the password to connect to the refernce database.
+     * Sets the password to connect to the reference database.
      *
      * @param string the password
      */

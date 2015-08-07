@@ -103,7 +103,7 @@
 
             <p>Phing tries to execute the targets in the depends attribute in the order they
                 appear (from left to right). Keep in mind that it is possible that a target can get
-                executed earlier when an earlier target depends on it, in this case the dependant is
+                executed earlier when an earlier target depends on it, in this case the dependent is
                 only executed once:</p>
 
             <pre class="screen">&lt;target name="A" /&gt;
@@ -134,7 +134,7 @@
 
                 <div class="table"><a name="idp40315280"></a><p class="formal-object-title"><span class="label">Table 4.2: </span><span class="title">&lt;target&gt; Attributes</span></p><div class="table-contents">
                     
-                    <table summary="&lt;target&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>The name of the target</td><td>Yes</td></tr><tr><td>depends</td><td>A comma-seperated list of targets this target depends
+                    <table summary="&lt;target&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>The name of the target</td><td>Yes</td></tr><tr><td>depends</td><td>A comma-separated list of targets this target depends
                                     on.</td><td>No</td></tr><tr><td>if</td><td>The name of the <code class="literal">Property</code> that has to be
                                     set in order for this target to be executed</td><td>No</td></tr><tr><td>unless</td><td>The name of the <code class="literal">Property</code> that must
                                         <code class="literal">not</code> be set in order for this target to be

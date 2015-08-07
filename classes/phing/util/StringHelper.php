@@ -103,13 +103,13 @@ class StringHelper
      * E.g. eg.Cat -> eg
      *
      * @param $qualifiedName
-     * @param string $seperator
+     * @param string $separator
      *
      * @return string
      */
-    public static function qualifier($qualifiedName, $seperator = '.')
+    public static function qualifier($qualifiedName, $separator = '.')
     {
-        $pos = strrchr($qualifiedName, $seperator);
+        $pos = strrchr($qualifiedName, $separator);
         if ($pos === false) {
             return '';
         } else {

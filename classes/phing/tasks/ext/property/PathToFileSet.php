@@ -25,7 +25,7 @@ include_once 'phing/util/FileUtils.php';
 
 /**
  * Coverts a path to a fileset.
- * This is usefull if you have a path but need to use a fileset as input in a phing task.
+ * This is useful if you have a path but need to use a fileset as input in a phing task.
  *
  * Example
  * =======

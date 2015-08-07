@@ -3113,7 +3113,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 </listitem>
                             </itemizedlist>
                         </entry>
-                        <entry>embeded growl icon v2</entry>
+                        <entry>embedded growl icon v2</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>
@@ -5617,7 +5617,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>checksum</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Comma separated list of checksums (hashing algoritms) to run, or <literal>false</literal> to disable checksum generation.
+                        <entry>Comma separated list of checksums (hashing algorithms) to run, or <literal>false</literal> to disable checksum generation.
                         Possible values are <literal>md5</literal>, <literal>crc32</literal> or any of the algorithms returned by <link
                             xlink:href="http://www.php.net/manual/en/function.hash-algos.php"
                             role="extern">hash_algos()</link>.</entry>
@@ -5941,7 +5941,7 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>delimiter</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The delimeter to separate SQL statements (e.g. "GO" in MSSQL)</entry>
+                        <entry>The delimiter to separate SQL statements (e.g. "GO" in MSSQL)</entry>
                         <entry>;</entry>
                         <entry>No</entry>
                     </row>
@@ -5949,7 +5949,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>delimitertype</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The delimiter type ("normal", "row" or "none"). Normal means that any
-                            occurence of the delimiter terminate the SQL command whereas with row,
+                            occurrence of the delimiter terminate the SQL command whereas with row,
                             only a line containing just the delimiter is recognized as the end of
                             the command. None disables all delimiter detection.</entry>
                         <entry>none</entry>
@@ -5986,7 +5986,7 @@ Note that you can omit both startpoint and track attributes in this case
   &lt;formatter type="plain" outfile="path/to/output.txt"/>
   &lt;/pdosqlexec></programlisting>
             <note>
-                <para>Because of backwards compatiblity, the PDOSQLExecTask can also be called using
+                <para>Because of backwards compatibility, the PDOSQLExecTask can also be called using
                     the <literal>'pdo'</literal> statement.</para>
             </note>
             <programlisting language="xml">&lt;pdo url="pgsql:host=localhost dbname=test">
@@ -7155,7 +7155,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal role="type">String</literal></entry>
                         <entry>The output format. The <literal>full</literal> format is specified
                             in the task itself. Additionally all report formats of PHP_CodeSniffer
-                            can be choosen (ex. <literal>checkstyle</literal>,
+                            can be chosen (ex. <literal>checkstyle</literal>,
                                 <literal>full</literal>, <literal>summary</literal>, ...).</entry>
                         <entry>full</entry>
                         <entry>No Ignored if nested <literal>formatter</literal> elements are
@@ -7210,7 +7210,7 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>sniffs</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The list of allowed sniffs (separated by space, comma or semicolon).
-                            The sniffs must be part of the choosen standard.</entry>
+                            The sniffs must be part of the chosen standard.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>

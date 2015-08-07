@@ -2,7 +2,7 @@
         
         <p>Copies files or directories. Files are only copied if the source file is newer than
             the destination file, or when the destination file does not exist. It is possible to
-            explictly overwrite existing files.</p>
+            explicitly overwrite existing files.</p>
         <p><code class="literal">CopyTask</code> does not allow self copying, i.e. copying a file to the
             same name for security reasons.</p>
         <div class="table"><a name="idp38836848"></a><p class="formal-object-title"><span class="label">Table B.11: </span><span class="title">Attributes</span></p><div class="table-contents">
@@ -23,7 +23,7 @@
                             encountered.</td><td><code class="literal">true</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
-            <p>No automatic exapnsion of symbolic links</p>
+            <p>No automatic expansion of symbolic links</p>
             <p>By default, <code class="literal">CopyTask</code> does not expand / dereference symbolic
                 links, and will simply copy the link itself. To enable dereferencing, set
                     <code class="literal">expandsymboliclinks</code> to <code class="literal">true</code> in the

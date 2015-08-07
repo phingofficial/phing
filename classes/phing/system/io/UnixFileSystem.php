@@ -43,7 +43,7 @@ include_once 'phing/system/io/FileSystem.php';
 class UnixFileSystem extends FileSystem
 {
     /**
-     * returns OS dependant path separator char
+     * returns OS dependent path separator char
      *
      * @return string
      */
@@ -53,7 +53,7 @@ class UnixFileSystem extends FileSystem
     }
 
     /**
-     * returns OS dependant directory separator char
+     * returns OS dependent directory separator char
      *
      * @return string
      */
