@@ -20,6 +20,7 @@
  */
 
 require_once 'phing/Task.php';
+include_once 'phing/util/StringHelper.php';
 
 /**
  * FtpDeployTask
@@ -135,7 +136,7 @@ class FtpDeployTask extends Task
      */
     public function setPassive($passive)
     {
-        $this->passive = (bool) $passive;
+        $this->passive = StringHelper::booleanValue($passive);
     }
 
     /**
@@ -143,7 +144,7 @@ class FtpDeployTask extends Task
      */
     public function setClearFirst($clearFirst)
     {
-        $this->clearFirst = (bool) $clearFirst;
+        $this->clearFirst = StringHelper::booleanValue($clearFirst);
     }
 
     /**
@@ -151,7 +152,7 @@ class FtpDeployTask extends Task
      */
     public function setDepends($depends)
     {
-        $this->depends = (bool) $depends;
+        $this->depends = StringHelper::booleanValue($depends);
     }
 
     /**
@@ -175,7 +176,7 @@ class FtpDeployTask extends Task
      */
     public function setRawdatafallback($fallback)
     {
-        $this->rawDataFallback = (bool) $fallback;
+        $this->rawDataFallback = StringHelper::booleanValue($fallback);
     }
 
     /**
