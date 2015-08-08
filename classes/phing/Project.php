@@ -1021,7 +1021,7 @@ class Project
     // 3. If any children have not been VISITED, tsort() the child.
     // 4. Add the current target to the Vector "ret" after the children
     //    have been visited. Move the current target to the VISITED state.
-    //    "ret" now contains the sorted sequence of Targets upto the current
+    //    "ret" now contains the sorted sequence of Targets up to the current
     //    Target.
 
     /**

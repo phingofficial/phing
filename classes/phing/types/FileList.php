@@ -245,7 +245,7 @@ class FileList extends DataType
             if ($listReader) {
                 $listReader->close();
             }
-            throw new BuildException("An error occured while reading from list file " . $this->listfile->__toString(
+            throw new BuildException("An error occurred while reading from list file " . $this->listfile->__toString(
                 ) . ": " . $e->getMessage());
         }
 

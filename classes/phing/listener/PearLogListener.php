@@ -138,7 +138,7 @@ class PearLogListener implements BuildListener
 
     /**
      *  Logs whether the build succeeded or failed, and any errors that
-     *  occured during the build. Also outputs the total build-time.
+     *  occurred during the build. Also outputs the total build-time.
      *
      * @param  BuildEvent  The BuildEvent
      * @see    BuildEvent::getException()

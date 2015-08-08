@@ -269,7 +269,7 @@ class IntrospectionHelper
                     }
 
                     // we don't use the classname here, but we need to make sure it exists before
-                    // we later try to instantiate a non-existant class
+                    // we later try to instantiate a non-existent class
                     if ($classname === null) {
                         throw new BuildException($method->getDeclaringClass()->getName() . "::" . $method->getName(
                             ) . "() method MUST use a class hint to indicate the class type of parameter.");

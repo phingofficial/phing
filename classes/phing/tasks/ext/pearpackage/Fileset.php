@@ -36,7 +36,7 @@ class PEAR_PackageFileManager_Fileset
 {
 
     /**
-     * Curent Phing Project.
+     * Current Phing Project.
      * @var Project
      */
     private $project;

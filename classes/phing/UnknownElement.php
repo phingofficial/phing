@@ -116,7 +116,7 @@ class UnknownElement extends Task
     /**
      *  Handle child elemets of the unknown element, if any.
      *
-     * @param object $parent        The parent object the unkown element belongs to
+     * @param object $parent        The parent object the unknown element belongs to
      * @param object $parentWrapper The parent wrapper object
      */
     public function handleChildren($parent, $parentWrapper)

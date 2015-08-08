@@ -2053,7 +2053,7 @@
                     <attribute name="gitpath"/>
                 </optional>
                 <optional>
-                    <attribute name="aggresive">
+                    <attribute name="aggressive">
                         <data type="boolean"/>
                     </attribute>
                 </optional>

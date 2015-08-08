@@ -28,7 +28,7 @@ include_once 'phing/filters/ChainableReader.php';
  * those lexical tokens out for purposes of simple Php parsing.
  * (if you have more complex Php parsing needs, use a real lexer).
  * Since this class heavily relies on the single char read function,
- * you are reccomended to make it work on top of a buffered reader.
+ * you are recommended to make it work on top of a buffered reader.
  *
  * @author    <a href="mailto:yl@seasonfive.com">Yannick Lecaillez</a>
  * @author    hans lellelid, hans@velum.net

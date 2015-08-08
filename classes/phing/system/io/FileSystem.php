@@ -821,7 +821,7 @@ abstract class FileSystem
      *
      * @param Int $mode
      * @throws Exception
-     * @internal param Int $mode . Permissions ususally in ocatal. Use leading 0 for
+     * @internal param Int $mode . Permissions usually in ocatal. Use leading 0 for
      *                    octal. Number between 0 and 0777.
      *
      * @return void

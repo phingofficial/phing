@@ -1001,7 +1001,7 @@ set PATH=%PATH%;%PHING_HOME%\bin</pre>
 
             <p>Phing tries to execute the targets in the depends attribute in the order they
                 appear (from left to right). Keep in mind that it is possible that a target can get
-                executed earlier when an earlier target depends on it, in this case the dependant is
+                executed earlier when an earlier target depends on it, in this case the dependent is
                 only executed once:</p>
 
             <pre class="screen">&lt;target name="A" /&gt;
@@ -1032,7 +1032,7 @@ set PATH=%PATH%;%PHING_HOME%\bin</pre>
 
                 <div class="table"><a name="d5e918"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table 4.2:&nbsp;</span><span class="title">&lt;target&gt; Attributes</span></p><div class="table-contents">
                     
-                    <table summary="<target&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>The name of the target</td><td>Yes</td></tr><tr><td>depends</td><td>A comma-seperated list of targets this target depends
+                    <table summary="<target&gt; Attributes" border="1"><colgroup><col class="name"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td>name</td><td>The name of the target</td><td>Yes</td></tr><tr><td>depends</td><td>A comma-separated list of targets this target depends
                                     on.</td><td>No</td></tr><tr><td>if</td><td>The name of the <code class="literal">Property</code> that has to be
                                     set in order for this target to be executed</td><td>No</td></tr><tr><td>unless</td><td>The name of the <code class="literal">Property</code> that must
                                         <code class="literal">not</code> be set in order for this target to be
@@ -1657,7 +1657,7 @@ build.xml validates</pre>
             <p>Tests whether the two given Strings are identical</p>
             <div class="table"><a name="d5e1297"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table 5.2:&nbsp;</span><span class="title">equals Attributes</span></p><div class="table-contents">
                 
-                <table summary="equals Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">arg1</code></td><td>First string to test.</td><td>Yes</td></tr><tr><td><code class="literal">arg2</code></td><td>Second string to test.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparision. Default is true.</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td>Trim whitespace from arguments before comparing them. Default is
+                <table summary="equals Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">arg1</code></td><td>First string to test.</td><td>Yes</td></tr><tr><td><code class="literal">arg2</code></td><td>Second string to test.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparison. Default is true.</td><td>No</td></tr><tr><td><code class="literal">trim</code></td><td>Trim whitespace from arguments before comparing them. Default is
                                 false.</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">
 
@@ -1668,7 +1668,7 @@ build.xml validates</pre>
             <p>Compares two given versions</p>
             <div class="table"><a name="d5e1333"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table 5.3:&nbsp;</span><span class="title">version-compare Attributes</span></p><div class="table-contents">
                 
-                <table summary="version-compare Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">version</code></td><td>The version you want to compare</td><td>Yes</td></tr><tr><td><code class="literal">desiredVersion</code></td><td>The version you want to compare agains</td><td>Yes</td></tr><tr><td><code class="literal">operator</code></td><td>The operator to use for version comparison. Default
+                <table summary="version-compare Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">version</code></td><td>The version you want to compare</td><td>Yes</td></tr><tr><td><code class="literal">desiredVersion</code></td><td>The version you want to compare against</td><td>Yes</td></tr><tr><td><code class="literal">operator</code></td><td>The operator to use for version comparison. Default
                                 is <code class="literal">&gt;=</code>.</td><td>No</td></tr><tr><td>debug</td><td>Turns on debug mode, that echoes the comparion message. Default is false.</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">
             <pre class="programlisting"><span class="hl-tag">&lt;version-compare</span> <span class="hl-attribute">version</span>=<span class="hl-value">"${someproperty}"</span> <span class="hl-attribute">desiredVersion</span>=<span class="hl-value">"1.3"</span> <span class="hl-attribute">operator</span>=<span class="hl-value">"gt"</span><span class="hl-tag"> /&gt;</span></pre>
@@ -1721,7 +1721,7 @@ build.xml validates</pre>
             <p>Tests whether a string contains another one.</p>
             <div class="table"><a name="d5e1470"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table 5.8:&nbsp;</span><span class="title">contains Attributes</span></p><div class="table-contents">
                 
-                <table summary="contains Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">string</code></td><td>The string to search in.</td><td>Yes</td></tr><tr><td><code class="literal">substring</code></td><td>The string to search for.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparision. Default is true.</td><td>No</td></tr></tbody></table>
+                <table summary="contains Attributes" border="1"><colgroup><col class="attribute"><col class="description"><col class="required"></colgroup><thead><tr><th>Attribute</th><th>Description</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">string</code></td><td>The string to search in.</td><td>Yes</td></tr><tr><td><code class="literal">substring</code></td><td>The string to search for.</td><td>Yes</td></tr><tr><td><code class="literal">casesensitive</code></td><td>Perform a case sensitive comparison. Default is true.</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">
 
         </div>
@@ -3834,7 +3834,7 @@ to permit their use in free software.</pre>
         
         <p>Available Task tests if a resource/file is set and sets a certain property to a
             certain value if it exists.</p>
-        <p>Here, <code class="literal">AvailableTask</code> first checks for the existance of either file
+        <p>Here, <code class="literal">AvailableTask</code> first checks for the existence of either file
             or directory named <code class="literal">test.txt</code> in <code class="literal">/tmp</code>. Then, it
             checks for the directory <code class="literal">foo</code> in <code class="literal">/home</code> and then for
             the file or directory <code class="literal">bar</code> in <code class="literal">/home/foo</code>. If
@@ -3974,7 +3974,7 @@ to permit their use in free software.</pre>
         
         <p>Copies files or directories. Files are only copied if the source file is newer than
             the destination file, or when the destination file does not exist. It is possible to
-            explictly overwrite existing files.</p>
+            explicitly overwrite existing files.</p>
         <p><code class="literal">CopyTask</code> does not allow self copying, i.e. copying a file to the
             same name for security reasons.</p>
         <div class="table"><a name="d5e2947"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table B.11:&nbsp;</span><span class="title">Attributes</span></p><div class="table-contents">
@@ -3995,7 +3995,7 @@ to permit their use in free software.</pre>
                             encountered.</td><td><code class="literal">true</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
         <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
-            <p>No automatic exapnsion of symbolic links</p>
+            <p>No automatic expansion of symbolic links</p>
             <p>By default, <code class="literal">CopyTask</code> does not expand / dereference symbolic
                 links, and will simply copy the link itself. To enable dereferencing, set
                     <code class="literal">expandsymboliclinks</code> to <code class="literal">true</code> in the
@@ -4594,7 +4594,7 @@ to permit their use in free software.</pre>
     </div>
     <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="PathToFileSetTask"></a>B.28 PathToFileSetTask</h2></div></div></div>
         
-        <p>Coverts a path to a fileset. This is usefull if you have a path but need to use a fileset as input
+        <p>Coverts a path to a fileset. This is useful if you have a path but need to use a fileset as input
             in a phing task.</p>
 
         <div class="table"><a name="d5e4255"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table B.27:&nbsp;</span><span class="title">Attributes</span></p><div class="table-contents">
@@ -4653,7 +4653,7 @@ to permit their use in free software.</pre>
         </div>
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d5e4392"></a>B.29.3 Base directory of the new project</h3></div></div></div>
             
-            <p>The base directory of the new project is set dependant on the <code class="literal">dir</code> and
+            <p>The base directory of the new project is set dependent on the <code class="literal">dir</code> and
                 the <code class="literal">inheritAll</code> attribute. This is important to keep in mind or
                 else you might run into bugs in your<code class="filename"> build.xml</code>'s. The following
                 table shows when which value is used:</p>
@@ -6222,7 +6222,7 @@ Note that you can omit both startpoint and track attributes in this case
                                 </li><li class="listitem">
                                     <p>relative file path (.\folder\image.png)</p>
                                 </li></ul></div>
-                        </td><td>embeded growl icon v2</td><td>No</td></tr></tbody></table>
+                        </td><td>embedded growl icon v2</td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d5e8448"></a>C.26.1 Examples</h3></div></div></div>
             
@@ -7001,7 +7001,7 @@ Note that you can omit both startpoint and track attributes in this case
         <p>This task generates a simple manifest file with optional checksums.</p>
         <div class="table"><a name="d5e10679"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table C.53:&nbsp;</span><span class="title">Attributes</span></p><div class="table-contents">
             
-            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">salt</code></td><td><code class="literal">String</code></td><td>Salt to use when generating checksums.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">checksum</code></td><td><code class="literal">String</code></td><td>Comma separated list of checksums (hashing algoritms) to run, or <code class="literal">false</code> to disable checksum generation.
+            <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">salt</code></td><td><code class="literal">String</code></td><td>Salt to use when generating checksums.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">checksum</code></td><td><code class="literal">String</code></td><td>Comma separated list of checksums (hashing algorithms) to run, or <code class="literal">false</code> to disable checksum generation.
                         Possible values are <code class="literal">md5</code>, <code class="literal">crc32</code> or any of the algorithms returned by <a class="ulink" href="http://www.php.net/manual/en/function.hash-algos.php" target="_top">hash_algos()</a>.</td><td>false</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The path to the manifest file.</td><td>n/a</td><td>Yes.</td></tr></tbody></table>
         </div></div><br class="table-break">
         <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="d5e10723"></a>C.43.1 Supported Nested Tags</h3></div></div></div>
@@ -7102,8 +7102,8 @@ Note that you can omit both startpoint and track attributes in this case
         <div class="table"><a name="d5e10933"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table C.57:&nbsp;</span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">url</code></td><td><code class="literal">String</code></td><td>PDO connection URL (DSN)</td><td>none</td><td>Yes</td></tr><tr><td><code class="literal">userid</code></td><td><code class="literal">String</code></td><td>Username for connection (if it cannot be specified in URL) </td><td>none</td><td>No</td></tr><tr><td><code class="literal">password</code></td><td><code class="literal">String</code></td><td>The password to use for the connection (if it cannot be specified in
-                            URL)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">src</code></td><td>File</td><td>A single source file of SQL statements to execute.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">onerror</code></td><td><code class="literal">String</code></td><td>The action to perform on error (continue, stop, or abort)</td><td>abort</td><td>No</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimeter to separate SQL statements (e.g. "GO" in MSSQL)</td><td>;</td><td>No</td></tr><tr><td><code class="literal">delimitertype</code></td><td><code class="literal">String</code></td><td>The delimiter type ("normal", "row" or "none"). Normal means that any
-                            occurence of the delimiter terminate the SQL command whereas with row,
+                            URL)</td><td>none</td><td>No</td></tr><tr><td><code class="literal">src</code></td><td>File</td><td>A single source file of SQL statements to execute.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">onerror</code></td><td><code class="literal">String</code></td><td>The action to perform on error (continue, stop, or abort)</td><td>abort</td><td>No</td></tr><tr><td><code class="literal">delimiter</code></td><td><code class="literal">String</code></td><td>The delimiter to separate SQL statements (e.g. "GO" in MSSQL)</td><td>;</td><td>No</td></tr><tr><td><code class="literal">delimitertype</code></td><td><code class="literal">String</code></td><td>The delimiter type ("normal", "row" or "none"). Normal means that any
+                            occurrence of the delimiter terminate the SQL command whereas with row,
                             only a line containing just the delimiter is recognized as the end of
                             the command. None disables all delimiter detection.</td><td>none</td><td>No</td></tr><tr><td><code class="literal">autocommit</code></td><td><code class="literal">Boolean</code></td><td>Whether to auto (implicitly) commit every single
                         statement, disabling transactions.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">encoding</code></td><td><code class="literal">String</code></td><td>Encoding to use for read SQL files</td><td>none</td><td>No</td></tr></tbody></table>
@@ -7121,7 +7121,7 @@ Note that you can omit both startpoint and track attributes in this case
   <span class="hl-tag">&lt;formatter</span> <span class="hl-attribute">type</span>=<span class="hl-value">"plain"</span> <span class="hl-attribute">outfile</span>=<span class="hl-value">"path/to/output.txt"</span><span class="hl-tag">/&gt;</span>
   <span class="hl-tag">&lt;/pdosqlexec&gt;</span></pre>
             <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
-                <p>Because of backwards compatiblity, the PDOSQLExecTask can also be called using
+                <p>Because of backwards compatibility, the PDOSQLExecTask can also be called using
                     the <code class="literal">'pdo'</code> statement.</p>
             </div>
             <pre class="programlisting"><span class="hl-tag">&lt;pdo</span> <span class="hl-attribute">url</span>=<span class="hl-value">"pgsql:host=localhost dbname=test"</span><span class="hl-tag">&gt;</span>
@@ -7496,13 +7496,13 @@ Note that you can omit both startpoint and track attributes in this case
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">standard</code></td><td><code class="literal">String</code></td><td>The list of coding standards to test against.
                             Separated by space, comma or semicolon.</td><td>Generic</td><td>No</td></tr><tr><td><code class="literal">format</code></td><td><code class="literal">String</code></td><td>The output format. The <code class="literal">full</code> format is specified
                             in the task itself. Additionally all report formats of PHP_CodeSniffer
-                            can be choosen (ex. <code class="literal">checkstyle</code>,
+                            can be chosen (ex. <code class="literal">checkstyle</code>,
                                 <code class="literal">full</code>, <code class="literal">summary</code>, ...).</td><td>full</td><td>No Ignored if nested <code class="literal">formatter</code> elements are
                             supplied.</td></tr><tr><td><code class="literal">showSniffs</code></td><td><code class="literal">Boolean</code></td><td>Print the list of used sniffs.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">showWarnings</code></td><td><code class="literal">Boolean</code></td><td>Print warnings.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">showSources</code></td><td><code class="literal">Boolean</code></td><td>Flag that determines whether to show sources or not.</td><td><code class="literal">true</code></td><td>No</td></tr><tr><td><code class="literal">docGenerator</code></td><td><code class="literal">String</code></td><td>The name of the doc generator (HTML, Text).</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">docFile</code></td><td><code class="literal">String</code></td><td>Path to write output file to. If not set documentation will be
                             written to STDOUT when <code class="literal">docGenerator</code> is set.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">file</code></td><td><code class="literal">String</code></td><td>The file or folder to check (usually the nested tag
                                 <code class="literal"><a class="link" href="#FileSet" title="D.3 FileSet">fileset</a></code> is used instead).</td><td><code class="literal">false</code></td><td>Either this attribute or the nested tag <code class="literal"><a class="link" href="#FileSet" title="D.3 FileSet">fileset</a></code> is
                             required.</td></tr><tr><td><code class="literal">sniffs</code></td><td><code class="literal">String</code></td><td>The list of allowed sniffs (separated by space, comma or semicolon).
-                            The sniffs must be part of the choosen standard.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">verbosity</code></td><td><code class="literal">Integer</code></td><td>The verbosity level of CodeSniffer where level 1 prints progress
+                            The sniffs must be part of the chosen standard.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">verbosity</code></td><td><code class="literal">Integer</code></td><td>The verbosity level of CodeSniffer where level 1 prints progress
                             information and level 2 prints developer debug information.</td><td>0</td><td>No</td></tr><tr><td><code class="literal">encoding</code></td><td><code class="literal">String</code></td><td>The encoding of the files to check</td><td>iso-8859-1</td><td>No</td></tr><tr><td><code class="literal">tabWidth</code></td><td><code class="literal">Integer</code></td><td>Replaces tabs with the given number of spaces. If zero no replacing
                             is done.</td><td>0</td><td>No</td></tr><tr><td><code class="literal">reportWidth</code></td><td><code class="literal">Integer</code></td><td>The max. width for the report.</td><td>80</td><td>No</td></tr><tr><td><code class="literal">allowedFileExtensions</code></td><td><code class="literal">String</code></td><td>The allowed file extensions / file types to process.
                             Separated by space, comma or semicolon.</td><td>php, inc, js, css</td><td>No</td></tr><tr><td><code class="literal">allowedTypes</code></td><td><code class="literal">String</code></td><td>The allowed types used by PHP_CodeSniffer::suggestType() which is
@@ -9813,7 +9813,7 @@ a2.a3.a4=false</pre>
             
             <p>In order to support the <code class="literal">&lt;filterreader ... /&gt;</code> sytax, your
                 class must extend the BaseParamFilterReader class. Most of the filters that are
-                bundled with Phing can be invoked using this syntax. The noteable exception (at time
+                bundled with Phing can be invoked using this syntax. The notable exception (at time
                 of writing) is the ReplaceRegexp filter, which expects find/replace parameters that
                 do not fit the name/value mold. For this reason, you must always use the shorthand
                     <code class="literal">&lt;replaceregexp .../&gt;</code> to invoke this filter.</p>
@@ -10154,7 +10154,7 @@ a2.a3.a4=false</pre>
             
             <p>The <code class="literal">TidyFilter</code> supports nested &lt;config&gt; tags to configure
                 how Tidy should manipulate the documents. For a complete list of configuration
-                options see the offical <a class="ulink" href="http://tidy.sourceforge.net/docs/quickref.html" target="_top">Quick
+                options see the official <a class="ulink" href="http://tidy.sourceforge.net/docs/quickref.html" target="_top">Quick
                     Reference</a>.</p>
         </div>
     </div>
@@ -10754,7 +10754,7 @@ a2.a3.a4=false</pre>
             <div class="table"><a name="d5e19028"></a><p xmlns:d="http://docbook.org/ns/docbook" class="formal-object-title"><span class="label">Table H.1:&nbsp;</span><span class="title">Attributes</span></p><div class="table-contents">
                 
                 <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">basedir</code></td><td><code class="literal">String</code></td><td>The base directory of the project, i.e. the directory all paths
-                                are relative to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">default</code></td><td><code class="literal">String</code></td><td>The name of the target that is executed if none is explicitely
+                                are relative to.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">default</code></td><td><code class="literal">String</code></td><td>The name of the target that is executed if none is explicitly
                                 specified when calling Phing</td><td>all</td><td>Yes</td></tr><tr><td><code class="literal">description</code></td><td><code class="literal">String</code></td><td>A free text description of the project</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">name</code></td><td><code class="literal">String</code></td><td>Name of the project</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">phingVersion</code></td><td><code class="literal">String</code></td><td>The minimum Phing version required to execute the build file, in
                                 order to prevent compatibility issues.</td><td>n/a</td><td>No</td></tr></tbody></table>
             </div></div><br class="table-break">

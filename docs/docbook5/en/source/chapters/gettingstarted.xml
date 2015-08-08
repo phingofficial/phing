@@ -194,7 +194,7 @@
 
             <para>Phing tries to execute the targets in the depends attribute in the order they
                 appear (from left to right). Keep in mind that it is possible that a target can get
-                executed earlier when an earlier target depends on it, in this case the dependant is
+                executed earlier when an earlier target depends on it, in this case the dependent is
                 only executed once:</para>
 
             <screen>&lt;target name="A" /&gt;
@@ -245,7 +245,7 @@
                             </row>
                             <row>
                                 <entry>depends</entry>
-                                <entry>A comma-seperated list of targets this target depends
+                                <entry>A comma-separated list of targets this target depends
                                     on.</entry>
                                 <entry>No</entry>
                             </row>

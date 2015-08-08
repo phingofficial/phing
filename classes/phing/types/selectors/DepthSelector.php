@@ -102,7 +102,7 @@ class DepthSelector extends BaseExtendSelector
                         break;
 
                     default:
-                        $this->setError("Invalud parameter " . $paramname);
+                        $this->setError("Invalid parameter " . $paramname);
                 } // switch
             }
         }

@@ -28,7 +28,7 @@ include_once 'phing/mappers/FlattenMapper.php';
  * A phing copy task.  Copies a file or directory to a new file
  * or directory.  Files are only copied if the source file is newer
  * than the destination file, or when the destination file does not
- * exist. It is possible to explictly overwrite existing files.
+ * exist. It is possible to explicitly overwrite existing files.
  *
  * @author   Andreas Aderhold, andi@binarycloud.com
  *
@@ -160,7 +160,7 @@ class CopyTask extends Task
     /**
      * Set the file. We have to manually take care of the
      * type that is coming due to limited type support in php
-     * in and convert it manually if neccessary.
+     * in and convert it manually if necessary.
      *
      * @param PhingFile $file The source file. Either a string or an PhingFile object
      *
@@ -174,7 +174,7 @@ class CopyTask extends Task
     /**
      * Set the toFile. We have to manually take care of the
      * type that is coming due to limited type support in php
-     * in and convert it manually if neccessary.
+     * in and convert it manually if necessary.
      *
      * @param PhingFile $file The dest file. Either a string or an PhingFile object
      *
@@ -201,7 +201,7 @@ class CopyTask extends Task
     /**
      * Set the toDir. We have to manually take care of the
      * type that is coming due to limited type support in php
-     * in and convert it manually if neccessary.
+     * in and convert it manually if necessary.
      *
      * @param PhingFile $dir The directory, either a string or an PhingFile object
      *

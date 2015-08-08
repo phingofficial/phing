@@ -243,7 +243,7 @@ class PDOSQLExecTask extends PDOTask
 
     /**
      * Set the Delimiter type for this sql task. The delimiter type takes two
-     * values - normal and row. Normal means that any occurence of the delimiter
+     * values - normal and row. Normal means that any occurrence of the delimiter
      * terminate the SQL command whereas with row, only a line containing just
      * the delimiter is recognized as the end of the command.
      *
@@ -385,7 +385,7 @@ class PDOSQLExecTask extends PDOTask
                         }
                         $this->transactions[$i]->runTransaction();
                         if (!$this->isAutocommit()) {
-                            $this->log("Commiting transaction", Project::MSG_VERBOSE);
+                            $this->log("Committing transaction", Project::MSG_VERBOSE);
                             $this->conn->commit();
                         }
                     }

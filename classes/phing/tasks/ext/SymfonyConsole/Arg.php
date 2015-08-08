@@ -37,7 +37,7 @@ class Arg extends DataType
     private $quotes = false;
 
     /**
-     * Gets the argment name
+     * Gets the argument name
      * @return String
      */
     public function getName()

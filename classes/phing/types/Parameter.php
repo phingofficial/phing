@@ -36,7 +36,7 @@ class Parameter extends DataType
     /** Parameter name */
     protected $name;
 
-    /** Paramter type */
+    /** Parameter type */
     protected $type;
 
     /** Parameter value */

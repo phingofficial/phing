@@ -356,7 +356,7 @@ class AbstractFileSet extends DataType implements SelectorContainer
         if ($ds === null) {
             throw new Exception("DirectoryScanner cannot be null");
         }
-        // FIXME - pass dir directly wehn dirscanner supports File
+        // FIXME - pass dir directly when dirscanner supports File
         $ds->setBasedir($this->dir->getPath());
 
         foreach ($this->additionalPatterns as $addPattern) {
