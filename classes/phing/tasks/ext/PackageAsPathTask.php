@@ -35,12 +35,12 @@ class PackageAsPathTask extends Task
     /** The package to convert. */
     protected $pckg;
 
-    /** The value to store the conversion in. */
+    /** The property to store the conversion in. */
     protected $name;
 
     /**
      * Executes the package to patch converstion and stores it
-     * in the user property <code>value</code>.
+     * in the user property <code>name</code>.
      */
     public function main()
     {
@@ -56,7 +56,7 @@ class PackageAsPathTask extends Task
     }
 
     /**
-     * @param string $name the Ant variable to store the path in
+     * @param string $name the property to store the path in
      */
     public function setName($name)
     {
