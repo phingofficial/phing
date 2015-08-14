@@ -70,7 +70,7 @@ class UntarTask extends ExtractBaseTask
         try {
             $tar = $this->initTar($tarfile);
             if (!$tar->extractModify($this->todir->getAbsolutePath(), $this->removepath, $this->preservePermissions)) {
-                throw new BuildException('Failed to extract tar file: ' . $tarfile->getAbsolutePath());
+                throw new BuildException('Failed to extract tar file: ' . $tarfile->getAbsolutePath() . '. Error: ' . $tar->error_object->getMessage());
             }
         } catch (IOException $ioe) {
             $msg = "Could not extract tar file: " . $ioe->getMessage();
