@@ -369,4 +369,82 @@ class XmlLogger implements BuildLogger
     public function setEmacsMode($emacsMode)
     {
     }
+
+    /**
+     * @return DOMDocument
+     */
+    public function getDoc()
+    {
+        return $this->doc;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBuildTimerStart()
+    {
+        return $this->buildTimerStart;
+    }
+
+    /**
+     * @return DOMElement
+     */
+    public function getBuildElement()
+    {
+        return $this->buildElement;
+    }
+
+    public function setBuildElement($elem)
+    {
+        $this->buildElement = $elem;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getElementStack()
+    {
+        return $this->elementStack;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTimesStack()
+    {
+        return $this->timesStack;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMsgOutputLevel()
+    {
+        return $this->msgOutputLevel;
+    }
+
+    /**
+     * @return OutputStream
+     */
+    public function getOut()
+    {
+        return $this->out;
+    }
+
+    /**
+     * @return OutputStream
+     */
+    public function getErr()
+    {
+        return $this->err;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOutFilename()
+    {
+        return $this->outFilename;
+    }
 }
