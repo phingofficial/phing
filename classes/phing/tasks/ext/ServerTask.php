@@ -142,11 +142,11 @@ class ServerTask extends Task
 
         $cmd = Commandline::toString($this->commandline->getCommandline(), true);
 
-        $streams = [
-            ["file", "/dev/null", "r"],
-            ["file", "/dev/null", "w"],
-            ["file", "/dev/null", "w"],
-        ];
+        $streams = array(
+            array("file", "/dev/null", "r"),
+            array("file", "/dev/null", "w"),
+            array("file", "/dev/null", "w"),
+        );
 
         $handle = proc_open($cmd, $streams, $pipes);
 
