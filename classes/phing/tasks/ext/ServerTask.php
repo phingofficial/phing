@@ -136,6 +136,8 @@ class ServerTask extends Task
      */
     public function main()
     {
+        $exception = null;
+
         $this->prepare();
 
         $cmd = Commandline::toString($this->commandline->getCommandline(), true);
@@ -173,11 +175,17 @@ class ServerTask extends Task
             foreach ($this->tasks as $task) {
                 $task->perform();
             }
-        } finally {
-            // Terminate server with SIGINT
-            proc_terminate($handle, 2);
+        } catch(Exception $e) {
+            $exception = $e;
+        }
 
-            $this->log("Stopped web server", Project::MSG_INFO);
+        // Terminate server with SIGINT
+        proc_terminate($handle, 2);
+
+        $this->log("Stopped web server", Project::MSG_INFO);
+
+        if (!is_null($exception)) {
+            throw $exception;
         }
     }
 
