@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AttribTaskTest" default="main">
+    <property name="input" value="${php.tmpdir}/attrib"/>
+	
+	<target name="setup">
+        <mkdir dir="${input}"/>
+	</target>
+	
+	<target name="clean">
+        <attrib file="${input}/TEST.TXT" readonly="false"/>
+        <delete dir="${input}"/>
+	</target>
+
+    <target name="testAttrib">
+        <touch file="${input}/TEST.TXT"/>
+        <attrib file="${input}/TEST.TXT" readonly="true" verbose="true"/>
+    </target>
+
+    <target name="main"/>
+</project>
