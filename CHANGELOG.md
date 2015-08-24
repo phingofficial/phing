@@ -2,6 +2,36 @@ P     H     I     N     G
 =========================
 
 
+Aug. 24, 2015 - Phing 2.12
+--------------------------
+
+This release contains the following new or improved functionality:
+
+ * Retry, Tempfile, Inifile tasks
+ * 'keepgoing' command line mode
+ * Fileset support in the Import task
+ * EscapeUnicode, Concat filters
+ * Profile logger
+ * Composite mapper
+ * Various typo and bug fixes
+
+The following tickets were closed in this release:
+
+ * [1208] When UntarTask fails to extract an archive it should tell why
+ * [1207] PackageAsPath Task exists in 2.11, but not in documentation
+ * [1206] WaitFor task has maxwaitunit attribute, not WaitUnit
+ * [1205] Triple "B.37.1 Supported Nested Tags" header
+ * [1204] Wrong type of record task loglevel attribute
+ * [1203] Duplicated doc for Apply task, spawn attribute
+ * [1199] PHPUnitReport task: package name detection no longer works
+ * [1196] Target 'phing.listener.AnsiColorLogger' does not exist in this project.
+ * [1193] There is no native method for manipulating .ini files.
+ * [1191] phing parallel task should handle workers dying unexpectedly
+ * [1190] RegexTask processes backslashes incorrectly
+ * [1189] Coverage Report broken for Jenkins PHP Clover
+ * [1178] Parameter getValue is null when parameter is equal to 0
+ * [1148] phpdoc2 via phar
+
 May 20, 2015 - Phing 2.11
 -------------------------
 
