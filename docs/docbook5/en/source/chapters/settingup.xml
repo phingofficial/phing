@@ -136,6 +136,13 @@
                             </entry>
                         </row>
                         <row>
+                            <entry>Net_FTP (PEAR package)</entry>
+                            <entry>Optional; enables SSL connection in FtpDeployTask</entry>
+                            <entry><link xlink:href="http://pear.php.net/package/Net_FTP"
+                                    role="external">http://pear.php.net/package/Net_FTP</link>
+                            </entry>
+                        </row>
+                        <row>
                             <entry>PHP Depend</entry>
                             <entry>Optional; enables additional task(s)</entry>
                             <entry><link xlink:href="http://www.pdepend.org" role="external"

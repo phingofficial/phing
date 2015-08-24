@@ -1202,6 +1202,13 @@
                         <entry>Yes</entry>
                     </row>
                     <row>
+                        <entry><literal>ssl</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+                        <entry>Whether to connect via SSL. This requires Net/FTP to be installed.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>dir</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Directory on the remote server.</entry>
@@ -1300,6 +1307,7 @@
   username="${ftp.username}"
   password="${ftp.password}"
   dir="${ftp.dir}"
+  ssl="true"
   passive="false"
   mode="${ftp.mode}">
   &lt;fileset dir=".">
