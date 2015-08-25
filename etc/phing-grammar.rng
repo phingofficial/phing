@@ -3271,6 +3271,9 @@
                     <ref name="config"/>
                     <ref name="formatter"/>
                 </zeroOrMore>
+                <optional>
+                    <attribute name="cachefile"/>
+                </optional>
             </interleave>
         </element>
     </define>
@@ -3420,6 +3423,9 @@
                 </optional>
                 <optional>
                     <attribute name="format"/>
+                </optional>
+                <optional>
+                    <attribute name="cachefile"/>
                 </optional>
             </interleave>
         </element>
