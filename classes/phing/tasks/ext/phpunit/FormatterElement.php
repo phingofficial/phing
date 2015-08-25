@@ -166,6 +166,9 @@ class FormatterElement
         } elseif ($this->type == "plain") {
             require_once 'phing/tasks/ext/phpunit/formatter/PlainPHPUnitResultFormatter.php';
             $this->formatter = new PlainPHPUnitResultFormatter($this->parent);
+        } elseif ($this->type == "crap4j") {
+            require_once 'phing/tasks/ext/phpunit/formatter/Crap4jPHPUnitResultFormatter.php';
+            $this->formatter = new Crap4jPHPUnitResultFormatter($this->parent);
         } else {
             throw new BuildException("Formatter '" . $this->type . "' not implemented");
         }
