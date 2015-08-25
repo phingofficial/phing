@@ -31,7 +31,18 @@ require_once 'phing/Task.php';
 class PhpCodeSnifferTask extends Task
 {
 
+    /**
+     * A php source code filename or directory
+     *
+     * @var PhingFile
+     */
     protected $file; // the source file (from xml attribute)
+
+    /**
+     * All fileset objects assigned to this task
+     *
+     * @var FileSet[]
+     */
     protected $filesets = array(); // all fileset objects assigned to this task
 
     // parameters for php code sniffer
@@ -71,6 +82,12 @@ class PhpCodeSnifferTask extends Task
     private $haltonerror = false;
     private $haltonwarning = false;
     private $skipversioncheck = false;
+
+    /**
+     * Cache data storage
+     * @var DataStore
+     */
+    protected $cache;
 
     /**
      * Load the necessary environment for running PHP_CodeSniffer.
@@ -344,6 +361,49 @@ class PhpCodeSnifferTask extends Task
     }
 
     /**
+     * Whether to store last-modified times in cache
+     *
+     * @param PhingFile $file
+     */
+    public function setCacheFile(PhingFile $file)
+    {
+        $this->cache = new DataStore($file);
+    }
+
+    /**
+     * Return the list of files to parse
+     *
+     * @return string[] list of absolute files to parse
+     */
+    protected function getFilesToParse()
+    {
+        $filesToParse = array();
+
+        if ($this->file instanceof PhingFile) {
+            $filesToParse[] = $this->file->getPath();
+        } else {
+            // append any files in filesets
+            foreach ($this->filesets as $fs) {
+                $dir = $fs->getDir($this->project)->getAbsolutePath();
+                foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
+                    $fileAbsolutePath = $dir . DIRECTORY_SEPARATOR . $filename;
+                    if ($this->cache) {
+                        $lastMTime = $this->cache->get($fileAbsolutePath);
+                        $currentMTime = filemtime($fileAbsolutePath);
+                        if ($lastMTime >= $currentMTime) {
+                            continue;
+                        } else {
+                            $this->cache->put($fileAbsolutePath, $currentMTime);
+                        }
+                    }
+                    $filesToParse[] = $fileAbsolutePath;
+                }
+            }
+        }
+        return $filesToParse;
+    }
+
+    /**
      * Executes PHP code sniffer against PhingFile or a FileSet
      */
     public function main()
@@ -387,21 +447,7 @@ class PhpCodeSnifferTask extends Task
             $this->formatters[] = $fmt;
         }
 
-        $fileList = array();
-
-        if (!isset($this->file)) {
-            $project = $this->getProject();
-            foreach ($this->filesets as $fs) {
-                $ds = $fs->getDirectoryScanner($project);
-                $files = $ds->getIncludedFiles();
-                $dir = $fs->getDir($this->project)->getAbsolutePath();
-                foreach ($files as $file) {
-                    $fileList[] = $dir . DIRECTORY_SEPARATOR . $file;
-                }
-            }
-        } else {
-            $fileList[] = $this->file->getPath();
-        }
+        $fileList = $this->getFilesToParse();
 
         $cwd = getcwd();
 
@@ -471,9 +517,22 @@ class PhpCodeSnifferTask extends Task
             $_SERVER['argc']++;
         }
 
+        if ($this->cache) {
+            require_once 'phing/tasks/ext/phpcs/Reports_PhingRemoveFromCache.php';
+            PHP_CodeSniffer_Reports_PhingRemoveFromCache::setCache($this->cache);
+            // add a fake report to remove from cache
+            $_SERVER['argv'][] = '--report-phingRemoveFromCache=';
+            $_SERVER['argc']++;
+        }
+
         $codeSniffer->process($fileList, $this->standards, $this->sniffs, $this->noSubdirectories);
         $_SERVER['argv'] = array();
         $_SERVER['argc'] = 0;
+
+        if ($this->cache) {
+            PHP_CodeSniffer_Reports_PhingRemoveFromCache::setCache(null);
+            $this->cache->commit();
+        }
 
         $this->printErrorReport($codeSniffer);
 
