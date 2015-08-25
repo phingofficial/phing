@@ -1202,6 +1202,13 @@
                         <entry>Yes</entry>
                     </row>
                     <row>
+                        <entry><literal>ssl</literal></entry>
+                        <entry><literal role="type">boolean</literal></entry>
+                        <entry>Whether to connect via SSL. This requires Net/FTP to be installed.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>dir</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Directory on the remote server.</entry>
@@ -1300,6 +1307,7 @@
   username="${ftp.username}"
   password="${ftp.password}"
   dir="${ftp.dir}"
+  ssl="true"
   passive="false"
   mode="${ftp.mode}">
   &lt;fileset dir=".">
@@ -8796,9 +8804,10 @@ Note that you can omit both startpoint and track attributes in this case
                         attribute to <literal>false</literal>. The name of the file is predetermined
                         by the formatter and can be changed by the <literal>outfile</literal>
                         attribute.</para>
-                    <para>There are three predefined formatters - <literal>xml</literal> and
-                            <literal>clover</literal> print the test results in the JUnit and Clover
-                        XML formats, the <literal>plain</literal> formatter emits a short
+                    <para>There are four predefined formatters - <literal>xml</literal>,
+                            <literal>clover</literal>, and <literal>crap4j</literal> print the test
+                        results in the JUnit, Clover, and Crap4J
+                        XML formats respectively. The <literal>plain</literal> formatter emits a short
                         statistics line for all test cases. Custom formatters that implement
                         phing.tasks.ext.phpunit.formatter.PHPUnitResultFormatter can be
                         specified.</para>
@@ -8826,7 +8835,8 @@ Note that you can omit both startpoint and track attributes in this case
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>Use a predefined formatter (either
                                         <literal>xml</literal>, <literal>plain</literal>,
-                                            <literal>clover</literal>, or
+                                            <literal>clover</literal>,
+                                            <literal>crap4j</literal>, or
                                         <literal>summary</literal>).</entry>
                                     <entry>n/a</entry>
                                     <entry morerows="1">One of these is required.</entry>
