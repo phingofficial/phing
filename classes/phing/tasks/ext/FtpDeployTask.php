@@ -49,6 +49,7 @@ class FtpDeployTask extends Task
 {
     private $host = null;
     private $port = 21;
+    private $ssl = false;
     private $username = null;
     private $password = null;
     private $dir = null;
@@ -88,6 +89,14 @@ class FtpDeployTask extends Task
     public function setPort($port)
     {
         $this->port = (int) $port;
+    }
+
+    /**
+     * @param $ssl
+     */
+    public function setSsl($ssl)
+    {
+        $this->ssl = (bool) $ssl;
     }
 
     /**
@@ -247,6 +256,15 @@ class FtpDeployTask extends Task
 
         require_once 'Net/FTP.php';
         $ftp = new Net_FTP($this->host, $this->port);
+        if ($this->ssl) {
+            $ret = $ftp->setSsl();
+            if (@PEAR::isError($ret)) {
+                throw new BuildException('SSL connection not supported by php' . ': ' . $ret->getMessage(
+                    ));
+            } else {
+                $this->log('Use SSL connection', $this->logLevel);
+            }
+        }
         $ret = $ftp->connect();
         if (@PEAR::isError($ret)) {
             throw new BuildException('Could not connect to FTP server ' . $this->host . ' on port ' . $this->port . ': ' . $ret->getMessage(
