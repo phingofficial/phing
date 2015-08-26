@@ -18,9 +18,9 @@
  * and is licensed under the LGPL. For more information please see
  * <http://phing.info>.
  */
-include_once 'phing/system/io/YamlFileParser.php';
 include_once 'phing/system/io/IniFileParser.php';
 include_once 'phing/system/io/FileParserFactoryInterface.php';
+include_once 'phing/system/io/YamlFileParser.php';
 
 /**
  * The factory to create fileParsers based on extension name from PhingFile->getFileExtension()
