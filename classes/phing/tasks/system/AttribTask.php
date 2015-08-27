@@ -17,7 +17,7 @@
  * <http://phing.info>.
  */
 
-include_once 'phing/tasks/system/ExecTask.php';
+include_once 'phing/tasks/system/ApplyTask.php';
 include_once 'phing/Phing.php';
 include_once 'phing/Project.php';
 include_once 'phing/BuildException.php';
@@ -38,25 +38,22 @@ include_once 'phing/util/StringHelper.php';
  * @author  Siad Ardroumli <siad.ardroumli@gmail.com>
  * @package phing.tasks.system
  */
-class AttribTask extends ExecTask
+class AttribTask extends ApplyTask
 {
     private static $ATTR_READONLY = 'R';
-    private static $ATTR_ARCHIVE  = 'A';
-    private static $ATTR_SYSTEM   = 'S';
-    private static $ATTR_HIDDEN   = 'H';
-    private static $SET           = '+';
-    private static $UNSET         = '-';
+    private static $ATTR_ARCHIVE = 'A';
+    private static $ATTR_SYSTEM = 'S';
+    private static $ATTR_HIDDEN = 'H';
+    private static $SET = '+';
+    private static $UNSET = '-';
 
     private $attr = false;
 
-    /**
-     * Constructor for Attrib.
-     */
-    public function __construct()
+    public function init()
     {
-        parent::__construct();
-        parent::setOs('WINNT,WIN32');
+        parent::init();
         parent::setExecutable('attrib');
+        parent::setParallel(false);
     }
 
     /**
@@ -64,14 +61,6 @@ class AttribTask extends ExecTask
      */
     public function main()
     {
-        if (!$this->isApplicable()) {
-            $this->log(
-                'Right now attrib has effect only under Windows.',
-                Project::MSG_VERBOSE
-            );
-            return;
-        }
-
         $this->checkConfiguration();
         parent::main();
     }
@@ -90,7 +79,9 @@ class AttribTask extends ExecTask
      */
     public function setFile(PhingFile $src)
     {
-        $this->createArg()->setFile($src);
+        $fs = new FileSet();
+        $fs->setFile($src);
+        $this->addFileSet($fs);
     }
 
     /**
@@ -158,17 +149,54 @@ class AttribTask extends ExecTask
     }
 
     /**
-     * Set the executable.
+     * Add source file.
      * This is not allowed, and it always throws a BuildException.
-     * @param mixed $e ignored
+     * @param boolean $b ignored
      * @throws BuildException
      */
-    public function setCommand($e)
+    public function setAddsourcefile($b)
     {
         throw new BuildException(
-            $this->getTaskType() . ' doesn\'t support the command attribute',
+            $this->getTaskType()
+                . ' doesn\'t support the addsourcefile attribute',
             $this->getLocation()
         );
+    }
+
+    /**
+     * Set max parallel.
+     * This is not allowed, and it always throws a BuildException.
+     * @param int $max ignored
+     * @throws BuildException
+     */
+    public function setMaxParallel($max)
+    {
+        throw new BuildException(
+            $this->getTaskType()
+                . ' doesn\'t support the maxparallel attribute',
+            $this->getLocation()
+        );
+    }
+
+    /**
+     * Set parallel.
+     * This is not allowed, and it always throws a BuildException.
+     * @param boolean $parallel ignored
+     * @throws BuildException
+     */
+    public function setParallel($parallel)
+    {
+        throw new BuildException(
+            $this->getTaskType()
+            . ' doesn\'t support the parallel attribute',
+            $this->getLocation()
+        );
+    }
+
+    protected function validateOS()
+    {
+        return $this->os === null && $this->osvariant === null
+            ?: parent::validateOS();
     }
 
     private static function getSignString($attr)
