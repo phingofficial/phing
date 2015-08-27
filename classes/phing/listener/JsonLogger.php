@@ -83,11 +83,11 @@ class JsonLogger extends XmlLogger
         array_pop($this->getTimesStack());
     }
 
-    private function xml2js($xmlnode) {
-        $root = (func_num_args() > 1 ? false : true);
+    private function xml2js(SimpleXMLElement $xmlnode, $isRoot = true)
+    {
         $jsnode = array();
 
-        if (!$root) {
+        if (!$isRoot) {
             if (count($xmlnode->attributes()) > 0){
                 $jsnode["@attribute"] = array();
                 foreach($xmlnode->attributes() as $key => $value)
@@ -102,13 +102,13 @@ class JsonLogger extends XmlLogger
                 $childname = $childxmlnode->getName();
                 if (!array_key_exists($childname, $jsnode))
                     $jsnode[$childname] = array();
-                array_push($jsnode[$childname], $this->xml2js($childxmlnode, true));
+                array_push($jsnode[$childname], $this->xml2js($childxmlnode, false));
             }
             return $jsnode;
         } else {
             $nodename = $xmlnode->getName();
             $jsnode[$nodename] = array();
-            array_push($jsnode[$nodename], $this->xml2js($xmlnode, true));
+            array_push($jsnode[$nodename], $this->xml2js($xmlnode, false));
             return json_encode($jsnode, JSON_PRETTY_PRINT);
         }
     }
