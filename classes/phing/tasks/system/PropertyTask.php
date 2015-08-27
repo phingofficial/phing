@@ -73,7 +73,7 @@ class PropertyTask extends Task
      */
     public function __construct(FileParserFactoryInterface $fileParserFactory = null)
     {
-      $this->fileParserFactory = $fileParserFactory != null ? $fileParserFactory : new FileParserFactory();
+        $this->fileParserFactory = $fileParserFactory != null ? $fileParserFactory : new FileParserFactory();
     }
 
     /**
@@ -299,8 +299,10 @@ class PropertyTask extends Task
             }
         } else {
             if ($this->file === null && $this->env === null) {
-                throw new BuildException("You must specify file or environment when not using the name attribute", $this->getLocation(
-                ));
+                throw new BuildException(
+                    "You must specify file or environment when not using the name attribute",
+                    $this->getLocation()
+                );
             }
         }
 
@@ -568,5 +570,4 @@ class PropertyTask extends Task
             array_push($fragments, StringHelper::substring($value, $prev));
         }
     }
-
 }

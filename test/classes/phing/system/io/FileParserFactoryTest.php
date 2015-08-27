@@ -42,14 +42,16 @@ class FileParserFactoryTest extends PHPUnit_Framework_TestCase
     /**
      * @{inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         $this->objectToTest = new FileParserFactory();
     }
 
     /**
      * @{inheritDoc}
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         $this->objectToTest = null;
     }
 
@@ -57,32 +59,33 @@ class FileParserFactoryTest extends PHPUnit_Framework_TestCase
      * @covers FileParserFactory::createParser
      * @dataProvider parserTypeProvider
      */
-    public function testCreateParser($parserName, $expectedType) {
+    public function testCreateParser($parserName, $expectedType)
+    {
         $this->assertInstanceOf($expectedType, $this->objectToTest->createParser($parserName));
     }
 
     /**
      * @return array
      */
-    public function parserTypeProvider() {
-      if (phpversion() >= 5.3) {
-        return array(
-          array('properties', 'IniFileParser'),
-          array('ini', 'IniFileParser'),
-          array('foo', 'IniFileParser'),
-          array('yml', 'YamlFileParser'),
-          array('yaml', 'YamlFileParser'),
-        );
-      }
-      else {
-        // For < PHP 5.3, yaml is not supported.
-        return array(
-          array('properties', 'IniFileParser'),
-          array('ini', 'IniFileParser'),
-          array('foo', 'IniFileParser'),
-          array('yml', 'IniFileParser'),
-          array('yaml', 'IniFileParser')
-        );
-      }
+    public function parserTypeProvider()
+    {
+        if (phpversion() >= 5.3) {
+            return array(
+                array('properties', 'IniFileParser'),
+                array('ini', 'IniFileParser'),
+                array('foo', 'IniFileParser'),
+                array('yml', 'YamlFileParser'),
+                array('yaml', 'YamlFileParser'),
+            );
+        } else {
+            // For < PHP 5.3, yaml is not supported.
+            return array(
+                array('properties', 'IniFileParser'),
+                array('ini', 'IniFileParser'),
+                array('foo', 'IniFileParser'),
+                array('yml', 'IniFileParser'),
+                array('yaml', 'IniFileParser')
+            );
+        }
     }
 }

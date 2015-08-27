@@ -42,7 +42,7 @@ class IniFileParser implements FileParserInterface
 
         // concatenate lines ending with backslash
         $linesCount = count($lines);
-        for($i = 0; $i < $linesCount; $i++) {
+        for ($i = 0; $i < $linesCount; $i++) {
             if (substr($lines[$i], -2, 1) === '\\') {
                 $lines[$i + 1] = substr($lines[$i], 0, -2) . ltrim($lines[$i + 1]);
                 $lines[$i] = '';
@@ -50,7 +50,7 @@ class IniFileParser implements FileParserInterface
         }
 
         $properties = array();
-        foreach($lines as $line) {
+        foreach ($lines as $line) {
             // strip comments and leading/trailing spaces
             $line = trim(preg_replace("/\s+[;#]\s.+$/", "", $line));
 
@@ -74,7 +74,8 @@ class IniFileParser implements FileParserInterface
      * @param string $val Trimmed value.
      * @return mixed The new property value (may be boolean, etc.)
      */
-    protected function inVal($val) {
+    protected function inVal($val)
+    {
         if ($val === "true") {
             $val = true;
         } elseif ($val === "false") {

@@ -89,5 +89,4 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
         unlink($file->getPath());
     }
-
 }

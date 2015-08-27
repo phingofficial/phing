@@ -11,9 +11,9 @@ require_once('phing/Phing.php');
 
 // Use composers autoload.php if available
 if (file_exists(dirname(__FILE__) . '/../vendor/autoload.php')) {
-  require_once dirname(__FILE__) . '/../vendor/autoload.php';
+    require_once dirname(__FILE__) . '/../vendor/autoload.php';
 } elseif (file_exists(dirname(__FILE__) . '/../../../autoload.php')) {
-  require_once dirname(__FILE__) . '/../../../autoload.php';
+    require_once dirname(__FILE__) . '/../../../autoload.php';
 }
 
 Phing::setProperty('phing.home', realpath(dirname(__FILE__) . '/../'));

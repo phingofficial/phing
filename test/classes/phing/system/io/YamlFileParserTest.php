@@ -47,7 +47,8 @@ class YamlFileParserTest extends PHPUnit_Framework_TestCase
     /**
      * @{inheritDoc}
      */
-    public function setUp() {
+    public function setUp()
+    {
         if (phpversion() < 5.3 || !class_exists('Yaml')) {
             $this->markTestSkipped('Yaml is not installed.');
             exit;
@@ -60,7 +61,8 @@ class YamlFileParserTest extends PHPUnit_Framework_TestCase
     /**
      * @{inheritDoc}
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         $this->objectToTest = null;
     }
 
@@ -68,7 +70,8 @@ class YamlFileParserTest extends PHPUnit_Framework_TestCase
      * @covers IniFileParser::parseFile
      * @expectedException IOException
      */
-    public function testParseFileFileNotReadable() {
+    public function testParseFileFileNotReadable()
+    {
         $tmpFile =  tempnam(sys_get_temp_dir(), "test");
         touch($tmpFile);
         $file = new PhingFile($tmpFile);
@@ -80,17 +83,20 @@ class YamlFileParserTest extends PHPUnit_Framework_TestCase
      * @covers IniFileParser::parseFile
      * @expectedException IOException
      */
-    public function testParseFileFileIncorrectYaml() {
+    public function testParseFileFileIncorrectYaml()
+    {
         $file = new PhingFile($this->incorrectYamlFileStub);
         $this->objectToTest->parseFile($file);
     }
 
     /**
-     * The YamlFileParser has to provide a flattend array which then is compatible to the actual behaviour of properties.
+     * The YamlFileParser has to provide a flattened array which then is
+     * compatible to the actual behaviour of properties.
      *
      * @covers IniFileParser::parseFile
      */
-    public function testParseFileFile() {
+    public function testParseFileFile()
+    {
         $file = new PhingFile($this->yamlFileStub);
         $properties = $this->objectToTest->parseFile($file);
 

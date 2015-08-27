@@ -23,7 +23,8 @@ include_once 'phing/system/io/FileParserFactoryInterface.php';
 include_once 'phing/system/io/YamlFileParser.php';
 
 /**
- * The factory to create fileParsers based on extension name from PhingFile->getFileExtension()
+ * The factory to create fileParsers based on extension name from
+ * PhingFile->getFileExtension()
  *
  * @author Mike Lohmann <mike.lohmann@deck36.de>
  * @package phing.system.io
@@ -36,8 +37,8 @@ class FileParserFactory implements FileParserFactoryInterface
     const YAMLFILEEXTENSION = 'yml';
 
     /**
-     * @const string
-     */
+   * @const string
+   */
     const YAMLFILEEXTENSIONLONG = 'yaml';
 
     /**
@@ -45,20 +46,19 @@ class FileParserFactory implements FileParserFactoryInterface
      */
     public function createParser($fileExtension)
     {
-      if (phpversion() >= 5.3) {
-        switch ($fileExtension) {
-          case self::YAMLFILEEXTENSION:
-          case self::YAMLFILEEXTENSIONLONG:
-            $fileParser = new YamlFileParser();
-            break;
-          default:
+        if (phpversion() >= 5.3) {
+            switch ($fileExtension) {
+                case self::YAMLFILEEXTENSION:
+                case self::YAMLFILEEXTENSIONLONG:
+                    $fileParser = new YamlFileParser();
+                    break;
+                default:
+                    $fileParser = new IniFileParser();
+            }
+        } else {
             $fileParser = new IniFileParser();
         }
-      }
-      else {
-        $fileParser = new IniFileParser();
-      }
 
-      return $fileParser;
+        return $fileParser;
     }
 }

@@ -98,5 +98,4 @@ class FileOutputStreamTest extends PHPUnit_Framework_TestCase
             // exception is expected
         }
     }
-
 }

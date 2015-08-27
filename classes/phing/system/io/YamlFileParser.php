@@ -34,19 +34,19 @@ class YamlFileParser implements FileParserInterface
     public function parseFile(PhingFile $file)
     {
         if (!$file->canRead()) {
-            throw new IOException("Unable to read file: " . $file );
+            throw new IOException("Unable to read file: " . $file);
         }
 
         try {
-          // We load the Yaml class without the use of namespaces to prevent
-          // parse errors in PHP 5.2.
-          $parser = '\Symfony\Component\Yaml\Parser';
-          $properties = $parser->parse($file->getAbsolutePath());
+            // We load the Yaml class without the use of namespaces to prevent
+            // parse errors in PHP 5.2.
+            $parser = '\Symfony\Component\Yaml\Parser';
+            $properties = $parser->parse($file->getAbsolutePath());
         } catch (Exception $e) {
-          if (is_a($e, '\Symfony\Component\Yaml\Exception\ParseException')) {
-            throw new IOException("Unable to parse contents of " . $file . ": " . $e->getMessage());
-          }
-          throw $e;
+            if (is_a($e, '\Symfony\Component\Yaml\Exception\ParseException')) {
+                throw new IOException("Unable to parse contents of " . $file . ": " . $e->getMessage());
+            }
+            throw $e;
         }
 
         $flattenedProperties = $this->flattenArray($properties);
@@ -69,10 +69,10 @@ class YamlFileParser implements FileParserInterface
     private function flattenArray(array $arrayToFlatten, $separator = '.', $flattenedKey = '')
     {
         $flattenedArray = array();
-        foreach($arrayToFlatten as $key => $value) {
+        foreach ($arrayToFlatten as $key => $value) {
             $tmpFlattendKey = (!empty($flattenedKey) ? $flattenedKey.$separator : '') . $key;
             // only append next value if is array and is an associative array
-            if(is_array($value) && array_keys($value) !== range(0, count($value) - 1)) {
+            if (is_array($value) && array_keys($value) !== range(0, count($value) - 1)) {
                 $flattenedArray = array_merge(
                     $flattenedArray,
                     $this->flattenArray(

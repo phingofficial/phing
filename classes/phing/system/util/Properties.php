@@ -34,65 +34,67 @@ include_once 'phing/system/io/IniFileParser.php';
  * @package    phing.system.util
  * @version $Id$
  */
-class Properties {
+class Properties
+{
 
-  private $properties = array();
+    private $properties = array();
 
-  /**
-   * @var FileParserInterface
-   */
-  private $fileParser;
+    /**
+     * @var FileParserInterface
+     */
+    private $fileParser;
 
-  /**
-   * @var PhingFile
-   */
-  private $file = NULL;
+    /**
+     * @var PhingFile
+     */
+    private $file = null;
 
-  /**
-   * Constructor
-   *
-   * @param array $properties
-   * @param FileParserInterface $fileParser
-   */
-  function __construct($properties = NULL, FileParserInterface $fileParser = NULL) {
-    $this->fileParser = $fileParser == NULL ? new IniFileParser() : $fileParser;
+    /**
+     * Constructor
+     *
+     * @param array $properties
+     * @param FileParserInterface $fileParser
+     */
+    public function __construct($properties = null, FileParserInterface $fileParser = null)
+    {
+        $this->fileParser = $fileParser == null ? new IniFileParser() : $fileParser;
 
-    if (is_array($properties)) {
-      foreach ($properties as $key => $value) {
-        $this->setProperty($key, $value);
-      }
-    }
-  }
-
-  /**
-   * Load properties from a file.
-   *
-   * @param  PhingFile $file
-   * @return void
-   * @throws IOException - if unable to read file.
-   */
-  public function load(PhingFile $file) {
-    if ($file->canRead()) {
-      $this->parse($file, FALSE);
-
-      $this->file = $file;
-    }
-    else {
-      throw new IOException("Can not read file " . $file->getPath());
+        if (is_array($properties)) {
+            foreach ($properties as $key => $value) {
+                $this->setProperty($key, $value);
+            }
+        }
     }
 
-  }
+    /**
+     * Load properties from a file.
+     *
+     * @param  PhingFile $file
+     * @return void
+     * @throws IOException - if unable to read file.
+     */
+    public function load(PhingFile $file)
+    {
+        if ($file->canRead()) {
+            $this->parse($file, false);
 
-  /**
-   * Parses the file given.
-   *
-   * @param  PhingFile $file
-   * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
-   * @return array   Properties loaded from file (no prop replacements done yet).
-   */
-  protected function parse(PhingFile $file) {
-    $this->properties = $this->fileParser->parseFile($file);
-  }
+            $this->file = $file;
+        } else {
+            throw new IOException("Can not read file " . $file->getPath());
+        }
+    }
+
+    /**
+     * Parses the file given.
+     *
+     * @param  PhingFile $file
+     * @internal param bool $processSections Whether to honor [SectionName] sections in INI file.
+     * @return array   Properties loaded from file (no prop replacements done yet).
+     */
+    protected function parse(PhingFile $file)
+    {
+        $this->properties = $this->fileParser->parseFile($file);
+    }
 
     /**
      * Process values when being written out to properties file.
@@ -245,7 +247,7 @@ class Properties {
      *
      * @param  string $key
      * @param  mixed  $value
-     * @return mixed  Old property value or NULL if none was set.
+     * @return mixed  Old property value or null if none was set.
      */
     public function setProperty($key, $value)
     {
