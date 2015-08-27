@@ -45,6 +45,9 @@ class AttribTaskTest extends BuildFileTest
 
     public function testAttrib()
     {
+        if (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') {
+            $this->markTestSkipped('Windows only test.');
+        }
         $this->executeTarget(__FUNCTION__);
 
         /** @var Project $project */
