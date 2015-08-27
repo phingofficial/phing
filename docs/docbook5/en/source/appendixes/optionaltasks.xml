@@ -4231,7 +4231,8 @@ Note that you can omit both startpoint and track attributes in this case
     <sect1 role="taskdef" xml:id="JsHintTask">
         <title>JsHintTask</title>
         <para>This task runs <link xlink:href="http://www.jshint.com/" role="extern">JSHint</link>,
-            a tool that helps to detect errors and potential problems in JavaScript code.</para>
+            a tool that helps to detect errors and potential problems in JavaScript code.
+            JSHint 2.5.6+ is supported, although latest JSHint is recommended.</para>
 
         <table>
             <title>Attributes</title>
