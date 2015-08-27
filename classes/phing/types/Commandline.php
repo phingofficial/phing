@@ -46,7 +46,7 @@ class Commandline
 {
 
     /**
-     * @var array CommandlineArguments[]
+     * @var CommandlineArgument[]
      */
     public $arguments = array(); // public so "inner" class can access
 
@@ -120,11 +120,11 @@ class Commandline
     }
 
     /**
-     * @param $line
+     * @param array $arguments
      */
-    public function addArguments($line)
+    public function addArguments(array $arguments)
     {
-        foreach ($line as $arg) {
+        foreach ($arguments as $arg) {
             $this->createArgument()->setValue($arg);
         }
     }
@@ -323,23 +323,6 @@ class Commandline
     }
 
     /**
-     * Clear out the whole command line.  */
-    public function clear()
-    {
-        $this->executable = null;
-        $this->arguments->removeAllElements();
-    }
-
-    /**
-     * Clear out the arguments but leave the executable in place for
-     * another operation.
-     */
-    public function clearArgs()
-    {
-        $this->arguments = array();
-    }
-
-    /**
      * Return a marker.
      *
      * <p>This marker can be used to locate a position on the
@@ -390,11 +373,11 @@ class Commandline
      * Returns a String that describes the arguments suitable for
      * verbose output before a call to
      * <code>Runtime.exec(String[])</code>
-     * @param $args arguments to use (default is to use current class args)
-     * @param ignore|int $offset ignore entries before this index
+     * @param array $args arguments to use (default is to use current class args)
+     * @param int $offset ignore entries before this index
      * @return string
      */
-    protected function describeArguments($args = null, $offset = 0)
+    protected function describeArguments(array $args = null, $offset = 0)
     {
         if ($args === null) {
             $args = $this->getArguments();
@@ -450,7 +433,7 @@ class CommandlineArgument
     /**
      * Line to split into several commandline arguments.
      *
-     * @param line line to split into several commandline arguments
+     * @param string $line line to split into several commandline arguments
      */
     public function setLine($line)
     {
@@ -512,10 +495,10 @@ class CommandlineMarker
     private $outer;
 
     /**
-     * @param Comandline $outer
+     * @param Commandline $outer
      * @param $position
      */
-    public function __construct(Comandline $outer, $position)
+    public function __construct(Commandline $outer, $position)
     {
         $this->outer = $outer;
         $this->position = $position;
@@ -530,10 +513,10 @@ class CommandlineMarker
     public function getPosition()
     {
         if ($this->realPos == -1) {
-            $realPos = ($this->outer->executable === null ? 0 : 1);
-            for ($i = 0; $i < $position; $i++) {
-                $arg = $this->arguments[$i];
-                $realPos += count($arg->getParts());
+            $this->realPos = ($this->outer->executable === null ? 0 : 1);
+            for ($i = 0; $i < $this->position; $i++) {
+                $arg = $this->outer->arguments[$i];
+                $this->realPos += count($arg->getParts());
             }
         }
 
