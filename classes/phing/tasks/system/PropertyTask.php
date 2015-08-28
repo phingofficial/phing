@@ -22,6 +22,8 @@
 
 include_once 'phing/Task.php';
 include_once 'phing/system/util/Properties.php';
+include_once 'phing/system/io/FileParserFactoryInterface.php';
+include_once 'phing/system/io/FileParserFactory.php';
 
 /**
  * Task for setting properties in buildfiles.
@@ -60,6 +62,19 @@ class PropertyTask extends Task
 
     /** Whether to log messages as INFO or VERBOSE  */
     protected $logOutput = true;
+
+    /**
+     * @var FileParserFactoryInterface
+     */
+    private $fileParserFactory;
+
+    /**
+     * @param FileParserFactoryInterface $fileParserFactory
+     */
+    public function __construct(FileParserFactoryInterface $fileParserFactory = null)
+    {
+        $this->fileParserFactory = $fileParserFactory != null ? $fileParserFactory : new FileParserFactory();
+    }
 
     /**
      * Sets a the name of current property component
@@ -284,8 +299,10 @@ class PropertyTask extends Task
             }
         } else {
             if ($this->file === null && $this->env === null) {
-                throw new BuildException("You must specify file or environment when not using the name attribute", $this->getLocation(
-                ));
+                throw new BuildException(
+                    "You must specify file or environment when not using the name attribute",
+                    $this->getLocation()
+                );
             }
         }
 
@@ -405,7 +422,8 @@ class PropertyTask extends Task
      */
     protected function loadFile(PhingFile $file)
     {
-        $props = new Properties();
+        $fileParser = $this->fileParserFactory->createParser($file->getFileExtension());
+        $props = new Properties(null, $fileParser);
         $this->log("Loading " . $file->getAbsolutePath(), $this->logOutput ? Project::MSG_INFO : Project::MSG_VERBOSE);
         try { // try to load file
             if ($file->exists()) {
@@ -552,5 +570,4 @@ class PropertyTask extends Task
             array_push($fragments, StringHelper::substring($value, $prev));
         }
     }
-
 }

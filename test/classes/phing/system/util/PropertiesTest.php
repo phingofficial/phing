@@ -57,6 +57,8 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         );
         $this->assertEquals($this->props->getProperty('testline1'), 'Testline1');
         $this->assertEquals($this->props->getProperty('testline2'), 'Testline2');
+        $this->assertEquals($this->props->getProperty('testline3'), true);
+        $this->assertEquals($this->props->getProperty('testline4'), false);
     }
 
     public function testEmpty()
@@ -87,5 +89,4 @@ class PropertiesTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('# header' . PHP_EOL . 't=a' . PHP_EOL, file_get_contents($file->getPath()));
         unlink($file->getPath());
     }
-
 }

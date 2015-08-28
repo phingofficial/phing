@@ -287,6 +287,15 @@ class PhingFile
         return ($this->prefixLength !== 0);
     }
 
+    /**
+     * Returns the file extension for a given file. For example test.php would be returned as php.
+     *
+     * @return string The name of the extension.
+     */
+    public function getFileExtension()
+    {
+        return pathinfo((string) $this->getAbsolutePath(), PATHINFO_EXTENSION);
+    }
 
     /**
      * Returns the absolute pathname string of this abstract pathname.
