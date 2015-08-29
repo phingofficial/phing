@@ -51,7 +51,8 @@ class ZipTask extends MatchingTask
     private $includeEmpty = true;
 
     private $filesets = array();
-    private $fileSetFiles = array();
+    
+    private $ignoreLinks = false;
 
     /**
      * File path prefix in zip archive
@@ -117,6 +118,16 @@ class ZipTask extends MatchingTask
     public function setIncludeEmptyDirs($bool)
     {
         $this->includeEmpty = (boolean) $bool;
+    }
+
+    /**
+     * Set the ignore symlinks flag.
+     * @param  boolean $bool Flag if symlinks should be ignored
+     * @return void
+     */
+    public function setIgnoreLinks($bool)
+    {
+        $this->ignoreLinks = (boolean) $bool;
     }
 
     /**
@@ -259,7 +270,9 @@ class ZipTask extends MatchingTask
 
                 $pathInZip = str_replace('\\', '/', $pathInZip);
 
-                if ($f->isDirectory()) {
+                if ($this->ignoreLinks && $f->isLink()) {
+                    continue;
+                } elseif ($f->isDirectory()) {
                     if ($pathInZip != '.') {
                         $zip->addEmptyDir($pathInZip);
                     }
