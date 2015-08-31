@@ -12734,6 +12734,13 @@ a2.a3.a4=false</programlisting>
                         <entry>none</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>ignorelinks</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry>Whether to ignore symlinks or not.</entry>
+                        <entry><literal>false</literal></entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
