@@ -142,9 +142,9 @@ class CoverageThresholdTask extends Task
      */
     public function createClasspath()
     {
-        $this->classpath = new Path();
+        $this->_classpath = new Path();
 
-        return $this->classpath;
+        return $this->_classpath;
     }
 
     /**
