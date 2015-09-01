@@ -69,7 +69,7 @@
             repository="${repo.dir.resolved}"
             targetPath="${tmp.dir.resolved}" />
         <gitpull
-            repository="${tmp.dir.resolved}" all="true" append="true" />
+            repository="${tmp.dir.resolved}" all="true" quiet="false" append="true" />
     </target>
 
     <target name="tagsSet" description="git-pull --tags">
