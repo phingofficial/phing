@@ -211,7 +211,7 @@
         <title>ApplyTask </title>
         <para>Applies a system command on each resource of the specified resource collection.</para>
         <para>When the os attribute is specified, then the command is only executed when run on one of the specified operating systems.</para>
-        <para>The files of a number of Resource Collections – including but not restricted to FileSets or FileLists  – are passed as arguments to the system command.</para>
+        <para>The files of a number of Resource Collections – including but not restricted to FileSets, FileLists or DirSets  – are passed as arguments to the system command.</para>
 
         <table>
             <title>Attributes</title>
@@ -467,6 +467,7 @@
                 </listitem>
                 <listitem><para><literal><link linkend="FileSet">fileset</link></literal></para></listitem>
                 <listitem><para><literal><link linkend="FileList">filelist</link></literal></para></listitem>
+                <listitem><para><literal><link linkend="DirSet">dirset</link></literal></para></listitem>
                 <listitem><para><literal>srcfile</literal></para></listitem>
             </itemizedlist>
         </sect2>

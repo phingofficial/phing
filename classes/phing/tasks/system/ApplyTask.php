@@ -21,6 +21,7 @@
 require_once 'phing/Task.php';
 include_once 'phing/types/FileList.php';
 include_once 'phing/types/FileSet.php';
+include_once 'phing/types/DirSet.php';
 
 /**
  * Executes a command on the (filtered) file list/set.
@@ -193,6 +194,18 @@ class ApplyTask extends Task
     public function addFileSet(FileSet $fs)
     {
         $this->filesets[] = $fs;
+    }
+
+
+    /**
+     * Nested adder, adds a set of dirs (nested dirset attribute).
+     *
+     * @param DirSet $dirSet
+     * @return void
+     */
+    public function addDirSet(DirSet $dirSet)
+    {
+        $this->filesets[] = $dirSet;
     }
 
 
