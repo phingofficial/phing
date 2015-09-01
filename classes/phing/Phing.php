@@ -973,6 +973,7 @@ class Phing
         $msg .= "  -longtargets           show target descriptions during build" . PHP_EOL;
         $msg .= "  -logfile <file>        use given file for log" . PHP_EOL;
         $msg .= "  -logger <classname>    the class which is to perform logging" . PHP_EOL;
+        $msg .= "  -listener <classname>  add an instance of class as a project listener" . PHP_EOL;
         $msg .= "  -f -buildfile <file>   use given buildfile" . PHP_EOL;
         $msg .= "  -D<property>=<value>   use value for given property" . PHP_EOL;
         $msg .= "  -keep-going, -k        execute all targets that do not depend" . PHP_EOL;
