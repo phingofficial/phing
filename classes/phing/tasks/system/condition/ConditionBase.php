@@ -244,6 +244,14 @@ abstract class ConditionBase extends ProjectComponent
         return $this->conditions[$num - 1];
     }
 
+    public function createIsFailure()
+    {
+        include_once 'phing/tasks/system/condition/IsFailure.php';
+        $num = array_push($this->conditions, new IsFailure());
+
+        return $this->conditions[$num - 1];
+    }
+
     /**
      * @param  string         $elementName
      * @param  Project        $project

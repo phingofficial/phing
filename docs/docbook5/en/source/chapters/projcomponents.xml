@@ -823,6 +823,37 @@
             <programlisting language="xml">&lt;filesmatch file1="${file1}" file2="${file2}"/></programlisting>
 
         </sect2>
+        <sect2 xml:id="conditions.isfailure">
+            <title><literal>isfailure</literal></title>
+            <para>Test the return code of an executable for failure. </para>
+            <table>
+                <title>isfailure Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>code</literal></entry>
+                            <entry>The return code to test.</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;exec command="test" returnProperty="return.code"/>
+&lt;if>
+    &lt;isfailure code="${return.code}"/>
+    &lt;then>&lt;echo msg="${return.code}"/>&lt;/then>
+&lt;/if></programlisting>
+        </sect2>
     </sect1>
 
 </chapter>
