@@ -106,7 +106,7 @@ class GitPullTaskTest extends BuildFileTest
         $this->executeTarget('appendSet');
         $this->assertInLogs('git-pull: fetching from all remotes');
         $this->assertInLogs('git-pull: complete');
-        $this->assertInLogs('git-pull output: Already up-to-date.');
+        $this->assertInLogs('Already up-to-date.');
     }
 
     public function testNoTagsSet()
