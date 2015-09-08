@@ -25,6 +25,7 @@ require_once 'phing/Task.php';
  * @package   phing.tasks.ext.apigen
  * @author    Martin Srank <martin@smasty.net>
  * @author    Jaroslav Hanslík <kukulich@kukulich.cz>
+ * @author    Lukáš HOmza <lukashomza@gmail.com>
  * @since     2.4.10
  */
 class ApiGenTask extends Task
