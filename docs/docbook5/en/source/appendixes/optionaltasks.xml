@@ -44,6 +44,13 @@
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>action</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>ApiGen action to be executed.</entry>
+                        <entry>generate</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>config</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Config file name.</entry>
@@ -76,14 +83,6 @@
                         <entry><literal>skipdocpath</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>List of masks (case sensitive) to exclude elements from documentation
-                            generating.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>skipdocprefix</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>Name prefix (case sensitive) to exclude elements from documentation
                             generating.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
@@ -145,11 +144,11 @@
                         <entry>If not set the default template is used.</entry>
                     </row>
                     <row>
-                        <entry><literal>allowedhtml</literal></entry>
+                        <entry><literal>templatetheme</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>List of HTML tags allowed in the documentation.</entry>
-                        <entry>b, i, a, ul, ol, li, p, br, var, samp, kbd, tt</entry>
-                        <entry>No</entry>
+                        <entry>Template theme file name.</entry>
+                        <entry>n/a</entry>
+                        <entry>If not set the default template is used.</entry>
                     </row>
                     <row>
                         <entry><literal>accesslevels</literal></entry>
@@ -210,35 +209,6 @@
                         <entry><literal role="type">Boolean</literal></entry>
                         <entry>Whether to generate a link to download documentation as a ZIP archive
                             or not.</entry>
-                        <entry>No</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>report</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
-                        <entry>File name for checkstyle report of poorly documented
-                            elements.</entry>
-                        <entry>n/a</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>wipeout</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Whether to wipe out the destination directory first or not.</entry>
-                        <entry>Yes</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>quiet</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Whether to enable scaning and generating messages or not.</entry>
-                        <entry>No</entry>
-                        <entry>No</entry>
-                    </row>
-                    <row>
-                        <entry><literal>updatecheck</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Whether to check for ApiGen updates or not.</entry>
                         <entry>No</entry>
                         <entry>No</entry>
                     </row>
@@ -5810,7 +5780,7 @@ Note that you can omit both startpoint and track attributes in this case
                 &lt;/parallel></programlisting>
         </sect2>
     </sect1>
-    
+
     <sect1 role="taskdef" xml:id="PatchTask">
         <title>PatchTask</title>
         <para> The <literal>PatchTask</literal> uses the <link
