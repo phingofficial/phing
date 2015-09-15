@@ -143,13 +143,13 @@
                         <entry>n/a</entry>
                         <entry>If not set the default template is used.</entry>
                     </row>
-		                <row>
-			                <entry><literal>templatetheme</literal></entry>
-			                <entry><literal role="type">String</literal></entry>
-			                <entry>Template theme file name.</entry>
-			                <entry>n/a</entry>
-			                <entry>If not set the default template is used.</entry>
-		                </row>
+                    <row>
+                        <entry><literal>templatetheme</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>Template theme file name.</entry>
+                        <entry>n/a</entry>
+                        <entry>If not set the default template is used.</entry>
+                    </row>
                     <row>
                         <entry><literal>accesslevels</literal></entry>
                         <entry><literal role="type">String</literal></entry>
@@ -5780,7 +5780,7 @@ Note that you can omit both startpoint and track attributes in this case
                 &lt;/parallel></programlisting>
         </sect2>
     </sect1>
-    
+
     <sect1 role="taskdef" xml:id="PatchTask">
         <title>PatchTask</title>
         <para> The <literal>PatchTask</literal> uses the <link
