@@ -21,4 +21,16 @@
             <formatter type="full" usefile="true" outfile="report.txt" />
         </phpcodesniffer>
     </target>
+
+    <target name="testPropertyOutput">
+        <phpcodesniffer
+            standard="PhingTest"
+            file="test.php"
+            showSniffs="false"
+            allowedFileExtensions="php"
+			propertyName="PhpCodeSnifferTaskTest.testPropertyOutput">
+            <config name="installed_paths" value="standards"/>
+            <formatter type="summary" usefile="false"  />
+        </phpcodesniffer>
+    </target>
 </project>
