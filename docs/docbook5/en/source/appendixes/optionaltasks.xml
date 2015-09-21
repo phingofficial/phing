@@ -7209,6 +7209,14 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry>No</entry>
                     </row>
                     <row>
+                        <entry><literal>propertyName</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>The name of the property to set. This will be populated
+                        with the names of the sniff that were used.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
                         <entry><literal>docGenerator</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The name of the doc generator (HTML, Text).</entry>

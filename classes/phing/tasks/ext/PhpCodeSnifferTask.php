@@ -71,6 +71,7 @@ class PhpCodeSnifferTask extends Task
     private $haltonerror = false;
     private $haltonwarning = false;
     private $skipversioncheck = false;
+    private $propertyName = null;
 
     /**
      * Load the necessary environment for running PHP_CodeSniffer.
@@ -344,6 +345,23 @@ class PhpCodeSnifferTask extends Task
     }
 
     /**
+     * Sets the name of the property to use
+     * @param $propertyName
+     */
+    public function setPropertyName($propertyName)
+    {
+        $this->propertyName = $propertyName;
+    }
+
+    /**
+     * Returns the name of the property to use
+     */
+    public function getPropertyName()
+    {
+        return $this->propertyName;
+    }
+
+    /**
      * Executes PHP code sniffer against PhingFile or a FileSet
      */
     public function main()
@@ -518,16 +536,18 @@ class PhpCodeSnifferTask extends Task
      */
     protected function printErrorReport($phpcs)
     {
-        if ($this->showSniffs) {
-            $sniffs = $phpcs->getSniffs();
-            $sniffStr = '';
-            foreach ($sniffs as $sniff) {
-                if (is_string($sniff)) {
-                    $sniffStr .= '- ' . $sniff . PHP_EOL;
-                } else {
-                    $sniffStr .= '- ' . get_class($sniff) . PHP_EOL;
-                }
+        $sniffs = $phpcs->getSniffs();
+        $sniffStr = '';
+        foreach ($sniffs as $sniff) {
+            if (is_string($sniff)) {
+                $sniffStr .= '- ' . $sniff . PHP_EOL;
+            } else {
+                $sniffStr .= '- ' . get_class($sniff) . PHP_EOL;
             }
+        }
+        $this->project->setProperty($this->getPropertyName(), (string) $sniffStr);
+
+        if ($this->showSniffs) {
             $this->log('The list of used sniffs (#' . count($sniffs) . '): ' . PHP_EOL . $sniffStr, Project::MSG_INFO);
         }
 
