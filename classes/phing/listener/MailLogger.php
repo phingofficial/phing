@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * $Id$
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -21,6 +21,7 @@
 
 require_once 'phing/listener/DefaultLogger.php';
 include_once 'phing/system/util/Properties.php';
+include_once 'phing/util/StringHelper.php';
 
 /**
  * Uses PEAR Mail package to send the build log to one or
@@ -32,11 +33,11 @@ include_once 'phing/system/util/Properties.php';
  */
 class MailLogger extends DefaultLogger
 {
-    private $_mailMessage = "";
+    private $mailMessage = '';
 
-    private $_from = "phing@phing.info";
-    private $_subject = "Phing build result";
-    private $_tolist = null;
+    private $from = 'phing@phing.info';
+
+    private $tolist;
 
     /**
      * Construct new MailLogger
@@ -51,33 +52,23 @@ class MailLogger extends DefaultLogger
             throw new BuildException('Need the PEAR Mail package to send logs');
         }
 
-        $from = Phing::getDefinedProperty('phing.log.mail.from');
-        $subject = Phing::getDefinedProperty('phing.log.mail.subject');
-        $tolist = Phing::getDefinedProperty('phing.log.mail.recipients');
-
-        if (!empty($from)) {
-            $this->_from = $from;
-        }
-
-        if (!empty($subject)) {
-            $this->_subject = $subject;
-        }
+        $tolist  = Phing::getDefinedProperty('phing.log.mail.recipients');
 
         if (!empty($tolist)) {
-            $this->_tolist = $tolist;
+            $this->tolist = $tolist;
         }
     }
 
     /**
-     * @see DefaultLogger#printMessage
-     * @param string       $message
+     * @see DefaultLogger::printMessage
+     * @param string $message
      * @param OutputStream $stream
-     * @param int          $priority
+     * @param int $priority
      */
     final protected function printMessage($message, OutputStream $stream, $priority)
     {
         if ($message !== null) {
-            $this->_mailMessage .= $message . "\n";
+            $this->mailMessage .= $message . "\n";
         }
     }
 
@@ -91,16 +82,81 @@ class MailLogger extends DefaultLogger
     {
         parent::buildFinished($event);
 
-        if (empty($this->_tolist)) {
+        $project = $event->getProject();
+        $properties = $project->getProperties();
+
+        $filename = $properties['phing.log.mail.properties.file'];
+
+        // overlay specified properties file (if any), which overrides project
+        // settings
+        $fileProperties = new Properties();
+        $file = new PhingFile($filename);
+
+        try {
+            $fileProperties->load($file);
+        } catch (IOException $ioe) {
+            // ignore because properties file is not required
+        }
+
+        foreach ($fileProperties as $key => $value) {
+            $properties['key'] = $project->replaceProperties($value);
+        }
+
+        $success = $event->getException() === null;
+        $prefix = $success ? 'success' : 'failure';
+
+        try {
+            $notify = StringHelper::booleanValue($this->getValue($properties, $prefix . '.notify', 'on'));
+            if (!$notify) {
+                return;
+            }
+
+            if (is_string(Phing::getDefinedProperty('phing.log.mail.subject'))) {
+                $defaultSubject = Phing::getDefinedProperty('phing.log.mail.subject');
+            } else {
+                $defaultSubject = ($success) ? 'Build Success' : 'Build Failure';
+            }
+            $hdrs = array();
+            $hdrs['From']     = $this->getValue($properties, 'from', $this->from);
+            $hdrs['Reply-To'] = $this->getValue($properties, 'replyto', '');
+            $hdrs['Cc']       = $this->getValue($properties, $prefix . '.cc', '');
+            $hdrs['Bcc']      = $this->getValue($properties, $prefix . '.bcc', '');
+            $hdrs['Body']     = $this->getValue($properties, $prefix . '.body', '');
+            $hdrs['Subject']  = $this->getValue($properties, $prefix . '.subject', $defaultSubject);
+            $tolist           = $this->getValue($properties, $prefix . '.to', $this->tolist);
+        } catch (BadMethodCallException $e) {
+            $project->log($e->getMessage(), Project::MSG_WARN);
+        }
+
+        if (empty($tolist)) {
             return;
         }
 
-        $hdrs = array(
-            'From' => $this->_from,
-            'Subject' => $this->_subject . (empty($event) ? " (build successful)" : " (build failed)")
-        );
-
         $mail = Mail::factory('mail');
-        $mail->send($this->_tolist, $hdrs, $this->_mailMessage);
+        $mail->send($tolist, $hdrs, $this->mailMessage);
+    }
+
+    /**
+     * @param array $properties
+     * @param string $name
+     * @param mixed $defaultValue
+     *
+     * @return mixed
+     *
+     * @throws BadMethodCallException
+     */
+    private function getValue(array $properties, $name, $defaultValue)
+    {
+        $propertyName = 'phing.log.mail.' . $name;
+        $value = $properties[$propertyName];
+        if ($value === null) {
+            $value = $defaultValue;
+
+        }
+        if ($value === null) {
+            throw new BadMethodCallException('Missing required parameter: ' . $propertyName);
+
+        }
+        return $value;
     }
 }
