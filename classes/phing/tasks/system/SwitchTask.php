@@ -157,7 +157,7 @@ class SwitchTask extends Task
 
             $mValue = $this->value;
             if ($this->caseInsensitive) {
-                $cValue = strtoupper($case);
+                $cValue = strtoupper($case->getValue());
                 $mValue = strtoupper($this->value);
             }
 
