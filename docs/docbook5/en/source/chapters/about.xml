@@ -29,13 +29,13 @@
     </sect1>
     <sect1>
         <title>Copyright</title>
-        <para>Copyright 2002-2013, The Phing Project.</para>
+        <para>Copyright 2002-2015, The Phing Project.</para>
     </sect1>
     <sect1>
         <title>License</title>
         <para>This documentation is made available under the GNU Free Document License (see <xref
                 xlink:href="#sec.gfdl" xlink:title="[gnu-fdl]"/>)</para>
-        <programlisting language="xml">Copyright (c) 2002 - 2013, The Phing Group
+        <programlisting language="xml">Copyright (c) 2002 - 2015, The Phing Group
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1 or
@@ -117,15 +117,15 @@ any later version published by the Free Software Foundation;</programlisting>
                 this writing only an English manual is available and hence the only top level
                 directory available is "<literal>en</literal>". Under this directory the following
                 structure applies (also for any new language translation that is added):</para>
-            <programlisting>├── scripts
-├── source
-│   ├── appendixes
-│   └── chapters
-└── stylesheets
-    ├── css
-    │   └── img
-    └── xsl
-        └── images</programlisting>
+            <programlisting>|-- scripts
+|-- source
+|   |-- appendixes
+|   `-- chapters
+`-- stylesheets
+    |-- css
+    |   `-- img
+    `-- xsl
+        `-- images</programlisting>
             <para>All document sources are stored under the subdirectory "<filename role="dir"
                     >source</filename>" and the master document is aptly named
                     "<filename>master.xml</filename>". This document pulls in all chapters and
@@ -174,7 +174,8 @@ any later version published by the Free Software Foundation;</programlisting>
  html         Builds the HTML version
  htmlfancy    Builds the HTML version with an alternative styling for screen output
  pdf          Builds the PDF version
- webhelp      Builds the webhelp version (Note: This requires Java and Ant to be installed!)
+ webhelp      Builds the webhelp version (Note: This requires Java and Ant 
+              to be installed!)
  validate     Validates all sources against the DocBook5 grammar
 </programlisting>
             <para>All generated output is stored under the directory "<filename role="dir"
@@ -462,15 +463,17 @@ any later version published by the Free Software Foundation;</programlisting>
                             </table>
                             <para><emphasis role="bold">Example:</emphasis></para>
                             <programlisting>&lt;programlisting language="xml">
-  &amp;lt;append
+  &lt;append
    destFile="${process.outputfile}">
-  &amp;lt;filterchain>
-    &amp;lt;xsltfilter style="${process.stylesheet}">
-         &amp;lt;param name="mode" expression="${process.xslt.mode}"/>
-    &amp;lt;/xsltfilter>
-  &amp;lt;/filterchain>
-  &amp;lt;filelist dir="book/" listfile="book/PhingGuide.book"/>
-&amp;lt;/append>&lt;/programlisting></programlisting>
+  &lt;filterchain>
+    &lt;xsltfilter style="${process.stylesheet}">
+         &lt;param name="mode" 
+         expression="${process.xslt.mode}"/>
+    &lt;/xsltfilter>
+  &lt;/filterchain>
+  &lt;filelist dir="book/" 
+  listfile="book/PhingGuide.book"/>
+&lt;/append>&lt;/programlisting></programlisting>
                         </listitem>
                     </varlistentry>
                     <varlistentry>

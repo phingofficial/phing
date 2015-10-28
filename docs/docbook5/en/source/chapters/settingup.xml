@@ -360,18 +360,23 @@ set PATH=%PATH%;%PHING_HOME%\bin</screen>
         </sect2>
         <sect2>
             <title>Supported command line arguments</title>
-            <para>As of version 2.4.9 the following command line arguments are supported</para>
+            <para>As of version 2.12.0 the following command line arguments are supported</para>
             <programlisting>  -h -help               print this message
   -l -list               list available targets in this project
   -v -version            print the version information and exit
   -q -quiet              be extra quiet
+  -S -silent             print nothing but task outputs and build failures
   -verbose               be extra verbose
   -debug                 print debugging information
+  -emacs, -e             produce logging information without adornments
+  -diagnostics           print diagnostics information
   -longtargets           show target descriptions during build
   -logfile &lt;file>        use given file for log
   -logger &lt;classname>    the class which is to perform logging
   -f -buildfile &lt;file>   use given buildfile
   -D&lt;property>=&lt;value>   use value for given property
+  -keep-going, -k        execute all targets that do not depend
+                         on failed target(s)
   -propertyfile &lt;file>   load all properties from file
   -find &lt;file>           search for buildfile towards the root of the
                          filesystem and use it

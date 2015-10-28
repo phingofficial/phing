@@ -382,12 +382,12 @@
     </sect1>
     <sect1 role="typedef" xml:id="path">
         <title>Path / Classpath</title>
-        <para>The Path data type can be used to respresent path structures. In many cases the path
+        <para>The Path data type can be used to represent path structures. In many cases the path
             type will be used for nested &lt;classpaentry> tags. E.g.</para>
         <programlisting language="xml">&lt;path id="project.class.path">
   &lt;pathelement dir="lib/"/>
   &lt;pathelement dir="ext/"/>
-&lt;/paentry>
+&lt;/path>
 
 &lt;target name="blah">
   &lt;taskdef name="mytask" path="myapp.phing.tasks.MyTask">

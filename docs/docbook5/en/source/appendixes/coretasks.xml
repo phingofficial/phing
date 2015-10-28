@@ -796,7 +796,8 @@
             <programlisting language="xml">&lt;chown file="my-file.txt" user="foo" />
 &lt;chown file="my-file.txt" user="username.groupname" />
 &lt;chown file="/home/test/my-directory" user="bar" />
-&lt;chown file="/home/test/my-file.txt" user="foo" verbose="true" failonerror="false" /></programlisting>
+&lt;chown file="/home/test/my-file.txt" user="foo"
+verbose="true" failonerror="false" /></programlisting>
         </sect2>
         <sect2 role="nestedtags">
             <title>Supported Nested Tags</title>
@@ -2550,7 +2551,7 @@
         <sect2>
             <title>Examples</title>
             <programlisting language="xml">&lt;!-- Call target "xslttest" from buildfile "alternativebuildfile.xml" -->
- &lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
+&lt;phing phingfile="alternativebuild.xml" inheritRefs="true" target="xslttest" />
 
 &lt;!-- Do a more complex call -->
 &lt;phing phingfile="somebuild.xml" target="sometarget">
@@ -3334,8 +3335,8 @@
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;retry retrycount="3">
-                $lt;httpget url="http://www.unreliable-server.com/unreliable.tar.gz" dir="/home/retry"/>
-                &lt;/retry></programlisting>
+       &lt;httpget url="http://www.unreliable-server.com/unreliable.tar.gz" dir="/home/retry"/>
+&lt;/retry></programlisting>
             <para>This example shows how to use <literal>&lt;retry></literal> to
                 wrap a task which must interact with an unreliable network resource.
             </para>
@@ -4000,7 +4001,8 @@ Includes the Type named "CustomProject" and makes it available by
         </table>
         <sect2>
             <title>Examples</title>
-            <programlisting language="xml">&lt;uptodate property="propelBuild.notRequired" targetfile="${deploy}/propelClasses.tgz" >
+            <programlisting language="xml">&lt;uptodate property="propelBuild.notRequired"
+  targetfile="${deploy}/propelClasses.tgz">
   &lt;fileset dir="${src}/propel">
     &lt;include="**/*.php"/>
   &lt;/fileset>
