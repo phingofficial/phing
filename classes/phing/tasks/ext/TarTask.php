@@ -243,8 +243,9 @@ class TarTask extends MatchingTask
             $this->log("Building tar: " . $this->tarFile->__toString(), Project::MSG_INFO);
 
             $tar = new Archive_Tar($this->tarFile->getAbsolutePath(), $this->compression);
+            $pear = new PEAR();
 
-            if (PEAR::isError($tar->error_object)) {
+            if ($pear->isError($tar->error_object)) {
                 throw new BuildException($tar->error_object->getMessage());
             }
 
@@ -265,7 +266,7 @@ class TarTask extends MatchingTask
                 }
                 $tar->addModify($filesToTar, $this->prefix, $fsBasedir->getAbsolutePath());
 
-                if (PEAR::isError($tar->error_object)) {
+                if ($pear->isError($tar->error_object)) {
                     throw new BuildException($tar->error_object->getMessage());
                 }
             }
