@@ -29,6 +29,14 @@
 class DbmsSyntaxPgSQL extends DbmsSyntax
 {
     /**
+     * @param \PDO $db
+     */
+    public function applyAttributes($db)
+    {
+        $db->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
+    }
+
+    /**
      * @return string
      */
     public function generateTimestamp()
