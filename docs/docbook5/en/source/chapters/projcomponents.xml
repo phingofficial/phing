@@ -306,7 +306,8 @@
 
 &lt;filterreader classname="phing.filters.ReplaceTokens">
   &lt;param type="token" name="BC_PATH" value="${top.builddir}/"/>
-  &lt;param type="token" name="BC_PATH" value="${top.builddir}/testsite/user/${lang}/"/>
+  &lt;param type="token" name="BC_PATH" 
+  value="${top.builddir}/testsite/user/${lang}/"/>
 &lt;/filterreader></programlisting>
             <para> As the pipe concept in Unix, the filter concept is quite complex but powerful. To
                 get a better understanding of different filters and how they can be used, take a
@@ -529,7 +530,7 @@
                     </tbody>
                 </tgroup>
             </table>
-            <programlisting language="xml">&lt;version-compare version="${someproperty}" desiredVersion="1.3" operator="gt" /&gt;</programlisting>
+            <programlisting language="xml">&lt;version-compare version="${aProperty}" desiredVersion="1.3" operator="gt" /&gt;</programlisting>
             <para>This condition internally uses PHP version_compare(). Operators and behavior are the same.</para> 
         </sect2>
         <sect2 xml:id="conditions.http">

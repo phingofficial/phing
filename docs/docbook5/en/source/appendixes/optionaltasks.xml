@@ -307,14 +307,14 @@
                     <row>
                         <entry><literal>composer</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Composer</entry>
+                        <entry>Path to Composer.</entry>
                         <entry>composer.phar</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>command</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The Composer command to execute</entry>
+                        <entry>The Composer command to execute.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -389,7 +389,9 @@
         <para>The CoverageMergerTask merges code coverage information from external sources with an
             existing code coverage database.</para>
         <para>The format of the code coverage files is expected to be identical to:</para>
-        <programlisting language="xml">file_put_contents('/www/live/testcases/coverage.data', serialize(xdebug_get_code_coverage));</programlisting>
+        <programlisting language="xml">file_put_contents(
+        '/www/live/testcases/coverage.data', serialize(xdebug_get_code_coverage)
+        );</programlisting>
         <sect2>
             <title>Example</title>
             <programlisting language="xml">&lt;coverage-merger>
@@ -445,21 +447,21 @@
                         <entry><literal><link linkend="path">classpath</link></literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Additional classpath to locate source referenced in the
-                            report</entry>
+                            report.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>geshipath</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to GeSHi highlighting library</entry>
+                        <entry>Path to GeSHi highlighting library.</entry>
                         <entry>n/a</entry>
-                        <entry>No/Yes* If syntax highlighting si to be enabled</entry>
+                        <entry>No/Yes* If syntax highlighting is to be enabled</entry>
                     </row>
                     <row>
                         <entry><literal>geshilanguagespath</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Language to use with GeSHi</entry>
+                        <entry>Language to use with GeSHi.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -500,7 +502,7 @@
                                     <entry><literal>styledir</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>The directory where the stylesheets are located.</entry>
-                                    <entry>The <literal>etc</literal> directory in the Phing installation</entry>
+                                    <entry>The <literal>etc</literal> directory in the Phing installation.</entry>
                                     <entry>No</entry>
                                 </row>
                                 <row>
@@ -515,7 +517,7 @@
                                     <entry><literal>title</literal></entry>
                                     <entry><literal role="type">String</literal></entry>
                                     <entry>Title of the project (used in the generated
-                                        document(s))</entry>
+                                        document(s)).</entry>
                                     <entry/>
                                     <entry>No</entry>
                                 </row>
@@ -525,7 +527,7 @@
                                     <entry>Whether to use the sorttable JavaScript library (see
                                             <link
                                             xlink:href="http://www.kryogenix.org/code/browser/sorttable/"
-                                            >http://www.kryogenix.org/code/browser/sorttable/</link>)</entry>
+                                            >http://www.kryogenix.org/code/browser/sorttable/</link>).</entry>
                                     <entry><literal>false</literal></entry>
                                     <entry>No</entry>
                                 </row>
@@ -627,7 +629,7 @@
                         <entry><literal>database</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>The location of the coverage database. (This is optional if
-                                <literal>CoverageSetupTask</literal> has run before)</entry>
+                                <literal>CoverageSetupTask</literal> has run before.)</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -737,49 +739,49 @@
                     <row>
                         <entry><literal>userid</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>DB userid to use for accessing the changelog table</entry>
+                        <entry>DB userid to use for accessing the changelog table.</entry>
                         <entry>none</entry>
                         <entry>As required by db</entry>
                     </row>
                     <row>
                         <entry><literal>password</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>DB password to use for accessing the changelog table</entry>
+                        <entry>DB password to use for accessing the changelog table.</entry>
                         <entry>none</entry>
                         <entry>As required by db</entry>
                     </row>
                     <row>
                         <entry><literal>dir</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Directory containing dbdeploy delta scripts</entry>
+                        <entry>Directory containing dbdeploy delta scripts.</entry>
                         <entry>none</entry>
                         <entry>Yes</entry>
                     </row>
                     <row>
                         <entry><literal>outputfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Filename in which deployment SQL will be generated</entry>
+                        <entry>Filename in which deployment SQL will be generated.</entry>
                         <entry>dbdeploy_deploy.sql</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>undooutputfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Filename in which undo SQL will be generated</entry>
+                        <entry>Filename in which undo SQL will be generated.</entry>
                         <entry>dbdeploy_undo.sql</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>deltaset</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>deltaset to check within db</entry>
+                        <entry>deltaset to check within db.</entry>
                         <entry>Main</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>lastchangetoapply</literal></entry>
                         <entry><literal role="type">Integer</literal></entry>
-                        <entry>Highest-numbered delta script to apply to db</entry>
+                        <entry>Highest-numbered delta script to apply to db.</entry>
                         <entry>999</entry>
                         <entry>No</entry>
                     </row>
@@ -787,7 +789,7 @@
                         <entry><literal>appliedBy</literal></entry>
                         <entry><literal role="type">String</literal></entry>
                         <entry>Value of the 'applied_by' column for each
-                        entry in the changelog table</entry>
+                        entry in the changelog table.</entry>
                         <entry>dbdeploy</entry>
                         <entry>No</entry>
                     </row>
@@ -797,7 +799,7 @@
                         <entry>False means dbdeploy will only apply patches that have a higher number
                         than the last patchnumber that was applied
                         True means dbdeploy will apply all changes that aren't applied
-                        already (in ascending order)</entry>
+                        already (in ascending order).</entry>
                         <entry>false</entry>
                         <entry>No</entry>
                     </row>
@@ -849,7 +851,7 @@
                     <row>
                         <entry><literal>targetfile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Target file for saved properties</entry>
+                        <entry>Target file for saved properties.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
@@ -923,7 +925,7 @@
                     <row>
                         <entry><literal>propertyname</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Name of property where the hash value is stored</entry>
+                        <entry>Name of property where the hash value is stored.</entry>
                         <entry>filehashvalue</entry>
                         <entry>No</entry>
                     </row>
@@ -961,14 +963,14 @@
                     <row>
                         <entry><literal>file</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Filename</entry>
+                        <entry>Filename.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
                     <row>
                         <entry><literal>propertyname</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Name of property where the file size is stored</entry>
+                        <entry>Name of property where the file size is stored.</entry>
                         <entry>filesize</entry>
                         <entry>No</entry>
                     </row>
@@ -1010,14 +1012,14 @@
                     <row>
                         <entry><literal>rsyncPath</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to rsync command</entry>
+                        <entry>Path to rsync command.</entry>
                         <entry>/usr/bin/rsync</entry>
                         <entry>Yes</entry>
                     </row>
                     <row>
                         <entry><literal>sourceDir</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Source directory (use [user@]host:path for remote sources)</entry>
+                        <entry>Source directory (use [user@]host:path for remote sources).</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
@@ -1034,21 +1036,21 @@
                     <row>
                         <entry><literal>exclude</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Excluded file matching pattern</entry>
+                        <entry>Excluded file matching pattern.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>excludeFile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Excluded patterns file</entry>
+                        <entry>Excluded patterns file.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>backupDir</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Creates a backup so users can rollback to an existing restore point</entry>
+                        <entry>Creates a backup so users can rollback to an existing restore point.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -1064,42 +1066,42 @@
                     <row>
                         <entry><literal>verbose</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>This option increases the amount of information you are given during the transfer</entry>
+                        <entry>This option increases the amount of information you are given during the transfer.</entry>
                         <entry>True</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>dryRun</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>This option makes rsync perform a trial run that doesn't make any changes</entry>
+                        <entry>This option makes rsync perform a trial run that doesn't make any changes.</entry>
                         <entry>False</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>itemizeChanges</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>This option requests a simple itemized list of the changes that are being made to each file, including attribute changes</entry>
+                        <entry>This option requests a simple itemized list of the changes that are being made to each file, including attribute changes.</entry>
                         <entry>False</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>checksum</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>This option will cause rsync to skip files based on checksum, not mod-time &amp; size</entry>
+                        <entry>This option will cause rsync to skip files based on checksum, not mod-time &amp; size.</entry>
                         <entry>False</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>delete</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>This option deletes files that don't exist on sender after transfer including <literal>force</literal> and <literal>ignore-errors</literal></entry>
+                        <entry>This option deletes files that don't exist on sender after transfer including <literal>force</literal> and <literal>ignore-errors</literal>.</entry>
                         <entry>False</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>identityFile</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Identity file for ssh authentication of a remote transfer</entry>
+                        <entry>Identity file for ssh authentication of a remote transfer.</entry>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
@@ -1108,7 +1110,8 @@
         </table>
         <sect2>
             <title>Examples</title>
-            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" destinationdir="/var/www/project1" />
+            <programlisting language="xml">&lt;filesync sourcedir="/var/www/development/project1" 
+  destinationdir="/var/www/project1" />
 
 &lt;filesync sourcedir="host::module" destinationdir="/var/www/project1/" />
 
@@ -1167,7 +1170,7 @@
                     <row>
                         <entry><literal>password</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>The password to use when logging in to the remote server</entry>
+                        <entry>The password to use when logging in to the remote server.</entry>
                         <entry>none</entry>
                         <entry>Yes</entry>
                     </row>
@@ -1196,7 +1199,7 @@
                     <row>
                         <entry><literal>clearfirst</literal></entry>
                         <entry><literal role="type">Boolean</literal></entry>
-                        <entry>Delete all files in the remote directory before uploading</entry>
+                        <entry>Delete all files in the remote directory before uploading.</entry>
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
@@ -1468,7 +1471,7 @@
                     <row>
                         <entry><literal>gitPath</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git binary</entry>
+                        <entry>Path to Git binary.</entry>
                         <entry>/usr/bin/git</entry>
                         <entry>No</entry>
                     </row>
@@ -1566,14 +1569,14 @@
                     <row>
                         <entry><literal>gitPath</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git binary</entry>
+                        <entry>Path to Git binary.</entry>
                         <entry>/usr/bin/git</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>repository</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git repository</entry>
+                        <entry>Path to Git repository.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
@@ -1746,14 +1749,14 @@ Note that you can omit both startpoint and track attributes in this case
                     <row>
                         <entry><literal>gitPath</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git binary</entry>
+                        <entry>Path to Git binary.</entry>
                         <entry>/usr/bin/git</entry>
                         <entry>No</entry>
                     </row>
                     <row>
                         <entry><literal>repository</literal></entry>
                         <entry><literal role="type">String</literal></entry>
-                        <entry>Path to Git repository</entry>
+                        <entry>Path to Git repository.</entry>
                         <entry>n/a</entry>
                         <entry>Yes</entry>
                     </row>
@@ -3795,13 +3798,13 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <programlisting language="xml">
-        &lt;inifile
-            haltonerror="no"
-            dest="${project.basedir}/application/configs/application.ini">
-            &lt;set section="production" property="buildTimestamp" value="${DSTAMP}${TSTAMP}" />
-            &lt;set section="production" property="buildNumber" operation="+" />
-            &lt;remove section="development : staging" />
-        &lt;/inifile></programlisting>
+&lt;inifile
+    haltonerror="no"
+    dest="${project.basedir}/application/configs/application.ini">
+    &lt;set section="production" property="buildTimestamp" value="${DSTAMP}${TSTAMP}" />
+    &lt;set section="production" property="buildNumber" operation="+" />
+    &lt;remove section="development : staging" />
+&lt;/inifile></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="IoncubeEncoderTask">
@@ -5550,7 +5553,9 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;mail tolist="user@example.org" subject="build complete"">The build process is a success...&lt;/mail></programlisting>
+            <programlisting language="xml">&lt;mail tolist="user@example.org" subject="build complete"">
+    The build process is a success...
+&lt;/mail></programlisting>
         </sect2>
 
         <sect2 role="nestedtags">
@@ -6007,7 +6012,8 @@ Note that you can omit both startpoint and track attributes in this case
       &lt;/fileset>
 &lt;/pdosqlexec></programlisting>
 
-            <programlisting language="xml">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" userid="username" password="password">
+            <programlisting language="xml">&lt;pdosqlexec url="mysql:host=localhost;dbname=test" 
+  userid="username" password="password">
   &lt;transaction src="path/to/sqlfile.sql"/>
   &lt;formatter type="plain" outfile="path/to/output.txt"/>
   &lt;/pdosqlexec></programlisting>
@@ -6249,7 +6255,8 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;pearpkg name="phing" dir="${build.src.dir}" destFile="${build.base.dir}/package.xml">
+            <programlisting language="xml">&lt;pearpkg name="phing" dir="${build.src.dir}" 
+            destFile="${build.base.dir}/package.xml">
 &lt;fileset dir=".">
   &lt;include name="**"/>
 &lt;/fileset>
@@ -7742,27 +7749,29 @@ Note that you can omit both startpoint and track attributes in this case
         </table>
         <sect2>
             <title>Examples</title>
-                <programlisting language="xml">&lt;target name="-measure-and-log" description="Measures and logs the size of the project" hidden="true">
-                  &lt;tstamp>
-                    &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
-                  &lt;/tstamp>
-                  &lt;phploc reportType="txt" reportName="${check.date.time}-report"
-                          reportDirectory="phploc-reports">
-                    &lt;fileset dir=".">
-                      &lt;include name="**/*.php" />
-                      &lt;include name="*.php" />
-                    &lt;/fileset>
-                  &lt;/phploc>
-                &lt;/target></programlisting>
-                <para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
-                <programlisting language="xml">&lt;target name="project-size-and-tests" description="Measures the size of the project and count it's tests">
-                  &lt;phploc countTests="true">
-                    &lt;fileset dir=".">
-                      &lt;include name="**/*.php" />
-                      &lt;include name="*.php" />
-                    &lt;/fileset>
-                  &lt;/phploc>
-                &lt;/target></programlisting>
+                <programlisting language="xml">&lt;target name="-measure-and-log" 
+    description="Measures and logs the size of the project" hidden="true">
+    &lt;tstamp>
+    &lt;format property="check.date.time" pattern="%Y%m%d-%H%M%S" locale="en_US"/>
+    &lt;/tstamp>
+    &lt;phploc reportType="txt" reportName="${check.date.time}-report"
+            reportDirectory="phploc-reports">
+    &lt;fileset dir=".">
+        &lt;include name="**/*.php" />
+        &lt;include name="*.php" />
+    &lt;/fileset>
+    &lt;/phploc>
+&lt;/target></programlisting>
+<para>Checks the size of the project living in ${project.basedir} and writes the result as a txt report to ${project.basedir}/phploc-reports/${check.date.time}-report.txt.</para>
+<programlisting language="xml">&lt;target name="project-size-and-tests" 
+description="Measures the size of the project and count it's tests">
+    &lt;phploc countTests="true">
+    &lt;fileset dir=".">
+        &lt;include name="**/*.php" />
+        &lt;include name="*.php" />
+    &lt;/fileset>
+    &lt;/phploc>
+&lt;/target></programlisting>
                 <para>Checks the size of the project living in ${project.basedir}, counts the project tests and writes/logs the result to the CLI.</para>
         </sect2>
         <sect2 role="nestedtags">
@@ -9614,7 +9623,8 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <para>Uploading a file</para>
-            <programlisting language="xml">&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
+            <programlisting language="xml">&lt;s3put source="/path/to/file.txt" object="file.txt" bucket="mybucket" 
+key="AmazonKey" secret="AmazonSecret" /></programlisting>
             <para>You can also define "bucket, key, secret" outside of the task call:</para>
             <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
 &lt;property name="amazon.secret" value="my_secret" />
@@ -9627,7 +9637,7 @@ Note that you can omit both startpoint and track attributes in this case
 &lt;property name="amazon.bucket" value="mybucket" />
 
 &lt;s3put content="Some content here" object="file.txt" /></programlisting>
-            <para>It also works with filesets</para>
+            <para>It also works with filesets:</para>
             <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
 &lt;property name="amazon.secret" value="my_secret" />
 &lt;property name="amazon.bucket" value="mybucket" />
@@ -9711,7 +9721,8 @@ Note that you can omit both startpoint and track attributes in this case
         <sect2>
             <title>Example</title>
             <para>Downloading an object</para>
-            <programlisting language="xml">&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket" key="AmazonKey" secret="AmazonSecret" /></programlisting>
+            <programlisting language="xml">&lt;s3get object="file.txt" target="${project.basedir}" bucket="mybucket" 
+key="AmazonKey" secret="AmazonSecret" /></programlisting>
             <para>You can also define "bucket, key, secret" outside of the task call:</para>
             <programlisting language="xml">&lt;property name="amazon.key" value="my_key" />
 &lt;property name="amazon.secret" value="my_secret" />
@@ -11031,8 +11042,11 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.list"/></programlisting>
-            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/tags" orderDescending="true" limit="10" /></programlisting>
+            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" 
+         workingcopy="/home/user/svnwc" propertyname="svn.list"/></programlisting>
+            <programlisting language="xml">&lt;svnlist svnpath="/usr/bin/svn" 
+         repositoryurl="http://svn.example.com/myrepo/tags" 
+         orderDescending="true" limit="10" /></programlisting>
             <para>The latter example could produce a list of your tags like this:</para>
             <programlisting language="xml">revision | author | date         | item
 4028     | tony   | May 19 18:31 | Release_2.9.1.7
@@ -11128,8 +11142,10 @@ host="webserver" command="ls" /></programlisting>
         </table>
         <sect2>
             <title>Example</title>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
-            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
+            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" 
+            workingcopy="/home/user/svnwc" propertyname="svn.log"/></programlisting>
+            <programlisting language="xml">&lt;svnlog svnpath="/usr/bin/svn" 
+            repositoryurl="http://svn.example.com/myrepo/trunk" limit="10" /></programlisting>
             <para>The latter example could produce a history of the latest revisions in the
                 trunk:</para>
             <programlisting language="xml">4033 | tony  | 2011-05-23T14:21:12.496274Z  | some svn commit comment
@@ -12123,7 +12139,8 @@ host="webserver" command="ls" /></programlisting>
   &lt;include name="chapter*.xml"/>
   &lt;include name="appendix*.xml"/>
 &lt;/fileset>
-&lt;property name="docbook.relaxng" value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/>
+&lt;property name="docbook.relaxng" 
+    value="/usr/share/xml/docbook/schema/rng/5.0/docbookxi.rng"/>
 
 &lt;xmllint schema="${docbook.relaxng}" useRNG="yes">
   &lt;fileset refid="sources" />
