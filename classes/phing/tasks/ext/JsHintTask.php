@@ -180,7 +180,7 @@ class JsHintTask extends Task
 
         $this->_checkJsHintIsInstalled();
 
-        $command = 'jshint --reporter=' . $this->reporter . ' ' . implode(' ', $fileList);
+        $command = sprintf('jshint --reporter=%s "%s"', $this->reporter, implode('" "', $fileList));
         $output = array();
         exec($command, $output);
         $output = implode(PHP_EOL, $output);
