@@ -472,6 +472,109 @@
             </itemizedlist>
         </sect2>
     </sect1>
+    <sect1 role="taskdef" xml:id="AttribTask">
+    <title>AttribTask</title>
+    <para>Changes the attributes of a file or all files inside specified
+        directories. Right now it has effect only under Windows.
+        Each of the 4 possible permissions has its own attribute,
+        matching the arguments for the attrib command.
+    </para>
+    <para>FileSets or FileLists can be specified using nested <fileset> and <filelist> elements.</para>
+    <para>By default this task won't do anything unless it detects it is running on a Windows system.
+    If you know for sure that you have a "attrib" executable on your PATH that is command line compatible
+    with the Windows command, you can use the task's os attribute and set its value to your current os.
+    </para>
+    <table>
+        <title>Attributes</title>
+        <tgroup cols="5">
+            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+            <thead>
+                <row>
+                    <entry>Name</entry>
+                    <entry>Type</entry>
+                    <entry>Description</entry>
+                    <entry>Default</entry>
+                    <entry>Required</entry>
+                </row>
+            </thead>
+            <tbody>
+                <row>
+                    <entry><literal>file</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>The file or directory of which the permissions must be changed.</entry>
+                    <entry>n/a</entry>
+                    <entry>Yes</entry>
+                </row>
+                <row>
+                    <entry><literal>readonly</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The readonly permission.</entry>
+                    <entry>n/a</entry>
+                    <entry morerows="3" valign="middle">at least one of the four.</entry>
+                </row>
+                <row>
+                    <entry><literal>archive</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The archive permission.</entry>
+                    <entry>n/a</entry>
+                </row>
+                <row>
+                    <entry><literal>system</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The system permission.</entry>
+                    <entry>n/a</entry>
+                </row>
+                <row>
+                    <entry><literal>hidden</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>The hidden permission.</entry>
+                    <entry>n/a</entry>
+                </row>
+                <row>
+                    <entry><literal>verbose</literal></entry>
+                    <entry><literal role="type">Boolean</literal></entry>
+                    <entry>Whether to print a summary after execution or not. Defaults to false.</entry>
+                    <entry>false</entry>
+                    <entry>No</entry>
+                </row>
+                <row>
+                    <entry><literal>os</literal></entry>
+                    <entry><literal role="type">String</literal></entry>
+                    <entry>List of Operating Systems on which the command may be executed.</entry>
+                    <entry>n/a</entry>
+                    <entry>No</entry>
+                </row>
+            </tbody>
+        </tgroup>
+    </table>
+    <sect2>
+        <title>Example</title>
+        <programlisting language="xml">&lt;attrib file="${dist}/run.bat" readonly="true" hidden="true"/></programlisting>
+        <para>makes the "run.bat" file read-only and hidden.
+        </para>
+        <programlisting language="xml">&lt;attrib readonly="false">
+    &lt;fileset dir="${meta.inf}" includes="**/*.xml"/>
+&lt;/attrib></programlisting>
+        <para>makes all ".xml" files below ${meta.inf} readable.
+        </para>
+    </sect2>
+
+    <sect2 role="nestedtags">
+        <title>Supported Nested Tags</title>
+        <itemizedlist>
+            <listitem>
+                <para><literal><link linkend="FileList">filelist</link></literal></para>
+            </listitem>
+            <listitem>
+                <para><literal><link linkend="FileSet">fileset</link></literal></para>
+            </listitem>
+        </itemizedlist>
+    </sect2>
+    </sect1>
     <sect1 role="taskdef" xml:id="AvailableTask">
         <title>AvailableTask </title>
         <para>Available Task tests if a resource/file is set and sets a certain property to a
