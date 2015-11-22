@@ -7342,6 +7342,15 @@ Note that you can omit both startpoint and track attributes in this case
                         <entry><literal>false</literal></entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>cachefile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>If set, enables writing of last-modified times to
+                            <literal>cachefile</literal>, to speed up processing of files that
+                            rarely change</entry>
+                        <entry>none</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -7862,6 +7871,15 @@ description="Measures the size of the project and count it's tests">
                         <entry><literal role="type">String</literal></entry>
                         <entry>Location of the PHPMD Phar file.</entry>
                         <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
+                    <row>
+                        <entry><literal>cachefile</literal></entry>
+                        <entry><literal role="type">String</literal></entry>
+                        <entry>If set, enables writing of last-modified times to
+                            <literal>cachefile</literal>, to speed up processing of files that
+                            rarely change</entry>
+                        <entry>none</entry>
                         <entry>No</entry>
                     </row>
                 </tbody>

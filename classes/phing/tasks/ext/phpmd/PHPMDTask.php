@@ -100,6 +100,13 @@ class PHPMDTask extends Task
     protected $pharLocation = "";
 
     /**
+     * Cache data storage
+     *
+     * @var DataStore
+     */
+    protected $cache;
+
+    /**
      * Set the input source file or directory.
      *
      * @param PhingFile $file The input source file or directory.
@@ -205,6 +212,16 @@ class PHPMDTask extends Task
     }
 
     /**
+     * Whether to store last-modified times in cache
+     *
+     * @param PhingFile $file
+     */
+    public function setCacheFile(PhingFile $file)
+    {
+        $this->cache = new DataStore($file);
+    }
+
+    /**
      * Find PHPMD
      *
      * @return string
@@ -234,6 +251,7 @@ class PHPMDTask extends Task
         if ($this->newVersion) {
             //weird syntax to allow 5.2 parser compatibility
             $minPriority = constant('\PHPMD\AbstractRule::LOWEST_PRIORITY');
+            require_once 'phing/tasks/ext/phpmd/PHPMDRendererRemoveFromCache.php';
         } else {
             require_once 'PHP/PMD/AbstractRule.php';
             $minPriority = PHP_PMD_AbstractRule::LOWEST_PRIORITY;
@@ -244,6 +262,39 @@ class PHPMDTask extends Task
         }
 
         return $className;
+    }
+
+    /**
+     * Return the list of files to parse
+     *
+     * @return string[] list of absolute files to parse
+     */
+    protected function getFilesToParse()
+    {
+        $filesToParse = array();
+
+        if ($this->file instanceof PhingFile) {
+            $filesToParse[] = $this->file->getPath();
+        } else {
+            // append any files in filesets
+            foreach ($this->filesets as $fs) {
+                $dir = $fs->getDir($this->project)->getAbsolutePath();
+                foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
+                    $fileAbsolutePath = $dir . DIRECTORY_SEPARATOR . $filename;
+                    if ($this->cache) {
+                        $lastMTime = $this->cache->get($fileAbsolutePath);
+                        $currentMTime = filemtime($fileAbsolutePath);
+                        if ($lastMTime >= $currentMTime) {
+                            continue;
+                        } else {
+                            $this->cache->put($fileAbsolutePath, $currentMTime);
+                        }
+                    }
+                    $filesToParse[] = $fileAbsolutePath;
+                }
+            }
+        }
+        return $filesToParse;
     }
 
     /**
@@ -282,6 +333,12 @@ class PHPMDTask extends Task
             $reportRenderers[] = $fe->getRenderer();
         }
 
+        if ($this->newVersion && $this->cache) {
+            $reportRenderers[] = new PHPMDRendererRemoveFromCache($this->cache);
+        } else {
+            $this->cache = null; // cache not compatible to old version
+        }
+
         // Create a rule set factory
         if ($this->newVersion) {
             $ruleSetClass = '\PHPMD\RuleSetFactory';
@@ -289,29 +346,20 @@ class PHPMDTask extends Task
 
         } else {
             if (!class_exists("PHP_PMD_RuleSetFactory")) {
-                @include 'PHP/PMD/RuleSetFactory.php';
+                    @include 'PHP/PMD/RuleSetFactory.php';
             }
             $ruleSetFactory = new PHP_PMD_RuleSetFactory();
         }
         $ruleSetFactory->setMinimumPriority($this->minimumPriority);
 
+        /**
+         * @var PHPMD\PHPMD $phpmd
+         */
         $phpmd = new $className();
         $phpmd->setFileExtensions($this->allowedFileExtensions);
         $phpmd->setIgnorePattern($this->ignorePatterns);
 
-        $filesToParse = array();
-
-        if ($this->file instanceof PhingFile) {
-            $filesToParse[] = $this->file->getPath();
-        } else {
-            // append any files in filesets
-            foreach ($this->filesets as $fs) {
-                foreach ($fs->getDirectoryScanner($this->project)->getIncludedFiles() as $filename) {
-                    $f = new PhingFile($fs->getDir($this->project), $filename);
-                    $filesToParse[] = $f->getAbsolutePath();
-                }
-            }
-        }
+        $filesToParse = $this->getFilesToParse();
 
         if (count($filesToParse) > 0) {
             $inputPath = implode(',', $filesToParse);
@@ -319,6 +367,10 @@ class PHPMDTask extends Task
             $this->log('Processing files...');
 
             $phpmd->processFiles($inputPath, $this->rulesets, $reportRenderers, $ruleSetFactory);
+
+            if ($this->cache) {
+                $this->cache->commit();
+            }
 
             $this->log('Finished processing files');
         } else {
