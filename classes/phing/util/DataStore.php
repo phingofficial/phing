@@ -93,6 +93,22 @@ class DataStore
     }
 
     /**
+     * Remove a value from the data store
+     *
+     * @param string  $key        the key
+     * @param boolean $autocommit whether to auto-commit (write)
+     *                            the data store to disk
+     */
+    public function remove($key, $autocommit = false)
+    {
+        unset($this->data[$key]);
+
+        if ($autocommit) {
+            $this->commit();
+        }
+    }
+
+    /**
      * Commits data store to disk
      *
      * @return none
