@@ -85,7 +85,9 @@ class PHPUnitTask extends Task
          * PEAR old-style, then composer, then PHAR
          */
         @include_once 'PHPUnit/Runner/Version.php';
-        @include_once 'phpunit/Runner/Version.php';
+        if (!class_exists('PHPUnit_Runner_Version')) {
+            @include_once 'phpunit/Runner/Version.php';
+        }
         if (!empty($this->pharLocation)) {
             $GLOBALS['_SERVER']['SCRIPT_NAME'] = '-';
             ob_start();
