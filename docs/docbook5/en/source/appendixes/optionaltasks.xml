@@ -7789,6 +7789,58 @@ description="Measures the size of the project and count it's tests">
                 <listitem>
                     <para><literal><link linkend="FileSet">fileset</link></literal></para>
                 </listitem>
+                <listitem>
+                    <para><literal>formatter</literal>
+                    </para>
+                    <para> The results of the analysis can be printed in different formats. A <literal>formatter</literal>
+                        is required when <literal>reportType</literal> is not set.</para>
+                    <table>
+                        <title>Attributes</title>
+                        <tgroup cols="5">
+                            <colspec colname="name" colnum="1" colwidth="1.5*"/>
+                            <colspec colname="type" colnum="2" colwidth="0.8*"/>
+                            <colspec colname="description" colnum="3" colwidth="3.5*"/>
+                            <colspec colname="default" colnum="4" colwidth="0.8*"/>
+                            <colspec colname="required" colnum="5" colwidth="1.2*"/>
+                            <thead>
+                                <row>
+                                    <entry>Name</entry>
+                                    <entry>Type</entry>
+                                    <entry>Description</entry>
+                                    <entry>Default</entry>
+                                    <entry>Required</entry>
+                                </row>
+                            </thead>
+                            <tbody>
+                                <row>
+                                    <entry><literal>type</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>The output format. Accepts the same values as the
+                                        <literal>reportType</literal> attribute
+                                        (<literal>xml</literal>, <literal>csv</literal>,
+                                        <literal>text</literal>, <literal>cli</literal>).</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>usefile</literal></entry>
+                                    <entry><literal role="type">Boolean</literal></entry>
+                                    <entry>Boolean that determines whether output should be sent to
+                                        a file.</entry>
+                                    <entry><literal>true</literal></entry>
+                                    <entry>No</entry>
+                                </row>
+                                <row>
+                                    <entry><literal>outfile</literal></entry>
+                                    <entry><literal role="type">String</literal></entry>
+                                    <entry>Path to write output file to.</entry>
+                                    <entry>n/a</entry>
+                                    <entry>Yes</entry>
+                                </row>
+                            </tbody>
+                        </tgroup>
+                    </table>
+                </listitem>
             </itemizedlist>
         </sect2>
     </sect1>

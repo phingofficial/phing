@@ -3390,6 +3390,9 @@
                     <attribute name="suffixes"/>
                 </optional>
             </interleave>
+            <zeroOrMore>
+                <ref name="formatter"/>
+            </zeroOrMore>
         </element>
     </define>
 
