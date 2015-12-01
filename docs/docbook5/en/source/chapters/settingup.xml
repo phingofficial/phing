@@ -222,7 +222,20 @@ $&gt; pear install phing/phing</screen>
             phing.bat) into your PHP script directoy (i.e. where the "pear" script resides).</para>
     </sect1>
     <sect1>
-        <title> Non-PEAR Install </title>
+        <title> Composer Install </title>
+        <para>Install Phing by adding a dependency to <link xlink:href="https://packagist.org/packages/phing/phing">phing/phing</link>
+            to the <literal>require-dev</literal> or <literal>require</literal> section of your project's composer.json configuration file,
+            and running 'composer install':</para>
+        <screen>
+            {
+                "require-dev": {
+                    "phing/phing": "2.*"
+                }
+            }
+        </screen>
+    </sect1>
+    <sect1>
+        <title> Other Install methods </title>
 
         <para> If you are not using the PEAR installer, you will need to setup your environment in
             order to run Phing. The distribution of Phing consists of three directories: <filename
