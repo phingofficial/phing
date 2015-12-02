@@ -21,6 +21,11 @@ matrix:
     - php: 7.0
   fast_finish: true
 
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
 script: ./.travis.sh
 
 notifications:
