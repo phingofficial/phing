@@ -389,12 +389,14 @@ class PHPUnitTask extends Task
             }
         }
 
-        $browsers = $config->getSeleniumBrowserConfiguration();
+        if (method_exists($config, 'getSeleniumBrowserConfiguration')) {
+            $browsers = $config->getSeleniumBrowserConfiguration();
 
-        if (!empty($browsers) &&
-            class_exists('PHPUnit_Extensions_SeleniumTestCase')
-        ) {
-            PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
+            if (!empty($browsers) &&
+                class_exists('PHPUnit_Extensions_SeleniumTestCase')
+            ) {
+                PHPUnit_Extensions_SeleniumTestCase::$browsers = $browsers;
+            }
         }
 
         return $phpunit;
