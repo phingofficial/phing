@@ -36,11 +36,20 @@ class PearPackageTest extends BuildFileTest
 
     public function setUp()
     {
-        $GLOBALS['_PEAR_Common_file_roles'] = array('php', 'ext', 'test', 'doc', 'data', 'src', 'script');
         $this->savedErrorLevel = error_reporting();
         error_reporting(E_ERROR);
         $buildFile = PHING_TEST_BASE . "/etc/tasks/ext/pearpackage.xml";
         $this->configureProject($buildFile);
+
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped("PEAR tests do not run on HHVM");
+        }
+
+        if (!class_exists('PEAR_PackageFileManager', false)) {
+            $this->markTestSkipped("This test requires PEAR_PackageFileManager to be installed");
+        }
+
+        $GLOBALS['_PEAR_Common_file_roles'] = array('php', 'ext', 'test', 'doc', 'data', 'src', 'script');
     }
 
     public function tearDown()
