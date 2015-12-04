@@ -479,7 +479,8 @@
         Each of the 4 possible permissions has its own attribute,
         matching the arguments for the attrib command.
     </para>
-    <para>FileSets or FileLists can be specified using nested <fileset> and <filelist> elements.</para>
+    <para>FileSets or FileLists can be specified using nested <literal>fileset</literal> and <literal>filelist</literal>
+        elements.</para>
     <para>By default this task won't do anything unless it detects it is running on a Windows system.
     If you know for sure that you have a "attrib" executable on your PATH that is command line compatible
     with the Windows command, you can use the task's os attribute and set its value to your current os.
