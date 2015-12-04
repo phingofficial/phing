@@ -1,0 +1,52 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3.6 Calling Phing</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="ch.settingup.html" title="Chapter 3 Setting-up Phing"><link rel="prev" href="ch03s05.html" title="3.5 Other Install methods"><link rel="next" href="ch.gettingstarted.html" title="Chapter 4 Getting started"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.6  Calling Phing </th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03s05.html">Prev</a> </td><th width="60%" align="center">Chapter 3 Setting-up Phing</th><td width="20%" align="right"> <a accesskey="n" href="ch.gettingstarted.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="idm46239650203616"></a>3.6  Calling Phing </h2></div></div></div>
+        
+
+        <p>Now you are prepared to execute Phing on the command line or via script files. The
+            following section briefly describe how to properly execute phing.</p>
+
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm46239650202240"></a>3.6.1  Command Line </h3></div></div></div>
+            
+
+            <p>Phing execution on the command line is simple. Just change to the directory where
+                your buildfile resides and type</p>
+
+            <pre class="screen">$ phing [target [target2 [target3] ...]]</pre>
+
+            <p> at the command line (where [target...] are the target(s)
+                you want to be executed). If no target is specified Phing
+                will try to execute the default target, as specified in the
+                <code class="literal">project</code> tag. When calling multipe targets, Phing
+                will invoke each target independently of the other targets.
+                Optionally, you may specify command line arguments as listed in <a class="ulink" href="appendixes/AppendixA-FactSheet.html#CommandLineArguments" target="_top">Appendix
+                    A</a>.</p>
+
+            <p> For example, the following command line calls the default buildscript
+                    <code class="filename">build.xml</code> using the default target with the property
+                    <code class="literal">ftp.upload</code> set to true.</p>
+            <pre class="screen">$ phing -Dftp.upload=true</pre>
+        </div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm46239650196160"></a>3.6.2 Supported command line arguments</h3></div></div></div>
+            
+            <p>As of version 2.12.0 the following command line arguments are supported</p>
+            <pre class="programlisting">  -h -help               print this message
+  -l -list               list available targets in this project
+  -v -version            print the version information and exit
+  -q -quiet              be extra quiet
+  -S -silent             print nothing but task outputs and build failures
+  -verbose               be extra verbose
+  -debug                 print debugging information
+  -emacs, -e             produce logging information without adornments
+  -diagnostics           print diagnostics information
+  -longtargets           show target descriptions during build
+  -logfile &lt;file&gt;        use given file for log
+  -logger &lt;classname&gt;    the class which is to perform logging
+  -f -buildfile &lt;file&gt;   use given buildfile
+  -D&lt;property&gt;=&lt;value&gt;   use value for given property
+  -keep-going, -k        execute all targets that do not depend
+                         on failed target(s)
+  -propertyfile &lt;file&gt;   load all properties from file
+  -find &lt;file&gt;           search for buildfile towards the root of the
+                         filesystem and use it
+  -inputhandler &lt;file&gt;   the class to use to handle user input</pre>
+        </div>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03s05.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="ch.settingup.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ch.gettingstarted.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.5  Other Install methods  </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 4 Getting started</td></tr></table></div></body></html>

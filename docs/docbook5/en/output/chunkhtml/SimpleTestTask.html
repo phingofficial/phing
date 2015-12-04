@@ -1,14 +1,14 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.70 SimpleTestTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SshTask.html" title="C.69 SshTask"><link rel="next" href="SvnCheckoutTask.html" title="C.71 SvnCheckoutTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.70 SimpleTestTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SshTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SvnCheckoutTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SimpleTestTask"></a>C.70 SimpleTestTask</h2></div></div></div>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>C.71 SimpleTestTask</title><link rel="stylesheet" type="text/css" href="book.css"><meta name="generator" content="DocBook XSL Stylesheets V1.78.1"><link rel="home" href="index.html" title="Phing User Guide"><link rel="up" href="app.optionaltasks.html" title="Appendix C. Optional tasks"><link rel="prev" href="SshTask.html" title="C.70 SshTask"><link rel="next" href="SvnCheckoutTask.html" title="C.72 SvnCheckoutTask"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">C.71 SimpleTestTask</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="SshTask.html">Prev</a> </td><th width="60%" align="center">Appendix C. Optional tasks</th><td width="20%" align="right"> <a accesskey="n" href="SvnCheckoutTask.html">Next</a></td></tr></table><hr></div><div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="SimpleTestTask"></a>C.71 SimpleTestTask</h2></div></div></div>
         
         <p> This task runs testcases using the <a class="ulink" href="http://www.simpletest.org/" target="_top">SimpleTest</a> framework.</p>
 
-        <div class="table"><a name="idp68451792"></a><p class="formal-object-title"><span class="label">Table C.100: </span><span class="title">Attributes</span></p><div class="table-contents">
+        <div class="table"><a name="idm46239636010288"></a><p class="formal-object-title"><span class="label">Table C.102: </span><span class="title">Attributes</span></p><div class="table-contents">
             
             <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">printsummary</code></td><td><code class="literal">Boolean</code></td><td>Print one-line statistics for each testcase.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonerror</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if an error occurs during the test
                             run.</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">haltonfailure</code></td><td><code class="literal">Boolean</code></td><td>Stop the build process if a test fails (errors are considered
                             failures as well).</td><td><code class="literal">false</code></td><td>No</td></tr><tr><td><code class="literal">failureproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on failure.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">errorproperty</code></td><td><code class="literal">String</code></td><td>Name of property to set (to true) on error.</td><td>n/a</td><td>No</td></tr><tr><td><code class="literal">debug</code></td><td><code class="literal">Boolean</code></td><td>Switch debugging on/off</td><td><code class="literal">false</code></td><td>No</td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp68482736"></a>C.70.1 Example</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm46239635978752"></a>C.71.1 Example</h3></div></div></div>
             
             <pre class="programlisting">&lt;simpletest&gt;
   &lt;formatter type="plain"/&gt;
@@ -30,7 +30,7 @@
                 plain text results to the console. The build process is aborted if a test fails.
             </p>
         </div>
-        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idp68487376"></a>C.70.2 Supported Nested Tags</h3></div></div></div>
+        <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a name="idm46239635974032"></a>C.71.2 Supported Nested Tags</h3></div></div></div>
             
             <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
                     <p><code class="literal">formatter</code>
@@ -47,7 +47,7 @@
                         tests have written as some characters are illegal in XML documents and will
                         be dropped.</p>
 
-                    <div class="table"><a name="idp68493440"></a><p class="formal-object-title"><span class="label">Table C.101: </span><span class="title">Attributes</span></p><div class="table-contents">
+                    <div class="table"><a name="idm46239635968080"></a><p class="formal-object-title"><span class="label">Table C.103: </span><span class="title">Attributes</span></p><div class="table-contents">
                         
                         <table summary="Attributes" border="1"><colgroup><col class="name"><col class="type"><col class="description"><col class="default"><col class="required"></colgroup><thead><tr><th>Name</th><th>Type</th><th>Description</th><th>Default</th><th>Required</th></tr></thead><tbody><tr><td><code class="literal">type</code></td><td><code class="literal">String</code></td><td>Use a predefined formatter (either
                                         <code class="literal">xml</code>, <code class="literal">plain</code>, or
@@ -59,4 +59,4 @@
                 </li></ul></div>
 
         </div>
-    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SshTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SvnCheckoutTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.69 SshTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.71 SvnCheckoutTask</td></tr></table></div></body></html>
+    </div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="SshTask.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="app.optionaltasks.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="SvnCheckoutTask.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">C.70 SshTask </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> C.72 SvnCheckoutTask</td></tr></table></div></body></html>
