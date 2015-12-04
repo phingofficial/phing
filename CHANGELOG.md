@@ -2,8 +2,8 @@ P     H     I     N     G
 =========================
 
 
-Dec. 4, - Phing 2.13
---------------------
+Dec. 4, 2015 - Phing 2.13
+-------------------------
 
 This release contains the following new or improved functionality:
 
