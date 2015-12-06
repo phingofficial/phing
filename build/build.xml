@@ -240,36 +240,54 @@
         <tar compression="gzip" destFile="${tgzfile}"
             basedir="${build.pear.dir}/phing"
         />
+        <phingcall target="generate-hash">
+            <param name="filename" value="${tgzfile}"/>
+        </phingcall>
 
         <property name="tarfile" value="${build.pear.dir}/${pkgname}.tar"/>
         <delete file="${tarfile}" failonerror="false"/>
         <tar compression="none" destFile="${tarfile}"
             basedir="${build.pear.dir}/phing"
         />
+        <phingcall target="generate-hash">
+            <param name="filename" value="${tarfile}"/>
+        </phingcall>
 
         <property name="tgzfile-docs" value="${build.pear.dir}/${pkgname-docs}.tgz"/>
         <delete file="${tgzfile-docs}" failonerror="false"/>
         <tar compression="gzip" destFile="${tgzfile-docs}"
             basedir="${build.pear.dir}/phingdocs"
         />
+        <phingcall target="generate-hash">
+            <param name="filename" value="${tgzfile-docs}"/>
+        </phingcall>
 
         <property name="tarfile-docs" value="${build.pear.dir}/${pkgname-docs}.tar"/>
         <delete file="${tarfile-docs}" failonerror="false"/>
         <tar compression="none" destFile="${tarfile-docs}"
             basedir="${build.pear.dir}/phingdocs"
         />
+        <phingcall target="generate-hash">
+            <param name="filename" value="${tarfile-docs}"/>
+        </phingcall>
 
         <property name="tgzfile-full" value="${build.full.dir}/../${pkgname}.tgz"/>
         <delete file="${tgzfile-full}" failonerror="false"/>
         <tar compression="gzip" destFile="${tgzfile-full}"
             basedir="${build.full.dir}"
         />
+        <phingcall target="generate-hash">
+            <param name="filename" value="${tgzfile-full}"/>
+        </phingcall>
 
         <property name="zipfile-full" value="${build.full.dir}/../${pkgname}.zip"/>
         <delete file="${zipfile-full}" failonerror="false"/>
         <zip destFile="${zipfile-full}"
             basedir="${build.full.dir}"
         />
+        <phingcall target="generate-hash">
+            <param name="filename" value="${zipfile-full}"/>
+        </phingcall>
 
     </target>
 
@@ -305,6 +323,9 @@
                 </element>
             </metadata>
         </pharpackage>
+        <phingcall target="generate-hash">
+            <param name="filename" value="${build.full.dir}.phar"/>
+        </phingcall>
 
     </target>
 
@@ -340,6 +361,17 @@
 
         <delete dir="${buildfile.dir}/pear" failonerror="false"/>
         <delete dir="${buildfile.dir}/full" failonerror="false"/>
+
+    </target>
+
+    <!--
+        ==============================================
+        Generate SHA512 file hashes
+        ==============================================
+    -->
+    <target name="generate-hash">
+        <filehash file="${filename}" algorithm="sha512" propertyname="phar.hash"/>
+        <echo file="${filename}.sha512">${phar.hash} ${filename}</echo>
 
     </target>
 
