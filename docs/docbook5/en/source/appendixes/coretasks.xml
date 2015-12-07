@@ -1590,7 +1590,7 @@ verbose="true" failonerror="false" /></programlisting>
         </sect2>
     </sect1>
     <sect1 role="taskdef" xml:id="echoproperties">
-        <title>echoproperties</title>
+        <title>EchoPropertiesTask </title>
         <para> Displays all the current properties in the project.
             The output can be sent to a file if desired.
             This task can be used as a somewhat contrived means of returning data from an <literal>&lt;phing></literal>
