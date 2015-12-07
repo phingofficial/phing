@@ -178,7 +178,9 @@ class Phing
             $m->execute($args);
         } catch (Exception $exc) {
             self::handleLogfile();
-            throw $exc;
+            self::printMessage($exc);
+            self::statusExit(1);
+            return;
         }
 
         if ($additionalUserProperties !== null) {
@@ -187,15 +189,40 @@ class Phing
             }
         }
 
+        // expect the worst
+        $exitCode = 1;
         try {
-            $m->runBuild();
+            try {
+                $m->runBuild();
+                $exitCode = 0;
+            } catch (ExitStatusException $ese) {
+                $exitCode = $ese->getCode();
+                if ($exitCode != 0) {
+                    self::handleLogfile();
+                    throw $ese;
+                }
+            }
+        } catch (BuildException $exc) {
+            // avoid printing output twice: self::printMessage($exc);
         } catch (Exception $exc) {
-            self::handleLogfile();
-            throw $exc;
-        }
+             echo $exc->getTraceAsString();
+             self::printMessage($exc);
+         }
 
         // everything fine, shutdown
         self::handleLogfile();
+        self::statusExit($exitCode);
+    }
+
+    /**
+     * This operation is expected to call `exit($int)`, which
+     * is what the base version does.
+     * However, it is possible to do something else.
+     * @param int $exitCode code to exit with
+     */
+    protected static function statusExit($exitCode)
+    {
+        exit($exitCode);
     }
 
     /**

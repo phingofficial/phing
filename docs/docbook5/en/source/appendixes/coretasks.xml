@@ -1943,6 +1943,14 @@ verbose="true" failonerror="false" /></programlisting>
                         <entry>n/a</entry>
                         <entry>No</entry>
                     </row>
+                    <row>
+                        <entry><literal>status</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
+                        <entry>Exit using the specified status code; assuming the generated Exception is not caught,
+                            PHP will exit with this status.</entry>
+                        <entry>n/a</entry>
+                        <entry>No</entry>
+                    </row>
                 </tbody>
             </tgroup>
         </table>
@@ -1955,7 +1963,23 @@ verbose="true" failonerror="false" /></programlisting>
 &lt;fail if="errorprop" message="Detected error!" />
 
 &lt;!-- Exit unless ${dontfail} prop is defined. -->
-&lt;fail unless="dontfail" message="Detected error!" /></programlisting>
+&lt;fail unless="dontfail" message="Detected error!" />
+
+&lt;!-- Using a condition to achieve the same effect:
+&lt;fail message="Detected error!">
+    &lt;condition>
+        &lt;not>
+            &lt;isset property="dontfail"/>
+        &lt;/not>
+    &lt;/condition>
+&lt;/fail></programlisting>
+        </sect2>
+        <sect2 role="nestedtags">
+            <title>Parameters specified as nested elements.</title>
+            <para>As an alternative to the <literal>if/unless</literal> attributes, conditional failure can be achieved
+                using a single nested <literal>&lt;condition></literal> element,
+                which should contain exactly one core or custom condition.
+            </para>
         </sect2>
     </sect1>
 
