@@ -752,6 +752,64 @@
 &lt;isfalse value="false"/></programlisting>
 
         </sect2>
+        <sect2 xml:id="conditions.ispropertytrue">
+            <title><literal>ispropertytrue</literal></title>
+            <para>Tests whether a property evaluates to true.</para>
+
+            <table>
+                <title>ispropertytrue Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>name</literal></entry>
+                            <entry>property to test</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;ispropertytrue name=&quot;someproperty&quot;/&gt;</programlisting>
+
+        </sect2>
+        <sect2 xml:id="conditions.ispropertyfalse">
+            <title><literal>ispropertyfalse</literal></title>
+            <para>Tests whether a property evaluates to not true, the negation of
+                <literal>&lt;ispropertytrue></literal></para>
+            <table>
+                <title>ispropertyfalse Attributes</title>
+                <tgroup cols="3">
+                    <colspec colname="attribute" colnum="1" colwidth="1*"/>
+                    <colspec colname="description" colnum="2" colwidth="2*"/>
+                    <colspec colname="required" colnum="3" colwidth="1*"/>
+                    <thead>
+                        <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry><literal>name</literal></entry>
+                            <entry>property name to test</entry>
+                            <entry>Yes</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
+            <programlisting language="xml">&lt;ispropertyfalse name="someproperty"/></programlisting>
+
+        </sect2>
         <sect2 xml:id="conditions.referenceexists">
             <title><literal>referenceexists</literal></title>
             <para>Tests whether a specified reference exists.</para>

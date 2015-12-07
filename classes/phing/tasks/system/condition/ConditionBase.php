@@ -164,6 +164,28 @@ abstract class ConditionBase extends ProjectComponent
     }
 
     /**
+     * @return IsPropertyFalseCondition
+     */
+    public function createIsPropertyFalse()
+    {
+        include_once 'phing/tasks/system/condition/IsPropertyFalseCondition.php';
+        $num = array_push($this->conditions, new IsPropertyFalseCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    /**
+     * @return IsPropertyTrueCondition
+     */
+    public function createIsPropertyTrue()
+    {
+        include_once 'phing/tasks/system/condition/IsPropertyTrueCondition.php';
+        $num = array_push($this->conditions, new IsPropertyTrueCondition());
+
+        return $this->conditions[$num - 1];
+    }
+
+    /**
      * @return ContainsCondition
      */
     public function createContains()
