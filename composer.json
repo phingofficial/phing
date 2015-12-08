@@ -21,7 +21,6 @@
     "require": {
         "php": ">=5.2.0"
     },
-    "minimum-stability": "beta",
     "require-dev": {
         "ext-pdo_sqlite": "*",
         "lastcraft/simpletest": "@dev",
