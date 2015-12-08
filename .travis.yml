@@ -23,7 +23,6 @@ matrix:
 
 cache:
   directories:
-    - vendor
     - $HOME/.composer/cache
 
 script: ./.travis.sh
