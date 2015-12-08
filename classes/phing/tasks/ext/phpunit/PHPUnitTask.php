@@ -482,7 +482,9 @@ class PHPUnitTask extends Task
             $path = realpath($pwd . '/../../../');
 
             $filter = new PHP_CodeCoverage_Filter();
-            $filter->addDirectoryToBlacklist($path);
+            if (method_exists($filter, 'addDirectoryToBlacklist')) {
+                $filter->addDirectoryToBlacklist($path);
+            }
             $runner->setCodecoverage(new PHP_CodeCoverage(null, $filter));
         }
 
