@@ -203,6 +203,35 @@
             </table>
         </sect2>
     </sect1>
+    <sect1 xml:id="CutDirsMapper">
+    <title>CutDirsMapper </title>
+    <para>The <literal>CutDirsMapper</literal> strips a configured number of
+        leading directories from the source file name.</para>
+    <sect2>
+        <title>Examples</title>
+        <programlisting language="xml">&lt;mapper type=&quot;cutdirs&quot; to=&quot;1&quot;/&gt;</programlisting>
+        <para>The mapper as above will do the following mappings:</para>
+        <table>
+            <title>Result of mapping</title>
+            <tgroup cols="2">
+                <colspec colname="name" colnum="1" colwidth="1*"/>
+                <colspec colname="name" colnum="2" colwidth="1*"/>
+                <thead>
+                    <row>
+                        <entry>From</entry>
+                        <entry>To</entry>
+                    </row>
+                </thead>
+                <tbody>
+                    <row>
+                        <entry><filename>foo/bar/A.txt</filename></entry>
+                        <entry>bar/A.txt</entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </table>
+    </sect2>
+    </sect1>
     <sect1 xml:id="FlattenMapper">
         <title>FlattenMapper </title>
         <para>The <literal>FlattenMapper</literal> removes the directories from a filename and

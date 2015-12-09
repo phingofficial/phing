@@ -186,4 +186,11 @@ class TaskdefForCopyTest extends BuildFileTest
         $this->assertNotInLogs('.php1');
         $this->assertInLogs('.php2');
     }
+    public function testCutDirsMapper()
+    {
+        $this->executeTarget("testCutDirsMapper");
+        $outputDir = $this->getProject()->getProperty('output');
+        $this->assertFileExists($outputDir . '/D');
+        $this->assertFileExists($outputDir . '/c/E');
+    }
 }
