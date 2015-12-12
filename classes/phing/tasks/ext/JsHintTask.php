@@ -44,7 +44,7 @@ class JsHintTask extends Task
     /**
      * All fileset objects assigned to this task
      *
-     * @var unknown
+     * @var FileSet[]
      */
     protected $filesets = array();
 
