@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="test" basedir="." default="main">
+
+  <property name="output" value="${php.tmpdir}/testoutput"/>
+
+  <property name="file" value="testfile"/>
+
+  <condition property="unix">
+    <os family="unix"/>
+  </condition>
+
+  <condition property="windows">
+    <os family="windows"/>
+  </condition>
+
+  <target name="setup">
+    <mkdir dir="${output}"/>
+  </target>
+
+  <target name="unix-clean" unless="windows">
+    <chmod file="${output}/${file}" mode="777"/>
+    <delete file="${output}"/>
+  </target>
+
+  <target name="win-clean" unless="unix">
+    <attrib file="${output}/${file}" readonly="false"/>
+    <delete file="${output}"/>
+  </target>
+
+  <target name="clean" depends="unix-clean,win-clean"/>
+
+  <target name="createTestdir">
+    <mkdir dir="${output}"/>
+    <touch file="${output}/${file}"/>
+  </target>
+
+  <target name="testReadable" depends="createTestdir">
+    <fileset dir="${output}">
+      <readable/>
+    </fileset>
+  </target>
+
+  <target name="testWritable" depends="createTestdir">
+    <fileset dir="${output}">
+      <writable/>
+    </fileset>
+  </target>
+
+  <target name="makeFileUnwritable"
+          depends="createTestdir,makeFileUnwritable-Unix,makeFileUnwritable-Windows"/>
+
+  <target name="makeFileUnwritable-Unix" unless="windows">
+    <chmod file="${output}/${file}" mode="444"/>
+  </target>
+
+  <target name="makeFileUnwritable-Windows" unless="unix">
+    <attrib file="${output}/${file}" readonly="true"/>
+  </target>
+
+  <target name="testUnwritable" depends="makeFileUnwritable">
+    <fileset dir="${output}">
+      <writable/>
+    </fileset>
+  </target>
+
+  <target name="main">
+    <echo msg="This test build file is not executable."/>
+  </target>
+</project>

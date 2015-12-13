@@ -390,6 +390,24 @@ abstract class MatchingTask extends Task implements SelectorContainer
     }
 
     /**
+     * add a readable selector entry on the selector list
+     * @return ReadableSelector
+     */
+    public function createReadable()
+    {
+        return $this->fileset->createReadable();
+    }
+
+    /**
+     * add a writable selector entry on the selector list
+     * @return WritableSelector
+     */
+    public function createWritable()
+    {
+        return $this->fileset->createWritable();
+    }
+
+    /**
      * Accessor for the implict fileset.
      *
      * @return FileSet

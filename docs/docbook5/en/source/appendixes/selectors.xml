@@ -651,6 +651,26 @@
 &lt;/fileset></programlisting>
 
     </sect1>
+    <sect1 role="typedef" xml:id="Readable" xreflabel="&lt;Readable>">
+        <title>Readable </title>
+
+        <para>The <literal>&lt;readable></literal> selector selects only files that are readable.</para>
+
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
+            &lt;readable>
+            &lt;/fileset></programlisting>
+
+    </sect1>
+    <sect1 role="typedef" xml:id="Writable" xreflabel="&lt;Writable>">
+        <title>Writable </title>
+
+        <para>The <literal>&lt;writable></literal> selector selects only files that are writable.</para>
+
+        <programlisting language="xml">&lt;fileset dir="${src}" includes="**/*.php">
+            &lt;writable>
+            &lt;/fileset></programlisting>
+
+    </sect1>
     <sect1 role="typedef" xml:id="Selector" xreflabel="&lt;Selector>">
         <title>Selector </title>
 
