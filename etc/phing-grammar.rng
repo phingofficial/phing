@@ -63,7 +63,6 @@
                 </zeroOrMore>
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
-                <ref name="customtasks"/>
                 <ref name="coretypes"/>
             </interleave>
 
@@ -179,14 +178,6 @@
         </zeroOrMore>
     </define>
 
-    <define name="customtasks">
-        <zeroOrMore>
-            <choice>
-                <ref name="highlightsrc"/>
-            </choice>
-        </zeroOrMore>
-    </define>
-
     <define name="coretasks">
         <zeroOrMore>
             <choice>
@@ -215,6 +206,7 @@
                 <ref name="mkdir"/>
                 <ref name="move"/>
                 <ref name="phing"/>
+                <ref name="phingversion"/>
                 <ref name="php"/>
                 <ref name="property"/>
                 <ref name="propertyprompt"/>
@@ -261,7 +253,6 @@
                 <ref name="coretasks"/>
                 <ref name="coretypes"/>
                 <ref name="optionaltasks"/>
-                <ref name="customtasks"/>
             </interleave>
         </element>
     </define>
@@ -900,15 +891,7 @@
     <define name="if">
         <element name="if">
             <choice>
-                <ref name="not"/>
-                <ref name="equals"/>
-                <ref name="or"/>
-                <ref name="and"/>
-                <ref name="isfalse"/>
-                <ref name="istrue"/>
-                <ref name="isset"/>
-                <ref name="contains_cond"/>
-                <ref name="referenceexists"/>
+                <ref name="conditions"/>
             </choice>
             <ref name="then"/>
             <zeroOrMore>
@@ -920,78 +903,11 @@
         </element>
     </define>
 
-    <define name="not">
-        <element name="not">
-            <choice>
-                <ref name="equals"/>
-                <ref name="or"/>
-                <ref name="and"/>
-                <ref name="isfalse"/>
-                <ref name="istrue"/>
-                <ref name="isset"/>
-                <ref name="contains_cond"/>
-                <ref name="referenceexists"/>
-            </choice>
-        </element>
-    </define>
-
-    <define name="istrue">
-        <element name="istrue">
-            <attribute name="value"/>
-        </element>
-    </define>
-
-    <define name="isset">
-        <element name="isset">
-            <attribute name="property"/>
-        </element>
-    </define>
-
-    <define name="isfalse">
-        <element name="isfalse">
-            <attribute name="value"/>
-        </element>
-    </define>
-
-    <define name="referenceexists">
-        <element name="referenceexists">
-            <attribute name="ref"/>
-        </element>
-    </define>
-
-    <define name="contains_cond">
-        <element name="contains">
-            <interleave>
-                <attribute name="string"/>
-                <attribute name="substring"/>
-                <optional>
-                    <attribute name="casesensitive"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="equals">
-        <element name="equals">
-            <interleave>
-                <attribute name="arg1"/>
-                <attribute name="arg2"/>
-                <optional>
-                    <attribute name="casesensitive"/>
-                </optional>
-                <optional>
-                    <attribute name="trim"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
     <define name="then">
         <element name="then">
             <interleave>
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
-                <ref name="customtasks"/>
                 <ref name="coretypes"/>
             </interleave>
         </element>
@@ -999,19 +915,11 @@
 
     <define name="elseif">
         <choice>
-            <ref name="equals"/>
-            <ref name="or"/>
-            <ref name="and"/>
-            <ref name="isfalse"/>
-            <ref name="istrue"/>
-            <ref name="isset"/>
-            <ref name="contains_cond"/>
-            <ref name="referenceexists"/>
+            <ref name="conditions"/>
         </choice>
         <interleave>
             <ref name="coretasks"/>
             <ref name="optionaltasks"/>
-            <ref name="customtasks"/>
             <ref name="coretypes"/>
         </interleave>
     </define>
@@ -1021,7 +929,6 @@
             <interleave>
                 <ref name="coretasks"/>
                 <ref name="optionaltasks"/>
-                <ref name="customtasks"/>
                 <ref name="coretypes"/>
             </interleave>
         </element>
@@ -1033,38 +940,6 @@
                 <attribute name="classpath"/>
                 <attribute name="classpathref"/>
             </choice>
-        </element>
-    </define>
-
-    <define name="or">
-        <element name="or">
-            <oneOrMore>
-                <interleave>
-                    <ref name="property"/>
-                    <ref name="and"/>
-                    <ref name="isfalse"/>
-                    <ref name="istrue"/>
-                    <ref name="isset"/>
-                    <ref name="contains_cond"/>
-                    <ref name="referenceexists"/>
-                </interleave>
-            </oneOrMore>
-        </element>
-    </define>
-
-    <define name="and">
-        <element name="and">
-            <oneOrMore>
-                <interleave>
-                    <ref name="property"/>
-                    <ref name="or"/>
-                    <ref name="isfalse"/>
-                    <ref name="istrue"/>
-                    <ref name="isset"/>
-                    <ref name="contains_cond"/>
-                    <ref name="referenceexists"/>
-                </interleave>
-            </oneOrMore>
         </element>
     </define>
 
@@ -1188,6 +1063,18 @@
             <zeroOrMore>
                 <ref name="fileset"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="phingversion">
+        <element name="phingversion">
+            <interleave>
+                <attribute name="property"/>
+                <choice>
+                    <attribute name="atLeast"/>
+                    <attribute name="exactly"/>
+                </choice>
+            </interleave>
         </element>
     </define>
 
@@ -5163,35 +5050,229 @@
         </element>
     </define>
 
-
     <!--
-     ================================================================
-     Custom tasks/filters
-     ================================================================
+        ===========================================================================================================
+        Conditions
+        ===========================================================================================================
     -->
+    <define name="conditions">
+        <choice>
+            <ref name="not"/>
+            <ref name="equals"/>
+            <ref name="or"/>
+            <ref name="and"/>
+            <ref name="xor"/>
+            <ref name="isfalse"/>
+            <ref name="istrue"/>
+            <ref name="isset"/>
+            <ref name="contains_cond"/>
+            <ref name="referenceexists"/>
+            <ref name="available"/>
+            <ref name="filesmatch"/>
+            <ref name="hasfreespace"/>
+            <ref name="isfailure"/>
+            <ref name="ispropertyfalse"/>
+            <ref name="ispropertytrue"/>
+            <ref name="phingversion_cond"/>
+            <ref name="socket"/>
+            <ref name="versioncompare"/>
+            <ref name="available_cond"/>
+            <ref name="http"/>
+        </choice>
+    </define>
 
-    <define name="highlightsrc">
-        <element name="highlightsrc">
+    <define name="or">
+        <element name="or">
+            <oneOrMore>
+                <interleave>
+                    <ref name="conditions"/>
+                </interleave>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="and">
+        <element name="and">
+            <oneOrMore>
+                <interleave>
+                    <ref name="conditions"/>
+                </interleave>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="xor">
+        <element name="xor">
+            <oneOrMore>
+                <interleave>
+                    <ref name="conditions"/>
+                </interleave>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="not">
+        <element name="not">
+            <choice>
+                <ref name="conditions"/>
+            </choice>
+        </element>
+    </define>
+
+    <define name="isfalse">
+        <element name="isfalse">
+            <attribute name="value"/>
+        </element>
+    </define>
+
+    <define name="istrue">
+        <element name="istrue">
+            <attribute name="value"/>
+        </element>
+    </define>
+
+    <define name="isset">
+        <element name="isset">
+            <attribute name="property"/>
+        </element>
+    </define>
+
+    <define name="referenceexists">
+        <element name="referenceexists">
+            <attribute name="ref"/>
+        </element>
+    </define>
+
+    <define name="contains_cond">
+        <element name="contains">
             <interleave>
+                <attribute name="string"/>
+                <attribute name="substring"/>
                 <optional>
-                    <attribute name="linenumber">
-                        <data type="boolean"/>
-                    </attribute>
+                    <attribute name="casesensitive"/>
                 </optional>
-                <optional>
-                    <attribute name="file"/>
-                </optional>
-            </interleave>
-            <interleave>
-                <zeroOrMore>
-                    <choice>
-                        <ref name="fileset"/>
-                        <ref name="filterchain"/>
-                    </choice>
-                </zeroOrMore>
             </interleave>
         </element>
     </define>
 
+    <define name="equals">
+        <element name="equals">
+            <interleave>
+                <attribute name="arg1"/>
+                <attribute name="arg2"/>
+                <optional>
+                    <attribute name="casesensitive"/>
+                </optional>
+                <optional>
+                    <attribute name="trim"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
 
+    <define name="filesmatch">
+        <element name="filesmatch">
+            <interleave>
+                <attribute name="file1"/>
+                <attribute name="file2"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="hasfreespace">
+        <element name="hasfreespace">
+            <interleave>
+                <attribute name="partition"/>
+                <attribute name="needed"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="isfailure">
+        <element name="isfailure">
+            <attribute name="code"/>
+        </element>
+    </define>
+
+    <define name="ispropertyfalse">
+        <element name="ispropertyfalse">
+            <attribute name="property"/>
+        </element>
+    </define>
+
+    <define name="ispropertytrue">
+        <element name="ispropertytrue">
+            <attribute name="property"/>
+        </element>
+    </define>
+
+    <define name="socket">
+        <element name="socket">
+            <interleave>
+                <attribute name="server"/>
+                <attribute name="port"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="versioncompare">
+        <element name="version-compare">
+            <interleave>
+                <attribute name="version"/>
+                <attribute name="desiredVersion"/>
+                <optional>
+                    <attribute name="operator"/>
+                </optional>
+                <optional>
+                    <attribute name="debug">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="phingversion_cond">
+        <element name="phingversion">
+            <interleave>
+                <choice>
+                    <attribute name="atLeast"/>
+                    <attribute name="exactly"/>
+                </choice>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="available_cond">
+        <element name="available">
+            <interleave>
+                <choice>
+                    <attribute name="file"/>
+                    <attribute name="resource"/>
+                </choice>
+                <optional>
+                    <attribute name="type"/>
+                </optional>
+                <optional>
+                    <attribute name="filepath"/>
+                </optional>
+                <optional>
+                    <attribute name="followSymlinks">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="http">
+        <element name="http">
+            <interleave>
+                <attribute name="url"/>
+                <optional>
+                    <attribute name="errorsBeginAt"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
 </grammar>
