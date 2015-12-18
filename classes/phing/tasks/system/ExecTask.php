@@ -361,28 +361,6 @@ class ExecTask extends Task
     }
 
     /**
-     * Checks whether exitValue signals a failure on the current system.
-     *
-     * @param int $code
-     *
-     * @return bool
-     */
-    public static function isFailureCode($code)
-    {
-        return $code !== 0;
-    }
-
-    /**
-     * Did this execute return in a failure.
-     *
-     * @return boolean true if and only if the exit code is interpreted as a failure
-     */
-    public function isFailure()
-    {
-        return self::isFailureCode($this->getExitValue());
-    }
-
-    /**
      * The command to use.
      *
      * @param mixed $command String or string-compatible (e.g. w/ __toString()).

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="IsFailureTest" default="main">
-    <target name="testIsFailure">
+    <target name="testFailureAfterNonExistingCommand">
         <exec command="iwggfchwbwejhdeuu" returnProperty="return.code"/>
+        <if>
+            <isfailure code="${return.code}"/>
+            <then>
+                <echo msg="Command failed with return code ${return.code}"/>
+            </then>
+        </if>
+    </target>
+    <target name="testNoFailureWithZeroValue">
+        <property name="return.code" value="0"/>
         <if>
             <isfailure code="${return.code}"/>
             <then>
