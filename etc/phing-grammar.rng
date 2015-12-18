@@ -96,6 +96,8 @@
                 <ref name="coverage-setup"/>
                 <ref name="dbdeploy"/>
                 <ref name="exportproperties"/>
+                <ref name="filehash"/>
+                <ref name="filesize"/>
                 <ref name="filterchain"/>
                 <ref name="ftpdeploy"/>
                 <ref name="gitinit"/>
@@ -119,22 +121,23 @@
                 <ref name="jsmin"/>
                 <ref name="mail"/>
                 <ref name="linecontains"/>
+                <ref name="linecontainsregexp"/>
                 <ref name="pdosqlexec"/>
                 <ref name="pearpkg"/>
                 <ref name="pearpkg2"/>
+                <ref name="pharpackage"/>
+                <ref name="phkpackage"/>
                 <ref name="phpcodesniffer"/>
                 <ref name="phpdepend"/>
                 <ref name="phpdoc"/>
                 <ref name="phpdocumentor"/>
                 <ref name="phpdocumentorexternal"/>
                 <ref name="phplint"/>
-                <ref name="linecontainsregexp"/>
-                <ref name="phpunit"/>
-                <ref name="phkpackage"/>
                 <ref name="phploc"/>
                 <ref name="phpmd"/>
-                <ref name="prefixlines"/>
+                <ref name="phpunit"/>
                 <ref name="phpunitreport"/>
+                <ref name="prefixlines"/>
                 <ref name="rst"/>
                 <ref name="s3put"/>
                 <ref name="s3get"/>
@@ -154,7 +157,6 @@
                 <ref name="svnlist"/>
                 <ref name="svnupdate"/>
                 <ref name="svnswitch"/>
-                <ref name="tabtospace"/>
                 <ref name="tabtospaces"/>
                 <ref name="tailfilter"/>
                 <ref name="tar"/>
@@ -170,10 +172,6 @@
                 <ref name="zendguardencode"/>
                 <ref name="zendguardlicense"/>
                 <ref name="zip"/>
-                <ref name="contains"/>
-                <ref name="pharpackage"/>
-                <ref name="filehash"/>
-                <ref name="filesize"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -186,28 +184,29 @@
                 <ref name="adhoc-type"/>
                 <ref name="append"/>
                 <ref name="available"/>
-                <ref name="phingcall"/>
-                <ref name="phpeval"/>
+                <ref name="chmod"/>
+                <ref name="chown"/>
                 <ref name="condition"/>
                 <ref name="copy"/>
                 <ref name="cvs"/>
                 <ref name="cvspass"/>
-                <ref name="chmod"/>
-                <ref name="chown"/>
                 <ref name="delete"/>
                 <ref name="echo"/>
-                <ref name="warn"/>
                 <ref name="exec"/>
                 <ref name="exit"/>
                 <ref name="foreach"/>
                 <ref name="if"/>
+                <ref name="import"/>
                 <ref name="includepath"/>
                 <ref name="input"/>
+                <ref name="loadfile"/>
                 <ref name="mkdir"/>
                 <ref name="move"/>
                 <ref name="phing"/>
+                <ref name="phingcall"/>
                 <ref name="phingversion"/>
                 <ref name="php"/>
+                <ref name="phpeval"/>
                 <ref name="property"/>
                 <ref name="propertyprompt"/>
                 <ref name="reflexive"/>
@@ -217,10 +216,9 @@
                 <ref name="tstamp"/>
                 <ref name="typedef"/>
                 <ref name="uptodate"/>
-                <ref name="xslt"/>
-                <ref name="loadfile"/>
-                <ref name="import"/>
                 <ref name="waitfor"/>
+                <ref name="warn"/>
+                <ref name="xslt"/>
             </choice>
         </zeroOrMore>
     </define>
@@ -4974,19 +4972,12 @@
 
     <define name="tabtospaces">
         <element name="tabtospaces">
-            <empty/>
-        </element>
-    </define>
-
-    <define name="tabtospace">
-        <element name="tabtospaces">
             <optional>
                 <attribute name="tablength">
                     <data type="int"/>
                 </attribute>
             </optional>
         </element>
-        <empty/>
     </define>
 
     <define name="tailfilter">
