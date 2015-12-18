@@ -549,12 +549,17 @@
                     <colspec colname="required" colnum="3" colwidth="1*"/>
                     <thead>
                         <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
                             <entry><literal>url</literal></entry>
                             <entry>The URL of the request.</entry>
                             <entry>Yes</entry>
                         </row>
-                    </thead>
-                    <tbody>
                         <row>
                             <entry><literal>errorsBeginAt</literal></entry>
                             <entry>Number at which errors begin at. - Default: 400</entry>
@@ -577,12 +582,17 @@
                     <colspec colname="required" colnum="3" colwidth="1*"/>
                     <thead>
                         <row>
+                            <entry>Attribute</entry>
+                            <entry>Description</entry>
+                            <entry>Required</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
                             <entry><literal>server</literal></entry>
                             <entry>The hostname or ip address of the server.</entry>
                             <entry>Yes</entry>
                         </row>
-                    </thead>
-                    <tbody>
                         <row>
                             <entry><literal>port</literal></entry>
                             <entry>The port number of the server.</entry>
