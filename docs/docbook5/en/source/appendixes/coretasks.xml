@@ -372,10 +372,10 @@
                     </row>
                     <row>
                         <entry><literal>maxparallel</literal></entry>
-                        <entry><literal role="type">Boolean</literal></entry>
+                        <entry><literal role="type">Integer</literal></entry>
                         <entry>Limit the amount of parallelism by passing at most this many sourcefiles at once.
                             Set it to &lt;= 0 for unlimited.</entry>
-                        <entry><literal>false</literal></entry>
+                        <entry><literal>0</literal></entry>
                         <entry>No</entry>
                         <entry></entry>
                     </row>
@@ -1648,7 +1648,7 @@ verbose="true" failonerror="false" /></programlisting>
                     </row>
                     <row>
                         <entry><literal>failonerror</literal></entry>
-                        <entry><literal role="type">String</literal></entry>
+                        <entry><literal role="type">Boolean</literal></entry>
                         <entry>By default, the "failonerror" attribute is enabled.
                             If an error occurs while writing the properties to a file, and this attribute is enabled,
                             then a BuildException will be thrown, causing the build to fail.
