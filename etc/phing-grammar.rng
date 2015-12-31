@@ -5207,7 +5207,7 @@
     </define>
 
     <define name="versioncompare">
-        <element name="version-compare">
+        <element name="versioncompare">
             <interleave>
                 <attribute name="version"/>
                 <attribute name="desiredVersion"/>

@@ -490,10 +490,10 @@
         </sect2>
         
         <sect2 xml:id="conditions.versioncompare">
-            <title><literal>version-compare</literal></title>
+            <title><literal>versioncompare</literal></title>
             <para>Compares two given versions</para>
             <table>
-                <title>version-compare Attributes</title>
+                <title>versioncompare Attributes</title>
                 <tgroup cols="3">
                     <colspec colname="attribute" colnum="1" colwidth="1*"/>
                     <colspec colname="description" colnum="2" colwidth="2*"/>
@@ -530,7 +530,7 @@
                     </tbody>
                 </tgroup>
             </table>
-            <programlisting language="xml">&lt;version-compare version="${aProperty}" desiredVersion="1.3" operator="gt" /&gt;</programlisting>
+            <programlisting language="xml">&lt;versioncompare version="${aProperty}" desiredVersion="1.3" operator="gt" /&gt;</programlisting>
             <para>This condition internally uses PHP version_compare(). Operators and behavior are the same.</para> 
         </sect2>
         <sect2 xml:id="conditions.http">
