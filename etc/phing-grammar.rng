@@ -183,7 +183,9 @@
                 <ref name="adhoc-task"/>
                 <ref name="adhoc-type"/>
                 <ref name="append"/>
+                <ref name="apply"/>
                 <ref name="available"/>
+                <ref name="basename"/>
                 <ref name="chmod"/>
                 <ref name="chown"/>
                 <ref name="condition"/>
@@ -191,9 +193,13 @@
                 <ref name="cvs"/>
                 <ref name="cvspass"/>
                 <ref name="delete"/>
+                <ref name="diagnostics"/>
+                <ref name="dirname"/>
                 <ref name="echo"/>
+                <ref name="echoproperties"/>
                 <ref name="exec"/>
                 <ref name="exit"/>
+                <ref name="fail"/>
                 <ref name="foreach"/>
                 <ref name="if"/>
                 <ref name="import"/>
@@ -206,13 +212,17 @@
                 <ref name="phingcall"/>
                 <ref name="phingversion"/>
                 <ref name="php"/>
-                <ref name="phpeval"/>
                 <ref name="property"/>
                 <ref name="propertyprompt"/>
+                <ref name="record"/>
                 <ref name="reflexive"/>
                 <ref name="resolvepath"/>
+                <ref name="retry"/>
+                <ref name="switch"/>
                 <ref name="taskdef"/>
+                <ref name="tempfile"/>
                 <ref name="touch"/>
+                <ref name="trycatch"/>
                 <ref name="tstamp"/>
                 <ref name="typedef"/>
                 <ref name="uptodate"/>
@@ -501,6 +511,52 @@
         </element>
     </define>
 
+    <define name="apply">
+        <element name="apply">
+            <interleave>
+                <attribute name="executable"/>
+                <optional>
+                    <attribute name="dir"/>
+                    <attribute name="output"/>
+                    <attribute name="error"/>
+                    <attribute name="os"/>
+                    <attribute name="escape">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="passthru">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="spawn">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="returnProperty"/>
+                    <attribute name="outputProperty"/>
+                    <attribute name="checkReturn">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="append">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="parallel">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="addSourceFile">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="relative">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="forwardSlash">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="maxparallel">
+                        <data type="integer"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="available">
         <element name="available">
             <interleave>
@@ -527,6 +583,76 @@
         </element>
     </define>
 
+    <define name="basename">
+        <element name="basename">
+            <interleave>
+                <attribute name="file"/>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="suffix"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="chmod">
+        <element name="chmod">
+            <interleave>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <attribute name="mode"/>
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="chown">
+        <element name="chown">
+            <interleave>
+                <choice>
+                    <attribute name="file"/>
+                    <oneOrMore>
+                        <ref name="fileset"/>
+                    </oneOrMore>
+                </choice>
+                <attribute name="user"/>
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="condition">
         <element name="condition">
             <attribute name="property"/>
@@ -539,158 +665,6 @@
                     <ref name="and"/>
                 </choice>
             </optional>
-        </element>
-    </define>
-
-    <define name="delete">
-        <element name="delete">
-            <interleave>
-                <optional>
-                    <choice>
-                        <attribute name="file"/>
-                        <attribute name="dir"/>
-                    </choice>
-                </optional>
-                <optional>
-                    <attribute name="verbose">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="failonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="includeemptydirs">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-            </interleave>
-            <zeroOrMore>
-                <ref name="fileset"/>
-            </zeroOrMore>
-        </element>
-    </define>
-
-
-    <define name="warn">
-        <element name="warn">
-            <interleave>
-                <choice>
-                    <attribute name="msg"/>
-                    <attribute name="message"/>
-                </choice>
-                <optional>
-                    <attribute name="file"/>
-                </optional>
-                <optional>
-                    <attribute name="append">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="level"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-
-    <define name="echo">
-        <element name="echo">
-            <interleave>
-                <choice>
-                    <attribute name="msg"/>
-                    <attribute name="message"/>
-                    <text/>
-                    <ref name="fileset"/>
-                </choice>
-                <optional>
-                    <attribute name="file"/>
-                </optional>
-                <optional>
-                    <attribute name="append">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="level"/>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="exec">
-        <element name="exec">
-            <interleave>
-                <oneOrMore>
-                    <choice>
-                        <attribute name="command"/>
-                        <attribute name="executable"/>
-                    </choice>
-                </oneOrMore>
-                <optional>
-                    <attribute name="passthru">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="checkreturn">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="dir"/>
-                </optional>
-                <optional>
-                    <attribute name="os"/>
-                </optional>
-                <optional>
-                    <attribute name="escape">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="spawn">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="returnProperty"/>
-                </optional>
-                <optional>
-                    <attribute name="outputProperty"/>
-                </optional>
-                <optional>
-                    <attribute name="logoutput"/>
-                </optional>
-                <optional>
-                    <attribute name="output"/>
-                </optional>
-                <optional>
-                    <attribute name="error"/>
-                </optional>
-                <optional>
-                    <attribute name="level">
-                        <choice>
-                            <value>error</value>
-                            <value>warning</value>
-                            <value>info</value>
-                            <value>verbose</value>
-                            <value>debug</value>
-                        </choice>
-                    </attribute>
-                </optional>
-            </interleave>
-            <zeroOrMore>
-                <ref name="arg"/>
-            </zeroOrMore>
         </element>
     </define>
 
@@ -747,24 +721,6 @@
                     <ref name="filterchain"/>
                 </choice>
             </zeroOrMore>
-        </element>
-    </define>
-
-    <define name="argument">
-        <element name="argument">
-            <choice>
-                <attribute name="value"/>
-                <attribute name="line"/>
-            </choice>
-        </element>
-    </define>
-
-    <define name="commandline">
-        <element name="commandline">
-            <attribute name="executable"/>
-            <oneOrMore>
-                <ref name="argument"/>
-            </oneOrMore>
         </element>
     </define>
 
@@ -843,6 +799,184 @@
         </element>
     </define>
 
+    <define name="delete">
+        <element name="delete">
+            <interleave>
+                <optional>
+                    <choice>
+                        <attribute name="file"/>
+                        <attribute name="dir"/>
+                    </choice>
+                </optional>
+                <optional>
+                    <attribute name="verbose">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="quiet">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="failonerror">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="includeemptydirs">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="fileset"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="diagnostics">
+        <element name="diagnostics">
+            <empty/>
+        </element>
+    </define>
+
+    <define name="dirname">
+        <element name="dirname">
+            <interleave>
+                <attribute name="file"/>
+                <attribute name="property"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="echo">
+        <element name="echo">
+            <interleave>
+                <choice>
+                    <attribute name="msg"/>
+                    <attribute name="message"/>
+                    <text/>
+                    <ref name="fileset"/>
+                </choice>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="append">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="level"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="echoproperties">
+        <element name="echoproperties">
+            <interleave>
+                <optional>
+                    <attribute name="srcFile"/>
+                    <attribute name="destFile"/>
+                    <attribute name="prefix"/>
+                    <attribute name="regex"/>
+                    <attribute name="failOnError">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="format"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="exec">
+        <element name="exec">
+            <interleave>
+                <oneOrMore>
+                    <choice>
+                        <attribute name="command"/>
+                        <attribute name="executable"/>
+                    </choice>
+                </oneOrMore>
+                <optional>
+                    <attribute name="passthru">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="checkreturn">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="dir"/>
+                </optional>
+                <optional>
+                    <attribute name="os"/>
+                </optional>
+                <optional>
+                    <attribute name="escape">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="spawn">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="returnProperty"/>
+                </optional>
+                <optional>
+                    <attribute name="outputProperty"/>
+                </optional>
+                <optional>
+                    <attribute name="logoutput"/>
+                </optional>
+                <optional>
+                    <attribute name="output"/>
+                </optional>
+                <optional>
+                    <attribute name="error"/>
+                </optional>
+                <optional>
+                    <attribute name="level">
+                        <choice>
+                            <value>error</value>
+                            <value>warning</value>
+                            <value>info</value>
+                            <value>verbose</value>
+                            <value>debug</value>
+                        </choice>
+                    </attribute>
+                </optional>
+            </interleave>
+            <zeroOrMore>
+                <ref name="arg"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="argument">
+        <element name="argument">
+            <choice>
+                <attribute name="value"/>
+                <attribute name="line"/>
+            </choice>
+        </element>
+    </define>
+
+    <define name="commandline">
+        <element name="commandline">
+            <attribute name="executable"/>
+            <oneOrMore>
+                <ref name="argument"/>
+            </oneOrMore>
+        </element>
+    </define>
+
     <define name="exit">
         <element name="exit">
             <interleave>
@@ -859,6 +993,21 @@
                     <attribute name="unless"/>
                 </optional>
                 <text/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="fail">
+        <element name="fail">
+            <interleave>
+                <optional>
+                    <choice>
+                        <attribute name="message"/>
+                        <attribute name="msg"/>
+                    </choice>
+                    <attribute name="if"/>
+                    <attribute name="unless"/>
+                </optional>
             </interleave>
         </element>
     </define>
@@ -932,6 +1081,17 @@
         </element>
     </define>
 
+    <define name="import">
+        <element name="import">
+            <attribute name="file"/>
+            <optional>
+                <attribute name="optional">
+                    <data type="boolean"/>
+                </attribute>
+            </optional>
+        </element>
+    </define>
+
     <define name="includepath">
         <element name="includepath">
             <choice>
@@ -959,6 +1119,18 @@
                     <attribute name="validArgs"/>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="loadfile">
+        <element name="loadfile">
+            <interleave>
+                <attribute name="property"/>
+                <attribute name="file"/>
+            </interleave>
+            <zeroOrMore>
+                <ref name="filterchain"/>
+            </zeroOrMore>
         </element>
     </define>
 
@@ -1088,8 +1260,8 @@
         </element>
     </define>
 
-    <define name="phpeval">
-        <element name="phpeval">
+    <define name="php">
+        <element name="php">
             <interleave>
                 <choice>
                     <attribute name="function"/>
@@ -1111,23 +1283,6 @@
                             <value>debug</value>
                         </choice>
                     </attribute>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="php">
-        <element name="php">
-            <interleave>
-                <choice>
-                    <attribute name="function"/>
-                    <attribute name="expression"/>
-                </choice>
-                <optional>
-                    <attribute name="class"/>
-                </optional>
-                <optional>
-                    <attribute name="returnProperty"/>
                 </optional>
             </interleave>
             <zeroOrMore>
@@ -1185,6 +1340,24 @@
         </element>
     </define>
 
+    <define name="record">
+        <element name="record">
+            <interleave>
+                <attribute name="name"/>
+                <optional>
+                    <attribute name="action"/>
+                    <attribute name="append">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="emacsMode">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="loglevel"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="reflexive">
         <element name="reflexive">
             <choice>
@@ -1208,6 +1381,57 @@
                     <attribute name="dir"/>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="retry">
+        <element name="retry">
+            <interleave>
+                <attribute name="retrycount"/>
+                <optional>
+                    <attribute name="retrydelay"/>
+                </optional>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="switch">
+        <element name="switch">
+            <interleave>
+                <attribute name="value"/>
+                <optional>
+                    <attribute name="caseInsensitive">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <zeroOrMore>
+                    <ref name="case"/>
+                </zeroOrMore>
+                <ref name="default"/>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="case">
+        <element name="case">
+            <interleave>
+                <attribute name="value"/>
+                <oneOrMore>
+                    <ref name="coretasks"/>
+                    <ref name="optionaltasks"/>
+                </oneOrMore>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="default">
+        <element name="default">
+            <oneOrMore>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+            </oneOrMore>
         </element>
     </define>
 
@@ -1246,6 +1470,25 @@
         </element>
     </define>
 
+    <define name="tempfile">
+        <element name="tempfile">
+            <interleave>
+                <attribute name="property"/>
+                <optional>
+                    <attribute name="destDir"/>
+                    <attribute name="prefix"/>
+                    <attribute name="suffix"/>
+                    <attribute name="deleteOnExit">
+                        <data type="boolean"/>
+                    </attribute>
+                    <attribute name="createFile">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
     <define name="touch">
         <element name="touch">
             <interleave>
@@ -1262,6 +1505,50 @@
                     </attribute>
                 </optional>
             </interleave>
+        </element>
+    </define>
+
+    <define name="trycatch">
+        <element name="trycatch">
+            <interleave>
+                <optional>
+                    <attribute name="property"/>
+                </optional>
+                <ref name="try"/>
+                <optional>
+                    <ref name="catch"/>
+                </optional>
+                <optional>
+                    <ref name="finally"/>
+                </optional>
+            </interleave>
+        </element>
+    </define>
+
+    <define name="try">
+        <element name="try">
+            <oneOrMore>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="catch">
+        <element name="catch">
+            <oneOrMore>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+            </oneOrMore>
+        </element>
+    </define>
+
+    <define name="finally">
+        <element name="finally">
+            <oneOrMore>
+                <ref name="coretasks"/>
+                <ref name="optionaltasks"/>
+            </oneOrMore>
         </element>
     </define>
 
@@ -1385,87 +1672,6 @@
         </element>
     </define>
 
-    <define name="chmod">
-        <element name="chmod">
-            <interleave>
-                <choice>
-                    <attribute name="file"/>
-                    <oneOrMore>
-                        <ref name="fileset"/>
-                    </oneOrMore>
-                </choice>
-                <attribute name="mode"/>
-                <optional>
-                    <attribute name="failonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="verbose">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="chown">
-        <element name="chown">
-            <interleave>
-                <choice>
-                    <attribute name="file"/>
-                    <oneOrMore>
-                        <ref name="fileset"/>
-                    </oneOrMore>
-                </choice>
-                <attribute name="user"/>
-                <optional>
-                    <attribute name="failonerror">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="quiet">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-                <optional>
-                    <attribute name="verbose">
-                        <data type="boolean"/>
-                    </attribute>
-                </optional>
-            </interleave>
-        </element>
-    </define>
-
-    <define name="loadfile">
-        <element name="loadfile">
-            <interleave>
-                <attribute name="property"/>
-                <attribute name="file"/>
-            </interleave>
-            <zeroOrMore>
-                <ref name="filterchain"/>
-            </zeroOrMore>
-        </element>
-    </define>
-
-    <define name="import">
-        <element name="import">
-            <attribute name="file"/>
-            <optional>
-                <attribute name="optional">
-                    <data type="boolean"/>
-                </attribute>
-            </optional>
-        </element>
-    </define>
-
     <define name="waitfor">
         <element name="waitfor">
             <interleave>
@@ -1513,6 +1719,28 @@
                 <ref name="isset"/>
                 <ref name="contains_cond"/>
             </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="warn">
+        <element name="warn">
+            <interleave>
+                <choice>
+                    <attribute name="msg"/>
+                    <attribute name="message"/>
+                </choice>
+                <optional>
+                    <attribute name="file"/>
+                </optional>
+                <optional>
+                    <attribute name="append">
+                        <data type="boolean"/>
+                    </attribute>
+                </optional>
+                <optional>
+                    <attribute name="level"/>
+                </optional>
+            </interleave>
         </element>
     </define>
 
